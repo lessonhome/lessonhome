@@ -1,0 +1,10 @@
+feel/node_modules
+**.iml
+**.log
+**.swp
+**.swo
+**.orig
+**/.sass-cache
+**/node_modules
+**/.~*
+**/~*

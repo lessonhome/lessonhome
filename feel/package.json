@@ -1,0 +1,28 @@
+{
+  "name"        : "feel",
+  "description" : "Feel server shell",
+  "keywords"    : [ "feel", "server" ],
+  "author"      : "pioh",
+  "email"       : "thepioh@zoho.com",
+  "version"     : "0.0.4",
+  "license"     : "MIT",
+  "engines"     : {
+    "node" : ">=0.8.0"
+  },
+  "bugs"        : {
+    "email" : "thepioh@zoho.com"
+  },
+  "directories" : "./lib/feel",
+  "main"        : "./lib/feel/feel",
+  "bin"         : {
+    "feel"  : "./bin/feel"
+  },
+  "repository"  : {
+    "type"  : "git",
+    "url"   : "http://github.com/pioh/feel.git"
+  },
+  "preferGlobal" : true,
+  "dependencies": {
+    "coffee-script" : ">=1.7.1"
+  }
+}

@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+(function(){
+  
+  require ('coffee-script/register');
+ 
+  var path = require('path');
+  var fs   = require('fs');
+  var lib  = path.join(path.dirname(fs.realpathSync(__filename)), '../lib');
+
+  var Command = require(lib + '/feel/command');
+  var command = new Command();
+  command.run();
+
+})();
