@@ -1,5 +1,4 @@
 
-
 @route  = "/"
 
 @struct = module 'main':
@@ -9,6 +8,6 @@
   content : module 'body':
     title : 3
   footer : module 'footer'
-
-@struct.main.head.title = 4
+console.log @struct
+@struct.head.title = 4
 

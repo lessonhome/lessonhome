@@ -10,5 +10,4 @@ class module.exports
   constructor : ->
     @feel = new Feel()
   run : ->
-    @feel.run()
 
