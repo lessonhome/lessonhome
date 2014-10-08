@@ -1,6 +1,8 @@
 
 State = require './state'
-readdir = Q.denodeify require('fs').readdir
+fs      = require 'fs'
+readdir = Q.denodeify fs.readdir
+
 
 class module.exports
   constructor : (@sitename)->
@@ -8,19 +10,34 @@ class module.exports
     @path.root    = "#{Feel.path.www}/#{@sitename}"
     @path.src     = "#{@path.root}/src"
     @path.states  = "#{@path.src}/states"
-    @state = {}
+    @path.modules = "#{@path.modules}/modules"
+    @state        = {}
+    @modules      = {}
 
   init : =>
-    console.log 'init', @sitename
     Q()
     .then @loadStates
     .done()
+
   loadStates : =>
-    readdir @path.states
-    .then (names)=>
-      for name in names
-        name = name.match(/^(.*)\.\w+$/)[1]
-        @state[name] = new State @, name
-      names.reduce (promise,statename)=>
-        promise.then @state[name].init
+    @createStates @path.states,""
+  createStates : (path,dir)=>
+    readdir path
+    .then (files)=>
+      files.reduce (promise,filename)=>
+        stat = fs.statSync "#{path}/#{filename}"
+        if stat.isDirectory()
+          return promise.then => @createStates "#{path}/#{filename}",dir+filename+"/"
+        if stat.isFile() && filename.match /^\w.*\.coffee$/
+          name = dir+filename.match(/^(.*)\.\w+$/)[1]
+          return promise.then => @createState name
+        return promise
       , Q()
+  createState : (name)=>
+    if !@state[name]?
+      @state[name] = new State @, name
+      @state[name].init()
+      return
+    if !@state[name].inited
+      throw new Error "create state '#{name}' circular depend"
+

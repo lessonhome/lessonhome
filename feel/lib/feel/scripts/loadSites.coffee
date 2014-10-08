@@ -4,7 +4,6 @@ readdir = Q.denodeify(fs.readdir)
 Site    = require '../class/site.coffee'
 
 module.exports = ->
-  console.log 'Read Sites'
   Q()
   .then ->  readdir Feel.path.www
   .then (sites)->
