@@ -24,6 +24,7 @@
   "preferGlobal" : true,
   "dependencies": {
     "coffee-script" : ">=1.7.1",
-    "q" : "*"
+    "q" : "*",
+    "jade" : "*"
   }
 }
