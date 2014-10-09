@@ -1,26 +1,48 @@
 
-State = require './state'
-Module = require './module'
+State   = require './state'
+Module  = require './module'
 fs      = require 'fs'
 readdir = Q.denodeify fs.readdir
-
+Router  = require './server/router'
 
 class module.exports
-  constructor : (@sitename)->
+  constructor : (@name)->
     @path         = {}
-    @path.root    = "#{Feel.path.www}/#{@sitename}"
+    @path.root    = "#{Feel.path.www}/#{@name}"
     @path.src     = "#{@path.root}/src"
     @path.states  = "#{@path.src}/states"
     @path.modules = "#{@path.src}/modules"
+    @path.config  = "#{@path.root}/config"
+    @config       = {}
     @state        = {}
     @modules      = {}
-
+    @router       = new Router @
   init : =>
     Q()
-    .then @loadStates
+    .then @configInit
     .then @loadModules
-    .done()
-
+    .then @loadStates
+    .then => console.log @state.main.state.struct
+    .then @router.init
+  configInit : =>
+    return Q() unless fs.existsSync @path.config
+    return Q() unless fs.statSync(@path.config).isDirectory()
+    return @configDir @path.config
+  configDir : (dir)=>
+    readdir dir
+    .then (files)=>
+      files.reduce (promise,file)=>
+        stat = fs.statSync("#{dir}/#{file}")
+        if stat.isDirectory()
+          return promise.then => @configDir "#{dir}/#{file}"
+        if stat.isFile()
+          return promise unless file.match /^(\w.*\.coffee)$/
+          cfg = require process.cwd()+"/#{dir}/#{file}"
+          for key,val of cfg
+            @config[key] = val
+          return promise
+      ,Q()
+    
   loadStates : =>
     @createStates @path.states,""
   createStates : (path,dir)=>

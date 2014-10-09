@@ -1,2 +1,2 @@
 @struct =
-  header : module 'header'
+  header :'header'

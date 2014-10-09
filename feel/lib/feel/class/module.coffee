@@ -7,24 +7,24 @@ class module.exports
     @name   = module.name
     @jade   = {}
   init : =>
-    console.log "init module '#{@name}'", @files
     Q()
     .then @makeJade
   makeJade : =>
     for filename, file of @files
       if file.ext == 'jade' && file.name == 'main'
-        console.log "JADE!!! #{@name} #{file.path}"
-        @jade.fn    = jade.compileFile file.path
-        @jade.fnCli = jade.compileFileClient file.path
-    console.log @doJade({
-      "$title":"$title"
-      m :
-        head : "m:head"
-    })
+        @jade.fn    = jade.compileFile file.path, {
+          compileDebug : true
+        }
+        @jade.fnCli = jade.compileFileClient file.path, {
+          compileDebug : true
+        }
   doJade : (o)=>
     if @jade.fn?
-      return " <div id=\"m-#{@name}\" >
-          #{@jade.fn(o)}
-        </div>
-      "
+      try
+        return " <div id=\"m-#{@name}\" >
+            #{@jade.fn(o)}
+          </div>
+        "
+      catch e
+        throw new Error "Failed execute jade in module #{@name} with vars #{JSON.stringify(o)}:\n\t"+e
     return ""

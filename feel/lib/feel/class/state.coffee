@@ -29,10 +29,7 @@ class module.exports
       @site.createState o
     catch e
       throw new Error "Failed compile state '#{o}' from state '#{@name}':\n"+e
-    state = {}
-    state extends @site.state[o].state.struct
-    delete state.prototype
-    delete state.__super__
+    state = CLONE @site.state[o].state.struct
     return state
   function_module : (o)=>
     mod = {}
@@ -51,6 +48,8 @@ class module.exports
     mod._name  = name
     for key,val of m
       mod[key] = val
+    if !@site.modules[name]?
+      throw new Error "Can't find module '#{name}' in state '#{@name}'"
     return mod
 
 

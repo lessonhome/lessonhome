@@ -25,6 +25,7 @@
   "dependencies": {
     "coffee-script" : ">=1.7.1",
     "q" : "*",
-    "jade" : "*"
+    "jade" : "*",
+    "jquery" : "*"
   }
 }

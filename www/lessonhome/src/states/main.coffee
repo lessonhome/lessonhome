@@ -5,9 +5,10 @@
   title : 1
   head    : module 'head':
     title : 2
-  content : module 'body':
+    m :
+      head : 'm.head'
+  content :
     title : 3
-  footer : module 'footer'
   state  : state 'tutor/home'
 @struct.head.title = 4
 @struct.state.header.part = 4

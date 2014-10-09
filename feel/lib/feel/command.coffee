@@ -1,8 +1,4 @@
 
-console.log process.argv
-
-
-
 Feel = require "./feel"
 
 
