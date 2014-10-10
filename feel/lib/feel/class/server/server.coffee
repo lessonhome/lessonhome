@@ -5,9 +5,11 @@ http = require 'http'
 
 class Server
   constructor : ->
+    @port = 8081
   init : =>
     @server = http.createServer @handler
-    @server.listen 8081
+    @server.listen @port
+    console.log "listen port #{@port}"
     @domains =
       text : {}
       reg  : []
@@ -25,9 +27,10 @@ class Server
                   @domains.text[domain] = sitename
                 if domain instanceof RegExp
                   @domains.reg.push [domain,sitename]
-        
+
     return Q()
   handler : (req,res)=>
+    console.log "request #{req.headers.host}#{req.url}"
     site = ""
     host = req.headers.host
     if @domains.text[host]?
@@ -39,7 +42,7 @@ class Server
           site = reg[1]
           break
     if Feel.site[site]?
-      Q(Feel.site[site].router.handler).call Feel.site[site.router], req,res
+      Q().then => Feel.site[site].router.handler req,res
       .catch (e)=>
         res.writeHead 500
         res.end 'Internal Server Error'
