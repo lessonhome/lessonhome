@@ -23,6 +23,10 @@ class module.exports
     "
     @state         = eval state
     @state.struct ?= {}
+    @title = @name
+    if @state.title?
+      @title = @state.title
+      
     @inited = true
   function_state  : (o)=>
     try

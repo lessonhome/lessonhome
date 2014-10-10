@@ -39,7 +39,7 @@ class Server
           site = reg[1]
           break
     if Feel.site[site]?
-      Q.fcall Feel.site[site].router.handler, req,res
+      Q(Feel.site[site].router.handler).call Feel.site[site.router], req,res
       .catch (e)=>
         res.writeHead 500
         res.end 'Internal Server Error'

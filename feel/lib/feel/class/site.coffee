@@ -24,7 +24,6 @@ class module.exports
     .then @configInit
     .then @loadModules
     .then @loadStates
-    .then => console.log @state.main.state.struct
     .then @router.init
   configInit : =>
     return Q() unless fs.existsSync @path.config

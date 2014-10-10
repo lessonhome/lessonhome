@@ -5,7 +5,7 @@ require 'compass/import-once/activate'
 http_path = "/"
 environment = "development"
 project_path = "../"
-css_dir = ".cache/css"
+css_dir = ".cache"
 sass_dir = "www"
 
 

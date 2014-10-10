@@ -6,22 +6,25 @@ class RouteState
     @o =
       res : @res
       req : @req
-    console.log @statename
     @state = CLONE @site.state[@statename].state.struct
-    console.log @state
+    @modules  = {}
+    @css      = ""
   go : =>
     @parse @state
-    console.log @state._html
     @res.writeHead 200
-    @res.end @state._html
+    for modname of @modules
+      if @site.modules[modname].allCss
+        @css += "<style id=\"f-css-#{modname}\">\n#{@site.modules[modname].allCss}\n</style>\n"
+    @res.end('<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+
+      @site.state[@statename].title+'</title>'+@css+'</head><body>'+@state._html+'</body></html>'
+    )
   parse : (now)=>
     for key,val of now
       if typeof val == 'object'
         @parse val
-    console.log 'now',now
     if now._isModule
+      @modules[now._name] = true
       o = @getO now
-      console.log 'o:',o
       if !@site.modules[now._name]?
         throw new Error "can't find module '#{now._name}' in state '#{@statename}'"
       now._html = @site.modules[now._name].doJade o

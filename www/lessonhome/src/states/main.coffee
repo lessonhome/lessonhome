@@ -1,6 +1,6 @@
 
 @route  = "/"
-
+@title = "Главная страница"
 @struct = module 'main':
   title : 1
   head    : module 'head':
