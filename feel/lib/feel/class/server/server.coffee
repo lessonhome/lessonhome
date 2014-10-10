@@ -7,7 +7,7 @@ class Server
   constructor : ->
   init : =>
     @server = http.createServer @handler
-    @server.listen 80
+    @server.listen 8081
     @domains =
       text : {}
       reg  : []

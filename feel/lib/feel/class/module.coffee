@@ -1,5 +1,7 @@
 
-jade = require 'jade'
+jade  = require 'jade'
+fs    = require 'fs'
+
 
 class module.exports
   constructor : (module,@site)->
@@ -28,3 +30,7 @@ class module.exports
       catch e
         throw new Error "Failed execute jade in module #{@name} with vars #{JSON.stringify(o)}:\n\t"+e
     return ""
+  makeSass : =>
+    for filename, file of @files
+      if file.ext == 'sass'
+        src = fs.readFileSync "#{@site.path.sass}/#{@name}/#{filename}"

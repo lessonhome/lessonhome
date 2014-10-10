@@ -13,6 +13,8 @@ class module.exports
     @path.states  = "#{@path.src}/states"
     @path.modules = "#{@path.src}/modules"
     @path.config  = "#{@path.root}/config"
+    @path.cache   = "#{Feel.path.cache}/#{@name}"
+    @path.sass    = "#{@path.cache}/src/modules"
     @config       = {}
     @state        = {}
     @modules      = {}
