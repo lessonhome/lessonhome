@@ -89,6 +89,7 @@ class module.exports
               name : filename
               ext  : ""
               path : filepath
+        return promise
       , Q()
     .then =>
       return if !dir
