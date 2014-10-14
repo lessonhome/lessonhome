@@ -17,8 +17,6 @@ class module.exports
     .then @makeSass
     .then @makeAllCss
   rescanFiles : =>
-    console.log 'rescan'
-    console.log 'readdir',"#{@site.path.modules}/#{@name}"
     readdir "#{@site.path.modules}/#{@name}"
     .then (files)=>
       @files = {}
@@ -36,7 +34,6 @@ class module.exports
             ext   : ""
             path  : "#{@site.path.modules}/#{@name}/#{f}"
           }
-      console.log 'rescan', @files
   makeJade : =>
     @jade = {}
     for filename, file of @files
@@ -83,9 +80,10 @@ class module.exports
       .then (src)=>
         src = src.toString()
         @css[file.name+'.'+file.ext] = @parseCss src
-        console.log file.name+'.'+file.ext,@css[file.name+'.'+file.ext]
     , Q()
+    .then @makeAllCss
   makeAllCss : =>
+    @allCss = ""
     for name,src of @css
       @allCss += "/*#{name}*/\n#{src}\n"
   parseCss : (css)=>

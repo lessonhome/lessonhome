@@ -88,24 +88,20 @@ class module.exports
       dir   : m[3]
       name  : m[4]
       ext   : m[5]
-    console.log 'watcher',o
     if o.ext == 'sass'
       @rebuildSass o.site,o.dir,o.name
     if o.ext == 'jade'
       @site[o.site].modules[o.dir].rebuildJade()
   rebuildSass : (site,module,name)=>
-    console.log 'rebuild sass', site,module,name
+    console.log "rebuild sass for #{site}/#{module}:#{name}.sass"
     cache = "#{@path.cache}/#{site}/src/modules/#{module}/#{name}.css"
-    console.log cache
     @sassChanged["#{site}/#{module}"] = {
       site
       module
     }
     fs.exists cache, (ex)=>
-      console.log 'ex',ex
       return @compileSass() unless ex
       fs.unlink cache, =>
-        console.log 'unl',arguments
         return @compileSass()
   
   compileSass : =>
@@ -114,7 +110,6 @@ class module.exports
       arr = []
       for key,val of @sassChanged
         arr.push val
-      console.log arr
       @sassChanged = {}
       return arr.reduce (promise,o)=>
         m = @site[o.site].modules[o.module]
