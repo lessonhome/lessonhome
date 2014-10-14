@@ -22,7 +22,7 @@
   private : module 'tutor/home/private' :
     text : 'Хороший репетитор'
   video : module 'mime/video' :
-    src : '#'
+    src : 'http://cs10100.vk.me/u833630/-6/x_857304db.jpg'
 
 
 left_button_array = {
