@@ -5,13 +5,19 @@ global.CLONE = require './lib/clone'
 
 LoadSites = require './scripts/loadSites'
 Server    = require './class/server/server'
-
+fs        = require 'fs'
+unlink    = Q.denodeify fs.unlink
+readdir   = Q.denodeify fs.readdir
 spawn     = require('child_process').spawn
+watch     = require 'node-watch'
+exists    = Q.denodeify fs.exists
+
 
 class module.exports
   constructor : ->
     global.Feel = this
-    @site = {}
+    @site         = {}
+    @sassChanged  = {}
     @path =
       www   : "www"
       cache : ".cache"
@@ -20,13 +26,29 @@ class module.exports
   init : =>
     Q()
     .then @npm
+    .then @checkCache
     .then @compass
     .then LoadSites
+    .then @watch
     .then @createServer
   createServer : =>
     @server = new Server()
     Q().then @server.init
 
+  checkCache : =>
+    @checkCacheDir @path.cache
+  checkCacheDir : (dir)=>
+    readdir dir
+    .then (files)=>
+      for f in files
+        stat = fs.statSync "#{dir}/#{f}"
+        if stat.isDirectory()
+          @checkCacheDir "#{dir}/#{f}"
+        else
+          @checkCacheFile "#{dir}/#{f}"
+  checkCacheFile : (file)=>
+    if file.match /.*(\.css)$/
+      fs.unlinkSync file
   compass : =>
     defer = Q.defer()
     process.chdir 'feel'
@@ -55,5 +77,46 @@ class module.exports
       else
         defer.resolve()
     return defer.promise
+  watch : =>
+    watch  @path.www, {recursive:true}, @watchHandler
+  watchHandler : (file)=>
+    m = file.match /^[^\/]+\/([^\/]+)\/[^\/]+\/([^\/]+)\/?(.*)\/([^\.][^\/]+)\.(\w+)$/
+    return unless m
+    o =
+      site  : m[1]
+      type  : m[2]
+      dir   : m[3]
+      name  : m[4]
+      ext   : m[5]
+    if o.ext == 'sass'
+      @rebuildSass o.site,o.dir,o.name
+    if o.ext == 'jade'
+      @site[o.site].modules[o.dir].rebuildJade()
+  rebuildSass : (site,module,name)=>
+    console.log "rebuild sass for #{site}/#{module}:#{name}.sass"
+    cache = "#{@path.cache}/#{site}/src/modules/#{module}/#{name}.css"
+    @sassChanged["#{site}/#{module}"] = {
+      site
+      module
+    }
+    fs.exists cache, (ex)=>
+      return @compileSass() unless ex
+      fs.unlink cache, =>
+        return @compileSass()
+  
+  compileSass : =>
+    @compass()
+    .then =>
+      arr = []
+      for key,val of @sassChanged
+        arr.push val
+      @sassChanged = {}
+      return arr.reduce (promise,o)=>
+        m = @site[o.site].modules[o.module]
+        promise.then =>
+          m.rescanFiles()
+          .then m.makeSassAsync
+      , Q()
+    .done()
     
-    
+

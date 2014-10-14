@@ -26,6 +26,7 @@
     "coffee-script" : ">=1.7.1",
     "q" : "*",
     "jade" : "*",
-    "jquery" : "*"
+    "jquery" : "*",
+    "node-watch" : "*"
   }
 }
