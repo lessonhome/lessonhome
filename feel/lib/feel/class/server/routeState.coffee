@@ -35,7 +35,7 @@ class RouteState
       ret[key] = val
       if typeof val == 'object'
         ret[key] = @getO val
-      if ret[key]._isModule
+      if ret[key]?._isModule
         html = ""
         if ret[key]._html?
           ret[key] = ret[key]._html
