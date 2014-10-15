@@ -12,7 +12,7 @@
   top_menu : module 'menu/top_menu' :
     index : left_menu_array
   photo : module 'mime/photo' :
-    src : '#'
+    src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
   rating : module 'tutor/home/rating' :
     rating : 56
   personal_data : module 'tutor/home/personal_data' :
