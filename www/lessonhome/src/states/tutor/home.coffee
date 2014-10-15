@@ -13,14 +13,14 @@
     index : left_menu_array
   photo : module 'mime/photo' :
     src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
-  rating : module 'tutor/home/rating' :
-    rating : 56
+  progress : module 'tutor/home/progress' :
+    progress : '56%'
   personal_data : module 'tutor/home/personal_data' :
     name : 'Артемий Дудко'
   contacts : module 'tutor/home/contacts'
   education : module 'tutor/home/education'
   private : module 'tutor/home/private' :
-    text : 'Хороший репетитор'
+    text : 'О себе:'
   video : module 'mime/video' :
     src : '#'
 
