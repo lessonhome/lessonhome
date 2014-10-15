@@ -11,13 +11,14 @@ readdir   = Q.denodeify fs.readdir
 spawn     = require('child_process').spawn
 watch     = require 'node-watch'
 exists    = Q.denodeify fs.exists
-
+Static    = require './class/static'
 
 class module.exports
   constructor : ->
     global.Feel = this
     @site         = {}
     @sassChanged  = {}
+    @static       = new Static()
     @path =
       www   : "www"
       cache : ".cache"
@@ -30,6 +31,7 @@ class module.exports
     .then @compass
     .then LoadSites
     .then @watch
+    .then @static.init
     .then @createServer
   createServer : =>
     @server = new Server()

@@ -4,6 +4,7 @@
   head : module 'head' :
     logo : module 'head/logo' :
       src : '#'
+      fun : -> process.cwd()
   edit_profile : module 'tutor/home/edit_profile' :
     button_edit_profile : module 'forms/button' :
       text : 'ред'
@@ -34,7 +35,7 @@ left_menu_array = {
   'Форум': '/tutor/forum'
   'Статьи': '/tutor/paper'
   'Помощь': '/tutor/help'
-};
+}
 i = 1
 for key,val of left_menu_array
   @struct.left_menu["btn"+i++] = module 'forms/button' :

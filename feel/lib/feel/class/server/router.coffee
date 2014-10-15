@@ -22,6 +22,8 @@ class Router
               @url.reg.push [route,statename]
             
   handler : (req,res)=>
+    if req.url.match /^\/file\/.*/
+      return Q().then => Feel.static.handler req,res,@site.name
     statename = ""
     if @url.text[req.url]?
       statename = @url.text[req.url]
@@ -39,8 +41,3 @@ class Router
 
 
 module.exports = Router
-
-
-
-
-
