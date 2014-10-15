@@ -17,6 +17,9 @@ class module.exports
       (function(){
         var module  = _module;
         var state   = _state;
+        var F       = (function (str){
+          return \"/file/666/\"+str;
+        });
         #{state}
       }).call(state);
       state
