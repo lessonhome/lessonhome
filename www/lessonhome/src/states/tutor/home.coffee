@@ -3,11 +3,10 @@
 @struct = module 'tutor/home' :
   head : module 'head' :
     logo : module 'head/logo' :
-      src : '#'
+      src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
   edit_profile : module 'tutor/home/edit_profile' :
-    button_edit_profile : module 'forms/button' :
-      text : 'ред'
-      name : 'Артемий Дудко'
+    name : 'Артемий Дудко'
+    text : 'ред'
   left_menu : module 'menu/left_menu'
   top_menu : module 'menu/top_menu' :
     index : left_menu_array
