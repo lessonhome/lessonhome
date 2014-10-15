@@ -50,6 +50,7 @@ class module.exports
     @rescanFiles()
     .then @makeJade
   doJade : (o)=>
+    o.F = (f)=> Feel.static.F @site.name, f
     if @jade.fn?
       try
         return " <div id=\"m-#{@id}\" >
@@ -88,6 +89,8 @@ class module.exports
       @allCss += "/*#{name}*/\n#{src}\n"
   parseCss : (css)=>
     ret = ''
+    css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
+    css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
     m = css.match /([^{]*)([^}]*})(.*)/
     return css unless m
     pref = m[1]

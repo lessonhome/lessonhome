@@ -4,6 +4,7 @@
   head : module 'head' :
     logo : module 'head/logo' :
       src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
+      fun : -> process.cwd()
   edit_profile : module 'tutor/home/edit_profile' :
     name : 'Артемий Дудко'
     text : 'ред'
@@ -33,7 +34,7 @@ left_menu_array = {
   'Форум': '/tutor/forum'
   'Статьи': '/tutor/paper'
   'Помощь': '/tutor/help'
-};
+}
 i = 1
 for key,val of left_menu_array
   @struct.left_menu["btn"+i++] = module 'forms/button' :

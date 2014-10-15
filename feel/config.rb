@@ -1,6 +1,7 @@
 require 'compass/import-once/activate'
 # Require any additional compass plugins here.
 
+
 # Set this to the root of your project when deployed:
 http_path = "/"
 environment = "development"
@@ -24,4 +25,12 @@ sass_dir = "www"
 # project again passing --syntax sass, or you can uncomment this:
 # preferred_syntax = :sass
 # and then run:
-# sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
+# sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sas
+
+module Sass::Script::Functions
+  extend self
+  def F(str)
+    Sass::Script::String.new("$FILE--"+str.to_s+"--FILE$")
+  end
+end
+
