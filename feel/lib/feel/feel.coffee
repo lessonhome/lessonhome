@@ -84,7 +84,7 @@ class module.exports
   watch : =>
     watch  @path.www, {recursive:true}, @watchHandler
   watchHandler : (file)=>
-    m = file.match /^[^\/]+\/([^\/]+)\/[^\/]+\/([^\/]+)\/?(.*)\/([^\.][^\/]+)\.(\w+)$/
+    m = file.match /^[^\/]+\/([^\/]+)\/([^\/]+)\/?(.*)\/([^\.][^\/]+)\.(\w+)$/
     return unless m
     o =
       site  : m[1]
