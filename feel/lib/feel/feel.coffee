@@ -141,4 +141,3 @@ class module.exports
         else if stat.isFile() && f.match /^[^\.].*\.coffee$/
           src = coffee._compileFile file
           @client[ndir] = src
-  
