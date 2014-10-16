@@ -96,7 +96,7 @@ class module.exports
       @site[o.site].modules[o.dir].rebuildJade()
   rebuildSass : (site,module,name)=>
     console.log "rebuild sass for #{site}/#{module}:#{name}.sass"
-    cache = "#{@path.cache}/#{site}/src/modules/#{module}/#{name}.css"
+    cache = "#{@path.cache}/#{site}/modules/#{module}/#{name}.css"
     @sassChanged["#{site}/#{module}"] = {
       site
       module

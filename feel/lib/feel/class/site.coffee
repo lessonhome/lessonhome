@@ -9,12 +9,12 @@ class module.exports
   constructor : (@name)->
     @path         = {}
     @path.root    = "#{Feel.path.www}/#{@name}"
-    @path.src     = "#{@path.root}/src"
+    @path.src     = "#{@path.root}/"
     @path.states  = "#{@path.src}/states"
     @path.modules = "#{@path.src}/modules"
     @path.config  = "#{@path.root}/config"
     @path.cache   = "#{Feel.path.cache}/#{@name}"
-    @path.sass    = "#{@path.cache}/src/modules"
+    @path.sass    = "#{@path.cache}/modules"
     @config       = {}
     @state        = {}
     @modules      = {}
