@@ -1,21 +1,29 @@
 
 jade    = require 'jade'
 fs      = require 'fs'
+coffee  = require 'coffee-script'
+
 readdir = Q.denodeify fs.readdir
 readfile= Q.denodeify fs.readFile
+
+
 class module.exports
-  constructor : (module,@site)->
-    @files  = module.files
-    @name   = module.name
-    @id     = module.name.replace /\//g, '-'
-    @jade   = {}
-    @css    = {}
-    @allCss = ""
+  constructor :   (module,@site)->
+    @files      = module.files
+    @name       = module.name
+    @id         = module.name.replace /\//g, '-'
+    @jade       = {}
+    @css        = {}
+    @coffee     = {}
+    @allCss     = ""
+    @allCoffee  = ""
+
   init : =>
     Q()
     .then @makeJade
     .then @makeSass
     .then @makeAllCss
+    .then @makeCoffee
   rescanFiles : =>
     readdir "#{@site.path.modules}/#{@name}"
     .then (files)=>
@@ -67,8 +75,9 @@ class module.exports
         try
           src = fs.readFileSync(path).toString()
         catch e
+          console.error e
           throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
-        @css[filename] = @parseCss src
+        @css[filename] = @parseCss src,filename
     return Q()
   makeSassAsync : =>
     files = []
@@ -80,14 +89,14 @@ class module.exports
       return promise.then => readfile path
       .then (src)=>
         src = src.toString()
-        @css[file.name+'.'+file.ext] = @parseCss src
+        @css[file.name+'.'+file.ext] = @parseCss src,filename
     , Q()
     .then @makeAllCss
   makeAllCss : =>
     @allCss = ""
     for name,src of @css
       @allCss += "/*#{name}*/\n#{src}\n"
-  parseCss : (css)=>
+  parseCss : (css,filename)=>
     ret = ''
     css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
     css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
@@ -96,7 +105,7 @@ class module.exports
     pref = m[1]
     body = m[2]
     post = m[3]
-  
+ 
     newpref = ""
     m = pref.match /([^,]+)/g
     if m
@@ -111,9 +120,31 @@ class module.exports
             newpref += ">"+a
         else newpref += ">"+sel
     else newpref = pref
-
-    ret = newpref+body+@parseCss(post)
+    newpref=pref if filename.match /.*\.g\.sass$/
+    ret = newpref+body+@parseCss(post,filename)
 
 
     return ret
+  makeCoffee  : =>
+    @newCoffee = {}
+    for filename, file of @files
+      if file.ext == 'coffee'
+        src = ""
+        try
+          src = coffee._compileFile file.path
+        catch e
+          console.error e
+          throw new Error "failed read coffee in module #{@name}: #{file.name}(#{path})",e
+        @newCoffee[filename] = src
+    @coffee     = @newCoffee
+    @allCoffee  = "(function(){ var arr = {};"
+    num = 0
+    for name,src of @coffee
+      m = name.match /^(.*)\.coffee/
+      if m
+        num++
+        @allCoffee += "(function(){ #{src} }).call(arr);"
+    @allCoffee += "return arr; })()"
+    @allCoffee = "" unless num
 
+    return Q()

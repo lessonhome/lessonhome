@@ -11,6 +11,7 @@ readdir   = Q.denodeify fs.readdir
 spawn     = require('child_process').spawn
 watch     = require 'node-watch'
 exists    = Q.denodeify fs.exists
+coffee    = require 'coffee-script'
 Static    = require './class/static'
 
 class module.exports
@@ -32,6 +33,7 @@ class module.exports
     .then LoadSites
     .then @watch
     .then @static.init
+    .then @loadClient
     .then @createServer
   createServer : =>
     @server = new Server()
@@ -121,4 +123,22 @@ class module.exports
       , Q()
     .done()
     
-
+  loadClient : =>
+    @client = {}
+    @loadClientDir './feel/lib/feel/client/',''
+    .then =>
+  loadClientDir : (path,dir)=>
+    readdir "#{path}/#{dir}"
+    .then (files)=>
+      for f in files
+        file = "#{path}/#{dir}/#{f}"
+        stat = fs.statSync file
+        ndir = dir
+        ndir += "/" if dir
+        ndir += f
+        if stat.isDirectory()
+          @loadClientDir path,ndir
+        else if stat.isFile() && f.match /^[^\.].*\.coffee$/
+          src = coffee._compileFile file
+          @client[ndir] = src
+  

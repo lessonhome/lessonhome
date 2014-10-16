@@ -12,12 +12,17 @@ class RouteState
   go : =>
     @parse @state
     @res.writeHead 200
+    if @site.modules['default'].allCss
+      @cssModule 'default'
     for modname of @modules
       if @site.modules[modname].allCss
-        @css += "<style id=\"f-css-#{modname}\">\n#{@site.modules[modname].allCss}\n</style>\n"
+        @cssModule modname
     @res.end('<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+
       @site.state[@statename].title+'</title>'+@css+'</head><body>'+@state._html+'</body></html>'
     )
+  cssModule : (modname)=>
+    @css += "<style id=\"f-css-#{modname}\">\n#{@site.modules[modname].allCss}\n</style>\n"
+    
   parse : (now)=>
     for key,val of now
       if typeof val == 'object'
