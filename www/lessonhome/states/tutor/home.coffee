@@ -3,8 +3,7 @@
 @struct = module 'tutor/home' :
   head : module 'head' :
     logo : module 'head/logo' :
-      src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
-      fun : -> process.cwd()
+      src : F('LH.jpg')
   edit_profile : module 'tutor/home/edit_profile' :
     name : 'Артемий Дудко'
     text : 'ред'
