@@ -1,1 +1,0 @@
-@struct = module "left_menu"
