@@ -1,11 +1,11 @@
 ul
-    each href, title in {'Описание':'#','Предметы и условия':'#','Отзывы':'#'}
-        li
-            if title == 'Анкета'
-                a(href=href)
-                    .active-item.active
-                        .title= title
-            else
-                a(href=href)
-                    .active-item
-                        .title= title
+  each href, title in items
+    if title == active_item
+      li.active
+        a(href=href)
+          .title= title
+    else
+      li
+        a(href=href)
+          .title= title
+
