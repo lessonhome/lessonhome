@@ -7,7 +7,17 @@
   edit_profile : module 'tutor/home/edit_profile' :
     name : 'Артемий Дудко'
     text : 'ред'
-  left_menu : module 'menu/left_menu'
+  left_menu : module 'menu/left_menu' :
+    items : {
+      'Анкета': '#'
+      'Заявка': '#'
+      'Оплата': '#'
+      'Документы': '#'
+      'Форум': '#'
+      'Статьи': '#'
+      'Поддержка': '#'
+    }
+    active_item : 'Анкета'
   top_menu : module 'menu/top_menu' :
     index : left_menu_array
   photo : module 'mime/photo' :
