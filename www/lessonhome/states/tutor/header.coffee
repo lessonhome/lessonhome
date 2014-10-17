@@ -1,4 +1,4 @@
 @struct = module 'header' :
-  head : module 'head' :
-    logo : module 'head/logo' :
+  header : module 'header' :
+    logo : module 'header/logo' :
       src : F('LH.jpg')
