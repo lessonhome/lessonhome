@@ -1,3 +1,0 @@
-
-
-@struct = module 'footer'
