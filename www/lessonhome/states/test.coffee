@@ -1,6 +1,0 @@
-
-@route = "/"
-
-@struct = module "test"
-
-
