@@ -1,1 +1,0 @@
-@struct =  module 'menu/top_menu'
