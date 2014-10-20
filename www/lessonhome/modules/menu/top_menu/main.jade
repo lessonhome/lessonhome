@@ -1,11 +1,16 @@
-ul
+ul.top
   each href, title in items
     if title == active_item
       li.active
-        a(href=href)
-          .title= title
+        a(href=href)=title
     else
       li
-        a(href=href)
-          .title= title
+        a(href=href)=title
+
+
+
+
+
+
+
 
