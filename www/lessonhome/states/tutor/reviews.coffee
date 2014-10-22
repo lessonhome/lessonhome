@@ -1,4 +1,4 @@
-@route = '/tutor/'
+@route = '/tutor/reviews'
 
 @struct = state 'tutor/template_home'
 
