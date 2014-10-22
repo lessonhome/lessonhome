@@ -8,4 +8,3 @@
   user_name : 'Аркадий Аркадиевич'
   text : 'Артёмка хорош!'
   review_created_date : '#'
-
