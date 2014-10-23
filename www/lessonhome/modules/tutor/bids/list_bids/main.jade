@@ -1,0 +1,24 @@
+mixin list_bids (id, items)
+  ul(id=id)
+    each item in items
+      li= item
+
+.head
+  +list_bids ('list_bids_title', title_names)
+.content
+  each value in all_bids
+    //+list_bids ('bid'+value.number, value)
+    ul(id=value.number)
+        li!= value.number + '<br>'
+          = value.date
+        li!= value.subject + '<br>'
+          = value.level
+        li= value.place
+        li!= value.city + '<br>'
+          =  value.district
+        li= value.bet
+        li= value.price
+        li= value.status
+
+
+
