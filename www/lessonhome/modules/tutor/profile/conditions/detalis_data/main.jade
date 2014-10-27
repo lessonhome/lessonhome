@@ -1,0 +1,13 @@
+mixin info_line (title, value)
+    li
+        .title= title
+        .value= value
+.detalis_data
+    ul
+        +info_line('выезд :', leaving_prise)
+        +info_line('удаленно :', telework_prise)
+        +info_line('дома :', home_prise)
+        +info_line('Разделы :', section)
+        +info_line('Категория ученика :', category_student)
+        +info_line('Уточнение :', detalis_subject)
+        +info_line('Групповые занятия :', group_lessons)

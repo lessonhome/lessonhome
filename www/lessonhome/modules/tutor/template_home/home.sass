@@ -1,28 +1,35 @@
 main
-  min-width : 1024px
-  min-height : 900px
-  background-color : rgb(116, 128, 205)
-
-.header
-  width: 80%
-  height : 100px
-  margin : auto
-
-.edit
-  width: 79%
+  min-width: 900px
+  max-width: 1300px
   margin: auto
-
-.content
-  width : 63%
-  padding-top : 35px
-  display: inline-block
-  position: absolute
-  background-color : #fff
-  left: 26.5%
-
-
-.left_menu
-  width: 16%
-  margin-left: 10.5%
-
+  height: 100%
+.all
+  min-height: 100%
+  background: aliceblue
+  margin: 0 0 -100px
+  .head
+    height: 250px
+    background: aqua
+    .header
+      height: 150px
+    .edit
+      height: 100px
+  .center_block
+    position: relative
+    min-height: 300px
+    overflow: hidden
+    padding: 0 0 100px
+    .left_menu
+      background-color: #48545E
+      width: 20%
+      position: absolute
+      top: 0
+      bottom: 0
+      left: 0
+    .content
+      margin-left: 20%
+.footer
+  height: 100px
+  background: red
+  position: relative
 
