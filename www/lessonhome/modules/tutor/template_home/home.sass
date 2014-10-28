@@ -11,18 +11,23 @@ main
 .edit
   width: 79%
   margin: auto
+.block
+  overflow : hidden
 
-.content
-  width : 63%
-  padding-top : 35px
-  display: inline-block
-  position: absolute
-  background-color : #fff
-  left: 26.5%
+  .content
+    width : 63%
+    overflow : hidden
+    padding-top : 35px
+    display: inline-block
+    background-color : #fff
 
 
-.left_menu
-  width: 16%
-  margin-left: 10.5%
+  .left_menu
+    width: 16%
+    margin-left: 10.5%
+    float : left
+    background: #bbb
 
+main, .block, .block>.content, .block>.left_menu
+  height : 100%
 
