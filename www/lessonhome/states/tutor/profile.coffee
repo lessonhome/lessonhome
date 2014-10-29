@@ -1,6 +1,6 @@
 @route = '/tutor/profile'
 
-@struct = state 'tutor/template_home'
+@struct = state 'tutor/template'
 
 @struct.content = module 'tutor/profile':
   photo : module 'mime/photo' :

@@ -1,6 +1,6 @@
 @route = '/tutor/reviews'
 
-@struct = state 'tutor/template_home'
+@struct = state 'tutor/template'
 
 @struct.content = module 'tutor/profile/reviews':
   tutor_rating :36

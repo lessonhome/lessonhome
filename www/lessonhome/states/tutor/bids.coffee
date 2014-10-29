@@ -1,6 +1,6 @@
 @route = '/tutor/bids'
 
-@struct = state 'tutor/template_home'
+@struct = state 'tutor/template'
 
 @struct.content = module 'tutor/bids' :
   search : module 'tutor/bids/search'
