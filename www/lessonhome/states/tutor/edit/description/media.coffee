@@ -17,11 +17,11 @@
   'О себе'      : '#'
   'Медиа'       : '/editing/media'
 
-@struct.sub_top_menu = module 'tutor/edit/sub_top_menu' :
+@struct.sub_top_menu = module 'tutor/edit/description/sub_top_menu'
 
 @struct.sub_top_menu.active_item = 'Медиа'
 
-@struct.content = module 'tutor/edit/media':
+@struct.content = module 'tutor/edit/description/media':
   photos : [
     module 'mime/photo' :
       src : '#'
