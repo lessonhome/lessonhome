@@ -1,4 +1,4 @@
-@struct = module 'menu/left_menu' :
+@struct = module 'tutor/template/menu/left_menu' :
     items : {
       'Анкета': 'profile'
       'Заявки': 'bids'
