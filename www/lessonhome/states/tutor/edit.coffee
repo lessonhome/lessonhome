@@ -1,4 +1,4 @@
-@struct = module 'edit_profile' :
+@struct = module 'edit_line' :
     name : '  Артемий Дудко'
     text : 'ред'
     top_menu : module 'menu/top_menu' :
