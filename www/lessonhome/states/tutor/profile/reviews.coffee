@@ -1,6 +1,6 @@
 @route = '/tutor/reviews'
 
-@struct = state 'tutor/template'
+@struct = state 'tutor/template/template'
 
 @struct.content = module 'tutor/profile/reviews':
   tutor_rating :36
@@ -29,4 +29,4 @@
       creation_date : '10 декабря 2014'
   ]
 
-@struct.edit.top_menu.active_item = 'Отзывы'
+@struct.edit_line.top_menu.active_item = 'Отзывы'

@@ -1,8 +1,8 @@
 @route = '/tutor/edit/media'
 
-@struct = state 'tutor/template'
+@struct = state 'tutor/template/template'
 
-@struct.edit.top_menu.items = {
+@struct.edit_line.top_menu.items = {
   'Описание' : '#'
   'Предметы и условия' : '#'
 }
@@ -16,9 +16,9 @@
   'Медиа' : '/editing/media'
 }
 
-@struct.active_item = 'Медиа'
+@struct.sub_top_menu.active_item = 'Медиа'
 
-@struct.content = module 'tutor/profile/edit/media':
+@struct.content = module 'tutor/edit/media':
   photos : [
     module 'mime/photo' :
       src : '#'
@@ -34,3 +34,4 @@
     src : '#'
 
   help : module 'help_block'
+

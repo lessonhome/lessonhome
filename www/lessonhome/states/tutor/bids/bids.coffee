@@ -1,10 +1,10 @@
 @route = '/tutor/bids'
 
-@struct = state 'tutor/template'
+@struct = state 'tutor/template/template'
 
 @struct.content = module 'tutor/bids' :
-  search : module 'tutor/bids/search'
-  list_bids : module 'tutor/bids/list_bids' :
+  search_block : module 'tutor/bids/search/search_block'
+  list_bids : module 'tutor/bids/search/list_bids' :
     title_names : [
       'Номер/Дата'
       'Предмет/Уровень'
@@ -43,6 +43,6 @@
 
 
 @struct.left_menu.active_item = 'Заявки'
-@struct.edit.top_menu.items = {'Поиск' : '#', 'Заказы' : '#', 'Заявки' : '#', 'Отчёт' : '#'}
-@struct.edit.top_menu.active_item = 'Поиск'
+@struct.edit_line.top_menu.items = {'Поиск' : '#', 'Заказы' : '#', 'Заявки' : '#', 'Отчёт' : '#'}
+@struct.edit_line.top_menu.active_item = 'Поиск'
 

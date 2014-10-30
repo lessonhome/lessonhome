@@ -1,6 +1,6 @@
 @route = '/tutor/conditions'
 
-@struct = state 'tutor/template'
+@struct = state 'tutor/template/template'
 
 @struct.content = module 'tutor/profile/conditions':
   durationLesson : '45-60'
