@@ -1,5 +1,5 @@
 @struct = module 'tutor/template/edit_line' :
-    name : '  '
+    name : 'Артемий Дудко'
     text : 'ред'
     top_menu : module 'tutor/template/menu/top_menu' :
       items : {
