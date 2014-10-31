@@ -17,7 +17,7 @@
   'О себе'      : '#'
   'Медиа'       : '/editing/media'
 
-@struct.sub_top_menu = module 'tutor/edit/description/sub_top_menu'
+@struct.sub_top_menu = module 'tutor/template/menu/sub_top_menu'
 
 @struct.sub_top_menu.active_item = 'Медиа'
 
