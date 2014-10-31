@@ -1,0 +1,36 @@
+@import compass/css3
+
+ul.sub_top_menu li a
+  text-decoration : none
+
+ul
+  border-radius : 14px
+  border : 1px solid white
+  overflow: hidden
+
+  li
+    list-style-position : inside
+    font : 1em 'Oswald', sans-serif
+    padding : 10px
+    border-right : 1px solid white
+
+  li:last-child
+    border-right : 0px solid white
+
+    li:hover
+      background-color : #29c5e6
+
+
+.sub_top_menu li
+  +inline-block
+  padding : 10px 30px
+  margin : 0
+
+
+.sub_top_menu
+  li.active
+    background : #29c5e6
+    color : #fff
+
+.sub_top_menu a
+  color: #b2b2b2

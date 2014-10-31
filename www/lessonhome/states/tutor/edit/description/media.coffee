@@ -9,17 +9,15 @@
 @struct.edit_line.top_menu.active_item = 'Описание'
 
 
-@struct.sub_top_menu =
+@struct.sub_top_menu?.items =
   'Общие'       : '#'
   'Контакты'    : '#'
   'Образование' : '#'
   'Карьера'     : '#'
   'О себе'      : '#'
-  'Медиа'       : '/editing/media'
+  'Медиа'       : '/edit/media'
 
-@struct.sub_top_menu = module 'tutor/template/menu/sub_top_menu'
-
-@struct.sub_top_menu.active_item = 'Медиа'
+@struct.sub_top_menu?.active_item = 'Медиа'
 
 @struct.content = module 'tutor/edit/description/media':
   photos : [
