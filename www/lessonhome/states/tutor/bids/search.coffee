@@ -2,9 +2,9 @@
 
 @struct = state 'tutor/template/template'
 
-@struct.content = module 'tutor/bids' :
-  search_block : module 'tutor/bids/search/search_block'
-  list_bids : module 'tutor/bids/search/list_bids' :
+@struct.content = module 'tutor/bids/pages/search' :
+  search_block : module 'tutor/bids/pages/search/search_block'
+  list_bids : module 'tutor/bids/pages/search/list_bids' :
     title_names : [
       'Номер/Дата'
       'Предмет/Уровень'
@@ -15,7 +15,7 @@
       'Статус'
     ]
     all_bids : [
-      {
+      module 'tutor/bids/bid' :
         number   : 25723
         date     : "10 ноября"
         subject  : 'Физика'
@@ -26,8 +26,8 @@
         bet      : '1000 рублей/90 мин'
         price    : '1500 руб.'
         status   : 'Принять/Отклонить'
-      }
-      {
+
+      module 'tutor/bids/bid' :
         number    : 15723
         date      : "20 декабря"
         subject   : 'Математика'
@@ -38,7 +38,6 @@
         bet       : '1000 рублей/90 мин'
         price     : '1500 руб.'
         status    : 'Принять/Отклонить'
-      }
     ]
 
 

@@ -8,6 +8,7 @@ mixin list_bids (id, items)
 .content
   each value in all_bids
     //+list_bids ('bid'+value.number, value)
+    .bid!= bid
     ul(id=value.number)
         li!= value.number + '<br>'
           = value.date
