@@ -2,23 +2,25 @@
 
 @struct = state 'tutor/template/template'
 
-@struct.edit_line.top_menu.items = {
-  'Описание' : '#'
+@struct.edit_line.top_menu.items =
+  'Описание'           : '#'
   'Предметы и условия' : '#'
-}
 
-@struct.sub_top_menu = {
-  'Общие' : '#'
-  'Контакты' : '#'
+@struct.edit_line.top_menu.active_item = 'Описание'
+
+@struct.sub_top_menu = state 'tutor/template/sub_top_menu'
+
+@struct.sub_top_menu?.items =
+  'Общие'       : '#'
+  'Контакты'    : '#'
   'Образование' : '#'
-  'Карьера' : '#'
-  'О себе' : '#'
-  'Медиа' : '/editing/media'
-}
+  'Карьера'     : '#'
+  'О себе'      : '#'
+  'Медиа'       : '/edit/media'
 
-@struct.sub_top_menu.active_item = 'Медиа'
+@struct.sub_top_menu?.active_item = 'Медиа'
 
-@struct.content = module 'tutor/edit/media':
+@struct.content = module 'tutor/edit/description/media':
   photos : [
     module 'mime/photo' :
       src : '#'
