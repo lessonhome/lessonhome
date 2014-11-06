@@ -12,6 +12,7 @@ class RouteState
     @jsModules = ""
     @jsClient = Feel.clientJs
   go : =>
+    @stack = []
     @parse @state
     @res.writeHead 200
     console.log @state
@@ -41,6 +42,13 @@ class RouteState
   parse : (now,uniq)=>
     if now._isModule
       uniq = Math.floor Math.random()*10000
+      m = now._name.match /^\/\/(.*)$/
+      if m
+        unless @stack.length
+          throw new Error "can't find parent module for // in modname '#{now._name}' 
+                            in state '#{@statename}'"
+        now._name = @stack[@stack.length-1]+"/#{m[1]}"
+      @stack.push now._name
     for key,val of now
       if typeof val == 'object'
         @parse val,uniq
@@ -50,6 +58,7 @@ class RouteState
       if !@site.modules[now._name]?
         throw new Error "can't find module '#{now._name}' in state '#{@statename}'"
       now._html = @site.modules[now._name].doJade o
+      @stack.pop()
 
   getO  : (obj,uniq)=>
     ret = {}

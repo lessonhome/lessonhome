@@ -7,7 +7,7 @@
       'Предметы и условия': 'subjects_and_conditions'
       'Отзывы': 'reviews'
     }
-    active_item: 'Описание';
+    active_item: 'Описание'
 
 
 
