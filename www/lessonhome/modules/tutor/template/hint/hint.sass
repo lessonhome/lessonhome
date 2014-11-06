@@ -1,0 +1,48 @@
+$red : 29px
+$blu : 58px
+
+//- red и blu - красная и синяя черта в макете, стандартные отступы для данного макета
+
+
+.hint
+  .question_sign_block
+    background : url(F('hint.png')) no-repeat
+
+    height : 64px
+    width  : 64px
+
+    float : left
+
+  .header, .text
+    overflow : hidden
+    padding-left : $red
+
+  .text
+    padding-top : 7px
+
+
+// HINT
+  .hint
+    width: 30%
+    margin-left : 70%
+    border-left : 2px solid #E6DFDF
+
+    .question_sign_block, .header, .text
+      width : 80%
+      margin : auto
+
+    .question_sign_block
+      height : 64px
+      background : url(F('hint.png')) no-repeat
+
+    .header
+
+      margin-top : 19px
+      margin-bottom : 10px
+
+      font-weight : bold
+      font-size : 1.6em
+
+    .text
+      font: 12px "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif
+      color : #777

@@ -1,0 +1,15 @@
+.header Список заказов по которым вы работаете
+.hint_block!= hint
+.subject
+  .title Предмет
+  .drop_down_list
+.illustrations
+  each value in illustrations
+    .illustration!= value
+.title_bids!= titles
+.bids
+  each value in working_bids
+    .bid!= value
+
+
+

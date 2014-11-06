@@ -5,15 +5,17 @@
 @struct.content = module 'tutor/bids/pages/search' :
   search_block : module 'tutor/bids/pages/search/search_block'
   list_bids : module 'tutor/bids/pages/search/list_bids' :
-    title_names : [
-      'Номер/Дата'
-      'Предмет/Уровень'
-      'Место'
-      'Город/Район'
-      'Ставка'
-      'Цена'
-      'Статус'
-    ]
+
+    titles : module 'tutor/bids/title_bids' :
+      number_date   : 'Номер/Дата'
+      subject_level : 'Предмет/Уровень'
+      place         :'Место'
+      city_district : 'Город/Район'
+      bet           : 'Ставка'
+      price         : 'Цена'
+      status        : 'Статус'
+      payment       : 'Оплата'
+
     all_bids : [
       module 'tutor/bids/bid' :
         number   : 25723
@@ -26,6 +28,7 @@
         bet      : '1000 рублей/90 мин'
         price    : '1500 руб.'
         status   : 'Принять/Отклонить'
+        payment  : '#'
 
       module 'tutor/bids/bid' :
         number    : 15723
@@ -38,10 +41,11 @@
         bet       : '1000 рублей/90 мин'
         price     : '1500 руб.'
         status    : 'Принять/Отклонить'
+        payment   : '#'
     ]
 
 
 @struct.left_menu.active_item = 'Заявки'
-@struct.edit_line.top_menu.items = {'Поиск' : '#', 'Заказы' : '#', 'Заявки' : '#', 'Отчёт' : '#'}
+@struct.edit_line.top_menu.items = {'Поиск' : '#', 'Заказы' : 'orders', 'Заявки' : 'bids', 'Отчёт' : 'bids/report'}
 @struct.edit_line.top_menu.active_item = 'Поиск'
 
