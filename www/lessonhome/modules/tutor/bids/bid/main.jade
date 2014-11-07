@@ -1,4 +1,25 @@
-mixin bid (id, type, items)
-  ul(id=id, class=type)
-  each item in items
-    li= item
+.bid
+  ul(id=number)
+    li!= number + '<br>'
+      = date
+    li!= subject + '<br>'
+      = level
+    li= place
+    li!= city + '<br>'
+      = district
+    li= bet
+    li= price
+    li= status
+    li= payment
+  .details_block
+
+
+
+
+//- payment - проверка на наличия поля payment.
+  у ul два класса: bids - заявка как во вкладке заявки
+                   report - заявка как во вкладке отчёт
+
+
+
+

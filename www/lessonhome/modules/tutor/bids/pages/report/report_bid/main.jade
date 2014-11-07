@@ -1,0 +1,14 @@
+.bid
+  ul(id=number, class='bids')
+    li!= number + '<br>'
+      = date
+    li!= subject + '<br>'
+      = level
+    li= place
+    li!= city + '<br>'
+      = district
+    li= bet
+    li= price
+    li= status
+    li= payment
+  .report_block!= report_block

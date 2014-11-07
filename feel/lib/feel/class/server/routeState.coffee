@@ -15,7 +15,6 @@ class RouteState
     @stack = []
     @parse @state
     @res.writeHead 200
-    console.log @state
       
     if @site.modules['default'].allCss
       @cssModule 'default'
