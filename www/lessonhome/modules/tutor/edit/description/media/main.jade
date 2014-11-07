@@ -1,0 +1,15 @@
+.photo_block
+  .text : 'Фотографии'
+  each value in photos
+    .tutor_added_photo!= value
+
+.video_block
+  .text : 'Видео'
+  each value in videos
+    .tutor_added_photo!= value
+
+
+.hint!= hint
+  .question_sign_block
+  .header Откуда берутся отзывы?
+  .text Все оценки и отзывы о данном репетиторе получены исключительно от учеников, подобранных Ассоциацией репетиторов. Некоторые отзывы написаны учениками лично, другие получены в телефонном разговоре и опубликованы с согласия ученика
