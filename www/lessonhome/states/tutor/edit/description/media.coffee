@@ -16,7 +16,7 @@
   'Образование' : '#'
   'Карьера'     : '#'
   'О себе'      : '#'
-  'Медиа'       : '/edit/media'
+  'Медиа'       : '/media'
 
 @struct.sub_top_menu?.active_item = 'Медиа'
 
@@ -30,10 +30,13 @@
 
     module 'mime/photo' :
       src : '#'
-
   ]
-  video : module 'mime/video' :
-    src : '#'
+  videos : [
+    module 'mime/video' :
+      src : '#'
 
-  help : module 'help_block'
+    module 'mime/video' :
+      src : '#'
+  ]
 
+  hint : module 'tutor/template/hint'
