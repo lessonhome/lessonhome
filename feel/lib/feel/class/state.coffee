@@ -1,22 +1,39 @@
 
-coffee = require 'coffee-script'
+coffee  = require 'coffee-script'
+path    = require 'path'
+
 
 class module.exports
   constructor : (@site,@name)->
-    @path   = "#{process.cwd()}/#{@site.path.states}/#{@name}.coffee"
+    @path       = "#{process.cwd()}/#{@site.path.states}/#{@name}.coffee"
+    @state_dir  = @name.match(/^(.*\/|)\w+$/)[1]
     @inited = false
   init : =>
-    _module = @function_module
-    _state  = @function_state
+    @state_vars =
+      module   : @function_module
+      state    : @function_state
+      extend   : ->
+      link     : ->
+      parent   : {}
+      site     : @site
+      router   : @site.router
+      urls     : @site.router.url
+    _vars = @state_vars
     try
       state = coffee._compileFile @path
     catch e
-      throw new Error "Failed compile state #{@name}:\n"+e 
+      throw new Error "Failed compile state #{@name}:\n"+e
     state = "
       var state = {};
       (function(){
-        var module  = _module;
-        var state   = _state;
+        var module  = _vars.module;
+        var state   = _vars.state;
+        var extend  = _vars.extend;
+        var link    = _vars.link;
+        var parent  = _vars.parent;
+        var $site   = _vars.site;
+        var $router = _vars.router;
+        var $urls   = _vars.urls;
         var F       = (function (str){
           return \"/file/666/\"+str;
         });
@@ -31,12 +48,26 @@ class module.exports
       @title = @state.title
       
     @inited = true
+  statename_resolve : (str)=>
+    m = str.match /^\/(.*)$/
+    return @statename_resolve m[1] if m
+    m = str.match /^\.(.*)/
+    if m
+      return path.normalize @state_dir+str
+    return str
+  modulename_resolve : (str)=>
+    str = str.replace /\$/g, @name
+    m = str.match /^\.(.*)/
+    if m
+      return path.normalize @state_dir+str
+    return str
   function_state  : (o)=>
+    name = @statename_resolve o
     try
-      @site.createState o
+      @site.createState name
     catch e
-      throw new Error "Failed compile state '#{o}' from state '#{@name}':\n"+e
-    state = CLONE @site.state[o].state.struct
+      throw new Error "Failed compile state '#{o}':'#{name}' from state '#{@name}':\n"+e
+    state = CLONE @site.state[name].state.struct
     return state
   function_module : (o)=>
     mod = {}
@@ -45,17 +76,17 @@ class module.exports
     m    = {}
     switch typeof o
       when 'string'
-        name = o
+        name = @modulename_resolve o
       when 'object'
         for key,val of o
-          name  = key
+          name  = @modulename_resolve key
           m     = val
       else
         throw new Error 'wrong module name', o
     mod._name  = name
     for key,val of m
       mod[key] = val
-    if !@site.modules[name]?
+    if (!name.match(/^\/\/.*/)) && (!@site.modules[name]?)
       throw new Error "Can't find module '#{name}' in state '#{@name}'"
     return mod
 

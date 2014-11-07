@@ -30,6 +30,14 @@
         status   : 'Принять/Отклонить'
         payment  : '#'
 
+        category_pupil : 'школьники 6-8 классов'
+        training_direction : 'ЕГЭ'
+        number_of_lessons :  'Более 20'
+        wishes : 'Утро выходных дней'
+        near_metro : 'м.Крюково'
+        comments : '-'
+        lesson_goal : 'Устранить пробелы в знаниях'
+
       module 'tutor/bids/bid' :
         number    : 15723
         date      : "20 декабря"
@@ -42,10 +50,20 @@
         price     : '1500 руб.'
         status    : 'Принять/Отклонить'
         payment   : '#'
+
+        category_pupil : 'школьники 6-8 классов'
+        training_direction : 'ЕГЭ'
+        number_of_lessons :  'Более 20'
+        wishes : 'Утро выходных дней'
+        near_metro : 'м.Крюково'
+        comments : '-'
+        lesson_goal : 'Устранить пробелы в знаниях'
     ]
 
 
 @struct.left_menu.active_item = 'Заявки'
-@struct.edit_line.top_menu.items = {'Поиск' : '#', 'Заказы' : 'orders', 'Заявки' : 'bids', 'Отчёт' : 'bids/report'}
+@struct.edit_line.top_menu.items = {'Поиск' : '#', 'Заказы' : 'orders', 'Заявки' : 'bids/sub_bids', 'Отчёт' : 'bids/report'}
 @struct.edit_line.top_menu.active_item = 'Поиск'
 
+
+ 

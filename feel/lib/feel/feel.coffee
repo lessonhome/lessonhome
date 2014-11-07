@@ -124,9 +124,13 @@ class module.exports
     .done()
     
   loadClient : =>
-    @client = {}
+    @client   = {}
+    @clientJs = ""
     @loadClientDir './feel/lib/feel/client/',''
     .then =>
+      @clientJs += @client['main']
+      for key,val of @client
+        @clientJs += val unless key == 'main'
   loadClientDir : (path,dir)=>
     readdir "#{path}/#{dir}"
     .then (files)=>
@@ -140,4 +144,5 @@ class module.exports
           @loadClientDir path,ndir
         else if stat.isFile() && f.match /^[^\.].*\.coffee$/
           src = coffee._compileFile file
-          @client[ndir] = src
+          n = ndir.match /^(.*)\.coffee$/
+          @client[n[1]] = src

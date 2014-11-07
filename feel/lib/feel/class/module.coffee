@@ -1,5 +1,10 @@
 
-jade    = require 'jade'
+jade_runtime  = require './runtime.js'
+jade          = require 'jade'
+for key,val of jade_runtime
+  if typeof val == "function"
+    do (key,val)=>
+      jade[key] = => val.apply jade_runtime, arguments
 fs      = require 'fs'
 coffee  = require 'coffee-script'
 
@@ -42,17 +47,23 @@ class module.exports
             ext   : ""
             path  : "#{@site.path.modules}/#{@name}/#{f}"
           }
+  replacer : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-]+)/,"$1mod-#{@id}--$2")
   makeJade : =>
     @jade = {}
     for filename, file of @files
       if file.ext == 'jade' && file.name == 'main'
         console.log "jade #{@name}"
         @jade.fn    = jade.compileFile file.path, {
-          compileDebug : true
+          compileDebug : false
         }
         @jade.fnCli = jade.compileFileClient file.path, {
-          compileDebug : true
+          compileDebug : false
         }
+        while true
+          n = @jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(m-[\w-]+)(?: [\w-]+)*\\\"/, @replacer)
+          break if n == @jade.fnCli
+          @jade.fnCli = n
+        @jade.fn = eval "(#{@jade.fnCli})"
         break
   rebuildJade : =>
     @rescanFiles()
@@ -112,13 +123,27 @@ class module.exports
       for sel in m
         if newpref != ""
           newpref += ","
-        newpref += "#m-#{@id}"
+        unless sel.match /^\.(g-[\w-]+)/
+          newpref += "#m-#{@id}"
         continue if sel == 'main'
         m2 = sel.match /([^\s]+)/g
         if m2
           for a in m2
-            newpref += ">"+a
-        else newpref += ">"+sel
+            m3 = a.match /^\.(m-[\w-]+)/
+            if m3
+              newpref += " \.mod-#{@id}--#{m3[1]}"
+            else if a.match /^\.(g-[\w-]+)/
+              newpref += " "+a
+            else
+              newpref += ">"+a
+        else
+          m3 = sel.match /^\.m-[\w-]+/
+          if m3
+            newpref += " \.mod-#{@id}--#{m3[1]}"
+          else if sel.match /^\.(g-[\w-]+)/
+            newpref += " "+sel
+          else
+            newpref += ">"+sel
     else newpref = pref
     newpref=pref if filename.match /.*\.g\.sass$/
     ret = newpref+body+@parseCss(post,filename)

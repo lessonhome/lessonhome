@@ -7,11 +7,11 @@ mixin info_line (value)
 .additional_info
   .btn
     .sign
-    .text
+    .text Просмотреть доп.информацию
 
 .data
   .title Данные
-  .info_line
+  .name
     .key= name
 
   each value in data
@@ -25,6 +25,9 @@ mixin info_line (value)
 .review
   .title Отзыв
   .text= review
+
+
+
 
 .report
   .title Отчёт
