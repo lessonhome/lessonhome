@@ -1,3 +1,8 @@
+mixin line (title, value)
+  .line
+    .title= title
+    .value= value
+
 .bid
   ul(id=number)
     li!= number + '<br>'
@@ -11,7 +16,17 @@
     li= price
     li= status
     li= payment
+
   .details_block
+    +line('Категория ученика:', category_pupil)
+    +line('Направление подготовки:', training_direction )
+    +line('Количество занятий:', number_of_lessons )
+    +line('Пожелания:', wishes )
+    +line('Ближайшее метро:', near_metro )
+    +line('Комментарии:', comments )
+    +line('Цель занятия:', lesson_goal )
+
+
 
 
 

@@ -1,0 +1,9 @@
+.header Список учеников которые отправили вам заявки
+.hint_block!= hint
+.subject
+  .title Предмет
+  .drop_down_list
+.title_bids!= titles
+.bids
+  each value in working_bids
+    bid!= value

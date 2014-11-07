@@ -1,4 +1,4 @@
-$ul_padding: 29px
+$red: 29px
 
 .bid
   ul
@@ -7,9 +7,9 @@ $ul_padding: 29px
     li
       display : inline-block
       width : 12.5%
-      padding-left : $ul_padding
+      padding-left : $red
       padding-top : 16px
-      padding-bottom : $ul_padding
+      padding-bottom : $red
       box-sizing : border-box
 
       word-wrap : break-word
@@ -17,6 +17,59 @@ $ul_padding: 29px
 
       margin-top : 5px
       margin-bottom : 5px
+
+  .details_block
+    background-color : rgb(122, 152, 191)
+    display : none
+    .line
+      .title
+        width : 30%
+        float : left
+        text-align : right
+        padding-right : 29px
+        box-sizing : border-box
+
+      .value
+        width : 70%
+        margin-left : 30%
+
+/*-----------------------------------------------*/
+
+.bid:hover, .bid
+  .details_block
+    background-color : rgb(122, 152, 191)
+    width : 582px
+    margin-left : 58px
+    padding-left : $red
+    padding-top  : $red
+    padding-bottom : $red
+
+    .line
+      overflow : hidden
+      margin-bottom : 3px
+
+      .title
+        width : 30%
+        float : left
+        text-align : right
+        padding-right : 29px
+        box-sizing : border-box
+
+      .value
+        width : 70%
+        margin-left : 30%
+
+.bid:hover>.details_block
+  display : none
+
+.bid:hover>.details_block
+  display : block
+
+
+
+
+
+
 
 
 
