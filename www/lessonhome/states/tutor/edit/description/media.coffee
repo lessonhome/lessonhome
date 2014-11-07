@@ -22,6 +22,7 @@
 
 @struct.content = module 'tutor/edit/description/media':
   photos : [
+
     module 'mime/photo' :
       src : '#'
 

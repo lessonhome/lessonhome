@@ -1,15 +1,17 @@
 .photo_block
-  .text : 'Фотографии'
+  .add Добавить новые фотографии
+  .text Фотографии
   each value in photos
     .tutor_added_photo!= value
 
 .video_block
-  .text : 'Видео'
+  .text Видео
+  .add Добавить новые видеозаписи
   each value in videos
-    .tutor_added_photo!= value
+    .tutor_added_video!= value
 
 
 .hint!= hint
   .question_sign_block
   .header Откуда берутся отзывы?
-  .text Все оценки и отзывы о данном репетиторе получены исключительно от учеников, подобранных Ассоциацией репетиторов. Некоторые отзывы написаны учениками лично, другие получены в телефонном разговоре и опубликованы с согласия ученика
+  .text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum semper metus ut tincidunt. Proin condimentum viverra sapien ac lacinia. Aliquam placerat id leo quis lacinia. Morbi blandit hendrerit velit, at porttitor quam condimentum vitae. Nullam nec vulputate neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget nisi elementum, commodo quam vitae, tincidunt risus. Praesent vel aliquam ligula. Sed pharetra dictum nunc. Integer vel sapien risus. Aliquam accumsan massa et volutpat viverra. Mauris rhoncus enim enim, a laoreet tortor imperdiet id. Donec lobortis dictum nunc.
