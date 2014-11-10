@@ -4,7 +4,7 @@ $blu : 58px
 //- red и blu - красная и синяя черта в макете, стандартные отступы для данного макета
 
 
-.hint
+.hint.horizontal
   .question_sign_block
     background : url(F('hint.png')) no-repeat
     height : 64px
@@ -17,6 +17,24 @@ $blu : 58px
 
   .text
     padding-top : 7px
+
+.hint.vertical
+  padding-right: 22px
+  border-right : 1px solid rgba(119, 119, 119, 0.22)
+
+  .question_sign_block
+    background : url(F('hint.png')) no-repeat
+    height : 64px
+    width  : 64px
+    margin : auto
+    margin-bottom : 20px
+
+  .header, .text
+    overflow : hidden
+
+  .text
+    padding-top : 7px
+
 
 
 // HINT
