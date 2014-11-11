@@ -1,0 +1,50 @@
+.subject
+  .title Предмет:
+  .value!= subject
+
+.sections
+  .title Разделы:
+  .value!= sections
+
+.destinations
+  .title Направления:
+  .value!= destinations
+
+.category_students
+  .title Категории учеников:
+  .value!= category_students
+
+.location_block
+  .location
+    .title Место:
+    .value!= location
+
+  .price
+    .title Цена:
+    .value!= price
+
+  .add_location!= add_location
+
+.group_lessons
+  .title Групповые занятия:
+  .value
+    .pupils_number!= group_lessons[0]
+    .bet!= group_lessons[1]
+
+.comments
+  .title Комментарии:
+  .value!= comments
+
+.button_block
+  .add_button!= add_button
+
+.button_block
+  .save_button!= save_button
+
+
+
+
+
+
+
+
