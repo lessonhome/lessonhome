@@ -12,7 +12,7 @@
 
 @struct.sub_top_menu?.items =
   'Предметы'     : 'subjects'
-  'Место'        : '#'
+  'Место'        : 'location'
   'Календарь'    : 'calendar'
   'Предпочтения' : 'preferences'
 
@@ -21,6 +21,7 @@
 @struct.content = module 'tutor/edit/subjects_and_conditions/preferences':
   sex  : module 'tutor/template/choice' :
     id : 'sex'
+    indent : '79px'
     choice_list : [
       module 'tutor/template/button' :
         text  : 'М'

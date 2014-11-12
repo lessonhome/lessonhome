@@ -12,7 +12,7 @@
 
 @struct.sub_top_menu?.items =
   'Предметы'     : 'subjects'
-  'Место'        : '#'
+  'Место'        : 'location'
   'Календарь'    : 'calendar'
   'Предпочтения' : 'preferences'
 
