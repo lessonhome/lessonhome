@@ -4,7 +4,7 @@
 
 @struct.header.top_menu.items =
   'Описание'           : '#'
-  'Предметы и условия' : '#'
+  'Предметы и условия' : 'subjects'
 
 @struct.header.top_menu.active_item = 'Описание'
 
@@ -18,8 +18,20 @@
   'О себе'      : '#'
   'Медиа'       : 'media'
 
-
 @struct.sub_top_menu?.active_item = 'О себе'
+
+
+@struct.left_menu.items = {
+  'Анкета': '../profile'
+  'Заявки': '../bids'
+  'Оплата': '#'
+  'Документы': '#'
+  'Форум': '#'
+  'Статьи': '#'
+  'Поддержка': '#'
+}
+
+@struct.left_menu.active_item = 'Анкета'
 
 @struct.content = module 'tutor/edit/description/about' :
   reason_textarea : module 'tutor/template/forms/textarea' :

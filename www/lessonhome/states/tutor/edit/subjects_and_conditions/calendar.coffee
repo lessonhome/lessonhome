@@ -18,6 +18,19 @@
 
 @struct.sub_top_menu?.active_item = 'Календарь'
 
+
+@struct.left_menu.items = {
+  'Анкета': '../profile'
+  'Заявки': '../bids'
+  'Оплата': '#'
+  'Документы': '#'
+  'Форум': '#'
+  'Статьи': '#'
+  'Поддержка': '#'
+}
+
+@struct.left_menu.active_item = 'Анкета'
+
 @struct.content = module 'tutor/edit/subjects_and_conditions/calendar':
   dates : '#'
   hint : module 'tutor/template/hint' :
