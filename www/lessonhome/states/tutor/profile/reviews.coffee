@@ -29,4 +29,4 @@
       creation_date : '10 декабря 2014'
   ]
 
-@struct.edit_line.top_menu.active_item = 'Отзывы'
+@struct.header.top_menu.active_item = 'Отзывы'

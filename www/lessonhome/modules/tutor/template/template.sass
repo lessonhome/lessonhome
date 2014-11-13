@@ -1,3 +1,6 @@
+$heightHeader: 150px
+$heightFooter: 100px
+
 main
   height: 100%
 
@@ -7,41 +10,33 @@ main
   position: relative
   .service
     padding-bottom: 100px
-    .head
-      height: 200px
-      background: #fff
-      .header
-        height: 120px
-      .edit_line
-        height: 80px
-        background: #49697C
-        border-radius: 8px
-    .center_block
+    .header
+      height: $heightHeader
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)inset
       .sub_top_menu
         margin: 0 50px 0 20%
         padding-bottom: 50px
         background: #ffffff
+    .center_block
       .left_menu
         position: absolute
         top: 0
         bottom: 0
-        margin: 200px 0 100px 0
+        margin: $heightHeader 0 $heightFooter 0
         background: #C5D4DC
         width: 20%
       .content
-        margin-left: 20%
-        margin-right: 5%
+        margin: 0 5% 0 20%
         background: #fff
-
       .service_two
         position: absolute
         top: 0
         bottom: 0
         width: 5%
         background: #C5D4DC
-        margin: 200px 95% 100px
+        margin: $heightHeader 95% $heightFooter
 
 .footer
-  height: 100px
+  height: $heightFooter
   background: #49697C
 

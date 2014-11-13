@@ -2,11 +2,11 @@
 
 @struct = state 'tutor/template/template'
 
-@struct.edit_line.top_menu.items =
+@struct.header.top_menu.items =
   'Описание'           : '#'
   'Предметы и условия' : '#'
 
-@struct.edit_line.top_menu.active_item = 'Предметы и условия'
+@struct.header.top_menu.active_item = 'Предметы и условия'
 
 @struct.sub_top_menu = state 'tutor/template/sub_top_menu'
 
@@ -16,7 +16,7 @@
   'Календарь'    : 'calendar'
   'Предпочтения' : 'preferences'
 
-@struct.sub_top_menu?.active_item = 'Предметы'
+@struct.sub_top_menu.active_item = 'Предметы'
 
 @struct.content = module 'tutor/edit/subjects_and_conditions/subjects':
   subject : module 'tutor/template/forms/drop_down_list' :

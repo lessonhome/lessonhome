@@ -1,40 +1,31 @@
-@import compass/css3
-
-ul.top li a
+main
+  height: 100%
+  position: relative
+  top: 50%
+  margin-top: -0.75em
+  margin-left: 8%
+  
+div > a
   text-decoration : none
+  background: #E1E3E5
+  padding: 5px
+  border-radius: 5px
+
+div
+  float: left
+  font-size: 1.5em
+  margin-left: 5px
+
+.active a
+  background : #29c5e6
+  color : #fff
+
+div > a:hover
+  background-color : #29c5e6
 
 
-ul
-  border-radius : 18px
-  border : 1px solid white
-  overflow: hidden
-
-  li
-    list-style-position : inside
-    font : 1em 'Oswald', sans-serif
-    padding : 10px
-    border-right : 1px solid white
-
-  li:last-child
-    border-right : 0px solid white
-
-  li:hover
-    background-color : #29c5e6
 
 
-.top li
-  +inline-block
-  padding : 10px 30px
-  margin : 0
-
-
-.top
-  li.active
-    background : #29c5e6
-    color : #fff
-
-.top a
-  color: #b2b2b2
 
 
 

@@ -46,7 +46,7 @@
     duration_lesson : '60-90 минут'
 
 
-@struct.edit_line.top_menu.active_item = 'Предметы и условия'
+@struct.header.top_menu.active_item = 'Предметы и условия'
 
 
 

@@ -2,11 +2,11 @@
 
 @struct = state 'tutor/template/template'
 
-@struct.edit_line.top_menu.items =
+@struct.header.top_menu.items =
   'Описание'           : '#'
   'Предметы и условия' : '#'
 
-@struct.edit_line.top_menu.active_item = 'Описание'
+@struct.header.top_menu.active_item = 'Описание'
 
 @struct.sub_top_menu = state 'tutor/template/sub_top_menu'
 

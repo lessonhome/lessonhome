@@ -62,8 +62,8 @@
 
 
 @struct.left_menu.active_item = 'Заявки'
-@struct.edit_line.top_menu.items = {'Поиск' : '#', 'Заказы' : 'orders', 'Заявки' : 'bids/sub_bids', 'Отчёт' : 'bids/report'}
-@struct.edit_line.top_menu.active_item = 'Поиск'
+@struct.header.top_menu.items = {'Поиск' : '#', 'Заказы' : 'orders', 'Заявки' : 'bids/sub_bids', 'Отчёт' : 'bids/report'}
+@struct.header.top_menu.active_item = 'Поиск'
 
 
  
