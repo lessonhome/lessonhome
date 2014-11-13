@@ -65,3 +65,4 @@
   save_button : module 'tutor/template/button' :
     text  : 'Сохранить'
     type  : 'fixed'
+
