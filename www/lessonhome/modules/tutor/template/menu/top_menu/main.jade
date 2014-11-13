@@ -1,15 +1,7 @@
 each href, title in items
   if title == active_item
-    div.active
-      a(href=href)=title
+    a(href=href)
+      .active=title
   else
-    div
-      a(href=href)=title
-
-
-
-
-
-
-
-
+    a(href=href)
+      .passive=title
