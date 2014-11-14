@@ -1,11 +1,14 @@
-.all
-    .service
-        .header!= header
-        .center_block
-            .left_menu!= left_menu
-            .content
-              if sub_top_menu
-                .sub_top_menu!=sub_top_menu
-              != content
-            .service_two
-.footer
+.fixed_white
+.fixed_background
+  .content_background
+
+
+.container
+  .header!= header
+  .center_block
+    .left_menu!= left_menu
+    .content
+      if sub_top_menu
+        .sub_top_menu!=sub_top_menu
+      != content
+  .footer
