@@ -1,4 +1,5 @@
 @struct = module 'tutor/template/header' :
+    width : '292px'
     logo : module 'tutor/template/header/logo' :
       src : F('lesson_home.jpg')
     top_menu: module 'tutor/template/menu/top_menu':
