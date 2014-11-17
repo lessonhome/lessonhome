@@ -42,7 +42,6 @@
     width : '335px'
 
   address_button : module 'tutor/template/button' :
-    text  : 'Укажите место'
     type  : 'fixed'
 
 

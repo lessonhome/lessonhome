@@ -34,40 +34,37 @@
 
 @struct.content = module 'tutor/edit/description/general' :
 
-  first_name_input : module 'tutor/template/forms/input' :
-  #id     : '#'#
-    width  : '250px'
-    height : '25px'
-    text   : 'Имя'
+  first_name : module 'tutor/template/forms/input' :
+    #id     : '#'#
+    width  : '335px'
 
-  second_name_input : module 'tutor/template/forms/input' :
-  #id     : '#'#
-    width  : '250px'
-    height : '25px'
-    text   : 'Фамилия'
+  second_name : module 'tutor/template/forms/input' :
+    #id     : '#'#
+    width  : '335px'
 
   patronymic : module 'tutor/template/forms/input' :
-  #id     : '#'#
-    width  : '250px'
-    height : '25px'
-    text   : 'Отчество'
+    #id     : '#'#
+    width  : '335px'
 
-  sex_items : module 'tutor/template/button' :
-    text: 'Ж'
-    type : 'fixed'
+  sex :
+    width  : '335px'
+    male   : module 'tutor/template/button' :
+      text : 'М'
+      type : 'fixed'
 
+    female : module 'tutor/template/button' :
+      text : 'Ж'
+      type : 'fixed'
 
   date_of_birth : module 'tutor/template/forms/input' :
-  #id     : '#'#
-    width  : '250px'
-    height : '25px'
-    text   : 'Дата рождения'
+    #id     : '#'#
+    width  : '335px'
+
+  save_button : module 'tutor/template/button' :
+    text  : 'Сохранить'
+    type  : 'fixed'
 
   hint : module 'tutor/template/hint' :
     type   : 'horizontal'
     header : 'Это подсказка'
     text   : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой, так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
-
-  button : module 'tutor/template/button' :
-    text  : 'Сохранить'
-    type : 'fixed'
