@@ -4,4 +4,8 @@
   left_menu     : state './left_menu'
   sub_top_menu  : undefined   # define if exists
   content       : undefined   # must be defined
+  vars :
+    input_width1 : '335px'
+    input_width2 : '84px'
+    input_width3 : '100px'
 ### use @struct.sub_top_menu.active_item if exists sub_top_menu###
