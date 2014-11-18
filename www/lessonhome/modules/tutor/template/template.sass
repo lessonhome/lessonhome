@@ -4,23 +4,31 @@ $heightSubTopMenu: 50px
 
 main
   height: 100%
+  max-width: 1300px
+  min-width: 900px
+  margin: auto
 
-//.fixed_white            //use this if template width don't all width HTML view and change smaller width in .fixed_background, example width: 95%
+.fixed_white
   position: fixed
+  left: 0
+  top: 0
+  text-align: center
   height: 100%
   background: #ffffff
   width: 100%
 
-.fixed_background
-  position: fixed
-  height: 100%
-  background: #C5D4DC
-  width: 100%
-  .content_background
+  .background_gray
     height: 100%
-    background: white
-    margin: 0 5% 0 20%
-    width: 75%
+    background: #C5D4DC
+    max-width: 1300px
+    min-width: 900px
+    display: inline-block
+    width: 100%
+    .content_background
+      height: 100%
+      background: white
+      margin: 0 5% 0 20%
+      width: 75%
 
 .container
   position: relative
