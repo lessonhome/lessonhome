@@ -33,16 +33,16 @@
 
 @struct.content = module 'tutor/edit/subjects_and_conditions/subjects':
   subject : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   sections : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   destinations : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   category_students : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   location : module 'tutor/template/forms/drop_down_list' :
     width : '150px'
@@ -67,7 +67,7 @@
 
   comments : module 'tutor/template/forms/textarea' :
     id     : 'comments'
-    width  : '335px'
+    width  : @struct.vars.input_width1
     height : '82px'
 
 

@@ -1,0 +1,25 @@
+mixin info_block(block_class, header, value)
+  div(class=block_class)
+    .value!= value
+    .m-title= header
+//- -------------------------------------------------
+.block
+  +info_block('country', 'Страна:', country)
+  +info_block('city', 'Город:', city)
+  +info_block('university', 'Вуз:', university)
+  +info_block('faculty', 'Факультет:', faculty)
+  +info_block('chair', 'Кафедра:', chair)
+  +info_block('status', 'Статус:', status)
+
+  .date_
+    .value
+      .day!= release_day
+      .month!= release_month
+      .year!= release_year
+    .m-title Дата выпуска:
+
+  .button_block
+    .save_button!= save_button
+.hint!= hint
+
+
