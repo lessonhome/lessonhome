@@ -43,7 +43,7 @@
 
   address_button : module 'tutor/template/button' :
     type  : 'fixed'
-
+    text  : 'Укажите место'
 
   mobile_phone     : module 'tutor/template/forms/input' :
     width : @struct.vars.input_width1

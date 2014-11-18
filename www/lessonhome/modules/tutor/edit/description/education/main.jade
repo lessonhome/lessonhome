@@ -11,7 +11,7 @@ mixin info_block(block_class, header, value)
   +info_block('chair', 'Кафедра:', chair)
   +info_block('status', 'Статус:', status)
 
-  .date_
+  .date
     .value
       .day!= release_day
       .month!= release_month
@@ -20,6 +20,7 @@ mixin info_block(block_class, header, value)
 
   .button_block
     .save_button!= save_button
+
 .hint!= hint
 
 

@@ -1,0 +1,46 @@
+@import compass/css3
+
+main
+  overflow : hidden
+  margin-bottom : 50px
+  text-align : center
+
+
+.block
+  display : inline-block
+
+  .country, .city, .university, .faculty, .chair, .status, .date
+    overflow : hidden
+    margin-bottom : 10px
+
+    .m-title
+      padding-right : 40px
+      box-sizing : border-box
+      float : right
+      text-align : right
+
+    .value
+      overflow : hidden
+      float : right
+
+
+  .date>.value
+    .day, .month, .year
+      +inline-block
+
+    .day, .month
+      margin-right : 17.5px
+
+  .button_block
+    overflow      : hidden
+    margin-bottom : 10px
+
+    .save_button
+      float : right
+
+/*---------------------------------------------------------*/
+
+.hint
+  width : 80%
+  margin : auto
+  margin-top : 50px
