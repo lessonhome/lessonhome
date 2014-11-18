@@ -54,15 +54,15 @@
         additional_info : undefined
         name   : 'Дудко Артемий Львович'
         data : [
-          'Телефон:' : '+7 (499) 564 44 66'
-          'Почта:'   : 'blabla@gmail.com'
-          'Skype:'  : 'gerakl'
+          'Телефон:'    : '+7 (499) 564 44 66'
+          'Почта:'      : 'blabla@gmail.com'
+          'Skype:'      : 'gerakl'
           'День/время:' : 'вторник 18:30 - 20:00'
         ]
 
         payment : [
-          'Цена заказа:' : '1100 р.'
-          'Статус:' : ''
+          'Цена заказа:'  : '1100 р.'
+          'Статус:'       : ''
         ]
 
         review : 'Vi ser till att kostymen alltid sitter perfekt på dig, hur du än ser ut. Nu letar vi efter de tre personer som kommer passa perfekt i våra specialanpassade och unika kostymer. Du tävlar genom att vi tar dina mått.'

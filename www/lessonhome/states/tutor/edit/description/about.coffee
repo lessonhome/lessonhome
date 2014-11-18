@@ -11,7 +11,7 @@
 @struct.sub_top_menu = state 'tutor/template/sub_top_menu'
 
 @struct.sub_top_menu.items =
-  'Общие'       : '#'
+  'Общие'       : 'general'
   'Контакты'    : 'contacts'
   'Образование' : '#'
   'Карьера'     : 'career'

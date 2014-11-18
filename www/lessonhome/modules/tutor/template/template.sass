@@ -4,41 +4,61 @@ $heightSubTopMenu: 50px
 
 main
   height: 100%
+  max-width: 1300px
+  min-width: 900px
+  margin: auto
 
-.all
-  min-height: 100%
-  margin: 0 0 -100px
+.fixed_white
+  position: fixed
+  left: 0
+  top: 0
+  text-align: center
+  height: 100%
+  background: #ffffff
+  width: 100%
+
+  .background_gray
+    height: 100%
+    background: #C5D4DC
+    max-width: 1300px
+    min-width: 900px
+    display: inline-block
+    width: 100%
+    .content_background
+      height: 100%
+      background: white
+      margin: 0 5% 0 20%
+      width: 75%
+
+.container
   position: relative
-  .service
-    padding-bottom: 100px
-    .header
-      height: $heightHeader
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)inset
-    .center_block
-      .left_menu
-        position: absolute
-        top: 0
-        bottom: 0
-        margin: $heightHeader 0 $heightFooter 0
-        background: #C5D4DC
-        width: 20%
-        padding-top: 50px
-      .content
-        margin: 0 5% 0 20%
-        .sub_top_menu
-          height: $heightSubTopMenu
-          background: #E0E9ED
-          text-align: center
-          margin-bottom: $heightSubTopMenu
-      .service_two
-        position: absolute
-        top: 0
-        bottom: 0
-        width: 5%
-        background: #C5D4DC
-        margin: $heightHeader 95% $heightFooter
+  width: 100%
+  min-height: 100%
+  overflow: hidden
+  .header
+    height: $heightHeader
+    width: 100%
+    background: #ffffff
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)inset
+  .center_block
+    overflow: hidden
+    margin-bottom: 100px
+    .left_menu
+      float: left
+      width: 20%
+    .content
+      margin: 0 5% 0 20%
+      width: 75%
+      .sub_top_menu
+        height: $heightSubTopMenu
+        background: #E0E9ED
+        text-align: center
+        margin-bottom: $heightSubTopMenu
 
 .footer
-  height: $heightFooter
+  height: 100px
+  width: 100%
+  position: absolute
+  bottom: 0
   background: #49697C
 
