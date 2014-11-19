@@ -9,7 +9,7 @@ project_path = "../"
 css_dir = ".cache"
 sass_dir = "www"
 
-
+images_dir = "www/lessonhome/static/"
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed
