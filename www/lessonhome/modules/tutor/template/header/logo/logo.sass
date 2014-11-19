@@ -1,5 +1,16 @@
+@import "compass/css3"
+
+$logo_src: 'logo.png'
+$logo_height: 50px
+$img_height: image-height($logo_src)
+$img_width: image-width($logo_src)
+$a: $logo_height / $img_height
+
 main
-  height : 100%
-  float: left
-.logo, .logo img
-  height : 100%
+  height : $logo_height
+  position: relative
+  top : 50%
+  margin-top: - $logo_height/2
+  width: $img_width * $a
+  background: inline-image($logo_src)
+  +background-size( $img_width*$a $img_height*$a )
