@@ -3,7 +3,7 @@
 @struct = state 'tutor/template/template'
 
 @struct.header.top_menu.items =
-  'Описание'           : '#'
+  'Описание'           : 'general'
   'Предметы и условия' : 'subjects'
 
 @struct.header.top_menu.active_item = 'Описание'

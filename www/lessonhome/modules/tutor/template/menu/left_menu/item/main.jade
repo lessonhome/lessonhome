@@ -1,0 +1,10 @@
+if title == active_item
+  div(class=item_class).active
+    a(href=href)
+      .icon
+      .title= title
+else
+  div(class=item_class)
+    a(href=href)
+      .icon
+      .title= title
