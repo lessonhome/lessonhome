@@ -1,0 +1,28 @@
+mixin info_block(block_class, header, value)
+  div(class=block_class)
+    .value!= value
+    .m-title= header
+
+
+mixin switch_block (block_class, header, left_value, right_value)
+  div(class=block_class)
+    .right(style="width:#{sex.width}")
+      .male!= left_value
+      .female!= right_value
+    .m-title= header
+
+
+.block
+
+  +info_block('first_name', 'Имя:', first_name)
+  +info_block('second_name', 'Фамилия:', second_name)
+  +info_block('patronymic', 'Отчество:', patronymic)
+  +switch_block('sex', 'Пол:', sex.male, sex.female)
+  +info_block('date_of_birth', 'Дата рождения:', date_of_birth)
+
+  .button_block
+    .save_button!= save_button
+
+
+.line
+.hint!= hint

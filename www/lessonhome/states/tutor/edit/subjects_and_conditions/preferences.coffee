@@ -3,8 +3,8 @@
 @struct = state 'tutor/template/template'
 
 @struct.header.top_menu.items =
-  'Описание'           : '#'
-  'Предметы и условия' : '#'
+  'Описание'           : 'general'
+  'Предметы и условия' : 'subjects'
 
 @struct.header.top_menu.active_item = 'Предметы и условия'
 
@@ -47,10 +47,10 @@
     ]
 
   category : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   status : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   hint : module 'tutor/template/hint' :
     type : 'vertical'

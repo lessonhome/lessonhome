@@ -3,8 +3,8 @@
 @struct = state 'tutor/template/template'
 
 @struct.header.top_menu.items =
-  'Описание'           : '#'
-  'Предметы и условия' : '#'
+  'Описание'           : 'general'
+  'Предметы и условия' : 'subjects'
 
 @struct.header.top_menu.active_item = 'Предметы и условия'
 
@@ -50,28 +50,28 @@
     ]
 
   country : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   city : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   district : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   nearest_metro : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   street : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   house : module 'tutor/template/forms/drop_down_list' :
-    width : '84px'
+    width : @struct.vars.input_width2
 
   building : module 'tutor/template/forms/drop_down_list' :
-    width : '84px'
+    width : @struct.vars.input_width2
 
   flat : module 'tutor/template/forms/drop_down_list' :
-    width : '84px'
+    width : @struct.vars.input_width2
 
   add_button : module 'tutor/template/button' :
     text  : '+ Добавить'

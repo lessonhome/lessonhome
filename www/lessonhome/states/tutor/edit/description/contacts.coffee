@@ -3,7 +3,7 @@
 @struct = state 'tutor/template/template'
 
 @struct.header.top_menu.items =
-  'Описание'           : '#'
+  'Описание'           : 'general'
   'Предметы и условия' : 'subjects'
 
 @struct.header.top_menu.active_item = 'Описание'
@@ -36,29 +36,29 @@
 @struct.content = module 'tutor/edit/description/contacts' :
 
   country : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   city : module 'tutor/template/forms/drop_down_list' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   address_button : module 'tutor/template/button' :
     type  : 'fixed'
-
+    text  : 'Укажите место'
 
   mobile_phone     : module 'tutor/template/forms/input' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   additional_phone : module 'tutor/template/forms/input' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   mail  : module 'tutor/template/forms/input' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   skype : module 'tutor/template/forms/input' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   personal_website : module 'tutor/template/forms/input' :
-    width : '335px'
+    width : @struct.vars.input_width1
 
   save_button : module 'tutor/template/button' :
     text  : 'Сохранить'
