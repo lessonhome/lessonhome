@@ -7,6 +7,7 @@ class RouteState
       res : @res
       req : @req
     @state = CLONE @site.state[@statename].state.struct
+    console.log @state
     @modules  = {}
     @css      = ""
     @jsModules = ""
@@ -15,7 +16,7 @@ class RouteState
     @stack = []
     @parse @state
     @res.writeHead 200
-      
+          
     if @site.modules['default'].allCss
       @cssModule 'default'
     for modname of @modules
