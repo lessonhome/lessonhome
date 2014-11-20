@@ -1,29 +1,27 @@
-$headerButton: 1.5em
-$paddingButton: 0.2em
+$headerText: 1.5em
+$hoverColor : #ff949b
+$activeColor : #ed645e
+$textColor : #4b5e6e
 main
   height: 100%
 
 a > div
-  background: #E1E3E5
-  padding: $paddingButton
-  border-radius: 5px
-  font-size: $headerButton
+  font-size: $headerText
   position: relative
   top: 50%
-  margin-top: -(($headerButton+$paddingButton)/2)
-  color : #fff
-
+  margin-top: -($headerText/2)
 a
   float: left
   padding: 0 10px
   height: 100%
   text-decoration : none
+  color : $textColor
 
-a .active
-  background : #29c5e6
+a.active
+  color : $activeColor
 
-a:hover div
-  background-color : #29c5e6
+a.passive:hover div
+  color : $hoverColor
 
 
 
