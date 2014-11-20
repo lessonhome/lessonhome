@@ -1,13 +1,14 @@
 
 .container
-  .background_gray
+  .background_all
+    .left_menu_background
     .content_background
+    .right_background
   .header!= header
-  .container_sub_top_menu
-    if sub_top_menu
+  if sub_top_menu
+    .container_sub_top_menu
       .sub_top_menu!=sub_top_menu
   .center_block
-
     .left_menu!= left_menu
     .content!= content
   .footer
