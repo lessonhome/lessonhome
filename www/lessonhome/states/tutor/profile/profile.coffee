@@ -2,6 +2,8 @@
 
 @struct = state 'tutor/template/template'
 
+@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
+
 @struct.content = module 'tutor/profile':
   photo : module 'mime/photo' :
     src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'

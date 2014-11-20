@@ -20,17 +20,12 @@
 
 @struct.sub_top_menu?.active_item = 'Общие'
 
+@left_menu_href = ['../profile', '../bids', '#', '#', '#', '#', '#']
+for href,i in @left_menu_href
+  @struct.left_menu.items[i].href = href
 
-@struct.left_menu.items =
-  'Анкета': '../profile'
-  'Заявки': '../bids'
-  'Оплата': '#'
-  'Документы': '#'
-  'Форум': '#'
-  'Статьи': '#'
-  'Поддержка': '#'
+@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
 
-@struct.left_menu.active_item = 'Анкета'
 
 @struct.content = module 'tutor/edit/description/general' :
 
