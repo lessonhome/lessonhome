@@ -2,6 +2,9 @@
 
 @struct = state 'tutor/template/template'
 
+@struct.left_menu.setActive.call(@struct.left_menu,'Заявки')
+
+
 @struct.content = module 'tutor/bids/pages/search' :
   search_block : module 'tutor/bids/pages/search/search_block'
   list_bids : module 'tutor/bids/pages/search/list_bids' :

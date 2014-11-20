@@ -2,6 +2,8 @@
 
 @struct = state 'tutor/template/template'
 
+@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
+
 @struct.content = module 'tutor/profile/subjects_and_conditions':
 
 ###############################################################################################

@@ -2,6 +2,8 @@
 
 @struct = state 'tutor/template/template'
 
+@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
+
 @struct.content = module 'tutor/profile/reviews':
   tutor_rating :36
   pupils_number : 6

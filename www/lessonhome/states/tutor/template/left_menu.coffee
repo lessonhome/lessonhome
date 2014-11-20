@@ -36,4 +36,9 @@
       href : '#'
 
   ]
-  active_item : 'Анкета'
+  setActive : (title)->
+    for item in @items
+      item.active = item.title == title
+
+
+
