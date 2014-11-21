@@ -1,7 +1,7 @@
 each href, title in items
   if title == active_item
-    a(href=href)
-      .active=title
+    a.active(href=href)
+      .title=title
   else
-    a(href=href)
-      .passive=title
+    a.passive(href=href)
+      .title=title

@@ -30,6 +30,7 @@ for href,i in @left_menu_href
 
 
 @struct.content = module 'tutor/edit/description/media':
+
   photos : [
 
     module 'mime/photo' :
