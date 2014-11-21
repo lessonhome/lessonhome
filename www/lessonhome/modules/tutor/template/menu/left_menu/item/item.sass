@@ -1,26 +1,26 @@
 @import compass/css3
 
-$height: 50px
-$margin: 5px
+$heightSectionMenu: 50px
+$heightIcon: 40px
+$margin: ($heightSectionMenu - $heightIcon)/2
 
 div
-  overflow : hidden
-  height : $height
+  height : $heightSectionMenu
   a
     overflow : hidden
     display  : block
     height: 100%
+    text-decoration: none
 
     .icon
-      width  : $height - $margin *2
-      height : $height - $margin *2
+      width  : $heightIcon
+      height : $heightIcon
       float  : left
       margin : $margin 24px $margin 38px
 
     .title
-      overflow : hidden
-      +inline-block
-      line-height: $height
+      float: left
+      line-height: $heightSectionMenu
 
       color : #4b5e6e
 
