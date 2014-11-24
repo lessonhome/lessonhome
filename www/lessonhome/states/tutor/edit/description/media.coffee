@@ -53,6 +53,15 @@ for href,i in @left_menu_href
       src : '#'
   ]
 
+  add_photos : module 'tutor/template/button' :
+    text  : '+ Добавить'
+    type  : 'fixed'
+
+  add_videos : module 'tutor/template/button' :
+    text  : '+ Добавить'
+    type  : 'fixed'
+
+
   hint : module 'tutor/template/hint' :
     type : 'horizontal'
     header : 'Это подсказка'
