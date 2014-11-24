@@ -8,8 +8,8 @@ mixin edit_block (title)
 
 mixin info_block ( title, array )
   .info_block
-      spane.title= title+':'
-      spane.value
+      span.title= title+':'
+      span.value
         - var first = true;
         each value in array
           if first
