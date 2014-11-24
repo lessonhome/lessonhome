@@ -1,43 +1,46 @@
 main
-  background-color : rgb(122, 152, 191)
   overflow : hidden
 
 //- ----------------------- left block ------------------------------------
+
 .left_block
   width : 15%
   float : left
-  padding-bottom : 29px
-  border-right : 2px solid #766969
-
+  height: 100%
 
   .outside_work_price, .home_price, .distance_work_price
-    padding-left : 29px
-    margin-bottom : 10px
-    overflow : hidden
+    margin-bottom: 20px
 
 
-.right_block
-  width : 85%
-  margin-left : 15%
 
-.left_block, .right_block
-  padding-top : 29px
+//- ----------------------- vertical line ------------------------------------
+
+.vertical_line
+  position: absolute
+  height: 100%
+  width: 1px
+  top: 0
+  left: 17.5%
+  background: black
+
+
+
 
 
 //- ----------------------- right block ------------------------------------
 
 .right_block
+  width : 85%
+  margin-left : 15%
+  overflow: hidden
+
   .sections, .category_student, .comments, .group_lessons, .duration_lesson
-    margin-bottom : 10px
-    overflow : hidden
-
+    line-height: 30px
     .title
-      width : 30%
-      float : left
-      text-align : right
-      padding-right : 29px
-      box-sizing : border-box
-
+      width: 30%
+      float: left
+      text-align: right
+      padding-right: 30px
     .value
-      width : 70%
-      margin-left : 30%
+      width: 70%
+      margin-left: 30%
