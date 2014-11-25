@@ -1,21 +1,28 @@
+@import "compass/css3"
+$stars_src  : 'reviews/star_big_gray.png'
+$stars_pink  : 'reviews/star_big_pink.png'
+$stars_height : image-height($stars_src)
+$stars_width  : image-width($stars_src)
+$hint_src : 'hint.png'
+$hint_height : image-height($hint_src)
+$hint_width  : image-width($hint_src)
+
 main
   overflow : hidden
 
 // HINT
 .hint
-  width: 30%
-  margin-left : 70%
+  margin-left : 75%
   border-left : 2px solid #E6DFDF
+  padding: 0 0 0 30px
 
-  .question_sign_block, .header, .text
-    width : 80%
-    margin : auto
 
   .question_sign_block
-    height : 64px
-    background : url(F('hint.png')) no-repeat
+    height : $hint_height
+    width: $hint_width
+    background: inline-image($hint_src) no-repeat
 
-  .header
+  .title_help
 
     margin-top : 19px
     margin-bottom : 10px
@@ -24,28 +31,27 @@ main
     font-size : 1.6em
 
   .text
-    font: 12px "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif
+    font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif
     color : #777
+    line-height: 1.2em
 
 
-// REVIEWS
+//------------------ REVIEWS---------------//
 .reviews
-  width : 70%
+  width : 65%
   float : left
   .review
     margin-bottom : 30px
-    margin-left : 5%
 
-// FULL RATING
-.full_rating
-  height : 22px
-  margin: 50px 0
-
-  .help_word, .stars, .number_pupils
+//----------------GRADE-------------//
+.grade
+  line-height: 1.5em
+  margin: 0 0 50px 0
+  overflow: hidden
+  .title, .stars, .number_pupils
     height : 22px
 
-  .help_word
-    width : 10%
+  .title
     margin-left : 15%
     float : left
 
@@ -53,20 +59,18 @@ main
       font-weight : bold
 
   .stars
-    width : 110px
-    background : url(F('reviews/star_big_gray.png'))
+    width : 5*$stars_width                                  //max stars 5
+    background: inline-image($stars_src)
     float : left
+    margin: 0 30px
 
     .full_stars
-      background : url(F('reviews/star_big_pink.png'))
-      height : 22px
+      background: inline-image($stars_pink)
+      height : $stars_height
+
 
   .number_pupils
     // position
-    display : inline-block
-    margin-left : 5px
-
+    float: left
     // font
-    font: 12px "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif
     color : #777
-    font-size : inherit
