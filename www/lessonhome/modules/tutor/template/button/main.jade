@@ -2,5 +2,9 @@
 //- type : streamlined || fixed;
 //- text : value text
 
-.button(class=type)
-  .text=text
+if color
+  .button(class=type, style="background-color : #{color}")
+    .text=text
+else
+  .button(class=type)
+    .text=text

@@ -29,18 +29,18 @@ for href,i in @left_menu_href
 @struct.content = module 'tutor/edit/description/about' :
   reason_textarea : module 'tutor/template/forms/textarea' :
     id     : 'reason'
-    width  : '455px'
-    height : '82px'
+    width  : '460px'
+    height : '87px'
 
   interests_textarea : module 'tutor/template/forms/textarea' :
     id     : 'interests'
-    width  : '455px'
-    height : '82px'
+    width  : '460px'
+    height : '87px'
 
   about_textarea : module 'tutor/template/forms/textarea' :
     id     : 'about'
-    width  : '455px'
-    height : '82px'
+    width  : '460px'
+    height : '87px'
 
   hint : module 'tutor/template/hint' :
     type : 'horizontal'
@@ -50,3 +50,5 @@ for href,i in @left_menu_href
   button : module 'tutor/template/button' :
     text  : 'Сохранить'
     type : 'fixed'
+
+
