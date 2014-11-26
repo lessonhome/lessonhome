@@ -25,7 +25,7 @@ class RouteState
       if @site.modules[modname].allCoffee
         @jsModules += "$Feel.modules['#{modname}'] = #{@site.modules[modname].allCoffee};"
     @res.end('<!DOCTYPE html><html><head><meta charset="utf-8">'+
-              "<link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,cyrillic' rel='stylesheet' type='text/css'>"+
+        #      "<link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,cyrillic' rel='stylesheet' type='text/css'>"+
                 '<title>'+
       @site.state[@statename].title+'</title>'+@css+'</head><body>'+@state._html+
       '<script id="feel-js-client">

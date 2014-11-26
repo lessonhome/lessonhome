@@ -1,4 +1,34 @@
 .drop_down_list
-  height : 33px
-  background-color : #C5D4DC
-  border-radius : 5px
+  position : relative
+  height : 32px
+
+  input
+    padding : 0
+    padding-right : 25px
+    box-sizing    : border-box
+
+    border : 2px solid rgb( 214, 214, 214 )
+    border-radius : 5px
+    background-color : rgb( 255, 255, 255 )
+    outline : none
+
+    width  : 100%
+    height : 100%
+
+
+  .icon
+    background : inline-image('falldown_triangle2.png') no-repeat
+    width  : 13px
+    height : 12px
+    position : absolute
+    top : 11px
+    right : 5px
+
+
+.drop_down_list
+  input:focus
+    border : 2px solid rgb( 137, 209, 255 )
+
+
+
+

@@ -48,8 +48,6 @@ for href,i in @left_menu_href
     width : @struct.vars.input_width1
 
   extra_info : module 'tutor/template/forms/textarea' :
-    id     : 'extra_info'
-    width  : @struct.vars.input_width1
     height : '82px'
 
   save_button : module 'tutor/template/button' :

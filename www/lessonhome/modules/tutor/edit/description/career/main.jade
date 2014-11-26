@@ -1,7 +1,7 @@
 mixin info_block(block_class, header, value)
   div(class=block_class)
     .value!= value
-    .m-title= header
+    .m-title.g-font-smallTitle= header
 
 //- -------------------------------------------------
 .block
@@ -20,6 +20,6 @@ mixin info_block(block_class, header, value)
   .button_block
     .save_button!= save_button
 
-.hint!= hint
+//-.hint!= hint
 
 

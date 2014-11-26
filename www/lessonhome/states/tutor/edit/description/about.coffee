@@ -13,7 +13,7 @@
 @struct.sub_top_menu.items =
   'Общие'       : 'general'
   'Контакты'    : 'contacts'
-  'Образование' : '#'
+  'Образование' : 'education'
   'Карьера'     : 'career'
   'О себе'      : 'about'
   'Медиа'       : 'media'
@@ -28,20 +28,11 @@ for href,i in @left_menu_href
 
 @struct.content = module 'tutor/edit/description/about' :
   reason_textarea : module 'tutor/template/forms/textarea' :
-    id     : 'reason'
-    width  : '460px'
     height : '87px'
-
   interests_textarea : module 'tutor/template/forms/textarea' :
-    id     : 'interests'
-    width  : '460px'
     height : '87px'
-
   about_textarea : module 'tutor/template/forms/textarea' :
-    id     : 'about'
-    width  : '460px'
     height : '87px'
-
   hint : module 'tutor/template/hint' :
     type : 'horizontal'
     header : 'Это подсказка'

@@ -1,7 +1,7 @@
 mixin info_block(block_class, header, value)
   div(class=block_class)
     .value!= value
-    .m-title= header
+    .m-title.g-font-smallTitle= header
 //- -------------------------------------------------
 .block
   +info_block('country', 'Страна:', country)

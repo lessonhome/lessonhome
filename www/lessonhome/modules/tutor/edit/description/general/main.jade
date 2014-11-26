@@ -1,7 +1,7 @@
 mixin info_block(block_class, header, value)
   div(class=block_class)
     .value!= value
-    .m-title= header
+    .m-title.g-font-smallTitle= header
 
 
 mixin switch_block (block_class, header, left_value, right_value)
@@ -9,7 +9,7 @@ mixin switch_block (block_class, header, left_value, right_value)
     .right(style="width:#{sex.width}")
       .male!= left_value
       .female!= right_value
-    .m-title= header
+    .m-title.g-font-smallTitle= header
 
 
 .block
@@ -18,11 +18,17 @@ mixin switch_block (block_class, header, left_value, right_value)
   +info_block('second_name', 'Фамилия:', second_name)
   +info_block('patronymic', 'Отчество:', patronymic)
   +switch_block('sex', 'Пол:', sex.male, sex.female)
-  +info_block('date_of_birth', 'Дата рождения:', date_of_birth)
+
+  .date_of_birth
+    .value
+      .day!= birth_day
+      .month!= birth_month
+      .year!= birth_year
+    .m-title.g-font-smallTitle Дата рождения
+
+  +info_block('status', 'Статус:', status)
 
   .button_block
     .save_button!= save_button
 
-
-.line
 .hint!= hint

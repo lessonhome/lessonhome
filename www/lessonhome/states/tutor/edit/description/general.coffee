@@ -30,15 +30,12 @@ for href,i in @left_menu_href
 @struct.content = module 'tutor/edit/description/general' :
 
   first_name : module 'tutor/template/forms/input' :
-    #id     : '#'#
     width  : '335px'
 
   second_name : module 'tutor/template/forms/input' :
-    #id     : '#'#
     width  : '335px'
 
   patronymic : module 'tutor/template/forms/input' :
-    #id     : '#'#
     width  : '335px'
 
   sex :
@@ -51,9 +48,17 @@ for href,i in @left_menu_href
       text : 'Ж'
       type : 'fixed'
 
-  date_of_birth : module 'tutor/template/forms/input' :
-    #id     : '#'#
-    width  : '335px'
+  birth_day   : module 'tutor/template/forms/drop_down_list' :
+    width : @struct.vars.input_width3
+
+  birth_month : module 'tutor/template/forms/drop_down_list' :
+    width : @struct.vars.input_width3
+
+  birth_year  : module 'tutor/template/forms/drop_down_list' :
+    width : @struct.vars.input_width3
+
+  status :  module 'tutor/template/forms/drop_down_list' :
+    width : @struct.vars.input_width1
 
   save_button : module 'tutor/template/button' :
     text  : 'Сохранить'

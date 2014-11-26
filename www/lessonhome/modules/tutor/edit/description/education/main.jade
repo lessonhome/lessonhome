@@ -1,7 +1,7 @@
 mixin info_block(block_class, header, value)
   div(class=block_class)
     .value!= value
-    .m-title= header
+    .m-title.g-font-smallTitle= header
 //- -------------------------------------------------
 .block
   +info_block('country', 'Страна:', country)
@@ -16,7 +16,10 @@ mixin info_block(block_class, header, value)
       .day!= release_day
       .month!= release_month
       .year!= release_year
-    .m-title Дата выпуска:
+    .m-title.g-font-smallTitle Дата выпуска:
+
+  .button_block
+    .add_button!= add_button
 
   .button_block
     .save_button!= save_button
