@@ -8,7 +8,7 @@
     module '//item' :
       title : 'Заявки'
       item_class : 'bids'
-      href : 'bids'
+      href : 'search_bids'
 
     module '//item' :
       title : 'Оплата'

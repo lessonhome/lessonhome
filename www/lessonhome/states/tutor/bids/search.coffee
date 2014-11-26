@@ -1,13 +1,13 @@
-@route = '/tutor/bids'
+@route = '/tutor/search_bids'
 
 @struct = state 'tutor/template/template'
 
 @struct.left_menu.setActive.call(@struct.left_menu,'Заявки')
 
 
-@struct.content = module 'tutor/bids/pages/search' :
-  search_block : module 'tutor/bids/pages/search/search_block'
-  list_bids : module 'tutor/bids/pages/search/list_bids' :
+@struct.content = module 'tutor/bids/search_bids' :
+  search_block : module 'tutor/bids/search_bids/search_block'
+  list_bids : module 'tutor/bids/search_bids/list_bids' :
 
     titles : module 'tutor/bids/title_bids' :
       number_date   : 'Номер/Дата'
@@ -65,7 +65,7 @@
 
 
 @struct.left_menu.active_item = 'Заявки'
-@struct.header.top_menu.items = {'Поиск' : '#', 'Заказы' : 'orders', 'Заявки' : 'bids/sub_bids', 'Отчёт' : 'bids/report'}
+@struct.header.top_menu.items = {'Поиск' : 'search_bids', 'Входящие' : 'in_bids', 'Исходящие' : 'out_bids', 'Отчёт' : 'report'}
 @struct.header.top_menu.active_item = 'Поиск'
 
 
