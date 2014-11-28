@@ -29,7 +29,7 @@ for href,i in @left_menu_href
 @struct.content = module 'tutor/edit/subjects_and_conditions/preferences':
   sex  : module 'tutor/template/choice' :
     id : 'sex'
-    indent : '79px'
+    indent : '75px'
     choice_list : [
       module 'tutor/template/button' :
         text  : 'М'

@@ -1,45 +1,37 @@
-.subject
-  .title Предмет:
-  .value!= subject
+mixin info_block(block_class, title, value)
+  div(class=block_class)
+    .value!= value
+    .m-title.g-font-smallTitle=title
+.block
+  +info_block('subject', 'Предмет:', subject)
+  +info_block('sections', 'Разделы:', sections)
+  +info_block('destinations', 'Направления:', destinations)
+  +info_block('category_students', 'Категории учеников:', category_students)
 
-.sections
-  .title Разделы:
-  .value!= sections
+  .location_block
+    .value
+      .location!= location
+      .price
+        .value!= price
+        .m-title.g-font-smallTitle Цена:
+      .add_location!= add_location
+    .m-title.g-font-smallTitle Место:
 
-.destinations
-  .title Направления:
-  .value!= destinations
+  .group_lessons
+    .value
+      .pupils_number!= pupils_number
+      .bet!= bet
+    .m-title.g-font-smallTitle Групповые занятия:
 
-.category_students
-  .title Категории учеников:
-  .value!= category_students
 
-.location_block
-  .location
-    .title Место:
-    .value!= location
 
-  .price
-    .title Цена:
-    .value!= price
+  +info_block('comments', 'Комментарии:', comments)
 
-  .add_location!= add_location
+  .button_block
+    .add_button!= add_button
 
-.group_lessons
-  .title Групповые занятия:
-  .value
-    .pupils_number!= group_lessons[0]
-    .bet!= group_lessons[1]
-
-.comments
-  .title Комментарии:
-  .value!= comments
-
-.button_block
-  .add_button!= add_button
-
-.button_block
-  .save_button!= save_button
+  .button_block
+    .save_button!= save_button
 
 
 

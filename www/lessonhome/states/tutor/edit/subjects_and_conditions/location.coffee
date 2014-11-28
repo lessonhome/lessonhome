@@ -30,7 +30,7 @@ for href,i in @left_menu_href
 @struct.content = module 'tutor/edit/subjects_and_conditions/location' :
   location : module 'tutor/template/choice' :
     id : 'location'
-    indent : '22px'
+    indent : '30px'
     choice_list : [
       module 'tutor/template/button' :
         text  : 'У себя'

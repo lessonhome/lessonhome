@@ -41,29 +41,27 @@ for href,i in @left_menu_href
     width : @struct.vars.input_width1
 
   location : module 'tutor/template/forms/drop_down_list' :
-    width : '150px'
+    width : '180px'
 
   location_add : module 'tutor/template/button' :
     text  : '+'
 
   price : module 'tutor/template/forms/drop_down_list' :
-    width : '85px'
+    width : '70px'
 
   add_location : module 'tutor/template/button' :
     text  : '+'
-    type : 'streamlined'
+    type : 'add'
 
-  group_lessons : [
-    module 'tutor/template/forms/drop_down_list' :
-      width : '150px'
 
-    module 'tutor/template/forms/drop_down_list' :
-      width : '120px'
-  ]
+  pupils_number : module 'tutor/template/forms/drop_down_list' :
+    width : '180px'
+
+  bet : module 'tutor/template/forms/drop_down_list' :
+    width : '120px'
 
   comments : module 'tutor/template/forms/textarea' :
     id     : 'comments'
-    width  : @struct.vars.input_width1
     height : '82px'
 
 

@@ -1,5 +1,10 @@
 //- "choice" - the choice between several module buttons
 
-.div(id=id)
+- var first = true;
+div(id=id)
   each value in choice_list
-    .item(style="margin-right:#{indent};")!= value
+    if first
+      .item!= value
+      - first = false;
+    else
+      .item(style="margin-left:#{indent};")!= value

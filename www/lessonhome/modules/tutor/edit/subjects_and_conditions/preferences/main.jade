@@ -1,17 +1,16 @@
-.header Уточните с какими учениками вы хотите заниматься
+mixin block (title, value)
+  .block
+    .title.g-font-smallTitle!= title
+    .value!= value
+
+.header.g-font-middleTitle Уточните с какими учениками Вы хотите заниматься
 
 .hint!= hint
 
 .select_block
-  .block
-    .title Пол:
-    .value!= sex
-  .block
-    .title Класс:
-    .value!= category
-  .block
-    .title Статус:
-    .value!= status
+  +block('Пол:', sex)
+  +block('Класс:', category)
+  +block('Статус:', status)
 
   .button_block
     .button!= button

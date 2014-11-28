@@ -1,62 +1,60 @@
+@import compass/css3
+
 main
   overflow : hidden
-  width : 600px
-  margin : auto
+  padding  : 15px 0 20px 0
+  text-align : center
 
-.country, .city, .district, .nearest_metro, .street, .building, .house, .flat
-  overflow : hidden
-  margin-bottom : 10px
+.block
+  +inline-block
 
-  .m-title
-    padding-right: 40px
-    box-sizing: border-box
-    float : left
-    text-align : right
-
-  .value
+  .country, .city, .district, .nearest_metro, .street, .building, .house, .flat, .house_block, .house_block>.value>.building
     overflow : hidden
+    padding-bottom : 15px
 
-/*---------------------------------------------------------*/
+    .m-title
+      padding-right : 55px
+      box-sizing : border-box
+      float : right
+      text-align : right
 
-.location, .country, .city, .district, .nearest_metro, .street,.house, .flat
-  .m-title
-    width : 200px
+    .value
+      float : right
 
-/*---------------------------------------------------------*/
+  .location
+    margin-bottom : 32px
 
-.building
-  .m-title
-    width : 167px
+    .m-title
+      text-align : right
+      padding-right : 390px
+      margin-bottom : 25px
 
-/*---------------------------------------------------------*/
-
-.house
-  float : left
-
-/*---------------------------------------------------------*/
-
-.location
-  overflow : hidden
-  margin-bottom : 10px
-
-  .m-title
-    padding-right : 40px
-    margin-bottom : 10px
-    box-sizing : border-box
-    text-align : right
-
-  .value
-    overflow    : hidden
-    margin-left :  107px
+    .value
+      text-align : right
 
 
+  .flat
+    padding : 0px
+    .value
+      padding-right : 245px
+
+  .button_block
+    overflow      : hidden
+
+    .add_button, .save_button
+      float : right
+
+    .add_button
+      margin-top    : 25px
+      margin-bottom : 20px
 
 
-
-.button_block
-  overflow      : hidden
-  margin-bottom : 10px
-
-  .add_button, .save_button
-    float : right
-    margin-right : 65px
+  .house_block
+    .value
+      .house, .building
+        +inline-block
+      .building
+        padding : 0
+        .m-title
+          padding-right :  20px
+          padding-left  : 45px
