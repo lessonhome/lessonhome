@@ -1,4 +1,4 @@
-@route = '/tutor/bids/report'
+@route = '/tutor/report'
 
 @struct = state 'tutor/template/template'
 
@@ -11,7 +11,7 @@ for href,i in @left_menu_href
 
 
 
-@struct.content = module 'tutor/bids/pages/report' :
+@struct.content = module 'tutor/bids/report' :
   hint : module 'tutor/template/hint' :
     type : 'horizontal'
     header : 'Это подсказка'
@@ -46,7 +46,7 @@ for href,i in @left_menu_href
     payment       : 'Оплата'
 
   working_bids : [
-    module 'tutor/bids/pages/report/report_bid' :
+    module 'tutor/bids/report/report_bid' :
       number   : 25723
       date     : "10 ноября"
       subject  : 'Физика'
@@ -59,7 +59,7 @@ for href,i in @left_menu_href
       status   : 'Принять/Отклонить'
       payment  : '#'
 
-      report_block : module 'tutor/bids/pages/report/report_bid/report_block' :
+      report_block : module 'tutor/bids/report/report_bid/report_block' :
         additional_info : undefined
         name   : 'Дудко Артемий Львович'
         data : [
@@ -80,5 +80,5 @@ for href,i in @left_menu_href
   ]
 
 
-@struct.header.top_menu.items = {'Поиск' : '../bids', 'Заказы' : 'orders', 'Заявки' : 'sub_bids', 'Отчёт' : 'report'}
+@struct.header.top_menu.items = {'Поиск' : 'search_bids', 'Входящие' : 'in_bids', 'Исходящие' : 'out_bids', 'Отчёт' : 'report'}
 @struct.header.top_menu.active_item = 'Отчёт'

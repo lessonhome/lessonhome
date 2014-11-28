@@ -1,4 +1,4 @@
-@route = '/tutor/bids/sub_bids'
+@route = '/tutor/out_bids'
 
 @struct = state 'tutor/template/template'
 
@@ -11,7 +11,7 @@ for href,i in @left_menu_href
 
 
 
-@struct.content = module 'tutor/bids/pages/sub_bids' :
+@struct.content = module 'tutor/bids/out_bids' :
   hint : module 'tutor/template/hint' :
     type : 'horizontal'
     header : 'Это подсказка'
@@ -58,5 +58,5 @@ for href,i in @left_menu_href
   ]
 
 
-@struct.header.top_menu.items = {'Поиск' : '../bids', 'Заказы' : 'orders', 'Заявки' : 'sub_bids', 'Отчёт' : 'report'}
-@struct.header.top_menu.active_item = 'Заявки'
+@struct.header.top_menu.items = {'Поиск' : 'search_bids', 'Входящие' : 'in_bids', 'Исходящие' : 'out_bids', 'Отчёт' : 'report'}
+@struct.header.top_menu.active_item = 'Исходящие'
