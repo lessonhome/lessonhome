@@ -3,37 +3,54 @@ main
   height : 100%
   overflow: hidden
   text-align: center
-  line-height: 100px
 
 .logo
   height: 100%
   float: left
-  padding: 0 60px 0 40px
-
-.icons
-  height: 100%
-  float: left
+  padding: 0 0 0 2.93%
 
 .right_box
   float: right
-  margin: 0 6% 0 0
+  margin: 0 3% 0 0
   height: 100%
-  overflow: hidden
-
 
   .back_call
-    height: 100%
-    float: left
-    width: 145px
-    line-height: normal
+    display: inline-block
+    vertical-align: middle
 
-  .button_in
+// this button is not hers place or not style right in model
+  //.button_in
     width: 90px
     height: 100%
     float: left
     margin: 0 0 0 50px
 
 
-.top_menu
+.left_box
   overflow: hidden
   height: 100%
+  font-size: 20px
+  font-family: "Open Sans"
+  color: rgb(86, 104, 120)
+  text-align: center
+
+  .icons
+    display: inline-block
+    vertical-align: middle
+
+  .top_menu
+    display: inline-block
+    vertical-align: middle
+
+
+
+//it's added div for doing center position in the adjacent div
+
+.logo>#helper, .right_box>#helper, .left_box>#helper
+  display: inline-block
+  vertical-align: middle
+  height: 100%
+
+// use only 3% because i don't know have doing dynamic margin dependent of size screen
+.left_box>#helper
+  margin: 0px 3%

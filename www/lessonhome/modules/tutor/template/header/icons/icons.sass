@@ -1,49 +1,39 @@
 @import compass/css3
 
 $size : 22px
-$margin : $size/2
+$margin : 20px
 
 main
   overflow: hidden
-  position: relative
-  top: 50%
-  margin-top: -$size/2
 
+
+.search, .edit, .help, .notice, .calendar
+  width: $size
+  height: $size
+  float: left
+  margin-right: $margin
+
+
+//after we have icons image we must change background: red on background : inline-image('#') no-repeat
 
 .search
-  width: $size
-  height: $size
   background: red
-  float: left
-  margin-right: $margin
 
 .edit
-  width: $size
-  height: $size
   background: red
-  float: left
-  margin-right: $margin
+
 
 .help
-  width: $size
-  height: $size
   background: red
-  float: left
-  margin-right: $margin
 
 .notice
-  width: $size
-  height: $size
   background: red
-  float: left
-  margin-right: $margin
 
+
+// end icon dose not have margin-right: $margin and do rules separate
 .calendar
-  width: $size
-  height: $size
+  margin-right: 0
   background: red
-  float: left
 
-//after we have icons image we must change background: red on background : inline-image('left_menu/normal_01-profile.png') no-repeat
 
 

@@ -1,11 +1,10 @@
 mixin info_line (title, value)
-    li
-        .title= title
-        .value= value
-.contacts
-    h3 Контакты
-    ul
-        +info_line('почта:', 'a@a.ru')
-        +info_line('телефон:', '11111')
-        +info_line('скайп:', 'студент')
-    .black-line
+  .section
+    .title= title
+    .value= value
+
+
++info_line('Телефон :', '11.11.11')
++info_line('Почта :', 'Профессор')
++info_line('Скайп :', 'Москва')
++info_line('Личный сайт :', '2 года')

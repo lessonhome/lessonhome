@@ -1,13 +1,11 @@
 mixin info_line (title, value)
-    li
-        .title= title
-        .value= value
-.education
-    h3 Образование
-    ul
-        +info_line('ВУЗ:', 'МГУ')
-        +info_line('фаультет:', 'ВМК')
-        +info_line('Направление:', 'кибернетика')
-        +info_line('Статус:', 'студент')
-        +info_line('Год выпуска:', '2017')
-    .black-line
+  .section
+    .title= title
+    .value= value
+
++info_line('ВУЗ:', 'МГУ')
++info_line('Фаультет:', 'ВМК')
++info_line('Город:', 'Мухосранск')
++info_line('Кафедра :', 'Глюциногенных грибов')
++info_line('Статус:', 'студент')
++info_line('Год выпуска:', '2017')
