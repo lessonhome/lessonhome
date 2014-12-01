@@ -28,12 +28,42 @@ for href,i in @left_menu_href
 
 
 @struct.content = module 'tutor/edit/subjects_and_conditions/calendar':
-  dates : '#'
-  hint : module 'tutor/template/hint' :
-    type : 'vertical'
-    header : 'Это подсказка'
-    text : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит'
+  time_entry_fields : [
+    module '//time_entry_field' :
+      input_from : module 'tutor/template/forms/input' :
+        width : '65px'
 
-  button : module 'tutor/template/button' :
-    text  : 'Сохранить'
-    type  : 'fixed'
+      input_to : module 'tutor/template/forms/input' :
+        width : '65px'
+
+      text_input : module 'tutor/template/forms/input' :
+        width : '210px'
+
+    module '//time_entry_field' :
+      input_from : module 'tutor/template/forms/input' :
+        width : '65px'
+
+      input_to : module 'tutor/template/forms/input' :
+        width : '65px'
+
+      text_input : module 'tutor/template/forms/input' :
+        width : '210px'
+
+
+    module '//time_entry_field' :
+      input_from : module 'tutor/template/forms/input' :
+        width : '65px'
+
+      input_to : module 'tutor/template/forms/input' :
+        width : '65px'
+
+      text_input : module 'tutor/template/forms/input' :
+        width : '210px'
+
+
+  ]
+
+
+  add_button : module 'tutor/template/button' :
+    text  : '+'
+    type  : 'add'

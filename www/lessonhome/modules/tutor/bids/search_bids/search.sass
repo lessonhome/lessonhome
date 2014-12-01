@@ -1,14 +1,55 @@
-//-.list_bids
-  width : 945px
-  margin-left : 20px
-  margin-top : 30px
+@import compass/css3
 
-  .search_block
-    width : 80%
-    margin-left : 10%
+.m-title
+  padding-bottom : 5px
 
-.progress_bar
-  height : 50px
-  width : 300px
-  margin : auto
+.filters
+  margin-bottom : 30px
+  overflow : hidden
+
+  .right_block
+    +inline-block
+
+  .left_block
+    margin-right : 85px
+    float : left
+
+    .subject, .saved_filters
+      margin-bottom : 15px
+
+
+  .right_block
+    .place, .your_address, .road_time
+      margin-bottom : 15px
+
+  .right_block .road_time .value
+    div
+      +inline-block
+    .time
+      margin-right : 5px
+
+
+/*-----------------------------------------*/
+
+.line
+  height : 2px
+  box-shadow : 0px 1px 0px rgba(0, 0, 0, 0.27) inset
+
+/*-----------------------------------------*/
+
+.center_block
   margin-top : 25px
+
+  .advanced_search, .list_bids
+    +inline-block
+
+  .advanced_search
+    width : 215px
+    height : 675px
+    margin-right : 25px
+    float : left
+
+    background-color : rgb( 243, 243, 243 )
+
+  .list_bids
+    width : 688px
