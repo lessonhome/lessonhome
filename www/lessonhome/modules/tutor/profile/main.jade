@@ -1,8 +1,29 @@
-.left-content
+.info_data
+  .person_box
     .photo!= photo
     .progress!= progress
-.right-content
-    .personal_data!= personal_data
-    .contacts!= contacts
-    .education!= education
-    .private!= private
+  .personal_data!= personal_data
+.title Контакты
+.separate_line
+.contacts
+  .icon_box
+    .background
+  != contacts
+.title Образование
+.separate_line
+.education
+  .icon_box
+    .background
+  != education
+.title О себе
+.separate_line
+.private
+  .icon_box
+    .background
+  != private
+.title Медиа
+.separate_line
+.media
+  .icon_box
+    .background
+  !=media

@@ -4,9 +4,9 @@
 
 @struct.header.top_menu.items =
   'Описание'           : 'general'
-  'Предметы и условия' : 'subjects'
+  'Условия' : 'subjects'
 
-@struct.header.top_menu.active_item = 'Предметы и условия'
+@struct.header.top_menu.active_item = 'Условия'
 
 @struct.sub_top_menu = state 'tutor/template/sub_top_menu'
 

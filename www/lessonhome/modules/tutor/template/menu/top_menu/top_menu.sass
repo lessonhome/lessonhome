@@ -1,17 +1,23 @@
-$headerText: 1.5em
 $hoverColor : #ff949b
 $activeColor : #ed645e
 $textColor : #4b5e6e
 main
-  height: 100%
-  display: inline-block
+  overflow: hidden
+  line-height: 100px
 
-a > div
-  font-size: $headerText
+//main > a :last-child
+  padding-right: 0
+
+//main > a :nth-child(-n+1)
+  padding-right: 0
+
+a[href='reviews']
+  padding-right: 0
+
+
 a
   float: left
-  padding: 0 10px
-  height: 100%
+  padding-right: 28px
   text-decoration : none
   color : $textColor
 
@@ -20,6 +26,7 @@ a.active
 
 a.passive:hover div
   color : $hoverColor
+
 
 
 

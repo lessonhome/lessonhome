@@ -1,24 +1,30 @@
-.personal_data
-  h3
-    padding-left : 5%
+$widthTitle : 39%
+$min-widthTitle : 210px
 
-  .black-line
-    width : 75%
-    height : 2px
-    background-color : rgba(0, 0, 0, 0.66)
-    margin-left : 5%
 
-  ul
-    padding-left : 5%
-    width : 100%
-    li
-      list-style-type : none
-      margin-bottom : 7px
-      overflow : hidden
-      .title
-        width : 20%
-        float : left
-        margin-right : 10%
-        font : 12px "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif
-        color : #777777
-        font-size : 1.0em
+main
+  font-size: 18px
+  font-family: "OpenSans"
+  color: rgb(90, 90, 90)
+  line-height: 35px
+
+.name
+  font-size: 30px
+  height: 53px
+  line-height: 23px
+
+
+.section
+  overflow: hidden
+  .title
+    float: left
+    width: $widthTitle
+    min-width: $min-widthTitle
+    text-align: left
+
+  .value
+    margin-left: $widthTitle
+    text-align: left
+
+
+

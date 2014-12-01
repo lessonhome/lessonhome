@@ -14,6 +14,13 @@
   contacts : module 'tutor/profile/description/contacts'
   education : module 'tutor/profile/description/education'
   private : module 'tutor/profile/description/private' :
-    text : 'О себе:'
-  video : module 'mime/video' :
-    src : '#'
+    text : 'О себеО себеО себеО себеО себеО себеО себеО себеО себе
+    О себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО
+    О себеО себеО себеО себеО себеО себеО себеО себеО себеО себе:'
+  media : module 'tutor/profile/description/media' :
+    photo1 : module 'mime/photo' :
+      src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
+    photo2 : module 'mime/photo' :
+      src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
+    video : module 'mime/video' :
+      src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'

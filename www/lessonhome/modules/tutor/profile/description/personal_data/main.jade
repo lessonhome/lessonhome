@@ -1,11 +1,13 @@
 mixin info_line (title, value)
-    li
-        .title= title
-        .value= value
-.personal_data
-    h3!= name
-    ul
-        +info_line('город :', 'москва')
-        +info_line('дата рождения :', '11.11.11')
-        +info_line('место учебы :', 'студент')
-    .black-line
+  .section
+    .title= title
+    .value= value
+.name!=name
+
+
++info_line('Дата рождения :', '11.11.11')
++info_line('Статус :', 'Профессор')
++info_line('Город :', 'Москва')
++info_line('Опыт репетиторства :', '2 года')
++info_line('Количество учеников :', '5')
++info_line('Место работы :', 'Кооператив сосулька')

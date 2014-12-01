@@ -4,7 +4,7 @@
 #
 @struct.header.top_menu.items =
   'Описание'           : 'general'
-  'Предметы и условия' : 'subjects'
+  'Условия' : 'subjects'
 
 @struct.header.top_menu.active_item = 'Описание'
 

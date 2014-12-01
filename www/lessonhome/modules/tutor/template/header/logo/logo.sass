@@ -8,9 +8,8 @@ $a: $logo_height / $img_height
 
 main
   height : $logo_height
-  position: relative
-  top : 50%
-  margin-top: - $logo_height/2
   width: $img_width * $a
   background: inline-image($logo_src)
   +background-size( $img_width*$a $img_height*$a )
+  display: inline-block
+  vertical-align: middle
