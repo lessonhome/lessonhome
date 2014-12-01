@@ -35,7 +35,7 @@ for href,i in @left_menu_href
 
   ]
 
-  titles : module 'tutor/bids/title_bids' :
+  titles : module 'tutor/bids/list_bids/titles_bid' :
     number_date   : 'Номер/Дата'
     subject_level : 'Предмет/Уровень'
     place         :'Место'

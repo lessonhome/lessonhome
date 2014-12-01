@@ -1,30 +1,86 @@
+@import compass/css3
+
 main
   overflow : hidden
+  padding-left : 25px
 
 .header
-  text-align : center
-  margin-bottom : 25px
+  margin-bottom : 30px
 
-.hint
-  width : 144px
-  margin-left : 75px
+.week
+  width : 365px
+
+  .hint
+    width : 30px
+    +inline-block
+    .sign
+      width : 18px
+      height : 18px
+      margin-bottom : 6px
+      margin-left : 6px
+      box-sizing : border-box
+
+      border-radius : 50%
+      background-color : rgb( 242, 238, 238 )
+
+
+  .passive, .active
+    width : 47.85px
+    padding : 10px 15px 10px 15px
+    box-sizing : border-box
+    +inline-block
+    text-align : center
+
+  .passive
+    background-color : rgb( 223, 225, 228 )
+    color: rgb( 181, 184, 187 )
+
+  .active
+    border-radius : 4px
+    background-color : rgb( 240, 123, 111 )
+    color : rgb( 254, 254, 254 )
+
+  .active + .active
+    border-top-left-radius : 0
+    border-bottom-left-radius : 0
+
+  .passive + .active
+    border-top-right-radius : 0
+    border-bottom-right-radius : 0
+
+/*-----------------------------------------------*/
+
+.time_entry_fields :first-child
+  margin : 17px 0
+
+.time_entry_fields
   float : left
+  .time_entry_field
+    margin-bottom : 7px
 
-.calendar
-  overflow : hidden
-  padding-left : 78px
+/*----------------------------------------*/
 
-  .month
-    width : 399px
-    height : 399px
-    background-color : #faf
-
-  .button_block
-    margin-top  : 25px
-    width : 399px
-    overflow : hidden
-
-    .button
-      float : right
+.time_entry_fields, .hint_block
+  +inline-block
 
 
+.hint_block
+  width : 360px
+  .add_block
+    +inline-block
+    margin-left : 10px
+    margin-top : 27px
+
+    .button, .sign
+      +inline-block
+
+    .sign
+      width : 18px
+      height : 18px
+      margin-left : 6px
+      border-radius : 50%
+      background-color : rgb( 242, 238, 238 )
+
+  .hint
+    margin-top : 60px
+    margin-left : 50px

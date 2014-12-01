@@ -18,7 +18,7 @@ for href,i in @left_menu_href
     text : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой, так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
 
 
-  titles : module 'tutor/bids/title_bids' :
+  titles : module 'tutor/bids/list_bids/titles_bid' :
     number_date   : 'Номер/Дата'
     subject_level : 'Предмет/Уровень'
     place         :'Место'
@@ -29,7 +29,7 @@ for href,i in @left_menu_href
     payment       : 'Оплата'
 
   working_bids : [
-    module 'tutor/bids/bid' :
+    module 'tutor/bids/list_bids/bid' :
       number   : 25723
       date     : "10 ноября"
       subject  : 'Физика'
