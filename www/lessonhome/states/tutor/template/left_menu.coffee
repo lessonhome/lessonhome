@@ -39,5 +39,5 @@ class @main
     ]
     setActive : (title)=>
       for item in @tree.items
-        item.active = item.title == title
+        item.active = (item.title==title)
 

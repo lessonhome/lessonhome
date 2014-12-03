@@ -55,6 +55,7 @@ class module.exports
     @inited = true
   make           : (o,state)=>
     state         ?= new @class()
+
     state.exports = (name='{{NULL}}')=> __exports:name
     state.name = @name
     tree = state.tree()

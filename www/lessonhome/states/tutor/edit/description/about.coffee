@@ -1,5 +1,5 @@
 
-class @main extends template 'test/template/template'
+class @main extends template 'tutor/template/template'
   route : '/tutor/edit/about'
   tree : ->
     sub_top_menu : state 'tutor/template/sub_top_menu' :
@@ -31,9 +31,8 @@ class @main extends template 'test/template/template'
       'Описание'  : 'general'
       'Условия'   : 'subjects'
 
-
     left_menu_href = ['../profile', '../bids', '#', '#', '#', '#', '#']
     for href,i in left_menu_href
       @parent.tree.left_menu.items[i].href = href
 
-    #@parent.tree.left_menu.setActive 'Анкета'
+    @parent.tree.left_menu.setActive 'Анкета'
