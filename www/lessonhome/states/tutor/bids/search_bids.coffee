@@ -89,6 +89,8 @@
         lesson_goal : 'Устранить пробелы в знаниях'
     ]
 
+  courses_list : module 'tutor/template/forms/drop_down_list' :
+    width : '170px'
 
 @struct.left_menu.active_item = 'Заявки'
 @struct.header.top_menu.items = {'Поиск' : 'search_bids', 'Заказы' : 'in_bids', 'Заявки' : 'out_bids', 'Отчёты' : 'report'}
