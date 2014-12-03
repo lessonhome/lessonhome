@@ -46,6 +46,12 @@
     comments : 'Олимпиадные задачи школьного уровня, операционные системы'
     group_lessons : 'до 5 человек, по 1000 р.'
     duration_lesson : '60-90 минут'
+    line : module 'tutor/template/separate_line':
+      type : 'details_data_line'
+
+  ##############################################################################################
+  line : module 'tutor/template/separate_line':
+    type : 'horizon'
 
 
 @struct.header.top_menu.active_item = 'Условия'

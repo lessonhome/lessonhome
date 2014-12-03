@@ -1,89 +1,84 @@
-$widthMargin : 200px
+$widthMargin : 200px    //width photo and margin-right personal data
+$padding_bottom : 30px  //in the section_box
 
 main
+  padding: 50px 20px
 
 .info_data
-  padding: 50px 5% 30px 5%
   overflow: hidden
+  padding-bottom: $padding_bottom
   .person_box
     float: left
     width: $widthMargin
     .photo
       overflow: hidden
       height: 200px
-      border-radius: 4px
+      border-radius: 50%
     .progress
       margin-top: 7px
-
   .personal_data
     margin-left: $widthMargin
-    padding-left: 5.5%
+    padding-left: 30px
 
-.separate_line
-  height: 2px
-  background: #cad2d8
-  opacity: 0.4
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.27) inset
+  //---------------line-------------//
 
-.title
-  font-size: 24px
-  font-family: "Open Sans"
-  color: rgb(0, 0, 0)
-  text-align: left
-  margin: 0 0 5px 55px
-
-
-
-.contacts
-  padding: 30px 5%
+$font-size : 24px       //take bigger font-size in this box and use in variable, because u can do vertical center text in this box
+$backgroundText : #ffffff
+$paddingText : 20px
+.separate_box
+  position: relative
   overflow: hidden
-  .icon_box
-    width: 100px
-    height: 100px
+  line-height: $font-size
+  margin-bottom: 20px
+  .title
+    padding-right: $paddingText
     float: left
-    margin-left: 50px
-    //after we have icons image we must change background: red on background : inline-image('#') no-repeat
-    .background
-      background: red
-      height: 100%
+    position: relative
+    z-index: 1
+    background: $backgroundText
+    font-size: $font-size
+    font-family: "Open Sans"
+    color: rgb(0, 0, 0)
+  .value
+    padding-left: $paddingText
+    float: right
+    position: relative
+    z-index: 1
+    background: $backgroundText
 
-.education
-  padding: 30px 5%
-  overflow: hidden
-  .icon_box
-    width: 100px
-    height: 100px
-    float: left
-    margin-left: 50px
-    //after we have icons image we must change background: red on background : inline-image('#') no-repeat
-    .background
-      background: red
-      height: 100%
-.private
-  padding: 30px 5%
-  overflow: hidden
-  .icon_box
-    width: 100px
-    height: 100px
-    float: left
-    margin-left: 50px
-    //after we have icons image we must change background: red on background : inline-image('#') no-repeat
-    .background
-      background: red
-      height: 100%
+//---------------------content-----------------------//
 
-.media
-  padding: 30px 5% 0 5%
+div>.icon_box
+  width: 200px
+  padding-bottom: $padding_bottom
+  box-sizing: border-box
+  position: absolute
+  height: 100%
+
+.media_box .icon_box  //because media_box don't have padding-bottom
+  padding-bottom: 0
+
+.contacts_box, .education_box, .private_box, .media_box
+  padding-bottom: $padding_bottom
   overflow: hidden
-  .icon_box
-    width: 100px
-    height: 100px
-    float: left
-    margin-left: 50px
-    //after we have icons image we must change background: red on background : inline-image('#') no-repeat
-    .background
-      background: red
-      height: 100%
+  position: relative
+  min-height: 150px
+
+.media_box
+  padding-bottom: 0
+$iconsWidthHeight : 100px
+.contacts_box .icon_box .icon, .education_box .icon_box .icon, .private_box .icon_box .icon, .media_box .icon_box .icon
+  width: $iconsWidthHeight
+  height: $iconsWidthHeight
+  margin-left: 50px
+  background: red
+  position: relative
+  top: 50%
+  margin-top: -50px
+
+
+
+
 
 
 

@@ -1,4 +1,6 @@
 @import compass/css3
+$marginEnd : 20px
+
 main
   height : 100%
   overflow: hidden
@@ -7,24 +9,19 @@ main
 .logo
   height: 100%
   float: left
-  padding: 0 0 0 2.93%
+  margin-left: $marginEnd
 
 .right_box
   float: right
-  margin: 0 3% 0 0
+  margin-right: $marginEnd
   height: 100%
 
   .back_call
-    display: inline-block
-    vertical-align: middle
+    +inline-block //all block have property include automatic vertical-align : middle
 
-// this button is not hers place or not style right in model
-  //.button_in
-    width: 90px
-    height: 100%
-    float: left
-    margin: 0 0 0 50px
-
+  .button_in
+    margin-left: 10px
+    +inline-block
 
 .left_box
   overflow: hidden
@@ -35,20 +32,15 @@ main
   text-align: center
 
   .icons
-    display: inline-block
-    vertical-align: middle
+    +inline-block
 
   .top_menu
-    display: inline-block
-    vertical-align: middle
-
-
+    +inline-block
 
 //it's added div for doing center position in the adjacent div
 
 .logo>#helper, .right_box>#helper, .left_box>#helper
-  display: inline-block
-  vertical-align: middle
+  +inline-block
   height: 100%
 
 // use only 3% because i don't know have doing dynamic margin dependent of size screen
