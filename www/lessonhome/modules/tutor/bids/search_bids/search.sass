@@ -1,5 +1,8 @@
 @import compass/css3
 
+main
+  padding : 30px 15px 30px 30px
+
 .m-title
   padding-bottom : 5px
 
@@ -48,8 +51,36 @@
     height : 675px
     margin-right : 25px
     float : left
-
     background-color : rgb( 243, 243, 243 )
+
+    .title
+      padding : 7px 10px 7px 10px
+      background-color : #e1e3e5
+      text-align : center
+
+    .content
+      padding-left : 15px
+      .course
+        margin-top : 17px
+        .arrow, .text
+          +inline-block
+        .arrow
+          width  : 4px
+          height : 6px
+          margin-right : 8px
+          background : inline-image('triangle-small.png') no-repeat
+      .courses_list
+        padding-left : 10px
+        margin-top : 8px
+      .selected_courses
+        margin-top : 8px
+        .course
+          +inline-block
+          background-color : rgb( 226, 226, 226 )
 
   .list_bids
     width : 688px
+
+
+
+

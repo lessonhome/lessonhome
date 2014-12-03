@@ -5,15 +5,21 @@ mixin line (title, value, type)
 
 .bid
   .basic_block
-    .number_date!= number + '<br>'
-      = date
-    .subject_level!= subject + '<br>'
-      = level
-    .place= place
-    .city_district!= city + '<br>'
-      = district
-    .bet= bet
-    .price= price
+    .number_date
+      .text!= number + '<br>'
+        = date
+    .subject_level
+      .text!= subject + '<br>'
+        = level
+    .place
+      .text= place
+    .city_district
+      .text!= city + '<br>'
+        = district
+    .bet
+      .text= bet
+    .price
+      .text= price
 
   .details_block
     +line('Категория ученика:', category_pupil, 'dark')

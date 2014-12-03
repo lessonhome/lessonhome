@@ -30,7 +30,9 @@ class Server
 
     return Q()
   handler : (req,res)=>
-    console.log "request #{req.headers.host}#{req.url}"
+    console.log "#{req.method} \t#{req.headers.host}#{req.url}"
+    req.time = new Date().getTime()
+    res.on 'finish', => console.log "time\t#{new Date().getTime() - req.time}ms\n"
     site = ""
     host = req.headers.host
     if @domains.text[host]?

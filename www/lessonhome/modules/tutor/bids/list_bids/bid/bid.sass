@@ -4,6 +4,7 @@ $red: 29px
 
 .bid
   .basic_block
+    height : 70px
     border-radius : 4px
     background-color : rgb( 243, 243, 243 )
 
@@ -11,24 +12,23 @@ $red: 29px
       +inline-block
       text-align : center
       border-right : 1px solid rgba(0,0,0,0.17)
+      height : 100%
 
-    .number_date
-      width : 124px
+    div:after
+      content : ''
+      +inline-block
+      vertical-align : middle
+      height : 100%
+      width : 0px
 
+    .number_date, .subject_level, .place, .city_district, .bet, .price
+      .text
+        +inline-block
+        vertical-align : middle
     .subject_level
-      width : 175px
-
+      width : 150px
     .place
-      width : 74px
-
-    .city_district
-      width : 131px
-
-    .bet
-      width : 79px
-
-    .price
-      width : 64px
+      width : 96px
 
   .details_block
     width : 460px

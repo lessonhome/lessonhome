@@ -1,3 +1,8 @@
+mixin selected_course(title)
+  .course
+    .text=title
+    .delete
+
 mixin info_block(block_class, title, value)
   div(class=block_class)
     .m-title.g-font-bidsFilters=title
@@ -23,6 +28,15 @@ mixin info_block(block_class, title, value)
 .line
 .center_block
   .advanced_search
+    .title.g-font-bidTitles Расширенный поиск
+    .content
+      .course
+        .arrow
+        .text Курс
+      .courses_list!= courses_list
+      .selected_courses
+        +selected_course('Олимпиада')
+
   .list_bids!= list_bids
 
 
