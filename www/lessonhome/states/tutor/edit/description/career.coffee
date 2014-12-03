@@ -11,22 +11,13 @@ class @main extends template 'tutor/template/template'
         'Медиа'       : 'media'
       active_item : 'Карьера'
     content : module 'tutor/edit/description/career' :
-      place_of_work : module 'tutor/template/forms/input' :
-        width : @parent.tree.vars.input_width1
-
-      post : module 'tutor/template/forms/input' :
-        width : @parent.tree.vars.input_width1
-
+      place_of_work : module 'tutor/template/forms/input'
+      post : module 'tutor/template/forms/input'
       add_button : module 'tutor/template/button' :
         text  : '+ Добавить'
         type  : 'fixed'
-
-      experience_tutoring : module 'tutor/template/forms/drop_down_list' :
-        width : @parent.tree.vars.input_width1
-
-      number_of_students : module 'tutor/template/forms/drop_down_list' :
-        width : @parent.tree.vars.input_width1
-
+      experience_tutoring : module 'tutor/template/forms/drop_down_list'
+      number_of_students : module 'tutor/template/forms/drop_down_list'
       extra_info : module 'tutor/template/forms/textarea' :
         height : '82px'
 
@@ -59,6 +50,10 @@ class @main extends template 'tutor/template/template'
       @parent.tree.left_menu.items[i].href = href
 
     @parent.tree.left_menu.setActive 'Анкета'
+
+    for key,val of @tree.content
+      val.width = @parent.tree.vars.input_width1
+
 
 
 
