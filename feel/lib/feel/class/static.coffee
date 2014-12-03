@@ -13,7 +13,7 @@ class Static
       return @res404 req,res unless m
     hash  = m[1]
     path  = "./www/#{site}/static/#{m[2]}.#{m[3]}"
-    console.log 'GET ',path
+    console.log "file\t#{m[2]}.#{m[3]}"
     ext   = m[3]
     if @files[path]?
       return @write @files[path],req,res

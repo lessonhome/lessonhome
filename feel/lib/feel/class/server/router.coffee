@@ -9,17 +9,18 @@ class Router
       reg   : []
   init : =>
     for statename,state of @site.state
-      if state.state.route
-        if typeof state.state.route == 'string'
-          @url.text[state.state.route] = statename
-        else if state.state.route instanceof RegExp
-          @url.reg.push [state.state.route,statename]
-        else if state.state.route.length
-          for route in state.state.route
-            if typeof route == 'string'
-              @url.text[route] = statename
-            else if route instanceof RegExp
-              @url.reg.push [route,statename]
+      route = state.class::route
+      if route
+        if typeof route == 'string'
+          @url.text[route] = statename
+        else if route instanceof RegExp
+          @url.reg.push [route,statename]
+        else if route.length
+          for r in route
+            if typeof r == 'string'
+              @url.text[r] = statename
+            else if r instanceof RegExp
+              @url.reg.push [r,statename]
             
   handler : (req,res)=>
     if req.url.match /^\/file\/.*/

@@ -1,0 +1,5 @@
+
+
+
+class @omg
+  constructor : ->

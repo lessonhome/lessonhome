@@ -20,8 +20,10 @@ class module.exports
     @jade       = {}
     @css        = {}
     @coffee     = {}
+    @js         = {}
     @allCss     = ""
     @allCoffee  = ""
+    @allJs      = ""
 
   init : =>
     Q()
@@ -161,15 +163,46 @@ class module.exports
           console.error e
           throw new Error "failed read coffee in module #{@name}: #{file.name}(#{path})",e
         @newCoffee[filename] = src
+      if file.ext == 'js'
+        src = ""
+        try
+          src = fs.readFileSync file.path
+        catch e
+          console.error e
+          throw new Error "failed read js in module #{@name}: #{file.name}(#{path})",e
+        @newCoffee[filename] = src
     @coffee     = @newCoffee
     @allCoffee  = "(function(){ var arr = {};"
     num = 0
     for name,src of @coffee
-      m = name.match /^(.*)\.coffee/
+      m = name.match /^(.*)\.(coffee|js)/
       if m
         num++
         @allCoffee += "(function(){ #{src} }).call(arr);"
     @allCoffee += "return arr; })()"
     @allCoffee = "" unless num
+
+    return Q()
+  makeJs  : =>
+    @newJs = {}
+    for filename, file of @files
+      if file.ext == 'js'
+        src = ""
+        try
+          src = fs.readFileSync file.path
+        catch e
+          console.error e
+          throw new Error "failed read js in module #{@name}: #{file.name}(#{path})",e
+        @newJs[filename] = src
+    @js     = @newJs
+    @allJs  = "(function(){ var arr = {};"
+    num = 0
+    for name,src of @js
+      m = name.match /^(.*)\.js/
+      if m
+        num++
+        @allJs += "(function(){ #{src} }).call(arr);"
+    @allJs += "return arr; })()"
+    @allJs  = "" unless num
 
     return Q()
