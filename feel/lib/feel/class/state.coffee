@@ -12,7 +12,7 @@ class module.exports
     @sdepend  = {}
     
   init : =>
-    return unless @name.match /^test.*/
+    #return unless @name.match(/^test.*/) || @name.match(/^dev.*/)
     console.log "state #{@name}"
     try
       src = coffee._compileFile @path
@@ -24,6 +24,7 @@ class module.exports
       'module'
       'state'
       'template'
+      'exports' # fix module.exports to undefined, use @exports instead
       'extend'
     ]
     that = @

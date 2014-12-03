@@ -1,5 +1,6 @@
 
-@route = '/urls'
+class @main
+  route :  '/urls'
+  tree : => module 'dev/urls' :
+    urls : $urls.text
 
-@struct = module 'dev/urls':
-  urls : $urls.text

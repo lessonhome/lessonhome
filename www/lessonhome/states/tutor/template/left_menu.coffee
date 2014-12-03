@@ -8,7 +8,7 @@
     module '//item' :
       title : 'Заявки'
       item_class : 'bids'
-      href : 'bids'
+      href : 'search_bids'
 
     module '//item' :
       title : 'Оплата'
@@ -36,4 +36,9 @@
       href : '#'
 
   ]
-  active_item : 'Анкета'
+  setActive : (title)->
+    for item in @items
+      item.active = item.title == title
+
+
+

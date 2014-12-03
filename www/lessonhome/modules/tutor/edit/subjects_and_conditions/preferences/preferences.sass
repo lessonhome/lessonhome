@@ -1,29 +1,38 @@
+@import compass/css3
+
 main
   overflow : hidden
-  margin-bottom: 50px
+  min-width : 800px
 
 .header
-  text-align : center
-  margin-bottom : 25px
+  padding-left  : 50px
+  margin-bottom : 55px
 
 .hint
-  width : 144px
-  margin-left : 75px
+  width : 165px
+  margin-left : 85px
   float : left
 
 .select_block
   overflow : hidden
-  padding-left : 78px
+  +inline-block
+  margin-left : 78px
 
-  .block
-    margin-bottom : 10px
+  .sex, .category, .status
+    overflow : hidden
+    padding-bottom : 15px
 
     .title
-      float : left
-      width : 100px
+      padding-right: 25px
+      box-sizing: border-box
+      float : right
+      text-align : right
 
     .value
-      overflow : hidden
+      float : right
+
+  .status
+    padding-bottom : 0
 
   .button_block
     margin-top  : 25px
@@ -32,3 +41,6 @@ main
 
     .button
       float : right
+
+
+

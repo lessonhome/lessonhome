@@ -4,7 +4,7 @@
 
 @struct.header.top_menu.items =
   'Описание'           : 'general'
-  'Предметы и условия' : 'subjects'
+  'Условия' : 'subjects'
 
 @struct.header.top_menu.active_item = 'Описание'
 
@@ -21,19 +21,16 @@
 @struct.sub_top_menu?.active_item = 'Медиа'
 
 
-@struct.left_menu.items = {
-  'Анкета': '../profile'
-  'Заявки': '../bids'
-  'Оплата': '#'
-  'Документы': '#'
-  'Форум': '#'
-  'Статьи': '#'
-  'Поддержка': '#'
-}
 
-@struct.left_menu.active_item = 'Анкета'
+@left_menu_href = ['../profile', '../bids', '#', '#', '#', '#', '#']
+for href,i in @left_menu_href
+  @struct.left_menu.items[i].href = href
+
+@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
+
 
 @struct.content = module 'tutor/edit/description/media':
+
   photos : [
 
     module 'mime/photo' :
@@ -55,6 +52,19 @@
     module 'mime/video' :
       src : '#'
   ]
+
+  number_of_photos : 4
+  number_of_videos : 2
+
+  add_photos : module 'tutor/template/button' :
+    text  : '+ Добавить'
+    type  : 'fixed'
+    color : 'rgb( 137, 209, 255 )'
+
+  add_videos : module 'tutor/template/button' :
+    text  : '+ Добавить'
+    type  : 'fixed'
+
 
   hint : module 'tutor/template/hint' :
     type : 'horizontal'

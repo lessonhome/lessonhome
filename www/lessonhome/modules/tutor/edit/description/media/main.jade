@@ -1,14 +1,18 @@
-.photo_block
+.photos_block
   .text Фотографии
-  .add Добавить новые фотографии
-  each value in photos
-    .tutor_added_photo!= value
+  .add!= add_photos
+  .number У вас #{number_of_photos} фото
+  .photos
+    each value in photos
+      .photo!= value
 
-.video_block
+.videos_block
   .text Видео
-  .add Добавить новые видеозаписи
-  each value in videos
-    .tutor_added_video!= value
+  .add!= add_videos
+  .number У вас #{number_of_videos} видео
+  .videos
+    each value in videos
+      .video!= value
 
 
-.hint!= hint
+//-.hint!= hint

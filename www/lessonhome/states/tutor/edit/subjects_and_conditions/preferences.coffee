@@ -4,9 +4,9 @@
 
 @struct.header.top_menu.items =
   'Описание'           : 'general'
-  'Предметы и условия' : 'subjects'
+  'Условия' : 'subjects'
 
-@struct.header.top_menu.active_item = 'Предметы и условия'
+@struct.header.top_menu.active_item = 'Условия'
 
 @struct.sub_top_menu = state 'tutor/template/sub_top_menu'
 
@@ -19,22 +19,17 @@
 @struct.sub_top_menu.active_item = 'Предпочтения'
 
 
-@struct.left_menu.items = {
-  'Анкета': '../profile'
-  'Заявки': '../bids'
-  'Оплата': '#'
-  'Документы': '#'
-  'Форум': '#'
-  'Статьи': '#'
-  'Поддержка': '#'
-}
+@left_menu_href = ['../profile', '../bids', '#', '#', '#', '#', '#']
+for href,i in @left_menu_href
+  @struct.left_menu.items[i].href = href
 
-@struct.left_menu.active_item = 'Анкета'
+@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
+
 
 @struct.content = module 'tutor/edit/subjects_and_conditions/preferences':
   sex  : module 'tutor/template/choice' :
     id : 'sex'
-    indent : '79px'
+    indent : '75px'
     choice_list : [
       module 'tutor/template/button' :
         text  : 'М'

@@ -1,8 +1,33 @@
-.left-content
+mixin info_line (title, value)
+  .separate_box
+    .title= title
+    .value= value
+    //----this variables data takes in states------//
+    != line
+
+mixin section_box (value, title)
+  //---class end on - NAME_box'
+  div(class=title + '_box')
+    .icon_box
+      .icon
+    //--module variable
+    !=value
+
+//----------------------------content--------------------------------//
+.info_data
+  .person_box
     .photo!= photo
     .progress!= progress
-.right-content
-    .personal_data!= personal_data
-    .contacts!= contacts
-    .education!= education
-    .private!= private
+  .personal_data!= personal_data
+
++info_line('Контакты :', 'ред')
++section_box (contacts, 'contacts')
+
++info_line('Образование :', 'ред')
++section_box (education, 'education')
+
++info_line('О себе :', 'ред')
++section_box (private, 'private')
+
++info_line('Медиа :', 'ред')
++section_box (media, 'media')

@@ -1,69 +1,146 @@
+@import compass/css3
+
 main
   overflow : hidden
-  width : 600px
-  margin  : 50px auto 0
+  padding  : 15px 0 200px 0
+  text-align : center
 
-.subject, .sections, .destinations, .category_students, .group_lessons, .comments
-  overflow : hidden
-  margin-bottom : 10px
+.block
+  display : inline-block
 
-  .title
-    width : 200px
-    float : left
-    padding-right : 40px
-    box-sizing : border-box
-
-    text-align : right
-    word-wrap  : break-word
-
-  .value
+  .subject, .sections, .destinations, .category_students, .group_lessons, .comments, .location_block, .location_block>.value>.price
     overflow : hidden
+    padding-bottom : 15px
+
+    .m-title
+      padding-right: 55px
+      box-sizing: border-box
+      float : right
+      text-align : right
+
+    .value
+      float : right
+
+
+  .location_block
+    position : relative
+    overflow : visible
+
+    .value
+      .location, .price, .add_location
+        +inline-block
+      .price
+        padding : 0
+        .m-title
+          padding-left :  15px
+          padding-right : 20px
+
+      .add_location
+        position : absolute
+        top : 0
+        right : -60px
+
+  .location_block:after
+    content		: "."
+    visibility	: hidden
+    display		: block
+    height		: 0
+    clear		: both
+
+
+  .group_lessons>.value
+    .pupils_number, .bet
+      +inline-block
 
     .pupils_number
-      float : left
-      margin-right : 65px
+      margin-right : 35px
 
-    .bet
-      overflow: hidden
+  .comments
+    padding-bottom : 0px
+    .value
+      width : 335px
 
-/* -------------------------------------------------------------------- */
+  .button_block
+    overflow      : hidden
 
-.location_block
-  margin-bottom:  10px
+    .add_button, .save_button
+      float : right
 
-  .location
+    .add_button
+      margin-top : 20px
+      margin-bottom : 15px
+
+
+
+
+
+//-
+  main
+    overflow : hidden
+    width : 600px
+    margin  : auto
+
+  .subject, .sections, .destinations, .category_students, .group_lessons, .comments
+    overflow : hidden
+    margin-bottom : 10px
+
     .title
       width : 200px
-      padding-right : 40px
-
-  .price
-    .title
-      width : 100px
-      padding-right : 22px
-
-  .location, .price
-    display : inline-block
-    .title
       float : left
+      padding-right : 40px
       box-sizing : border-box
+
       text-align : right
       word-wrap  : break-word
 
     .value
       overflow : hidden
 
+      .pupils_number
+        float : left
+        margin-right : 65px
 
-  .add_location
-    margin-left : 22px
-    display : inline-block
+      .bet
+        overflow: hidden
 
-/*-----------------------*/
+  /* -------------------------------------------------------------------- */
 
-.button_block
-  width    : 535px
-  overflow : hidden
-  margin-bottom : 10px
+  .location_block
+    margin-bottom:  10px
 
-  .add_button, .save_button
-    float : right
+    .location
+      .title
+        width : 200px
+        padding-right : 40px
+
+    .price
+      .title
+        width : 100px
+        padding-right : 22px
+
+    .location, .price
+      display : inline-block
+      .title
+        float : left
+        box-sizing : border-box
+        text-align : right
+        word-wrap  : break-word
+
+      .value
+        overflow : hidden
+
+
+    .add_location
+      margin-left : 22px
+      display : inline-block
+
+  /*-----------------------*/
+
+  .button_block
+    width    : 535px
+    overflow : hidden
+    margin-bottom : 10px
+
+    .add_button, .save_button
+      float : right
 

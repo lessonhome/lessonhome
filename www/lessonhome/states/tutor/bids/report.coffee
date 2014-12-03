@@ -1,8 +1,17 @@
-@route = '/tutor/bids/report'
+@route = '/tutor/report'
 
 @struct = state 'tutor/template/template'
 
-@struct.content = module 'tutor/bids/pages/report' :
+
+@left_menu_href = ['../profile', '../bids', '#', '#', '#', '#', '#']
+for href,i in @left_menu_href
+  @struct.left_menu.items[i].href = href
+
+@struct.left_menu.setActive.call(@struct.left_menu,'Заявки')
+
+
+
+@struct.content = module 'tutor/bids/report' :
   hint : module 'tutor/template/hint' :
     type : 'horizontal'
     header : 'Это подсказка'
@@ -26,7 +35,7 @@
 
   ]
 
-  titles : module 'tutor/bids/title_bids' :
+  titles : module 'tutor/bids/list_bids/titles_bid' :
     number_date   : 'Номер/Дата'
     subject_level : 'Предмет/Уровень'
     place         :'Место'
@@ -37,7 +46,7 @@
     payment       : 'Оплата'
 
   working_bids : [
-    module 'tutor/bids/pages/report/report_bid' :
+    module 'tutor/bids/report/report_bid' :
       number   : 25723
       date     : "10 ноября"
       subject  : 'Физика'
@@ -50,7 +59,7 @@
       status   : 'Принять/Отклонить'
       payment  : '#'
 
-      report_block : module 'tutor/bids/pages/report/report_bid/report_block' :
+      report_block : module 'tutor/bids/report/report_bid/report_block' :
         additional_info : undefined
         name   : 'Дудко Артемий Львович'
         data : [
@@ -70,7 +79,6 @@
 
   ]
 
-@struct.left_menu.items = { 'Анкета': '../profile', 'Заявки': '../bids', 'Оплата': '#', 'Документы': '#', 'Форум': '#', 'Статьи': '#', 'Поддержка': '#' }
-@struct.left_menu.active_item = 'Заявки'
-@struct.header.top_menu.items = {'Поиск' : '../bids', 'Заказы' : 'orders', 'Заявки' : 'sub_bids', 'Отчёт' : 'report'}
+
+@struct.header.top_menu.items = {'Поиск' : 'search_bids', 'Входящие' : 'in_bids', 'Исходящие' : 'out_bids', 'Отчёт' : 'report'}
 @struct.header.top_menu.active_item = 'Отчёт'

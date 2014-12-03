@@ -2,6 +2,8 @@
 
 @struct = state 'tutor/template/template'
 
+@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
+
 @struct.content = module 'tutor/profile/subjects_and_conditions':
 
 ###############################################################################################
@@ -44,9 +46,15 @@
     comments : 'Олимпиадные задачи школьного уровня, операционные системы'
     group_lessons : 'до 5 человек, по 1000 р.'
     duration_lesson : '60-90 минут'
+    line : module 'tutor/template/separate_line':
+      type : 'details_data_line'
+
+  ##############################################################################################
+  line : module 'tutor/template/separate_line':
+    type : 'horizon'
 
 
-@struct.header.top_menu.active_item = 'Предметы и условия'
+@struct.header.top_menu.active_item = 'Условия'
 
 
 

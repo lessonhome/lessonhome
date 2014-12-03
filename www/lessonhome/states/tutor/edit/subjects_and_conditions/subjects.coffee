@@ -4,9 +4,9 @@
 
 @struct.header.top_menu.items =
   'Описание'           : 'general'
-  'Предметы и условия' : 'subjects'
+  'Условия' : 'subjects'
 
-@struct.header.top_menu.active_item = 'Предметы и условия'
+@struct.header.top_menu.active_item = 'Условия'
 
 @struct.sub_top_menu = state 'tutor/template/sub_top_menu'
 
@@ -19,17 +19,13 @@
 @struct.sub_top_menu.active_item = 'Предметы'
 
 
-@struct.left_menu.items = {
-  'Анкета': '../profile'
-  'Заявки': '../bids'
-  'Оплата': '#'
-  'Документы': '#'
-  'Форум': '#'
-  'Статьи': '#'
-  'Поддержка': '#'
-}
+@left_menu_href = ['../profile', '../bids', '#', '#', '#', '#', '#']
+for href,i in @left_menu_href
+  @struct.left_menu.items[i].href = href
 
-@struct.left_menu.active_item = 'Анкета'
+@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
+
+
 
 @struct.content = module 'tutor/edit/subjects_and_conditions/subjects':
   subject : module 'tutor/template/forms/drop_down_list' :
@@ -45,29 +41,27 @@
     width : @struct.vars.input_width1
 
   location : module 'tutor/template/forms/drop_down_list' :
-    width : '150px'
+    width : '180px'
 
   location_add : module 'tutor/template/button' :
     text  : '+'
 
   price : module 'tutor/template/forms/drop_down_list' :
-    width : '85px'
+    width : '70px'
 
   add_location : module 'tutor/template/button' :
     text  : '+'
-    type : 'streamlined'
+    type : 'add'
 
-  group_lessons : [
-    module 'tutor/template/forms/drop_down_list' :
-      width : '150px'
 
-    module 'tutor/template/forms/drop_down_list' :
-      width : '120px'
-  ]
+  pupils_number : module 'tutor/template/forms/drop_down_list' :
+    width : '180px'
+
+  bet : module 'tutor/template/forms/drop_down_list' :
+    width : '120px'
 
   comments : module 'tutor/template/forms/textarea' :
     id     : 'comments'
-    width  : @struct.vars.input_width1
     height : '82px'
 
 

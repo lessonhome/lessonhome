@@ -4,18 +4,19 @@ mixin edit_block (title)
   .edit_block
     .title= title+':'
     .edit_btn редактировать
+    != line
 
 mixin info_block ( title, array )
   .info_block
-    .title= title+':'
-    .value
-      - var first = true;
-      each value in array
-        if first
-          =value
-          - first = false;
-        else
-          =', '+value
+      span.title= title+':'
+      span.value
+        - var first = true;
+        each value in array
+          if first
+            =value
+            - first = false;
+          else
+            =', '+value
 
 
 //- ---------------------------------------------------------------------------------
@@ -27,8 +28,8 @@ mixin info_block ( title, array )
 +info_block ('Выезд', outside_work_areas)
 +info_block ('Удалённо', distance_work)
 
-+edit_block ('Предметы')
-
-.subject!=subject
-.details_data!=details_data
+.subject_details_data
+  +edit_block ('Предметы')
+  .subject!=subject
+  .details_data!=details_data
 

@@ -4,9 +4,9 @@
 
 @struct.header.top_menu.items =
   'Описание'           : 'general'
-  'Предметы и условия' : 'subjects'
+  'Условия' : 'subjects'
 
-@struct.header.top_menu.active_item = 'Предметы и условия'
+@struct.header.top_menu.active_item = 'Условия'
 
 @struct.sub_top_menu = state 'tutor/template/sub_top_menu'
 
@@ -19,25 +19,51 @@
 @struct.sub_top_menu?.active_item = 'Календарь'
 
 
-@struct.left_menu.items = {
-  'Анкета': '../profile'
-  'Заявки': '../bids'
-  'Оплата': '#'
-  'Документы': '#'
-  'Форум': '#'
-  'Статьи': '#'
-  'Поддержка': '#'
-}
 
-@struct.left_menu.active_item = 'Анкета'
+@left_menu_href = ['../profile', '../bids', '#', '#', '#', '#', '#']
+for href,i in @left_menu_href
+  @struct.left_menu.items[i].href = href
+
+@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
+
 
 @struct.content = module 'tutor/edit/subjects_and_conditions/calendar':
-  dates : '#'
-  hint : module 'tutor/template/hint' :
-    type : 'vertical'
-    header : 'Это подсказка'
-    text : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит'
+  time_entry_fields : [
+    module '//time_entry_field' :
+      input_from : module 'tutor/template/forms/input' :
+        width : '65px'
 
-  button : module 'tutor/template/button' :
-    text  : 'Сохранить'
-    type  : 'fixed'
+      input_to : module 'tutor/template/forms/input' :
+        width : '65px'
+
+      text_input : module 'tutor/template/forms/input' :
+        width : '210px'
+
+    module '//time_entry_field' :
+      input_from : module 'tutor/template/forms/input' :
+        width : '65px'
+
+      input_to : module 'tutor/template/forms/input' :
+        width : '65px'
+
+      text_input : module 'tutor/template/forms/input' :
+        width : '210px'
+
+
+    module '//time_entry_field' :
+      input_from : module 'tutor/template/forms/input' :
+        width : '65px'
+
+      input_to : module 'tutor/template/forms/input' :
+        width : '65px'
+
+      text_input : module 'tutor/template/forms/input' :
+        width : '210px'
+
+
+  ]
+
+
+  add_button : module 'tutor/template/button' :
+    text  : '+'
+    type  : 'add'

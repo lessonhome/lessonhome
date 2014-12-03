@@ -1,0 +1,41 @@
+@import compass/css3
+
+main
+  width : 228px
+  height : 99px
+  box-sizing : border-box
+  padding : 10px 0
+
+  border-radius : 4px
+  background-color : rgb( 223, 225, 228 )
+
+.up_block
+  margin-bottom : 10px
+  overflow : hidden
+
+  .time
+    float : left
+
+    div
+      +inline-block
+
+    .title_from, .title_to
+      font-size : 15px
+      font-family : "OpenSans", sans-serif
+      color : rgb( 55, 51, 49 )
+
+    .title_from
+      margin : 0 12px 0 5px
+
+    .title_to
+      margin : 0 5px 0 8px
+
+  .delete
+    width : 15px
+    height : 15px
+    +inline-block
+    background-color : #4b5e6e
+    margin-left : 15px
+
+.down_block
+  text-align : center

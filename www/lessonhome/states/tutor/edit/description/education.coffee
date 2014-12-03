@@ -4,14 +4,14 @@
 
 @struct.header.top_menu.items =
   'Описание'           : 'general'
-  'Предметы и условия' : 'subjects'
+  'Условия' : 'subjects'
 
 @struct.header.top_menu.active_item = 'Описание'
 
 @struct.sub_top_menu = state 'tutor/template/sub_top_menu'
 
 @struct.sub_top_menu.items =
-  'Общие'       : '#'
+  'Общие'       : 'general'
   'Контакты'    : 'contacts'
   'Образование' : 'education'
   'Карьера'     : 'career'
@@ -21,17 +21,14 @@
 @struct.sub_top_menu?.active_item = 'Образование'
 
 
-@struct.left_menu.items = {
-  'Анкета': '../profile'
-  'Заявки': '../bids'
-  'Оплата': '#'
-  'Документы': '#'
-  'Форум': '#'
-  'Статьи': '#'
-  'Поддержка': '#'
-}
 
-@struct.left_menu.active_item = 'Анкета'
+@left_menu_href = ['../profile', '../bids', '#', '#', '#', '#', '#']
+for href,i in @left_menu_href
+  @struct.left_menu.items[i].href = href
+
+@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
+
+
 
 @struct.content = module 'tutor/edit/description/education' :
   country : module 'tutor/template/forms/drop_down_list' :

@@ -1,0 +1,42 @@
+mixin selected_course(title)
+  .course
+    .text=title
+    .delete
+
+mixin info_block(block_class, title, value)
+  div(class=block_class)
+    .m-title.g-font-bidsFilters=title
+    .value!= value
+
+.filters
+  .left_block
+    +info_block('subject', 'Предмет:', subject_list)
+    +info_block('saved_filters', 'Сохранённые фильтры:', saved_filters)
+    .button_block
+      .save_button!= save_button
+
+  .right_block
+    +info_block('place', 'Место:', place)
+    +info_block('your_address', 'Ваш адрес:', address_list)
+    .road_time
+      .m-title.g-font-bidsFilters Время на дорогу
+      .value
+        .m-title.g-font-bidsFilters до
+        .time!= road_time
+        .m-title.g-font-bidsFilters мин.
+
+.line
+.center_block
+  .advanced_search
+    .title.g-font-bidTitles Расширенный поиск
+    .content
+      .course
+        .arrow
+        .text Курс
+      .courses_list!= courses_list
+      .selected_courses
+        +selected_course('Олимпиада')
+
+  .list_bids!= list_bids
+
+

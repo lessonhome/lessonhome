@@ -1,0 +1,37 @@
+mixin line (title, value, type)
+  .line(class=type)
+    .title!= title
+    .value.g-font-bidTitles!= value
+
+.bid
+  .basic_block
+    .number_date
+      .text!= number + '<br>'
+        = date
+    .subject_level
+      .text!= subject + '<br>'
+        = level
+    .place
+      .text= place
+    .city_district
+      .text!= city + '<br>'
+        = district
+    .bet
+      .text= bet
+    .price
+      .text= price
+
+  .details_block
+    +line('Категория ученика:', category_pupil, 'dark')
+    +line('Направление подготовки:', training_direction, 'light' )
+    +line('Количество занятий:', number_of_lessons, 'dark' )
+    +line('Пожелания:', wishes, 'light' )
+    +line('Ближайшее метро:', near_metro, 'dark' )
+    +line('Комментарии:', comments, 'light' )
+    +line('Цель занятия:', lesson_goal, 'dark' )
+
+
+
+
+
+

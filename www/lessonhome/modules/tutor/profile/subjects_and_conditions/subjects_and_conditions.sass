@@ -1,65 +1,58 @@
+$background_edit_block : #ffffff
+$padding_text : 20px
+
+
 main
   overflow : hidden
+  padding: 50px 5% 30px 5%
 
 /*-----------------------------------------------*/
-.edit_block
-  width : 91.3%
-  margin-left : 5.8%
-  margin-top : 15px
-  margin-bottom : 15px
+
+.edit_block, .subject_details_data > .edit_block
+  position: relative
+  margin-bottom: 10px
   overflow : hidden
-
   .title
-    width : 80%
     float : left
-    border-bottom : 3px solid rgba(99, 77, 30, 0.15)
-
+    position: relative
+    z-index: 1
+    background: $background_edit_block
+    padding-right: $padding_text
   .edit_btn
-    width : 20%
-    margin-left : 80%
-    margin-top : 7px
+    float : right
+    position: relative
+    z-index: 1
+    background: $background_edit_block
+    padding-left: $padding_text
 
 /*-----------------------------------------------*/
-
 
 .info_block
-  height : 40px
-  padding-left : 29px
-  overflow : hidden
-  background-color: rgba(36, 37, 58, 0.06)
+  height : 30px
+  line-height: 30px
 
   .title
-    width : 10%
-    float : left
-    margin-right : 29px
-    text-align : right
-
-  .value
-    width : 80%
-    margin-left : 10%
-
-  .title, .value
-    margin-top : 20px
+    padding: 0 50px
 
 /*----------------------------------------------------*/
 
-.address_and_free_time, .info_block, .subject, .details_data
-  width : 88.4%
-  margin : auto
-  overflow : hidden
+.subject_details_data
+  padding: 60px 0 0 0
 
-.address_and_free_time
-  margin-bottom : 20px
+  .subject
+    height: 60px
+    line-height: 60px
+    background: #E2E7EC
+
+  .details_data
+    margin: 0 10px
+    background: #f3f3f3
+    padding: 30px
+    position: relative
+
+
 
 /*----------------------------------------------------*/
-
-.details_data
-  margin-bottom: 143px
-
-/*----------------------------------------------------*/
-
-.subject
-  margin-bottom : 20px
 
 
 

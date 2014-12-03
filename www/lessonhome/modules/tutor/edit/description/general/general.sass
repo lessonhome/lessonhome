@@ -1,22 +1,35 @@
+@import compass/css3
+
 main
   overflow : hidden
-  margin-bottom : 50px
+  padding  : 15px 0 110px 0
   text-align : center
 
 .block
   display : inline-block
 
-  .first_name, .second_name, .patronymic, .date_of_birth, .right
+  .first_name, .second_name, .patronymic, .date_of_birth, .status
     overflow  : hidden
-    margin-bottom : 10px
+    padding-bottom : 15px
 
     .value
-      overflow : hidden
       float : right
+
+  .date_of_birth>.value
+    .day, .month, .year
+      +inline-block
+
+    .day, .month
+      margin-right : 17.5px
+
+  .status
+    padding-bottom : 20px
+
 
   .sex
     position: relative
     overflow: hidden
+    padding-bottom : 15px
 
     .right
       position: relative
@@ -28,7 +41,7 @@ main
         text-align : right
         box-sizing : border-box
         display: inline-block
-        margin-bottom : 10px
+
       .male
         float : left
       .female
@@ -37,26 +50,18 @@ main
 
   .button_block
     overflow      : hidden
-    margin-bottom : 10px
 
     .save_button
       float : right
       text-align : right
 
 .m-title
-  padding-right : 40px
+  padding-right : 55px
   box-sizing : border-box
   float : right
   text-align : right
 
-.line
-  background-color : rgba(178,178,178,0.27)
-  height : 2px
-  border-radius : 1px
-  width: 80%
-  text-align: center
-  margin: 30px auto
 
 .hint
-  width : 80%
-  margin: 50px auto auto
+  width  : 80%
+  margin : 75px auto 0 auto

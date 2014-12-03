@@ -2,25 +2,24 @@
 
 main
   overflow : hidden
-  margin-bottom : 50px
+  padding  : 15px 0 20px 0
   text-align : center
 
 
 .block
-  display : inline-block
+  +inline-block
 
   .country, .city, .university, .faculty, .chair, .status, .date
     overflow : hidden
-    margin-bottom : 10px
+    padding-bottom : 15px
 
     .m-title
-      padding-right : 40px
+      padding-right : 55px
       box-sizing : border-box
       float : right
       text-align : right
 
     .value
-      overflow : hidden
       float : right
 
 
@@ -33,9 +32,10 @@ main
 
   .button_block
     overflow      : hidden
-    margin-bottom : 10px
+    margin-bottom : 20px
+    margin-top : 5px
 
-    .save_button
+    .add_button, .save_button
       float : right
 
 /*---------------------------------------------------------*/
@@ -43,4 +43,4 @@ main
 .hint
   width : 80%
   margin : auto
-  margin-top : 50px
+  margin-top    : 60px

@@ -1,29 +1,26 @@
 @import compass/css3
 
-main
-  overflow : hidden
-
-$height: 50px
-$margin: 5px
+$heightSectionMenu: 50px
+$heightIcon: 40px
+$margin: ($heightSectionMenu - $heightIcon)/2
 
 div
-  overflow : hidden
-  height : $height
+  height : $heightSectionMenu
   a
     overflow : hidden
     display  : block
     height: 100%
+    text-decoration: none
 
     .icon
-      width  : $height - $margin *2
-      height : $height - $margin *2
+      width  : $heightIcon
+      height : $heightIcon
       float  : left
-      margin : $margin 24px $margin 38px
+      margin : $margin 24px $margin 28px
 
     .title
-      overflow : hidden
-      +inline-block
-      line-height: $height
+      float: left
+      line-height: $heightSectionMenu
 
       color : #4b5e6e
 
@@ -31,13 +28,13 @@ div
 /*------------------------------------------------------------*/
 
 .profile>a>.icon
-  background : inline-image('left_menu/normal_01-profile.png')
+  background : inline-image('left_menu/normal_01-profile.png') no-repeat
 
 .bids>a>.icon
-  background : inline-image('left_menu/normal_02-application.png')
+  background : inline-image('left_menu/normal_02-application.png') no-repeat
 
 .payment>a>.icon
-  background : inline-image('left_menu/normal_03-payment.png')
+  background : inline-image('left_menu/normal_03-payment.png') no-repeat
 
 .documents>a>.icon
   background : inline-image('left_menu/normal_04-documents.png') no-repeat
@@ -92,3 +89,20 @@ div
 /*--------------------------------------------------------------*/
 
 
+.profile.active, .bids.active
+  background : #fff
+  box-shadow : 0px 0px 6px rgba(0,0,0,0.26)
+  a
+    .title
+      color : #ed645e
+
+
+.profile.active a .icon
+  background : inline-image('left_menu/active_01-profile.png') no-repeat
+
+.bids.active a .icon
+  background : inline-image('left_menu/active_02-application.png') no-repeat
+
+
+
+/*-----------------------------------------------------------------*/

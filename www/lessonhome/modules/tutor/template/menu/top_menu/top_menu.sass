@@ -1,29 +1,32 @@
-$headerButton: 1.5em
-$paddingButton: 0.2em
+$hoverColor : #ff949b
+$activeColor : #ed645e
+$textColor : #4b5e6e
 main
-  height: 100%
+  overflow: hidden
+  line-height: 100px
 
-a > div
-  background: #E1E3E5
-  padding: $paddingButton
-  border-radius: 5px
-  font-size: $headerButton
-  position: relative
-  top: 50%
-  margin-top: -(($headerButton+$paddingButton)/2)
-  color : #fff
+//main > a :last-child
+  padding-right: 0
+
+//main > a :nth-child(-n+1)
+  padding-right: 0
+
+a[href='reviews']
+  padding-right: 0
+
 
 a
   float: left
-  padding: 0 10px
-  height: 100%
+  padding-right: 28px
   text-decoration : none
+  color : $textColor
 
-a .active
-  background : #29c5e6
+a.active
+  color : $activeColor
 
-a:hover div
-  background-color : #29c5e6
+a.passive:hover div
+  color : $hoverColor
+
 
 
 
