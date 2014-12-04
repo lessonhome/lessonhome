@@ -11,14 +11,16 @@ mixin section_box (value, title)
     .icon_box
       .icon
     //--module variable
-    !=value
+    div(class=title)!=value
 
 //----------------------------content--------------------------------//
 .info_data
   .person_box
     .photo!= photo
     .progress!= progress
-  .personal_data!= personal_data
+  .personal_data
+    .name!= name
+    != personal_data
 
 +info_line('Контакты :', 'ред')
 +section_box (contacts, 'contacts')

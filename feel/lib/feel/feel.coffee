@@ -146,3 +146,4 @@ class module.exports
           src = coffee._compileFile file
           n = ndir.match /^(.*)\.coffee$/
           @client[n[1]] = src
+

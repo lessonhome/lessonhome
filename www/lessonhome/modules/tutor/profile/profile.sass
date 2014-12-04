@@ -15,10 +15,17 @@ main
       height: 200px
       border-radius: 50%
     .progress
-      margin-top: 7px
+      width: 130px
+      height: 20px
+      margin: auto
   .personal_data
     margin-left: $widthMargin
     padding-left: 30px
+    .name
+      font-size: 30px
+      height: 53px
+      line-height: 23px
+
 
   //---------------line-------------//
 
@@ -30,6 +37,7 @@ $paddingText : 20px
   overflow: hidden
   line-height: $font-size
   margin-bottom: 20px
+  font-family: "Open Sans"
   .title
     padding-right: $paddingText
     float: left
@@ -37,7 +45,6 @@ $paddingText : 20px
     z-index: 1
     background: $backgroundText
     font-size: $font-size
-    font-family: "Open Sans"
     color: rgb(0, 0, 0)
   .value
     padding-left: $paddingText
@@ -45,6 +52,8 @@ $paddingText : 20px
     position: relative
     z-index: 1
     background: $backgroundText
+    font-size: 18px
+    color: rgb(117, 117, 117)
 
 //---------------------content-----------------------//
 
@@ -63,6 +72,9 @@ div>.icon_box
   overflow: hidden
   position: relative
   min-height: 150px
+.contacts_box>.contacts, .education_box>.education
+  margin-left: 200px
+  padding-left: 30px
 
 .media_box
   padding-bottom: 0

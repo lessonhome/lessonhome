@@ -62,6 +62,9 @@ class module.exports
     if !@state[name]?
       @state[name] = new State @, name
       @state[name].init()
+      if !@state[name].class?
+        delete @state[name]
+        #throw new Error "can't find @class in state #{name}, seems no class @main in state fail defined"
       return
     if !@state[name].inited
       throw new Error "create state '#{name}' circular depend"
