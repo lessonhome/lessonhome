@@ -6,7 +6,7 @@ mixin info_block(block_class, header, value)
 
 mixin switch_block (block_class, header, left_value, right_value)
   div(class=block_class)
-    .right(style="width:#{sex.width}")
+    .right.g-standardField
       .male!= left_value
       .female!= right_value
     .m-title.g-font-smallTitle= header
