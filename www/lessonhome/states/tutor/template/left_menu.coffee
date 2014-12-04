@@ -40,4 +40,6 @@ class @main
     setActive : (title)=>
       for item in @tree.items
         item.active = (item.title==title)
-
+    setLinks  : (links)=>
+      for link,i in links
+        @tree.items[i].href = link

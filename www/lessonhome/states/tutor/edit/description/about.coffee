@@ -1,4 +1,5 @@
 
+
 class @main extends template 'tutor/template/template'
   route : '/tutor/edit/about'
   tree : ->
@@ -26,13 +27,10 @@ class @main extends template 'tutor/template/template'
         text  : 'Сохранить'
         type : 'fixed'
   init : ->
-    @parent.tree.header.top_menu.active_item = 'Описание'
-    @parent.tree.header.top_menu.items =
-      'Описание'  : 'general'
-      'Условия'   : 'subjects'
-
-    left_menu_href = ['../profile', '../bids', '#', '#', '#', '#', '#']
-    for href,i in left_menu_href
-      @parent.tree.left_menu.items[i].href = href
+    @parent.setTopMenu 'Описание', {
+      'Описание': 'general'
+      'Условия': 'subjects'
+    }
 
     @parent.tree.left_menu.setActive 'Анкета'
+    @parent.tree.left_menu.setLinks ['../profile', '../bids', '#', '#', '#', '#', '#']

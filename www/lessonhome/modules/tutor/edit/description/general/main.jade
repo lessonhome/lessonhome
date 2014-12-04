@@ -1,6 +1,6 @@
 mixin info_block(block_class, header, value)
   div(class=block_class)
-    .value!= value
+    .value.g-standardField!= value
     .m-title.g-font-smallTitle= header
 
 
@@ -21,9 +21,9 @@ mixin switch_block (block_class, header, left_value, right_value)
 
   .date_of_birth
     .value
-      .day!= birth_day
-      .month!= birth_month
-      .year!= birth_year
+      .day.g-smallField!= birth_day
+      .month.g-smallField!= birth_month
+      .year.g-smallField!= birth_year
     .m-title.g-font-smallTitle Дата рождения
 
   +info_block('status', 'Статус:', status)

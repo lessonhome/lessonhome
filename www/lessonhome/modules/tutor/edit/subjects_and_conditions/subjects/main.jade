@@ -1,6 +1,6 @@
 mixin info_block(block_class, title, value)
   div(class=block_class)
-    .value!= value
+    .value.g-standardField!= value
     .m-title.g-font-smallTitle=title
 .block
   +info_block('subject', 'Предмет:', subject)

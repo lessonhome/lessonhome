@@ -1,6 +1,12 @@
 
+
+
+
 class @main
   tree : -> module 'tutor/template' :
+    depend        : [
+      module 'tutor/edit'
+    ]
     header        : state './header'
     left_menu     : state './left_menu'
     sub_top_menu  : @exports()   # define if exists
@@ -9,3 +15,6 @@ class @main
       input_width1 : '335px'
       input_width2 : '90px'
       input_width3 : '100px'
+  setTopMenu : (active, items)=>
+    @tree.header.top_menu.items        = items
+    @tree.header.top_menu.active_item  = active

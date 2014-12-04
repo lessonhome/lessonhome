@@ -1,75 +1,50 @@
-@route = '/tutor/edit/subjects'
+class @main extends template 'tutor/template/template'
+  route : '/tutor/edit/subjects'
+  tree : ->
+    sub_top_menu : state 'tutor/template/sub_top_menu' :
+      items :
+        'Предметы'     : 'subjects'
+        'Место'        : 'location'
+        'Календарь'    : 'calendar'
+        'Предпочтения' : 'preferences'
+      active_item : 'Предметы'
 
-@struct = state 'tutor/template/template'
+    content : module 'tutor/edit/subjects_and_conditions/subjects':
+      subject : module 'tutor/template/forms/drop_down_list'
+      sections : module 'tutor/template/forms/drop_down_list'
+      destinations : module 'tutor/template/forms/drop_down_list'
+      category_students : module 'tutor/template/forms/drop_down_list'
+      location : module 'tutor/template/forms/drop_down_list'
+      location_add : module 'tutor/template/button' :
+        text  : '+'
 
-@struct.header.top_menu.items =
-  'Описание'           : 'general'
-  'Условия' : 'subjects'
+      price : module 'tutor/template/forms/drop_down_list'
+      add_location : module 'tutor/template/button' :
+        text  : '+'
+        type : 'add'
 
-@struct.header.top_menu.active_item = 'Условия'
-
-@struct.sub_top_menu = state 'tutor/template/sub_top_menu'
-
-@struct.sub_top_menu?.items =
-  'Предметы'     : 'subjects'
-  'Место'        : 'location'
-  'Календарь'    : 'calendar'
-  'Предпочтения' : 'preferences'
-
-@struct.sub_top_menu.active_item = 'Предметы'
-
-
-@left_menu_href = ['../profile', '../bids', '#', '#', '#', '#', '#']
-for href,i in @left_menu_href
-  @struct.left_menu.items[i].href = href
-
-@struct.left_menu.setActive.call(@struct.left_menu,'Анкета')
-
-
-
-@struct.content = module 'tutor/edit/subjects_and_conditions/subjects':
-  subject : module 'tutor/template/forms/drop_down_list' :
-    width : @struct.vars.input_width1
-
-  sections : module 'tutor/template/forms/drop_down_list' :
-    width : @struct.vars.input_width1
-
-  destinations : module 'tutor/template/forms/drop_down_list' :
-    width : @struct.vars.input_width1
-
-  category_students : module 'tutor/template/forms/drop_down_list' :
-    width : @struct.vars.input_width1
-
-  location : module 'tutor/template/forms/drop_down_list' :
-    width : '180px'
-
-  location_add : module 'tutor/template/button' :
-    text  : '+'
-
-  price : module 'tutor/template/forms/drop_down_list' :
-    width : '70px'
-
-  add_location : module 'tutor/template/button' :
-    text  : '+'
-    type : 'add'
+      pupils_number : module 'tutor/template/forms/drop_down_list'
+      bet : module 'tutor/template/forms/drop_down_list'
+      comments : module 'tutor/template/forms/textarea' :
+        id     : 'comments'
+        height : '82px'
 
 
-  pupils_number : module 'tutor/template/forms/drop_down_list' :
-    width : '180px'
+      add_button : module 'tutor/template/button' :
+        text  : '+ Добавить'
+        type  : 'fixed'
 
-  bet : module 'tutor/template/forms/drop_down_list' :
-    width : '120px'
+      save_button : module 'tutor/template/button' :
+        text  : 'Сохранить'
+        type  : 'fixed'
 
-  comments : module 'tutor/template/forms/textarea' :
-    id     : 'comments'
-    height : '82px'
+  init : ->
+    @parent.setTopMenu 'Условия', {
+      'Описание': 'general'
+      'Условия': 'subjects'
+    }
 
+    @parent.tree.left_menu.setActive 'Анкета'
+    @parent.tree.left_menu.setLinks ['../profile', '../bids', '#', '#', '#', '#', '#']
 
-  add_button : module 'tutor/template/button' :
-    text  : '+ Добавить'
-    type  : 'fixed'
-
-  save_button : module 'tutor/template/button' :
-    text  : 'Сохранить'
-    type  : 'fixed'
 

@@ -1,4 +1,5 @@
 @import compass/css3
+$field_width : 90px
 
 main
   overflow : hidden
@@ -36,6 +37,7 @@ main
   .flat
     padding : 0px
     .value
+      width : $field_width
       padding-right : 245px
 
   .button_block
@@ -53,8 +55,13 @@ main
     .value
       .house, .building
         +inline-block
+      .house
+        width : $field_width
       .building
         padding : 0
         .m-title
           padding-right :  20px
           padding-left  : 45px
+
+        .value
+          width : $field_width

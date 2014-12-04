@@ -1,6 +1,6 @@
 mixin info_block(block_class, header, value)
   div(class=block_class)
-    .value!= value
+    .value.g-standardField!= value
     .m-title.g-font-smallTitle= header
 //- -------------------------------------------------
 .block

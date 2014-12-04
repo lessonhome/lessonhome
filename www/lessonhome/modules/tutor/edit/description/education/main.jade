@@ -1,6 +1,6 @@
 mixin info_block(block_class, header, value)
   div(class=block_class)
-    .value!= value
+    .value.g-standardField!= value
     .m-title.g-font-smallTitle= header
 //- -------------------------------------------------
 .block
@@ -13,9 +13,9 @@ mixin info_block(block_class, header, value)
 
   .date
     .value
-      .day!= release_day
-      .month!= release_month
-      .year!= release_year
+      .day.g-smallField!= release_day
+      .month.g-smallField!= release_month
+      .year.g-smallField!= release_year
     .m-title.g-font-smallTitle Дата выпуска:
 
   .button_block
