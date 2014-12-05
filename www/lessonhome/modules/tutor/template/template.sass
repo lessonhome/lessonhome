@@ -1,6 +1,6 @@
 //width variables
-$withs_left_menu:236px
-$withs_content:778px
+$width_left_menu:236px
+$width_content:778px
 
 //sum all width = 100%
 //$width_left_menu : 23.6%
@@ -23,7 +23,7 @@ main
   box-shadow: 0 0px 3px rgba(0,0,0,0.3),0 0 5px rgba(0,0,0,0.1)
 
   //-----background rules
-  //.background_all
+  .background_all
     position: absolute
     height: 100%
     width: 100%
@@ -33,20 +33,19 @@ main
     bottom: 0
     overflow: hidden
     background: #f3f3f3
-    .left_menu_background
+    //.left_menu_background
       float: left
       width: $min_withs_left_menu
       height: 100%
       background: #f3f3f3
     .content_background
       height: 100%
-      float: left
       width: $width_content
-      min-width: $min_withs_content
+      margin-left: $width_left_menu
       position: relative
-      bottom: 100px
       background: #ffffff
-    .right_background
+      box-shadow: 0px 6px 6px rgba(0,0,0,0.27)
+    //.right_background
       float: left
       max-width: $width_right_box
       height: 100%
@@ -58,26 +57,27 @@ main
     width: 100%
     background: #ffffff
     box-shadow: 0px 6px 6px rgba(0,0,0,0.16)
+    z-index: 1
   .container_sub_top_menu
     height: 50px
     text-align: center
     background: #DFE8EC
     position: relative
+    box-shadow: 0px 6px 6px rgba(0,0,0,0.16)
     .sub_top_menu
       height: 100%
       background: #E0E9ED
   .center_block
-    background: #f3f3f3
+    position: relative
     overflow: hidden
     margin-bottom: 100px
     .left_menu
       float: left
-      width: $withs_left_menu
+      width: $width_left_menu
     .content
-      min-width: $withs_content
-      margin-left: $withs_left_menu
-      box-shadow: 0px 6px 6px rgba(0,0,0,0.27)
-      background: #ffffff
+      min-width: $width_content
+      margin-left: $width_left_menu
+      //background: #ffffff
 
   .footer
     height: 100px
