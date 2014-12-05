@@ -1,14 +1,20 @@
 
 
 http = require 'http'
-
+os = require "os"
 
 class Server
   constructor : ->
-    @port = 8081
+    switch os.hostname()
+      when 'pi0h.org'
+        @port = 80
+      else
+        @port = 8081
+
   init : =>
     @server = http.createServer @handler
     @server.listen @port
+
     console.log "listen port #{@port}"
     @domains =
       text : {}
