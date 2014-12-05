@@ -11,13 +11,13 @@ $hint_width     : image-width($hint_src)
 
 main
   overflow : hidden
-  padding: 50px 5% 30px 5%
+  padding: 50px 20px 30px 20px
 
 // ------------HINT---------------//
 .hint
   position: relative
-  margin-left : 75%
-  padding: 0 0 0 30px
+  margin-left : 73%
+  padding: 0 0 0 20px
   .question_sign_block
     height : $hint_height
     width: $hint_width
@@ -25,28 +25,34 @@ main
   .title_help
     margin-top : 19px
     margin-bottom : 10px
-    font-weight : bold
-    font-size : 1.6em
+    font-size: 22px
+    font-family: "Open Sans"
+    color: rgb(0, 0, 0)
   .text
-    font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif
-    color : #777
-    line-height: 1.2em
-
+    line-height: 22px
+    font-size: 20px
+    font-family: "Open Sans"
+    color: rgb(93, 100, 107)
 
 //------------------ REVIEWS---------------//
 .reviews
-  width : 65%
+  padding-right: 40px
+  box-sizing: border-box
+  width : 73%
   float : left
   .review
     margin-bottom : 30px
 
 //----------------GRADE-------------//
 .grade
-  line-height: $stars_height
-  margin: 0 0 50px 0
+  line-height: $stars_height    //if it's bigger size in parent box
+  margin: 0 0 60px 0
   overflow: hidden
+  padding-left: 13.5%
   .title
-    margin-left : 15%
+    font-size: 20px
+    font-family: "Open Sans"
+    color: rgb(0, 0, 0)
     float : left
     font-weight : bold
   .stars

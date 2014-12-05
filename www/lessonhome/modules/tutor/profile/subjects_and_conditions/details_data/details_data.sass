@@ -1,28 +1,37 @@
+$widthLeftBlock : 120px
 main
   overflow : hidden
-
 //- ----------------------- left block ------------------------------------
-
 .left_block
-  width : 80px
+  font-size: 20px
+  font-family: "Open Sans"
+  color: rgba(0, 0, 0, 0.702)
+  width : $widthLeftBlock
   float : left
   .outside_work_price, .home_price, .distance_work_price
     margin-bottom: 20px
-
-//- ----------------------- right block ------------------------------------
-
+  //- ----------------------- right block ------------------------------------
+$title_width : 40%
+$min_title_width : 240px
 .right_block
-  margin-left : 80px
-
+  margin-left: $widthLeftBlock
+  padding-left: 10px
+  margin-left : $widthLeftBlock
   .sections, .category_student, .comments, .group_lessons, .duration_lesson
     line-height: 30px
     overflow: hidden
     .title
-      width: 30%
+      font-size: 16px
+      font-family: "Open Sans"
+      color: rgba(0, 0, 0, 0.702)
+      width: $title_width
       float: left
-      text-align: right
-      min-width: 220px
+      text-align: left
+      min-width: $min_title_width
     .value
-      margin-left: 30%
+      font-size: 18px
+      font-family: "Open Sans"
+      color: rgb(0, 0, 0)
+      margin-left: $title_width
       padding-left: 30px
       overflow: hidden

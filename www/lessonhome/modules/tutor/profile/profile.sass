@@ -29,23 +29,22 @@ main
 
   //---------------line-------------//
 
-$font-size : 24px       //take bigger font-size in this box and use in variable, because u can do vertical center text in this box
+$font-size : 20px       //take bigger font-size in this box and use in variable, because u can do vertical center text in this box
 $backgroundText : #ffffff
 $paddingText : 20px
 .separate_box
   position: relative
   overflow: hidden
-  line-height: $font-size
   margin-bottom: 20px
   font-family: "Open Sans"
+  font-size: $font-size
+  color: #757575
   .title
     padding-right: $paddingText
     float: left
     position: relative
     z-index: 1
     background: $backgroundText
-    font-size: $font-size
-    color: rgb(0, 0, 0)
   .value
     padding-left: $paddingText
     float: right
@@ -53,8 +52,6 @@ $paddingText : 20px
     z-index: 1
     background: $backgroundText
     font-size: 18px
-    color: rgb(117, 117, 117)
-
 //---------------------content-----------------------//
 
 div>.icon_box
