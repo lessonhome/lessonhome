@@ -5,7 +5,10 @@ os = require "os"
 
 class Server
   constructor : ->
-    switch os.hostname()
+    hostname = os.hostname()
+    console.log 'hostname',hostname
+    @port = 8081
+    switch hostname
       when 'pi0h.org'
         @port = 80
       else
