@@ -1,6 +1,12 @@
-//- available variables : header - header of hint, text - hint text, type - vertical or horizontal
+// takes variables:
+  //{selector, header, text}
+// type variables
+  // selector, header, text  - string
+//respons
+  //header, text - content
+  // selector - style sass
 
-.hint(class=type)
+.hint(class=selector)
   .question_sign_block
   .header!= header
   .text!= text

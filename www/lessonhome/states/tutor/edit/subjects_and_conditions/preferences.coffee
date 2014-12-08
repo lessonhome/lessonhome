@@ -9,36 +9,36 @@ class @main extends template 'tutor/template/template'
         'Предпочтения' : 'preferences'
       active_item : 'Предпочтения'
 
-    content : module 'tutor/edit/subjects_and_conditions/preferences':
+    content : module 'tutor/edit/conditions/preferences':
       sex  : module 'tutor/template/choice' :
-        id : 'sex'
-        indent : '75px'
+        id      : 'sex'
+        indent  : '75px'
         choice_list : [
           module 'tutor/template/button' :
-            text  : 'М'
-            type  : 'fixed'
+            text      : 'М'
+            selector  : 'fixed'
 
           module 'tutor/template/button' :
-            text  : 'Ж'
-            type  : 'fixed'
+            text      : 'Ж'
+            selector  : 'fixed'
 
         ]
       category : module 'tutor/template/forms/drop_down_list'
       status : module 'tutor/template/forms/drop_down_list'
 
       hint : module 'tutor/template/hint' :
-        type : 'vertical'
-        header : 'Это подсказка'
-        text : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит'
+        selector  : 'vertical'
+        header    : 'Это подсказка'
+        text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит'
 
       button : module 'tutor/template/button' :
-        text  : 'Сохранить'
-        type : 'fixed'
+        text     : 'Сохранить'
+        selector : 'fixed'
 
   init : ->
     @parent.setTopMenu 'Условия', {
       'Описание': 'general'
-      'Условия': 'subjects'
+      'Условия' : 'subjects'
     }
 
     @parent.tree.left_menu.setActive 'Анкета'

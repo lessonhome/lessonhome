@@ -1,3 +1,4 @@
+@route = '/tutor/search_bids'
 
 class @main extends template 'tutor/template/template'
   route : '/tutor/search_bids'
@@ -8,8 +9,8 @@ class @main extends template 'tutor/template/template'
       saved_filters : module 'tutor/template/forms/drop_down_list'
 
       place : module 'tutor/template/choice' :
-        id : 'place'
-        indent : '10px'
+        id          : 'place'
+        indent      : '10px'
         choice_list : [
           module 'tutor/template/button' :
             text  : 'У себя'
@@ -56,13 +57,13 @@ class @main extends template 'tutor/template/template'
             bet      : '1000 рублей/90 мин'
             price    : '1500 руб.'
 
-            category_pupil : 'школьники 6-8 классов'
-            training_direction : 'ЕГЭ'
-            number_of_lessons :  'Более 20'
-            wishes : 'Утро выходных дней'
-            near_metro : 'м.Крюково'
-            comments : '-'
-            lesson_goal : 'Устранить пробелы в знаниях'
+            category_pupil      : 'школьники 6-8 классов'
+            training_direction  : 'ЕГЭ'
+            number_of_lessons   :  'Более 20'
+            wishes              : 'Утро выходных дней'
+            near_metro          : 'м.Крюково'
+            comments            : '-'
+            lesson_goal         : 'Устранить пробелы в знаниях'
 
           module '//bid' :
             number    : 15723
@@ -75,23 +76,23 @@ class @main extends template 'tutor/template/template'
             bet       : '1000 рублей/90 мин'
             price     : '1500 руб.'
 
-            category_pupil : 'школьники 6-8 классов'
-            training_direction : 'ЕГЭ'
-            number_of_lessons :  'Более 20'
-            wishes : 'Утро выходных дней'
-            near_metro : 'м.Крюково'
-            comments : '-'
-            lesson_goal : 'Устранить пробелы в знаниях'
+            category_pupil      : 'школьники 6-8 классов'
+            training_direction  : 'ЕГЭ'
+            number_of_lessons   :  'Более 20'
+            wishes              : 'Утро выходных дней'
+            near_metro          : 'м.Крюково'
+            comments            : '-'
+            lesson_goal         : 'Устранить пробелы в знаниях'
         ]
 
       courses_list : module 'tutor/template/forms/drop_down_list'
 
   init : ->
     @parent.setTopMenu 'Поиск', {
-      'Поиск' : 'search_bids'
-      'Заказы' : 'in_bids'
-      'Заявки' : 'out_bids'
-      'Отчёты' : 'reports'
+      'Поиск'   : 'search_bids'
+      'Заказы'  : 'in_bids'
+      'Заявки'  : 'out_bids'
+      'Отчёты'  : 'reports'
 
     }
 

@@ -1,0 +1,22 @@
+$widthLeftBlock : 120px
+$paddingAll     : 20px
+main
+  overflow: hidden
+  padding: 20px           //use padding in child module, because we need .line_vertical position left to padding+width
+.line_vertical
+  position: absolute
+  width: 2px
+  top: 0
+  bottom: 0
+  left: $widthLeftBlock+$paddingAll
+.left_block
+  font-size: 20px
+  font-family: "Open Sans"
+  color: rgba(0, 0, 0, 0.702)
+  width: $widthLeftBlock
+  float: left
+  .outside_work_price, .home_price, .distance_work_price
+    margin-bottom: 20px
+.right_block
+  margin-left: $widthLeftBlock
+  padding-left: 10px

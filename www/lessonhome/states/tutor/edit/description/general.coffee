@@ -13,37 +13,36 @@ class @main extends template 'tutor/template/template'
       active_item     : 'Общие'
     content : module 'tutor/edit/description/general' :
 
-      first_name : module 'tutor/template/forms/input'
+      first_name  : module 'tutor/template/forms/input'
       second_name : module 'tutor/template/forms/input'
-      patronymic : module 'tutor/template/forms/input'
-
-      sex :
+      patronymic  : module 'tutor/template/forms/input'
+      sex         :
         male   : module 'tutor/template/button' :
-          text : 'М'
-          type : 'fixed'
+          text      : 'М'
+          selector  : 'fixed'
 
         female : module 'tutor/template/button' :
-          text : 'Ж'
-          type : 'fixed'
+          text      : 'Ж'
+          selector  : 'fixed'
 
       birth_day   : module 'tutor/template/forms/drop_down_list'
       birth_month : module 'tutor/template/forms/drop_down_list'
       birth_year  : module 'tutor/template/forms/drop_down_list'
-      status :  module 'tutor/template/forms/drop_down_list'
+      status      :  module 'tutor/template/forms/drop_down_list'
 
       save_button : module 'tutor/template/button' :
-        text  : 'Сохранить'
-        type  : 'fixed'
+        text      : 'Сохранить'
+        selector  : 'fixed'
 
       hint : module 'tutor/template/hint' :
-        type   : 'horizontal'
-        header : 'Это подсказка'
-        text   : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой, так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
+        selector  : 'horizontal'
+        header    : 'Это подсказка'
+        text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой, так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
 
   init : ->
     @parent.setTopMenu 'Описание', {
       'Описание': 'general'
-      'Условия': 'subjects'
+      'Условия' : 'subjects'
     }
 
     @parent.tree.left_menu.setActive 'Анкета'
