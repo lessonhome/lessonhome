@@ -6,12 +6,13 @@ $red: 29px
   .basic_block
     height : 70px
     border-radius : 4px
-    background-color : rgb( 243, 243, 243 )
 
     div
       +inline-block
       text-align : center
       border-right : 1px solid rgba(0,0,0,0.17)
+      background-color : rgb( 243, 243, 243 )
+      box-sizing : border-box
       height : 100%
 
     div:after
@@ -21,24 +22,46 @@ $red: 29px
       height : 100%
       width : 0px
 
-    .number_date, .subject_level, .place, .city_district, .bet, .price
+    .number_date, .subject_level, .place, .city_district, .bet, .price, .request_button
       .text
         +inline-block
         vertical-align : middle
+        font-size   : 14px
+        font-family : "Open Sans",sans-serif
+
+    .number_date
+      width : 107px
     .subject_level
-      width : 150px
+      width : 148px
     .place
-      width : 96px
+      width : 88px
+    .city_district
+      width : 110px
+    .bet
+      width : 79px
+    .price
+      width : 78px
+
+    .request_button
+      width : 78px
+      background : inline-image('zapros.png') no-repeat
+      background-position : center center
+      border : 0
+      .text
+        font-size   : 15px
+        font-family : "Open Sans Semibold",sans-serif
+        color : rgb( 207, 113, 107 )
 
   .details_block
-    width : 460px
+    width       : 460px
+    padding-top : 9px
+    margin      : 5px 0px 30px 30px
+    background  : inline-image('updown_triangle.png') no-repeat
+    background-position : 20px 0px
 
     .title
       width : 200px
 
-
-  .details_block
-    margin : 15px 0px 30px 30px
     .line.dark
       background-color : rgb( 240, 240, 240 )
     .line.light

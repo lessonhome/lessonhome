@@ -1,12 +1,15 @@
 @import compass/css3
 
 main
-  padding : 30px 15px 30px 30px
 
 .m-title
   padding-bottom : 5px
 
+.filters, .center_block>.advanced_search
+  margin-left : 20px
+
 .filters
+  margin-top : 50px
   margin-bottom : 30px
   overflow : hidden
 
@@ -14,7 +17,7 @@ main
     +inline-block
 
   .left_block
-    margin-right : 85px
+    margin-right : 20px
     float : left
 
     .subject, .saved_filters
@@ -34,24 +37,29 @@ main
 
 /*-----------------------------------------*/
 
-.line
-  height : 2px
-  box-shadow : 0px 1px 0px rgba(0, 0, 0, 0.27) inset
+.separate_line
+  position : relative
 
 /*-----------------------------------------*/
 
 .center_block
-  margin-top : 25px
+  padding-top : 25px
 
   .advanced_search, .list_bids
     +inline-block
 
   .advanced_search
-    width : 215px
-    height : 675px
-    margin-right : 25px
+    width : 45px
+    margin-right : 10px
     float : left
     background-color : rgb( 243, 243, 243 )
+
+    .button
+      width : 45px
+      height : 35px
+      background-color : rgb( 225, 227, 229 )
+      background : inline-image('arrow_right.PNG') no-repeat
+      background-position : center center
 
     .title
       padding : 7px 10px 7px 10px
@@ -70,6 +78,7 @@ main
           margin-right : 8px
           background : inline-image('triangle-small.png') no-repeat
       .courses_list
+        width : 170px
         padding-left : 10px
         margin-top : 8px
       .selected_courses
