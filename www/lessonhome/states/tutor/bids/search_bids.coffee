@@ -14,27 +14,27 @@ class @main extends template 'tutor/template/template'
         choice_list : [
           module 'tutor/template/button' :
             text  : 'У себя'
-            type  : 'streamlined'
+            selector  : 'streamlined'
 
           module 'tutor/template/button' :
             text  : 'У ученика'
-            type  : 'fixed'
+            selector  : 'fixed'
 
           module 'tutor/template/button' :
             text  : 'Удалённо'
-            type  : 'fixed'
+            selector  : 'fixed'
         ]
 
       address_list : module 'tutor/template/forms/drop_down_list'
       save_button : module 'tutor/template/button' :
         text  : 'Сохранить'
-        type  : 'fixed'
+        selector  : 'fixed'
 
       road_time : module 'tutor/template/forms/input' :
         width : '50px'
 
       separate_line : module 'tutor/template/separate_line' :
-        type : 'horizon'
+        selector : 'horizon'
 
       list_bids : module 'tutor/bids/list_bids' :
         titles_bid : module '//titles_bid' :
