@@ -5,7 +5,7 @@ class @main extends template 'tutor/template/template'
       photo         : module 'mime/photo' :
         src     : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
       progress  : module 'tutor/profile/description/progress' :
-        progress  : '56%'
+        filling  : '56%'
       name          : 'Артемий Дудко'
       personal_data : module 'tutor/profile/info_block' :
         section   :

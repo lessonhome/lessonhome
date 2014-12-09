@@ -37,7 +37,7 @@ for href,i in @left_menu_href
       place    : 'У ученика'
       city     : 'Москва'
       district : 'Бирюлёво'
-      bet      : '1000 рублей/90 мин'
+      bet      : '1000 руб./90 мин'
       price    : '1500 руб.'
       status   : 'Принять/Отклонить'
       payment  : '#'

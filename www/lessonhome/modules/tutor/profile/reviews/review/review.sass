@@ -3,45 +3,36 @@ $small_stars_src  : 'reviews/star_small_gray.png'
 $small_stars_pink  : 'reviews/star_small_pink.png'
 $small_stars_height : image-height($small_stars_src)
 $small_stars_width  : image-width($small_stars_src)
-
 main
   overflow : hidden
-
 .left_block
   float : left
-
   .photo
     width : 58px
     height : 58px
     background-color : #ff8c68
     border-radius: 50%
-
   .mini_rating
     width : 5*$small_stars_width
     margin : 10px auto
     height : $small_stars_height
     background: inline-image($small_stars_src)
-
     .full_stars
       background: inline-image($small_stars_pink)
       height : $small_stars_height
       width: $small_stars_width
-
 .right_block
   margin-left : 10%
   padding-left : 20px
-
+  font-family: "Open Sans"
   .user_name
-    font-size: 20px
-    font-family: "Open Sans"
+    font-size: 24px
     color: rgb(0, 0, 0)
   .creation_date
     font-size: 16px
-    font-family: "Open Sans"
-    color: rgb(110, 110, 110)
+    color: rgb(117, 117, 117)
     padding: 15px 0
   .review_text
-    font-size: 16px
-    font-family: "Open Sans"
-    color: rgb(0, 0, 0)
+    font-size: 18px
+    color: rgb(1, 0, 0)
     line-height: 30px
