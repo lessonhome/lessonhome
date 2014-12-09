@@ -1,29 +1,23 @@
+$font-size : 18px
 main
-  font-family: "OpenSans"
-.section
-  $font-size : 18px
-  $widthTitle : 40%
-  $min-widthTitle : 210px
   font-size: $font-size
   color: #757575
+.section
+  $min-widthTitle : 210px
   line-height: 2*$font-size
   overflow: hidden
   .title
     float: left
-    width: $widthTitle
     min-width: $min-widthTitle
-    font-size: 16px
   .value
-    margin-left: $widthTitle
+    margin-left: $min-widthTitle
     color: #000000
     padding-left: 30px
 ////////////// subject_class, have size different //////////////
 .section.subject_class
-  $widthTitle : 40%
-  $min-widthTitle : 240px
+  $min-widthTitle : 200px
   line-height: 30px
   .title
-    width: $widthTitle
     min-width: $min-widthTitle
   .value
-    margin-left: $widthTitle
+    margin-left: $min-widthTitle

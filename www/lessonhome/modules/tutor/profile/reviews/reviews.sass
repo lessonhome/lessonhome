@@ -12,11 +12,10 @@ $hint_width     : image-width($hint_src)
 main
   overflow : hidden
   padding: 50px 20px 30px 20px
-
 // ------------HINT---------------//
 .hint
   position: relative
-  margin-left : 73%
+  margin-left: 73%
   padding: 0 0 0 20px
   .vertical_line
     position: absolute
@@ -48,12 +47,11 @@ main
 //----------------GRADE-------------//
 .grade
   line-height: $stars_height    //if it's bigger size in parent box
-  margin: 0 0 60px 0
+  margin: 0 0 60px 78px
   overflow: hidden
-  padding-left: 13.5%
   .title
     font-size: 20px
-    font-family: "Open Sans"
+    //font-family: "Open Sans"
     color: rgb(0, 0, 0)
     float : left
     font-weight : bold
@@ -62,7 +60,7 @@ main
     width : 5*$stars_width                                  //max stars 5
     background: inline-image($stars_src)
     float : left
-    margin: 0 30px
+    margin: 0 20px
     .full_stars
       background: inline-image($stars_pink)
       height : $stars_height
