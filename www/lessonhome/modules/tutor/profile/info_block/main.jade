@@ -1,4 +1,12 @@
+// takes variables:
+  //{section, selector}
+// type variables
+  // section - array
+  //selector - string
+//respons
+  // section - content
+  // selector - style sass
 each val, key in section
-  .section
+  .section(class=selector)
     .title!=key
     .value!=val

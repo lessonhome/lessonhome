@@ -9,7 +9,7 @@ class @main extends template 'tutor/template/template'
       tutor_rating - рейтинг тутора в процентах. Например 85.
       ###
       line : module 'tutor/template/separate_line':
-        type : 'vertical'
+        selector : 'vertical'
       list_reviews : [
         module 'tutor/profile/reviews/review' :
           photo_src : '#'

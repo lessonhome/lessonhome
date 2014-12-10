@@ -1,7 +1,7 @@
 
 class @main extends template 'tutor/template/template'
   route : '/tutor/edit/calendar'
-  tree : ->
+  tree  : ->
     sub_top_menu : state 'tutor/template/sub_top_menu' :
       items :
         'Предметы'     : 'subjects'
@@ -9,7 +9,8 @@ class @main extends template 'tutor/template/template'
         'Календарь'    : 'calendar'
         'Предпочтения' : 'preferences'
       active_item : 'Календарь'
-    content : module 'tutor/edit/subjects_and_conditions/calendar':
+
+    content : module 'tutor/edit/conditions/calendar':
       time_entry_fields : [
         module '//time_entry_field' :
           input_from : module 'tutor/template/forms/input' :
@@ -47,7 +48,7 @@ class @main extends template 'tutor/template/template'
 
       add_button : module 'tutor/template/button' :
         text  : '+'
-        type  : 'add'
+        selector  : 'add'
 
   init : ->
     @parent.setTopMenu 'Условия', {

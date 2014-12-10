@@ -3,7 +3,8 @@
 $heightSectionMenu: 50px
 $heightIcon: 40px
 $margin: ($heightSectionMenu - $heightIcon)/2
-
+main
+  font-size: 18px
 div
   height : $heightSectionMenu
   a
@@ -11,95 +12,65 @@ div
     display  : block
     height: 100%
     text-decoration: none
-
     .icon
       width  : $heightIcon
       height : $heightIcon
       float  : left
       margin : $margin 24px $margin 28px
-
     .title
       float: left
       line-height: $heightSectionMenu
-
-      color : #4b5e6e
-
-
+      color: #757575
 /*------------------------------------------------------------*/
-
 .profile>a>.icon
   background : inline-image('left_menu/normal_01-profile.png') no-repeat
-
 .bids>a>.icon
   background : inline-image('left_menu/normal_02-application.png') no-repeat
-
 .payment>a>.icon
   background : inline-image('left_menu/normal_03-payment.png') no-repeat
-
 .documents>a>.icon
   background : inline-image('left_menu/normal_04-documents.png') no-repeat
-
 .forum>a>.icon
   background : inline-image('left_menu/normal_05-forum.png') no-repeat
-
 .articles>a>.icon
   background : inline-image('left_menu/normal_06-articles.png') no-repeat
-
 .support>a>.icon
   background : inline-image('left_menu/normal_07-help.png') no-repeat
-
-
-
 /*--------------------------------------------------------------*/
-
 .profile>a:hover
   .icon
     background : inline-image('left_menu/focus_01-profile.png') no-repeat
-
 .bids>a:hover
   .icon
     background : inline-image('left_menu/focus_02-application.png') no-repeat
-
 .payment>a:hover
   .icon
     background : inline-image('left_menu/focus_03-payment.png') no-repeat
-
 .documents>a:hover
   .icon
     background : inline-image('left_menu/focus_04-documents.png') no-repeat
-
 .forum>a:hover
   .icon
     background : inline-image('left_menu/focus_05-forum.png') no-repeat
-
 .articles>a:hover
   .icon
     background : inline-image('left_menu/focus_06-articles.png') no-repeat
-
 .support>a:hover
   .icon
     background : inline-image('left_menu/focus_07-help.png') no-repeat
 
-
 .profile>a:hover, .bids>a:hover, .payment>a:hover, .documents>a:hover, .forum>a:hover, .articles>a:hover, .support>a:hover
   .title
     color : #ff949b
-
-
 /*--------------------------------------------------------------*/
-
-
 .profile.active, .bids.active
   background : #fff
   box-shadow : 0px 0px 6px rgba(0,0,0,0.26)
   a
     .title
       color : #ed645e
-
-
 .profile.active a .icon
   background : inline-image('left_menu/active_01-profile.png') no-repeat
-
 .bids.active a .icon
   background : inline-image('left_menu/active_02-application.png') no-repeat
 

@@ -8,35 +8,29 @@ class @main extends template 'tutor/template/template'
         'Календарь'    : 'calendar'
         'Предпочтения' : 'preferences'
       active_item : 'Предметы'
-
-    content : module 'tutor/edit/subjects_and_conditions/subjects':
-      subject : module 'tutor/template/forms/drop_down_list'
-      sections : module 'tutor/template/forms/drop_down_list'
-      destinations : module 'tutor/template/forms/drop_down_list'
+    content : module 'tutor/edit/conditions/subjects':
+      subject           : module 'tutor/template/forms/drop_down_list'
+      sections          : module 'tutor/template/forms/drop_down_list'
+      destinations      : module 'tutor/template/forms/drop_down_list'
       category_students : module 'tutor/template/forms/drop_down_list'
-      location : module 'tutor/template/forms/drop_down_list'
-      location_add : module 'tutor/template/button' :
+      location          : module 'tutor/template/forms/drop_down_list'
+      location_add      : module 'tutor/template/button' :
         text  : '+'
-
-      price : module 'tutor/template/forms/drop_down_list'
-      add_location : module 'tutor/template/button' :
-        text  : '+'
-        type : 'add'
-
-      pupils_number : module 'tutor/template/forms/drop_down_list'
-      bet : module 'tutor/template/forms/drop_down_list'
-      comments : module 'tutor/template/forms/textarea' :
+      price             : module 'tutor/template/forms/drop_down_list'
+      add_location      : module 'tutor/template/button' :
+        text      : '+'
+        selector  : 'add'
+      pupils_number     : module 'tutor/template/forms/drop_down_list'
+      bet               : module 'tutor/template/forms/drop_down_list'
+      comments          : module 'tutor/template/forms/textarea' :
         id     : 'comments'
         height : '82px'
-
-
-      add_button : module 'tutor/template/button' :
-        text  : '+ Добавить'
-        type  : 'fixed'
-
-      save_button : module 'tutor/template/button' :
-        text  : 'Сохранить'
-        type  : 'fixed'
+      add_button        : module 'tutor/template/button' :
+        text      : '+ Добавить'
+        selector  : 'fixed'
+      save_button       : module 'tutor/template/button' :
+        text      : 'Сохранить'
+        selector  : 'fixed'
 
   init : ->
     @parent.setTopMenu 'Условия', {

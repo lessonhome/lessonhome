@@ -15,7 +15,7 @@ class @main extends template 'tutor/template/template'
       post : module 'tutor/template/forms/input'
       add_button : module 'tutor/template/button' :
         text  : '+ Добавить'
-        type  : 'fixed'
+        selector  : 'fixed'
       experience_tutoring : module 'tutor/template/forms/drop_down_list'
       number_of_students : module 'tutor/template/forms/drop_down_list'
       extra_info : module 'tutor/template/forms/textarea' :
@@ -23,11 +23,11 @@ class @main extends template 'tutor/template/template'
 
       save_button : module 'tutor/template/button' :
         text  : 'Сохранить'
-        type  : 'fixed'
+        selector  : 'fixed'
 
 
       hint : module 'tutor/template/hint' :
-        type : 'horizontal'
+        selector : 'horizontal'
         header : 'Это подсказка'
         text : 'Поскольку состояния всего нашего мира зависят от времени,
                  то и состояние какой-либо системы тоже может зависеть от времени,

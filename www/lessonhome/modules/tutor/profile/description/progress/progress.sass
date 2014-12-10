@@ -1,11 +1,20 @@
-.progress_data
-  text-align : center
-  .progress-line
-    height : 10px
-    background-color : rgb(250, 223, 215)
-    border-radius : 50px 50px 50px 50px
-    .filling
-      height: 100%
-      border-radius: 50px 50px 50px 50px
-      background-color : rgba(0, 169, 255, 0.81)
-      width : 56%
+$height:  20px
+$font-size: 14px
+main
+  height: $height
+.progress-line
+  height: 100%
+  position: relative
+  text-align: center
+  background-color: rgb(250, 223, 215)
+  border-radius: 4px
+  overflow: hidden
+  .percent
+    font-size: $font-size
+    position: absolute
+    left: 0
+    right: 0
+    margin-top: ($height - $font-size)/2
+  .filling
+    height: 100%
+    background-color: rgba(0, 169, 255, 0.81)

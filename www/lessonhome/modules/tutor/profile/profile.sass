@@ -1,12 +1,10 @@
 $widthMargin : 200px    //width photo and margin-right personal data
-$padding_bottom : 30px  //in the section_box
-
+$padding : 30px  //in the section_box
 main
   padding: 50px 20px
-
 .info_data
   overflow: hidden
-  padding-bottom: $padding_bottom
+  padding-bottom: $padding
   .person_box
     float: left
     width: $widthMargin
@@ -14,65 +12,42 @@ main
       overflow: hidden
       height: 200px
       border-radius: 50%
+    .all_rating
+      height: 22px
+      width: 110px
+      margin: 7px auto
+      background: red
     .progress
-      width: 130px
-      height: 20px
+      width: 160px
       margin: auto
   .personal_data
     margin-left: $widthMargin
-    padding-left: 30px
+    padding-left: $padding
     .name
-      font-size: 30px
-      height: 53px
-      line-height: 23px
-
-
+      $font_line: 30px
+      font-size: $font_line
+      height: 2*$font_line
+      line-height: $font_line
   //---------------line-------------//
-
-$font-size : 20px       //take bigger font-size in this box and use in variable, because u can do vertical center text in this box
-$backgroundText : #ffffff
-$paddingText : 20px
 .separate_box
-  position: relative
-  overflow: hidden
   margin-bottom: 20px
-  font-family: "Open Sans"
-  font-size: $font-size
-  color: #757575
-  .title
-    padding-right: $paddingText
-    float: left
-    position: relative
-    z-index: 1
-    background: $backgroundText
-  .value
-    padding-left: $paddingText
-    float: right
-    position: relative
-    z-index: 1
-    background: $backgroundText
-    font-size: 18px
-//---------------------content-----------------------//
 
 div>.icon_box
-  width: 200px
-  padding-bottom: $padding_bottom
+  width: $widthMargin
+  padding-bottom: $padding
   box-sizing: border-box
   position: absolute
   height: 100%
-
-.media_box .icon_box  //because media_box don't have padding-bottom
+.media_box .icon_box  //because media_box be end, and don't have padding-bottom
   padding-bottom: 0
-
 .contacts_box, .education_box, .private_box, .media_box
-  padding-bottom: $padding_bottom
+  padding-bottom: $padding
   overflow: hidden
   position: relative
   min-height: 150px
 .contacts_box>.contacts, .education_box>.education
-  margin-left: 200px
-  padding-left: 30px
-
+  margin-left: $widthMargin
+  padding-left: $padding
 .media_box
   padding-bottom: 0
 $iconsWidthHeight : 100px
@@ -84,36 +59,3 @@ $iconsWidthHeight : 100px
   position: relative
   top: 50%
   margin-top: -50px
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,5 @@
-mixin line (title, value, type)
-  .line(class=type)
+mixin line (title, value, selector)
+  .line(class=selector)
     .title!= title
     .value.g-font-bidTitles!= value
 
@@ -20,6 +20,8 @@ mixin line (title, value, type)
       .text= bet
     .price
       .text= price
+    .request_button
+      .text!= 'Подать <br> запрос'
 
   .details_block
     +line('Категория ученика:', category_pupil, 'dark')

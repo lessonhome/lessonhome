@@ -1,0 +1,32 @@
+@import 'compass/css3'
+main
+  font-size: 20px
+  color: #000000
+  height: 100%
+.text_line
+  height: 100%
+  .marker
+    cursor: pointer
+    width: 13px
+    height: 11px
+    margin: 0 21.5px
+    background : inline-image('falldown_triangle2.png') no-repeat
+  .name
+    font-size: 24px
+    color: #414141
+    padding-right: 45px
+  .name, .details, .marker
+    +inline-block
+
+.text_line.title_on_corner //this style if name and details class position in opposite corner
+  .name
+    font-size: 20px
+    color: #000000
+    padding-right: 0
+  .details
+    float: right
+    line-height: 60px   //it's exceptions, because we need take value in parent module block height, if we use standards symbol html, try do it better solution
+.text_line:before
+  +inline-block
+  height: 100%
+  content: ""

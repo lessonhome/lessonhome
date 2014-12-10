@@ -1,12 +1,11 @@
 .grade
-  .title Рейтинг:
+  .title Рейтинг :
   .stars
     .full_stars(style="width:#{tutor_rating}%")
   .number_pupils='( '+pupils_number+' учеников )'
 .reviews
   each value in list_reviews
     .review!= value
-
 .hint
   .vertical_line!=line
   .question_sign_block

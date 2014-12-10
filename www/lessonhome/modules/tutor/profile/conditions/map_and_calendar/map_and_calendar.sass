@@ -1,0 +1,29 @@
+$calendar_height : 220px
+$week_height : 35px
+$background_calendar : rgb(243, 243, 243)
+main
+  overflow : hidden
+  padding-bottom: 30px
+.map_calendar_block
+  overflow: hidden
+  .map
+    float : left
+    background-color : #29c5e6
+    height: 250px
+    width: 350px
+  .calendar
+    width : 335px
+    float : right
+    height: $calendar_height
+    .calendar_week
+      height: 35px
+      border-radius: 4px
+      background-color: $background_calendar
+    .day-info
+      margin: 0 10px
+      background: $background_calendar
+      height: $calendar_height - $week_height
+
+
+
+
