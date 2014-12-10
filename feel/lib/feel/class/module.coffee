@@ -7,7 +7,7 @@ for key,val of jade_runtime
       jade[key] = => val.apply jade_runtime, arguments
 fs      = require 'fs'
 coffee  = require 'coffee-script'
-
+_path    = require 'path'
 readdir = Q.denodeify fs.readdir
 readfile= Q.denodeify fs.readFile
 
@@ -54,10 +54,10 @@ class module.exports
     @jade = {}
     for filename, file of @files
       if file.ext == 'jade' && file.name == 'main'
+        @jade.fnCli = Feel.cacheFile file.path
+        break if @jade.fnCli?
         console.log "jade #{@name}"
-        @jade.fn    = jade.compileFile file.path, {
-          compileDebug : false
-        }
+
         @jade.fnCli = jade.compileFileClient file.path, {
           compileDebug : false
         }
@@ -65,8 +65,10 @@ class module.exports
           n = @jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(m-[\w-]+)(?: [\w-]+)*\\\"/, @replacer)
           break if n == @jade.fnCli
           @jade.fnCli = n
-        @jade.fn = eval "(#{@jade.fnCli})"
+        Feel.cacheFile file.path, @jade.fnCli
         break
+    if @jade.fnCli?
+      @jade.fn = eval "(#{@jade.fnCli})"
   rebuildJade : =>
     @rescanFiles()
     .then @makeJade
@@ -158,7 +160,7 @@ class module.exports
       if file.ext == 'coffee'
         src = ""
         try
-          src = coffee._compileFile file.path
+          src = Feel.cacheCoffee file.path
         catch e
           console.error e
           throw new Error "failed read coffee in module #{@name}: #{file.name}(#{path})",e

@@ -6,6 +6,8 @@ global.CLONE = require './lib/clone'
 LoadSites = require './scripts/loadSites'
 Server    = require './class/server/server'
 fs        = require 'fs'
+_path     = require 'path'
+mkdirp    = require 'mkdirp'
 unlink    = Q.denodeify fs.unlink
 readdir   = Q.denodeify fs.readdir
 spawn     = require('child_process').spawn
@@ -27,7 +29,8 @@ class module.exports
     .done()
   init : =>
     Q()
-    .then @npm
+    .then => mkdirp '.cache'
+    .then => mkdirp 'log'
     .then @checkCache
     .then @compass
     .then LoadSites
@@ -52,7 +55,34 @@ class module.exports
           @checkCacheFile "#{dir}/#{f}"
   checkCacheFile : (file)=>
     if file.match /.*(\.css)$/
-      fs.unlinkSync file
+      sass = file.match /^.cache\/(.*)\.css$/
+      if sass[1] && !fs.existsSync "www/#{sass[1]}.sass"
+        fs.unlinkSync file
+  cacheFile : (path,data)=>
+    path = _path.normalize path
+    cache = path.replace /^\w+\//, ".cache\/"
+    cache = _path.normalize cache
+    cache = ".cache/"+cache unless cache.match /^\.cache\//
+    return null if cache == path
+    cachedir = _path.dirname cache
+    srcStat = fs.statSync path
+
+    if fs.existsSync cache
+      cacheStat = fs.statSync cache
+      if cacheStat.isFile() && (cacheStat.mtime>srcStat.mtime) && !data?
+        return fs.readFileSync cache
+      if cacheStat.isFile()
+        fs.unlinkSync cache
+    return data if !data?
+    if !fs.existsSync cachedir
+      mkdirp.sync cachedir
+    fs.writeFileSync cache, data
+    return data
+  cacheCoffee : (path)=>
+    data = @cacheFile path
+    return data if data?
+    data = coffee._compileFile path
+    return @cacheFile path,data
   compass : =>
     defer = Q.defer()
     process.chdir 'feel'
@@ -126,24 +156,22 @@ class module.exports
   loadClient : =>
     @client   = {}
     @clientJs = ""
-    @loadClientDir './feel/lib/feel/client/',''
+    @loadClientDir 'feel/lib/feel/client',''
     .then =>
       @clientJs += @client['main']
       for key,val of @client
         @clientJs += val unless key == 'main'
   loadClientDir : (path,dir)=>
-    readdir "#{path}/#{dir}"
+    readdir "#{path}#{dir}"
     .then (files)=>
       for f in files
-        file = "#{path}/#{dir}/#{f}"
+        file = "#{path}#{dir}/#{f}"
         stat = fs.statSync file
-        ndir = dir
-        ndir += "/" if dir
-        ndir += f
+        ndir = "#{dir}/#{f}"
         if stat.isDirectory()
           @loadClientDir path,ndir
         else if stat.isFile() && f.match /^[^\.].*\.coffee$/
-          src = coffee._compileFile file
+          src = @cacheCoffee file
           n = ndir.match /^(.*)\.coffee$/
           @client[n[1]] = src
 

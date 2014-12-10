@@ -24,9 +24,11 @@
   "preferGlobal" : true,
   "dependencies": {
     "coffee-script" : ">=1.7.1",
+    "coffee-cache" : "*",
     "q" : "*",
     "jade" : "*",
     "jquery" : "*",
-    "node-watch" : "*"
+    "node-watch" : "*",
+    "mkdirp" : "*"
   }
 }

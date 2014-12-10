@@ -3,7 +3,8 @@
 (function(){
   
   require ('coffee-script/register');
- 
+  require ('coffee-cache').setCacheDir('.cache/.coffee');
+
   var path = require('path');
   var fs   = require('fs');
   var lib  = path.join(path.dirname(fs.realpathSync(__filename)), '../lib');
