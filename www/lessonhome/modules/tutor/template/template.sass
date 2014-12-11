@@ -1,3 +1,4 @@
+@import compass/css3
 //width variables
 $width_left_menu: 236px
 $width_content: 778px
@@ -16,7 +17,7 @@ main
   width: 100%
   min-height: 100%
   overflow: hidden
-  box-shadow: 0 0px 3px rgba(0,0,0,0.3),0 0 5px rgba(0,0,0,0.1)
+  +box-shadow(3px 0 16px 0px rgba(0,0,0,0.17),-3px 0 16px 0px rgba(0,0,0,0.17), 37px 0 43px 0px rgba(0,0,0,0.07), -37px 0 43px 0px rgba(0,0,0,0.07))
   //-----background rules
   .background_all
     position: absolute
@@ -39,7 +40,7 @@ main
       margin-left: $width_left_menu
       position: relative
       background: $background_white
-      box-shadow: 0px 6px 6px rgba(0,0,0,0.27)
+      +box-shadow(0px 6px 6px rgba(0,0,0,0.27))
     //.right_background
       float: left
       max-width: $width_right_box
@@ -50,14 +51,14 @@ main
     height: 100px
     width: 100%
     background: $background_white
-    box-shadow: 0px 6px 6px rgba(0,0,0,0.16)
+    +box-shadow(0px 1px 3px 0px rgba(0,0,0,0.26))
     z-index: 1
   .container_sub_top_menu
     height: 50px
     text-align: center
     background: #DFE8EC
     position: relative
-    box-shadow: 0px 6px 6px rgba(0,0,0,0.16)
+    +box-shadow(0px 1px 3px 0px rgba(0,0,0,0.26))
     .sub_top_menu
       height: 100%
       //background: #E0E9ED
