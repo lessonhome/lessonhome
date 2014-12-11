@@ -1,8 +1,32 @@
 @import compass/css3
 
-$red: 29px
+.m-title
+  font-size   : 18px
+  font-family : 'Open Sans', sans-serif
+  color       : rgb( 0, 0, 0 )
 
-.bid
+.bid_block, .bid_report_block
+  .select_button, .bid
+    +inline-block
+  .bid
+    width : 711px
+
+  .select_button
+    height         : 70px
+    vertical-align : top
+    margin-right   : 12px
+    .content
+      +inline-block
+
+  .select_button:after
+    content : ''
+    +inline-block
+    vertical-align : middle
+    height : 100%
+    width : 0px
+
+
+.bid, .bid_block>.bid, .bid_report_block>.bid
   .basic_block
     height : 70px
     border-radius : 4px
@@ -22,7 +46,7 @@ $red: 29px
       height : 100%
       width : 0px
 
-    .number_date, .subject_level, .place, .city_district, .bet, .price, .request_button
+    .number_date, .subject_level, .place, .city_district, .bet, .price, .request_button, .status
       .text
         +inline-block
         vertical-align : middle
@@ -41,6 +65,8 @@ $red: 29px
       width : 79px
     .price
       width : 78px
+    .status
+      width : 100px
 
     .request_button
       width : 78px
@@ -79,6 +105,128 @@ $red: 29px
         font-family :  'Open Sans', sans-serif
       .value
         overflow : hidden
+
+.bid_report_block
+  .bid
+    .review
+      background-color : rgb( 243, 243, 243 )
+      overflow : hidden
+      .title
+        margin  : 15px 0 15px 25px
+      .content>.text
+        margin-left   : 100px
+        margin-bottom : 20px
+        font-size     : 16px
+        font-family   : 'Open Sans', sans-serif
+
+    .report
+      background-color : rgb( 225, 227, 229 )
+      overflow         : hidden
+      .title
+        margin : 15px 0 5px 25px
+      .content
+        margin-left : 100px
+        .item
+          margin-bottom : 6px
+          div
+            +inline-block
+          .icon
+            width            : 20px
+            height           : 20px
+            margin-right     : 20px
+            border-radius    : 50%
+            background-color : rgb( 202, 211, 218 )
+          .text
+            font-size : 16px
+            font-family : 'Open Sans', sans-serif
+          .fill_button
+            margin : 0 30px 0 25px
+        .item.active
+          .icon
+            background-color : #89d1ff
+
+      .content :last-child
+        margin-bottom : 22px
+
+
+    .data
+      background-color : rgb( 243, 243, 243 )
+      overflow : hidden
+      div
+        padding-left : 105px
+      .title
+        margin  : 15px 0 15px 25px
+        padding : 0
+      .content
+        .full_name
+          margin-bottom : 15px
+          font-size   : 18px
+          font-family : 'Open Sans Semibold', sans-serif
+          color       : rgb( 0, 0, 0 )
+        .phone, .post, .skype, .wish_time
+          margin-bottom : 10px
+          .title
+            float       : left
+            width       : 185px
+            font-size   : 16px
+            font-family : 'Open Sans', sans-serif
+            color       : rgb( 96, 96, 96 )
+        .wish_time
+          margin-bottom : 25px
+
+    .basic_block>.status>.text>.start
+      +inline-block
+      width  : 20px
+      height : 20px
+      background-color : rgb( 187, 199, 203 )
+      border-radius    : 50%
+    .basic_block>.status>.text :first-child
+      margin-right: 10px
+
+
+    .details_block_background
+      margin-top : 20px
+      background-color : rgb( 225, 227, 229 )
+      overflow         : hidden
+      .header
+        margin-top  : 30px
+        margin-left : 25px
+        .icon, .title
+          +inline-block
+        .icon
+          width  : 13px
+          height : 12px
+          margin-right : 8px
+          background : inline-image('falldown_triangle2.png') no-repeat
+
+      .details_block
+        width       : 460px
+        padding-top : 9px
+        margin      : 10px 20px 30px 30px
+        background  : inline-image('updown_triangle.png') no-repeat
+        background-position : 20px 0px
+
+        .title
+          width : 200px
+
+        .line.dark
+          background-color : rgb( 240, 240, 240 )
+        .line.light
+          background-color : rgb( 250, 250, 250 )
+
+        .line
+          line-height : 32px
+          .title
+            width : 195px
+            padding-left: 15px
+            float : left
+            text-align : left
+
+            font-size :  14px
+            font-family :  'Open Sans', sans-serif
+          .value
+            overflow : hidden
+
 
 //-
   .bid

@@ -1,9 +1,19 @@
-.titles
-  .number_date.g-font-bidTitles!= number_date
-  .subject_level.g-font-bidTitles!= subject_level
-  .place.g-font-bidTitles!= place
-  .city_district.g-font-bidTitles!= city_district
-  .bet.g-font-bidTitles!= bet
-  .price.g-font-bidTitles!= price
+if indent
+  .titles(style="padding-left:34px")
+    .number_date.g-font-bidTitles!= number_date
+    .subject_level.g-font-bidTitles!= subject_level
+    .place.g-font-bidTitles!= place
+    .city_district.g-font-bidTitles!= city_district
+    .bet.g-font-bidTitles!= bet
+    .price.g-font-bidTitles!= price
+    .status.g-font-bidTitles!= status
+else
+  .titles
+    .number_date.g-font-bidTitles!= number_date
+    .subject_level.g-font-bidTitles!= subject_level
+    .place.g-font-bidTitles!= place
+    .city_district.g-font-bidTitles!= city_district
+    .bet.g-font-bidTitles!= bet
+    .price.g-font-bidTitles!= price
 
 
