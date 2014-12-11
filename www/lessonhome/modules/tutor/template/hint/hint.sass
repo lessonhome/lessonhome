@@ -1,7 +1,9 @@
+@import compass/css3
+
 $red : 29px
 $blu : 58px
 
-.hint.horizontal, .hint.vertical
+.hint.horizontal, .hint.vertical, .hint.horizontal_hide_ability
   .question_sign_block
     background : inline-image('hint.png') no-repeat
     height : 64px
@@ -19,8 +21,11 @@ $blu : 58px
     font-size : 16px
     line-height : 1.25
 
+  .top_block
+    display : none
+
 /*---------------------------------*/
-.hint.horizontal
+.hint.horizontal, .hint.horizontal_hide_ability
   .question_sign_block
     float : left
 
@@ -28,7 +33,29 @@ $blu : 58px
     padding-left : $red
     text-align : left
 
+
+/*---------------------------------*/
+
+.hint.horizontal_hide_ability
+  .top_block
+    display : block
+    text-align : right
+    .hide_button
+      .icon, .text
+        +inline-block
+      .icon
+        background : inline-image('falldown_triangle2.png') no-repeat
+        width        : 13px
+        height       : 12px
+        margin-right : 7px
+      .text
+        font-size   : 16px
+        font-family : 'Open Sans', sans-serif
+  .text
+    padding-top : 0
 /*--------------------------------*/
+
+
 
   .question_sign_block
     margin : 0 auto 20px auto
