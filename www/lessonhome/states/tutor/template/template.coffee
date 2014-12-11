@@ -1,7 +1,3 @@
-
-
-
-
 class @main
   tree : -> module 'tutor/template' :
     depend        : [
