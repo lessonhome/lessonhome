@@ -1,6 +1,5 @@
+@import compass/css3
 //width variables
-$width_left_menu: 236px
-$width_content: 778px
 $background_white:  #ffffff
 
 main
@@ -13,7 +12,7 @@ main
   width: 100%
   min-height: 100%
   overflow: hidden
-  box-shadow: 0 0px 3px rgba(0,0,0,0.3),0 0 5px rgba(0,0,0,0.1)
+  +box-shadow(3px 0 16px 0px rgba(0,0,0,0.17),-3px 0 16px 0px rgba(0,0,0,0.17), 37px 0 43px 0px rgba(0,0,0,0.07), -37px 0 43px 0px rgba(0,0,0,0.07))
   .header
     position: relative
     height: 100px
@@ -21,18 +20,15 @@ main
     background: $background_white
     box-shadow: 0px 6px 6px rgba(0,0,0,0.16)
     z-index: 1
-  .center_block
-    position: relative
-    overflow: hidden
+  .content
     margin-bottom: 100px
-    .content
-      min-width: $width_content
-      margin-left: $width_left_menu
-      .filter_block
-      .subject_panel
-      .search_diagram
-      .chose_tutor_block
-      .chose_search_block
+    padding: 50px 30px
+    text-align: center
+    .filter_block
+    .subject_panel
+    .search_diagram
+    .chose_tutor_block
+    .chose_search_block
   .footer
     height: 100px
     width: 100%
