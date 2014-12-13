@@ -38,13 +38,12 @@ class @main extends template 'tutor/template/template'
       number_of_videos : 2
 
       add_photos : module 'tutor/template/button' :
-        text  : '+ Добавить'
-        type  : 'fixed'
-        color : 'rgb( 137, 209, 255 )'
+        text      : '+ Добавить'
+        selector  : 'color_blue'
 
       add_videos : module 'tutor/template/button' :
-        text  : '+ Добавить'
-        type  : 'fixed'
+        text      : '+ Добавить'
+        selector  : 'fixed'
 
 
       hint : module 'tutor/template/hint' :

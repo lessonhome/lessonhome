@@ -2,7 +2,7 @@
 
 main
   overflow : hidden
-  padding  : 15px 0 20px 0
+  padding  : 45px 0 50px 0
   text-align : center
 
 
@@ -31,12 +31,16 @@ main
       margin-right : 17.5px
 
   .button_block
-    overflow      : hidden
     margin-bottom : 20px
     margin-top : 5px
 
     .add_button, .save_button
       float : right
+
+  .button_block:after
+    content : ''
+    clear   : both
+    display : block
 
 /*---------------------------------------------------------*/
 

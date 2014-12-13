@@ -3,20 +3,25 @@
 main
   height: 100%
 
-.fixed, .add, .streamlined
+.fixed, .add, .streamlined, .color_blue
   +inline-block
   background-color : rgb( 240, 123, 111 )
-  border-radius : 4px
+  border-radius    : 4px
+  box-shadow       : 0 1px 3px rgba(0,0,0, 0.65)
   //-box-shadow: 0px 1px 3px 0px rgb( 0, 0, 0 )
 
   .text
-    padding : 7px 17px 7px 13px
-    text-align : center
-    font-size : 17.975px
+    padding     : 7px 17px 7px 13px
+    text-align  : center
+    font-size   : 17.975px
     font-family : "Open Sans",sans-serif
-    color : white
-    cursor: pointer
+    color  : white
+    cursor : pointer
 
+
+.color_blue
+  background-color : rgb( 137, 209, 255 )
+  box-sizing       : border-box
 
 .fixed
   min-width : 130px

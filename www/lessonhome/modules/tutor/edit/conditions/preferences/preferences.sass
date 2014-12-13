@@ -1,12 +1,14 @@
 @import compass/css3
 
 main
-  overflow : hidden
+  overflow  : hidden
   min-width : 800px
 
 .header
-  padding-left  : 50px
-  margin-bottom : 55px
+  margin      : 50px 0 55px 50px
+  font-size   :  26px
+  font-family : 'Open Sans', sans-serif
+  color       : rgb( 0, 0, 0 )
 
 .hint
   width : 165px
@@ -14,7 +16,6 @@ main
   float : left
 
 .select_block
-  overflow : hidden
   +inline-block
   margin-left : 78px
 
@@ -37,10 +38,13 @@ main
   .button_block
     margin-top  : 25px
     width : 435px
-    overflow : hidden
 
     .button
       float : right
 
+  .button_block:after
+    content : ''
+    clear   : both
+    display : block
 
 

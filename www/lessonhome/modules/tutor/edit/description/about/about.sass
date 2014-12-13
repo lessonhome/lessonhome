@@ -2,14 +2,14 @@
 
 main
   overflow : hidden
-  padding-top : 25px
+  padding-top : 55px
   text-align : center
 
 .input_block
   +inline-block
 
   .block
-    margin-bottom : 20px
+    margin-bottom : 15px
 
     .input
       width  : 460px
@@ -21,15 +21,16 @@ main
       font-family: 'Open Sans', sans-serif
       color : rgb( 0, 0, 0 )
 
+.input_block :last-child
+  margin-bottom : 0px
 
 .input_block, .button_block
   margin : auto
 
 .button_block
-  margin-top  : 25px
   width : 455px
-  overflow : hidden
-
+  padding-top    : 25px
+  padding-bottom : 50px
   .button
     float : right
 

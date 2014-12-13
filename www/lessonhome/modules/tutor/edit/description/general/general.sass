@@ -2,7 +2,7 @@
 
 main
   overflow : hidden
-  padding  : 15px 0 110px 0
+  padding  : 45px 0 110px 0
   text-align : center
 
 .block
@@ -33,7 +33,6 @@ main
 
     .right
       position: relative
-      overflow: hidden
       float : right
 
       .male, .female
@@ -49,11 +48,15 @@ main
 
 
   .button_block
-    overflow      : hidden
 
     .save_button
       float : right
       text-align : right
+
+  .button_block:after
+    content : ''
+    clear   : both
+    display : block
 
 .m-title
   padding-right : 55px

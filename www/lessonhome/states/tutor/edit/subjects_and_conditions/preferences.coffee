@@ -28,7 +28,7 @@ class @main extends template 'tutor/template/template'
 
       hint : module 'tutor/template/hint' :
         selector  : 'vertical'
-        header    : 'Это подсказка'
+        header    : ''
         text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит'
 
       button : module 'tutor/template/button' :

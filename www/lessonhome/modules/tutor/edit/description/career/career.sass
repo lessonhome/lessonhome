@@ -1,6 +1,6 @@
 main
   overflow : hidden
-  padding  : 15px 0 200px 0
+  padding  : 45px 0 200px 0
   text-align : center
 
 .block
@@ -19,19 +19,31 @@ main
     .value
       float : right
 
+  .post
+    padding-bottom : 0
+
+  .extra_info
+    padding-bottom : 0
+
   /*---------------------------------------------------------*/
 
   .extra_info
-    margin-bottom : 35px
+    margin-bottom : 20px
     .value
       width : 335px
 
   /*--------------------------------------------------------*/
   .button_block
-    overflow      : hidden
+    padding-top    : 15px
+    padding-bottom : 35px
 
     .add_button, .save_button
       float : right
+
+  .button_block:after
+    content : ''
+    clear   : both
+    display : block
 
   /*---------------------------------------------------------*/
 
@@ -41,7 +53,6 @@ main
     height : 3px
     border-radius : 2px
 
-    margin-top : 35px
     margin-bottom : 30px
 
 .hint
