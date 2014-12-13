@@ -1,10 +1,31 @@
-.filter_data
-  .title
-    font-size: 30px
-    color: rgb(34, 37, 40)
-  .subject_select_block
-    .list_subject
-      width: 520px
-      height: 65px
-      padding: 20px 0
-      margin: auto
+@import compass/css3
+main
+.title
+  font-size: 30px
+  color: rgb(34, 37, 40)
+  padding-bottom: 20px
+.subject_select_block
+  margin: 0 216px
+  $height_subject_form: 65px
+  .add_subject
+    height: $height_subject_form
+    float: left
+  .list_subject
+    height: $height_subject_form
+    width: 520px
+    margin-left: 57px
+  .chose_subject_block
+    margin: 20px
+    overflow: hidden
+    .chose_subject
+      float: left
+      margin: 0 10px 10px 0
+.button_panel
+  margin: 0 188px
+  overflow: hidden
+  .button_back_block, .button_issue_block, .button_onward_block
+    float: left
+  .button_back_block
+    padding-right: 5px
+  .button_onward_block
+    padding-left: 5px

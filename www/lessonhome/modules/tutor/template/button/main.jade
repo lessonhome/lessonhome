@@ -6,5 +6,10 @@
   //text - content
   // selector - style sass
 
-.button(class=selector)
-  .text=text
+
+if selector == 'add_subject'
+  .button(class=selector).plus +
+    .text=text
+else
+  .button(class=selector)
+    .text=text
