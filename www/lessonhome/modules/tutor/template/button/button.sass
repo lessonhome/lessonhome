@@ -5,26 +5,48 @@ main
 
 .fixed, .add, .streamlined, .color_blue
   +inline-block
+  height           : 35px
   background-color : rgb( 240, 123, 111 )
   border-radius    : 4px
-  box-shadow       : 0 1px 3px rgba(0,0,0, 0.65)
+  box-shadow       : 0 1px 1px rgba(0,0,0, 0.65)
+  text-align       : center
   //-box-shadow: 0px 1px 3px 0px rgb( 0, 0, 0 )
 
   .text
-    padding     : 7px 17px 7px 13px
-    text-align  : center
-    font-size   : 17.975px
+    +inline-block
+    line-height : 35px
+    font-size   : 18px
     font-family : "Open Sans",sans-serif
     color  : white
     cursor : pointer
-
 
 .color_blue
   background-color : rgb( 137, 209, 255 )
   box-sizing       : border-box
 
+
+.streamlined>.text
+  padding : 0 12px
+
+.dark_blue
+  width            : 103px
+  height           : 35px
+  background-color : rgb( 203, 211, 218 )
+  box-sizing       : border-box
+  box-shadow       :  0 1px 3px rgba(0,0,0, 0.53)
+  text-align       : center
+  .text
+    +inline-block
+    line-height : 35px
+    font-size   : 18px
+    font-family : 'Open Sans', sans-serif
+    color       : rgb( 136, 149, 161 )
+    cursor      : pointer
+
+
+
 .fixed
-  min-width : 130px
+  min-width  : 130px
   box-sizing : border-box
 
 .add

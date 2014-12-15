@@ -22,7 +22,7 @@ class @main extends template 'tutor/template/template'
 
           module 'tutor/template/button' :
             text  : 'Удалённо'
-            selector  : 'fixed'
+            selector  : 'dark_blue'
         ]
 
       address_list : module 'tutor/template/forms/drop_down_list'
