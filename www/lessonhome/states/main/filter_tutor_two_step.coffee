@@ -1,5 +1,5 @@
 class @main extends template './template'
-  route : '/'
+  route : '/two_step'
   title : "title"
   tree : ->
     content : module 'main'  :
