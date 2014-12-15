@@ -1,5 +1,5 @@
 class @main
-  tree : -> module 'main_page/template' :
+  tree : -> module 'main/template' :
     header        : state '../tutor/template/header'
     content       : @exports()   # must be defined
   init_ : =>
