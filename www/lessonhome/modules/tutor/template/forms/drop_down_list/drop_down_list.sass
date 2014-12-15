@@ -1,27 +1,26 @@
 main
   height: 100%
 .drop_down_list
-  position : relative
-  height : 37px
-  width : 100%
+  position: relative
+  height: 32px
+  width: 100%
   input
-    padding : 0 8px
-    padding-right : 25px
-    box-sizing    : border-box
-    border : 2px solid rgb( 214, 214, 214 )
-    border-radius : 4px
-    background-color : rgb( 255, 255, 255 )
+    padding: 0 8px
+    padding-right: 25px
+    box-sizing: border-box
+    border: 2px solid rgb( 214, 214, 214 )
+    border-radius: 4px
+    background-color: rgb( 255, 255, 255 )
     //outline : none
-    width  : 100%
-    height : 100%
+    width: 100%
+    height: 100%
   .icon
-    background : inline-image('falldown_triangle2.png') no-repeat
+    background : inline-image('falldown_triangle2.png') no-repeat //change this property, and put HTML char in jade
     width  : 13px
     height : 12px
     position : absolute
     top : 11px
-    right : 12px
-
+    right : 5px
 .drop_down_list
   input:focus
     border : 2px solid rgb( 137, 209, 255 )
@@ -46,7 +45,9 @@ main
     position: absolute
     top: 50%
     right: 0px
-    margin-top: -$icon_height / 2
-    margin-right: 15px
-    //background : inline-image('falldown_triangle2.png') no-repeat     until not put image
-    background: red
+    margin-top: -$icon_height / 2 + 1px
+    margin-right: 20px
+    background: none
+    line-height: 23px
+    color: rgb(203, 211, 218)
+    font-size: 26px

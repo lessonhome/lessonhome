@@ -1,3 +1,6 @@
 .drop_down_list(class=selector)
   input
-  .icon
+  if selector == 'subject'
+    .icon &#9660
+  else
+    .icon
