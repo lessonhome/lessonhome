@@ -16,7 +16,7 @@ class module.exports
     @server.listen @port
 
   handler :(req,res)=>
-    return res.end() if req.url != "/update.txt"
+    return res.end() if req.url != "/update"
     @hand++
     res.setHeader 'x-content-type-options', 'nosniff'
     res.setHeader 'Connection', 'Transfer-Encoding'
