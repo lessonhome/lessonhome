@@ -10,10 +10,9 @@ class Server
     @port = 8081
     switch hostname
       when 'pi0h.org'
-        @port = 80
+        @port = 8081
       else
         @port = 8081
-
   init : =>
     @server = http.createServer @handler
     @server.listen @port

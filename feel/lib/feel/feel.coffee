@@ -174,4 +174,9 @@ class module.exports
           src = @cacheCoffee file
           n = ndir.match /^(.*)\.coffee$/
           @client[n[1]] = src
+       
+
+    
+    
+
 
