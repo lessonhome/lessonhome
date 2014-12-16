@@ -21,12 +21,7 @@ class @main extends template './template'
         button_onward : module 'tutor/template/button'  :
           selector  : 'onward_block'
           text      : 'Далее'
-      info_panel      : module 'main/info_panel'  :
-        math              : 'Математические +'
-        natural_research  : 'Естественно-научные +'
-        philology         : 'Филологичные +'
-        foreign_languages : 'Иностранные языки +'
-        others            : 'Другие +'
+      info_panel      : module 'main/info_panel'
       search_diagram  : module 'main/motivation_block' :
         button   : module 'tutor/template/button'  :
           selector  : 'search_button'
@@ -45,3 +40,10 @@ class @main extends template './template'
           text      : 'Начать поиск'
         title     : 'Подбор репетитора'
         selector  : 'chose_tutor'
+  init : =>
+    p = @tree.content.info_panel
+    p.math              = 'Математические +'
+    p.natural_research  = 'Естественно-научные +'
+    p.philology         = 'Филологичные +'
+    p.foreign_languages = 'Иностранные языки +'
+    p.others            = 'Другие +'

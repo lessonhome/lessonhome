@@ -51,8 +51,16 @@ class module.exports
     @class = @src.main
     @class::__make = => @make.apply @, arguments
     @class::__bind_exports = => @bind_exports.apply @, arguments
-    
+    @checkFoo 'init'
+    @checkFoo 'run'
+    @checkFoo 'tree', -> {}
     @inited = true
+  checkFoo : (name,foo)=>
+    foo ?= ->
+    if @class::constructor?.__super__?[name]?
+      if @class::[name] == @class::constructor.__super__[name]
+        @class::[name] = foo
+
   make           : (o,state)=>
     state         ?= new @class()
 
