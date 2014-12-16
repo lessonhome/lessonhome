@@ -51,6 +51,8 @@ class module.exports
     process.stdout.write msg
 
   exec : (cmd,args,res,time,cb)=>
+    t = new Date().getTime()
+
     unless cb?
       cb    = time
       time  = null
@@ -59,7 +61,12 @@ class module.exports
     prog.stdout.on 'data', (data)=> @log res,data
     prog.stderr.on 'data', (data)=> @log res,data
     prog.on 'close', (code)=>
+      if time?
+        nt = new Date().getTime()
+        if nt-t<time
+          return @exec cmd,args,res,time-(nt-t),cb
       cb()
+
     if time
       setTimeout =>
         prog.kill()
