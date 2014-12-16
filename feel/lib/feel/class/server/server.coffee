@@ -13,7 +13,6 @@ class Server
         @port = 80
       else
         @port = 8081
-
   init : =>
     @server = http.createServer @handler
     @server.listen @port

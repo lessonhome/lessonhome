@@ -4,7 +4,7 @@ Module  = require './module'
 fs      = require 'fs'
 readdir = Q.denodeify fs.readdir
 Router  = require './server/router'
-
+_path   = require 'path'
 class module.exports
   constructor : (@name)->
     @path         = {}
@@ -99,4 +99,31 @@ class module.exports
       module.name = dir.match(/^(.*)\/$/)[1]
       @modules[module.name] = new Module module,@
       return @modules[module.name].init()
-
+  dataObject : (name,context)=>
+    suffix  = ""
+    postfix = name
+    file = ""
+    m = name.match /^(\w)\:(.*)$/
+    if m
+      suffix  = m[1]
+      postfix = m[2]
+    suffix = switch suffix
+      when 's' then 'states'
+      when 'm' then 'modules'
+      when 'r' then 'runtime'
+      else ''
+    m = context.match /^(\w+)\/(.*)$/
+    s = m[1]
+    p = m[2]
+    if postfix.match /^\./
+      suffix = s if !suffix
+      file = _path.normalize @path.src+"/"+suffix+"/"+p+"/"+postfix+".d.coffee"
+    else if postfix.match /^\//
+      suffix = "runtime" if !suffix
+      file = _path.normalize @path.src+"/"+suffix+postfix+".d.coffee"
+    else
+      suffix = "runtime" if !suffix
+      file = _path.normalize @path.src+"/"+suffix+"/"+postfix+".d.coffee"
+    console.log file
+    obj = require process.cwd()+"/"+file
+    return obj

@@ -28,6 +28,7 @@
     "q" : "*",
     "jade" : "*",
     "jquery" : "*",
+    "ps-node" : "*",
     "node-watch" : "*",
     "mkdirp" : "*"
   }
