@@ -35,7 +35,7 @@ class module.exports
                 if a.match /feel.bin.feel$/
                   @log res,"kill "+p.pid
                   @exec "tail", ["-f","/var/log/upstart/feel.log"],res,10000, => @end res
-                  ps.kill p.pid
+                  ps.kill p.pid, =>
                   boo = true
 
           if !boo
