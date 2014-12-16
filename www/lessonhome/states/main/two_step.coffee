@@ -25,7 +25,7 @@ class @main extends template './template'
         tutor             : 'Преподователь'
         place             : 'Место'
         price             : 'Цена'
-      advanced_search       : module 'main/advanced_search'
+      advanced_search       : module 'main/advanced_search':
         list_course  : module 'tutor/template/forms/drop_down_list'  :
           selector  : 'list_course'
         add_course   : module 'tutor/template/button'  :
