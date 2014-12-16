@@ -1,12 +1,13 @@
 class @main extends template './template'
-  route : '/'
-  title : "title"
+  route : '/first_step'
+  title : "first_step"
   tree : ->
-    content : module 'main'  :
-      filter_tutor    : module '//filter_tutor' :
+    content : module '$'  :
+      filter_tutor    : module 'main/filter_tutor' :
+        title         : 'Выберите предмет :'
         list_subject  : module 'tutor/template/forms/drop_down_list'  :
-          selector    : 'subject'
-        add_subject : module 'tutor/template/button'  :
+          selector  : 'subject'
+        add_subject   : module 'tutor/template/button'  :
           selector  : 'add_subject'
         chose_subject : module 'tutor/template/button'  :
           selector  : 'subject'
@@ -20,21 +21,27 @@ class @main extends template './template'
         button_onward : module 'tutor/template/button'  :
           selector  : 'onward_block'
           text      : 'Далее'
-      info_panel   : module '//info_panel'  :
+      info_panel      : module 'main/info_panel'  :
         math              : 'Математические +'
         natural_research  : 'Естественно-научные +'
         philology         : 'Филологичные +'
         foreign_languages : 'Иностранные языки +'
         others            : 'Другие +'
-      search_diagram  : module '//search_diagram' :
-        search_button   : module 'tutor/template/button'  :
+      search_diagram  : module 'main/motivation_block' :
+        button   : module 'tutor/template/button'  :
           selector  : 'search_button'
           text      : 'Начать поиск'
-      chose_search    : module '//chose_search' :
-        order_call   : module 'tutor/template/button' :
+        title     : 'Найти репетитора - легко!'
+        selector  : 'search_diagram'
+      chose_search    : module 'main/motivation_block' :
+        button   : module 'tutor/template/button' :
           selector  : 'order_call'
           text      : 'Заказать звонок'
-      chose_tutor     : module '//chose_tutor'  :
-        start_search   : module 'tutor/template/button' :
+        title     : '3 способа поиска'
+        selector  : 'chose_search'
+      chose_tutor     : module 'main/motivation_block'  :
+        button   : module 'tutor/template/button' :
           selector  : 'start_search'
           text      : 'Начать поиск'
+        title     : 'Подбор репетитора'
+        selector  : 'chose_tutor'
