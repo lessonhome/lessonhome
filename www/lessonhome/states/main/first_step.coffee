@@ -39,20 +39,3 @@ class @main extends template '../main'
           text      : 'Начать поиск'
         title     : 'Подбор репетитора'
         selector  : 'chose_tutor'
-
-
-
-###    :
-      filter_tutor    : module 'main/filter_tutor' :
-
-      info_panel      : module 'main/info_panel'
-
-  init : =>
-    p = @tree.content.info_panel
-    p.math              = 'Математические +'
-    p.natural_research  = 'Естественно-научные +'
-    p.philology         = 'Филологичные +'
-    p.foreign_languages = 'Иностранные языки +'
-    p.others            = 'Другие +'
-
-###

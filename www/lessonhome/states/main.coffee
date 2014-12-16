@@ -6,10 +6,15 @@ class @main
     info_panel : module '$/info_panel'
     content    : @exports()   # must be defined
 
-  init_ : ->
+  init : ->
+    p = @tree.info_panel
+    p.math              = 'Математические +'
+    p.natural_research  = 'Естественно-научные +'
+    p.philology         = 'Филологичные +'
+    p.foreign_languages = 'Иностранные языки +'
+    p.others            = 'Другие +'
 
-    #console.log @tree.header
-    #@tree.header.top_menu.items =
-    #'Стать учеником'  : 'be_pupil'
-    #'Репетиторам'     : 'tutors'
-    #'О нас'           : 'about us'
+    @tree.header.top_menu.items =
+      'Стать учеником'  : 'be_pupil'
+      'Репетиторам'     : 'tutors'
+      'О нас'           : 'about us'
