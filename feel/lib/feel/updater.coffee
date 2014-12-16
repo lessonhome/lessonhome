@@ -12,9 +12,12 @@ class module.exports
   run : ->
     #return if os.hostname() != 'pi0h.org'
     @server = http.createServer @handler
+    @hand = 0
     @server.listen @port
+
   handler :(req,res)=>
     return res.end() if req.url != "/update.txt"
+    @hand++
     res.setHeader 'x-content-type-options', 'nosniff'
     res.setHeader 'Connection', 'Transfer-Encoding'
     res.setHeader 'Content-Type', 'text/plain; charset=utf-8'
@@ -45,7 +48,9 @@ class module.exports
 
   end : (res)=>
     res.end "====================================="
-
+    @hand--
+    if @hand <= 0
+      process.exit()
   log : (res,msg)=>
     res.write msg
     process.stdout.write msg
