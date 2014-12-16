@@ -1,27 +1,26 @@
-class @main extends template './template'
+class @main extends template '../main'
   route : '/first_step'
   title : "first_step"
-  tree : ->
-    content : module '$'  :
-      filter_tutor    : module 'main/filter_tutor' :
-        title         : 'Выберите предмет :'
-        list_subject  : module 'tutor/template/forms/drop_down_list'  :
-          selector  : 'subject'
-        add_subject   : module 'tutor/template/button'  :
-          selector  : 'add_subject'
-        chose_subject : module 'tutor/template/button'  :
-          selector  : 'subject'
-          text      : 'Алгебра'
-        button_back   : module 'tutor/template/button'  :
-          selector  : 'subject_back'
-          text      : 'Назад'
-        button_issue  : module 'tutor/template/button'  :
-          selector  : 'issue_bid'
-          text      : 'Оформить заявку сейчас'
-        button_onward : module 'tutor/template/button'  :
-          selector  : 'onward_block'
-          text      : 'Далее'
-      info_panel      : module 'main/info_panel'
+  tree : =>
+    top_filter  : module '$/top_filter' :
+      title         : 'Выберите предмет :'
+      list_subject  : module 'tutor/template/forms/drop_down_list'  :
+        selector  : 'subject'
+      add_subject   : module 'tutor/template/button'  :
+        selector  : 'add_subject'
+      chose_subject : module 'tutor/template/button'  :
+        selector  : 'subject'
+        text      : 'Алгебра'
+      button_back   : module 'tutor/template/button'  :
+        selector  : 'subject_back'
+        text      : 'Назад'
+      button_issue  : module 'tutor/template/button'  :
+        selector  : 'issue_bid'
+        text      : 'Оформить заявку сейчас'
+      button_onward : module 'tutor/template/button'  :
+        selector  : 'onward_block'
+        text      : 'Далее'
+    content     : module '$/motivation' :
       search_diagram  : module 'main/motivation_block' :
         button   : module 'tutor/template/button'  :
           selector  : 'search_button'
@@ -40,6 +39,14 @@ class @main extends template './template'
           text      : 'Начать поиск'
         title     : 'Подбор репетитора'
         selector  : 'chose_tutor'
+
+
+
+###    :
+      filter_tutor    : module 'main/filter_tutor' :
+
+      info_panel      : module 'main/info_panel'
+
   init : =>
     p = @tree.content.info_panel
     p.math              = 'Математические +'
@@ -47,3 +54,5 @@ class @main extends template './template'
     p.philology         = 'Филологичные +'
     p.foreign_languages = 'Иностранные языки +'
     p.others            = 'Другие +'
+
+###

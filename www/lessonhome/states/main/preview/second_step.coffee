@@ -1,3 +1,4 @@
+###
 class @main extends template './template'
   route : '/two_step'
   title : "two_step"
@@ -31,3 +32,4 @@ class @main extends template './template'
         add_course   : module 'tutor/template/button'  :
           selector  : 'course'
 
+###

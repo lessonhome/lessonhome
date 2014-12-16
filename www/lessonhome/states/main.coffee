@@ -1,10 +1,10 @@
 class @main
-  tree : -> module 'main/template' :
-    header        : state '../tutor/template/header'
-    search_block  : module 'main/template/search_background' :
-      top_filter : @exports()
-    info_panel     : module 'main/info_panel'
-    content       : @exports()   # must be defined
+  tree : -> module '$' :
+    header     : state './tutor/template/header'
+    top_filter : module '$/top_filter' :
+      content   : @exports 'top_filter'
+    info_panel : module '$/info_panel'
+    content    : @exports()   # must be defined
 
   init_ : ->
 
