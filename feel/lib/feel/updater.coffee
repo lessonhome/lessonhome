@@ -34,7 +34,7 @@ class module.exports
               for a in p.arguments
                 if a.match /feel.bin.feel$/
                   @log res,"kill "+p.pid
-                  @exec "tail", ["-f","/var/log/upstart/feel.log"],res,10000, => @end res
+                  @exec "tail", ["-f","/var/log/upstart/feel.log"],res,60000, => @end res
                   ps.kill p.pid, =>
                   boo = true
 
@@ -61,7 +61,7 @@ class module.exports
     prog.stdout.on 'data', (data)=> @log res,data
     prog.stderr.on 'data', (data)=> @log res,data
     prog.on 'close', (code)=>
-      if time?
+      if false # time?
         nt = new Date().getTime()
         if nt-t<time
           return @exec cmd,args,res,time-(nt-t),cb
@@ -69,7 +69,7 @@ class module.exports
 
     if time
       setTimeout =>
-        prog.kill =>
+        prog.kill()
       , time
 
 
