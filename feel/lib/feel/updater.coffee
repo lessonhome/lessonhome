@@ -69,7 +69,7 @@ class module.exports
 
     if time
       setTimeout =>
-        prog.kill()
+        prog.kill =>
       , time
 
 
