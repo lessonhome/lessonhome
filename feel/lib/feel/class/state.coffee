@@ -51,8 +51,16 @@ class module.exports
     @class = @src.main
     @class::__make = => @make.apply @, arguments
     @class::__bind_exports = => @bind_exports.apply @, arguments
-    
+    @checkFoo 'init'
+    @checkFoo 'run'
+    @checkFoo 'tree', -> {}
     @inited = true
+  checkFoo : (name,foo)=>
+    foo ?= ->
+    if @class::constructor?.__super__?[name]?
+      if @class::[name] == @class::constructor.__super__[name]
+        @class::[name] = foo
+
   make           : (o,state)=>
     state         ?= new @class()
 
@@ -122,6 +130,11 @@ class module.exports
               for a,b of val
                 node[k][a] = b
             else node[k] = val
+            if node == state.tree
+              if state.parent?.exports?[k]?
+                newo = {}
+                newo[k] = node[k]
+                state.parent.__bind_exports state.parent, newo
     catch e
       console.error "failed merge tree in state #{@name} with object", o,e
       throw e

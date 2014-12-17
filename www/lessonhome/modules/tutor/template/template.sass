@@ -1,16 +1,12 @@
 @import compass/css3
 //width variables
+$width_container: 1014
 $width_left_menu: 236px
-$width_content: 778px
+$width_content: $width_container - $width_left_menu
 $background_white:  #ffffff
-//sum all width = 100%
-//$width_left_menu : 23.6%
-//$width_content : 73.2%
-//$width_right_box : 3.2%
 main
   height: 100%
-  max-width: 1014px
-  min-width: 900px
+  width: 1014px
   margin: auto
 .container
   position: relative
@@ -18,7 +14,7 @@ main
   min-height: 100%
   overflow: hidden
   +box-shadow(3px 0 16px 0px rgba(0,0,0,0.17),-3px 0 16px 0px rgba(0,0,0,0.17), 37px 0 43px 0px rgba(0,0,0,0.07), -37px 0 43px 0px rgba(0,0,0,0.07))
-  //-----background rules
+  //-------------background rules------------////////////
   .background_all
     position: absolute
     height: 100%
@@ -29,11 +25,6 @@ main
     bottom: 0
     overflow: hidden
     background: #f3f3f3
-    //.left_menu_background
-      float: left
-      width: $min_withs_left_menu
-      height: 100%
-      background: #f3f3f3
     .content_background
       height: 100%
       width: $width_content
@@ -41,11 +32,6 @@ main
       position: relative
       background: $background_white
       +box-shadow(0px 6px 6px rgba(0,0,0,0.27))
-    //.right_background
-      float: left
-      max-width: $width_right_box
-      height: 100%
-      background: #f3f3f3
   .header
     position: relative
     height: 100px
@@ -61,21 +47,21 @@ main
     +box-shadow(0px 1px 3px 0px rgba(0,0,0,0.26))
     .sub_top_menu
       height: 100%
-      //background: #E0E9ED
   .center_block
     position: relative
     overflow: hidden
-    margin-bottom: 100px
     .left_menu
       float: left
       width: $width_left_menu
     .content
-      min-width: $width_content
+      width: $width_content
       margin-left: $width_left_menu
+      margin-bottom: 100px
   .footer
     height: 100px
     width: 100%
     position: absolute
     bottom: 0
     background: #E2E7EC
+
 

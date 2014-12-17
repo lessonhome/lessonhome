@@ -6,10 +6,10 @@
   //text - content
   // selector - style sass
 
+- char = char || '';
 
-if selector == 'add_subject'
-  .button(class=selector).plus +
-    .text=text
-else
-  .button(class=selector)
-    .text=text
+.button(class=selector)
+  .plus #{char}
+  .close
+    .background
+  .text=text
