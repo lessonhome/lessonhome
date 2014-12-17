@@ -1,8 +1,8 @@
-class @main extends template './template'
+class @main extends template '../main_tutor_template'
   route : '/main_tutor'
-  title : "title"
-  tree : ->
-    content : module 'main_tutor'  :
+  title : "main_tutor"
+  tree : =>
+    content : module 'main_tutor_template/main_tutor'  :
       login           : module 'tutor/template/forms/input' :
         text : 'Введите ваш телефон или email адрес'
       login_hint      : module 'tutor/template/hint' :
@@ -27,3 +27,15 @@ class @main extends template './template'
       callback    : module 'tutor/template/button' :
         selector  : 'callback'
         text      : 'Заказать звонок'
+
+
+
+
+
+
+
+
+
+
+
+

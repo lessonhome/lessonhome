@@ -16,5 +16,5 @@ class @main
 
     @tree.header.top_menu.items =
       'Стать учеником'  : 'be_pupil'
-      'Репетиторам'     : 'tutors'
+      'Репетиторам'     : 'main_tutor'
       'О нас'           : 'about us'
