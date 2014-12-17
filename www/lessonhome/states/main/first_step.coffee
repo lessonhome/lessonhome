@@ -5,11 +5,13 @@ class @main extends template '../main'
     top_filter  : module '$/top_filter' :
       title         : 'Выберите предмет :'
       list_subject  : module 'tutor/template/forms/drop_down_list'  :
-        selector  : 'subject'
+        selector    : 'subject'
+        placeholder : 'Предметы'
       add_subject   : module 'tutor/template/button'  :
         selector  : 'add_subject'
+        char      : '+'
       chose_subject : module 'tutor/template/button'  :
-        selector  : 'subject'
+        selector  : 'chose_subject'
         text      : 'Алгебра'
       button_back   : module 'tutor/template/button'  :
         selector  : 'subject_back'

@@ -2,7 +2,6 @@
 
 main
   height: 100%
-
 .fixed, .add, .streamlined, .color_blue
   +inline-block
   height           : 35px
@@ -88,16 +87,29 @@ main
 
 
 ////////subject////////////////////
-.button.subject
+.button.chose_subject
+  $size_background:  10px
+  $margin_background:  10px
+  $srs: 'close.png'
+  overflow: hidden
   $height_line: 33px
   border-radius: 4px
   height: $height_line
   background-color: rgb(225, 227, 229)
+  .close
+    float: right
+    height: 100%
+    cursor: pointer
+    .background
+      width: $size_background
+      height: $size_background
+      margin: 13px 10px 0 10px
+      background: inline-image($srs)
   .text
-    font-size: 12px
+    font-size: 18px
     color: rgb(61, 50, 50)
-    padding: 0 15px
     line-height: $height_line
+    margin: 0 (2*$margin_background+$size_background) 0 10px
 ////it's big button in subject////
 .button.subject_back, .button.onward_block, .button.issue_bid
   $height_line: 50px
@@ -120,16 +132,20 @@ $height_button_add: 33px
 .button.add_subject
   width: 37px
   height: $height_button_add
-  border-radius: 4px
-  background-color: rgb(225, 227, 229)
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
-.button.add_subject.plus
   position: relative
   top: 50%
   margin-top: -$height_button_add / 2
-  line-height: 33px
-  font-size: 30px
-  font-weight: 900
+  border-radius: 4px
+  background-color: rgb(225, 227, 229)
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
+  .plus
+    font-size: 30px
+    font-weight: 900
+    +inline-block
+.button.add_subject:before
+  content: ''
+  +inline-block
+  height: 100%
 ////search_button////
 .button.search_button, .button.order_call, .button.start_search
   $height: 54px
