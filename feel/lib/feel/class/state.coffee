@@ -130,6 +130,11 @@ class module.exports
               for a,b of val
                 node[k][a] = b
             else node[k] = val
+            if node == state.tree
+              if state.parent?.exports?[k]?
+                newo = {}
+                newo[k] = node[k]
+                state.parent.__bind_exports state.parent, newo
     catch e
       console.error "failed merge tree in state #{@name} with object", o,e
       throw e
