@@ -1,8 +1,9 @@
-class @main extends template '../main_tutor_template'
+class @main
   route : '/main_tutor'
   title : "main_tutor"
-  tree : =>
-    content : module 'main_tutor_template/main_tutor'  :
+  tree : -> module 'main_tutor' :
+    header  : state 'tutor/template/header'
+    content : module 'main_tutor/content'  :
       login           : module 'tutor/template/forms/input' :
         text : 'Введите ваш телефон или email адрес'
       login_hint      : module 'tutor/template/hint' :
