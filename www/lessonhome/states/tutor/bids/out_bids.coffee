@@ -30,7 +30,8 @@ class @main extends template 'tutor/template/template'
           module '//bid' :
             selectable   : true
             report_block : false
-            checkbox  : module 'tutor/template/forms/checkbox'
+            checkbox  : module 'tutor/template/forms/checkbox' :
+              selector : 'bid'
 
             number    : 25723
             date      : "10 ноября"
@@ -55,7 +56,8 @@ class @main extends template 'tutor/template/template'
           module '//bid' :
             selectable   : true
             report_block : false
-            checkbox  : module 'tutor/template/forms/checkbox'
+            checkbox  : module 'tutor/template/forms/checkbox' :
+              selector : 'bid'
 
             number    : 15723
             date      : "20 декабря"

@@ -5,11 +5,16 @@
 //respons
   //header, text - content
   // selector - style sass
-.hint(class=selector)
-  .top_block
-    .hide_button
-      .icon
-      .text скрыть
-  .question_sign_block
-  .header!= header
-  .text!= text
+if selector == 'small'
+  .hint(class='small')
+    .sign
+    .field
+else
+  .hint(class=selector)
+    .top_block
+      .hide_button
+        .icon
+        .text скрыть
+    .question_sign_block
+    .header!= header
+    .text!= text

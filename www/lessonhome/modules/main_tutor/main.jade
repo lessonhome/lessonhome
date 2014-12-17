@@ -1,0 +1,76 @@
+mixin item (selector, text)
+  div(class=selector)
+    .icon
+    .text.m-font=text
+
+//- ------------------ CHECK IN -------------------------
+
+.check_in
+  .title.m-font Lesson <span>Home</span> соединяет высоко-квалифицированных<br>репетиторов с учениками для занятий любым удобным способом.
+  .title_conditions!= 'Подробная информация о сотрудничестве изложена<br>в '
+    a.m-Link Условиях оказания информационных услуг
+
+  .check_in_fields
+    .title Пройти регистрацию
+    .login
+      .input!= login
+      .hint!= login_hint
+    .password
+      .input!= password
+      .hint!= password_hint
+
+    .checkbox
+      .field!= checkbox
+      .text.m-font!= 'Я прочитал и согласен с '
+        a.m-Link Условиями оказания информационных услуг
+
+      .buttons
+        .a.m-Link.phone_check_in Регистрация по телефону
+        .create_account!= create_account
+
+
+//- ------------- HOW IT WORKS --------------------
+
+.how_it_works
+  .title.m-landingBlockTitle Как это работает?
+  .photo
+  .button!= check_in_first
+
+
+
+//- ---------- ADVANTAGES -------------------------
+
+.advantages
+  .photo
+  .title
+    .text.m-font Тысячи учеников и их родителей ищут<br> репетиторов онлайн каждый день!
+    .text.m-font Площадка <span>LESSON HOME</span> позволяет создать бесплатны<br> онлайн профиль, в котором есть всё необходимое, чтобы<br> продемонстрировать свою квалификацию и опыт.
+  .content
+  //-.content
+    .left
+      .icon
+      .title.m-font Создать профиль<br> <span class="red">быстро</span> и <span class="blue">бесплатно</span>
+      .button!= check_in_second
+    .center
+      .icon
+      .title.m-font Подробный профиль
+      .content
+        +item ('1', 'Удобный и приятный просмотр')
+        +item ('2', 'Фотографии и видео')
+        +item ('3','Отзывы учеников')
+        +item ('4','Рейтинг и статистика')
+    .right
+      .title.m-font Управляйте вашим бизнесом
+      .content
+        +item ('5','Расписание и синхронизация с личным календарём')
+        +item ('6','Просмотр текущих учеников и истории платежей')
+        +item ('7','Ищите учеников и откликайтесь на заявки')
+        +item ('8','Поддержка клиентов Lesson Home доступна 7 дней в неделю')
+
+//- -------- WAYS TO FIND -------------------------
+
+.ways_to_find
+  .title.m-landingBlockTitle 3 способа поиска
+  .photo
+  .button!= callback
+

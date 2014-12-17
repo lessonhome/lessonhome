@@ -30,7 +30,8 @@ class @main extends template 'tutor/template/template'
           module '//bid' :
             selectable     : true
             report_block   : true
-            checkbox       : module 'tutor/template/forms/checkbox'
+            checkbox       : module 'tutor/template/forms/checkbox' :
+              selector : 'bid'
             fill_button    : module 'tutor/template/button' :
               text  : 'Заполнить'
               selector  : 'fill'
@@ -68,7 +69,8 @@ class @main extends template 'tutor/template/template'
           module '//bid' :
             selectable   : true
             report_block : true
-            checkbox  : module 'tutor/template/forms/checkbox'
+            checkbox  : module 'tutor/template/forms/checkbox' :
+              selector : 'bid'
             fill_button    : module 'tutor/template/button' :
               text  : 'Заполнить'
               selector  : 'fill'

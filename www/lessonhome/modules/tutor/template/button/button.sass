@@ -33,7 +33,8 @@ main
   height           : 35px
   background-color : rgb( 203, 211, 218 )
   box-sizing       : border-box
-  box-shadow       :  0 1px 3px rgba(0,0,0, 0.53)
+  border-radius    : 4px
+  //-box-shadow       :  0 1px 3px rgba(0,0,0, 0.53)
   text-align       : center
   .text
     +inline-block
@@ -85,7 +86,53 @@ main
 .fill
   background-color : rgb( 137, 209, 255 )
 
+// ------------------------- CHECK IN -----------------------
 
+.button.check_in_first, .button.check_in_second, .button.callback
+  text-align       : center
+  border-radius    : 4px
+  background-color : rgb( 240, 123, 111 )
+  box-shadow       : 0px 1px 1px 0px rgb( 0, 0, 0 )
+  .text
+    color       : #fff
+    font-family : 'Open Sans', sans-serif
+
+.button.check_in_first
+  width : 496px
+  height : 64px
+  .text
+    line-height : 64px
+    font-size   : 30px
+
+.button.check_in_second
+  width  : 208px
+  height : 50px
+  .text
+    line-height : 50px
+    font-size   : 23.98px
+
+.button.callback
+  width  : 265px
+  height : 54px
+  .text
+    line-height : 54px
+    font-size   : 26px
+
+//- ----------------------- CREATE ACCOUNT -----------------
+
+.button.create_account
+  $height : 33px
+  width   : 190px
+  height  : $height
+  text-align       : center
+  border-radius    : 4px
+  background-color : rgb( 240, 123, 111 )
+  box-shadow       : 0px 1px 1px 0px rgb( 0, 0, 0 )
+  .text
+    line-height : $height
+    font-size   : 20px
+    color       : white
+    font-family : 'Open Sans', sans-serif
 
 ////////subject////////////////////
 .button.subject
