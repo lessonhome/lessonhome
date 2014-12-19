@@ -51,7 +51,7 @@ class module.exports
     .then @static.init
     .then @loadClient
     .then @createServer
-    .then @checkPages
+    #.then @checkPages
   createServer : =>
     @server = new Server()
     Q().then @server.init
