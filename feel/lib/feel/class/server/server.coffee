@@ -40,7 +40,7 @@ class Server
   handler : (req,res)=>
     console.log "#{req.method} \t#{req.headers.host}#{req.url}"
     req.time = new Date().getTime()
-    res.on 'finish', => console.log "time\t#{new Date().getTime() - req.time}ms\n"
+    #res.on 'finish', => console.log "time\t#{new Date().getTime() - req.time}ms\n"
     site = ""
     host = req.headers.host
     if @domains.text[host]?

@@ -58,7 +58,7 @@ class module.exports
     @checkVar 'route'
     @checkVar 'model'
     @inited = true
-    if @class::route? && !@name.match(/^(dev|test)/)
+    if @class::route? && !@name.match(/^(dev|test)/) && 0
       throw new Error "Undefined title in state '#{@name}'" unless @class::title?
       throw new Error "Undefined model in state '#{@name}'" unless @class::model?
   checkFoo : (name,foo)=>
