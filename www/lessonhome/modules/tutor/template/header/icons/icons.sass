@@ -2,30 +2,26 @@
 
 $size : 22px
 $margin : 20px
-
 main
+  height: 100%
   overflow: hidden
-
-
-.search, .edit, .notice
-  width: $size
-  height: $size
-  float: left
-  margin-right: $margin
-
-
-//after we have icons image we must change background: red on background : inline-image('#') no-repeat
-
-.search
-  background: red
-
-.edit
-  background: red
-
-// end icon dose not have margin-right: $margin and do rules separate
-.notice
-  margin-right: 0
-  background: red
-
-
-
+.icons_box
+  height: 100%
+  .search, .edit, .notice
+    width: $size
+    height: $size
+    +inline-block
+    margin-right: $margin
+  //after we have icons image we must change background: red on background : inline-image('#') no-repeat
+  .search
+    background: red
+  .edit
+    background: red
+  // end icon dose not have margin-right: $margin and do rules separate
+  .notice
+    margin-right: 0
+    background: red
+.icons_box:after
+  content: ''
+  height: 100%
+  +inline-block
