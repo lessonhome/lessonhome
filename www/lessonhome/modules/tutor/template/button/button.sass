@@ -9,8 +9,6 @@ main
   border-radius    : 4px
   box-shadow       : 0 1px 1px rgba(0,0,0, 0.65)
   text-align       : center
-  //-box-shadow: 0px 1px 3px 0px rgb( 0, 0, 0 )
-
   .text
     +inline-block
     line-height : 35px
@@ -22,7 +20,6 @@ main
 .color_blue
   background-color : rgb( 137, 209, 255 )
   box-sizing       : border-box
-
 
 .streamlined>.text
   padding : 0 12px
@@ -43,8 +40,6 @@ main
     color       : rgb( 136, 149, 161 )
     cursor      : pointer
 
-
-
 .fixed
   min-width  : 130px
   box-sizing : border-box
@@ -55,14 +50,7 @@ main
     height : 33px
     box-sizing : border-box
     font-size : 24px
-
-
-.simple
-  cursor: pointer
-
-
 /*--------------------------------------------------*/
-
 .support, .fill
   +inline-block
   width  : 110px
@@ -162,7 +150,8 @@ main
     color: rgb(61, 50, 50)
     line-height: $height_line
     margin: 0 (2*$margin_background+$size_background) 0 10px
-////it's big button in subject////
+
+////-----------it's big button in subject----------------////
 .button.subject_back, .button.onward_block, .button.issue_bid
   $height_line: 50px
   height: $height_line
@@ -171,6 +160,7 @@ main
   border-radius: 4px
   margin: 10px
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
+  cursor: pointer
   .text
     font-size: 26px
     padding: 0 15px

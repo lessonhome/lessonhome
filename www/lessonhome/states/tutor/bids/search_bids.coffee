@@ -2,6 +2,8 @@
 
 class @main extends template 'tutor/template/template'
   route : '/tutor/search_bids'
+  model   : 'tutor/search_bids'
+  title : "поиск заявок"
   tree : ->
     content : module 'tutor/bids/search_bids' :
 

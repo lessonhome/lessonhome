@@ -5,10 +5,19 @@ $logo_height: 50px
 $img_height: image-height($logo_src)
 $img_width: image-width($logo_src)
 $a: $logo_height / $img_height
-
 main
-  height : $logo_height
-  width: $img_width * $a
-  background: inline-image($logo_src)
-  +background-size( $img_width*$a $img_height*$a )
+  height: 100%
+a
+  display: block
+  height: 100%
+  padding: 0 26.5px 0 20px
+  .background
+    height : $logo_height
+    width: $img_width * $a
+    background: inline-image($logo_src)
+    +background-size( $img_width*$a $img_height*$a )
+    +inline-block
+a:before
   +inline-block
+  height: 100%
+  content: ""

@@ -1,30 +1,27 @@
 @import compass/css3
-$marginEnd : 20px
 main
   height : 100%
-  overflow: hidden
+  //overflow: hidden
   text-align: center
 .logo
   height: 100%
   float: left
-  margin-left: $marginEnd
 .right_box
   float: right
-  margin-right: $marginEnd
   height: 100%
-  .back_call, .button_in
+  .back_call, .button_in_out
+    height: 100%
     +inline-block             //all block have property include automatic vertical-align : middle
-  .button_in
-    margin-left: 10px
-.left_box
-  overflow: hidden
-  height: 100%
-  font-size: 20px
-  color: rgb(86, 104, 120)
-  text-align: center
-  .icons, .top_menu
+  .back_call
+    padding: 0 30px
+  .back_call:before
     +inline-block
-.logo:before, .right_box:before, .left_box:before
-  +inline-block
+    height: 100%
+    content: ""
+  .button_in_out
+    padding: 0 20px
+.left_box
+  //overflow: hidden
   height: 100%
-  content: ""
+  .top_menu
+    height: 100%

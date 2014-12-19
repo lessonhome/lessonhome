@@ -1,5 +1,3 @@
-
-
 class @main extends template '../main'
   tree : =>
     top_filter : @exports()

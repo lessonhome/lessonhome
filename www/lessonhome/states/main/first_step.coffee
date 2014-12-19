@@ -1,6 +1,7 @@
 class @main extends template '../main'
-  route : '/first_step'
-  title : "first_step"
+  route : '/'
+  model   : 'main/first_step'
+  title : "выберите предмет"
   tree : =>
     top_filter  : module '$/top_filter' :
       title         : 'Выберите предмет :'

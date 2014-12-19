@@ -1,6 +1,8 @@
 
 class @main extends template 'tutor/template/template'
   route : '/tutor/out_bids'
+  model   : 'tutor/out_bids'
+  title : "исходящие заявки"
   tree : ->
     content : module 'tutor/bids/out_bids' :
       hint : module 'tutor/template/hint' :

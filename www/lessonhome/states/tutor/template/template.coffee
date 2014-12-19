@@ -2,8 +2,10 @@ class @main
   tree : -> module 'tutor/template' :
     depend        : [
       module 'tutor/edit'
+      state 'lib'
     ]
-    header        : state './header'
+    header        : state './header'  :
+      icons       : module 'tutor/template/header/icons'
     left_menu     : state './left_menu'
     sub_top_menu  : @exports()   # define if exists
     content       : @exports()   # must be defined

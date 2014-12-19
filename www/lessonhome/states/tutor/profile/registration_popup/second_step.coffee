@@ -1,5 +1,7 @@
 class @main extends template '../registration_popup'
   route : '/tutor/profile/second_step'
+  model : 'tutor/profile/second_step'
+  title : "Регистрация : шаг2"
   tree : ->
     content : module '$' :
       country : module 'tutor/template/forms/drop_down_list'

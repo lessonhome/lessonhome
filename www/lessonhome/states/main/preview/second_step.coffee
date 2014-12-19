@@ -1,16 +1,18 @@
 class @main extends template '../preview'
   route : '/second_step'
-  title : "second_step"
+  model : 'main/second_step'
+  title : "выберите статус преподователя"
   tree : ->
     top_filter  : module '$/top_filter' :
-      title         : 'Выберите предмет :'
+      title       : 'Статус преподователя :'
       list_tutor  : module 'tutor/template/forms/drop_down_list'  :
         selector  : 'subject'
       add_tutor   : module 'tutor/template/button'  :
         selector  : 'add_subject'
+        char      : '+'
       chose_tutor : module 'tutor/template/button'  :
-        selector  : 'subject'
-        text      : 'Алгебра'
+        selector  : 'chose_subject'
+        text      : 'Профессор'
       button_back   : module 'tutor/template/button'  :
         selector  : 'subject_back'
         text      : 'Назад'
