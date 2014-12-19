@@ -32,8 +32,8 @@ class RouteState
     @stack = []
     @parse @top
     @res.writeHead 200
-          
-    if @site.modules['default'].allCss
+    
+    if @site.modules['default'].allCss && !@modules['default']?
       @cssModule 'default'
     for modname of @modules
       if @site.modules[modname].allCss
@@ -54,8 +54,10 @@ class RouteState
               "tree" : '+json_tree+'
           };
           $Feel.modules = {};
-          (function(){'+@jsClient+'}).call($Feel);
-          console.log("Feel",$Feel);
+          (function(){
+            '+@jsClient+'
+            
+            }).call($Feel);
       </script>'+
       '<script id="feed-js-modules">
           console.log("Feel",$Feel); 
@@ -84,6 +86,7 @@ class RouteState
                             in state '#{@statename}'"
         now._name = @stack[@stack.length-1]+"/#{m[1]}"
       @stack.push now._name
+      console.log now._name
     for key,val of now
       if typeof val == 'object'
         @parse val,uniq

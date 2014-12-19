@@ -1,5 +1,6 @@
 class @main
   tree : -> module '$' :
+    depend :  state 'lib'
     header     : state './tutor/template/header'
     top_filter : module '$/top_filter' :
       content   : @exports 'top_filter'

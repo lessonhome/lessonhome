@@ -12,7 +12,6 @@ class @Feel
 
     @active = new @activeState @root.tree
 
-
 window.Feel = new @Feel()
 
 

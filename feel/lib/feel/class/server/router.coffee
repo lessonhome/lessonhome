@@ -12,12 +12,18 @@ class Router
       route = state.class::route
       if route
         if typeof route == 'string'
+          if @url.text[route]?
+            throw new Error "same route('#{route}') in states '#{@url.text[route]}'
+                                                          and '#{statename}'!"
           @url.text[route] = statename
         else if route instanceof RegExp
           @url.reg.push [route,statename]
         else if route.length
           for r in route
             if typeof r == 'string'
+              if @url.text[r]?
+                throw new Error "same route('#{r}') in states '#{@url.text[r]}'
+                                                          and '#{statename}'!"
               @url.text[r] = statename
             else if r instanceof RegExp
               @url.reg.push [r,statename]

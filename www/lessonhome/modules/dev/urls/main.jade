@@ -1,6 +1,8 @@
 
-each statename, route in urls
-  .link
-    a(href=route)
-      .route  #{route}  
-      .name.g-blue   #{statename}
+
+each state, name in states
+  a(href=state.route).state
+    .title= state.title
+    .name= name
+    .route= state.route
+    .model= state.model

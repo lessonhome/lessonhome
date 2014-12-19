@@ -158,9 +158,9 @@ class module.exports
     @clientJs = ""
     @loadClientDir 'feel/lib/feel/client',''
     .then =>
-      @clientJs += @client['main']
       for key,val of @client
         @clientJs += val unless key == 'main'
+      @clientJs += @client['main']
   loadClientDir : (path,dir)=>
     readdir "#{path}#{dir}"
     .then (files)=>
@@ -172,7 +172,7 @@ class module.exports
           @loadClientDir path,ndir
         else if stat.isFile() && f.match /^[^\.].*\.coffee$/
           src = @cacheCoffee file
-          n = ndir.match /^(.*)\.coffee$/
+          n = ndir.match /^\/(.*)\.coffee$/
           @client[n[1]] = src
        
 

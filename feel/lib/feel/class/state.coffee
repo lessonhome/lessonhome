@@ -51,12 +51,22 @@ class module.exports
     @class = @src.main
     @class::__make = => @make.apply @, arguments
     @class::__bind_exports = => @bind_exports.apply @, arguments
+    @class::statename = @name
     @checkFoo 'init'
     @checkFoo 'run'
     @checkFoo 'tree', -> {}
+    @checkVar 'route'
+    @checkVar 'model'
     @inited = true
+    if @class::route? && !@name.match(/^(dev|test)/)
+      throw new Error "Undefined title in state '#{@name}'" unless @class::title?
+      throw new Error "Undefined model in state '#{@name}'" unless @class::model?
   checkFoo : (name,foo)=>
     foo ?= ->
+    if @class::constructor?.__super__?[name]?
+      if @class::[name] == @class::constructor.__super__[name]
+        @class::[name] = foo
+  checkVar : (name,foo)=>
     if @class::constructor?.__super__?[name]?
       if @class::[name] == @class::constructor.__super__[name]
         @class::[name] = foo

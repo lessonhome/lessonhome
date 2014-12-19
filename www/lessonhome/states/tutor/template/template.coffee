@@ -2,6 +2,7 @@ class @main
   tree : -> module 'tutor/template' :
     depend        : [
       module 'tutor/edit'
+      state 'lib'
     ]
     header        : state './header'
     left_menu     : state './left_menu'
