@@ -1,3 +1,7 @@
+@import compass/css3
+
+$height : 37px
+
 .photo
   position : relative
   width  : 315px
@@ -34,13 +38,59 @@
 
 //- ----------------------------------------------------------------------------
 
+
 .fields
+  text-align    : right
+  padding-right : 164px
+  margin-bottom : 67px
   div
+    margin-bottom : 11px
+    .title, .value
+      +inline-block
+
     .title
       width        : 150px
+      height       : $height
+      line-height  : $height
       text-align   : right
       margin-right : 26px
 
       font-size   : 16px
-      color       : rgba(0, 0, 0, 0.70)
+      color       : rgba(75, 75, 75, 0.70)
       font-family : 'Open Sans', sans-serif
+
+    .value
+      width  : 341px
+      height : $height
+
+  div:last-child
+    margin-bottom : 0
+
+  .sex
+    .value
+      div
+        +inline-block
+      .sex_man
+        margin-right : 85px
+    .value:after
+      content : ''
+      +inline-block
+      vertical-align : middle
+      height : 100%
+      width : 0px
+
+
+  .birth_date
+    .value
+      div
+        +inline-block
+      .birth_day
+        width  : 91px
+        height : $height
+      .birth_month
+        width  : 131px
+        height : $height
+        margin : 0 9px
+      .birth_year
+        width  : 101px
+        height : $height

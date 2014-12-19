@@ -13,8 +13,9 @@ mixin section_box (title, value)
       .icon
     div(class=title)!=value
 //----------------------------content--------------------------------//
-.popup_wrap
-  .content!= popup
+if popup
+  .popup_wrap
+    .content!= popup
 
 .info_data
   .person_box

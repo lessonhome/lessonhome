@@ -9,22 +9,22 @@ mixin field (selector, title, value)
   .camera_small
 
 .fields
-  +field ('first_name', 'Имя', first_name)
-  +field ('last_name', 'Фамилия', last_name)
-  +field ('patronymic', 'Отчество', patronymic)
+  +field ('first_name', 'Имя :', first_name)
+  +field ('last_name', 'Фамилия :', last_name)
+  +field ('patronymic', 'Отчество :', patronymic)
   .sex
-    .title
+    .title Пол :
     .value
       .sex_man!= sex_man
       .sex_woman!= sex_woman
 
   .birth_date
-    .title Дата рождения
+    .title Дата рождения :
     .value
       .birth_day!= birth_day
       .birth_month!= birth_month
       .birth_year!= birth_year
 
-  +field ('status', 'Статус', status)
+  +field ('status', 'Статус :', status)
 
 

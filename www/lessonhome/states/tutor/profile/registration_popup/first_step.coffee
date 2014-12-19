@@ -13,3 +13,4 @@ class @main extends template '../registration_popup'
       birth_month : module 'tutor/template/forms/drop_down_list'
       birth_year  : module 'tutor/template/forms/drop_down_list'
       status      : module 'tutor/template/forms/drop_down_list'
+
