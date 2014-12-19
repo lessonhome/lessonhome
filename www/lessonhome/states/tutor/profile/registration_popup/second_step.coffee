@@ -15,5 +15,11 @@ class @main extends template '../registration_popup'
       skype   : module 'tutor/template/forms/input'
       site    : module 'tutor/template/forms/input'
 
+    footer : module '//footer' :
+      back_link : 'first_step'
+      next_link : '#'
+
   init : ->
     @parent.tree.popup.progress_bar.progress = 2
+    @parent.tree.popup.footer.back_link = 'first_step'
+    @parent.tree.popup.footer.next_link = '#'

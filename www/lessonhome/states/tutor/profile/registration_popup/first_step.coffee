@@ -16,3 +16,6 @@ class @main extends template '../registration_popup'
       birth_year  : module 'tutor/template/forms/drop_down_list'
       status      : module 'tutor/template/forms/drop_down_list'
 
+  init : ->
+    @parent.tree.popup.footer.back_link = '#'
+    @parent.tree.popup.footer.next_link = 'second_step'

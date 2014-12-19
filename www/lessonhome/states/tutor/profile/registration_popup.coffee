@@ -7,6 +7,7 @@ class @main extends template './profile'
       content      : @exports()   # must be defined
       footer       : module '//footer' :
         button_back : module '//button_back'
+        back_link   : @exports()  # must be defined
         button_save : module '//button_save'
-        button_next : module '//button_next
-'
+        button_next : module '//button_next'
+        next_link   : @exports()  # must be defined
