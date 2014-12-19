@@ -1,7 +1,31 @@
+@import compass/css3
+
 $widthMargin : 200px    //width photo and margin-right personal data
 $padding : 30px  //in the section_box
 main
   padding: 50px 20px
+
+
+//- ------------------------------ POPUP ----------------------------------
+
+.popup_wrap
+  position   : fixed
+  overflow   : scroll
+  text-align : center
+  background-color : rgba(255, 255, 255, 0.70)
+  left    : 0
+  right   : 0
+  top     : 0
+  bottom  : 0
+  z-index : 100
+  .content
+    +inline-block
+    margin-top    : 138px
+    margin-bottom : 197px
+
+//- -----------------------------------------------------------------------
+
+
 .info_data
   overflow: hidden
   padding-bottom: $padding

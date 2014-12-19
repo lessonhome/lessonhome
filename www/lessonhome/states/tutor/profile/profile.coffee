@@ -2,6 +2,7 @@ class @main extends template 'tutor/template/template'
   route : '/tutor/profile'
   tree : ->
     content : module 'tutor/profile'  :
+      popup : @exports()
       photo         : module 'mime/photo' :
         src     : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
       progress  : module 'tutor/profile/description/progress' :
