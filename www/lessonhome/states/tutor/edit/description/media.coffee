@@ -1,5 +1,6 @@
 class @main extends template 'tutor/template/template'
   route : '/tutor/edit/media'
+  model   : 'tutor/edit/media'
   tree : ->
     sub_top_menu : state 'tutor/template/sub_top_menu' :
       items :

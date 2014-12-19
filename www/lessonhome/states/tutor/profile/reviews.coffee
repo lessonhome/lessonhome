@@ -1,7 +1,8 @@
 
 class @main extends template 'tutor/template/template'
   route : '/tutor/reviews'
-  tree : ->
+  model : '/tutor/reviews'
+tree : ->
     content : module 'tutor/profile/reviews':
       tutor_rating :36
       pupils_number : 6

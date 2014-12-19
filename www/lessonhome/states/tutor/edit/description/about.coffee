@@ -2,6 +2,7 @@
 
 class @main extends template 'tutor/template/template'
   route : '/tutor/edit/about'
+  model   : 'tutor/edit/about'
   tree : ->
     sub_top_menu : state 'tutor/template/sub_top_menu' :
       items :

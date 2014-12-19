@@ -1,5 +1,6 @@
 class @main extends template '../preview'
   route : '/second_step'
+  model : 'main/second_step'
   title : "second_step"
   tree : ->
     top_filter  : module '$/top_filter' :
