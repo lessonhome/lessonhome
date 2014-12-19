@@ -10,11 +10,14 @@ class @activeState
         if Feel.modules[val._name]?.main?
           @classes[val._uniq] = new Feel.modules[val._name].main()
           @classes[val._uniq].tree = val
+          @classes[val._uniq].__isClass = true
           @order.push val._uniq
+          @classes[val._uniq].tree?.class = @classes[val._uniq]
     @dom = {}
     @uniq_pref = ""
     @parseTree @tree
   parseTree : (node)=>
+    return if node?.__isClass
     uniq_pref = @uniq_pref
     if node._isModule?
       if @classes[node._uniq]?
@@ -41,18 +44,22 @@ class @activeState
       @uniq_pref  = uniq_pref
 
   watchDown : (node,foo)=>
+    return if node?.__isClass
     if node == @tree
       foo @,'tree',@tree
     for key,val of node
+      continue if node[key]?.__isClass
       foo node,key,val
     for key,val of node
       if typeof val == 'object'
         @watchDown val, foo
   watchUp : (node,foo)=>
+    return if node?.__isClass
     for key,val of node
       if typeof val == 'object'
         @watchUp val, foo
     for key,val of node
+      continue if node[key]?.__isClass
       foo node,key,val
     if node == @tree
       foo @,'tree',@tree
