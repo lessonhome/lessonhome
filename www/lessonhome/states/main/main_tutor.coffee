@@ -1,6 +1,4 @@
 class @main
-  route : '/main_tutor'
-  title : "main_tutor"
   tree : -> module 'main_tutor' :
     header  : state 'tutor/template/header'
     content : module 'main_tutor/content'  :

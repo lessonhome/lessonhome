@@ -1,5 +1,6 @@
 class @main extends template 'tutor/template/template'
   route : '/tutor/profile'
+  model   : '/tutor/profile'
   tree : ->
     content : module 'tutor/profile'  :
       popup : @exports()

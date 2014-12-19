@@ -1,6 +1,7 @@
 
 class @main extends template 'tutor/template/template'
   route : '/tutor/conditions'
+  model   : '/tutor/conditions'
   tree : ->
     content : module 'tutor/profile/conditions' :
       line_place  : module 'tutor/template/separate_line' :

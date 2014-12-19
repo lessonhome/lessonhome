@@ -1,5 +1,6 @@
 class @main extends template '../registration_popup'
   route : '/tutor/profile/first_step'
+  model   : 'tutor/profile/first_step'
   tree : ->
     content : module '$' :
       first_name  : module 'tutor/template/forms/input'
