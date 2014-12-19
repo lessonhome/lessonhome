@@ -16,6 +16,19 @@ exists    = Q.denodeify fs.exists
 coffee    = require 'coffee-script'
 Static    = require './class/static'
 
+
+curl = (url)->
+  def = Q.defer()
+  http = require("http")
+  req = http.get "http://127.0.0.1:8081#{url}"
+  req.on 'finish', =>
+    def.resolve()
+  return def.promise
+    
+
+
+
+
 class module.exports
   constructor : ->
     global.Feel = this
@@ -38,6 +51,7 @@ class module.exports
     .then @static.init
     .then @loadClient
     .then @createServer
+    .then @checkPages
   createServer : =>
     @server = new Server()
     Q().then @server.init
@@ -174,7 +188,15 @@ class module.exports
           src = @cacheCoffee file
           n = ndir.match /^\/(.*)\.coffee$/
           @client[n[1]] = src
-       
+  checkPages : =>
+    q = Q()
+    for sitename,site of @site
+      for statename,state of site.state
+        if state.class::route? && state.class::title? && state.class::model?
+          do (state,statename)=>
+            q = q.then =>
+              curl state.class::route
+    return q
 
     
     

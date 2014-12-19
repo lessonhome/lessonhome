@@ -86,7 +86,6 @@ class RouteState
                             in state '#{@statename}'"
         now._name = @stack[@stack.length-1]+"/#{m[1]}"
       @stack.push now._name
-      console.log now._name
     for key,val of now
       if typeof val == 'object'
         @parse val,uniq
