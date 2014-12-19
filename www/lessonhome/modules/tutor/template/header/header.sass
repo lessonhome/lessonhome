@@ -1,7 +1,6 @@
 @import compass/css3
 main
   height : 100%
-  //overflow: hidden
   text-align: center
 .logo
   height: 100%
@@ -11,7 +10,7 @@ main
   height: 100%
   .back_call, .button_in_out
     height: 100%
-    +inline-block             //all block have property include automatic vertical-align : middle
+    +inline-block
   .back_call
     padding: 0 30px
   .back_call:before
@@ -21,7 +20,7 @@ main
   .button_in_out
     padding: 0 20px
 .left_box
-  //overflow: hidden
   height: 100%
-  .top_menu
+  .top_menu, .icons
     height: 100%
+    +inline-block

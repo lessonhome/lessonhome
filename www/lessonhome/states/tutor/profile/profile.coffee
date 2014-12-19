@@ -1,6 +1,6 @@
 class @main extends template 'tutor/template/template'
   route : '/tutor/profile'
-  model   : '/tutor/profile'
+  model   : 'tutor/profile'
   title : "анкета"
   tree : ->
     content : module 'tutor/profile'  :
