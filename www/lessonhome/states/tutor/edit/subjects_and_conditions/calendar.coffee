@@ -2,6 +2,7 @@
 class @main extends template 'tutor/template/template'
   route : '/tutor/edit/calendar'
   model   : 'tutor/edit/description/calendar'
+  title : "редактирование календарь"
   tree  : ->
     sub_top_menu : state 'tutor/template/sub_top_menu' :
       items :

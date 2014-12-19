@@ -1,6 +1,7 @@
 class @main extends template 'tutor/template/template'
   route : '/tutor/edit/career'
   model   : 'tutor/edit/career'
+  title : "редактирование карьеры"
   tree : =>
     sub_top_menu : state 'tutor/template/sub_top_menu' :
       items :

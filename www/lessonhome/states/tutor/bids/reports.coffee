@@ -2,6 +2,7 @@
 class @main extends template 'tutor/template/template'
   route : '/tutor/reports'
   model   : 'tutor/reports'
+  title : "отчет"
   tree : ->
     content : module 'tutor/bids/reports' :
       hint : module 'tutor/template/hint' :

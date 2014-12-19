@@ -5,51 +5,58 @@ main
   height : 100%
   width  : 100%
   input
-    padding: 0 8px
-    padding-right: 25px
+    padding: 0 25px 0 8px
     box-sizing: border-box
     border: 2px solid rgb( 214, 214, 214 )
     border-radius: 4px
     background-color: rgb( 255, 255, 255 )
-    //outline : none
     width: 100%
     height: 100%
-  .icon
-    font-size : 20px
-    width  : 13px
-    height : 12px
-    position : absolute
-    top   : 8px
-    right : 11px
-    color : rgb( 173, 181, 190 )
+  .icon_box
+    .icon
+      font-size : 20px
+      width  : 13px
+      height : 12px
+      position : absolute
+      top   : 8px
+      right : 11px
+      color : rgb( 173, 181, 190 )
 .drop_down_list
   input:focus
     border : 2px solid rgb( 137, 209, 255 )
 
 
 
-///////////////////////////////////////
+/////////////////-----subject---------//////////////////////
 .drop_down_list.subject
   height: 100%
   position: relative
+  $icon_box_width: 40px
   input
-    padding: 0
+    padding: 0 $icon_box_width 0 8px
     height: 100%
     width: 100%
     border: 3px solid rgb(202, 211, 218)
     border-radius: 4px
     box-sizing: border-box
-  .icon
-    $icon_height: 23px
-    width: 26px
-    height: $icon_height
+  .icon_box
+    width: $icon_box_width
     position: absolute
-    top: 50%
+    top: 0
+    height: 100%
     right: 0px
-    margin-top: -$icon_height / 2 + 1px
-    margin-right: 20px
-    background: none
-    line-height: 23px
-    color: rgb(203, 211, 218)
-    font-size: 26px
     cursor: pointer
+    .icon
+      $icon_height: 23px
+      width: 26px
+      height: $icon_height
+      position: relative
+      top: 50%
+      margin-top: -$icon_height / 2
+      color: rgb(203, 211, 218)
+      font-size: 26px
+      right: 0  // use it's because default property have right not 0
+  input[placeholder]
+    font-size: 24px
+    color: rgb(142, 149, 156)
+

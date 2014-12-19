@@ -2,6 +2,7 @@
 class @main extends template 'tutor/template/template'
   route : '/tutor/reviews'
   model : '/tutor/reviews'
+  title : "отзывы"
 tree : ->
     content : module 'tutor/profile/reviews':
       tutor_rating :36
