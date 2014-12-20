@@ -21,7 +21,7 @@ class @main extends template '../../tutor'
         href  : '/tutor/reports'
       }
     ]
-    content : module 'tutor/bids/search_bids' :
+    content : module '$' :
       subject_list : module 'tutor/forms/drop_down_list'
       saved_filters : module 'tutor/forms/drop_down_list'
       place : module 'tutor/choice' :

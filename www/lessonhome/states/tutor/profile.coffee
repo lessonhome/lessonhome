@@ -1,4 +1,4 @@
-class @main extends template '../../tutor'
+class @main extends template '../tutor'
   route : '/tutor/profile'
   model   : 'tutor/profile'
   title : "анкета"
@@ -17,14 +17,14 @@ class @main extends template '../../tutor'
         href  : '/tutor/reviews'
       }
     ]
-    content : module 'tutor/profile'  :
+    content : module '$'  :
       popup         : @exports()
       photo         : module 'mime/photo' :
         src      : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
-      progress  : module 'tutor/profile/description/progress' :
+      progress  : module '$/description/progress' :
         filling  : '56%'
       name          : 'Артемий Дудко'
-      personal_data : module 'tutor/profile/info_block' :
+      personal_data : module '$/info_block' :
         section   :
           'Дата рождения :'       : '11.11.11'
           'Статус :'              : 'Профессор'
@@ -36,7 +36,7 @@ class @main extends template '../../tutor'
         title     : 'Контакты'
         edit      : true
         selector  : 'horizon'
-      contacts : module 'tutor/profile/info_block' :
+      contacts : module '$/info_block' :
         section :
           'Телефон :'     : '11.11.11'
           'Почта :'       : 'yandex@rambler.ru'
@@ -46,7 +46,7 @@ class @main extends template '../../tutor'
         title     : 'Образование'
         edit      : true
         selector  : 'horizon'
-      education : module 'tutor/profile/info_block' :
+      education : module '$/info_block' :
         section :
           'ВУЗ :'           : 'МГУ'
           'Город :'         : 'Москва'
@@ -58,7 +58,7 @@ class @main extends template '../../tutor'
         title     : 'О себе'
         edit      : true
         selector  : 'horizon'
-      private : module 'tutor/profile/description/private' :
+      private : module '$/description/private' :
         text : 'О себеО себеО себеО себеО себеО себеО себеО себеО себе
             О себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО
             О себеО себеО себеО себеО себеО себеО себеО себеО себеО себе:'
@@ -66,7 +66,7 @@ class @main extends template '../../tutor'
         title    : 'Медиа'
         edit     : true
         selector : 'horizon'
-      media : module 'tutor/profile/description/media' :
+      media : module '$/description/media' :
         photo1  : module 'mime/photo' :
           src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
         photo2  : module 'mime/photo' :

@@ -23,7 +23,7 @@ class @main extends template '../../../tutor'
         'Медиа'       : 'media'
       active_item : 'Образование'
 
-    content : module 'tutor/edit/description/education' :
+    content : module '$' :
       country       : module 'tutor/forms/drop_down_list'
       city          : module 'tutor/forms/drop_down_list'
       university    : module 'tutor/forms/drop_down_list'

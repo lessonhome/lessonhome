@@ -21,7 +21,7 @@ class @main extends template '../../../tutor'
         'Предпочтения' : 'preferences'
       active_item : 'Календарь'
 
-    content : module 'tutor/edit/conditions/calendar':
+    content : module '$':
       time_entry_fields : [
         module '//time_entry_field' :
           input_from : module 'tutor/forms/input' :

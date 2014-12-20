@@ -21,7 +21,7 @@ class @main extends template '../../../tutor'
         'Предпочтения' : 'preferences'
       active_item : 'Предпочтения'
 
-    content : module 'tutor/edit/conditions/preferences':
+    content : module '$':
       sex  : module 'tutor/choice' :
         id      : 'sex'
         indent  : '75px'

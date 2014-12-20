@@ -21,7 +21,7 @@ class @main extends template '../../tutor'
         href  : '/tutor/reports'
       }
     ]
-    content : module 'tutor/bids/out_bids' :
+    content : module '$' :
       hint : module 'tutor/hint' :
         selector  : 'horizontal'
         header    : 'Это подсказка'

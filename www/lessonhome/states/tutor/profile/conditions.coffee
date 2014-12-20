@@ -18,7 +18,7 @@ class @main extends template '../../tutor'
         href  : '/tutor/reviews'
       }
     ]
-    content : module 'tutor/profile/conditions' :
+    content : module '$' :
       line_place  : module 'tutor/separate_line' :
         title     : 'Место :'
         edit      :  true
@@ -27,7 +27,7 @@ class @main extends template '../../tutor'
         name      : 'Новогиреевская улица дом 12 кв 4'
         details   : 'Свободное время'
         selector  : 'title_on_corner'                         #variable class in sass
-      address_and_free_time: module  'tutor/profile/conditions/map_and_calendar'  :
+      address_and_free_time: module  '$/map_and_calendar'  :
         map       : '#'
         calendar  : '#'
       outside_work_areas : [          #separate in new module this []
@@ -47,7 +47,7 @@ class @main extends template '../../tutor'
       subject       : module 'tutor/profile/title_block'  :
         name    : 'Физика :'
         details : 'ЕГЭ, ГИА'
-      details_data  : module 'tutor/profile/conditions/details_data' :
+      details_data  : module '$/details_data' :
         outside_work_price  : '1500р.'
         home_price          : '1200р.'
         distance_work_price : '900р.'

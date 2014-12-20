@@ -1,4 +1,4 @@
-class @main extends template './profile'
+class @main extends template '../profile'
   tree : ->
     popup : module '$' :
       header       : module '../header'

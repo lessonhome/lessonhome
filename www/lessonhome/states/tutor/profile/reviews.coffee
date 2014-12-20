@@ -17,7 +17,7 @@ class @main extends template '../../tutor'
         href  : '/tutor/reviews'
       }
     ]
-    content : module 'tutor/profile/reviews':
+    content : module '$':
       tutor_rating :36
       pupils_number : 6
       ###
@@ -26,7 +26,7 @@ class @main extends template '../../tutor'
       line : module 'tutor/separate_line':
         selector : 'vertical'
       list_reviews : [
-        module 'tutor/profile/reviews/review' :
+        module '$/review' :
           photo_src : '#'
           mini_rating : '25'
           ###
@@ -37,7 +37,7 @@ class @main extends template '../../tutor'
     '
           creation_date : '20 ноября 2014'
 
-        module 'tutor/profile/reviews/review' :
+        module '$/review' :
           photo_src : '#'
           mini_rating : '40'
           user_name : 'Витя'

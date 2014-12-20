@@ -23,7 +23,7 @@ class @main extends template '../../../tutor'
         'Медиа'       : 'media'
       active_item : 'О себе'
 
-    content : module 'tutor/edit/description/about' :
+    content : module '$' :
       reason_textarea     : module 'tutor/forms/textarea' :
         height    : '87px'
       interests_textarea  : module 'tutor/forms/textarea' :

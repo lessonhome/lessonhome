@@ -20,7 +20,7 @@ class @main extends template '../../../tutor'
         'Календарь'    : 'calendar'
         'Предпочтения' : 'preferences'
       active_item : 'Предметы'
-    content : module 'tutor/edit/conditions/subjects':
+    content : module '$':
       subject           : module 'tutor/forms/drop_down_list'
       sections          : module 'tutor/forms/drop_down_list'
       destinations      : module 'tutor/forms/drop_down_list'

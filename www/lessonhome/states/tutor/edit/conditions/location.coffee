@@ -20,7 +20,7 @@ class @main extends template '../../../tutor'
         'Календарь'    : 'calendar'
         'Предпочтения' : 'preferences'
       active_item : 'Место'
-    content : module 'tutor/edit/conditions/location' :
+    content : module '$' :
       location : module 'tutor/choice' :
         id          : 'location'
         indent      : '30px'
