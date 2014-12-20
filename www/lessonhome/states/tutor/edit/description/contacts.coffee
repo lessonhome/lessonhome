@@ -1,20 +1,19 @@
-
-class @main extends template 'tutor/template/template'
+class @main extends template '../../../tutor'
   route : '/tutor/edit/contacts'
   model   : 'tutor/edit/contacts'
   title : "редактирование контактов"
   tree : =>
     items : [
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/edit/general'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Условия'
         href  : '/tutor/edit/subjects'
       }
     ]
-    sub_top_menu : state 'tutor/template/sub_top_menu' :
+    sub_top_menu : state 'tutor/sub_top_menu' :
       items :
         'Общие'       : 'general'
         'Контакты'    : 'contacts'
@@ -24,20 +23,20 @@ class @main extends template 'tutor/template/template'
         'Медиа'       : 'media'
       active_item : 'Контакты'
     content : module 'tutor/edit/description/contacts' :
-      country         : module 'tutor/template/forms/drop_down_list'
-      city            : module 'tutor/template/forms/drop_down_list'
-      address_button  : module 'tutor/template/button' :
+      country         : module 'tutor/forms/drop_down_list'
+      city            : module 'tutor/forms/drop_down_list'
+      address_button  : module 'tutor/button' :
         selector  : 'fixed'
         text      : 'Укажите место'
-      mobile_phone      : module 'tutor/template/forms/input'
-      additional_phone  : module 'tutor/template/forms/input'
-      mail              : module 'tutor/template/forms/input'
-      skype             : module 'tutor/template/forms/input'
-      personal_website  : module 'tutor/template/forms/input'
-      save_button       : module 'tutor/template/button' :
+      mobile_phone      : module 'tutor/forms/input'
+      additional_phone  : module 'tutor/forms/input'
+      mail              : module 'tutor/forms/input'
+      skype             : module 'tutor/forms/input'
+      personal_website  : module 'tutor/forms/input'
+      save_button       : module 'tutor/button' :
         text      : 'Сохранить'
         selector  : 'fixed'
-      hint : module 'tutor/template/hint' :
+      hint : module 'tutor/hint' :
         selector  : 'horizontal'
         header    : 'Это подсказка'
         text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой, так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'

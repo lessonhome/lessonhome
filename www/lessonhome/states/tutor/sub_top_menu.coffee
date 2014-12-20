@@ -1,5 +1,5 @@
 
 class @main
-  tree : -> module 'tutor/template/menu/sub_top_menu' :
+  tree : -> module '$' :
     items       : @exports()
     active_item : @exports()

@@ -1,6 +1,6 @@
 class @main
   tree : -> module '$' :
-    logo      : module 'tutor/template/header/logo'
+    logo      : module '$/logo'
     top_menu : module '$/top_menu' :
       items     : @exports()
     icons     : @exports()

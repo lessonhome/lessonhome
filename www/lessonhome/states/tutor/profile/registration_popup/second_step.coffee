@@ -4,16 +4,16 @@ class @main extends template '../registration_popup'
   title : "Регистрация : шаг2"
   tree : ->
     content : module '$' :
-      country : module 'tutor/template/forms/drop_down_list'
-      city    : module 'tutor/template/forms/drop_down_list'
+      country : module 'tutor/forms/drop_down_list'
+      city    : module 'tutor/forms/drop_down_list'
       address_button : module '//address_button'
-      line    : module 'tutor/template/separate_line' :
+      line    : module 'tutor/separate_line' :
         selector : 'horizon'
-      mobile_phone   : module 'tutor/template/forms/input'
-      extra_phone    : module 'tutor/template/forms/input'
-      post    : module 'tutor/template/forms/input'
-      skype   : module 'tutor/template/forms/input'
-      site    : module 'tutor/template/forms/input'
+      mobile_phone   : module 'tutor/forms/input'
+      extra_phone    : module 'tutor/forms/input'
+      post    : module 'tutor/forms/input'
+      skype   : module 'tutor/forms/input'
+      site    : module 'tutor/forms/input'
 
     footer : module '//footer' :
       back_link : 'first_step'

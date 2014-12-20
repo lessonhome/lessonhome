@@ -4,10 +4,10 @@ class @main
       module '$/edit'
       state 'lib'
     ]
-    header        : state '$/header'  :
+    header        : state 'tutor/header'  :
       icons       : module '$/header/icons'
       items       : @exports()
-    left_menu     : state './left_menu'
+    left_menu     : state 'tutor/left_menu'
     sub_top_menu  : @exports()   # define if exists
     content       : @exports()   # must be defined
     vars :

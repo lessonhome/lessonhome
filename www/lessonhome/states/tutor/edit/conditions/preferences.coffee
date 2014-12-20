@@ -1,19 +1,19 @@
-class @main extends template 'tutor/template'
+class @main extends template '../../../tutor'
   route : '/tutor/edit/preferences'
   model   : 'tutor/edit/description/preferences'
   title : "редактирование условия"
   tree : =>
     items : [
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/edit/general'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Условия'
         href  : '/tutor/edit/subjects'
       }
     ]
-    sub_top_menu : state 'tutor/template/sub_top_menu' :
+    sub_top_menu : state 'tutor/sub_top_menu' :
       items :
         'Предметы'     : 'subjects'
         'Место'        : 'location'
@@ -22,28 +22,28 @@ class @main extends template 'tutor/template'
       active_item : 'Предпочтения'
 
     content : module 'tutor/edit/conditions/preferences':
-      sex  : module 'tutor/template/choice' :
+      sex  : module 'tutor/choice' :
         id      : 'sex'
         indent  : '75px'
         choice_list : [
-          module 'tutor/template/button' :
+          module 'tutor/button' :
             text      : 'М'
             selector  : 'fixed'
 
-          module 'tutor/template/button' :
+          module 'tutor/button' :
             text      : 'Ж'
             selector  : 'fixed'
 
         ]
-      category : module 'tutor/template/forms/drop_down_list'
-      status : module 'tutor/template/forms/drop_down_list'
+      category : module 'tutor/forms/drop_down_list'
+      status : module 'tutor/forms/drop_down_list'
 
-      hint : module 'tutor/template/hint' :
+      hint : module 'tutor/hint' :
         selector  : 'vertical'
         header    : ''
         text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит'
 
-      button : module 'tutor/template/button' :
+      button : module 'tutor/button' :
         text     : 'Сохранить'
         selector : 'fixed'
 

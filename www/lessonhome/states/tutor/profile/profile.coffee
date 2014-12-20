@@ -4,7 +4,7 @@ class @main extends template '../../tutor'
   title : "анкета"
   tree : ->
     items : [
-      module '../../tutor/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/profile'
       }

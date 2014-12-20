@@ -1,19 +1,19 @@
-class @main extends template 'tutor/template'
+class @main extends template '../../../tutor'
   route : '/tutor/edit/subjects'
   model   : 'tutor/edit/description/subjects'
   title : "редактирование предметы"
   tree : =>
     items : [
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/edit/general'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Условия'
         href  : '/tutor/edit/subjects'
       }
     ]
-    sub_top_menu : state 'tutor/template/sub_top_menu' :
+    sub_top_menu : state 'tutor/sub_top_menu' :
       items :
         'Предметы'     : 'subjects'
         'Место'        : 'location'
@@ -21,26 +21,26 @@ class @main extends template 'tutor/template'
         'Предпочтения' : 'preferences'
       active_item : 'Предметы'
     content : module 'tutor/edit/conditions/subjects':
-      subject           : module 'tutor/template/forms/drop_down_list'
-      sections          : module 'tutor/template/forms/drop_down_list'
-      destinations      : module 'tutor/template/forms/drop_down_list'
-      category_students : module 'tutor/template/forms/drop_down_list'
-      location          : module 'tutor/template/forms/drop_down_list'
-      location_add      : module 'tutor/template/button' :
+      subject           : module 'tutor/forms/drop_down_list'
+      sections          : module 'tutor/forms/drop_down_list'
+      destinations      : module 'tutor/forms/drop_down_list'
+      category_students : module 'tutor/forms/drop_down_list'
+      location          : module 'tutor/forms/drop_down_list'
+      location_add      : module 'tutor/button' :
         text  : '+'
-      price             : module 'tutor/template/forms/drop_down_list'
-      add_location      : module 'tutor/template/button' :
+      price             : module 'tutor/forms/drop_down_list'
+      add_location      : module 'tutor/button' :
         text      : '+'
         selector  : 'add'
-      pupils_number     : module 'tutor/template/forms/drop_down_list'
-      bet               : module 'tutor/template/forms/drop_down_list'
-      comments          : module 'tutor/template/forms/textarea' :
+      pupils_number     : module 'tutor/forms/drop_down_list'
+      bet               : module 'tutor/forms/drop_down_list'
+      comments          : module 'tutor/forms/textarea' :
         id     : 'comments'
         height : '82px'
-      add_button        : module 'tutor/template/button' :
+      add_button        : module 'tutor/button' :
         text      : '+ Добавить'
         selector  : 'fixed'
-      save_button       : module 'tutor/template/button' :
+      save_button       : module 'tutor/button' :
         text      : 'Сохранить'
         selector  : 'fixed'
 

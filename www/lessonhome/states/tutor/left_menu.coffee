@@ -1,5 +1,5 @@
 class @main
-  tree : -> module 'tutor/template/menu/left_menu' :
+  tree : -> module '$' :
     items : [
       module '//item' :
         title : 'Анкета'

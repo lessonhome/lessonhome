@@ -1,20 +1,19 @@
-
-class @main extends template 'tutor/template/template'
+class @main extends template '../../../tutor'
   route : '/tutor/edit/education'
   model   : 'tutor/edit/education'
   title : "редактирование образования"
   tree : =>
     items : [
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/edit/general'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Условия'
         href  : '/tutor/edit/subjects'
       }
     ]
-    sub_top_menu : state 'tutor/template/sub_top_menu' :
+    sub_top_menu : state 'tutor/sub_top_menu' :
       items :
         'Общие'       : 'general'
         'Контакты'    : 'contacts'
@@ -25,22 +24,22 @@ class @main extends template 'tutor/template/template'
       active_item : 'Образование'
 
     content : module 'tutor/edit/description/education' :
-      country       : module 'tutor/template/forms/drop_down_list'
-      city          : module 'tutor/template/forms/drop_down_list'
-      university    : module 'tutor/template/forms/drop_down_list'
-      faculty       : module 'tutor/template/forms/input'
-      chair         : module 'tutor/template/forms/drop_down_list'
-      status        : module 'tutor/template/forms/drop_down_list'
-      release_day   : module 'tutor/template/forms/drop_down_list'
-      release_month : module 'tutor/template/forms/drop_down_list'
-      release_year  : module 'tutor/template/forms/drop_down_list'
-      add_button    : module 'tutor/template/button' :
+      country       : module 'tutor/forms/drop_down_list'
+      city          : module 'tutor/forms/drop_down_list'
+      university    : module 'tutor/forms/drop_down_list'
+      faculty       : module 'tutor/forms/input'
+      chair         : module 'tutor/forms/drop_down_list'
+      status        : module 'tutor/forms/drop_down_list'
+      release_day   : module 'tutor/forms/drop_down_list'
+      release_month : module 'tutor/forms/drop_down_list'
+      release_year  : module 'tutor/forms/drop_down_list'
+      add_button    : module 'tutor/button' :
         text      : '+ Добавить'
         selector  : 'fixed'
-      save_button   : module 'tutor/template/button' :
+      save_button   : module 'tutor/button' :
         text      : 'Сохранить'
         selector  : 'fixed'
-      hint          : module 'tutor/template/hint' :
+      hint          : module 'tutor/hint' :
         selector  : 'horizontal'
         header    : 'Это подсказка'
         text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени,

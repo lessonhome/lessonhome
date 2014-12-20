@@ -1,5 +1,4 @@
-
-class @main extends template 'tutor/template/template'
+class @main extends template '../../tutor'
   route : '/tutor/out_bids'
   model   : 'tutor/out_bids'
   title : "исходящие заявки"

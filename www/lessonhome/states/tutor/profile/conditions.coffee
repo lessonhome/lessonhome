@@ -1,25 +1,25 @@
 
-class @main extends template 'tutor/template/template'
+class @main extends template '../../tutor'
   route : '/tutor/conditions'
   model   : 'tutor/conditions'
   title : "условия"
   tree : ->
     items : [
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/profile'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Условия'
         href  : '/tutor/conditions'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Отзывы'
         href  : '/tutor/reviews'
       }
     ]
     content : module 'tutor/profile/conditions' :
-      line_place  : module 'tutor/template/separate_line' :
+      line_place  : module 'tutor/separate_line' :
         title     : 'Место :'
         edit      :  true
         selector  : 'horizon'
@@ -40,7 +40,7 @@ class @main extends template 'tutor/template/template'
         'Viber'
         'Livestream'
       ]
-      line_subject  : module 'tutor/template/separate_line' :
+      line_subject  : module 'tutor/separate_line' :
         title     : 'Предметы'
         edit      : true
         selector  : 'horizon'
@@ -59,7 +59,7 @@ class @main extends template 'tutor/template/template'
             'Групповые занятия :'           : 'до 5 человек, по 1000 р.'
             'Продолжительность :'  : '60-90 минут'
           selector : 'subject_class'
-        line_vertical : module 'tutor/template/separate_line':
+        line_vertical : module 'tutor/separate_line':
           selector  : 'vertical'
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'

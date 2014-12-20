@@ -1,13 +1,13 @@
 class @main
   tree : -> module '$' :
     depend :  state 'lib'
-    header     : state './tutor/template/header' :
+    header     : state './tutor/header' :
       items : [
-        module 'tutor/template/header/button' : {
+        module 'tutor/header/button' : {
           title : 'Поиск'
           href  : '/search'
         }
-        module 'tutor/template/header/list_button' : {
+        module 'tutor/header/list_button' : {
           title : 'Стать учеником'
           href  : '/be-pupil'
           list  : {
@@ -16,7 +16,7 @@ class @main
             'Тест2' : '#'
           }
         }
-        module 'tutor/template/header/list_button' : {
+        module 'tutor/header/list_button' : {
           title : 'Репетиторам'
           href  : '/for-tutors'
           list  : {
@@ -25,7 +25,7 @@ class @main
             'как это работает3' : '#'
           }
         }
-        module 'tutor/template/header/button' : {
+        module 'tutor/header/button' : {
           title : 'О нас'
           href  : '/about us'
         }

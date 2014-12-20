@@ -1,20 +1,19 @@
-
-class @main extends template 'tutor/template/template'
+class @main extends template '../../../tutor'
   route : '/tutor/edit/general'
   model   : 'tutor/edit/general'
   title : "редактирование общее"
   tree : =>
     items : [
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/edit/genera'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Условия'
         href  : '/tutor/edit/subjects'
       }
     ]
-    sub_top_menu : state 'tutor/template/sub_top_menu' :
+    sub_top_menu : state 'tutor/sub_top_menu' :
       items :
         'Общие'       : 'general'
         'Контакты'    : 'contacts'
@@ -24,28 +23,28 @@ class @main extends template 'tutor/template/template'
         'Медиа'       : 'media'
       active_item     : 'Общие'
     content       : module 'tutor/edit/description/general' :
-      first_name  : module 'tutor/template/forms/input'
-      second_name : module 'tutor/template/forms/input'
-      patronymic  : module 'tutor/template/forms/input'
+      first_name  : module 'tutor/forms/input'
+      second_name : module 'tutor/forms/input'
+      patronymic  : module 'tutor/forms/input'
       sex         :
-        male   : module 'tutor/template/button' :
+        male   : module 'tutor/button' :
           text      : 'М'
           selector  : 'fixed'
 
-        female : module 'tutor/template/button' :
+        female : module 'tutor/button' :
           text      : 'Ж'
           selector  : 'fixed'
 
-      birth_day   : module 'tutor/template/forms/drop_down_list'
-      birth_month : module 'tutor/template/forms/drop_down_list'
-      birth_year  : module 'tutor/template/forms/drop_down_list'
-      status      :  module 'tutor/template/forms/drop_down_list'
+      birth_day   : module 'tutor/forms/drop_down_list'
+      birth_month : module 'tutor/forms/drop_down_list'
+      birth_year  : module 'tutor/forms/drop_down_list'
+      status      :  module 'tutor/forms/drop_down_list'
 
-      save_button : module 'tutor/template/button' :
+      save_button : module 'tutor/button' :
         text      : 'Сохранить'
         selector  : 'fixed'
 
-      hint : module 'tutor/template/hint' :
+      hint : module 'tutor/hint' :
         selector  : 'horizontal'
         header    : 'Это подсказка'
         text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой, так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'

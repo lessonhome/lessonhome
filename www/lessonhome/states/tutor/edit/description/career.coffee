@@ -1,19 +1,19 @@
-class @main extends template 'tutor/template/template'
+class @main extends template '../../../tutor'
   route : '/tutor/edit/career'
   model   : 'tutor/edit/career'
   title : "редактирование карьеры"
   tree : =>
     items : [
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/edit/general'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Условия'
         href  : '/tutor/edit/subjects'
       }
     ]
-    sub_top_menu : state 'tutor/template/sub_top_menu' :
+    sub_top_menu : state 'tutor/sub_top_menu' :
       items :
         'Общие'       : 'general'
         'Контакты'    : 'contacts'
@@ -23,22 +23,22 @@ class @main extends template 'tutor/template/template'
         'Медиа'       : 'media'
       active_item : 'Карьера'
     content : module 'tutor/edit/description/career' :
-      place_of_work : module 'tutor/template/forms/input'
-      post : module 'tutor/template/forms/input'
-      add_button : module 'tutor/template/button' :
+      place_of_work : module 'tutor/forms/input'
+      post : module 'tutor/forms/input'
+      add_button : module 'tutor/button' :
         text  : '+ Добавить'
         selector  : 'fixed'
-      experience_tutoring : module 'tutor/template/forms/drop_down_list'
-      number_of_students : module 'tutor/template/forms/drop_down_list'
-      extra_info : module 'tutor/template/forms/textarea' :
+      experience_tutoring : module 'tutor/forms/drop_down_list'
+      number_of_students : module 'tutor/forms/drop_down_list'
+      extra_info : module 'tutor/forms/textarea' :
         height : '82px'
 
-      save_button : module 'tutor/template/button' :
+      save_button : module 'tutor/button' :
         text  : 'Сохранить'
         selector  : 'fixed'
 
 
-      hint : module 'tutor/template/hint' :
+      hint : module 'tutor/hint' :
         selector : 'horizontal'
         header : 'Это подсказка'
         text : 'Поскольку состояния всего нашего мира зависят от времени,
