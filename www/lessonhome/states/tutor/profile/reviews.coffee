@@ -3,7 +3,21 @@ class @main extends template 'tutor/template/template'
   route : '/tutor/reviews'
   model : 'tutor/reviews'
   title : "отзывы"
-tree : ->
+  tree : ->
+    items : [
+      module 'tutor/template/header/button' : {
+        title : 'Описание'
+        href  : '/tutor/profile'
+      }
+      module 'tutor/template/header/button' : {
+        title : 'Условия'
+        href  : '/tutor/conditions'
+      }
+      module 'tutor/template/header/button' : {
+        title : 'Отзывы'
+        href  : '/tutor/reviews'
+      }
+    ]
     content : module 'tutor/profile/reviews':
       tutor_rating :36
       pupils_number : 6
@@ -35,4 +49,3 @@ tree : ->
 
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
-    @parent.tree.header.top_menu.active_item = 'Отзывы'

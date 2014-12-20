@@ -3,10 +3,24 @@ class @main extends template 'tutor/template/template'
   model   : 'tutor/profile'
   title : "анкета"
   tree : ->
+    items : [
+      module 'tutor/template/header/button' : {
+        title : 'Описание'
+        href  : '/tutor/profile'
+      }
+      module 'tutor/template/header/button' : {
+        title : 'Условия'
+        href  : '/tutor/conditions'
+      }
+      module 'tutor/template/header/button' : {
+        title : 'Отзывы'
+        href  : '/tutor/reviews'
+      }
+    ]
     content : module 'tutor/profile'  :
-      popup : @exports()
+      popup         : @exports()
       photo         : module 'mime/photo' :
-        src     : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
+        src      : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
       progress  : module 'tutor/profile/description/progress' :
         filling  : '56%'
       name          : 'Артемий Дудко'

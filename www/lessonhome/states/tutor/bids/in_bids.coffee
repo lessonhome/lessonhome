@@ -4,6 +4,24 @@ class @main extends template 'tutor/template/template'
   model   : 'tutor/in_bids'
   title : "входящие заявки"
   tree : ->
+    items : [
+      module 'tutor/template/header/button' : {
+        title : 'Поиск'
+        href  : '/tutor/search_bids'
+      }
+      module 'tutor/template/header/button' : {
+        title : 'Входящие'
+        href  : '/tutor/in_bids'
+      }
+      module 'tutor/template/header/button' : {
+        title : 'Исходящие'
+        href  : '/tutor/out_bids'
+      }
+      module 'tutor/template/header/button' : {
+        title : 'Отчёты'
+        href  : '/tutor/reports'
+      }
+    ]
     content : module 'tutor/bids/in_bids' :
       hint : module 'tutor/template/hint' :
         selector  : 'horizontal'
@@ -85,12 +103,4 @@ class @main extends template 'tutor/template/template'
 
 
   init : ->
-    @parent.setTopMenu 'Входящие', {
-      'Поиск'     : 'search_bids'
-      'Входящие'  : 'in_bids'
-      'Исходящие' : 'out_bids'
-      'Отчёты'    : 'reports'
-
-    }
-
     @parent.tree.left_menu.setActive 'Заявки'

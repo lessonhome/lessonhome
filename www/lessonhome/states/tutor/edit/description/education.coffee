@@ -3,7 +3,17 @@ class @main extends template 'tutor/template/template'
   route : '/tutor/edit/education'
   model   : 'tutor/edit/education'
   title : "редактирование образования"
-  tree : ->
+  tree : =>
+    items : [
+      module 'tutor/template/header/button' : {
+        title : 'Описание'
+        href  : '/tutor/edit/general'
+      }
+      module 'tutor/template/header/button' : {
+        title : 'Условия'
+        href  : '/tutor/edit/subjects'
+      }
+    ]
     sub_top_menu : state 'tutor/template/sub_top_menu' :
       items :
         'Общие'       : 'general'
@@ -38,13 +48,8 @@ class @main extends template 'tutor/template/template'
                    так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
 
   init : ->
-    @parent.setTopMenu 'Описание', {
-      'Описание': 'general'
-      'Условия' : 'subjects'
-    }
-
     @parent.tree.left_menu.setActive 'Анкета'
-    @parent.tree.left_menu.setLinks ['../profile', '../bids', '#', '#', '#', '#', '#']
+    @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
 
 
 

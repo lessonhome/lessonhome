@@ -4,6 +4,20 @@ class @main extends template 'tutor/template/template'
   model   : 'tutor/conditions'
   title : "условия"
   tree : ->
+    items : [
+      module 'tutor/template/header/button' : {
+        title : 'Описание'
+        href  : '/tutor/profile'
+      }
+      module 'tutor/template/header/button' : {
+        title : 'Условия'
+        href  : '/tutor/conditions'
+      }
+      module 'tutor/template/header/button' : {
+        title : 'Отзывы'
+        href  : '/tutor/reviews'
+      }
+    ]
     content : module 'tutor/profile/conditions' :
       line_place  : module 'tutor/template/separate_line' :
         title     : 'Место :'
@@ -49,7 +63,3 @@ class @main extends template 'tutor/template/template'
           selector  : 'vertical'
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
-    @parent.tree.header.top_menu.active_item = 'Условия'
-
-
-
