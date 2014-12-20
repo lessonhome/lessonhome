@@ -1,5 +1,4 @@
-
-class @main extends template 'tutor/template/template'
+class @main extends template 'tutor/template'
   route : '/tutor/edit/calendar'
   model   : 'tutor/edit/description/calendar'
   title : "редактирование календарь"

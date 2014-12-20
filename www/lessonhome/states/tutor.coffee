@@ -1,11 +1,11 @@
 class @main
-  tree : -> module 'tutor/template' :
+  tree : -> module '$' :
     depend        : [
-      module 'tutor/edit'
+      module '$/edit'
       state 'lib'
     ]
-    header        : state './header'  :
-      icons       : @exports()
+    header        : state '$/header'  :
+      icons       : module '$/header/icons'
       items       : @exports()
     left_menu     : state './left_menu'
     sub_top_menu  : @exports()   # define if exists

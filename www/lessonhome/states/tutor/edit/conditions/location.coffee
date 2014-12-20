@@ -1,5 +1,4 @@
-
-class @main extends template 'tutor/template/template'
+class @main extends template 'tutor/template'
   route : '/tutor/edit/location'
   model   : 'tutor/edit/description/location'
   title : "редактирование место"

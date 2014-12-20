@@ -1,56 +1,54 @@
-@route = '/tutor/search_bids'
-
-class @main extends template 'tutor/template/template'
+class @main extends template '../../tutor'
   route : '/tutor/search_bids'
   model   : 'tutor/search_bids'
   title : "поиск заявок"
   tree : ->
     items : [
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Поиск'
         href  : '/tutor/search_bids'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Входящие'
         href  : '/tutor/in_bids'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Исходящие'
         href  : '/tutor/out_bids'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Отчёты'
         href  : '/tutor/reports'
       }
     ]
     content : module 'tutor/bids/search_bids' :
-      subject_list : module 'tutor/template/forms/drop_down_list'
-      saved_filters : module 'tutor/template/forms/drop_down_list'
-      place : module 'tutor/template/choice' :
+      subject_list : module 'tutor/forms/drop_down_list'
+      saved_filters : module 'tutor/forms/drop_down_list'
+      place : module 'tutor/choice' :
         id          : 'place'
         indent      : '10px'
         choice_list : [
-          module 'tutor/template/button' :
+          module 'tutor/button' :
             text  : 'У себя'
             selector  : 'streamlined'
 
-          module 'tutor/template/button' :
+          module 'tutor/button' :
             text  : 'У ученика'
             selector  : 'fixed'
 
-          module 'tutor/template/button' :
+          module 'tutor/button' :
             text  : 'Удалённо'
             selector  : 'dark_blue'
         ]
-      address_list : module 'tutor/template/forms/drop_down_list'
-      save_button : module 'tutor/template/button' :
+      address_list : module 'tutor/forms/drop_down_list'
+      save_button : module 'tutor/button' :
         text  : 'Сохранить'
         selector  : 'fixed'
 
-      road_time : module 'tutor/template/forms/input' :
+      road_time : module 'tutor/forms/input' :
         width : '50px'
 
-      separate_line : module 'tutor/template/separate_line' :
+      separate_line : module 'tutor/separate_line' :
         selector : 'horizon'
 
       list_bids : module 'tutor/bids/list_bids' :
@@ -104,11 +102,6 @@ class @main extends template 'tutor/template/template'
             comments            : '-'
             lesson_goal         : 'Устранить пробелы в знаниях'
         ]
-      courses_list : module 'tutor/template/forms/drop_down_list'
+      courses_list : module 'tutor/forms/drop_down_list'
   init : ->
     @parent.tree.left_menu.setActive 'Заявки'
-
-
-
-
-

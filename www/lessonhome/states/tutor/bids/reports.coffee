@@ -1,38 +1,37 @@
-
-class @main extends template 'tutor/template/template'
+class @main extends template '../../tutor'
   route : '/tutor/reports'
   model   : 'tutor/reports'
   title : "отчет"
   tree : ->
     items : [
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Поиск'
         href  : '/tutor/search_bids'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Входящие'
         href  : '/tutor/in_bids'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Исходящие'
         href  : '/tutor/out_bids'
       }
-      module 'tutor/template/header/button' : {
+      module 'tutor/header/button' : {
         title : 'Отчёты'
         href  : '/tutor/reports'
       }
     ]
     content : module 'tutor/bids/reports' :
-      hint : module 'tutor/template/hint' :
+      hint : module 'tutor/hint' :
         selector  : 'horizontal_hide_ability'
         header    : ''
         text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени,
                как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой,
                 так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
 
-      select_all_checkbox : module 'tutor/template/forms/checkbox'
-      select_all_list     : module 'tutor/template/forms/drop_down_list'
-      subject : module 'tutor/template/forms/drop_down_list'
+      select_all_checkbox : module 'tutor/forms/checkbox'
+      select_all_list     : module 'tutor/forms/drop_down_list'
+      subject : module 'tutor/forms/drop_down_list'
 
       list_bids : module 'tutor/bids/list_bids' :
         titles_bid : module '//titles_bid' :
@@ -50,12 +49,12 @@ class @main extends template 'tutor/template/template'
           module '//bid' :
             selectable     : true
             report_block   : true
-            checkbox       : module 'tutor/template/forms/checkbox' :
+            checkbox       : module 'tutor/forms/checkbox' :
               selector : 'bid'
-            fill_button    : module 'tutor/template/button' :
+            fill_button    : module 'tutor/button' :
               text  : 'Заполнить'
               selector  : 'fill'
-            support_button : module 'tutor/template/button' :
+            support_button : module 'tutor/button' :
               text  : 'Поддержка'
               selector  : 'support'
 
@@ -89,12 +88,12 @@ class @main extends template 'tutor/template/template'
           module '//bid' :
             selectable   : true
             report_block : true
-            checkbox  : module 'tutor/template/forms/checkbox' :
+            checkbox  : module 'tutor/forms/checkbox' :
               selector : 'bid'
-            fill_button    : module 'tutor/template/button' :
+            fill_button    : module 'tutor/button' :
               text  : 'Заполнить'
               selector  : 'fill'
-            support_button : module 'tutor/template/button' :
+            support_button : module 'tutor/button' :
               text  : 'Поддержка'
               selector  : 'support'
 
