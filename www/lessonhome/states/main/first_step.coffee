@@ -8,6 +8,7 @@ class @main extends template '../main'
       list_subject  : module 'tutor/forms/drop_down_list'  :
         selector    : 'subject'
         placeholder : 'Предметы'
+        icon        : '&#9660;'
       add_subject   : module 'tutor/button'  :
         selector  : 'add_subject'
         char      : '+'

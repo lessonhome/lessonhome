@@ -1,13 +1,13 @@
+@import compass/css3
 main
   height: 100%
 .drop_down_list
   position: relative
-  height : 100%
-  width  : 100%
+  height: 100%
+  width: 100%
+  $icon_box_width: 25px
   input
-    padding: 0 25px 0 8px
-    padding: 0 8px
-    padding-right: 25px
+    padding: 0 $icon_box_width 0 8px
     box-sizing: border-box
     border: 2px solid rgb( 214, 214, 214 )
     border-radius: 4px
@@ -15,24 +15,27 @@ main
     //outline : none
     width: 100%
     height: 100%
-
-    font-size   : 20px
-    color       : rgb ( 0, 0, 0)
-    font-family : 'Opens Sans', sans-serif
-
+    font-size: 20px
+    color: rgb ( 0, 0, 0)
   input[placeholder]
-    font-size   : 20px
-    color       : rgb ( 0, 0, 0)
-    font-family : 'Opens Sans', sans-serif
-
-  .icon
-    width  : 15px
-    height : 13px
-    position : absolute
-    top   : 10px
-    right : 10px
-    background : inline-image('falldown_triangle3.png') no-repeat
-
+    font-size: 20px
+    color: rgb ( 0, 0, 0)
+  .icon_box
+    width: $icon_box_width
+    position: absolute
+    top: 0
+    height: 100%
+    right: 0px
+    cursor: pointer
+    .icon
+      $icon_height: 13px
+      width: 15px
+      height: $icon_height
+      position: relative
+      top: 50%
+      margin-top: -$icon_height / 2
+      background : inline-image('falldown_triangle3.png') no-repeat
+      right: 0  // use it's because default property have right not 0
 .drop_down_list
   input:focus
     border : 2px solid rgb( 137, 209, 255 )
@@ -68,6 +71,7 @@ main
       color: rgb(203, 211, 218)
       font-size: 26px
       right: 0  // use it's because default property have right not 0
+      background: none
   input[placeholder]
     font-size: 24px
     color: rgb(142, 149, 156)
