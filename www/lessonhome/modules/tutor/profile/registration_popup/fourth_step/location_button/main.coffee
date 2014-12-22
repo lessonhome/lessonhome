@@ -1,6 +1,4 @@
 
-
-
 class @main extends EE
   constructor : ->
   show : =>
@@ -17,5 +15,3 @@ class @main extends EE
     @active = true
     @button.addClass 'active'
     @emit 'active'
-
-

@@ -1,0 +1,8 @@
+mixin block (selector, title, value)
+  div(class=selector)
+    .title=title
+    .value!= value
+
++block('reason', 'Почему я репетитор?', reason)
++block('interests', 'Интересы :', interests)
++block('about','О себе :', about)

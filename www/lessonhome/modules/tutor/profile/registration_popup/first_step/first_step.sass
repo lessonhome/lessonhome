@@ -2,6 +2,27 @@
 
 $height : 37px
 
+.hint
+  position : absolute
+  top   : 278px
+  right : -264px
+  width  : 361px
+  height : 337px
+  box-sizing : border-box
+  border : 3px solid #afe0ff
+  background-color : #fff
+  .text
+    padding : 26px 29px 37px 30px
+    text-align  : left
+    color       : rgba(0, 0, 0, 0.70)
+    font-size   : 18px
+    font-family : 'Open Sans', sans-serif
+  .button
+    +inline-block
+
+
+//- -------------------------------------------------------------------------------
+
 .photo
   position : relative
   width  : 315px
@@ -41,7 +62,7 @@ $height : 37px
 
 .fields
   text-align    : right
-  padding-right : 164px
+  margin-right  : 164px
   margin-bottom : 67px
   div
     margin-bottom : 11px

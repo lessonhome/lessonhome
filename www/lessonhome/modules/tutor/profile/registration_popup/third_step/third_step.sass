@@ -1,0 +1,74 @@
+@import compass/css3
+
+main
+  overflow : hidden
+
+$height : 37px
+
+.fields
+  margin-top    : 28px
+  margin-bottom : 60px
+  text-align    : right
+  .subject, .categories, .directions, .categories_of_students, .place, .price, .group_lessons
+    .value
+      height : $height
+
+  div
+    margin-right  : 167px
+    margin-bottom : 11px
+    .title, .value
+      +inline-block
+
+    .title
+      width        : 180px
+      height       : $height
+      line-height  : $height
+      margin-right : 26px
+      text-align   : right
+      font-size    : 16px
+      color        : rgba(75, 75, 75, 0.70)
+      font-family  : 'Open Sans', sans-serif
+
+    .value
+      width  : 341px
+
+  .place, .price
+    +inline-block
+
+  .place
+    margin-right : 0
+    .value
+      width : 171px
+
+  .price
+    margin-right : 106px
+    .title
+      width        : 80px
+      margin-right : 18px
+    .value
+      width        : 71px
+      margin-right : 22px
+    .price_button
+      +inline-block
+
+
+  .group_lessons
+    .value
+      div
+        +inline-block
+        height : 100%
+      .students_in_group
+        width        : 185px
+        margin-right : 33px
+      .group_lessons_bet
+        width : 122px
+
+  .comments
+    margin-bottom : 15px
+    .title
+      vertical-align : top
+
+  .button_block
+    .add_button
+      +inline-block
+

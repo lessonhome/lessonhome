@@ -1,0 +1,63 @@
+@import compass/css3
+
+main
+  overflow : hidden
+
+$height : 37px
+
+.fields
+  margin-top : 40px
+  margin-bottom : 70px
+  text-align : right
+
+  .location_buttons
+    margin-bottom : 34px
+    div
+      +inline-block
+    .tutor, .student
+      margin-right : 23px
+
+
+  div
+    margin-right  : 164px
+    margin-bottom : 11px
+    .title, .value
+      +inline-block
+
+    .value
+      height : $height
+      width  : 341px
+
+    .title
+      width        : 180px
+      height       : $height
+      line-height  : $height
+      margin-right : 26px
+      text-align   : right
+      font-size    : 16px
+      color        : rgba(75, 75, 75, 0.70)
+      font-family  : 'Open Sans', sans-serif
+
+
+  .house, .flat, .building
+    .value
+      width : 91px
+
+  .house, .building
+    +inline-block
+
+  .building
+    .title
+      width        : 140px
+      margin-right : 19px
+
+  .house
+    margin-right : 0
+
+  .flat
+    margin-right : 414px
+
+  .button_block
+    .add_button
+      +inline-block
+

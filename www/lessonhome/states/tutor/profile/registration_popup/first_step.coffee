@@ -4,6 +4,7 @@ class @main extends template '../registration_popup'
   title : "первый вход"
   tree : ->
     content : module '$' :
+      understand_button : module '//understand_button'
       first_name  : module 'tutor/forms/input'
       last_name   : module 'tutor/forms/input'
       patronymic  : module 'tutor/forms/input'
