@@ -1,5 +1,5 @@
 class @main extends template '../main'
-  route : '/'
+  route : '/first_step'
   model   : 'main/first_step'
   title : "выберите предмет"
   tree : =>
