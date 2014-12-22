@@ -1,6 +1,5 @@
 
 
-
 class @activeState
   constructor : (@tree)->
     @classes  = {}
@@ -8,14 +7,31 @@ class @activeState
     @watchDown @tree, (node,key,val)=>
       if val._isModule
         if Feel.modules[val._name]?.main?
-          @classes[val._uniq] = new Feel.modules[val._name].main()
-          @classes[val._uniq].tree = val
-          @classes[val._uniq].__isClass = true
+          try @classes[val._uniq] = new Feel.modules[val._name].main()
+          catch e then return Feel.error e, "new #{val._name}() failed"
+          cl = @classes[val._uniq]
+          cl.tree = val
+          cl.__isClass = true
           @order.push val._uniq
-          @classes[val._uniq].tree?.class = @classes[val._uniq]
+          cl.tree?.class = cl
     @dom = {}
     @uniq_pref = ""
     @parseTree @tree
+    @watchUp @tree, (node,key,val)=>
+      return unless node[key]._isModule
+      mod = node[key]
+      return unless @classes[mod._uniq]?
+      cl  = @classes[mod._uniq]
+      if cl.dom?
+        try cl.Dom? cl.dom
+        catch e then return Feel.error e, "#{mod._name}.Dom() failed"
+    @watchUp @tree, (node,key,val)=>
+      return unless node[key]._isModule
+      mod = node[key]
+      return unless @classes[mod._uniq]?
+      cl  = @classes[mod._uniq]
+      try cl.show?()
+      catch e then return Feel.error e, "#{mod._name}.init() failed"
   parseTree : (node)=>
     return if node?.__isClass
     uniq_pref = @uniq_pref
@@ -28,11 +44,10 @@ class @activeState
       if !@dom.parent?
         @dom.parent = $('body')
       if !dom?
-        dom = @dom.parent.find ".m-#{uniq_pref}"+node._name.replace(/\//g,"-")
+        dom = @dom.parent.find "[uniq$=\"#{node._uniq}\"]"
       if obj?
         obj.dom = dom
-        obj.dom_parent = @dom.parent
-        obj.Dom? dom
+        obj.pdom = @dom.parent
       @uniq_pref = node._uniq+"-"
       dom_parent = @dom.parent
       @dom.parent = dom

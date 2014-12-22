@@ -127,3 +127,21 @@ class module.exports
     console.log file
     obj = require process.cwd()+"/"+file
     return obj
+  handler : (req,res,site)=>
+    m     = req.url.match /^\/js\/(\w+)\/(.+)$/
+    return @res404 req,res unless m
+    if m[2].match /\.\./
+      return @res404 req,res unless m
+    hash  = m[1]
+    module = m[2]
+    
+    if @modules[module]?.allJs?
+      res.setHeader "Content-Type", "text/javascript; charset=utf-8"
+
+      return res.end @modules[module].allJs
+    return @res404 req,res
+
+  res404  : (req,res)=>
+    res.writeHead 404
+    res.end()
+

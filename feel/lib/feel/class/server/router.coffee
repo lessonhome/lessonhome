@@ -29,6 +29,8 @@ class Router
               @url.reg.push [r,statename]
             
   handler : (req,res)=>
+    if req.url.match /^\/js\/.*/
+      return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/file\/.*/
       return Q().then => Feel.static.handler req,res,@site.name
     statename = ""

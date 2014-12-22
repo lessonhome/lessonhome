@@ -48,7 +48,12 @@ class RouteState
     end += title+'</title>'+@css+'</head><body>'+@top._html
     @removeHtml @top
     json_tree = JSON.stringify(@getTree(@top))
-    end +='<script id="feel-js-client">
+    end +='
+      <script type="text/javascript" src="/js/123/lib/jquery"></script>
+      <script type="text/javascript" src="/js/323/lib/q"></script>
+      <script type="text/javascript" src="/js/123/lib/event_emitter"></script>
+      <script id="feel-js-client">
+          window.EE = EventEmitter;
           var $Feel = {}; 
           $Feel.root = {
               "tree" : '+json_tree+'
@@ -78,7 +83,8 @@ class RouteState
   parse : (now,uniq)=>
     if now._isModule
       uniq = Math.floor Math.random()*10000
-      now._uniq = uniq
+      now._uniq?= uniq
+      uniq = now._uniq
       m = now._name.match /^\/\/(.*)$/
       if m
         unless @stack.length
@@ -104,10 +110,11 @@ class RouteState
       if typeof val == 'object'
         ret[key] = @getO val,uniq
       if ret[key]?._isModule
+        ret[key]._uniq?= Math.floor Math.random()*10000
         html = ""
         if ret[key]._html?
           idn = ret[key]._name.replace /\//g, '-'
-          ret[key] = ret[key]._html.replace "m-#{idn}", "m-#{idn}\" class=\"m-#{uniq}-#{idn}"
+          ret[key] = ret[key]._html.replace "m-#{idn}", "m-#{idn}\" uniq=\"#{uniq}:#{ret[key]._uniq}\" class=\"m-#{uniq}-#{idn}"
           
     return ret
   

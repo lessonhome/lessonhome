@@ -1,22 +1,20 @@
 
 
-class @main
+
+class @main extends EventEmitter
   constructor : ->
-    @clickArray = []
-
-  Dom : =>
-
-    @button = @dom.find '.button'
-    @button.click =>
-      @button.addClass 'active'
-      for foo in @clickArray
-        foo @tree.selector
-
-    console.log @button
-
+    @active = false
+  show : =>
+    @button = @dom.find ".button"
+    @active = @button.hasClass 'active'
+    @dom.click @click
   disable : =>
+    return unless @active
+    @active = false
     @button.removeClass 'active'
-  enable : =>
+    @emit 'disable'
+  click : =>
+    return if @active
+    @active = true
     @button.addClass 'active'
-  onClick : (foo)=>
-    @clickArray.push foo
+    @emit 'active'

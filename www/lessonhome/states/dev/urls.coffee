@@ -6,6 +6,7 @@ class @main
   init : =>
     o = {}
     for name, state of $site.state
+      continue if name.match /^(dev|test)\//
       c = state.class
       if c::route?
         o[name] = {

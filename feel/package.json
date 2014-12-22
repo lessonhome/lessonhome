@@ -30,6 +30,7 @@
     "jquery" : "*",
     "ps-node" : "*",
     "node-watch" : "*",
-    "mkdirp" : "*"
+    "mkdirp" : "*",
+    "wolfy87-eventemitter" : "*"
   }
 }

@@ -1,8 +1,10 @@
 
 
 class @main
-  Dom : =>
-    @tree.sex_man.class.onClick @click
-    @tree.sex_woman.class.onClick @click
-  click : (selector)=>
-    console.log selector
+  show : =>
+    @man    = @tree.sex_man.class
+    @woman  = @tree.sex_woman.class
+
+    @man  .on 'active', => @woman .disable()
+    @woman.on 'active', => @man   .disable()
+    

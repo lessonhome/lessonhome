@@ -174,14 +174,16 @@ class module.exports
           throw new Error "failed read js in module #{@name}: #{file.name}(#{path})",e
         @newCoffee[filename] = src
     @coffee     = @newCoffee
-    @allCoffee  = "(function(){ var arr = {};"
+    @allCoffee  = "(function(){ var arr = {}; (function(){"
+    @allJs      = ""
     num = 0
     for name,src of @coffee
       m = name.match /^(.*)\.(coffee|js)/
       if m
         num++
-        @allCoffee += "(function(){ #{src} }).call(arr);"
-    @allCoffee += "return arr; })()"
+        @allJs += "(function(){ #{src} }).call(this);"
+    @allCoffee += @allJs
+    @allCoffee += "}).call(arr);return arr; })()"
     @allCoffee = "" unless num
 
     return Q()

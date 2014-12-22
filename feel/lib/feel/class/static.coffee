@@ -8,7 +8,6 @@ class Static
     
   handler : (req,res,site)=>
     m     = req.url.match /^\/file\/(\w+)\/([^\.].*)\.(\w+)$/
-    console.log m
     return @res404 req,res unless m
     if m[2].match /\.\./
       return @res404 req,res unless m
