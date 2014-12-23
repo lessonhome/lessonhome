@@ -100,6 +100,8 @@ class @main
     setInterval @timer, 10
   open : (e)=>
     e.preventDefault()
+    @dom.find('.state.active').removeClass 'active'
+    $(e.target).parent().addClass 'active'
     model = $(e.target).attr 'href'
     m =model.match /^\/file\/\w+\/models\/(.*)\.\w+$/
     console.log model

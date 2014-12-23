@@ -3,6 +3,7 @@
 coffee  = require 'coffee-script'
 path    = require 'path'
 
+fs      = require 'fs'
 
 class module.exports
   constructor : (@site,@name)->
@@ -61,6 +62,9 @@ class module.exports
     if @class::route? && !@name.match(/^(dev|test)/)
       throw new Error "Undefined title in state '#{@name}'" unless @class::title?
       throw new Error "Undefined model in state '#{@name}'" unless @class::model?
+      if @class::model
+        file = "#{@site.path.src}static/models/#{@class::model}.jpg"
+        throw new Error "can't find model file '#{file}' for model #{@class::model} in state #{@name}" unless fs.existsSync file
   checkFoo : (name,foo)=>
     foo ?= ->
     if @class::constructor?.__super__?[name]?
