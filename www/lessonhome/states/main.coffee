@@ -31,6 +31,7 @@ class @main
         }
       ]
     top_filter : module '$/top_filter' :
+      # content exsport as top_filter, and be defined same top_filter variables in export file
       content   : @exports 'top_filter'
     info_panel : module '$/info_panel'
     content    : @exports()   # must be defined

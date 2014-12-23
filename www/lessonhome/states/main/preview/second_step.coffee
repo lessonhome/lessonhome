@@ -4,24 +4,26 @@ class @main extends template '../preview'
   title : "выберите статус преподователя"
   tree : ->
     top_filter  : module '$/top_filter' :
-      title       : 'Статус преподователя :'
-      list_tutor  : module 'tutor/forms/drop_down_list'  :
-        selector  : 'subject'
-      add_tutor   : module 'tutor/button'  :
-        selector  : 'add_subject'
-        char      : '+'
-      chose_tutor : module 'tutor/button'  :
-        selector  : 'chose_subject'
-        text      : 'Профессор'
+      title         : 'Статус преподователя :'
+      list_tutor    : module '../drop_down_list'  :
+        selector      : 'tutor'
+        placeholder   : 'Преподователи'
+        icon          : '&#9660;'
+      add_tutor     : module 'tutor/button'  :
+        selector      : 'add_tutor'
+        char          : '+'
+      chose_tutor   : module 'tutor/button'  :
+        selector      : 'chose_tutor'
+        text          : 'Профессор'
       button_back   : module 'tutor/button'  :
-        selector  : 'subject_back'
-        text      : 'Назад'
+        selector      : 'subject_back'
+        text          : 'Назад'
       button_issue  : module 'tutor/button'  :
-        selector  : 'issue_bid'
-        text      : 'Оформить заявку сейчас'
+        selector      : 'issue_bid'
+        text          : 'Оформить заявку сейчас'
       button_onward : module 'tutor/button'  :
-        selector  : 'onward_block'
-        text      : 'Далее'
+        selector      : 'onward_block'
+        text          : 'Далее'
           ###
       info_pane_two        : module 'main/info_panel_two'  :
         advanced_search   : 'Расширенный поиск'
@@ -29,9 +31,4 @@ class @main extends template '../preview'
         tutor             : 'Преподователь'
         place             : 'Место'
         price             : 'Цена'
-      advanced_search       : module 'main/advanced_search':
-        list_course  : module 'tutor/forms/drop_down_list'  :
-          selector  : 'list_course'
-        add_course   : module 'tutor/button'  :
-          selector  : 'course'
 ###

@@ -126,30 +126,50 @@ main
 
 
 
-////////subject////////////////////
-.button.chose_subject
-  $size_background:  10px
-  $margin_background:  10px
-  $srs: 'close.png'
+////////chose button////////////////////
+$size_close:  10px
+$padding_close:  10px
+$srs: 'close.png'
+.button.chose_subject, .button.chose_tutor, .button.chose_course
   overflow: hidden
-  $height_line: 33px
   border-radius: 4px
-  height: $height_line
   background-color: rgb(225, 227, 229)
+  height: 33px
+  cursor: default
   .close
     float: right
     height: 100%
     cursor: pointer
-    .background
-      width: $size_background
-      height: $size_background
-      margin: 13px 10px 0 10px
-      background: inline-image($srs)
+    padding: 0 $padding_close
+    .close_background
+      width: $size_close
+      height: $size_close
+      position: relative
+      top: 50%
+      margin-top: -$size_close / 2
+      background: inline-image($srs) no-repeat
   .text
     font-size: 18px
     color: rgb(61, 50, 50)
-    line-height: $height_line
-    margin: 0 (2*$margin_background+$size_background) 0 10px
+    line-height: 33px
+    margin: 0 (2*$padding_close+$size_close) 0 10px
+////
+$padding_close:  5px
+$size_close:  10px
+.button.chose_course
+  height: 30px
+  .close
+    padding: 0 $padding_close
+    .close_background
+      width: $size_close
+      height: $size_close
+      margin-top: -$size_close / 2
+      background: inline-image($srs) no-repeat
+  .text
+    font-size: 16px
+    color: rgb(0, 0, 0)
+    line-height: 30px
+    margin: 0 (2*$padding_close+$size_close) 0 10px
 
 ////-----------it's big button in subject----------------////
 .button.subject_back, .button.onward_block, .button.issue_bid
@@ -169,9 +189,9 @@ main
   background-color: rgb(240, 123, 111)
   .text
     padding: 0 20px
-//////////add subject////////////
+//////////add subject and add tutor////////////
 $height_button_add: 33px
-.button.add_subject
+.button.add_subject, .button.add_tutor
   width: 37px
   height: $height_button_add
   position: relative
@@ -184,7 +204,7 @@ $height_button_add: 33px
     font-size: 30px
     font-weight: 900
     +inline-block
-.button.add_subject:before
+.button.add_subject:before, .button.add_tutor:before
   content: ''
   +inline-block
   height: 100%
