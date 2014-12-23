@@ -1,6 +1,6 @@
 class @main extends template '../../../tutor'
   route : '/tutor/edit/calendar'
-  model   : 'tutor/edit/description/calendar'
+  model   : 'tutor/edit/conditions/calendar'
   title : "редактирование календарь"
   tree  : =>
     items : [

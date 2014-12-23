@@ -1,6 +1,6 @@
 class @main extends template '../registration_popup'
   route : '/tutor/profile/fifth_step'
-  model : 'tutor/profile/fifth_step'
+  model : 'tutor/profile_registration/fifth_step'
   title : "Регистрация : шаг5"
   tree : ->
     content : module '$' :
