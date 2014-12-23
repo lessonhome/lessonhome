@@ -13,7 +13,6 @@ main
   color : #100
   //font-weight : 
   font-family : 'Open Sans', sans-serif
-  +box-shadow(inset 0 0 2px rgba(0,0,0,0.2))
   height : 40px
   line-height : 40px
   position : relative
@@ -25,6 +24,7 @@ main
 .state:hover
   background : #EEE
 .state *
+  +box-shadow(inset 0 0 2px rgba(0,0,0,0.2))
   padding : 0 25px
   position : relative
   height : 100%
@@ -32,8 +32,10 @@ main
   width : 25%
   float : left
   box-sizing : border-box
+.top, .top:hover
+  background : #FEE
+  font-weight : bold
   
-
 
 //.link a *
   line-height     : 1.1em
