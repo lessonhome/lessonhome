@@ -2,140 +2,113 @@
 
 main
   height: 100%
-  cursor : pointer
+  cursor: pointer
 .fixed, .add, .streamlined, .color_blue
   +inline-block
-  height           : 35px
-  background-color : rgb( 240, 123, 111 )
-  border-radius    : 4px
-  box-shadow       : 0 1px 1px rgba(0,0,0, 0.65)
-  text-align       : center
+  height: 35px
+  background-color: rgb( 240, 123, 111 )
+  border-radius: 4px
+  box-shadow: 0 1px 1px rgba(0,0,0, 0.65)
+  text-align: center
   .text
     +inline-block
-    line-height : 35px
-    font-size   : 18px
-    font-family : "Open Sans",sans-serif
+    line-height: 35px
+    font-size: 18px
     color  : white
-
 .color_blue
-  width : 130px
-  background-color : rgb( 137, 209, 255 )
-  box-sizing       : border-box
-
+  width: 130px
+  background-color: rgb( 137, 209, 255 )
+  box-sizing: border-box
 .streamlined>.text
-  padding : 0 12px
-
+  padding: 0 12px
 .dark_blue
-  width            : 103px
-  height           : 35px
-  background-color : rgb( 203, 211, 218 )
-  box-sizing       : border-box
-  border-radius    : 4px
-  //-box-shadow       :  0 1px 3px rgba(0,0,0, 0.53)
-  text-align       : center
+  width: 103px
+  height: 35px
+  background-color: rgb( 203, 211, 218 )
+  box-sizing: border-box
+  border-radius: 4px
+  text-align: center
   .text
     +inline-block
-    line-height : 35px
-    font-size   : 18px
-    font-family : 'Open Sans', sans-serif
-    color       : rgb( 136, 149, 161 )
-    cursor      : pointer
-
+    line-height: 35px
+    font-size: 18px
+    color: rgb( 136, 149, 161 )
 .fixed
-  min-width  : 130px
-  box-sizing : border-box
-
+  min-width: 130px
+  box-sizing: border-box
 .add
   .text
-    padding : 3px 10px 3px 10px
-    height : 33px
-    box-sizing : border-box
-    font-size : 24px
+    padding: 3px 10px 3px 10px
+    height: 33px
+    box-sizing: border-box
+    font-size: 24px
 /*--------------------------------------------------*/
 .support, .fill
   +inline-block
-  width  : 110px
-  height : 34px
-  background-color : rgb( 88, 105, 122 )
-  border-radius : 4px
-  text-align : center
+  width: 110px
+  height: 34px
+  background-color: rgb( 88, 105, 122 )
+  border-radius: 4px
+  text-align: center
   .text
     +inline-block
-    line-height : 34px
-
-    font-size : 17.975px
-    font-family : 'Open Sans', sans-serif
-    color : white
-    cursor: pointer
-
+    line-height: 34px
+    font-size: 18px
+    color: white
 .support
-  background-color : rgb( 88, 105, 122 )
-
+  background-color: rgb( 88, 105, 122 )
 .fill
-  background-color : rgb( 137, 209, 255 )
-
+  background-color: rgb( 137, 209, 255 )
 // ------------------------- CHECK IN -----------------------
-
 .button.check_in_first, .button.check_in_second, .button.callback
-  text-align       : center
-  border-radius    : 4px
-  background-color : rgb( 240, 123, 111 )
-  box-shadow       : 0px 1px 1px 0px rgba(0, 0, 0, 0.59)
+  background-color: rgb( 240, 123, 111 )
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.59)
   .text
-    color       : #fff
-    font-family : 'Open Sans', sans-serif
-
+    color: #fff
 .button.check_in_first
-  width : 496px
-  height : 64px
+  width: 496px
+  height: 64px
   .text
-    line-height : 64px
-    font-size   : 30px
-
+    line-height: 64px
+    font-size: 30px
 .button.check_in_second
-  width  : 208px
-  height : 50px
+  width: 208px
+  height: 50px
   .text
-    line-height : 50px
-    font-size   : 23.98px
-
+    line-height: 50px
+    font-size: 24px
 .button.callback
-  width  : 265px
-  height : 54px
+  width: 265px
+  height: 54px
   .text
-    line-height : 54px
-    font-size   : 26px
-
+    line-height: 54px
+    font-size: 26px
 //- ----------------------- CREATE ACCOUNT -----------------
-
+$height_line: 33px
 .button.create_account
-  $height : 33px
-  width   : 190px
-  height  : $height
-  text-align       : center
-  border-radius    : 4px
-  background-color : rgb( 240, 123, 111 )
-  box-shadow       : 0px 1px 1px 0px rgba(0, 0, 0, 0.59)
+  width: 190px
+  height: $height_line
+  background-color: rgb( 240, 123, 111 )
+  box-shadow : 0px 1px 1px 0px rgba(0, 0, 0, 0.59)
   .text
     line-height : 25px
     font-size   : 20px
     color       : white
-    font-family : 'Open Sans', sans-serif
-
-
 //- ------------------ TUTOR REGISTRATION BUTTONS ------------
 
-
-
-////////chose button////////////////////
+////////-----------chose button in drop down list----------////////////////////
 $size_close:  10px
 $padding_close:  10px
+$height_line: 33px
 $srs: 'close.png'
+.button
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
+  border-radius: 4px
 .button.chose_subject, .button.chose_tutor, .button.chose_course
   overflow: hidden
-  border-radius: 4px
+  height: $height_line
+  line-height: $height_line
   background-color: rgb(225, 227, 229)
-  height: 33px
   cursor: default
   .close
     float: right
@@ -152,36 +125,29 @@ $srs: 'close.png'
   .text
     font-size: 18px
     color: rgb(61, 50, 50)
-    line-height: 33px
     margin: 0 (2*$padding_close+$size_close) 0 10px
-////
+//////------little bit variables and font change value in chose_course------------/////////
 $padding_close:  5px
-$size_close:  10px
+$height_line: 30px
 .button.chose_course
-  height: 30px
+  height: $height_line
+  line-height: $height_line
   .close
     padding: 0 $padding_close
     .close_background
       width: $size_close
       height: $size_close
-      margin-top: -$size_close / 2
-      background: inline-image($srs) no-repeat
   .text
     font-size: 16px
     color: rgb(0, 0, 0)
-    line-height: 30px
     margin: 0 (2*$padding_close+$size_close) 0 10px
-
-////-----------it's big button in subject----------------////
+/////////////-----------it's big button in subject----------------//////////////
+$height_line: 50px
 .button.subject_back, .button.onward_block, .button.issue_bid
-  $height_line: 50px
   height: $height_line
   line-height: $height_line
   background: rgb(148, 201, 254)
-  border-radius: 4px
   margin: 10px
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
-  cursor: pointer
   .text
     font-size: 26px
     padding: 0 15px
@@ -190,7 +156,7 @@ $size_close:  10px
   background-color: rgb(240, 123, 111)
   .text
     padding: 0 20px
-//////////add subject and add tutor////////////
+//////////add button subject add tutor////////////
 $height_button_add: 33px
 .button.add_subject, .button.add_tutor
   width: 37px
@@ -198,9 +164,7 @@ $height_button_add: 33px
   position: relative
   top: 50%
   margin-top: -$height_button_add / 2
-  border-radius: 4px
   background-color: rgb(225, 227, 229)
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
   .plus
     font-size: 30px
     font-weight: 900
@@ -210,15 +174,15 @@ $height_button_add: 33px
   +inline-block
   height: 100%
 ////search_button////
+$height_line: 54px
 .button.search_button, .button.order_call, .button.start_search
-  $height: 54px
+  width: 265px
+  height: $height_line
+  margin: auto
+  line-height: $height_line
   background-color: rgb(201, 92, 81)
   box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-  width: 265px
-  height: $height
-  margin: auto
-  border-radius: 4px
+  //box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
   .text
     font-size: 26px
     color: rgb(255, 255, 255)
-    line-height: $height

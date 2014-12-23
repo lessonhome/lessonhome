@@ -9,8 +9,12 @@ class @main extends template '../main'
         add_course   : module 'tutor/button'  :
           selector  : 'chose_course'
           text      : 'ЕГЭ'
-      calendar          : module '$/calendar' :
-        chose_all       : module 'tutor/forms/checkbox'
+        calendar          : module '$/calendar' :
+          choose_all       : module 'tutor/forms/checkbox'
+         # close
+
+
+
       content : module '//content' :                # center
         sort            : module '//sort'
         chose_tutors    : module '//chose_tutors'

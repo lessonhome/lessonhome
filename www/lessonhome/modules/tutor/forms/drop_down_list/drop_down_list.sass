@@ -45,25 +45,30 @@ $icon_width: 26px
 $icon_height: 23px
 .drop_down_list.subject, .drop_down_list.tutor
   input
+    padding: 0 (2*$icon_padding+$icon_width) 0 8px
     border: 3px solid rgb(202, 211, 218)
     background-color: rgb( 255, 255, 255 )
-    font-size: 20px
-    color: rgb(0, 0, 0)
-  .icon_box
-    .icon
-      color: rgb(203, 211, 218)
-      font-size: 26px
-      background: none  //wait triangle
-  input[placeholder]
+    //font-size: 20px
+    //color: rgb(0, 0, 0)
     font-size: 24px
     color: rgb(142, 149, 156)
+  .icon_box
+    padding: 0 $icon_padding
+    .icon
+      width: $icon_width
+      height: $icon_height
+      margin-top: -$icon_height / 2
+      background: none  //wait triangle
+      color: rgb(203, 211, 218)
+      font-size: 26px
 .drop_down_list
   input:focus
     border : 2px solid rgb( 137, 209, 255 )
 /////////////////--------list_course---------//////////////////////
 $icon_padding: 10px
 .drop_down_list.list_course
-  input[placeholder]
+  input
+    padding: 0 (2*$icon_padding+$icon_width) 0 8px
     font-size: 20px
     color: rgb(0, 0, 0)
   .icon_box
