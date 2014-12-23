@@ -1,6 +1,0 @@
-
-each statename, route in urls
-  .link
-    a(href=route)
-      .route  #{route}  
-      .name   #{statename}

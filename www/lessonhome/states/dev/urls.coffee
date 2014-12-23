@@ -2,7 +2,10 @@
 class @main
   route :  '/urls'
   tree : => module 'dev/urls' :
-    depend : state 'lib'
+    depend : [
+      state 'lib'
+      module 'lib/mousewheel'
+    ]
   init : =>
     o = {}
     for name, state of $site.state

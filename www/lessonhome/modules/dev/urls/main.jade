@@ -6,8 +6,8 @@ a.state.top
   .model  Файл макета
 
 each state, name in states
-  a(href=state.route).state
-    .title= state.title
-    .name= name
-    .route= state.route
-    .model= state.model
+  .state
+    a(href=state.route).title= state.title
+    a(href=state.route).name= name
+    a(href=state.route).route= state.route
+    a(href="/file/123/models/#{state.model}.jpg").model= state.model
