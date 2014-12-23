@@ -6,7 +6,7 @@ main
 .block
   display : inline-block
 
-  .place_of_work, .post, .experience_tutoring, .number_of_students, .extra_info
+  .place_of_work, .post, .experience_tutoring, .number_of_students
     overflow : hidden
     padding-bottom : 15px
 
@@ -17,20 +17,39 @@ main
       text-align : right
 
     .value
-      float : right
+      float  : right
+      width  : 340px
+      height : 37px
 
   .post
     padding-bottom : 0
 
-  .extra_info
-    padding-bottom : 0
+
 
   /*---------------------------------------------------------*/
 
   .extra_info
-    margin-bottom : 20px
+    padding-bottom : 0
+    margin-bottom  : 20px
+    overflow : hidden
+
+    .m-title
+      padding-right: 55px
+      box-sizing: border-box
+      float : right
+      text-align : right
+
     .value
-      width : 335px
+      float  : right
+      height : 117px
+
+
+  .extra_info:after
+    content : ''
+    clear   : both
+    display : block
+
+
 
   /*--------------------------------------------------------*/
   .button_block

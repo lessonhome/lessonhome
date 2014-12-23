@@ -4,17 +4,17 @@ mixin info_block(block_class, header, value)
     .m-title.g-font-smallTitle= header
 //- -------------------------------------------------
 .block
-  +info_block('country', 'Страна:', country)
-  +info_block('city', 'Город:', city)
-  +info_block('address', 'Адрес:', address_button)
+  +info_block('country', 'Страна :', country)
+  +info_block('city', 'Город :', city)
+  +info_block('address', 'Адрес :', address_button)
 
   .line
 
-  +info_block('mobile_phone', 'Мобильный телефон:', mobile_phone)
-  +info_block('additional_phone', 'Дополнительный телефон:', additional_phone)
-  +info_block('mail', 'Почта:', mail)
-  +info_block('skype', 'Skype:', skype)
-  +info_block('personal_website', 'Личный сайт:', personal_website)
+  +info_block('mobile_phone', 'Мобильный телефон :', mobile_phone)
+  +info_block('additional_phone', 'Дополнительный телефон :', additional_phone)
+  +info_block('mail', 'Почта :', mail)
+  +info_block('skype', 'Skype :', skype)
+  +info_block('personal_website', 'Личный сайт :', personal_website)
 
   .button_block
     .save_button!= save_button

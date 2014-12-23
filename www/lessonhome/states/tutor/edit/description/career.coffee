@@ -31,7 +31,7 @@ class @main extends template '../../../tutor'
       experience_tutoring : module 'tutor/forms/drop_down_list'
       number_of_students : module 'tutor/forms/drop_down_list'
       extra_info : module 'tutor/forms/textarea' :
-        height : '82px'
+        height : '117px'
 
       save_button : module 'tutor/button' :
         text  : 'Сохранить'

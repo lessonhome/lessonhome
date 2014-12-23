@@ -4,19 +4,19 @@ mixin info_block(block_class, header, value)
     .m-title.g-font-smallTitle= header
 //- -------------------------------------------------
 .block
-  +info_block('country', 'Страна:', country)
-  +info_block('city', 'Город:', city)
-  +info_block('university', 'Вуз:', university)
-  +info_block('faculty', 'Факультет:', faculty)
-  +info_block('chair', 'Кафедра:', chair)
-  +info_block('status', 'Статус:', status)
+  +info_block('country', 'Страна :', country)
+  +info_block('city', 'Город :', city)
+  +info_block('university', 'Вуз :', university)
+  +info_block('faculty', 'Факультет :', faculty)
+  +info_block('chair', 'Кафедра :', chair)
+  +info_block('status', 'Статус :', status)
 
   .date
     .value
       .day.g-smallField!= release_day
       .month.g-smallField!= release_month
       .year.g-smallField!= release_year
-    .m-title.g-font-smallTitle Дата выпуска:
+    .m-title.g-font-smallTitle Дата выпуска :
 
   .button_block
     .add_button!= add_button

@@ -3,29 +3,29 @@ mixin info_block(block_class, title, value)
     .value.g-standardField!= value
     .m-title.g-font-smallTitle=title
 .block
-  +info_block('subject', 'Предмет:', subject)
-  +info_block('sections', 'Разделы:', sections)
-  +info_block('destinations', 'Направления:', destinations)
-  +info_block('category_students', 'Категории учеников:', category_students)
+  +info_block('subject', 'Предмет :', subject)
+  +info_block('sections', 'Разделы :', sections)
+  +info_block('destinations', 'Направления :', destinations)
+  +info_block('category_students', 'Категории учеников :', category_students)
 
   .location_block
     .value
       .location!= location
       .price
         .value!= price
-        .m-title.g-font-smallTitle Цена:
+        .m-title.g-font-smallTitle Цена :
       .add_location!= add_location
-    .m-title.g-font-smallTitle Место:
+    .m-title.g-font-smallTitle Место :
 
   .group_lessons
     .value
       .pupils_number!= pupils_number
       .bet!= bet
-    .m-title.g-font-smallTitle Групповые занятия:
+    .m-title.g-font-smallTitle Групповые занятия :
 
 
 
-  +info_block('comments', 'Комментарии:', comments)
+  +info_block('comments', 'Комментарии :', comments)
 
   .button_block
     .add_button!= add_button
