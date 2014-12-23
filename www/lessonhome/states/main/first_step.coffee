@@ -5,7 +5,7 @@ class @main extends template '../main'
   tree : =>
     top_filter  : module '$/top_filter' :
       title         : 'Выберите предмет :'
-      list_subject  : module './drop_down_list'  :
+      list_subject  : module 'tutor/forms/drop_down_list'  :
         selector    : 'subject'
         placeholder : 'Предметы'
         icon        : '&#9660;'

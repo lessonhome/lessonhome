@@ -1,16 +1,18 @@
 @import compass/css3
+$icon_padding: 9px
+$icon_height: 13px
+$icon_width: 15px
 main
   height: 100%
 .drop_down_list
   position: relative
   height: 100%
   width: 100%
-  $icon_box_width: 26px
   input
-    padding: 0 $icon_box_width 0 8px
+    padding: 0 (2*$icon_padding+$icon_width) 0 8px
     box-sizing: border-box
     border: 2px solid rgb( 214, 214, 214 )
-    border-radius: 8px
+    border-radius: 4px
     background-color: rgb( 255, 255, 255 )
     outline : none
     width: 100%
@@ -21,32 +23,49 @@ main
     font-size: 20px
     color: rgb(0, 0, 0)
   .icon_box
-    width: $icon_box_width
+    padding: 0 $icon_padding
     position: absolute
     top: 0
     height: 100%
     right: 0px
     cursor: pointer
     .icon
-      $icon_height: 13px
-      width: 15px
+      width: $icon_width
       height: $icon_height
       position: relative
       top: 50%
       margin-top: -$icon_height / 2
       background : inline-image('falldown_triangle3.png') no-repeat
-      right: 0  // use it's because default property have right not 0
 .drop_down_list
   input:focus
     border : 2px solid rgb( 137, 209, 255 )
-
-
+/////////////////--------list_subject, list_tutor---------//////////////////////
+$icon_padding: 15px
+$icon_width: 26px
+$icon_height: 23px
+.drop_down_list.subject, .drop_down_list.tutor
+  input
+    border: 3px solid rgb(202, 211, 218)
+    background-color: rgb( 255, 255, 255 )
+    font-size: 20px
+    color: rgb(0, 0, 0)
+  .icon_box
+    .icon
+      color: rgb(203, 211, 218)
+      font-size: 26px
+      background: none  //wait triangle
+  input[placeholder]
+    font-size: 24px
+    color: rgb(142, 149, 156)
+.drop_down_list
+  input:focus
+    border : 2px solid rgb( 137, 209, 255 )
 /////////////////--------list_course---------//////////////////////
+$icon_padding: 10px
 .drop_down_list.list_course
   input[placeholder]
     font-size: 20px
     color: rgb(0, 0, 0)
   .icon_box
-    $icon_padding: 10px
     padding: 0 $icon_padding
     width: auto
