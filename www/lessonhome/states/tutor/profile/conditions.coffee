@@ -1,7 +1,7 @@
 
 class @main extends template '../../tutor'
   route : '/tutor/conditions'
-  model   : 'tutor/conditions'
+  model   : 'tutor/profile/conditions'
   title : "условия"
   tree : ->
     items : [
