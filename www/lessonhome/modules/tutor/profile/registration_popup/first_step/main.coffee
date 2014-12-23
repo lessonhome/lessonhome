@@ -7,4 +7,5 @@ class @main
 
     @man  .on 'active', => @woman .disable()
     @woman.on 'active', => @man   .disable()
+
     

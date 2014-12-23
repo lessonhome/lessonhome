@@ -1,21 +1,21 @@
 mixin info_block(block_class, header, value)
   div(class=block_class)
     .value.g-standardField!= value
-    .m-title.g-font-smallTitle= header
+    .m-title.g-font-smallTitle!= header
 
 //- -------------------------------------------------
 .block
-  +info_block('place_of_work', 'Место работы:', place_of_work)
-  +info_block('post', 'Должность:', post)
+  +info_block('place_of_work', 'Место работы :', place_of_work)
+  +info_block('post', 'Должность :', post)
 
   .button_block
     .add_button!= add_button
 
   .line
 
-  +info_block('experience_tutoring', 'Опыт репетиторства:', experience_tutoring)
-  +info_block('number_of_students', 'Количество учеников:', number_of_students)
-  +info_block('extra_info', 'Доп.информация/награды:', extra_info)
+  +info_block('experience_tutoring', 'Опыт репетиторства :', experience_tutoring)
+  +info_block('number_of_students', 'Количество учеников :', number_of_students)
+  +info_block('extra_info', 'Доп.информация/<br>награды:', extra_info)
 
   .button_block
     .save_button!= save_button

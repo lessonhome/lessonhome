@@ -1,5 +1,7 @@
 @import compass/css3
 
+$height : 37px
+
 main
   overflow : hidden
   padding  : 45px 0 50px 0
@@ -20,12 +22,15 @@ main
       text-align : right
 
     .value
-      float : right
+      float  : right
+      width  : 340px
+      height : $height
 
 
   .date>.value
     .day, .month, .year
       +inline-block
+      height : $height
 
     .day, .month
       margin-right : 17.5px

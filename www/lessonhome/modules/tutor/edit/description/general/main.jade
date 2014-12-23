@@ -14,19 +14,19 @@ mixin switch_block (block_class, header, left_value, right_value)
 
 .block
 
-  +info_block('first_name', 'Имя:', first_name)
-  +info_block('second_name', 'Фамилия:', second_name)
-  +info_block('patronymic', 'Отчество:', patronymic)
-  +switch_block('sex', 'Пол:', sex.male, sex.female)
+  +info_block('first_name', 'Имя :', first_name)
+  +info_block('second_name', 'Фамилия :', second_name)
+  +info_block('patronymic', 'Отчество :', patronymic)
+  +switch_block('sex', 'Пол :', sex.male, sex.female)
 
   .date_of_birth
     .value
       .day.g-smallField!= birth_day
       .month.g-smallField!= birth_month
       .year.g-smallField!= birth_year
-    .m-title.g-font-smallTitle Дата рождения
+    .m-title.g-font-smallTitle Дата рождения :
 
-  +info_block('status', 'Статус:', status)
+  +info_block('status', 'Статус :', status)
 
   .button_block
     .save_button!= save_button
