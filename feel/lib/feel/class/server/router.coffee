@@ -42,9 +42,9 @@ class Router
           statename = reg[1]
           @url.text[req.url] = statename
     if !statename
-      unless req.url == '/urls'
-        req.url = '/urls'
-        return @handler req,res
+      #unless req.url == '/urls'
+      #  req.url = '/urls'
+      #  return @handler req,res
       res.writeHead 404
       res.end 'Error 404'
       return
