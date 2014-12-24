@@ -2,7 +2,7 @@
 
 
 class Viewer
-  constructor : (@state)->
+  constructor : (@state,@parent)->
     @dom = $('<div class="viewer"><div class="left"><div class="in"></div><iframe></iframe></div><div class="right"><div class="in"></div><div class="img"><img /></div></div></div>')
     @frame = @dom.find 'iframe'
     @img   = @dom.find '.img'
@@ -23,6 +23,7 @@ class Viewer
     @nsc = 0.6
     @onmm $(window).width()/2,300
     @timer()
+    @dom.find('.in').click @parent.remove
   remove : =>
     $('body').removeClass 'g-fixed'
     $(window).scrollTop @scroll
@@ -62,6 +63,13 @@ class Viewer
     @iny += idy
   mousewheel : (e)=>
     @nsc *= 1+0.1 * e.deltaY
+    mx = 1.2
+    c = @nsc/@sc
+    if c > 1
+      @nsc = @sc*mx
+    if c < 1
+      @nsc = @sc/mx
+    
   timer : =>
     @x += (@nx-@x)/10
     @y += (@ny-@y)/10
@@ -94,10 +102,12 @@ class @main
         @node["#{state.model}"] = state
     $(window).mousemove (e)=> @viewer?.mousemove? e
     $(window).mousewheel (e)=> @viewer?.mousewheel? e
-    $(window).keydown (e)=>
-      @viewer?.remove?()
-      delete @viewer
+    $(window).keydown @remove
     setInterval @timer, 10
+  remove : =>
+    @viewer?.remove?()
+    delete @viewer
+
   open : (e)=>
     e.preventDefault()
     @dom.find('.state.active').removeClass 'active'
@@ -112,7 +122,7 @@ class @main
     if @viewer?
       @viewer.remove()
       delete @viewer
-    @viewer = new Viewer state
+    @viewer = new Viewer state,@
     @dom.append @viewer.dom
     return false
   timer : => @viewer?.timer?()
