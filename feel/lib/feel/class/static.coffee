@@ -1,10 +1,82 @@
 
-fs = require 'fs'
+fs      = require 'fs'
+crypto  = require('crypto')
+watch   = require 'watch'
+_path   = require 'path'
+mime    = require 'mime'
+
 
 class Static
   constructor : ->
     @files = {}
+
   init : =>
+    @watch()
+  watch : =>
+    watch.createMonitor './',(@monitor)=>
+      @monitor.on 'created', @mcreated
+      @monitor.on 'changed', @mchanged
+      @monitor.on 'removed', @mremoved
+      for file,stat of @monitor.files
+        if file.match /^www\/\w+\/static\/.*\.\w+$/
+          if stat.isFile()
+            @createHash file,stat
+  mcreated : (f,stat)=>
+    @checkHash f,stat
+  mchanged : (f,stat,pstat)=>
+    @checkHash f,stat
+  mremoved : (f,stat)=>
+    delete @watch[f] if @watch[f]
+  checkHash : (f,stat,cb)=>
+    f = _path.resolve f
+    return cb?() unless @watch[f]?
+    @createHash f,stat,cb
+  createHash : (f,stat,cb)=>
+    f = _path.resolve f
+    if !stat?
+      return fs.exists f,(exists)=>
+        unless exists
+          delete @watch[f] if @watch[f]?
+          return cb?()
+        fs.stat f,(err,stats)=>
+          if err || !stats.isFile()
+            delete @watch[f] if @watch[f]?
+            return cb?()
+          @createHash f,stats,cb
+    sha1 = crypto.createHash 'sha1'
+    sha1.setEncoding 'hex'
+    if stat.size > 10*1024*1024
+      sha1.update JSON.stringify stat
+      @watch[f] = sha1.digest('hex').substr 0,10
+      return cb? @watch[f]
+
+    fd = fs.createReadStream f
+    fd.on 'end', =>
+      sha1.end()
+      hash = sha1.read()
+      @watch[f] = hash.substr 0,10
+      cb? @watch[f]
+    fd.pipe sha1
+  createHashS : (f,stat)=>
+    f = _path.resolve f
+    if !stat?
+      exists = fs.existsSync f
+      unless exists
+        delete @watch[f]
+        return
+      try stats = fs.statSync f
+      if !stats?.isFile?()
+        delete @watch[f]
+        return
+      @createHashS f,stats
+    sha1 = crypto.createHash 'sha1'
+    sha1.setEncoding 'hex'
+    if stat.size > 100*1024*1024
+      sha1.update JSON.stringify stat
+    else
+      sha1.update fs.readFileSync f
+    @watch[f] = sha1.digest('hex').substr 0,10
+    return @watch[f]
     
   handler : (req,res,site)=>
     m     = req.url.match /^\/file\/(\w+)\/([^\.].*)\.(\w+)$/
@@ -12,29 +84,81 @@ class Static
     if m[2].match /\.\./
       return @res404 req,res unless m
     hash  = m[1]
-    path  = "./www/#{site}/static/#{m[2]}.#{m[3]}"
-    console.log "file\t#{m[2]}.#{m[3]}"
-    ext   = m[3]
-    if @files[path]?
-      return @write @files[path],req,res
+    fname = "#{m[2]}.#{m[3]}"
+    path  = "./www/#{site}/static/#{fname}"
+    console.log req.headers
+    hhash = req.headers['if-none-match']
 
-    fs.readFile path, (err,data)=>
-      if err?
-        return @res404 req,res
-      @files[path] =
-        data : data
-      return @write @files[path],req,res
+    hhash ?= 2
+    @hash path,(rhash=1)=>
+      res.setHeader 'ETag', rhash
+      res.setHeader 'Cache-Control', 'public, max-age=126144001'
+      res.setHeader 'Cache-Control', 'public, max-age=126144001'
+      res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
+      console.log {
+        hash
+        rhash
+        hhash
+      }
+      return @res304 req,res if rhash==hash==hhash
+      if rhash != hash
+        return @url fname,site,(url)=> @res303 req,res,url
+      console.log "file\t#{m[2]}.#{m[3]}"
+      ext   = m[3]
+      if @files[path]?
+        return @write @files[path],req,res
 
+      fs.readFile path, (err,data)=> fs.stat path,(err2,stat)=>
+        if err? || err2?
+          return @res404 req,res
+        console.log stat
+        @files[path] =
+          data : data
+          mime : mime.lookup path
+          stat : stat
+        console.log @files[path].mime
+        return @write @files[path],req,res
+  res304 : (req,res)=>
+    res.writeHead 304
+    res.end()
+  res303 : (req,res,location)=>
+    res.statusCode = 303
+    res.setHeader 'Location', location
+    res.end()
   write   : (file,req,res)=>
+    res.setHeader 'Content-type', file.mime
+    res.setHeader 'Content-Length', file.stat.size
     res.write file.data
     return res.end()
     
     
-  F       : (site,file)=> "/file/666/#{file}"
+  F       : (site,file)=>
+    f = _path.resolve "www/#{site}/static/#{file}"
+    if @watch[f]?
+      hash = @watch[f]
+    else
+      hash = 666
+      @createHash f
+    return "/file/#{hash}/#{file}"
   res404  : (req,res)=>
     res.writeHead 404
     res.end()
 
+  hash : (f,cb)=>
+    f = _path.resolve f
+    return cb(@watch[f]) if @watch[f]?
+    @createHash f,null,cb
+  hashS : (f)=>
+    f = _path.resolve f
+    return @watch[f] if @watch[f]?
+    return @createHashS f
+  url : (f,site,cb)=>
+    @hash "www/#{site}/static/#{f}", (hash=666)=>
+      cb "/file/#{hash}/#{f}"
+  urlS : (f,site)=>
+    hash = @hashS "www/#{site}/static/#{f}"
+    hash ?= 666
+    return "/file/#{hash}/#{f}"
 module.exports = Static
 
 

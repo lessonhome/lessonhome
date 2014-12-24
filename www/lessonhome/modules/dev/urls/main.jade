@@ -1,4 +1,5 @@
 
+
 a.state.top
   .title  Заголовок страницы
   .name   Имя состояния
@@ -10,4 +11,4 @@ each state, name in states
     a(href=state.route).title= state.title
     a(href=state.route).name= name
     a(href=state.route).route= state.route
-    a(href="/file/123/models/#{state.model}.jpg").model= state.model
+    a(href="#{F('models/'+state.model+'.jpg')}").model= state.model

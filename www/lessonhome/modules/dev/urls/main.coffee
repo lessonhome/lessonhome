@@ -7,7 +7,7 @@ class Viewer
     @frame = @dom.find 'iframe'
     @img   = @dom.find '.img'
     @rimg  = @img.find 'img'
-    @rimg.attr 'src', "/file/123/models/#{@state.model}.jpg"
+    @rimg.attr 'src', @state.src
     @scroll = $(window).scrollTop()
     $('body').addClass 'g-fixed'
     @frame.attr 'src', @state.route
@@ -79,15 +79,11 @@ class Viewer
     rheight = @rimg.height()
     rheight = 3000 if rheight < 100
     @frame.css {
-      left : @x
-      top  : @y
-      transform : "scale(#{@sc},#{@sc})"
+      transform : "translate(#{@x}px,#{@y}px) scale(#{@sc},#{@sc})"
       height : rheight
     }
     @img.css {
-      left : @ix
-      top  : @iy
-      transform : "scale(#{@sc},#{@sc})"
+      transform : "translate(#{@ix}px,#{@iy}px) scale(#{@sc},#{@sc})"
       width : @rimg.width()
     }
 
@@ -103,7 +99,7 @@ class @main
     $(window).mousemove (e)=> @viewer?.mousemove? e
     $(window).mousewheel (e)=> @viewer?.mousewheel? e
     $(window).keydown @remove
-    setInterval @timer, 10
+    setInterval @timer, 1000/60
   remove : =>
     @viewer?.remove?()
     delete @viewer
@@ -117,6 +113,7 @@ class @main
     console.log model
     return false unless m
     state = @node[m[1]]
+    state.src = model
     return false unless state
 
     if @viewer?

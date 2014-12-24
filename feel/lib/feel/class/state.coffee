@@ -27,6 +27,7 @@ class module.exports
       'template'
       'exports' # fix module.exports to undefined, use @exports instead
       'extend'
+      'F'
     ]
     that = @
 
@@ -37,8 +38,7 @@ class module.exports
       @src += " var #{f} = that.function_#{f};"
     @src += " var $urls   = that.site.router.url,
                   $router = that.site.router,
-                  $site   = that.site;
-            "
+                  $site   = that.site;"
     @src += src
     @src += " }).call(file); file"
     try
@@ -246,6 +246,6 @@ class module.exports
       throw new Error "Can't find module '#{name}' in state '#{@name}'"
     return mod
 
-
+  function_F : (f)=> Feel.static.F @site.name,f
   function_extend : ()=> {}
     

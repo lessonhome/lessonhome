@@ -31,6 +31,8 @@
     "ps-node" : "*",
     "node-watch" : "*",
     "mkdirp" : "*",
-    "wolfy87-eventemitter" : "*"
+    "wolfy87-eventemitter" : "*",
+    "watch" : "*",
+    "mime" : "*"
   }
 }
