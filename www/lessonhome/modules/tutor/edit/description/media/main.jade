@@ -1,7 +1,14 @@
 .photos_block
   .text Фотографии
   .add!= add_photos
-  .number У вас #{number_of_photos} фото
+  - var last_number = number_of_photos%10
+  case last_number
+    when 1:  .number У вас #{number_of_photos} фотография
+    when 2:  .number У вас #{number_of_photos} фотографии
+    when 3:  .number У вас #{number_of_photos} фотографии
+    when 4:  .number У вас #{number_of_photos} фотографии
+    default: .number У вас #{number_of_photos} фотографий
+
   .photos
     each value in photos
       .photo!= value
@@ -9,7 +16,14 @@
 .videos_block
   .text Видео
   .add!= add_videos
-  .number У вас #{number_of_videos} видео
+  - var last_number = number_of_videos%10
+  case last_number
+    when 1:  .number У вас #{number_of_videos} видеозапись
+    when 2:  .number У вас #{number_of_videos} видеозаписи
+    when 3:  .number У вас #{number_of_videos} видеозаписи
+    when 4:  .number У вас #{number_of_videos} видеозаписи
+    default: .number У вас #{number_of_videos} видеозаписей
+
   .videos
     each value in videos
       .video!= value

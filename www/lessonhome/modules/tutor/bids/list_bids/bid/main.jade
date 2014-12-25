@@ -66,18 +66,20 @@ if selectable
         .report
           .title.m-title Отчёт
           .content
-            .item.active
-              .icon
-              .text Ознакомительный звонок ученику
+            .items
+              .item.active
+                .icon
+                .text Ознакомительный звонок ученику
+              +item('Дата первого занятия')
+              +item('Как прошло первое занятие?')
+              +item('Оплата')
+            .buttons
               .fill_button!= fill_button
               .support_button!= support_button
-            +item('Дата первого занятия')
-            +item('Как прошло первое занятие?')
-            +item('Оплата')
         .review
           .title.m-title Отзыв
           .content
-            .text Пока не собран
+            .text Пока не собран.
 
 
   else

@@ -29,7 +29,7 @@ class @main extends template '../../../tutor'
       interests_textarea  : module 'tutor/forms/textarea' :
         height    : '87px'
       about_textarea      : module 'tutor/forms/textarea' :
-        height    : '87px'
+        height    : '117px'
       hint                : module 'tutor/hint' :
         selector  : 'horizontal'
         header    : 'Это подсказка'

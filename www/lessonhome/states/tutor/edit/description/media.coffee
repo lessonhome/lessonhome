@@ -49,13 +49,11 @@ class @main extends template '../../../tutor'
       number_of_photos : 4
       number_of_videos : 2
 
-      add_photos : module 'tutor/button' :
-        text      : '+ Добавить'
-        selector  : 'color_blue'
+      add_photos : module '//add_button' :
+        selector  : 'photo'
 
-      add_videos : module 'tutor/button' :
-        text      : '+ Добавить'
-        selector  : 'fixed'
+      add_videos : module '//add_button' :
+        selector  : 'video'
 
 
       hint : module 'tutor/hint' :

@@ -141,7 +141,7 @@
       background-color : rgb( 243, 243, 243 )
       overflow : hidden
       .title
-        margin  : 15px 0 15px 25px
+        margin  : 15px 0 6px 25px
       .content>.text
         margin-left   : 100px
         margin-bottom : 20px
@@ -152,27 +152,38 @@
       background-color : rgb( 225, 227, 229 )
       overflow         : hidden
       .title
-        margin : 15px 0 5px 25px
+        margin : 15px 0 0 25px
       .content
         margin-left : 100px
-        .item
-          margin-bottom : 6px
+        div
+          +inline-block
+        .items
+          padding-top : 6px
+          .item
+            margin-bottom : 6px
+            div
+              +inline-block
+            .icon
+              width            : 20px
+              height           : 20px
+              margin-right     : 20px
+              border-radius    : 50%
+              background-color : rgb( 202, 211, 218 )
+            .text
+              font-size : 16px
+              font-family : 'Open Sans', sans-serif
+          .item.active
+            .icon
+              background-color : #89d1ff
+              box-shadow : 0 0 7px 3px rgba(255, 255, 255, 0.75)
+          .item:last-child
+            margin-bottom : 22px
+        .buttons
+          vertical-align : top
           div
             +inline-block
-          .icon
-            width            : 20px
-            height           : 20px
-            margin-right     : 20px
-            border-radius    : 50%
-            background-color : rgb( 202, 211, 218 )
-          .text
-            font-size : 16px
-            font-family : 'Open Sans', sans-serif
           .fill_button
             margin : 0 30px 0 25px
-        .item.active
-          .icon
-            background-color : #89d1ff
 
       .content :last-child
         margin-bottom : 22px

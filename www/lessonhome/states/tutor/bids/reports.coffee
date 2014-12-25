@@ -51,12 +51,8 @@ class @main extends template '../../tutor'
             report_block   : true
             checkbox       : module 'tutor/forms/checkbox' :
               selector : 'bid'
-            fill_button    : module 'tutor/button' :
-              text  : 'Заполнить'
-              selector  : 'fill'
-            support_button : module 'tutor/button' :
-              text  : 'Поддержка'
-              selector  : 'support'
+            fill_button    : module '//fill_button'
+            support_button : module '//support_button'
 
             number    : 25723
             date      : "10 ноября"
@@ -90,12 +86,8 @@ class @main extends template '../../tutor'
             report_block : true
             checkbox  : module 'tutor/forms/checkbox' :
               selector : 'bid'
-            fill_button    : module 'tutor/button' :
-              text  : 'Заполнить'
-              selector  : 'fill'
-            support_button : module 'tutor/button' :
-              text  : 'Поддержка'
-              selector  : 'support'
+            fill_button    : module '//fill_button'
+            support_button : module '//support_button'
 
             number    : 15723
             date      : "20 декабря"
