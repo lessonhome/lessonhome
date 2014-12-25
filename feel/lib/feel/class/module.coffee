@@ -73,7 +73,7 @@ class module.exports
     @rescanFiles()
     .then @makeJade
   doJade : (o)=>
-    o.F = (f)=> Feel.static.F @site.name, f
+    o.F = (f)=> Feel.static.F @site.name,f
     if @jade.fn?
       try
         return " <div id=\"m-#{@id}\" >

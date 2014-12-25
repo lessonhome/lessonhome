@@ -2,12 +2,12 @@
 
 
 class Viewer
-  constructor : (@state)->
+  constructor : (@state,@parent)->
     @dom = $('<div class="viewer"><div class="left"><div class="in"></div><iframe></iframe></div><div class="right"><div class="in"></div><div class="img"><img /></div></div></div>')
     @frame = @dom.find 'iframe'
     @img   = @dom.find '.img'
     @rimg  = @img.find 'img'
-    @rimg.attr 'src', "/file/123/models/#{@state.model}.jpg"
+    @rimg.attr 'src', @state.src
     @scroll = $(window).scrollTop()
     $('body').addClass 'g-fixed'
     @frame.attr 'src', @state.route
@@ -23,6 +23,7 @@ class Viewer
     @nsc = 0.6
     @onmm $(window).width()/2,300
     @timer()
+    @dom.find('.in').click @parent.remove
   remove : =>
     $('body').removeClass 'g-fixed'
     $(window).scrollTop @scroll
@@ -62,6 +63,13 @@ class Viewer
     @iny += idy
   mousewheel : (e)=>
     @nsc *= 1+0.1 * e.deltaY
+    mx = 1.2
+    c = @nsc/@sc
+    if c > 1
+      @nsc = @sc*mx
+    if c < 1
+      @nsc = @sc/mx
+    
   timer : =>
     @x += (@nx-@x)/10
     @y += (@ny-@y)/10
@@ -71,15 +79,11 @@ class Viewer
     rheight = @rimg.height()
     rheight = 3000 if rheight < 100
     @frame.css {
-      left : @x
-      top  : @y
-      transform : "scale(#{@sc},#{@sc})"
+      transform : "translate(#{@x}px,#{@y}px) scale(#{@sc},#{@sc})"
       height : rheight
     }
     @img.css {
-      left : @ix
-      top  : @iy
-      transform : "scale(#{@sc},#{@sc})"
+      transform : "translate(#{@ix}px,#{@iy}px) scale(#{@sc},#{@sc})"
       width : @rimg.width()
     }
 
@@ -94,10 +98,12 @@ class @main
         @node["#{state.model}"] = state
     $(window).mousemove (e)=> @viewer?.mousemove? e
     $(window).mousewheel (e)=> @viewer?.mousewheel? e
-    $(window).keydown (e)=>
-      @viewer?.remove?()
-      delete @viewer
-    setInterval @timer, 10
+    $(window).keydown @remove
+    setInterval @timer, 1000/60
+  remove : =>
+    @viewer?.remove?()
+    delete @viewer
+
   open : (e)=>
     e.preventDefault()
     @dom.find('.state.active').removeClass 'active'
@@ -107,12 +113,13 @@ class @main
     console.log model
     return false unless m
     state = @node[m[1]]
+    state.src = model
     return false unless state
 
     if @viewer?
       @viewer.remove()
       delete @viewer
-    @viewer = new Viewer state
+    @viewer = new Viewer state,@
     @dom.append @viewer.dom
     return false
   timer : => @viewer?.timer?()
