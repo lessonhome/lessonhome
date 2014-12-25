@@ -13,3 +13,4 @@ feel/node_modules
 **/.cache
 **/.DS_Store
 feel/.npmversion
+**/Icon
