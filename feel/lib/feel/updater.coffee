@@ -31,19 +31,20 @@ class module.exports
           command : 'node'
           psargs : "aux"
         }, (err,list)=>
-          boo = false
-          if !err
-            for p in list
-              for a in p.arguments
-                if a.match /feel.bin.feel$/
-                  @log res,"#{process.cwd()} $ kill "+p.pid+"\n"
-                  @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,60000, => @end res
-                  ps.kill p.pid, =>
-                  boo = true
+          @exec "rm", ["-rf",".cache"], res, =>
+            boo = false
+            if !err
+              for p in list
+                for a in p.arguments
+                  if a.match /feel.bin.feel$/
+                    @log res,"#{process.cwd()} $ kill "+p.pid+"\n"
+                    @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,60000, => @end res
+                    ps.kill p.pid, =>
+                    boo = true
 
-          if !boo
-            @log res, "Can't find process node:feel!\n"
-            @end res
+            if !boo
+              @log res, "Can't find process node:feel!\n"
+              @end res
 
 
   end : (res)=>
