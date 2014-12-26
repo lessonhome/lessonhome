@@ -25,9 +25,9 @@ class @main extends template '../../../tutor'
     content : module '$' :
       country         : module 'tutor/forms/drop_down_list'
       city            : module 'tutor/forms/drop_down_list'
-      address_button  : module 'tutor/button' :
-        selector  : 'fixed'
-        text      : 'Укажите место'
+      location_button : module '//location_button'
+      line : module 'tutor/separate_line' :
+        selector : 'gradient'
       mobile_phone      : module 'tutor/forms/input'
       additional_phone  : module 'tutor/forms/input'
       mail              : module 'tutor/forms/input'

@@ -1,6 +1,6 @@
 main
   overflow : hidden
-  padding  : 45px 0 50px 0
+  padding  : 50px 0 50px 0
   text-align : center
 
 .block
@@ -8,10 +8,10 @@ main
 
   .country, .city, .address, .mobile_phone, .additional_phone, .mail, .skype, .personal_website
     overflow : hidden
-    padding-bottom : 15px
+    padding-bottom : 12px
 
     .m-title
-      padding-right : 29px
+      padding-right : 28px
       box-sizing    : border-box
       float         : right
       text-align    : right
@@ -21,15 +21,22 @@ main
 
   /*---------------------------------------------------------*/
 
-  .address .value
-    width      : 335px
-    text-align : left
+  .address
+    padding-bottom : 0
+    .value
+      width      : 335px
+      text-align : left
+
+  /*--------------------------------------------------------*/
+
+  .personal_website
+    padding-bottom : 0
 
   /*---------------------------------------------------------*/
 
 
   .button_block
-    padding-top : 15px
+    margin-top : 30px
 
     .add_button, .save_button
       float : right
@@ -42,11 +49,8 @@ main
   /*---------------------------------------------------------*/
 
   .line
-    background : inline-image('separate.png')
-    height : 3px
-    border-radius : 2px
-
-    margin-top    : 17px
+    height        : 2px
+    margin-top    : 34px
     margin-bottom : 22px
 
 .hint

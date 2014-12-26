@@ -6,9 +6,9 @@ mixin info_block(block_class, header, value)
 .block
   +info_block('country', 'Страна :', country)
   +info_block('city', 'Город :', city)
-  +info_block('address', 'Адрес :', address_button)
+  +info_block('address', 'Адрес :', location_button)
 
-  .line
+  .line!=line
 
   +info_block('mobile_phone', 'Мобильный телефон :', mobile_phone)
   +info_block('additional_phone', 'Дополнительный телефон :', additional_phone)
