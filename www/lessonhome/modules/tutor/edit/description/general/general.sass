@@ -2,50 +2,40 @@
 
 main
   overflow : hidden
-  padding  : 45px 0 110px 0
+  padding  : 50px 0 110px 0
   text-align : center
 
 .block
   display : inline-block
 
-  .first_name, .second_name, .patronymic, .date_of_birth, .status
+  .first_name, .second_name, .patronymic, .date_of_birth, .status, .sex
     overflow  : hidden
-    padding-bottom : 15px
+    padding-bottom : 12px
 
     .value
       float : right
 
   .date_of_birth>.value
+    width : 340px
     .day, .month, .year
       +inline-block
 
     .day, .month
-      margin-right : 17.5px
+      margin-right : 10px
 
   .status
-    padding-bottom : 20px
+    padding-bottom : 27px
 
 
   .sex
-    position: relative
-    overflow: hidden
-    padding-bottom : 15px
-
-    .right
-      position: relative
-      float : right
-
-      .male, .female
-        position: relative
-        text-align : right
-        box-sizing : border-box
-        display: inline-block
-
-      .male
-        float : left
-      .female
-        float: right
-
+    .value
+      div
+        +inline-block
+        width     : 128px
+        height    : 33px
+        font-size : 20px
+      .sex_man
+        margin-right : 79px
 
   .button_block
 
@@ -59,7 +49,7 @@ main
     display : block
 
 .m-title
-  padding-right : 55px
+  padding-right : 28px
   box-sizing : border-box
   float : right
   text-align : right

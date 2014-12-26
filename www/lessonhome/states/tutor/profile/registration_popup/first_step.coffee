@@ -8,9 +8,9 @@ class @main extends template '../registration_popup'
       first_name  : module 'tutor/forms/input'
       last_name   : module 'tutor/forms/input'
       patronymic  : module 'tutor/forms/input'
-      sex_man     : module '//sex_button' :
+      sex_man     : module 'tutor/forms/sex_button' :
         selector : 'man'
-      sex_woman   : module '//sex_button' :
+      sex_woman   : module 'tutor/forms/sex_button' :
         selector : 'woman'
       birth_day   : module 'tutor/forms/drop_down_list'
       birth_month : module 'tutor/forms/drop_down_list'
