@@ -122,36 +122,50 @@ class module.exports
     post = m[3]
  
     newpref = ""
+    # перебор селекторов
     m = pref.match /([^,]+)/g
     if m
       for sel in m
+        # добавление очередного селектора
         if newpref != ""
           newpref += ","
-        unless sel.match /^\.(g-[\w-]+)/
+        replaced = false
+        if sel.match /^main.*/
+          sel = sel.replace /^main/, "#m-#{@id}"
+          replaced = true
+        if !(sel.match /^\.(g-[\w-]+)/) && (!replaced)
           newpref += "#m-#{@id}"
-        continue if sel == 'main'
+        #continue if sel == 'main'
         m2 = sel.match /([^\s]+)/g
         if m2
           for a in m2
             m3 = a.match /^\.(m-[\w-]+)/
+            leftpref = ""
             if m3
-              newpref += " \.mod-#{@id}--#{m3[1]}"
+              leftpref = " " unless replaced
+              newpref += leftpref+"\.mod-#{@id}--#{m3[1]}"
             else if a.match /^\.(g-[\w-]+)/
-              newpref += " "+a
+              leftpref = " " unless replaced
+              newpref += leftpref+a
             else
-              newpref += ">"+a
+              leftpref = ">" unless replaced
+              newpref += leftpref+a
         else
           m3 = sel.match /^\.m-[\w-]+/
+          leftpref = ""
           if m3
-            newpref += " \.mod-#{@id}--#{m3[1]}"
+            leftpref = " " unless replaced
+            newpref += leftpref+"\.mod-#{@id}--#{m3[1]}"
           else if sel.match /^\.(g-[\w-]+)/
-            newpref += " "+sel
-          else
-            newpref += ">"+sel
+            leftpref = " " unless replaced
+            newpref += leftpref+sel
+          else if sel && !replaced
+            leftpref = ">" unless replaced
+            newpref += leftpref+sel
     else newpref = pref
     newpref=pref if filename.match /.*\.g\.sass$/
     ret = newpref+body+@parseCss(post,filename)
-
+    
 
     return ret
   makeCoffee  : =>

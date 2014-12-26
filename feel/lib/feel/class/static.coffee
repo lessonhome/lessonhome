@@ -4,6 +4,7 @@ crypto  = require('crypto')
 watch   = require 'watch'
 _path   = require 'path'
 mime    = require 'mime'
+mkdirp  = require 'mkdirp'
 
 
 class Static
@@ -59,6 +60,10 @@ class Static
     fd.pipe sha1
   setHash : (f,hash)=>
     @watch[f] = hash.substr 0,10
+
+    cacheDir = _path.dirname ".cache/monitor/"+f.replace process.cwd()+"\/", ""
+    mkdirp cacheDir, =>
+
   deleteHash : (f)=>
     delete @watch[f] if @watch[f]?
   createHashS : (f,stat)=>
