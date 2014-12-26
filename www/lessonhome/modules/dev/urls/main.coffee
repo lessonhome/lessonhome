@@ -21,7 +21,11 @@ class Viewer
     @iny = 0
     @sc = 0.5
     @nsc = 0.6
-    @onmm $(window).width()/2,300
+    @onmm $(window).width()/2,80
+    @x = @nx
+    @y = @ny
+    @ix = @inx
+    @iy = @iny
     @timer()
     @dom.find('.in').click @parent.remove
   remove : =>
@@ -33,30 +37,40 @@ class Viewer
     y = e.clientY
     @onmm x,y
   onmm : (x,y)=>
-    w = @frame.width()*@sc+300
-    h = @frame.height()*@sc
-    iw = @img.width()*@sc+300
-    ih = @img.height()*@sc
-    W = $(window).width()
-    H = $(window).height()
+    fw = @frame.width()
+    fh = @frame.height()
+    Iw = @img.width()
+    Ih = @img.height()
+    fw = 1500 if fw < 100
+    fh = 3000 if fh < 100
+    Iw = 1500 if Iw < 100
+    Ih = 3000 if Ih < 100
+    ww = $(window).width()
+    wh = $(window).height()
+    w = fw*@sc+600
+    h = fh*@sc
+    iw = Iw*@sc+600
+    ih = Ih*@sc
+    W = ww
+    H = wh
     
-    dx = @frame.width()*(@sc-1)/2
-    dy = @frame.height()*(@sc-1)/2
-    idx = @img.width()*(@sc-1)/2
-    idy = @img.height()*(@sc-1)/2
+    dx = fw*(@sc-1)/2
+    dy = fh*(@sc-1)/2
+    idx = Iw*(@sc-1)/2
+    idy = Ih*(@sc-1)/2
 
     cx = (x-W)/W+1
     cy = (y-(H))/(H)+1
-    h += 300
-    ih += 300
-    @nx = (W/2-w)*cx+150
-    @ny = (H/2-h)*cy+400
-    @inx = (W/2-iw)*cx+150
-    @iny = (H/2-ih)*cy+400
-    if @ny > 100
-      @ny = 100
-    if @iny > 100
-      @iny = 100
+    #h += 100
+    #ih += 100
+    @nx = (W/2-w)*cx+350
+    @ny = (H/2-h)*cy+200
+    @inx = (W/2-iw)*cx+350
+    @iny = (H/2-ih)*cy+200
+    #if @ny > 150
+    #  @ny = 150
+    #if @iny > 150
+    #  @iny = 150
     @nx += dx
     @ny += dy
     @inx += idx
@@ -78,13 +92,15 @@ class Viewer
     @sc += (@nsc-@sc)/10
     rheight = @rimg.height()
     rheight = 3000 if rheight < 100
+    riw = @rimg.width()
+    riw = 1500 if riw < 100
     @frame.css {
       transform : "translate(#{@x}px,#{@y}px) scale(#{@sc},#{@sc})"
       height : rheight
     }
     @img.css {
       transform : "translate(#{@ix}px,#{@iy}px) scale(#{@sc},#{@sc})"
-      width : @rimg.width()
+      width : riw
     }
 
 
