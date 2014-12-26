@@ -36,38 +36,40 @@ class Static
     if !stat?
       return fs.exists f,(exists)=>
         unless exists
-          delete @watch[f] if @watch[f]?
+          @deleteHash f
           return cb?()
         fs.stat f,(err,stats)=>
           if err || !stats.isFile()
-            delete @watch[f] if @watch[f]?
+            @deleteHash f
             return cb?()
           @createHash f,stats,cb
     sha1 = crypto.createHash 'sha1'
     sha1.setEncoding 'hex'
     if stat.size > 10*1024*1024
       sha1.update JSON.stringify stat
-      @watch[f] = sha1.digest('hex').substr 0,10
+      @setHash f, sha1.digest('hex').substr 0,10
       return cb? @watch[f]
 
     fd = fs.createReadStream f
     fd.on 'end', =>
       sha1.end()
       hash = sha1.read()
-      @watch[f] = hash.substr 0,10
+      @setHash f,hash
       cb? @watch[f]
     fd.pipe sha1
+  setHash : (f,hash)=>
+    @watch[f] = hash.substr 0,10
+  deleteHash : (f)=>
+    delete @watch[f] if @watch[f]?
   createHashS : (f,stat)=>
     f = _path.resolve f
     if !stat?
       exists = fs.existsSync f
       unless exists
-        delete @watch[f]
-        return
+        return @deleteHash f
       try stats = fs.statSync f
       if !stats?.isFile?()
-        delete @watch[f]
-        return
+        return @deleteHash f
       @createHashS f,stats
     sha1 = crypto.createHash 'sha1'
     sha1.setEncoding 'hex'
@@ -75,7 +77,8 @@ class Static
       sha1.update JSON.stringify stat
     else
       sha1.update fs.readFileSync f
-    @watch[f] = sha1.digest('hex').substr 0,10
+    
+    @setHash f,sha1.digest('hex')
     return @watch[f]
     
   handler : (req,res,site)=>
@@ -159,6 +162,15 @@ class Static
     hash = @hashS "www/#{site}/static/#{f}"
     hash ?= 666
     return "/file/#{hash}/#{f}"
+
+  
+  part : (name,site,data)=>
+    name = ".cache/part/#{site}/"+_path.normalize(name)
+    
+
+
+
+
 module.exports = Static
 
 
