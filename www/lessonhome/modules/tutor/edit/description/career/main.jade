@@ -1,7 +1,7 @@
 mixin info_block(block_class, header, value)
   div(class=block_class)
     .value.g-standardField!= value
-    .m-title.g-font-smallTitle!= header
+    .m-title.g-edit-smallTitle!= header
 
 //- -------------------------------------------------
 .block
@@ -11,7 +11,7 @@ mixin info_block(block_class, header, value)
   .button_block
     .add_button!= add_button
 
-  .line
+  .line!=line
 
   +info_block('experience_tutoring', 'Опыт репетиторства :', experience_tutoring)
   +info_block('number_of_students', 'Количество учеников :', number_of_students)

@@ -20,7 +20,7 @@ class @main extends template '../../../tutor'
         'Образование' : 'education'
         'Карьера'     : 'career'
         'О себе'      : 'about'
-        'Медиа'       : 'media'
+        #'Медиа'       : 'media'
       active_item     : 'Общие'
     content       : module '$' :
       first_name  : module 'tutor/forms/input'
@@ -32,10 +32,13 @@ class @main extends template '../../../tutor'
         selector: 'woman'
 
       birth_day   : module 'tutor/forms/drop_down_list' :
+        selector    : 'date'
         placeholder : 'День'
       birth_month : module 'tutor/forms/drop_down_list' :
+        selector    : 'date'
         placeholder : 'Месяц'
       birth_year  : module 'tutor/forms/drop_down_list' :
+        selector    : 'date'
         placeholder : 'Год'
       status      :  module 'tutor/forms/drop_down_list'
 

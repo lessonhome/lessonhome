@@ -20,7 +20,7 @@ class @main extends template '../../../tutor'
         'Образование' : 'education'
         'Карьера'     : 'career'
         'О себе'      : 'about'
-        'Медиа'       : 'media'
+        #'Медиа'       : 'media'
       active_item : 'Образование'
 
     content : module '$' :
@@ -30,9 +30,15 @@ class @main extends template '../../../tutor'
       faculty       : module 'tutor/forms/input'
       chair         : module 'tutor/forms/drop_down_list'
       status        : module 'tutor/forms/drop_down_list'
-      release_day   : module 'tutor/forms/drop_down_list'
-      release_month : module 'tutor/forms/drop_down_list'
-      release_year  : module 'tutor/forms/drop_down_list'
+      release_day   : module 'tutor/forms/drop_down_list' :
+        selector    : 'date'
+        placeholder : 'День'
+      release_month : module 'tutor/forms/drop_down_list' :
+        selector    : 'date'
+        placeholder : 'Месяц'
+      release_year  : module 'tutor/forms/drop_down_list' :
+        selector    : 'date'
+        placeholder : 'Год'
       add_button    : module 'tutor/button' :
         text      : '+ Добавить'
         selector  : 'fixed'
