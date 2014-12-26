@@ -1,5 +1,5 @@
 @import compass/css3
-$icon_padding: 9px
+$icon_padding: 6px
 $icon_height: 13px
 $icon_width: 15px
 main
@@ -19,9 +19,11 @@ main
     height: 100%
     font-size: 20px
     color: rgb(0, 0, 0)
-  input[placeholder]
-    font-size: 20px
-    color: rgb(0, 0, 0)
+    +input-placeholder
+      line-height : 20px
+      font-size   : 20px
+      color       : rgb(0, 0, 0)
+      font-family : 'Open Sans', sans-serif
   .icon_box
     padding: 0 $icon_padding
     position: absolute

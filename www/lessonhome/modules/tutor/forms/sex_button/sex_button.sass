@@ -1,18 +1,33 @@
+@import compass/css3
+$height : 100%
+
+main
+  height : $height
+
 .button
-  width  : 128px
-  height : 33px
+  width  : 100%
+  height : $height
+  line-height      : $height
   text-align       : center
-  line-height      : 33px
   border-radius    : 4px
   background-color : rgb( 205, 205, 205 )
-  cursor : pointer
-  font-size        : 20px
   color            : #757575
   font-family      : 'Open Sans', sans-serif
+  cursor : pointer
+  .text
+    +inline-block
+
+.button:after
+  content : ''
+  +inline-block
+  vertical-align : middle
+  height : 100%
+  width : 0px
 
 .active
   background-color : rgb( 240, 123, 111 )
   box-shadow : 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
   color : #fff
+
 
 

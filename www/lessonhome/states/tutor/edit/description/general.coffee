@@ -26,18 +26,17 @@ class @main extends template '../../../tutor'
       first_name  : module 'tutor/forms/input'
       second_name : module 'tutor/forms/input'
       patronymic  : module 'tutor/forms/input'
-      sex         :
-        male   : module 'tutor/button' :
-          text      : 'М'
-          selector  : 'fixed'
+      sex_man     : module 'tutor/forms/sex_button' :
+        selector: 'man'
+      sex_woman   :   module 'tutor/forms/sex_button' :
+        selector: 'woman'
 
-        female : module 'tutor/button' :
-          text      : 'Ж'
-          selector  : 'fixed'
-
-      birth_day   : module 'tutor/forms/drop_down_list'
-      birth_month : module 'tutor/forms/drop_down_list'
-      birth_year  : module 'tutor/forms/drop_down_list'
+      birth_day   : module 'tutor/forms/drop_down_list' :
+        placeholder : 'День'
+      birth_month : module 'tutor/forms/drop_down_list' :
+        placeholder : 'Месяц'
+      birth_year  : module 'tutor/forms/drop_down_list' :
+        placeholder : 'Год'
       status      :  module 'tutor/forms/drop_down_list'
 
       save_button : module 'tutor/button' :
