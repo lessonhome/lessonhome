@@ -3,4 +3,4 @@ class @main extends template '../preview'
   model : 'main/third_step'
   title : "отправьте заявку"
   tree : =>
-    top_filter : module '$/top_filter'
+    filter_top  : state '../filter_top'

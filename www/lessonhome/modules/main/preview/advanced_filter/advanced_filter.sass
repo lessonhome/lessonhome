@@ -1,15 +1,33 @@
+@import compass/css3
+$triangle_src: 'main/triangle_down.png'
+$icon_height: image-height($triangle_src)
+$icon_width: image-width($triangle_src)
+$padding_section: 30px
+$padding_title: 20px
+$padding_exp: 10px
 main
   font-size: 18px
-  padding: 15px 30px 0 30px
+  padding: 15px 30px 0 35px
   color: rgb(117, 117, 117)
+.m-icon
+  width: $icon_width
+  height: $icon_height
+  margin: 0 10px 0 -10px
+  +inline-block
+  background: inline-image($triangle_src)
+.m-title
+  +inline-block
+
 .section
   text-align: left
-  padding-bottom: 30px
-  .course
-    padding-bottom: 20px
+  padding-bottom: $padding_section
+
+  .course, .timetable, .time_one_lesson, .time_to_way, .experience, .sex
+    padding-bottom: $padding_title
+
   .list_course
+    height: 37px
   .add_course_block
-    //overflow: hidden
     padding-top: 10px
     .add_course
       float: left
@@ -18,25 +36,36 @@ main
     clear: both
     display: block
 
+  .little, .big, .bigger, .no_experience
+    padding: $padding_exp 7px
+  .little
+    margin-top: -$padding_exp
+  .no_experience
+    margin-bottom: -$padding_exp        // because all padding = 30px, need padding = 20px
 
-  .timetable
-    text-align: left
-    padding-left: 30px
+  .sex_button
+    .female, .male
+      float: left
+      padding-right: 7.5px
+  .sex_button:after
+    display: block
+    content: ""
+    clear: both
 
-.time_one_lesson
-  text-align: left
-  padding-left: 30px
-
-.time_to_way
-  text-align: left
-  padding-left: 30px
-
-.experience
-  text-align: left
-  padding-left: 30px
-
-.sex
-  text-align: left
-  padding-left: 30px
+  .reviews_block, .verification_block
+    padding-bottom: 15px
+    .with_reviews, .with_verification
+      width: 20px
+      height: 20px
+      float: left
+      padding-right: 15px
+    .with_reviews_text, .with_verification_text
+      color: rgb(0, 0, 0)
+  .verification_block
+    padding-bottom: 0
+  .reviews_block:after, .reviews_block:after
+    display: block
+    content: ""
+    clear: both
 
 

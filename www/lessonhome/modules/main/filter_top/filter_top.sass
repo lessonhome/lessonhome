@@ -1,0 +1,39 @@
+@import compass/css3
+$height_subject_form: 65px
+main
+  background: url(F('main/filter_top.jpg'))
+  padding: 45px 0 80px 0
+.title
+  font-size: 30px
+  color: rgb(34, 37, 40)
+  padding-bottom: 20px
+.select_block
+  width: 520px
+  margin: 0 auto 20px
+  .list_filter
+    height: $height_subject_form
+  .choose_block
+    margin: 20px 30px 0 30px
+    .choose_button
+      float: left
+      margin: 0 10px 10px 0
+  .choose_block:after
+    content: ""
+    display: block
+    clear: both
+$padding_block: 5px
+.button_panel
+  +inline-block
+  .button_back_block, .button_issue_block, .button_onward_block
+    float: left
+  .button_issue_block
+    padding: 0 25px
+  .button_back_block
+    padding-right: $padding_block
+  .button_onward_block
+    padding-left: $padding_block
+.button_panel:after
+  content: ""
+  display: block
+  clear: both
+
