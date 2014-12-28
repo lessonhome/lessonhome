@@ -18,7 +18,7 @@ class @main extends template '../main'
             selector      : 'time'
           button_add    : module 'tutor/button' :
             selector      : 'add_time'
-            plus          : '+'
+            text          : '+'
         time_spend      : module '$/time_spend' :
           lesson_start    : module 'tutor/forms/input' :
             selector        : 'lesson_start'
