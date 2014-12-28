@@ -20,7 +20,7 @@ class @main extends template '../../../tutor'
         'Образование' : 'education'
         'Карьера'     : 'career'
         'О себе'      : 'about'
-        'Медиа'       : 'media'
+        #'Медиа'       : 'media'
       active_item : 'Контакты'
     content : module '$' :
       country         : module 'tutor/forms/drop_down_list'

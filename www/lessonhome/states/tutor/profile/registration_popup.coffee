@@ -8,6 +8,6 @@ class @main extends template '../profile'
       footer       : module '//footer' :
         button_back : module '//button_back'
         back_link   : @exports()  # must be defined
-        button_save : module '//button_save'
+        save_notice : module '//save_notice'
         button_next : module '//button_next'
         next_link   : @exports()  # must be defined

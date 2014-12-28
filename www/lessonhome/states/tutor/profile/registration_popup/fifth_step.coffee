@@ -13,6 +13,7 @@ class @main extends template '../registration_popup'
 
 
   init : ->
+    @parent.tree.popup.footer.button_next.selector = 'inactive'
     @parent.tree.popup.progress_bar.progress = 5
     @parent.tree.popup.footer.back_link = 'fourth_step'
-    @parent.tree.popup.footer.next_link = '#'
+    @parent.tree.popup.footer.next_link = false

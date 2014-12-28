@@ -20,7 +20,7 @@ class @main extends template '../../../tutor'
         'Образование' : 'education'
         'Карьера'     : 'career'
         'О себе'      : 'about'
-        'Медиа'       : 'media'
+        #'Медиа'       : 'media'
       active_item : 'Карьера'
     content : module '$' :
       place_of_work : module 'tutor/forms/input'
@@ -28,6 +28,8 @@ class @main extends template '../../../tutor'
       add_button : module 'tutor/button' :
         text  : '+ Добавить'
         selector  : 'fixed'
+      line : module 'tutor/separate_line' :
+        selector : 'gradient'
       experience_tutoring : module 'tutor/forms/drop_down_list'
       number_of_students : module 'tutor/forms/drop_down_list'
       extra_info : module 'tutor/forms/textarea' :
