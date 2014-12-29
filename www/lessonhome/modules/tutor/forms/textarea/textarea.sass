@@ -1,3 +1,5 @@
+@import compass/css3
+
 main
   height : 100%
 
@@ -12,6 +14,15 @@ textarea
   max-width  : 100%
   width : 100%
   box-sizing : border-box
+
+  font-size   : 20px
+  color       : rgb(0, 0, 0)
+  font-family : 'Open Sans', sans-serif
+
+  +input-placeholder
+    font-size   : 20px
+    font-family : 'Open Sans', sans-serif
+    color       : #848484
 
 textarea:focus
   border : 2px solid rgb( 137, 209, 255 )
