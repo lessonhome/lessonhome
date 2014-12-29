@@ -1,0 +1,44 @@
+@import compass/css3
+$triangle_left_src: 'main/triangle_left.png'
+$triangle_right_src: 'main/triangle_right.png'
+$triangle_height: image-height($triangle_left_src)
+$triangle_width: image-width($triangle_left_src)
+$padding: 6px
+//
+//background: inline-image($triangle_right_src)
+.box_slider
+  height: 37px
+  padding: $padding
+  box-sizing: border-box
+  border: 2px solid #cad3da
+  border-radius: 4px
+  background-color: #fff
+  .slider
+    height: 100%
+    overflow: hidden
+    border-radius: 4px
+    background-color: #f07b6f
+    .icon_cursor_left
+      float: left
+    .icon_cursor_left, .icon_cursor_right
+      height: 100%
+      width: 10px
+      cursor: pointer
+      padding-left: $padding
+      .icon_left, .icon_right
+        width: $triangle_width
+        height: $triangle_height
+        position: relative
+        top: 50%
+        margin-top: -$triangle_height / 2
+      .icon_left
+        background: inline-image($triangle_left_src)
+      .icon_right
+        background: inline-image($triangle_right_src)
+    .icon_cursor_right
+      float: right
+
+
+
+
+

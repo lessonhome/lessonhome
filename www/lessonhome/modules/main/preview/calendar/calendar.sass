@@ -1,0 +1,58 @@
+@import compass/css3
+$margin_top: 15px
+main
+.calendar_week
+  +inline-block
+  background-color: #dfe1e4
+  border-radius: 4px
+  font-size: 18px
+  font-weight: 600
+  color: #a1a1a1
+  .monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday
+    float: left
+    padding: 10px 5px
+    cursor: pointer
+.calendar_week:after
+  content: ""
+  display: block
+  clear: both
+.choose_block
+  margin-top: $margin_top
+  .choose_all
+    width: 20px
+    height: 20px
+    float: left
+  .title
+    margin-left: 25px
+.time_box
+  margin-top: $margin_top
+  padding: 10px 5px
+  position: relative
+  border-radius: 4px
+  background-color: #dfe1e4
+  .from, .till
+    float: left
+    padding: 8px 7px 8px 11px
+  .from_time, .till_time
+    float: left
+    width: 66px
+    height: 34px
+  .close_box
+    width: 20px
+    padding: 9px 7px
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    cursor: pointer
+    .close
+      float: right
+      width: 16px
+      height: 16px
+      background: red
+.time_box:after
+  content: ''
+  display: block
+  clear: both
+.button_add
+  margin-top: $margin_top

@@ -1,10 +1,12 @@
 @import compass/css3
 $icon_padding: 6px
-$icon_height: 13px
-$icon_width: 15px
+$icon_src: 'falldown_triangle3.png'
+$icon_height: image-height($icon_src)
+$icon_width: image-width($icon_src)
+$font_size: 20px
 main
   height: 100%
-.drop_down_list, .drop_down_list.date
+.drop_down_list
   position: relative
   height: 100%
   width: 100%
@@ -12,18 +14,17 @@ main
     padding: 0 (2*$icon_padding+$icon_width) 0 8px
     box-sizing: border-box
     border: 2px solid rgb( 214, 214, 214 )
-    border-radius: 8px
+    border-radius: 4px
     background-color: rgb( 255, 255, 255 )
-    outline : none
+    outline: none
     width: 100%
     height: 100%
-    font-size: 20px
+    font-size: $font_size
     color: rgb(0, 0, 0)
     +input-placeholder
-      line-height : 20px
-      font-size   : 20px
-      color       : rgb(0, 0, 0)
-      font-family : 'Open Sans', sans-serif
+      //line-height: $font_size
+      //font-size: $font_size
+      color: rgb(142, 149, 156)
   .icon_box
     padding: 0 $icon_padding
     position: absolute
@@ -37,45 +38,40 @@ main
       position: relative
       top: 50%
       margin-top: -$icon_height / 2
-      background : inline-image('falldown_triangle3.png') no-repeat
+      background : inline-image($icon_src) no-repeat
 .drop_down_list
   input:focus
     border : 2px solid rgb( 137, 209, 255 )
+/////////////////-------- left_filter list_course ---------//////////////////////
+.list_course
+  //now style same main style
+/////////////////-------- list_top_filter ---------//////////////////////
 
-//--------------------- DATE ----------------------------------------------------
-
-.drop_down_list.date
-  input
-    border-radius : 4px
 
 /////////////////--------list_subject, list_tutor---------//////////////////////
 $icon_padding: 15px
 $icon_width: 26px
 $icon_height: 23px
-.drop_down_list.subject, .drop_down_list.tutor
+$font_size: 24px
+.filter_top
   input
-    padding: 0 (2*$icon_padding+$icon_width) 0 8px
     border: 3px solid rgb(202, 211, 218)
-    background-color: rgb( 255, 255, 255 )
-    //font-size: 20px
-    //color: rgb(0, 0, 0)
-    font-size: 24px
-    color: rgb(142, 149, 156)
+    font-size: $font_size
+    color: rgb(0, 0, 0)
+    +input-placeholder
+      color: rgb(142, 149, 156)
   .icon_box
     padding: 0 $icon_padding
     .icon
       width: $icon_width
       height: $icon_height
       margin-top: -$icon_height / 2
-      background: none  //wait triangle
+      background: none  //wait triangle, no use symbol
       color: rgb(203, 211, 218)
       font-size: 26px
-.drop_down_list
-  input:focus
-    border : 2px solid rgb( 137, 209, 255 )
 /////////////////--------list_course---------//////////////////////
-$icon_padding: 10px
-.drop_down_list.list_course
+//$icon_padding: 10px
+//.drop_down_list.list_course
   input
     padding: 0 (2*$icon_padding+$icon_width) 0 8px
     font-size: 20px

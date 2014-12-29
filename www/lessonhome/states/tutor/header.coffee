@@ -1,5 +1,5 @@
 class @main
-  tree : -> module '$' :
+  tree : => module '$' :
     logo      : module '$/logo'
     top_menu : module '$/top_menu' :
       items     : @exports()

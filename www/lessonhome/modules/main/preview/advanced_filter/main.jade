@@ -1,16 +1,44 @@
 .section
-  .course  Курс
-  //<span>&#9660</span>
+  .course
+    .m-icon
+    .m-title Курс
   .list_course!=list_course
   .add_course_block
     .add_course!=add_course
 .section
-  .timetable Расписание
+  .timetable
+    .m-icon
+    .m-title Расписание
   .calendar!=calendar
-.time_one_lesson Время одного занятия
-
-.time_to_way Время на дорогу
-
-.experience <span>1-2 года</span><span>3-4 года</span><span>более 4 лет</span><span>нет опыта</span>
-
-.sex
+.section
+  .time_one_lesson
+    .m-icon
+    .m-title Время одного занятия
+  .lesson_time_block!=time_spend
+.section
+  .time_to_way
+    .m-icon
+    .m-title Время на дорогу
+  .way_time_block!=time_spend
+.section
+  .experience
+    .m-icon
+    .m-title Опыт
+  .little 1-2 года
+  .big 3-4 года
+  .bigger более 4 лет
+  .no_experience нет опыта
+.section
+  .sex
+    .m-icon
+    .m-title Пол
+  .sex_button
+    .female!=female
+    .male!=male
+.section
+  .reviews_block
+    .with_reviews!=with_reviews
+    .with_reviews_text C отзывами
+  .verification_block
+    .with_verification!=with_verification
+    .with_verification_text Верифицированные

@@ -96,7 +96,7 @@ $height_line: 33px
     color       : white
 //- ------------------ TUTOR REGISTRATION BUTTONS ------------
 
-////////-----------chose button in drop down list----------////////////////////
+////////-----------choose button in drop down list----------////////////////////
 $size_close:  10px
 $padding_close:  10px
 $height_line: 33px
@@ -104,7 +104,7 @@ $srs: 'close.png'
 .button
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
   border-radius: 4px
-.button.chose_subject, .button.chose_tutor, .button.chose_course
+.choose_subject, .choose_tutor, .choose_course
   overflow: hidden
   height: $height_line
   line-height: $height_line
@@ -126,10 +126,10 @@ $srs: 'close.png'
     font-size: 18px
     color: rgb(61, 50, 50)
     margin: 0 (2*$padding_close+$size_close) 0 10px
-//////------little bit variables and font change value in chose_course------------/////////
+//////------little bit variables and font change value in choose_course------------/////////
 $padding_close:  5px
 $height_line: 30px
-.button.chose_course
+.choose_course
   height: $height_line
   line-height: $height_line
   .close
@@ -143,39 +143,22 @@ $height_line: 30px
     margin: 0 (2*$padding_close+$size_close) 0 10px
 /////////////-----------it's big button in subject----------------//////////////
 $height_line: 50px
-.button.subject_back, .button.onward_block, .button.issue_bid
+.subject_back, .onward_block, .issue_bid
   height: $height_line
   line-height: $height_line
   background: rgb(148, 201, 254)
-  margin: 10px
   .text
     font-size: 26px
     padding: 0 15px
     color: rgb(255, 255, 255)
-.button.issue_bid
+.issue_bid
   background-color: rgb(240, 123, 111)
   .text
     padding: 0 20px
-//////////add button subject add tutor////////////
-$height_button_add: 33px
-.button.add_subject, .button.add_tutor
-  width: 37px
-  height: $height_button_add
-  position: relative
-  top: 50%
-  margin-top: -$height_button_add / 2
-  background-color: rgb(225, 227, 229)
-  .plus
-    font-size: 30px
-    font-weight: 900
-    +inline-block
-.button.add_subject:before, .button.add_tutor:before
-  content: ''
-  +inline-block
-  height: 100%
-////search_button////
+
+////------------- top filter button ----------------////
 $height_line: 54px
-.button.search_button, .button.order_call, .button.start_search
+.search_button, .order_call, .start_search
   width: 265px
   height: $height_line
   margin: auto
@@ -186,3 +169,27 @@ $height_line: 54px
   .text
     font-size: 26px
     color: rgb(255, 255, 255)
+////---------------- left filter button --------------////
+$height_add: 33px
+.add_time
+  width: 38px
+  height: $height_add
+  text-align: center
+  background-color: #f07b6f
+  box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.51)
+  .text
+    font-size: 30px
+    font-weight: 900
+    color: #ffffff
+    line-height: $height_add
+
+//////////---------- sex button ----------///////////
+.female, .male
+  box-shadow: none
+  height: 28px
+  line-height: 28px
+  background-color: #cdcdcd
+  .text
+    padding: 0 40px
+    font-size: 18px
+    color: #757575
