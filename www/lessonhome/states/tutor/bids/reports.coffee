@@ -22,6 +22,7 @@ class @main extends template '../../tutor'
       }
     ]
     content : module '$' :
+      popup : @exports()
       hint : module 'tutor/hint' :
         selector  : 'horizontal_hide_ability'
         header    : ''
