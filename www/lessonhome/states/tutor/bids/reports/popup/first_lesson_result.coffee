@@ -1,7 +1,7 @@
 class @main extends template '../popup'
-  route : '/tutor/reports/first_call'
-  model : 'tutor/bids/reports_step1_fill'
-  title : "Первый звонок"
+  route : '/tutor/reports/first_lesson_result'
+  model : 'tutor/bids/reports_step3_fill'
+  title : "Первое занятие"
   tree : ->
     content : module '$' :
       success_button : module 'tutor/forms/result_button' :
@@ -12,4 +12,4 @@ class @main extends template '../popup'
 
 
   init : ->
-    @parent.tree.popup.header.text = 'Как прошёл первый звонок?'
+    @parent.tree.popup.header.text = 'Как прошло первое занятие?'
