@@ -32,13 +32,13 @@ class @main extends template '../../../tutor'
         selector: 'woman'
 
       birth_day   : module 'tutor/forms/drop_down_list' :
-        selector    : 'date'
+        selector    : 'small_radius'
         placeholder : 'День'
       birth_month : module 'tutor/forms/drop_down_list' :
-        selector    : 'date'
+        selector    : 'small_radius'
         placeholder : 'Месяц'
       birth_year  : module 'tutor/forms/drop_down_list' :
-        selector    : 'date'
+        selector    : 'small_radius'
         placeholder : 'Год'
       status      :  module 'tutor/forms/drop_down_list'
 

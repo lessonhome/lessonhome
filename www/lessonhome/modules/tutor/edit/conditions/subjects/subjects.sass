@@ -2,7 +2,7 @@
 
 main
   overflow : hidden
-  padding  : 45px 0 200px 0
+  padding  : 50px 0 200px 0
   text-align : center
 
 .block
@@ -10,10 +10,10 @@ main
 
   .subject, .sections, .destinations, .category_students, .group_lessons, .comments, .location_block, .location_block>.value>.price
     overflow : hidden
-    padding-bottom : 15px
+    padding-bottom : 13px
 
     .m-title
-      padding-right: 55px
+      padding-right: 28px
       box-sizing: border-box
       float : right
       text-align : right
@@ -30,14 +30,16 @@ main
       .location, .price, .add_location
         +inline-block
       .location
-        width : 180px
+        width  : 183px
+        height : 37px
       .price
         padding : 0
         .value
-          width : 70px
+          width  : 68px
+          height : 37px
         .m-title
-          padding-left :  15px
-          padding-right : 20px
+          padding-left :  22px
+          padding-right : 18px
 
       .add_location
         position : absolute
@@ -61,22 +63,15 @@ main
       margin-right : 35px
 
     .bet
-      width : 120px
+      width  : 121px
+      height : 37px
 
   .comments
     padding-bottom : 0px
     .value
-      width : 335px
+      width  : 340px
+      height : initial
 
-  .button_block
-    overflow      : hidden
-
-    .add_button, .save_button
-      float : right
-
-    .add_button
-      margin-top : 20px
-      margin-bottom : 15px
 
 
   .subject, .sections, .destinations, .category_students, .group_lessons, .comments
@@ -93,6 +88,8 @@ main
       overflow : hidden
 
       .pupils_number
+        width  : 183px
+        height : 37px
         float : left
         margin-right : 35px
 
@@ -131,9 +128,10 @@ main
   /*-----------------------*/
 
   .button_block
-    overflow : hidden
-    margin-bottom : 10px
+    text-align : right
+    div
+      +inline-block
 
-    .add_button, .save_button
-      float : right
+    .add_button
+      margin : 20px 0 15px 0
 

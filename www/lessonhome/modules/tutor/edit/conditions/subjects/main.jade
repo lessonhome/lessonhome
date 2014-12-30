@@ -1,7 +1,7 @@
 mixin info_block(block_class, title, value)
   div(class=block_class)
     .value.g-standardField!= value
-    .m-title.g-font-smallTitle=title
+    .m-title.g-edit-smallTitle=title
 .block
   +info_block('subject', 'Предмет :', subject)
   +info_block('sections', 'Разделы :', sections)
@@ -13,15 +13,15 @@ mixin info_block(block_class, title, value)
       .location!= location
       .price
         .value!= price
-        .m-title.g-font-smallTitle Цена :
+        .m-title.g-edit-smallTitle Цена :
       .add_location!= add_location
-    .m-title.g-font-smallTitle Место :
+    .m-title.g-edit-smallTitle Место :
 
   .group_lessons
     .value
       .pupils_number!= pupils_number
       .bet!= bet
-    .m-title.g-font-smallTitle Групповые занятия :
+    .m-title.g-edit-smallTitle Групповые занятия :
 
 
 
