@@ -1,0 +1,14 @@
+mixin block(title, value)
+  .block
+    .title=title
+    .value!=value
+
+.center_block
+  .header!=header
+
+  +block('Имя друга :', friend_name)
+  +block('E-mail друга :', friend_email)
+  +block('Ваше имя :', your_name)
+
+  .bottom
+    .invite_button!=invite_button

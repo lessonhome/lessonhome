@@ -1,4 +1,7 @@
-class @main
+class @main extends template '../main'
+  route : '/main_tutor'
+  model : 'main/registration'
+  title : "Регистрация"
   tree : -> module 'main_tutor' :
     header  : state 'tutor/header'
     content : module 'main_tutor/content'  :
