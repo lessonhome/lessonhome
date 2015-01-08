@@ -2,7 +2,7 @@ class @main extends template '../../tutor'
   route : '/tutor/search_bids'
   model   : 'tutor/bids/search_bids'
   title : "поиск заявок"
-  tree : ->
+  tree : =>
     items : [
       module 'tutor/header/button' : {
         title : 'Поиск'
@@ -22,6 +22,8 @@ class @main extends template '../../tutor'
       }
     ]
     content : module '$' :
+      advanced_filter : @exports()
+      min_height      : @exports()
       subject_list : module 'tutor/forms/drop_down_list'
       saved_filters : module 'tutor/forms/drop_down_list'
       place : module 'tutor/choice' :

@@ -30,7 +30,8 @@ class @main
           href  : '/about us'
         }
       ]
-    filter_top : @exports()
+    filter_top      : @exports()
+    advanced_filter : @exports()
 # do it: exports info_panel, because change on the page
     info_panel : module '$/info_panel'
     content    : @exports()   # must be defined

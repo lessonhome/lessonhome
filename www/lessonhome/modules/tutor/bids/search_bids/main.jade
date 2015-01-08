@@ -7,7 +7,6 @@ mixin info_block(block_class, title, value)
   div(class=block_class)
     .m-title.g-font-bidsFilters=title
     .value.g-standardField!= value
-
 .filters
   .left_block
     +info_block('subject', 'Предмет :', subject_list)
@@ -33,8 +32,9 @@ mixin info_block(block_class, title, value)
 
 .separate_line!= separate_line
 
-.center_block
+.center_block(style='min-height:#{min_height}')
   .advanced_search
+    .advanced_filter!=advanced_filter
     .button
     //-
       .title.g-font-bidTitles Расширенный поиск
