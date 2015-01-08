@@ -21,30 +21,23 @@ class @main extends template '../../../tutor'
         'Предпочтения' : 'preferences'
       active_item : 'Место'
     content : module '$' :
-      location : module 'tutor/choice' :
-        id          : 'location'
-        indent      : '30px'
-        choice_list : [
-          module 'tutor/button' :
-            text      : 'У себя'
-            selector  : 'fixed'
-
-          module 'tutor/button' :
-            text      : 'У ученика'
-            selector  : 'fixed'
-
-          module 'tutor/button' :
-            text      : 'Удалённо'
-            selector  : 'fixed'
-        ]
+      tutor : module 'tutor/forms/location_button' :
+        active : true
+        text   : 'У себя'
+      student  : module 'tutor/forms/location_button' :
+        active : false
+        text   : 'У ученика'
+      web : module 'tutor/forms/location_button' :
+        active : false
+        text   : 'Удалённо'
       country       : module 'tutor/forms/drop_down_list'
       city          : module 'tutor/forms/drop_down_list'
       district      : module 'tutor/forms/drop_down_list'
       nearest_metro : module 'tutor/forms/drop_down_list'
-      street        : module 'tutor/forms/drop_down_list'
-      house         : module 'tutor/forms/drop_down_list'
-      building      : module 'tutor/forms/drop_down_list'
-      flat          : module 'tutor/forms/drop_down_list'
+      street        : module 'tutor/forms/input'
+      house         : module 'tutor/forms/input'
+      building      : module 'tutor/forms/input'
+      flat          : module 'tutor/forms/input'
       add_button    : module 'tutor/button' :
         text      : '+ Добавить'
         selector  : 'fixed'

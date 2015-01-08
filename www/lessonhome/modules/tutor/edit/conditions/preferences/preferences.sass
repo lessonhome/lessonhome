@@ -2,29 +2,29 @@
 
 main
   overflow  : hidden
-  min-width : 800px
 
 .header
-  margin      : 50px 0 55px 50px
+  margin      : 45px 0 35px 50px
   font-size   :  26px
   font-family : 'Open Sans', sans-serif
   color       : rgb( 0, 0, 0 )
 
 .hint
   width : 165px
-  margin-left : 85px
+  margin-left : 45px
   float : left
 
 .select_block
   +inline-block
-  margin-left : 78px
+  margin-left : 50px
+  margin-top  : 25px
 
   .sex, .category, .status
     overflow : hidden
-    padding-bottom : 15px
+    padding-bottom : 13px
 
     .title
-      padding-right: 25px
+      padding-right: 28px
       box-sizing: border-box
       float : right
       text-align : right
@@ -36,9 +36,7 @@ main
     padding-bottom : 0
 
   .button_block
-    margin-top  : 25px
-    width : 435px
-
+    margin-top  : 37px
     .button
       float : right
 
@@ -46,5 +44,16 @@ main
     content : ''
     clear   : both
     display : block
+
+  .sex
+    .value
+      text-align : center
+      div
+        +inline-block
+        width     : 128px
+        height    : 33px
+        font-size : 20px
+      .sex_man
+        margin-right : 79px
 
 

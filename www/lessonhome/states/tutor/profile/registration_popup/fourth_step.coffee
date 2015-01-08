@@ -5,13 +5,13 @@ class @main extends template '../registration_popup'
   tree : ->
     content : module '$' :
 
-      tutor : module '//location_button' :
+      tutor : module 'tutor/forms/location_button' :
         active : true
         text   : 'У себя'
-      student  : module '//location_button' :
+      student  : module 'tutor/forms/location_button' :
         active : false
         text   : 'У ученика'
-      web : module '//location_button' :
+      web : module 'tutor/forms/location_button' :
         active : false
         text   : 'Удалённо'
 

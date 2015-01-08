@@ -31,13 +31,13 @@ class @main extends template '../../../tutor'
       chair         : module 'tutor/forms/drop_down_list'
       status        : module 'tutor/forms/drop_down_list'
       release_day   : module 'tutor/forms/drop_down_list' :
-        selector    : 'date'
+        selector    : 'small_radius'
         placeholder : 'День'
       release_month : module 'tutor/forms/drop_down_list' :
-        selector    : 'date'
+        selector    : 'small_radius'
         placeholder : 'Месяц'
       release_year  : module 'tutor/forms/drop_down_list' :
-        selector    : 'date'
+        selector    : 'small_radius'
         placeholder : 'Год'
       add_button    : module 'tutor/button' :
         text      : '+ Добавить'

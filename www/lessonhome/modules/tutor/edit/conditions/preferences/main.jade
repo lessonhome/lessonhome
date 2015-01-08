@@ -1,7 +1,7 @@
 mixin info_block (block_class, title, value)
   div(class=block_class)
     .value.g-standardField!= value
-    .title.g-font-smallTitle!= title
+    .title.g-edit-smallTitle!= title
 
 .header Уточните с какими учениками Вы хотите заниматься
 
@@ -9,7 +9,12 @@ mixin info_block (block_class, title, value)
 .hint!= hint
 
 .select_block
-  +info_block('sex', 'Пол :', sex)
+  .sex
+    .value.g-standardField
+      .sex_man!= sex_man
+      .sex_woman!= sex_woman
+    .title.g-edit-smallTitle Пол :
+
   +info_block('category', 'Класс :', category)
   +info_block('status', 'Статус :', status)
 
