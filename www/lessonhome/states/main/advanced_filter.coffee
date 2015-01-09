@@ -16,18 +16,16 @@ class @main
         button_add    : module 'tutor/button' :
           selector      : 'add_time'
           text          : '+'
-      time_spend_lesson      : module '//time_spend' :
-        lesson_start    : module 'tutor/forms/input' :
-          selector        : 'lesson_start'
-        lesson_end      : module 'tutor/forms/input' :
-          selector        : 'lesson_end'
-        move_time       : module '../slider'
-      time_spend_way      : module '//time_spend' :
-        lesson_start    : module 'tutor/forms/input' :
-          selector        : 'lesson_start'
-        lesson_end      : module 'tutor/forms/input' :
-          selector        : 'lesson_end'
-        move_time       : module '../slider'
+      time_spend_lesson   : state './slider_main' :
+        selector    : 'lesson_time'
+        start       : 'lesson_start'
+        end         : 'lesson_end'
+        measurement : 'мин.'
+      time_spend_way   : state './slider_main' :
+        selector    : 'lesson_time'
+        start       : 'lesson_start'
+        end         : 'lesson_end'
+        measurement : 'мин.'
       female            : module 'tutor/button' :
         selector          : 'female'
         text              : 'Ж'
