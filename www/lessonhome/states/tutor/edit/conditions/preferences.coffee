@@ -22,19 +22,10 @@ class @main extends template '../../../tutor'
       active_item : 'Предпочтения'
 
     content : module '$':
-      sex  : module 'tutor/choice' :
-        id      : 'sex'
-        indent  : '75px'
-        choice_list : [
-          module 'tutor/button' :
-            text      : 'М'
-            selector  : 'fixed'
-
-          module 'tutor/button' :
-            text      : 'Ж'
-            selector  : 'fixed'
-
-        ]
+      sex_man     : module 'tutor/forms/sex_button' :
+        selector: 'man'
+      sex_woman   :   module 'tutor/forms/sex_button' :
+        selector: 'woman'
       category : module 'tutor/forms/drop_down_list'
       status : module 'tutor/forms/drop_down_list'
 
@@ -42,6 +33,8 @@ class @main extends template '../../../tutor'
         selector  : 'vertical'
         header    : ''
         text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит'
+        separate_line : module 'tutor/separate_line' :
+          selector : 'vertical'
 
       button : module 'tutor/button' :
         text     : 'Сохранить'

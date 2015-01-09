@@ -1,3 +1,5 @@
+
+
 class @main
   show : =>
     @man    = @tree.sex_man.class
@@ -6,4 +8,3 @@ class @main
     @man  .on 'active', => @woman .disable()
     @woman.on 'active', => @man   .disable()
 
-    

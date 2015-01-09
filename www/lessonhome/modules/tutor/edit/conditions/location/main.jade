@@ -1,12 +1,15 @@
 mixin info_block(block_class, header, value)
   div(class=block_class)
     .value.g-standardField!= value
-    .m-title.g-font-smallTitle= header
+    .m-title.g-edit-smallTitle= header
 
 .block
   .location
-    .m-title.g-font-smallTitle Место:
-    .value!= location
+    .m-title.g-edit-smallTitle Место :
+    .value
+      .tutor!= tutor
+      .student!= student
+      .web!= web
 
   +info_block('country', 'Страна :', country)
   +info_block('city', 'Город :', city)
@@ -19,10 +22,10 @@ mixin info_block(block_class, header, value)
       .house!= house
       .building
         .value!= building
-        .m-title.g-font-smallTitle Строение :
-    .m-title.g-font-smallTitle Дом :
+        .m-title.g-edit-smallTitle Строение :
+    .m-title.g-edit-smallTitle Дом :
 
-  +info_block('flat', 'Кв.:', flat)
+  +info_block('flat', 'Кв. :', flat)
 
   .button_block
     .add_button!= add_button

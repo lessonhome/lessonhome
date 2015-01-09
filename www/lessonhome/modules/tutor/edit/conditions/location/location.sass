@@ -1,9 +1,10 @@
 @import compass/css3
-$field_width : 90px
+$field_width  : 89px
+$field_height : 37px
 
 main
   overflow : hidden
-  padding  : 45px 0 20px 0
+  padding  : 38px 0 20px 0
   text-align : center
 
 .block
@@ -11,10 +12,10 @@ main
 
   .country, .city, .district, .nearest_metro, .street, .building, .house, .flat, .house_block, .house_block>.value>.building
     overflow : hidden
-    padding-bottom : 15px
+    padding-bottom : 13px
 
     .m-title
-      padding-right : 55px
+      padding-right : 28px
       box-sizing : border-box
       float : right
       text-align : right
@@ -27,22 +28,25 @@ main
 
     .m-title
       text-align : right
-      padding-right : 390px
-      margin-bottom : 25px
+      padding-right : 368px
+      margin-bottom : 15px
 
     .value
       text-align : right
+      div
+        +inline-block
+        width : 128px
+      .tutor, .student
+        margin-right : 22px
 
 
   .flat
     padding : 0px
     .value
       width : $field_width
-      padding-right : 245px
+      padding-right : 251px
 
   .button_block
-    overflow      : hidden
-
     .add_button, .save_button
       float : right
 
@@ -50,18 +54,26 @@ main
       margin-top    : 25px
       margin-bottom : 20px
 
+  .button_block:after
+    content : ''
+    clear   : both
+    display : block
+
+
 
   .house_block
     .value
       .house, .building
         +inline-block
       .house
-        width : $field_width
+        height : $field_height
+        width  : $field_width
       .building
         padding : 0
         .m-title
-          padding-right :  20px
-          padding-left  : 45px
+          padding-right : 29px
+          padding-left  : 50px
 
         .value
-          width : $field_width
+          height : $field_height
+          width  : $field_width
