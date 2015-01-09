@@ -1,5 +1,3 @@
-
-
 class @main
   show : =>
     @man    = @tree.sex_man.class
