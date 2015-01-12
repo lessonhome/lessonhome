@@ -3,14 +3,15 @@ $margin_top: 15px
 main
 .calendar_week
   +inline-block
+  padding: 0 4px
   background-color: #dfe1e4
   border-radius: 4px
-  font-size: 18px
+  font-size: 20px
   font-weight: 600
   color: #a1a1a1
   .monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday
     float: left
-    padding: 10px 5px
+    padding: 10px 4px
     cursor: pointer
 .calendar_week:after
   content: ""
@@ -25,21 +26,21 @@ main
   .title
     margin-left: 25px
 .time_box
-  margin-top: $margin_top
-  padding: 10px 5px
+  margin: $margin_top 10px 0 0
+  padding: 11px 0
   position: relative
   border-radius: 4px
   background-color: #dfe1e4
   .from, .till
     float: left
-    padding: 8px 7px 8px 11px
+    padding: 8px 7px 8px 10px
   .from_time, .till_time
     float: left
     width: 66px
     height: 34px
   .close_box
-    width: 20px
-    padding: 9px 7px
+    width: 14px
+    padding: 9px 7px 0 9px
     position: absolute
     top: 0
     right: 0
@@ -47,8 +48,8 @@ main
     cursor: pointer
     .close
       float: right
-      width: 16px
-      height: 16px
+      width: 14px
+      height: 14px
       background: red
 .time_box:after
   content: ''

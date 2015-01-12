@@ -3,5 +3,5 @@ class @main extends template './search_bids'
   model   : 'tutor/bids/search_bids_filter'
   title : "поиск заявок с фильтром"
   tree : =>
-    advanced_filter : state 'main/advanced_filter'
-    min_height       : '778px'
+    advanced_filter : state 'main/advanced_filter_popup'
+    min_height       : '1028px'

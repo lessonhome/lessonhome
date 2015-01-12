@@ -3,7 +3,15 @@ class @main extends template '../main'
   model   : 'main/first_step'
   title : "выберите предмет"
   tree : =>
-    filter_top  : state './filter_top'
+    filter_top  : state './filter_top':
+      title : 'Выберите предмет :'
+      list_subject    : module 'tutor/forms/drop_down_list'  :
+        selector    : 'filter_top'
+        placeholder : 'Предмет'
+        icon        : '&#9660;'
+      choose_subject  : module 'tutor/button'  :
+        selector  : 'choose_subject'
+        text        : 'Алгебра'
     content     : module '$/motivation' :
       search_diagram  : module 'main/motivation_block' :
         button   : module 'tutor/button'  :
