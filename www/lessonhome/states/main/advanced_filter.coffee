@@ -21,11 +21,13 @@ class @main
         start       : 'lesson_start'
         end         : 'lesson_end'
         measurement : 'мин.'
+        dash        : '-'
       time_spend_way   : state './slider_main' :
         selector    : 'lesson_time'
         start       : 'lesson_start'
         end         : 'lesson_end'
         measurement : 'мин.'
+        dash        : '-'
       female            : module 'tutor/button' :
         selector          : 'female'
         text              : 'Ж'

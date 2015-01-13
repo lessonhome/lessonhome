@@ -5,3 +5,9 @@ class @main extends template '../preview'
   tree : =>
     filter_top  : state '../filter_top' :
       title : 'Выберите диапозон цены :'
+      price_slider_top   : state '../slider_main' :
+        selector      : 'price_slider_top'
+        start         : 'price_start'
+        end           : 'price_end'
+        measurement   : 'руб.'
+        selector_two  : 'selector_move'

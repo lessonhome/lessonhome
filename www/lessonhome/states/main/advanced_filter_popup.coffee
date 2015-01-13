@@ -11,6 +11,7 @@ class @main
       start       : 'price_start'
       end         : 'price_end'
       measurement : 'руб.'
+      dash        : '-'
     list_pupil     : module 'tutor/forms/drop_down_list'  :
       selector        : 'list_course'
       placeholder     : 'Например студент'
@@ -32,6 +33,7 @@ class @main
       start       : 'lesson_start'
       end         : 'lesson_end'
       measurement : 'мин'
+      dash        : '-'
     female            : module 'tutor/button' :
       selector          : 'female'
       text              : 'Ж'
