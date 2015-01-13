@@ -32,14 +32,7 @@ class @main
       ]
     filter_top      : @exports()
     advanced_filter : @exports()
-# do it: exports info_panel, because change on the page
-    info_panel : module '$/info_panel'
-    content    : @exports()   # must be defined
+    info_panel      : @exports()
+    content         : @exports()   # must be defined
 
-  init : ->
-    p = @tree.info_panel
-    p.math              = 'Математические +'
-    p.natural_research  = 'Естественно-научные +'
-    p.philology         = 'Филологичные +'
-    p.foreign_languages = 'Иностранные языки +'
-    p.others            = 'Другие +'
+

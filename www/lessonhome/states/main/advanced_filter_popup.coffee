@@ -8,8 +8,8 @@ class @main
       text            : 'Олимпиада'
     price_of_lesson   : state './slider_main' :
       selector    : 'lesson_price'
-      start       : 'price_start'
-      end         : 'price_end'
+      start       : 'center_text'
+      end         : 'center_text'
       measurement : 'руб.'
       dash        : '-'
     list_pupil     : module 'tutor/forms/drop_down_list'  :
@@ -24,14 +24,14 @@ class @main
       from_time     : module 'tutor/forms/input' :
         selector      : 'time'
       till_time     : module 'tutor/forms/input' :
-        selector      : 'time'
+        selector      : 'center_text'
       button_add    : module 'tutor/button' :
         selector      : 'add_time'
         text          : '+'
     time_spend_lesson   : state './slider_main' :
       selector    : 'lesson_time'
-      start       : 'lesson_start'
-      end         : 'lesson_end'
+      start       : 'center_text'
+      end         : 'center_text'
       measurement : 'мин'
       dash        : '-'
     female            : module 'tutor/button' :

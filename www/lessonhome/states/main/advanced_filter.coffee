@@ -8,24 +8,24 @@ class @main
         text            : 'ЕГЭ'
       calendar        : module './calendar' :
         choose_all      : module 'tutor/forms/checkbox':
-          selector        : 'time'
+          selector        : 'center_text'
         from_time     : module 'tutor/forms/input' :
           selector      : 'time'
         till_time     : module 'tutor/forms/input' :
-          selector      : 'time'
+          selector      : 'center_text'
         button_add    : module 'tutor/button' :
           selector      : 'add_time'
           text          : '+'
       time_spend_lesson   : state './slider_main' :
         selector    : 'lesson_time'
-        start       : 'lesson_start'
-        end         : 'lesson_end'
+        start       : 'center_text'
+        end         : 'center_text'
         measurement : 'мин.'
         dash        : '-'
       time_spend_way   : state './slider_main' :
         selector    : 'lesson_time'
-        start       : 'lesson_start'
-        end         : 'lesson_end'
+        start       : 'center_text'
+        end         : 'center_text'
         measurement : 'мин.'
         dash        : '-'
       female            : module 'tutor/button' :

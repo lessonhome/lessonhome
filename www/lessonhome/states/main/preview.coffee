@@ -3,9 +3,10 @@ class @main extends template '../main'
     filter_top : @exports()
     content : module '$' :
       advanced_filter  : state './advanced_filter'
-###    content : module '//content' :                # center
-        sort            : module '//sort'
-        choose_tutors    : module '//choose_tutors'
-        tutors          : module '//tutors'
 
-###
+    info_panel  : state './info_panel'  :
+      subject           : 'Предметы +'
+      tutor             : 'Преподователь +'
+      place             : 'Место'
+      price             : 'Цена'
+      selector          : 'second_step'
