@@ -1,3 +1,4 @@
+@import compass/css3
 main
   height: 100%
 input
@@ -7,7 +8,7 @@ input
   box-sizing: border-box
   outline: none
   border: 2px solid #d6d6d6
-  border-radius: 8px
+  +border-radius(4px)
   background-color: rgb( 255, 255, 255 )
   font-size: 20px
   color: rgb(0, 0, 0)
@@ -17,20 +18,10 @@ input[placeholder]
   font-size: 20px
   color: #cbd3da
 
-////////---------- left filter, top filter --------//////////////
 .time, .lesson_start, .lesson_end, .price_start, .price_end
-  border: 2px solid #cad3da
-  border-radius: 4px
   text-align: center
 
-.price_start, .price_end
-  width: 116px
-  margin-left: 15px
-
-.address_input
-  width: 385px
-  border-radius: 4px
-
+/////////----------------actions-------------/////
 .hover
   border: 2px solid #b3b3b3
 
@@ -40,12 +31,9 @@ input:focus
 //- ----------------------- BIDS REPORTS POPUP ---------------------------
 
 .report_popup
-  border-radius: 4px
   border: 2px solid rgb(255, 255, 255)
 
-
 //- --------------------- SMALL RADIUS -----------------------------------
-
 .small_radius
   border-radius: 4px
 
