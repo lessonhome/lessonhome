@@ -12,6 +12,14 @@ class @main extends template '../main'
       choose_subject  : module 'tutor/button'  :
         selector  : 'choose_subject'
         text        : 'Алгебра'
+
+    info_panel  : state './info_panel'  :
+      math              : 'Математические +'
+      natural_research  : 'Естественно-научные +'
+      philology         : 'Филологичные +'
+      foreign_languages : 'Иностранные языки +'
+      others            : 'Другие +'
+      selector          : 'first_step'
     content     : module '$/motivation' :
       search_diagram  : module 'main/motivation_block' :
         button   : module 'tutor/button'  :
@@ -31,3 +39,4 @@ class @main extends template '../main'
           text      : 'Начать поиск'
         title     : 'Подбор репетитора'
         selector  : 'choose_tutor'
+

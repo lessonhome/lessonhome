@@ -1,6 +1,7 @@
 div(class=selector)
   .start!=start
-  .dash -
+  if dash
+    .dash=dash
   .end!=end
   .measurement=measurement
-.move!=move
+.move(class=selector_two)!=move

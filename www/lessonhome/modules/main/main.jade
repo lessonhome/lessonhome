@@ -1,6 +1,7 @@
 .container
   .header!= header
   .filter_top!=filter_top
-  .info_panel!=info_panel
+  if info_panel
+    .info_panel!=info_panel
   .content!= content
   .footer

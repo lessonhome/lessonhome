@@ -12,11 +12,3 @@ class @main extends template '../preview'
       choose_subject  : module 'tutor/button'  :
         selector  : 'choose_subject'
         text        : 'Преподаватель вуза'
-###
-      info_pane_two        : module 'main/info_panel_two'  :
-        advanced_search   : 'Расширенный поиск'
-        subject           : 'Предметы'
-        tutor             : 'Преподователь'
-        place             : 'Место'
-        price             : 'Цена'
-###

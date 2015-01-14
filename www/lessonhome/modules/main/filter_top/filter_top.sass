@@ -1,15 +1,46 @@
 @import compass/css3
 $height_subject_form: 65px
+$height_address_form: 30px
+$padding_bottom_button: 25px/2
+$padding_top_button: 10px
+$padding_margin_elements: 20px
 main
   background: url(F('main/filter_top.jpg'))
   padding: 45px 0 80px 0
 .title
   font-size: 30px
   color: rgb(34, 37, 40)
+  padding-bottom: $padding_margin_elements
+.top_button_panel
+  +inline-block
   padding-bottom: 20px
+  .at_home_button, .in_tutoring_button, .remotely_button
+    float: left
+  .in_tutoring_button
+    padding: 0 $padding_top_button
+  .at_home_button
+    padding-right: $padding_top_button
+  .remotely_button
+    padding-left: $padding_top_button
+.top_button_panel:after
+  content: ""
+  display: block
+  clear: both
+.address_block
+  height: 100%
+  padding-bottom: $padding_margin_elements
+  text-align: center
+  .address_input
+    height: $height_address_form
+    width: 385px
+    +inline-block
+.price_slider_block
+  //same property
+  .price_slider_top
+    //same property
 .select_block
   width: 520px
-  margin: 0 auto 20px
+  margin: 0 auto $padding_margin_elements
   .list_filter
     height: $height_subject_form
   .choose_block
@@ -21,17 +52,16 @@ main
     content: ""
     display: block
     clear: both
-$padding_block: 5px
 .button_panel
   +inline-block
   .button_back_block, .button_issue_block, .button_onward_block
     float: left
   .button_issue_block
-    padding: 0 25px
+    padding: 0 $padding_bottom_button
   .button_back_block
-    padding-right: $padding_block
+    padding-right: $padding_bottom_button
   .button_onward_block
-    padding-left: $padding_block
+    padding-left: $padding_bottom_button
 .button_panel:after
   content: ""
   display: block
