@@ -8,9 +8,9 @@ class @main
         text            : 'ЕГЭ'
       calendar        : module './calendar' :
         choose_all      : module 'tutor/forms/checkbox':
-          selector        : 'center_text'
+          selector        : 'time'
         from_time     : module 'tutor/forms/input' :
-          selector      : 'time'
+          selector      : 'center_text'
         till_time     : module 'tutor/forms/input' :
           selector      : 'center_text'
         button_add    : module 'tutor/button' :
