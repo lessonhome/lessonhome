@@ -8,8 +8,10 @@ main
 .input_block
   +inline-block
 
-  .block
-    margin-bottom : 16.5px
+  label
+    display : block
+    padding : 8.25px 0
+    cursor        : pointer
 
     .input
       width  : 460px
@@ -21,8 +23,11 @@ main
       font-family   : 'Open Sans', sans-serif
       color         : #757575
 
+.input_block :first-child
+  padding-top : 0px
+
 .input_block :last-child
-  margin-bottom : 0px
+  padding-bottom : 0px
 
 .input_block, .button_block
   margin : auto

@@ -1,5 +1,5 @@
 mixin info_block(block_class, header, value)
-  div(class=block_class)
+  label(class=block_class)
     .value.g-standardField!= value
     .m-title.g-edit-smallTitle= header
 //- -------------------------------------------------
@@ -11,7 +11,7 @@ mixin info_block(block_class, header, value)
   +info_block('chair', 'Кафедра :', chair)
   +info_block('status', 'Статус :', status)
 
-  .date
+  label.date
     .value
       .day.g-smallField!= release_day
       .month.g-smallField!= release_month

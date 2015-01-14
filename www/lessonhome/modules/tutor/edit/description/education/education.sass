@@ -4,16 +4,20 @@ $height : 37px
 
 main
   overflow : hidden
-  padding  : 50px 0 50px 0
+  padding  : 43.5px 0 50px 0
   text-align : center
 
 
 .block
   +inline-block
 
-  .country, .city, .university, .faculty, .chair, .status, .date
+  label
+    display : block
+    cursor  : pointer
+
+  label.country, label.city, label.university, label.faculty, label.chair, label.status, label.date
     overflow : hidden
-    padding-bottom : 13px
+    padding : 6.5px 0
 
     .m-title
       padding-right : 28px
@@ -27,7 +31,7 @@ main
       height : $height
 
 
-  .date>.value
+  label.date>.value
     .day, .month, .year
       +inline-block
       height : $height
@@ -37,7 +41,7 @@ main
 
   .button_block
     margin-bottom : 20px
-    margin-top : 5px
+    margin-top : 11.5px
 
     .add_button, .save_button
       float : right

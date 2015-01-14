@@ -30,22 +30,14 @@ class @main extends template '../../../tutor'
       web : module 'tutor/forms/location_button' :
         active : false
         text   : 'Удалённо'
-      country       : module 'tutor/forms/drop_down_list' :
-        id : 'country_label'
-      city          : module 'tutor/forms/drop_down_list' :
-        id : 'city_label'
-      district      : module 'tutor/forms/drop_down_list' :
-        id : 'district_label'
-      nearest_metro : module 'tutor/forms/drop_down_list' :
-        id : 'nearest_metro_label'
-      street        : module 'tutor/forms/input' :
-        id : 'street_label'
-      house         : module 'tutor/forms/input' :
-        id : 'house_label'
-      building      : module 'tutor/forms/input' :
-        id : 'building_label'
-      flat          : module 'tutor/forms/input' :
-        id : 'flat_label'
+      country       : module 'tutor/forms/drop_down_list'
+      city          : module 'tutor/forms/drop_down_list'
+      district      : module 'tutor/forms/drop_down_list'
+      nearest_metro : module 'tutor/forms/drop_down_list'
+      street        : module 'tutor/forms/input'
+      house         : module 'tutor/forms/input'
+      building      : module 'tutor/forms/input'
+      flat          : module 'tutor/forms/input'
       add_button    : module 'tutor/button' :
         text      : '+ Добавить'
         selector  : 'fixed'

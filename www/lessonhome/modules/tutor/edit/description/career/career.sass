@@ -1,14 +1,18 @@
 main
   overflow : hidden
-  padding  : 50px 0 200px 0
+  padding  : 53.5px 0 200px 0
   text-align : center
 
 .block
   display : inline-block
 
-  .place_of_work, .post, .experience_tutoring, .number_of_students
+  label
+    cursor  : pointer
+    display : block
+
+  label.place_of_work, label.post, label.experience_tutoring, label.number_of_students
     overflow : hidden
-    padding-bottom : 13px
+    padding : 6.5px 0
 
     .m-title
       padding-right: 28px
@@ -21,16 +25,12 @@ main
       width  : 340px
       height : 37px
 
-  .post
-    padding-bottom : 0
-
 
 
   /*---------------------------------------------------------*/
 
-  .extra_info
-    padding-bottom : 0
-    margin-bottom  : 35px
+  label.extra_info
+    padding : 6.5px 0
     overflow : hidden
 
     .m-title
@@ -56,11 +56,14 @@ main
   /*--------------------------------------------------------*/
   .button_block
     .add_button
-      margin-top    : 17px
+      margin-top    : 10.5px
       margin-bottom : 34px
 
     .add_button, .save_button
       float : right
+
+    .save_button
+      margin-top  : 28.5px
 
   .button_block:after
     content : ''
@@ -72,7 +75,7 @@ main
 
   .line
     height : 2px
-    margin-bottom : 30px
+    margin-bottom : 23.5px
 
 .hint
   width : 80%
