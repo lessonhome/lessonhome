@@ -1,11 +1,13 @@
 @import compass/css3
 $icon_padding: 6px
 $icon_src: 'falldown_triangle3.png'
+$icon_hover_src : 'triangle-15-x-13-hover.png'
 $icon_height: image-height($icon_src)
 $icon_width: image-width($icon_src)
 $font_size: 20px
 main
   height: 100%
+
 .drop_down_list
   position: relative
   height: 100%
@@ -21,6 +23,7 @@ main
     height: 100%
     font-size: $font_size
     color: rgb(0, 0, 0)
+    cursor: text
     +input-placeholder
       //line-height: $font_size
       //font-size: $font_size
@@ -40,13 +43,25 @@ main
       margin-top: -$icon_height / 2
       background : inline-image($icon_src) no-repeat
 
+
+.drop_down_list.hover
+  input
+    border : 2px solid #b3b3b3
+  .icon_box
+    .icon
+      background : inline-image($icon_hover_src) no-repeat
+
+
 .drop_down_list
   input:focus
     border : 2px solid rgb( 137, 209, 255 )
 
-.drop_down_list
-  .hover
+//-.drop_down_list.hover
+  input
     border : 2px solid #b3b3b3
+  .icon_box
+    .icon
+      background : inline-image($icon_hover_src) no-repeat
 /////////////////-------- left_filter list_course ---------//////////////////////
 .list_course
   //now style same main style

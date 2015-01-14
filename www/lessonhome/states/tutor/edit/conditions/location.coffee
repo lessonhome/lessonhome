@@ -48,3 +48,7 @@ class @main extends template '../../../tutor'
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
     @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
+
+
+
+

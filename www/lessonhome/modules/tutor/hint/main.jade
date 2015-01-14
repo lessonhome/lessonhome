@@ -8,7 +8,9 @@
 if selector == 'small'
   .hint(class='small')
     .sign
-    .field
+    .field.hidden
+      .text!= text
+        .angle
 else
   .hint(class=selector)
     .top_block

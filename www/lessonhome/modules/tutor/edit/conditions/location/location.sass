@@ -10,13 +10,14 @@ main
 .block
   +inline-block
 
-  .country, .city, .district, .nearest_metro, .street, .building, .house, .flat, .house_block, .house_block>.value>.building
+  label.country, label.city, label.district, label.nearest_metro, label.street, .line>label.building, .line>label.house, .flat_block>label.flat, label.house_block, label.house_block>.value>.building
+    display  : block
     overflow : hidden
-    padding-bottom : 13px
+    padding  : 6.5px 0
+    cursor : pointer
 
     .m-title
       padding-right : 28px
-      box-sizing : border-box
       float : right
       text-align : right
 
@@ -24,7 +25,7 @@ main
       float : right
 
   .location
-    margin-bottom : 32px
+    margin-bottom : 25.5px
 
     .m-title
       text-align : right
@@ -39,19 +40,12 @@ main
       .tutor, .student
         margin-right : 22px
 
-
-  .flat
-    padding : 0px
-    .value
-      width : $field_width
-      padding-right : 251px
-
   .button_block
     .add_button, .save_button
       float : right
 
     .add_button
-      margin-top    : 25px
+      margin-top    : 18.5px
       margin-bottom : 20px
 
   .button_block:after
@@ -59,16 +53,35 @@ main
     clear   : both
     display : block
 
+  .line
+    text-align : right
+    label.house, label.building
+      +inline-block
+    label.house>.value, label.building>.value
+      height : $field_height
+      width  : $field_width
+    label.house
+      padding-right : 25px
+      padding-left  : 50px
+    label.building
+      padding-left : 25px
+
+  .flat_block
+    text-align : right
+    padding-right : 251px
+    label.flat
+      .value
+        width : $field_width
 
 
-  .house_block
+  //-.house_block
     .value
-      .house, .building
+      label.house, label.building
         +inline-block
-      .house
+      label.house
         height : $field_height
         width  : $field_width
-      .building
+      label.building
         padding : 0
         .m-title
           padding-right : 29px
@@ -77,3 +90,13 @@ main
         .value
           height : $field_height
           width  : $field_width
+
+
+//- -------------- Hover ----------------
+
+.block
+  label.country
+    .m-title:hover
+      #country_label
+        border : 2px solid #b3b3b3
+

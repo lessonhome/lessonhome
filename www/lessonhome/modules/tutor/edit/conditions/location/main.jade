@@ -1,7 +1,7 @@
 mixin info_block(block_class, header, value)
-  div(class=block_class)
-    .value.g-standardField!= value
-    .m-title.g-edit-smallTitle= header
+  label(class=block_class)
+    .value.g-standardField!=value
+    .m-title.g-edit-smallTitle=header
 
 .block
   .location
@@ -14,18 +14,24 @@ mixin info_block(block_class, header, value)
   +info_block('country', 'Страна :', country)
   +info_block('city', 'Город :', city)
   +info_block('district', 'Район :', district)
-  +info_block('nearest_metro', 'Ближайшее метро :', nearest_metro)
+  +info_block('nearest_metro', 'Ближайшее метро :',  nearest_metro)
   +info_block('street', 'Улица :', street)
 
-  .house_block
+  .line
+    +info_block('house', 'Дом :', house)
+    +info_block('building', 'Строение :', building)
+
+  //-.house_block
+    label(for="house_label").house!= house
+
     .value
-      .house!= house
-      .building
+      label(for="house_label").house!= house
+      label(for="building_label").building
         .value!= building
         .m-title.g-edit-smallTitle Строение :
     .m-title.g-edit-smallTitle Дом :
-
-  +info_block('flat', 'Кв. :', flat)
+  .flat_block
+    +info_block('flat', 'Кв. :', flat)
 
   .button_block
     .add_button!= add_button

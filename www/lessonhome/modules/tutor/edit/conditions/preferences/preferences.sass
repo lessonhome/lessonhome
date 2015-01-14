@@ -4,7 +4,7 @@ main
   overflow  : hidden
 
 .header
-  margin      : 45px 0 35px 50px
+  margin      : 47px 0 37px 48px
   font-size   :  26px
   font-family : 'Open Sans', sans-serif
   color       : rgb( 0, 0, 0 )
@@ -16,12 +16,16 @@ main
 
 .select_block
   +inline-block
-  margin-left : 50px
-  margin-top  : 25px
+  margin-left : 51px
+  margin-top  : 7.5px
 
-  .sex, .category, .status
+  label
+    cursor : pointer
+
+  .sex, label.category, label.status
     overflow : hidden
-    padding-bottom : 13px
+    padding : 6.5px 0
+    display : block
 
     .title
       padding-right: 28px
@@ -32,11 +36,8 @@ main
     .value
       float : right
 
-  .status
-    padding-bottom : 0
-
   .button_block
-    margin-top  : 37px
+    margin-top  : 30.5px
     .button
       float : right
 

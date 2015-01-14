@@ -1,14 +1,18 @@
 main
   overflow : hidden
-  padding  : 50px 0 50px 0
+  padding  : 43.5px 0 50px 0
   text-align : center
 
 .block
   display : inline-block
 
-  .country, .city, .address, .mobile_phone, .additional_phone, .mail, .skype, .personal_website
+  label
+    display : block
+    cursor  : pointer
+
+  label.country, label.city, label.address, label.mobile_phone, label.additional_phone, label.mail, label.skype, label.personal_website
     overflow : hidden
-    padding-bottom : 13px
+    padding  : 6.5px 0
 
     .m-title
       padding-right : 28px
@@ -21,7 +25,7 @@ main
 
   /*---------------------------------------------------------*/
 
-  .address
+  label.address
     padding-bottom : 0
     .value
       width      : 340px
@@ -29,7 +33,7 @@ main
 
   /*--------------------------------------------------------*/
 
-  .personal_website
+  label.personal_website
     padding-bottom : 0
 
   /*---------------------------------------------------------*/
