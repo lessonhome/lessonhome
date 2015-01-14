@@ -9,3 +9,4 @@ class @main
     @woman.on 'active', => @man   .disable()
 
     Feel.LabelHoverControl(@dom, '.drop_down_list')
+
