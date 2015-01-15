@@ -8,14 +8,18 @@ main
 .block
   display : inline-block
 
-  .first_name, .second_name, .patronymic, .date_of_birth, .status, .sex
+  label
+    display : block
+    cursor  : pointer
+
+  label.first_name, label.second_name, label.patronymic, label.date_of_birth, label.status, .sex
     overflow  : hidden
     padding-bottom : 13px
 
     .value
       float : right
 
-  .date_of_birth>.value
+  label.date_of_birth>.value
     width : 340px
     .day, .month, .year
       +inline-block
@@ -23,7 +27,7 @@ main
     .day, .month
       margin-right : 10px
 
-  .status
+  label.status
     padding-bottom : 27px
 
 

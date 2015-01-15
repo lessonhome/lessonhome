@@ -1,23 +1,22 @@
 mixin info_block(block_class, title, value)
-  div(class=block_class)
+  label(class=block_class)
     .value.g-standardField!= value
     .m-title.g-edit-smallTitle=title
+
+//- -----------------------------------------------------------
+
 .block
   +info_block('subject', 'Предмет :', subject)
   +info_block('sections', 'Разделы :', sections)
   +info_block('destinations', 'Направления :', destinations)
   +info_block('category_students', 'Категории учеников :', category_students)
 
-  .location_block
-    .value
-      .location!= location
-      .price
-        .value!= price
-        .m-title.g-edit-smallTitle Цена :
-      .add_location!= add_location
-    .m-title.g-edit-smallTitle Место :
+  .line
+    +info_block('location', 'Место :', location)
+    +info_block('price', 'Цена :', price )
+    .add_location!= add_location
 
-  .group_lessons
+  label.group_lessons
     .value
       .pupils_number!= pupils_number
       .bet!= bet
@@ -33,6 +32,7 @@ mixin info_block(block_class, title, value)
   .button_block
     .save_button!= save_button
 
+  //- --------------------------------------------------------
 
 
 
