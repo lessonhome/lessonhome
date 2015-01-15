@@ -1,7 +1,12 @@
 @import compass/css3
+$contact_src: 'tutor/profile_contacts.png'
+$education_src: 'tutor/profile_edu.png'
+$private_src: 'tutor/profile_about.png'
+$media_src: 'tutor/profile_media.png'
 
-$widthMargin : 200px    //width photo and margin-right personal data
-$padding : 30px  //in the section_box
+$width_margin : 180px    //width photo and margin-right personal data
+$margin_bottom_box : 30px  //in the section_box
+$padding_left : 30px
 main
   padding: 50px 20px
 
@@ -9,35 +14,33 @@ main
 //- ------------------------------ POPUP ----------------------------------
 
 .popup_wrap
-  position   : fixed
-  overflow   : scroll
-  text-align : center
-  background-color : rgba(255, 255, 255, 0.70)
-  left    : 0
-  right   : 0
-  top     : 0
-  bottom  : 0
-  z-index : 100
+  position: fixed
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  z-index: 100
+  overflow: scroll
+  text-align: center
+  background-color: rgba(255, 255, 255, 0.70)
 
   .content
     +inline-block
-    margin-top    : 138px
-    margin-bottom : 197px
-    position      : relative
+    margin-top: 138px
+    margin-bottom: 197px
+    position: relative
 
 //- -----------------------------------------------------------------------
 
 
 .info_data
   overflow: hidden
-  padding-bottom: $padding
+  padding-bottom: $margin_bottom_box
   .person_box
     float: left
-    width: $widthMargin
+    width: $width_margin
     .photo
-      overflow: hidden
       height: 200px
-      border-radius: 50%
     .all_rating
       height: 22px
       width: 110px
@@ -47,41 +50,76 @@ main
       width: 160px
       margin: auto
   .personal_data
-    margin-left: $widthMargin
-    padding-left: $padding
+    margin-left: $width_margin
+    padding-left: $padding_left
+
+    $font_line: 30px
     .name
-      $font_line: 30px
       font-size: $font_line
       height: 2*$font_line
       line-height: $font_line
   //---------------line-------------//
 .separate_box
-  margin-bottom: 20px
+  padding-bottom: 4px
 
 div>.icon_box
-  width: $widthMargin
-  padding-bottom: $padding
-  box-sizing: border-box
   position: absolute
   height: 100%
-.media_box .icon_box  //because media_box be end, and don't have padding-bottom
-  padding-bottom: 0
 .contacts_box, .education_box, .private_box, .media_box
-  padding-bottom: $padding
+  margin-bottom: $margin_bottom_box
+  padding-right: 48px
   overflow: hidden
   position: relative
-  min-height: 150px
-.contacts_box>.contacts, .education_box>.education
-  margin-left: $widthMargin
-  padding-left: $padding
+  min-height: 100px
+.private_box, .media_box
+  margin-top: 9px
 .media_box
-  padding-bottom: 0
-$iconsWidthHeight : 100px
-.contacts_box .icon_box .icon, .education_box .icon_box .icon, .private_box .icon_box .icon, .media_box .icon_box .icon
-  width: $iconsWidthHeight
-  height: $iconsWidthHeight
-  margin-left: 50px
-  background: red
+  padding-right: 33px
+  margin-bottom: 0
+$icon_height: image-height($contact_src)
+$icon_width: image-width($contact_src)
+.contacts_box .icon_box .icon
+  width: $icon_width
+  height: $icon_height
+  background: inline-image($contact_src)
   position: relative
   top: 50%
-  margin-top: -50px
+  margin-top: - $icon_height / 2
+  margin-left: ($width_margin - $icon_width) / 2
+
+$icon_height: image-height($education_src)
+$icon_width: image-width($education_src)
+.education_box .icon_box .icon
+  width: $icon_width
+  height: $icon_height
+  background: inline-image($education_src)
+  position: relative
+  top: 50%
+  margin-top: - $icon_height / 2
+  margin-left: ($width_margin - $icon_width) / 2
+
+$icon_height: image-height($private_src)
+$icon_width: image-width($private_src)
+.private_box .icon_box .icon
+  width: $icon_width
+  height: $icon_height
+  background: inline-image($private_src)
+  position: relative
+  top: 50%
+  margin-top: - $icon_height / 2
+  margin-left: ($width_margin - $icon_width) / 2
+
+$icon_height: image-height($media_src)
+$icon_width: image-width($media_src)
+.media_box .icon_box .icon
+  width: $icon_width
+  height: $icon_height
+  background: inline-image($media_src)
+  position: relative
+  top: 50%
+  margin-top: - $icon_height / 2
+  margin-left: ($width_margin - $icon_width) / 2
+
+.contacts_box .contacts, .education_box .education, .private_box .private, .media_box .media
+  margin-left: $width_margin
+  padding-left: $margin_bottom_box

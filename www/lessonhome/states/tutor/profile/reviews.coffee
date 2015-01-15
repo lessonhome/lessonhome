@@ -1,5 +1,5 @@
 class @main extends template '../../tutor'
-  route : '/tutor/profile/reviews'
+  route : '/tutor/reviews'
   model : 'tutor/profile/reviews'
   title : "отзывы"
   tree : ->

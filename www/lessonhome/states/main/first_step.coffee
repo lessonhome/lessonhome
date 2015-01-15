@@ -20,6 +20,7 @@ class @main extends template '../main'
       foreign_languages : 'Иностранные языки +'
       others            : 'Другие +'
       selector          : 'first_step'
+
     content     : module '$/motivation' :
       search_diagram  : module 'main/motivation_block' :
         button   : module 'tutor/button'  :
@@ -39,4 +40,3 @@ class @main extends template '../main'
           text      : 'Начать поиск'
         title     : 'Подбор репетитора'
         selector  : 'choose_tutor'
-
