@@ -1,0 +1,19 @@
+@import compass/css3
+$rating_no_src: 'tutor/rating_no.png'
+$rating_bronze_src: 'tutor/rating_bronze.png'
+$icon_height: image-height($rating_bronze_src)
+$icon_width: image-width($rating_bronze_src)
+.all_rating_line
+  width: $icon_width
+  height: $icon_height
+  position: relative
+  +inline-block
+  background: inline-image($rating_no_src)
+  .filling
+    height: $icon_height
+    position: absolute
+    left: 0
+    top: 0
+    bottom: 0
+    background: inline-image($rating_bronze_src)
+

@@ -21,7 +21,8 @@ class @main extends template '../tutor'
       popup         : @exports()
       photo         : module 'mime/photo' :
         src      : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
-      all_rating  : module '../all_rating'
+      all_rating  : module '../all_rating':
+        filling  : '70%'
       progress  : module '$/progress' :
         filling  : '56%'
       name          : 'Артемий Дудко'
