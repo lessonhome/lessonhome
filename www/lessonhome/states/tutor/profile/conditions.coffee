@@ -27,9 +27,9 @@ class @main extends template '../../tutor'
         name      : 'Новогиреевская улица дом 12 кв 4'
         details   : 'Свободное время'
         selector  : 'title_on_corner'                         #variable class in sass
-      address_and_free_time: module  '$/map_and_calendar'  :
-        map       : '#'
-        calendar  : '#'
+      map           : module '$/map'  :
+        srs       : '#'
+      show_calendar      : module '$/show_calendar'
       outside_work_areas : [          #separate in new module this []
         'Бибирево'
         'Бирюлёво'

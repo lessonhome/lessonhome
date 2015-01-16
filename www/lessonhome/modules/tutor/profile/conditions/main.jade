@@ -6,12 +6,14 @@ mixin info_block ( title, array )
         each value in array
             =value+' '
 
+
+
 .edit_block!=line_place
 .address_and_free_time
-  .address_block.m-title_block
-    !=address_time
-  !=address_and_free_time
-//refactoring
+  .address_block
+    .address_time!=address_time
+    .map!=map
+    .show_calendar!=show_calendar
 +info_block ('Выезд ', outside_work_areas)
 +info_block ('Удалённо ', distance_work)
 .edit_block.top_padding!=line_subject
