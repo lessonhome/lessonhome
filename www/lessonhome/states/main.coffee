@@ -5,7 +5,7 @@ class @main
       items : [
         module 'tutor/header/button' : {
           title : 'Поиск'
-          href  : '/search'
+          href  : '/first_step'
         }
         module 'tutor/header/list_button' : {
           title : 'Стать учеником'
@@ -18,7 +18,7 @@ class @main
         }
         module 'tutor/header/list_button' : {
           title : 'Репетиторам'
-          href  : '/for-tutors'
+          href  : '/main_tutor'
           list  : {
             'как это работает1' : '#'
             'как это работает2' : '#'

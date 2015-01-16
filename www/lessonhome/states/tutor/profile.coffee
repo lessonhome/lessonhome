@@ -36,6 +36,7 @@ class @main extends template '../tutor'
           'Место работы :'        : 'Кооператив сосулька'
       line_con : module 'tutor/separate_line':
         title     : 'Контакты'
+        link      : './edit/contacts'
         edit      : true
         selector  : 'horizon'
       contacts : module '$/info_block' :
@@ -46,6 +47,7 @@ class @main extends template '../tutor'
           'Личный сайт :' : 'prepod.ru'
       line_edu : module 'tutor/separate_line':
         title     : 'Образование'
+        link      : './edit/education'
         edit      : true
         selector  : 'horizon'
       education : module '$/info_block' :
@@ -58,12 +60,14 @@ class @main extends template '../tutor'
           'Год выпуска:'    : '2011'
       line_pri    : module 'tutor/separate_line':
         title     : 'О себе'
+        link      : './edit/about'
         edit      : true
         selector  : 'horizon'
       private : module '$/private' :
         text : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
       line_med : module 'tutor/separate_line':
         title    : 'Медиа'
+        link      : './edit/media'
         edit     : true
         selector : 'horizon'
       media : module '$/media' :

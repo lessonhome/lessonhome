@@ -26,7 +26,8 @@ mixin item (selector, text)
 
       .buttons
         .a.m-Link.phone_check_in Регистрация по телефону
-        .create_account!= create_account
+        .create_account
+          a(href='tutor/profile/first_step')!=create_account
 
 
 //- ------------- HOW IT WORKS --------------------
