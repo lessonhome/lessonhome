@@ -1,0 +1,25 @@
+-var padding = 7;
+-var width_star = 16;
+-var star_number = 5;
+-var star_filling = (filling*star_number)/100;
+-var number_padding = Math.floor(star_filling);
+-var width_cut_filling;
+if(star_filling != number_padding)
+  -width_cut_filling = star_filling*width_star + number_padding*padding;
+else
+  -width_cut_filling = star_filling*width_star + number_padding*padding - padding;
+.all_rating_line
+  .one
+  .two
+  .three
+  .four
+  .five
+  .cut_filling(style="width : #{width_cut_filling}px")
+    .filling
+      .one
+      .two
+      .three
+      .four
+      .five
+
+

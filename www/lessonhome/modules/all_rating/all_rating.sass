@@ -1,0 +1,38 @@
+@import compass/css3
+$rating_no_src: 'tutor/rating_no.png'
+$rating_bronze_src: 'tutor/rating_bronze.png'
+$icon_height: image-height($rating_bronze_src)
+$icon_width: image-width($rating_bronze_src)
+$padding: 7px
+.all_rating_line
+  width: 5*$icon_width + 4*$padding
+  height: $icon_height
+  position: relative
+  +inline-block
+  .one, .two, .three, .four, .five
+    height: $icon_height
+    width: $icon_width
+    background: inline-image($rating_no_src)
+    margin-right: $padding
+    +inline-block
+  .five
+    margin-right: 0
+  .cut_filling
+    overflow: hidden
+    height: $icon_height
+    position: absolute
+    left: 0
+    top: 0
+    bottom: 0
+    .filling
+      width: 5*$icon_width + 4*$padding
+      height: $icon_height
+      .one, .two, .three, .four, .five
+        height: $icon_height
+        width: $icon_width
+        background: inline-image($rating_bronze_src)
+        margin-right: $padding
+        +inline-block
+      .five
+        margin-right: 0
+

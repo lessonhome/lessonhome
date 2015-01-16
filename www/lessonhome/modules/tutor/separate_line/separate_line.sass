@@ -1,7 +1,7 @@
 @import compass/css3
-$font-size : 20px       //take bigger font-size in this box and use in variable, because u can do vertical center text in this box
-$backgroundText : #ffffff
-$paddingText : 20px
+$font-size: 20px       //take bigger font-size in this box and use in variable, because u can do vertical center text in this box
+$backgroundText: #ffffff
+$paddingText: 20px
 main
   height: 100%
   font-size: $font-size
@@ -16,6 +16,8 @@ main
   background: $backgroundText
 .value
   float: right
+  padding-right: 0
+  padding-left: $paddingText
   font-size: 18px
 .horizon
   position: absolute
@@ -31,7 +33,7 @@ main
   height: 100%
 
 .gradient
-  height          : 100%
-  background      : inline-image('separate.png')
-  background-size : 100%
-  border-radius   : 2px
+  height: 100%
+  background: inline-image('separate.png')
+  background-size: 100%
+  border-radius: 2px

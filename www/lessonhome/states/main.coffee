@@ -31,8 +31,8 @@ class @main
         }
       ]
     filter_top      : @exports()
-    advanced_filter : @exports()
     info_panel      : @exports()
-    content         : @exports()   # must be defined
+    content         : @exports()
+    advanced_filter : @exports()
 
 

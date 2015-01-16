@@ -21,7 +21,9 @@ class @main extends template '../tutor'
       popup         : @exports()
       photo         : module 'mime/photo' :
         src      : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
-      progress  : module '$/description/progress' :
+      all_rating  : module '../all_rating':
+        filling  : '40'
+      progress  : module '$/progress' :
         filling  : '56%'
       name          : 'Артемий Дудко'
       personal_data : module '$/info_block' :
@@ -58,15 +60,13 @@ class @main extends template '../tutor'
         title     : 'О себе'
         edit      : true
         selector  : 'horizon'
-      private : module '$/description/private' :
-        text : 'О себеО себеО себеО себеО себеО себеО себеО себеО себе
-            О себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО
-            О себеО себеО себеО себеО себеО себеО себеО себеО себеО себе:'
+      private : module '$/private' :
+        text : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
       line_med : module 'tutor/separate_line':
         title    : 'Медиа'
         edit     : true
         selector : 'horizon'
-      media : module '$/description/media' :
+      media : module '$/media' :
         photo1  : module 'mime/photo' :
           src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
         photo2  : module 'mime/photo' :

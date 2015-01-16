@@ -1,0 +1,32 @@
+@import compass/css3
+$padding_top_hover: 8px
+$padding_left_hover: 5px
+$triangle_src: 'main/triangle_down.png'
+$icon_height: image-height($triangle_src)
+$icon_width: image-width($triangle_src)
+$height_font: 16px
+.sort_block
+  padding: 0 0 0 34px
+  margin-top: -$padding_top_hover
+  text-align: left
+  font-size: $height_font
+  color:  #757575
+  .section
+    padding: 0 $padding_left_hover
+    +inline-block
+    cursor: pointer
+    .box
+      padding: $padding_top_hover $padding_left_hover
+      .icon
+        width: $icon_width
+        height: $icon_height
+        margin: ($height_font - $icon_height)/2 $padding_left_hover 0 0
+        +inline-block
+        background: inline-image($triangle_src)
+      .price, .experience, .way_time
+        +inline-block
+  .section:hover
+    .box
+      border-radius: 4px
+      background-color: rgb(235, 235, 235)
+      color:  #c4675e

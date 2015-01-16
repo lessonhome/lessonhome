@@ -6,6 +6,7 @@ class @main
       remotely_button     : @exports()
       address_input       : @exports()
       list_subject        : @exports()
+      choose_subject      : @exports()
       price_slider_top    : @exports()
       button_back         : module 'tutor/button'  :
         selector  : 'subject_back'
