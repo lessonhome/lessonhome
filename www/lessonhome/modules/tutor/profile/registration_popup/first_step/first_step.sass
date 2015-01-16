@@ -28,7 +28,7 @@ $height : 37px
   position : relative
   width  : 315px
   height : 215px
-  margin : 50px 0 35px 258px
+  margin : 50px 0 29.5px 258px
   .plus
     position : absolute
     width  : 50px
@@ -64,9 +64,12 @@ $height : 37px
 .fields
   text-align    : right
   margin-right  : 164px
-  margin-bottom : 67px
-  div
-    margin-bottom : 11px
+  margin-bottom : 61.5px
+  label, .sex
+    display : block
+    cursor  : pointer
+    padding : 5.5px 0
+    //-margin-bottom : 11px
     .title, .value
       +inline-block
 
@@ -89,6 +92,7 @@ $height : 37px
     margin-bottom : 0
 
   .sex
+    cursor : default
     .value
       div
         +inline-block
@@ -106,7 +110,7 @@ $height : 37px
       width : 0px
 
 
-  .birth_date
+  label.birth_date
     .value
       div
         +inline-block

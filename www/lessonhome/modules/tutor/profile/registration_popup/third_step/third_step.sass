@@ -6,16 +6,18 @@ main
 $height : 37px
 
 .fields
-  margin-top    : 28px
-  margin-bottom : 60px
+  margin-top    : 22.5px
+  margin-bottom : 54.5px
   text-align    : right
-  .subject, .categories, .directions, .categories_of_students, .place, .price, .group_lessons
+  label.subject, label.categories, label.directions, label.categories_of_students, label.place, label.price, label.group_lessons
     .value
       height : $height
 
-  div
+  label, .button_block
+    display : block
+    cursor  : pointer
     margin-right  : 167px
-    margin-bottom : 11px
+    padding : 5.5px 0
     .title, .value
       +inline-block
 
@@ -32,18 +34,19 @@ $height : 37px
     .value
       width  : 341px
 
-  .place, .price
+  label.place, label.price
     +inline-block
 
-  .place
+  label.place
+    padding-right : 15px
     margin-right : 0
     .value
       width : 171px
 
-  .price
+  label.price
     margin-right : 106px
     .title
-      width        : 80px
+      width        : 65px
       margin-right : 18px
     .value
       width        : 71px
@@ -52,7 +55,7 @@ $height : 37px
       +inline-block
 
 
-  .group_lessons
+  label.group_lessons
     .value
       div
         +inline-block
@@ -63,8 +66,8 @@ $height : 37px
       .group_lessons_bet
         width : 122px
 
-  .comments
-    margin-bottom : 15px
+  label.comments
+    margin-bottom : 4px
     .title
       vertical-align : top
 

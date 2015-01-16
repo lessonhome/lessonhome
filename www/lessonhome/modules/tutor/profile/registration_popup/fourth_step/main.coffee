@@ -14,3 +14,5 @@ class @main
       @tutor   .disable()
       @student .disable()
 
+    Feel.LabelHoverControl(@dom, '.drop_down_list, input')
+
