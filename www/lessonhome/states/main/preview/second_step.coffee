@@ -8,7 +8,6 @@ class @main extends template '../preview'
       list_subject    : module 'tutor/forms/drop_down_list'  :
         selector    : 'filter_top'
         placeholder : 'Например студент'
-        icon        : '&#9660;'
       choose_subject  : module 'tutor/button'  :
         selector  : 'choose_subject'
         text        : 'Преподаватель вуза'
