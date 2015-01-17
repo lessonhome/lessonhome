@@ -15,7 +15,7 @@ class @main extends template '../main'
       advanced_filter  : state './advanced_filter'
       sort             :  module '$/sort'
       choose_tutors    :  module '$/choose_tutors':
-        all_rating  : module '../all_rating'
+        all_rating  : module '../rating_star'
         tutor_photo : module 'mime/photo' :
           src : '#'
       tutors           :  module '$/tutors'

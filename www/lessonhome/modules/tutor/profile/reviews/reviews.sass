@@ -1,21 +1,15 @@
 @import "compass/css3"
-
-$stars_src      : 'reviews/star_big_gray.png'
-$stars_pink     : 'reviews/star_big_pink.png'
-$stars_height   : image-height($stars_src)
-$stars_width    : image-width($stars_src)
 $hint_src       : 'hint.png'
 $hint_height    : image-height($hint_src)
 $hint_width     : image-width($hint_src)
-
-
+$width_reviews: 500px
+//to do: require module hint
 main
   overflow : hidden
   padding: 50px 20px 30px 20px
-// ------------HINT---------------//
 .hint
   position: relative
-  margin-left: 73%
+  margin-left: $width_reviews
   padding: 0 0 0 20px
   .vertical_line
     position: absolute
@@ -34,36 +28,24 @@ main
   .text
     font-size: 18px
     color: rgb(93, 100, 107)
-
-//------------------ REVIEWS---------------//
 .reviews
   padding-right: 40px
   box-sizing: border-box
-  width : 73%
+  width : $width_reviews
   float : left
   .review
     margin-bottom : 30px
-
-//----------------GRADE-------------//
 .grade
-  line-height: $stars_height    //if it's bigger size in parent box
   margin: 0 0 60px 78px
   overflow: hidden
   .title
     font-size: 20px
-    //font-family: "Open Sans"
     color: rgb(0, 0, 0)
+    float: left
+    font-weight: 900
+  .reviews_rating
     float : left
-    font-weight : bold
-  .stars
-    height : $stars_height
-    width : 5*$stars_width                                  //max stars 5
-    background: inline-image($stars_src)
-    float : left
-    margin: 0 20px
-    .full_stars
-      background: inline-image($stars_pink)
-      height : $stars_height
+    padding: 0 20px
   .number_pupils
     float: left
     color : #777
