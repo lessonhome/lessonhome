@@ -25,9 +25,9 @@ class @main extends template '../../../tutor'
     content : module '$' :
       place_of_work : module 'tutor/forms/input'
       post : module 'tutor/forms/input'
-      add_button : module 'tutor/button' :
-        text  : '+ Добавить'
-        selector  : 'fixed'
+      add_button    : module 'tutor/button' :
+        text     : '+Добавить'
+        selector : 'edit_add'
       line : module 'tutor/separate_line' :
         selector : 'gradient'
       experience_tutoring : module 'tutor/forms/drop_down_list'
@@ -36,8 +36,8 @@ class @main extends template '../../../tutor'
         height : '117px'
 
       save_button : module 'tutor/button' :
-        text  : 'Сохранить'
-        selector  : 'fixed'
+        text     : 'Сохранить'
+        selector : 'edit_save'
 
 
       hint : module 'tutor/hint' :

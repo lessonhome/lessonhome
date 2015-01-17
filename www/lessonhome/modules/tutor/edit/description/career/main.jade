@@ -1,7 +1,8 @@
 mixin info_block(block_class, header, value)
-  label(class=block_class)
-    .value.g-standardField!= value
-    .m-title.g-edit-smallTitle!= header
+  .container
+    label(class=block_class)
+      .value.g-standardField!= value
+      .m-title.g-edit-smallTitle!= header
 
 //- -------------------------------------------------
 .block
