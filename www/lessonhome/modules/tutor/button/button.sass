@@ -1,5 +1,7 @@
 @import compass/css3
 
+$RedHoverColor : #ffb1a8
+
 main
   height: 100%
   cursor: pointer
@@ -7,7 +9,7 @@ main
 //- ------------ HOVER ---------------------
 
 .button:hover
-  background-color : #ffb1a8
+  background-color : $RedHoverColor
 //- ---------------------------------------------
 
 .fixed, .add, .streamlined, .color_blue
@@ -214,9 +216,9 @@ $height_add: 33px
     font-size: 18px
     color: #757575
 
-//- ---------------- EDIT : SAVE BUTTON --------------------------
+//- ---------------- EDIT : SAVE, ADD BUTTONS --------------------------
 
-.button.edit_save
+.button.edit_save, .button.edit_add
   width: 128px
   height: 33px
   padding-top: 5px
@@ -229,3 +231,8 @@ $height_add: 33px
     font-size : 20px
     color     : #fff
     font-family : 'Open Sans', sans-serif
+
+.button.edit_save:hover, .button.edit_add:hover
+  background-color : $RedHoverColor
+
+

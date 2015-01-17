@@ -35,7 +35,7 @@ class @main extends template '../../../tutor'
         height : '82px'
       add_button        : module 'tutor/button' :
         text      : '+ Добавить'
-        selector  : 'fixed'
+        selector  : 'edit_add'
       save_button       : module 'tutor/button' :
         text      : 'Сохранить'
         selector  : 'edit_save'
