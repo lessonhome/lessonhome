@@ -38,7 +38,7 @@ class @main extends template '../../../tutor'
                 так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
       button              : module 'tutor/button' :
         text      : 'Сохранить'
-        selector  : 'fixed'
+        selector  : 'edit_save'
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
     @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
