@@ -40,17 +40,16 @@ class @main extends template '../../../tutor'
         selector    : 'small_radius'
         placeholder : 'Год'
       add_button    : module 'tutor/button' :
-        text      : '+ Добавить'
-        selector  : 'fixed'
+        text      : '+Добавить'
+        selector  : 'edit_add'
       save_button   : module 'tutor/button' :
         text      : 'Сохранить'
-        selector  : 'fixed'
+        selector  : 'edit_save'
       hint          : module 'tutor/hint' :
         selector  : 'horizontal'
         header    : 'Это подсказка'
         text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени,
-                   как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой,
-                   так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
+                   как обычно и происходит. Однако в некоторых исключительных случаях'
 
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
