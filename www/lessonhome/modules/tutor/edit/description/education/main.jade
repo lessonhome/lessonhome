@@ -13,8 +13,8 @@ mixin info_block(block_class, header, value)
 
   label.date
     .value
-      .day.g-smallField!= release_day
-      .month.g-smallField!= release_month
+      .day!= release_day
+      .month!= release_month
       .year.g-smallField!= release_year
     .m-title.g-edit-smallTitle Дата выпуска :
 
