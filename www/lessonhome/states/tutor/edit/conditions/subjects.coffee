@@ -34,7 +34,7 @@ class @main extends template '../../../tutor'
         id     : 'comments'
         height : '82px'
       add_button        : module 'tutor/button' :
-        text      : '+ Добавить'
+        text      : '+Добавить'
         selector  : 'edit_add'
       save_button       : module 'tutor/button' :
         text      : 'Сохранить'
