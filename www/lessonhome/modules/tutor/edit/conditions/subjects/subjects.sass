@@ -33,7 +33,7 @@ main
     label
       +inline-block
     label.location
-      padding-right : 12px
+      padding-right : 13px
       .value
         width  : 183px
         height : 37px
@@ -85,16 +85,21 @@ main
 
 
   label.group_lessons>.value
+    overflow : hidden
     .pupils_number, .bet
       +inline-block
 
     .pupils_number
-      width : 183px
-      margin-right : 34px
+      width  : 183px
+      height : 37px
+      float : left
+      padding-right: 18px
 
     .bet
+      overflow: hidden
       width  : 121px
       height : 37px
+      padding-left: 18px
 
   label.comments
     padding-bottom : 0px
@@ -114,8 +119,6 @@ main
       text-align : right
       word-wrap  : break-word
 
-    .value
-      overflow : hidden
 
       .pupils_number
         width  : 183px
