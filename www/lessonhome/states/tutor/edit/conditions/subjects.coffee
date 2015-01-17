@@ -25,15 +25,11 @@ class @main extends template '../../../tutor'
       sections          : module 'tutor/forms/drop_down_list'
       destinations      : module 'tutor/forms/drop_down_list'
       category_students : module 'tutor/forms/drop_down_list'
-      location          : module 'tutor/forms/drop_down_list' :
-        selector : 'small_radius'
-      price             : module 'tutor/forms/input' :
-        selector : 'small_radius'
+      location          : module 'tutor/forms/drop_down_list'
+      price             : module 'tutor/forms/input'
       add_location     : module '//add_location'
-      pupils_number     : module 'tutor/forms/drop_down_list' :
-        selector : 'small_radius'
-      bet               : module 'tutor/forms/input' :
-        selector : 'small_radius'
+      pupils_number     : module 'tutor/forms/drop_down_list'
+      bet               : module 'tutor/forms/input'
       comments          : module 'tutor/forms/textarea' :
         id     : 'comments'
         height : '82px'
