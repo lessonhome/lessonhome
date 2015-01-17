@@ -26,8 +26,9 @@ mixin field (selector, title, value)
     .title Дата рождения :
     .value
       .birth_day!= birth_day
-      .birth_month!= birth_month
-      .birth_year!= birth_year
+
+  .birth_month!= birth_month
+  .birth_year!= birth_year
 
   +field ('status', 'Статус :', status)
 

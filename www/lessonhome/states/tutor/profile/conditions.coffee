@@ -21,6 +21,7 @@ class @main extends template '../../tutor'
     content : module '$' :
       line_place  : module 'tutor/separate_line' :
         title     : 'Место :'
+        link      : './edit/location'
         edit      :  true
         selector  : 'horizon'
       address_time  : module 'tutor/profile/title_block'  :
@@ -42,6 +43,7 @@ class @main extends template '../../tutor'
       ]
       line_subject  : module 'tutor/separate_line' :
         title     : 'Предметы'
+        link      : './edit/subjects'
         edit      : true
         selector  : 'horizon'
       subject       : module 'tutor/profile/title_block'  :

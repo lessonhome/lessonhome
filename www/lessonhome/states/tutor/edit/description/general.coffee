@@ -6,7 +6,7 @@ class @main extends template '../../../tutor'
     items : [
       module 'tutor/header/button' : {
         title : 'Описание'
-        href  : '/tutor/edit/genera'
+        href  : '/tutor/edit/general'
       }
       module 'tutor/header/button' : {
         title : 'Условия'
