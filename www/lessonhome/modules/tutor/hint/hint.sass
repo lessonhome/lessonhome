@@ -1,52 +1,52 @@
 @import compass/css3
 
-$red : 29px
-$blu : 58px
+$red: 29px
+$blu: 58px
 
 .hint.horizontal, .hint.vertical, .hint.horizontal_hide_ability
   .question_sign_block
-    background : inline-image('hint.png') no-repeat
-    height : 64px
-    width  : 64px
+    background: inline-image('hint.png') no-repeat
+    height: 64px
+    width: 64px
 
   .header, .text
-    overflow : hidden
-    font-family : 'Open Sans', sans-serif
+    overflow: hidden
+    font-family: 'Open Sans', sans-serif
 
   .header
     font-size: 24px
 
   .text
-    padding-top : 10px
-    font-size : 16px
-    line-height : 1.5
+    padding-top: 10px
+    font-size: 16px
+    line-height: 1.5
 
   .top_block
-    display : none
+    display: none
 
 /*---------------------------------*/
 .hint.horizontal, .hint.horizontal_hide_ability
   .question_sign_block
-    float : left
+    float: left
 
   .header, .text
-    text-align : left
+    text-align: left
   .header
     padding-left: 25px
     padding-top: 9px
   .text
-    padding-left : 26px
+    padding-left: 26px
 
 
 .hint.horizontal
   .header, .text
-    font-family : 'Open Sans', sans-serif
-    color       : rgb(0, 0, 0)
+    font-family: 'Open Sans', sans-serif
+    color: rgb(0, 0, 0)
   .header
-    font-size   : 20px
+    font-size: 20px
   .text
-    font-size   : 18px
-    line-height : 20px
+    font-size: 18px
+    line-height: 20px
 
 
 
@@ -54,87 +54,87 @@ $blu : 58px
 
 .hint.horizontal_hide_ability
   .top_block
-    display : block
-    text-align : right
+    display: block
+    text-align: right
     .hide_button
       .icon, .text
         +inline-block
       .icon
-        background : inline-image('falldown_triangle2.png') no-repeat
-        width        : 13px
-        height       : 12px
-        margin-right : 7px
+        background: inline-image('falldown_triangle2.png') no-repeat
+        width: 13px
+        height: 12px
+        margin-right: 7px
       .text
-        font-size   : 16px
-        font-family : 'Open Sans', sans-serif
+        font-size: 16px
+        font-family: 'Open Sans', sans-serif
   .text
-    padding-top : 0
+    padding-top: 0
 /*--------------------------------*/
 
 .hint.small
-  position : relative
-  cursor : pointer
+  position: relative
+  cursor: pointer
   .sign
-    width  : 18px
-    height : 18px
-    border-radius       : 50%
-    box-shadow          : 0px 1px 3px 0px rgba(10, 11, 12, 0.26)
-    background          : inline-image('small_question_sign.png') no-repeat
-    background-position : center
-    background-color    : rgb( 242, 238, 238 )
+    width: 18px
+    height: 18px
+    border-radius: 50%
+    box-shadow: 0px 1px 3px 0px rgba(10, 11, 12, 0.26)
+    background: inline-image('small_question_sign.png') no-repeat
+    background-position: center
+    background-color: rgb( 242, 238, 238 )
 
 
   .question_sign_block
-    margin : 0 auto 20px auto
+    margin: 0 auto 20px auto
 
     .question_sign_block, .header, .text
-      width : 80%
-      margin : auto
+      width: 80%
+      margin: auto
 
     .question_sign_block
-      height : 64px
-      background : url(F('hint.png')) no-repeat
+      height: 64px
+      background: url(F('hint.png')) no-repeat
 
     .header
 
-      margin-top : 19px
-      margin-bottom : 10px
+      margin-top: 19px
+      margin-bottom: 10px
 
-      font-weight : bold
-      font-size : 1.6em
+      font-weight: bold
+      font-size: 1.6em
 
     .text
       font: 12px "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif
-      color : #777
+      color: #777
 
   .field
-    position : absolute
-    top    : 0px
-    left   : 23px
-    width  : 245px
-    height : 96px
-    background-color : rgb( 243, 243, 243 )
-    box-shadow : 2.487px 1.678px 3px 0px rgba(10, 11, 12, 0.13)
+    position: absolute
+    top: 0px
+    left: 23px
+    width: 245px
+    height: 96px
+    background-color: rgb( 243, 243, 243 )
+    box-shadow: 2.487px 1.678px 3px 0px rgba(10, 11, 12, 0.13)
     .text
-      position    : relative
-      padding     : 4px 0 0 9px
-      font-size   : 16px
-      line-height : 20px
-      font-family : 'Open Sans', sans-serif
-      color       : rgb(0, 0, 0)
+      position: relative
+      padding: 4px 0 0 9px
+      font-size: 16px
+      line-height: 20px
+      font-family: 'Open Sans', sans-serif
+      color: rgb(0, 0, 0)
       .angle
-        position : absolute
-        top    : 0
-        left   : -11px
-        width  : 11px
-        height : 16px
-        background : inline-image('inside_out_angle.png') no-repeat
+        position: absolute
+        top: 0
+        left: -11px
+        width: 11px
+        height: 16px
+        background: inline-image('inside_out_angle.png') no-repeat
 
 /*------------------------------------------------------*/
 
 .hint
   .field.hidden
-    visibility : hidden
+    visibility: hidden
 
 .hint.vertical
   position: relative
@@ -149,14 +149,14 @@ $blu : 58px
     margin-top: 26px
 
   .separate_line
-    position : absolute
-    height : 100%
-    width  : 2px
-    right  : 0
-    top    : 0
+    position: absolute
+    height: 100%
+    width: 2px
+    right: 0
+    top: 0
 
 .hint.vertical:after
-  content : ''
-  clear   : both
-  display : block
+  content: ''
+  clear: both
+  display: block
 
