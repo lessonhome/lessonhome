@@ -12,7 +12,7 @@ $padding: 7px
   .one, .two, .three, .four, .five
     height: $icon_height
     width: $icon_width
-    background: inline-image($rating_no_src)
+    background: inline-image($rating_no_src) no-repeat
     margin-right: $padding
     float: left
   .five
@@ -30,7 +30,7 @@ $padding: 7px
       .one, .two, .three, .four, .five
         height: $icon_height
         width: $icon_width
-        background: inline-image($rating_bronze_src)
+        background: inline-image($rating_bronze_src) no-repeat
         margin-right: $padding
         float: left
       .five
@@ -39,38 +39,56 @@ $stars_src: 'reviews/star_big_gray.png'
 $stars_pink: 'reviews/star_big_pink.png'
 $icon_height: image-height($stars_src)
 $icon_width: image-width($stars_src)
-$padding: 0
+$padding: 0px
 .rating_star_line.padding_no
-  width: 5*$icon_width + 4*$padding
+  width: 5*$icon_width
   .one, .two, .three, .four, .five
     height: $icon_height
     width: $icon_width
-    background: inline-image($stars_src)
-    margin-right: $padding
+    background: inline-image($stars_src) no-repeat
   .cut_filling
     height: $icon_height
     .filling
-      width: 5*$icon_width + 4*$padding
+      width: 5*$icon_width
       height: $icon_height
       .one, .two, .three, .four, .five
         height: $icon_height
         width: $icon_width
-        background: inline-image($stars_pink)
-        margin-right: $padding
-
-
+        background: inline-image($stars_pink) no-repeat
 $small_stars_src: 'reviews/star_small_gray.png'
 $small_stars_pink: 'reviews/star_small_pink.png'
 $icon_height: image-height($small_stars_src)
 $icon_width: image-width($small_stars_src)
-$padding: 0
+$padding: 0px
 .rating_star_line.padding_no_small
+  width: 5*$icon_width
+  .one, .two, .three, .four, .five
+    height: $icon_height
+    width: $icon_width
+    background: inline-image($small_stars_src) no-repeat
+  .cut_filling
+    height: $icon_height
+    .filling
+      width: 5*$icon_width
+      height: $icon_height
+      .one, .two, .three, .four, .five
+        height: $icon_height
+        width: $icon_width
+        background: inline-image($small_stars_pink) no-repeat
+$small_stars_src: 'main/ratingsmall_no.png'
+$small_stars_pink: 'main/ratingsmall_bronze.png'
+$icon_height: image-height($small_stars_src)
+$icon_width: image-width($small_stars_src)
+$padding: 1px
+.rating_star_line.padding_1px_small
   width: 5*$icon_width + 4*$padding
   .one, .two, .three, .four, .five
     height: $icon_height
     width: $icon_width
-    background: inline-image($small_stars_src)
+    background: inline-image($small_stars_src) no-repeat
     margin-right: $padding
+  .five
+    margin-right: 0
   .cut_filling
     height: $icon_height
     .filling
@@ -79,5 +97,7 @@ $padding: 0
       .one, .two, .three, .four, .five
         height: $icon_height
         width: $icon_width
-        background: inline-image($small_stars_pink)
+        background: inline-image($small_stars_pink) no-repeat
         margin-right: $padding
+      .five
+        margin-right: 0

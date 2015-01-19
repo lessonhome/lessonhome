@@ -1,5 +1,13 @@
 .advanced_filter!=advanced_filter
 .result_filter
   .sort!=sort
-  .choose_tutors!=choose_tutors
-  .tutors!=tutors
+  .choose_tutors_block
+    .choose_tutors_content
+      .section
+        .box_icon
+          .icon
+        .text Выбранные репетиторы
+      .choose_tutors
+        each value in choose_tutors
+          .choose_tutor!= value
+  .tutors_resulr!=tutors
