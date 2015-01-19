@@ -27,9 +27,12 @@ class @main extends template '../../../tutor'
       category_students : module 'tutor/forms/drop_down_list'
       location          : module 'tutor/forms/drop_down_list'
       price             : module 'tutor/forms/input'
-      add_location     : module '//add_location'
+      add_location      : module 'tutor/button' :
+        text     : '+'
+        selector : 'add_smth'
       pupils_number     : module 'tutor/forms/drop_down_list'
-      bet               : module 'tutor/forms/input'
+      bet               : module 'tutor/forms/input' :
+        text : 'Ставка'
       comments          : module 'tutor/forms/textarea' :
         id     : 'comments'
         height : '82px'
