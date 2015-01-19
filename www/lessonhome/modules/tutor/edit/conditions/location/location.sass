@@ -4,11 +4,12 @@ $field_height : 37px
 
 main
   overflow : hidden
-  padding  : 38px 0 20px 0
-  text-align : center
+  padding  : 37px 0 20px 0
+  text-align: right
 
 .block
   +inline-block
+  margin-right: 151px
 
   label.country, label.city, label.district, label.nearest_metro, label.street, .line>label.building, .line>label.house, .flat_block>label.flat, label.house_block, label.house_block>.value>.building
     display  : block
@@ -17,7 +18,7 @@ main
     cursor : pointer
 
     .m-title
-      padding-right : 28px
+      padding-right : 22px
       float : right
       text-align : right
 
@@ -25,7 +26,7 @@ main
       float : right
 
   .location
-    margin-bottom : 25.5px
+    margin-bottom : 27.5px
 
     .m-title
       text-align : right
@@ -33,7 +34,8 @@ main
       margin-bottom : 15px
 
     .value
-      text-align : right
+      padding-right: 5px
+      text-align: right
       div
         +inline-block
         width : 128px
@@ -45,7 +47,7 @@ main
       float : right
 
     .add_button
-      margin-top    : 18.5px
+      margin-top    : 20.5px
       margin-bottom : 20px
 
   .button_block:after
@@ -61,14 +63,14 @@ main
       height : $field_height
       width  : $field_width
     label.house
-      padding-right : 25px
+      padding-right : 28px
       padding-left  : 50px
     label.building
-      padding-left : 25px
+      padding-left : 29px
 
   .flat_block
     text-align : right
-    padding-right : 251px
+    padding-right : 252px
     label.flat
       .value
         width : $field_width
