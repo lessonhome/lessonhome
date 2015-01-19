@@ -36,5 +36,5 @@ class @main
         text              : 'М'
       with_reviews      : module 'tutor/forms/checkbox':
         selector          : 'time'
-      with_reviews      : module 'tutor/forms/checkbox':
+      with_verification : module 'tutor/forms/checkbox':
         selector          : 'time'

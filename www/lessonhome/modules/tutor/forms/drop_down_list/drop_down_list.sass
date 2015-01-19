@@ -1,13 +1,11 @@
 @import compass/css3
 $icon_padding: 6px
 $icon_src: 'falldown_triangle3.png'
-$icon_hover_src : 'triangle-15-x-13-hover.png'
 $icon_height: image-height($icon_src)
 $icon_width: image-width($icon_src)
 $font_size: 20px
 main
   height: 100%
-
 .drop_down_list
   position: relative
   height: 100%
@@ -23,15 +21,11 @@ main
     height: 100%
     font-size: $font_size
     color: rgb(0, 0, 0)
-    font-family: 'Open Sans', sans-serif
     cursor: text
     +input-placeholder
-      //line-height: $font_size
-      //font-size: $font_size
-      color: #757575
+      line-height: $font_size
       font-size: $font_size
-      font-family: 'Open Sans'
-
+      color: #b3b3b3
   .icon_box
     padding: 0 11px 0 $icon_padding
     position: absolute
@@ -49,45 +43,63 @@ main
 
 /////////////////--------list_subject, list_tutor---------//////////////////////
 $icon_padding: 15px
-$icon_width: 26px
-$icon_height: 23px
-$font_size: 24px
-.filter_top
+$icon_src : 'main/triangle 24x21.png'
+$icon_height: image-height($icon_src)
+$icon_width: image-width($icon_src)
+$font_size: 37px
+.drop_down_list.filter_top
   input
-    border: 3px solid rgb(202, 211, 218)
+    border: 3px solid rgb(214, 214, 214)
     font-size: $font_size
     color: rgb(0, 0, 0)
     +input-placeholder
-      color: rgb(142, 149, 156)
+      font-size: $font_size
+      line-height: initial
   .icon_box
     padding: 0 $icon_padding
     .icon
       width: $icon_width
       height: $icon_height
       margin-top: -$icon_height / 2
-      background: none  //wait triangle, no use symbol
+      background : inline-image($icon_src) no-repeat
       color: rgb(203, 211, 218)
-      font-size: 26px
+
 /////////////////--------list_course---------//////////////////////
-//$icon_padding: 10px
-//.drop_down_list.list_course
+$icon_padding: 10px
+$font_size: 20px
+.drop_down_list.list_course
   input
     padding: 0 (2*$icon_padding+$icon_width) 0 8px
-    font-size: 20px
-    color: rgb(0, 0, 0)
+    +input-placeholder
+      font-size: $font_size
+      line-height: initial
   .icon_box
     padding: 0 $icon_padding
-    width: auto
 
-//- ------------------------ SMALL RADIUS --------------------------------
-
-
+//------------------------ hover --------------------------------
+$icon_hover_src : 'triangle-15-x-13-hover.png'
 .drop_down_list.hover
   input
     border : 2px solid #b3b3b3
+  .icon_box
+    .icon
+      background : inline-image($icon_hover_src) no-repeat
 
+$icon_hover_src : 'main/triangle-24x21_hover.png'
+.filter_top.hover
+  input
+    border : 3px solid #b3b3b3
+  .icon_box
+    .icon
+      background : inline-image($icon_hover_src) no-repeat
+
+//------------------------ focus --------------------------------
 .drop_down_list
   input:focus
     border : 2px solid rgb( 137, 209, 255 )
+
+.filter_top
+  input:focus
+    border : 3px solid rgb( 137, 209, 255 )
 
 
