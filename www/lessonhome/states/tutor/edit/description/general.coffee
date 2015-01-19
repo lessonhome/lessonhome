@@ -42,9 +42,9 @@ class @main extends template '../../../tutor'
         placeholder : 'Год'
       status      :  module 'tutor/forms/drop_down_list'
 
-      save_button : module 'tutor/button' :
-        text      : 'Сохранить'
-        selector  : 'fixed'
+      save_button   : module 'tutor/button' :
+        text     : 'Сохранить'
+        selector : 'edit_save'
 
       hint : module 'tutor/hint' :
         selector  : 'horizontal'

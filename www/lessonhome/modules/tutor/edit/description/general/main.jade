@@ -25,8 +25,8 @@ mixin info_block(block_class, header, value)
 
   label.date_of_birth
     .value
-      .day.g-smallField!= birth_day
-      .month.g-smallField!= birth_month
+      .day!= birth_day
+      .month!= birth_month
       .year.g-smallField!= birth_year
     .m-title.g-edit-smallTitle Дата рождения :
 
