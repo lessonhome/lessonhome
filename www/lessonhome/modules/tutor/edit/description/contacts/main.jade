@@ -1,14 +1,18 @@
 mixin info_block(block_class, header, value)
-  label(class=block_class)
-    .value.g-standardField!= value
-    .m-title.g-edit-smallTitle= header
+  .container
+    label(class=block_class)
+      .value.g-standardField!= value
+      .m-title.g-edit-smallTitle= header
 //- -------------------------------------------------
 
 
 .block
   +info_block('country', 'Страна :', country)
   +info_block('city', 'Город :', city)
-  +info_block('address', 'Адрес :', location_button)
+  .container
+    .address
+      .value.g-standardField!= location_button
+      .m-title.g-edit-smallTitle Адрес :
 
   .line!=line
 
