@@ -137,13 +137,27 @@ $blu : 58px
     visibility : hidden
 
 .hint.vertical
-  position : relative
+  position: relative
+  overflow: hidden
+  padding-right: 2px
+  box-sizing: border-box
   .text
-    padding-right : 25px
+    padding-top:   15px
+    padding-right: 22px
+    line-height:   20px
+
+  .question_sign_block
+    margin-top: 26px
 
   .separate_line
     position : absolute
     height : 100%
     width  : 2px
-    right  : -2px
+    right  : 0
     top    : 0
+
+.hint.vertical:after
+  content : ''
+  clear   : both
+  display : block
+
