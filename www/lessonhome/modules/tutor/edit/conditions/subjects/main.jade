@@ -16,12 +16,12 @@ mixin info_block(block_class, title, value)
     +info_block('price', 'Цена :', price )
     .add_location!= add_location
 
-  label.group_lessons
-    .value
-      .pupils_number!= pupils_number
-      .bet!= bet
-    .m-title.g-edit-smallTitle Групповые занятия :
-
+  .line
+    label.group_lessons
+      .value
+        .pupils_number!= pupils_number
+      .m-title.g-edit-smallTitle Групповые занятия :
+    label.bet!= bet
 
 
   +info_block('comments', 'Комментарии :', comments)

@@ -15,28 +15,32 @@ main
     display : block
     cursor  : pointer
 
-  label.first_name, label.second_name, label.patronymic, label.date_of_birth, label.status, .sex
+  label.first_name, label.second_name, label.patronymic, .line>label.date_of_birth, label.status, .sex
     overflow  : hidden
     padding   : 6.5px 0
 
     .value
       float : right
 
-  label.date_of_birth>.value
-    width : 340px
-    .day, .month, .year
+  .line
+    label
       +inline-block
+      cursor: pointer
+    label.date_of_birth
+      .value
+        .day
+          +inline-block
+          width  : 96px
+          height : $height
+          padding-right : 5px
 
-    .day, .month
-      margin-right : 10px
+    label.month
+      width: 118px
+      height: $height
+      padding: 6.5px 5px
 
-    .day
-      width  : 96px
-      height : $height
-
-    .month
-      width  : 118px
-      height : $height
+    label.year
+      padding: 6.5px 0 6.5px 5px
 
   .sex
     .value

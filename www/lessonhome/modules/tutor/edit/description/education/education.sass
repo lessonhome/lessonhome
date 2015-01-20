@@ -16,7 +16,7 @@ main
     display : block
     cursor  : pointer
 
-  label.country, label.city, label.university, label.faculty, label.chair, label.status, label.date
+  label.country, label.city, label.university, label.faculty, label.chair, label.status, .line>label.date
     overflow : hidden
     padding : 6.5px 0
 
@@ -32,21 +32,25 @@ main
       height : $height
 
 
-  label.date>.value
-    .day, .month, .year
+  .line
+    label
       +inline-block
-      height : $height
+      cursor: pointer
+    label.date>.value
+      width: initial
+      .day
+        +inline-block
+        width  : 96px
+        height : $height
+        padding-right : 5px
 
-    .day, .month
-      margin-right : 10px
+    label.month
+      width: 118px
+      height: $height
+      padding: 6.5px 5px
 
-    .day
-      width  : 96px
-      height : $height
-
-    .month
-      width  : 118px
-      height : $height
+    label.year
+      padding: 6.5px 0 6.5px 5px
 
   .button_block
     .add_button, .save_button

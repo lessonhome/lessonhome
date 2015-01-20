@@ -14,12 +14,12 @@ mixin field (selector, title, value)
     .title Цена :
     .value!= price
     .price_button!= price_button
-
-  label.group_lessons
-    .title Групповые занятия :
-    .value
-      .students_in_group!= students_in_group
-      .group_lessons_bet!= group_lessons_bet
+  .line
+    label.group_lessons
+      .title Групповые занятия :
+      .value
+        .students_in_group!= students_in_group
+    label.group_lessons_bet!= group_lessons_bet
 
   +field ('comments', 'Комментарии :', comments)
 
