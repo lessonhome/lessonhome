@@ -10,4 +10,5 @@ class @main extends template '../preview'
         placeholder : 'Например студент'
       choose_subject  : module 'tutor/button'  :
         selector  : 'choose_subject'
-        text        : 'Преподаватель вуза'
+        text      : 'Преподаватель вуза'
+        close     : true

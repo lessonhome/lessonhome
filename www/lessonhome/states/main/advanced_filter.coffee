@@ -4,8 +4,9 @@ class @main
         selector        : 'list_course'
         placeholder     : 'Например ЕГЭ'
       add_course      : module 'tutor/button'  :
-        selector        : 'choose_course'
-        text            : 'ЕГЭ'
+        selector  : 'choose_course'
+        text      : 'ЕГЭ'
+        close     : true
       calendar        : module './calendar' :
         choose_all      : module 'tutor/forms/checkbox':
           selector        : 'time'
