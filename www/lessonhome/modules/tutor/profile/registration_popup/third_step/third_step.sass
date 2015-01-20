@@ -9,11 +9,11 @@ $height : 37px
   margin-top    : 22.5px
   margin-bottom : 54.5px
   text-align    : right
-  label.subject, label.categories, label.directions, label.categories_of_students, label.place, label.price, label.group_lessons
+  label.subject, label.categories, label.directions, label.categories_of_students, label.place, label.price, .line>label.group_lessons
     .value
       height : $height
 
-  label, .button_block
+  label, .button_block, .line>label
     display : block
     cursor  : pointer
     margin-right  : 167px
@@ -54,17 +54,23 @@ $height : 37px
     .price_button
       +inline-block
 
-
-  label.group_lessons
-    .value
-      div
-        +inline-block
-        height : 100%
-      .students_in_group
-        width        : 185px
-        margin-right : 33px
-      .group_lessons_bet
-        width : 122px
+  .line
+    label
+      +inline-block
+    label.group_lessons
+      margin-right: initial
+      .value
+        width: initial
+        div
+          +inline-block
+          height : 100%
+        .students_in_group
+          width         : 185px
+          padding-right : 16.5px
+    label.group_lessons_bet
+      width : 122px
+      height : $height
+      padding-left : 16.5px 
 
   label.comments
     margin-bottom : 4px

@@ -13,7 +13,7 @@ main
     display : block
     cursor  : pointer
 
-  label.subject, label.sections, label.destinations, label.category_students, label.group_lessons, label.comments, .line>label.location,   .line>label.price
+  label.subject, label.sections, label.destinations, label.category_students, .line>label.group_lessons, label.comments, .line>label.location,   .line>label.price
     overflow : hidden
     padding : 6.5px 0
 
@@ -83,23 +83,24 @@ main
     height		: 0
     clear		: both
 
+  .line
+    label.group_lessons>.value
+      overflow : hidden
+      .pupils_number, .bet
+        +inline-block
 
-  label.group_lessons>.value
-    overflow : hidden
-    .pupils_number, .bet
+      .pupils_number
+        width  : 183px
+        height : 37px
+        float : left
+        padding-right: 18px
+
+    label.bet
       +inline-block
-
-    .pupils_number
-      width  : 183px
-      height : 37px
-      float : left
-      padding-right: 18px
-
-    .bet
       overflow: hidden
-      width  : 121px
-      height : 37px
-      padding-left: 18px
+      width: 121px
+      height: 37px
+      padding: 6.5px 0 6.5px 18px
 
   label.comments
     padding-bottom : 0px
