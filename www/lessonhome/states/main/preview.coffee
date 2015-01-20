@@ -12,10 +12,17 @@ class @main extends template '../main'
     content : module '$' :
       advanced_filter  : state './advanced_filter'
       sort             :  module '$/sort'
-      choose_tutors    :  module '$/choose_tutors':
-        all_rating  : module '../rating_star'
-        tutor_photo : module 'mime/photo' :
-          src : '#'
-      tutors           :  module '$/tutors'
+
+      choose_tutors : [
+        state './preview/choose_tutor' :
+          src     : '#'
+          filling : '100'
+
+        state './preview/choose_tutor' :
+          src     : '#'
+          filling : '50'
+      ]
+
+#      tutors           :  module '$/tutors'
 
 
