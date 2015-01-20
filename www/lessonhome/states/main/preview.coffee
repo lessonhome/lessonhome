@@ -14,13 +14,17 @@ class @main extends template '../main'
       sort             :  module '$/sort'
 
       choose_tutors : [
-        state './preview/choose_tutor' :
+        state './preview/all_rating_photo' :
           src     : '#'
           filling : '100'
+          selector  : 'padding_1px_small'
+          close   : true
 
-        state './preview/choose_tutor' :
+        state './preview/all_rating_photo' :
           src     : '#'
           filling : '50'
+          selector  : 'padding_1px_small'
+          close   : true
       ]
 
 #      tutors           :  module '$/tutors'
