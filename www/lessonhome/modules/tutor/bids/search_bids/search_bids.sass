@@ -2,7 +2,7 @@
 
 main
   padding-top: 46px
-  padding-bottom: 50px 
+  padding-bottom: 50px
 
 .center_block>.advanced_search
   margin-left : 20px
@@ -15,14 +15,24 @@ main
     +inline-block
 
   .left_block
-    margin-right : 20px
+    margin-right : 18px
     float : left
+
+    div
+      .title
+        padding-left: 2px
+      .value
+        width: 339px
+        height: 37px
 
     .subject
       margin-bottom : 10px
 
     .saved_filters
       margin-bottom : 19px
+
+    .button_block
+      padding-left: 3px 
 
   .left_block>div, .right_block>.place, .right_block>.your_address
     .title
@@ -32,7 +42,8 @@ main
 
   .right_block
     .place
-      margin-bottom: 16px
+      margin-bottom: 14px
+      padding-left: 2px
       .value
         div
           +inline-block
@@ -48,16 +59,24 @@ main
           height: 18px
           width:  18px
 
-    .your_address, .road_time
-      margin-bottom : 15px
+    .road_time
+      margin-bottom: 15px
 
-    .your_address>.title
-      font-size : 16px
+    .your_address
+      margin-bottom: 11px
+
+    .your_address
+      .title
+        font-size : 16px
+        padding-bottom: 9px
+      .value
+        width: 339px
+        height: 37px
 
     .road_time
       margin-bottom: 0
       .title
-        margin-bottom: 8px
+        margin-bottom: 9px
         font-size: 16px
       .value>.title
         font-size: 18px

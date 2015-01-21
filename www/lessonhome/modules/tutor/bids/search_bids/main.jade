@@ -6,7 +6,7 @@ mixin selected_course(title)
 mixin info_block(block_class, title, value)
   div(class=block_class)
     .title=title
-    .value.g-standardField!= value
+    .value!= value
 
 .filters
   .left_block
