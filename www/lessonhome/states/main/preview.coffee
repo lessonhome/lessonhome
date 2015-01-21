@@ -27,6 +27,21 @@ class @main extends template '../main'
           close   : true
       ]
 
-#      tutors           :  module '$/tutors'
+      tutors_result : [
+        state './preview/tutors_result' :
+          src               : '#'
+          filling           : '100'
+          count_review      : '255 отзывов'
+          tutor_name        : 'Чехов Андрей Юрьевич'
+          with_verification : 'rgb(183, 210, 120)'
+          tutor_subject     : 'Математика'
+          tutor_status      : 'cтудент'
+          tutor_exp         : 'опыт 3 года'
+          tutor_place       : 'МО Зеленоград'
+          tutor_title       : 'Быстро устраню пробелы в школьной программе'
+          tutor_text        : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
+          tutor_price       : '1500 р/ч'
+      ]
+
 
 

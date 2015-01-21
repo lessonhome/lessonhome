@@ -22,3 +22,4 @@ class @main extends template '../main'
           text      : 'Начать поиск'
         title     : 'Подбор репетитора'
         selector  : 'choose_tutor'
+        close     : true

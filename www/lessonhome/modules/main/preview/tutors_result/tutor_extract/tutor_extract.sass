@@ -1,0 +1,74 @@
+@import compass/css3
+$padding-bottom_block: 10px
+.name_verification_block
+  overflow: hidden
+  margin: 0 0 0 -5px
+  $height_font: 24px
+  .tutor_name
+    float: left
+    font-size: 24px
+    color:  #f07b6f
+  $with_verification: 20px
+  $font-size: 14px
+  .verification
+    margin-top: ($height_font - $with_verification)/2
+    float: right
+    overflow: hidden
+    .with_verification
+      float: left
+      width: $with_verification
+      height: $with_verification
+      border-radius: 50%
+    .info
+      padding-left: 11px
+      margin-left: $with_verification
+      margin-top: ($with_verification - $font-size)/2
+      font-size: $font-size
+      color:  #757575
+.tutor_subject
+  line-height: 26px
+  font-size: 20px
+  color: #000000
+.tutor_status
+  font-size: 16px
+  color: #000000
+.tutor_place
+  line-height: 32px
+  font-size: 16px
+  color: #757575
+.tutor_title
+  line-height: 30px
+  font-size: 18px
+  color: #82af3b
+.tutor_text
+  margin-top: -2px
+  padding-bottom: 1.5 * $padding-bottom_block
+  font-size: 16px
+  color: #000000
+$height_button: 40px
+.button_prise_panel
+  .add_button_bid
+    height: $height_button
+    float: left
+  $icon_src: 'main/price.png'
+  $icon_height: image-height($icon_src)
+  $icon_width: image-width($icon_src)
+  $font-size: 18px
+  .price_block
+    margin-top: ($height_button - $icon_height)/2
+    float: right
+    .icon
+      height: $icon_height
+      width: $icon_width
+      background: inline-image($icon_src) no-repeat
+      float: left
+      margin-right: 15px
+      margin-top: ($font-size - $icon_height)/2
+    .tutor_price
+      font-size: $font-size
+      color: #58697a
+      float: right
+.button_prise_panel:after
+  content: ''
+  clear: both
+  display: block

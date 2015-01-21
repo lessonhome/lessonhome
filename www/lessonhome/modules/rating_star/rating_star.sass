@@ -35,6 +35,35 @@ $padding: 7px
         float: left
       .five
         margin-right: 0
+$padding: 1px
+.rating_star_line.padding_1px_rating
+  width: 5*$icon_width + 4*$padding
+
+  .one, .two, .three, .four, .five
+    height: $icon_height
+    width: $icon_width
+    background: inline-image($rating_no_src) no-repeat
+    margin-right: $padding
+  .five
+    margin-right: 0
+  .cut_filling
+    overflow: hidden
+    height: $icon_height
+    position: absolute
+    left: 0
+    top: 0
+    bottom: 0
+    .filling
+      width: 5*$icon_width + 4*$padding
+      height: $icon_height
+      .one, .two, .three, .four, .five
+        height: $icon_height
+        width: $icon_width
+        background: inline-image($rating_bronze_src) no-repeat
+        margin-right: $padding
+        float: left
+      .five
+        margin-right: 0
 $stars_src: 'reviews/star_big_gray.png'
 $stars_pink: 'reviews/star_big_pink.png'
 $icon_height: image-height($stars_src)

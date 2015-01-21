@@ -4,8 +4,9 @@ class @main
       selector        : 'list_course'
       placeholder     : 'Например ЕГЭ'
     add_course      : module 'tutor/button'  :
-      selector        : 'choose_course'
-      text            : 'Олимпиада'
+      selector  : 'choose_course'
+      text      : 'Олимпиада'
+      close     : true
     price_of_lesson   : state './slider_main' :
       selector    : 'lesson_price'
       start       : 'center_text'
@@ -16,8 +17,9 @@ class @main
       selector        : 'list_course'
       placeholder     : 'Например студент'
     add_pupil      : module 'tutor/button'  :
-      selector        : 'choose_course'
-      text            : 'Старшая школа'
+      selector  : 'choose_course'
+      text      : 'Старшая школа'
+      close     : true
     calendar        : module './calendar' :
       choose_all      : module 'tutor/forms/checkbox':
         selector        : 'time'
