@@ -4,8 +4,8 @@ class @main extends template './motivation_content'
   title : "выберите предмет"
   tree : =>
     filter_top  : state './filter_top':
-        title         : 'Выберите предмет :'
-      list_subject    : module 'tutor/forms/drop_down_list'  :
+      title         : 'Выберите предмет :'
+      list_subject    : module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
         placeholder : 'Предмет'
       choose_subject  : module 'tutor/button'  :

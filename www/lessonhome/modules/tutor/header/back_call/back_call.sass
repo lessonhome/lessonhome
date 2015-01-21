@@ -1,10 +1,21 @@
 @import compass/css3
+$phone_src: 'header/phone.png'
+$icon_height: image-height($phone_src)
+$icon_width: image-width($phone_src)
 main
   +inline-block
   color:  #757575
-  font-size : 14px
-  //max-width: 186px
+  font-size: 14px
 .telephone
   margin: 5px 0
   span
     font-size : 16px
+.title
+  .icon
+    width: $icon_width
+    height: $icon_height
+    margin-right: 10px
+    +inline-block
+    background: inline-image($phone_src) no-repeat
+  .text
+    +inline-block

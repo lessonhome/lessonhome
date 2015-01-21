@@ -2,7 +2,6 @@ class @main extends template '../main'
   tree : =>
     filter_top  : @exports()
     info_panel  : @exports()
-
     content     : module '$' :
       search_diagram  : module '$/motivation_block' :
         button   : module 'tutor/button'  :
@@ -10,7 +9,7 @@ class @main extends template '../main'
           text      : 'Начать поиск'
         title     : 'Найти репетитора - легко!'
         selector  : 'search_diagram'
-      choose_search    : module '$/motivation_block' :
+      choose_search   : module '$/motivation_block' :
         button   : module 'tutor/button' :
           selector  : 'order_call'
           text      : 'Заказать звонок'

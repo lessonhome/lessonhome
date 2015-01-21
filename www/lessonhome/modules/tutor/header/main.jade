@@ -6,5 +6,11 @@
 .left_box
   if icons
     .icons!=icons
+    .top_menu(style="margin-left:-10px;")!= top_menu
+   else
+    .top_menu!=top_menu
+//if icons
+     .icons!=icons
+     .top_menu(style="margin-left:-10px;")!=top_menu
+//else
   .top_menu!=top_menu
-

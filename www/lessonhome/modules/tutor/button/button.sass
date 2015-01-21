@@ -222,15 +222,21 @@ $height_add: 33px
 
 //////////////-------------add_button_bid----------/////////////
 .add_button_bid
+  height: 100%
   text-align: center
   border-radius: 4px
   background-color: rgb(148, 201, 254)
   box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
   .text
+    padding: 0 13px
+    +inline-block
     font-size: 20px
     color: #ffffff
-    padding: 10px 15px
     font-weight: inherit
+.add_button_bid:after
+  content: ''
+  +inline-block
+  height: 100%
 
 //- ---------------- EDIT : SAVE, ADD BUTTONS --------------------------
 

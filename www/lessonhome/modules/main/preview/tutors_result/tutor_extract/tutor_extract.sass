@@ -1,30 +1,23 @@
 @import compass/css3
 $padding-bottom_block: 10px
 .name_verification_block
-  overflow: hidden
   margin: 0 0 0 -5px
   $height_font: 24px
   .tutor_name
-    float: left
-    font-size: 24px
+    +inline-block
+    font-size: $height_font
     color:  #f07b6f
   $with_verification: 20px
-  $font-size: 14px
   .verification
-    margin-top: ($height_font - $with_verification)/2
-    float: right
-    overflow: hidden
+    margin-top: 3px
+    padding-left: 20px
+    padding-top: ($height_font - $with_verification)/2
+    +inline-block
     .with_verification
-      float: left
       width: $with_verification
       height: $with_verification
       border-radius: 50%
-    .info
-      padding-left: 11px
-      margin-left: $with_verification
-      margin-top: ($with_verification - $font-size)/2
-      font-size: $font-size
-      color:  #757575
+      box-shadow: 0px 0px 10px 4px rgba(204,228,110, 0.6), 0px 0px 8px 0px rgba(58,201,50, 0.6) inset
 .tutor_subject
   line-height: 26px
   font-size: 20px
@@ -45,7 +38,7 @@ $padding-bottom_block: 10px
   padding-bottom: 1.5 * $padding-bottom_block
   font-size: 16px
   color: #000000
-$height_button: 40px
+$height_button: 35px
 .button_prise_panel
   .add_button_bid
     height: $height_button
@@ -53,10 +46,11 @@ $height_button: 40px
   $icon_src: 'main/price.png'
   $icon_height: image-height($icon_src)
   $icon_width: image-width($icon_src)
-  $font-size: 18px
+  $font-size: 24px
   .price_block
     margin-top: ($height_button - $icon_height)/2
     float: right
+    color: #58697a
     .icon
       height: $icon_height
       width: $icon_width
@@ -66,8 +60,9 @@ $height_button: 40px
       margin-top: ($font-size - $icon_height)/2
     .tutor_price
       font-size: $font-size
-      color: #58697a
       float: right
+      span
+        font-size: 18px
 .button_prise_panel:after
   content: ''
   clear: both
