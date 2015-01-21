@@ -112,12 +112,13 @@ $blu: 58px
     top: 0px
     left: 23px
     width: 245px
-    height: 96px
     background-color: rgb( 243, 243, 243 )
     box-shadow: 2.487px 1.678px 3px 0px rgba(10, 11, 12, 0.13)
     .text
       position: relative
+      height: 95px
       padding: 4px 0 0 9px
+      box-sizing: border-box
       font-size: 16px
       line-height: 20px
       font-family: 'Open Sans', sans-serif
@@ -129,6 +130,19 @@ $blu: 58px
         width: 11px
         height: 16px
         background: inline-image('inside_out_angle.png') no-repeat
+
+  .field.left
+    left: initial
+    right: 23px
+    top: -74px
+    z-index: 1000
+    .text
+      .angle
+        background: inline-image('inside_out_angle_UP_LEFT.png') no-repeat
+        top: initial
+        bottom: 0
+        left: initial
+        right: -11px
 
 /*------------------------------------------------------*/
 

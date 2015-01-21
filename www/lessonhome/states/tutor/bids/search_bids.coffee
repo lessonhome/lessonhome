@@ -24,31 +24,30 @@ class @main extends template '../../tutor'
     content : module '$' :
       advanced_filter : @exports()
       min_height      : @exports()
-      subject_list : module 'tutor/forms/drop_down_list'
-      saved_filters : module 'tutor/forms/drop_down_list'
-      place : module 'tutor/choice' :
-        id          : 'place'
-        indent      : '10px'
-        choice_list : [
-          module 'tutor/button' :
-            text  : 'У себя'
-            selector  : 'streamlined'
+      subject_list : module 'tutor/forms/drop_down_list' :
+        selector : 'search_bids'
+      saved_filters : module 'tutor/forms/drop_down_list' :
+        selector : 'search_bids'
+      tutor : module 'tutor/forms/location_button' :
+        selector : 'search_bids'
+        text   : 'У себя'
+      student  : module 'tutor/forms/location_button' :
+        selector : 'search_bids'
+        text   : 'У ученика'
+      web : module 'tutor/forms/location_button' :
+        selector : 'search_bids'
+        text   : 'Удалённо'
+      location_hint : module 'tutor/hint' :
+        selector : 'small'
+        field_position : 'left'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+      address_list : module 'tutor/forms/drop_down_list' :
+        selector : 'search_bids'
+      save_button  : module 'tutor/button' :
+        text     : 'Сохранить'
+        selector : 'search_bids_save'
 
-          module 'tutor/button' :
-            text  : 'У ученика'
-            selector  : 'fixed'
-
-          module 'tutor/button' :
-            text  : 'Удалённо'
-            selector  : 'dark_blue'
-        ]
-      address_list : module 'tutor/forms/drop_down_list'
-      save_button : module 'tutor/button' :
-        text  : 'Сохранить'
-        selector  : 'fixed'
-
-      road_time : module 'tutor/forms/input' :
-        width : '50px'
+      road_time : module 'tutor/forms/input'
 
       separate_line : module 'tutor/separate_line' :
         selector : 'horizon'
@@ -93,6 +92,66 @@ class @main extends template '../../tutor'
             place     : 'У ученика'
             city      : 'Москва'
             district  : 'Выхино'
+            bet_price : '1000 руб.'
+            bet_time  : '90 мин.'
+            price     : '1500 руб.'
+            category_pupil      : 'школьники 6-8 классов'
+            training_direction  : 'ЕГЭ'
+            number_of_lessons   :  'Более 20'
+            wishes              : 'Утро выходных дней'
+            near_metro          : 'м.Крюково'
+            comments            : '-'
+            lesson_goal         : 'Устранить пробелы в знаниях'
+          module '//bid' :
+            selectable   : false
+            report_block : false
+            number    : 25723
+            date      : "10 ноября"
+            subject   : 'Физика'
+            level     : '6 класс'
+            place     : 'У ученика'
+            city      : 'Москва'
+            district  : 'Бирюлёво'
+            bet_price : '1000 руб.'
+            bet_time  : '90 мин.'
+            price     : '1500 руб.'
+            category_pupil      : 'школьники 6-8 классов'
+            training_direction  : 'ЕГЭ'
+            number_of_lessons   :  'Более 20'
+            wishes              : 'Утро выходных дней'
+            near_metro          : 'м.Крюково'
+            comments            : '-'
+            lesson_goal         : 'Устранить пробелы в знаниях'
+          module '//bid' :
+            selectable   : false
+            report_block : false
+            number    : 25723
+            date      : "10 ноября"
+            subject   : 'Физика'
+            level     : '6 класс'
+            place     : 'У ученика'
+            city      : 'Москва'
+            district  : 'Бирюлёво'
+            bet_price : '1000 руб.'
+            bet_time  : '90 мин.'
+            price     : '1500 руб.'
+            category_pupil      : 'школьники 6-8 классов'
+            training_direction  : 'ЕГЭ'
+            number_of_lessons   :  'Более 20'
+            wishes              : 'Утро выходных дней'
+            near_metro          : 'м.Крюково'
+            comments            : '-'
+            lesson_goal         : 'Устранить пробелы в знаниях'
+          module '//bid' :
+            selectable   : false
+            report_block : false
+            number    : 25723
+            date      : "10 ноября"
+            subject   : 'Физика'
+            level     : '6 класс'
+            place     : 'У ученика'
+            city      : 'Москва'
+            district  : 'Бирюлёво'
             bet_price : '1000 руб.'
             bet_time  : '90 мин.'
             price     : '1500 руб.'

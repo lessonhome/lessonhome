@@ -13,7 +13,10 @@ mixin report_line (title, value, selector)
 mixin line (title, value, selector)
   .line(class=selector)
     .title!= title
-    .value.g-font-bidTitles!= value
+    .value.g-font-bidTitles
+      div!= value
+
+//- --------------------------------------------------------------------------------------
 
 if selectable
   if report_block
@@ -24,7 +27,7 @@ if selectable
         .basic_block
           .number_date
             .text!= number + '<br>'
-              = date
+              div(style="color: #444444")= date
           .subject_level
             .text!= subject + '<br>'
               = level
@@ -48,13 +51,13 @@ if selectable
             .icon
             .title.m-title Просмотреть доп.информацию
           .details_block
-            +line('Категория ученика:', category_pupil, 'dark')
-            +line('Направление подготовки:', training_direction, 'light' )
-            +line('Количество занятий:', number_of_lessons, 'dark' )
-            +line('Пожелания:', wishes, 'light' )
-            +line('Ближайшее метро:', near_metro, 'dark' )
-            +line('Комментарии:', comments, 'light' )
-            +line('Цель занятия:', lesson_goal, 'dark' )
+            +line('Категория ученика :', category_pupil, 'dark')
+            +line('Направление подготовки :', training_direction, 'light' )
+            +line('Количество занятий :', number_of_lessons, 'dark' )
+            +line('Пожелания :', wishes, 'light' )
+            +line('Ближайшее метро :', near_metro, 'dark' )
+            +line('Комментарии :', comments, 'light' )
+            +line('Цель занятия :', lesson_goal, 'dark' )
         .data
           .title.m-title Данные
           .content
@@ -90,7 +93,7 @@ if selectable
         .basic_block
           .number_date
             .text!= number + '<br>'
-              = date
+              div(style="color: #444444")= date
           .subject_level
             .text!= subject + '<br>'
               = level
@@ -109,19 +112,19 @@ if selectable
               .text!= status
 
         .details_block
-          +line('Категория ученика:', category_pupil, 'dark')
-          +line('Направление подготовки:', training_direction, 'light' )
-          +line('Количество занятий:', number_of_lessons, 'dark' )
-          +line('Пожелания:', wishes, 'light' )
-          +line('Ближайшее метро:', near_metro, 'dark' )
-          +line('Комментарии:', comments, 'light' )
-          +line('Цель занятия:', lesson_goal, 'dark' )
+          +line('Категория ученика :', category_pupil, 'dark')
+          +line('Направление подготовки :', training_direction, 'light' )
+          +line('Количество занятий :', number_of_lessons, 'dark' )
+          +line('Пожелания :', wishes, 'light' )
+          +line('Ближайшее метро :', near_metro, 'dark' )
+          +line('Комментарии :', comments, 'light' )
+          +line('Цель занятия :', lesson_goal, 'dark' )
 else
   .bid
     .basic_block
       .number_date
         .text!= number + '<br>'
-          = date
+          div(style="color: #444444")= date
       .subject_level
         .text!= subject + '<br>'
           = level
@@ -139,13 +142,13 @@ else
       .text!= 'Подать <br> запрос'
 
     .details_block
-      +line('Категория ученика:', category_pupil, 'dark')
-      +line('Направление подготовки:', training_direction, 'light' )
-      +line('Количество занятий:', number_of_lessons, 'dark' )
-      +line('Пожелания:', wishes, 'light' )
-      +line('Ближайшее метро:', near_metro, 'dark' )
-      +line('Комментарии:', comments, 'light' )
-      +line('Цель занятия:', lesson_goal, 'dark' )
+      +line('Категория ученика :', category_pupil, 'dark')
+      +line('Направление подготовки :', training_direction, 'light' )
+      +line('Количество занятий :', number_of_lessons, 'dark' )
+      +line('Пожелания :', wishes, 'light' )
+      +line('Ближайшее метро :', near_metro, 'dark' )
+      +line('Комментарии :', comments, 'light' )
+      +line('Цель занятия :', lesson_goal, 'dark' )
 
 
 

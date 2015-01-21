@@ -1,6 +1,4 @@
-if active
-  .button.inactive
-    .text=text
-else
-  .button.inactive
-    .text=text
+- selector = selector || "";
+
+.button.inactive(class=selector)
+  .text=text

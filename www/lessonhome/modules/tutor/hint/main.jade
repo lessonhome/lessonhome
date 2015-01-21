@@ -5,10 +5,13 @@
 //respons
   //header, text - content
   // selector - style sass
+
+- field_position = field_position || "";
+
 if selector == 'small'
   .hint(class='small')
     .sign
-    .field.hidden
+    .field(class=field_position).hidden
       .text!= text
         .angle
 else
