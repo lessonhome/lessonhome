@@ -33,6 +33,3 @@ class @main
     filter_top      : @exports()
     info_panel      : @exports()
     content         : @exports()
-    advanced_filter : @exports()
-
-

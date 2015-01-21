@@ -40,7 +40,7 @@ class @main extends template '../main'
           tutor_place       : 'МО Зеленоград'
           tutor_title       : 'Быстро устраню пробелы в школьной программе'
           tutor_text        : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
-          tutor_price       : '1500 р/ч'
+          tutor_price       : '1500'
       ]
 
 

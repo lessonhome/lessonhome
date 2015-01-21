@@ -5,7 +5,7 @@ class @main extends template '../preview'
   tree : ->
     filter_top  : state '../filter_top':
       title : 'Выберите статус преподователя :'
-      list_subject    : module 'tutor/forms/drop_down_list'  :
+      list_subject    : module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
         placeholder : 'Например студент'
       choose_subject  : module 'tutor/button'  :
