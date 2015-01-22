@@ -29,7 +29,8 @@ class @main extends template '../../tutor'
                как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой,
                 так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
 
-      select_all_checkbox : module 'tutor/forms/checkbox'
+      select_all_checkbox : module 'tutor/forms/checkbox' :
+        selector : 'bid'
       select_all_list     : module 'tutor/forms/drop_down_list'
       subject : module 'tutor/forms/drop_down_list'
 

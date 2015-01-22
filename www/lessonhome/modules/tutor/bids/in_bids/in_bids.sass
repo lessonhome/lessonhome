@@ -1,43 +1,61 @@
 @import compass/css3
 
+main
+  overflow: hidden
+
 .hint_block
+  overflow: hidden
   .title
-    margin-left : 45px
-    margin-top  : 55px
+    margin-left: 42px
+    margin-top:  43px
+    line-height: 36px
 
   .hint
-    margin : 20px 50px 60px 40px
+    margin : 18px 53px 51px 39px
 
 .bar
-  margin-bottom : 25px
-  margin-left   : 17px
+  margin-bottom : 23px
+  margin-left   : 18px
   div
     +inline-block
 
   .select_all
     margin-right : 50px
-    .button, .list
+    .button, .title
       +inline-block
     .button
-      margin-right : 12px
-      margin-bottom   : 5px
-    .list
-      width    : 170px
+      margin-right: 15px
+    .title
+      font-size: 16px
+      color: #4c4c4c
+    .title:hover
+      color: #000000
+      cursor: pointer
+
 
   .delete
-    margin-right : 125px
+    margin-right : 195px
     .icon, .title
       +inline-block
     .icon
       width  : 17px
       height : 23px
       margin-right : 10px
-      background   : inline-image('trash.png') no-repeat
+      background   : inline-image('trash_inactive.png') no-repeat
     .title
       line-height : 23px
+      font-size: 16px
+      color: #b2b2b2
+
+  //-.delete:hover
+    cursor: pointer
+    .title
+      color: #d90000
+
 
   .select_subject
-    width : 280px
+    width:  279px
+    height: 34px
 
 .list_bids
-  margin-left : 17px
+  margin-left : 18px
