@@ -25,7 +25,7 @@ class @main extends template '../../tutor'
       advanced_filter : @exports()
       min_height      : @exports()
       subject_list : module 'tutor/forms/drop_down_list' :
-        selector : 'search_bids'
+        selector : 'search_bids_subject'
       saved_filters : module 'tutor/forms/drop_down_list' :
         selector : 'search_bids'
       tutor : module 'tutor/forms/location_button' :
@@ -46,6 +46,8 @@ class @main extends template '../../tutor'
       save_button  : module 'tutor/button' :
         text     : 'Сохранить'
         selector : 'search_bids_save'
+
+      slider : module '//slider'
 
       road_time : module 'tutor/forms/input'
 

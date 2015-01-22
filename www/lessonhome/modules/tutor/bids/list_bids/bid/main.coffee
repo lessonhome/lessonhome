@@ -14,4 +14,3 @@ class @main extends EE
       element.css("display", "block")
     else
       element.css("display", "none")
-    return 1
