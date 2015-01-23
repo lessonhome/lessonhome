@@ -8,7 +8,7 @@ class @main extends template './motivation_content'
       list_subject    : module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
         placeholder : 'Предмет'
-      choose_subject  : module 'tutor/button'  :
+      choose_subject  : module '../selected_tag'  :
         selector  : 'choose_subject'
         text      : 'Алгебра'
         close     : true

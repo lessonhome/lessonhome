@@ -6,7 +6,6 @@ main
   height: 100%
   font-size: $font-size
   color: #757575
-  overflow: hidden
   position: relative
 .title, .value
   padding-right: $paddingText
@@ -43,3 +42,7 @@ main
   background: inline-image('separate.png')
   background-size: 100%
   border-radius: 2px
+main:after
+  content: ''
+  display: block
+  clear: both

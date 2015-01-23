@@ -34,7 +34,6 @@ main
 
 
 .info_data
-  overflow: hidden
   padding-bottom: $margin_bottom_box
   .person_box
     float: left
@@ -52,13 +51,27 @@ main
     padding-left: $padding_left
 
     $font_line: 30px
-    .name
+    .name_verification_block
       font-size: $font_line
       height: 2*$font_line
       line-height: $font_line
+      .name
+        +inline-block
+      .verification
+        +inline-block
+        margin-top: 3px
+        padding-left: 20px
+        padding-top: 2px
+        .with_verification
+          width: 20px
+          height: 20px
+          border-radius: 50%
+          box-shadow: 0px 0px 10px 4px rgba(204,228,110,0.6),0px 0px 8px 0px rgba(58,201,50,0.6) inset
+
   //---------------line-------------//
 .separate_box
   padding-bottom: 4px
+  overflow: hidden
 
 div>.icon_box
   position: absolute

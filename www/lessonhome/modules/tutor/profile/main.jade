@@ -12,7 +12,8 @@ mixin section_box (title, value)
     .icon_box
       .icon
     div(class=title)!=value
-//----------------------------content--------------------------------//
+
+
 if popup
   .popup_wrap
     .content!= popup
@@ -23,10 +24,17 @@ if popup
     .all_rating!=all_rating
     .progress!= progress
   .personal_data
-    .name!= name
+    .name_verification_block
+      .name!= name
+      if with_verification
+        .verification
+          .with_verification(style = 'background: #{with_verification}')
     != personal_data
-.separate_box!=line_con
-+section_box ('contacts', contacts)
+  if send_bid_this_tutor
+    .send_bid_this_tutor!=send_bid_this_tutor
+if contacts
+  .separate_box!=line_con
+  +section_box ('contacts', contacts)
 .separate_box!=line_edu
 +section_box ('education', education)
 .separate_box!=line_pri

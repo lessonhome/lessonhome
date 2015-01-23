@@ -1,3 +1,10 @@
 .title=title
-.diagram(class = selector)
-.button!=button
+.diagram_block(style = 'width: #{img.w}px; height:#{img.h}px')
+  img(src=img.src)
+  if text
+    each val, key in text
+      .text(class=key)!=val
+if margin
+  .button(style = 'margin-top: 20px')!=button
+else
+  .button!=button

@@ -1,17 +1,12 @@
 @import compass/css3
-
 $RedHoverColor : #ffb1a8
-
 main
   height: 100%
   cursor: pointer
-
 //- ------------ HOVER ---------------------
-
 .button:hover
   background-color : $RedHoverColor
 //- ---------------------------------------------
-
 .fixed, .add, .streamlined, .color_blue
   +inline-block
   height: 35px
@@ -105,51 +100,11 @@ $height_line: 33px
     color       : white
 //- ------------------ TUTOR REGISTRATION BUTTONS ------------
 
-////////-----------choose button in drop down list----------////////////////////
-$size_close:  10px
-$padding_close:  10px
-$height_line: 33px
-$srs: 'close.png'
+
 .button
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
   border-radius: 4px
-.choose_subject, .choose_tutor, .choose_course
-  overflow: hidden
-  height: $height_line
-  line-height: $height_line
-  background-color: rgb(225, 227, 229)
-  cursor: default
-  .close
-    float: right
-    height: 100%
-    cursor: pointer
-    padding: 0 $padding_close
-    .close_background
-      width: $size_close
-      height: $size_close
-      position: relative
-      top: 50%
-      margin-top: -$size_close / 2
-      background: inline-image($srs) no-repeat
-  .text
-    font-size: 18px
-    color: rgb(61, 50, 50)
-    margin: 0 (2*$padding_close+$size_close) 0 10px
-//////------little bit variables and font change value in choose_course------------/////////
-$padding_close:  5px
-$height_line: 30px
-.choose_course
-  height: $height_line
-  line-height: $height_line
-  .close
-    padding: 0 $padding_close
-    .close_background
-      width: $size_close
-      height: $size_close
-  .text
-    font-size: 16px
-    color: rgb(0, 0, 0)
-    margin: 0 (2*$padding_close+$size_close) 0 10px
+
 /////////////-----------it's big button in top filter----------------//////////////
 $height_line: 60px
 .at_home_button, .in_tutoring_button, .remotely_button
@@ -163,7 +118,6 @@ $height_line: 60px
 .remotely_button
   background-color: rgb(240, 123, 111)
 
-///////////////////-------it's big button in top filter--------/////////////////////
 $height_line: 50px
 .subject_back, .onward_block, .issue_bid
   height: $height_line
@@ -178,19 +132,19 @@ $height_line: 50px
   .text
     padding: 0 20px
 
-////------------- top filter button ----------------////
+////------------- motivation button ----------------////
 $height_line: 54px
-.search_button, .order_call, .start_search
+.order_call, .start_search
   width: 265px
   height: $height_line
   margin: auto
   line-height: $height_line
   background-color: rgb(201, 92, 81)
   box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-  //box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
   .text
     font-size: 26px
     color: rgb(255, 255, 255)
+    
 ////---------------- left filter button --------------////
 $height_add: 33px
 .add_time

@@ -1,7 +1,7 @@
 class @main
   tree : -> module '$' :
-    depend :  state 'lib'
-    header     : state './tutor/header' :
+    depend      :  state 'lib'
+    header      : state './tutor/header' :
       items : [
         module 'tutor/header/button' : {
           title : 'Поиск'
@@ -30,6 +30,6 @@ class @main
           href  : '/about us'
         }
       ]
-    filter_top      : @exports()
-    info_panel      : @exports()
-    content         : @exports()
+    filter_top  : @exports()
+    info_panel  : @exports()
+    content     : @exports()
