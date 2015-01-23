@@ -1,9 +1,12 @@
 @import compass/css3
+$font-size: 16px
+$triangle_src: 'main/triangle 7x6 closed.png'
+$icon_height: image-height($triangle_src)
+$icon_width: image-width($triangle_src)
+$color_text: #757575
 main
   height: 100%
-  color: rgb(181, 184, 187)
-  font-size: 16px
-  //max-width: 156px
+  font-size: $font-size
 .visible
   position: relative
   height: 100%
@@ -11,10 +14,17 @@ main
     +inline-block
     height: 100%
     text-decoration: none
-    padding: 0 26.5px
+    padding: 0 21px
+    color: $color_text
+    .icon_box
+      padding: ($font-size - $icon_height)/2 8px
+      +inline-block
+      .icon
+        width: $icon_width
+        height: $icon_height
+        background: inline-image($triangle_src) no-repeat
     .title
       +inline-block
-      color: rgb(181, 184, 187)
       font-size: 16px
   a:after
     content: ''
@@ -33,9 +43,9 @@ main
       height: 100%
       width: 100%
       text-decoration: none
+      color: $color_text
       .title
         line-height: 32px
-        color: rgb(181, 184, 187)
         font-size: 16px
 .visible:hover
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.28)

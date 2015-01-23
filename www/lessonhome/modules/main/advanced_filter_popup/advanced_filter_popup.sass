@@ -1,0 +1,52 @@
+@import compass/css3
+$triangle_src: 'main/triangle_down.png'
+$icon_height: image-height($triangle_src)
+$icon_width: image-width($triangle_src)
+$padding_section: 30px
+$padding_title: 20px
+$padding_sex_button: 15px
+main
+  padding: 15px 30px 0 35px
+  font-size: 18px
+  background-color: rgb(243, 243, 243)
+  color: rgb(117, 117, 117)
+.m-icon
+  width: $icon_width
+  height: $icon_height
+  margin: 0 10px 0 -10px
+  +inline-block
+  background: inline-image($triangle_src) no-repeat
+.m-title
+  +inline-block
+.section
+  text-align: left
+  padding-bottom: $padding_section
+  .course, .price_of_lesson, .pupil, .timetable, .time_one_lesson, .sex
+    padding-bottom: $padding_title
+  .list_course
+    height: 33px
+  .add_course_block
+    padding-top: 10px
+    .add_course
+      float: left
+  .add_course_block:after
+    content: ''
+    clear: both
+    display: block
+  .timetable
+    .calendar
+      padding: 0 10px 0 0
+  .sex_button
+    .female, .male
+      float: left
+    .female
+      padding-right: $padding_sex_button/2
+    .male
+      padding-left: $padding_sex_button/2
+  .sex_button:after
+    display: block
+    content: ""
+    clear: both
+
+
+

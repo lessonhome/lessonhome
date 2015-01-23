@@ -1,26 +1,35 @@
 @import compass/css3
-
-$size : 22px
-$margin : 20px
+$search_src: 'header/search.png'
+$edit_src: 'header/pencil.png'
+$notice_src: 'header/bell.png'
+$icon_height: image-height($search_src)
+$icon_width: image-width($search_src)
+$padding_over_icon: 10px
 main
   height: 100%
-  overflow: hidden
 .icons_box
   height: 100%
-  .search, .edit, .notice
-    width: $size
-    height: $size
+  .icon
     +inline-block
-    margin-right: $margin
-  //after we have icons image we must change background: red on background : inline-image('#') no-repeat
-  .search
-    background: red
-  .edit
-    background: red
-  // end icon dose not have margin-right: $margin and do rules separate
-  .notice
-    margin-right: 0
-    background: red
+    padding: $padding_over_icon
+    cursor: pointer
+
+    .search, .edit, .notice
+      width: $icon_height
+      height: $icon_width
+    .search
+      background : inline-image($search_src) no-repeat
+    .edit
+      background : inline-image($edit_src) no-repeat
+    .notice
+      position: relative
+      background : inline-image($notice_src) no-repeat
+      .counter
+        color: #dd5a4f
+        font-size: 10px
+        position: absolute
+        right: 0
+        margin: -5px
 .icons_box:after
   content: ''
   height: 100%

@@ -1,15 +1,13 @@
+mixin block(key, val)
+  label
+    .title!=key
+    .input!=val
+//- ---------------------------------------------------------------            
+
 .input_block
-  .block
-    .title Почему я репетитор?
-    .input!= reason_textarea
-
-  .block
-    .title Интересы :
-    .input!= interests_textarea
-
-  .block
-    .title О себе :
-    .input!= about_textarea
+  +block('Почему я репетитор?', reason_textarea)
+  +block('Интересы :', interests_textarea)
+  +block('О себе :', about_textarea)
 
 .button_block
   .button!= button

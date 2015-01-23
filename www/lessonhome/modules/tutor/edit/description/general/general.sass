@@ -1,34 +1,50 @@
 @import compass/css3
 
+$height : 37px
+
 main
   overflow : hidden
-  padding  : 50px 0 110px 0
-  text-align : center
+  padding  : 42.5px 0 110px 0
+  text-align : right
 
 .block
-  display : inline-block
+  display: inline-block
+  margin-right: 141px
 
-  .first_name, .second_name, .patronymic, .date_of_birth, .status, .sex
+  label
+    display : block
+    cursor  : pointer
+
+  label.first_name, label.second_name, label.patronymic, .line>label.date_of_birth, label.status, .sex
     overflow  : hidden
-    padding-bottom : 13px
+    padding   : 6.5px 0
 
     .value
       float : right
 
-  .date_of_birth>.value
-    width : 340px
-    .day, .month, .year
+  .line
+    label
       +inline-block
+      cursor: pointer
+    label.date_of_birth
+      .value
+        .day
+          +inline-block
+          width  : 96px
+          height : $height
+          padding-right : 5px
 
-    .day, .month
-      margin-right : 10px
+    label.month
+      width: 118px
+      height: $height
+      padding: 6.5px 5px
 
-  .status
-    padding-bottom : 27px
-
+    label.year
+      padding: 6.5px 0 6.5px 5px
 
   .sex
     .value
+      text-align: center
       div
         +inline-block
         width     : 128px
@@ -38,7 +54,7 @@ main
         margin-right : 79px
 
   .button_block
-
+    margin-top: 20.5px
     .save_button
       float : right
       text-align : right
@@ -49,12 +65,13 @@ main
     display : block
 
 .m-title
-  padding-right : 28px
+  padding-right : 22px
   box-sizing : border-box
   float : right
   text-align : right
 
 
 .hint
-  width  : 80%
-  margin : 75px auto 0 auto
+  width: 680px
+  margin-top:  70px
+  margin-left: 37px

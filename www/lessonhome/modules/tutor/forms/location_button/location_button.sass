@@ -3,12 +3,13 @@ $height : 33px
 .button
   width  : 100%
   height : $height
+  padding-top      : 4px
+  box-sizing       : border-box
   text-align       : center
   border-radius    : 4px
   background-color : rgb( 205, 205, 205 )
   cursor : pointer
   .text
-    line-height : $height
     font-size   : 20px
     font-family : 'Opens Sans', sans-serif
     color       : #757575
@@ -18,3 +19,12 @@ $height : 33px
   background-color : rgb( 240, 123, 111 )
   .text
     color : #fff
+
+.button.inactive:hover
+  background-color : #ffb1a8
+
+.button.search_bids
+  padding-top: 6px
+  .text
+    font-size: 18px
+

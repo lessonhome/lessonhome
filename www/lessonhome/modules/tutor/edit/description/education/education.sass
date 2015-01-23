@@ -4,19 +4,24 @@ $height : 37px
 
 main
   overflow : hidden
-  padding  : 50px 0 50px 0
-  text-align : center
+  padding  : 45.5px 0 50px 0
+  text-align : right
 
 
 .block
   +inline-block
+  margin-right: 177px
 
-  .country, .city, .university, .faculty, .chair, .status, .date
+  label
+    display : block
+    cursor  : pointer
+
+  label.country, label.city, label.university, label.faculty, label.chair, label.status, .line>label.date
     overflow : hidden
-    padding-bottom : 13px
+    padding : 6.5px 0
 
     .m-title
-      padding-right : 28px
+      padding-right : 22px
       box-sizing : border-box
       float : right
       text-align : right
@@ -27,20 +32,34 @@ main
       height : $height
 
 
-  .date>.value
-    .day, .month, .year
+  .line
+    label
       +inline-block
-      height : $height
+      cursor: pointer
+    label.date>.value
+      width: initial
+      .day
+        +inline-block
+        width  : 96px
+        height : $height
+        padding-right : 5px
 
-    .day, .month
-      margin-right : 10px
+    label.month
+      width: 118px
+      height: $height
+      padding: 6.5px 5px
+
+    label.year
+      padding: 6.5px 0 6.5px 5px
 
   .button_block
-    margin-bottom : 20px
-    margin-top : 5px
-
     .add_button, .save_button
       float : right
+
+    .add_button
+      margin-bottom : 19px
+      margin-top : 11.5px
+
 
   .button_block:after
     content : ''
@@ -50,6 +69,8 @@ main
 /*---------------------------------------------------------*/
 
 .hint
-  width : 80%
-  margin : auto
-  margin-top    : 60px
+  +inline-block
+
+  width: 678px
+  margin-right: 49px
+  margin-top:   79px

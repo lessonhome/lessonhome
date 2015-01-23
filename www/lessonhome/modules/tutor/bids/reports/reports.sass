@@ -26,6 +26,9 @@
 
 //- -----------------------------------------------------------------------
 
+main
+  overflow: hidden
+
 
 .hint_block
   .title
@@ -38,27 +41,65 @@
 /*-------------------------------------*/
 
 .illustrations
-  .item
+  padding-left : 51px
+  font-size   : 14px
+  font-family : 'Open Sans', sans-serif
+  color       : rgb (0, 0, 0)
+  div
     +inline-block
-    width  : 80px
-    height : 80px
-    margin-right : 70px
-    background-color : rgb( 187, 199, 203 )
-    border-radius : 100%
+    vertical-align : top
+    div
+      margin-bottom : 15px
+      .icon, .text
+        +inline-block
 
-.illustrations :first-child
-  margin-left : 45px
+      .icon
+        margin-right : 10px
+        width  : 16px
+        height : 16px
 
-.illustrations :last-child
-  background          : inline-image('cross.png') no-repeat
-  background-position : center
-  background-color    : rgb( 187, 199, 203 )
-  margin-right : 0
+  .left
+    width : 274px
+    .status_call>.icon
+      background : inline-image('status/status_call.png') no-repeat
+
+    .status_wait>.icon
+      background : inline-image('status/status_wait.png') no-repeat
+
+  .center
+    width : 231px
+    .status_study>.icon
+      background : inline-image('status/status_study.png') no-repeat
+
+    .status_date>.icon
+      background : inline-image('status/status_date.png') no-repeat
+
+    .status_rating>.icon
+      background : inline-image('status/status_rating.png') no-repeat
+
+  .right
+    width : 200px
+    div
+      margin-bottom : 12px
+      .icon
+        width  : 22px
+        height : 19px
+
+    .status_paid>.icon
+      background : inline-image('status/status_paid.png') no-repeat
+
+    .status_unpaid>.icon
+      background : inline-image('status/status_unpaid.png') no-repeat
+
+    .status_fail
+      .icon
+        background : inline-image('status/status_fail.png') no-repeat
+        background-position : center
 
 /*-------------------------------------*/
 
 .bar
-  margin-top    : 60px
+  margin-top    : 68px
   margin-bottom : 25px
   margin-left   : 17px
   div

@@ -2,18 +2,23 @@
 
 main
   overflow : hidden
-  padding  : 50px 0 200px 0
-  text-align : center
+  padding  : 41.5px 0 200px 0
+  text-align : right
 
 .block
   display : inline-block
+  margin-right : 141px
 
-  .subject, .sections, .destinations, .category_students, .group_lessons, .comments, .location_block, .location_block>.value>.price
+  label, .line>label
+    display : block
+    cursor  : pointer
+
+  label.subject, label.sections, label.destinations, label.category_students, .line>label.group_lessons, label.comments, .line>label.location,   .line>label.price
     overflow : hidden
-    padding-bottom : 13px
+    padding : 6.5px 0
 
     .m-title
-      padding-right: 28px
+      padding-right: 22px
       box-sizing: border-box
       float : right
       text-align : right
@@ -22,7 +27,32 @@ main
       float : right
 
 
-  .location_block
+  .line
+    position   : relative
+    text-align : right
+    label
+      +inline-block
+    label.location
+      padding-right : 13px
+      .value
+        width  : 183px
+        height : 37px
+    label.price
+      .value
+        width  : 68px
+        height : 37px
+      .m-title
+        padding-left :  10px
+        padding-right : 18px
+
+
+    .add_location
+      position : absolute
+      top : 8.5px
+      right : -62px
+
+
+  //-.location_block
     position : relative
     overflow : visible
 
@@ -46,27 +76,33 @@ main
         top : 0
         right : -60px
 
-  .location_block:after
+  //-.location_block:after
     content		: "."
     visibility	: hidden
     display		: block
     height		: 0
     clear		: both
 
+  .line
+    label.group_lessons>.value
+      overflow : hidden
+      .pupils_number, .bet
+        +inline-block
 
-  .group_lessons>.value
-    .pupils_number, .bet
+      .pupils_number
+        width  : 183px
+        height : 37px
+        float : left
+        padding-right: 18px
+
+    label.bet
       +inline-block
+      overflow: hidden
+      width: 121px
+      height: 37px
+      padding: 6.5px 0 6.5px 18px
 
-    .pupils_number
-      width : 180px
-      margin-right : 35px
-
-    .bet
-      width  : 121px
-      height : 37px
-
-  .comments
+  label.comments
     padding-bottom : 0px
     .value
       width  : 340px
@@ -84,8 +120,6 @@ main
       text-align : right
       word-wrap  : break-word
 
-    .value
-      overflow : hidden
 
       .pupils_number
         width  : 183px

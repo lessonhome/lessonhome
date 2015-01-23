@@ -1,78 +1,89 @@
+@import compass/css3
+
 main
-  overflow : hidden
-  padding  : 50px 0 200px 0
-  text-align : center
+  padding  : 45.5px 0 200px 0
+  text-align: right
 
 .block
-  display : inline-block
+  .container
+    text-align : right
+    label
+      margin-right : 128px
 
-  .place_of_work, .post, .experience_tutoring, .number_of_students
-    overflow : hidden
-    padding-bottom : 13px
+    label
+      width   : 560px
+      +inline-block
+      cursor  : pointer
 
-    .m-title
-      padding-right: 28px
-      box-sizing: border-box
-      float : right
-      text-align : right
+    label.place_of_work, label.post, label.experience_tutoring, label.number_of_students
+      overflow : hidden
+      padding : 6.5px 0
 
-    .value
-      float  : right
-      width  : 340px
-      height : 37px
+      .m-title
+        padding-right: 22px
+        box-sizing: border-box
+        float : right
+        text-align : right
 
-  .post
-    padding-bottom : 0
-
-
-
-  /*---------------------------------------------------------*/
-
-  .extra_info
-    padding-bottom : 0
-    margin-bottom  : 35px
-    overflow : hidden
-
-    .m-title
-      padding-right : 28px
-      box-sizing    : border-box
-      float      : right
-      text-align : right
-      height : initial
-      line-height : 32px
-
-    .value
-      float  : right
-      height : 117px
-
-
-  .extra_info:after
-    content : ''
-    clear   : both
-    display : block
+      .value
+        float  : right
+        width  : 340px
+        height : 37px
 
 
 
-  /*--------------------------------------------------------*/
+    /*---------------------------------------------------------*/
+
+    label.extra_info
+      padding : 6.5px 0
+      overflow : hidden
+
+      .m-title
+        padding-right : 28px
+        box-sizing    : border-box
+        float      : right
+        text-align : right
+        height : initial
+        line-height : 32px
+
+      .value
+        float  : right
+        height : 117px
+
+
+    .extra_info:after
+      content : ''
+      clear   : both
+      display : block
+
+
+
+    /*--------------------------------------------------------*/
   .button_block
+    text-align: right
+    margin-right: 128px
     .add_button
-      margin-top    : 17px
+      margin-top    : 10.5px
       margin-bottom : 34px
 
     .add_button, .save_button
-      float : right
+      +inline-block
 
-  .button_block:after
-    content : ''
-    clear   : both
-    display : block
+    .save_button
+      margin-top  : 28.5px
 
-  /*---------------------------------------------------------*/
+    //-.button_block:after
+      content : ''
+      clear   : both
+      display : block
+
+    /*---------------------------------------------------------*/
 
 
   .line
-    height : 2px
-    margin-bottom : 30px
+    height: 2px
+    margin-bottom: 23.5px
+    padding: 0 34px
 
 .hint
   width : 80%

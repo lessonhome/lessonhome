@@ -1,5 +1,5 @@
 mixin field (selector, title, value)
-  div(class=selector)
+  label(class=selector)
     .title=title
     .value!= value
 
@@ -10,16 +10,16 @@ mixin field (selector, title, value)
   +field ('categories_of_students', 'Категории учеников :', categories_of_students)
   +field ('place', 'Место :', place)
 
-  .price
+  label.price
     .title Цена :
     .value!= price
     .price_button!= price_button
-
-  .group_lessons
-    .title Групповые занятия :
-    .value
-      .students_in_group!= students_in_group
-      .group_lessons_bet!= group_lessons_bet
+  .line
+    label.group_lessons
+      .title Групповые занятия :
+      .value
+        .students_in_group!= students_in_group
+    label.group_lessons_bet!= group_lessons_bet
 
   +field ('comments', 'Комментарии :', comments)
 

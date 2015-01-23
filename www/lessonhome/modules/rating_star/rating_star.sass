@@ -1,0 +1,144 @@
+@import compass/css3
+$rating_no_src: 'tutor/rating_no.png'
+$rating_bronze_src: 'tutor/rating_bronze.png'
+$icon_height: image-height($rating_bronze_src)
+$icon_width: image-width($rating_bronze_src)
+$padding: 7px
+.rating_star_line
+  width: 5*$icon_width + 4*$padding
+  position: relative
+  margin: auto
+  overflow: hidden
+  .one, .two, .three, .four, .five
+    height: $icon_height
+    width: $icon_width
+    background: inline-image($rating_no_src) no-repeat
+    margin-right: $padding
+    float: left
+  .five
+    margin-right: 0
+  .cut_filling
+    overflow: hidden
+    height: $icon_height
+    position: absolute
+    left: 0
+    top: 0
+    bottom: 0
+    .filling
+      width: 5*$icon_width + 4*$padding
+      height: $icon_height
+      .one, .two, .three, .four, .five
+        height: $icon_height
+        width: $icon_width
+        background: inline-image($rating_bronze_src) no-repeat
+        margin-right: $padding
+        float: left
+      .five
+        margin-right: 0
+$padding: 1px
+.rating_star_line.padding_1px_rating
+  width: 5*$icon_width + 4*$padding
+
+  .one, .two, .three, .four, .five
+    height: $icon_height
+    width: $icon_width
+    background: inline-image($rating_no_src) no-repeat
+    margin-right: $padding
+  .five
+    margin-right: 0
+  .cut_filling
+    overflow: hidden
+    height: $icon_height
+    position: absolute
+    left: 0
+    top: 0
+    bottom: 0
+    .filling
+      width: 5*$icon_width + 4*$padding
+      height: $icon_height
+      .one, .two, .three, .four, .five
+        height: $icon_height
+        width: $icon_width
+        background: inline-image($rating_bronze_src) no-repeat
+        margin-right: $padding
+        float: left
+      .five
+        margin-right: 0
+$stars_src: 'reviews/star_big_gray.png'
+$stars_pink: 'reviews/star_big_pink.png'
+$icon_height: image-height($stars_src)
+$icon_width: image-width($stars_src)
+$padding: 0px
+.rating_star_line.padding_no
+  width: 5*$icon_width + 4*$padding
+  .one, .two, .three, .four, .five
+    height: $icon_height
+    width: $icon_width
+    background: inline-image($stars_src) no-repeat
+    margin-right: $padding
+  .five
+    margin-right: 0
+  .cut_filling
+    height: $icon_height
+    .filling
+      width: 5*$icon_width + 4*$padding
+      height: $icon_height
+      .one, .two, .three, .four, .five
+        height: $icon_height
+        width: $icon_width
+        background: inline-image($stars_pink) no-repeat
+        margin-right: $padding
+      .five
+        margin-right: 0
+$small_stars_src: 'reviews/star_small_gray.png'
+$small_stars_pink: 'reviews/star_small_pink.png'
+$icon_height: image-height($small_stars_src)
+$icon_width: image-width($small_stars_src)
+$padding: 0px
+.rating_star_line.padding_no_small
+  width: 5*$icon_width + 4*$padding
+  .one, .two, .three, .four, .five
+    height: $icon_height
+    width: $icon_width
+    background: inline-image($small_stars_src) no-repeat
+    margin-right: $padding
+  .five
+    margin-right: 0
+  .cut_filling
+    height: $icon_height
+    .filling
+      width: 5*$icon_width + 4*$padding
+      height: $icon_height
+      .one, .two, .three, .four, .five
+        height: $icon_height
+        width: $icon_width
+        background: inline-image($small_stars_pink) no-repeat
+        margin-right: $padding
+      .five
+        margin-right: 0
+$small_stars_src: 'main/ratingsmall_no.png'
+$small_stars_pink: 'main/ratingsmall_bronze.png'
+$icon_height: image-height($small_stars_src)
+$icon_width: image-width($small_stars_src)
+$padding: 1px
+.rating_star_line.padding_1px_small
+  width: 5*$icon_width + 4*$padding
+  .one, .two, .three, .four, .five
+    height: $icon_height
+    width: $icon_width
+    background: inline-image($small_stars_src) no-repeat
+    margin-right: $padding
+  .five
+    margin-right: 0
+  .cut_filling
+    height: $icon_height
+    .filling
+      width: 5*$icon_width + 4*$padding
+      height: $icon_height
+      .one, .two, .three, .four, .five
+        height: $icon_height
+        width: $icon_width
+        background: inline-image($small_stars_pink) no-repeat
+        margin-right: $padding
+      .five
+        margin-right: 0

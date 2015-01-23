@@ -39,12 +39,16 @@ class @main extends template '../../../tutor'
       building      : module 'tutor/forms/input'
       flat          : module 'tutor/forms/input'
       add_button    : module 'tutor/button' :
-        text      : '+ Добавить'
-        selector  : 'fixed'
+        text      : '+Добавить'
+        selector  : 'edit_add'
       save_button   : module 'tutor/button' :
         text      : 'Сохранить'
-        selector  : 'fixed'
+        selector  : 'edit_save'
 
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
     @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
+
+
+
+

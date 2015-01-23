@@ -1,10 +1,10 @@
 mixin info_block(block_class, header, value)
-  div(class=block_class)
+  label(class=block_class)
     .value.g-standardField!= value
     .m-title.g-edit-smallTitle= header
 
 
-mixin switch_block (block_class, header, left_value, right_value)
+//- mixin switch_block (block_class, header, left_value, right_value)
   div(class=block_class)
     .right.g-standardField
       .male!= left_value
@@ -23,12 +23,13 @@ mixin switch_block (block_class, header, left_value, right_value)
       .sex_woman!= sex_woman
     .m-title.g-edit-smallTitle Пол :
 
-  .date_of_birth
-    .value
-      .day.g-smallField!= birth_day
-      .month.g-smallField!= birth_month
-      .year.g-smallField!= birth_year
-    .m-title.g-edit-smallTitle Дата рождения :
+  .line
+    label.date_of_birth
+      .value
+        .day!= birth_day
+      .m-title.g-edit-smallTitle Дата рождения :
+    label.month!= birth_month
+    label.year.g-smallField!= birth_year
 
   +info_block('status', 'Статус :', status)
 

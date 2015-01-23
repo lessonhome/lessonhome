@@ -1,5 +1,5 @@
 mixin info_block(block_class, header, value)
-  div(class=block_class)
+  label(class=block_class)
     .value.g-standardField!= value
     .m-title.g-edit-smallTitle= header
 //- -------------------------------------------------
@@ -10,13 +10,13 @@ mixin info_block(block_class, header, value)
   +info_block('faculty', 'Факультет :', faculty)
   +info_block('chair', 'Кафедра :', chair)
   +info_block('status', 'Статус :', status)
-
-  .date
-    .value
-      .day.g-smallField!= release_day
-      .month.g-smallField!= release_month
-      .year.g-smallField!= release_year
-    .m-title.g-edit-smallTitle Дата выпуска :
+  .line
+    label.date
+      .value
+        .day!= release_day
+      .m-title.g-edit-smallTitle Дата выпуска :
+    label.month!= release_month
+    label.year.g-smallField!= release_year
 
   .button_block
     .add_button!= add_button

@@ -9,6 +9,7 @@ main
   border-radius : 4px
   background-color : rgb( 223, 225, 228 )
 
+
 .up_block
   margin-top : 9px
   margin-bottom : 7px
@@ -17,29 +18,37 @@ main
   .time
     float : left
 
-    div
+    label
+      display : block
+      cursor  : pointer
       +inline-block
 
-    .title_from, .title_to
-      font-size : 18px
-      font-family : "OpenSans", sans-serif
-      color : #373331
+      div
+        +inline-block
 
-    .title_from
-      margin : 0 12px 0 6px
+      .title_from, .title_to
+        font-size : 18px
+        color : #373331
 
-    .title_to
-      margin : 0 5px 0 8px
+      .title_from
+        margin : 0 12px 0 5px
 
-    .input_from, .input_to
-      width  : 70px
-      height : 37px
+      .input_from
+        margin-right : 4px
+
+      .title_to
+        margin : 0 5px 0 4px
+
+      .input_from, .input_to
+        width  : 70px
+        height : 37px
 
   .delete
     width : 15px
     height : 15px
     margin-left : 7px
     +inline-block
+    vertical-align : top
     background : inline-image('calendar_delete_sign.png') no-repeat
     cursor : pointer
 

@@ -21,7 +21,9 @@ class @main extends template '../tutor'
       popup         : @exports()
       photo         : module 'mime/photo' :
         src      : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
-      progress  : module '$/description/progress' :
+      all_rating  : module '../rating_star':
+        filling  : '40'
+      progress  : module '$/progress' :
         filling  : '56%'
       name          : 'Артемий Дудко'
       personal_data : module '$/info_block' :
@@ -34,6 +36,7 @@ class @main extends template '../tutor'
           'Место работы :'        : 'Кооператив сосулька'
       line_con : module 'tutor/separate_line':
         title     : 'Контакты'
+        link      : './edit/contacts'
         edit      : true
         selector  : 'horizon'
       contacts : module '$/info_block' :
@@ -44,6 +47,7 @@ class @main extends template '../tutor'
           'Личный сайт :' : 'prepod.ru'
       line_edu : module 'tutor/separate_line':
         title     : 'Образование'
+        link      : './edit/education'
         edit      : true
         selector  : 'horizon'
       education : module '$/info_block' :
@@ -56,17 +60,17 @@ class @main extends template '../tutor'
           'Год выпуска:'    : '2011'
       line_pri    : module 'tutor/separate_line':
         title     : 'О себе'
+        link      : './edit/about'
         edit      : true
         selector  : 'horizon'
-      private : module '$/description/private' :
-        text : 'О себеО себеО себеО себеО себеО себеО себеО себеО себе
-            О себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО
-            О себеО себеО себеО себеО себеО себеО себеО себеО себеО себе:'
+      private : module '$/private' :
+        text : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
       line_med : module 'tutor/separate_line':
         title    : 'Медиа'
+        link      : './edit/media'
         edit     : true
         selector : 'horizon'
-      media : module '$/description/media' :
+      media : module '$/media' :
         photo1  : module 'mime/photo' :
           src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
         photo2  : module 'mime/photo' :

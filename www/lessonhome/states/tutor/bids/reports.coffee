@@ -47,9 +47,8 @@ class @main extends template '../../tutor'
           status        : 'Статус'
 
         all_bids : [
-          module '//bid' :
+          module '//report_bid' :
             selectable     : true
-            report_block   : true
             checkbox       : module 'tutor/forms/checkbox' :
               selector : 'bid'
             fill_button    : module '//fill_button'
@@ -82,9 +81,8 @@ class @main extends template '../../tutor'
             wish_time           : 'вторник 18:30-20:00'
 
 
-          module '//bid' :
+          module '//report_bid' :
             selectable   : true
-            report_block : true
             checkbox  : module 'tutor/forms/checkbox' :
               selector : 'bid'
             fill_button    : module '//fill_button'

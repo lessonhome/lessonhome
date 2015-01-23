@@ -1,5 +1,5 @@
 mixin field (selector, title, value)
-  div(class=selector)
+  label(class=selector)
     .title=title
     .value!= value
 
@@ -21,13 +21,14 @@ mixin field (selector, title, value)
     .value
       .sex_man!= sex_man
       .sex_woman!= sex_woman
+  .line
+    label.birth_date
+      .title Дата рождения :
+      .value
+        .birth_day!= birth_day
 
-  .birth_date
-    .title Дата рождения :
-    .value
-      .birth_day!= birth_day
-      .birth_month!= birth_month
-      .birth_year!= birth_year
+    label.birth_month!= birth_month
+    label.birth_year!= birth_year
 
   +field ('status', 'Статус :', status)
 

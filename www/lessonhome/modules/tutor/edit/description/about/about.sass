@@ -2,34 +2,39 @@
 
 main
   overflow    : hidden
-  padding-top : 45px
+  padding-top : 53px
   text-align  : center
 
 .input_block
   +inline-block
 
-  .block
-    margin-bottom : 16.5px
+  label
+    display : block
+    padding : 7.25px 0
+    cursor        : pointer
 
     .input
       width  : 460px
 
     .title
-      margin-bottom : 7.5px
+      margin-bottom : 6.5px
       text-align    : left
       font-size     : 18px
       font-family   : 'Open Sans', sans-serif
       color         : #757575
 
+.input_block :first-child
+  padding-top : 0px
+
 .input_block :last-child
-  margin-bottom : 0px
+  padding-bottom : 0px
 
 .input_block, .button_block
   margin : auto
 
 .button_block
   width : 455px
-  padding-top    : 28px
+  padding-top    : 27px
   padding-bottom : 50px
   .button
     float : right

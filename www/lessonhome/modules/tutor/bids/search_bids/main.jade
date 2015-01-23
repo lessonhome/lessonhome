@@ -5,8 +5,9 @@ mixin selected_course(title)
 
 mixin info_block(block_class, title, value)
   div(class=block_class)
-    .m-title.g-font-bidsFilters=title
-    .value.g-standardField!= value
+    .title=title
+    .value!= value
+
 .filters
   .left_block
     +info_block('subject', 'Предмет :', subject_list)
@@ -16,19 +17,22 @@ mixin info_block(block_class, title, value)
 
   .right_block
     .place
-      .m-title.g-font-bidsFilters Место:
+      .title Место :
       .value
-        .buttons!= place
-        .sign
+        .tutor!= tutor
+        .student!= student
+        .web!= web
+        .hint!= location_hint
 
     +info_block('your_address', 'Ваш адрес :', address_list)
+
     .road_time
-      .m-title.g-font-bidsFilters Время на дорогу :
+      .title Время на дорогу :
       .value
-        .m-title.g-font-bidsFilters до
+        .title до
         .time!= road_time
-        .m-title.g-font-bidsFilters мин.
-        .slider
+        .title мин.
+        .slider!= slider
 
 .separate_line!= separate_line
 

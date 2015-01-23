@@ -35,7 +35,7 @@ class @main extends template '../../../tutor'
       personal_website  : module 'tutor/forms/input'
       save_button       : module 'tutor/button' :
         text      : 'Сохранить'
-        selector  : 'fixed'
+        selector  : 'edit_save'
       hint : module 'tutor/hint' :
         selector  : 'horizontal'
         header    : 'Это подсказка'

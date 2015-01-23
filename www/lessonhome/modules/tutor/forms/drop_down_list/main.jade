@@ -1,9 +1,9 @@
-
+- id = id || "";
 - placeholder = placeholder || "";
 - selector = selector || "";
 
 
 .drop_down_list(class=selector)
-  <input placeholder="#{placeholder}">
+  input(placeholder="#{placeholder}", id="#{id}")
   .icon_box
-    .icon!= icon
+    .icon

@@ -1,3 +1,8 @@
+mixin item (selector, text)
+  div(class=selector)
+    .icon
+    .text=text
+
 if popup
   .popup_wrap
     .content!= popup
@@ -6,11 +11,18 @@ if popup
   .title.g-font-middleTitle Список заказов, по которым вы работаете
   .hint!= hint
 .illustrations
-  .item
-  .item
-  .item
-  .item
-  .item
+  .left
+    +item('status_wait', 'Статус неопределён, ожидание')
+    +item('status_call', 'Нужно договориться с клиентом')
+  .center
+    +item('status_date', 'Дата занятий назначена')
+    +item('status_study', 'Занятия в процессе')
+    +item('status_rating', 'Отзыв собран')
+  .right
+    +item('status_paid', 'Заказ оплачен')
+    +item('status_unpaid', 'Заказ неоплачен')
+    +item('status_fail', 'Заказ удалён')
+
 .bar
   .select_all
     .button!= select_all_checkbox

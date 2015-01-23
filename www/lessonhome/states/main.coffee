@@ -5,7 +5,7 @@ class @main
       items : [
         module 'tutor/header/button' : {
           title : 'Поиск'
-          href  : '/search'
+          href  : '/first_step'
         }
         module 'tutor/header/list_button' : {
           title : 'Стать учеником'
@@ -18,7 +18,7 @@ class @main
         }
         module 'tutor/header/list_button' : {
           title : 'Репетиторам'
-          href  : '/for-tutors'
+          href  : '/main_tutor'
           list  : {
             'как это работает1' : '#'
             'как это работает2' : '#'
@@ -31,15 +31,5 @@ class @main
         }
       ]
     filter_top      : @exports()
-    advanced_filter : @exports()
-# do it: exports info_panel, because change on the page
-    info_panel : module '$/info_panel'
-    content    : @exports()   # must be defined
-
-  init : ->
-    p = @tree.info_panel
-    p.math              = 'Математические +'
-    p.natural_research  = 'Естественно-научные +'
-    p.philology         = 'Филологичные +'
-    p.foreign_languages = 'Иностранные языки +'
-    p.others            = 'Другие +'
+    info_panel      : @exports()
+    content         : @exports()

@@ -1,0 +1,30 @@
+@import compass/css3
+$close_src: 'main/close_10x10.png'
+$icon_height: image-height($close_src)
+$icon_width: image-width($close_src)
+.photo
+  position: relative
+  width: 58px
+  height: 58px
+  background-color: red
+  border-radius: 50%
+  .close_box
+    position: absolute
+    right: 0
+    margin: -3px
+    .close_icon
+      width: $icon_width
+      height: $icon_height
+      background: inline-image($close_src) no-repeat
+.all_rating
+  margin-top: 8px
+
+.photo.extract
+  width: 120px
+  height: 120px
+.all_rating
+  margin-top: 20px
+.count_review
+  margin-top: 15px
+  font-size: 14px
+  color: #757575

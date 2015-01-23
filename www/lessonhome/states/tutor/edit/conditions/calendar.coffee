@@ -24,44 +24,40 @@ class @main extends template '../../../tutor'
     content : module '$':
       calendar_hint : module 'tutor/hint' :
         selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       time_entry_hint : module 'tutor/hint' :
         selector : 'small'
       time_entry_fields : [
         module '//time_entry_field' :
           input_from : module 'tutor/forms/input' :
-            width : '65px'
-
+            selector : 'edit_calendar'
           input_to : module 'tutor/forms/input' :
-            width : '65px'
-
+            selector : 'edit_calendar'
           text_input : module 'tutor/forms/input' :
-            width : '210px'
+            selector : 'edit_calendar'
 
         module '//time_entry_field' :
           input_from : module 'tutor/forms/input' :
-            width : '65px'
-
+            selector : 'edit_calendar'
           input_to : module 'tutor/forms/input' :
-            width : '65px'
-
+            selector : 'edit_calendar'
           text_input : module 'tutor/forms/input' :
-            width : '210px'
-
+            selector : 'edit_calendar'
 
         module '//time_entry_field' :
           input_from : module 'tutor/forms/input' :
-            width : '65px'
-
+            selector : 'edit_calendar'
           input_to : module 'tutor/forms/input' :
-            width : '65px'
-
+            selector : 'edit_calendar'
           text_input : module 'tutor/forms/input' :
-            width : '210px'
+            selector : 'edit_calendar'
 
 
       ]
 
-      add_entry_field : module '//add_entry_field'
+      add_entry_field : module 'tutor/button' :
+        text     : '+'
+        selector : 'add_smth'
 
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'

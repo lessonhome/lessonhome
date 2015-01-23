@@ -49,7 +49,6 @@ main
       height: 100%
   .center_block
     position: relative
-    overflow: hidden
     .left_menu
       float: left
       width: $width_left_menu
@@ -58,6 +57,11 @@ main
       width: $width_content
       margin-left: $width_left_menu
       margin-bottom: 100px
+  .center_block:after
+    clear: both
+    content: ""
+    display: block
+
   .footer
     height: 100px
     width: 100%

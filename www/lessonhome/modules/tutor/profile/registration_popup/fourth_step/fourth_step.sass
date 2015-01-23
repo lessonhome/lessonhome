@@ -7,21 +7,16 @@ $height : 37px
 
 .fields
   margin-top : 40px
-  margin-bottom : 70px
+  margin-bottom : 64.5px
   text-align : right
 
-  .location_buttons
-    margin-bottom : 34px
-    div
-      +inline-block
-      width : 127px
-    .tutor, .student
-      margin-right : 23px
 
 
-  div
+  label, .location_buttons, .button_block
+    display : block
+    cursor  : pointer
     margin-right  : 164px
-    margin-bottom : 11px
+    padding : 5.5px 0
     .title, .value
       +inline-block
 
@@ -40,6 +35,17 @@ $height : 37px
       font-family  : 'Open Sans', sans-serif
 
 
+  .location_buttons
+    padding : 0
+    margin-bottom : 28.5px
+    cursor  : default
+    div
+      +inline-block
+      width : 127px
+    .tutor, .student
+      margin-right : 23px
+
+
   .house, .flat, .building
     .value
       width : 91px
@@ -49,16 +55,18 @@ $height : 37px
 
   .building
     .title
-      width        : 140px
+      width        : 115px
       margin-right : 19px
 
   .house
-    margin-right : 0
+    padding-right : 25px
+    margin-right  : 0
 
   .flat
     margin-right : 414px
 
   .button_block
+    cursor : default
     .add_button
       +inline-block
 

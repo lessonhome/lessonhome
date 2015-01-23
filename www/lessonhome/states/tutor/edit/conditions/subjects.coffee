@@ -25,24 +25,23 @@ class @main extends template '../../../tutor'
       sections          : module 'tutor/forms/drop_down_list'
       destinations      : module 'tutor/forms/drop_down_list'
       category_students : module 'tutor/forms/drop_down_list'
-      location          : module 'tutor/forms/drop_down_list' :
-        selector : 'small_radius'
-      price             : module 'tutor/forms/input' :
-        selector : 'small_radius'
-      add_location     : module '//add_location'
-      pupils_number     : module 'tutor/forms/drop_down_list' :
-        selector : 'small_radius'
+      location          : module 'tutor/forms/drop_down_list'
+      price             : module 'tutor/forms/input'
+      add_location      : module 'tutor/button' :
+        text     : '+'
+        selector : 'add_smth'
+      pupils_number     : module 'tutor/forms/drop_down_list'
       bet               : module 'tutor/forms/input' :
-        selector : 'small_radius'
+        text : 'Ставка'
       comments          : module 'tutor/forms/textarea' :
         id     : 'comments'
         height : '82px'
       add_button        : module 'tutor/button' :
-        text      : '+ Добавить'
-        selector  : 'fixed'
+        text      : '+Добавить'
+        selector  : 'edit_add'
       save_button       : module 'tutor/button' :
-        text      : 'Сохранить'
-        selector  : 'fixed'
+          text      : 'Сохранить'
+          selector  : 'edit_save'
 
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'

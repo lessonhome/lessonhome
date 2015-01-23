@@ -1,20 +1,23 @@
-@import compass/css3
+@import compass/css3/
 
 .m-title
   font-size   : 18px
   font-family : 'Open Sans', sans-serif
   color       : rgb( 0, 0, 0 )
 
-.bid_block, .bid_report_block
+
+//- ----------------- BID BLOCK ----------------------------------------------
+
+.bid_block
   .select_button, .bid
     +inline-block
   .bid
-    width : 711px
+    width : 714px
 
   .select_button
     height         : 70px
     vertical-align : top
-    margin-right   : 16px
+    margin-right   : 12px
     .content
       +inline-block
 
@@ -25,13 +28,16 @@
     height : 100%
     width : 0px
 
+//- ---------- BID, BID_BLOCK>.BID ----------------------------------
 
-.bid, .bid_block>.bid, .bid_report_block>.bid
+
+.bid, .bid_block>.bid
   .basic_block
     height           : 70px
     border-radius    : 4px
     background-color : #f3f3f3
-    box-shadow       : 0 1px 3px rgba(0,0,0,0.21)
+    box-shadow: 0 3px 3px -2px rgba(0,0,0,0.21)
+    cursor           : pointer
 
     div
       +inline-block
@@ -52,10 +58,11 @@
         +inline-block
         vertical-align : middle
         font-size   : 14px
+        line-height : 18px
         font-family : 'Open Sans', sans-serif
 
     .number_date
-      width : 106px
+      width : 108px
     .subject_level
       width : 149px
     .place
@@ -72,17 +79,23 @@
   .request_button
     +inline-block
     width  : 78px
-    height : 70px
-    margin-left : 1px
+    height : 52px
+    cursor : pointer
     background  : inline-image('zapros.png') no-repeat
     background-position : center center
-    text-align : center
+    text-align : left
     .text
-      font-size   : 12px
-      font-family : 'Open Sans', sans-serif
-      font-weight : 600
-      color       : rgb( 207, 113, 107 )
       +inline-block
+      margin-left : 14px
+      font-size   : 12px
+      line-height : 14px
+      font-weight : 600
+      color       : #cf716b
+
+  .request_button:hover
+    .text
+      //-color: #dd2000
+      color: rgba(255, 16, 0, 0.85)
 
   .request_button:after
     content : ''
@@ -108,9 +121,10 @@
     border-right : 0
 
   .details_block
+    display     : none
     width       : 460px
     padding-top : 9px
-    margin      : 5px 0px 30px 30px
+    margin      : 6px 0px 30px 34px
     background  : inline-image('updown_triangle.png') no-repeat
     background-position : 40px 0px
 
@@ -123,226 +137,42 @@
       background-color : rgb( 250, 250, 250 )
 
     .line
-      line-height : 32px
+      overflow: hidden
+      line-height : 28px
       .title
         width        : 195px
-        padding-left : 15px
+        padding-left : 18px
         float        : left
         text-align   : left
+        box-sizing   : border-box
 
         font-size   :  11.2px
         font-family :  'Open Sans', sans-serif
       .value
         overflow : hidden
-
-.bid_report_block
-  .bid
-    .review
-      background-color : rgb( 243, 243, 243 )
-      overflow : hidden
-      .title
-        margin  : 15px 0 6px 25px
-      .content>.text
-        margin-left   : 100px
-        margin-bottom : 20px
-        font-size     : 16px
-        font-family   : 'Open Sans', sans-serif
-
-    .report
-      background-color : rgb( 225, 227, 229 )
-      overflow         : hidden
-      .title
-        margin : 15px 0 0 25px
-      .content
-        margin-left : 100px
+        box-sizing: border-box
         div
           +inline-block
-        .items
-          padding-top : 6px
-          .item
-            margin-bottom : 6px
-            div
-              +inline-block
-            .icon
-              width            : 20px
-              height           : 20px
-              margin-right     : 20px
-              border-radius    : 50%
-              background-color : rgb( 202, 211, 218 )
-            .text
-              font-size : 16px
-              font-family : 'Open Sans', sans-serif
-          .item.active
-            .icon
-              background-color : #89d1ff
-              box-shadow : 0 0 7px 3px rgba(255, 255, 255, 0.75)
-          .item:last-child
-            margin-bottom : 22px
-        .buttons
-          vertical-align : top
-          div
-            +inline-block
-          .fill_button
-            margin : 0 30px 0 25px
-
-      .content :last-child
-        margin-bottom : 22px
+          line-height: 20px
+          padding-bottom: 5px
 
 
-    .data
-      background-color : rgb( 243, 243, 243 )
-      overflow : hidden
-      div
-        padding-left : 105px
-      .title
-        margin  : 15px 0 15px 25px
-        padding : 0
-      .content
-        .full_name
-          margin-bottom : 15px
-          font-size   : 18px
-          font-family : 'Open Sans', sans-serif
-          font-weight : 600
-          color       : rgb( 0, 0, 0 )
-        .phone, .post, .skype, .wish_time
-          margin-bottom : 10px
-          .title
-            float       : left
-            width       : 185px
-            font-size   : 16px
-            font-family : 'Open Sans', sans-serif
-            color       : rgb( 96, 96, 96 )
-          .value
-            font-size   : 18px
-            font-family : 'Open Sans', sans-serif
-            font-weight : 600
-        .wish_time
-          margin-bottom : 25px
+  .details_block :first-child
+    border-top-left-radius: 4px
+    border-top-right-radius: 4px
 
-    .basic_block>.status>.text>.start
-      +inline-block
-      width  : 20px
-      height : 20px
-      background-color : rgb( 187, 199, 203 )
-      border-radius    : 50%
-    .basic_block>.status>.text :first-child
-      margin-right: 10px
+  .details_block :last-child
+    border-bottom-left-radius: 4px
+    border-bottom-right-radius: 4px
+    box-shadow: 0 5px 4px -4px rgba(0, 0, 0, .31)
 
 
-    .details_block_background
-      margin-top : 20px
-      background-color : rgb( 225, 227, 229 )
-      overflow         : hidden
-      .header
-        margin-top  : 30px
-        margin-left : 25px
-        .icon, .title
-          +inline-block
-        .icon
-          width  : 13px
-          height : 12px
-          margin-right : 8px
-          background : inline-image('falldown_triangle2.png') no-repeat
-
-      .details_block
-        width       : 460px
-        padding-top : 9px
-        margin      : 10px 20px 30px 30px
-        background  : inline-image('updown_triangle.png') no-repeat
-        background-position : 40px 0px
-
-        .title
-          width : 200px
-
-        .line.dark
-          background-color : rgb( 240, 240, 240 )
-        .line.light
-          background-color : rgb( 250, 250, 250 )
-
-        .line
-          line-height : 32px
-          .title
-            width : 195px
-            padding-left: 15px
-            float : left
-            text-align : left
-
-            font-size :  11.2px
-            font-family :  'Open Sans', sans-serif
-          .value
-            overflow : hidden
-
-
+//- -------------------- BID ---------------------------------------------
 
 .bid>.basic_block
-  width : 610px
+  width : 612px
   +inline-block
 
-
-//-
-  .bid
-    ul
-      background : rgb( 243, 243, 243 )
-
-      li
-        display : inline-block
-        width : 12.5%
-        padding-left : $red
-        padding-top : 16px
-        padding-bottom : $red
-        box-sizing : border-box
-
-        word-wrap : break-word
-        vertical-align : top
-
-        margin-top : 5px
-        margin-bottom : 5px
-
-    .details_block
-      background-color : rgb(122, 152, 191)
-      .line
-        .title
-          width : 30%
-          float : left
-          text-align : right
-          padding-right : 29px
-          box-sizing : border-box
-
-        .value
-          width : 70%
-          margin-left : 30%
-
-  /*-----------------------------------------------*/
-
-  .bid:hover, .bid
-    .details_block
-      background-color : rgb(122, 152, 191)
-      width : 582px
-      margin-left : 58px
-      padding-left : $red
-      padding-top  : $red
-      padding-bottom : $red
-
-      .line
-        overflow : hidden
-        margin-bottom : 3px
-
-        .title
-          width : 30%
-          float : left
-          text-align : right
-          padding-right : 29px
-          box-sizing : border-box
-
-        .value
-          width : 70%
-          margin-left : 30%
-
-  .bid:hover>.details_block
-    display : none
-
-  .bid:hover>.details_block
-    display : block
 
 
 

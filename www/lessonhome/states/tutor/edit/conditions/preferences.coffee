@@ -37,8 +37,8 @@ class @main extends template '../../../tutor'
           selector : 'vertical'
 
       button : module 'tutor/button' :
-        text     : 'Сохранить'
-        selector : 'fixed'
+        text      : 'Сохранить'
+        selector  : 'edit_save'
 
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
