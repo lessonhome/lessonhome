@@ -15,13 +15,20 @@ if selector == 'small'
       .text!= text
         .angle
 else
-  .hint(class=selector)
-    .top_block
-      .hide_button
-        .icon
-        .text скрыть
-    .question_sign_block
-    .header!= header
-    .text!= text
-    if separate_line
-      .separate_line!= separate_line
+  if selector == 'horizontal_hide_ability'
+    .hint.horizontal_hide_ability
+      .top_block
+        .hide_block
+          .button.open
+            .icon
+            .text скрыть
+      .bottom_block
+        .question_sign_block
+        .text!= text
+  else
+    .hint(class=selector)
+      .question_sign_block
+      .header!= header
+      .text!= text
+      if separate_line
+        .separate_line!= separate_line

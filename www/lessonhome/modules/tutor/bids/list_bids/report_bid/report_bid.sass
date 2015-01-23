@@ -123,11 +123,12 @@
   .bid
     .report_block
       display: none
+      overflow: hidden
       .review
         background-color : rgb( 243, 243, 243 )
         overflow : hidden
         .title
-          margin  : 15px 0 6px 25px
+          margin  : 12px 0 6px 27px
         .content>.text
           margin-left   : 100px
           margin-bottom : 20px
@@ -138,7 +139,7 @@
         background-color : rgb( 225, 227, 229 )
         overflow         : hidden
         .title
-          margin : 15px 0 0 25px
+          margin : 12px 0 0 27px
         .content
           margin-left : 100px
           div
@@ -179,9 +180,9 @@
         background-color : rgb( 243, 243, 243 )
         overflow : hidden
         div
-          padding-left : 105px
+          padding-left : 110px
         .title
-          margin  : 15px 0 15px 25px
+          margin  : 12px 0 15px 27px
           padding : 0
         .content
           .full_name
@@ -194,7 +195,7 @@
             margin-bottom : 10px
             .title
               float       : left
-              width       : 185px
+              width       : 184px
               font-size   : 16px
               font-family : 'Open Sans', sans-serif
               color       : rgb( 96, 96, 96 )
@@ -203,25 +204,25 @@
               font-family : 'Open Sans', sans-serif
               font-weight : 600
           .wish_time
-            margin-bottom : 25px
+            margin-bottom : 17px
 
       .details_block_background
-        margin-top: 20px
+        margin-top: 22px
         padding-bottom: 30px
         background-color : rgb( 225, 227, 229 )
         overflow         : hidden
         .header
           +inline-block
-          margin-top  : 30px
+          margin-top  : 25px
           margin-left : 25px
           cursor: pointer
           .icon, .title
             +inline-block
           .icon
-            width  : 13px
-            height : 12px
+            width  : 16px
+            height : 16px
             margin-right : 8px
-            background : inline-image('falldown_triangle2.png') no-repeat
+            //-background : inline-image('info_opened.png') no-repeat
 
         .details_block
           display: none
@@ -252,6 +253,10 @@
             .value
               overflow : hidden
 
+      .details_block_background.details_closed>.header>.icon
+        background : inline-image('info_closed.png') no-repeat
+      .details_block_background.details_open>.header>.icon
+        background : inline-image('info_opened.png') no-repeat
 
     .basic_block>.status>.text>.start
       +inline-block
@@ -261,4 +266,3 @@
       border-radius    : 50%
     .basic_block>.status>.text :first-child
       margin-right: 10px
-

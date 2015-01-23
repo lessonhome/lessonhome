@@ -15,7 +15,9 @@ class @main extends template '../registration_popup'
       group_lessons_bet      : module 'tutor/forms/drop_down_list'
       comments               : module 'tutor/forms/textarea' :
         height : '80px'
-      add_button             : module '//add_button'
+      add_button             : module 'tutor/button' :
+        text     : '+Добавить'
+        selector : 'reg_add'
 
   init : ->
     @parent.tree.popup.progress_bar.progress = 3

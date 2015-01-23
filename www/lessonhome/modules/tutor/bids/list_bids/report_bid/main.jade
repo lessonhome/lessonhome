@@ -44,7 +44,7 @@ mixin line (title, value, selector)
             .start
             .start
     .report_block
-      .details_block_background
+      .details_block_background.details_closed
         .header
           .icon
           .title.m-title Просмотреть доп.информацию
@@ -60,10 +60,10 @@ mixin line (title, value, selector)
         .title.m-title Данные
         .content
           .full_name= full_name
-          +report_line('Телефон:', phone, 'phone')
-          +report_line('Почта:', post, 'post')
-          +report_line('Skype:', skype, 'skype')
-          +report_line('Желаемое время:', wish_time, 'wish_time')
+          +report_line('Телефон :', phone, 'phone')
+          +report_line('Почта :', post, 'post')
+          +report_line('Skype :', skype, 'skype')
+          +report_line('Желаемое время :', wish_time, 'wish_time')
       .report
         .title.m-title Отчёт
         .content
