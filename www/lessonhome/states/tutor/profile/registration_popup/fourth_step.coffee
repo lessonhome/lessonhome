@@ -24,7 +24,9 @@ class @main extends template '../registration_popup'
       house      : module 'tutor/forms/input'
       building   : module 'tutor/forms/input'
       flat       : module 'tutor/forms/input'
-      add_button : module '//add_button'
+      add_button : module 'tutor/button' :
+        text     : '+Добавить'
+        selector : 'reg_add'
 
 
   init : ->

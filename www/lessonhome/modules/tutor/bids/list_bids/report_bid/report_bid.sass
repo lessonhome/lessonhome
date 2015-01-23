@@ -1,0 +1,268 @@
+@import compass/css3
+
+.bid_report_block
+  .select_button, .bid
+    +inline-block
+  .bid
+    width : 714px
+
+  .select_button
+    height         : 70px
+    vertical-align : top
+    margin-right   : 12px
+    .content
+      +inline-block
+
+  .select_button:after
+    content : ''
+    +inline-block
+    vertical-align : middle
+    height : 100%
+    width : 0px
+
+
+.bid_report_block>.bid
+  .basic_block
+    height           : 70px
+    border-radius    : 4px
+    background-color : #f3f3f3
+    box-shadow: 0 3px 3px -2px rgba(0,0,0,0.21)
+    cursor           : pointer
+
+    div
+      +inline-block
+      text-align : center
+      border-right : 1px solid rgba(0,0,0,0.17)
+      box-sizing : border-box
+      height : 100%
+
+    div:after
+      content : ''
+      +inline-block
+      vertical-align : middle
+      height : 100%
+      width : 0px
+
+    .number_date, .subject_level, .place, .city_district, .bet, .price, .request_button, .status
+      .text
+        +inline-block
+        vertical-align : middle
+        font-size   : 14px
+        line-height : 18px
+        font-family : 'Open Sans', sans-serif
+
+    .number_date
+      width : 108px
+    .subject_level
+      width : 149px
+    .place
+      width : 88px
+    .city_district
+      width : 110px
+    .bet
+      width : 79px
+    .price
+      width : 78px
+    .status
+      width : 100px
+
+  .basic_block :last-child
+    border-bottom-left-radius  : 4px
+    border-bottom-right-radius : 4px
+
+  .basic_block :last-child
+    border-right : 0
+
+  //-.details_block
+    display     : none
+    width       : 460px
+    padding-top : 9px
+    margin      : 6px 0px 30px 34px
+    background  : inline-image('updown_triangle.png') no-repeat
+    background-position : 40px 0px
+
+    .title
+      width : 200px
+
+    .line.dark
+      background-color : rgb( 240, 240, 240 )
+    .line.light
+      background-color : rgb( 250, 250, 250 )
+
+    .line
+      overflow: hidden
+      line-height : 28px
+      .title
+        width        : 195px
+        padding-left : 18px
+        float        : left
+        text-align   : left
+        box-sizing   : border-box
+
+        font-size   :  11.2px
+        font-family :  'Open Sans', sans-serif
+      .value
+        overflow : hidden
+        box-sizing: border-box
+        div
+          +inline-block
+          line-height: 20px
+          padding-bottom: 5px
+
+
+  //-.details_block :first-child
+    border-top-left-radius: 4px
+    border-top-right-radius: 4px
+
+  //-.details_block :last-child
+    border-bottom-left-radius: 4px
+    border-bottom-right-radius: 4px
+    box-shadow: 0 5px 4px -4px rgba(0, 0, 0, .31)
+
+.bid_report_block
+  .bid
+    .report_block
+      display: none
+      overflow: hidden
+      .review
+        background-color : rgb( 243, 243, 243 )
+        overflow : hidden
+        .title
+          margin  : 12px 0 6px 27px
+        .content>.text
+          margin-left   : 100px
+          margin-bottom : 20px
+          font-size     : 16px
+          font-family   : 'Open Sans', sans-serif
+
+      .report
+        background-color : rgb( 225, 227, 229 )
+        overflow         : hidden
+        .title
+          margin : 12px 0 0 27px
+        .content
+          margin-left : 100px
+          div
+            +inline-block
+          .items
+            padding-top : 6px
+            .item
+              margin-bottom : 6px
+              div
+                +inline-block
+              .icon
+                width            : 20px
+                height           : 20px
+                margin-right     : 20px
+                border-radius    : 50%
+                background-color : rgb( 202, 211, 218 )
+              .text
+                font-size : 16px
+                font-family : 'Open Sans', sans-serif
+            .item.active
+              .icon
+                background-color : #89d1ff
+                box-shadow : 0 0 7px 3px rgba(255, 255, 255, 0.75)
+            .item:last-child
+              margin-bottom : 22px
+          .buttons
+            vertical-align : top
+            div
+              +inline-block
+            .fill_button
+              margin : 0 30px 0 25px
+
+        .content :last-child
+          margin-bottom : 22px
+
+
+      .data
+        background-color : rgb( 243, 243, 243 )
+        overflow : hidden
+        div
+          padding-left : 110px
+        .title
+          margin  : 12px 0 15px 27px
+          padding : 0
+        .content
+          .full_name
+            margin-bottom : 15px
+            font-size   : 18px
+            font-family : 'Open Sans', sans-serif
+            font-weight : 600
+            color       : rgb( 0, 0, 0 )
+          .phone, .post, .skype, .wish_time
+            margin-bottom : 10px
+            .title
+              float       : left
+              width       : 184px
+              font-size   : 16px
+              font-family : 'Open Sans', sans-serif
+              color       : rgb( 96, 96, 96 )
+            .value
+              font-size   : 18px
+              font-family : 'Open Sans', sans-serif
+              font-weight : 600
+          .wish_time
+            margin-bottom : 17px
+
+      .details_block_background
+        margin-top: 22px
+        padding-bottom: 30px
+        background-color : rgb( 225, 227, 229 )
+        overflow         : hidden
+        .header
+          +inline-block
+          margin-top  : 25px
+          margin-left : 25px
+          cursor: pointer
+          .icon, .title
+            +inline-block
+          .icon
+            width  : 16px
+            height : 16px
+            margin-right : 8px
+            //-background : inline-image('info_opened.png') no-repeat
+
+        .details_block
+          display: none
+          width       : 460px
+          padding-top : 9px
+          margin      : 10px 20px 0px 30px
+          background  : inline-image('updown_triangle.png') no-repeat
+          background-position : 40px 0px
+
+          .title
+            width : 200px
+
+          .line.dark
+            background-color : rgb( 240, 240, 240 )
+          .line.light
+            background-color : rgb( 250, 250, 250 )
+
+          .line
+            line-height : 32px
+            .title
+              width : 195px
+              padding-left: 15px
+              float : left
+              text-align : left
+
+              font-size :  11.2px
+              font-family :  'Open Sans', sans-serif
+            .value
+              overflow : hidden
+
+      .details_block_background.details_closed>.header>.icon
+        background : inline-image('info_closed.png') no-repeat
+      .details_block_background.details_open>.header>.icon
+        background : inline-image('info_opened.png') no-repeat
+
+    .basic_block>.status>.text>.start
+      +inline-block
+      width  : 20px
+      height : 20px
+      background-color : rgb( 187, 199, 203 )
+      border-radius    : 50%
+    .basic_block>.status>.text :first-child
+      margin-right: 10px

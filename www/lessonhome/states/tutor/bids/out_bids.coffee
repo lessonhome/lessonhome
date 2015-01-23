@@ -49,7 +49,6 @@ class @main extends template '../../tutor'
         all_bids : [
           module '//bid' :
             selectable   : true
-            report_block : false
             checkbox  : module 'tutor/forms/checkbox' :
               selector : 'bid'
 
@@ -75,7 +74,6 @@ class @main extends template '../../tutor'
 
           module '//bid' :
             selectable   : true
-            report_block : false
             checkbox  : module 'tutor/forms/checkbox' :
               selector : 'bid'
 

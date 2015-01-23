@@ -19,106 +19,39 @@ mixin line (title, value, selector)
 //- --------------------------------------------------------------------------------------
 
 if selectable
-  if report_block
-    .bid_report_block
-      .select_button
-        .content!= checkbox
-      .bid
-        .basic_block
-          .number_date
-            .text!= number + '<br>'
-              div(style="color: #444444")= date
-          .subject_level
-            .text!= subject + '<br>'
-              = level
-          .place
-            .text= place
-          .city_district
-            .text!= city + '<br>'
-              = district
-          .bet
-            .text!= bet_price + '<br>'
-              != bet_time
-          .price
-            .text= price
+  .bid_block
+    .select_button
+      .content!= checkbox
+    .bid
+      .basic_block
+        .number_date
+          .text!= number + '<br>'
+            div(style="color: #444444")= date
+        .subject_level
+          .text!= subject + '<br>'
+            = level
+        .place
+          .text= place
+        .city_district
+          .text!= city + '<br>'
+            = district
+        .bet
+          .text!= bet_price + '<br>'
+            != bet_time
+        .price
+          .text= price
+        if status
           .status
-            if status == 'start'
-              .text
-                .start
-                .start
-        .details_block_background
-          .header
-            .icon
-            .title.m-title Просмотреть доп.информацию
-          .details_block
-            +line('Категория ученика :', category_pupil, 'dark')
-            +line('Направление подготовки :', training_direction, 'light' )
-            +line('Количество занятий :', number_of_lessons, 'dark' )
-            +line('Пожелания :', wishes, 'light' )
-            +line('Ближайшее метро :', near_metro, 'dark' )
-            +line('Комментарии :', comments, 'light' )
-            +line('Цель занятия :', lesson_goal, 'dark' )
-        .data
-          .title.m-title Данные
-          .content
-            .full_name= full_name
-            +report_line('Телефон:', phone, 'phone')
-            +report_line('Почта:', post, 'post')
-            +report_line('Skype:', skype, 'skype')
-            +report_line('Желаемое время:', wish_time, 'wish_time')
-        .report
-          .title.m-title Отчёт
-          .content
-            .items
-              .item.active
-                .icon
-                .text Ознакомительный звонок ученику
-              +item('Дата первого занятия')
-              +item('Как прошло первое занятие?')
-              +item('Оплата')
-            .buttons
-              .fill_button!= fill_button
-              .support_button!= support_button
-        .review
-          .title.m-title Отзыв
-          .content
-            .text Пока не собран.
+            .text!= status
 
-
-  else
-    .bid_block
-      .select_button
-        .content!= checkbox
-      .bid
-        .basic_block
-          .number_date
-            .text!= number + '<br>'
-              div(style="color: #444444")= date
-          .subject_level
-            .text!= subject + '<br>'
-              = level
-          .place
-            .text= place
-          .city_district
-            .text!= city + '<br>'
-              = district
-          .bet
-            .text!= bet_price + '<br>'
-              != bet_time
-          .price
-            .text= price
-          if status
-            .status
-              .text!= status
-
-        .details_block
-          +line('Категория ученика :', category_pupil, 'dark')
-          +line('Направление подготовки :', training_direction, 'light' )
-          +line('Количество занятий :', number_of_lessons, 'dark' )
-          +line('Пожелания :', wishes, 'light' )
-          +line('Ближайшее метро :', near_metro, 'dark' )
-          +line('Комментарии :', comments, 'light' )
-          +line('Цель занятия :', lesson_goal, 'dark' )
+      .details_block
+        +line('Категория ученика :', category_pupil, 'dark')
+        +line('Направление подготовки :', training_direction, 'light' )
+        +line('Количество занятий :', number_of_lessons, 'dark' )
+        +line('Пожелания :', wishes, 'light' )
+        +line('Ближайшее метро :', near_metro, 'dark' )
+        +line('Комментарии :', comments, 'light' )
+        +line('Цель занятия :', lesson_goal, 'dark' )
 else
   .bid
     .basic_block

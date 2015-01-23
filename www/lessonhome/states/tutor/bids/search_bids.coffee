@@ -66,7 +66,6 @@ class @main extends template '../../tutor'
         all_bids : [
           module '//bid' :
             selectable   : false
-            report_block : false
             number    : 25723
             date      : "10 ноября"
             subject   : 'Физика'
@@ -86,7 +85,6 @@ class @main extends template '../../tutor'
             lesson_goal         : 'Устранить пробелы в знаниях'
           module '//bid' :
             selectable   : false
-            report_block : false
             number    : 15723
             date      : "20 декабря"
             subject   : 'Математика'
@@ -106,7 +104,6 @@ class @main extends template '../../tutor'
             lesson_goal         : 'Устранить пробелы в знаниях'
           module '//bid' :
             selectable   : false
-            report_block : false
             number    : 25723
             date      : "10 ноября"
             subject   : 'Физика'
@@ -126,7 +123,6 @@ class @main extends template '../../tutor'
             lesson_goal         : 'Устранить пробелы в знаниях'
           module '//bid' :
             selectable   : false
-            report_block : false
             number    : 25723
             date      : "10 ноября"
             subject   : 'Физика'
@@ -146,7 +142,6 @@ class @main extends template '../../tutor'
             lesson_goal         : 'Устранить пробелы в знаниях'
           module '//bid' :
             selectable   : false
-            report_block : false
             number    : 25723
             date      : "10 ноября"
             subject   : 'Физика'

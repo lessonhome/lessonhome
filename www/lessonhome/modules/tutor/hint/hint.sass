@@ -3,7 +3,7 @@
 $red: 29px
 $blu: 58px
 
-.hint.horizontal, .hint.vertical, .hint.horizontal_hide_ability
+.hint.horizontal, .hint.vertical
   .question_sign_block
     background: inline-image('hint.png') no-repeat
     height: 64px
@@ -25,7 +25,7 @@ $blu: 58px
     display: none
 
 /*---------------------------------*/
-.hint.horizontal, .hint.horizontal_hide_ability
+.hint.horizontal
   .question_sign_block
     float: left
 
@@ -57,19 +57,47 @@ $blu: 58px
   .top_block
     display: block
     text-align: right
-    .hide_button
-      .icon, .text
+    .hide_block
+      text-align: right
+      .button
         +inline-block
-      .icon
-        background: inline-image('falldown_triangle2.png') no-repeat
-        width: 13px
-        height: 12px
-        margin-right: 7px
-      .text
-        font-size: 16px
-        font-family: 'Open Sans', sans-serif
-  .text
-    padding-top: 0
+        cursor: pointer
+        .icon, .text
+          +inline-block
+        .icon
+          //-background: inline-image('falldown_triangle3.png') no-repeat
+          width: 16px
+          height: 16px
+          margin-right: 7px
+        .text
+          width: 75px
+          text-align: left
+          font-size: 16px
+          vertical-align: top
+      .button.open>.icon
+        background: inline-image('info_opened.png') no-repeat
+      .button.closed>.icon
+        background: inline-image('info_closed.png') no-repeat
+  .bottom_block
+    .text
+      padding-top: 0
+      padding-left: 46px
+      font-size: 16px
+      line-height: 24px
+
+
+    .question_sign_block
+      float: left
+      background: inline-image('hint.png') no-repeat
+      height: 64px
+      width: 64px
+
+    .text
+      overflow: hidden
+      text-align: left
+      font-family: 'Open Sans', sans-serif
+
+
 /*--------------------------------*/
 
 .hint.small
@@ -149,7 +177,7 @@ $blu: 58px
 
 .hint
   .field.hidden
-    visibility: hidden
+    display: none
 
 .hint.vertical
   position: relative
