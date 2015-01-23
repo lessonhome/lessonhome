@@ -17,7 +17,9 @@ module.exports.make = function (cb){
   sum = sha1.digest('hex');
   if (sum == hash)return cb();
   process.chdir('feel');
+  console.log ('npm install');
   sp('npm',['i'], function(){
+    console.log ('npm update');
     sp('npm',['update'],function(){
       process.chdir('..');
       fs.writeFileSync(fsave,sum);

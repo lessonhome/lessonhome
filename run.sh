@@ -2,13 +2,12 @@
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$ROOT"
 
-#if [ "$#" -eq 1 ];then
-#  cd feel
-#  npm i
-#  cd ..
-#fi
+if [ "$#" -eq 1 ];then
+  rm -rf .cache
+fi
 
-killall -KILL node 2>> /dev/null
+killall node 2>> /dev/null
+killall nodejs 2>> /dev/null
 node ./feel/bin/feel --harmony --force & 
 #node ./feel/bin/updater --harmony --force & 
 

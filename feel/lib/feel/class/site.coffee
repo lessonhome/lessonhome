@@ -5,6 +5,8 @@ fs      = require 'fs'
 readdir = Q.denodeify fs.readdir
 Router  = require './server/router'
 _path   = require 'path'
+
+
 class module.exports
   constructor : (@name)->
     @path         = {}
@@ -25,6 +27,8 @@ class module.exports
     .then @loadModules
     .then @loadStates
     .then @router.init
+    .then =>
+      console.log @dataObject "./example", "states/main"
   configInit : =>
     return Q() unless fs.existsSync @path.config
     return Q() unless fs.statSync(@path.config).isDirectory()
@@ -33,7 +37,7 @@ class module.exports
     readdir dir
     .then (files)=>
       files.reduce (promise,file)=>
-        stat = fs.statSync("#{dir}/#{file}")
+        stat = fs.statSync("#{dicr}/#{file}")
         if stat.isDirectory()
           return promise.then => @configDir "#{dir}/#{file}"
         if stat.isFile()
@@ -132,8 +136,8 @@ class module.exports
     return @res404 req,res unless m
     if m[2].match /\.\./
       return @res404 req,res unless m
-    hash  = m[1]
-    module = m[2]
+    hash    = m[1]
+    module  = m[2]
     
     if @modules[module]?.allJs?
       res.setHeader "Content-Type", "text/javascript; charset=utf-8"

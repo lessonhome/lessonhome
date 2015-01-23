@@ -2,5 +2,6 @@
 
 
 @main = (o)->
-  return {}
+  ololo : "oh,yes"
+  rly   : "yes"
   

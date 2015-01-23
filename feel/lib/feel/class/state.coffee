@@ -27,6 +27,7 @@ class module.exports
       'template'
       'exports' # fix module.exports to undefined, use @exports instead
       'extend'
+      'data'
       'F'
     ]
     that = @
