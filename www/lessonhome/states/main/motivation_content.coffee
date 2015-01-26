@@ -43,7 +43,7 @@ class @main extends template '../main'
         img  :
           src : F('main/main_select.png')
           w   : 663
-          h   : 519
+          h   : 514
         text  :
           more_information  : 'Подробная<br>информация'
           subject_curse     : 'Предметы и<br>курсы'
