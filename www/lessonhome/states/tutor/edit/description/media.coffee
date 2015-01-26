@@ -16,13 +16,13 @@
       ]
       sub_top_menu : state 'tutor/sub_top_menu' :
         items :
-          'Настройки'   : 'settings'
           'Общие'       : 'general'
           'Контакты'    : 'contacts'
           'Образование' : 'education'
           'Карьера'     : 'career'
           'О себе'      : 'about'
           'Медиа'       : 'media'
+          'Настройки'   : 'settings'
         active_item : 'Медиа'
       content :  module '$':
 
