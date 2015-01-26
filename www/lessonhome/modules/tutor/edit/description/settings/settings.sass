@@ -1,0 +1,148 @@
+@import compass/css3
+
+main
+  padding-top: 50px
+  padding-bottom: 50px
+
+
+div, .label_block>label
+  text-align: right
+  margin-right: 130px
+  .title, .value
+    +inline-block
+  .title
+    padding-right: 28px
+    font-size:  16px
+    color: #757575
+  .value
+    width: 339px
+
+.new_orders
+  margin-bottom: 25px
+  .value
+    text-align: left
+
+.get_notice
+  margin-bottom: 15px
+  .title
+    vertical-align: top
+  .value
+    text-align: left
+    div
+      .title, .value
+        +inline-block
+      .title
+        padding-left: 10px
+        font-size:    18px
+        color:        rgb(0, 0, 0)
+      .value
+        vertical-align: top
+
+    .notice_sms_checkbox
+      margin-bottom: 8px
+
+.callback
+  margin-bottom: 15px
+  .title
+    vertical-align: top
+    line-height: 24px
+  .value
+    text-align: left
+    .callback_toggle
+      margin-bottom: 16px
+
+//- --------------------- TITLE BLOCK ----------------------------------------
+
+$backgroundText: #ffffff
+.title_block
+  overflow: hidden
+  position: relative
+  margin-right: 23px
+  margin-left: 22px
+  div
+    +inline-block
+  .title
+    padding-right: 21px
+    float: left
+    position: relative
+    z-index: 1
+    background: $backgroundText
+    font-size: 18px
+    color:     #757575
+  .line
+    position: absolute
+    left: 0
+    top: 50%
+    right: 0
+    height: 2px
+    +box-shadow(0px 1px 0px rgba(0,0,0,0.27) inset)
+    background: #cad2d8
+    opacity: 0.4
+
+.title_block.phone_number, .title_block.email, .title_block.password
+  margin-top: 27px
+  margin-bottom: 22px
+
+//- ------------ BUTTONS -----------------------------
+
+.save_block, .change_block
+  text-align: right
+  .button
+    +inline-block
+
+.change_block, .save_block.password
+  margin-top: 10.5px
+
+//- ----------- INFO BLOCK ----------------------------
+.label_block
+  text-align: right
+  label.info_block
+    +inline-block
+    margin-right: initial
+    padding: 6.5px 0
+    cursor: pointer
+    .value
+      height: 37px
+    .title
+      width: 150px
+
+//- ----------- OLD EMAIL, OLD PHONE NUMBER--------------------------------------
+
+.old_email, .old_phone_number
+  padding-bottom: 6.5px
+  .value
+    text-align: left
+    height: 37px
+    line-height: 37px
+    .text
+      +inline-block
+      font-size: 20px
+      color: rgb(0, 0, 0)
+
+
+
+//-
+  main
+    height: 100%
+    font-size: $font-size
+    color: #757575
+    overflow: hidden
+    position: relative
+  .title
+    padding-right: $paddingText
+    float: left
+    position: relative
+    z-index: 1
+    background: $backgroundText
+
+  .horizon
+    position: absolute
+    left: 0
+    top: 50%
+    right: 0
+    height: 2px
+    +box-shadow(0px 1px 0px rgba(0,0,0,0.27) inset)
+
+  .horizon, .vertical
+    background: #cad2d8
+    opacity: 0.4
