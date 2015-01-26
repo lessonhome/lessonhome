@@ -2,16 +2,16 @@ class @main
   tree : ->
     items : [
       module 'tutor/header/button' : {
-        title : 'Описание'
-        href  : '/second_step_popup'
+        href  : '/second_step_popup_profile'
+        title : "Анкета"
       }
       module 'tutor/header/button' : {
-        title : 'Условия'
-        href  : '/second_step_popup'
+        href  : '/second_step_popup_conditions'
+        title : "Условия"
       }
       module 'tutor/header/button' : {
-        title : 'Отзывы'
-        href  : '/second_step_popup'
+        href  : '/second_step_popup_reviews'
+        title : "Отзывы"
       }
     ]
     content : module 'tutor/profile'  :
@@ -60,6 +60,3 @@ class @main
           src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
         video   : module 'mime/video' :
           src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
-#  init : ->
-#    @parent.tree.left_menu.setActive 'Анкета'
-
