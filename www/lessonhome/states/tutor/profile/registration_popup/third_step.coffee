@@ -12,7 +12,8 @@ class @main extends template '../registration_popup'
       price                  : module 'tutor/forms/input'
       price_button           : module '//price_button'
       students_in_group      : module 'tutor/forms/drop_down_list'
-      group_lessons_bet      : module 'tutor/forms/drop_down_list'
+      group_lessons_bet      : module 'tutor/forms/drop_down_list' :
+        placeholder : 'Ставка'
       comments               : module 'tutor/forms/textarea' :
         height : '80px'
       add_button             : module 'tutor/button' :

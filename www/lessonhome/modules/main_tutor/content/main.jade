@@ -32,7 +32,8 @@ mixin item (selector, text)
 
 //- ------------- HOW IT WORKS --------------------
 
-.how_it_works
+.how_it_works!= how_it_works
+//
   .title.m-landingBlockTitle Как это работает?
   .photo
   .button!= check_in_first
@@ -46,8 +47,7 @@ mixin item (selector, text)
   .title
     .text.m-font Тысячи учеников и их родителей ищут<br> репетиторов онлайн каждый день!
     .text.m-font Площадка <span>LESSON HOME</span> позволяет создать бесплатны<br> онлайн профиль, в котором есть всё необходимое, чтобы<br> продемонстрировать свою квалификацию и опыт.
-  .content
-  //-.content
+  //.content
     .left
       .icon
       .title.m-font Создать профиль<br> <span class="red">быстро</span> и <span class="blue">бесплатно</span>
@@ -68,10 +68,14 @@ mixin item (selector, text)
         +item ('7','Ищите учеников и откликайтесь на заявки')
         +item ('8','Поддержка клиентов Lesson Home доступна 7 дней в неделю')
 
-//- -------- WAYS TO FIND -------------------------
 
-.ways_to_find
-  .title.m-landingBlockTitle 3 способа поиска
-  .photo
-  .button!= callback
+
+//- -------- WAYS TO FIND -------------------------
+//
+  .ways_to_find
+    .title.m-landingBlockTitle 3 способа поиска
+    .photo
+    .button!= callback
+
+.choose_tutor_block(style = "background: url(#{F('main/pattern_green2.jpg')})")!=choose_search
 

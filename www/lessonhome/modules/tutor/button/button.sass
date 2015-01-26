@@ -65,6 +65,7 @@ main
   background-color: rgb( 137, 209, 255 )
 // ------------------------- CHECK IN -----------------------
 .button.check_in_first, .button.check_in_second, .button.callback
+  +inline-block
   background-color: rgb( 240, 123, 111 )
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.59)
   .text
@@ -74,7 +75,7 @@ main
   height: 64px
   .text
     line-height: 64px
-    font-size: 30px
+    font-size: 25px
 .button.check_in_second
   width: 208px
   height: 50px
@@ -88,16 +89,18 @@ main
     line-height: 54px
     font-size: 26px
 //- ----------------------- CREATE ACCOUNT -----------------
-$height_line: 33px
+$line_height: 33px
 .button.create_account
   width: 190px
-  height: $height_line
+  height: $line_height
+  padding-top: 5px
+  box-sizing: border-box
   background-color: rgb( 240, 123, 111 )
   box-shadow : 0px 1px 1px 0px rgba(0, 0, 0, 0.59)
+  text-align: center
   .text
-    line-height : 25px
     font-size   : 20px
-    color       : white
+    color       : #fff
 //- ------------------ TUTOR REGISTRATION BUTTONS ------------
 
 
@@ -216,7 +219,7 @@ $height_add: 33px
     font-size: 18px
 
 
-.button.edit_save:hover, .button.edit_add:hover, .button.search_bids_save:hover, .button.reg_add:hover
+.button.edit_save:hover, .button.edit_add:hover, .button.search_bids_save:hover, .button.reg_add:hover, .button.create_account:hover
   background-color : $RedHoverColor
 
 
