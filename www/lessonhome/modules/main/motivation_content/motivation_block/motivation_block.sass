@@ -1,10 +1,15 @@
 @import compass/css3
 $font_size: 20px
-$margin_text: 20px
-$first_top: 155px
-$first_bottom: -20px
-$second_top: 150px
+$line-height: 24px
+$margin_first: 3px
+$margin_second: 12px
+$margin_third: 10px
+$first_top: 130px
+$second_top: 129px
+$first_bottom: -24px
+$third_bottom: 44px
 $second_left_right: -10px
+
 
 .title
   font-size: 50px
@@ -15,54 +20,57 @@ $second_left_right: -10px
   margin: auto
   .text
     position: absolute
+    line-height: $line-height
     font-size: $font_size
     color: #18293a
 
   .start_search
-    top: $first_top + $margin_text
-    left: 50px
+    top: $first_top+$line-height+$margin_first
+    left: 58px
   .view_tutor
-    top: $first_top + $margin_text
-    right: 280px
+    top: $first_top+$line-height+$margin_first
+    right: 272px
   .selected_tutor
-    top: $first_top + $margin_text
-    right: 30px
+    top: $first_top+$line-height+$margin_first
+    right: 22px
   .issue_bid
-    left: 35px
-    bottom: $first_bottom - $margin_text
+    left: 41px
+    bottom:  -($line-height+$margin_first)
   .meet
-    right: 275px
-    bottom: $first_bottom - $margin_text
+    right: 269px
+    bottom: -($line-height+$margin_first)
   .learn
     right: 40px
-    bottom: $first_bottom - $margin_text
+    bottom: - ($line-height+$margin_first)
 
   .select_tutor_self
-    top: $second_top + $margin_text
+    top: $second_top + $line-height + $margin_second
     left: $second_left_right
   .issue_bid_help
-    top: $second_top + $margin_text
+    top: $second_top + $line-height + $margin_second
     right: $second_left_right
   .call_us
     left: 190px
-    bottom: -40px - $margin_text
+    bottom: -23px - ($line-height  + $margin_second)
 
   .more_information
-    top: $first_top + $margin_text
+    top: $first_top + $line-height + $margin_third
     left: 10px
-  .subject_curse
-    bottom: 93px - $margin_text - $font_size
-    left: 23px
-  .conditions
-    bottom: -15px - $margin_text
-    right: 295px
-  .calendar
-    bottom: 93px - $margin_text
-    right: 25px
   .review
-    top: $first_top + $margin_text
+    top: $first_top + $line-height + $margin_third
     right: 35px
+  .subject_curse
+    bottom: $third_bottom + $margin_third
+    left: 23px
+  .calendar
+    bottom: $third_bottom + $line-height + $margin_third
+    right: 25px
+  .conditions
+    bottom: 6px - $line-height - $margin_third
+    right: 295px
+
+
 .button
-  padding-top: 45px + $font_size + $margin_text
+  padding-top: 40px
 
 

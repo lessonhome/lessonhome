@@ -4,10 +4,11 @@ class @main extends template '../main'
     info_panel  : @exports()
     content     : module '$' :
       search_diagram  : module '$/motivation_block' :
+        margin    : 27
         button   : module 'tutor/button' :
           selector  : 'start_search'
           text      : 'Начать поиск'
-        title     : '3 способа поиска'
+        title     : 'Найти репетитора - легко!'
         img  :
           src : F('main/main_easy.png')
           w   : 703
@@ -17,14 +18,14 @@ class @main extends template '../main'
           view_tutor      : 'Просмотрите<br>репетиторов'
           selected_tutor  : 'Выберите<br>понравившегося'
           issue_bid       : 'Оформите заявку'
-          meet            : 'Познакомтесь'
+          meet            : 'Познакомьтесь'
           learn           : 'Занимайтесь'
       choose_search   : module '$/motivation_block' :
-        margin    : true
+        margin    : 58
         button    : module 'tutor/button'  :
           selector  : 'order_call'
           text      : 'Заказать звонок'
-        title     : 'Найти репетитора - легко!'
+        title     : '3 способа поиска'
         img  :
           src : F('main/main_search.png')
           w   : 648
@@ -34,6 +35,7 @@ class @main extends template '../main'
           call_us           : 'Позвоните нам<br>и мы все сделаем за вас'
           issue_bid_help    : 'Оформите заявку<br>и наша команда<br>предложит вам<br>разные варианты'
       choose_tutor     : module '$/motivation_block'  :
+        margin    : 34
         button   : module 'tutor/button' :
           selector  : 'start_search'
           text      : 'Начать поиск'
@@ -48,4 +50,4 @@ class @main extends template '../main'
           conditions        : 'Условия'
           calendar          : 'Рассписание'
           review            : 'Отзывы'
-        close     : true
+#        close     : true
