@@ -22,6 +22,7 @@
           'Карьера'     : 'career'
           'О себе'      : 'about'
           'Медиа'       : 'media'
+          'Настройки'   : 'settings'
         active_item : 'Медиа'
       content :  module '$':
 

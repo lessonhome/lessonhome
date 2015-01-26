@@ -20,6 +20,7 @@ class @main extends template '../../../tutor'
         'Образование' : 'education'
         'Карьера'     : 'career'
         'О себе'      : 'about'
+        'Настройки'   : 'settings'
         #'Медиа'       : 'media'
       active_item : 'О себе'
 
