@@ -1,5 +1,7 @@
 @import compass/css3
 
+$advantages_photo_src : 'main_tutor/mainreg_team.png'
+
 .m-font
   font-family : 'Open Sans', sans-serif
   color       : #363636
@@ -49,8 +51,10 @@ main
     width         : 440px
     padding-right : 16px
     margin : 0 auto
+    text-align : left
     .title
-      margin-bottom : 21px
+      margin-bottom : 22px
+      text-align    : center
       font-size     : 30px
       font-family   : 'Open Sans', sans-serif
       font-weight   : 600
@@ -116,11 +120,11 @@ main
 .advantages
   overflow : hidden
   .photo
-    width  : 250px
-    height : 250px
+    width  : 249px
+    height : 245px
     margin : 55px 0 40px 0
     +inline-block
-    background-color : #29c5e6
+    background: inline-image($advantages_photo_src) no-repeat
 
   .title
     margin-bottom : 150px

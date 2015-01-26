@@ -12,9 +12,12 @@ class @main extends template '../registration_popup'
         selector : 'man'
       sex_woman   : module 'tutor/forms/sex_button' :
         selector : 'woman'
-      birth_day   : module 'tutor/forms/drop_down_list'
-      birth_month : module 'tutor/forms/drop_down_list'
-      birth_year  : module 'tutor/forms/drop_down_list'
+      birth_day   : module 'tutor/forms/drop_down_list' :
+        placeholder : 'День'
+      birth_month : module 'tutor/forms/drop_down_list' :
+        placeholder : 'Месяц'
+      birth_year  : module 'tutor/forms/drop_down_list' :
+        placeholder : 'Год'
       status      : module 'tutor/forms/drop_down_list'
 
   init : ->
