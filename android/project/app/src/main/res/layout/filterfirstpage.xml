@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/enter_name_of_type_of_lesson"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:hint="@string/enter_name_of_type_of_lesson"
+        android:padding="25dp"
+        android:completionThreshold="1" />
+
+
+    <Button
+        android:id="@+id/next_in_filter_viewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/enter_name_of_type_of_lesson"
+        android:gravity="center"
+        android:text="@string/next_in_filter_viewPager" />
+
+
+    <Button
+        android:id="@+id/i_am_already_a_member"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/i_am_already_a_member" />
+
+</RelativeLayout>
