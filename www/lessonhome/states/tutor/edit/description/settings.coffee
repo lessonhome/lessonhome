@@ -36,6 +36,7 @@ class @main extends template '../../../tutor'
         second_value : 'Нет'
       callback_comment : module 'tutor/forms/textarea' :
         height    : '77px'
+        selector  : 'edit_settings'
         placeholder : 'Комментарий'
       save_button : module 'tutor/button' :
         text     : 'Сохранить'

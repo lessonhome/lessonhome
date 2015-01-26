@@ -21,6 +21,8 @@ div, .label_block>label
   margin-bottom: 25px
   .value
     text-align: left
+  .title
+    padding-bottom: 2px 
 
 .get_notice
   margin-bottom: 15px
@@ -29,6 +31,7 @@ div, .label_block>label
   .value
     text-align: left
     div
+      padding-left: 1px
       .title, .value
         +inline-block
       .title
@@ -42,7 +45,7 @@ div, .label_block>label
       margin-bottom: 8px
 
 .callback
-  margin-bottom: 15px
+  margin-bottom: 16px
   .title
     vertical-align: top
     line-height: 24px
@@ -79,13 +82,22 @@ $backgroundText: #ffffff
     background: #cad2d8
     opacity: 0.4
 
-.title_block.phone_number, .title_block.email, .title_block.password
+.title_block.phone_number
   margin-top: 27px
-  margin-bottom: 22px
+  margin-bottom: 13px
+
+.title_block.password
+  margin-bottom: 17px
+  margin-top: 28px
+
+.title_block.email
+  margin-bottom: 14px
+  margin-top: 28px
 
 //- ------------ BUTTONS -----------------------------
 
 .save_block, .change_block
+  padding-right: 3px
   text-align: right
   .button
     +inline-block
@@ -116,6 +128,7 @@ $backgroundText: #ffffff
     line-height: 37px
     .text
       +inline-block
+      padding-left: 2px
       font-size: 20px
       color: rgb(0, 0, 0)
 
