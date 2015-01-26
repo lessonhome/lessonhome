@@ -3,7 +3,7 @@ class @main
     list_course     : module 'tutor/forms/drop_down_list'  :
       selector        : 'list_course'
       placeholder     : 'Например ЕГЭ'
-    add_course      : module 'tutor/button'  :
+    add_course      : module '../selected_tag'  :
       selector  : 'choose_course'
       text      : 'Олимпиада'
       close     : true
@@ -16,7 +16,7 @@ class @main
     list_pupil     : module 'tutor/forms/drop_down_list'  :
       selector        : 'list_course'
       placeholder     : 'Например студент'
-    add_pupil      : module 'tutor/button'  :
+    add_pupil      : module '../selected_tag'  :
       selector  : 'choose_course'
       text      : 'Старшая школа'
       close     : true

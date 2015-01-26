@@ -1,0 +1,48 @@
+@import compass/css3
+main
+  height: 100%
+.selected_tag
+  border-radius: 4px
+.selected_tag:hover
+  background-color: #f0f0f0
+////////-----------choose hashtag in drop down list----------////////////////////
+$size_close:  10px
+$padding_close:  10px
+$height_line: 33px
+$srs: 'close.png'
+.choose_subject, .choose_tutor, .choose_course
+  overflow: hidden
+  height: $height_line
+  line-height: $height_line
+  background-color: rgb(225, 227, 229)
+  .close
+    float: right
+    height: 100%
+    cursor: pointer
+    padding: 0 $padding_close
+    .close_background
+      width: $size_close
+      height: $size_close
+      position: relative
+      top: 50%
+      margin-top: -$size_close / 2
+      background: inline-image($srs) no-repeat
+  .text
+    font-size: 18px
+    color: rgb(61, 50, 50)
+    margin: 0 (2*$padding_close+$size_close) 0 10px
+//////------little bit variables and font change value in choose_course------------/////////
+$padding_close:  5px
+$height_line: 30px
+.choose_course
+  height: $height_line
+  line-height: $height_line
+  .close
+    padding: 0 $padding_close
+    .close_background
+      width: $size_close
+      height: $size_close
+  .text
+    font-size: 16px
+    color: rgb(0, 0, 0)
+    margin: 0 (2*$padding_close+$size_close) 0 10px
