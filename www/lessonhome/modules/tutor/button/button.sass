@@ -106,24 +106,26 @@ $height_line: 33px
   border-radius: 4px
 
 /////////////-----------it's big button in top filter----------------//////////////
-$height_line: 60px
 .at_home_button, .in_tutoring_button, .remotely_button
-  height: $height_line
-  line-height: $height_line
+  height: 100%
   background: rgb(148, 201, 254)
   .text
+    +inline-block
     font-size: 26px
     padding: 0 25px
     color: rgb(255, 255, 255)
 .remotely_button
   background-color: rgb(240, 123, 111)
+.at_home_button:after, .in_tutoring_button:after, .remotely_button:after
+  content: ''
+  +inline-block
+  height: 100%
 
-$height_line: 50px
 .subject_back, .onward_block, .issue_bid
-  height: $height_line
-  line-height: $height_line
+  height: 100%
   background: rgb(148, 201, 254)
   .text
+    +inline-block
     font-size: 26px
     padding: 0 15px
     color: rgb(255, 255, 255)
@@ -131,44 +133,70 @@ $height_line: 50px
   background-color: rgb(240, 123, 111)
   .text
     padding: 0 20px
+.subject_back:after, .onward_block:after, .issue_bid:after
+  content: ''
+  +inline-block
+  height: 100%
 
 ////------------- motivation button ----------------////
-$height_line: 54px
 .order_call, .start_search
-  width: 265px
-  height: $height_line
-  margin: auto
-  line-height: $height_line
+  +inline-block
+  height: 100%
   background-color: rgb(201, 92, 81)
   box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
   .text
+    +inline-block
+    padding: 0 28px
     font-size: 26px
     color: rgb(255, 255, 255)
+.order_call:after, .start_search:after
+  content: ''
+  +inline-block
+  height: 100%
     
-////---------------- left filter button --------------////
-$height_add: 33px
+////---------------- advance filter button --------------////
 .add_time
-  width: 38px
-  height: $height_add
   text-align: center
   background-color: #f07b6f
   box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.51)
   .text
+    padding: 0 11px
     font-size: 30px
     font-weight: 600
     color: #ffffff
-    line-height: $height_add
 
 //////////---------- sex button ----------///////////
 .female, .male
+  height: 100%
   box-shadow: none
-  height: 28px
-  line-height: 28px
   background-color: #cdcdcd
   .text
+    +inline-block
     padding: 0 40px
     font-size: 18px
     color: #757575
+.female:after, .male:after
+  content: ''
+  +inline-block
+  height: 100%
+
+
+///////////---------send_bid_this_tutor------------//////////
+.send_bid_this_tutor
+  height: 100%
+  border-bottom-right-radius: 0
+  background: url(F('main/pattern_dots_profilebutton.png'))
+  box-shadow: 0px 1px 1px 0px rgba(9, 12, 18, 0.54)
+  .text
+    +inline-block
+    line-height: 33px
+    padding: 0 23px
+    font-size: 18px
+    color: #ffffff
+.send_bid_this_tutor:after
+  content: ''
+  +inline-block
+  height: 100%
 
 
 //- ---------------- EDIT : SAVE, ADD BUTTONS, SEARCH_BIDS_SAVE --------------------------

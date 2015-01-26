@@ -16,14 +16,16 @@ class @main
     ]
     content : module 'tutor/profile'  :
       send_bid_this_tutor : module '../button'  :
-        text      : 'Отправить заявку только этому репетитору'
+        text      : 'Отправить заявку<br>только этому<br>репетитору'
         selector  : 'send_bid_this_tutor'
       with_verification : 'rgb(183, 210, 120)'
       photo         : module 'mime/photo' :
         src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
       all_rating    : module 'rating_star':
-        filling : '40'
-      name          : 'Артемий Дудко'
+        filling : 40
+      count_review  : 10
+
+      name          : 'Иванов Иван Иванович'
       personal_data : module './info_block' :
         section   :
           'Дата рождения :'       : '11.11.11'

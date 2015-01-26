@@ -35,7 +35,7 @@ class @main extends template '../main'
           call_us           : 'Позвоните нам<br>и мы все сделаем за вас'
           issue_bid_help    : 'Оформите заявку<br>и наша команда<br>предложит вам<br>разные варианты'
       choose_tutor     : module '$/motivation_block'  :
-        margin    : 34
+        margin   : 34
         button   : module 'tutor/button' :
           selector  : 'start_search'
           text      : 'Начать поиск'
