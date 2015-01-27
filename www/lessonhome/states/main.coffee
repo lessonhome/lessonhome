@@ -33,3 +33,5 @@ class @main
     filter_top  : @exports()
     info_panel  : @exports()
     content     : @exports()
+    footer : module 'footer' :
+      logo : module 'tutor/header/logo'

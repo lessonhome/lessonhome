@@ -1,0 +1,142 @@
+@import compass/css3
+
+$icon_width: 24px
+$icon_height: 24px
+
+main
+  height: 100%
+  background: inline-image('footer/footer_pattern.png')
+  box-shadow: inset 0px 15px 15px -15px rgba(0, 0, 0, 0.1)
+
+.top_block
+  height: 70px
+  padding: 20px 0 0 60px
+  box-sizing: border-box
+  .icon
+    +inline-block
+    width: $icon_width
+    height: $icon_height
+    margin: 0 7px
+    cursor: pointer
+
+  .classmates
+    background: inline-image('footer/soc_odn.png') no-repeat
+  .vk
+    background: inline-image('footer/soc_vk.png') no-repeat
+  .fb
+    background: inline-image('footer/soc_f.png') no-repeat
+  .google
+    background: inline-image('footer/soc_g+.png') no-repeat
+  .twitter
+    background: inline-image('footer/soc_tw.png') no-repeat
+
+  .classmates:hover
+    background: inline-image('footer/soc_odn_hover.png') no-repeat
+  .vk:hover
+    background: inline-image('footer/soc_vk_hover.png') no-repeat
+  .fb:hover
+    background: inline-image('footer/soc_f_hover.png') no-repeat
+  .google:hover
+    background: inline-image('footer/soc_g+_hover.png') no-repeat
+  .twitter:hover
+    background: inline-image('footer/soc_tw_hover.png') no-repeat
+
+
+
+.top_block :first-child
+  margin-left: 0
+.top_block :last-child
+  margin-right: 0
+
+.line
+  height: 2px
+  background-color: rgb( 250, 250, 250 )
+  box-shadow: 0 1px 0 0 rgba(172, 172, 172, 0.50) inset
+
+
+.bottom_block
+  padding-left: 36px
+  padding-top: 20px
+  div
+    +inline-block
+    height: 200px
+  .left_block
+    width: 318px
+    .logo
+      margin: 10px 0 20px 8px
+    .company_name
+      margin-left: 29px
+      font-size: 16px
+      color: #757575
+
+  .dashed_line
+    width: 2px
+    height: 200px
+    background: inline-image('footer/dashed_line.png')
+
+  .center_block
+    width: 318px
+    padding-top: 11px
+    .item
+      margin-left: 16px
+      a
+        display: block
+        text-decoration: none
+        .title
+          font-size: 16px
+          line-height: 25px
+          color: #757575
+        .title:hover
+          color: rgb(0, 0, 0)
+
+  .right_block
+    padding: 13px 0 0 19px
+    .address_block
+      margin-bottom: 39px
+      div
+        +inline-block
+      .icon
+        width: 16px
+        height: 16px
+        background: inline-image('footer/map.png') no-repeat
+        vertical-align: top
+        margin-top: 5px
+      .address
+        margin-left: 7px
+        font-size: 16px
+        line-height: 25px
+        color: #757575
+    .post_block
+      margin-bottom: 10px
+      div
+        +inline-block
+      .icon
+        width: 16px
+        height: 16px
+        background: inline-image('footer/mail.png') no-repeat
+      .post
+        margin-left: 11px
+        font-size: 16px
+        color: #757575
+    .phone_block
+      div
+        +inline-block
+      .icon
+        width: 16px
+        height: 10px
+        background: inline-image('footer/phone.png') no-repeat
+        vertical-align: top
+        margin-top: 5px
+      .value
+        margin-left: 11px
+        font-size: 16px
+        line-height: 18px
+        color: #757575
+        .phone
+          line-height: initial
+        .callback
+          a
+            display: block
+            cursor: pointer
+            font-size: 14px
+            color: #d5796e
