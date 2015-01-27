@@ -1,6 +1,8 @@
 @import compass/css3
 main
   height: 100%
+  cursor: pointer
+  position: relative
 .bid
   margin: 0
   width: 18px
@@ -30,3 +32,21 @@ main
   border: 3px solid rgb( 205, 205, 205 )
   border-radius: 8px
   box-sizing: border-box
+
+//- ---------------- CHECKS ---------------------------
+
+.check.edit_settings_active, .check.check_in_active
+  width: 25px
+  height: 18px
+  position: absolute
+  top: 4px
+  background: inline-image('blue_check.png') no-repeat
+  background-position: center
+
+.check.bid_active
+  width: 19px
+  height: 14px
+  position: absolute
+  top: 2px
+  background: inline-image('blue_check_small.png') no-repeat
+  background-position: center
