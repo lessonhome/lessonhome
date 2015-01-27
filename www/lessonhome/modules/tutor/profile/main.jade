@@ -22,7 +22,10 @@ if popup
   .person_box
     .photo!= photo
     .all_rating!=all_rating
-    .progress!= progress
+    if count_review
+      .count_review!=count_review + ' отзывов'
+    if progress
+      .progress!= progress
   .personal_data
     .name_verification_block
       .name!= name
@@ -32,6 +35,7 @@ if popup
     != personal_data
   if send_bid_this_tutor
     .send_bid_this_tutor!=send_bid_this_tutor
+      .button_wrap
 if contacts
   .separate_box!=line_con
   +section_box ('contacts', contacts)

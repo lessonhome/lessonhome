@@ -22,17 +22,17 @@ class @main extends template '../tutor'
       photo         : module 'mime/photo' :
         src      : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
       all_rating  : module '../rating_star':
-        filling  : '40'
+        filling  : 40
       progress  : module '$/progress' :
         filling  : '56%'
-      name          : 'Артемий Дудко'
+      name          : 'Иванов Иван Иванович'
       personal_data : module '$/info_block' :
         section   :
           'Дата рождения :'       : '11.11.11'
           'Статус :'              : 'Профессор'
           'Город :'               : 'Москва'
           'Опыт репетиторства :'  : '2 года'
-          'Количество учеников :' : '5'
+          'Количество учеников :' : 5
           'Место работы :'        : 'Кооператив сосулька'
       line_con : module 'tutor/separate_line':
         title     : 'Контакты'
@@ -57,7 +57,7 @@ class @main extends template '../tutor'
           'Фаультет :'      : 'Географический'
           'Кафедра :'       : 'Экономической географии'
           'Статус :'        : 'Специалист'
-          'Год выпуска:'    : '2011'
+          'Год выпуска:'    : 2011
       line_pri    : module 'tutor/separate_line':
         title     : 'О себе'
         link      : './edit/about'

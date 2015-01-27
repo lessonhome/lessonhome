@@ -3,6 +3,7 @@ $contact_src: 'tutor/profile_contacts.png'
 $education_src: 'tutor/profile_edu.png'
 $private_src: 'tutor/profile_about.png'
 $media_src: 'tutor/profile_media.png'
+$button_wrap: 'main/button_wrap.png'
 
 $width_margin : 180px    //width photo and margin-right personal data
 $margin_bottom_box : 30px  //in the section_box
@@ -43,13 +44,16 @@ main
     .all_rating
       margin: 11px 0
       text-align: center
+    .count_review
+      color: #68c4ff
+      font-size: 18px
+      text-align: center
     .progress
       width: 160px
       margin: auto
   .personal_data
     margin-left: $width_margin
     padding-left: $padding_left
-
     $font_line: 30px
     .name_verification_block
       font-size: $font_line
@@ -67,6 +71,21 @@ main
           height: 20px
           border-radius: 50%
           box-shadow: 0px 0px 10px 4px rgba(204,228,110,0.6),0px 0px 8px 0px rgba(58,201,50,0.6) inset
+  .send_bid_this_tutor
+    height: 93px
+    position: absolute
+    right: -8px
+    top: 218px
+    text-align: center
+    $icon_height: image-height($button_wrap)
+    $icon_width: image-width($button_wrap)
+    .button_wrap
+      background: inline-image($button_wrap) no-repeat
+      width: $icon_width
+      height: $icon_height
+      float: right
+
+
 
   //---------------line-------------//
 .separate_box
@@ -92,7 +111,7 @@ $icon_width: image-width($contact_src)
 .contacts_box .icon_box .icon
   width: $icon_width
   height: $icon_height
-  background: inline-image($contact_src)
+  background: inline-image($contact_src) no-repeat
   position: relative
   top: 50%
   margin-top: - $icon_height / 2
@@ -103,7 +122,7 @@ $icon_width: image-width($education_src)
 .education_box .icon_box .icon
   width: $icon_width
   height: $icon_height
-  background: inline-image($education_src)
+  background: inline-image($education_src) no-repeat
   position: relative
   top: 50%
   margin-top: - $icon_height / 2
@@ -114,7 +133,7 @@ $icon_width: image-width($private_src)
 .private_box .icon_box .icon
   width: $icon_width
   height: $icon_height
-  background: inline-image($private_src)
+  background: inline-image($private_src) no-repeat
   position: relative
   top: 50%
   margin-top: - $icon_height / 2
@@ -125,7 +144,7 @@ $icon_width: image-width($media_src)
 .media_box .icon_box .icon
   width: $icon_width
   height: $icon_height
-  background: inline-image($media_src)
+  background: inline-image($media_src) no-repeat
   position: relative
   top: 50%
   margin-top: - $icon_height / 2

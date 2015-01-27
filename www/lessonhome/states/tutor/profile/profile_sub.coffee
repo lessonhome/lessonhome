@@ -2,28 +2,30 @@ class @main
   tree : ->
     items : [
       module 'tutor/header/button' : {
-        title : 'Описание'
-        href  : '/second_step_popup'
+        href  : '/second_step_popup_profile'
+        title : "Анкета"
       }
       module 'tutor/header/button' : {
-        title : 'Условия'
-        href  : '/second_step_popup'
+        href  : '/second_step_popup_conditions'
+        title : "Условия"
       }
       module 'tutor/header/button' : {
-        title : 'Отзывы'
-        href  : '/second_step_popup'
+        href  : '/second_step_popup_reviews'
+        title : "Отзывы"
       }
     ]
     content : module 'tutor/profile'  :
       send_bid_this_tutor : module '../button'  :
-        text      : 'Отправить заявку только этому репетитору'
+        text      : 'Отправить заявку<br>только этому<br>репетитору'
         selector  : 'send_bid_this_tutor'
       with_verification : 'rgb(183, 210, 120)'
       photo         : module 'mime/photo' :
         src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
       all_rating    : module 'rating_star':
-        filling : '40'
-      name          : 'Артемий Дудко'
+        filling : 40
+      count_review  : 10
+
+      name          : 'Иванов Иван Иванович'
       personal_data : module './info_block' :
         section   :
           'Дата рождения :'       : '11.11.11'
@@ -58,6 +60,3 @@ class @main
           src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
         video   : module 'mime/video' :
           src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
-#  init : ->
-#    @parent.tree.left_menu.setActive 'Анкета'
-
