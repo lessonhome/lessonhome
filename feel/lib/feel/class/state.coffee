@@ -99,10 +99,11 @@ class module.exports
                 break
             else if typeof name == 'string'
               delete node[key]
-            if state.exports[name]?
-              console.error "exports name '#{name}' already exists in state #{@name}"
-              throw new Error "exports name '#{name}' already exists in state #{@name}"
-            state.exports[name] = {
+            #if state.exports[name]?
+            #  console.error "exports name '#{name}' already exists in state #{@name}"
+            #  throw new Error "exports name '#{name}' already exists in state #{@name}"
+            state.exports[name] ?= []
+            state.exports[name].push {
               node
               key
             }
@@ -138,17 +139,18 @@ class module.exports
           if !state.exports[key]?
             console.error "can't find exports name '#{key}' in state #{@name}"
           else
-            node = state.exports[key].node
-            k    = state.exports[key].key
-            if typeof node[k] == 'object' || typeof node[k]=='function'
-              for a,b of val
-                node[k][a] = b
-            else node[k] = val
-            if node == state.tree
-              if state.parent?.exports?[k]?
-                newo = {}
-                newo[k] = node[k]
-                state.parent.__bind_exports state.parent, newo
+            for exp in state.exports[key]
+              node = exp.node
+              k    = exp.key
+              if typeof node[k] == 'object' || typeof node[k]=='function'
+                for a,b of val
+                  node[k][a] = b
+              else node[k] = val
+              if node == state.tree
+                if state.parent?.exports?[k]?
+                  newo = {}
+                  newo[k] = node[k]
+                  state.parent.__bind_exports state.parent, newo
     catch e
       console.error "failed merge tree in state #{@name} with object", o,e
       throw e

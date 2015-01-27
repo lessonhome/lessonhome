@@ -1,5 +1,9 @@
 $padding_text:  20px
 $background_title_block:  #E2E7EC
+$map_width: 350px
+$height_line: 30px
+$width_title: 130px
+$padding_calendar: 55px
 main
   overflow: hidden
   padding: 50px 20px 30px 20px
@@ -9,25 +13,20 @@ main
   .address_block
     overflow: hidden
     .address_time
-
-    $map_width: 350px
+      //
     .map
       height: 250px
       width: $map_width
       float: left
     .show_calendar
-      margin-left: $map_width
+      margin-left: $map_width + $padding_calendar
       padding-left: 60px
       background: red
       height: 225px
-
-$height_line: 30px
 .info_block
   height: $height_line
   line-height: $height_line
   padding-left: 20px
-
-  $width_title: 130px
   .title
     width: $width_title
     float: left
@@ -39,9 +38,6 @@ $height_line: 30px
     color: rgb(0, 0, 0)
 .edit_block.top_padding
   padding-top: 50px
-
-
-
 .subject_details_data
   .details_data
     background: #f3f3f3
