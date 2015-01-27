@@ -9,7 +9,7 @@ class @main
         }
         module 'tutor/header/list_button' : {
           title : 'Стать учеником'
-          href  : '/be-pupil'
+          href  : '/be_pupil'
           list  : {
             'Тест' : '#'
             'Тест1' : '#'
@@ -27,7 +27,7 @@ class @main
         }
         module 'tutor/header/button' : {
           title : 'О нас'
-          href  : '/about us'
+          href  : '/about_us'
         }
       ]
     filter_top  : @exports()
