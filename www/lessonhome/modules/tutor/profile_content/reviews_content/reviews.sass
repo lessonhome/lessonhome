@@ -1,11 +1,15 @@
 @import "compass/css3"
-$hint_src       : 'hint.png'
-$hint_height    : image-height($hint_src)
-$hint_width     : image-width($hint_src)
+// if not use hint delete all comments
+//$hint_src       : 'hint.png'
+//$hint_height    : image-height($hint_src)
+//$hint_width     : image-width($hint_src)
+$review_margin_bottom: 30px
+
 //$width_reviews: 500px
 main
   overflow : hidden
-  padding: 50px 20px 30px 20px
+  padding: 50px 20px 50px - $review_margin_bottom 20px
+
 //.hint
   position: relative
   margin-left: $width_reviews
