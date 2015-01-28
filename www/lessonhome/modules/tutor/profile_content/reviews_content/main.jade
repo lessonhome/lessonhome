@@ -5,6 +5,8 @@
 .reviews
   each value in list_reviews
     .review!= value
+if send_bid_this_tutor
+  .send_bid_this_tutor!=send_bid_this_tutor
 //.hint
   .vertical_line!=line
   .question_sign_block

@@ -16,6 +16,4 @@ class @main
     ]
     content : state './profile_content' :
       count_review        : 10
-      send_bid_this_tutor : module './button' :
-        text      : 'Отправить заявку<br>только этому<br>репетитору'
-        selector  : 'send_bid_this_tutor'
+      send_bid_this_tutor : state './profile_content/send_bid_this_tutor'

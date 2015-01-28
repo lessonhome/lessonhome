@@ -14,4 +14,5 @@ class @main
         title : "Отзывы"
       }
     ]
-    content : state './reviews_content'
+    content : state './reviews_content' :
+      send_bid_this_tutor : state './send_bid_this_tutor'

@@ -1,4 +1,3 @@
-//- ------------------------------- MIXINS --------------------------------------------------
 mixin info_block ( title, array )
   .info_block
       .title= title+': '
@@ -7,7 +6,8 @@ mixin info_block ( title, array )
             =value+' '
 
 
-
+if send_bid_this_tutor
+  .send_bid_this_tutor!=send_bid_this_tutor
 .edit_block!=line_place
 .address_and_free_time
   .address_block

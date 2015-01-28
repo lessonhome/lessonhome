@@ -1,5 +1,6 @@
 class @main
   tree : -> module '$' :
+    send_bid_this_tutor : @exports()
     line_place  : module 'tutor/separate_line' :
       title     : 'Место :'
       link      : './edit/location'
