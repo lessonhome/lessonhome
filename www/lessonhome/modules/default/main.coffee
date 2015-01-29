@@ -17,3 +17,4 @@ Feel.FirstBidBorderRadius = (dom)->
   first_bid = basic_block.first()
   first_bid.css("border-top-left-radius", "0" )
   first_bid.css("border-top-right-radius", "0")
+

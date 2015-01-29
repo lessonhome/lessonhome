@@ -1,5 +1,8 @@
-mixin item (selector, text)
-  div(class=selector)
+mixin illustration_text(text, x, y)
+  .text(style="top: #{y}px; left: #{x}px;")!=text
+
+mixin item (text)
+  .item
     .icon
     .text.m-font=text
 
@@ -32,9 +35,24 @@ mixin item (selector, text)
 
 //- ------------- HOW IT WORKS --------------------
 
+//-F('main_tutor/mainreg_how.png')
+
 .how_it_works
   .title.m-landingBlockTitle Как это работает?
-  .photo
+  .illustrations
+    img(src=F('main_tutor/mainreg_how.png'))
+    +illustration_text ('Условия', 60, 159)
+    +illustration_text ('Регистрация', 321, 159)
+    +illustration_text ('Заполните<br>профиль', 619, 159)
+    +illustration_text ('Поиск<br>ученика', 64, 415)
+    +illustration_text ('Получите<br>контакты', 337, 415)
+    +illustration_text ('Начните<br>занятия', 630, 415)
+    +illustration_text ('Ваш<br>выбор', 20, 535)
+    +illustration_text ('Наш<br>выбор', 135, 535)
+    +illustration_text ('Договоритесь<br>о встрече', 320, 535)
+    +illustration_text ('Оплатите<br>услугу', 560, 534)
+    +illustration_text ('Получите<br>прибыль', 703, 535 )
+
   .button!= check_in_first
 
 
@@ -47,31 +65,43 @@ mixin item (selector, text)
     .text.m-font Тысячи учеников и их родителей ищут<br> репетиторов онлайн каждый день!
     .text.m-font Площадка <span>LESSON HOME</span> позволяет создать бесплатны<br> онлайн профиль, в котором есть всё необходимое, чтобы<br> продемонстрировать свою квалификацию и опыт.
   .content
-  //-.content
     .left
       .icon
+        img(src=F('main_tutor/mainreg_go.png'))
       .title.m-font Создать профиль<br> <span class="red">быстро</span> и <span class="blue">бесплатно</span>
-      .button!= check_in_second
+      .button_block
+        .button!= check_in_second
     .center
       .icon
+        img(src=F('main_tutor/mainreg_profile.png'))
       .title.m-font Подробный профиль
       .content
-        +item ('1', 'Удобный и приятный просмотр')
-        +item ('2', 'Фотографии и видео')
-        +item ('3','Отзывы учеников')
-        +item ('4','Рейтинг и статистика')
+        +item ('Удобный и приятный просмотр')
+        +item ('Фотографии и видео')
+        +item ('Отзывы учеников')
+        +item ('Рейтинг и статистика')
     .right
+      .icon
+        img(src=F('main_tutor/mainreg_settings.png'))
       .title.m-font Управляйте вашим бизнесом
       .content
-        +item ('5','Расписание и синхронизация с личным календарём')
-        +item ('6','Просмотр текущих учеников и истории платежей')
-        +item ('7','Ищите учеников и откликайтесь на заявки')
-        +item ('8','Поддержка клиентов Lesson Home доступна 7 дней в неделю')
+        +item ('Расписание и синхронизация с личным календарём')
+        +item ('Просмотр текущих учеников и истории платежей')
+        +item ('Ищите учеников и откликайтесь на заявки')
+        +item ('Поддержка клиентов Lesson Home доступна 7 дней в неделю')
+
+
 
 //- -------- WAYS TO FIND -------------------------
 
 .ways_to_find
   .title.m-landingBlockTitle 3 способа поиска
-  .photo
+  .illustrations
+    img(src=F('main_tutor/main_search.png'))
+    +illustration_text ('Подберите себе<br>ученика сами', 57, 159)
+    +illustration_text ('Заполните профиль<br>и наша команда<br>предложит вам<br>разные варианты', 533, 159)
+    +illustration_text ('Позвоните нам<br>и мы всё сделаем за вас', 262, 488)
   .button!= callback
+
+.choose_tutor_block(style = "background: url(#{F('main/pattern_green2.jpg')})")!=choose_search
 

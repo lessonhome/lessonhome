@@ -1,7 +1,7 @@
 class @main
   tree : -> module '$' :
-    depend :  state 'lib'
-    header     : state './tutor/header' :
+    depend      :  state 'lib'
+    header      : state './tutor/header' :
       items : [
         module 'tutor/header/button' : {
           title : 'Поиск'
@@ -9,7 +9,7 @@ class @main
         }
         module 'tutor/header/list_button' : {
           title : 'Стать учеником'
-          href  : '/be-pupil'
+          href  : '/be_pupil'
           list  : {
             'Тест' : '#'
             'Тест1' : '#'
@@ -27,9 +27,11 @@ class @main
         }
         module 'tutor/header/button' : {
           title : 'О нас'
-          href  : '/about us'
+          href  : '/about_us'
         }
       ]
-    filter_top      : @exports()
-    info_panel      : @exports()
-    content         : @exports()
+    filter_top  : @exports()
+    info_panel  : @exports()
+    content     : @exports()
+    footer : module 'footer' :
+      logo : module 'tutor/header/logo'

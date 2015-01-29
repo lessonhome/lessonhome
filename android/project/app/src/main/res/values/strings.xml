@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LessonHome</string>
+    <string name="action_settings">Настройки</string>
+    <string name="enter_name_of_type_of_lesson">Введите название предмета</string>
+    <string name="i_am_already_a_member">Я уже пользователь!</string>
+    <string name="next_in_filter_viewPager">Далее -></string>
+
+</resources>

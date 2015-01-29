@@ -1,0 +1,138 @@
+@import compass/css3
+$contact_src: 'tutor/profile_contacts.png'
+$education_src: 'tutor/profile_edu.png'
+$private_src: 'tutor/profile_about.png'
+$media_src: 'tutor/profile_media.png'
+$width_margin : 180px    //width photo and margin-right personal data
+$margin_bottom_box : 30px  //in the section_box
+$padding_left : 30px
+main
+  padding: 50px 20px
+
+
+//- ------------------------------ POPUP ----------------------------------
+
+.popup_wrap
+  position: fixed
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  z-index: 100
+  overflow: scroll
+  text-align: center
+  background-color: rgba(255, 255, 255, 0.70)
+
+  .content
+    +inline-block
+    margin-top: 138px
+    margin-bottom: 197px
+    position: relative
+
+//- -----------------------------------------------------------------------
+
+
+.info_data
+  padding-bottom: $margin_bottom_box
+  .person_box
+    float: left
+    width: $width_margin
+    .photo
+      height: 200px
+    .all_rating
+      margin: 11px 0
+      text-align: center
+    .count_review
+      color: #68c4ff
+      font-size: 18px
+      text-align: center
+    .progress
+      width: 160px
+      margin: auto
+  .personal_data
+    margin-left: $width_margin
+    padding-left: $padding_left
+    $font_line: 30px
+    .name_verification_block
+      font-size: $font_line
+      height: 2*$font_line
+      line-height: $font_line
+      .tutor_name
+        +inline-block
+      .verification
+        +inline-block
+        margin-top: 3px
+        padding-left: 20px
+        padding-top: 2px
+        .with_verification
+          width: 20px
+          height: 20px
+          border-radius: 50%
+          box-shadow: 0px 0px 10px 4px rgba(204,228,110,0.6),0px 0px 8px 0px rgba(58,201,50,0.6) inset
+
+  //---------------line-------------//
+.separate_box
+  padding-bottom: 4px
+  overflow: hidden
+
+div>.icon_box
+  position: absolute
+  height: 100%
+.contacts_box, .education_box, .private_box, .media_box
+  margin-bottom: $margin_bottom_box
+  padding-right: 48px
+  overflow: hidden
+  position: relative
+  min-height: 100px
+.private_box, .media_box
+  margin-top: 9px
+.media_box
+  padding-right: 33px
+  margin-bottom: 0
+$icon_height: image-height($contact_src)
+$icon_width: image-width($contact_src)
+.contacts_box .icon_box .icon
+  width: $icon_width
+  height: $icon_height
+  background: inline-image($contact_src) no-repeat
+  position: relative
+  top: 50%
+  margin-top: - $icon_height / 2
+  margin-left: ($width_margin - $icon_width) / 2
+
+$icon_height: image-height($education_src)
+$icon_width: image-width($education_src)
+.education_box .icon_box .icon
+  width: $icon_width
+  height: $icon_height
+  background: inline-image($education_src) no-repeat
+  position: relative
+  top: 50%
+  margin-top: - $icon_height / 2
+  margin-left: ($width_margin - $icon_width) / 2
+
+$icon_height: image-height($private_src)
+$icon_width: image-width($private_src)
+.private_box .icon_box .icon
+  width: $icon_width
+  height: $icon_height
+  background: inline-image($private_src) no-repeat
+  position: relative
+  top: 50%
+  margin-top: - $icon_height / 2
+  margin-left: ($width_margin - $icon_width) / 2
+
+$icon_height: image-height($media_src)
+$icon_width: image-width($media_src)
+.media_box .icon_box .icon
+  width: $icon_width
+  height: $icon_height
+  background: inline-image($media_src) no-repeat
+  position: relative
+  top: 50%
+  margin-top: - $icon_height / 2
+  margin-left: ($width_margin - $icon_width) / 2
+
+.contacts_box .contacts, .education_box .education, .private_box .private, .media_box .media
+  margin-left: $width_margin
+  padding-left: $margin_bottom_box

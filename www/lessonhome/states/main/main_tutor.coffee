@@ -6,11 +6,13 @@ class @main extends template '../main'
     header  : state 'tutor/header'
     content : module 'main_tutor/content'  :
       login           : module 'tutor/forms/input' :
+        selector : 'main_check_in'
         text : 'Введите ваш телефон или email адрес'
       login_hint      : module 'tutor/hint' :
         selector : 'small'
         text     : ''
       password        : module 'tutor/forms/input' :
+        selector : 'main_check_in'
         text : 'Придумайте пароль'
       password_hint   : module 'tutor/hint' :
         selector : 'small'
@@ -29,6 +31,7 @@ class @main extends template '../main'
       callback    : module 'tutor/button' :
         selector  : 'callback'
         text      : 'Заказать звонок'
+
 
 
 

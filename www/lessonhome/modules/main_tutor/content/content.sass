@@ -1,5 +1,7 @@
 @import compass/css3
 
+$advantages_photo_src : 'main_tutor/mainreg_team.png'
+
 .m-font
   font-family : 'Open Sans', sans-serif
   color       : #363636
@@ -24,7 +26,7 @@
 
 main
   overflow : hidden
-  padding  : 44px 0 50px 0
+  padding  : 44px 0 0 0
 
 // ------------------------- CHECK IN -------------------------------------------
 
@@ -49,8 +51,10 @@ main
     width         : 440px
     padding-right : 16px
     margin : 0 auto
+    text-align : left
     .title
-      margin-bottom : 21px
+      margin-bottom : 22px
+      text-align    : center
       font-size     : 30px
       font-family   : 'Open Sans', sans-serif
       font-weight   : 600
@@ -104,11 +108,16 @@ main
   padding  : 60px 0 75px 0
   background       : inline-image('pattern_blue.png')
   box-shadow       : 0px 3px 6px 0px rgba(9, 12, 18, 0.27)
-  .photo
-    width  : 800px
+  .illustrations
+    width  : 768px
     height : 600px
+    position : relative
     margin : 60px auto 70px auto
-    background-color : #29c5e6
+    .text
+      position: absolute
+      font-size: 20px
+      line-height: 28px
+      color: rgb(0, 0, 0)
   .button
     +inline-block
 
@@ -116,11 +125,11 @@ main
 .advantages
   overflow : hidden
   .photo
-    width  : 250px
-    height : 250px
+    width  : 249px
+    height : 245px
     margin : 55px 0 40px 0
     +inline-block
-    background-color : #29c5e6
+    background: inline-image($advantages_photo_src) no-repeat
 
   .title
     margin-bottom : 150px
@@ -132,10 +141,97 @@ main
     margin-bottom : 15px
 
   .content
-    width  : 1000px
-    height : 500px
     margin : 0 auto 50px auto
-    background-color : #29c5e6
+    div
+      +inline-block
+      vertical-align: top
+    .left
+      width: 289px
+      padding-top: 61px
+      .icon
+        width: 114px
+        height: 113px
+        margin-left: 61px
+        margin-bottom: 20px
+      .title
+        padding-right: 35px
+        margin-bottom: 35px
+        font-size: 22.13px
+        line-height: 30px
+        span.red
+          color: #f07b6f
+        span.blue
+          color: #4d96da
+      .button_block
+        text-align: left
+        padding-left: 21px
+        .button
+          +inline-block
+    .center
+      width: 341px
+      padding-top: 34px
+      .icon
+        width: 146px
+        height: 139px
+        margin-left: 106px
+        margin-bottom: 25px
+      .title
+        text-align: left
+        padding-left: 3px
+        margin-bottom: 40px
+        font-size: 26.67px
+        color: rgb(0, 0, 0)
+      .content
+        .item
+          margin-bottom: 8px
+          div
+            +inline-block
+            vertical-align: top
+          .icon
+            width: 26px
+            height: 27px
+            margin-bottom: 25px
+            background-color: rgb( 209, 209, 209 )
+          .text
+            width: 315px
+            box-sizing: border-box
+            padding-left: 11px
+            text-align: left
+            font-size: 22.13px
+            color: rgb(0, 0, 0)
+
+    .right
+      width: 384px
+      .icon
+        width:  146px
+        height: 175px
+        margin-left: 98px
+        margin-bottom: 25px
+      .title
+        text-align: left
+        margin-bottom: 40px
+        font-size: 25.67px
+        color: rgb(0, 0, 0)
+      .content
+        .item
+          margin-bottom: 8px
+          div
+            +inline-block
+            vertical-align: top
+          .icon
+            width: 26px
+            height: 27px
+            background-color: rgb( 209, 209, 209 )
+          .text
+            width: 315px
+            box-sizing: border-box
+            padding-left: 11px
+            margin-top: -8px 
+            text-align: left
+            font-size: 20.29px
+            line-height: 30px
+            color: rgb(0, 0, 0)
+
 
 //- --------------------- WAYS TO FIND ------------------------------------
 
@@ -144,11 +240,16 @@ main
   padding  : 60px 0 75px 0
   background       : inline-image('pattern_green.png')
   box-shadow       : 0px 3px 6px 0px rgba(9, 12, 18, 0.27)
-  .photo
-    width  : 800px
-    height : 600px
+  .illustrations
+    width  : 770px
+    height : 500px
+    position : relative
     margin : 60px auto 70px auto
-    background-color : #29c5e6
+    .text
+      position: absolute
+      font-size: 20px
+      line-height: 28px
+      color: rgb(0, 0, 0)
   .button
     +inline-block
 
