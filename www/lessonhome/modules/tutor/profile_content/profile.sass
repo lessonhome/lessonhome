@@ -3,8 +3,6 @@ $contact_src: 'tutor/profile_contacts.png'
 $education_src: 'tutor/profile_edu.png'
 $private_src: 'tutor/profile_about.png'
 $media_src: 'tutor/profile_media.png'
-$button_wrap: 'main/button_wrap.png'
-
 $width_margin : 180px    //width photo and margin-right personal data
 $margin_bottom_box : 30px  //in the section_box
 $padding_left : 30px
@@ -59,7 +57,7 @@ main
       font-size: $font_line
       height: 2*$font_line
       line-height: $font_line
-      .name
+      .tutor_name
         +inline-block
       .verification
         +inline-block
@@ -71,21 +69,6 @@ main
           height: 20px
           border-radius: 50%
           box-shadow: 0px 0px 10px 4px rgba(204,228,110,0.6),0px 0px 8px 0px rgba(58,201,50,0.6) inset
-  .send_bid_this_tutor
-    height: 93px
-    position: absolute
-    right: -8px
-    top: 218px
-    text-align: center
-    $icon_height: image-height($button_wrap)
-    $icon_width: image-width($button_wrap)
-    .button_wrap
-      background: inline-image($button_wrap) no-repeat
-      width: $icon_width
-      height: $icon_height
-      float: right
-
-
 
   //---------------line-------------//
 .separate_box

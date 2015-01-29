@@ -1,4 +1,5 @@
 if popup
+  .background_block
   .popup_block
     .menu_bar
       each value in popup.items
@@ -6,7 +7,8 @@ if popup
       .close_box
         .close_icon
     .line_top!=line_top
-    .popup!=popup.content
+    .popup_content
+      .popup!=popup.content
 .advanced_filter!=advanced_filter
 .result_filter
   .sort!=sort

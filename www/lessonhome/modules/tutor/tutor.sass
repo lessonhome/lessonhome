@@ -2,6 +2,7 @@
 //width variables
 $width_container: 1014
 $width_left_menu: 236px
+$footer_height: 313px
 $width_content: $width_container - $width_left_menu
 $background_white:  #ffffff
 main
@@ -56,14 +57,14 @@ main
     .content
       width: $width_content
       margin-left: $width_left_menu
-      margin-bottom: 100px
+      margin-bottom: $footer_height
   .center_block:after
     clear: both
     content: ""
     display: block
 
   .footer
-    height: 100px
+    height: $footer_height
     width: 100%
     position: absolute
     bottom: 0

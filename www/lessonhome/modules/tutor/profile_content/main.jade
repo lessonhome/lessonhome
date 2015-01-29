@@ -17,7 +17,6 @@ mixin section_box (title, value)
 if popup
   .popup_wrap
     .content!= popup
-
 .info_data
   .person_box
     .photo!= photo
@@ -28,7 +27,7 @@ if popup
       .progress!= progress
   .personal_data
     .name_verification_block
-      .name!= name
+      .tutor_name!= tutor_name
       if with_verification
         .verification
           .with_verification(style = 'background: #{with_verification}')

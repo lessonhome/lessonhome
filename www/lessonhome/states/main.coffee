@@ -1,7 +1,6 @@
 class @main
   tree : -> module '$' :
     depend      : state 'lib'
-    name        : 'name'
     header      : state './tutor/header' :
       items : [
         module 'tutor/header/button' : {
@@ -10,7 +9,7 @@ class @main
         }
         module 'tutor/header/list_button' : {
           title : 'Стать учеником'
-          href  : '/be-pupil'
+          href  : '/be_pupil'
           list  : {
             'Тест' : '#'
             'Тест1' : '#'
@@ -28,12 +27,11 @@ class @main
         }
         module 'tutor/header/button' : {
           title : 'О нас'
-          href  : '/about us'
+          href  : '/about_us'
         }
       ]
     filter_top  : @exports()
     info_panel  : @exports()
     content     : @exports()
-  init : =>
-    console.log "INIT"
-    console.log @tree.name
+    footer : module 'footer' :
+      logo : module 'tutor/header/logo'
