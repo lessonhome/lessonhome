@@ -94,7 +94,6 @@ class Static
     hash  = m[1]
     fname = "#{m[2]}.#{m[3]}"
     path  = "./www/#{site}/static/#{fname}"
-    console.log req.headers
     hhash = req.headers['if-none-match']
 
     hhash ?= 2
@@ -103,11 +102,6 @@ class Static
       res.setHeader 'Cache-Control', 'public, max-age=126144001'
       res.setHeader 'Cache-Control', 'public, max-age=126144001'
       res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
-      console.log {
-        hash
-        rhash
-        hhash
-      }
       return @res304 req,res if rhash==hash==hhash
       if rhash != hash
         return @url fname,site,(url)=> @res303 req,res,url
@@ -119,12 +113,10 @@ class Static
       fs.readFile path, (err,data)=> fs.stat path,(err2,stat)=>
         if err? || err2?
           return @res404 req,res
-        console.log stat
         @files[path] =
           data : data
           mime : mime.lookup path
           stat : stat
-        console.log @files[path].mime
         return @write @files[path],req,res
   res304 : (req,res)=>
     res.writeHead 304

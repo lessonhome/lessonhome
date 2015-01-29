@@ -77,17 +77,35 @@ class module.exports
 
   make           : (o,state)=>
     state         ?= new @class()
-
+    state._smart  = true
     state.exports = (name='{{NULL}}')=> __exports:name
     state.name = @name
     tree = state.tree()
+    tree.__state      = state
+    tree._isState     = true
+    tree._statename   = @name
     for key,val of tree
       state.tree[key] = val
-    console.log tree
-    tree.__state      = state
+    if typeof state.tags == 'string'
+      state.tags = [state.tags]
+    else if !state.tags?.length?
+      state.tags = []
+    temp = {}
+    state.page_tags ?= {}
+    for tag in state.tags
+      if typeof tag == 'string'
+        temp[tag] = true
+        state.page_tags[tag] = true
+    state.tags = temp
+
     try
       do (state)=>
         @walk_tree_down state.tree, (node,key,val)=>
+          if val?.__state?
+            s = val.__state
+            for key of s.page_tags
+              state.page_tags[key] = true
+            s.page_tags = state.page_tags
           if val.__exports?
             name = val.__exports
             if name == '{{NULL}}'
@@ -121,6 +139,9 @@ class module.exports
       throw e
     if state.parent
       state.parent.__bind_exports state.parent, state.tree
+      for key of state.parent.page_tags
+        state.page_tags[key] = true
+      state.parent.page_tags = state.page_tags
     try
       state.init?()
     catch e
@@ -137,6 +158,7 @@ class module.exports
     try
       if typeof o == 'object' || typeof o == 'function'
         for key,val of o
+          continue if key.match /^_/
           if !state.exports[key]?
             console.error "can't find exports name '#{key}' in state #{@name}"
           else
@@ -157,12 +179,12 @@ class module.exports
       throw e
     
   walk_tree_up : (node, foo)=>
-    if typeof node == 'object' || typeof node == 'function'
+    if (typeof node == 'object' || typeof node == 'function') && !node?._smart
       for key,val of node
         @walk_tree_up node[key],foo
         foo node,key,val
   walk_tree_down : (node,foo)=>
-    if typeof node == 'object' || typeof node == 'function'
+    if (typeof node == 'object' || typeof node == 'function') && !node?._smart
       for key,val of node
         foo node,key,val
       for key,val of node

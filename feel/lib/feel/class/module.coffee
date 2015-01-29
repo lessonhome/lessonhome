@@ -72,12 +72,35 @@ class module.exports
   rebuildJade : =>
     @rescanFiles()
     .then @makeJade
-  doJade : (o)=>
-    o.F = (f)=> Feel.static.F @site.name,f
+  doJade : (o,route,state)=>
+    eo    =
+      F     : (f)=> Feel.static.F @site.name,f
+      $tag  : (f)=>
+        if typeof f == 'string'
+          return state.tags[f]?
+        if f instanceof RegExp
+          for key of state.tags
+            return key.match(f)?
+          return false
+        return false
+      $pageTag  : (f)=>
+        if typeof f == 'string'
+          return state.page_tags[f]?
+        if f instanceof RegExp
+          for key of state.page_tags
+            return key.match(f)?
+          return false
+        return false
+      $req      : route.req
+      $res      : route.res
+      $state    : state
+      $modulename : @name
+      $statename  : state.name
+    eo extends o
     if @jade.fn?
       try
         return " <div id=\"m-#{@id}\" >
-            #{@jade.fn(o)}
+            #{@jade.fn(eo)}
           </div>
         "
       catch e
