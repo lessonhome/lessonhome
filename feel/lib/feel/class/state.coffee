@@ -83,6 +83,7 @@ class module.exports
     tree = state.tree()
     for key,val of tree
       state.tree[key] = val
+    console.log tree
     tree.__state      = state
     try
       do (state)=>
