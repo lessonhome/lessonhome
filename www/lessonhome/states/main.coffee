@@ -1,6 +1,7 @@
 class @main
   tree : -> module '$' :
-    depend      :  state 'lib'
+    depend      : state 'lib'
+    name        : 'name'
     header      : state './tutor/header' :
       items : [
         module 'tutor/header/button' : {
@@ -33,3 +34,6 @@ class @main
     filter_top  : @exports()
     info_panel  : @exports()
     content     : @exports()
+  init : =>
+    console.log "INIT"
+    console.log @tree.name
