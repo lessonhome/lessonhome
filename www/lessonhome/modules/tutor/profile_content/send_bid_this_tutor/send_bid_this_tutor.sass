@@ -1,14 +1,20 @@
 $button_wrap: 'main/button_wrap.png'
-.button
-  height: 93px
-  position: absolute
-  right: -8px
-  top: 170px
-  text-align: center
-  $icon_height: image-height($button_wrap)
-  $icon_width: image-width($button_wrap)
+$icon_height: image-height($button_wrap)
+$icon_width: image-width($button_wrap)
+main
+  height: 92px
+.button, .small_button
+  height: 100%
   .button_wrap
     background: inline-image($button_wrap) no-repeat
     width: $icon_width
     height: $icon_height
     float: right
+.button
+  text-align: center
+  display: none
+main:hover
+  >.button
+    display: block
+  >.small_button
+    display: none

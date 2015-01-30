@@ -6,23 +6,26 @@ class @main
         module 'tutor/header/button' : {
           title : 'Поиск'
           href  : '/first_step'
+          tag   : 'pupil:main_search'
         }
         module 'tutor/header/list_button' : {
           title : 'Стать учеником'
           href  : '/be_pupil'
           list  : {
-            'Тест' : '#'
-            'Тест1' : '#'
-            'Тест2' : '#'
+            'Как это работает'  : '#'
+            'Оформить заявку'   : '#'
+            'Пригласить друга'  : '/invite_student'
+            'Помощь'            : '#'
           }
         }
         module 'tutor/header/list_button' : {
           title : 'Репетиторам'
           href  : '/main_tutor'
           list  : {
-            'как это работает1' : '#'
-            'как это работает2' : '#'
-            'как это работает3' : '#'
+            'Как это работает'  : '#'
+            'Стать репетитором' : '/main_tutor'
+            'Пригласить друга'  : '/invite_teacher'
+            'Помощь'            : '#'
           }
         }
         module 'tutor/header/button' : {
