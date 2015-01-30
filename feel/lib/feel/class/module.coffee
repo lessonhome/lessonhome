@@ -11,6 +11,9 @@ _path    = require 'path'
 readdir = Q.denodeify fs.readdir
 readfile= Q.denodeify fs.readFile
 
+escapeRegExp = (string)-> string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1")
+replaceAll   = (string, find, replace)->
+  string.replace(new RegExp(escapeRegExp(find), 'g'), replace)
 
 class module.exports
   constructor :   (module,@site)->
@@ -136,8 +139,17 @@ class module.exports
       @allCss += "/*#{name}*/\n#{src}\n"
   parseCss : (css,filename)=>
     ret = ''
-    css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
-    css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
+    m = css.match /\$FILE--\"([^\$]*)\"--FILE\$/g
+    if m then for f in m
+      fname = f.match(/\$FILE--\"([^\$]*)\"--FILE\$/)[1]
+      css = replaceAll css,f,"\"#{Feel.static.F(@site.name,fname)}\""
+    m = css.match /\$FILE--([^\$]*)--FILE\$/g
+    if m then for f in m
+      fname = f.match(/\$FILE--([^\$]*)--FILE\$/)[1]
+      css = replaceAll css,f,"\"#{Feel.static.F(@site.name,fname)}\""
+      
+    #css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
+    #css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
     m = css.match /([^{]*)([^}]*})(.*)/
     return css unless m
     pref = m[1]

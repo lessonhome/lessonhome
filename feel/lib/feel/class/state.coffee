@@ -86,26 +86,35 @@ class module.exports
     tree._statename   = @name
     for key,val of tree
       state.tree[key] = val
+    state.tags = state.tags?()
     if typeof state.tags == 'string'
       state.tags = [state.tags]
     else if !state.tags?.length?
       state.tags = []
     temp = {}
-    state.page_tags ?= {}
+    #state.page_tags ?= {}
     for tag in state.tags
       if typeof tag == 'string'
         temp[tag] = true
-        state.page_tags[tag] = true
+        #state.page_tags[tag] = true
     state.tags = temp
+
+
+    unless state.tree._isModule
+      for key,val of state.tree
+        if val._isModule
+          val.__state = state
+          val._isState = true
+          val._statename = @name
 
     try
       do (state)=>
         @walk_tree_down state.tree, (node,key,val)=>
           if val?.__state?
             s = val.__state
-            for key of s.page_tags
-              state.page_tags[key] = true
-            s.page_tags = state.page_tags
+            #for key of s.page_tags
+            #  state.page_tags[key] = true
+            #s.page_tags = state.page_tags
           if val.__exports?
             name = val.__exports
             if name == '{{NULL}}'
@@ -139,9 +148,9 @@ class module.exports
       throw e
     if state.parent
       state.parent.__bind_exports state.parent, state.tree
-      for key of state.parent.page_tags
-        state.page_tags[key] = true
-      state.parent.page_tags = state.page_tags
+      #for key of state.parent.page_tags
+      #  state.page_tags[key] = true
+      #state.parent.page_tags = state.page_tags
     try
       state.init?()
     catch e
