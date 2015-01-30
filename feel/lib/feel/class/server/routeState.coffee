@@ -7,7 +7,15 @@ class RouteState
       res : @res
       req : @req
     @state = @site.state[@statename].make()
+    @tags = {}
     @getTop()
+    @walk_tree_down @top,(node,key,val)=>
+      if val._isState
+        for key of val.__state.tags
+          @tags[key] = true
+        val.__state.page_tags = @tags
+    if @top._isState
+      @top.__state.page_tags = @tags
     @modules  = {}
     @css      = ""
     @jsModules = ""
@@ -23,14 +31,20 @@ class RouteState
   getTree : (top)=>
     tree = {}
     for key,val of top
-      if typeof val == 'function' || typeof val == 'object'
+      if (typeof val == 'function' || typeof val == 'object') && !val._smart
         tree[key] = @getTree val
       else
         tree[key] = val
     return tree
+  walk_tree_down : (node,foo)=>
+    if (typeof node == 'object' || typeof node == 'function') && !node?._smart
+      for key,val of node
+        foo node,key,val
+      for key,val of node
+        @walk_tree_down node[key],foo
   go : =>
     @stack = []
-    @parse @top
+    @parse @top,null,@top,@top
     @res.writeHead 200
     
     if @site.modules['default'].allCss && !@modules['default']?
@@ -80,7 +94,9 @@ class RouteState
   cssModule : (modname)=>
     @css += "<style id=\"f-css-#{modname}\">\n#{@site.modules[modname].allCss}\n</style>\n"
     
-  parse : (now,uniq)=>
+  parse : (now,uniq,module,state)=>
+    new_module = module
+    new_state  = state
     if now._isModule
       uniq = Math.floor Math.random()*10000
       now._uniq?= uniq
@@ -94,13 +110,21 @@ class RouteState
       @stack.push now._name
     for key,val of now
       if typeof val == 'object'
-        @parse val,uniq
+        if val.__state?
+          new_state = val
+        else
+          new_state = state
+        if val._isModule
+          new_module = val
+        else
+          new_module = module
+        @parse val,uniq,new_module,new_state
     if now._isModule
       @modules[now._name] = true
       o = @getO now,uniq
       if !@site.modules[now._name]?
         throw new Error "can't find module '#{now._name}' in state '#{@statename}'"
-      now._html = @site.modules[now._name].doJade o
+      now._html = @site.modules[now._name].doJade o,@,state.__state
       @stack.pop()
 
   getO  : (obj,uniq)=>

@@ -1,0 +1,58 @@
+@import "compass/css3"
+// if not use hint delete all comments
+//$hint_src       : 'hint.png'
+//$hint_height    : image-height($hint_src)
+//$hint_width     : image-width($hint_src)
+$review_margin_bottom: 30px
+
+//$width_reviews: 500px
+main
+  overflow : hidden
+  padding: 50px 20px 50px - $review_margin_bottom 20px
+
+//.hint
+  position: relative
+  margin-left: $width_reviews
+  padding: 0 0 0 20px
+  .vertical_line
+    position: absolute
+    width: 2px
+    left: 0
+    height: 100%
+  .question_sign_block
+    height : $hint_height
+    width: $hint_width
+    background: inline-image($hint_src) no-repeat
+  .title_help
+    margin-top : 20px
+    margin-bottom : 10px
+    font-size: 22px
+    color: rgb(0, 0, 0)
+  .text
+    font-size: 18px
+    color: rgb(93, 100, 107)
+.reviews
+  padding-right: 40px
+  box-sizing: border-box
+  //width : $width_reviews
+  float : left
+  .review
+    margin-bottom : 30px
+.grade
+  margin: 0 0 60px 78px
+  overflow: hidden
+  .title
+    font-size: 20px
+    color: rgb(0, 0, 0)
+    float: left
+    font-weight: 900
+  .reviews_rating
+    float : left
+    padding: 0 20px
+  .number_pupils
+    float: left
+    color : #777
+.send_bid_this_tutor
+  position: absolute
+  right: -8px
+  top: 170px

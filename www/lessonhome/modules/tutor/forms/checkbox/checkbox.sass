@@ -1,12 +1,14 @@
 @import compass/css3
 main
   height: 100%
+  cursor: pointer
+  position: relative
 .bid
   margin: 0
   width: 18px
   height: 18px
   box-sizing: border-box
-  border: 2px solid rgb( 209, 209, 209 )
+  border: 2px solid rgb( 205, 205, 205 )
   +border-radius(6px)
   background-color: rgb( 255, 255, 255 )
 
@@ -14,7 +16,7 @@ main
   width: 25px
   height: 25px
   box-sizing: border-box
-  border: 3px solid rgb( 137, 209, 255 )
+  border: 3px solid rgb( 205, 205, 205 )
   border-radius: 8px
   background-color: rgb( 255, 255, 255 )
 
@@ -30,3 +32,27 @@ main
   border: 3px solid rgb( 205, 205, 205 )
   border-radius: 8px
   box-sizing: border-box
+
+//- ---------------- CHECKS ---------------------------
+
+.check.edit_settings_active, .check.check_in_active
+  width: 25px
+  height: 18px
+  position: absolute
+  top: 4px
+  background: inline-image('blue_check.png') no-repeat
+  background-position: center
+
+.check.bid_active
+  width: 19px
+  height: 14px
+  position: absolute
+  top: 3px
+  background: inline-image('blue_check_small.png') no-repeat
+  background-position: center
+
+main:hover>.edit_settings, main:hover>.bid, main:hover>.check_in
+  border-color: #b3b3b3
+
+
+

@@ -1,0 +1,40 @@
+mixin item(title, link)
+  .item
+    a(href=link)
+      .title=title
+
+.top_block
+  .icon.classmates
+  .icon.vk
+  .icon.fb
+  .icon.google
+  .icon.twitter
+
+.line
+
+.bottom_block
+  .dashed_line
+  .left_block
+    .logo!= logo
+    .company_name &copy 2014 Lessonhome.ru
+  .dashed_line
+  .center_block
+    +item('Поиск', '#')
+    +item('Оформить заявку', '#')
+    +item('Документы', '#')
+    +item('Помощь', '#')
+  .dashed_line
+  .right_block
+    .address_block
+      .icon
+      .address!= '121087, Россия, г. Москва,<br>Береговой проезд 2с3'
+    .post_block
+      .icon
+      .post support@lessonhome.ru
+    .phone_block
+      .icon
+      .value
+        .phone 8 (666)-555-88-77
+        .callback
+         a Заказать звонок
+

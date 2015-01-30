@@ -1,2 +1,8 @@
+
+- console.log ($pageTag(tag),tag,$state.tags)
+
 a(href= href)
-  .title= title
+  if $pageTag(tag)
+    .title.active= title
+  else
+    .title= title
