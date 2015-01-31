@@ -11,6 +11,9 @@ _path    = require 'path'
 readdir = Q.denodeify fs.readdir
 readfile= Q.denodeify fs.readFile
 
+escapeRegExp = (string)-> string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1")
+replaceAll   = (string, find, replace)->
+  string.replace(new RegExp(escapeRegExp(find), 'g'), replace)
 
 class module.exports
   constructor :   (module,@site)->
@@ -72,12 +75,35 @@ class module.exports
   rebuildJade : =>
     @rescanFiles()
     .then @makeJade
-  doJade : (o)=>
-    o.F = (f)=> Feel.static.F @site.name,f
+  doJade : (o,route,state)=>
+    eo    =
+      F     : (f)=> Feel.static.F @site.name,f
+      $tag  : (f)=>
+        if typeof f == 'string'
+          return state.tags[f]?
+        if f instanceof RegExp
+          for key of state.tags
+            return key.match(f)?
+          return false
+        return false
+      $pageTag  : (f)=>
+        if typeof f == 'string'
+          return state.page_tags[f]?
+        if f instanceof RegExp
+          for key of state.page_tags
+            return key.match(f)?
+          return false
+        return false
+      $req      : route.req
+      $res      : route.res
+      $state    : state
+      $modulename : @name
+      $statename  : state.name
+    eo extends o
     if @jade.fn?
       try
         return " <div id=\"m-#{@id}\" >
-            #{@jade.fn(o)}
+            #{@jade.fn(eo)}
           </div>
         "
       catch e
@@ -113,8 +139,17 @@ class module.exports
       @allCss += "/*#{name}*/\n#{src}\n"
   parseCss : (css,filename)=>
     ret = ''
-    css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
-    css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
+    m = css.match /\$FILE--\"([^\$]*)\"--FILE\$/g
+    if m then for f in m
+      fname = f.match(/\$FILE--\"([^\$]*)\"--FILE\$/)[1]
+      css = replaceAll css,f,"\"#{Feel.static.F(@site.name,fname)}\""
+    m = css.match /\$FILE--([^\$]*)--FILE\$/g
+    if m then for f in m
+      fname = f.match(/\$FILE--([^\$]*)--FILE\$/)[1]
+      css = replaceAll css,f,"\"#{Feel.static.F(@site.name,fname)}\""
+      
+    #css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
+    #css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
     m = css.match /([^{]*)([^}]*})(.*)/
     return css unless m
     pref = m[1]

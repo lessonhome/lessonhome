@@ -1,12 +1,13 @@
 package com.lessonhome.clientapp;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.view.View;
 
 /**
- * Created by vlad on 25.01.2015.
+ * adapter for steps of filter <FilterPagesFragment>
  */
 public class FilterViewPagerAdapter  extends FragmentPagerAdapter
         // implements ViewPager.OnPageChangeListener
@@ -14,10 +15,13 @@ public class FilterViewPagerAdapter  extends FragmentPagerAdapter
     Context mContext;
     FilterPagesFragment mFilterPagesFragment;
 
+    View.OnClickListener mclicklistener;
 
-    public FilterViewPagerAdapter (Context context, FragmentManager fm) {
+
+    public FilterViewPagerAdapter (Context context, FragmentManager fm, View.OnClickListener mclicklistener) {
         super(fm);
         mContext = context;
+        this.mclicklistener = mclicklistener;
     }
 
     @Override
@@ -27,19 +31,13 @@ public class FilterViewPagerAdapter  extends FragmentPagerAdapter
 
     @Override
     public Fragment getItem(int position) {
-        return mFilterPagesFragment.newInstance(position, mContext);
+        return FilterPagesFragment.newInstance(position, mContext, mclicklistener);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         //Locale loc = Locale.getDefault();
-        switch (position) {
-            case 0:
-                return "Section 1";//.toUpperCase(loc);
-            case 1:
-                return "Section 2";//.toUpperCase(loc);
-            case 2:
-                return "Section 3";//.toUpperCase(loc);
+        switch (position) {//todo make page titles
         }
         return null;
     }

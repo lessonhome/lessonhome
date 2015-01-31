@@ -72,10 +72,10 @@ class Static
       exists = fs.existsSync f
       unless exists
         return @deleteHash f
-      try stats = fs.statSync f
-      if !stats?.isFile?()
+      stat = fs.statSync f
+      if !stat?.isFile?()
         return @deleteHash f
-      @createHashS f,stats
+      return @createHashS f,stat
     sha1 = crypto.createHash 'sha1'
     sha1.setEncoding 'hex'
     if stat.size > 100*1024*1024
@@ -94,7 +94,6 @@ class Static
     hash  = m[1]
     fname = "#{m[2]}.#{m[3]}"
     path  = "./www/#{site}/static/#{fname}"
-    console.log req.headers
     hhash = req.headers['if-none-match']
 
     hhash ?= 2
@@ -103,11 +102,6 @@ class Static
       res.setHeader 'Cache-Control', 'public, max-age=126144001'
       res.setHeader 'Cache-Control', 'public, max-age=126144001'
       res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
-      console.log {
-        hash
-        rhash
-        hhash
-      }
       return @res304 req,res if rhash==hash==hhash
       if rhash != hash
         return @url fname,site,(url)=> @res303 req,res,url
@@ -119,17 +113,16 @@ class Static
       fs.readFile path, (err,data)=> fs.stat path,(err2,stat)=>
         if err? || err2?
           return @res404 req,res
-        console.log stat
         @files[path] =
           data : data
           mime : mime.lookup path
           stat : stat
-        console.log @files[path].mime
         return @write @files[path],req,res
   res304 : (req,res)=>
     res.writeHead 304
     res.end()
   res303 : (req,res,location)=>
+    return @res404 req,res if req.url == location
     res.statusCode = 303
     res.setHeader 'Location', location
     res.end()
@@ -145,8 +138,8 @@ class Static
     if @watch[f]?
       hash = @watch[f]
     else
-      hash = 666
-      @createHash f
+      hash = @hashS f
+      #@createHash f
     return "/file/#{hash}/#{file}"
   res404  : (req,res)=>
     res.writeHead 404
@@ -155,11 +148,15 @@ class Static
   hash : (f,cb)=>
     f = _path.resolve f
     return cb(@watch[f]) if @watch[f]?
-    @createHash f,null,cb
+    hash = @createHash f,null,cb
+    hash ?= 666
+    return hash
   hashS : (f)=>
     f = _path.resolve f
     return @watch[f] if @watch[f]?
-    return @createHashS f
+    hash = @createHashS f
+    hash ?= 666
+    return hash
   url : (f,site,cb)=>
     @hash "www/#{site}/static/#{f}", (hash=666)=>
       cb "/file/#{hash}/#{f}"

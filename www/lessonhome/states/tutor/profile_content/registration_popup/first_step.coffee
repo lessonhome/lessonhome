@@ -14,8 +14,23 @@ class @main extends template '../registration_popup'
         selector : 'woman'
       birth_day   : module 'tutor/forms/drop_down_list' :
         placeholder : 'День'
-      birth_month : module 'tutor/forms/drop_down_list' :
+      birth_month : module 'tutor/forms/unable_enter_list' :
         placeholder : 'Месяц'
+        type : 'unable_to_enter'
+        list : [
+          'Январь'
+          'Февраль'
+          'Март'
+          'Апрель'
+          'Май'
+          'Июнь'
+          'Июль'
+          'Август'
+          'Сентябрь'
+          'Октябрь'
+          'Ноябрь'
+          'Декабрь'
+        ]
       birth_year  : module 'tutor/forms/drop_down_list' :
         placeholder : 'Год'
       status      : module 'tutor/forms/drop_down_list'
