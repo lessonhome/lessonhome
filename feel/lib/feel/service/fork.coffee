@@ -1,19 +1,10 @@
 
-global.Path = new (require('./path'))()
-global.Q            = require 'q'
-Q.longStackSupport  = true
-global.EE           = require('events').EventEmitter
+require '../lib'
 _cluster = require 'cluster'
+
 
 log = (msg)=>
   console.log.apply console, ["process:#{process.env.name}:#{process.pid}", arguments...]
-
-global.Exception = (e)=>
-  str = ""
-  str += e.name+"\n"    if e.name?
-  str += e.message+"\n" if e.message?
-  str += e.stack        if e.stack?
-  return str
 
 error = (msg)=>
   console.error ""

@@ -10,32 +10,38 @@ class Site
     @path.site    = "#{Path.sites}/#{@name}"
     @path.modules = "#{@path.site}/modules"
     @module = {}
-  init : => Q().then =>
-    console.log 'init site',@name
-  addModule : (module)=> Q().then =>
+  init : => Q.tick =>
+    console.log "site(#{@name}):init"
+  addModule : (module)=> Q.tick =>
+    console.log "site(#{@name}):addModule",module.name
     @module[module.name] = new Module module.name,@,module
     @module[module.name].init()
-  rescanModules : => Q().then =>
+  rescanModules : => Q.tick =>
+    console.log "site(#{@name}):rescanModules"
     @scanDirForModule ""
-  scanDirForModule : (prefix)=> Q().then =>
+  scanDirForModule : (prefix)=> Q.tick =>
+    console.log "site(#{@name}):scanDirForModule","/"+prefix
     _readdir "#{@path.modules}/#{prefix}"
-    .then (files)=>
+    .tick (files)=>
       pref = prefix
       pref += '/' if pref
-      q = Q()
+      qs = []
       for file in files
         name = "#{pref}#{file}"
         do (name)=>
-          q = q.then =>
-            _stat "#{@path.modules}/#{name}"
-          .then (stat)=>
+          q = _stat "#{@path.modules}/#{name}"
+          .tick (stat)=>
             return unless stat.isDirectory()
-            @addModuleByDir name
-            .then => @scanDirForModule name
-      return q
+            Q.all [
+              @addModuleByDir   name
+              @scanDirForModule name
+            ]
+          qs.push q
+      Q.all qs
 
-  addModuleByDir : (name)=> Q().then =>
+  addModuleByDir : (name)=> Q.tick =>
     return if @module[name]?
+    console.log "site(#{@name}):addModuleByDir",name
     @module[name] = new Module name,@
     @module[name].init()
 

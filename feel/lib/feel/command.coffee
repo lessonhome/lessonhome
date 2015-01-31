@@ -1,10 +1,6 @@
 
-
+require './lib'
 _cluster = require 'cluster'
-global.EE = require('events').EventEmitter
-global.Q            = require "q"
-Q.longStackSupport  = true
-
 
 log = (msg)=>
   console.log.apply console, ["main_process:#{process.pid}", arguments...]

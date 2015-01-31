@@ -9,17 +9,19 @@ class Module extends EE
     @indb ?= {}
     @inited = false
   init : =>
-    Q().then =>
+    Q.tick =>
       return if @inited
-    .then =>
+    .tick =>
+      console.log "module(#{@site.name}:#{@name}):init"
       @emit 'init'
       @inited = true
-    .then @updateDb
-  updateDb : => Q().then =>
+    .tick @updateDb
+  updateDb : => Q.tick =>
     obj =
       name      : @name
       sitename  : @site.name
     return if JSON.stringify(obj) == JSON.stringify(@indb)
+    console.log "module(#{@site.name}:#{@name}):updateDb"
     @indb = obj
     @db = Main.db.collection 'modules'
     Q.ninvoke @db,'update',{
@@ -30,7 +32,7 @@ class Module extends EE
     },{
       upsert : true
     }
-    .then (result)=>
+    .tick (result)=>
       @emit 'change'
 
 
