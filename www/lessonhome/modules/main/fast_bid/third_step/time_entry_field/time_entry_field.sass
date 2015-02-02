@@ -1,0 +1,60 @@
+@import compass/css3
+
+main
+  width : 228px
+  height : 99px
+  box-sizing : border-box
+  overflow : hidden
+
+  border-radius : 4px
+  background-color : rgb( 223, 225, 228 )
+
+
+.up_block
+  margin-top : 9px
+  margin-bottom : 7px
+  overflow : hidden
+
+  .time
+    float : left
+
+    label
+      display : block
+      cursor  : pointer
+      +inline-block
+
+      div
+        +inline-block
+
+      .title_from, .title_to
+        font-size : 18px
+        color : #373331
+
+      .title_from
+        margin : 0 12px 0 5px
+
+      .input_from
+        margin-right : 4px
+
+      .title_to
+        margin : 0 5px 0 4px
+
+      .input_from, .input_to
+        width  : 70px
+        height : 37px
+
+  .delete
+    width : 15px
+    height : 15px
+    margin-left : 7px
+    +inline-block
+    vertical-align : top
+    background : inline-image('calendar_delete_sign.png') no-repeat
+    cursor : pointer
+
+.down_block
+  text-align : center
+  .text
+    +inline-block
+    width  : 212px
+    height : 37px

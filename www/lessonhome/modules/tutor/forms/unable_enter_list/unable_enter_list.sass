@@ -39,6 +39,7 @@ main
       z-index: 1
       top: 0
       left: 0
+      padding-bottom: 5px
       box-sizing: border-box
       border: 2px solid rgb( 137, 209, 255 )
       border-radius: 8px
@@ -49,31 +50,32 @@ main
       font-family: inherit
       div
         text-align: left
-      .top
-        position: relative
-        padding: 0 (2*$icon_padding+$icon_width) 0 8px
-        color: #757575
-        height: 33px
-        .icon_box
-          padding: 0 9px 0 $icon_padding
-          position: absolute
-          top: 0
+      //-
+        .top
+          position: relative
+          padding: 0 (2*$icon_padding+$icon_width) 0 8px
+          color: #757575
+          height: 33px
+          .icon_box
+            padding: 0 9px 0 $icon_padding
+            position: absolute
+            top: 0
+            height: 100%
+            right: 0px
+            cursor: pointer
+            .icon
+              width: $icon_width
+              height: $icon_height
+              position: relative
+              top: 50%
+              margin-top: -$icon_height / 2
+              background : inline-image($icon_src) no-repeat
+        .top:after
+          content: ''
+          +inline-block
+          vertical-align: middle
           height: 100%
-          right: 0px
-          cursor: pointer
-          .icon
-            width: $icon_width
-            height: $icon_height
-            position: relative
-            top: 50%
-            margin-top: -$icon_height / 2
-            background : inline-image($icon_src) no-repeat
-      .top:after
-        content: ''
-        +inline-block
-        vertical-align: middle
-        height: 100%
-        width: 0px
+          width: 0px
       .item
         width: 100%
         line-height: 29px
@@ -81,8 +83,9 @@ main
         box-sizing: border-box
       .item:hover
         background-color: rgb( 243, 243, 243 )
-    .drop_down_box :last-child
-      padding-bottom: 5px
+    .drop_down_box :first-child
+      border-top-left-radius: 8px
+      border-top-right-radius: 8px
   .icon_box
     padding: 0 11px 0 $icon_padding
     position: absolute

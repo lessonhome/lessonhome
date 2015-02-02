@@ -1,0 +1,40 @@
+
+.location
+  .title Место :
+  .value
+    .tutor!= tutor
+    .student!= student
+    .web!= web
+
+
+
+tutor : module 'tutor/forms/location_button' :
+  selector : 'search_bids'
+  text   : 'У себя'
+student  : module 'tutor/forms/location_button' :
+  selector : 'search_bids'
+  text   : 'У ученика'
+web : module 'tutor/forms/location_button' :
+  selector : 'search_bids'
+  text   : 'Удалённо'
+slider_hint : module 'tutor/hint' :
+  selector : 'small'
+  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+your_address : module 'tutor/forms/drop_down_list'
+road_time_to : module 'tutor/forms/input'
+road_time_slider : module '//slider'
+calendar : module '//calendar' :
+  calendar_hint : module 'tutor/hint' :
+    selector : 'small'
+    text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+select_all : module 'tutor/forms/checkbox' :
+  selector : 'bid_form'
+time_entry_field : module '//time_entry_field'
+add_button : module 'tutor/button' :
+  selector : 'add_smth'
+  text : '+'
+lesson_duration : module 'tutor/forms/input'
+slider : module '//slider' :
+  slider_hint : module 'tutor/hint' :
+    selector : 'small'
+    text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

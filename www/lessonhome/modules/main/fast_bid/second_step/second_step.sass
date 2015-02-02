@@ -1,0 +1,53 @@
+@import compass/css3
+$width: 341px
+$height: 38px
+
+main
+  padding-bottom: 13.5px
+
+label
+  display: block
+  cursor: pointer
+  padding: 6.5px 0
+  div
+    width:  $width
+  .title
+    text-align: left
+    margin-bottom: 3px
+    font-size: 16px
+    color: #222528
+  .value
+    height: $height
+
+label.goal
+  .value
+    height: 97px
+
+.price
+  text-align: left
+  padding: 6.5px 0
+  .title
+    font-size: 16px
+    color: #222528
+    margin-bottom: 8px
+  .value
+    .top
+      margin-bottom: 14px
+      label
+        +inline-block
+        cursor: pointer
+        div
+          +inline-block
+        .value
+          width: 75px
+          height: 33px
+        .title
+          font-size: 18px
+          color: #222528
+      label.price_from
+        padding-right: 7px
+        .title
+          margin: 0 8px 0 2px
+      label.price_to
+        .title
+          margin: 0 7px 0 8px
