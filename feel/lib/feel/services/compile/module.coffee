@@ -34,7 +34,8 @@ class Module extends EE
     }
     .tick (result)=>
       @emit 'change'
-
+  
+  scanFiles : =>
 
 module.exports = Module
 
