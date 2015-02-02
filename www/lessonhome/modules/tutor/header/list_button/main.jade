@@ -1,9 +1,13 @@
 mixin R(t)
   - t = t.replace(/\s/g, '&nbsp;')
   .title!= t
+- console.log ($pageTag(tag),tag,$state.page_tags);
 .visible
   a(href= href)
-    .title= title
+    if $pageTag(tag)
+      .title.red= title
+    else
+      .title= title
   .hidden
     .box_menu
       .triangle_box

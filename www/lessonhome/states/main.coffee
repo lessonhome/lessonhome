@@ -19,6 +19,7 @@ class @main
           }
         }
         module 'tutor/header/list_button' : {
+          tag   : 'pupil:main_tutor'
           title : 'Репетиторам'
           href  : '/main_tutor'
           list  : {

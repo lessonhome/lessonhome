@@ -1,0 +1,108 @@
+@import compass/css3
+
+$width: 339px
+$location_button_height: 33px
+$input_height: 37px
+
+main
+  padding-bottom: 21.5px
+
+label
+  display: block
+  cursor: pointer
+
+div, label
+  width: $width
+  padding: 6.5px 0
+  text-align: left
+  .title
+    text-align: left
+    padding-bottom: 6px
+    font-size: 16px
+    color: #222528
+
+.location
+  .value
+    position: relative
+    text-align: center
+    div
+      +inline-block
+      height: $location_button_height
+    .tutor
+      width: 76px
+    .student
+      width: 132px
+      margin-left:  12px
+      margin-right: 11px
+    .web
+      width: 103px
+
+    .hint
+      position: absolute
+      top: 8px
+      right: -27px
+
+.road_time
+  .value
+    div
+      +inline-block
+    .road_time_to
+      width:  54px
+      height: 37px
+
+    .title_to, .title_from
+      font-size: 18px
+      color: #222528
+
+    .title_to
+      margin-right: 3px
+
+    .title_min
+      margin: 0 2px 0 7px
+
+    .slider
+      width: 210px
+
+label.your_address
+  .value
+    height: $input_height
+
+.calendar_block
+  .title
+    padding-bottom: 11px
+  .value
+    .calendar
+      margin-bottom: 5px
+    .select_all
+      padding: 5px 0 4px 0
+      text-align: left
+      div
+        +inline-block
+      .button
+        padding: 0 10px 0 8px
+      .title
+        font-size: 18px
+        color: #222528
+    .time_enter
+      margin-top: 4px
+      div
+        +inline-block
+      .add_button
+        margin-left: 12px
+
+.lesson_duration_block
+  .value
+    position: relative
+    div
+      +inline-block
+    .lesson_duration
+      width: 54px
+      height: $input_height
+    .text
+      margin: 0 5px 0 4px
+    .slider
+      width: 235px
+    .hint
+      position: absolute
+      top: 8px
+      right: -27px
