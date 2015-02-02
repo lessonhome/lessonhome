@@ -138,14 +138,25 @@ class module.exports
       return @res404 req,res unless m
     hash    = m[1]
     module  = m[2]
-    
     if @modules[module]?.allJs?
       res.setHeader "Content-Type", "text/javascript; charset=utf-8"
-
+      if hash == @modules[m[2]]?.jsHash
+        return @res304 req,res if req.headers['if-none-match'] == hash
+        res.setHeader 'ETag', hash
+        res.setHeader 'Cache-Control', 'public, max-age=126144001'
+        res.setHeader 'Cache-Control', 'public, max-age=126144001'
+        res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
       return res.end @modules[module].allJs
     return @res404 req,res
-
+  moduleJsUrl : (name)=>
+    hash = @modules[name]?.jsHash
+    "/js/#{hash}/#{name}"
+  moduleJsTag : (name)=>
+    "<script type='text/javascript' src='#{@moduleJsUrl(name)}'></script>"
   res404  : (req,res)=>
     res.writeHead 404
+    res.end()
+  res304  : (req,res)=>
+    res.writeHead 304
     res.end()
 

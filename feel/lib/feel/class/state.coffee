@@ -87,18 +87,18 @@ class module.exports
     tree._statename   = @name
     for key,val of tree
       state.tree[key] = val
-    state.tags = state.tags?()
-    if typeof state.tags == 'string'
-      state.tags = [state.tags]
-    else if !state.tags?.length?
-      state.tags = []
+    state.tag = state.tags?()
+    if typeof state.tag == 'string'
+      state.tag = [state.tag]
+    else if !state.tag?.length?
+      state.tag = []
     temp = {}
     #state.page_tags ?= {}
-    for tag in state.tags
+    for tag in state.tag
       if typeof tag == 'string'
         temp[tag] = true
-        #state.page_tags[tag] = true
-    state.tags = temp
+        #state.page_tag[tag] = true
+    state.tag = temp
 
 
     unless state.tree._isModule
@@ -113,9 +113,6 @@ class module.exports
         @walk_tree_down state.tree, (node,key,val)=>
           if val?.__state?
             s = val.__state
-            #for key of s.page_tags
-            #  state.page_tags[key] = true
-            #s.page_tags = state.page_tags
           if val.__exports?
             name = val.__exports
             if name == '{{NULL}}'
@@ -128,9 +125,6 @@ class module.exports
                 break
             else if typeof name == 'string'
               delete node[key]
-            #if state.exports[name]?
-            #  console.error "exports name '#{name}' already exists in state #{@name}"
-            #  throw new Error "exports name '#{name}' already exists in state #{@name}"
             state.exports[name] ?= []
             state.exports[name].push {
               node
@@ -149,9 +143,6 @@ class module.exports
       throw e
     if state.parent
       state.parent.__bind_exports state.parent, state.tree
-      #for key of state.parent.page_tags
-      #  state.page_tags[key] = true
-      #state.parent.page_tags = state.page_tags
     try
       state.init?()
     catch e

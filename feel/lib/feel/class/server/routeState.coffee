@@ -62,10 +62,11 @@ class RouteState
     end += title+'</title>'+@css+'</head><body>'+@top._html
     @removeHtml @top
     json_tree = JSON.stringify(@getTree(@top))
-    end +='
-      <script type="text/javascript" src="/js/123/lib/jquery"></script>
-      <script type="text/javascript" src="/js/323/lib/q"></script>
-      <script type="text/javascript" src="/js/123/lib/event_emitter"></script>
+    end +=
+      @site.moduleJsTag('lib/jquery')+
+      @site.moduleJsTag('lib/q')+
+      @site.moduleJsTag('lib/event_emitter')+
+      '
       <script id="feel-js-client">
           window.EE = EventEmitter;
           var $Feel = {}; 
