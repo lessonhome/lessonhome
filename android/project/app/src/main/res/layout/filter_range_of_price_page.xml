@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/range_of_price_words"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/range_of_price_words"
+        android:padding="25dp"
+        android:completionThreshold="1" />
+
+    <EditText
+        android:id="@+id/max_price"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/price"
+        android:layout_below="@id/range_of_price_words"
+        android:padding="25dp"
+        android:completionThreshold="1" />
+
+    <SeekBar
+        android:id="@+id/max_price_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/max_price"/>
+
+    <Button
+        android:id="@+id/next_in_filter_viewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/max_price_seekbar"
+        android:gravity="center"
+        android:text="@string/next_in_filter_viewPager" />
+</RelativeLayout>

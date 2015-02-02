@@ -1,6 +1,6 @@
 package com.lessonhome.clientapp;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 /**
- * Created by vlad on 25.01.2015.
+ * Fragment for PageFilter <FilterViewPagerAdapter<FilterPagesFragment>> and founded tutors/students<todo place here name of list for founded items>
  */
 public class FilterMainFragment extends Fragment {
 
@@ -21,14 +21,16 @@ public class FilterMainFragment extends Fragment {
     FilterViewPagerAdapter mPagesAdapter;
     ViewPager mViewPager;
     RelativeLayout MainLay;
+    View.OnClickListener mclicklistener;
 
 
 
-    static FilterMainFragment newInstance(Context _context) {
+    static FilterMainFragment newInstance(Context _context, View.OnClickListener mclicklistener) {
         FilterMainFragment Fragment = new FilterMainFragment();
         Bundle arguments = new Bundle();
         Fragment.setArguments(arguments);
         Fragment.context = _context;
+        Fragment.mclicklistener = mclicklistener;
 
 
 
@@ -42,6 +44,13 @@ public class FilterMainFragment extends Fragment {
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (container == null) {
@@ -51,7 +60,7 @@ public class FilterMainFragment extends Fragment {
 
         MainLay = (RelativeLayout)inflater.inflate(R.layout.filter_fragment, container, false);
         mViewPager = (ViewPager)MainLay.findViewById(R.id.mviewpager);
-        mPagesAdapter = new FilterViewPagerAdapter(context, getFragmentManager());
+        mPagesAdapter = new FilterViewPagerAdapter(context, getChildFragmentManager(), mclicklistener);
         mViewPager.setAdapter(mPagesAdapter);
 
         return MainLay;
