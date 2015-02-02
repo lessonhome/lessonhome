@@ -7,6 +7,7 @@ for key,val of jade_runtime
       jade[key] = => val.apply jade_runtime, arguments
 fs      = require 'fs'
 coffee  = require 'coffee-script'
+crypto  = require 'crypto'
 _path    = require 'path'
 readdir = Q.denodeify fs.readdir
 readfile= Q.denodeify fs.readFile
@@ -27,7 +28,8 @@ class module.exports
     @allCss     = ""
     @allCoffee  = ""
     @allJs      = ""
-
+    @jsHash     = '666'
+    @coffeeHash = '666'
   init : =>
     Q()
     .then @makeJade
@@ -234,7 +236,7 @@ class module.exports
     @allCoffee += @allJs
     @allCoffee += "}).call(arr);return arr; })()"
     @allCoffee = "" unless num
-
+    @setHash()
     return Q()
   makeJs  : =>
     @newJs = {}
@@ -257,5 +259,13 @@ class module.exports
         @allJs += "(function(){ #{src} }).call(arr);"
     @allJs += "return arr; })()"
     @allJs  = "" unless num
-
+    @setHash()
     return Q()
+  setHash : =>
+    @jsHash     = @hash @allJs
+    @coffeeHash = @hash @allCoffee
+  hash : (f)=>
+    sha1 = crypto.createHash 'sha1'
+    sha1.setEncoding 'hex'
+    sha1.update f
+    sha1.digest('hex').substr 0,10
