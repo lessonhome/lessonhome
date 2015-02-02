@@ -15,4 +15,5 @@ class @main
       }
     ]
     content : state './conditions_content'  :
-      send_bid_this_tutor : state './send_bid_this_tutor'
+      send_bid_this_tutor : state './send_bid_this_tutor' :
+        have_small_button : true

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tutor_kind_words"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tutor_kind_words"
+        android:padding="25dp"
+        android:completionThreshold="1" />
+
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/enter_tutor_kind"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_tutor_kind"
+        android:layout_below="@+id/tutor_kind_words"
+        android:padding="25dp"
+        android:completionThreshold="1" />
+
+
+    <Button
+        android:id="@+id/next_in_filter_viewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/enter_tutor_kind"
+        android:gravity="center"
+        android:text="@string/next_in_filter_viewPager" />
+
+
+</RelativeLayout>

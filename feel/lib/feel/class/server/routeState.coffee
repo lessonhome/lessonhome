@@ -7,7 +7,15 @@ class RouteState
       res : @res
       req : @req
     @state = @site.state[@statename].make()
+    @tags = {}
     @getTop()
+    @walk_tree_down @top,(node,key,val)=>
+      if val._isState
+        for key of val.__state.tag
+          @tags[key] = true
+        val.__state.page_tags = @tags
+    if @top._isState
+      @top.__state.page_tags = @tags
     @modules  = {}
     @css      = ""
     @jsModules = ""
@@ -28,6 +36,12 @@ class RouteState
       else
         tree[key] = val
     return tree
+  walk_tree_down : (node,foo)=>
+    if (typeof node == 'object' || typeof node == 'function') && !node?._smart
+      for key,val of node
+        foo node,key,val
+      for key,val of node
+        @walk_tree_down node[key],foo
   go : =>
     @stack = []
     @parse @top,null,@top,@top
@@ -48,10 +62,11 @@ class RouteState
     end += title+'</title>'+@css+'</head><body>'+@top._html
     @removeHtml @top
     json_tree = JSON.stringify(@getTree(@top))
-    end +='
-      <script type="text/javascript" src="/js/123/lib/jquery"></script>
-      <script type="text/javascript" src="/js/323/lib/q"></script>
-      <script type="text/javascript" src="/js/123/lib/event_emitter"></script>
+    end +=
+      @site.moduleJsTag('lib/jquery')+
+      @site.moduleJsTag('lib/q')+
+      @site.moduleJsTag('lib/event_emitter')+
+      '
       <script id="feel-js-client">
           window.EE = EventEmitter;
           var $Feel = {}; 

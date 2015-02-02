@@ -1,10 +1,9 @@
 
-
-
 class @main extends EE
   show : =>
-    @button = @dom.find ".button"
-    @active = @button.hasClass 'active'
+    console.log @tree
+    @section = @dom.find ".section"
+    @hidden = @section.hasClass 'active'
     @dom.on 'click', @click
   disable : =>
     if !@active then return

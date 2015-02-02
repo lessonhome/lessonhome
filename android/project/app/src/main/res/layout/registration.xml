@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/registrtion_words"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registration_words"/>
+
+    <ImageButton
+        android:id="@+id/vkontakte_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registrtion_words" />
+
+    <TextView
+        android:id="@+id/or_email_address_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registrtion_or_email"
+        android:layout_below="@+id/vkontakte_image_button" />
+
+    <EditText
+        android:id="@+id/enter_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registration_enter_email"
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/or_email_address_textview" />
+
+    <TextView
+        android:id="@+id/or_and_phone_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registrtion_or_phone"
+        android:layout_below="@+id/enter_email" />
+
+    <EditText
+        android:id="@+id/enter_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registration_enter_phone"
+        android:inputType="phone"
+        android:layout_below="@+id/or_and_phone_textview" />
+
+</RelativeLayout>

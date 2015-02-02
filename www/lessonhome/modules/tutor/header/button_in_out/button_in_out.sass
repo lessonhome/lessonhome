@@ -2,13 +2,15 @@
 main
   height: 100%
 .button
+  cursor: pointer
   height: 100%
   .title
     +inline-block
     font-size: 16px
     color: #757575
-    cursor: pointer
 .button:after
   +inline-block
   height: 100%
   content: ""
+.button:hover .title
+  color:  #000000

@@ -1,4 +1,5 @@
 class @main extends template '../main'
+  tags  : -> 'pupil:main_search'
   tree : =>
     filter_top  : @exports()
     info_panel  : state './info_panel'  :

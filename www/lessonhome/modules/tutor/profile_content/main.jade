@@ -31,10 +31,13 @@ if popup
       if with_verification
         .verification
           .with_verification(style = 'background: #{with_verification}')
+          .hover_popup
+            .text_block
+              .documents_check &bull;&nbsp;Интервью&nbsp;пройденно
+              .interview_completed &bull;&nbsp;Документы&nbsp;проверены
     != personal_data
   if send_bid_this_tutor
     .send_bid_this_tutor!=send_bid_this_tutor
-      .button_wrap
 if contacts
   .separate_box!=line_con
   +section_box ('contacts', contacts)
