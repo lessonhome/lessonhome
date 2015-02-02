@@ -3,14 +3,13 @@ mixin R(t)
   .title!= t
 .visible
   a(href= href)
-    //.icon_box
-      .icon
     .title= title
   .hidden
-    .triangle_box
-      .triangle
-    .menu
-      each h,t in list
-        a(href= h)
-          +R(t)
+    .box_menu
+      .triangle_box
+        .triangle
+      .menu
+        each h,t in list
+          a(href= h)
+            +R(t)
 

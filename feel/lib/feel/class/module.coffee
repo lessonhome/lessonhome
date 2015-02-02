@@ -82,9 +82,9 @@ class module.exports
       F     : (f)=> Feel.static.F @site.name,f
       $tag  : (f)=>
         if typeof f == 'string'
-          return state.tags[f]?
+          return state.tag[f]?
         if f instanceof RegExp
-          for key of state.tags
+          for key of state.tag
             return key.match(f)?
           return false
         return false

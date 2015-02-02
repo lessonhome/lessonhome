@@ -2,7 +2,8 @@ mixin day(text)
   .day=text
 
 .header Определите свободное время<br> для проведения Ваших занятий
-.calendar
+.calendar!= calendar
+//-.calendar
   .week
     .passive.g-font-edit-calendar пн
     .active.g-font-edit-calendar вт

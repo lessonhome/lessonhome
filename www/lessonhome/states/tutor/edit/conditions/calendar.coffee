@@ -22,9 +22,10 @@ class @main extends template '../../../tutor'
       active_item : 'Календарь'
 
     content : module '$':
-      calendar_hint : module 'tutor/hint' :
-        selector : 'small'
-        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+      calendar : module '//calendar' :
+        calendar_hint : module 'tutor/hint' :
+          selector : 'small'
+          text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       time_entry_hint : module 'tutor/hint' :
         selector : 'small'
       time_entry_fields : [

@@ -33,6 +33,15 @@ main
   border-radius: 8px
   box-sizing: border-box
 
+//- ------------ BID FORM ------------------------------
+
+.bid_form
+  width: 19px
+  height: 19px
+  background-color: #fff
+  border-radius: 4px
+
+
 //- ---------------- CHECKS ---------------------------
 
 .check.edit_settings_active, .check.check_in_active
@@ -43,7 +52,7 @@ main
   background: inline-image('blue_check.png') no-repeat
   background-position: center
 
-.check.bid_active
+.check.bid_active, .check.bid_form
   width: 19px
   height: 14px
   position: absolute
@@ -51,7 +60,7 @@ main
   background: inline-image('blue_check_small.png') no-repeat
   background-position: center
 
-main:hover>.edit_settings, main:hover>.bid, main:hover>.check_in
+main:hover>.edit_settings, main:hover>.bid, main:hover>.check_in, main:hover>.bid_form
   border-color: #b3b3b3
 
 

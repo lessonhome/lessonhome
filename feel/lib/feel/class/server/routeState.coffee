@@ -11,7 +11,7 @@ class RouteState
     @getTop()
     @walk_tree_down @top,(node,key,val)=>
       if val._isState
-        for key of val.__state.tags
+        for key of val.__state.tag
           @tags[key] = true
         val.__state.page_tags = @tags
     if @top._isState
