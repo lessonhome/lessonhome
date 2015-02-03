@@ -1,7 +1,10 @@
 
+_fs       = require 'fs'
+_readdir  = Q.denodeify _fs.readdir
 
 class Module extends EE
   constructor : (@name,@site,options)->
+    @path = "#{@site.path.modules}/#{@name}"
     if options?
       @[key] = val for key,val of options
       @indb = options
@@ -36,6 +39,8 @@ class Module extends EE
       @emit 'change'
   
   scanFiles : =>
+
+    
 
 module.exports = Module
 
