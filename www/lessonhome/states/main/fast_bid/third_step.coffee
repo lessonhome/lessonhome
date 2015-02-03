@@ -43,11 +43,8 @@ class @main extends template '../fast_bid'
       lesson_duration_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
-    hint_margin_top : '20'
+      hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
   init : ->
     @parent.tree.filter_top.progress_bar.progress = 3
-    @parent.tree.filter_top.footer.button_back.selector = 'active'
-    @parent.tree.filter_top.footer.issue_bid.selector = 'active'
     @parent.tree.filter_top.footer.back_link = 'second_step'
     @parent.tree.filter_top.footer.next_link = 'fourth_step'

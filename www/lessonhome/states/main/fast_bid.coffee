@@ -4,8 +4,6 @@ class @main extends template './preview'
       progress_bar : module '//progress_bar' :
         progress : 1
       content      : @exports()   # must be defined
-      hint : @exports()
-      hint_margin_top : @exports()
       footer       : module '//footer' :
         button_back : module '//button_back' :
           selector : 'active'

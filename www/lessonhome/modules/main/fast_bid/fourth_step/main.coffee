@@ -4,6 +4,8 @@ class @main
     @student = @tree.status_student.class
     @teacher = @tree.status_teacher.class
     @phd     = @tree.status_phd.class
+    @man     = @tree.sex_man.class
+    @woman   = @tree.sex_woman.class
 
     @student.on 'active', =>
       @teacher.disable()
@@ -16,5 +18,8 @@ class @main
     @phd.on 'active', =>
       @teacher.disable()
       @student.disable()
+
+    @man  .on 'active', => @woman .disable()
+    @woman.on 'active', => @man   .disable()
 
     Feel.LabelHoverControl(@dom, 'input, .drop_down_list')

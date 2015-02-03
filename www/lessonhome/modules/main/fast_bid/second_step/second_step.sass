@@ -4,50 +4,69 @@ $height: 38px
 
 main
   padding-bottom: 13.5px
+  padding-top: 40px
+  text-align: right
 
-label
-  display: block
-  cursor: pointer
-  padding: 6.5px 0
-  div
-    width:  $width
-  .title
+div
+  +inline-block
+  vertical-align: top
+
+
+.info
+
+  label
+    display: block
+    cursor: pointer
+    padding: 6.5px 0
+    div
+      width:  $width
+    .title
+      text-align: left
+      margin-bottom: 3px
+      font-size: 16px
+      color: #222528
+    .value
+      height: $height
+
+  label.goal
+    .value
+      height: 97px
+
+  .price
     text-align: left
-    margin-bottom: 3px
-    font-size: 16px
-    color: #222528
-  .value
-    height: $height
-
-label.goal
-  .value
-    height: 97px
-
-.price
-  text-align: left
-  padding: 6.5px 0
-  .title
-    font-size: 16px
-    color: #222528
-    margin-bottom: 8px
-  .value
-    .top
-      margin-bottom: 14px
-      label
-        +inline-block
-        cursor: pointer
-        div
+    padding: 6.5px 0
+    .title
+      font-size: 16px
+      color: #222528
+      margin-bottom: 8px
+    .value
+      .top
+        margin-bottom: 14px
+        label
           +inline-block
-        .value
-          width: 75px
-          height: 33px
-        .title
-          font-size: 18px
-          color: #222528
-      label.price_from
-        padding-right: 7px
-        .title
-          margin: 0 8px 0 2px
-      label.price_to
-        .title
-          margin: 0 7px 0 8px
+          cursor: pointer
+          div
+            +inline-block
+          .value
+            width: 75px
+            height: 33px
+          .title
+            font-size: 18px
+            color: #222528
+        label.price_from
+          padding-right: 7px
+          .title
+            margin: 0 8px 0 2px
+        label.price_to
+          .title
+            margin: 0 7px 0 8px
+
+
+.hint
+  text-align: left
+  margin-left: 41px
+  margin-right: 63px
+  font-size: 24px
+  letter-spacing: -1.2px
+  line-height: 29px
+  color: #222528

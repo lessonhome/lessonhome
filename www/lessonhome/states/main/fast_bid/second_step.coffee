@@ -11,11 +11,9 @@ class @main extends template '../fast_bid'
       price_to : module 'tutor/forms/input'
       price_slider : module 'slider'
       goal : module 'tutor/forms/textarea'
-    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+      hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->
     @parent.tree.filter_top.progress_bar.progress = 2
-    @parent.tree.filter_top.footer.button_back.selector = 'active'
-    @parent.tree.filter_top.footer.issue_bid.selector = 'active'
     @parent.tree.filter_top.footer.back_link = 'first_step'
     @parent.tree.filter_top.footer.next_link = 'third_step'

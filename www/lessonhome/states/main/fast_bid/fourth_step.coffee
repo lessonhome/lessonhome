@@ -13,10 +13,20 @@ class @main extends template '../fast_bid'
       status_phd : module 'tutor/forms/status_button' :
         selector : 'inactive'
         text : 'Кандидат наук'
+      experience : module 'tutor/forms/drop_down_list'
+      age_from : module 'tutor/forms/input'
+      age_to : module 'tutor/forms/input'
+      age_slider : module 'slider'
+      sex_man     : module 'tutor/forms/sex_button' :
+        selector : 'man'
+      sex_woman   : module 'tutor/forms/sex_button' :
+        selector : 'woman'
+
+      hint : 'Расскажите нам<br>ещё немного о<br>Вашем идеальном<br>репетиторе'
 
   init : ->
     @parent.tree.filter_top.progress_bar.progress = 4
-    @parent.tree.filter_top.footer.button_back.selector = 'active'
-    @parent.tree.filter_top.footer.issue_bid.selector = 'active'
+    @parent.tree.filter_top.footer.button_next.selector = 'hidden'
+    @parent.tree.filter_top.footer.issue_bid.finish = true
     @parent.tree.filter_top.footer.back_link = 'third_step'
-    @parent.tree.filter_top.footer.next_link = 'fifth_step'
+    @parent.tree.filter_top.footer.next_link = false
