@@ -8,3 +8,5 @@ class @main extends template '../preview'
         src : F('main/application_star.png')
         height: 246
         width:  255
+      progress_bar : module 'main/fast_bid/progress_bar' :
+        progress : 5

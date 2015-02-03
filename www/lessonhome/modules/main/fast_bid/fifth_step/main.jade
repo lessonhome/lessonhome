@@ -1,8 +1,9 @@
 .thanks_block(style = "background: url(#{F('main/filter_top.jpg')})")
-  .icon(style="width: #{thanks_icon.width}px; height: #{thanks_icon.height}px; background: url(#{thanks_icon.src});")
-  .progress
+  .icon_block
+    .icon(style="width: #{thanks_icon.width}px; height: #{thanks_icon.height}px; background: url(#{thanks_icon.src});")
+  .progress_bar!= progress_bar
   .text
     .t1 Спасибо!
     .t2 Ваша заявка отправлена.
     .t3 В ближайшее время оператор свяжется с Вами.
-    .t4!= 'Если у вас есть вопросы, то вы можете посмотреть раздел <a>помощи</a> или<br>отправить нам <a>сообщение</a>.'
+    .t4!= 'Если у вас есть вопросы, то вы можете посмотреть раздел<br><a>помощи</a> или отправить нам <a>сообщение</a>.'
