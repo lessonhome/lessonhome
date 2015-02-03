@@ -3,8 +3,10 @@ $height: 38px
 $width: 284px
 $RedHoverColor: #ffb1a8
 
+a
+  display: block
 
-.button
+.button, a>.button
   width: $width
   height: $height
   text-align: center
@@ -21,13 +23,13 @@ $RedHoverColor: #ffb1a8
   .text
     color: #757575
 
-.button.active
+.button.active, a>.button.active
   background-color: rgb( 240, 123, 111 )
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.51)
   cursor: pointer
   .text
     color: #fff
 
-.button.active:hover
+.button.active:hover, a>.button.active:hover
   background-color: $RedHoverColor
 

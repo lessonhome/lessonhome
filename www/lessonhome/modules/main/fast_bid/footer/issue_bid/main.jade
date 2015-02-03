@@ -1,4 +1,9 @@
 - selector = selector || "";
 
-.button(class=selector)
-  .text Оформить заявку сейчас
+if finish
+  a(href="fifth_step")
+    .button(class=selector)
+      .text Оформить заявку сейчас
+else
+  .button(class=selector)
+    .text Оформить заявку сейчас

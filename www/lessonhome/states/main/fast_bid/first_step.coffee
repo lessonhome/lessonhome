@@ -11,7 +11,7 @@ class @main extends template '../fast_bid'
       subject :module 'tutor/forms/drop_down_list'
       call_time : module 'tutor/forms/textarea'
       comments : module 'tutor/forms/textarea'
-    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+      hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->
     @parent.tree.filter_top.footer.button_back.selector = 'hidden'

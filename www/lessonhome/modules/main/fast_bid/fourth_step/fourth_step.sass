@@ -1,0 +1,100 @@
+@import compass/css3
+
+$input_height: 37px
+$width: 339px
+
+main
+  padding-bottom: 31px
+  padding-top: 40px
+  text-align: right
+
+div
+  +inline-block
+  vertical-align: top
+
+
+.info
+  label, div
+    text-align: left
+    $width: 339px
+
+  label
+    display: block
+    cursor: pointer
+
+  div
+    .title
+      font-size: 16px
+      color: #222528
+
+  .status
+    margin-bottom: 14px
+    .title
+      margin-bottom: 10px
+    .value
+      div
+        height: 28px
+      .student
+        width: 80px
+      .teacher
+        width: 142px
+      .phd
+        width: 140px
+
+
+
+  label.experience
+    margin-bottom: 12px
+    .title
+      margin-bottom: 4px
+    .value
+      height: $input_height
+
+
+  .age
+    margin-bottom: 12px
+    .title
+      margin-bottom: 8px
+    .value
+      .top
+        label
+          +inline-block
+          cursor: pointer
+          div
+            +inline-block
+        label
+          .age_to, .age_from
+            width:  44px
+            height: $input_height
+          .title_from
+            margin-right: 6px
+          .title_to
+            margin-left:  5px
+            margin-right: 6px
+
+        label:first-child
+          padding-right: 4px
+      .bottom
+        margin-top: 6px
+
+  .sex
+    .title
+      margin-bottom: 6px
+    .value
+      font-size: 29.86px
+      div
+        +inline-block
+        width:  147px
+        height: 38px
+
+      .sex_man
+        margin-right: 40px
+
+.hint
+  text-align: left
+  margin-left: 41px
+  margin-right: 63px
+  font-size: 29.86px
+  letter-spacing: -1.2px
+  line-height: 34px
+  color: #222528

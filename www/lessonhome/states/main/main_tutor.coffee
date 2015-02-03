@@ -1,9 +1,9 @@
 class @main extends template '../main'
   route : '/main_tutor'
+  tags  : -> 'pupil:main_tutor'
   model : 'main/registration'
   title : "Регистрация"
   tree : -> module 'main_tutor' :
-    header  : state 'tutor/header'
     content : module 'main_tutor/content'  :
       login           : module 'tutor/forms/input' :
         selector : 'main_check_in'
@@ -31,7 +31,8 @@ class @main extends template '../main'
       callback    : module 'tutor/button' :
         selector  : 'callback'
         text      : 'Заказать звонок'
-
+  init : ->
+    console.log @tag,@page_tags
 
 
 
