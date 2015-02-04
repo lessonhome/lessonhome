@@ -1,0 +1,44 @@
+@import compass/css3
+main
+  height: 100%
+  cursor: pointer
+.button
+  height: 100%
+  border-radius: 4px
+
+///////////////--------------action-----------////////////
+.inactive
+  background: #cdcdcd
+  .text
+    color: #757575
+.inactive:hover
+  background-color : #ffb1a8
+
+.active
+  box-shadow       : 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
+  background-color : rgb( 240, 123, 111 )
+  .text
+    color : #ffffff
+
+///////////-----------back call in header-----------//////////
+
+.call_back_pupil, .call_back_tutor, .call_back
+  .text
+    +inline-block
+    padding: 0 12px
+    font-size: 20px
+
+.call_back
+  background-color: rgb(240, 123, 111)
+  box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.33)
+  .text
+    padding: 0 14px
+    font-size: 20px
+    color: #ffffff
+
+.call_back_pupil:after, .call_back_tutor:after, .call_back:after
+  content: ''
+  +inline-block
+  height: 100%
+
+

@@ -1,0 +1,39 @@
+.info
+  .location
+    .title Место :
+    .value
+      .tutor!= tutor
+      .student!= student
+      .web!= web
+      .hint!= location_hint
+  label.your_address
+    .title Ваш адрес :
+    .value!= your_address
+
+  .road_time
+    .title Время на дорогу :
+    .value
+      .title_to до
+      .road_time_to!= road_time_to
+      .title_min мин .
+      .slider!= slider
+  .calendar_block
+    .title Дни занятий :
+    .value
+      .calendar!= calendar
+      .select_all
+        .button!= select_all
+        .title выбрать все
+      .time_enter
+        .time_entry_field!= time_entry_field
+        .add_button!= add_button
+
+  .lesson_duration_block
+    .title Время одного занятия :
+    .value
+      .lesson_duration!= lesson_duration
+      .text мин .
+      .slider!= slider
+      .hint!= lesson_duration_hint
+
+.hint!= hint

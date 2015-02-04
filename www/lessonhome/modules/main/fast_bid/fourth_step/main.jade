@@ -1,0 +1,33 @@
+
+.info
+  .status
+    .title Статус :
+    .value
+      .student!= status_student
+      .teacher!= status_teacher
+      .phd!= status_phd
+
+  label.experience
+    .title Опыт :
+    .value!= experience
+
+  .age
+    .title Возраст :
+    .value
+      .top
+        label
+          .title_from от
+          .age_from!= age_from
+        label
+          .title_to до
+          .age_to!= age_to
+      .bottom
+        .age_slider!= age_slider
+
+  .sex
+    .title Пол :
+    .value
+      .sex_man!= sex_man
+      .sex_woman!= sex_woman
+
+.hint!= hint

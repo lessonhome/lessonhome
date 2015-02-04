@@ -1,0 +1,53 @@
+- var blue_line_factor = 102;
+
+mixin blue_line (progress)
+  - var blue_line_width = blue_line_factor*(progress-1);
+  .blue_line(style="width : #{blue_line_width}px")
+
+mixin item (size, checked, value_src)
+  if checked == true
+    .block.checked
+  else
+    .block(class=size)
+      - src = F(value_src)
+      .value(style = "background: url(#{src}) no-repeat center")
+
+
+//- --------------------------------------------------------
+
+- var src_1 = 'application_1.png'
+- var src_2 =  'application_2.png'
+- var src_3 = 'application_3.png'
+- var src_4 = 'application_4.png'
+
+case progress
+  when 1
+    +item('big', false, src_1)
+    +item('small', false, src_2)
+    +item('small', false, src_3)
+    +item('small', false, src_4)
+  when 2
+    +item('big', true, '1')
+    +item('big', false, src_2)
+    +item('small', false, src_3)
+    +item('small', false, src_4)
+    +blue_line (2)
+  when 3
+    +item('big', true, '1')
+    +item('big', true, '2')
+    +item('big', false, src_3)
+    +item('small', false, src_4)
+    +blue_line (3)
+  when 4
+    +item('big', true, '1')
+    +item('big', true, '2')
+    +item('big', true, '3')
+    +item('big', false, src_4)
+    +blue_line (4)
+  when 5
+    +item('big', true, '1')
+    +item('big', true, '2')
+    +item('big', true, '3')
+    +item('big', true, '4')
+    +blue_line (4)
+.gray_line

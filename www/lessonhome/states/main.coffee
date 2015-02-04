@@ -10,15 +10,16 @@ class @main
         }
         module 'tutor/header/list_button' : {
           title : 'Стать учеником'
-          href  : '/be_pupil'
+          href  : '/fast_bid/first_step'
           list  : {
             'Как это работает'  : '#'
-            'Оформить заявку'   : '#'
+            'Оформить заявку'   : '/fast_bid/first_step'
             'Пригласить друга'  : '/invite_student'
             'Помощь'            : '#'
           }
         }
         module 'tutor/header/list_button' : {
+          tag   : 'pupil:main_tutor'
           title : 'Репетиторам'
           href  : '/main_tutor'
           list  : {
