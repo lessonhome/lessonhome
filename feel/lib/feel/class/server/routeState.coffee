@@ -9,11 +9,11 @@ class RouteState
     @state = @site.state[@statename].make()
     @tags = {}
     @getTop()
-    @walk_tree_down @top,(node,key,val)=>
-      if val._isState
-        for key of val.__state.tag
-          @tags[key] = true
-        val.__state.page_tags = @tags
+    @walk_tree_down @top,(node)=>
+      if node._isState
+        for k of node.__state.tag
+          @tags[k] = true
+        node.__state.page_tags = @tags
     if @top._isState
       @top.__state.page_tags = @tags
     @modules  = {}
@@ -38,8 +38,7 @@ class RouteState
     return tree
   walk_tree_down : (node,foo)=>
     if (typeof node == 'object' || typeof node == 'function') && !node?._smart
-      for key,val of node
-        foo node,key,val
+      foo node
       for key,val of node
         @walk_tree_down node[key],foo
   go : =>
