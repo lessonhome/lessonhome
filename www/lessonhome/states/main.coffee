@@ -9,6 +9,7 @@ class @main
           tag   : 'pupil:main_search'
         }
         module 'tutor/header/list_button' : {
+          tag   : 'pupil:fast_bid'
           title : 'Стать учеником'
           href  : '/fast_bid/first_step'
           list  : {
