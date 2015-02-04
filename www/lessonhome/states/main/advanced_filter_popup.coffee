@@ -36,9 +36,7 @@ class @main
       end         : 'center_text'
       measurement : 'мин'
       dash        : '-'
-    female            : module 'tutor/button' :
+    female            : module 'gender_button' :
       selector          : 'female'
-      text              : 'Ж'
-    male              : module 'tutor/button' :
+    male              : module 'gender_button' :
       selector          : 'male'
-      text              : 'М'

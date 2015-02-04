@@ -1,57 +1,96 @@
 @import compass/css3
-$triangle_src: 'main/triangle_down.png'
-$icon_height: image-height($triangle_src)
-$icon_width: image-width($triangle_src)
-$padding_section: 30px
+$triangle_down_src: 'main/triangle_down.png'
+$triangle_right_src: 'triangle-6x7-closed.png'
+$icon_right_height: image-height($triangle_right_src)
+$icon_right_width: image-width($triangle_right_src)
+$icon_down_height: image-height($triangle_down_src)
+$icon_down_width: image-width($triangle_down_src)
+$padding_section: 25px
 $padding_title: 20px
-$padding_exp: 10px
+$padding_icon: 10px
+$padding_experience: 10px
 $padding_sex_button: 15px
 main
-  padding: 15px 30px 0 35px
+  padding: 15px 30px 30px 35px
   font-size: 18px
   background-color: rgb(243, 243, 243)
   color: rgb(117, 117, 117)
-.m-icon
-  width: $icon_width
-  height: $icon_height
-  margin: 0 10px 0 -10px
-  +inline-block
-  background: inline-image($triangle_src) no-repeat
-.m-title
-  +inline-block
+.section *
+  .icon_box
+    padding: $padding_icon
+    margin-left: - $padding_icon * 2
+    +inline-block
+    .icon_right
+      width: $icon_right_width
+      height: $icon_right_height
+      background: url(F($triangle_right_src)) no-repeat
+    .icon_down
+      width: $icon_down_width
+      height: $icon_down_height
+      background: url(F($triangle_down_src)) no-repeat
+  .title
+    +inline-block
+  .title:hover
+    color : #000000
+
+
+.section
+  .show_hidden
+    display: none
+  * .icon_box
+    .icon_right
+      display: block
+    .icon_down
+      display: none
+.section.showed
+  .show_hidden
+    display: block
+  * .icon_box
+    .icon_right
+      display: none
+    .icon_down
+      display: block
+
+.section
+  .show_hidden
+    padding-bottom: $padding_section
+
+
 .section
   text-align: left
-  padding-bottom: $padding_section
   .course, .timetable, .time_one_lesson, .time_to_way, .experience, .sex
-    padding-bottom: $padding_title
-  .list_course
-    height: 33px
-  .add_course_block
-    padding-top: 10px
-    .add_course
-      float: left
-  .add_course_block:after
-    content: ''
-    clear: both
-    display: block
-  .little, .big, .bigger, .no_experience
-    padding: $padding_exp 7px
-  .little
-    margin-top: -$padding_exp
-  .no_experience
-    margin-bottom: -$padding_exp        // because all padding = 30px, need padding = 20px
-  .sex_button
-    .female, .male
-      float: left
-      height: 28px
-    .female
-      padding-right: $padding_sex_button/2
-    .male
-      padding-left: $padding_sex_button/2
-  .sex_button:after
-    display: block
-    content: ""
-    clear: both
+    padding-bottom: $padding_title  - $padding_icon            //because icon have padding 10px for usability
+    cursor: pointer
+  .show_hidden
+    .list_course
+      height: 33px
+    .add_course_block
+      padding-top: 10px
+      .add_course
+        float: left
+    .add_course_block:after
+      content: ''
+      clear: both
+      display: block
+  .show_hidden
+    .little, .big, .bigger, .no_experience
+      padding: $padding_experience 7px
+    .little
+      margin-top: -$padding_experience
+    .no_experience
+      margin-bottom: -$padding_experience        // because all padding = 30px, need padding = 20px
+    .sex_button
+      .female, .male
+        float: left
+        height: 28px
+      .female
+        padding-right: $padding_sex_button/2
+      .male
+        padding-left: $padding_sex_button/2
+    .sex_button:after
+      display: block
+      content: ""
+      clear: both
   .reviews_block, .verification_block
     padding-bottom: 15px
     .with_reviews, .with_verification
