@@ -1,21 +1,93 @@
 @import compass/css3
 $phone_src: 'header/phone.png'
-$icon_height: image-height($phone_src)
-$icon_width: image-width($phone_src)
+$phone_height: image-height($phone_src)
+$phone_width: image-width($phone_src)
+$close_src: 'main/close_10x10.png'
+$close_height: image-height($close_src)
+$close_width: image-width($close_src)
+$triangle_src: 'main/triangle_33x18.png'
+$triangle_width: image-width($triangle_src)
+$triangle_height: image-height($triangle_src)
+$border_width: 1px
 main
   +inline-block
   color:  #757575
   font-size: 14px
 .telephone
-  margin: 5px 0
+  padding-top: 5px
   span
     font-size : 16px
 .title
-  .icon
-    width: $icon_width
-    height: $icon_height
-    margin-right: 10px
-    +inline-block
-    background: inline-image($phone_src) no-repeat
-  .text
-    +inline-block
+  position: relative
+  cursor: pointer
+  .click_box
+    padding-top: 5px
+    //for usability
+    padding-bottom: 10px
+    margin-bottom: -10px
+    .icon
+      width: $phone_width
+      height: $phone_height
+      margin-right: 10px
+      +inline-block
+      background: inline-image($phone_src) no-repeat
+    .text
+      +inline-block
+  .popup_box
+    display: none
+    cursor: default
+    position: absolute
+    left: -97px
+    top: 43px
+    .triangle_box
+      position: relative
+      z-index: 1
+      .triangle
+        +inline-block
+        width: $triangle_width
+        height: $triangle_height
+        background: inline-image($triangle_src) no-repeat
+    .popup
+      margin-top: -$border_width
+      border: $border_width solid #cccccc
+      position: relative
+      width: 344px
+      padding: 20px 41px 40px 23px
+      overflow: hidden
+      box-sizing: border-box
+      background-color: rgb(255, 255, 255)
+      .close_box
+        cursor: pointer
+        position: absolute
+        right: 0
+        top:  0
+        padding: 10px
+        .close
+          background: inline-image($close_src) no-repeat
+          height: $close_height
+          width: $close_width
+      .name, .tel_number
+        width: 100%
+        height: 32px
+        padding-bottom: 14px
+      .comments
+        height: 90px
+        padding-bottom: 20px
+      .button_panel_choose
+        padding-bottom: 30px
+        .pupil, .tutor
+          cursor: pointer
+          height: 33px
+        .pupil
+          float: left
+        .tutor
+          float: right
+      .order_call
+        float: left
+        height: 38px
+      .button_panel_choose:after
+        content: ''
+        display: block
+        clear: both
+.title:hover
+  color: #000000

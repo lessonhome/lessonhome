@@ -1,10 +1,16 @@
 mixin block(title, value)
-  .block
+  label.block
     .title=title
     .value!=value
 
 .center_block
   .header!=header
+
+  .block.toggle
+    .title Ваш друг :
+    .value
+      .pupil_toggle!= pupil_toggle
+      .tutor_toggle!= tutor_toggle
 
   +block('Имя друга :', friend_name)
   +block('E-mail друга :', friend_email)

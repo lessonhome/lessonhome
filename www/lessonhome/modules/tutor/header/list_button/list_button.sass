@@ -3,7 +3,7 @@ $font-size: 16px
 $triangle_src: 'main/triangle_33x18.png'
 $triangle_width: image-width($triangle_src)
 $triangle_height: image-height($triangle_src)
-
+$border_width: 1px
 $color_text: #757575
 main
   height: 100%
@@ -20,11 +20,15 @@ main
     .title
       +inline-block
       font-size: 16px
+    .title.active
+      color: red
+  a:hover
+    .title
+      color: #000000
   a:after
     content: ''
     height: 100%
     +inline-block
-
   .hidden
     position: absolute
     left: 50%
@@ -41,9 +45,8 @@ main
           background: inline-image($triangle_src) no-repeat
       .menu
         padding: 5px 15px 10px 15px
-        margin-top: -1px
-        border: 1px solid #cccccc
-        //box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5)
+        margin-top: $border_width
+        border: $border_width solid #cccccc
         background: white
         a
           +inline-block
@@ -54,7 +57,6 @@ main
           .title
             line-height: 32px
             font-size: 16px
-
 .visible:hover
   .hidden
     display: block
