@@ -24,7 +24,7 @@ class @main
           title : 'Репетиторам'
           href  : '/main_tutor'
           list  : {
-            'Как это работает'  : '#'
+            'Как это работает'  : '/main_tutor#how_it_works'
             'Стать репетитором' : '/main_tutor'
             'Пригласить друга'  : '/invite_teacher'
             'Помощь'            : '#'
