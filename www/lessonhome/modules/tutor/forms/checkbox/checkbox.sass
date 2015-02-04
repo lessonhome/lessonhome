@@ -3,6 +3,12 @@ main
   height: 100%
   cursor: pointer
   position: relative
+
+div
+  .check.active
+    display: block
+
+
 .bid
   margin: 0
   width: 18px
@@ -11,6 +17,15 @@ main
   border: 2px solid rgb( 205, 205, 205 )
   +border-radius(6px)
   background-color: rgb( 255, 255, 255 )
+  .check
+    display: none
+    width: 19px
+    height: 14px
+    position: absolute
+    top: 3px
+    left: 0px
+    background: inline-image('blue_check_small.png') no-repeat
+    background-position: center
 
 .check_in
   width: 25px
@@ -19,6 +34,15 @@ main
   border: 3px solid rgb( 205, 205, 205 )
   border-radius: 8px
   background-color: rgb( 255, 255, 255 )
+  .check
+    display: none
+    width: 25px
+    height: 18px
+    position: absolute
+    left: 0
+    top: 4px
+    background: inline-image('blue_check.png') no-repeat
+    background-position: center
 
 ////-------------- left filter -------------///////
 .time
@@ -32,6 +56,15 @@ main
   border: 3px solid rgb( 205, 205, 205 )
   border-radius: 8px
   box-sizing: border-box
+  .check
+    display: none
+    width: 25px
+    height: 18px
+    position: absolute
+    top: 4px
+    left: 0px
+    background: inline-image('blue_check.png') no-repeat
+    background-position: center
 
 //- ------------ BID FORM ------------------------------
 
@@ -40,28 +73,18 @@ main
   height: 19px
   background-color: #fff
   +border-radius(4px)
+  .check
+    display: none
+    width: 19px
+    height: 14px
+    position: absolute
+    top: 3px
+    left: 0px
+    background: inline-image('blue_check_small.png') no-repeat
+    background-position: center
 
 
-//- ---------------- CHECKS ---------------------------
-
-.check.edit_settings_active, .check.check_in_active
-  width: 25px
-  height: 18px
-  position: absolute
-  top: 4px
-  background: inline-image('blue_check.png') no-repeat
-  background-position: center
-
-.check.bid_active, .check.bid_form_active
-  width: 19px
-  height: 14px
-  position: absolute
-  top: 3px
-  background: inline-image('blue_check_small.png') no-repeat
-  background-position: center
-
-main:hover>.edit_settings, main:hover>.bid, main:hover>.check_in, main:hover>.bid_form
+main:hover>div
   border-color: #b3b3b3
-
 
 

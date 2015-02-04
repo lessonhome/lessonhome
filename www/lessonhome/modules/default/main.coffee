@@ -18,3 +18,13 @@ Feel.FirstBidBorderRadius = (dom)->
   first_bid.css("border-top-left-radius", "0" )
   first_bid.css("border-top-right-radius", "0")
 
+
+Feel.HashScrollControl = (dom)->
+  hash = location.hash.substring(1)
+  blocks = $('[scrolltop]')
+  if hash
+    block_position_y = dom.find(".#{hash}").offset().top
+    $("body").scrollTop(block_position_y)
+
+
+
