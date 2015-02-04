@@ -3,10 +3,10 @@ class @main extends EE
     @dom.on 'click', => @checkbox_click @dom
 
   checkbox_click: (dom)=>
-    checkbox = dom.find("div")
-    if checkbox.hasClass('active')
-      checkbox.removeClass('active')
+    check = dom.find(".check")
+    if check.hasClass('active')
+      check.removeClass('active')
     else
-      checkbox.addClass('active')
+      check.addClass('active')
 
 
