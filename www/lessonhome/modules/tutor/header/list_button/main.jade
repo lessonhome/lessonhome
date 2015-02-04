@@ -1,6 +1,7 @@
 mixin R(t)
   - t = t.replace(/\s/g, '&nbsp;')
   .title!= t
+- console.log( 'list',tag,$pageTag(tag) );
 .visible
   a(href= href)
     .title= title

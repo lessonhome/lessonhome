@@ -3,7 +3,6 @@ class @main extends template '../main'
   model : 'main/registration'
   title : "Регистрация"
   tree : -> module 'main_tutor' :
-    header  : state 'tutor/header'
     content : module 'main_tutor/content'  :
       login           : module 'tutor/forms/input' :
         selector : 'main_check_in'
