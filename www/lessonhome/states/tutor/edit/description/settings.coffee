@@ -27,10 +27,8 @@ class @main extends template '../../../tutor'
       new_orders_toggle : module 'tutor/forms/toggle' :
         first_value : 'Получать'
         second_value : 'Не получать'
-      notice_sms_checkbox : module 'tutor/forms/checkbox' :
-        selector : 'edit_settings'
-      notice_email_checkbox : module 'tutor/forms/checkbox' :
-        selector : 'edit_settings'
+      notice_sms_checkbox : module 'tutor/forms/checkbox'
+      notice_email_checkbox : module 'tutor/forms/checkbox'
       callback_toggle : module 'tutor/forms/toggle' :
         first_value : 'Да'
         second_value : 'Нет'

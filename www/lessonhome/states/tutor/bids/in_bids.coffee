@@ -30,7 +30,7 @@ class @main extends template '../../tutor'
                 так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
 
       select_all_checkbox : module 'tutor/forms/checkbox' :
-        selector : 'bid'
+        selector : 'small'
       select_all_list     : module 'tutor/forms/drop_down_list'
       subject : module 'tutor/forms/drop_down_list'
 
@@ -50,7 +50,7 @@ class @main extends template '../../tutor'
           module '//bid' :
             selectable   : true
             checkbox  : module 'tutor/forms/checkbox' :
-              selector : 'bid'
+              selector : 'small'
 
 
             number    : 25723
@@ -76,7 +76,7 @@ class @main extends template '../../tutor'
           module '//bid' :
             selectable   : true
             checkbox  : module 'tutor/forms/checkbox' :
-              selector : 'bid'
+              selector : 'small'
 
             number    : 15723
             date      : "20 декабря"
