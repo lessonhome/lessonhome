@@ -1,0 +1,41 @@
+@import compass/css3
+
+$width: 341px
+$height: 38px
+
+main
+  padding-bottom: 13.5px
+  padding-top: 40px
+  text-align: right
+div
+  +inline-block
+  vertical-align: top
+
+.info
+
+  label
+    display: block
+    cursor: pointer
+    padding: 6.5px 0
+    div
+      width:  $width
+    .title
+      text-align: left
+      margin-bottom: 3px
+      font-size: 15.98px
+      color: #222528
+    .value
+      height: $height
+
+  label.call_time, label.comments
+    .value
+      height: 69px
+
+.hint
+  text-align: left
+  margin-left: 41px
+  margin-right: 63px
+  font-size: 24px
+  letter-spacing: -1.2px
+  line-height: 29px
+  color: #222528

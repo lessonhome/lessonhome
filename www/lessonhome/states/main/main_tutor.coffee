@@ -1,9 +1,9 @@
 class @main extends template '../main'
   route : '/main_tutor'
+  tags  : -> 'pupil:main_tutor'
   model : 'main/registration'
   title : "Регистрация"
-  tree : -> module 'main_tutor' :
-    header  : state 'tutor/header'
+  tree : ->
     content : module 'main_tutor/content'  :
       login           : module 'tutor/forms/input' :
         selector : 'main_check_in'
@@ -17,8 +17,7 @@ class @main extends template '../main'
       password_hint   : module 'tutor/hint' :
         selector : 'small'
         text     : ''
-      checkbox        : module 'tutor/forms/checkbox' :
-        selector : 'check_in'
+      checkbox        : module 'tutor/forms/checkbox'
       create_account  : module 'tutor/button' :
         selector  : 'create_account'
         text      : 'Создать аккаунт'
@@ -31,16 +30,3 @@ class @main extends template '../main'
       callback    : module 'tutor/button' :
         selector  : 'callback'
         text      : 'Заказать звонок'
-
-
-
-
-
-
-
-
-
-
-
-
-

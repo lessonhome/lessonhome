@@ -16,9 +16,13 @@ main
     color       : #222528
     letter-spacing : -1.5px
 
-  .block
+  label
+    display: block
+    cursor: pointer
+
+  label.block, .block
     text-align : center
-    margin-bottom : 12px
+    padding: 6px 0
     div
       +inline-block
       width  : $width
@@ -31,13 +35,26 @@ main
     .value
       height : 37px
 
+  .block.toggle
+    padding-top: 0
+    .value
+      text-align: left
+      div
+        +inline-block
+        height: 32px
+      .pupil_toggle
+        margin-right: 28px
+    .value:after
+      content: ''
+      +inline-block
+      height: 100%
 
 
   .bottom
     +inline-block
     text-align : center
     width : $width
-    margin-top    : 17px
+    margin-top    : 23px
     margin-bottom : 63px
     .invite_button
       +inline-block

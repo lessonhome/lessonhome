@@ -1,11 +1,10 @@
 
 class @main extends EE
-  constructor : ->
   show : =>
     @button = @dom.find ".button"
     @active = @button.hasClass 'active'
     @dom.on 'click', @click
-  disable : =>
+  ###  disable : =>
     if !@active then return
     @active = false
     @button.removeClass 'active'
@@ -17,6 +16,7 @@ class @main extends EE
     @button.removeClass 'inactive'
     @button.addClass 'active'
     @emit 'able'
+  ###
   click : =>
     if @active
       @active = false

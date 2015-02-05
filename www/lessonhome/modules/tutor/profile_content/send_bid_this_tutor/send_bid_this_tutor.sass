@@ -6,10 +6,12 @@ main
 .button, .small_button
   height: 100%
   .button_wrap
-    background: inline-image($button_wrap) no-repeat
+    position: relative
     width: $icon_width
     height: $icon_height
     float: right
+    background: inline-image($button_wrap) no-repeat
+    border-bottom-right-radius: 10px
 .button
   text-align: center
   display: none

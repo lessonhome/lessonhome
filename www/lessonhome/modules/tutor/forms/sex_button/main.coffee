@@ -3,7 +3,6 @@
 
 class @main extends EE
   show : =>
-    console.log @tree
     @button = @dom.find ".button"
     @active = @button.hasClass 'active'
     @dom.on 'click', @click

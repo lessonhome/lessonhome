@@ -1,4 +1,7 @@
 - selector = selector || "";
 - placeholder = placeholder || "";
 
-textarea(class=selector, style="height : #{height}", placeholder=placeholder)
+if height
+  textarea(class=selector, style="height : #{height}", placeholder=placeholder)
+else
+  textarea(class=selector, style="height : 100%", placeholder=placeholder)

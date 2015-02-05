@@ -60,6 +60,7 @@ main
       .tutor_name
         +inline-block
       .verification
+        position: relative
         +inline-block
         margin-top: 3px
         padding-left: 20px
@@ -69,6 +70,30 @@ main
           height: 20px
           border-radius: 50%
           box-shadow: 0px 0px 10px 4px rgba(204,228,110,0.6),0px 0px 8px 0px rgba(58,201,50,0.6) inset
+        .hover_popup
+          line-height: 20px
+          position: absolute
+          display: none
+          font-size: 14px
+          margin-left: 20px
+          top: 0
+          z-index: 1
+          left: 100%
+          margin-top: 10px
+          box-shadow: 0px 1px 2px 0px rgba(9, 12, 18, 0.26)
+          background-color: rgb(243, 243, 243)
+          border-radius: 4px
+          text-align: left
+          .text_block
+            padding: 9px 10px
+            +inline-block
+        .hover_popup:after
+          content: ''
+          +inline-block
+          height: 100%
+      .verification:hover
+        .hover_popup
+          display: block
 
   .send_bid_this_tutor
     position: absolute

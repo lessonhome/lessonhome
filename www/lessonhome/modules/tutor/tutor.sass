@@ -2,7 +2,6 @@
 //width variables
 $width_container: 1014
 $width_left_menu: 236px
-$footer_height: 313px
 $width_content: $width_container - $width_left_menu
 $background_white:  #ffffff
 main
@@ -13,7 +12,6 @@ main
   position: relative
   width: 100%
   min-height: 100%
-  overflow: hidden
   +box-shadow(3px 0 16px 0px rgba(0,0,0,0.17),-3px 0 16px 0px rgba(0,0,0,0.17), 37px 0 43px 0px rgba(0,0,0,0.07), -37px 0 43px 0px rgba(0,0,0,0.07))
   //-------------background rules------------////////////
   .background_all
@@ -57,17 +55,13 @@ main
     .content
       width: $width_content
       margin-left: $width_left_menu
-      margin-bottom: $footer_height
   .center_block:after
     clear: both
     content: ""
     display: block
-
   .footer
-    height: $footer_height
     width: 100%
-    position: absolute
+    position: relative
     bottom: 0
     background: #E2E7EC
-
 

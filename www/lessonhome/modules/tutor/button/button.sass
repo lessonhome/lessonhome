@@ -110,12 +110,12 @@ $line_height: 33px
 
 
 .button
+  height: 100%
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
   border-radius: 4px
 
 /////////////-----------it's big button in top filter----------------//////////////
 .at_home_button, .in_tutoring_button, .remotely_button
-  height: 100%
   background: rgb(148, 201, 254)
   .text
     +inline-block
@@ -130,7 +130,6 @@ $line_height: 33px
   height: 100%
 
 .subject_back, .onward_block, .issue_bid
-  height: 100%
   background: rgb(148, 201, 254)
   .text
     +inline-block
@@ -149,7 +148,6 @@ $line_height: 33px
 ////------------- motivation button ----------------////
 .order_call, .start_search
   +inline-block
-  height: 100%
   background-color: rgb(201, 92, 81)
   box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
   .text
@@ -173,21 +171,6 @@ $line_height: 33px
     font-weight: 600
     color: #ffffff
 
-//////////---------- sex button ----------///////////
-.female, .male
-  height: 100%
-  box-shadow: none
-  background-color: #cdcdcd
-  .text
-    +inline-block
-    padding: 0 40px
-    font-size: 18px
-    color: #757575
-.female:after, .male:after
-  content: ''
-  +inline-block
-  height: 100%
-
 
 ///////////---------send_bid_this_tutor------------//////////
 $triangle_left: 'main/profile_triangle_left.png'
@@ -196,7 +179,6 @@ $triangle_height: image-height($triangle_right)
 $triangle_width: image-width($triangle_right)
 .send_bid_this_tutor, .small_send_bid_this_tutor
   position: relative
-  height: 100%
   border-bottom-right-radius: 0
   background: url(F('main/pattern_dots_profilebutton.png'))
   box-shadow: 0px 1px 1px 0px rgba(9, 12, 18, 0.54)
@@ -224,14 +206,26 @@ $triangle_width: image-width($triangle_right)
   .close
     .close_background
       background: inline-image($triangle_left) no-repeat
-
-
+      
+    
+    
+///////////-----------button in header-----------//////////
+.call_back, .in_out
+  background-color: rgb(240, 123, 111)
+  .text
+    +inline-block
+    padding: 0 12px
+    font-size: 20px
+    color: #ffffff
+.call_back:after, .in_out:after
+  content: ''
+  +inline-block
+  height: 100%
 //- ---------------- EDIT : SAVE, ADD BUTTONS, SEARCH_BIDS_SAVE --------------------------
 
 
 //////////////-------------add_button_bid----------/////////////
 .add_button_bid
-  height: 100%
   text-align: center
   border-radius: 4px
   background-color: rgb(148, 201, 254)
@@ -296,5 +290,7 @@ $height : 33px
 
 .button.add_smth:hover
   background-color : $RedHoverColor
+
+
 
 
