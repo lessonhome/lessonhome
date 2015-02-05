@@ -24,7 +24,7 @@ class @main extends template '../fast_bid'
           selector : 'small'
           text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       select_all : module 'tutor/forms/checkbox' :
-        selector : 'bid_form'
+        selector : 'small'
       time_entry_field : module '//time_entry_field' :
         input_from : module 'tutor/forms/input' :
           selector : 'edit_calendar'
