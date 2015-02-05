@@ -9,7 +9,7 @@ class @main
         close     : true
       calendar        : module './calendar' :
         choose_all      : module 'tutor/forms/checkbox':
-          selector        : 'time'
+          selector        : 'small'
         from_time     : module 'tutor/forms/input' :
           selector      : 'center_text'
         till_time     : module 'tutor/forms/input' :
@@ -34,6 +34,6 @@ class @main
       male              : module 'gender_button' :
         selector          : 'male'
       with_reviews      : module 'tutor/forms/checkbox':
-        selector          : 'time'
+        selector          : 'small'
       with_verification : module 'tutor/forms/checkbox':
-        selector          : 'time'
+        selector          : 'small'

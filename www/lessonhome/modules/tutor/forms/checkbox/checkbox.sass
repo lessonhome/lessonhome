@@ -1,87 +1,52 @@
 @import compass/css3
+$check_small: 'checkbox_small.png'
+$check_small_height: image-height($check_small)
+$check_small_width: image-width($check_small)
+
+$check_big: 'checkbox_big.png'
+$check_big_height: image-height($check_big)
+$check_big_width: image-width($check_big)
 main
   height: 100%
   cursor: pointer
   position: relative
 
+.big
+  width: $check_big_width
+  height: $check_big_height
+  border: 3px solid rgb( 205, 205, 205 )
+  border-radius: 4px
+  box-sizing: border-box
+  background-color: #fff
+  .check
+    display: none
+    height: 100%
+    width: 100%
+    position: absolute
+    top: 0
+    left: 0
+    background: inline-image($check_big) no-repeat
+
+.small
+  width: $check_small_width
+  height: $check_small_height
+  border: 3px solid rgb( 205, 205, 205 )
+  border-radius: 4px
+  box-sizing: border-box
+  background-color: #fff
+  .check
+    display: none
+    height: 100%
+    width: 100%
+    position: absolute
+    top: 0
+    left: 0
+    background: inline-image($check_small) no-repeat
+
+////////////--------------action-----------///////////
 div
   .check.active
     display: block
-
-
-.bid
-  margin: 0
-  width: 18px
-  height: 18px
-  box-sizing: border-box
-  border: 2px solid rgb( 205, 205, 205 )
-  +border-radius(6px)
-  background-color: rgb( 255, 255, 255 )
-  .check
-    display: none
-    width: 19px
-    height: 14px
-    position: absolute
-    top: 3px
-    left: 0px
-    background: inline-image('blue_check_small.png') no-repeat
-    background-position: center
-
-.check_in
-  width: 25px
-  height: 25px
-  box-sizing: border-box
-  border: 3px solid rgb( 205, 205, 205 )
-  border-radius: 8px
-  background-color: rgb( 255, 255, 255 )
-  .check
-    display: none
-    width: 25px
-    height: 18px
-    position: absolute
-    left: 0
-    top: 4px
-    background: inline-image('blue_check.png') no-repeat
-    background-position: center
-
-////-------------- left filter -------------///////
-.time
-  height: 100%
-  width: 100%
-  background-color: #fff
-
-.edit_settings
-  width: 24px
-  height: 24px
-  border: 3px solid rgb( 205, 205, 205 )
-  border-radius: 8px
-  box-sizing: border-box
-  .check
-    display: none
-    width: 25px
-    height: 18px
-    position: absolute
-    top: 4px
-    left: 0px
-    background: inline-image('blue_check.png') no-repeat
-    background-position: center
-
-//- ------------ BID FORM ------------------------------
-
-.bid_form
-  width: 19px
-  height: 19px
-  background-color: #fff
-  +border-radius(4px)
-  .check
-    display: none
-    width: 19px
-    height: 14px
-    position: absolute
-    top: 3px
-    left: 0px
-    background: inline-image('blue_check_small.png') no-repeat
-    background-position: center
 
 
 main:hover>div

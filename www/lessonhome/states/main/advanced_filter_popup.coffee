@@ -22,7 +22,7 @@ class @main
       close     : true
     calendar        : module './calendar' :
       choose_all      : module 'tutor/forms/checkbox':
-        selector        : 'time'
+        selector        : 'small'
       from_time     : module 'tutor/forms/input' :
         selector      : 'time'
       till_time     : module 'tutor/forms/input' :

@@ -17,8 +17,7 @@ class @main extends template '../main'
       password_hint   : module 'tutor/hint' :
         selector : 'small'
         text     : ''
-      checkbox        : module 'tutor/forms/checkbox' :
-        selector : 'check_in'
+      checkbox        : module 'tutor/forms/checkbox'
       create_account  : module 'tutor/button' :
         selector  : 'create_account'
         text      : 'Создать аккаунт'
