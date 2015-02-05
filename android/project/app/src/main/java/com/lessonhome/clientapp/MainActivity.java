@@ -10,17 +10,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 
 /**
  *Activity where
 **/
 public class MainActivity extends ActionBarActivity {
 
-
-    DrawerLayout drawerlayout;
-    ListView navdrawerlist;
-    FilterMainFragment filtermainframent;
+    private MyClickListener myClickListener;
+    private DrawerLayout drawerlayout;
+    private LinearLayout navdrawer;
+    private FilterMainFragment filtermainframent;
     private ActionBarDrawerToggle toggle;
 
     //private CharSequence mTitle;
@@ -30,9 +30,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity);
 
+        myClickListener = new MyClickListener(this);
         InitNavDrawer();
         InitActionBar();
-        filtermainframent = FilterMainFragment.newInstance(this);
+        filtermainframent = FilterMainFragment.newInstance(this, myClickListener);
         setMainFragment(filtermainframent);
         //mTitle = getTitle();
 
@@ -51,10 +52,9 @@ public class MainActivity extends ActionBarActivity {
 
         drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        navdrawerlist = (ListView) findViewById(R.id.left_drawer);
+        navdrawer = (LinearLayout) findViewById(R.id.nav_drawer);
 
 
-        navdrawerlist.setAdapter(new NavDrawerListAdapter(this, new String [] {"первый пункт"}));
 
 
     }
