@@ -10,14 +10,15 @@ main
   height: 100%
   cursor: pointer
   position: relative
+  background-color: #fff
+  //box-sizing: border-box
+  //border: 3px solid rgb( 205, 205, 205 )
 
 .big
   width: $check_big_width
   height: $check_big_height
   border: 3px solid rgb( 205, 205, 205 )
   border-radius: 4px
-  box-sizing: border-box
-  background-color: #fff
   .check
     display: none
     height: 100%
@@ -25,15 +26,15 @@ main
     position: absolute
     top: 0
     left: 0
+    box-sizing: border-box
     background: inline-image($check_big) no-repeat
 
 .small
   width: $check_small_width
   height: $check_small_height
+  box-sizing: border-box
   border: 3px solid rgb( 205, 205, 205 )
   border-radius: 4px
-  box-sizing: border-box
-  background-color: #fff
   .check
     display: none
     height: 100%
