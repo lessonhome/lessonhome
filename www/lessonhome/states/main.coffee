@@ -15,7 +15,7 @@ class @main
           list  : [
             module '//item' :
               title : 'Как это работает'
-              link : '#how-it-works'
+              link : '/first_step#how-it-works'
               scrolltop : 'how-it-works'
             module '//item' :
               title : 'Оформить заявку'
@@ -35,7 +35,7 @@ class @main
           list  : [
             module '//item' :
               title : 'Как это работает'
-              link  : '/main_tutor#how_it_works'
+              link  : '/main_tutor#how-it-works'
               scrolltop : 'how-it-works'
 
             module '//item' :
