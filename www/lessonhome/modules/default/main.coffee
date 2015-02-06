@@ -54,7 +54,9 @@ Feel.HashScrollControl = (dom)->
 
   $(window).scroll( =>
     current_y = $('body').scrollTop()
-    hash = location.hash.substring(1)
+    if location.hash
+      hash = location.hash.substring(1)
+    else hash = ""
     i = 0
     limit = ( blocks_position_y.length - 1 )
     for val in blocks_position_y
@@ -65,9 +67,9 @@ Feel.HashScrollControl = (dom)->
         if  current_y >= blocks_position_y[i]
           location.hash = blocks_scrolltop[i]
       if current_y < blocks_position_y[0]
-        location.hash = ""
-        history.pushState('', document.title, window.location.pathname)
-        $('body').scrollTop(current_y)
+        if hash 
+          history.pushState('', document.title, window.location.pathname)
+          $('body').scrollTop(current_y)
       i++
   )
 
