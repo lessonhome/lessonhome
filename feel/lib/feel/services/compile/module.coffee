@@ -4,6 +4,7 @@ _readdir  = Q.denodeify _fs.readdir
 
 class Module extends EE
   constructor : (@name,@site,options)->
+    Wrap @
     @path = "#{@site.path.modules}/#{@name}"
     if options?
       @[key] = val for key,val of options
@@ -15,7 +16,7 @@ class Module extends EE
     Q.tick =>
       return if @inited
     .tick =>
-      console.log "module(#{@site.name}:#{@name}):init"
+      Log3 "module(#{@site.name}:#{@name}):init"
       @emit 'init'
       @inited = true
     .tick @updateDb
@@ -24,7 +25,7 @@ class Module extends EE
       name      : @name
       sitename  : @site.name
     return if JSON.stringify(obj) == JSON.stringify(@indb)
-    console.log "module(#{@site.name}:#{@name}):updateDb"
+    Log3 "module(#{@site.name}:#{@name}):updateDb"
     @indb = obj
     @db = Main.db.collection 'modules'
     Q.ninvoke @db,'update',{

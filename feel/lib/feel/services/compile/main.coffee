@@ -3,11 +3,12 @@ Sites = require './sites'
 
 class Main
   init  : =>
-    console.log "main:init"
+    Wrap @
+    Log "main:init"
     @sites = new Sites()
     @sites.init()
   run   : =>
-    console.log "main:run"
+    Log "main:run"
 
 
 module.exports = Main

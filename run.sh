@@ -8,7 +8,7 @@ fi
 
 killall node 2>> /dev/null
 killall nodejs 2>> /dev/null
-node ./feel/bin/feel --harmony --force & 
+node --harmony ./feel/bin/feel & 
 #node ./feel/bin/updater --harmony --force & 
 
 #> log/out.log 2>> log/out.log &

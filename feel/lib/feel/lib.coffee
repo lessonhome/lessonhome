@@ -1,11 +1,41 @@
 
+_util = require 'util'
 
+last = ""
+log =
+  s1 : ""
+  s2 : ""
+  s3 : ""
+doted = false
+set = (n,args...)->
+  args ?= [""]
+  sbstr = ""
+  sbstr = args[0].substr 0,13 if typeof args[0] == 'string'
+  last = n
+  if doted
+    doted = false
+    process.stdout.write "\n"
+  log['s'+n] = sbstr
+  
+relog = (n,args...)->
+  args ?= [""]
+  sbstr = args[0].substr 0,13
+  if (last != n) || (log['s'+n]!=sbstr)||(log['s'+n]=="")
+    set n,args...
+    return true
+  doted = true
+  process.stdout.write '.'
+  return false
+    
 global.Log  = ->
+  set 1,arguments...
   console.log arguments...
 global.Log2  = ->
+  #return unless relog 3,arguments...
+  set 2,arguments...
   console.log arguments...
 global.Log3  = ->
-  return
+  return unless relog 3,arguments...
   console.log arguments...
 global.Warn = ->
   console.log arguments...
@@ -65,15 +95,27 @@ global.Wrap = (obj,prot)->
       do (key,val)->
         foo = ->
           args = arguments
-          Q.then ->
-            val.apply obj,args
-          .catch (e)->
+          if val?.constructor?.name == 'GeneratorFunction'
+            gen = Q.async val
+            q = gen.apply obj,args
+          else
+            q = Q.then -> val.apply obj,args
+          q = q.catch (e)->
+            e = new Error e unless _util.isError e
             e.message += "\n#{proto.constructor.name}::#{key}("
+            na = []
             for a,i in args
-              e.message += JSON.stringify a
-              e.message += ',' if i
+              if typeof a == 'object'
+                a = '{'+Object.keys(a).join(',')+'}'
+              else a = '...'
+              na.push a
+            e.message += na.join(',')
             e.message += ");"
+            if key != 'destructor'
+              if typeof obj.destructor == 'function'
+                return obj.destructor(e)
             throw e
+          return q
         proto[key] = foo
         obj[key] = foo if !prot?
         #c[key] = foo
