@@ -22,7 +22,7 @@ class @main
       close     : true
     calendar        : module './calendar' :
       choose_all      : module 'tutor/forms/checkbox':
-        selector        : 'time'
+        selector        : 'small'
       from_time     : module 'tutor/forms/input' :
         selector      : 'time'
       till_time     : module 'tutor/forms/input' :
@@ -36,9 +36,7 @@ class @main
       end         : 'center_text'
       measurement : 'мин'
       dash        : '-'
-    female            : module 'tutor/button' :
+    female            : module 'gender_button' :
       selector          : 'female'
-      text              : 'Ж'
-    male              : module 'tutor/button' :
+    male              : module 'gender_button' :
       selector          : 'male'
-      text              : 'М'

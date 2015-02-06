@@ -1,3 +1,4 @@
+
 mixin R(t)
   - t = t.replace(/\s/g, '&nbsp;')
   .title!= t
@@ -12,6 +13,14 @@ mixin R(t)
       .triangle_box
         .triangle
       .menu
+        each value in list
+          !=value
+
+
+
+
+
+//-
         each h,t in list
           a(href= h)
             +R(t)

@@ -30,7 +30,7 @@ class @main extends template '../../tutor'
                как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой'
 
       select_all_checkbox : module 'tutor/forms/checkbox' :
-        selector : 'bid'
+        selector : 'small'
       select_all_list     : module 'tutor/forms/drop_down_list'
       subject : module 'tutor/forms/drop_down_list'
 
@@ -50,7 +50,7 @@ class @main extends template '../../tutor'
           module '//report_bid' :
             selectable     : true
             checkbox       : module 'tutor/forms/checkbox' :
-              selector : 'bid'
+              selector : 'small'
             fill_button    : module '//fill_button'
             support_button : module '//support_button'
 
@@ -84,7 +84,7 @@ class @main extends template '../../tutor'
           module '//report_bid' :
             selectable   : true
             checkbox  : module 'tutor/forms/checkbox' :
-              selector : 'bid'
+              selector : 'small'
             fill_button    : module '//fill_button'
             support_button : module '//support_button'
 
