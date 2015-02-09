@@ -14,13 +14,17 @@ class @Feel
         console.log "global class window['#{name}'];"
     @active = new @activeState @root.tree
     window.onerror = (e)=> @error e
-  error : =>
-    msg = ""
-    for a,i in arguments
-      continue unless i
-      msg += JSON.stringify(a)+"\n"
-    console.error arguments[0]
-    console.error msg
+  error : (e,args...)=>
+    return unless e?
+    e = new Error e unless e?.stack? || e?.name?
+    e.message ?= ""
+    for a in args
+      e.message += a+"\n" if typeof a == 'string'
+      e.message += JSON.stringify(a)+"\n" if typeof a == 'object'
+    console.error e.name,e.message,e.stack
+    #console.error e.message
+    #console.error e.stack
+  
 
 window.Feel = new @Feel()
 
