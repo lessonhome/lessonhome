@@ -12,23 +12,44 @@ class @main
           tag   : 'pupil:fast_bid'
           title : 'Стать учеником'
           href  : '/fast_bid/first_step'
-          list  : {
-            'Как это работает'  : '#'
-            'Оформить заявку'   : '/fast_bid/first_step'
-            'Пригласить друга'  : '/invite_student'
-            'Помощь'            : '#'
-          }
+          list  : [
+            module '//item' :
+              title : 'Как это работает'
+              link : '/first_step#how-it-works'
+              scrolltop : 'how-it-works'
+            module '//item' :
+              title : 'Оформить заявку'
+              link : '/fast_bid/first_step'
+            module '//item' :
+              title : 'Пригласить друга'
+              link : '/invite_student'
+            module '//item' :
+              title : 'Помощь'
+              link : '#'
+          ]
         }
         module 'tutor/header/list_button' : {
           tag   : 'pupil:main_tutor'
           title : 'Репетиторам'
           href  : '/main_tutor'
-          list  : {
-            'Как это работает'  : '/main_tutor#how_it_works'
-            'Стать репетитором' : '/main_tutor'
-            'Пригласить друга'  : '/invite_teacher'
-            'Помощь'            : '#'
-          }
+          list  : [
+            module '//item' :
+              title : 'Как это работает'
+              link  : '/main_tutor#how-it-works'
+              scrolltop : 'how-it-works'
+
+            module '//item' :
+              title : 'Стать репетитором'
+              link  : '/main_tutor'
+
+            module '//item' :
+              title : 'Пригласить друга'
+              link   : '/invite_teacher'
+
+            module '//item' :
+              title : 'Помощь'
+              link : '#'
+          ]
         }
         module 'tutor/header/button' : {
           title : 'О нас'
