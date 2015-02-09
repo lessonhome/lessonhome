@@ -19,6 +19,10 @@ Feel.FirstBidBorderRadius = (dom)->
   first_bid.css("border-top-right-radius", "0")
 
 
+
+# -------------------- TODO: a sharp jump in when scrolling --------------------------------
+
+
 Feel.HashScrollControl = (dom)->
   hash = location.hash.substring(1)
   scrolltop_links =  $('a[scrolltop]')
@@ -67,11 +71,17 @@ Feel.HashScrollControl = (dom)->
         if  current_y >= blocks_position_y[i]
           location.hash = blocks_scrolltop[i]
       if current_y < blocks_position_y[0]
-        if hash 
+        if hash
           history.pushState('', document.title, window.location.pathname)
+          #location.href = location.pathname
           $('body').scrollTop(current_y)
       i++
   )
+
+Feel.HideOnOutsideAreaClick = (container)->
+  $(document).on 'mouseup',
+    (e) ->
+      if container.has(e.target).length == 0 then container.hide()
 
 
 
