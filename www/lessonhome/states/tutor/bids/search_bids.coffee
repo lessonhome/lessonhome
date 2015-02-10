@@ -2,11 +2,13 @@ class @main extends template '../../tutor'
   route : '/tutor/search_bids'
   model   : 'tutor/bids/search_bids'
   title : "поиск заявок"
+  tags   : -> 'tutor:search_bids'
   tree : =>
     items : [
       module 'tutor/header/button' : {
         title : 'Поиск'
         href  : '/tutor/search_bids'
+        tag   : 'tutor:search_bids'
       }
       module 'tutor/header/button' : {
         title : 'Входящие'

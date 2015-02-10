@@ -2,11 +2,13 @@ class @main extends template '../../../tutor'
   route : '/tutor/edit/settings'
   model   : 'tutor/edit/description/settings'
   title : "редактирование настройки"
+  tags : -> 'edit: description'
   tree : =>
     items : [
       module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/edit/general'
+        tag   : 'edit: description'
       }
       module 'tutor/header/button' : {
         title : 'Условия'
