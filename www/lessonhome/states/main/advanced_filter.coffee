@@ -14,8 +14,7 @@ class @main
           selector      : 'center_text'
         till_time     : module 'tutor/forms/input' :
           selector      : 'center_text'
-        button_add    : module 'tutor/button' :
-          selector      : 'add_time'
+        button_add    : module 'button_add' :
           text          : '+'
       time_spend_lesson   : state './slider_main' :
         selector    : 'lesson_time'

@@ -9,6 +9,6 @@ class @main extends EE
 
   change_visibility : (element)=>
     if element.css('display') == 'none'
-      element.css('display', 'block' )
+      element.css('display', 'block')
     else
-      element.css('display', 'none' )
+      element.css('display', 'none')
