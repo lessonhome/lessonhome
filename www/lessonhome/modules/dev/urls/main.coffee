@@ -117,6 +117,39 @@ class @main
     $(window).keydown @remove
     setInterval @timer, 1000/60
     @setSort()
+    @fixeddiv = @dom.find '.fixed *'
+
+    titles = @dom.find('.state .title')
+    names = @dom.find('.state .name')
+    routes = @dom.find('.state .route')
+    models = @dom.find('.state .model')
+
+    T = 0
+    N = 0
+    R = 0
+    M = 0
+    width = (d)=> @fixeddiv.text($(d).text()).outerWidth()
+    for title, i in titles
+      t = width title
+      n = width names[i]
+      r = width routes[i]
+      m = width models[i]
+      T = t if t>T
+      N = n if n>N
+      R = r if r>R
+      M = m if m>M
+
+    S= (T+N+R+M)
+    console.log S,T,R,N,M
+    T = T*100.0/S
+    R = R*100.0/S
+    N = N*100.0/S
+    M = M*100.0/S
+    console.log S,T,R,N,M
+    @dom.find('.state .title').css "width",T+"%"
+    @dom.find('.state .name').css "width",N+"%"
+    @dom.find('.state .route').css "width", R+"%"
+    @dom.find('.state .model').css "width",M+"%"
   remove : =>
     @viewer?.remove?()
     delete @viewer
