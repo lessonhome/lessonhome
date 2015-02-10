@@ -13,12 +13,11 @@ class @main extends EE
           @current.html(item.html())
           @drop_down_box.css("top", "#{drop_down_box_indent}px")
       drop_down_box_indent -= 29
-      console.log drop_down_box_indent
+    Feel.HideOnOutsideAreaClick @drop_down_box
+
   change_visibility: (element)=>
     if element.css("display") == 'none'
       element.css("display", "block")
     else
       element.css("display", "none")
 
-
-    Feel.HideOnOutsideAreaClick @drop_down_box

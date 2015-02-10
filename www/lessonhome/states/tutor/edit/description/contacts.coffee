@@ -26,7 +26,13 @@ class @main extends template '../../../tutor'
         #'Медиа'       : 'media'
       active_item : 'Контакты'
     content : module '$' :
-      country         : module 'tutor/forms/drop_down_list'
+      country         : module 'tutor/forms/drop_down_list' :
+        list : [
+          'Россия'
+          'Казахстан'
+          'Китай'
+          'Польша'
+        ]
       city            : module 'tutor/forms/drop_down_list'
       location_button : module '//location_button'
       line : module 'tutor/separate_line' :
