@@ -1,60 +1,82 @@
 @import compass/css3
 $margin_top: 15px
+$close_icon_src: 'main/filter_close.png'
+$icon_height: image-height($close_icon_src)
+$icon_width: image-width($close_icon_src)
+
+.choose_block
+  margin-bottom: $margin_top
+  .choose_all
+    float: left
+  .title
+    margin-left: 25px
 .calendar_week
   +inline-block
-  padding: 0 4px
   background-color: #dfe1e4
   border-radius: 4px
   font-size: 20px
   font-weight: 600
   color: #a1a1a1
+  $padding_add: 1px
   .monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday
     float: left
-    padding: 10px 4px
+    border-radius: 4px
+    padding: 10px 5px
     cursor: pointer
+  .monday, .sunday
+    padding: 10px 5px+$padding_add
+
 .calendar_week:after
   content: ""
   display: block
   clear: both
-.choose_block
-  margin-top: $margin_top
-  .choose_all
-    float: left
-  .title
-    margin-left: 25px
-
-// TODO labels for input
-.time_box
-  margin: $margin_top 10px 0 0
-  padding: 11px 0
-  position: relative
-  border-radius: 4px
-  background-color: #dfe1e4
-  .from, .till
-    float: left
-    padding: 8px 7px 8px 10px
-  .from_time, .till_time
-    float: left
-    width: 66px
-    height: 34px
-  .close_box
-    width: 14px
-    padding: 9px 7px 0 9px
-    position: absolute
-    top: 0
-    right: 0
-    bottom: 0
-    cursor: pointer
-    .close
-      float: right
+.js-show-hidden-block
+  //display: none
+  .time_box
+    margin-top: $margin_top
+    padding: 11px 0
+    position: relative
+    border-radius: 4px
+    background-color: #dfe1e4
+    label
+      +inline-block
+      .from, .till
+        cursor: pointer
+        float: left
+        padding: 8px 7px 8px 10px
+      .from_time, .till_time
+        float: left
+        width: 66px
+        height: 34px
+    .close_box
       width: 14px
-      height: 14px
-      background: red
-.time_box:after
-  content: ''
-  display: block
-  clear: both
-.button_add
-  +inline-block
-  height: 33px
-  margin-top: $margin_top
+      padding: 9px 7px 9px 9px
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      cursor: pointer
+      .close
+        float: right
+        width: $icon_width
+        height: $icon_height
+        background: inline-image($close_icon_src) no-repeat
+  .time_box:after
+    content: ''
+    display: block
+    clear: both
+  .button_add
+    +inline-block
+    height: 33px
+    margin-top: $margin_top
+
+
+
+////////////----------active-------------/////////////
+.calendar_week
+  .monday:hover, .tuesday:hover, .wednesday:hover, .thursday:hover, .friday:hover, .saturday:hover, .sunday:hover
+    background: #cecece
+.calendar_week
+  .monday.active, .tuesday.active, .wednesday.active, .thursday.active, .friday.active, .saturday.active, .sunday.active
+    background: #ff7c6f
+    color: #ffffff

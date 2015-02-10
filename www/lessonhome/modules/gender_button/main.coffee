@@ -4,6 +4,7 @@ class @main extends EE
     @button = @dom.find ".button"
     @active = @button.hasClass 'active'
     @dom.on 'click', @click
+
   disable : =>
     if !@active then return
     @active = false
@@ -11,10 +12,13 @@ class @main extends EE
     @button.addClass 'inactive'
     @emit 'disable'
   click : =>
-    return if @active
-    @active = true
-    @button.removeClass 'inactive'
-    @button.addClass 'active'
+    @active = !@active
+    if @button.hasClass 'active'
+      @button.removeClass 'active'
+      @button.addClass 'inactive'
+    else
+      @button.removeClass 'inactive'
+      @button.addClass 'active'
     @emit 'active'
 
 

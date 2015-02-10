@@ -22,10 +22,10 @@ main
     +inline-block
     .icon_right
       width: $icon_right_width
-      height: $icon_right_height
+      height: $icon_right_height + abs($icon_down_height - $icon_right_height)
       background: url(F($triangle_right_src)) no-repeat
     .icon_down
-      width: $icon_down_width
+      width: $icon_down_width + abs($icon_right_width - $icon_down_width)
       height: $icon_down_height
       background: url(F($triangle_down_src)) no-repeat
   .title
@@ -33,35 +33,13 @@ main
   .title:hover
     color : #000000
 
-
-.section
-  .show_hidden
-    display: none
-  * .icon_box
-    .icon_right
-      display: block
-    .icon_down
-      display: none
-.section.showed
-  .show_hidden
-    display: block
-  * .icon_box
-    .icon_right
-      display: none
-    .icon_down
-      display: block
-
-.section
-  .show_hidden
-    padding-bottom: $padding_section
-
-
 .section
   text-align: left
   .course, .timetable, .time_one_lesson, .time_to_way, .experience, .sex
     padding-bottom: $padding_title  - $padding_icon            //because icon have padding 10px for usability
     cursor: pointer
   .show_hidden
+    padding-bottom: $padding_section
     .list_course
       height: 33px
     .add_course_block
@@ -72,12 +50,16 @@ main
       content: ''
       clear: both
       display: block
-    .little, .big, .bigger, .no_experience
-      padding: $padding_experience 7px
-    .little
-      margin-top: -$padding_experience
-    .no_experience
-      margin-bottom: -$padding_experience        // because all padding = 30px, need padding = 20px
+    .js-experience
+      .little, .big, .bigger, .no_experience
+        margin: 2px 0
+        .text
+          border-radius: 4px
+          +inline-block
+          cursor: pointer
+          padding: $padding_experience 7px
+      .no_experience
+        margin-bottom: 0
     .sex_button
       .female, .male
         float: left
@@ -95,7 +77,7 @@ main
     .with_reviews, .with_verification
       float: left
       padding-right: 15px
-    .with_reviews_text, .with_verification_text
+    .with_reviews_text.color, .with_verification_text.color
       color: rgb(0, 0, 0)
   .verification_block
     padding-bottom: 0
@@ -103,5 +85,41 @@ main
     display: block
     content: ""
     clear: both
+
+///////--------action----------//////////
+
+/////////---------show or hidden filter sections----------//////////
+.section
+  .show_hidden
+    display: none
+  * .icon_box
+    .icon_right
+      display: block
+    .icon_down
+      display: none
+.section.showed
+  .show_hidden
+    display: block
+  * .icon_box
+    .icon_right
+      display: none
+    .icon_down
+      display: block
+
+///////////////   experience hover or click    //////////////
+.section
+  .show_hidden
+    .js-experience
+      .little.background, .big.background, .bigger.background, .no_experience.background
+        .text
+          background: #ff7c6f
+
+.section
+  .show_hidden
+    .js-experience
+      .little.hover:hover, .big.hover:hover, .bigger.hover:hover, .no_experience.hover:hover
+        .text
+          background: #cecece
+
 
 
