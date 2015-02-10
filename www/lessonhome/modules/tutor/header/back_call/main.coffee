@@ -6,7 +6,6 @@ class @main extends EE
     @click_box.on 'click', => @change_visibility(@popup_box)
     @close_box.on 'click', => @change_visibility(@popup_box)
 
-
   change_visibility : (element)=>
     if element.css('display') == 'none'
       element.css('display', 'block' )

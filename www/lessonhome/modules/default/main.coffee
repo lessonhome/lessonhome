@@ -5,7 +5,6 @@ Feel.LabelHoverControl = (dom, val)->
 
   for label in labels
     label = $(label)
-    console.log label
     label_val = label.find(val)
 
     do (label_val)=>
