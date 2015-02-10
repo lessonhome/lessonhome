@@ -45,12 +45,6 @@ class @main extends EE
           @change_background exp
 
 
-    #add time in day
-    @button_add = @tree.button_add.class
-    @button_add.on 'click', => @emit 'add_time'
-    #TODO: ....
-
-
 
 ############## function ##############
 

@@ -2,16 +2,17 @@
 class @main extends EE
   show : =>
     @time_block = @dom.find ".js-show-hidden-block"
-    #time_block = $ @time_block
     @days = @dom.find ".calendar_week>div"
     for day in @days
       day = $ day
       do (day)=>
-        day.click => @click(day,@time_block)
+        day.click => @click(day, @time_block)
 
     @time_box = @dom.find ".time_box"
     @close = @dom.find ".close_box"
-    @close.on 'click', => @closeBox(@time_box)
+    @close.on 'click', => @closeBox
+
+
 
 
 
@@ -28,6 +29,7 @@ class @main extends EE
   click : (day, block)=>
     if day.hasClass 'active'
       day.removeClass 'active'
+      block.css('display', 'none')
       day.addClass 'hover'
     else
       day.removeClass 'hover'
