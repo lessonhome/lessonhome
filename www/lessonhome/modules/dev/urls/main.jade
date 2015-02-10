@@ -9,6 +9,8 @@ a.state.top
 each state, name in states
   .state
     a(href=state.route).title= state.title
-    a(href=state.route).name= name
+    a(href=state.route).name= state.name
     a(href=state.route).route= state.route
     a(href="#{F('models/'+state.model+'.jpg')}").model= state.model
+
+
