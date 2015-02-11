@@ -7,6 +7,7 @@ Router  = require './server/router'
 _path   = require 'path'
 class module.exports
   constructor : (@name)->
+    @cacheRes     = {}
     @path         = {}
     @path.root    = "#{Feel.path.www}/#{@name}"
     @path.src     = "#{@path.root}/"
@@ -142,16 +143,23 @@ class module.exports
         res.setHeader 'Cache-Control', 'public, max-age=126144001'
         res.setHeader 'Cache-Control', 'public, max-age=126144001'
         res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
-      return res.end @modules[module].allJs
+      zlib = require 'zlib'
+      return zlib.deflate @modules[module].allJs,{level:9},(err,resdata)=>
+        return @res404 req,res,err if err?
+        res.statusCode = 200
+        res.setHeader 'Content-Length', resdata.length
+        res.setHeader 'Content-Encoding', 'deflate'
+        return res.end resdata
     return @res404 req,res
   moduleJsUrl : (name)=>
     hash = @modules[name]?.jsHash
     "/js/#{hash}/#{name}"
   moduleJsTag : (name)=>
     "<script type='text/javascript' src='#{@moduleJsUrl(name)}'></script>"
-  res404  : (req,res)=>
+  res404  : (req,res,err)=>
     res.writeHead 404
     res.end()
+    console.error 'error',err if err?
   res304  : (req,res)=>
     res.writeHead 304
     res.end()

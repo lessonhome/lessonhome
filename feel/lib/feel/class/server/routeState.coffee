@@ -1,8 +1,17 @@
 
+crypto  = require 'crypto'
 
+rand  = (num)-> crypto.createHash('sha1').update(num).digest('hex').substr 0,10
 
 class RouteState
   constructor : (@statename,@req,@res,@site)->
+    @rand = "1"
+    @reqHash =
+      url : @req.url
+    sha1 = require('crypto').createHash('sha1')
+    sha1.update JSON.stringify @reqHash
+    @reqHash = sha1.digest('hex')
+    @reqEtag = @req.headers['if-none-match']
     @o =
       res : @res
       req : @req
@@ -44,7 +53,6 @@ class RouteState
   go : =>
     @stack = []
     @parse @top,null,@top,@top
-    @res.writeHead 200
     
     if @site.modules['default'].allCss && !@modules['default']?
       @cssModule 'default'
@@ -57,8 +65,10 @@ class RouteState
     title   = @state.title
     title  ?= @statename
     end  = ""
-    end += '<!DOCTYPE html><html><head><meta charset="utf-8"><title>'
-    end += title+'</title>'+@css+'</head><body>'+@top._html
+    end += '<!DOCTYPE html><html><head><meta charset="utf-8">'
+    end += '<title>'+title+'</title>'
+    end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
+    end += @css+'</head><body>'+@top._html
     @removeHtml @top
     json_tree = JSON.stringify(@getTree(@top))
     end +=
@@ -83,8 +93,30 @@ class RouteState
       '+@jsModules+'</script>'+
       '<script id="feel-js-startFeel">Feel.init();</script>'+
       '</body></html>'
-    @res.end end
-    console.log "state #{@statename}"
+    sha1 = require('crypto').createHash('sha1')
+    sha1.update end
+    resHash = sha1.digest('hex').substr 0,8
+    if resHash == @reqEtag
+      @res.writeHead 304
+      console.log "state #{@statename}",304
+      return @res.end()
+
+    zlib    = require 'zlib'
+    zlib.deflate end,{level:9},(err,resdata)=>
+      if err?
+        @res.writeHead 404
+        return @res.end err
+      
+      @res.setHeader 'ETag',resHash
+      @res.setHeader 'Cache-Control', 'public, max-age=100'
+      @res.setHeader 'content-encoding', 'deflate'
+      @res.setHeader 'content-length',resdata.length
+      @res.statusCode = 200
+      d = new Date()
+      d.setTime d.getTime()+100
+      @res.setHeader 'Expires',d.toGMTString()
+      @res.end resdata
+      console.log "state #{@statename}",200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
   removeHtml : (node)=>
     for key,val of node
       if key == '_html'
@@ -98,7 +130,7 @@ class RouteState
     new_module = module
     new_state  = state
     if now._isModule
-      uniq = Math.floor Math.random()*10000
+      uniq = @rand = rand(@rand) #Math.floor Math.random()*10000
       now._uniq?= uniq
       uniq = now._uniq
       m = now._name.match /^\/\/(.*)$/
@@ -134,7 +166,7 @@ class RouteState
       if typeof val == 'object'
         ret[key] = @getO val,uniq
       if ret[key]?._isModule
-        ret[key]._uniq?= Math.floor Math.random()*10000
+        ret[key]._uniq?= @rand = rand(@rand)#Math.floorMath.random()*10000
         html = ""
         if ret[key]._html?
           idn = ret[key]._name.replace /\//g, '-'
