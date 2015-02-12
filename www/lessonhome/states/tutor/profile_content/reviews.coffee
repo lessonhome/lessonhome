@@ -2,6 +2,7 @@ class @main extends template '../../tutor'
   route : '/tutor/reviews'
   model : 'tutor/profile/reviews'
   title : "отзывы"
+  tags   : -> 'tutor:reviews'
   tree : ->
     items : [
       module 'tutor/header/button' : {
@@ -15,6 +16,7 @@ class @main extends template '../../tutor'
       module 'tutor/header/button' : {
         title : 'Отзывы'
         href  : '/tutor/reviews'
+        tag   : 'tutor:reviews'
       }
     ]
     content : state './reviews_content'

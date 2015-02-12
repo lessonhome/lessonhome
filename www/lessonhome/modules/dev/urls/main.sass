@@ -8,44 +8,63 @@ main
   top : 0
   left : 0
   box-sizing : border-box
-
-.state
-  //font-weight : 
   font-family : 'Open Sans', sans-serif
-  height : 40px
-  line-height : 40px
+  font-size : 14px
+
+.state,.fixed
+  //font-weight : 
+  height : 30px
+  line-height : 30px
   position : relative
   overflow : hidden
   width : 100%
   float : left
   box-sizing : border-box
-
-
+ 
+.fixed
+  position : fixed
+  top : -100%
+  left : 0
+  z-index : -1
 
 .state:hover
   background : #EEE
-.state *
+.state *, .fixed *
+  word-break : break-all
+  cursor : pointer
   color : #100
   text-decoration : none
   +box-shadow(inset 0 0 2px rgba(0,0,0,0.2))
-  padding : 0 25px
+  padding : 0 10px
   position : relative
   height : 100%
   overflow : hidden
   width : 25%
   float : left
   box-sizing : border-box
-.top, .top:hover
-  background : #FEE
+.fixed *
+  width : auto
+.top
   font-weight : bold
-
-.state .model:hover
+.top *
+  background : #FEE
+.top .sorted
+  background : #FDD
+.top *:hover
+  background : #FDD
+.top *:active
+  background : #FCC
+.state a.model:hover
   background : #DDE
+.state a.model:active
+  background : #CCD
 
 .state.active
   background : #DFDFDF
 .state.active:hover
   background : #EEE
+.state.active:active
+  background : #DDD
 
 .g-fixed
   position : fixed

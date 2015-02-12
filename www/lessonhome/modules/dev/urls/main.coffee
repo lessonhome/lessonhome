@@ -106,7 +106,7 @@ class Viewer
 
 class @main
   show : =>
-    @models = @dom.find '.model'
+    @models = @dom.find 'a.model'
     @models.click @open
     @node = {}
     for name,state of @tree.states
@@ -116,6 +116,40 @@ class @main
     $(window).mousewheel (e)=> @viewer?.mousewheel? e
     $(window).keydown @remove
     setInterval @timer, 1000/60
+    @setSort()
+    @fixeddiv = @dom.find '.fixed *'
+
+    titles = @dom.find('.state .title')
+    names = @dom.find('.state .name')
+    routes = @dom.find('.state .route')
+    models = @dom.find('.state .model')
+
+    T = 0
+    N = 0
+    R = 0
+    M = 0
+    width = (d)=> @fixeddiv.text($(d).text()).outerWidth()
+    for title, i in titles
+      t = width title
+      n = width names[i]
+      r = width routes[i]
+      m = width models[i]
+      T = t if t>T
+      N = n if n>N
+      R = r if r>R
+      M = m if m>M
+
+    S= (T+N+R+M)
+    console.log S,T,R,N,M
+    T = T*100.0/S
+    R = R*100.0/S
+    N = N*100.0/S
+    M = M*100.0/S
+    console.log S,T,R,N,M
+    @dom.find('.state .title').css "width",T+"%"
+    @dom.find('.state .name').css "width",N+"%"
+    @dom.find('.state .route').css "width", R+"%"
+    @dom.find('.state .model').css "width",M+"%"
   remove : =>
     @viewer?.remove?()
     delete @viewer
@@ -139,4 +173,56 @@ class @main
     @dom.append @viewer.dom
     return false
   timer : => @viewer?.timer?()
+  setSort : =>
+    divs = @dom.find '.state.top *'
+    for d in divs
+      d = $ d
+      cl = d.attr 'class'
+      do (d,cl)=>
+        d.click =>
+          @sort cl
+    divs = @dom.find '.state'
+    arr = []
+    for d,i in divs
+      continue unless i
+      d = $ d
+      o  = {
+        dom : d
+      }
+      sub = d.find 'a'
+      for s in sub
+        s = $ s
+        cl = s.attr 'class'
+        text = s.html()
+        o[cl] = text
+      arr.push o
+    @arr = arr
+    @lastCl = "model"
+    @setSorted @lastCl
+  sort : (cl)=>
+    cmp = (a,b)=> a>b
+    if @lastCl == cl
+      cmp = (a,b)=> a<b
+      @lastCl = ""
+    else
+      @lastCl = cl
+    for i in [0...@arr.length-1]
+      for j in [i...@arr.length]
+        if cmp @arr[i][cl],@arr[j][cl]
+          k = @arr[i]
+          @arr[i] = @arr[j]
+          @arr[j] = k
+          @place @arr,i
+          @place @arr,j
+    @setSorted cl
+  setSorted : (cl)=>
+    @dom.find('.top .sorted').removeClass 'sorted'
+    @dom.find('.top .'+cl).addClass 'sorted'
+
+  place : (arr,i)=>
+    if i != 0
+      arr[i].dom.insertAfter arr[i-1].dom
+    else
+      arr[i].dom.insertBefore arr[1].dom
+
 

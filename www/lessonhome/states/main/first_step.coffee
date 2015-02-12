@@ -4,7 +4,7 @@ class @main extends template './motivation_content'
   model   : 'main/first_step'
   title : "выберите предмет"
   tree : =>
-    filter_top  : state './filter_top':
+    filter_top  : state './filter_top' :
       title         : 'Выберите предмет :'
       list_subject    : module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
@@ -13,6 +13,7 @@ class @main extends template './motivation_content'
         selector  : 'choose_subject'
         text      : 'Алгебра'
         close     : true
+      link_forward    :  '/second_step'
 
     info_panel  : state './info_panel'  :
       math              : 'Математические +'

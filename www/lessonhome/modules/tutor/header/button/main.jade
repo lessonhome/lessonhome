@@ -1,7 +1,7 @@
 
-
-a(href= href)
-  if $pageTag(tag)
+if $pageTag(tag)
+  a(href= href)
     .title.active= title
-  else
+else
+  a(href= href).hover
     .title= title

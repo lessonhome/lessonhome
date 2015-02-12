@@ -14,8 +14,7 @@ class @main
           selector      : 'center_text'
         till_time     : module 'tutor/forms/input' :
           selector      : 'center_text'
-        button_add    : module 'tutor/button' :
-          selector      : 'add_time'
+        button_add    : module 'button_add' :
           text          : '+'
       time_spend_lesson   : state './slider_main' :
         selector    : 'lesson_time'
@@ -33,7 +32,11 @@ class @main
         selector          : 'female'
       male              : module 'gender_button' :
         selector          : 'male'
-      with_reviews      : module 'tutor/forms/checkbox':
-        selector          : 'small'
-      with_verification : module 'tutor/forms/checkbox':
-        selector          : 'small'
+      with_reviews      : module 'tutor/forms/checkbox_text'  :
+        text      : 'С отзывами'
+        checkBox  : module 'tutor/forms/checkbox' :
+          selector  : 'small'
+      with_verification : module 'tutor/forms/checkbox_text'  :
+        text      : 'Верифицированные'
+        checkBox  : module 'tutor/forms/checkbox' :
+          selector  : 'small'

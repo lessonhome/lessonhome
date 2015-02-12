@@ -22,10 +22,10 @@ main
     +inline-block
     .icon_right
       width: $icon_right_width
-      height: $icon_right_height
+      height: $icon_right_height + abs($icon_down_height - $icon_right_height)
       background: url(F($triangle_right_src)) no-repeat
     .icon_down
-      width: $icon_down_width
+      width: $icon_down_width + abs($icon_right_width - $icon_down_width)
       height: $icon_down_height
       background: url(F($triangle_down_src)) no-repeat
   .title
@@ -33,7 +33,56 @@ main
   .title:hover
     color : #000000
 
+.section
+  text-align: left
+  .course, .timetable, .time_one_lesson, .time_to_way, .experience, .sex
+    padding: ($padding_title  - $padding_icon)/2 0   //because icon have padding 10px for usability
+    cursor: pointer
+  .course
+    padding-top: 0
+  .show_hidden
+    padding-bottom: $padding_section
+    .list_course
+      height: 33px
+    .add_course_block
+      padding-top: 10px
+      .add_course
+        float: left
+    .add_course_block:after
+      content: ''
+      clear: both
+      display: block
+    .js-experience
+      .little, .big, .bigger, .no_experience
+        margin: 2px 0
+        .text
+          border-radius: 4px
+          +inline-block
+          cursor: pointer
+          padding: $padding_experience 7px
+      .no_experience
+        margin-bottom: 0
+    .sex_button
+      .female, .male
+        float: left
+        height: 28px
+      .female
+        padding-right: $padding_sex_button/2
+      .male
+        padding-left: $padding_sex_button/2
+    .sex_button:after
+      display: block
+      content: ""
+      clear: both
+  .reviews_block, .verification_block
+    cursor: pointer
+    padding: $padding_sex_button/2 0
+  .verification_block
+    padding-bottom: 0
 
+///////--------action----------//////////
+
+/////////---------show or hidden filter sections----------//////////
 .section
   .show_hidden
     display: none
@@ -51,57 +100,26 @@ main
     .icon_down
       display: block
 
+///////////////   experience hover or click    //////////////
 .section
   .show_hidden
-    padding-bottom: $padding_section
-
+    .js-experience
+      .little.background, .big.background, .bigger.background, .no_experience.background
+        .text
+          background: #ff7c6f
+          color: #ffffff
 
 .section
-  text-align: left
-  .course, .timetable, .time_one_lesson, .time_to_way, .experience, .sex
-    padding-bottom: $padding_title  - $padding_icon            //because icon have padding 10px for usability
-    cursor: pointer
   .show_hidden
-    .list_course
-      height: 33px
-    .add_course_block
-      padding-top: 10px
-      .add_course
-        float: left
-    .add_course_block:after
-      content: ''
-      clear: both
-      display: block
-    .little, .big, .bigger, .no_experience
-      padding: $padding_experience 7px
-    .little
-      margin-top: -$padding_experience
-    .no_experience
-      margin-bottom: -$padding_experience        // because all padding = 30px, need padding = 20px
-    .sex_button
-      .female, .male
-        float: left
-        height: 28px
-      .female
-        padding-right: $padding_sex_button/2
-      .male
-        padding-left: $padding_sex_button/2
-    .sex_button:after
-      display: block
-      content: ""
-      clear: both
-  .reviews_block, .verification_block
-    padding-bottom: 15px
-    .with_reviews, .with_verification
-      float: left
-      padding-right: 15px
-    .with_reviews_text, .with_verification_text
-      color: rgb(0, 0, 0)
-  .verification_block
-    padding-bottom: 0
-  .reviews_block:after, .reviews_block:after
-    display: block
-    content: ""
-    clear: both
+    .js-experience
+      .little.hover:hover, .big.hover:hover, .bigger.hover:hover, .no_experience.hover:hover
+        .text
+          background: #cecece
+
+
+
+
+
+
 
 

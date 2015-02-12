@@ -10,6 +10,7 @@ $padding_title: 20px
 $padding_icon: 10px
 $padding_experience: 10px
 $padding_sex_button: 15px
+
 main
   padding: 15px 30px 30px 35px
   font-size: 18px
@@ -22,10 +23,10 @@ main
     +inline-block
     .icon_right
       width: $icon_right_width
-      height: $icon_right_height
+      height: $icon_right_height + abs($icon_down_height - $icon_right_height)
       background: url(F($triangle_right_src)) no-repeat
     .icon_down
-      width: $icon_down_width
+      width: $icon_down_width + abs($icon_right_width - $icon_down_width)
       height: $icon_down_height
       background: url(F($triangle_down_src)) no-repeat
   .title

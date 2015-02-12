@@ -1,0 +1,6 @@
+mixin R(t)
+  - t = t.replace(/\s/g, '&nbsp;')
+  .title!= t
+
+a(href=link, scrolltop=scrolltop)
+  +R(title)

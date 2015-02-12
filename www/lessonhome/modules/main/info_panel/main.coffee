@@ -1,7 +1,10 @@
 
+class @main extends EE
+  show : =>
+    @advanced_search = @dom.find ".js-button"
+    @advanced_search.on 'click', => @send
 
-class @main
-  dom : ->
-    @dom.find('.js-button').click @onClick
-  onClick : (e)=>
-    console.log e
+
+
+  send : =>
+    @emit 'advanced_search_open'
