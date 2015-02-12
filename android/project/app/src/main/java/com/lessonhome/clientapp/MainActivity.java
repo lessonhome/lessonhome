@@ -10,7 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 
 /**
  *Activity where
@@ -19,7 +19,7 @@ public class MainActivity extends ActionBarActivity {
 
     private MyClickListener myClickListener;
     private DrawerLayout drawerlayout;
-    private LinearLayout navdrawer;
+    private ListView navdrawer;
     private FilterMainFragment filtermainframent;
     private ActionBarDrawerToggle toggle;
 
@@ -52,7 +52,8 @@ public class MainActivity extends ActionBarActivity {
 
         drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        navdrawer = (LinearLayout) findViewById(R.id.nav_drawer);
+        navdrawer = (ListView)findViewById(R.id.nav_drawer);
+        navdrawer.setAdapter(new NavListAdapter(this, myClickListener));
 
 
 
@@ -71,8 +72,8 @@ public class MainActivity extends ActionBarActivity {
         toggle = new ActionBarDrawerToggle(
                 this,
                 drawerlayout,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
+                R.string.action_settings,
+                R.string.action_settings);
         toggle.setDrawerIndicatorEnabled(true);
         drawerlayout.setDrawerListener(toggle);
 
