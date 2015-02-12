@@ -2,7 +2,13 @@ class @main extends EE
   show : =>
     @check = @dom.find(".check")
     @active = @check.hasClass 'active'
-    @dom.on 'click',  @checkbox_click
+    @on 'click',  @checkbox_click
+    @on 'hover', @hover
+
+
+
+
+
 
   checkbox_click: =>
     @active = !@active
@@ -13,4 +19,8 @@ class @main extends EE
     @emit 'active'    if      @active
     @emit 'inactive'  unless  @active
 
-
+  hover : (hover)=>
+    if hover
+      @dom.addClass    'hover'
+    else
+      @dom.removeClass 'hover'

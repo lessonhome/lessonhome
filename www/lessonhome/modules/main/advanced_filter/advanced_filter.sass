@@ -36,8 +36,10 @@ main
 .section
   text-align: left
   .course, .timetable, .time_one_lesson, .time_to_way, .experience, .sex
-    padding-bottom: $padding_title  - $padding_icon            //because icon have padding 10px for usability
+    padding: ($padding_title  - $padding_icon)/2 0   //because icon have padding 10px for usability
     cursor: pointer
+  .course
+    padding-top: 0
   .show_hidden
     padding-bottom: $padding_section
     .list_course
@@ -73,18 +75,10 @@ main
       content: ""
       clear: both
   .reviews_block, .verification_block
-    padding-bottom: 15px
-    .with_reviews, .with_verification
-      float: left
-      padding-right: 15px
-    .with_reviews_text.color, .with_verification_text.color
-      color: rgb(0, 0, 0)
+    cursor: pointer
+    padding: $padding_sex_button/2 0
   .verification_block
     padding-bottom: 0
-  .reviews_block:after, .reviews_block:after
-    display: block
-    content: ""
-    clear: both
 
 ///////--------action----------//////////
 
@@ -113,6 +107,7 @@ main
       .little.background, .big.background, .bigger.background, .no_experience.background
         .text
           background: #ff7c6f
+          color: #ffffff
 
 .section
   .show_hidden
@@ -120,6 +115,11 @@ main
       .little.hover:hover, .big.hover:hover, .bigger.hover:hover, .no_experience.hover:hover
         .text
           background: #cecece
+
+
+
+
+
 
 
 
