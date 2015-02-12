@@ -100,12 +100,10 @@ class Static
     @hash path,(rhash=1)=>
       res.setHeader 'ETag', rhash
       res.setHeader 'Cache-Control', 'public, max-age=126144001'
-      res.setHeader 'Cache-Control', 'public, max-age=126144001'
       res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
       return @res304 req,res if rhash==hash==hhash
       if rhash != hash
         return @url fname,site,(url)=> @res303 req,res,url
-      console.log "file\t#{m[2]}.#{m[3]}"
       ext   = m[3]
       if @files[path]?
         return @write @files[path],req,res
@@ -117,6 +115,7 @@ class Static
           data : data
           mime : mime.lookup path
           stat : stat
+          name : fname
         return @write @files[path],req,res
   res304 : (req,res)=>
     res.writeHead 304
@@ -128,11 +127,14 @@ class Static
     res.end()
   write   : (file,req,res)=>
     res.setHeader 'Content-type', file.mime
-    res.setHeader 'Content-Length', file.stat.size
-    res.write file.data
-    return res.end()
-    
-    
+    zlib = require 'zlib'
+    zlib.deflate file.data,{level:9},(err,resdata)=>
+      return @res404 req,res,err if err?
+      res.statusCode = 200
+      res.setHeader 'Content-Length', resdata.length
+      res.setHeader 'Content-Encoding', 'deflate'
+      console.log "file\t#{file.name}",resdata.length/1024,file.data.length/1024,Math.ceil((resdata.length/file.data.length)*100)+"%"
+      return res.end resdata
   F       : (site,file)=>
     f = _path.resolve "www/#{site}/static/#{file}"
     if @watch[f]?
@@ -141,9 +143,10 @@ class Static
       hash = @hashS f
       #@createHash f
     return "/file/#{hash}/#{file}"
-  res404  : (req,res)=>
+  res404  : (req,res,err)=>
     res.writeHead 404
     res.end()
+    console.error err if err?
 
   hash : (f,cb)=>
     f = _path.resolve f
