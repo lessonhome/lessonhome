@@ -9,14 +9,16 @@ ps    = require 'ps-node'
 class module.exports
   constructor : ->
     @port = 8888
+    @updating = false
   run : ->
     #return if os.hostname() != 'pi0h.org'
     @server = http.createServer @handler
     @hand = 0
     @server.listen @port
-
   handler :(req,res)=>
     return res.end() if req.url != "/update"
+
+    @updating = true
     @hand++
     res.setHeader 'x-content-type-options', 'nosniff'
     res.setHeader 'Connection', 'Transfer-Encoding'
