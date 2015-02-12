@@ -2,6 +2,7 @@ class @main extends template '../../tutor'
   route : '/tutor/conditions'
   model   : 'tutor/profile/conditions'
   title : "условия"
+  tags   : -> 'tutor:conditions'
   tree : ->
     items : [
       module 'tutor/header/button' : {
@@ -11,6 +12,7 @@ class @main extends template '../../tutor'
       module 'tutor/header/button' : {
         title : 'Условия'
         href  : '/tutor/conditions'
+        tag   : 'tutor:conditions'
       }
       module 'tutor/header/button' : {
         title : 'Отзывы'

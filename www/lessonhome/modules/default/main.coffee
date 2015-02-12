@@ -1,11 +1,18 @@
 
+Feel.Hovered = (obj,dom=obj.dom)->
+  dom.on 'mouseover', =>
+    dom.addClass     'hover'
+    obj.emit? 'hover',true
+  dom.on 'mouseout',  =>
+    dom.removeClass  'hover'
+    obj.emit? 'hover',false
+
 Feel.LabelHoverControl = (dom, val)->
 
   labels = dom.find 'label'
 
   for label in labels
     label = $(label)
-    console.log label
     label_val = label.find(val)
 
     do (label_val)=>
@@ -17,6 +24,10 @@ Feel.FirstBidBorderRadius = (dom)->
   first_bid = basic_block.first()
   first_bid.css("border-top-left-radius", "0" )
   first_bid.css("border-top-right-radius", "0")
+
+
+
+# -------------------- TODO: a sharp jump in when scrolling --------------------------------
 
 
 Feel.HashScrollControl = (dom)->
@@ -67,11 +78,17 @@ Feel.HashScrollControl = (dom)->
         if  current_y >= blocks_position_y[i]
           location.hash = blocks_scrolltop[i]
       if current_y < blocks_position_y[0]
-        if hash 
+        if hash
           history.pushState('', document.title, window.location.pathname)
+          #location.href = location.pathname
           $('body').scrollTop(current_y)
       i++
   )
+
+Feel.HideOnOutsideAreaClick = (container)->
+  $(document).on 'mouseup',
+    (e) ->
+      if container.has(e.target).length == 0 then container.hide()
 
 
 

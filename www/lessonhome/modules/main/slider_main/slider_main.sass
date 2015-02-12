@@ -1,35 +1,50 @@
 @import compass/css3
+//////////////////////
 .lesson_price
   padding: 0 3px
-  .start, .end
-    width: 80px
-    height: 32px
+  label
+    .text
+    .start, .end
+      width: 80px
+      height: 32px
 .lesson_time
-  .start, .end
-    width: 55px
-    height: 32px
+  label
+    .text
+    .start, .end
+      width: 55px
+      height: 32px
 .lesson_price, .lesson_time
   .dash
     padding: 0 8px
   .measurement
     padding-left: 11px
-  .start, .end, .dash, .measurement
+  .label, .dash, .measurement
     +inline-block
 .move
   margin-top: 15px
   height: 37px
+/////////////////////////
+$fontSize: 24px
 .price_slider_top
-  .start, .end
+  label
+    padding: 0 7px
     height: 55px
-    width: 116px
-    margin-left: 15px
-  .start
-    margin-right: 15px
+    .text
+      font-size: $fontSize
+      float: left
+      position: relative
+      top: 50%
+      margin-top: -$fontSize/2
+    .start, .end
+      float: left
+      width: 116px
+      margin-left: 10px
   .dash
     padding: 0 8px
   .measurement
     padding-left: 11px
-  .start, .end, .dash, .measurement
+    font-size: 24px
+  label, .dash, .measurement
     +inline-block
 .move.selector_move
   margin-top: 15px

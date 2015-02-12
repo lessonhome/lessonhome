@@ -11,7 +11,7 @@ main
   height: 100%
   width: 100%
   input
-    padding: 0 (2*$icon_padding+$icon_width) 0 8px
+    padding: 0 (2*$icon_padding+$icon_width) 0 12px
     box-sizing: border-box
     border: 2px solid rgb( 214, 214, 214 )
     border-radius: 8px
@@ -41,14 +41,24 @@ main
       top: 50%
       margin-top: -$icon_height / 2
       background : inline-image($icon_src) no-repeat
-  .drop_down_box
-    display: none
+
+  .dropdown_items
+    position: absolute
+    z-index: 1
     width: 100%
     .item
-      line-height: 29px
+      line-height: 28px
+      font-size: 20px
       text-align: left
       padding-left: 12px
-      background-color: #fff
+
+
+
+
+
+
+
+
 
 /////////////////--------list_subject, list_tutor---------//////////////////////
 $icon_padding: 15px
