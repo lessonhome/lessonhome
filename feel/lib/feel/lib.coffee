@@ -111,9 +111,11 @@ global.Wrap = (obj,prot)->
               na.push a
             e.message += na.join(',')
             e.message += ");"
-            if key != 'destructor'
-              if typeof obj.destructor == 'function'
-                return obj.destructor(e)
+
+            #if key != 'destructor'
+            #  if typeof obj.destructor == 'function'
+            #    return obj.destructor(e)
+            #obj?.emit? 'destruct',e
             throw e
           return q
         proto[key] = foo
