@@ -32,7 +32,11 @@ class @main
         selector          : 'female'
       male              : module 'gender_button' :
         selector          : 'male'
-      with_reviews      : module 'tutor/forms/checkbox':
-        selector          : 'small'
-      with_verification : module 'tutor/forms/checkbox':
-        selector          : 'small'
+      with_reviews      : module 'tutor/forms/checkbox_text'  :
+        text      : 'С отзывами'
+        checkBox  : module 'tutor/forms/checkbox' :
+          selector  : 'small'
+      with_verification : module 'tutor/forms/checkbox_text'  :
+        text      : 'Верифицированные'
+        checkBox  : module 'tutor/forms/checkbox' :
+          selector  : 'small'

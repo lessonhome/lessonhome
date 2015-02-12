@@ -10,11 +10,9 @@ main
   height: 100%
   cursor: pointer
   position: relative
-  background-color: #fff
-  //box-sizing: border-box
-  //border: 3px solid rgb( 205, 205, 205 )
 
 .big
+  background-color: #fff
   width: $check_big_width
   height: $check_big_height
   border: 3px solid rgb( 205, 205, 205 )
@@ -30,6 +28,7 @@ main
     background: inline-image($check_big) no-repeat
 
 .small
+  background-color: #fff
   width: $check_small_width
   height: $check_small_height
   box-sizing: border-box
@@ -49,8 +48,7 @@ div
   .check.active
     display: block
 
-
-main:hover>div
+main.hover>div, main:hover>div
   border-color: #b3b3b3
 
 
