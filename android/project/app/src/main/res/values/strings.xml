@@ -3,6 +3,8 @@
 
     <string name="app_name">LessonHome</string>
     <string name="action_settings">Настройки</string>
+
+
     <string name="i_am_already_a_member">Я уже пользователь!</string>
     <string name="next_in_filter_viewPager">Далее -></string>
     <string name="enter_name_of_type_of_lesson">Введите название предмета</string>
@@ -13,7 +15,9 @@
     <string name="meeting_at_the_tutor">у репетитора</string>
     <string name="meeting_at_me">у меня</string>
     <string name="meeting_online">удаленно</string>
-    <string name="enter_address">ваш адрес</string>
+    <string name="enter_city">ваш город</string>
+    <string name="enter_street">ваша улица</string>
+    <string name="enter_housenumber_roomnumber">ваш дом и квартира по желанию</string>
     <string name="range_of_price_words">насколько вы богаты</string>
     <string name="price">максимальная/желаемая цена</string>
     <string name="registration_words">теперь чтобы сохранить фильтер а позднее ваши заявки вам стоит идентифицировать себя\n например с помощью социальных сетей</string>
@@ -21,7 +25,16 @@
     <string name="registration_enter_email">поле для email</string>
     <string name="registrtion_or_phone">также можно ввести и телефон либо только телефон</string>
     <string name="registration_enter_phone">поле для телефона</string>
-    <string name="navigation_drawer_open">открыто</string>
-    <string name="navigation_drawer_close">закрыто</string>
+
+
+    <string name="profile_navbut">личный кабинет</string>
+    <string name="my_requests_navbut">мои заявки</string>
+    <string name="filter_navbut">поиск</string>
+    <string name="forum_navbut">форум</string>
+    <string name="articles_navbut">статьи</string>
+    <string name="how_it_works_navbut">как это работает</string>
+    <string name="settings_navbut">настройки</string>
+    <string name="help_navbut">поддержка</string>
+    <string name="about_us_navbut">о нас</string>
 
 </resources>

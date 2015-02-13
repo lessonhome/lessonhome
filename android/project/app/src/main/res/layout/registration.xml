@@ -9,9 +9,37 @@
 
     <ImageButton
         android:id="@+id/vkontakte_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/registrtion_words" />
+    <ImageButton
+        android:id="@+id/facebook_image_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/registrtion_words"
+        android:layout_toRightOf="@+id/vkontakte_image_button"
+        android:layout_toEndOf="@+id/vkontakte_image_button"  />
+    <ImageButton
+        android:id="@+id/twitter_image_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/registrtion_words"
+        android:layout_toRightOf="@+id/facebook_image_button"
+        android:layout_toEndOf="@+id/facebook_image_button"  />
+    <ImageButton
+        android:id="@+id/microsoft_image_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/registrtion_words"
+        android:layout_toRightOf="@+id/twitter_image_button"
+        android:layout_toEndOf="@+id/twitter_image_button" />
+    <ImageButton
+        android:id="@+id/google_plus_image_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/registrtion_words"
+        android:layout_toRightOf="@+id/microsoft_image_button"
+        android:layout_toEndOf="@+id/microsoft_image_button"  />
 
     <TextView
         android:id="@+id/or_email_address_textview"
@@ -24,7 +52,7 @@
         android:id="@+id/enter_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/registration_enter_email"
+        android:hint="@string/registration_enter_email"
         android:inputType="textEmailAddress"
         android:layout_below="@+id/or_email_address_textview" />
 
@@ -39,7 +67,7 @@
         android:id="@+id/enter_phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/registration_enter_phone"
+        android:hint="@string/registration_enter_phone"
         android:inputType="phone"
         android:layout_below="@+id/or_and_phone_textview" />
 
