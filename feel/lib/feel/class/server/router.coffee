@@ -29,7 +29,9 @@ class Router
               @url.reg.push [r,statename]
             
   handler : (req,res)=>
-    req.url = '/file/666/favicon.ico' if req.url == '/favicon.ico'
+    if req.url == '/favicon.ico'
+      req.url = '/file/666/favicon.ico'
+
     if req.url.match /^\/js\/.*/
       return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/file\/.*/
