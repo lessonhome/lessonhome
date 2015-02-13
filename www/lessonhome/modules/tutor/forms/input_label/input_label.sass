@@ -1,0 +1,82 @@
+@import compass/css3
+$font_size: 20px
+$_font_size: 18px
+$padding: 8px
+main
+  height: 100%
+  width: 100%
+label
+  height: 100%
+  width: 100%
+  .text
+    font-size: $_font_size
+    +inline-block
+  input
+    +inline-block
+    height: 100%
+    padding: 0 $padding
+    box-sizing: border-box
+    outline: none
+    border: 2px solid #d6d6d6
+    +border-radius(8px)
+    background-color: rgb( 255, 255, 255 )
+    cursor : text
+    font-size: $font_size
+    color: rgb(0, 0, 0)
+    font-family: inherit
+    +input-placeholder
+      font-size: $font_size
+      color: #757575
+      opacity: 1
+label:after
+  content: ''
+  height: 100%
+  +inline-block
+////////////////////////
+$font_size: 39px
+$_font_size: 24px
+$padding: 8px
+label
+  .text
+    font-size: $_font_size
+  .price
+    padding: 0 $padding
+    width: 116px
+    margin-left: 10px
+    text-align: center
+    font-size: $font_size
+    +input-placeholder
+      font-size: $font_size
+
+
+/////////////////////
+$font_size: 18px
+$padding: 2px
+label
+  .time_spend
+    padding: 0 $padding
+    width: 50px
+    margin: 0
+    text-align: center
+    font-size: $font_size
+    +input-placeholder
+      font-size: $font_size
+
+/////////----------------hover-------------/////
+label
+  input:hover
+    border: 2px solid #b3b3b3
+label.text
+  input:hover
+    border: 2px solid #b3b3b3
+
+
+  /////////----------------focus-------------/////
+label
+  input:focus
+    border: 2px solid rgb( 137, 209, 255 )
+
+
+
+
+

@@ -4,15 +4,10 @@
 
 
 .drop_down_list(class=selector)
-  input(placeholder="#{placeholder}", id="#{id}")
+  input(placeholder="#{placeholder}", id="#{id}", autofocus)
   .icon_box
     .icon
   if list
     .dropdown_items
       each value in list
         .item!= value
-//-
-  .drop_down_box
-    if list
-      each value in list
-        .item=value
