@@ -6,11 +6,13 @@ main
   height: 100%
   width: 100%
 label
+  +inline-block // view size child
   height: 100%
   width: 100%
   .text
     font-size: $_font_size
     +inline-block
+    cursor: pointer
   input
     +inline-block
     height: 100%
@@ -38,11 +40,11 @@ $_font_size: 24px
 $padding: 8px
 label
   .text
+    padding-right: 10px
     font-size: $_font_size
   .price
     padding: 0 $padding
     width: 116px
-    margin-left: 10px
     text-align: center
     font-size: $font_size
     +input-placeholder
