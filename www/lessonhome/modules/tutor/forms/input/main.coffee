@@ -1,6 +1,6 @@
 class @main extends EE
   constructor : ->
   show : =>
-    @input = @dom.find "input"
-    @input.on 'mouseover', => @input.addClass 'hover'
-    @input.on 'mouseout', => @input.removeClass 'hover'
+    @box = @dom.find ".box"
+    @box.on 'mouseover', => @box.addClass 'hover'
+    @box.on 'mouseout', => @box.removeClass 'hover'

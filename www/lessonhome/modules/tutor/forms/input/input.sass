@@ -1,55 +1,66 @@
 @import compass/css3
 main
   height: 100%
-input
+.box
   height: 100%
   width: 100%
-  padding: 0 8px
   box-sizing: border-box
-  outline: none
+
   border: 2px solid #d6d6d6
   +border-radius(8px)
   background-color: rgb( 255, 255, 255 )
+  padding: 0 8px
   cursor : text
-  font-size: 20px
-  color: rgb(0, 0, 0)
-  font-family: inherit
 
-  +input-placeholder
+  input
+    +inline-block
+    outline: none
+    width: 100%
+    padding: 0
+    margin: 0
+    border: none
+    background: none
     font-size: 20px
-    color: #757575
+    color: rgb(0, 0, 0)
+    font-family: inherit
+    +input-placeholder
+      font-size: 20px
+      color: #757575
+
+.box:after
+  +inline-block
+  height: 100%
+  content: ''
 
 
-.price_placeholder
-  font-size: 39px
+  //////-------in small input box-------/////////////////
+  .center_text
+    text-align: center
 
-//////-------in small input box-------/////////////////
-.center_text
-  text-align: center
-
-/////////----------------hover-------------/////
+  /////////----------------hover-------------/////
 .hover
   border: 2px solid #b3b3b3
 
-/////////----------------focus-------------/////
-input:focus
+  /////////----------------focus-------------/////
+//.box input:focus
   border: 2px solid rgb( 137, 209, 255 )
 
-//- ----------------------- BIDS REPORTS POPUP ---------------------------
+
+  //- ----------------------- BIDS REPORTS POPUP ---------------------------
 
 .report_popup
   border: 2px solid rgb(255, 255, 255)
 
-//- --------------------- SMALL RADIUS -----------------------------------
+  //- --------------------- SMALL RADIUS -----------------------------------
 .small_radius
   border-radius: 4px
 
-//- ----------------------- EDIT : CALENDAR ---------------------------------
+  //- ----------------------- EDIT : CALENDAR ---------------------------------
 
 .edit_calendar
   border-color: rgb( 202, 211, 218 )
 
-//- ------------------------ MAIN :CHECK IN -----------------------------------------------
+  //- ------------------------ MAIN :CHECK IN -----------------------------------------------
 
 .main_check_in
   +input-placeholder

@@ -41,7 +41,6 @@ main
       top: 50%
       margin-top: -$icon_height / 2
       background : inline-image($icon_src) no-repeat
-
   .dropdown_items
     position: absolute
     z-index: 1
@@ -53,13 +52,6 @@ main
       padding-left: 12px
 
 
-
-
-
-
-
-
-
 /////////////////--------list_subject, list_tutor---------//////////////////////
 $icon_padding: 15px
 $icon_src : 'main/triangle 24x21.png'
@@ -68,12 +60,12 @@ $icon_width: image-width($icon_src)
 $font_size: 37px
 .drop_down_list.filter_top
   input
+    padding: 0 (2*$icon_padding+$icon_width) 0 12px
     border: 3px solid rgb(214, 214, 214)
     font-size: $font_size
     color: rgb(0, 0, 0)
     +input-placeholder
       font-size: $font_size
-      line-height: initial
   .icon_box
     padding: 0 $icon_padding
     .icon
@@ -91,7 +83,6 @@ $font_size: 20px
     padding: 0 (2*$icon_padding+$icon_width) 0 8px
     +input-placeholder
       font-size: $font_size
-      line-height: initial
   .icon_box
     padding: 0 $icon_padding
 
@@ -112,7 +103,7 @@ $font_size: 20px
 
 
 //------------------------ hover --------------------------------
-$icon_hover_src : 'triangle-15-x-13-hover.png'
+$icon_hover_src: 'triangle-15-x-13-hover.png'
 .drop_down_list.hover
   input
     border : 2px solid #b3b3b3

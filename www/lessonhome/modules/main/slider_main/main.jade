@@ -1,11 +1,7 @@
 div(class=selector)
-  label
-    .text от
-    .start!=start
+  .start!=start
   if dash
     .dash=dash
-  label
-    .text до
-    .end!=end
-  .measurement=measurement
+  .end!=end
+  .measurement.unselect=measurement
 .move(class=selector_two)!=move
