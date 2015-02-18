@@ -1,16 +1,21 @@
+###
+# MasterProcessFork
+# класс поддерживающий один форк потока, не поддерживает реконнект
+###
 
 
-
-class MasterServiceFork extends EE
+class MasterProcessFork extends EE
   constructor : (@conf)->
     Wrap @
     @ee = new EE
   init : =>
+    console.log 'fork',@conf
     _cluster = require 'cluster'
     _cluster.setupMaster {
       exec : @conf.exec
     }
-    @worker = _cluster.fork @conf.args
+    conf = "FORK":JSON.stringify(@conf)
+    @worker = _cluster.fork conf
     @worker.on 'exit', (code)=>
       return @emit 'restart',code if code
       @emit 'exit'
@@ -18,7 +23,8 @@ class MasterServiceFork extends EE
     @pid = @worker.process.pid
 
   send    : (msg,args...)=> @worker.send {msg,args}
-  receive : (args)=> @ee.on args...
+  receive : (args...)=>
+    @ee.on args...
   message : ({msg,args})=>
     throw new Error 'undefined msg received' unless msg?
     args ?= []
@@ -28,7 +34,8 @@ class MasterServiceFork extends EE
       when 'exit'   then @emit 'exit',    args...
       else               @ee.emit msg,args...
 
+  stop : =>
+    try @worker.kill()
 
-
-module.exports = MasterServiceFork
+module.exports = MasterProcessFork
 

@@ -1,15 +1,12 @@
 
-Services = require './services'
+MasterProcessManager = require './process/masterProcessManager'
 
 class Main
   constructor : ->
     Wrap @
   init : =>
-
-    Q().then =>
-      @services = new Services
-      @services.start 'compile'
-
+    @processManager = new MasterProcessManager()
+    yield @processManager.init()
 
 module.exports = Main
 

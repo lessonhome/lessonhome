@@ -88,10 +88,12 @@ global.Wrap = (obj,prot)->
   proto = prot
   proto ?= obj?.__proto__
   return unless proto?
-  proto.__wraped ?= {}
+  return if obj.__wraped
+  obj.__wraped = true
+  #proto.__wraped ?= {}
   for key,val of proto
-    if (typeof val=='function') && !proto.__wraped[key]
-      proto.__wraped[key] = true
+    if (typeof val=='function') #&& !proto.__wraped[key]
+      #proto.__wraped[key] = true
       do (key,val)->
         foo = ->
           args = arguments
@@ -118,12 +120,19 @@ global.Wrap = (obj,prot)->
             #obj?.emit? 'destruct',e
             throw e
           return q
-        proto[key] = foo
+        #proto[key] = foo
         obj[key] = foo if !prot?
         #c[key] = foo
         #c.constructor[key]     = foo
   #Wrap obj,proto.constructor.__super__ if proto?.constructor?.__super__?
-
+  unless obj.emit?
+    ee = new EE
+    for key,val of ee
+      if typeof val == 'function'
+        oldval = val
+        do (oldval)=>
+          val = (args)-> oldval.apply obj,args...
+      obj[key] = val
 
 global.lrequire = (name)-> require './lib/'+name
 
@@ -232,11 +241,11 @@ global.Exception = (e)=>
   str += e.stack        if e.stack?
   return str
 
-global.Watcher  = new (lrequire('watcher'))()
+#global.Watcher  = new (lrequire('watcher'))()
 
 class Lib
   constructor : ->
     Wrap @
   init : ->
-    Watcher.init()
+    #Watcher.init()
 module.exports = Lib
