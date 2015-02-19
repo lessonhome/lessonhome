@@ -17,7 +17,7 @@ class SlaveProcessMessanger
     id = global.SLAVEPROCESSMESSANGERID++
     defer = Q.defer()
     @ee.once 'query:'+id, (err,data)=>
-      defer.reject   err   if err?
+      defer.reject   ExceptionUnJson err   if err?
       defer.resolve  data
     @send 'query',id,args...
     return defer.promise

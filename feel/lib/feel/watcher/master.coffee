@@ -1,13 +1,13 @@
 
 
 
-class WatcherSlave
+class WatcherMaster
   constructor : ->
     Wrap @
   init : =>
-    console.log 'slave init'
+    console.log 'master init'
   watch : (foo)->
 
-module.exports = WatcherSlave
+module.exports = WatcherMaster
 
 

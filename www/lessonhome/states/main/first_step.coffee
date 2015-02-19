@@ -1,4 +1,5 @@
 
+
 class @main extends template './motivation_content'
   route : '/first_step'
   tags  : -> 'pupil:main_search'

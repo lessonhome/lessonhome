@@ -20,7 +20,8 @@ global.MASTERPROCESSUNIQID = 0  # uniq process id, saving when restart process
 
 class MasterProcess extends EE
   constructor : (@conf,@manager)->
-    @id   = global.MASTERPROCESSUNIQID++
+    @id       = global.MASTERPROCESSUNIQID++
+    @conf.processId  = @id
     @name = @conf.name
     Wrap @
     @conf.exec  = "feel/lib/feel/process/slaveProcessFork.js"

@@ -10,9 +10,10 @@ class ServiceSlaveManager
       self    : {}
       master  : {}
       others  : {}
-    @master = new SlaveProcessConnector()
-  init : ->
-    yield @master.__init()
+    @master = new SlaveProcessConnector 'masterManager'
+  init : =>
+    yield @master.init()
+
   nearest : (name)=>
     return @choose(@services.self   [name]).wrap if @services.self  [name]?[0]?
     return @choose(@services.master [name]).wrap if @services.master[name]?[0]?

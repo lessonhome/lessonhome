@@ -24,17 +24,17 @@ class SlaveProcessFork
 module.exports = SlaveProcessFork
 
 
-return
-###
-Lib = new (require '../lib')()
-_cluster = require 'cluster'
+##################################################
+
+#Lib = new (require '../lib')()
+#_cluster = require 'cluster'
 
 log = (msg)=>
-  console.log.apply console, ["process:#{process.env.name}:#{process.pid}", arguments...]
+  console.log.apply console, ["process:#{Main.conf.name}:#{Main.conf.processId}:#{process.pid}", arguments...]
 
 error = (msg)=>
   console.error "********************************************************"
-  console.error "EE:process:#{process.env.name}:#{process.pid}", arguments...
+  console.error "EE:process:#{Main.conf.name}:#{Main.conf.processId}:#{process.pid}", arguments...
   console.error "********************************************************"
 
 process.on 'uncaughtException', (e)=>
@@ -50,6 +50,7 @@ process.on 'SIGTERM', =>
   log "SIGTERM"
   process.exit 0
 
+###
 class Messenger extends EE
   constructor : ->
     @eemit  = => Messenger::emit.apply @,arguments

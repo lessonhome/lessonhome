@@ -82,7 +82,7 @@ _getCallerFile = ->
       if(currentfile != callerfile)
         return callerfile
   catch err
-  undefined
+    undefined
 
 global.Wrap = (obj,prot)->
   proto = prot
@@ -103,7 +103,12 @@ global.Wrap = (obj,prot)->
           else
             q = Q.then -> val.apply obj,args
           q = q.catch (e)->
-            e = new Error e unless _util.isError e
+            unless _util.isError e
+              e = JSON.stringify e unless typeof e == 'string'
+              ne = new Error()
+              ne.message = e
+              e = ne
+            e.message ?= ""
             e.message += "\n#{proto.constructor.name}::#{key}("
             na = []
             for a,i in args
@@ -113,7 +118,6 @@ global.Wrap = (obj,prot)->
               na.push a
             e.message += na.join(',')
             e.message += ");"
-
             #if key != 'destructor'
             #  if typeof obj.destructor == 'function'
             #    return obj.destructor(e)
@@ -240,7 +244,16 @@ global.Exception = (e)=>
   str += e.message+"\n" if e.message?
   str += e.stack        if e.stack?
   return str
-
+global.ExceptionJson = (e)=>
+  name    : e.name
+  message : e.message
+  stack   : e.stack
+global.ExceptionUnJson = (j)=>
+  e = new Error()
+  e.stack   = j.stack
+  e.message = j.message
+  e.name    = j.name
+  return e
 #global.Watcher  = new (lrequire('watcher'))()
 
 class Lib
