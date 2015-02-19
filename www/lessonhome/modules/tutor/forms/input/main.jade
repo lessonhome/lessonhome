@@ -1,9 +1,7 @@
 - placeholder = placeholder || "";
 - selector = selector || "";
-- id = id || "";
-.box(class=selector)
-  input(placeholder=placeholder)
-
-
-
-
+label(class=selector).unselect
+  if text
+    .text!=text
+  .box
+    input(placeholder=placeholder)

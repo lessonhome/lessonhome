@@ -13,10 +13,14 @@ class @main extends template '../fast_bid'
       status_phd : module 'tutor/forms/status_button' :
         selector : 'inactive'
         text : 'Кандидат наук'
-      experience : module 'tutor/forms/drop_down_list'
-      age_from : module 'tutor/forms/input'
-      age_to : module 'tutor/forms/input'
-      age_slider : module 'slider'
+      experience : module 'tutor/forms/drop_down_list':
+        text: 'опыт'
+      age_slider   : state '../slider_main' :
+        selector      : 'time_fast_bids'
+        start         : 'time_spend_bids'
+        start_text    : 'до'
+        measurement   : 'мин.'
+        selector_two  : 'fast_bids_spend'
       sex_man     : module 'tutor/forms/sex_button' :
         selector : 'man'
       sex_woman   : module 'tutor/forms/sex_button' :

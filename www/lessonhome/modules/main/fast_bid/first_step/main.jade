@@ -1,16 +1,14 @@
 
-mixin item (title, value, selector)
-  label(class=selector)
-    .title=title
-    .value!=value
+mixin item (value, selector)
+  .box(class=selector)!=value
+
+
 
 .info.unselect
-
-  +item('Имя :', name, 'name')
-  +item('Телефон :', phone, 'phone' )
-  +item('E-mail :', email, 'email')
-  +item('Предмет :', subject, 'subject')
-  +item('В какое время Вам звонить :', call_time, 'call_time')
-  +item('Комментарии', comments, 'comments')
-
+  +item(name, 'name')
+  +item(phone, 'phone' )
+  +item(email, 'email')
+  +item(subject, 'subject')
+  +item(call_time, 'call_time')
+  +item(comments, 'comments')
 .hint!= hint

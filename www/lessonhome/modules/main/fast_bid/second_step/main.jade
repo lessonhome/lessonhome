@@ -1,28 +1,18 @@
-mixin item (title, value, selector)
-  label(class=selector)
-    .title=title
-    .value!=value
+mixin item (value, selector)
+  .box(class=selector)!=value
+
+
+
 
 .info.unselect
+  +item(your_status, 'your_status')
+  +item(course, 'course')
+  +item(knowledge_level, 'knowledge_level')
 
-  +item('Ваш статус :', your_status, 'your_status')
-  +item('Курс :', course, 'course')
-  +item('Уровень знаний :', knowledge_level, 'knowledge_level')
-
-  .price
-    .title Цена одного занятия :
-    .value
-      .top
-        label.price_from
-          .title от
-          .value!= price_from
-        label.price_to
-          .title до
-          .value!= price_to
-      .bottom
-        .slider!= price_slider
+  .text_box
+    .title_price Цена одного занятия :
+  .price_slider_bids!=price_slider_bids
 
 
-  +item('Опишите цель :', goal, 'goal')
-
+  +item(goal, 'goal')
 .hint!= hint

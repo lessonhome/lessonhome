@@ -6,49 +6,61 @@ $check_small_width: image-width($check_small)
 $check_big: 'checkbox_big.png'
 $check_big_height: image-height($check_big)
 $check_big_width: image-width($check_big)
+
+
+$font_size: 18px
 main
   height: 100%
-  cursor: pointer
   position: relative
+label
+  cursor: pointer
+  display: block
+  width: 100%
+  height: 100%
+  div:not(.text)
+    +inline-block
+    margin-right: 11px
+    +border-radius(4px)
+    background-color: #fff
+    border: 3px solid rgb( 205, 205, 205 )
+    .check
+      display: none
+      height: 100%
+      width: 100%
+      position: absolute
+      top: 0
+      left: 0
+      box-sizing: border-box
+  .text
+    +inline-block
+    cursor: pointer
+    font-size: $font_size
+    color: #757575
+  ///////////// big //////////////////////
+  .big
+    width: $check_big_width
+    height: $check_big_height
+    .check
+      background: inline-image($check_big) no-repeat
 
-.big
-  background-color: #fff
-  width: $check_big_width
-  height: $check_big_height
-  border: 3px solid rgb( 205, 205, 205 )
-  border-radius: 4px
-  .check
-    display: none
-    height: 100%
-    width: 100%
-    position: absolute
-    top: 0
-    left: 0
+  ///////////// small //////////////////////
+  .small
+    width: $check_small_width
+    height: $check_small_height
     box-sizing: border-box
-    background: inline-image($check_big) no-repeat
+    .check
+      background: inline-image($check_small) no-repeat
 
-.small
-  background-color: #fff
-  width: $check_small_width
-  height: $check_small_height
-  box-sizing: border-box
-  border: 3px solid rgb( 205, 205, 205 )
-  border-radius: 4px
-  .check
-    display: none
-    height: 100%
-    width: 100%
-    position: absolute
-    top: 0
-    left: 0
-    background: inline-image($check_small) no-repeat
+  ////////////--------------action-----------///////////
+label
+  div
+    .check.active
+      display: block
 
-////////////--------------action-----------///////////
-div
-  .check.active
-    display: block
-
-main.hover>div, main:hover>div
-  border-color: #b3b3b3
+label:hover
+  .text
+    color: #000000
+  div:not(.text)
+    border-color: #b3b3b3
 
 

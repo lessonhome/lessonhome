@@ -9,7 +9,9 @@ class @main extends template '../preview'
         selector      : 'price_slider_top'
         start         : 'price'
         start_text    : 'от'
-        end           : 'price'
-        end_text      : 'до'
+        end         : module 'tutor/forms/input' :
+          selector  : 'price'
+          text      : 'до'
         measurement   : 'руб.'
-        selector_two  : 'selector_move'
+        handle        : true
+        selector_two  : 'top_move'
