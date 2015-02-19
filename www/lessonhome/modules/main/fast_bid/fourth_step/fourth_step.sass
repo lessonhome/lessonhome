@@ -1,32 +1,20 @@
 @import compass/css3
 
 $input_height: 37px
-$width: 339px
 
 main
   padding-bottom: 31px
   padding-top: 40px
   text-align: right
-
-div
+.info
   +inline-block
   vertical-align: top
-
-
-.info
-  label, div
-    text-align: left
-    $width: 339px
-
-  label
-    display: block
-    cursor: pointer
-
+  width: 339px
   div
     .title
+      text-align: left
       font-size: 16px
       color: #222528
-
   .status
     margin-bottom: 14px
     .title
@@ -40,42 +28,9 @@ div
         width: 142px
       .phd
         width: 140px
-
-
-
-  label.experience
+  .experience
+    text-align: left
     margin-bottom: 12px
-    .title
-      margin-bottom: 4px
-    .value
-      height: $input_height
-
-
-  .age
-    margin-bottom: 12px
-    .title
-      margin-bottom: 8px
-    .value
-      .top
-        label
-          +inline-block
-          cursor: pointer
-          div
-            +inline-block
-        label
-          .age_to, .age_from
-            width:  44px
-            height: $input_height
-          .title_from
-            margin-right: 6px
-          .title_to
-            margin-left:  5px
-            margin-right: 6px
-
-        label:first-child
-          padding-right: 4px
-      .bottom
-        margin-top: 6px
 
   .sex
     .title
@@ -91,6 +46,7 @@ div
         margin-right: 40px
 
 .hint
+  +inline-block
   text-align: left
   margin-left: 41px
   margin-right: 63px

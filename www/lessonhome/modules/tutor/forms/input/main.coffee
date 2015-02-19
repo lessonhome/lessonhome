@@ -2,5 +2,7 @@ class @main extends EE
   constructor : ->
   show : =>
     @box = @dom.find ".box"
-    @box.on 'mouseover', => @box.addClass 'hover'
-    @box.on 'mouseout', => @box.removeClass 'hover'
+    @input = @box.children "input"
+
+    @input.on 'focus', => @box.addClass 'focus'
+    @input.on 'focusout', => @box.removeClass 'focus'

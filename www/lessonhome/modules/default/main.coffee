@@ -8,9 +8,7 @@ Feel.Hovered = (obj,dom=obj.dom)->
     obj.emit? 'hover',false
 
 Feel.LabelHoverControl = (dom, val)->
-
   labels = dom.find 'label'
-
   for label in labels
     label = $(label)
     label_val = label.find(val)

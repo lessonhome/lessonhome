@@ -1,7 +1,9 @@
-div(class=selector)
+div.unselect(class=selector)
   .start!=start
   if dash
     .dash=dash
-  .end!=end
-  .measurement.unselect=measurement
-.move(class=selector_two)!=move
+  if end
+    .end!=end
+  if measurement
+    .measurement=measurement
+.move.unselect(class=selector_two)!=move
