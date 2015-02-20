@@ -2,73 +2,58 @@
 
 
 class Cursor
-  constructor : (@dom,@l,@r,@k)->
+  constructor : (@dom,@l,@r)->
+  init : (@lb,@rb)=>
+    @px @pos()
     @dom.on 'mousedown',@down
-    @k = @k/(@r-@l)
-  check : (x)=>
-    l = 0
-    r = 1
-    if @left?.get?
-      l = @left.get()
-    if @right?.get?
-      r = @right.get()
-    x = l if x < l
-    x = r if x > r
-    return x
+  x : (x)=>
+    return @_x unless x?
+    @_x = x if x?
+    lb = @lb?.x?()
+    lb ?= @lb
+    rb = @rb?.x?()
+    rb ?= @rb
+    @_x = lb if @_x < lb
+    @_x = rb if @_x > rb
+    @_px = @_x*(@r()-@l())+@l()
+    return @_x
+  px : (px)=>
+    @_px = px if px?
+    @x (@_px-@l())/(@r()-@l())
+    return @_px
   down : =>
-    @x = @get()
-    @sm = event.pageX
-    @sx = @get()
+    @sm   = event.pageX
+    @spx  = @px()
     $('body').on 'mousemove.slider', @move
     $('body').one 'mouseup', => $('body').off ".slider"
   move : =>
     @m = event.pageX
-    console.log @m-@sm,@sx
-    @x = @check (@m-@sm)*@k+@sx
-    console.log 'x',@x
-    @set @x
-    #@left_cursor_move(event.pageX - @start_cursor_position_left)
-    #@start_cursor_position_left = event.pageX
+    @px Math.sign(@r()-@l())*(@m-@sm)+@spx
+    @pos @px()
+  
 class @main extends EE
   show : =>
+    window.F = @
     @box_slider = @dom.find ".box_slider"
-    @slider = @box_slider.find ".slider"
-    @dom_left = @slider.find '.icon_cursor_left'
-    @dom_right = @slider.find '.icon_cursor_right'
+    @slider     = @box_slider.find ".slider"
+    @dom_left   = @slider.find '.icon_cursor_left'
+    @dom_right  = @slider.find '.icon_cursor_right'
+    
+    width = => @box_slider.width()-@dom_left.outerWidth()-@dom_right.outerWidth()
+    console.log 'width',width
+    @left   = new Cursor @dom_left,(=>0),width
+    @right  = new Cursor @dom_right,width,(=>0)
+    @left.pos   = (px)=>
+      return +@slider.css('margin-left').replace('px','') unless px?
+      @slider.css('margin-left',px)
+      return px
+    @right.pos  = (px)=>
+      return +@slider.css('margin-right').replace('px','') unless px?
+      @slider.css('margin-right',px)
+      return px
+    @left .init 0,@right
+    @right.init @left,1
 
-    @left   = new Cursor @dom_left,4,199,1
-    @right  = new Cursor @dom_right,28,222,(-1)
-
-    @left.right = @right
-    @right.left = @left
-
-    @left.get = =>
-      l = @left.l
-      r = @left.r
-      x = @box_slider.css('padding-left').replace('px', '') - l
-      x = x/(r-l)
-      return @left.x = x
-    @right.get = =>
-      l = @right.l
-      r = @right.r
-      x = @slider.width()-l
-      console.log 'get',(x/(r-l))+@left.get()
-      x =  (x/(r-l))+@left.get()
-      return @right.x = x
-    @left.set = (p)=>
-      l = @right.l
-      r = @right.r
-      @box_slider.css('padding-left', p*(r-l)+l+"px")
-      @slider.width (p+1-@right.x)*(@right.r-@right.l)
-      console.log 'lx,rx',@left.x,@right.x
-    @right.set = (p)=>
-      l = @right.l
-      r = @right.r
-      console.log 'rightset',p
-      console.log 'lx,rx',@left.x,@right.x
-      @slider.width (@left.x+1-p)*(r-l)
-    @left.get()
-    @right.get()
 ###
 
 
