@@ -1,10 +1,21 @@
 class @main extends EE
-  constructor : ->
   show : =>
-    @list = @dom.find ".drop_down_list"
+    @label = @dom.find "label"
+    @list = @label.find ".drop_down_list"
+    @input = @list.find "input"
 
-    @list.on 'mouseover', => @list.addClass 'hover'
-    @list.on 'mouseout', => @list.removeClass 'hover'
+
+    @input.on 'focus', =>
+      if @label.is '.filter_top'
+        @list.addClass 'filter_top_focus'
+      else
+        @list.addClass 'focus'
+
+    @input.on 'focusout', =>
+      if @label.is '.filter_top'
+        @list.removeClass 'filter_top_focus'
+      else
+        @list.removeClass 'focus'
 
 
 

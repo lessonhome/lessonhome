@@ -20,4 +20,4 @@ class @main
     button_onward        : module 'link_button'  :
       selector  : 'onward_block'
       text      : 'Далее'
-      #href      : @exports() #'link_back'
+      href      : @exports 'link_forward'

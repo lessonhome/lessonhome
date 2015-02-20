@@ -16,34 +16,35 @@ class @main extends template '../fast_bid'
       location_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      your_address : module 'tutor/forms/drop_down_list'
-      road_time_to : module 'tutor/forms/input'
-      road_time_slider : module '//slider'
-      calendar : module '//calendar' :
-        calendar_hint : module 'tutor/hint' :
-          selector : 'small'
-          text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      select_all : module 'tutor/forms/checkbox' :
-        selector : 'small'
-      time_entry_field : module '//time_entry_field' :
-        input_from : module 'tutor/forms/input' :
-          selector : 'edit_calendar'
-        input_to : module 'tutor/forms/input' :
-          selector : 'edit_calendar'
-        text_input : module 'tutor/forms/input' :
-          selector : 'edit_calendar'
-      add_button : module 'tutor/button' :
-        selector : 'add_smth'
-        text : '+'
-      lesson_duration : module 'tutor/forms/input'
-      slider : module '//slider' :
-        slider_hint : module 'tutor/hint' :
-          selector : 'small'
-          text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      lesson_duration_hint : module 'tutor/hint' :
-        selector : 'small'
-        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+      your_address : module 'tutor/forms/drop_down_list':
+        text: 'Ваш адрес :'
+        selector  : 'fast_bid'
+      time_spend_way   : state '../slider_main' :
+        selector      : 'way_fast_bids'
+        start         : 'time_spend_bids'
+        start_text    : 'до'
+        measurement   : 'мин.'
+        selector_two  : 'fast_bids_spend'
+      calendar        : module 'main/calendar' :
+        selector    : 'fast_bids'
+        choose_all  : module 'tutor/forms/checkbox'  :
+          text        : 'выбрать все'
+          selector  : 'small'
+        from_time     : module 'tutor/forms/input' :
+          selector  : 'calendar_fast_bids'
+          text      : 'с'
+        till_time     : module 'tutor/forms/input' :
+          selector  : 'calendar_fast_bids'
+          text      : 'до'
+        button_add    : module 'button_add' :
+          text      : '+'
       hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+      time_spend_lesson   : state '../slider_main' :
+        selector      : 'time_fast_bids'
+        start         : 'time_spend_bids'
+        start_text    : 'до'
+        measurement   : 'мин.'
+        selector_two  : 'fast_bids_spend'
   init : ->
     @parent.tree.filter_top.progress_bar.progress = 3
     @parent.tree.filter_top.footer.back_link = 'second_step'

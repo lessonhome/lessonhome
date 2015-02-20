@@ -1,33 +1,19 @@
 
 class @main extends EE
   show : =>
-    # gender button
-    @female = @tree.female.class
-    @male = @tree.male.class
-    @female.on 'active', => @male.disable()
-    @male.on 'active', => @female.disable()
-
     # change visibility show_hidden
     @sections = @dom.find '.section'
     for section in @sections
       section = $ section
       title  = section.find '.js-title'
       do (section)=>
-       title.click => @change_visibility section
+        title.click => @change_visibility section
 
-    #chandge color in select checkbox
-    @reviews = @dom.find ".with_reviews_text"
-    @verification = @dom.find ".with_verification_text"
-    @with_reviews = @tree.with_reviews.class
-    @with_verification = @tree.with_verification.class
-    @with_reviews.on 'active', =>
-      @reviews.addClass 'color'
-    @with_verification.on 'active', =>
-      @verification.addClass 'color'
-    @with_reviews.on 'inactive', =>
-      @reviews.removeClass 'color'
-    @with_verification.on 'inactive', =>
-      @verification.removeClass 'color'
+    # gender button
+    @female = @tree.female.class
+    @male   = @tree.male.class
+    @female.on 'active', @male.disable
+    @male.on 'active', @female.disable
 
     #select experience
     @experience = @dom.find '.js-experience>div'
@@ -49,33 +35,17 @@ class @main extends EE
 ############## function ##############
 
   change_background : (element)=>
-    if element.hasClass 'background'
-      element.removeClass 'background'
-      element.addClass 'hover'
+    if element.is '.background'
+      element.removeClass('background').addClass 'hover'
     else
-      element.addClass 'background'
-      element.removeClass 'hover'
+      element.addClass('background').removeClass 'hover'
 
 
   change_visibility : (element)=>
-    if element.hasClass 'showed'
+    if element.is '.showed'
       element.removeClass 'showed'
     else
       element.addClass 'showed'
 
 
-  disable : =>
-    if !@active then return
-    @active = false
-    @button.removeClass 'active'
-    @button.addClass 'inactive'
-    @emit 'disable'
 
-
-
-  click : =>
-    return if @active
-    @active = true
-    @button.removeClass 'inactive'
-    @button.addClass 'active'
-    @emit 'active'

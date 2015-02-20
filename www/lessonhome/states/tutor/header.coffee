@@ -9,8 +9,10 @@ class @main
         selector : module 'header'
         name        : module './forms/input'  :
           text : 'Имя'
+        placeholder : 'Ваше имя'
         tel_number  : module './forms/input'  :
           text : 'Телефон'
+        placeholder : 'Телефон'
         comments  : module './forms/textarea' :
           placeholder : 'Комментарий'
         pupil       : module '$/button_toggle' :
@@ -25,9 +27,9 @@ class @main
     button_in_out :  module '$/button_in_out' :
       title       : 'Выход'
       login       :  module './forms/input'  :
-        text : 'Логин'
-       password   :  module './forms/input'  :
-        text : 'Пароль'
+        placeholder : 'Логин'
+      password   :  module './forms/input'  :
+        placeholder : 'Пароль'
       enter       : module './button' :
         text  : 'Войти'
         selector      : 'in_out'

@@ -1,14 +1,27 @@
+
+###
+  actions:
+    show : ->
+###
+
 class @main extends EE
   show : =>
-    @click_box = @dom.find ".click_box"
-    @popup_box = @dom.find ".popup_box"
-    @.close_box = @dom.find ".close_box"
-    @click_box.on 'click', => @change_visibility(@popup_box)
-    @close_box.on 'click', => @change_visibility(@popup_box)
+    @button = @dom.find ".button"
+    @popup_box = @button.find ".popup_box"
+    @close_box = @popup_box.filter ".close_box"
+    @popupVisible = @popup_box.is ':visible'
+    @button.on 'click', @togglePopup
+    @close_box.on 'click', @hidePopup
 
-
-  change_visibility : (element)=>
-    if element.css('display') == 'none'
-      element.css('display', 'block' )
+  togglePopup : =>
+    @popupVisible = !@popupVisible
+    @popup_box.toggle @popupVisible
+    if @popupVisible
+      @emit 'showPopup'
     else
-      element.css('display', 'none' )
+      @emit 'hidePopup'
+  hidePopup : =>
+    return unless @popupVisible
+    @popupVisible = false
+    @popup_box.hide()
+    @emit 'hidePopup'

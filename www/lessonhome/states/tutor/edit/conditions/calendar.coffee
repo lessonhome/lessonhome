@@ -2,6 +2,7 @@ class @main extends template '../../../tutor'
   route : '/tutor/edit/calendar'
   model   : 'tutor/edit/conditions/calendar'
   title : "редактирование календарь"
+  tags : -> 'edit: conditions'
   tree  : =>
     items : [
       module 'tutor/header/button' : {
@@ -11,6 +12,7 @@ class @main extends template '../../../tutor'
       module 'tutor/header/button' : {
         title : 'Условия'
         href  : '/tutor/edit/subjects'
+        tag   : 'edit: conditions'
       }
     ]
     sub_top_menu : state 'tutor/sub_top_menu' :

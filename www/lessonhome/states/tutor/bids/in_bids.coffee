@@ -2,6 +2,7 @@ class @main extends template '../../tutor'
   route : '/tutor/in_bids'
   model   : 'tutor/bids/in_bids'
   title : "входящие заявки"
+  tags   : -> 'tutor:in_bids'
   tree : ->
     items : [
       module 'tutor/header/button' : {
@@ -11,6 +12,7 @@ class @main extends template '../../tutor'
       module 'tutor/header/button' : {
         title : 'Входящие'
         href  : '/tutor/in_bids'
+        tag   : 'tutor:in_bids'
       }
       module 'tutor/header/button' : {
         title : 'Исходящие'

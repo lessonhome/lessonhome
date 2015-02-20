@@ -7,7 +7,11 @@ class @main extends template '../preview'
       title : 'Выберите диапазон цены :'
       price_slider_top   : state '../slider_main' :
         selector      : 'price_slider_top'
-        start         : 'center_text'
-        end           : 'center_text'
+        start         : 'price'
+        start_text    : 'от'
+        end         : module 'tutor/forms/input' :
+          selector  : 'price'
+          text      : 'до'
         measurement   : 'руб.'
-        selector_two  : 'selector_move'
+        handle        : true
+        selector_two  : 'top_move'
