@@ -1,6 +1,5 @@
 
 
-
 class Cursor
   constructor : (@dom,@l,@r)->
   init : (@lb,@rb)=>
@@ -30,17 +29,16 @@ class Cursor
     @m = event.pageX
     @px Math.sign(@r()-@l())*(@m-@sm)+@spx
     @pos @px()
+
   
 class @main extends EE
   show : =>
-    window.F = @
     @box_slider = @dom.find ".box_slider"
     @slider     = @box_slider.find ".slider"
     @dom_left   = @slider.find '.icon_cursor_left'
     @dom_right  = @slider.find '.icon_cursor_right'
     
     @width = => 2*@box_slider.width()-@box_slider.outerWidth()-@dom_left.outerWidth()-@dom_right.outerWidth()
-    console.log 'width',@width()
     @left   = new Cursor @dom_left,(=>0),@width
     @right  = new Cursor @dom_right,@width,(=>0)
     @left.pos   = (px)=>

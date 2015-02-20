@@ -6,7 +6,7 @@ class @main
     icons     : @exports()
     back_call : module '$/back_call'  :
       callback_popup : module 'callback_popup' :
-        selector : module 'header'
+        selector : 'header'
         name        : module './forms/input'  :
           text : 'Имя'
         placeholder : 'Ваше имя'

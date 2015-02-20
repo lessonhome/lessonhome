@@ -3,6 +3,7 @@ $close_src: 'main/close_10x10.png'
 $close_height: image-height($close_src)
 $close_width: image-width($close_src)
 $triangle_src: 'main/triangle_33x18.png'
+$triangle_down_src: 'main/triangle_33x18down.png'
 $triangle_width: image-width($triangle_src)
 $triangle_height: image-height($triangle_src)
 $border_width: 1px
@@ -20,7 +21,12 @@ $border_width: 1px
   .triangle
     background: inline-image($triangle_src) no-repeat
 
-
+.footer
+  margin-top: -1px
+  text-align: center
+  .triangle
+    vertical-align: top
+    background: inline-image($triangle_down_src) no-repeat
 
 .popup
   margin-top: -$border_width
