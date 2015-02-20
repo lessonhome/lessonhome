@@ -1,19 +1,16 @@
-
 .info.unselect
   .status
     .title Статус :
     .value
-      .student!= status_student
-      .teacher!= status_teacher
-      .phd!= status_phd
+      .student!= student
+      .teacher!= teacher
+      .professor!= professor
+      .native!=native
   .experience!= experience
   .text_box
     .title Возраст :
   .age_slider!=age_slider
   .sex
     .title Пол :
-    .value
-      .sex_man!= sex_man
-      .sex_woman!= sex_woman
-
-.hint!= hint
+    .sex_man!= sex_man
+    .sex_woman!= sex_woman
