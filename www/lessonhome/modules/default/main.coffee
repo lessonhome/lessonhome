@@ -83,5 +83,7 @@ Feel.HideOnOutsideAreaClick = (container)->
       if container.has(e.target).length == 0 then container.hide()
 
 
+Feel.InputPhoneMask = ()->
+  @input
 
 
