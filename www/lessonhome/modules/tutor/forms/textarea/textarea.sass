@@ -1,37 +1,63 @@
 @import compass/css3
-
+$font_size: 20px          // text inside input
+$_font_size: 18px         // label text
+$padding: 8px
 main
   height: 100%
-
-textarea
-  padding: 0 8px
-  outline: none
-  resize: none
-  border: 2px solid rgb( 214, 214, 214 )
-  border-radius: 8px
-  background-color: rgb( 255, 255, 255 )
-
-  max-width: 100%
+label
   width: 100%
-  box-sizing: border-box
+  +inline-block
+  .text
+    font-size: $_font_size
+    +inline-block
+    cursor: pointer
+    color: #000000
+  textarea
+    padding: $padding
+    outline: none
+    resize: none
+    border: 2px solid rgb( 214, 214, 214 )
+    +border-radius(4px)
+    background-color: rgb( 255, 255, 255 )
+    max-width: 100%
+    width: 100%
+    box-sizing: border-box
+    font-size: $font_size
+    color: rgb(0, 0, 0)
+    font-family: inherit
+    +input-placeholder
+      font-size: $font_size
+      color: #848484
 
-  font-size: 20px
-  color: rgb(0, 0, 0)
-  font-family: inherit
+  ////////////---------fast_bids-----------//////////
+$_font_size: 16px
+$font_size: 18px
+.fast_bid
+  text-align: left
+  .text
+    font-size: $_font_size
+    margin-bottom: 3px
+  textarea
+    font-size: $font_size
 
-  +input-placeholder
-    font-size: 20px
-    font-family: 'Open Sans', sans-serif
-    color: #848484
 
-textarea:focus
-  border: 2px solid rgb( 137, 209, 255 )
 
-.hover
-  border: 2px solid #b3b3b3
 
-textarea.edit_settings
-  +input-placeholder
-    font-size: 16px
-    font-family: 'Open Sans', sans-serif
-    color: #757575
+  //////////////////////////////
+.edit_settings
+  textarea
+    +input-placeholder
+      font-size: 16px
+      color: #757575
+
+
+
+  ///////////----action------//////////
+
+label:hover
+  textarea
+    border: 2px solid #b3b3b3
+
+label
+  textarea:focus
+    border: 2px solid rgb( 137, 209, 255 )

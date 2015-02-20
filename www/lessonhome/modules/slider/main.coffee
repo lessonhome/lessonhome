@@ -39,10 +39,10 @@ class @main extends EE
     @dom_left   = @slider.find '.icon_cursor_left'
     @dom_right  = @slider.find '.icon_cursor_right'
     
-    width = => @box_slider.width()-@dom_left.outerWidth()-@dom_right.outerWidth()
-    console.log 'width',width
-    @left   = new Cursor @dom_left,(=>0),width
-    @right  = new Cursor @dom_right,width,(=>0)
+    @width = => 2*@box_slider.width()-@box_slider.outerWidth()-@dom_left.outerWidth()-@dom_right.outerWidth()
+    console.log 'width',@width()
+    @left   = new Cursor @dom_left,(=>0),@width
+    @right  = new Cursor @dom_right,@width,(=>0)
     @left.pos   = (px)=>
       return +@slider.css('margin-left').replace('px','') unless px?
       @slider.css('margin-left',px)

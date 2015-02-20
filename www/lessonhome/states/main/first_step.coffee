@@ -19,7 +19,7 @@ class @main extends template './motivation_content'
         id        : ''
         text      : ''
         close     : true
-      href    :  module '../selected_tag'#'/second_step'
+      link_forward    :  '/second_step'
 
 
     info_panel  : state './info_panel'  :

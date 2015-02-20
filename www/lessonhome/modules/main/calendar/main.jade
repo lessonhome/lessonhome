@@ -1,25 +1,20 @@
-.choose_block
-  .choose_all!=choose_all
-  .title выбрать все
-.calendar_week(class = selector)
-  .monday.hover пн
-  .tuesday.hover вт
-  .wednesday.hover ср
-  .thursday.hover чт
-  .friday.hover пт
-  .saturday.hover сб
-  .sunday.hover вс
-.js-show-hidden-block
-  .time_box
-    label
-      .from с
+.calendar_box(class = selector)
+  .choose_all!= choose_all
+  .calendar_week
+    .monday.hover пн
+    .tuesday.hover вт
+    .wednesday.hover ср
+    .thursday.hover чт
+    .friday.hover пт
+    .saturday.hover сб
+    .sunday.hover вс
+  .js-show-hidden-block
+    .time_box
       .from_time!=from_time
-    label
-      .till до
       .till_time!=till_time
-    .close_box
-      .close
-  .button_add!=button_add
+      .close_box
+        .close
+    .button_add!=button_add
 
 
 

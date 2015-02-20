@@ -1,39 +1,64 @@
 @import compass/css3
-.lesson_price
-  padding: 0 3px
+main
+div
+  height: 33px
   .start, .end
-    width: 80px
-    height: 32px
-.lesson_time
-  .start, .end
-    width: 55px
-    height: 32px
-.lesson_price, .lesson_time
+    height: 100%
   .dash
     padding: 0 8px
   .measurement
     padding-left: 11px
-  .start, .end, .dash, .measurement
-    +inline-block
 .move
-  margin-top: 15px
+  width: 100%
   height: 37px
-.price_slider_top
-  .start, .end
-    height: 55px
-    width: 116px
-    margin-left: 15px
-  .start
-    margin-right: 15px
-  .dash
-    padding: 0 8px
-  .measurement
-    padding-left: 11px
+  +inline-block
+
+
+
+
+
+//////////////////////
+.lesson_time, .lesson_price
+  text-align: center
   .start, .end, .dash, .measurement
     +inline-block
-.move.selector_move
+.advance_move
   margin-top: 15px
+
+
+///////////////////////
+.time_fast_bids, .way_fast_bids
+  text-align: left
+  height: 37px
+  padding-right: 3px
+  +inline-block
+  .start, .end, .dash, .measurement
+    +inline-block
+.fast_bids_spend
+  width: 210px
+/////////////////////////
+.price_slider_top
+  height: 55px
+  .start, .end
+    padding: 0 5px
+    font-size: 24px
+  .start, .end, .dash, .measurement
+    +inline-block
+.top_move
   width: 355px
-  display: inline-block
+  margin-top: 15px
   margin-bottom: 30px
 
+////////////////////////////
+
+.price_slider_bids
+  text-align: center
+  .start, .end
+    padding: 0 5px
+  .measurement
+    padding-left: 9px
+    font-size: 18px
+  .start, .end, .dash, .measurement
+    +inline-block
+.bids_move
+  margin-top: 14px

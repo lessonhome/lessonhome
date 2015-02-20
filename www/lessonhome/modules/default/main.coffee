@@ -1,8 +1,14 @@
 
+Feel.Hovered = (obj,dom=obj.dom)->
+  dom.on 'mouseover', =>
+    dom.addClass     'hover'
+    obj.emit? 'hover',true
+  dom.on 'mouseout',  =>
+    dom.removeClass  'hover'
+    obj.emit? 'hover',false
+
 Feel.LabelHoverControl = (dom, val)->
-
   labels = dom.find 'label'
-
   for label in labels
     label = $(label)
     label_val = label.find(val)
