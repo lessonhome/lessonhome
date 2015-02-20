@@ -19,6 +19,19 @@ a
       +inline-block
       padding: 0 13px
 
+  .button.active
+    background-color: rgb( 240, 123, 111 )
+    box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
+    .text
+      color: #fff
+
+  .button:after
+    content: ''
+    +inline-block
+    height: 100%
+
+  .button.inactive:hover
+    background-color: $RedHoverColor
 
 /////////-------top filter-------/////////
 a
@@ -39,19 +52,3 @@ a
     +inline-block
     height: 100%
 
-
-////////////////-------active--------////////////////
-
-  .button.active
-    background-color: rgb( 240, 123, 111 )
-    box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-    .text
-      color: #fff
-
-  .button:after
-    content: ''
-    +inline-block
-    height: 100%
-
-  .button.inactive:hover
-    background-color: $RedHoverColor

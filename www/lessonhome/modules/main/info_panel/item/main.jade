@@ -1,0 +1,12 @@
+mixin R(v)
+  - v = v.replace(/\s/g, '&nbsp;')
+  .item!= v
+
+.title= title
+  .hidden
+    .box_menu
+      .triangle_box
+        .triangle
+      .menu
+        each value in list
+          +R(value)
