@@ -150,20 +150,19 @@ $_font_size: 16px
 .fast_bid
   .text
     float: left
-    margin-bottom: 10px
+    padding-bottom: 10px
     font-size: $_font_size
   .box
-    height: 38px
+    height: 37px
 
 
 /////////// fast bids time_spend_bids  /////////
 
 $font_size: 18px
 $_font_size: 18px
-$padding: 2px
 .time_spend_bids
   .text
-    margin-right: 3px
+    padding-right: 3px
     font-size: $_font_size
   .box
     padding: 0 $padding
@@ -189,7 +188,7 @@ $padding: 2px
   //- --------------------- SMALL RADIUS -----------------------------------
 .small_radius
   .box
-    border-radius: 4px
+    +border-radius(4px)
 
 
   //- ----------------------- EDIT : CALENDAR ---------------------------------
@@ -198,14 +197,16 @@ $padding: 2px
     border-color: rgb( 202, 211, 218 )
 
 
-  //- ------------------------ MAIN :CHECK IN -----------------------------------------------
+  //- ------------------------ MAIN :CHECK IN --------------------
 .main_check_in
+  .text
+    padding-bottom: 10px
   .box
+    height : 39px
+    input
+
     +input-placeholder
       color: #cbd3da
-      font-size: $font_size
-
-
 
 
 

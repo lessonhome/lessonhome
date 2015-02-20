@@ -9,7 +9,13 @@ class @main
       href : 'invite_teacher'
       text : 'репетитор'
       selector:  @exports()
-    friend_name   : module 'tutor/forms/input'
-    friend_email  : module 'tutor/forms/input'
-    your_name     : module 'tutor/forms/input'
+    friend_name   : module 'tutor/forms/input':
+      text      : 'Имя друга :'
+      selector  : 'fast_bid'
+    friend_email  : module 'tutor/forms/input':
+      text      : 'E-mail друга :'
+      selector  : 'fast_bid'
+    your_name     : module 'tutor/forms/input':
+      text      : 'Ваше имя :'
+      selector  : 'fast_bid'
     invite_button : module '//invite_button'
