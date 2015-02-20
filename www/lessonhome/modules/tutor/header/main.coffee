@@ -2,8 +2,8 @@ class @main extends EE
   show : =>
     @backCall_t = @tree.back_call
     @backCall   = @backCall_t.class
-    @pupil      = @backCall_t.pupil.class
-    @tutor      = @backCall_t.tutor.class
+    @pupil      = @backCall_t.callback_popup.pupil.class
+    @tutor      = @backCall_t.callback_popup.tutor.class
     @inOut      = @tree.button_in_out.class
 
     @pupil.on 'active', @tutor.disable

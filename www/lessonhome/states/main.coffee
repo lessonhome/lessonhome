@@ -61,3 +61,22 @@ class @main
     content     : @exports()
     footer : module 'footer' :
       logo : module 'tutor/header/logo'
+      callback_popup : module 'callback_popup' :
+        selector : 'footer'
+        name        : module 'tutor/forms/input'  :
+          text : 'Имя'
+        placeholder : 'Ваше имя'
+        tel_number  : module 'tutor/forms/input'  :
+          text : 'Телефон'
+        placeholder : 'Телефон'
+        comments  : module 'tutor/forms/textarea' :
+          placeholder : 'Комментарий'
+        pupil       : module 'tutor/header/button_toggle' :
+          text   : 'Я ученик'
+          selector      : 'call_back_pupil inactive'
+        tutor       : module 'tutor/header/button_toggle' :
+          text  : 'Я репетитор'
+          selector      : 'call_back_tutor inactive'
+        order_call  : module 'tutor/button' :
+          text  : 'Заказать звонок'
+          selector      : 'call_back'

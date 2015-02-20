@@ -7,6 +7,7 @@ class @main
     address_input       : @exports()
     list_subject        : @exports()
     choose_subject      : @exports()
+    empty_choose_subject: @exports()
     price_slider_top    : @exports()
     button_back         : module 'link_button'  :
       selector  : 'subject_back'

@@ -143,8 +143,15 @@ main
         .phone
           line-height: initial
         .callback
-          a
+          position: relative
+          .click_box
             display: block
             cursor: pointer
             font-size: 14px
             color: #d5796e
+          .popup_box
+            display: none
+            position: absolute
+            left: -121px
+            top: -396px
+            cursor: default
