@@ -46,10 +46,12 @@ class @main extends EE
     @left.pos   = (px)=>
       return +@slider.css('margin-left').replace('px','') unless px?
       @slider.css('margin-left',px)
+      @emit 'left_slider_move', px
       return px
     @right.pos  = (px)=>
       return +@slider.css('margin-right').replace('px','') unless px?
       @slider.css('margin-right',px)
+      @emit 'right_slider_move'
       return px
     @left .init 0,@right
     @right.init @left,1
