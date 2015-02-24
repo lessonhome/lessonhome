@@ -4,7 +4,7 @@
 ###
 
 Service   = require '../service/service'
-ServiceSlaveManager = require '../service/serviceSlaveManager'
+SlaveServiceManager = require '../service/slaveServiceManager'
 Messanger = require './slaveProcessMessanger'
 
 class SlaveProcessFork
@@ -14,12 +14,14 @@ class SlaveProcessFork
     @conf   = JSON.parse process.env.FORK
     @messanger = new Messanger()
     yield @messanger.init()
-    @serviceManager = new ServiceSlaveManager()
     @messanger.send 'ready'
+    @serviceManager = new SlaveServiceManager()
     yield @serviceManager.init()
-
-    service = new Service @conf
-    @service = yield service.init()
+     
+    if @conf.services
+      qs = for name in @conf.services
+        @serviceManager.start name
+      yield Q.all qs
 
 module.exports = SlaveProcessFork
 

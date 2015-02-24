@@ -33,24 +33,17 @@ class module.exports
     @domain   = require 'domain'
     @context  = @domain.create()
     @context.on 'error', @onerror
-  init : => Q.then =>
-    Lib.init()
-    .then =>
-      Main = require "./main"
-      @main = new Main()
-      @main.init()
-    .catch (e)=>
-      error 'main class handle',Exception e
-      process.exit 1
+  init : =>
+    yield Lib.init()
+    Main_ = require "./main"
+    @main = new Main_()
+    global.Main = @main
+    yield @main.init()
   onerror : (err)=>
     try
       error 'main domain handle',Exception err
       process.exit 1
-  run : ->
-    Q.then =>
-      log "run()"
-    .catch (e)=>
-      error 'main class handle', Exception e
-      process.exit 1
+  run : =>
+    log "run()"
 
 

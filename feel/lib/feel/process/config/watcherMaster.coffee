@@ -1,9 +1,7 @@
 
 
-@bin          = 'watcher/master'
-@restart      = true
-@masterstart  = true
-@slavestart   = false
-@multiple     = false
+@services     = ['watcher/master']
+@autostart    = true
+@single       = true
 
 

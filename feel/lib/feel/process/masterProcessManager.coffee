@@ -26,14 +26,16 @@ class MasterProcessManager
       continue unless m = name.match /^(\w+)\.coffee$/
       @config[m[1]] = require("./config/#{name}")
       @config[m[1]].name = m[1]
+  run : =>
     qs = []
     for name,conf of @config
-      if conf.masterstart
+      if conf.autostart
         qs.push @runProcess conf
     Q.all qs
   getProcess : (id)=> @processById[id]
   runProcess : (conf)=>
     @process[conf.name] ?= []
+    return if (@process[conf.name].length>0)&&(conf.single)
     s = new MasterProcess conf,@
     @process[conf.name].push s
     @processById[s.id] = s

@@ -5,12 +5,12 @@ global.MASTERPROCESSCONNECTORID = 0
 
 ###
 # conf:
-#   type: 'masterManager'
+#   type: 'masterProcessManager'
 #
 ###
 
 class MasterProcessConnector
-  constructor : (@conf,@manager,@process)->
+  constructor : (@conf,@process)->
     @id = global.MASTERPROCESSCONNECTORID++
     @dataArray = {
       functions : []
@@ -21,11 +21,13 @@ class MasterProcessConnector
     Wrap @
   init : =>
     switch @conf.type
-      when 'masterManager'
-        @target = @manager
+      when 'masterProcessManager'
+        @target = Main.processManager
+      when 'masterServiceManager'
+        @target = Main.serviceManager
       else
         throw new Error 'bad description of processConnector'
-    for key,val of @manager
+    for key,val of @target
       if typeof val == 'function'
         @dataArray.functions.push key
       else
