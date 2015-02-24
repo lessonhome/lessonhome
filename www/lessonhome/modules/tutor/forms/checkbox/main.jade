@@ -1,2 +1,6 @@
-div(class=selector)
-.check
+- selector = selector || 'big'
+label
+  div(class=selector)
+    .check
+  if text
+    .text!=text

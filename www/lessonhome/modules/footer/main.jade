@@ -18,9 +18,9 @@ mixin item(title, link)
     .logo!= logo
     .company_name &copy 2014 Lessonhome.ru
   .dashed_line
-  .center_block
-    +item('Поиск', '#')
-    +item('Оформить заявку', '#')
+  .center_block.unselect
+    +item('Поиск', '/first_step')
+    +item('Оформить заявку', '/fast_bid/first_step')
     +item('Документы', '#')
     +item('Помощь', '#')
   .dashed_line
@@ -36,5 +36,6 @@ mixin item(title, link)
       .value
         .phone 8 (666)-555-88-77
         .callback
-         a Заказать звонок
+         .click_box Заказать звонок
+         .popup_box!= callback_popup
 

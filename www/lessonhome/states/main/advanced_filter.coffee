@@ -8,34 +8,38 @@ class @main
         text      : 'ЕГЭ'
         close     : true
       calendar        : module './calendar' :
-        choose_all      : module 'tutor/forms/checkbox':
-          selector        : 'time'
+        selector    : 'advance_filter'
+        choose_all  : module 'tutor/forms/checkbox'  :
+          text        : 'выбрать все'
+          selector  : 'small'
         from_time     : module 'tutor/forms/input' :
-          selector      : 'center_text'
+          selector  : 'calendar'
+          text      : 'с'
         till_time     : module 'tutor/forms/input' :
-          selector      : 'center_text'
-        button_add    : module 'tutor/button' :
-          selector      : 'add_time'
-          text          : '+'
+          selector  : 'calendar'
+          text      : 'до'
+        button_add    : module 'button_add' :
+          text      : '+'
       time_spend_lesson   : state './slider_main' :
-        selector    : 'lesson_time'
-        start       : 'center_text'
-        end         : 'center_text'
-        measurement : 'мин.'
-        dash        : '-'
+        selector      : 'lesson_time'
+        start         : 'time_spend'
+        measurement   : 'мин.'
+        selector_two  : 'advance_move'
+        handle        : true
       time_spend_way   : state './slider_main' :
-        selector    : 'lesson_time'
-        start       : 'center_text'
-        end         : 'center_text'
-        measurement : 'мин.'
-        dash        : '-'
-      female            : module 'tutor/button' :
-        selector          : 'female'
-        text              : 'Ж'
-      male              : module 'tutor/button' :
-        selector          : 'male'
-        text              : 'М'
-      with_reviews      : module 'tutor/forms/checkbox':
-        selector          : 'time'
-      with_verification : module 'tutor/forms/checkbox':
-        selector          : 'time'
+        selector      : 'lesson_time'
+        start         : 'time_spend'
+        measurement   : 'мин.'
+        selector_two  : 'advance_move'
+        handle        : true
+      female            : module 'gender_button' :
+        selector    : 'female'
+      male              : module 'gender_button' :
+        selector    : 'male'
+      with_reviews      : module 'tutor/forms/checkbox'  :
+        text      : 'С отзывами'
+        selector  : 'small'
+
+      with_verification : module 'tutor/forms/checkbox'  :
+        text      : 'Верифицированные'
+        selector  : 'small'

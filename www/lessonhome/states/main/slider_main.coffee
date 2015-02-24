@@ -1,11 +1,13 @@
 class @main
   tree : => module '$' :
-    selector  : @exports()
-    start     : module 'tutor/forms/input' :
+    selector      : @exports()
+    start         : module 'tutor/forms/input' :
       selector  : @exports 'start'
-    end       : module 'tutor/forms/input' :
-      selector  : @exports 'end'
-    dash        : @exports()
-    measurement : @exports()
-    move     : module '../slider'
+      text      : @exports 'start_text'
+    # if us end(second input) determine selector and text in parent module
+    end           : @exports()
+    dash          : @exports()
+    measurement   : @exports()
+    move          : module '../slider':
+      handle    : @exports()
     selector_two  : @exports()

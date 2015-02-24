@@ -1,43 +1,38 @@
 @import compass/css3
-$width : 339px
 main
-  background : inline-image('main/filter_top.jpg')
-  text-align : center
-
+  background: inline-image('main/filter_top.jpg')
+  text-align: center
 .center_block
   +inline-block
-  width : 518px
+  width: 518px
+  text-align: center
   .header
-    margin-top    : 62px
-    margin-bottom : 39px
-    line-height : 36px
-    font-size   : 30px
-    font-family : 'Open Sans', sans-serif
-    color       : #222528
-    letter-spacing : -1.5px
-
-  .block
-    text-align : center
-    margin-bottom : 12px
-    div
-      +inline-block
-      width  : $width
-    .title
-      margin-bottom : 8px
-      text-align    : left
-      font-size     : 15.97px
-      color         : #222528
-      font-family   : 'Open Sans', sans-serif
-    .value
-      height : 37px
-
-
-
-  .bottom
+    margin-top: 62px
+    margin-bottom: 39px
+    line-height: 36px
+    font-size: 30px
+    color: #222528
+    letter-spacing: -1.5px
+  .block.toggle
     +inline-block
-    text-align : center
-    width : $width
-    margin-top    : 17px
-    margin-bottom : 63px
+    width: 339px
+    .title
+      margin-bottom: 8px
+      text-align: left
+      font-size: 16px
+      color: #222528
+    .value
+      height: 37px
+      padding-bottom: 10px
+      text-align: left
+      .pupil_toggle, .tutor_toggle
+        +inline-block
+        height: 100%
+      .pupil_toggle
+        margin-right: 28px
+    .friend_name, .friend_email, .your_name
+      padding: 7px 0
     .invite_button
+      margin-top: 23px
+      margin-bottom: 63px
       +inline-block

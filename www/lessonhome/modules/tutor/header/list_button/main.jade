@@ -1,15 +1,18 @@
+
 mixin R(t)
   - t = t.replace(/\s/g, '&nbsp;')
   .title!= t
 .visible
-  a(href= href)
-    .title= title
+  if $pageTag(tag)
+    a(href= href)
+      .title.active= title
+  else
+    a(href= href).hover
+      .title= title
   .hidden
     .box_menu
       .triangle_box
         .triangle
       .menu
-        each h,t in list
-          a(href= h)
-            +R(t)
-
+        each value in list
+          !=value

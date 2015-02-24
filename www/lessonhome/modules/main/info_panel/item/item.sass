@@ -1,0 +1,53 @@
+@import compass/css3
+$font-size: 16px
+$triangle_src: 'main/triangle_33x18.png'
+$triangle_width: image-width($triangle_src)
+$triangle_height: image-height($triangle_src)
+$border_width: 1px
+$color_text: #757575
+
+.title
+  position: relative
+
+  .hidden
+    position: absolute
+    z-index: 1
+    margin-top: -10px
+    left: 50%
+    //top: 80px - $triangle_height
+    display: none
+    .box_menu
+      position: relative
+      left: -50%
+      .triangle_box
+        line-height: initial
+        text-align: center
+        .triangle
+          +inline-block
+          vertical-align: bottom
+          width: $triangle_width
+          height: $triangle_height
+          background: inline-image($triangle_src) no-repeat
+      .menu
+        line-height: initial
+        text-align: center
+        padding: 5px 15px 10px 15px
+        margin-top: -$border_width
+        border: $border_width solid #cccccc
+        background: white
+        .item
+          display: block
+          height: 100%
+          width: 100%
+          color: $color_text
+
+          line-height: 32px
+          font-size: 16px
+        .item:hover
+          color: #000000
+
+
+.title:hover
+  color: black
+  .hidden
+    display: block

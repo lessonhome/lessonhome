@@ -2,6 +2,7 @@ class @main extends template '../../tutor'
   route : '/tutor/out_bids'
   model   : 'tutor/bids/out_bids'
   title : "исходящие заявки"
+  tags   : -> 'tutor:out_bids'
   tree : ->
     items : [
       module 'tutor/header/button' : {
@@ -15,6 +16,7 @@ class @main extends template '../../tutor'
       module 'tutor/header/button' : {
         title : 'Исходящие'
         href  : '/tutor/out_bids'
+        tag   : 'tutor:out_bids'
       }
       module 'tutor/header/button' : {
         title : 'Отчёты'
@@ -30,7 +32,7 @@ class @main extends template '../../tutor'
                 так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
 
       select_all_checkbox : module 'tutor/forms/checkbox' :
-        selector : 'bid'
+        selector : 'small'
       select_all_list     : module 'tutor/forms/drop_down_list'
       subject : module 'tutor/forms/drop_down_list'
 
@@ -50,7 +52,7 @@ class @main extends template '../../tutor'
           module '//bid' :
             selectable   : true
             checkbox  : module 'tutor/forms/checkbox' :
-              selector : 'bid'
+              selector : 'small'
 
             number    : 25723
             date      : "10 ноября"

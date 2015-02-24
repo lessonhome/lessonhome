@@ -3,26 +3,32 @@ $triangle_left_src: 'main/triangle_left.png'
 $triangle_right_src: 'main/triangle_right.png'
 $triangle_height: image-height($triangle_left_src)
 $triangle_width: image-width($triangle_left_src)
-$padding: 6px
+$padding: 2px
+$padding_box: 6px
 .box_slider
+  position: relative
   height: 37px
-  padding: $padding
   box-sizing: border-box
   border: 2px solid #cad3da
   border-radius: 4px
   background-color: #fff
   .slider
-    height: 100%
+    top: $padding
+    bottom: $padding
+    position: absolute
+    left: $padding
+    right: $padding
     overflow: hidden
     border-radius: 4px
     background-color: #f07b6f
     .icon_cursor_left
       float: left
+    .icon_cursor_right
+      float: right
     .icon_cursor_left, .icon_cursor_right
       height: 100%
-      width: 10px
+      padding: 0  $padding_box
       cursor: pointer
-      padding-left: $padding
       .icon_left, .icon_right
         width: $triangle_width
         height: $triangle_height
@@ -33,8 +39,7 @@ $padding: 6px
         background: inline-image($triangle_left_src) no-repeat
       .icon_right
         background: inline-image($triangle_right_src) no-repeat
-    .icon_cursor_right
-      float: right
+
 
 
 

@@ -1,15 +1,10 @@
-.info_panel_block(class=selector)
+.info_panel_block.unselect(class=selector)
   if math
-    .box_math.js-button
-      .math= math
-    .box_natural_research.js-button
-      .natural_research= natural_research
-    .box_philology.js-button
-      .philology= philology
-    .box_foreign_languages.js-button
-      .foreign_languages= foreign_languages
-    .box_others.js-button
-      .others= others
+    .box_math.js-button!= math
+    .box_natural_research.js-button!= natural_research
+    .box_philology.js-button!= philology
+    .box_foreign_languages.js-button!= foreign_languages
+    .box_others.js-button!= others
 
   if subject
     .box_advanced_search.js-button

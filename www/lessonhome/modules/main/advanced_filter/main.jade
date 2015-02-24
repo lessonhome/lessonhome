@@ -1,44 +1,63 @@
-.section
-  .course
-    .m-icon
-    .m-title Курс
-  .list_course!=list_course
-  .add_course_block
-    .add_course!=add_course
-.section
-  .timetable
-    .m-icon
-    .m-title Расписание
-  .calendar!=calendar
-.section
-  .time_one_lesson
-    .m-icon
-    .m-title Время одного занятия
-  .time_spend_lesson!=time_spend_lesson
-.section
-  .time_to_way
-    .m-icon
-    .m-title Время на дорогу
-  .time_spend_way!=time_spend_way
-.section
-  .experience
-    .m-icon
-    .m-title Опыт
-  .little 1-2 года
-  .big 3-4 года
-  .bigger более 4 лет
-  .no_experience нет опыта
-.section
-  .sex
-    .m-icon
-    .m-title Пол
-  .sex_button
-    .female!=female
-    .male!=male
-.section
-  .reviews_block
-    .with_reviews!=with_reviews
-    .with_reviews_text C отзывами
-  .verification_block
-    .with_verification!=with_verification
-    .with_verification_text Верифицированные
+.section.unselect
+  .course.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Курс
+  .show_hidden
+    .list_course!=list_course
+    .add_course_block
+      .add_course!=add_course
+.section.unselect
+  .timetable.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Расписание
+  .show_hidden
+    .calendar!=calendar
+.section.unselect
+  .time_one_lesson.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Время одного занятия
+  .show_hidden
+    .time_spend_lesson!=time_spend_lesson
+.section.unselect
+  .time_to_way.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Время на дорогу
+  .show_hidden
+    .time_spend_way!=time_spend_way
+.section.unselect
+  .experience.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Опыт
+  .show_hidden
+    .js-experience
+      .little.hover
+        .text 1-2 года
+      .big.hover
+        .text 3-4 года
+      .bigger.hover
+        .text более 4 лет
+      .no_experience.hover
+        .text не важно
+.section.unselect
+  .sex.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Пол
+  .show_hidden
+    .sex_button
+      .female!=female
+      .male!=male
+.section.unselect
+  .reviews_block!=with_reviews
+  .verification_block!=with_verification

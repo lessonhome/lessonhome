@@ -1,37 +1,55 @@
 .section
-  .course
-    .m-icon
-    .m-title Курс
-  .list_course!=list_course
-  .add_course_block
-    .add_course!=add_course
-// down section same module in lesson_time, do one state for they later
+  .course.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Курс
+  .show_hidden
+    .list_course!=list_course
+    .add_course_block
+      .add_course!=add_course
+// TODO: down section same module in lesson_time, do one state for they later
 .section
-  .price_of_lesson
-    .m-icon
-    .m-title Цена одного занятия
-  .price_of_lesson_block!=price_of_lesson
+  .price_of_lesson.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Цена одного занятия
+  .show_hidden
+    .price_of_lesson_block!=price_of_lesson
 .section
-  .pupil
-    .m-icon
-    .m-title Категория ученика
-  .list_course!=list_pupil
-  .add_course_block
-    .add_course!=add_pupil
+  .pupil.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Категория ученика
+  .show_hidden
+    .list_course!=list_pupil
+    .add_course_block
+      .add_course!=add_pupil
 .section
-  .timetable
-    .m-icon
-    .m-title Расписание
-  .calendar!=calendar
+  .timetable.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Расписание
+  .show_hidden
+    .calendar!=calendar
 .section
-  .time_one_lesson
-    .m-icon
-    .m-title Время одного занятия
-  .lesson_time_block!=time_spend_lesson
+  .time_one_lesson.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Время одного занятия
+  .show_hidden
+    .lesson_time_block!=time_spend_lesson
 .section
-  .sex
-    .m-icon
-    .m-title Пол
-  .sex_button
-    .female!=female
-    .male!=male
+  .sex.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Пол
+  .show_hidden
+    .sex_button
+      .female!=female
+      .male!=male

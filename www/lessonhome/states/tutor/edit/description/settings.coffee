@@ -2,11 +2,13 @@ class @main extends template '../../../tutor'
   route : '/tutor/edit/settings'
   model   : 'tutor/edit/description/settings'
   title : "редактирование настройки"
+  tags : -> 'edit: description'
   tree : =>
     items : [
       module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/edit/general'
+        tag   : 'edit: description'
       }
       module 'tutor/header/button' : {
         title : 'Условия'
@@ -27,10 +29,8 @@ class @main extends template '../../../tutor'
       new_orders_toggle : module 'tutor/forms/toggle' :
         first_value : 'Получать'
         second_value : 'Не получать'
-      notice_sms_checkbox : module 'tutor/forms/checkbox' :
-        selector : 'edit_settings'
-      notice_email_checkbox : module 'tutor/forms/checkbox' :
-        selector : 'edit_settings'
+      notice_sms_checkbox : module 'tutor/forms/checkbox'
+      notice_email_checkbox : module 'tutor/forms/checkbox'
       callback_toggle : module 'tutor/forms/toggle' :
         first_value : 'Да'
         second_value : 'Нет'

@@ -1,30 +1,32 @@
-$height : 33px
-
+@import compass/css3
+main
+  height: 100%
 .button
-  width  : 100%
-  height : $height
-  padding-top      : 4px
-  box-sizing       : border-box
-  text-align       : center
-  border-radius    : 4px
-  background-color : rgb( 205, 205, 205 )
-  cursor : pointer
+  +inline-block
+  height: 100%
+  box-sizing: border-box
+  +border-radius(4px)
+  background-color: rgb( 205, 205, 205 )
+  cursor: pointer
   .text
-    font-size   : 20px
-    font-family : 'Opens Sans', sans-serif
-    color       : #757575
+    +inline-block
+    vertical-align: baseline
+    padding: 0 15px
+    font-size: 18px
+    color: #757575
+    font-weight: 400
+.button:after
+  content: ''
+  +inline-block
+  height: 100%
 
-.button.active
+/////////////////// action ////////////////
+.active
   box-shadow       : 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
   background-color : rgb( 240, 123, 111 )
   .text
     color : #fff
 
-.button.inactive:hover
+
+.inactive:hover
   background-color : #ffb1a8
-
-.button.search_bids
-  padding-top: 6px
-  .text
-    font-size: 18px
-

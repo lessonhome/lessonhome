@@ -1,0 +1,56 @@
+@import compass/css3
+$RedHoverColor : #ffb1a8
+
+main
+  +inline-block
+  height: 100%
+
+a
+  display: block
+  height: 100%
+  .button
+    +inline-block
+    height: 100%
+    background-color: rgb( 205, 205, 205 )
+    +border-radius(4px)
+    color: #757575
+    .text
+      +inline-block
+      padding: 0 13px
+      font-size: 16px
+
+  .button:after
+    content: ''
+    +inline-block
+    height: 100%
+
+/////////-------top filter-------/////////
+a
+  .subject_back, .onward_block, .issue_bid
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
+    background: rgb(148, 201, 254)
+    .text
+      +inline-block
+      font-size: 26px
+      padding: 0 15px
+      color: rgb(255, 255, 255)
+  .issue_bid
+    background-color: rgb(240, 123, 111)
+    .text
+      padding: 0 20px
+  .subject_back:after, .onward_block:after, .issue_bid:after
+    content: ''
+    +inline-block
+    height: 100%
+
+
+////////////////-------active--------////////////////
+
+  .active
+    background-color: rgb( 240, 123, 111 )
+    box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
+    .text
+      color: #fff
+
+  .inactive:hover
+    background-color: $RedHoverColor

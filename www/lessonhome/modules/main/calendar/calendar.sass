@@ -1,62 +1,109 @@
 @import compass/css3
-$margin_top: 15px
-.calendar_week
-  +inline-block
-  padding: 0 4px
-  background-color: #dfe1e4
-  border-radius: 4px
-  font-size: 20px
-  font-weight: 600
-  color: #a1a1a1
-  .monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday
-    float: left
-    padding: 10px 4px
-    cursor: pointer
-.calendar_week:after
-  content: ""
-  display: block
-  clear: both
-.choose_block
-  margin-top: $margin_top
+$close_icon_src: 'main/filter_close.png'
+$icon_height: image-height($close_icon_src)
+$icon_width: image-width($close_icon_src)
+.calendar_box
   .choose_all
-    width: 20px
-    height: 20px
+    color: #757575
     float: left
-  .title
-    margin-left: 25px
+  .calendar_week
+    font-size: 20px
+    +inline-block
+    background-color: #dfe1e4
+    +border-radius(4px)
+    font-weight: 600
+    color: #a1a1a1
+    .monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday
+      float: left
+      +border-radius(4px)
+      cursor: pointer
+  .calendar_week:after
+    content: ""
+    display: block
+    clear: both
+  .js-show-hidden-block
+    //display: none
+    .time_box
+      position: relative
+      +border-radius(4px)
+      background-color: #dfe1e4
+      .from_time, .till_time
+        height: 33px
+        +inline-block
+      .close_box
+        width: 14px
+        padding: 9px 7px 9px 9px
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        cursor: pointer
+        .close
+          float: right
+          width: $icon_width
+          height: $icon_height
+          background: inline-image($close_icon_src) no-repeat
+    .button_add
+      +inline-block
+//////////////////// advance filter ////////////////
+$margin_top: 15px
+$all_padding_input: 10px
+$padding_add: 1px
+$padding_day: 5px
+.advance_filter
+  .choose_all
+    margin-bottom: $margin_top
+  .calendar_week
+    .monday, .sunday
+      padding: 10px $padding_day+$padding_add
+    .tuesday, .wednesday, .thursday, .friday, .saturday
+      padding: 10px 5px
+  .js-show-hidden-block
+    .time_box
+      margin-top: $margin_top
+      padding: 11px 20px
+      .from_time
+        padding-right: $all_padding_input/2
+      .till_time
+        padding-left: $all_padding_input/2
+    .button_add
+      height: 33px
+      margin-top: $margin_top
 
-// TODO labels for input
-.time_box
-  margin: $margin_top 10px 0 0
-  padding: 11px 0
-  position: relative
-  border-radius: 4px
-  background-color: #dfe1e4
-  .from, .till
-    float: left
-    padding: 8px 7px 8px 10px
-  .from_time, .till_time
-    float: left
-    width: 66px
-    height: 34px
-  .close_box
-    width: 14px
-    padding: 9px 7px 0 9px
-    position: absolute
-    top: 0
-    right: 0
-    bottom: 0
-    cursor: pointer
-    .close
-      float: right
-      width: 14px
-      height: 14px
-      background: red
-.time_box:after
-  content: ''
-  display: block
-  clear: both
-.button_add
-  +inline-block
-  height: 33px
-  margin-top: $margin_top
+////////////////// fast_bids /////////////////
+$margin_top: 15px
+$all_padding_input: 10px
+$padding_day: 12.7px
+.fast_bids
+  .choose_all
+    margin-bottom: $margin_top
+  .calendar_week
+    .monday, .sunday, .tuesday, .wednesday, .thursday, .friday, .saturday
+      padding: 10px $padding_day
+  .js-show-hidden-block
+    .time_box
+      width: 228px
+      +inline-block
+      box-sizing: border-box
+      margin-top: $margin_top
+      margin-right: 10px
+      padding: 11px 10px
+      .from_time
+        padding-right: $all_padding_input/2
+      .till_time
+        padding-left: $all_padding_input/2
+    .button_add
+      height: 33px
+      margin-top: $margin_top
+
+
+
+
+  ////////////----------active-------------/////////////
+  .calendar_week
+    .monday:hover, .tuesday:hover, .wednesday:hover, .thursday:hover, .friday:hover, .saturday:hover, .sunday:hover
+      background: #cecece
+  .calendar_week
+    .monday.active, .tuesday.active, .wednesday.active, .thursday.active, .friday.active, .saturday.active, .sunday.active
+      background: #ff7c6f
+      color: #ffffff

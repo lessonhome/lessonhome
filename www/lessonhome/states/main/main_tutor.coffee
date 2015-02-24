@@ -1,24 +1,23 @@
 class @main extends template '../main'
   route : '/main_tutor'
+  tags  : -> 'pupil:main_tutor'
   model : 'main/registration'
   title : "Регистрация"
-  tree : -> module 'main_tutor' :
-    header  : state 'tutor/header'
+  tree : ->
     content : module 'main_tutor/content'  :
       login           : module 'tutor/forms/input' :
         selector : 'main_check_in'
         text : 'Введите ваш телефон или email адрес'
       login_hint      : module 'tutor/hint' :
         selector : 'small'
-        text     : ''
+        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
       password        : module 'tutor/forms/input' :
         selector : 'main_check_in'
         text : 'Придумайте пароль'
       password_hint   : module 'tutor/hint' :
         selector : 'small'
-        text     : ''
-      checkbox        : module 'tutor/forms/checkbox' :
-        selector : 'check_in'
+        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
+      checkbox        : module 'tutor/forms/checkbox'
       create_account  : module 'tutor/button' :
         selector  : 'create_account'
         text      : 'Создать аккаунт'
@@ -31,16 +30,3 @@ class @main extends template '../main'
       callback    : module 'tutor/button' :
         selector  : 'callback'
         text      : 'Заказать звонок'
-
-
-
-
-
-
-
-
-
-
-
-
-

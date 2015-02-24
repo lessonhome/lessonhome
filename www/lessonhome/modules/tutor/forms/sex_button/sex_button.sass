@@ -5,25 +5,20 @@ main
   height : $height
 
 .button
-  width: 100%
   height: $height
-  padding-bottom: 2px
-  box-sizing: border-box
   text-align: center
   border-radius: 4px
   background-color: rgb( 205, 205, 205 )
   color: #757575
-  font-family: 'Open Sans', sans-serif
   cursor: pointer
   .text
     +inline-block
+    padding: 0 61px
 
 .button:after
   content : ''
   +inline-block
-  vertical-align : middle
   height : 100%
-  width : 0px
 
 .button.active
   background-color : rgb( 240, 123, 111 )

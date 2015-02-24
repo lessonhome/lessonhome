@@ -1,0 +1,21 @@
+@import compass/css3
+.button
+  cursor: pointer
+  border-radius: 4px
+  text-align: center
+  background-color: #f07b6f
+  box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.51)
+  .text
+    padding: 0 11px
+    +inline-block
+    font-size: 30px
+    font-weight: 600
+    color: #ffffff
+.button:after
+  content: ''
+  +inline-block
+  height: 100%
+
+.button:hover
+  background-color: #ffb1a8
+

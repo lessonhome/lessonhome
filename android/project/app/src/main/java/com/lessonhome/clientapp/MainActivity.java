@@ -17,10 +17,10 @@ import android.widget.ListView;
 **/
 public class MainActivity extends ActionBarActivity {
 
-
-    DrawerLayout drawerlayout;
-    ListView navdrawerlist;
-    FilterMainFragment filtermainframent;
+    private MyClickListener myClickListener;
+    private DrawerLayout drawerlayout;
+    private ListView navdrawer;
+    private FilterMainFragment filtermainframent;
     private ActionBarDrawerToggle toggle;
 
     //private CharSequence mTitle;
@@ -30,9 +30,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity);
 
+        myClickListener = new MyClickListener(this);
         InitNavDrawer();
         InitActionBar();
-        filtermainframent = FilterMainFragment.newInstance(this);
+        filtermainframent = FilterMainFragment.newInstance(this, myClickListener);
         setMainFragment(filtermainframent);
         //mTitle = getTitle();
 
@@ -51,10 +52,10 @@ public class MainActivity extends ActionBarActivity {
 
         drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        navdrawerlist = (ListView) findViewById(R.id.left_drawer);
+        navdrawer = (ListView)findViewById(R.id.nav_drawer);
+        navdrawer.setAdapter(new NavListAdapter(this, myClickListener));
 
 
-        navdrawerlist.setAdapter(new NavDrawerListAdapter(this, new String [] {"первый пункт"}));
 
 
     }
@@ -71,8 +72,8 @@ public class MainActivity extends ActionBarActivity {
         toggle = new ActionBarDrawerToggle(
                 this,
                 drawerlayout,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
+                R.string.action_settings,
+                R.string.action_settings);
         toggle.setDrawerIndicatorEnabled(true);
         drawerlayout.setDrawerListener(toggle);
 

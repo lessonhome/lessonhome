@@ -1,14 +1,15 @@
-- id = id || "";
 - placeholder = placeholder || "";
 - selector = selector || "";
+- id = id || "";
 
-
-.drop_down_list(class=selector)
-  input(placeholder="#{placeholder}", id="#{id}")
-  .icon_box
-    .icon
-//-
-  .drop_down_box
+label(class=selector)
+  if text
+    .text!=text
+  .drop_down_list
+    input(placeholder="#{placeholder}", id="#{id}")
+    .icon_box
+      .icon
     if list
-      each value in list
-        .item=value
+      .dropdown_items
+        each value in list
+          .item!= value

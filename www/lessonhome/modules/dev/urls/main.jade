@@ -1,14 +1,21 @@
 
 
-a.state.top
+
+
+.fixed.unselect
+  .test  быстрое оформление заявки: первый шаг
+a.state.unselect.top
   .title  Заголовок страницы
   .name   Имя состояния
   .route  URL страницы
   .model  Файл макета
 
+
 each state, name in states
-  .state
+  .state.unselect
     a(href=state.route).title= state.title
-    a(href=state.route).name= name
+    a(href=state.route).name= state.name
     a(href=state.route).route= state.route
     a(href="#{F('models/'+state.model+'.jpg')}").model= state.model
+
+

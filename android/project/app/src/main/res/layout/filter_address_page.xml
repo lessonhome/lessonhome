@@ -12,14 +12,16 @@
 
     <Button
         android:id="@+id/meeting_at_the_tutor"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/address_words"
         android:text="@string/meeting_at_the_tutor"/>
     <Button
         android:id="@+id/meeting_at_me"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/meeting_at_me"
+        android:layout_below="@+id/address_words"
         android:layout_toRightOf="@+id/meeting_at_the_tutor"
         android:layout_toEndOf="@+id/meeting_at_the_tutor"  />
     <Button
@@ -33,11 +35,27 @@
 
 
     <MultiAutoCompleteTextView
-        android:id="@+id/enter_address"
+        android:id="@+id/enter_city"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_address"
+        android:hint="@string/enter_city"
         android:layout_below="@+id/meeting_online"
+        android:padding="25dp"
+        android:completionThreshold="1" />
+    <MultiAutoCompleteTextView
+        android:id="@+id/enter_street"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_street"
+        android:layout_below="@+id/enter_city"
+        android:padding="25dp"
+        android:completionThreshold="1" />
+    <MultiAutoCompleteTextView
+        android:id="@+id/enter_housenumber_roomnumber"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_housenumber_roomnumber"
+        android:layout_below="@+id/enter_street"
         android:padding="25dp"
         android:completionThreshold="1" />
 
@@ -47,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/enter_address"
+        android:layout_below="@+id/enter_housenumber_roomnumber"
         android:gravity="center"
         android:text="@string/next_in_filter_viewPager" />
 </RelativeLayout>

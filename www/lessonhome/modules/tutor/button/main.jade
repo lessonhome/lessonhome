@@ -6,7 +6,8 @@
   //text - content
   // selector - style sass
 //style="background: url(#{F('main/pattern_dots_profilebutton.png')})"
-.button(class=selector)
+- selector = selector || '';
+.button.unselect(class=selector)
   if close
     .close
       .close_background
