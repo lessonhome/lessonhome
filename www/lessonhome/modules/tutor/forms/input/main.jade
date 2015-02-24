@@ -2,6 +2,6 @@
 - selector = selector || "";
 label(class=selector).unselect
   if text
-    .text!=text
+    .text.select!=text
   .box
     input(placeholder=placeholder)
