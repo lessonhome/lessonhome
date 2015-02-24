@@ -1,15 +1,15 @@
 .name_verification_block
-  .tutor_name=tutor_name
+  .tutor_name.select=tutor_name
   .verification
     .with_verification(style = 'background-color: #{with_verification};')
-.tutor_subject=tutor_subject
-.tutor_status=tutor_status + ', опыт ' + tutor_exp + ' года'
-.tutor_place=tutor_place
-.tutor_title=tutor_title
-.tutor_text=tutor_text
+.tutor_subject.select=tutor_subject
+.tutor_status.select=tutor_status + ', опыт ' + tutor_exp + ' года'
+.tutor_place.select=tutor_place
+.tutor_title.select=tutor_title
+.tutor_text.select=tutor_text
 .button_prise_panel
   .add_button_bid!=add_button_bid
   .price_block
     .icon
-    .tutor_price=tutor_price + ' '
+    .tutor_price.select=tutor_price + ' '
       span р/ч

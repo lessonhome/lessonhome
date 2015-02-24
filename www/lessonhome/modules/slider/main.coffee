@@ -20,13 +20,13 @@ class Cursor
     @_px = px if px?
     @x (@_px-@l())/(@r()-@l())
     return @_px
-  down : =>
-    @sm   = event.pageX
+  down : (e)=>
+    @sm   = e.pageX
     @spx  = @px()
     $('body').on 'mousemove.slider', @move
     $('body').one 'mouseup', => $('body').off ".slider"
-  move : =>
-    @m = event.pageX
+  move : (e)=>
+    @m = e.pageX
     @px Math.sign(@r()-@l())*(@m-@sm)+@spx
     @pos @px()
 
@@ -44,10 +44,12 @@ class @main extends EE
     @left.pos   = (px)=>
       return +@slider.css('margin-left').replace('px','') unless px?
       @slider.css('margin-left',px)
+      @emit 'left_slider_move', px
       return px
     @right.pos  = (px)=>
       return +@slider.css('margin-right').replace('px','') unless px?
       @slider.css('margin-right',px)
+      @emit 'right_slider_move'
       return px
     @left .init 0,@right
     @right.init @left,1

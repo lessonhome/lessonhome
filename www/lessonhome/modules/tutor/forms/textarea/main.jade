@@ -2,7 +2,7 @@
 - placeholder = placeholder || "";
 label(class=selector)
   if text
-    .text!=text
+    .text.select!=text
   if height
     textarea(style="height : #{height}", placeholder=placeholder)
   else
