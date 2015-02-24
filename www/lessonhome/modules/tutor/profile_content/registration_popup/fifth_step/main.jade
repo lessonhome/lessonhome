@@ -1,6 +1,6 @@
 mixin block (selector, title, value)
   label(class=selector)
-    .title=title
+    .title.select=title
     .value!= value
 
 +block('reason', 'Почему я репетитор?', reason)

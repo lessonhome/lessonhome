@@ -1,7 +1,7 @@
 mixin info_block(block_class, title, value)
   label(class=block_class)
     .value.g-standardField!= value
-    .m-title.g-edit-smallTitle=title
+    .m-title.g-edit-smallTitle.select=title
 
 //- -----------------------------------------------------------
 
@@ -20,7 +20,7 @@ mixin info_block(block_class, title, value)
     label.group_lessons
       .value
         .pupils_number!= pupils_number
-      .m-title.g-edit-smallTitle Групповые занятия :
+      .m-title.g-edit-smallTitle.select Групповые занятия :
     label.bet!= bet
 
 

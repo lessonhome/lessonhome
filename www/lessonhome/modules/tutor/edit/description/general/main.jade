@@ -1,7 +1,7 @@
 mixin info_block(block_class, header, value)
   label(class=block_class)
     .value.g-standardField!= value
-    .m-title.g-edit-smallTitle= header
+    .m-title.g-edit-smallTitle.select= header
 
 
 //- mixin switch_block (block_class, header, left_value, right_value)
@@ -21,13 +21,13 @@ mixin info_block(block_class, header, value)
     .value.g-standardField
       .sex_man!= sex_man
       .sex_woman!= sex_woman
-    .m-title.g-edit-smallTitle Пол :
+    .m-title.g-edit-smallTitle.select Пол :
 
   .line
     label.date_of_birth
       .value
         .day!= birth_day
-      .m-title.g-edit-smallTitle Дата рождения :
+      .m-title.g-edit-smallTitle.select Дата рождения :
     label.month!= birth_month
     label.year.g-smallField!= birth_year
 

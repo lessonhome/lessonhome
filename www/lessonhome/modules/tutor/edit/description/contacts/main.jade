@@ -2,7 +2,7 @@ mixin info_block(block_class, header, value)
   .container
     label(class=block_class)
       .value.g-standardField!= value
-      .m-title.g-edit-smallTitle= header
+      .m-title.g-edit-smallTitle.select= header
 //- -------------------------------------------------
 
 
@@ -12,7 +12,7 @@ mixin info_block(block_class, header, value)
   .container
     .address
       .value.g-standardField!= location_button
-      .m-title.g-edit-smallTitle Адрес :
+      .m-title.g-edit-smallTitle.select Адрес :
 
   .line!=line
 
