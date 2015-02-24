@@ -4,7 +4,6 @@ class Cursor
   constructor : (@dom,@l,@r)->
   init : (@lb,@rb)=>
     @px @pos()
-    @dom.on 'mousedown',@down
   x : (x)=>
     return @_x unless x?
     @_x = x if x?
@@ -24,20 +23,23 @@ class Cursor
     @sm   = e.pageX
     @spx  = @px()
     $('body').on 'mousemove.slider', @move
-    $('body').one 'mouseup', => $('body').off ".slider"
+    $('body').one 'mouseup.slider', => $('body').off ".slider"
+    $('body').one 'mouseleave.slider', => $('body').off ".slider"
+  drag : (dx)=>
+    @pos @px @px()+Math.sign(@r()-@l())*dx
   move : (e)=>
     @m = e.pageX
-    @px Math.sign(@r()-@l())*(@m-@sm)+@spx
-    @pos @px()
-
+    @pos @px Math.sign(@r()-@l())*(@m-@sm)+@spx
   
 class @main extends EE
   show : =>
+    window.FF ?= []
+    FF.push @
     @box_slider = @dom.find ".box_slider"
     @slider     = @box_slider.find ".slider"
     @dom_left   = @slider.find '.icon_cursor_left'
     @dom_right  = @slider.find '.icon_cursor_right'
-    
+    @box_slider.on 'mousedown',@mouseDown
     @width = => 2*@box_slider.width()-@box_slider.outerWidth()-@dom_left.outerWidth()-@dom_right.outerWidth()
     @left   = new Cursor @dom_left,(=>0),@width
     @right  = new Cursor @dom_right,@width,(=>0)
@@ -53,6 +55,17 @@ class @main extends EE
       return px
     @left .init 0,@right
     @right.init @left,1
+  mouseDown : (e)=>
+    left  =  e.pageX-(@dom_left.offset().left+@dom_left.outerWidth()/2)
+    right =  e.pageX-(@dom_right.offset().left+@dom_right.outerWidth()/2)
+    if Math.abs(left)<Math.abs(right)
+      target = @left
+      dx     = left
+    else
+      target = @right
+      dx     = right
+    target.drag dx
+    target.down e
 
 ###
 
