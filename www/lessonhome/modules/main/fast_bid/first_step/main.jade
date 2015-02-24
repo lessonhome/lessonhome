@@ -3,7 +3,7 @@ mixin item (value, selector)
   .box(class=selector)!=value
 
 
-
+////////////////////////////
 .info.unselect
   +item(name, 'name')
   +item(phone, 'phone' )
@@ -11,4 +11,3 @@ mixin item (value, selector)
   +item(subject, 'subject')
   +item(call_time, 'call_time')
   +item(comments, 'comments')
-.hint!= hint

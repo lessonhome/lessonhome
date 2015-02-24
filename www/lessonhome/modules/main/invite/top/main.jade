@@ -1,20 +1,11 @@
-mixin block(title, value)
-  label.block.unselect
-    .title=title
-    .value!=value
-
 .center_block
   .header!=header
-
   .block.toggle.unselect
     .title Ваш друг :
     .value
       .pupil_toggle!= pupil_toggle
       .tutor_toggle!= tutor_toggle
-
-  +block('Имя друга :', friend_name)
-  +block('E-mail друга :', friend_email)
-  +block('Ваше имя :', your_name)
-
-  .bottom
+    .friend_name!=friend_name
+    .friend_email!=friend_email
+    .your_name!=your_name
     .invite_button!=invite_button

@@ -3,18 +3,23 @@ class @main extends template '../fast_bid'
   model : 'main/application/4_step'
   title : "быстрое оформление заявки: четвёртый шаг"
   tree : ->
+    progress : 4
     content : module '$' :
-      status_student : module 'tutor/forms/status_button' :
+      student : module 'tutor/forms/status_button' :
         selector : 'inactive'
         text : 'Студент'
-      status_teacher : module 'tutor/forms/status_button' :
+      teacher : module 'tutor/forms/status_button' :
         selector : 'active'
-        text : 'Преподаватель'
-      status_phd : module 'tutor/forms/status_button' :
+        text : 'Преподаватель школы'
+      professor : module 'tutor/forms/status_button' :
         selector : 'inactive'
-        text : 'Кандидат наук'
+        text : 'Преподаватель ВУЗа'
+      native : module 'tutor/forms/status_button' :
+        selector : 'inactive'
+        text : 'Носитель языка'
       experience : module 'tutor/forms/drop_down_list':
-        text: 'опыт'
+        text      : 'Опыт:'
+        selector  : 'fast_bid'
       age_slider   : state '../slider_main' :
         selector      : 'time_fast_bids'
         start         : 'time_spend_bids'
@@ -26,10 +31,9 @@ class @main extends template '../fast_bid'
       sex_woman   : module 'tutor/forms/sex_button' :
         selector : 'woman'
 
-      hint : 'Расскажите нам<br>ещё немного о<br>Вашем идеальном<br>репетиторе'
+    hint : 'Расскажите нам<br>ещё немного о<br>Вашем идеальном<br>репетиторе'
 
   init : ->
-    @parent.tree.filter_top.progress_bar.progress = 4
     @parent.tree.filter_top.footer.button_next.selector = 'hidden'
     @parent.tree.filter_top.footer.issue_bid.finish = true
     @parent.tree.filter_top.footer.back_link = 'third_step'

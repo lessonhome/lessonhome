@@ -3,16 +3,17 @@ class @main extends template '../fast_bid'
   model : 'main/application/3_step'
   title : "быстрое оформление заявки: третий шаг"
   tree : ->
+    progress : 3
     content : module '$' :
       tutor : module 'tutor/forms/location_button' :
         selector : 'search_bids'
-        text   : 'У себя'
+        text   : 'у себя'
       student  : module 'tutor/forms/location_button' :
         selector : 'search_bids'
-        text   : 'У ученика'
+        text   : 'у ученика'
       web : module 'tutor/forms/location_button' :
         selector : 'search_bids'
-        text   : 'Удалённо'
+        text   : 'удалённо'
       location_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -38,14 +39,14 @@ class @main extends template '../fast_bid'
           text      : 'до'
         button_add    : module 'button_add' :
           text      : '+'
-      hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+
       time_spend_lesson   : state '../slider_main' :
         selector      : 'time_fast_bids'
         start         : 'time_spend_bids'
         start_text    : 'до'
         measurement   : 'мин.'
         selector_two  : 'fast_bids_spend'
+    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
   init : ->
-    @parent.tree.filter_top.progress_bar.progress = 3
     @parent.tree.filter_top.footer.back_link = 'second_step'
     @parent.tree.filter_top.footer.next_link = 'fourth_step'

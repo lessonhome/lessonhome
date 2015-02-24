@@ -3,8 +3,9 @@ class @main extends template './preview'
   tree : ->
     filter_top : module '$' :
       progress_bar : module '//progress_bar' :
-        progress : 1
+        progress : @exports()
       content      : @exports()   # must be defined
+      hint         : @exports()
       footer       : module '//footer' :
         button_back : module '//button_back' :
           selector : 'active'

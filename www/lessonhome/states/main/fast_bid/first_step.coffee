@@ -3,6 +3,7 @@ class @main extends template '../fast_bid'
   model : 'main/application/1_step'
   title : "быстрое оформление заявки: первый шаг"
   tree : ->
+    progress : 1
     content : module '$' :
       name : module 'tutor/forms/input' :
         text      : 'Имя :'
@@ -22,7 +23,7 @@ class @main extends template '../fast_bid'
       comments : module 'tutor/forms/textarea':
         text: 'Комментарии :'
         selector  : 'fast_bid'
-      hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->
     @parent.tree.filter_top.footer.button_back.selector = 'hidden'
