@@ -9,7 +9,7 @@ class MasterProcessFork extends EE
     Wrap @
     @ee = new EE
   init : =>
-    console.log 'fork',@conf
+    @log @conf.name,@conf.services
     _cluster = require 'cluster'
     _cluster.setupMaster {
       exec : @conf.exec
@@ -25,13 +25,19 @@ class MasterProcessFork extends EE
   send    : (msg,args...)=> @worker.send {msg,args}
   receive : (args...)=>
     @ee.on args...
+  receiveOnce : (args...)=>
+    @ee.once args...
   message : ({msg,args})=>
     throw new Error 'undefined msg received' unless msg?
     args ?= []
     switch msg
       when 'ready'  then @emit 'ready',   args...
-      when 'die'    then @emit 'restart', args...
-      when 'exit'   then @emit 'exit',    args...
+      when 'die'
+        @log "#{@conf.name}:#{@conf.processId} - die"
+        @emit 'restart', args...
+      when 'exit'
+        @log "#{@conf.name}:#{@conf.processId} - exit"
+        @emit 'exit',    args...
       else               @ee.emit msg,args...
 
   stop : =>

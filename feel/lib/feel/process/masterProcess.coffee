@@ -33,8 +33,9 @@ class MasterProcess extends EE
       ready   : @fReady
       restart : @fRestart
       exit    : @fExit
-    @receive 'query',@query
+    @receive 'query',@onQuery
   init    : =>
+    @log @name
     @start()
   start   : =>
     return if @running || @starting
@@ -53,9 +54,20 @@ class MasterProcess extends EE
   receive   : (args...)=>
     @ee.on args...
     @fork.receive args...
+  receiveOnce   : (args...)=>
+    @ee.once args...
+    @fork.receiveOnce args...
   send      : (args...)=>
     yield @wait()
     @fork.send args...
+  query : (args...)=>
+    id = 'masterQuery_'+global.MASTERPROCESSUNIQID++
+    defer = Q.defer()
+    @receiveOnce 'query:'+id, (err,data)=>
+      return defer.reject ExceptionUnJson err if err?
+      defer.resolve data
+    @send 'query', id,args...
+    return defer.promise
   #### Private ####
   # wait() - ждет запуска потока, если он прервал выполнение 
   #         (полезно перед отправкой сообщения ему)
@@ -64,7 +76,7 @@ class MasterProcess extends EE
     defer = Q.defer()
     @on 'running', => defer.resolve foo?()
     return defer.promise
-  query : (id,name,args...)=>
+  onQuery : (id,name,args...)=>
     nid = "#{@id}:#{id}"
     @manager.query.once "#{name}:#{nid}", (err,data)=>
       @send "query:#{id}",err,data
@@ -83,11 +95,14 @@ class MasterProcess extends EE
       arr = [arr] unless util.isArray arr
       @fork.receive msg,l for l in arr
   fReady    : =>
+    @log @name+":"+@id
     @running = true
     @emit 'running'
   fRestart  : =>
+    @log @name+":"+@id
     @restart()
   fExit     : =>
+    @log @name+":"+@id
     @stop()
   
 

@@ -42,7 +42,8 @@ class MasterProcessConnector
       @process.send "connectorEmit:#{@id}:#{action}",args...
   qEmit     : (action,data...)=>
     @target.emit action,data...
+  connect : =>
+
 
 module.exports = MasterProcessConnector
-
 

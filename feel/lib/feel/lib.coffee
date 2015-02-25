@@ -1,5 +1,4 @@
 
-_util = require 'util'
 
 last = ""
 log =
@@ -89,6 +88,24 @@ global.Wrap = (obj,prot)->
   proto ?= obj?.__proto__
   return unless proto?
   return if obj.__wraped
+  __functionName__ = ""
+  logFunction = (args...)->
+    s = "#{Main.name}:"
+    s+= "#{Main.processId}:" if Main.processId?
+    s+= "#{proto.constructor.name}"
+    s+= "#{__functionName__}"
+    console.log s,args...
+  errorFunction = (args...)->
+    s= "\n********************************************************\n"
+    s+= "ERROR:#{Main.name}:"
+    s+= "#{Main.processId}:" if Main.processId?
+    s+= "#{proto.constructor.name}"
+    s+= "#{__functionName__}"
+    for val,i in args
+      if _util.isError val
+        args[i] = Exception val
+    console.error s,args...,"\n********************************************************"
+
   obj.__wraped = true
   #proto.__wraped ?= {}
   for key,val of proto
@@ -96,6 +113,7 @@ global.Wrap = (obj,prot)->
       #proto.__wraped[key] = true
       do (key,val)->
         foo = ->
+          __functionName__ = "::"+key+"()"
           args = arguments
           if val?.constructor?.name == 'GeneratorFunction'
             gen = Q.async val
@@ -126,6 +144,8 @@ global.Wrap = (obj,prot)->
           return q
         #proto[key] = foo
         obj[key] = foo if !prot?
+  obj.log   ?= (args...)-> logFunction.apply    obj,args
+  obj.error ?= (args...)-> errorFunction.apply  obj,args
         #c[key] = foo
         #c.constructor[key]     = foo
   #Wrap obj,proto.constructor.__super__ if proto?.constructor?.__super__?
@@ -261,4 +281,13 @@ class Lib
     Wrap @
   init : ->
     #Watcher.init()
+    #
+
+
+
+
+global._util    = require 'util'
+global._fs      = require 'fs'
+global._readdir = Q.denode _fs.readdir
+
 module.exports = Lib

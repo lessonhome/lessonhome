@@ -7,7 +7,7 @@
 _fs       = require 'fs'
 _readdir  = Q.denode _fs.readdir
 
-MasterProcess           = require './masterProcess'
+MasterProcess         = require './masterProcess'
 MasterProcessConnector  = require './masterProcessConnector'
 
 
@@ -20,6 +20,7 @@ class MasterProcessManager
     @connectors = {}
     @query      = new EE
   init : =>
+    @log()
     yield @setQuery()
     configs = yield _readdir 'feel/lib/feel/process/config'
     for name in configs
@@ -27,6 +28,7 @@ class MasterProcessManager
       @config[m[1]] = require("./config/#{name}")
       @config[m[1]].name = m[1]
   run : =>
+    @log()
     qs = []
     for name,conf of @config
       if conf.autostart
@@ -34,6 +36,7 @@ class MasterProcessManager
     Q.all qs
   getProcess : (id)=> @processById[id]
   runProcess : (conf)=>
+    @log conf.name
     @process[conf.name] ?= []
     return if (@process[conf.name].length>0)&&(conf.single)
     s = new MasterProcess conf,@
@@ -44,7 +47,7 @@ class MasterProcessManager
     @query.__emit = @query.emit
     @query.emit   = (name,id,args...)=>
       if !@["q_"+name]?
-        @query._emit "#{name}:#{id}", new Error 'unknown query '+name+' to master process'
+        @query.__emit "#{name}:#{id}", ExceptionJson new Error 'unknown query '+name+' to master process'
       else
         @["q_"+name](args...)
         .then (data)=>
@@ -53,7 +56,7 @@ class MasterProcessManager
           @query.__emit "#{name}:#{id}",ExceptionJson err
   q_nearest : (args...)=>
   q_connect : (conf)=>
-    connector = new MasterProcessConnector conf,@,@getProcess conf.processId
+    connector = new MasterProcessConnector conf,@getProcess conf.processId
     yield connector.init()
     @connectors[connector.id] = connector
     connector.data()
@@ -67,6 +70,7 @@ class MasterProcessManager
     @connectors[id].qOn action
   q_connectorEmit : (id,action,data...)=>
     @connectors[id].qEmit action,data...
+
 module.exports = MasterProcessManager
 
 

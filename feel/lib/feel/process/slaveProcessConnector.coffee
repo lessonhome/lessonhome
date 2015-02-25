@@ -1,38 +1,49 @@
 
 
 
+global.SLAVEPOCESSCONNECTORID = 0
+
+###
+# conf:
+#   type: 'masterProcessManager'
+#
+###
+
 class SlaveProcessConnector
-  constructor : (@__conf)->
-    @__conf = type:@__conf if typeof @__conf == 'string'
-    @__conf.processId = Main.conf.processId
+  constructor : (@conf)->
+    @id = global.SLAVEPOCESSCONNECTORID++
+    @dataArray = {
+      functions : []
+      vars      : []
+      id        : @id
+    }
+    @isOn = {}
     Wrap @
   init : =>
-    @__data = yield Main.messanger.query 'connect',@__conf
-    for func in @__data.functions
-      switch func
-        when 'on','emit','init' then continue
-      do (func)=>
-        @[func] = (args...)=> @__function func,args...
-    for name in @__data.vars
-      do (name)=>
-        Object.defineProperty @,name,
-          get :     => @__get name
-          set :(val)=> @__set name,val
-    @on   = @__on
-    @emit = @__emit
-  __function : (name,args...)=>
-    Main.messanger.query 'connectorFunction',@__data.id,name,args...
-  __get : (name)=>
-    Main.messanger.query 'connectorVarGet',@__data.id,name
-  __set : (name,val)=>
-    Main.messanger.query 'connectorVarSet',@__data.id,name,val
-  __on    : (action,func)=>
-    yield Main.messanger.receive "connectorEmit:#{@__data.id}:#{action}",func
-    Main.messanger.query 'connectorOn',@__data.id,action
-  __emit  : (action,data...)=>
-    Main.messanger.query 'connectorEmit',@__data.id,action,data...
+    switch @conf.type
+      when 'slaveServiceManager'
+        @target = Main.serviceManager
+      when 'service'
+        @target = yield Main.serviceManager.servicesById[@conf.id].get()
+      else
+        throw new Error 'bad description of processConnector'
+    for key,val of @target
+      if typeof val == 'function'
+        @dataArray.functions.push key
+      else
+        @dataArray.vars.push key
+  data      : => @dataArray
+  qFunction : (name,args...)=>  @target[name] args...
+  qVarGet   : (name)=>          @target[name]
+  qVarSet   : (name,val)=>      @target[name] = val
+  qOn       : (action)=>
+    return if @isOn[action]
+    @target.on 'action', (args...)=>
+      Main.messanger.send "connectorEmit:#{@id}:#{action}",args...
+  qEmit     : (action,data...)=>
+    @target.emit action,data...
+  connect : =>
 
 
 module.exports = SlaveProcessConnector
-
 

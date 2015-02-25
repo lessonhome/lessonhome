@@ -5,7 +5,7 @@ class WatcherMaster
   constructor : ->
     Wrap @
   init : =>
-    console.log 'master init'
+    @log()
   watch : (foo)->
 
 module.exports = WatcherMaster

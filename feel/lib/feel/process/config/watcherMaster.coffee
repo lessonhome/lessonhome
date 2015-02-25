@@ -1,6 +1,6 @@
 
 
-@services     = ['watcher/master']
+@services     = ['watcherMaster']
 @autostart    = true
 @single       = true
 

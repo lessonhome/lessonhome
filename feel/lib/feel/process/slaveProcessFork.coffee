@@ -12,6 +12,10 @@ class SlaveProcessFork
     Wrap @
   init : =>
     @conf   = JSON.parse process.env.FORK
+    @processId  = @conf.processId
+    @name       = @conf.name
+    @log()
+
     @messanger = new Messanger()
     yield @messanger.init()
     @messanger.send 'ready'

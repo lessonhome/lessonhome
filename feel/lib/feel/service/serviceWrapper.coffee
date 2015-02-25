@@ -14,6 +14,7 @@ class ServiceWrapper
         do (key)=> @[key] = => @__service[key] arguments...
       else
         do (key)=>
+          @[key] = val
           Object.defineProperty @,key,
             get :      => @__service[key]
             set : (val)=> @__service[key] = val

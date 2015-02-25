@@ -1,6 +1,5 @@
-
+console.log()
 Lib = new (require './lib')()
-console.log Lib
 _cluster = require 'cluster'
 
 log = (msg)=>
