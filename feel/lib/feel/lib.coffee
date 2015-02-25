@@ -123,7 +123,7 @@ global.Wrap = (obj,prot)->
         args[i] = Exception val
       if typeof (""+args[i]) == 'string'
         args[i] = (""+args[i]).magenta
-    console.error s,args...,"\n********************************************************".red
+    console.log s,args...,"\n********************************************************".red
 
   obj.__wraped = true
   #proto.__wraped ?= {}
@@ -132,6 +132,7 @@ global.Wrap = (obj,prot)->
       #proto.__wraped[key] = true
       do (key,val)->
         foo = ->
+          nerror = new Error()
           __functionName__ = "::".grey+key.cyan+"()".blue
           args = arguments
           if val?.constructor?.name == 'GeneratorFunction'
@@ -140,25 +141,35 @@ global.Wrap = (obj,prot)->
           else
             q = Q.then -> val.apply obj,args
           q = q.catch (e)->
+            errs = Exception(nerror).match /(at.*\n)/g
+            nerrs = ""
+            for err in errs
+              continue if err.match /lib\.coffee/
+              break if err.match /node_modules/
+              break if err.match /q\.js/
+              break if err.match /\(native\)/
+              nerrs += "\n\t"+err.replace(/\n/g,"")
             unless _util.isError e
               e = JSON.stringify e unless typeof e == 'string'
               ne = new Error()
               ne.message = e
               e = ne
             e.message ?= ""
-            e.message += "\n#{proto.constructor.name}::#{key}("
+            e.message += "\n#{proto.constructor.name}::#{key}(".red
             na = []
             for a,i in args
               if typeof a == 'object'
                 a = '{'+Object.keys(a).join(',')+'}'
               else a = '...'
               na.push a
-            e.message += na.join(',')
-            e.message += ");"
+            e.message += na.join(',').red
+            e.message += ");".red+nerrs.grey
             #if key != 'destructor'
             #  if typeof obj.destructor == 'function'
             #    return obj.destructor(e)
             #obj?.emit? 'destruct',e
+            e.stack ?= ""
+            e.stack = e.stack.replace e.message,""
             throw e
           return q
         #proto[key] = foo
@@ -281,7 +292,7 @@ global.Exception = (e)=>
   str = ""
   str += (e.name+"\n").blue    if e.name?
   str += (e.message+"\n").cyan if e.message?
-  str += e.stack.grey        if e.stack?
+  str += (""+e.stack).grey          if e.stack?
   return str
 global.ExceptionJson = (e)=>
   name    : e.name

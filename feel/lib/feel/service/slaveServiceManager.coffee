@@ -12,7 +12,7 @@ class SlaveServiceManager
       master  : {}
       others  : {}
     @servicesById = {}
-  init : =>
+  init : => 
     @log()
     @master = new SlaveProcessConnect 'masterServiceManager'
     yield @master.init()

@@ -39,9 +39,9 @@ log = (msg)=>
   console.log.apply console, ["process:".cyan+"#{Main.conf.name}".blue+":#{Main.conf.processId}:#{process.pid}".grey, arguments...]
 
 error = (msg)=>
-  console.error "********************************************************".red
-  console.error "ERROR".red+":process:".cyan+"#{Main.conf.name}".blue+":#{Main.conf.processId}:#{process.pid}".grey, arguments...
-  console.error "********************************************************".red
+  console.log "********************************************************".red
+  console.log "ERROR".red+":process:".cyan+"#{Main.conf.name}".blue+":#{Main.conf.processId}:#{process.pid}".grey, arguments...
+  console.log "********************************************************".red
 
 process.on 'uncaughtException', (e)=>
   error "uncaughtException".red,Exception e
