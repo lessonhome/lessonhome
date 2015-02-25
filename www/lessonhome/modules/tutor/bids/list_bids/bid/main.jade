@@ -22,7 +22,7 @@ if selectable
   .bid_block
     .select_button
       .content!= checkbox
-    .bid
+    .bid.select
       .basic_block
         .number_date
           .text!= number + '<br>'
@@ -54,7 +54,7 @@ if selectable
         +line('Цель занятия :', lesson_goal, 'dark' )
 else
   .bid
-    .basic_block
+    .basic_block.select
       .number_date
         .text!= number + '<br>'
           div(style="color: #444444")= date
@@ -74,7 +74,7 @@ else
     .request_button
       .text!= 'Подать <br> запрос'
 
-    .details_block
+    .details_block.select
       +line('Категория ученика :', category_pupil, 'dark')
       +line('Направление подготовки :', training_direction, 'light' )
       +line('Количество занятий :', number_of_lessons, 'dark' )

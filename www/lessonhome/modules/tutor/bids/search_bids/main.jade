@@ -5,7 +5,7 @@ mixin selected_course(title)
 
 mixin info_block(block_class, title, value)
   div(class=block_class)
-    .title=title
+    .title.select=title
     .value!= value
 
 .filters
@@ -17,7 +17,7 @@ mixin info_block(block_class, title, value)
 
   .right_block
     .place
-      .title Место :
+      .title.select Место :
       .value.unselect
         .tutor!= tutor
         .student!= student
@@ -27,11 +27,11 @@ mixin info_block(block_class, title, value)
     +info_block('your_address', 'Ваш адрес :', address_list)
 
     .road_time
-      .title Время на дорогу :
+      .title.select Время на дорогу :
       .value
-        .title до
+        .title.select до
         .time!= road_time
-        .title мин.
+        .title.select мин.
         .slider!= slider
 
 .separate_line!= separate_line

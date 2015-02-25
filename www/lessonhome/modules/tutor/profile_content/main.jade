@@ -8,7 +8,7 @@
   // title - class sass
 
 mixin section_box (title, value)
-  div(class=title + '_box')
+  div.select(class=title + '_box')
     .icon_box
       .icon
     div(class=title)!=value
@@ -22,12 +22,12 @@ if popup
     .photo!= photo
     .all_rating!=all_rating
     if count_review
-      .count_review!=count_review + ' отзывов'
+      .count_review.select!=count_review + ' отзывов'
     if progress
       .progress!= progress
   .personal_data
     .name_verification_block
-      .tutor_name!= tutor_name
+      .tutor_name.select!= tutor_name
       if with_verification
         .verification
           .with_verification(style = 'background: #{with_verification}')

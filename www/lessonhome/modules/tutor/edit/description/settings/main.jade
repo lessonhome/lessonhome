@@ -1,22 +1,22 @@
 mixin title_block (title, selector)
   .title_block(class=selector)
-    .title=title
+    .title.select=title
     .line
 
 mixin info_block (selector, title, value)
   .label_block
     label.info_block(class=selector)
-      .title=title
+      .title.select=title
       .value!=value
 
 //- ---------------------------------------------------------------------------------
 
 .new_orders
-  .title Новые заказы :
+  .title.select Новые заказы :
   .value!= new_orders_toggle
 
 .get_notice
-  .title Получать уведомления :
+  .title.select Получать уведомления :
   .value
     .notice_sms_checkbox
         .value!= notice_sms_checkbox
@@ -26,7 +26,7 @@ mixin info_block (selector, title, value)
         .title на e-mail
 
 .callback
-  .title Можно ли оператору<br>Вам звонить?
+  .title.select Можно ли оператору<br>Вам звонить?
   .value
     .callback_toggle!=callback_toggle
     .callback_comment!= callback_comment
@@ -37,9 +37,9 @@ mixin info_block (selector, title, value)
 +title_block('Номер телефона', 'phone_number')
 //-+info_block('old_phone_number', 'Привязанный :', '+7********98')
 .old_phone_number
-  .title Привязанный :
+  .title.select Привязанный :
   .value
-    .text +7*** *** ** 98
+    .text.select +7*** *** ** 98
 
 +info_block('new_phone_number', 'Новый :', new_phone_number)
 .change_block
@@ -48,9 +48,9 @@ mixin info_block (selector, title, value)
 +title_block('E-mail', 'email')
 
 .old_email
-  .title Старый :
+  .title.select Старый :
   .value
-    .text dd******@mail.ru
+    .text.select dd******@mail.ru
 
 //-+info_block('old_email', 'Старый :', 'dd******@mail.ru')
 

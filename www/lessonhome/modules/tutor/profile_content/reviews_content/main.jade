@@ -1,7 +1,7 @@
 .grade
-  .title Рейтинг :
+  .title.select Рейтинг :
   .reviews_rating!=reviews_rating
-  .number_pupils='( '+pupils_number+' учеников )'
+  .number_pupils.select='( '+pupils_number+' учеников )'
 .reviews
   each value in list_reviews
     .review!= value
