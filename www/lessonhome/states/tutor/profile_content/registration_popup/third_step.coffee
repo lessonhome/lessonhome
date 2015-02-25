@@ -8,14 +8,11 @@ class @main extends template '../registration_popup'
       subject                : module 'tutor/forms/drop_down_list' :
         text      : 'Предмет :'
         selector  : 'first_reg'
-      categories             : module 'tutor/forms/drop_down_list' :
-        text      : 'Разделы :'
-        selector  : 'first_reg'
-      directions             : module 'tutor/forms/drop_down_list' :
-        text      : 'Направления :'
+      list_course             : module 'tutor/forms/drop_down_list' :
+        text      : 'Курс :'
         selector  : 'first_reg'
       categories_of_students : module 'tutor/forms/drop_down_list' :
-        text      : 'Предмет :'
+        text      : 'Категория ученика :'
         selector  : 'first_reg'
       place                  : module 'tutor/forms/drop_down_list' :
         text      : 'Место :'
