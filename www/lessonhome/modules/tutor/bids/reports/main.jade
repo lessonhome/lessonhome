@@ -1,13 +1,13 @@
 mixin item (selector, text)
   div(class=selector)
     .icon
-    .text=text
+    .text.select=text
 
 if popup
   .popup_wrap
     .content!= popup
 
-.hint_block
+.hint_block.select
   .title.g-font-middleTitle Список заказов, по которым вы работаете
   .hint!= hint
 .illustrations

@@ -1,11 +1,11 @@
 mixin info_block(block_class, header, value)
   label(class=block_class)
     .value.g-standardField!=value
-    .m-title.g-edit-smallTitle=header
+    .m-title.g-edit-smallTitle.select=header
 
 .block
   .location
-    .m-title.g-edit-smallTitle Место :
+    .m-title.g-edit-smallTitle.select Место :
     .value
       .tutor!= tutor
       .student!= student

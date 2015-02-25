@@ -1,9 +1,9 @@
-.title=title
+.title.select=title
 .diagram_block(style = 'width: #{img.w}px; height:#{img.h}px')
   img(src=img.src)
   if text
     each val, key in text
-      .text(class=key)!=val
+      .text.select(class=key)!=val
 if margin
   .button(style = 'margin-top: #{margin}px')!=button
 else

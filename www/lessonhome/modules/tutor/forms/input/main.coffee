@@ -6,3 +6,6 @@ class @main extends EE
 
     @input.on 'focus', => @box.addClass 'focus'
     @input.on 'focusout', => @box.removeClass 'focus'
+
+  setValue: (value)=>
+    @input.html(value)

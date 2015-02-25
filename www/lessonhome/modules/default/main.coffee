@@ -1,3 +1,10 @@
+Math.sign = (n)->
+  if n >= 0
+    1
+  else
+    -1
+
+
 
 Feel.Hovered = (obj,dom=obj.dom)->
   dom.on 'mouseover', =>
@@ -89,5 +96,7 @@ Feel.HideOnOutsideAreaClick = (container)->
       if container.has(e.target).length == 0 then container.hide()
 
 
+Feel.InputPhoneMask = ()->
+  @input
 
 

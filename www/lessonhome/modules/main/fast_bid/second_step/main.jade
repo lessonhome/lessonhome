@@ -3,16 +3,12 @@ mixin item (value, selector)
 
 
 
-
+/////////////////////////////
 .info.unselect
   +item(your_status, 'your_status')
   +item(course, 'course')
   +item(knowledge_level, 'knowledge_level')
-
   .text_box
-    .title_price Цена одного занятия :
+    .title_price.select Цена одного занятия :
   .price_slider_bids!=price_slider_bids
-
-
   +item(goal, 'goal')
-.hint!= hint

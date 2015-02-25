@@ -1,6 +1,6 @@
 mixin field (selector, title, value)
   label(class=selector)
-    .title=title
+    .title.select=title
     .value!= value
 
 .fields
@@ -11,12 +11,12 @@ mixin field (selector, title, value)
   +field ('place', 'Место :', place)
 
   label.price
-    .title Цена :
+    .title.select Цена :
     .value!= price
     .price_button!= price_button
   .line
     label.group_lessons
-      .title Групповые занятия :
+      .title.select Групповые занятия :
       .value
         .students_in_group!= students_in_group
     label.group_lessons_bet!= group_lessons_bet

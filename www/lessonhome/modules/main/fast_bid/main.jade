@@ -1,7 +1,8 @@
 .fast_bid(style = "background: url(#{F('main/filter_top.jpg')})")
   .progress_bar!= progress_bar
-  .center_block
+  .center
     .content!= content
+    .hint.select(style = selector)!=hint
   .footer!= footer
 
 

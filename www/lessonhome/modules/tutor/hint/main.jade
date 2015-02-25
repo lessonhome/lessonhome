@@ -9,14 +9,14 @@
 - field_position = field_position || "";
 
 if selector == 'small'
-  .hint(class='small')
+  .hint(class='small').select
     .sign
     .field(class=field_position).hidden
       .text!= text
         .angle
 else
   if selector == 'horizontal_hide_ability'
-    .hint.horizontal_hide_ability
+    .hint.horizontal_hide_ability.select
       .top_block
         .hide_block
           .button.open
@@ -26,7 +26,7 @@ else
         .question_sign_block
         .text!= text
   else
-    .hint(class=selector)
+    .hint(class=selector).select
       .question_sign_block
       .header!= header
       .text!= text

@@ -10,13 +10,13 @@ class @main extends template '../main'
         text : 'Введите ваш телефон или email адрес'
       login_hint      : module 'tutor/hint' :
         selector : 'small'
-        text     : ''
+        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
       password        : module 'tutor/forms/input' :
         selector : 'main_check_in'
         text : 'Придумайте пароль'
       password_hint   : module 'tutor/hint' :
         selector : 'small'
-        text     : ''
+        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
       checkbox        : module 'tutor/forms/checkbox'
       create_account  : module 'tutor/button' :
         selector  : 'create_account'

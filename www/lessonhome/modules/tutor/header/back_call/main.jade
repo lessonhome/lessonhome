@@ -1,11 +1,12 @@
-.city Москва
-.telephone 8 (800)
-  span  937-37-93
+.city.select Москва
+.telephone.select 8 (800)
+  span.select  937-37-93
 .title
   .click_box
     .icon
     .text Заказать звонок
-  .popup_box
+  .popup_box!= callback_popup
+//-
     .triangle_box
       .triangle
     .popup

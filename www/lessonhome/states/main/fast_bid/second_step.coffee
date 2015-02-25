@@ -3,6 +3,7 @@ class @main extends template '../fast_bid'
   model : 'main/application/2_step'
   title : "быстрое оформление заявки: второй шаг"
   tree : ->
+    progress : 2
     content : module '$' :
       your_status : module 'tutor/forms/drop_down_list':
         text: 'Ваш статус :'
@@ -25,9 +26,8 @@ class @main extends template '../fast_bid'
       goal : module 'tutor/forms/textarea':
         text: 'Опишите цель :'
         selector  : 'fast_bid'
-      hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->
-    @parent.tree.filter_top.progress_bar.progress = 2
     @parent.tree.filter_top.footer.back_link = 'first_step'
     @parent.tree.filter_top.footer.next_link = 'third_step'

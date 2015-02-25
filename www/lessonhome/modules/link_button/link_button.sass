@@ -12,13 +12,17 @@ a
     +inline-block
     height: 100%
     background-color: rgb( 205, 205, 205 )
-    border-radius: 4px
-    font-size: 16px
+    +border-radius(4px)
     color: #757575
     .text
       +inline-block
       padding: 0 13px
+      font-size: 16px
 
+  .button:after
+    content: ''
+    +inline-block
+    height: 100%
 
 /////////-------top filter-------/////////
 a
@@ -42,16 +46,11 @@ a
 
 ////////////////-------active--------////////////////
 
-  .button.active
+  .active
     background-color: rgb( 240, 123, 111 )
     box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
     .text
       color: #fff
 
-  .button:after
-    content: ''
-    +inline-block
-    height: 100%
-
-  .button.inactive:hover
+  .inactive:hover
     background-color: $RedHoverColor

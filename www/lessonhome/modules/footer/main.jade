@@ -16,7 +16,7 @@ mixin item(title, link)
   .dashed_line
   .left_block
     .logo!= logo
-    .company_name &copy 2014 Lessonhome.ru
+    .company_name.select &copy 2014 Lessonhome.ru
   .dashed_line
   .center_block.unselect
     +item('Поиск', '/first_step')
@@ -27,14 +27,15 @@ mixin item(title, link)
   .right_block
     .address_block
       .icon
-      .address!= '121087, Россия, г. Москва,<br>Береговой проезд 2с3'
+      .address.select!= '121087, Россия, г. Москва,<br>Береговой проезд 2с3'
     .post_block
       .icon
-      .post support@lessonhome.ru
+      .post.select support@lessonhome.ru
     .phone_block
       .icon
       .value
-        .phone 8 (666)-555-88-77
+        .phone.select 8 (666)-555-88-77
         .callback
-         a Заказать звонок
+         .click_box Заказать звонок
+         .popup_box!= callback_popup
 

@@ -23,13 +23,17 @@ class @main
       time_spend_lesson   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'time_spend'
+        end           : module 'tutor/forms/input' :
+          selector  : 'end'
         measurement   : 'мин.'
         selector_two  : 'advance_move'
+        handle        : true
       time_spend_way   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'time_spend'
         measurement   : 'мин.'
         selector_two  : 'advance_move'
+        handle        : true
       female            : module 'gender_button' :
         selector    : 'female'
       male              : module 'gender_button' :
