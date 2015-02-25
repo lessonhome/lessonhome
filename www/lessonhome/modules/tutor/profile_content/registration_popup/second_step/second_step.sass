@@ -1,42 +1,39 @@
 @import compass/css3
-
-main
-  overflow      : hidden
-
 $height : 37px
-
+$padding: 7px
+$width_fields: 341px
+main
 .fields
-  margin-top    : 22.5px
-  margin-bottom : 54.5px
-  text-align    : right
-  label
-    display : block
-    cursor  : pointer
-    margin-right  : 164px
-    padding : 5.5px 0
-    .title, .value
-      +inline-block
-
+  width: 100%
+  .value
+    +inline-block
+    height: $height
+    padding: $padding 0
+  .title_box
+    height: $height
+    +inline-block
+    text-align: right
+    color: rgba(75, 75, 75, 0.70)
+    margin-bottom: 14.5px
+    padding: $padding 0
     .title
-      width        : 180px
-      height       : $height
-      line-height  : $height
-      margin-right : 26px
-      text-align   : right
-      font-size    : 16px
-      color        : rgba(75, 75, 75, 0.70)
-      font-family  : 'Open Sans', sans-serif
-
-    .value
-      width  : 341px
-      height : $height
-
-  label.address
-    cursor : default
-
+      +inline-block
+      line-height: 37px
+      padding-right: 26px
+    .button_box
+      height: 33px
+      width: $width_fields
+      +inline-block
+      .address
+        float: left
+        height: 100%
   .line
-    height        : 3px
-    margin-top    : 14.5px
-    margin-bottom : 8.5px
-    margin-right  : 0
+    position: absolute
+    width: 100%
+    height: 3px
+  .mobile_phone
+    margin-top: 8.5px
+
+
+
 

@@ -1,8 +1,7 @@
-mixin block (selector, title, value)
-  label(class=selector)
-    .title.select=title
-    .value!= value
-
-+block('reason', 'Почему я репетитор?', reason)
-+block('interests', 'Интересы :', interests)
-+block('about','О себе :', about)
+mixin block (selector, value)
+  .value(class=selector)!= value
+////////////////
+.fields
+  +block('reason', reason)
+  +block('interests', interests)
+  +block('about', about)

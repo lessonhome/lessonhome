@@ -1,22 +1,18 @@
-mixin field (selector, title, value)
-  label(class=selector)
-    .title.select=title
-    .value!= value
-
+mixin field (selector, value)
+  .value(class=selector)!= value
+/////////////////
 .fields
   .location_buttons
     .tutor!= tutor
     .student!= student
     .web!= web
-
-  +field ('country', 'Страна :', country)
-  +field ('city', 'Город :', city)
-  +field ('area', 'Район :', area)
-  +field ('near_metro', 'Ближайшее метро :', near_metro)
-  +field ('street', 'Улица :', street)
-  +field ('house', 'Дом :', house)
-  +field ('building', 'Строение :', building)
-  +field ('flat', 'Кв. :', flat)
-
+  +field ('country', country)
+  +field ('city', city)
+  +field ('area', area)
+  +field ('near_metro', near_metro)
+  +field ('street', street)
+  +field ('house', house)
+  +field ('building', building)
+  +field ('flat', flat)
   .button_block
     .add_button!= add_button

@@ -1,72 +1,34 @@
 @import compass/css3
-
+$height: 37px
+$padding: 7px
 main
-  overflow : hidden
-
-$height : 37px
-
 .fields
-  margin-top : 40px
-  margin-bottom : 64.5px
-  text-align : right
-
-
-
-  label, .location_buttons, .button_block
-    display : block
-    cursor  : pointer
-    margin-right  : 164px
-    padding : 5.5px 0
-    .title, .value
-      +inline-block
-
-    .value
-      height : $height
-      width  : 341px
-
-    .title
-      width        : 180px
-      height       : $height
-      line-height  : $height
-      margin-right : 26px
-      text-align   : right
-      font-size    : 16px
-      color        : rgba(75, 75, 75, 0.70)
-      font-family  : 'Open Sans', sans-serif
-
-
+  width: 100%
   .location_buttons
-    padding : 0
-    margin-bottom : 28.5px
-    cursor  : default
-    div
+    padding-bottom: 28.5px
+    height: 33px
+    .tutor, .student, .web
+      height: 100%
       +inline-block
-      width : 127px
-    .tutor, .student
-      margin-right : 23px
-
-
-  .house, .flat, .building
-    .value
-      width : 91px
-
+    .tutor
+      padding-right: 5.5px
+    .web
+      padding-left: 5.5px
+    .student
+      padding: 0 5.5px
+  .value
+    height: $height
+    padding: $padding 0
   .house, .building
     +inline-block
-
-  .building
-    .title
-      width        : 115px
-      margin-right : 19px
-
   .house
-    padding-right : 25px
-    margin-right  : 0
-
+    padding-right: 24.5px
+  .building
+    padding-left: 24.5px
   .flat
-    margin-right : 414px
-
+    margin-right: 250px
   .button_block
-    cursor : default
+    padding: $padding 0
     .add_button
       +inline-block
 

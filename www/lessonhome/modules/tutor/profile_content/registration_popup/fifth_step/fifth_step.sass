@@ -1,20 +1,10 @@
 @import compass/css3
-
+$height: 37px
+$padding: 7px
+$width_fields: 341px      // size fields assigned in forms module
+$width_content: 600px     // this variable in parent module
 main
-  text-align : right
-  padding    : 39.5px 164px 61.5px 0
-
-label
-  +inline-block
-  padding : 5.5px 0
-  cursor  : pointer
-  .title
-    text-align : left
-    font-size    : 16px
-    color        : rgba(75, 75, 75, 0.70)
-    font-family  : 'Open Sans', sans-serif
+.fields
+  width: 100%
   .value
-    width : 432px
-
-//-label:last-child
-  margin-bottom : 0
+    padding: $padding 0 $padding ($width_content - $width_fields)
