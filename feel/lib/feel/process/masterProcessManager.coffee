@@ -26,7 +26,10 @@ class MasterProcessManager
     for name in configs
       continue unless m = name.match /^(\w+)\.coffee$/
       @config[m[1]] = require("./config/#{name}")
-      @config[m[1]].name = m[1]
+      @config[m[1]].name      = m[1]
+      @config[m[1]].services ?= []
+      @config[m[1]].single   ?= false
+      @config[m[1]].autostart?= false
   run : =>
     @log()
     qs = []
@@ -35,12 +38,23 @@ class MasterProcessManager
         qs.push @runProcess conf
     Q.all qs
   getProcess : (id)=> @processById[id]
-  runProcess : (conf)=>
-    @log conf.name
-    @process[conf.name] ?= []
-    return if (@process[conf.name].length>0)&&(conf.single)
-    s = new MasterProcess conf,@
-    @process[conf.name].push s
+  runProcess : (conf,args={})=>
+    if typeof conf == 'string'
+      conf = @config[conf]
+    conf2 = {}
+    for key,val of conf
+      conf2[key] = val
+    if _util.isArray(args)
+      conf2.services ?= []
+      conf2.services.push s for s in args
+      args = {}
+    for key,val of args
+      conf2[key] = val
+    @log conf2.name
+    @process[conf2.name] ?= []
+    return if (@process[conf2.name].length>0)&&(conf2.single)
+    s = new MasterProcess conf2,@
+    @process[conf2.name].push s
     @processById[s.id] = s
     return s.init()
   setQuery : =>

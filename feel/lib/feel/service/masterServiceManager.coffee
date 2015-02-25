@@ -21,6 +21,12 @@ class MasterServiceManager
       @config[m[1]] = require "./config/#{name}"
       @config[m[1]].name = m[1]
   run  : =>
+    @log()
+    qs = []
+    for name,conf of @config
+      if conf.autostart && conf.single
+        qs.push Main.processManager.runProcess 'singleService',[name]
+    yield Q.all qs
   getConfig : (name)=> @config[name]
   connectService : (processId,serviceId)=>
     process = yield Main.processManager.getProcess processId

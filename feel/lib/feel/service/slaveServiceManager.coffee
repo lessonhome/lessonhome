@@ -16,6 +16,12 @@ class SlaveServiceManager
     @log()
     @master = new SlaveProcessConnect 'masterServiceManager'
     yield @master.init()
+    @config = yield @master.config
+    qs = []
+    for name,conf of @config
+      if conf.autostart && !conf.single
+        qs.push @start name
+    yield Q.all qs
   nearest : (name)=>
     return @choose(@services.self[name]).wrap if @services.self[name]?[0]?
     return @choose(@services.master[name]).wrap if @services.master[name]?[0]?
@@ -29,7 +35,7 @@ class SlaveServiceManager
   
   start   : (name)=>
     @log name
-    conf    = yield @master.getConfig name
+    conf    = @config[name]
     #try return @nearest name if conf.single
     service = new Service conf
     @servicesById[service.id] = service

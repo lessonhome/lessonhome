@@ -12,8 +12,8 @@ class Main
     @processManager = new MasterProcessManager()
     yield @serviceManager.init()
     yield @processManager.init()
-    yield @processManager.run?()
     yield @serviceManager.run?()
-    @log 'INITED'
+    yield @processManager.run?()
+    @log 'OK'
 module.exports = Main
 

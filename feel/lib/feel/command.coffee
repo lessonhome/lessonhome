@@ -3,26 +3,26 @@ Lib = new (require './lib')()
 _cluster = require 'cluster'
 
 log = (msg)=>
-  console.log.apply console, ["main_process:#{process.pid}", arguments...]
+  console.log.apply console, ["main_process".blue+":#{process.pid}".grey, arguments...]
 error = (msg)=>
-  console.error "********************************************************"
-  console.error "EE:main_process:#{process.pid}", arguments...
-  console.error "********************************************************"
+  console.error "********************************************************".red
+  console.error "ERROR".red+":main_process:".blue+"#{process.pid}".grey, arguments...
+  console.error "********************************************************".red
 process.on 'uncaughtException', (e)=>
-  error "uncaughtException",e.stack
+  error "uncaughtException".red,e.stack
   process.exit 1
 
 process.on 'exit', (code)=>
   for id,worker of _cluster.workers
     worker.kill()
-  log "exit with code #{code}"
+  log "exit with code".yellow+" #{code}".red
 
 process.on 'SIGINT', =>
-  log "SIGINT"
+  log "SIGINT".red
   process.exit 0
 
 process.on 'SIGTERM', =>
-  log "SIGTERM"
+  log "SIGTERM".red
   process.exit 0
 
 
@@ -40,9 +40,9 @@ class module.exports
     yield @main.init()
   onerror : (err)=>
     try
-      error 'main domain handle',Exception err
+      error 'main domain handle'.yellow,Exception err
       process.exit 1
   run : =>
-    log "run()"
+    log "run()".blue
 
 

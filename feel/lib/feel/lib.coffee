@@ -1,5 +1,9 @@
 
 
+require 'colors'
+global._colors = require 'colors/safe'
+
+
 last = ""
 log =
   s1 : ""
@@ -83,6 +87,14 @@ _getCallerFile = ->
   catch err
     undefined
 
+strlen = (str,len,real)->
+  real ?= str.length
+  n = len-real
+  while n>0
+    str+=" "
+    n--
+  return str
+
 global.Wrap = (obj,prot)->
   proto = prot
   proto ?= obj?.__proto__
@@ -90,21 +102,28 @@ global.Wrap = (obj,prot)->
   return if obj.__wraped
   __functionName__ = ""
   logFunction = (args...)->
-    s = "#{Main.name}:"
-    s+= "#{Main.processId}:" if Main.processId?
-    s+= "#{proto.constructor.name}"
-    s+= "#{__functionName__}"
-    console.log s,args...
-  errorFunction = (args...)->
-    s= "\n********************************************************\n"
-    s+= "ERROR:#{Main.name}:"
-    s+= "#{Main.processId}:" if Main.processId?
-    s+= "#{proto.constructor.name}"
-    s+= "#{__functionName__}"
+    s = "#{Main.name}".blue+":".grey
+    s+= "#{Main.processId}".gray+":".grey if Main.processId?
+    s+= "#{proto.constructor.name}".cyan
+    s+= "#{__functionName__}".cyan
     for val,i in args
       if _util.isError val
         args[i] = Exception val
-    console.error s,args...,"\n********************************************************"
+      if typeof (""+args[i]) == 'string'
+        args[i] = (""+args[i]).green
+    console.log s,args...
+  errorFunction = (args...)->
+    s= "\n********************************************************\n".red
+    s+= "ERROR".red+":#{Main.name}:".yellow
+    s+= "#{Main.processId}:".yellow if Main.processId?
+    s+= "#{proto.constructor.name}".yellow
+    s+= "#{__functionName__}".yellow
+    for val,i in args
+      if _util.isError val
+        args[i] = Exception val
+      if typeof (""+args[i]) == 'string'
+        args[i] = (""+args[i]).magenta
+    console.error s,args...,"\n********************************************************".red
 
   obj.__wraped = true
   #proto.__wraped ?= {}
@@ -113,7 +132,7 @@ global.Wrap = (obj,prot)->
       #proto.__wraped[key] = true
       do (key,val)->
         foo = ->
-          __functionName__ = "::"+key+"()"
+          __functionName__ = "::".grey+key.cyan+"()".blue
           args = arguments
           if val?.constructor?.name == 'GeneratorFunction'
             gen = Q.async val
@@ -260,9 +279,9 @@ global.Wraper = Wraper
 
 global.Exception = (e)=>
   str = ""
-  str += e.name+"\n"    if e.name?
-  str += e.message+"\n" if e.message?
-  str += e.stack        if e.stack?
+  str += (e.name+"\n").blue    if e.name?
+  str += (e.message+"\n").cyan if e.message?
+  str += e.stack.grey        if e.stack?
   return str
 global.ExceptionJson = (e)=>
   name    : e.name
