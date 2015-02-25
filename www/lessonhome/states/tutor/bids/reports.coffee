@@ -82,6 +82,27 @@ class @main extends template '../../tutor'
             skype               : 'melanholic'
             wish_time           : 'вторник 18:30-20:00'
 
+            first_call          :
+              selector: 'filled'
+              default_text: 'Как прошло первое занятие?'
+              value: 'отлично'
+              fill_button_href: 'first_call'
+            first_lesson_date   :
+              selector: 'active'
+              default_text: 'Дата первого занятия'
+              value: false
+              fill_button_href: 'first_lesson_date'
+            first_lesson_result :
+              selector: 'inactive'
+              default_text: 'Ознакомительный звонок ученику'
+              value: false
+              fill_button_href: 'first_lesson_result'
+            payment             :
+              selector: 'inactive'
+              default_text: 'Оплата'
+              value: false
+              fill_button_href: 'payment'
+
 
           module '//report_bid' :
             selectable   : true
@@ -115,6 +136,27 @@ class @main extends template '../../tutor'
             post                : 'seragj@mail.ru'
             skype               : 'melanholic'
             wish_time           : 'вторник 18:30-20:00'
+
+            first_call          :
+              selector: 'filled'
+              default_text: 'Как прошло первое занятие?'
+              value: 'Первый звонок прошёл удачно'
+              fill_button_href: 'first_call'
+            first_lesson_date   :
+              selector: 'filled'
+              default_text: 'Дата первого занятия'
+              value: '13 января'
+              fill_button_href: 'first_lesson_date'
+            first_lesson_result :
+              selector: 'active'
+              default_text: 'Ознакомительный звонок ученику'
+              value: false
+              fill_button_href: 'first_lesson_result'
+            payment             :
+              selector: 'inactive'
+              default_text: 'Оплата'
+              value: false
+              fill_button_href: 'payment'
         ]
   init : ->
     @parent.tree.left_menu.setActive 'Заявки'
