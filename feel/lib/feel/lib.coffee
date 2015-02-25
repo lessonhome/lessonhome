@@ -109,7 +109,7 @@ global.Wrap = (obj,prot)->
     for val,i in args
       if _util.isError val
         args[i] = Exception val
-      if typeof (""+args[i]) == 'string'
+      if typeof (args[i]) == 'string'
         args[i] = (""+args[i]).green
     console.log s,args...
   errorFunction = (args...)->
@@ -121,7 +121,7 @@ global.Wrap = (obj,prot)->
     for val,i in args
       if _util.isError val
         args[i] = Exception val
-      if typeof (""+args[i]) == 'string'
+      if typeof (args[i]) == 'string'
         args[i] = (""+args[i]).magenta
     console.log s,args...,"\n********************************************************".red
 
@@ -160,6 +160,8 @@ global.Wrap = (obj,prot)->
             for a,i in args
               if typeof a == 'object'
                 a = '{'+Object.keys(a).join(',')+'}'
+              else if typeof a == 'string'
+                a = a
               else a = '...'
               na.push a
             e.message += na.join(',').red
@@ -185,7 +187,7 @@ global.Wrap = (obj,prot)->
       if typeof val == 'function'
         oldval = val
         do (oldval)=>
-          val = (args)-> oldval.apply obj,args...
+          val = (args...)-> oldval.apply obj,args
       obj[key] = val
 
 global.lrequire = (name)-> require './lib/'+name

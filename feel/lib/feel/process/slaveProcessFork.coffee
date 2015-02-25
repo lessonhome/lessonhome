@@ -22,10 +22,12 @@ class SlaveProcessFork
     @serviceManager = new SlaveServiceManager()
     yield @serviceManager.init()
      
+    qs = []
+    qs.push @serviceManager.run()
     if @conf.services
-      qs = for name in @conf.services
-        @serviceManager.start name
-      yield Q.all qs
+      for name in @conf.services
+        qs.push @serviceManager.start name
+    yield Q.all qs
 
 module.exports = SlaveProcessFork
 

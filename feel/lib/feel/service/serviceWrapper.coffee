@@ -4,7 +4,6 @@ class ServiceWrapper
   constructor : (@__service)->
     Wrap @
     @__ee = new EE
-  __init : =>
     _emit = @__service.emit
     @__service.emit = (args...)=>
       @__ee.emit args...

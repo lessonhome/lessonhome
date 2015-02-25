@@ -11,18 +11,22 @@ class Service
     Wrap @
     @path = process.cwd()+"/feel/lib/feel/"+@conf.bin
     @ee = new EE
-  init : (args...)=>
     @log @name
-    args ?= @conf.args if @conf?.args?
     Class   = require @path
     @service  = new Class()
     Wrap @service
     @wrapper = new ServiceWrapper @service
     @wrapper.__serviceName  = @name
     @wrapper.__serviceId    = @id
-    yield @wrapper.__init()
+  init : (args...)=>
+    args ?= @conf.args if @conf?.args?
     yield @service.init args...
+    @log 'inited'.yellow,@name
     return @wrapper
+  run : (args...)=>
+    #console.log 'service run',@service.run
+    yield @service.run? args...
+    return
   get  : => @wrapper
 
 module.exports = Service

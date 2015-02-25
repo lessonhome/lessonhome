@@ -1,19 +1,19 @@
 
-
+blackList = require './blackList'
 
 class SlaveProcessConnect
   constructor : (@__conf)->
     @__conf = type:@__conf if typeof @__conf == 'string'
     @__conf.processId = Main.conf.processId
     Wrap @
-  init : =>
+  __init : =>
     @__data = yield Main.messanger.query 'connect',@__conf
     for func in @__data.functions
-      switch func
-        when 'on','emit','init' then continue
+      continue if blackList func
       do (func)=>
         @[func] = (args...)=> @__function func,args...
     for name in @__data.vars
+      continue if blackList name
       do (name)=>
         @[name]='UNDEFINED'
         Object.defineProperty @,name,

@@ -1,4 +1,5 @@
 
+blackList = require './blackList'
 
 
 class MasterProcessConnect
@@ -6,14 +7,14 @@ class MasterProcessConnect
     @__conf = type:@__conf if typeof @__conf == 'string'
     @__conf.processId = 'master'
     Wrap @
-  init : =>
+  __init : =>
     @__data = yield @__process.query 'connect',@__conf
     for func in @__data.functions
-      switch func
-        when 'on','emit','init' then continue
+      continue if blackList func
       do (func)=>
         @[func] = (args...)=> @__function func,args...
     for name in @__data.vars
+      continue if blackList name
       do (name)=>
         @[name] = 'UNDEFINED'
         Object.defineProperty @,name,

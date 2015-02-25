@@ -2,6 +2,7 @@
 
 
 global.MASTERPROCESSCONNECTORID = 0
+blackList = require './blackList'
 
 ###
 # conf:
@@ -25,9 +26,12 @@ class MasterProcessConnector
         @target = Main.processManager
       when 'masterServiceManager'
         @target = Main.serviceManager
+      when 'serviceNearest'
+        @target = yield Main.serviceManager.get @conf.name
       else
         throw new Error 'bad description of processConnector'
     for key,val of @target
+      continue if blackList key
       if typeof val == 'function'
         @dataArray.functions.push key
       else

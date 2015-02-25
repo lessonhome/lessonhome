@@ -1,6 +1,6 @@
 
 
-
+blackList = require './blackList'
 global.SLAVEPOCESSCONNECTORID = 0
 
 ###
@@ -24,10 +24,11 @@ class SlaveProcessConnector
       when 'slaveServiceManager'
         @target = Main.serviceManager
       when 'service'
-        @target = yield Main.serviceManager.servicesById[@conf.id].get()
+        @target = yield Main.serviceManager.getById @conf.id
       else
         throw new Error 'bad description of processConnector'
     for key,val of @target
+      continue if blackList key
       if typeof val == 'function'
         @dataArray.functions.push key
       else
