@@ -24,7 +24,8 @@ class @main
         selector      : 'lesson_time'
         start         : 'time_spend'
         end           : module 'tutor/forms/input' :
-          selector  : 'end'
+          selector    : 'time_spend'
+        dash          : '-'
         measurement   : 'мин.'
         selector_two  : 'advance_move'
         handle        : true

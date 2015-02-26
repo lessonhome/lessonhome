@@ -10,4 +10,5 @@ class @main
     measurement   : @exports()
     move          : module '../slider':
       handle    : @exports()
+    # variable handle response left hand
     selector_two  : @exports()
