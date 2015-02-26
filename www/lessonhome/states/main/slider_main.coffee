@@ -11,4 +11,3 @@ class @main
     move          : module '../slider':
       handle    : @exports()
     # variable handle response left hand
-    selector_two  : @exports()

@@ -33,8 +33,7 @@ class @main
         selector      : 'lesson_time'
         start         : 'time_spend'
         measurement   : 'мин.'
-        selector_two  : 'advance_move'
-        handle        : true
+        handle        : false
       female            : module 'gender_button' :
         selector    : 'female'
       male              : module 'gender_button' :
