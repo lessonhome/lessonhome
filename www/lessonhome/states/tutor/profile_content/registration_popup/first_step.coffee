@@ -25,7 +25,7 @@ class @main extends template '../registration_popup'
         selector    : 'first_reg day'
       birth_month : module 'tutor/forms/unable_enter_list' :
         placeholder : 'Месяц'
-        selector    : 'first_reg size'
+        selector    : 'first_reg_size'
         type : 'unable_to_enter'
         list : [
           'Январь'
@@ -43,7 +43,7 @@ class @main extends template '../registration_popup'
         ]
       birth_year  : module 'tutor/forms/drop_down_list' :
         placeholder : 'Год'
-        selector    : 'first_reg size'
+        selector    : 'first_reg_size'
       status      : module 'tutor/forms/drop_down_list' :
         text        : 'Статус :'
         selector    : 'first_reg'

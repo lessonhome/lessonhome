@@ -14,4 +14,3 @@ class @main extends template '../preview'
           text      : 'до'
         measurement   : 'руб.'
         handle        : true
-        selector_two  : 'top_move'

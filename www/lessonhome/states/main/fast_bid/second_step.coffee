@@ -22,7 +22,7 @@ class @main extends template '../fast_bid'
           selector  : 'price_bids'
           text      : 'до'
         measurement   : 'руб.'
-        selector_two  : 'bids_move'
+        handle        : true
       goal : module 'tutor/forms/textarea':
         text: 'Опишите цель :'
         selector  : 'fast_bid'

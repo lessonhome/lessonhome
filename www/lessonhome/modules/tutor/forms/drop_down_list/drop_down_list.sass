@@ -112,6 +112,7 @@ $icon_padding: 6px
     width: 341px
     input
       font-size: $font_size
+      line-height: $font_size
     +input-placeholder
       font-size: $font_size
       line-height: $font_size
@@ -132,9 +133,66 @@ $icon_padding: 6px
   .drop_down_list
     width: 122px
 ////
-.size
+
+
+
+.first_reg_font
   .drop_down_list
-    width: 100%
+    input
+      font-size: $font_size
+      line-height: $font_size
+    +input-placeholder
+      font-size: $font_size
+      line-height: $font_size
+
+
+
+
+///////
+.first_reg_place
+  text-align: left
+  .text
+    width: 130px
+    text-align: right
+    font-size: $_font_size
+    padding-right: $padding_text
+    color: rgba(75, 75, 75, 0.70)
+  .drop_down_list
+    padding: 0 (2*$icon_padding+$icon_width) 0 8px
+    width: 171px
+    input
+      font-size: $font_size
+//////
+.first_reg_group
+  text-align: left
+  .text
+    width: 130px
+    text-align: right
+    font-size: $_font_size
+    padding-right: $padding_text
+    color: rgba(75, 75, 75, 0.70)
+  .drop_down_list
+    padding: 0 (2*$icon_padding+$icon_width) 0 8px
+    width: 171px
+    input
+      font-size: $font_size
+
+/////////
+.first_reg_group_price
+  text-align: left
+  .text
+    width: 130px
+    text-align: right
+    font-size: $_font_size
+    padding-right: $padding_text
+    color: rgba(75, 75, 75, 0.70)
+    .drop_down_list
+      padding: 0 (2*$icon_padding+$icon_width) 0 8px
+      width: 171px
+      input
+        font-size: $font_size
+
+
   /////////////////--------list_subject, list_tutor---------//////////////////////
 $icon_padding: 15px
 $icon_src : 'main/triangle 24x21.png'

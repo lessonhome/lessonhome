@@ -4,9 +4,11 @@ mixin blue_line (progress)
   - var blue_line_width = blue_line_factor*(progress-1);
   .blue_line(style="width : #{blue_line_width}px")
 
-mixin item (size, checked, value)
-  if checked == true
+mixin item (size, checked, value, href)
+  - href = href || "";
+  if checked
     .block.checked
+      a(href=href)
   else
     .block(class=size)
       .value!= value
@@ -24,29 +26,29 @@ case progress
     +item('small', false, '5')
   when 2
     +blue_line (2)
-    +item('big', true, '1')
+    +item('big', true, '1', 'first_step')
     +item('big', false, '2')
     +item('small', false, '3')
     +item('small', false, '4')
     +item('small', false, '5')
   when 3
     +blue_line (3)
-    +item('big', true, '1')
-    +item('big', true, '2')
+    +item('big', true, '1', 'first_step')
+    +item('big', true, '2', 'second_step')
     +item('big', false, '3')
     +item('small', false, '4')
     +item('small', false, '5')
   when 4
     +blue_line (4)
-    +item('big', true, '1')
-    +item('big', true, '2')
-    +item('big', true, '3')
+    +item('big', true, '1', 'first_step')
+    +item('big', true, '2', 'second_step')
+    +item('big', true, '3', 'third_step')
     +item('big', false, '4')
     +item('small', false, '5')
   when 5
     +blue_line (5)
-    +item('big', true, '1')
-    +item('big', true, '2')
-    +item('big', true, '3')
-    +item('big', true, '4')
+    +item('big', true, '1', 'first_step')
+    +item('big', true, '2', 'second_step')
+    +item('big', true, '3', 'third_step')
+    +item('big', true, '4', 'fourth_step')
     +item('big', false, '5')

@@ -34,3 +34,5 @@ class @main extends template '../registration_popup'
     @parent.tree.popup.footer.back_link = 'first_step'
     @parent.tree.popup.footer.next_link = 'third_step'
 
+
+

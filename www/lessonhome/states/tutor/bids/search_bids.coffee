@@ -49,7 +49,12 @@ class @main extends template '../../tutor'
         text     : 'Сохранить'
         selector : 'search_bids_save'
 
-      slider : module '//slider'
+      road_time_slider : state 'main/slider_main' :
+        selector      : 'road_time_search_bids'
+        start         : 'road_time_search_bids'
+        start_text    : 'до'
+        measurement   : 'мин.'
+        handle        : false
 
       road_time : module 'tutor/forms/input'
 

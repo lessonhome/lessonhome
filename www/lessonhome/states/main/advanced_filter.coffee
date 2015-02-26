@@ -27,7 +27,6 @@ class @main
           selector    : 'time_spend'
         dash          : '-'
         measurement   : 'мин.'
-        selector_two  : 'advance_move'
         handle        : true
       time_spend_way   : state './slider_main' :
         selector      : 'lesson_time'
