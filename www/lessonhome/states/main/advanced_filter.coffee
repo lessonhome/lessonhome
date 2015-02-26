@@ -27,13 +27,11 @@ class @main
           selector    : 'time_spend'
         dash          : '-'
         measurement   : 'мин.'
-        selector_two  : 'advance_move'
         handle        : true
       time_spend_way   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'time_spend'
         measurement   : 'мин.'
-        handle        : false
         handle        : false
       female            : module 'gender_button' :
         selector    : 'female'

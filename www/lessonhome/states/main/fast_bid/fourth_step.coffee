@@ -25,7 +25,7 @@ class @main extends template '../fast_bid'
         start         : 'time_spend_bids'
         start_text    : 'до'
         measurement   : 'мин.'
-        selector_two  : 'fast_bids_spend'
+        handle        : false
       sex_man     : module 'tutor/forms/sex_button' :
         selector : 'man'
       sex_woman   : module 'tutor/forms/sex_button' :

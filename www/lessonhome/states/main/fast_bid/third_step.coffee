@@ -25,6 +25,7 @@ class @main extends template '../fast_bid'
         start         : 'time_spend_bids'
         start_text    : 'до'
         measurement   : 'мин.'
+        handle        : false
       calendar        : module 'main/calendar' :
         selector    : 'fast_bids'
         choose_all  : module 'tutor/forms/checkbox'  :
@@ -44,7 +45,7 @@ class @main extends template '../fast_bid'
         start         : 'time_spend_bids'
         start_text    : 'до'
         measurement   : 'мин.'
-        selector_two  : 'fast_bids_spend'
+        handle        : false
     hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
   init : ->
     @parent.tree.filter_top.footer.back_link = 'second_step'

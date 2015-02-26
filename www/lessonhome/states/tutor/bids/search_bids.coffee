@@ -54,7 +54,6 @@ class @main extends template '../../tutor'
         start         : 'road_time_search_bids'
         start_text    : 'до'
         measurement   : 'мин.'
-        selector_two  : 'advance_move'
         handle        : false
 
       road_time : module 'tutor/forms/input'
