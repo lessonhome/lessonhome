@@ -28,11 +28,8 @@ mixin info_block(block_class, title, value)
 
     .road_time
       .title.select Время на дорогу :
-      .value
-        .title.select до
-        .time!= road_time
-        .title.select мин.
-        .slider!= slider
+      .value!= road_time_slider
+
 
 .separate_line!= separate_line
 
