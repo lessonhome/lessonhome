@@ -1,10 +1,8 @@
 class @main
   tree : => module '$'  :
-    button : module '../button' :
+    button : module '//button_send' :
       text      : 'Отправить заявку<br>только этому<br>репетитору'
       selector  : 'send_bid_this_tutor'
-      close     : true
-    small_button  :  module '../button' :
+    small_button  :  module '//button_send' :
       selector  : 'small_send_bid_this_tutor'
-      close     : true
     have_small_button : @exports()

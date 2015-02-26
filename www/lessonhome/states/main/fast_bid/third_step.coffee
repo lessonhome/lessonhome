@@ -25,7 +25,6 @@ class @main extends template '../fast_bid'
         start         : 'time_spend_bids'
         start_text    : 'до'
         measurement   : 'мин.'
-        selector_two  : 'fast_bids_spend'
       calendar        : module 'main/calendar' :
         selector    : 'fast_bids'
         choose_all  : module 'tutor/forms/checkbox'  :

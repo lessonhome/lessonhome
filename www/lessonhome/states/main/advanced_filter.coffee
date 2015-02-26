@@ -23,6 +23,9 @@ class @main
       time_spend_lesson   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'time_spend'
+        end           : module 'tutor/forms/input' :
+          selector    : 'time_spend'
+        dash          : '-'
         measurement   : 'мин.'
         selector_two  : 'advance_move'
         handle        : true
@@ -30,7 +33,7 @@ class @main
         selector      : 'lesson_time'
         start         : 'time_spend'
         measurement   : 'мин.'
-        selector_two  : 'advance_move'
+        handle        : false
         handle        : false
       female            : module 'gender_button' :
         selector    : 'female'

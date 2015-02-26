@@ -50,8 +50,8 @@ class @main extends template '../../tutor'
         selector : 'search_bids_save'
 
       road_time_slider : state 'main/slider_main' :
-        selector      : ''
-        start         : 'time_spend'
+        selector      : 'road_time_search_bids'
+        start         : 'road_time_search_bids'
         start_text    : 'до'
         measurement   : 'мин.'
         selector_two  : 'advance_move'

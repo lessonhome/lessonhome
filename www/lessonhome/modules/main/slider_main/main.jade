@@ -1,12 +1,13 @@
 div(class=selector)
-  .start!=start
-  if dash
-    .dash=dash
-  if end
-    .end!=end
-  if measurement
-    .measurement.select=measurement
-.move(class=selector_two)!=move
+  .box_input
+    .start!=start
+    if dash
+      .dash=dash
+    if end
+      .end!=end
+    if measurement
+      .measurement=measurement
+  .move!=move
 
 
 
