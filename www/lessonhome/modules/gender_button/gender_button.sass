@@ -1,32 +1,64 @@
 @import compass/css3
 main
   height : 100%
-.button
-  height: 100%
-  text-align: center
-  border-radius: 4px
-  background-color: rgb( 205, 205, 205 )
   cursor: pointer
-  .text
-    +inline-block
-    padding: 0 40px
-    font-size: 18px
-    color: #757575
-.button:after
-  content : ''
-  +inline-block
+div
   height : 100%
+  .button
+    height: 100%
+    +inline-block
+    +border-radius(4px)
+    background-color: rgb( 205, 205, 205 )
+    .text
+      +inline-block
+      color: #757575
+  .button:after
+    content : ''
+    +inline-block
+    height : 100%
 
-///////////////------------active------------/////////////
+
+//////////////// function //////////////
+=selector($selector,$padding_text,$font_size)
+  .button_box.#{$selector}
+    .button
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
+
+////////////// button in advance filter /////////////
++selector('advance_filter',40px,18px)
+
+////////////// button in fast bids /////////////
++selector('fast_bids',61px,28px)
+
+////////////// button in edit preference /////////////
++selector('preferences',55px,20px)
+
+////////////// button in fast bids /////////////
++selector('registration',61px,20px)
+
+
+
+
+///////////////------------actions------------/////////////
 
 .active
-  background-color: rgb( 240, 123, 111 )
-  box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-  .text
-    color : #fff
+  .button
+    background-color: rgb( 240, 123, 111 )
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+    .text
+      color : #fff
+
 
 .inactive:hover
-  background-color: #ffb1a8
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    background-color: #ffb1a8
 
 
-
+.press,.press:hover
+  padding-top: 1px
+  box-sizing: border-box
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset

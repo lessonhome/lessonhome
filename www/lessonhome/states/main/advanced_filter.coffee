@@ -34,9 +34,11 @@ class @main
         measurement   : 'мин.'
         handle        : false
       female            : module 'gender_button' :
-        selector    : 'female'
+        selector    : 'advance_filter'
+        text        : 'Ж'
       male              : module 'gender_button' :
-        selector    : 'male'
+        selector    : 'advance_filter'
+        text        : 'М'
       with_reviews      : module 'tutor/forms/checkbox'  :
         text      : 'С отзывами'
         selector  : 'small'

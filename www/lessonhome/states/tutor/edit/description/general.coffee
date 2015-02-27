@@ -29,11 +29,12 @@ class @main extends template '../../../tutor'
       first_name  : module 'tutor/forms/input'
       second_name : module 'tutor/forms/input'
       patronymic  : module 'tutor/forms/input'
-      sex_man     : module 'tutor/forms/sex_button' :
-        selector: 'man'
-      sex_woman   :   module 'tutor/forms/sex_button' :
-        selector: 'woman'
-
+      sex_woman     : module 'gender_button' :
+        selector  : 'preferences'
+        text      : 'Ж'
+      sex_man       : module 'gender_button' :
+        selector  : 'preferences'
+        text      : 'М'
       birth_day   : module 'tutor/forms/drop_down_list' :
         selector    : 'small_radius'
         placeholder : 'День'
