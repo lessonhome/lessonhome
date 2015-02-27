@@ -32,9 +32,10 @@ class @main extends template '../../tutor'
                 так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'
 
       select_all_checkbox : module 'tutor/forms/checkbox' :
-        selector : 'small'
-      select_all_list     : module 'tutor/forms/drop_down_list'
-      subject : module 'tutor/forms/drop_down_list'
+        selector  : 'small'
+        text      : 'Выбрать все'
+      subject : module 'tutor/forms/drop_down_list':
+        placeholder : 'Предмет'
 
       list_bids : module 'tutor/bids/list_bids' :
         titles_bid : module '//titles_bid' :

@@ -3,7 +3,7 @@ class @main extends template '../main'
     filter_top  : @exports()
     info_panel  : state './info_panel'  :
       subject   : 'Предметы +'
-      tutor     : 'Преподователь +'
+      tutor     : 'Преподаватель +'
       place     : 'Место'
       price     : 'Цена'
       selector  : 'second_step'

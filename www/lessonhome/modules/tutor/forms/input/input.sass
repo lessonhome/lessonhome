@@ -207,9 +207,24 @@ $padding_text: 26px
 
 
   //- ----------------------- BIDS REPORTS POPUP ---------------------------
+
+$_font_size: 20px
+$font_size: 20px
+$padding_text: 10px
 .report_popup
+  .text
+    //text-align: right
+    font-size: $_font_size
+    padding-right: $padding_text
+    color: rgba(75, 75, 75, 0.70)
   .box
-    border: 2px solid rgb(255, 255, 255)
+    width: 120px
+    input
+      font-size: $font_size
+.time_report_popup
+  .box
+    width: 70px
+
 
 //- ---------------------SEARCH BIDS: ROAD TIME SLIDER -----------------------
 $padding_text: 5px
