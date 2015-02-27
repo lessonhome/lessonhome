@@ -18,7 +18,8 @@ class @main extends template '../main'
         selector : 'small'
         text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
       checkbox        : module 'tutor/forms/checkbox'
-      create_account  : module 'tutor/button' :
+      create_account  : module 'link_button' :
+        href      : 'tutor/profile/first_step'
         selector  : 'create_account'
         text      : 'Создать аккаунт'
       check_in_first  : module 'tutor/button' :

@@ -53,8 +53,13 @@ class @main extends template '../../tutor'
             selectable     : true
             checkbox       : module 'tutor/forms/checkbox' :
               selector : 'small'
-            fill_button    : module '//fill_button'
-            support_button : module '//support_button'
+            fill_button    : module 'tutor/button' :
+              selector: 'fill'
+              text: 'Заполнить'
+            support_button : module 'link_button' :
+              selector: 'support'
+              text: 'Поддержка'
+              href: 'reports/support'
 
             number    : 25723
             date      : "10 ноября"
@@ -108,8 +113,13 @@ class @main extends template '../../tutor'
             selectable   : true
             checkbox  : module 'tutor/forms/checkbox' :
               selector : 'small'
-            fill_button    : module '//fill_button'
-            support_button : module '//support_button'
+            fill_button    : module 'tutor/button' :
+              selector: 'fill'
+              text: 'Заполнить'
+            support_button : module 'link_button' :
+              selector: 'support'
+              text: 'Поддержка'
+              href: 'reports/support'
 
             number    : 15723
             date      : "20 декабря"

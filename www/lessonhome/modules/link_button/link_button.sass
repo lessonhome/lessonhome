@@ -1,4 +1,12 @@
 @import compass/css3
+
+$blue:  hsl(210,100%,69%)
+$red:   hsl(6,100%,69%)
+$gray:  hsl(0,0%,69%)
+$green: hsl(87,62%,69%)
+$light_green: hsl(78,70%,65%)
+
+
 main
   +inline-block
   height: 100%
@@ -30,15 +38,29 @@ a
         padding: 0 $padding_text
         font-size: $font_size
     &:hover .button
-      background : lighten($b_color,4)
+      background: lighten($b_color, 5%)
 
+
+//- ----------------------- CREATE ACCOUNT -----------------
+
++selector('create_account', $red, 16px, 20px)
+
+////////-------tutor reports: support button ----------------
+
+$font-size: 16px
+$padding_text: 11.5px
++selector('support', $green, $padding_text, $font-size)
 
 /////////-------top filter-------/////////
 $font-size: 26px
 $padding_text: 15px
-+selector('subject_back',hsl(210,98.1,78.8),15px,26px)
-+selector('onward_block',hsl(210,98.1,78.8),15px,26px)
-+selector('issue_bid',hsl(210,98.1,78.8),20px,26px)
++selector('subject_back',$blue,15px,26px)
++selector('onward_block',$blue,15px,26px)
++selector('issue_bid',$red,20px,26px)
+
+//-.support:hover
+  .button
+    background-color: #7d95ad
 
 
 ////////////////-------actions--------////////////////
