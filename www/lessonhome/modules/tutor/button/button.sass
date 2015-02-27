@@ -1,6 +1,4 @@
 @import compass/css3
-$font-size: 18px
-$padding_text: 0px
 main
   height: 100%
   cursor: pointer
@@ -8,87 +6,54 @@ main
   height: 100%
   .button
     height: 100%
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    +inline-block
     +border-radius(4px)
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
     .text
       +inline-block
-      padding: 0 $padding_text
-      font-size: $font-size
       color: #ffffff
   .button:after
     content: ''
     +inline-block
     height: 100%
 
+//////////////// function //////////////
+=selector($selector,$b_color,$padding_text,$font_size)
+  .button_box.#{$selector}
+    .button
+      background: $b_color
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
+    &:hover .button
+      background : lighten($b_color,4)
 
-
-/////////////-----------it's big button in top filter----------------//////////////
-$font-size: 26px
-$padding_text: 25px
-.at_home_button, .in_tutoring_button, .remotely_button
-  .button
-    background: rgb(148, 201, 254)
-    .text
-      font-size: $font-size
-      padding: 0 $padding_text
-.remotely_button
-  .button
-    background-color: rgb(240, 123, 111)
 
 ////------------- motivation button ----------------////
-$font-size: 26px
+$font_size: 26px
 $padding_text: 28px
-.order_call, .start_search
-  .button
-    +inline-block
-    background-color: rgb(201, 92, 81)
-    .text
-      padding: 0 $padding_text
-      font-size: $font-size
-
++selector('order_call',hsl(210,98.1,78.8),26px,25px)
++selector('start_search',hsl(210,98.1,78.8),26px,25px)
 
 ////---------------- advance filter button --------------////To do moved module in button_add
-$font-size: 30px
+$font_size: 30px
 $padding_text: 11px
++selector('add_time',hsl(210,98.1,78.8),11px,30px)
 .add_time
   .button
-    text-align: center
-    background-color: #f07b6f
-    box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.51)
     .text
-      padding: 0 $padding_text
-      font-size: $font-size
       font-weight: 600
 
 ///////////-----------button in header popup element -----------//////////
-$font-size: 20px
+$font_size: 20px
 $padding_text: 12px
-.call_back, .in_out
-  .button
-    background-color: rgb(240, 123, 111)
-    .text
-      padding: 0 $padding_text
-      font-size: $font-size
++selector('call_back',hsl(210,98.1,78.8),12px,20px)
++selector('in_out',hsl(210,98.1,78.8),12px,20px)
 
-//////////////-------------add button bid this tutor----------/////////////
-$font-size: 20px
+//////////////-------------add button bid this tutor in preview----------/////////////
+$font_size: 20px
 $padding_text: 13px
-.add_button_bid
-  .button
-    text-align: center
-    background-color: rgb(148, 201, 254)
-    box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-    .text
-      padding: 0 $padding_text
-      font-size: $font-size
-
-
-
-
-
-
-
-
++selector('add_button_bid',hsl(210,98.1,78.8),12px,20px)
 
 
 
@@ -108,7 +73,7 @@ $padding_text: 13px
 .streamlined
   .button
     .text
-    padding: 0 12px
+      padding: 0 12px
 .dark_blue
   .button
     width: 103px
@@ -241,18 +206,18 @@ $padding_text: 13px
 
 ////////////////  actions  ////////////////
 
-//- ------------ HOVER ---------------------
-.hover
+.button_box:hover
   .button
-    background-color: #ffb1a8
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
-//- ---------------------------------------------
 
-.press
+
+.press,.press:hover
   padding-top: 1px
   box-sizing: border-box
   .button
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+
+
 
 
 

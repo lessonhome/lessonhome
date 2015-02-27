@@ -1,32 +1,61 @@
 @import compass/css3
 main
   height: 100%
-.button
-  +inline-block
-  height: 100%
-  box-sizing: border-box
-  +border-radius(4px)
-  background-color: rgb( 205, 205, 205 )
   cursor: pointer
-  .text
-    +inline-block
-    vertical-align: baseline
-    padding: 0 15px
-    font-size: 18px
-    color: #757575
-    font-weight: 400
-.button:after
-  content: ''
-  +inline-block
+.button_box
   height: 100%
+  .button
+    +inline-block
+    height: 100%
+    box-sizing: border-box
+    +border-radius(4px)
+    background-color: rgb( 205, 205, 205 )
+    .text
+      +inline-block
+      vertical-align: baseline
+      color: #757575
+      font-weight: 400
+  .button:after
+    content: ''
+    +inline-block
+    height: 100%
 
-/////////////////// action ////////////////
-.active
-  box-shadow       : 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-  background-color : rgb( 240, 123, 111 )
-  .text
-    color : #fff
+//////////////// function //////////////
+=selector($selector,$padding_text,$font_size)
+  .button_box.#{$selector}
+    .button
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
 
+////////////////// search_bids ////////////////////
+$font_size: 18px
+$padding_text: 15px
++selector('search_bids',15px,18px)
+
+/////////////-----------it's big button in top filter----------------//////////////
+$font_size: 26px
+$padding_text: 25px
++selector('at_home_button',26px,25px)
++selector('in_tutoring_button',26px,25px)
++selector('remotely_button',26px,25px)
+
+
+/////////////////// actions ////////////////
+.active, .active:hover
+  .button
+    background-color: #f07b6f
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+    .text
+      color : #fff
 
 .inactive:hover
-  background-color : #ffb1a8
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    background-color : #ffb1a8
+
+.press,.press:hover
+  padding-top: 1px
+  box-sizing: border-box
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset

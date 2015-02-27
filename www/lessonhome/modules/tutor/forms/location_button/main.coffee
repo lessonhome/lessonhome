@@ -1,39 +1,17 @@
-
 class @main extends EE
   show : =>
-    @button = @dom.find ".button"
+    @button = @dom.find ".button_box"
     @active = @button.hasClass 'active'
-    @dom.on 'click', @click
-  ###  disable : =>
-    if !@active then return
-    @active = false
-    @button.removeClass 'active'
-    @button.addClass 'inactive'
-    @emit 'disable'
-  able : =>
-    if @active then return
-    @active = true
-    @button.removeClass 'inactive'
-    @button.addClass 'active'
-    @emit 'able'
-  ###
+    @button.on 'click', @click
+
+    @button.on    'mousedown', => @button.addClass('press')
+    @button.on    'mouseup',   => @button.removeClass('press')
+    $('body').on  'mouseup',   => @button.removeClass('press')
+
   click : =>
-    if @active
-      @active = false
+    if @button.is '.active'
       @button.removeClass 'active'
       @button.addClass 'inactive'
     else
-      @active = true
       @button.removeClass 'inactive'
       @button.addClass 'active'
-    @emit 'active'
-    ###
-      return if @active
-      @active = true
-      @button.removeClass 'inactive'
-      @button.addClass 'active'
-      @emit 'active'
-    ###
-
-
-
