@@ -1,6 +1,11 @@
 @import compass/css3
-$font-size: 18px
-$padding_text: 0px
+
+$blue:  hsl(210,100%,69%)
+$red:   hsl(6,100%,69%)
+$gray:  hsl(0,0%,69%)
+$green: hsl(87,62%,69%)
+$light_green: hsl(78,70%,65%)
+
 main
   height: 100%
   cursor: pointer
@@ -8,241 +13,95 @@ main
   height: 100%
   .button
     height: 100%
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    +inline-block
     +border-radius(4px)
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
     .text
       +inline-block
-      padding: 0 $padding_text
-      font-size: $font-size
       color: #ffffff
   .button:after
     content: ''
     +inline-block
     height: 100%
 
+//////////////// function //////////////
+=selector($selector,$b_color,$padding_text,$font_size)
+  .button_box.#{$selector}
+    .button
+      background: $b_color
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
+    &:hover .button
+      background: lighten($b_color, 5%)
 
-
-/////////////-----------it's big button in top filter----------------//////////////
-$font-size: 26px
-$padding_text: 25px
-.at_home_button, .in_tutoring_button, .remotely_button
-  .button
-    background: rgb(148, 201, 254)
-    .text
-      font-size: $font-size
-      padding: 0 $padding_text
-.remotely_button
-  .button
-    background-color: rgb(240, 123, 111)
 
 ////------------- motivation button ----------------////
-$font-size: 26px
+$font_size: 26px
 $padding_text: 28px
-.order_call, .start_search
-  .button
-    +inline-block
-    background-color: rgb(201, 92, 81)
-    .text
-      padding: 0 $padding_text
-      font-size: $font-size
-
++selector('order_call', $red,26px,25px)
++selector('start_search',$red,26px,25px)
 
 ////---------------- advance filter button --------------////To do moved module in button_add
-$font-size: 30px
-$padding_text: 11px
-.add_time
-  .button
-    text-align: center
-    background-color: #f07b6f
-    box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.51)
-    .text
-      padding: 0 $padding_text
-      font-size: $font-size
-      font-weight: 600
+//-  $font_size: 30px
+  $padding_text: 11px
+  +selector('add_time',hsl(210,98.1,78.8),11px,30px)
+  .add_time
+    .button
+      .text
+        font-weight: 600
 
 ///////////-----------button in header popup element -----------//////////
-$font-size: 20px
+$font_size: 20px
 $padding_text: 12px
-.call_back, .in_out
-  .button
-    background-color: rgb(240, 123, 111)
-    .text
-      padding: 0 $padding_text
-      font-size: $font-size
++selector('call_back',$red,12px,20px)
++selector('in_out',$red,12px,20px)
 
-//////////////-------------add button bid this tutor----------/////////////
-$font-size: 20px
+//////////////-------------add button bid this tutor in preview----------/////////////
+$font_size: 20px
 $padding_text: 13px
-.add_button_bid
-  .button
-    text-align: center
-    background-color: rgb(148, 201, 254)
-    box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-    .text
-      padding: 0 $padding_text
-      font-size: $font-size
-
-
++selector('add_button_bid',$blue,12px,20px)
 //////////////--------- fill button in report bid --------///////////////
-
 $font-size: 16px
 $padding_text: 13px
-
-.fill
-  .button
-    background-color : rgb( 137, 209, 255 )
-    .text
-      padding: 0 $padding_text
-      font-size: $font-size
-
-//-:hover
-  background-color : #a3dcff
++selector('fill', $blue, $padding_text, $font-size)
 
 
-.fixed, .add, .streamlined, .color_blue
-  .button
-    +inline-block
-    height: 35px
-    background-color: rgb( 240, 123, 111 )
-    text-align: center
-    .text
-      font-size: 20px
-.color_blue
-  .button
-    width: 130px
-    background-color: rgb( 137, 209, 255 )
-    box-sizing: border-box
-.streamlined
-  .button
-    .text
-    padding: 0 12px
-.dark_blue
-  .button
-    width: 103px
-    height: 35px
-    background-color: rgb( 203, 211, 218 )
-    box-sizing: border-box
-    border-radius: 4px
-    text-align: center
-    .text
-      +inline-block
-      line-height: 35px
-      font-size: 18px
-      color: rgb( 136, 149, 161 )
-.fixed
-  .button
-    min-width: 130px
-    box-sizing: border-box
-.add
-  .button
-    .text
-      padding: 3px 10px 3px 10px
-      height: 33px
-      box-sizing: border-box
-      font-size: 24px
 // ------------------------- CHECK IN -----------------------
-.check_in_first, .check_in_second, .callback
-  .button
-    +inline-block
-    background-color: rgb( 240, 123, 111 )
-    .text
-.check_in_first
-  .button
-    width: 496px
-    height: 64px
-    .text
-      line-height: 64px
-      font-size: 25px
-.check_in_second
-  .button
-    width: 208px
-    height: 50px
-    .text
-      text-align: center
-      line-height: 50px
-      font-size: 24px
-.callback
-  .button
-    width: 265px
-    height: 54px
-    .text
-      line-height: 54px
-      font-size: 26px
+
++selector('check_in_first', $red, 53.5px, 25px)
++selector('check_in_second', $red, 19px, 24px)
++selector('callback', $red, 28.5px, 26px)
 
 
-//- ----------------------- CREATE ACCOUNT -----------------
-.create_account
-  .button
-    width: 190px
-    height: 33px
-    padding-top: 5px
-    box-sizing: border-box
-    background-color: rgb( 240, 123, 111 )
-    text-align: center
-    .text
-      font-size: 20px
-      color: #fff
-//- ------------------ TUTOR REGISTRATION BUTTONS ------------
+//- ---------------- EDIT: SAVE, ADD BUTTONS; REGISTRATION POPUP: REG_ADD; SEARCH_BIDS: SAVE BUTTON --------------------------
 
 
-
-
-//- ---------------- EDIT: SAVE, ADD BUTTONS, REGISTRATION POPUP: REG_ADD --------------------------
-
-
-.edit_save, .edit_add, .search_bids_save, .reg_add
-  .button
-    width: 128px
-    height: 33px
-    padding-top: 5px
-    box-sizing: border-box
-    background-color: rgb( 240, 123, 111 )
-    text-align: center
-    .text
-      font-size: 20px
-
-
-.search_bids_save
-  .button
-    padding-top: 6px
-    .text
-      font-size: 18px
-
-
++selector('edit_save', $red, 11.5px, 20px)
++selector('edit_add', $red, 11.5px, 20px)
++selector('reg_add', $red, 11.5px, 20px)
++selector('search_bids_save', $red, 11.5px, 18px)
 
 
 //- ----------- EDIT PLUS BUTTON (ADD SMTH) ---------------------
 
-.button.add_smth
-  .button
-    width: 38px
-    height: 33px
-    text-align: center
-    background-color: rgb( 240, 123, 111 )
-    border-radius: 4px
-    box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-    cursor: pointer
-    .text
-      line-height: 31px
-      font-size: 34px
-      color: #fff
-
++selector('add_smth', $red, 9.5px, 34px)
 
 ////////////////  actions  ////////////////
 
-//- ------------ HOVER ---------------------
-.hover
+.button_box:hover
   .button
-    background-color: #ffb1a8
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
 
-//- ---------------------------------------------
 
-.press
+
+.press,.press:hover
   padding-top: 1px
   box-sizing: border-box
   .button
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+
+
 
 
 

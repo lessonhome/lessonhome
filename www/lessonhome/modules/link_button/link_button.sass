@@ -1,6 +1,12 @@
 @import compass/css3
-$font-size: 18px
-$padding_text: 0px
+
+$blue:  hsl(210,100%,69%)
+$red:   hsl(6,100%,69%)
+$gray:  hsl(0,0%,69%)
+$green: hsl(87,62%,69%)
+$light_green: hsl(78,70%,65%)
+
+
 main
   +inline-block
   height: 100%
@@ -10,69 +16,75 @@ a
   height: 100%
   .button
     +inline-block
-    height: 100%
-    background-color: rgb( 205, 205, 205 )
     +border-radius(4px)
-    color: #757575
+    height: 100%
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    background-color: rgb( 205, 205, 205 )
     .text
       +inline-block
-      padding: 0 $padding_text
-      font-size: $font-size
+      color: #ffffff
   .button:after
     content: ''
     +inline-block
     height: 100%
 
-/////////-------top filter-------/////////
-$font-size: 26px
-$padding_text: 15px
-a
-  .subject_back, .onward_block, .issue_bid
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
-    background: rgb(148, 201, 254)
-    .text
-      font-size: $font-size
-      padding: 0 $padding_text
-      color: rgb(255, 255, 255)
-  $padding_text: 20px
-  .issue_bid
-    background-color: rgb(240, 123, 111)
-    .text
-      padding: 0 $padding_text
+
+//////////////// function //////////////
+=selector($selector,$b_color,$padding_text,$font_size)
+  a.#{$selector}
+    .button
+      background: $b_color
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
+    &:hover .button
+      background: lighten($b_color, 5%)
+
+
+//- ----------------------- CREATE ACCOUNT -----------------
+
++selector('create_account', $red, 16px, 20px)
 
 ////////-------tutor reports: support button ----------------
 
 $font-size: 16px
 $padding_text: 11.5px
-a
-  .support
-    background-color: rgb( 88, 105, 122 )
-    box-shadow : 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-    .text
-      padding: 0 $padding_text
-      font-size: $font-size
-      color: #fff
++selector('support', $green, $padding_text, $font-size)
+
+/////////-------top filter-------/////////
+$font-size: 26px
+$padding_text: 15px
++selector('subject_back',$blue,15px,26px)
++selector('onward_block',$blue,15px,26px)
++selector('issue_bid',$red,20px,26px)
 
 //-.support:hover
   .button
     background-color: #7d95ad
 
-////////////////-------actives--------////////////////
-//TODO: now all button in active, after do state: active, inactive. The following logic: if no go next step - inactive, otherwise - active
+
+////////////////-------actions--------////////////////
+//TODO: now all button in active, after do state: active, inactive and send this in coffee. The following logic: if no go next step - inactive, otherwise - active
 //.inactive
   .button
     .text
       color: #757575
+//.active, .active:hover
+  .button
+    background-color: #f07b6f
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+    .text
+      color : #fff
 
 
 ///////// now hover for all button, after doing logic, hover only active button
-.hover
+a:hover
   .button
     background-color: #ffb1a8
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
 
 ///////// this class for button in mouse down in element
-.press
+.press, .press:hover
   padding-top: 1px
   box-sizing: border-box
   .button
