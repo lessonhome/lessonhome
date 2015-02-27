@@ -11,13 +11,13 @@ mixin item(element)
   if selector == 'active'
     .item.active
       .icon
-      .text=value
+      .text.select=value
       a(href=url+'/'+element.fill_button_href)
         .fill_button!= fill_button
   else
     .item(class=selector)
       .icon
-      .text=value
+      .text.select=value
 
 mixin report_line (title, value, selector)
   div(class=selector)
@@ -81,7 +81,7 @@ mixin line (title, value, selector)
       .report
         .title.m-title.select Отчёт
         .content
-          .items.select
+          .items
             +item(first_call)
             +item(first_lesson_date)
             +item(first_lesson_result)
