@@ -35,6 +35,7 @@
     "watch" : "*",
     "mime" : "*",
     "mongodb":"*",
-    "colors" : "*"
+    "colors" : "*",
+    "v8-profiler" : "*"
   }
 }

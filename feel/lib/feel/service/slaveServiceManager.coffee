@@ -7,7 +7,6 @@ Service             = require './service'
 class SlaveServiceManager
   constructor : ->
     Wrap @
-    @ee = new EE
     @services =
       self    : {}
       master  : {}
@@ -33,30 +32,18 @@ class SlaveServiceManager
 
   nearest : (name)=>
     return @choose(@services.self[name])    if @services.self[name]?[0]?
-    return @waitForService name             if @waitFor[name]
     return @choose(@services.master[name])  if @services.master[name]?[0]?
     return @choose(@services.others[name])  if @services.others[name]?[0]?
+    return @waitForService name             if @waitFor[name]
     return @masterNearest(name)
   getById : (id)=>
     return @serviceById[id] if @serviceById[id]?
-    return yield @waitAction "connectedId:"+id
+    return yield _waitFor @,"connectedId:"+id
     
-  waitAction : (action,time=1000)=>
-    waited = false
-    defer = Q.defer()
-    @ee.once action, (args)=>
-      waited = true
-      defer.resolve args
-    setTimeout =>
-      return if waited
-      defer.reject "timout waiting action #{action}"
-      return
-    ,time
-    return defer.promise
   waitForService : (name)=>
     defer = Q.defer()
     waited = false
-    return yield @waitAction 'connected:'+name
+    return yield _waitFor @,'connected:'+name
   choose : (array)=>
     throw new Error 'cant choose service bad array' unless util.isArray(array) && array.length
     return array[Math.floor(Math.random()*array.length)]
@@ -68,7 +55,7 @@ class SlaveServiceManager
       name : name
     }
     yield service.__init()
-    @ee.emit 'connected:'+name,service
+    @emit 'connected:'+name,service
     @services.master[name] ?= []
     @services.master[name].push service
     return service
@@ -81,22 +68,19 @@ class SlaveServiceManager
     wrapper = yield service.get()
     
     qs = []
-    qs.push @connectServiceToMaster(service)
+    unless conf.autostart && !conf.single
+      qs.push @connectServiceToMaster(service)
     yield service.init()
-    @log 'Qall',name.red
     @serviceById[service.id] = wrapper
     @services.self[name] ?= []
     @services.self[name].push wrapper
-    @log '::emit'.red,name
-    @ee.emit 'connectedId:'+service.id,wrapper
-    @ee.emit 'connected:'+name,wrapper
+    @emit 'connectedId:'+service.id,wrapper
+    @emit 'connected:'+name,wrapper
     qs.push service.run()
     yield Q.all qs
     return wrapper
   connectServiceToMaster : (service)=>
-    @log ("connect "+service.name).red,service.id
     yield @master.connectService Main.processId,service.id
-    @log ("connected "+service.name).red
 
     
 

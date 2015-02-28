@@ -21,7 +21,6 @@ class Service
   init : (args...)=>
     args ?= @conf.args if @conf?.args?
     yield @service.init args...
-    @log 'inited'.yellow,@name
     return @wrapper
   run : (args...)=>
     #console.log 'service run',@service.run

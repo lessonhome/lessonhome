@@ -2,6 +2,14 @@
 
 require 'colors'
 global._colors = require 'colors/safe'
+###
+__used = 0
+setInterval ->
+  n = process.memoryUsage().heapUsed
+  console.log "+"+(n-__used)/1024
+  __used = n
+, 5000
+###
 
 
 last = ""
@@ -131,15 +139,23 @@ global.Wrap = (obj,prot)->
     if (typeof val=='function') #&& !proto.__wraped[key]
       #proto.__wraped[key] = true
       do (key,val)->
-        foo = ->
+        fname = "::".grey+key.cyan+"()".blue
+        gen = null
+        if val?.constructor?.name == 'GeneratorFunction'
+          gen = Q.async val
+        foo = (args...)->
           nerror = new Error()
-          __functionName__ = "::".grey+key.cyan+"()".blue
-          args = arguments
-          if val?.constructor?.name == 'GeneratorFunction'
-            gen = Q.async val
+          __functionName__ = fname
+          if gen?
             q = gen.apply obj,args
           else
             q = Q.then -> val.apply obj,args
+          if key == 'init'
+            __inited = false
+            obj.once 'inited',-> __inited = true
+            q = q.then (arg)->
+              obj.emit 'inited' unless __inited
+              return arg
           q = q.catch (e)->
             errs = Exception(nerror).match /(at.*\n)/g
             nerrs = ""
@@ -178,24 +194,62 @@ global.Wrap = (obj,prot)->
         obj[key] = foo if !prot?
   obj.log   ?= (args...)-> logFunction.apply    obj,args
   obj.error ?= (args...)-> errorFunction.apply  obj,args
+  obj._block = (state=true,pref="",err)->
+    if (typeof pref != 'string') && (!err?)
+      err  = pref
+      pref = ""
+      
+    if err?
+      obj["__blockErr"+pref] = err
+    obj["__isBlocked"+pref] ?= false
+    return if obj["__isBlocked"+pref] == state
+    obj["__isBlocked"+pref] = state
+    if state
+      obj.emit '_block'+pref
+    else
+      obj.emit '_unblock'+pref
+  obj._unblock = (pref="")-> Q.then ->
+    q = Q()
+    if obj["__isBlocked"+pref]
+      q = q.then -> _waitFor obj,'_unblock'+pref
+    q = q.then -> throw obj["__blockErr"+pref] if obj["__blockErr"+pref]?
+    return q
+    
+    
+    
+      
         #c[key] = foo
         #c.constructor[key]     = foo
   #Wrap obj,proto.constructor.__super__ if proto?.constructor?.__super__?
   unless obj.emit?
     ee = new EE
-    for key,val of ee
-      if typeof val == 'function'
-        oldval = val
-        do (oldval)=>
-          val = (args...)-> oldval.apply obj,args
-      obj[key] = val
-
+    #for key,val of ee
+    #  if typeof val == 'function'
+    #    oldval = val
+    #    do (oldval)=>
+    #      val = (args...)->
+    #        #console.log 'old',oldval,obj,args
+    #        oldval.apply obj,args
+    #  obj[key] = val
+    obj.emit  = -> ee.emit arguments...
+    obj.on    = -> ee.on   arguments...
+    obj.once  = -> ee.once arguments...
+  __on      = obj.on
+  __once    = obj.once
+  obj.on    = (action,foo)->
+    __on.call obj, action, (args...)->
+      ret = foo(args...)
+      ret.done() if Q.isPromise ret
+  obj.once  = (action,foo)->
+    __once.call obj,action,(args...)->
+      ret = foo(args...)
+      ret.done() if Q.isPromise ret
 global.lrequire = (name)-> require './lib/'+name
 
 global.Path     = new (require('./service/path'))()
 global.Q        = require 'q'
 
-Q.longStackSupport  = true
+#Q.longStackSupport  = true
 
 
 
@@ -205,8 +259,6 @@ Q.rdenode = -> Q.rdenodeify arguments...
 
 
 Q.then = -> Q().then arguments...
-Q.tick = -> Q().tick arguments...
-Q.wait = -> Q().wait arguments...
 ###
   args = arguments
   d = Q.defer()
@@ -215,6 +267,7 @@ Q.wait = -> Q().wait arguments...
     q.then.apply q,args
     d.resolve q
   d.promise
+###
 ###
 Q.Promise::tick = (fulfilled,rejected,ms)->
   self = this
@@ -246,43 +299,53 @@ Q.Promise::tick = (fulfilled,rejected,ms)->
     @observeEstimate ue
     ue()
   return deferred.promise
-
-Q.Promise::wait = (wait,fulfilled,rejected,ms)->
+###
+Q.Promise::wait = (t,args...)->
+  unless typeof t == 'number'
+    args = [arguments...]
+    t = 0
+  q = Q.Promise::delay.call @,t
+  if args.length
+    q = q.then args...
+  return q
+###
+(wait,fulfilled,rejected,ms)->
+  args = [arguments...]
   if typeof wait == 'function'
-    return @tick arguments
+    return @tick args.slice(1)...
   self = this
   deferred = Q.defer()
-  
-  _fulfilled = null
-  if typeof fulfilled == 'function'
-    _fulfilled = Promise_tick_fulfilled = (value)->
-      setTimeout ->
+  setTimeout ->
+    _fulfilled = null
+    if typeof fulfilled == 'function'
+      _fulfilled = Promise_tick_fulfilled = (value)->
         try
           deferred.resolve  fulfilled.call null,value
         catch e
           deferred.rejected e
-      ,wait
-  else
-    _fulfilled = deferred.resolve
-  _rejected = null
-  if typeof rejected == 'function'
-    _rejected = Promise_tick_rejected = (e)->
-      try
-        deferred.resolve rejected.call null,e
-      catch ne
-        deferred.reject ne
-  else
-    _rejected = deferred.reject
-  @done _fulfilled,_rejected
-  if ms?
-    ue = Promise_tick_updateEstimate ->
-      deferred.setEstimate self.getEstimate()+ms
-    @observeEstimate ue
-    ue()
+    else
+      _fulfilled = deferred.resolve
+    _rejected = null
+    if typeof rejected == 'function'
+      _rejected = Promise_tick_rejected = (e)->
+        try
+          deferred.resolve rejected.call null,e
+        catch ne
+          deferred.reject ne
+    else
+      _rejected = deferred.reject
+    @done _fulfilled,_rejected
+    if ms?
+      ue = Promise_tick_updateEstimate ->
+        deferred.setEstimate self.getEstimate()+ms
+      @observeEstimate ue
+      ue()
+  ,wait
   return deferred.promise
-
+  ###
 Q.wait = -> Q().wait arguments...
-
+Q.tick = -> Q().wait arguments...
+Q.Promise::tick = Q.Promise::wait
 global.EE           = require('events').EventEmitter
 
 class Wraper extends EE
@@ -317,9 +380,40 @@ class Lib
 
 
 
-
+global._crypto  = require 'crypto'
 global._util    = require 'util'
 global._fs      = require 'fs'
 global._readdir = Q.denode _fs.readdir
+global._readFile= Q.denode _fs.readFile
+global._exists  = Q.rdenode _fs.exists
+global._path    = require 'path'
+global._stat    = Q.denode _fs.stat
+global._inspect = _util.inspect
+global._hash    = (f)-> _crypto.createHash('sha1').update(f).digest('hex')
+global._shash   = (f)-> _hash(f).substr 0,10
+global._invoke  = (args...)-> Q.ninvoke args...
+module.exports  = Lib
 
-module.exports = Lib
+global._waitFor = (obj,action,time=5000)-> Q.then ->
+  waited = false
+  defer = Q.defer()
+  obj.once action, (args...)=>
+    args = args[0] if args.length == 1
+    waited = true
+    defer.resolve args
+  if time > 0
+    setTimeout =>
+      return if waited
+      defer.reject "timout waiting action #{action}"
+      return
+    ,time
+  return defer.promise
+  
+global._Inited = (obj)-> Q.then ->
+  obj.__initing = 0
+  return true if obj.__initing > 1
+  if obj.__initing == 1
+    return _waitFor(obj,'inited').then -> true
+  obj.__initing = 1
+  return false
+

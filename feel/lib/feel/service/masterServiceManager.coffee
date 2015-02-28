@@ -7,7 +7,6 @@ global.MASTERSERVICEMANAGERSERVICEID = 0
 class MasterServiceManager
   constructor : ->
     Wrap @
-    @ee = new EE
     @config = {}
     @services =
       byProcess : {}
@@ -39,18 +38,6 @@ class MasterServiceManager
           services  : [name]
         }
     yield Q.all qs
-  waitAction : (action,time=1000)=>
-    waited = false
-    defer = Q.defer()
-    @ee.once action, (args)=>
-      waited = true
-      defer.resolve args
-    setTimeout =>
-      return if waited
-      defer.reject "timout waiting action #{action}"
-      return
-    ,time
-    return defer.promise
   connectService : (processId,serviceId)=>
     process = yield Main.processManager.getProcess processId
     service = new MasterProcessConnect {
@@ -67,7 +54,7 @@ class MasterServiceManager
     @services.byId[masterId] = wrapper
     @services.byName[name] ?= []
     @services.byName[name].push wrapper
-    @ee.emit 'connected:'+name,wrapper
+    @emit 'connected:'+name,wrapper
 
   get : (name)=>
     @log name
@@ -75,7 +62,7 @@ class MasterServiceManager
     unless _util.isArray(arr)&&arr.length
       unless @waitFor[name]
         throw new Error 'no one started service at master with name '+name
-      return yield @waitAction 'connected:'+name
+      return yield _waitFor @,'connected:'+name
     service = arr[Math.floor(Math.random()*arr.length)]
     return service
 
