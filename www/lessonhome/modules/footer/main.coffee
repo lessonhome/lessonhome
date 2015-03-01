@@ -1,7 +1,7 @@
 class @main extends EE
   show: =>
-    @pupil = @tree.callback_popup.pupil.class
-    @tutor = @tree.callback_popup.tutor.class
+    @pupil = @tree.call_back_popup.pupil.class
+    @tutor = @tree.call_back_popup.tutor.class
 
     @pupil.on 'active', @tutor.disable
     @tutor.on 'active', @pupil.disable

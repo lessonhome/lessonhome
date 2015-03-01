@@ -1,7 +1,5 @@
 @import compass/css3
-
 //- ------------------------------ POPUP ----------------------------------
-
 .popup_wrap
   position: fixed
   overflow: scroll
@@ -20,85 +18,52 @@
   +inline-block
   width: 0px
   height: 100%
-
 //- -----------------------------------------------------------------------
-
+$padding_icon: 24px
 main
-  //overflow: hidden
   padding: 50px 16px 50px 18px
-
-
 .hint_block
-  //overflow: hidden
+  padding-bottom: 53px
   .title
-    padding-left: 24px
     line-height: 36px
-    //margin-left: 38px
-    //margin-top: 40px
-
   .hint
-    margin: 18px 53px 51px 39px
-
-/*-------------------------------------*/
-
-.illustrations
-  padding-left: 50px
-  font-size: 14px
-  color: rgb (0, 0, 0)
-  div
-    +inline-block
-    vertical-align: top
+    padding-top: 18px
+  .illustrations
+    font-size: 14px
+    padding-top: 25px
     div
-      margin-bottom: 15px
-      .icon, .text
-        +inline-block
+      padding: 0 $padding_icon
+      +inline-block
+      vertical-align: top
+      div
+        padding: 5px 0
+        .icon, .text
+          +inline-block
+        .icon
+          margin-right: 10px
 
-      .icon
-        margin-right: 10px
-        width: 16px
-        height: 16px
+//////////////// function //////////////
+=illustration($selector,$icon_src)
+  $icon_height: image-height($icon_src)
+  $icon_width: image-width($icon_src)
+  .hint_block
+    .illustrations
+      div
+        .#{$selector}
+          .icon
+            width: $icon_width
+            height: $icon_height
+            background: inline-image($icon_src) no-repeat
+/////////////////////////////////
 
-  .left
-    width: 275px
-    .status_call>.icon
-      background: inline-image('status/status_call.png') no-repeat
-
-    .status_wait>.icon
-      background: inline-image('status/status_wait.png') no-repeat
-
-  .center
-    width: 231px
-    .status_study>.icon
-      background: inline-image('status/status_study.png') no-repeat
-
-    .status_date>.icon
-      background: inline-image('status/status_date.png') no-repeat
-
-    .status_rating>.icon
-      background: inline-image('status/status_rating.png') no-repeat
-
-  .right
-    width: 200px
-    div
-      margin-bottom: 12px
-      .icon
-        width: 22px
-        height: 19px
-
-    .status_paid>.icon
-      background: inline-image('status/status_paid.png') no-repeat
-
-    .status_unpaid>.icon
-      background: inline-image('status/status_unpaid.png') no-repeat
-
-    .status_fail
-      .icon
-        background: inline-image('status/status_fail.png') no-repeat
-        background-position: center
-
-
-  .center:last-child, .right:last-child
-    margin-bottom: 0
++illustration('status_call','status/status_call.png')
++illustration('status_wait','status/status_wait.png')
++illustration('status_study','status/status_study.png')
++illustration('status_date','status/status_date.png')
++illustration('status_rating','status/status_rating.png')
++illustration('status_paid','status/status_paid.png')
++illustration('status_unpaid','status/status_unpaid.png')
++illustration('status_fail','status/status_fail.png')
 
 /*-------------------------------------*/
 

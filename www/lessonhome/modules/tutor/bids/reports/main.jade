@@ -9,19 +9,20 @@ if popup
 
 .hint_block.select
   .title.g-font-middleTitle Список заказов, по которым вы работаете
+  //.js-hind
   .hint!= hint
-.illustrations
-  .left
-    +item('status_wait', 'Статус неопределён, ожидание')
-    +item('status_call', 'Нужно договориться с клиентом')
-  .center
-    +item('status_date', 'Дата занятий назначена')
-    +item('status_study', 'Занятия в процессе')
-    +item('status_rating', 'Отзыв собран')
-  .right
-    +item('status_paid', 'Заказ оплачен')
-    +item('status_unpaid', 'Заказ неоплачен')
-    +item('status_fail', 'Заказ удалён')
+  .illustrations
+    .left
+      +item('status_wait', 'Статус неопределён, ожидание')
+      +item('status_call', 'Нужно договориться с клиентом')
+    .center
+      +item('status_date', 'Дата занятий назначена')
+      +item('status_study', 'Занятия в процессе')
+      +item('status_rating', 'Отзыв собран')
+    .right
+      +item('status_paid', 'Заказ оплачен')
+      +item('status_unpaid', 'Заказ неоплачен')
+      +item('status_fail', 'Заказ удалён')
 
 .bar
   .select_all

@@ -5,14 +5,12 @@ class @main
       items     : @exports()
     icons     : @exports()
     back_call : module '$/back_call'  :
-      callback_popup : module 'callback_popup' :
+      call_back_popup : module 'call_back_popup' :
         selector : 'header'
         name        : module './forms/input'  :
-          text : 'Имя'
-        placeholder : 'Ваше имя'
+          placeholder : 'Ваше имя'
         tel_number  : module './forms/input'  :
-          text : 'Телефон'
-        placeholder : 'Телефон'
+          placeholder : 'Телефон'
         comments  : module './forms/textarea' :
           placeholder : 'Комментарий'
         pupil       : module '$/button_toggle' :
