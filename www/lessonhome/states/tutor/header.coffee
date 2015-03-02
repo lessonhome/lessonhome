@@ -5,6 +5,7 @@ class @main
       items     : @exports()
     icons     : @exports()
     back_call : module '$/back_call'  :
+      city            : 'Москва'
       call_back_popup : module 'call_back_popup' :
         selector : 'header'
         name        : module './forms/input'  :
