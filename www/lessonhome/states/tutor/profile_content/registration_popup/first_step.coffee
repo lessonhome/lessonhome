@@ -5,7 +5,9 @@ class @main extends template '../registration_popup'
   tree : ->
     progress  : 1
     content : module '$' :
-      understand_button : module '//understand_button'
+      understand_button : module 'tutor/button' :
+        selector: 'understand'
+        text:      'Спасибо, я понял'
       first_name  : module 'tutor/forms/input':
         selector    : 'first_reg'
         text        : 'Имя :'

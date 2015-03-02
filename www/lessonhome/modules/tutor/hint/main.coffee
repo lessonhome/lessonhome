@@ -11,8 +11,10 @@ class @main extends EE
   change_visibility: (element)=>
     if element.css("display") == "none"
       element.css("display", "block")
+      @emit 'show'
     else
       element.css("display", "none")
+      @emit 'hide'
 
   show_hint_control: (dom)=>
     hint = dom.find ".hint"

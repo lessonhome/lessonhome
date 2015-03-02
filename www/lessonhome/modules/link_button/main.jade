@@ -2,6 +2,13 @@
 
 - selector = selector || "";
 
-a(href=href class=selector)
-  .button
-    .text!=text
+if selector == 'inactive'
+  a(href=href class=selector)
+    .button
+      .text!=text
+else
+  a.active(href=href class=selector)
+    .button
+      .text!=text
+
+
