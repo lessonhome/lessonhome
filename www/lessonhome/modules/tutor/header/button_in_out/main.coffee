@@ -7,10 +7,11 @@
 class @main extends EE
   show : =>
     @button = @dom.find ".button"
+    @title  = @button.find ".title"
     @popup_box = @button.find ".popup_box"
-    @close_box = @popup_box.filter ".close_box"
+    @close_box = @popup_box.find ".close_box"
     @popupVisible = @popup_box.is ':visible'
-    @button.on 'click', @togglePopup
+    @title.on 'click', @togglePopup
     @close_box.on 'click', @hidePopup
 
   togglePopup : =>
