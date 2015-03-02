@@ -5,17 +5,17 @@ class @main extends template '../fast_bid'
   tree : ->
     progress : 4
     content : module '$' :
-      student : module 'tutor/forms/status_button' :
-        selector : 'inactive'
+      student : module 'tutor/forms/location_button' :
+        selector : 'status_button'
         text : 'Студент'
-      teacher : module 'tutor/forms/status_button' :
-        selector : 'active'
+      teacher : module 'tutor/forms/location_button' :
+        selector : 'status_button active'
         text : 'Преподаватель школы'
-      professor : module 'tutor/forms/status_button' :
-        selector : 'inactive'
+      professor : module 'tutor/forms/location_button' :
+        selector : 'status_button'
         text : 'Преподаватель ВУЗа'
-      native : module 'tutor/forms/status_button' :
-        selector : 'inactive'
+      native : module 'tutor/forms/location_button' :
+        selector : 'status_button'
         text : 'Носитель языка'
       experience : module 'tutor/forms/drop_down_list':
         text      : 'Опыт:'
@@ -26,10 +26,12 @@ class @main extends template '../fast_bid'
         start_text    : 'до'
         measurement   : 'мин.'
         handle        : false
-      sex_man     : module 'tutor/forms/sex_button' :
-        selector : 'man'
-      sex_woman   : module 'tutor/forms/sex_button' :
-        selector : 'woman'
+      sex_man     : module 'gender_button' :
+        selector  : 'fast_bids'
+        text      : 'М'
+      sex_woman   : module 'gender_button' :
+        selector  : 'fast_bids'
+        text      : 'Ж'
 
     hint : 'Расскажите нам<br>ещё немного о<br>Вашем идеальном<br>репетиторе'
 

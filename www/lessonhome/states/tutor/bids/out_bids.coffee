@@ -33,8 +33,10 @@ class @main extends template '../../tutor'
 
       select_all_checkbox : module 'tutor/forms/checkbox' :
         selector : 'small'
-      select_all_list     : module 'tutor/forms/drop_down_list'
-      subject : module 'tutor/forms/drop_down_list'
+      sort_list     : module 'tutor/forms/drop_down_list':
+        placeholder : 'Все'
+      subject : module 'tutor/forms/drop_down_list':
+        placeholder : 'Предмет'
 
       list_bids : module 'tutor/bids/list_bids' :
         titles_bid : module '//titles_bid' :
@@ -77,7 +79,7 @@ class @main extends template '../../tutor'
           module '//bid' :
             selectable   : true
             checkbox  : module 'tutor/forms/checkbox' :
-              selector : 'bid'
+              selector : 'small'
 
             number    : 15723
             date      : "20 декабря"

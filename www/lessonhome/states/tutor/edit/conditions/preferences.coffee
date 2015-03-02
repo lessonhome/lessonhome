@@ -24,10 +24,12 @@ class @main extends template '../../../tutor'
       active_item : 'Предпочтения'
 
     content : module '$':
-      sex_man     : module 'tutor/forms/sex_button' :
-        selector: 'man'
-      sex_woman   :   module 'tutor/forms/sex_button' :
-        selector: 'woman'
+      sex_woman     : module 'gender_button' :
+        selector  : 'preferences'
+        text      : 'Ж'
+      sex_man       : module 'gender_button' :
+        selector  : 'preferences'
+        text      : 'М'
       category : module 'tutor/forms/drop_down_list'
       status : module 'tutor/forms/drop_down_list'
 

@@ -6,13 +6,13 @@ class @main extends template '../fast_bid'
     progress : 3
     content : module '$' :
       tutor : module 'tutor/forms/location_button' :
-        selector : 'search_bids'
+        selector : 'place_learn'
         text   : 'у себя'
       student  : module 'tutor/forms/location_button' :
-        selector : 'search_bids'
+        selector : 'place_learn'
         text   : 'у ученика'
       web : module 'tutor/forms/location_button' :
-        selector : 'search_bids'
+        selector : 'place_learn'
         text   : 'удалённо'
       location_hint : module 'tutor/hint' :
         selector : 'small'

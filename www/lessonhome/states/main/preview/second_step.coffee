@@ -1,11 +1,11 @@
 class @main extends template '../preview'
   route : '/second_step'
   model : 'main/second_step'
-  title : "выберите статус преподователя"
+  title : "выберите статус преподавателя"
   tree : ->
     popup       : @exports()
     filter_top  : state '../filter_top':
-      title : 'Выберите статус преподователя :'
+      title : 'Выберите статус преподавателя :'
       list_subject    : module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
         placeholder : 'Например студент'

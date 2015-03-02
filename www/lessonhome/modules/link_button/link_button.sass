@@ -1,16 +1,12 @@
 @import compass/css3
-
 $blue:  hsl(210,100%,69%)
 $red:   hsl(6,100%,69%)
 $gray:  hsl(0,0%,69%)
 $green: hsl(87,62%,69%)
 $light_green: hsl(78,70%,65%)
-
-
 main
   +inline-block
   height: 100%
-  cursor: pointer
 a
   display: block
   height: 100%
@@ -18,27 +14,49 @@ a
     +inline-block
     +border-radius(4px)
     height: 100%
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
-    background-color: rgb( 205, 205, 205 )
     .text
       +inline-block
-      color: #ffffff
+      vertical-align: sub
+      color: #757575
   .button:after
     content: ''
     +inline-block
     height: 100%
+
+//////////////// state rules ////////////
+//TODO: now i add in jade for teg 'a' class '.active' because buttons have active state,
+//TODO: change class '.active' to 'inactive' and add class '.active' if user do logic actions
+.inactive
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px
+
+.active
+  cursor: pointer
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    .text
+      color : #fff
 
 
 //////////////// function //////////////
 =selector($selector,$b_color,$padding_text,$font_size)
   a.#{$selector}
     .button
-      background: $b_color
       .text
         padding: 0 $padding_text
         font-size: $font_size
-    &:hover .button
-      background: lighten($b_color, 5%)
+    &.inactive
+      .button
+        background: $gray
+    &.active
+      .button
+        background: $b_color
+    //&.inactive:hover
+      .button
+        background: lighten($gray, 5%)
+    &.active:hover
+      .button
+        background: lighten($b_color, 5%)
 
 
 //- ----------------------- CREATE ACCOUNT -----------------
@@ -65,32 +83,21 @@ $padding_text: 15px
 
 
 ////////////////-------actions--------////////////////
-//TODO: now all button in active, after do state: active, inactive and send this in coffee. The following logic: if no go next step - inactive, otherwise - active
-//.inactive
-  .button
-    .text
-      color: #757575
-//.active, .active:hover
-  .button
-    background-color: #f07b6f
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
-    .text
-      color : #fff
 
-
-///////// now hover for all button, after doing logic, hover only active button
-a:hover
+.active:hover
   .button
-    background-color: #ffb1a8
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
 
-///////// this class for button in mouse down in element
-.press, .press:hover
+
+//.inactive:hover
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 2px 0px, rgba(0, 0, 0, 0.1) 0px -3px 0px 0px inset
+
+.press,.press:hover
   padding-top: 1px
   box-sizing: border-box
   .button
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
-
 
 
 

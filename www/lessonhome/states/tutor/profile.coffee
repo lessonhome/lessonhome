@@ -8,7 +8,7 @@ class @main extends template '../tutor'
       module 'tutor/header/button' : {
         title : 'Описание'
         href  : '/tutor/profile'
-        tag   : 'tutor:profile'
+
       }
       module 'tutor/header/button' : {
         title : 'Условия'

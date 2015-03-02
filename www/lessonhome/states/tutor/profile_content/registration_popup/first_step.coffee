@@ -17,10 +17,12 @@ class @main extends template '../registration_popup'
       patronymic  : module 'tutor/forms/input':
         selector    : 'first_reg'
         text        : 'Отчество :'
-      sex_man     : module 'tutor/forms/sex_button' :
-        selector    : 'man'
-      sex_woman   : module 'tutor/forms/sex_button' :
-        selector : 'woman'
+      sex_woman     : module 'gender_button' :
+        selector  : 'registration'
+        text      : 'Ж'
+      sex_man       : module 'gender_button' :
+        selector  : 'registration'
+        text      : 'М'
       birth_day   : module 'tutor/forms/drop_down_list' :
         text        : 'Дата рождения :'
         placeholder : 'День'
