@@ -1,3 +1,5 @@
+- selector = selector || "";
+
 if city
   .city.select!=city
 .telephone.select +7 (495)
@@ -6,7 +8,7 @@ if city
   .click_box
     .icon
     .text Заказать звонок
-  .call_back_popup!= call_back_popup
+  .call_back_popup(class=selector)!= call_back_popup
 //-
     .triangle_box
       .triangle
