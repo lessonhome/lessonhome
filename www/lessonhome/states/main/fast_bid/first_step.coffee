@@ -27,7 +27,9 @@ class @main extends template '../fast_bid'
 
   init : ->
     @parent.tree.filter_top.footer.button_back.selector = 'hidden'
-    @parent.tree.filter_top.footer.issue_bid.selector = 'inactive'
-    @parent.tree.filter_top.footer.back_link = false
-    @parent.tree.filter_top.footer.next_link = 'second_step'
+    @parent.tree.filter_top.footer.button_back.href     = false
+    @parent.tree.filter_top.footer.issue_bid.selector   = 'fast_bid_nav inactive'
+    @parent.tree.filter_top.footer.issue_bid.href       = false
+    @parent.tree.filter_top.footer.button_next.selector = 'fast_bid_nav'
+    @parent.tree.filter_top.footer.button_next.href     = 'second_step'
 

@@ -1,21 +1,81 @@
-.button
-  width  : 120px
-  height : 33px
-  line-height : 33px
-  border-radius : 4px
-  background-color : rgb( 205, 205, 205 )
-  font-size        : 18px
-  color            : #757575
-  font-family      : 'Open Sans', sans-serif
-  cursor : pointer
+@import compass/css3
+$gray:  hsl(0,0%,69%)
+$red:   hsl(6,100%,69%)
+$green: hsl(87,62%,69%)
 
-.button.success.active
-  background-color: rgb( 183, 210, 120 )
-  color : #fff
+main
+  height : 100%
+  cursor: pointer
+.button_box
+  height : 100%
+  .button
+    height: 100%
+    +inline-block
+    +border-radius(4px)
+    background-color: rgb( 205, 205, 205 )
+    .text
+      +inline-block
+      color: #757575
+  .button:after
+    content : ''
+    +inline-block
+    height : 100%
 
-.button.fail.active
-  background-color: rgb( 221, 92, 92 )
-  color : #fff
+//////////////// state rules ////////////
+.inactive
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px
+.active
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    .text
+      color : #fff
+
+
+//////////////// function //////////////
+=selector($selector,$color,$padding_text,$font_size)
+  .button_box.#{$selector}
+    .button
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
+    &.inactive
+      .button
+        background: $gray
+    &.active
+      .button
+        background: $color
+    &.inactive:hover
+      .button
+        background: lighten($gray, 5%)
+    &.active:hover
+      .button
+        background: lighten($color, 5%)
+
+
++selector('success', $green, 20.5px, 18px)
++selector('fail', $red, 17px, 18px)
+
+//-
+
+  .button
+    width  : 120px
+    height : 33px
+    line-height : 33px
+    border-radius : 4px
+    background-color : rgb( 205, 205, 205 )
+    font-size        : 18px
+    color            : #757575
+    font-family      : 'Open Sans', sans-serif
+    cursor : pointer
+
+  .button.success.active
+    background-color: rgb( 183, 210, 120 )
+    color : #fff
+
+  .button.fail.active
+    background-color: rgb( 221, 92, 92 )
+    color : #fff
 
 
 

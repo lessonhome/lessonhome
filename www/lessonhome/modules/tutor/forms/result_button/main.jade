@@ -1,8 +1,9 @@
-case selector
-  when 'success'
-    .button.unselect(class=selector)
-      .text Успешно
-  when 'fail'
-    .button.unselect(class=selector)
-      .text Неудачно
+.button_box.inactive(class=selector)
+  case selector
+    when 'success'
+      .button
+        .text Успешно
+    when 'fail'
+      .button
+        .text Неудачно
 
