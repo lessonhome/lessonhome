@@ -75,6 +75,7 @@ class RouteState
       @site.moduleJsTag('lib/jquery')+
       @site.moduleJsTag('lib/q')+
       @site.moduleJsTag('lib/event_emitter')+
+      @site.moduleJsTag('lib/jade')+
       '
       <script id="feel-js-client">
           window.EE = EventEmitter;
