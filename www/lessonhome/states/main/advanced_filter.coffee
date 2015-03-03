@@ -13,13 +13,21 @@ class @main
           text        : 'выбрать все'
           selector  : 'small'
         from_time     : module 'tutor/forms/input' :
-          selector  : 'calendar'
-          text      : 'с'
+          selector   : 'calendar'
+          placeholder: 'с'
         till_time     : module 'tutor/forms/input' :
-          selector  : 'calendar'
-          text      : 'до'
+          selector   : 'calendar'
+          text       : '-'
+          placeholder: 'до'
         button_add    : module 'button_add' :
           text      : '+'
+        add_time_button : module 'tutor/button' :
+          selector: 'filter_add_time'
+          text:     'Добавить<br>время'
+        new_tag : module 'selected_tag' :
+          text: 'Текст'
+          selector: 'advanced_filter_calendar'
+
       time_spend_lesson   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'time_spend'

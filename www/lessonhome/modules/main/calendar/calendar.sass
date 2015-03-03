@@ -54,6 +54,9 @@ $padding_day: 5px
   .choose_all
     margin-bottom: $margin_top
   .calendar_week
+    div.active
+      background: #ff7161
+      color: #fff
     .monday, .sunday
       padding: 10px $padding_day+$padding_add
     .tuesday, .wednesday, .thursday, .friday, .saturday
@@ -61,14 +64,20 @@ $padding_day: 5px
   .js-show-hidden-block
     .time_box
       margin-top: $margin_top
-      padding: 11px 20px
+
+      div
+        +inline-block
       .from_time
-        padding-right: $all_padding_input/2
+        padding-right: 4px
+        padding-left: 6px
       .till_time
-        padding-left: $all_padding_input/2
-    .button_add
-      height: 33px
-      margin-top: $margin_top
+        padding-right: 6px
+      .add_time
+        height: 48px
+  .tags
+    div
+      +inline-block
+
 
 ////////////////// fast_bids /////////////////
 $margin_top: 15px

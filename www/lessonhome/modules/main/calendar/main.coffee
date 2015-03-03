@@ -1,42 +1,24 @@
 
 class @main extends EE
   show : =>
-    @time_block = @dom.find ".js-show-hidden-block"
-    @days = @dom.find ".calendar_week>div"
+    @days = @dom.find(".calendar_week").children()
+    @add_button = @dom.find ".add_time"
+    @tags = @dom.find ".tags"
+    @new_tag = @tree.new_tag.class
+    @select_days = []
     for day in @days
       day = $ day
       do (day)=>
-        day.click => @click(day, @time_block)
+        day.click => @dayClick(day)
 
-    @time_box = @dom.find ".time_box"
-    @close = @dom.find ".close_box"
-    @close.on 'click', => @closeBox
+    @add_button.on 'click', =>
+      #$(@tags).append(@new_tag)
+      $('body').append(@new_tag.dom)
+      console.log @new_tag.dom
 
-
-
-
-
-
-  # ######## function #########
-  ###
-  disable : =>
-    if !@active then return
-    @active = false
-    @button.removeClass 'active'
-    @button.addClass 'inactive'
-    @emit 'disable'
-  ###
-  click : (day, block)=>
+  dayClick: (day)=>
+    console.log day
     if day.hasClass 'active'
       day.removeClass 'active'
-      block.css('display', 'none')
-      day.addClass 'hover'
     else
-      day.removeClass 'hover'
       day.addClass 'active'
-      block.css('display', 'block')
-    @emit 'active'
-
-  closeBox : (element)=>
-    element.css('display', 'none')
-

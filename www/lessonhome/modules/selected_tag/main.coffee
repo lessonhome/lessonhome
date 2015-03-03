@@ -15,8 +15,6 @@ class @main extends EE
 
 
 
-
-
 ###
 5. selected_tag:
 функция создания модуля
