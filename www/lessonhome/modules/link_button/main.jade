@@ -1,8 +1,8 @@
 //- if inactive selector must be "inactive"
 
 - selector = selector || "";
-
-if selector == 'inactive'
+- activities_str = selector.indexOf('inactive')
+if activities_str != -1
   a(href=href class=selector)
     .button
       .text!=text

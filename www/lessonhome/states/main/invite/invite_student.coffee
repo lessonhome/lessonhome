@@ -8,5 +8,5 @@ class @main extends template '../motivation_content'
       header : 'Ваш друг ищет репетитора?<br>Пригласите его к нам и мы поможем!'
 
   init: ->
-    @tree.filter_top.pupil_toggle.selector = "active"
-    @tree.filter_top.tutor_toggle.selector = "inactive"
+    @tree.filter_top.pupil_toggle.selector = "invite"
+    @tree.filter_top.tutor_toggle.selector = "invite inactive"

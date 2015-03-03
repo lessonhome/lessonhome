@@ -2,8 +2,9 @@ class @main
   tree : => module '$' :
     logo : module 'tutor/header/logo'
     back_call : module 'tutor/header/back_call'  :
+      selector: 'footer'
       call_back_popup : module 'call_back_popup' :
-        selector : 'header'
+        selector : 'footer'
         name        : module 'tutor/forms/input'  :
           placeholder : 'Ваше имя'
         tel_number  : module 'tutor/forms/input'  :
