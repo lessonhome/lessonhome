@@ -1,0 +1,7 @@
+- var data = default_options
+.select-sets
+  input.select-sets_input(type='text', autocomplete='off')
+  select.select-sets__options(multiple)
+    - each elt in data
+      option(value=elt.value) (default)#{elt.text}
+

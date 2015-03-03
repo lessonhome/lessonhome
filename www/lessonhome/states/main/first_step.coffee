@@ -6,9 +6,13 @@ class @main extends template './motivation_content'
   tree : =>
     filter_top  : state './filter_top' :
       title         : 'Выберите предмет :'
-      list_subject    : module 'tutor/forms/drop_down_list' :
-        selector    : 'filter_top'
-        placeholder : 'Предмет'
+      list_subject    : module 'tutor/forms/select_sets' :
+        default_options: [
+          {value: 'math', text: 'математика'},
+          {value: 'algebra', text: 'алгебра'},
+          {value: 'arithmetic', text: 'арифметика'},
+          {value: 'anatomy', text: 'анатомия'}
+        ]
       choose_subject  : module '../selected_tag'  :
         selector  : 'choose_subject'
         id        : '123'
