@@ -32,10 +32,5 @@ mixin item(title, link)
       .icon
       .post.select support@lessonhome.ru
     .phone_block
-      .icon
-      .value
-        .phone.select 8 (666)-555-88-77
-        .callback
-         .click_box Заказать звонок
-         .popup_box!= call_back_popup
+      .back_call!=back_call
 
