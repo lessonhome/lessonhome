@@ -5,19 +5,7 @@ class @main extends template '../registration_popup'
   tree : ->
     progress  : 5
     content : module '$' :
-      reason     : module 'tutor/forms/textarea' :
-        height    : '87px'
-        text      : 'Почему я репетитор?'
-        selector  : 'first_reg up_text'
-      interests  : module 'tutor/forms/textarea' :
-        height    : '87px'
-        text      : 'Интересы :'
-        selector  : 'first_reg up_text'
-      about      : module 'tutor/forms/textarea' :
-        height    : '117px'
-        text      : 'О себе :'
-        selector  : 'first_reg up_text'
-
+      about_tutor      : state 'about_tutor'
 
   init : ->
     @parent.tree.popup.footer.button_next.selector = 'inactive'
