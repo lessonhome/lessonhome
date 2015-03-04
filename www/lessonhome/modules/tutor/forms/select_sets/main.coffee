@@ -1,25 +1,6 @@
 class @main
   show : =>
-    data = @tree.default_options
-    valuesGenerator = (sBegin) ->
-      #Заглушка (функция определяется пользователем компонента)
-      ###
-      data = [
-        'asdf'
-        'bsdf'
-        'axx'
-        'ala'
-        'aka'
-        'akadia'
-      ]
-
-###
-      dataAr = []
-      for key, val of data
-        dataAr.push val
-      dataAr.filter (str) ->
-        str.text.startsWith sBegin
-
+    ### Share ###
     unit =
       enterCode: 13
       tabCode: 9
@@ -27,28 +8,105 @@ class @main
       arrowUp: 38
       esc: 27
 
-    configSelect = ->
-      ### show options underneath input ###
-      # Setting width of select same width of input
-      $sel = $('.select-sets__options')
+    #############
+
+    ### Default data for filtration (using into valuesGenerator) ###
+    #data = ['asdf', 'bsdf', 'axx', 'ala', 'aka', 'akadia']
+    data = @tree.default_options
+
+    getCurInput = ->
+      $('.select-sets_input')
+
+    ### Getting current select elect with options (using pattern Decorator) ###
+    getCurSel = ->
+      $input = getCurInput();
+      ### Create select with options for input (if there are no) ###
+      if !($sel = $input.data 'select')?
+        $sel = $('<select></select>')
+        startConfigSelect $sel
+        $input.after $sel
+        $input.data 'select', $sel
+      $sel
+
+    ### Configuring select after creating ###
+    startConfigSelect = ($sel) ->
+      $sel.attr
+        'multiple': true
+        'class': 'select-sets__options'
       $sel.css
+        display: 'none'
         position: 'absolute'
-        width: $('.select-sets_input').css('width')
-      ###
-      hInput = $('.select-sets_input').height();
-      $sel.offset
-        top: 195 + hInput
-        left: 430
-###
+        width: getCurInput().css('width')
+
+    ### Correct select after show ###
+    configSelect = ($sel) ->
+
+    valuesGenerator = (sBegin) ->
+      dataAr = []
+      for key, val of data
+        dataAr.push val
+      dataAr.filter (str) ->
+        str.text.startsWith sBegin
+
+    ### Event handling #####################################
+    getCurInput().keyup (event) ->
+      $sel = getCurSel()
+      if $sel.data 'was-enter'
+        $sel.data 'was-enter', false
+        return
+      switch event.keyCode
+        when unit.arrowDown
+          if $sel.is(':visible')
+            $sel.focus();
+            startSelection $sel[0]
+        when unit.esc
+          $sel.hide()
+        else
+          correctSelectOptions event, $sel, valuesGenerator
+          return
+
+    getCurSel().keydown (event) ->
+      sel = $(this)[0]
+      selLen = sel.options.length;
+      switch event.keyCode
+        when unit.arrowDown
+          newSelectedIndex = (sel.selectedIndex + 1) % selLen
+          setCurrentOption($(sel), newSelectedIndex)
+
+        when unit.arrowUp
+          newSelectedIndex = ((sel.selectedIndex - 1) + selLen) % selLen
+          setCurrentOption($(sel), newSelectedIndex)
+
+        when unit.enterCode
+          $(this).data 'was-enter', true
+          selectedOptionToInput()
+
+        when unit.esc
+          $(this).hide()
+      return
+
+    getCurSel().click (event) ->
+      selectedOptionToInput()
+    #########################################
+
+    setCurrentOption = ($sel, idx) ->
+      console.log('idx = ' + idx + ' old-selectedIndex = ' + $sel[0].selectedIndex)
+      $sel.find('option').removeAttr 'selected'
+      $sel.find('option').eq(idx).attr 'selected', 'selected'
+
+    startSelection = (sel) ->
+      if sel.options.length == 1
+        sel.selectedIndex = 0;
+      else
+        sel.selectedIndex = 1
 
     correctSelectOptions = (event, $sel, fnValuesGenerator) ->
-      configSelect()
+      configSelect(getCurSel())
       strBegin = event.target.value
-      fillOptions $sel, fnValuesGenerator(strBegin)
+      fillOptions $sel, (fnValuesGenerator strBegin)
       if $sel[0].options.length > 0
         $sel[0].selectedIndex = 0
-        $sel[0].style.display = 'block'
-      #!!!TODO Сохранять где-то начальное значения св-в display.
+        $sel.show()
       return
 
     fillOptions = (sel, options) ->
@@ -59,56 +117,14 @@ class @main
       $(sel).html html
       return
 
-    selectedOptionToInput = (sel) ->
-      input = sel.previousElementSibling
-      input.value = $(sel.options[sel.selectedIndex]).text()
-      $(sel).hide()
-      input.focus()
+    selectedOptionToInput = () ->
+      $sel = getCurSel()
+      $option = $sel.find(':selected')
+      $input = getCurInput()
+      $input.val $option.text()
+      $sel.hide()
+      $input.focus()
       return
-
-    $('.select-sets_input').keyup (event) ->
-      $sel = $(this).next('select')
-      if $sel.data 'was-enter'
-        $sel.data 'was-enter', false
-        return
-      switch event.keyCode
-        when unit.arrowDown
-          if $sel.is(':visible')
-            $sel.focus();
-            sel = $sel[0]
-            if sel.options.length == 1
-              sel.selectedIndex = 0;
-            else
-              sel.selectedIndex = 1;
-        when unit.esc
-          $sel.hide()
-        else
-          $sel.data 'default-options', $sel.children().detach()
-          correctSelectOptions event, $sel, valuesGenerator
-          return
-
-    $('.select-sets__options').keydown (event) ->
-      if event.keyCode == unit.arrowDown
-        sel = event.target
-        sel.selectedIndex = (sel.selectedIndex + 1) % sel.options.length
-        return false
-      if event.keyCode == unit.arrowUp
-        sel = event.target
-        selLen = sel.options.length;
-        sel.selectedIndex = ((sel.selectedIndex - 1) + selLen) % selLen
-        return false
-      true
-
-    $('.select-sets__options').keydown (event) ->
-      sel = event.target.parentElement
-      switch event.keyCode
-        when unit.enterCode
-          $(this).data 'was-enter', true
-          selectedOptionToInput event.target
-        when unit.esc then $(this).hide()
-
-    $('.select-sets__options').click (event) ->
-      selectedOptionToInput $(event.target).closest('select')[0]
 
   # ---
   # generated by js2coffee 2.0.1
