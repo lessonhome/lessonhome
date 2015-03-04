@@ -1,6 +1,3 @@
-mixin field (selector, value)
-    .value(class = selector)!= value
-//////////
 .hint
   .text Чем подробнее Вы заполните профиль, тем быстрее мы сможем найти подходящих Вам учеников. Кроме того, ученики сами легко могут найти Вас, если профиль заполнен - поиск учитывает и фильтрует по всей информации, что вы вводите. :)
   .button!= understand_button
@@ -10,19 +7,6 @@ mixin field (selector, value)
     .big_photo
   .camera_small
     .small_photo
-.fields
-  +field ('first_name', first_name)
-  +field ('last_name', last_name)
-  +field ('patronymic', patronymic)
-  .sex
-    .title Пол :
-    .value
-      .sex_man!= sex_man
-      .sex_woman!= sex_woman
-  .line_block
-    .birth_day!= birth_day
-    .birth_month!= birth_month
-    .birth_year!= birth_year
-  +field ('status', status)
+.general_data!=general_data
 
 

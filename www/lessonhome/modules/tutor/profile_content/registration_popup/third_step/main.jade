@@ -1,18 +1,5 @@
-mixin field (selector, value)
-  .value(class=selector)!= value
-///////////
-.fields
-  +field ('subject', subject)
-  +field ('list_course', list_course)
-  +field ('categories_of_students', categories_of_students)
-  .block_price_place
-    +field ('place', place)
-    .price!= price
-    .price_button!= price_button
-  .group_block
-    .students_in_group!= students_in_group
-    .group_lessons_bet!= group_lessons_bet
-  +field ('comments', comments)
+
+.subject_tutor!=subject_tutor
   .button_block
     .add_button!= add_button
 

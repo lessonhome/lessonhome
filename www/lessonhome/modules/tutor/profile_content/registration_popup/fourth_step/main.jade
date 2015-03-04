@@ -1,18 +1,4 @@
-mixin field (selector, value)
-  .value(class=selector)!= value
-/////////////////
-.fields
-  .location_buttons
-    .tutor!= tutor
-    .student!= student
-    .web!= web
-  +field ('country', country)
-  +field ('city', city)
-  +field ('area', area)
-  +field ('near_metro', near_metro)
-  +field ('street', street)
-  +field ('house', house)
-  +field ('building', building)
-  +field ('flat', flat)
+
+.place_tutor!=place_tutor
   .button_block
     .add_button!= add_button

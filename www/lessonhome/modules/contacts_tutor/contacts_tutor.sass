@@ -1,0 +1,33 @@
+@import compass/css3
+$height : 37px
+$padding: 7px
+$width_fields: 341px
+main
+  height: 100%
+.value, .title_box
+  +inline-block
+  height: $height
+  padding: $padding 0
+.title_box
+  .title
+    +inline-block
+    line-height: 37px
+    padding-right: 26px
+    color: rgba(75, 75, 75, 0.70)
+  .button_box
+    height: 33px
+    width: $width_fields
+    +inline-block
+    .address_button
+      float: left
+      height: 100%
+.line_box
+  margin: 5px 0
+  height: 3px
+  .line
+    position: absolute
+    width: 100%
+.country
+  padding-top: 0
+.site
+  padding-bottom: 0

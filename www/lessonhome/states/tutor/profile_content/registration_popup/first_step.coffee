@@ -8,50 +8,7 @@ class @main extends template '../registration_popup'
       understand_button : module 'tutor/button' :
         selector: 'understand'
         text:      'Спасибо, я понял'
-      first_name  : module 'tutor/forms/input':
-        selector    : 'first_reg'
-        text        : 'Имя :'
-      last_name   : module 'tutor/forms/input':
-        selector    : 'first_reg'
-        text        : 'Фамилия :'
-      patronymic  : module 'tutor/forms/input':
-        selector    : 'first_reg'
-        text        : 'Отчество :'
-      sex_woman     : module 'gender_button' :
-        selector  : 'registration'
-        text      : 'Ж'
-      sex_man       : module 'gender_button' :
-        selector  : 'registration'
-        text      : 'М'
-      birth_day   : module 'tutor/forms/drop_down_list' :
-        text        : 'Дата рождения :'
-        placeholder : 'День'
-        selector    : 'first_reg day'
-      birth_month : module 'tutor/forms/unable_enter_list' :
-        placeholder : 'Месяц'
-        selector    : 'first_reg_size'
-        type : 'unable_to_enter'
-        list : [
-          'Январь'
-          'Февраль'
-          'Март'
-          'Апрель'
-          'Май'
-          'Июнь'
-          'Июль'
-          'Август'
-          'Сентябрь'
-          'Октябрь'
-          'Ноябрь'
-          'Декабрь'
-        ]
-      birth_year  : module 'tutor/forms/drop_down_list' :
-        placeholder : 'Год'
-        selector    : 'first_reg_size'
-      status      : module 'tutor/forms/drop_down_list' :
-        text        : 'Статус :'
-        selector    : 'first_reg'
-
+      general_data      : state 'general_data'
   init : ->
     @parent.tree.popup.footer.button_back.selector = 'inactive'
     @parent.tree.popup.footer.back_link = false
