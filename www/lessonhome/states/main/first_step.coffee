@@ -4,6 +4,7 @@ class @main extends template './motivation_content'
   model   : 'main/first_step'
   title : "выберите предмет"
   tree : =>
+    popup       : @exports()
     filter_top  : state './filter_top' :
       title         : 'Выберите предмет :'
       list_subject    : module 'tutor/forms/drop_down_list' :

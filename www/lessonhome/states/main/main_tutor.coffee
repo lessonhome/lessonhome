@@ -4,6 +4,7 @@ class @main extends template '../main'
   model : 'main/registration'
   title : "Регистрация"
   tree : ->
+    popup : @exports()
     content : module 'main_tutor/content'  :
       login           : module 'tutor/forms/input' :
         selector : 'main_check_in'
@@ -28,6 +29,11 @@ class @main extends template '../main'
       check_in_second : module 'tutor/button' :
         selector  : 'check_in_second'
         text      : 'Прямо сейчас!'
-      callback    : module 'tutor/button' :
-        selector  : 'callback'
+      callback    : module 'link_button' :
+        selector  : 'order_call'
         text      : 'Заказать звонок'
+        href      : '/main_tutor_callback'
+
+
+
+

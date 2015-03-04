@@ -13,7 +13,7 @@ class @main extends EE
 
     @add_button.on 'click', =>
       #$(@tags).append(@new_tag)
-      $('body').append(@new_tag.dom)
+      #$('body').append(@new_tag.dom)
       console.log @new_tag.dom
 
   dayClick: (day)=>
