@@ -1,0 +1,100 @@
+@import compass/css3
+$margin_top: 15px
+$b_color: #dfe1e4
+.calendar_box
+  .choose_all
+    margin-bottom: $margin_top
+    color: #757575
+    float: left
+  .calendar_week
+    +inline-block
+    +border-radius(4px)
+    background-color: $b_color
+    font-size: 20px
+    font-weight: 600
+    color: #a1a1a1
+    .monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday
+      float: left
+      cursor: pointer
+  .calendar_week:after
+    content: ""
+    display: block
+    clear: both
+  .js-show-hidden-block
+    //display: none
+    .time_box
+      margin-top: $margin_top
+      position: relative
+      +border-radius(4px)
+      background-color: $b_color
+      div
+        +inline-block
+      .from_time, .till_time
+        height: 33px
+      .dash
+        padding: 0 4px
+      .add_time_button
+        position: absolute
+        height: 100%
+        top: 0
+        right: 0
+  .tag
+    padding: 5px 0
+
+
+//////////////// function //////////////
+=calendar($selector,$padding_day,$padding_day_hand,$padding_time_box,$padding_time_box_hand)
+  .calendar_box.#{$selector}
+    .calendar_week
+      div
+        padding: $padding_day $padding_day_hand
+      .monday, .sunday
+        padding: $padding_day ($padding_day_hand+1px)
+    .js-show-hidden-block
+      .time_box
+        padding: $padding_time_box $padding_time_box_hand
+
+
+//////////////////// advance filter ////////////////
+  $padding_day: 10px
+  $padding_day_hand: 5px
+  $padding_time_box: 8px
+  $padding_time_box_hand: 6px
+  .advance_filter
+    .calendar_week
+      .monday, .sunday
+        padding: $padding_day ($padding_day_hand+1px)
+      .tuesday, .wednesday, .thursday, .friday, .saturday
+        padding: $padding_day $padding_day_hand
+    .js-show-hidden-block
+      .time_box
+        padding: $padding_time_box $padding_time_box_hand
+
++calendar('advance_filter', 10px, 5px, 8px, 6px)
+////////////////// fast_bids /////////////////
+  $all_padding_input: 10px
+  $padding_day: 12.7px
+  .fast_bids
+    .calendar_week
+      div
+        padding: 10px $padding_day
+    .js-show-hidden-block
+      .time_box
+        width: 228px
+        padding: 11px 10px
+
+
+
+
+  ////////////----------active-------------/////////////
+.calendar_box
+  .calendar_week
+    div:hover
+      background: #cecece
+  .calendar_week
+    div.active
+      background: #ff7c6f
+      color: #ffffff
+
+
+
