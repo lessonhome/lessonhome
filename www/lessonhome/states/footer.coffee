@@ -3,7 +3,10 @@ class @main
     logo : module 'tutor/header/logo'
     back_call : module 'tutor/header/back_call'  :
       selector: 'footer'
-      call_back_popup : module 'call_back_popup' :
+      call_back_popup : state 'main/call_back_popup' :
+        selector: 'footer'
+###
+      module 'call_back_popup' :
         selector : 'footer'
         name        : module 'tutor/forms/input'  :
           placeholder : 'Ваше имя'
@@ -20,3 +23,5 @@ class @main
         order_call  : module 'tutor/button' :
           text  : 'Заказать звонок'
           selector      : 'call_back'
+
+###

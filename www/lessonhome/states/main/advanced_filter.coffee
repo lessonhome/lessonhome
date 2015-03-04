@@ -19,8 +19,6 @@ class @main
           selector   : 'calendar'
           text       : '-'
           placeholder: 'до'
-        button_add    : module 'button_add' :
-          text      : '+'
         add_time_button : module 'tutor/button' :
           selector: 'filter_add_time'
           text:     'Добавить<br>время'
