@@ -7,19 +7,8 @@ class @main
         selector  : 'choose_course'
         text      : 'ЕГЭ'
         close     : true
-      calendar        : module './calendar' :
-        selector    : 'advance_filter'
-        choose_all  : module 'tutor/forms/checkbox'  :
-          text        : 'выбрать все'
-          selector  : 'small'
-        from_time     : module 'tutor/forms/input' :
-          selector  : 'calendar'
-          text      : 'с'
-        till_time     : module 'tutor/forms/input' :
-          selector  : 'calendar'
-          text      : 'до'
-        button_add    : module 'button_add' :
-          text      : '+'
+      calendar        : state '../calendar' :
+        selector  : 'advance_filter'
       time_spend_lesson   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'time_spend'

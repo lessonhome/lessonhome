@@ -1,7 +1,14 @@
 //- if inactive selector must be "inactive"
 
 - selector = selector || "";
+- activities_str = selector.indexOf('inactive')
+if activities_str != -1
+  a(href=href class=selector)
+    .button
+      .text!=text
+else
+  a.active(href=href class=selector)
+    .button
+      .text!=text
 
-a.active(href=href class=selector)
-  .button
-    .text!=text
+

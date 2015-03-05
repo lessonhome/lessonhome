@@ -37,6 +37,8 @@ a
     .text
       color : #fff
 
+.hidden
+  display: none
 
 //////////////// function //////////////
 =selector($selector,$b_color,$padding_text,$font_size)
@@ -45,23 +47,27 @@ a
       .text
         padding: 0 $padding_text
         font-size: $font_size
-    &.inactive
-      .button
-        background: $gray
     &.active
       .button
         background: $b_color
-    //&.inactive:hover
-      .button
-        background: lighten($gray, 5%)
     &.active:hover
       .button
         background: lighten($b_color, 5%)
+    &.inactive
+      .button
+        background: $gray
+    &.inactive:hover
+      .button
+        background: lighten($gray, 5%)
 
 
 //- ----------------------- CREATE ACCOUNT -----------------
 
 +selector('create_account', $red, 16px, 20px)
+
+//- ----------------------- Motivation button ----------------
+
++selector('order_call', $red,26px,25px)
 
 ////////-------tutor reports: support button ----------------
 
@@ -76,10 +82,19 @@ $padding_text: 15px
 +selector('onward_block',$blue,15px,26px)
 +selector('issue_bid',$red,20px,26px)
 
-//-.support:hover
-  .button
-    background-color: #7d95ad
 
+//- ---------- Fast bid: navigation buttons (next, back), issue bid button ---------------------
+
++selector('fast_bid_nav', $blue, 21px, 20px)
++selector('fast_bid_issue', $red, 21px, 20px)
+
+//- ---------- Tutor bids reports: popup : send button ---------------------
+
++selector('reports_popup_send', $blue, 12.5px, 18px)
+
+//- --------- Invite students, invite tutor --------------------------------
+
++selector('invite', $red, 10px, 18px)
 
 ////////////////-------actions--------////////////////
 
@@ -88,7 +103,7 @@ $padding_text: 15px
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
 
 
-//.inactive:hover
+.inactive:hover
   .button
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 2px 0px, rgba(0, 0, 0, 0.1) 0px -3px 0px 0px inset
 

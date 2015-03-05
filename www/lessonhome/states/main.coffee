@@ -56,6 +56,7 @@ class @main
           href  : '/about_us'
         }
       ]
+    popup       : @exports()
     filter_top  : @exports()
     info_panel  : @exports()
     content     : @exports()

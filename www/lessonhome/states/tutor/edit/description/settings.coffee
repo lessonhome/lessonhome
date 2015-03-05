@@ -1,31 +1,19 @@
-class @main extends template '../../../tutor'
+class @main extends template '../../edit'
   route : '/tutor/edit/settings'
   model   : 'tutor/edit/description/settings'
   title : "редактирование настройки"
   tags : -> 'edit: description'
   tree : =>
-    items : [
-      module 'tutor/header/button' : {
-        title : 'Описание'
-        href  : '/tutor/edit/general'
-        tag   : 'edit: description'
-      }
-      module 'tutor/header/button' : {
-        title : 'Условия'
-        href  : '/tutor/edit/subjects'
-      }
-    ]
-    sub_top_menu : state 'tutor/sub_top_menu' :
-      items :
-        'Общие'       : 'general'
-        'Контакты'    : 'contacts'
-        'Образование' : 'education'
-        'Карьера'     : 'career'
-        'О себе'      : 'about'
-        'Настройки'   : 'settings'
-    #'Медиа'       : 'media'
-      active_item     : 'Настройки'
-    content       : module '$' :
+    tag         : 'edit: description'
+    items       :
+      'Общие'       : 'general'
+      'Контакты'    : 'contacts'
+      'Образование' : 'education'
+      'Карьера'     : 'career'
+      'О себе'      : 'about'
+      'Настройки'   : 'settings'
+    active_item : 'Настройки'
+    tutor_edit  : module '$' :
       new_orders_toggle : module 'tutor/forms/toggle' :
         first_value : 'Получать'
         second_value : 'Не получать'
@@ -59,8 +47,7 @@ class @main extends template '../../../tutor'
         title     : 'Пароль'
         selector  : 'horizon'
 
-  init : ->
-    @parent.tree.left_menu.setActive 'Анкета'
-    @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
-
-
+    hint        : module 'tutor/hint' :
+      selector  : 'horizontal'
+      header    : 'Это подсказка'
+      text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'

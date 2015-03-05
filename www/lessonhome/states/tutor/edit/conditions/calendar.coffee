@@ -1,30 +1,18 @@
-class @main extends template '../../../tutor'
+class @main extends template '../../edit'
   route : '/tutor/edit/calendar'
   model   : 'tutor/edit/conditions/calendar'
   title : "редактирование календарь"
   tags : -> 'edit: conditions'
   tree  : =>
-    items : [
-      module 'tutor/header/button' : {
-        title : 'Описание'
-        href  : '/tutor/edit/general'
-      }
-      module 'tutor/header/button' : {
-        title : 'Условия'
-        href  : '/tutor/edit/subjects'
-        tag   : 'edit: conditions'
-      }
-    ]
-    sub_top_menu : state 'tutor/sub_top_menu' :
-      items :
-        'Предметы'     : 'subjects'
-        'Место'        : 'location'
-        'Календарь'    : 'calendar'
-        'Предпочтения' : 'preferences'
-      active_item : 'Календарь'
-
-    content : module '$':
-      calendar : module '//calendar' :
+    menu_condition  : 'edit: conditions'
+    items :
+      'Предметы'     : 'subjects'
+      'Место'        : 'location'
+      'Календарь'    : 'calendar'
+      'Предпочтения' : 'preferences'
+    active_item : 'Календарь'
+    tutor_edit  : module '$':
+      calendar : module 'main/calendar' :
         calendar_hint : module 'tutor/hint' :
           selector : 'small'
           text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -61,8 +49,3 @@ class @main extends template '../../../tutor'
       add_entry_field : module 'tutor/button' :
         text     : '+'
         selector : 'add_smth'
-
-  init : ->
-    @parent.tree.left_menu.setActive 'Анкета'
-    @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
-

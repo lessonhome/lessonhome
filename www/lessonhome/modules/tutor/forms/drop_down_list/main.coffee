@@ -4,6 +4,7 @@ class @main extends EE
     @list = @label.find ".drop_down_list"
     @input = @list.find "input"
 
+
     @input.on 'focus', =>
       if @label.is '.filter_top'
         @list.addClass 'filter_top_focus'
@@ -15,6 +16,8 @@ class @main extends EE
         @list.removeClass 'filter_top_focus'
       else
         @list.removeClass 'focus'
+
+  
 
     curInput = @input
     if @tree.default_options?
@@ -171,4 +174,5 @@ class @main extends EE
           $sel.hide()
           $input.focus()
           return
-
+  focusInput: =>
+    @input.focus()

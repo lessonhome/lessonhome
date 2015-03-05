@@ -15,6 +15,12 @@ class @activeState
           cl.__isClass = true
           @order.push val._uniq
           cl.tree?.class = cl
+          cl.js ?= {}
+          for key,val of Feel.modules[val._name]
+            cl.js[key] = val
+          cl.register = (name,obj=cl)->
+            throw new Error "can't register module #{name} in Feel, already exists" if Feel[name]?
+            Feel[name] = obj
     @dom = {}
     @uniq_pref = ""
     @parseTree @tree

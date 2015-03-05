@@ -1,6 +1,4 @@
 @import compass/css3
-$height: 37px
-$padding: 7px
 .hint
   position: absolute
   top: 278px
@@ -19,6 +17,7 @@ $padding: 7px
     font-size: 18px
   .button
     +inline-block
+    height: 59px
 $width_fields: 341px    // it's size fields assigned in forms module, here uze for do center photo relative fields
 $width_photo: 315px
 .photo
@@ -74,48 +73,7 @@ $width_photo: 315px
 
 //- ----------------------------------------------------------------------------
 
-.fields
+.general_data
   width: 100%
-  .first_name, .last_name, .patronymic
-    height: $height
-    padding: $padding 0
-  .sex
-    height: $height
-    cursor: pointer
-    padding: $padding 0
-    .title, .value
-      +inline-block
-    .title
-      width: 130px
-      line-height: $height
-      text-align: right
-      margin-right: 26px
-      font-size: 16px
-      color: rgba(75, 75, 75, 0.70)
-    .value
-      .sex_man, .sex_woman
-        +inline-block
-        height: 33px
-        font-size: 20px
-      .sex_man
-        padding-right: 31px
-      .sex_woman
-        padding-left: 31px
-  .line_block, .status
-    height: $height
-    padding: $padding 0
-    $padding_line: 9px
-    .birth_day, .birth_month, .birth_year
-      +inline-block
-      height: 100%
-    .birth_day
-      padding-right: $padding_line/2
-    .birth_year
-      padding-left: $padding_line/2
-    .birth_month
-      width: 131px
-      padding: 0 $padding_line/2
-    .birth_year
-      width: 101px
 
 

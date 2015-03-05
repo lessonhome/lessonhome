@@ -56,6 +56,10 @@ class @main extends template '../registration_popup'
           '3': {value: 'advokat', text: 'адвокат(тест)'}
         }
 
+      understand_button : module 'tutor/button' :
+        selector: 'understand'
+        text:      'Спасибо, я понял'
+      general_data      : state 'general_data'
   init : ->
     @parent.tree.popup.footer.button_back.selector = 'inactive'
     @parent.tree.popup.footer.back_link = false
