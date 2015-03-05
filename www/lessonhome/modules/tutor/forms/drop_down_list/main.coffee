@@ -101,11 +101,14 @@ class @main extends EE
           switch event.keyCode
             when unit.arrowDown
               newSelectedIndex = (sel.selectedIndex + 1) % selLen
-              setCurrentOption($(sel), newSelectedIndex)
+              fn = ->
+                setCurrentOption($(sel), newSelectedIndex)
+              setTimeout fn, 0
 
             when unit.arrowUp
               newSelectedIndex = ((sel.selectedIndex - 1) + selLen) % selLen
               setCurrentOption($(sel), newSelectedIndex)
+
 
             when unit.enterCode
               $(this).data 'was-enter', true
@@ -120,9 +123,9 @@ class @main extends EE
         #########################################
 
         setCurrentOption = ($sel, idx) ->
-          console.log('idx = ' + idx + ' old-selectedIndex = ' + $sel[0].selectedIndex)
-          $sel.find('option').removeAttr 'selected'
-          $sel.find('option').eq(idx).attr 'selected', 'selected'
+          chSelected = ->
+            $sel[0].options.selectedIndex = idx
+          setTimeout chSelected, 0
 
         startSelection = (sel) ->
           if sel.options.length == 1
