@@ -11,41 +11,10 @@ class @main extends template '../../edit'
       'Календарь'    : 'calendar'
       'Предпочтения' : 'preferences'
     active_item : 'Календарь'
-    tutor_edit  : module '$':
-      calendar : module 'main/calendar' :
-        calendar_hint : module 'tutor/hint' :
-          selector : 'small'
-          text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      time_entry_hint : module 'tutor/hint' :
-        selector : 'small'
-      time_entry_fields : [
-        module '//time_entry_field' :
-          input_from : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          input_to : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          text_input : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-
-        module '//time_entry_field' :
-          input_from : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          input_to : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          text_input : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-
-        module '//time_entry_field' :
-          input_from : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          input_to : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          text_input : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-
-
-      ]
-
-      add_entry_field : module 'tutor/button' :
-        text     : '+'
-        selector : 'add_smth'
+    #title       : 'Определите свободное время для проведения Ваших занятий'
+    tutor_edit  : state 'calendar'  :
+      selector  : 'advance_filter'
+    hint       : module 'tutor/hint_dz' :
+      selector  : 'small'
+      text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'
+    selector_hint : 'top'
