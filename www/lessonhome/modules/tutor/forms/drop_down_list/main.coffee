@@ -4,7 +4,6 @@ class @main extends EE
     @list = @label.find ".drop_down_list"
     @input = @list.find "input"
 
-
     @input.on 'focus', =>
       if @label.is '.filter_top'
         @list.addClass 'filter_top_focus'
@@ -58,6 +57,9 @@ class @main extends EE
             $input.data 'select', $sel
           $sel
 
+        getIconBox = ->
+          getCurInput().siblings('.icon_box')
+
         ### Configuring select after creating ###
         startConfigSelect = ($sel) ->
           $sel.attr
@@ -92,7 +94,7 @@ class @main extends EE
             when unit.esc
               $sel.hide()
             else
-              correctSelectOptions event, $sel, valuesGenerator
+              showSelectOptions event
               return
 
         getCurSel().keydown (event) ->
@@ -120,7 +122,18 @@ class @main extends EE
 
         getCurSel().click (event) ->
           selectedOptionToInput()
+
+        if getIconBox()?
+          getIconBox().click (event) ->
+            if getCurSel().is(':visible')
+              getCurSel().hide()
+            else
+              showSelectOptions event
+          getCurInput().focus()
         #########################################
+
+        showSelectOptions = (event) ->
+          correctSelectOptions event, getCurSel(), valuesGenerator
 
         setCurrentOption = ($sel, idx) ->
           chSelected = ->
@@ -135,7 +148,7 @@ class @main extends EE
 
         correctSelectOptions = (event, $sel, fnValuesGenerator) ->
           configSelect(getCurSel())
-          strBegin = event.target.value
+          strBegin = getCurInput().val()
           fillOptions $sel, (fnValuesGenerator strBegin)
           if $sel[0].options.length > 0
             $sel[0].selectedIndex = 0
