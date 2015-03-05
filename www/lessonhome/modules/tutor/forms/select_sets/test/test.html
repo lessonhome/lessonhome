@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+  <script src="lib/jquery/jquery.js"></script>
+  <script src="lib/jade/runtime.js"></script>
+  <script src="main.js"></script>
+  <script src="test-data.js"></script>
+  <script src="main.jade.js"></script>
+  <link rel="stylesheet" href="select-sets.css"/>
+
+
+  <script>
+    $(function() {
+      content = template(main.prototype.tree);
+      $('body').html(content);
+      obj = new main
+      obj.show()
+    });
+  </script>
+</head>
+<body>
+
+
+</body>
+</html>
