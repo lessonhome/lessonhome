@@ -109,6 +109,8 @@ global.Wrap = (obj,prot)->
   return unless proto?
   return if obj.__wraped
   __functionName__ = ""
+  __FNAME__ = ""
+  _single = {}
   logFunction = (args...)->
     s = "#{Main.name}".blue+":".grey
     s+= "#{Main.processId}".gray+":".grey if Main.processId?
@@ -132,6 +134,14 @@ global.Wrap = (obj,prot)->
       if typeof (args[i]) == 'string'
         args[i] = (""+args[i]).magenta
     console.log s,args...,"\n********************************************************".red
+  single = (name=__FNAME__)-> Q.then ->
+    obj._lock('__s_'+name,true).then (id)->
+      #return single(__FNAME__) if _single[__FNAME__]
+      _single[name] = id
+  unsingle = (f)-> Q.then ->
+    return unless _single[f]
+    obj._unlock('__s_'+f,_single[f]).then ->
+      _single[f] = false
 
   obj.__wraped = true
   #proto.__wraped ?= {}
@@ -140,11 +150,13 @@ global.Wrap = (obj,prot)->
       #proto.__wraped[key] = true
       do (key,val)->
         fname = "::".grey+key.cyan+"()".blue
+        FNAME = key
         gen = null
         if val?.constructor?.name == 'GeneratorFunction'
           gen = Q.async val
         foo = (args...)->
           nerror = new Error()
+          __FNAME__ = FNAME
           __functionName__ = fname
           if gen?
             q = gen.apply obj,args
@@ -156,6 +168,7 @@ global.Wrap = (obj,prot)->
             q = q.then (arg)->
               obj.emit 'inited' unless __inited
               return arg
+          q = q.then (a)-> unsingle(FNAME).then -> a
           q = q.catch (e)->
             errs = Exception(nerror).match /(at.*\n)/g
             nerrs = ""
@@ -194,28 +207,72 @@ global.Wrap = (obj,prot)->
         obj[key] = foo if !prot?
   obj.log   ?= (args...)-> logFunction.apply    obj,args
   obj.error ?= (args...)-> errorFunction.apply  obj,args
+  obj._single?= single
   obj._block = (state=true,pref="",err)->
     if (typeof pref != 'string') && (!err?)
       err  = pref
       pref = ""
-      
     if err?
       obj["__blockErr"+pref] = err
     obj["__isBlocked"+pref] ?= false
-    return if obj["__isBlocked"+pref] == state
+    return Q() if obj["__isBlocked"+pref] == state
     obj["__isBlocked"+pref] = state
     if state
       obj.emit '_block'+pref
     else
       obj.emit '_unblock'+pref
-  obj._unblock = (pref="")-> Q.then ->
+    Q()
+  obj._unblock = (pref="")->
     q = Q()
     if obj["__isBlocked"+pref]
       q = q.then -> _waitFor obj,'_unblock'+pref
-    q = q.then -> throw obj["__blockErr"+pref] if obj["__blockErr"+pref]?
+    q = q.then ->
+      throw obj["__blockErr"+pref] if obj["__blockErr"+pref]?
     return q
-    
-    
+  obj._lock = (sel)-> Q.then ->
+    _id = __lockId++
+    q = Q()
+    if __locking
+      q = q.then -> _waitFor(__eeLock,''+(_id-1))
+    else
+      __locking = true
+    return q.then ->
+      __locking = true
+      _lockFoo(sel).then ->
+        __locking = false
+        __eeLock.emit _id
+
+  _lockArr = {}
+  _lockId  = 1
+  obj._lock = (_sel,idin=false,_id)->
+    id = _id
+    id = _lockId++ unless _id?
+    sel = '__lock_'+_sel
+    lockid       = _lockArr[sel]
+    _lockArr[sel] = id unless lockid
+    if idin
+      idsel=sel+lockid
+    else
+      idsel=sel
+    if lockid
+      return obj._unblock(idsel)
+        .tick ->
+          obj._lock(_sel,idin,id)
+        .then (id)->
+          return id
+
+    if idin
+      idsel = sel+id
+    else
+      idsel = sel
+    obj._block(true,idsel)
+    return Q(id)
+  obj._unlock = (sel,id="")->
+    throw new Error 'bad id' if _lockArr['__lock_'+sel]!=id
+    _lockArr['__lock_'+sel] = false
+    obj._block(false,'__lock_'+sel+id)
+    return Q()
+
     
       
         #c[key] = foo
@@ -256,6 +313,8 @@ global.Q        = require 'q'
 Q.rdenodeify = (f)-> Q.denodeify (as...,cb)-> f? as..., (a,b)->cb? b,a
 Q.denode  = -> Q.denodeify  arguments...
 Q.rdenode = -> Q.rdenodeify arguments...
+
+global._invoke  = (args...)-> Q.ninvoke args...
 
 
 Q.then = -> Q().then arguments...
@@ -379,7 +438,6 @@ class Lib
     #
 
 
-
 global._crypto  = require 'crypto'
 global._util    = require 'util'
 global._fs      = require 'fs'
@@ -392,6 +450,7 @@ global._inspect = _util.inspect
 global._hash    = (f)-> _crypto.createHash('sha1').update(f).digest('hex')
 global._shash   = (f)-> _hash(f).substr 0,10
 global._invoke  = (args...)-> Q.ninvoke args...
+global._mkdirp  = Q.denode require 'mkdirp'
 module.exports  = Lib
 
 global._waitFor = (obj,action,time=5000)-> Q.then ->
@@ -416,4 +475,6 @@ global._Inited = (obj)-> Q.then ->
     return _waitFor(obj,'inited').then -> true
   obj.__initing = 1
   return false
+
+
 

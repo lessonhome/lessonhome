@@ -1,3 +1,4 @@
+
 #!/bin/bash
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$ROOT"
@@ -14,3 +15,6 @@ fi
 #node ./feel/bin/updater --harmony --force & 
 
 #> log/out.log 2>> log/out.log &
+
+
+

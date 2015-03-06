@@ -1,5 +1,8 @@
 
 
+_watch  = require 'watch'
+_createMonitor = Q.rdenode (args...)-> _watch.createMonitor args...
+
 File = require './masterFile'
 Dir  = require './masterDir'
 
@@ -22,8 +25,7 @@ class WatcherMaster
     @dbFiles.find().each (err,file)=>
       qsFiles.push Q.reject err if err?
       return deferFiles.resolve Q.all qsFiles unless file?
-      @files[file.file] = new File file
-      @files[file.file].init().done()
+      @newFile(file).done()
 
     deferDirs = Q.defer()
     qsDirs = []
@@ -32,28 +34,78 @@ class WatcherMaster
       return deferDirs.resolve Q.all qsDirs unless file?
       @dirs[dir.name] = new Dir dir
       @dirs[dir.name].init().done()
-    yield Q.all [deferFiles,deferDirs]
+    yield Q.all [deferFiles.promise,deferDirs.promise]
     @_block(false)
-    @log _inspect yield (yield @file('run.sh')).get()
-  file : (name)=>
+    @createMonitor().done()
+  createMonitor : =>
+    @monitor = yield _createMonitor './'
+    @monitor.on 'created',@mcreated
+    @monitor.on 'changed',@mchanged
+    @monitor.on 'removed',@mremoved
+  mcreated : (f,stat)=>
+    delete stat.atime
+    dir = _path.dirname f
+    qs = []
+    qs.push Q.then => @dir(dir,false).then (d)=> d?.stat?()
+    if stat.isFile()
+      qs.push Q.then => @file(f,false).then (f)=> f?.stat?()
+    else if stat.isDirectory() && f!=dir
+      qs.push Q.then => @dir(f,false).then (d)=> d?.stat?()
+    Q.all qs
+  mchanged : (f,stat,pstat)=>
+    delete stat.atime
+    delete pstat.atime
+    dir = _path.dirname f
+    qs = []
+    qs.push Q.then => @dir(dir,false).then (d)=> d?.stat?()
+    if stat.isFile()
+      qs.push Q.then => @file(f,false).then (f)=> f?.stat?()
+    else if stat.isDirectory() && f!=dir
+      qs.push Q.then => @dir(f,false).then (d)=> d?.stat?()
+    Q.all qs
+
+  mremoved : (f,stat)=>
+    delete stat.atime
+    dir = _path.dirname f
+    qs = []
+    qs.push Q.then => @dir(dir,false).then (d)=> d?.stat?()
+    if stat.isFile()
+      qs.push Q.then => @file(f,false).then (f)=> f?.stat?()
+    else if stat.isDirectory() && f!=dir
+      qs.push Q.then => @dir(f,false).then (d)=> d?.stat?()
+    Q.all qs
+    
+  file : (name,create=true)=>
     yield @_unblock()
     name = _path.relative process.cwd(), _path.resolve name
     return @files[name] if @files[name]?
-    file = new File name
-    @files[name] = file
-    file.init().done()
-    return file
-  dir  : (name)=>
+    return null unless create
+    return @newFile name
+  newFile : (conf)=>
+    if typeof conf=='string'
+      conf = file: _path.relative process.cwd(), _path.resolve(conf)
+    file = new File conf
+    file.on 'change', =>
+      @emit 'change:file:'+conf.file
+    file.on 'deleted', =>
+      @emit 'deleted:file:'+conf.file
+      
+    @files[conf.file] = file
+    @files[conf.file].init().done()
+    return Q(file)
+
+  dir  : (name,create=true)=>
     yield @_unblock()
     name = _path.relative process.cwd(),_path.resolve name
     return @dirs[name] if @dirs[name]?
+    return null unless create
     dir = new Dir name
     @dirs[name] = dir
     dir.init().done()
     return dir
+  watch : ->
 
 
-  watch : (foo)->
 
 module.exports = WatcherMaster
 

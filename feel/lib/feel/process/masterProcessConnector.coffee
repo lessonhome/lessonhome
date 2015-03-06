@@ -42,7 +42,8 @@ class MasterProcessConnector
   qVarSet   : (name,val)=>      @target[name] = val
   qOn       : (action)=>
     return if @isOn[action]
-    @target.on 'action', (args...)=>
+    @isOn[action] = true
+    @target.on action, (args...)=>
       @process.send "connectorEmit:#{@id}:#{action}",args...
   qEmit     : (action,data...)=>
     @target.emit action,data...

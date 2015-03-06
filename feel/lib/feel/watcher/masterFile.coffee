@@ -6,10 +6,11 @@ _mime = require 'mime'
 class MasterFile
   constructor : (@conf)->
     Wrap @
-    @_block()
-  fixPath : (conf)=>
+    @_block().done()
+  fixPath : =>
+    conf = @conf
     if typeof conf == 'string'
-      conf = path: _path.resolve "#{process.cwd()}/#{@conf}"
+      conf = path: _path.resolve "#{process.cwd()}/#{conf}"
     if conf.path
       conf.file = _path.relative process.cwd(),conf.path
     else
@@ -22,29 +23,31 @@ class MasterFile
     conf.ext  = _path.extname   conf.file
     conf.name = _path.basename  conf.file,conf.ext
     conf.mime = _mime.lookup conf.file
-    return conf
+    return @conf = conf
   init :  =>
-    @log @conf
     @on 'deleted',@onDeleted
-    @conf = yield @fixPath @conf
+    
+    yield @fixPath()
     @in   = {}
     @file = {}
     for key,val of @conf
       @file[key] = val
       @in[key]   = val
     if @file.ready
-      @log @file.name,'from db'
+      @log @file.file,'from db'.yellow
       @_block(false)
     @stat().done()
 
   stat : =>
+    yield @_single()
+    @log 'stat',@file.file.red
     @file.exists = yield _exists @file.path
     return @delete() unless @file.exists
     @file.stat   = yield _stat   @file.path
     delete @file.stat.atime
+    delete @file.stat.ino
     
     statHash = _shash _inspect @file.stat
-    @log ':::'.red,@file.statHash,statHash
     return if @file.statHash == statHash
     @_block()
     @file.statHash = statHash
@@ -54,7 +57,7 @@ class MasterFile
       @file.hash = hash
       @file.src  = src
     @file.ready = true
-    @log @file.name,'from system'
+    @log @file.file,'from system'.yellow
     @_block(false)
     yield @updateDb()
 
@@ -67,6 +70,7 @@ class MasterFile
     yield _invoke @db,'delete',path:@file.path
 
   updateDb  : =>
+    yield @_single()
     _file = @file
     _in   = @in
     update = false
@@ -77,10 +81,10 @@ class MasterFile
     @in = {}
     for key,val of _file
       @in[key] = val
-    @emit 'change',_file
-    @log 'TODO update function'.yellow
+    @log 'update db'.yellow,_file.file
     yield @initDb()
-    yield _invoke @db,'update',{path:_file.path},{$set : _file},{upsert : true}
+    yield _invoke @db,'update',{path:_file.path},{$set:_file},{upsert:true}
+    @emit 'change',@file
   initDb : =>
     return if @db?
     db  = yield Main.serviceManager.nearest('db')
@@ -89,6 +93,7 @@ class MasterFile
   get :   =>
     yield @_unblock()
     return @file
+
     
 
 module.exports = MasterFile
