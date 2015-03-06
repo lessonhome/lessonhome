@@ -1,7 +1,9 @@
-.title_block.select
-  .title!=title
+//if title
+  .title_block.select
+    .title!=title
 .block_edit
   .tutor_edit!=tutor_edit
-  .save_button!=save_button
+  if possibility_save_button
+    .save_button!=save_button
 if hint
-  .hint!=hint
+  .hint(class=selector_hint)!=hint

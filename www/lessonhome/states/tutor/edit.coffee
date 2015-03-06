@@ -17,9 +17,14 @@ class @main extends template '../tutor'
       items       : @exports()
       active_item : @exports()
     content : module '$' :
-      title       : @exports()
-      tutor_edit  : @exports()
-      hint        : @exports()
+       #title       : @exports()
+      tutor_edit    : @exports()
+      hint          : @exports()
+      selector_hint : @exports()
       save_button       : module 'tutor/button' :
         text      : 'Сохранить'
         selector  : 'edit_save'
+      possibility_save_button :  true
+  init : ->
+    @parent.tree.left_menu.setActive 'Анкета'
+    @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']

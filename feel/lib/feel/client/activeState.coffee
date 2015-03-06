@@ -55,6 +55,10 @@ class @activeState
       if obj?
         obj.dom = dom
         obj.pdom = @dom.parent
+        obj.found ?= {}
+        if node._domregx? then for _js_sel of node._domregx
+          obj.found[_js_sel] = obj.dom.find ".js-#{_js_sel}--#{node._uniq}"
+          
       @uniq_pref = node._uniq+"-"
       dom_parent = @dom.parent
       @dom.parent = dom

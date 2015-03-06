@@ -2,10 +2,11 @@
 $margin_top: 15px
 $b_color: #dfe1e4
 .calendar_box
+  +inline-block
+  text-align: left
   .choose_all
     margin-bottom: $margin_top
     color: #757575
-    float: left
   .calendar_week
     +inline-block
     +border-radius(4px)
@@ -71,6 +72,8 @@ $b_color: #dfe1e4
         padding: $padding_time_box $padding_time_box_hand
 
 +calendar('advance_filter', 10px, 5px, 8px, 6px)
+.advance_filter
+  width: 235px
 ////////////////// fast_bids /////////////////
   $all_padding_input: 10px
   $padding_day: 12.7px

@@ -4,7 +4,7 @@ class @main extends template '../../edit'
   title : "редактирование настройки"
   tags : -> 'edit: description'
   tree : =>
-    tag         : 'edit: description'
+    menu_description  : 'edit: description'
     items       :
       'Общие'       : 'general'
       'Контакты'    : 'contacts'
@@ -17,14 +17,18 @@ class @main extends template '../../edit'
       new_orders_toggle : module 'tutor/forms/toggle' :
         first_value : 'Получать'
         second_value : 'Не получать'
-      notice_sms_checkbox : module 'tutor/forms/checkbox'
-      notice_email_checkbox : module 'tutor/forms/checkbox'
+      notice_sms_checkbox : module 'tutor/forms/checkbox' :
+        text      : 'по смс'
+        selector  : 'small'
+      notice_email_checkbox : module 'tutor/forms/checkbox' :
+        text      : 'на email'
+        selector  : 'small'
       callback_toggle : module 'tutor/forms/toggle' :
         first_value : 'Да'
         second_value : 'Нет'
       callback_comment : module 'tutor/forms/textarea' :
         height    : '77px'
-        selector  : 'edit_settings'
+        selector  : 'first_reg'
         placeholder : 'Комментарий'
       save_button : module 'tutor/button' :
         text     : 'Сохранить'
@@ -32,11 +36,21 @@ class @main extends template '../../edit'
       change_button : module 'tutor/button' :
         text     : 'Изменить'
         selector : 'edit_save'
-      new_phone_number : module 'tutor/forms/input'
-      new_email : module 'tutor/forms/input'
-      new_password : module 'tutor/forms/input'
-      old_password : module 'tutor/forms/input'
-      confirm_password : module 'tutor/forms/input'
+      new_phone_number : module 'tutor/forms/input' :
+        text      : 'Новый :'
+        selector  : 'first_reg'
+      new_email : module 'tutor/forms/input'  :
+        text      : 'Новый :'
+        selector  : 'first_reg'
+      new_password : module 'tutor/forms/input' :
+        text      : 'Старый :'
+        selector  : 'first_reg'
+      old_password : module 'tutor/forms/input' :
+        text      : 'Новый :'
+        selector  : 'first_reg'
+      confirm_password : module 'tutor/forms/input' :
+        text      : 'Подтвердите :'
+        selector  : 'first_reg'
       line_phone : module 'tutor/separate_line' :
         title     : 'Номер телефона'
         selector  : 'horizon'
@@ -51,3 +65,7 @@ class @main extends template '../../edit'
       selector  : 'horizontal'
       header    : 'Это подсказка'
       text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'
+
+
+  init  :=>
+    @parent.tree.content.possibility_save_button = false
