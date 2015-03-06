@@ -5,15 +5,9 @@ class @main extends EE
     @sections = @dom.find '.section'
     for section in @sections
       section = $ section
-      title  = section.find '.js-title'
+      title  = @found.title
       do (section)=>
         title.click => @change_visibility section
-
-    # gender button
-    @female = @tree.female.class
-    @male   = @tree.male.class
-    @female.on 'active', @male.disable
-    @male.on 'active', @female.disable
 
     #select experience
     @experience = @dom.find '.js-experience>div'
