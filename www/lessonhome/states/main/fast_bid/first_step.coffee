@@ -8,6 +8,8 @@ class @main extends template '../fast_bid'
       name : module 'tutor/forms/input' :
         text      : 'Имя :'
         selector  : 'fast_bid'
+        pattern   : '^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,15}$'
+        errMessage: 'Введите корректное имя (имя может содержать только цифры, символы алфавита и _)'
       phone : module 'tutor/forms/input':
         text: 'Телефон :'
         selector  : 'fast_bid'
