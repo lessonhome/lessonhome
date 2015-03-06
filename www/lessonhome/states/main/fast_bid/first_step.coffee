@@ -11,6 +11,8 @@ class @main extends template '../fast_bid'
       phone : module 'tutor/forms/input':
         text: 'Телефон :'
         selector  : 'fast_bid'
+        pattern     : '^\\+7\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}$' #required using some like: (dataObject 'checker').patterns.telephon
+        errMessage  : 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx'
       email : module 'tutor/forms/input':
         text: 'E-mail :'
         selector  : 'fast_bid'
