@@ -1,5 +1,6 @@
 
 
+Dir  = require './slaveDir'
 File = require './slaveFile'
 
 class WatcherSlave
@@ -23,8 +24,15 @@ class WatcherSlave
     yield file.init @master
     return file
  
-  dir  : (name)=>
+  dir  : (name,create=true)=>
     yield @_unblock()
+    name = _path.relative process.cwd(), _path.resolve name
+    return @dirs[name] if @dirs[name]?
+    return null unless create
+    dir = new Dir name
+    @dirs[name] = dir
+    yield dir.init @master
+    return dir
 
 module.exports = WatcherSlave
 

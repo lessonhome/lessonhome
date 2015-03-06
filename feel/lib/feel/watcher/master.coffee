@@ -31,9 +31,9 @@ class WatcherMaster
     qsDirs = []
     @dbDirs.find().each (err,dir)=>
       qsDirs.push Q.reject err if err?
-      return deferDirs.resolve Q.all qsDirs unless file?
-      @dirs[dir.name] = new Dir dir
-      @dirs[dir.name].init().done()
+      return deferDirs.resolve Q.all qsDirs unless dir?
+      @newDir(dir).done()
+      
     yield Q.all [deferFiles.promise,deferDirs.promise]
     @_block(false)
     @createMonitor().done()
@@ -68,11 +68,11 @@ class WatcherMaster
     delete stat.atime
     dir = _path.dirname f
     qs = []
-    qs.push Q.then => @dir(dir,false).then (d)=> d?.stat?()
+    qs.push Q.then    => @dir(dir,false).then (d)=> d?.stat?()
     if stat.isFile()
-      qs.push Q.then => @file(f,false).then (f)=> f?.stat?()
+      qs.push Q.then  =>@file(f,false).then (f)=> f?.stat?()
     else if stat.isDirectory() && f!=dir
-      qs.push Q.then => @dir(f,false).then (d)=> d?.stat?()
+      qs.push Q.then  => @dir(f,false).then (d)=> d?.stat?()
     Q.all qs
     
   file : (name,create=true)=>
@@ -89,20 +89,36 @@ class WatcherMaster
       @emit 'change:file:'+conf.file
     file.on 'deleted', =>
       @emit 'deleted:file:'+conf.file
-      
+     
     @files[conf.file] = file
     @files[conf.file].init().done()
     return Q(file)
-
-  dir  : (name,create=true)=>
+  dir : (name,create=true)=>
     yield @_unblock()
-    name = _path.relative process.cwd(),_path.resolve name
+    name = _path.relative process.cwd(), _path.resolve name
     return @dirs[name] if @dirs[name]?
     return null unless create
-    dir = new Dir name
-    @dirs[name] = dir
-    dir.init().done()
-    return dir
+    return @newDir name
+  newDir : (conf)=>
+    if typeof conf=='string'
+      conf = dir: _path.relative process.cwd(), _path.resolve(conf)
+    dir = new Dir conf
+    dir.on 'change', =>
+      @emit 'change:dir:'+conf.dir
+    dir.on 'deleted', =>
+      @emit 'deleted:dir:'+conf.dir
+      
+    @dirs[conf.dir] = dir
+    @dirs[conf.dir].init(@).done()
+    return Q(dir)
+  initFile : (name)=>
+    f = yield @file(name)
+    yield f.get()
+    return true
+  initDir : (name)=>
+    f = yield @dir(name)
+    yield f.get()
+    return true
   watch : ->
 
 

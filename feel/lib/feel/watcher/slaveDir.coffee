@@ -3,7 +3,7 @@
 _mime = require 'mime'
 
 
-class SlaveFile
+class SlaveDir
   constructor : (@conf)->
     Wrap @
     @_block()
@@ -11,58 +11,54 @@ class SlaveFile
     if typeof conf == 'string'
       conf = path: _path.resolve "#{process.cwd()}/#{@conf}"
     if conf.path
-      conf.file = _path.relative process.cwd(),conf.path
+      conf.dir = _path.relative process.cwd(),conf.path
     else
-      if conf.file
-        conf.path = _path.resolve "#{process.cwd()}/#{conf.file}"
+      if conf.dir
+        conf.path = _path.resolve "#{process.cwd()}/#{conf.dir}"
       else
         throw new Error 'cant resolve path in config'+_inspect(conf)
-    conf.dir  = _path.dirname   conf.file
-    conf.base = _path.basename  conf.file
-    conf.ext  = _path.extname   conf.file
-    conf.name = _path.basename  conf.file,conf.ext
-    conf.mime = _mime.lookup conf.file
+    conf.pdir = _path.dirname   conf.dir
+    conf.name = _path.basename  conf.dir
     return conf
   init :  (@master)=>
     @on 'deleted',@onDeleted
     @conf = yield @fixPath @conf
     @in   = {}
-    @file = {}
+    @dir = {}
     for key,val of @conf
-      @file[key] = val
+      @dir[key] = val
       @in[key]   = val
-    yield @master.initFile @conf.file
-    @master.on 'change:file:'+@conf.file, =>
+    yield @master.initDir @conf.dir
+    @master.on 'change:dir:'+@conf.dir, =>
       @loadDb().done()
     yield @loadDb()
     yield @_block(false)
   delete : =>
-    @emit 'deleted',@file
+    @emit 'deleted',@dir
   onDeleted : =>
     @_block()
-    @_block false,new Error 'file deleted',@file.path
+    @_block false,new Error 'dir deleted',@dir.path
     yield @initDb()
-    yield _invoke @db,'delete',path:@file.path
+    yield _invoke @db,'delete',path:@dir.path
   loadDb : =>
     yield @_single()
     yield @_block()
     yield @initDb()
-    files = yield _invoke @db.find(file:@file.file),'toArray'
-    @file = files[0]
+    dirs = yield _invoke @db.find(dir:@dir.dir),'toArray'
+    @dir = dirs[0]
     yield @_block(false)
-    @emit 'change',@file
+    @emit 'change',@dir
   initDb : =>
     return if @db?
     db  = yield Main.serviceManager.nearest('db')
-    @db = yield db.get 'watcherFiles'
-
+    @db = yield db.get 'watcherDirs'
   get :   =>
     yield @_unblock()
-    return @file
+    return @dir
 
     
 
-module.exports = SlaveFile
+module.exports = SlaveDir
 
 
 

@@ -289,18 +289,18 @@ global.Wrap = (obj,prot)->
     #        oldval.apply obj,args
     #  obj[key] = val
     obj.emit  = -> ee.emit arguments...
-    obj.on    = -> ee.on   arguments...
-    obj.once  = -> ee.once arguments...
-  __on      = obj.on
-  __once    = obj.once
-  obj.on    = (action,foo)->
-    __on.call obj, action, (args...)->
-      ret = foo(args...)
-      ret.done() if Q.isPromise ret
-  obj.once  = (action,foo)->
-    __once.call obj,action,(args...)->
-      ret = foo(args...)
-      ret.done() if Q.isPromise ret
+    obj.on    = (action,foo)->
+      if foo?.constructor?.name == 'GeneratorFunction'
+        foo = Q.async foo
+      ee.on action, (args...)->
+        ret = foo args...
+        ret.done() if Q.isPromise ret
+    obj.once    = (action,foo)->
+      if foo?.constructor?.name == 'GeneratorFunction'
+        foo = Q.async foo
+      ee.once action, (args...)->
+        ret = foo args...
+        ret.done() if Q.isPromise ret
 global.lrequire = (name)-> require './lib/'+name
 
 global.Path     = new (require('./service/path'))()

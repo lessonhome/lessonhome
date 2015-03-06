@@ -26,7 +26,7 @@ class MasterFile
     return @conf = conf
   init :  =>
     @on 'deleted',@onDeleted
-    
+    @on 'change', @change
     yield @fixPath()
     @in   = {}
     @file = {}
@@ -34,13 +34,13 @@ class MasterFile
       @file[key] = val
       @in[key]   = val
     if @file.ready
-      @log @file.file,'from db'.yellow
+      #@log @file.file,'from db'.yellow
       @_block(false)
     @stat().done()
 
   stat : =>
     yield @_single()
-    @log 'stat',@file.file.red
+    #@log 'stat',@file.file.red
     @file.exists = yield _exists @file.path
     return @delete() unless @file.exists
     @file.stat   = yield _stat   @file.path
@@ -57,7 +57,7 @@ class MasterFile
       @file.hash = hash
       @file.src  = src
     @file.ready = true
-    @log @file.file,'from system'.yellow
+    #@log @file.file,'from system'.yellow
     @_block(false)
     yield @updateDb()
 
@@ -81,10 +81,12 @@ class MasterFile
     @in = {}
     for key,val of _file
       @in[key] = val
-    @log 'update db'.yellow,_file.file
+    #@log 'write to db'.yellow,_file.file
     yield @initDb()
     yield _invoke @db,'update',{path:_file.path},{$set:_file},{upsert:true}
-    @emit 'change',@file
+    @emit 'change',@file if _in.hash != _file.hash
+  change : (f)=>
+    @log 'change'.yellow,f.file.yellow,f.hash.grey
   initDb : =>
     return if @db?
     db  = yield Main.serviceManager.nearest('db')
