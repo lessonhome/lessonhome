@@ -55,7 +55,7 @@ class module.exports
             path  : "#{@site.path.modules}/#{@name}/#{f}"
           }
   replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-]+)/,"$1mod-#{@id}--$2")
-  replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])(js-[\w-]+)/,"$1$2--{{UNIQ}}")
+  replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-]+)/,"$1js-$2--{{UNIQ}} $2")
   makeJade : =>
     @jade = {}
     for filename, file of @files
