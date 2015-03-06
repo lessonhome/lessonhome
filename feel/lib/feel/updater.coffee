@@ -37,7 +37,7 @@ class module.exports
           command : 'node'
           psargs : "aux"
         }, (err,list)=>
-          @exec "ls", ["-lrth"], res, =>
+          @exec "rm", ["-rf",".cache"], res, =>
             if !err
               for p in list
                 for a in p.arguments
