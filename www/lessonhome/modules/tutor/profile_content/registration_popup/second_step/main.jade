@@ -1,17 +1,2 @@
-mixin field (selector, title, value)
-  label(class=selector)
-    .title.select=title
-    .value!= value
 
-.fields
-  +field ('country', 'Страна :', country)
-  +field ('city', 'Город :', city)
-  +field ('address', 'Адрес :', address_button)
-
-  .line!= line
-
-  +field ('mobile_phone', 'Мобильный телефон :', mobile_phone)
-  +field ('extra_phone', 'Доп.телефон :', extra_phone)
-  +field ('post', 'Почта :', post)
-  +field ('skype', 'Skype :', skype)
-  +field ('site', 'Личный сайт :', site)
+.contacts_tutor!=contacts_tutor

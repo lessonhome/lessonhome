@@ -1,0 +1,27 @@
+.calendar_box(class = selector)
+  .choose_all!= choose_all
+  .calendar_week
+    .monday.hover пн
+    .tuesday.hover вт
+    .wednesday.hover ср
+    .thursday.hover чт
+    .friday.hover пт
+    .saturday.hover сб
+    .sunday.hover вс
+  .js-show-hidden-block
+    .time_box
+      .from_time!=from_time
+      .dash -
+      .till_time!=till_time
+      .add_time_button!= add_time_button
+  .tag!=tag
+
+      //-.close_box
+        .close
+    //-.button_add!=button_add
+
+
+
+
+
+

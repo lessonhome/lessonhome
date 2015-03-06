@@ -5,11 +5,11 @@ class @main extends template '../popup'
   tree : ->
     content : module '$' :
       date : module 'tutor/forms/input' :
-        id : 'date'
+        text : 'Дата'
         selector : 'report_popup'
       time : module 'tutor/forms/input' :
-        id : 'time'
-        selector : 'report_popup'
+        text : 'Время'
+        selector : 'report_popup time_report_popup'
 
   init : ->
     @parent.tree.popup.header.text = 'Дата первого занятия'

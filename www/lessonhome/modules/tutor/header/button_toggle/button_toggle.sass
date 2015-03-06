@@ -1,44 +1,77 @@
 @import compass/css3
+$blue:  hsl(210,100%,69%)
+$gray:  hsl(0,0%,69%)
 main
   height: 100%
   cursor: pointer
-.button
+.button_box
   height: 100%
-  border-radius: 4px
+  .button
+    height: 100%
+    +inline-block
+    +border-radius(4px)
+    .text
+      +inline-block
+      color: #ffffff
+  .button:after
+    content: ''
+    +inline-block
+    height: 100%
+
+//////////////// state rules ////////////
+.inactive
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px
+.active
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    .text
+      color : #fff
+
+
+//////////////// function //////////////
+=selector($selector,$padding_text,$font_size)
+  .button_box.#{$selector}
+    .button
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
+    &.inactive
+      .button
+        background: $gray
+    &.active
+      .button
+        background: $blue
+    &.inactive:hover
+      .button
+        background: lighten($gray, 5%)
+    &.active:hover
+      .button
+        background: lighten($blue, 5%)
+
+
+
+///////////-----------back call-----------//////////
+
++selector('call_back_pupil',12px,20px)
++selector('call_back_tutor',12px,20px)
+
+
 
 ///////////////--------------action-----------////////////
-.inactive
-  background: #cdcdcd
-  .text
-    color: #757575
+
+.active:hover
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+
+
 .inactive:hover
-  background-color : #ffb1a8
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 2px 0px, rgba(0, 0, 0, 0.1) 0px -3px 0px 0px inset
 
-.active
-  box-shadow       : 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-  background-color : rgb( 240, 123, 111 )
-  .text
-    color : #ffffff
-
-///////////-----------back call in header-----------//////////
-
-.call_back_pupil, .call_back_tutor, .call_back
-  .text
-    +inline-block
-    padding: 0 12px
-    font-size: 20px
-
-.call_back
-  background-color: rgb(240, 123, 111)
-  box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.33)
-  .text
-    padding: 0 14px
-    font-size: 20px
-    color: #ffffff
-
-.call_back_pupil:after, .call_back_tutor:after, .call_back:after
-  content: ''
-  +inline-block
-  height: 100%
-
+.press,.press:hover
+  padding-top: 1px
+  box-sizing: border-box
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
 

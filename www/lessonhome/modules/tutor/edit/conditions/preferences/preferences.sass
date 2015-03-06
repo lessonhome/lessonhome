@@ -1,59 +1,11 @@
 @import compass/css3
-
-main
-  overflow  : hidden
-
-.header
-  margin      : 46px 0 36px 53px
-  font-size   :  26px
-  font-family : 'Open Sans', sans-serif
-  color       : rgb( 0, 0, 0 )
-
-.hint
-  width : 166px
-  margin-left : 50px
-  float : left
-
-.select_block
-  +inline-block
-  margin-left : 51px
-  margin-top  : 8.5px
-
-  label
-    cursor : pointer
-
-  .sex, label.category, label.status
-    overflow : hidden
-    padding : 6.5px 0
-    display : block
-
-    .title
-      padding-right: 22px
-      box-sizing: border-box
-      float : right
-      text-align : right
-
-    .value
-      float : right
-
-  .button_block
-    margin-top: 30.5px
-    text-align: right
-    .button
-      +inline-block
-
-
-  .sex
-    .value
-      padding-top: 2px
-      box-sizing: border-box
-      text-align: center
-      div
-        +inline-block
-        width     : 128px
-        height    : 33px
-        font-size : 20px
-      .sex_man
-        margin-right : 79px
-
+$padding: 7px
+$height: 37px
+.gender_data, .value
+  height: $height
+  padding: $padding 0
+.gender_data
+  padding-top: 0
+.status
+  padding-bottom: 0
 

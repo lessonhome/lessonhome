@@ -13,8 +13,9 @@ main
   +inline-block
   color:  #757575
   font-size: 14px
+.city
+  padding-bottom: 5px
 .telephone
-  padding-top: 5px
   span
     font-size : 16px
 .title
@@ -33,7 +34,7 @@ main
       background: inline-image($phone_src) no-repeat
     .text
       +inline-block
-  .popup_box
+  .call_back_popup
     display: none
     cursor: default
     position: absolute
@@ -89,5 +90,7 @@ main
         content: ''
         display: block
         clear: both
+  .call_back_popup.footer
+    top: -380px
 .title:hover
   color: #000000

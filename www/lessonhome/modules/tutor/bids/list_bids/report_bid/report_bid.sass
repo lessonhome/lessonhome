@@ -1,5 +1,10 @@
 @import compass/css3
 
+$fill_sign_src: 'whitecheck_small.png'
+$fill_sign_height: image-height($fill_sign_src)
+$fill_sign_width: image-width($fill_sign_src)
+$report_items_width: 480px
+
 .bid_report_block
   .select_button, .bid
     +inline-block
@@ -144,8 +149,9 @@
           margin-left : 100px
           div
             +inline-block
+            margin-top: 6px
           .items
-            padding-top : 6px
+            width: $report_items_width
             .item
               margin-bottom : 6px
               div
@@ -163,14 +169,26 @@
               .icon
                 background-color : #89d1ff
                 box-shadow : 0 0 7px 3px rgba(255, 255, 255, 0.75)
+              a
+                +inline-block
+                margin-left: 20px
+                text-decoration: none
+                .fill_button
+                  height: 33px
             .item:last-child
               margin-bottom : 22px
-          .buttons
+            .item.filled
+              .icon
+                background: inline-image($fill_sign_src) no-repeat center
+                background-color : #89d1ff
+              .text:after
+                content: " >>>"
+                color: red
+          .support
             vertical-align : top
             div
               +inline-block
-            .fill_button
-              margin : 0 30px 0 25px
+              height: 33px
 
         .content :last-child
           margin-bottom : 22px

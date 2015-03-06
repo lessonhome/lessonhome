@@ -75,6 +75,7 @@ class RouteState
       @site.moduleJsTag('lib/jquery')+
       @site.moduleJsTag('lib/q')+
       @site.moduleJsTag('lib/event_emitter')+
+      @site.moduleJsTag('lib/jade')+
       '
       <script id="feel-js-client">
           window.EE = EventEmitter;
@@ -157,6 +158,12 @@ class RouteState
       if !@site.modules[now._name]?
         throw new Error "can't find module '#{now._name}' in state '#{@statename}'"
       now._html = @site.modules[now._name].doJade o,@,state.__state
+      ms = now._html.match /js-\w+--{{UNIQ}}/mg
+      now._domregx = {}
+      if ms then for m in ms
+        m = m.match(/js-(\w+)--/)[1]
+        now._domregx[m] = true
+      now._html = now._html.replace /{{UNIQ}}/mg,uniq
       @stack.pop()
 
   getO  : (obj,uniq)=>

@@ -1,6 +1,4 @@
 
-
-
 class Viewer
   constructor : (@state,@parent)->
     @dom = $('<div class="viewer"><div class="left"><div class="in"></div><iframe></iframe></div><div class="right"><div class="in"></div><div class="img"><img /></div></div></div>')

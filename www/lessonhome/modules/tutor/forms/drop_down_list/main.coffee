@@ -17,5 +17,8 @@ class @main extends EE
       else
         @list.removeClass 'focus'
 
+  focusInput: =>
+    @input.focus()
+
 
 

@@ -1,9 +1,19 @@
-div.unselect(class=selector)
-  .start!=start
-  if dash
-    .dash=dash
-  if end
-    .end!=end
-  if measurement
-    .measurement.select=measurement
-.move.unselect(class=selector_two)!=move
+div(class=selector)
+  .box_input
+    .start!=start
+    if dash
+      .dash=dash
+    if end
+      .end!=end
+    if measurement
+      .measurement=measurement
+  .move!=move
+
+
+
+
+
+
+
+
+

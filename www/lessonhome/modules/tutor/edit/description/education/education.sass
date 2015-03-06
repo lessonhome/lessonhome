@@ -1,76 +1,11 @@
 @import compass/css3
-
-$height : 37px
-
-main
-  overflow : hidden
-  padding  : 45.5px 0 50px 0
-  text-align : right
-
-
-.block
-  +inline-block
-  margin-right: 177px
-
-  label
-    display : block
-    cursor  : pointer
-
-  label.country, label.city, label.university, label.faculty, label.chair, label.status, .line>label.date
-    overflow : hidden
-    padding : 6.5px 0
-
-    .m-title
-      padding-right : 22px
-      box-sizing : border-box
-      float : right
-      text-align : right
-
-    .value
-      float  : right
-      width  : 340px
-      height : $height
-
-
-  .line
-    label
-      +inline-block
-      cursor: pointer
-    label.date>.value
-      width: initial
-      .day
-        +inline-block
-        width  : 96px
-        height : $height
-        padding-right : 5px
-
-    label.month
-      width: 118px
-      height: $height
-      padding: 6.5px 5px
-
-    label.year
-      padding: 6.5px 0 6.5px 5px
-
-  .button_block
-    .add_button, .save_button
-      float : right
-
-    .add_button
-      margin-bottom : 19px
-      margin-top : 11.5px
-
-
-  .button_block:after
-    content : ''
-    clear   : both
-    display : block
-
-/*---------------------------------------------------------*/
-
-.hint
-  +inline-block
-
-  width: 678px
-  margin-right: 49px
-  margin-top:   79px
+$padding: 7px
+$height: 37px
+.value, .release_day, .add_button
+  padding: $padding 0
+  height: $height
+.country
+  padding-top: 0
+.add_button
+  height: 37px
+  padding-bottom: 0

@@ -6,6 +6,28 @@ main
   height: 100%
   width: 1014px
   margin: auto
+
+//- ------------------------------ POPUP ----------------------------------
+.popup_wrap
+  position: fixed
+  overflow: scroll
+  text-align: center
+  background-color: rgba(0, 0, 0, 0.70)
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  z-index: 100
+  .content
+    +inline-block
+    position: relative
+.popup_wrap:after
+  content: ""
+  +inline-block
+  width: 0px
+  height: 100%
+//- -----------------------------------------------------------------------
+
 .container
   position: relative
   width: 100%

@@ -1,83 +1,11 @@
 @import compass/css3
-
+$padding: 7px
 main
-  overflow : hidden
-
-$height : 37px
-
-.fields
-  margin-top    : 22.5px
-  margin-bottom : 54.5px
-  text-align    : right
-  label.subject, label.categories, label.directions, label.categories_of_students, label.place, label.price, .line>label.group_lessons
-    .value
-      height : $height
-
-  label, .button_block, .line>label
-    display : block
-    cursor  : pointer
-    margin-right  : 167px
-    padding : 5.5px 0
-    .title, .value
-      +inline-block
-
-    .title
-      width        : 180px
-      height       : $height
-      line-height  : $height
-      margin-right : 26px
-      text-align   : right
-      font-size    : 16px
-      color        : rgba(75, 75, 75, 0.70)
-      font-family  : 'Open Sans', sans-serif
-
-    .value
-      width  : 341px
-
-  label.place, label.price
-    +inline-block
-
-  label.place
-    padding-right : 15px
-    margin-right : 0
-    .value
-      width : 171px
-
-  label.price
-    margin-right : 106px
-    .title
-      width        : 65px
-      margin-right : 18px
-    .value
-      width        : 71px
-      margin-right : 22px
-    .price_button
-      +inline-block
-
-  .line
-    label
-      +inline-block
-    label.group_lessons
-      margin-right: initial
-      .value
-        width: initial
-        div
-          +inline-block
-          height : 100%
-        .students_in_group
-          width         : 185px
-          padding-right : 16.5px
-    label.group_lessons_bet
-      width : 122px
-      height : $height
-      padding-left : 16.5px
-
-  label.comments
-    margin-bottom : 4px
-    .title
-      vertical-align : top
-
+.subject_tutor
+  width: 100%
   .button_block
+    padding: $padding 0
     .add_button
       +inline-block
+      height: 33px
 

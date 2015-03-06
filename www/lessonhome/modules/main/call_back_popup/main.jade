@@ -1,0 +1,25 @@
+- selector = selector || "";
+- href = href || "";
+
+if selector == 'header'
+  .triangle_box(class=selector)
+    .triangle
+.popup
+  if href
+    a(href=href)
+      .close_box
+        .close
+  else
+    .close_box
+      .close
+  .name!=your_name
+  .tel_number!=tel_number
+  .comments!=comments
+  .button_panel_choose
+    .pupil!=pupil
+    .tutor!=tutor
+  .order_call!=order_call
+
+if selector == 'footer'
+  .triangle_box(class=selector)
+    .triangle

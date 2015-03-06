@@ -11,12 +11,13 @@ label
   display: block
   width: 100%
   height: 100%
+  cursor: pointer
   .text
-    font-size: $_font_size
     +inline-block
-    cursor: pointer
-    color: #000000
+    font-size: $_font_size
+    color: #757575
   .drop_down_list
+    +inline-block
     position: relative
     height: 100%
     width: 100%
@@ -42,7 +43,7 @@ label
         color: #757575
         opacity: 1
     .icon_box
-      padding: 0 11px 0 $icon_padding
+      padding: 0 $icon_padding
       position: absolute
       top: 0
       height: 100%
@@ -55,7 +56,7 @@ label
         top: 50%
         margin-top: -$icon_height / 2
         background : inline-image($icon_src) no-repeat
-    .dropdown_items
+    .drop_down_items
       position: absolute
       z-index: 1
       width: 100%
@@ -68,6 +69,80 @@ label
     +inline-block
     height: 100%
     content: ''
+
+
+
+/////////////////--------list_course---------//////////////////////
+$icon_padding: 10px
+.list_course
+  .drop_down_list
+    padding: 0 (2*$icon_padding+$icon_width) 0 8px
+    input
+      +input-placeholder
+    .icon_box
+      padding: 0 $icon_padding
+
+
+//////////////---------fast_bid---------////////
+$_font_size: 16px
+$font_size: 18px
+.fast_bid
+  text-align: left
+  .text
+    font-size: $_font_size
+    padding-bottom: 10px
+  .drop_down_list
+    font-size: $font_size
+    height: 37px
+    +input-placeholder
+      font-size: $font_size
+
+//////////////---------search_bids---------////////
+$_font_size: 18px
+.search_bids
+  text
+    font-size: $_font_size
+
+
+
+
+/////////////// first step registration /////////////
+$_font_size: 16px
+$font_size: 18px
+$padding_text: 26px
+$icon_padding: 6px
+.first_reg
+  .text
+    text-align: right
+    font-size: $_font_size
+    padding-right: $padding_text
+    color: rgba(75, 75, 75, 0.70)
+  .drop_down_list
+    width: 341px
+    input
+      font-size: $font_size
+      line-height: $font_size
+    +input-placeholder
+      font-size: $font_size
+      line-height: $font_size
+////
+.day
+  .drop_down_list
+    width: 91px
+///
+.place
+  .drop_down_list
+    width: 171px
+////
+.group
+  .drop_down_list
+    width: 185px
+//////
+.bet
+  .drop_down_list
+    width: 122px
+
+
 
 
   /////////////////--------list_subject, list_tutor---------//////////////////////
@@ -94,45 +169,15 @@ $font_size: 37px
         background : inline-image($icon_src) no-repeat
         color: rgb(203, 211, 218)
 
-  /////////////////--------list_course---------//////////////////////
-$icon_padding: 10px
-.list_course
-  .drop_down_list
-    padding: 0 (2*$icon_padding+$icon_width) 0 8px
-    input
-      +input-placeholder
-    .icon_box
-      padding: 0 $icon_padding
 
 
-  //////////////---------fast_bid---------////////
-$_font_size: 16px
-$font_size: 18px
-.fast_bid
-  text-align: left
-  .text
-    font-size: $_font_size
-    margin-bottom: 10px
-  .drop_down_list
-    font-size: $font_size
-    height: 38px
-
-
-
-  //- --------------------- SEARCH BIDS ----------------------
-.search_bids
-  .drop_down_list
-    border-color: rgb( 202, 211, 218 )
-
-.search_bids_subject
-  .drop_down_list
-    line-height: initial
-    border-color: rgb( 202, 211, 218 )
-
+  /////////////////// actions ///////////////////////
   //------------------------ hover --------------------------------
 
 $icon_hover_src: 'triangle-15-x-13-hover.png'
 label:hover
+  .text
+    color: #000000
   .drop_down_list
     border : 2px solid #b3b3b3
     .icon_box
@@ -143,6 +188,8 @@ label:hover
           ///////////// filter_top  ////////////
 $icon_hover_src : 'main/triangle-24x21_hover.png'
 .filter_top:hover
+  .text
+    color: #000000
   .drop_down_list
     border : 3px solid #b3b3b3
     .icon_box
@@ -154,6 +201,8 @@ $icon_hover_src : 'main/triangle-24x21_hover.png'
   //------------------------ focus --------------------------------
 $icon_hover_src: 'triangle-15-x-13-hover.png'
 label,label:hover
+  .text
+    color: #000000
   .focus
     border : 2px solid rgb( 137, 209, 255 )
     .icon_box
@@ -164,6 +213,8 @@ label,label:hover
 ///////////// filter_top  ////////////
 $icon_hover_src : 'main/triangle-24x21_hover.png'
 .filter_top,.filter_top:hover
+  .text
+    color: #000000
   .filter_top_focus
     border : 3px solid rgb( 137, 209, 255 )
     .icon_box

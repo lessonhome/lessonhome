@@ -1,42 +1,34 @@
-class @main extends template '../../../tutor'
+class @main extends template '../../edit'
   route : '/tutor/edit/settings'
   model   : 'tutor/edit/description/settings'
   title : "редактирование настройки"
   tags : -> 'edit: description'
   tree : =>
-    items : [
-      module 'tutor/header/button' : {
-        title : 'Описание'
-        href  : '/tutor/edit/general'
-        tag   : 'edit: description'
-      }
-      module 'tutor/header/button' : {
-        title : 'Условия'
-        href  : '/tutor/edit/subjects'
-      }
-    ]
-    sub_top_menu : state 'tutor/sub_top_menu' :
-      items :
-        'Общие'       : 'general'
-        'Контакты'    : 'contacts'
-        'Образование' : 'education'
-        'Карьера'     : 'career'
-        'О себе'      : 'about'
-        'Настройки'   : 'settings'
-    #'Медиа'       : 'media'
-      active_item     : 'Настройки'
-    content       : module '$' :
+    tag         : 'edit: description'
+    items       :
+      'Общие'       : 'general'
+      'Контакты'    : 'contacts'
+      'Образование' : 'education'
+      'Карьера'     : 'career'
+      'О себе'      : 'about'
+      'Настройки'   : 'settings'
+    active_item : 'Настройки'
+    tutor_edit  : module '$' :
       new_orders_toggle : module 'tutor/forms/toggle' :
         first_value : 'Получать'
         second_value : 'Не получать'
-      notice_sms_checkbox : module 'tutor/forms/checkbox'
-      notice_email_checkbox : module 'tutor/forms/checkbox'
+      notice_sms_checkbox : module 'tutor/forms/checkbox' :
+        text      : 'по смс'
+        selector  : 'small'
+      notice_email_checkbox : module 'tutor/forms/checkbox' :
+        text      : 'на email'
+        selector  : 'small'
       callback_toggle : module 'tutor/forms/toggle' :
         first_value : 'Да'
         second_value : 'Нет'
       callback_comment : module 'tutor/forms/textarea' :
         height    : '77px'
-        selector  : 'edit_settings'
+        selector  : 'first_reg'
         placeholder : 'Комментарий'
       save_button : module 'tutor/button' :
         text     : 'Сохранить'
@@ -44,11 +36,21 @@ class @main extends template '../../../tutor'
       change_button : module 'tutor/button' :
         text     : 'Изменить'
         selector : 'edit_save'
-      new_phone_number : module 'tutor/forms/input'
-      new_email : module 'tutor/forms/input'
-      new_password : module 'tutor/forms/input'
-      old_password : module 'tutor/forms/input'
-      confirm_password : module 'tutor/forms/input'
+      new_phone_number : module 'tutor/forms/input' :
+        text      : 'Новый'
+        selector  : 'edit_save'
+      new_email : module 'tutor/forms/input'  :
+        text      : 'Новый'
+        selector  : 'edit_save'
+      new_password : module 'tutor/forms/input' :
+        text      : 'Старый'
+        selector  : 'edit_save'
+      old_password : module 'tutor/forms/input' :
+        text      : 'Новый'
+        selector  : 'edit_save'
+      confirm_password : module 'tutor/forms/input' :
+        text      : 'Подтвердите'
+        selector  : 'edit_save'
       line_phone : module 'tutor/separate_line' :
         title     : 'Номер телефона'
         selector  : 'horizon'
@@ -59,8 +61,7 @@ class @main extends template '../../../tutor'
         title     : 'Пароль'
         selector  : 'horizon'
 
-  init : ->
-    @parent.tree.left_menu.setActive 'Анкета'
-    @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
-
-
+    hint        : module 'tutor/hint' :
+      selector  : 'horizontal'
+      header    : 'Это подсказка'
+      text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'

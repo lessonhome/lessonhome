@@ -22,12 +22,16 @@ class @main extends template '../fast_bid'
           selector  : 'price_bids'
           text      : 'до'
         measurement   : 'руб.'
-        selector_two  : 'bids_move'
+        handle        : true
       goal : module 'tutor/forms/textarea':
         text: 'Опишите цель :'
         selector  : 'fast_bid'
     hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->
-    @parent.tree.filter_top.footer.back_link = 'first_step'
-    @parent.tree.filter_top.footer.next_link = 'third_step'
+    @parent.tree.filter_top.footer.button_back.selector = 'fast_bid_nav'
+    @parent.tree.filter_top.footer.button_back.href     = 'first_step'
+    @parent.tree.filter_top.footer.issue_bid.selector   = 'fast_bid_issue'
+    @parent.tree.filter_top.footer.issue_bid.href       = false
+    @parent.tree.filter_top.footer.button_next.selector = 'fast_bid_nav'
+    @parent.tree.filter_top.footer.button_next.href     = 'third_step'

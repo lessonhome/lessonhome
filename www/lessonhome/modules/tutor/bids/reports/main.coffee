@@ -1,12 +1,7 @@
 class @main extends EE
   show : =>
     Feel.FirstBidBorderRadius(@dom)
-
-    @hint = @dom.find(".hint")
-    @button = @hint.find(".button")
-    @button.on 'click', @hint_button_click
-
-  hint_button_click: =>
-    if @button.hasClass("closed")
-      @hint.css("margin-bottom", "34px")
-    else @hint.css("margin-bottom", "55px")
+    @hint = @tree.hint.class
+    @illustrations = @dom.find ".illustrations"
+    @hint.on 'hide', => @illustrations.hide()
+    @hint.on 'show', => @illustrations.show()

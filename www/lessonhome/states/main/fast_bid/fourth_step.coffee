@@ -5,17 +5,17 @@ class @main extends template '../fast_bid'
   tree : ->
     progress : 4
     content : module '$' :
-      student : module 'tutor/forms/status_button' :
-        selector : 'inactive'
+      student : module 'tutor/forms/location_button' :
+        selector : 'status_button'
         text : 'Студент'
-      teacher : module 'tutor/forms/status_button' :
-        selector : 'active'
+      teacher : module 'tutor/forms/location_button' :
+        selector : 'status_button active'
         text : 'Преподаватель школы'
-      professor : module 'tutor/forms/status_button' :
-        selector : 'inactive'
+      professor : module 'tutor/forms/location_button' :
+        selector : 'status_button'
         text : 'Преподаватель ВУЗа'
-      native : module 'tutor/forms/status_button' :
-        selector : 'inactive'
+      native : module 'tutor/forms/location_button' :
+        selector : 'status_button'
         text : 'Носитель языка'
       experience : module 'tutor/forms/drop_down_list':
         text      : 'Опыт:'
@@ -25,16 +25,20 @@ class @main extends template '../fast_bid'
         start         : 'time_spend_bids'
         start_text    : 'до'
         measurement   : 'мин.'
-        selector_two  : 'fast_bids_spend'
-      sex_man     : module 'tutor/forms/sex_button' :
-        selector : 'man'
-      sex_woman   : module 'tutor/forms/sex_button' :
-        selector : 'woman'
+        handle        : false
+      sex_man     : module 'gender_button' :
+        selector  : 'fast_bids'
+        text      : 'М'
+      sex_woman   : module 'gender_button' :
+        selector  : 'fast_bids'
+        text      : 'Ж'
 
     hint : 'Расскажите нам<br>ещё немного о<br>Вашем идеальном<br>репетиторе'
 
   init : ->
+    @parent.tree.filter_top.footer.button_back.selector = 'fast_bid_nav'
+    @parent.tree.filter_top.footer.button_back.href     = 'third_step'
+    @parent.tree.filter_top.footer.issue_bid.selector   = 'fast_bid_issue'
+    @parent.tree.filter_top.footer.issue_bid.href       = 'fifth_step'
     @parent.tree.filter_top.footer.button_next.selector = 'hidden'
-    @parent.tree.filter_top.footer.issue_bid.finish = true
-    @parent.tree.filter_top.footer.back_link = 'third_step'
-    @parent.tree.filter_top.footer.next_link = false
+    @parent.tree.filter_top.footer.button_next.href     = false

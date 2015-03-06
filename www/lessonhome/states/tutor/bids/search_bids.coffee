@@ -27,35 +27,39 @@ class @main extends template '../../tutor'
       advanced_filter : @exports()
       min_height      : @exports()
       subject_list : module 'tutor/forms/drop_down_list' :
-        selector : 'search_bids_subject'
+        selector  : 'search_bids fast_bid'
+        text      : 'Предметы :'
       saved_filters : module 'tutor/forms/drop_down_list' :
-        selector : 'search_bids'
+        selector  : 'search_bids fast_bid'
+        text      : 'Сохраненные фильтры :'
       tutor : module 'tutor/forms/location_button' :
-        selector : 'search_bids'
-        text   : 'У себя'
+        selector : 'place_learn'
+        text   : 'у себя'
       student  : module 'tutor/forms/location_button' :
-        selector : 'search_bids'
-        text   : 'У ученика'
+        selector : 'place_learn'
+        text   : 'у ученика'
       web : module 'tutor/forms/location_button' :
-        selector : 'search_bids'
-        text   : 'Удалённо'
+        selector : 'place_learn'
+        text   : 'удалённо'
       location_hint : module 'tutor/hint' :
         selector : 'small'
         field_position : 'left'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       address_list : module 'tutor/forms/drop_down_list' :
-        selector : 'search_bids'
+        selector  : 'search_bids fast_bid'
+        text      : 'Ваш адрес :'
       save_button  : module 'tutor/button' :
         text     : 'Сохранить'
         selector : 'search_bids_save'
-
-      slider : module '//slider'
-
+      road_time_slider : state 'main/slider_main' :
+        selector      : 'road_time_search_bids'
+        start         : 'road_time_search_bids'
+        start_text    : 'до'
+        measurement   : 'мин.'
+        handle        : false
       road_time : module 'tutor/forms/input'
-
       separate_line : module 'tutor/separate_line' :
         selector : 'horizon'
-
       list_bids : module 'tutor/bids/list_bids' :
         titles_bid : module '//titles_bid' :
           indent     : false

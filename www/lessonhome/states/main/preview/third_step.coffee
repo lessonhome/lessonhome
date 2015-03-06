@@ -5,14 +5,14 @@ class @main extends template '../preview'
   tree : =>
     filter_top  : state '../filter_top' :
       title : 'Выберите место занятия :'
-      at_home_button      : module 'tutor/button'  :
-        selector  : 'at_home_button'
+      at_home_button      : module 'tutor/forms/location_button'  :
+        selector  : 'top_filter'
         text      : 'У себя'
-      in_tutoring_button  : module 'tutor/button'  :
-        selector  : 'in_tutoring_button'
+      in_tutoring_button  : module 'tutor/forms/location_button'  :
+        selector  : 'top_filter'
         text      : 'У репетитора'
-      remotely_button     : module 'tutor/button'  :
-        selector  : 'remotely_button'
+      remotely_button     : module 'tutor/forms/location_button'  :
+        selector  : 'top_filter'
         text      : 'Удаленно'
       address_input       : module 'tutor/forms/input'  :
         selector    : 'address_input'

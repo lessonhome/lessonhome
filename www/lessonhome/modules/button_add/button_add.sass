@@ -1,8 +1,10 @@
 @import compass/css3
+main
+  height: 100%
 .button
+  height: 100%
   cursor: pointer
-  border-radius: 4px
-  text-align: center
+  +border-radius(4px)
   background-color: #f07b6f
   box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.51)
   .text
@@ -18,4 +20,10 @@
 
 .button:hover
   background-color: #ffb1a8
+
+.add_address
+  .text
+    padding: 0 18.5px
+    font-size: 20px
+
 
