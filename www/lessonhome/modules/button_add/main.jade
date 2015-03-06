@@ -1,3 +1,5 @@
 - selector = selector || '';
-.button(class=selector)
-  .text!=text
+.button_box(class=selector)
+  .button
+    if text
+      .text!=text

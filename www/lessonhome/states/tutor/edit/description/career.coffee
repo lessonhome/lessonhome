@@ -20,7 +20,7 @@ class @main extends template '../../edit'
       post : module 'tutor/forms/input' :
         selector    : 'first_reg'
         text        : 'Должность :'
-      add_button    : module 'tutor/button' :
+      add_button    : module 'button_add' :
         text     : '+Добавить'
         selector : 'edit_add'
       line : module 'tutor/separate_line' :

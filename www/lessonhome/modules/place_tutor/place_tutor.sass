@@ -5,11 +5,16 @@ $padding: 7px
 main
   height: 100%
 .location_buttons
-  padding-bottom: 28.5px
+  padding-bottom: $padding
   height: 33px
+  div
+    +inline-block
+  .title
+    padding-right: 30px
+    color:  #757575
   .tutor, .student, .web
     height: 100%
-    +inline-block
+
   .tutor
     padding-right: 5.5px
   .web
@@ -17,6 +22,7 @@ main
   .student
     padding: 0 5.5px
 .value
+  +inline-block
   height: $height
   padding: $padding 0
 .house, .building

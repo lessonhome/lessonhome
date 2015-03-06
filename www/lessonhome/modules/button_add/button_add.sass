@@ -1,29 +1,52 @@
 @import compass/css3
 main
   height: 100%
-.button
-  height: 100%
   cursor: pointer
-  +border-radius(4px)
-  background-color: #f07b6f
-  box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.51)
-  .text
-    padding: 0 11px
-    +inline-block
-    font-size: 30px
-    font-weight: 600
-    color: #ffffff
-.button:after
-  content: ''
-  +inline-block
+.button_box
   height: 100%
+  .button
+    height: 100%
+    +inline-block
+    +border-radius(4px)
+    background-color: #f07b6f
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    .text
+      +inline-block
+      color: #ffffff
+  .button:after
+    content: ''
+    +inline-block
+    height: 100%
 
-.button:hover
-  background-color: #ffb1a8
+//////////////// function //////////////
+=selector($selector,$padding_text,$font_size)
+  .button_box.#{$selector}
+    .button
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
 
-.add_address
-  .text
-    padding: 0 18.5px
-    font-size: 20px
+/////////////////address/////////
++selector(add_address,18.5px,20px)
+
+/////////////plus////////////////
++selector(plus,11px,30px)
+.plus
+  font-weight: 600
+
+/////////////////////
++selector('edit_add', 11.5px, 20px)
 
 
+
+////////////////  actions  ////////////////
+.button_box:hover
+  .button
+    background-color: #ffb1a8
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+
+.press,.press:hover
+  padding-top: 1px
+  box-sizing: border-box
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset

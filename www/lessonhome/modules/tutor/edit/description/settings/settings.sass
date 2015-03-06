@@ -4,83 +4,53 @@ $height: 37px
 main
   //text-align: right
 .value
+  +inline-block
   padding: $padding 0
   height: $height
 .new_orders
   padding-bottom: $padding+8px
-  //div
-    +inline-block
-  //.title
-    padding-right: 30px
   .value
     text-align: left
-    width: 349px
+    width: 341px
 .get_notice
   padding: $padding+8 0
-  //div
-    +inline-block
   .val
     text-align: left
-    width: 349px
+    width: 341px
     div
       +inline-block
     .notice_sms_checkbox
       padding-right: 10px
     .notice_email_checkbox
       padding-left: 10px
-  //.title
-    padding-right: 30px
 .callback
   padding: $padding+8px 0 $padding
-  //div
-    +inline-block
   .callback_toggle, .callback_comment
     text-align: left
-    width: 349px
-  //.title
-    padding-right: 30px
+    width: 341px
 .old_email, .old_phone_number
   padding: $padding 0
-  //div
-    +inline-block
-  //.title
-    padding-right: 30px
   .text
     text-align: left
-    width: 349px
+    width: 341px
     font-size: 20px
-    color: rgb(0, 0, 0)
 
 .new_orders, .get_notice, .callback, .old_email, .old_phone_number
+  color: #757575
   div
     +inline-block
   .title
     padding-right: 30px
 
-//- --------------------- TITLE BLOCK ----------------------------------------
-
-$backgroundText: #ffffff
-.title_block
-  text-align: left
-  overflow: hidden
-  position: relative
-  div
-    +inline-block
-  .title
-    position: relative
-    z-index: 1
-    background: $backgroundText
-    font-size: 18px
-    color:     #757575
+//- --------------------- line ----------------------------------------
+$font_size_line: 20px       //because in child separate line have font_size: 18px
+.line_box
+  margin: 23px 0 5px 0
+  height: $font_size_line
   .line
     position: absolute
-    left: 0
-    top: 50%
-    right: 0
-    height: 2px
-    +box-shadow(0px 1px 0px rgba(0,0,0,0.27) inset)
-    background: #cad2d8
-    opacity: 0.4
+    width: 100%
+
 
 
 //- ------------ BUTTONS -----------------------------

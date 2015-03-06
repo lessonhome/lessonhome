@@ -21,10 +21,10 @@ $b_color: #dfe1e4
     content: ""
     display: block
     clear: both
-  .js-show-hidden-block
-    //display: none
+  .show-hidden-block
     .time_box
       margin-top: $margin_top
+      padding: 10px 5px
       position: relative
       +border-radius(4px)
       background-color: $b_color
@@ -51,7 +51,7 @@ $b_color: #dfe1e4
         padding: $padding_day $padding_day_hand
       .monday, .sunday
         padding: $padding_day ($padding_day_hand+1px)
-    .js-show-hidden-block
+    .show-hidden-block
       .time_box
         padding: $padding_time_box $padding_time_box_hand
 
@@ -89,7 +89,7 @@ $b_color: #dfe1e4
 
 
 
-  ////////////----------active-------------/////////////
+////////////----------active-------------/////////////
 .calendar_box
   .calendar_week
     div:hover
@@ -98,6 +98,5 @@ $b_color: #dfe1e4
     div.active
       background: #ff7c6f
       color: #ffffff
-
 
 
