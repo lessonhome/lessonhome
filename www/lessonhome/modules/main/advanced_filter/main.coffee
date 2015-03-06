@@ -2,11 +2,11 @@
 class @main extends EE
   show : =>
     # change visibility show_hidden
-    @sections = @dom.find '.section'
+    @sections = @found.section
     for section in @sections
       section = $ section
-      title  = @found.title
       do (section)=>
+        title = section.find(">.title")
         title.click => @change_visibility section
 
     #select experience
