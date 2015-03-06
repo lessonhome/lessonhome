@@ -54,7 +54,8 @@ class module.exports
             ext   : ""
             path  : "#{@site.path.modules}/#{@name}/#{f}"
           }
-  replacer : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-]+)/,"$1mod-#{@id}--$2")
+  replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-]+)/,"$1mod-#{@id}--$2")
+  replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])(js-[\w-]+)/,"$1$2--{{UNIQ}}")
   makeJade : =>
     @jade = {}
     for filename, file of @files
@@ -70,6 +71,17 @@ class module.exports
           n = @jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(m-[\w-]+)(?: [\w-]+)*\\\"/, @replacer)
           break if n == @jade.fnCli
           @jade.fnCli = n
+        while true
+          n = @jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\\\"/, @replacer2)
+          break if n == @jade.fnCli
+          @jade.fnCli = n
+        ###
+        m = @jade.fnCli.match(/class=\\\"([\w-\s]+)\\\"/mg)
+        console.log m
+        if m then for m_ in m
+          m_ = m_.match /(js-\w+)/mg
+          console.log m_
+        ###
         Feel.cacheFile file.path, @jade.fnCli
         break
     if @jade.fnCli?
