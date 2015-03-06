@@ -16,6 +16,9 @@ class @main extends template '../fast_bid'
       email : module 'tutor/forms/input':
         text: 'E-mail :'
         selector  : 'fast_bid'
+        #pattern  : /.+@.+\..+/.source()
+        pattern   : /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.source
+        errMessage  : 'Пожалуйста введите корректный email'
       subject :module 'tutor/forms/drop_down_list':
         text: 'Предмет :'
         selector  : 'fast_bid'
