@@ -24,6 +24,7 @@ class @main extends template '../tutor'
       save_button       : module 'tutor/button' :
         text      : 'Сохранить'
         selector  : 'edit_save'
+      possibility_save_button :  true
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
     @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
