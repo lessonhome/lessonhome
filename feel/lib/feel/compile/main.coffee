@@ -1,14 +1,16 @@
 
 
+Sites = require './sites'
 
 class Compile
   constructor : ->
     Wrap @
   init  : =>
+    @sites = new Sites()
   run : =>
-    watcher       = yield Main.serviceManager.nearest 'watcher'
-    db            = yield Main.serviceManager.nearest 'db'
-    @db   = yield db.get 'compile'
+    yield @sites.init()
+
+
 module.exports = Compile
 
 

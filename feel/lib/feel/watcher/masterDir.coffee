@@ -9,10 +9,11 @@ class MasterDir
     @_block().done()
   fixPath : =>
     conf = @conf
+    console.log conf
     if typeof conf == 'string'
-      conf = path: _path.resolve "#{process.cwd()}/#{conf}"
+      conf = path:_path.resolve "#{process.cwd()}/#{conf}"
     if conf.path
-      conf.file = _path.relative process.cwd(),conf.path
+      conf.dir = _path.relative process.cwd(),conf.path
     else
       if conf.dir
         conf.path = _path.resolve "#{process.cwd()}/#{conf.dir}"
@@ -20,7 +21,8 @@ class MasterDir
         throw new Error 'cant resolve path in config'+_inspect(conf)
     conf.pdir = _path.dirname  conf.dir
     conf.name = _path.basename conf.dir
-    return @conf = conf
+    console.log 'ok'
+    @conf = conf
   init :  (@master)=>
     @on 'deleted',@onDeleted
     @on 'change', @change
@@ -33,7 +35,7 @@ class MasterDir
     if @dir.ready
       yield @regetContent()
       @_block(false)
-    @stat().done()
+    yield @stat()
 
   regetContent : =>
     qd = []
@@ -109,7 +111,7 @@ class MasterDir
     yield _invoke @db,'update',{path:_dir.path},{$set:_dir},{upsert:true}
     @emit 'change',@dir if _in.hash != _dir.hash
   change : (f)=>
-    @log f.dir.yellow,f.hash.grey
+    #@log f.dir.yellow,f.hash.grey
   initDb : =>
     return if @db?
     db  = yield Main.serviceManager.nearest('db')

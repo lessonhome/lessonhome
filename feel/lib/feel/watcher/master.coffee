@@ -25,15 +25,39 @@ class WatcherMaster
     @dbFiles.find().each (err,file)=>
       qsFiles.push Q.reject err if err?
       return deferFiles.resolve Q.all qsFiles unless file?
-      @newFile(file).done()
+      qsFiles.push @newFile(file)
 
     deferDirs = Q.defer()
     qsDirs = []
+    mq = Q()
+    I = 0
     @dbDirs.find().each (err,dir)=>
-      qsDirs.push Q.reject err if err?
-      return deferDirs.resolve Q.all qsDirs unless dir?
-      @newDir(dir).done()
-      
+      #qsDirs.push Q.reject err if err?
+      deferDirs.reject err if err?
+      unless dir?
+        return deferDirs.resolve mq
+        console.log 'unless'
+        console.log qsDirs.length
+        nq = Q()
+        for q,i in qsDirs
+          do (i,q)=>
+            nq = nq.then =>
+              console.log 'start',i
+              return q
+            .then =>
+              console.log 'done',i
+        deferDirs.resolve nq.then -> console.log 'resolved'
+        console.log 'ok'
+        return
+      console.log dir.dir.red
+      i_ = I++
+      #qsDirs.push  Q().then => @newDir(dir)
+      mq = mq.then =>
+        console.log 'start', i_
+      .then =>
+        @newDir dir
+      .then =>
+        console.log 'done', i_
     yield Q.all [deferFiles.promise,deferDirs.promise]
     @_block(false)
     @createMonitor().done()
@@ -109,8 +133,10 @@ class WatcherMaster
       @emit 'deleted:dir:'+conf.dir
       
     @dirs[conf.dir] = dir
-    @dirs[conf.dir].init(@).done()
-    return Q(dir)
+    console.log conf.dir
+    yield @dirs[conf.dir].init(@)
+    console.log 'inited'
+    return dir
   initFile : (name)=>
     f = yield @file(name)
     yield f.get()

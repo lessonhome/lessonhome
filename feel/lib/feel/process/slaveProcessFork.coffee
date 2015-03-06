@@ -28,6 +28,8 @@ class SlaveProcessFork
       for name in @conf.services
         qs.push @serviceManager.start name
     yield Q.all qs
+  service : (name)=> @serviceManager.nearest name
+
 
 module.exports = SlaveProcessFork
 
