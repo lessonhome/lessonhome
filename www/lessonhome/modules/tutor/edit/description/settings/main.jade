@@ -2,46 +2,39 @@ mixin title_block (title, selector)
   .title_block(class=selector)
     .title.select=title
     .line
+mixin field (selector, value)
+  .value(class=selector)!=value
 
-mixin info_block (selector, title, value)
-  .label_block
-    label.info_block(class=selector)
-      .title.select=title
-      .value!=value
+mixin field (selector, value)
+  .value(class=selector)!=value
 
 //- ---------------------------------------------------------------------------------
-
 .new_orders
   .title.select Новые заказы :
   .value!= new_orders_toggle
 
 .get_notice
   .title.select Получать уведомления :
-  .value
-    .notice_sms_checkbox
-        .value!= notice_sms_checkbox
-        .title по смс
-    .notice_email_checkbox
-        .value!= notice_email_checkbox
-        .title на e-mail
+  .val
+    .notice_sms_checkbox!=notice_sms_checkbox
+    .notice_email_checkbox!=notice_email_checkbox
 
 .callback
   .title.select Можно ли оператору<br>Вам звонить?
-  .value
-    .callback_toggle!=callback_toggle
-    .callback_comment!= callback_comment
+  .callback_toggle!=callback_toggle
+  .callback_comment!= callback_comment
 
 .save_block
   .button!= save_button
 
 +title_block('Номер телефона', 'phone_number')
-//-+info_block('old_phone_number', 'Привязанный :', '+7********98')
+
 .old_phone_number
   .title.select Привязанный :
-  .value
-    .text.select +7*** *** ** 98
+  .text.select +7*** *** ** 98
 
-+info_block('new_phone_number', 'Новый :', new_phone_number)
++field('new_phone_number', new_phone_number)
+
 .change_block
   .button!= change_button
 
@@ -49,20 +42,19 @@ mixin info_block (selector, title, value)
 
 .old_email
   .title.select Старый :
-  .value
-    .text.select dd******@mail.ru
+  .text.select dd******@mail.ru
 
-//-+info_block('old_email', 'Старый :', 'dd******@mail.ru')
++field('new_email', new_email)
 
-
-
-+info_block('new_email', 'Новый :', new_email)
 .change_block
   .button!= change_button
 
 +title_block('Пароль', 'password')
-+info_block('old_password', 'Старый :', old_password)
-+info_block('new_password', 'Новый :', new_password)
-+info_block('confirm_password', 'Подтвердите :', confirm_password)
-.save_block.password
++field('old_password', old_password)
++field('new_password', new_password)
++field('confirm_password', confirm_password)
+
+.save_block
   .button!= save_button
+
+

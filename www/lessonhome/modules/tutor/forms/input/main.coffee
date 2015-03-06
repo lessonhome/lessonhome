@@ -1,7 +1,8 @@
 class @main extends EE
   constructor : ->
   show : =>
-    @box = @dom.find ".box"
+    #@box = @dom.find ".box"
+    @box = @found.box
     @input = @box.children "input"
 
     @input.on 'focus', => @box.addClass 'focus'

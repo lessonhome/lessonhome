@@ -1,5 +1,13 @@
 @import compass/css3
 
+$triangle_down_src: 'main/triangle_down.png'
+$triangle_right_src: 'triangle-6x7-closed.png'
+$icon_right_height: image-height($triangle_right_src)
+$icon_right_width: image-width($triangle_right_src)
+$icon_down_height: image-height($triangle_down_src)
+$icon_down_width: image-width($triangle_down_src)
+
+
 $red: 29px
 $blu: 58px
 
@@ -66,18 +74,18 @@ $blu: 58px
           +inline-block
         .icon
           //-background: inline-image('falldown_triangle3.png') no-repeat
-          width: 16px
-          height: 16px
-          margin-right: 7px
+          width: $icon_right_width
+          height: $icon_down_height
+          margin-right: 9px
         .text
           width: 75px
           text-align: left
           font-size: 16px
           vertical-align: top
       .button.open>.icon
-        background: inline-image('info_opened.png') no-repeat
+        background: inline-image($triangle_down_src) no-repeat
       .button.closed>.icon
-        background: inline-image('info_closed.png') no-repeat
+        background: inline-image($triangle_right_src) no-repeat
   .bottom_block
     .text
       padding-top: 0

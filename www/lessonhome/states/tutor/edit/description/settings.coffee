@@ -4,7 +4,7 @@ class @main extends template '../../edit'
   title : "редактирование настройки"
   tags : -> 'edit: description'
   tree : =>
-    tag         : 'edit: description'
+    menu_description  : 'edit: description'
     items       :
       'Общие'       : 'general'
       'Контакты'    : 'contacts'
@@ -37,20 +37,20 @@ class @main extends template '../../edit'
         text     : 'Изменить'
         selector : 'edit_save'
       new_phone_number : module 'tutor/forms/input' :
-        text      : 'Новый'
-        selector  : 'edit_save'
+        text      : 'Новый :'
+        selector  : 'first_reg'
       new_email : module 'tutor/forms/input'  :
-        text      : 'Новый'
-        selector  : 'edit_save'
+        text      : 'Новый :'
+        selector  : 'first_reg'
       new_password : module 'tutor/forms/input' :
-        text      : 'Старый'
-        selector  : 'edit_save'
+        text      : 'Старый :'
+        selector  : 'first_reg'
       old_password : module 'tutor/forms/input' :
-        text      : 'Новый'
-        selector  : 'edit_save'
+        text      : 'Новый :'
+        selector  : 'first_reg'
       confirm_password : module 'tutor/forms/input' :
-        text      : 'Подтвердите'
-        selector  : 'edit_save'
+        text      : 'Подтвердите :'
+        selector  : 'first_reg'
       line_phone : module 'tutor/separate_line' :
         title     : 'Номер телефона'
         selector  : 'horizon'
@@ -65,3 +65,7 @@ class @main extends template '../../edit'
       selector  : 'horizontal'
       header    : 'Это подсказка'
       text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'
+
+
+  init  :=>
+    @parent.tree.content.possibility_save_button = false
