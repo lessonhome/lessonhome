@@ -11,7 +11,7 @@ class @main extends template '../../edit'
       'Календарь'    : 'calendar'
       'Предпочтения' : 'preferences'
     active_item : 'Предпочтения'
-    title       : 'Уточните с какими учениками Вы хотите заниматься'
+    #title       : 'Уточните с какими учениками Вы хотите заниматься'
     tutor_edit  : module '$':
       gender_data   : state 'gender_data'
       category : module 'tutor/forms/drop_down_list'  :

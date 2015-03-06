@@ -26,20 +26,8 @@ class @main extends template '../fast_bid'
         start_text    : 'до'
         measurement   : 'мин.'
         handle        : false
-      calendar        : module 'main/calendar' :
-        selector    : 'fast_bids'
-        choose_all  : module 'tutor/forms/checkbox'  :
-          text        : 'выбрать все'
-          selector  : 'small'
-        from_time     : module 'tutor/forms/input' :
-          selector  : 'calendar_fast_bids'
-          text      : 'с'
-        till_time     : module 'tutor/forms/input' :
-          selector  : 'calendar_fast_bids'
-          text      : 'до'
-        button_add    : module 'button_add' :
-          text      : '+'
-
+      calendar        : state 'calendar' :
+        selector    : 'advance_filter'
       time_spend_lesson   : state '../slider_main' :
         selector      : 'time_fast_bids'
         start         : 'time_spend_bids'
