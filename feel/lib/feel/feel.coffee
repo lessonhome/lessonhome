@@ -12,11 +12,11 @@ unlink    = Q.denodeify fs.unlink
 readdir   = Q.denodeify fs.readdir
 spawn     = require('child_process').spawn
 watch     = require 'node-watch'
-exists    = Q.denodeify fs.exists
 coffee    = require 'coffee-script'
 Static    = require './class/static'
-
-
+_readFile = Q.denodeify fs.readFile
+_writeFile = Q.denodeify fs.writeFile
+_rmrf     = Q.denodeify require('rimraf')
 curl = (url)->
   def = Q.defer()
   http = require("http")
@@ -42,7 +42,13 @@ class module.exports
     .done()
   init : =>
     Q()
+    .then => @version()
+    .then =>
+      return if @version == @oversion
+      _rmrf('.cache')
     .then => mkdirp '.cache'
+    .then =>
+      _writeFile '.cache/version',@sVersion
     .then => mkdirp 'log'
     .then @checkCache
     .then @compass
@@ -55,6 +61,21 @@ class module.exports
   createServer : =>
     @server = new Server()
     Q().then @server.init
+  version : =>
+    _readFile('feel/version')
+    .then (text)=>
+      m = text.toString().match /(\d+)\.(\d+)\.(\d+)/
+      v = (m[1]*100+m[2])*1000+m[3]
+      @version = v
+      @sVersion = text
+      _readFile('.cache/version')
+    .then (text)=>
+      m = text.toString().match /(\d+)\.(\d+)\.(\d+)/
+      v = (m[1]*100+m[2])*1000+m[3]
+      @oversion = v
+    .catch (e)=>
+      console.error e
+
 
   checkCache : =>
     @checkCacheDir @path.cache
