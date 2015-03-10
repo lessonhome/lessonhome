@@ -33,6 +33,8 @@
     "mkdirp" : "*",
     "wolfy87-eventemitter" : "*",
     "watch" : "*",
-    "mime" : "*"
+    "mime" : "*",
+    "rimraf" : "*"
   }
 }
+

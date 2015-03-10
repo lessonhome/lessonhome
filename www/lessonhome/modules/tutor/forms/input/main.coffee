@@ -93,6 +93,11 @@ class @main extends EE
             maybeOutputErrMessage res[0].errMessage
         else
           @input.removeClass('bad-input')
+      #################
+      @emit 'change'
 
   setValue: (value)=>
-    @input.html(value)
+    @input.val(value)
+
+  getValue: ()=>
+    @input.val()

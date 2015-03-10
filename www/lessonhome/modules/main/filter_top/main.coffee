@@ -4,7 +4,8 @@ class @main extends EE
     console.log @choose_block
     @i = 2;
 
-    @subject_tag = @tree.choose_subject.class
+    ### выходит ошибка на ч-ой странице, subject_tag не определена ###
+    #@subject_tag = @tree.choose_subject.class
     @empty_subject_tag = @tree.empty_choose_subject
     console.log @empty_subject_tag
     #@newSubjectTag()

@@ -6,6 +6,8 @@ class @main
       text      : @exports 'start_text'
     # if us end(second input) determine selector and text in parent module
     end           : @exports()
+    min           : 0
+    max           : 100
     dash          : @exports()
     measurement   : @exports()
     move          : module '../slider':

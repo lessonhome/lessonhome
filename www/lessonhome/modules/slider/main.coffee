@@ -1,6 +1,6 @@
 
 
-class Cursor
+class Cursor extends EE
   constructor : (@dom,@l,@r)->
   init : (@lb,@rb)=>
     @px @pos()
@@ -30,6 +30,10 @@ class Cursor
   move : (e)=>
     @m = e.pageX
     @pos @px Math.sign(@r()-@l())*(@m-@sm)+@spx
+
+  set : (x)->
+    @x(x)
+    @pos @px()
   
 class @main extends EE
   show : =>
@@ -46,12 +50,12 @@ class @main extends EE
     @left.pos   = (px)=>
       return +@slider.css('margin-left').replace('px','') unless px?
       @slider.css('margin-left',px)
-      @emit 'left_slider_move', px
+      @emit 'left_slider_move', @left.x()
       return px
     @right.pos  = (px)=>
       return +@slider.css('margin-right').replace('px','') unless px?
       @slider.css('margin-right',px)
-      @emit 'right_slider_move'
+      @emit 'right_slider_move', @right.x()
       return px
     @left .init 0,@right
     @right.init @left,1
