@@ -26,12 +26,9 @@ class @main extends template '../fast_bid'
         start_text    : 'до'
         measurement   : 'мин.'
         handle        : false
-      sex_man     : module 'gender_button' :
-        selector  : 'fast_bids'
-        text      : 'М'
-      sex_woman   : module 'gender_button' :
-        selector  : 'fast_bids'
-        text      : 'Ж'
+      gender_data   : state 'gender_data':
+        selector        : 'choose_gender'
+        selector_button : 'registration'
 
     hint : 'Расскажите нам<br>ещё немного о<br>Вашем идеальном<br>репетиторе'
 

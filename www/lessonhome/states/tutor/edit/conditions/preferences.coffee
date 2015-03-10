@@ -13,12 +13,10 @@ class @main extends template '../../edit'
     active_item : 'Предпочтения'
     #title       : 'Уточните с какими учениками Вы хотите заниматься'
     tutor_edit  : module '$':
-      gender_data   : state 'gender_data'
-      ###
-      category : module 'tutor/forms/drop_down_list'  :
-        text      : 'Класс :'
-        selector  : 'first_reg'
-      ###
+      gender_data   : state 'gender_data':
+        selector  : 'choose_gender'
+        title     : 'true'
+        selector_button : 'registration'
       status : module 'tutor/forms/drop_down_list'  :
         text      : 'Статус :'
         selector  : 'first_reg'

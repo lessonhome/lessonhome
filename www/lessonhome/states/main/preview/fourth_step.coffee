@@ -14,6 +14,7 @@ class @main extends template '../preview'
           text      : 'до'
         measurement   : 'руб.'
         handle        : true
+      link_back       :  '/third_step'
 
 
 

@@ -13,3 +13,5 @@ class @main extends template '../preview'
         selector  : 'choose_subject'
         text      : 'Преподаватель вуза'
         close     : true
+      link_forward    :  '/third_step'
+      link_back       :  '/first_step'

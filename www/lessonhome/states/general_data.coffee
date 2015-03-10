@@ -11,7 +11,10 @@ class @main
     patronymic  : module 'tutor/forms/input':
       selector    : 'first_reg'
       text        : 'Отчество :'
-    gender_data   : state 'gender_data'
+    gender_data   : state 'gender_data':
+      selector        : 'choose_gender'
+      title           : 'true'
+      selector_button : 'registration'
     birth_data    : state 'birth_data'  :
       text  : 'Дата рождения :'
     status      : module 'tutor/forms/drop_down_list' :

@@ -22,16 +22,12 @@ class @main
         start         : 'time_spend'
         measurement   : 'мин.'
         handle        : false
-      female            : module 'gender_button' :
-        selector    : 'advance_filter'
-        text        : 'Ж'
-      male              : module 'gender_button' :
-        selector    : 'advance_filter'
-        text        : 'М'
+      choose_gender   : state 'gender_data':
+        selector        : 'advanced_filter'
+        selector_button : 'advance_filter'
       with_reviews      : module 'tutor/forms/checkbox'  :
         text      : 'С отзывами'
         selector  : 'small'
-
       with_verification : module 'tutor/forms/checkbox'  :
         text      : 'Верифицированные'
         selector  : 'small'

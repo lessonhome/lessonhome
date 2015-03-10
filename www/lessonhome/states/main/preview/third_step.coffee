@@ -14,6 +14,7 @@ class @main extends template '../preview'
       remotely_button     : module 'tutor/forms/location_button'  :
         selector  : 'top_filter'
         text      : 'Удаленно'
-      address_input       : module 'tutor/forms/input'  :
-        selector    : 'address_input'
-        placeholder : 'Cимоновский вал 12, кв 98'
+      address_input       : module 'tutor/forms/drop_down_list'  :
+        placeholder : 'Даниловский'
+      link_forward    :  '/fourth_step'
+      link_back       :  '/second_step'
