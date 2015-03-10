@@ -103,7 +103,14 @@ class module.exports
     console.log 'compass compile'
     compass = spawn 'compass', ['compile']
     process.chdir '..'
-    #compass.stdout.on 'data', (data)=> process.stdout.write data
+    compass.stdout.on 'data', (data)=>
+      return if data.toString().substr(5,9).match /directory/mg
+      if data.toString().substr(9,5).match /write/
+        m = data.toString().substr(14).match /.*(modules\/.*)\.css/
+        if m
+          console.log m[1]+".sass"
+      else
+        process.stdout.write data
     compass.stderr.on 'data', (data)=> process.stderr.write 'compass: '+data
     compass.on 'close', (code)=>
       if code != 0
