@@ -1,9 +1,31 @@
 ###
 API:
-  pattern : <regexp>
-  min : <minimum_if_pattern_is_digits>
-  max : <maximum_if_pattern_is_digits>.
-  errMessage : <message_about_error>
+  pattern : <regexp> #required
+  min : <minimum_if_pattern_is_digits> #optional:
+  max : <maximum_if_pattern_is_digits> #optional:
+  errMessage : <message_about_error> #optional:
+  --------------------------
+
+  or:
+  validators {
+    '0': {
+      pattern : <regexp>
+      min : <minimum_if_pattern_is_digits>
+      max : <maximum_if_pattern_is_digits>.
+      errMessage : <message_about_error>
+    },
+    '1': {
+      pattern : <regexp>
+      min : <minimum_if_pattern_is_digits>
+      max : <maximum_if_pattern_is_digits>.
+      errMessage : <message_about_error>
+    };
+    ...
+      'x': {
+      ...
+    };
+    'errMessage': <General error message>
+  }
 Example:
   pattern     : '^\d{1,2}$' #required using some like: (dataObject 'checker').patterns.digits
   min         : 0
@@ -20,26 +42,54 @@ class @main extends EE
     @input.on 'focus', => @box.addClass 'focus'
     @input.on 'focusout', => @box.removeClass 'focus'
 
+    ############## Share ###############
+    getObjectNumIndexes = (obj) ->
+      Object.keys(obj).filter (key) ->
+        !(isNaN Number(key))
+    ####################################
     check = Feel.checker.check
     checkMinMax = Feel.checker.checkMinMax
     checkDigits = Feel.checker.checkDigits
     # Note!
     #If module instance saved into 'first_name' property then pattern maybe finded by this path:
     #Feel.root.tree.content.popup.content.first_name.pattern
+    getValidators = =>
+      res = @tree.validators
+      if res?
+        return res
+      {
+        '0': {
+          pattern: @tree.pattern
+          min: @tree.min
+          max: @tree.max
+          errMessage: @tree.errMessage
+        }
+      }
 
-    @input.on 'blur', (event)=>
-      val = @input.val()
-      min = @tree.min
-      max = @tree.max
-      patt = @tree.pattern
-      if patt?
-        isBadInput = !(check patt, val)
-        if (checkDigits val) && (min? || max?)
-          isBadInput = !(checkMinMax min, val, max)
+    maybeOutputErrMessage = (errMessage) ->
+      if errMessage? then console.log errMessage
 
-        if isBadInput
+    @input.on 'change', (event)=>
+      validators = getValidators()
+      if validators?
+        res = []
+        for idx, curValidator of validators
+          patt = curValidator.pattern
+          if patt?
+            val = @input.val()
+            min = curValidator.min
+            max = curValidator.max
+            isBadInput = !(check patt, val)
+            ### Extra check if exist min and max ###
+            if !isBadInput && (min? || max?) && (checkDigits val)
+              isBadInput = !(checkMinMax min, val, max)
+            if isBadInput then res.push curValidator
+        if (res.length > 0) && (res.length == getObjectNumIndexes(validators).length)
           @input.addClass('bad-input')
-          console.log @tree.errMessage
+          if validators.errMessage?
+            maybeOutputErrMessage validators.errMessage
+          else
+            maybeOutputErrMessage res[0].errMessage
         else
           @input.removeClass('bad-input')
 
