@@ -1,12 +1,12 @@
 
 class @main
   show : =>
-    @student = @tree.status_student.class
-    @teacher = @tree.status_teacher.class
-    @phd     = @tree.status_phd.class
-    @man     = @tree.sex_man.class
-    @woman   = @tree.sex_woman.class
+    @student   = @tree.student.class
+    @teacher   = @tree.teacher.class
+    @professor = @tree.professor.class
+    @native    = @tree.native.class
 
+  ###
     @student.on 'active', =>
       @teacher.disable()
       @phd.disable()
@@ -19,5 +19,5 @@ class @main
       @teacher.disable()
       @student.disable()
 
-    @man  .on 'active', => @woman .disable()
-    @woman.on 'active', => @man   .disable()
+  ###
+

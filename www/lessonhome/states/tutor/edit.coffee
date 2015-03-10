@@ -20,7 +20,7 @@ class @main extends template '../tutor'
        #title       : @exports()
       tutor_edit    : @exports()
       hint          : @exports()
-      selector_hint : @exports()
+      selector_hint : @exports()  #because hint have different style
       save_button       : module 'tutor/button' :
         text      : 'Сохранить'
         selector  : 'edit_save'

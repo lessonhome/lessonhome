@@ -1,5 +1,6 @@
 class @main extends EE
   show: =>
+  ###
     @pupil = @tree.call_back_popup.pupil.class
     @tutor = @tree.call_back_popup.tutor.class
 
@@ -25,3 +26,5 @@ class @main extends EE
     @popupVisible = false
     @popup_box.hide()
     @emit 'hidePopup'
+
+###

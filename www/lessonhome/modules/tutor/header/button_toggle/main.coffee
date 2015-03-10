@@ -9,8 +9,6 @@ class @main extends EE
     $('body').on  'mouseup',   => @button.removeClass('press')
 
 
-
-
   disable : =>
     if !@active then return
     @active = false
