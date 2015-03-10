@@ -16,6 +16,7 @@ class module.exports
     @hand = 0
     @server.listen @port
   handler :(req,res)=>
+    return process.exit(0) if req.url == "/restart"
     return @tail(req,res) if req.url != "/update"
 
     @updating = true
