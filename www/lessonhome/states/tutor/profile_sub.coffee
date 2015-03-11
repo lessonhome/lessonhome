@@ -4,6 +4,7 @@ class @main
       module 'tutor/header/button' : {
         href  : '/second_step_popup_profile'
         title : "Анкета"
+        tag   : 'popup_profile_tutor'
       }
       module 'tutor/header/button' : {
         href  : '/second_step_popup_conditions'

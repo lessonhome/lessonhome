@@ -45,11 +45,21 @@ class @main extends EE
     @input.on 'focus', => @box.addClass 'focus'
     @input.on 'focusout', => @box.removeClass 'focus'
 
+    @defaultBoxStyle = {
+      'border-color': @box.css('border-color')
+    }
     ############## Share ###############
     getObjectNumIndexes = (obj) ->
       Object.keys(obj).filter (key) ->
         !(isNaN Number(key))
     ####################################
+
+    addStyleBadInput = () =>
+      @box.addClass('bad-input')
+
+    removeStyleBadInput = () =>
+      @box.removeClass('bad-input')
+
     check = Feel.checker.check
     checkMinMax = Feel.checker.checkMinMax
     checkDigits = Feel.checker.checkDigits
@@ -85,7 +95,8 @@ class @main extends EE
       val = @input.val()
       if (val? && val != '') && validators?
         res = []
-        for idx, curValidator of validators
+        for idx in getObjectNumIndexes(validators)
+          curValidator = validators[idx]
           patt = curValidator.pattern
           if patt?
             min = curValidator.min
@@ -96,14 +107,16 @@ class @main extends EE
               isBadInput = !(checkMinMax min, val, max)
             if isBadInput then res.push curValidator
         if (res.length > 0) && (res.length == getObjectNumIndexes(validators).length)
-          @input.addClass('bad-input')
+          #@box.addClass('bad-input')
+          addStyleBadInput @box
           if validators.errMessage?
             maybeOutputErrMessage validators.errMessage
           else
             maybeOutputErrMessage res[0].errMessage
         else
-          @input.removeClass('bad-input')
-      else @input.removeClass('bad-input')
+          removeStyleBadInput()
+      else
+        removeStyleBadInput()
       #################
       @emit 'change'
 
