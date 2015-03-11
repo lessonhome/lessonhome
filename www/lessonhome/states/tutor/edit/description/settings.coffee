@@ -61,4 +61,4 @@ class @main extends template '../edit_description'
 
 
   init  :=>
-    @parent.parent.tree.content.possibility_save_button = false
+    @parent.parent.tree.content.possibility_save_button = false         # exception property, not this save button in state

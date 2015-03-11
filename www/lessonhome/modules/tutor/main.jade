@@ -2,10 +2,11 @@
   .background_all
     .content_background
   .header!= header
-  if sub_top_menu
-    .container_sub_top_menu
-      .sub_top_menu!=sub_top_menu
   .center_block
     .left_menu!= left_menu
-    .content!= content
+    .content
+      if sub_top_menu
+        .container_sub_top_menu
+          .sub_top_menu!=sub_top_menu
+      != content
   .footer!= footer

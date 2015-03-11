@@ -14,13 +14,12 @@ class @main extends template '../tutor'
       items       : @exports()
       active_item : @exports()
     content : module '$' :
-      tutor_edit    : @exports()
-      hint          : @exports()
-      selector_hint : @exports()  #because hint have different style
+      tutor_edit    : @exports()                    # this property responds for content
+      hint          : @exports()                    # this property responds for hint
       save_button       : module 'tutor/button' :
         text      : 'Сохранить'
         selector  : 'edit_save'
-      possibility_save_button :  true
+      possibility_save_button :  true               # this property responds for save button
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
     @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']

@@ -6,9 +6,9 @@ class @main extends template '../edit_conditions'
   tree  : =>
     menu_condition  : 'edit: conditions'
     active_item : 'Календарь'
-    tutor_edit  : state 'calendar'  :
-      selector  : 'advance_filter'
-    hint       : module 'tutor/hint_dz' :
-      selector  : 'small'
-      text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'
-    selector_hint : 'top'
+    tutor_edit  : module '$'  :
+      calendar    : state 'calendar'  :
+        selector  : 'advance_filter'
+      hint       : module 'tutor/hint_dz' :
+        selector  : 'small'
+        text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'

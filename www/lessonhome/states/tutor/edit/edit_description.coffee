@@ -11,4 +11,3 @@ class @main extends template '../edit'
     menu_description  : @exports()
     tutor_edit        : @exports()
     hint              : @exports()
-    selector_hint     : @exports()  #because hint have different style
