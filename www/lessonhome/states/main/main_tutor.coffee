@@ -11,9 +11,8 @@ class @main extends template '../main'
         text : 'Введите ваш телефон или email адрес'
         validators: {
           '0': {
-            pattern: '^\\+7\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}$',
-            #errMessage: 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx',
-          }, #required using some like: (dataObject 'checker').patterns.telephon
+            pattern: /^((\+?7)|8)?\d{10}$/.source
+          }, #required using some like: (dataObject 'checker').patterns.simpleTelephon
           '1': {
             pattern: /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.source,
             #errMessage: 'Пожалуйста введите корректный email'
