@@ -7,6 +7,7 @@ class @main
       module 'tutor/header/button' :
         href  : '/second_step_popup_conditions'
         title : "Условия"
+        tag   : 'popup_conditions_tutor'
       module 'tutor/header/button' :
         href  : '/second_step_popup_reviews'
         title : "Отзывы"

@@ -39,7 +39,9 @@ class @activeState
       cl  = @classes[mod._uniq]
       try cl.show?()
       catch e then return Feel.error e, " #{mod._name}.show() failed"
-  parseTree : (node)=>
+  parseTree : (node,statename)=>
+    if node._statename?
+      statename = node._statename
     return if node?.__isClass
     uniq_pref = @uniq_pref
     if node._isModule?
@@ -52,6 +54,8 @@ class @activeState
         @dom.parent = $('body')
       if !dom?
         dom = @dom.parent.find "[uniq$=\"#{node._uniq}\"]"
+      dom.attr 'state', statename
+      dom.attr 'module', node._name if node._isModule
       if obj?
         obj.dom = dom
         obj.pdom = @dom.parent
@@ -64,7 +68,7 @@ class @activeState
       @dom.parent = dom
     for key,val of node
       if typeof val == 'object'
-        @parseTree val
+        @parseTree val,statename
     if node._isModule
       @dom.parent = dom_parent
       @uniq_pref  = uniq_pref

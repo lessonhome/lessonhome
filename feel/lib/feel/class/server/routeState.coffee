@@ -20,11 +20,24 @@ class RouteState
     @getTop()
     @walk_tree_down @top,(node)=>
       if node._isState
-        for k of node.__state.tag
-          @tags[k] = true
-        node.__state.page_tags = @tags
+        if node.__states
+          o = node.__states
+        else
+          o = {}
+          o[node._statename] = node.__state
+        for sn,s of o
+          for k of s.tag
+            @tags[k] = true
+        for sn,s of o
+          s.page_tags = @tags
     if @top._isState
-      @top.__state.page_tags = @tags
+      if @top.__states
+        o = @top.__states
+      else
+        o = {}
+        o[node._statename] = @top.__state
+      for sn,s of o
+        s.page_tags = @tags
     @modules  = {}
     @css      = ""
     @jsModules = ""
