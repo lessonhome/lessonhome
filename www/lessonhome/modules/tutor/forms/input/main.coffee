@@ -54,13 +54,11 @@ class @main extends EE
         !(isNaN Number(key))
     ####################################
 
-    addStyleBadInput = ($box) =>
-      #@box.addClass('bad-input')
-      $box.css 'border-color', 'red'
+    addStyleBadInput = () =>
+      @box.addClass('bad-input')
 
-    removeStyleBadInput = ($elt) =>
-      #@box.removeClass('bad-input')
-      $elt.css @defaultBoxStyle
+    removeStyleBadInput = () =>
+      @box.removeClass('bad-input')
 
     check = Feel.checker.check
     checkMinMax = Feel.checker.checkMinMax
@@ -116,11 +114,9 @@ class @main extends EE
           else
             maybeOutputErrMessage res[0].errMessage
         else
-          #@box.removeClass('bad-input')
-          removeStyleBadInput @box
+          removeStyleBadInput()
       else
-        #@box.removeClass('bad-input')
-        removeStyleBadInput @box
+        removeStyleBadInput()
       #################
       @emit 'change'
 
