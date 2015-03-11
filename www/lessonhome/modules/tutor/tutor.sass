@@ -53,8 +53,18 @@ main
         box-sizing: border-box
         text-align: center
         .sub_top_menu
+          position: relative
           background: #f3f3f3
           height: 100%
+          .triangle
+            width: 0
+            height: 0
+            border-top: 15px solid transparent
+            border-right: 15px solid #f3f3f3
+            border-bottom: 15px solid transparent
+            position: absolute
+            right: 100%
+            top: 0
   .center_block:after
     clear: both
     content: ""
