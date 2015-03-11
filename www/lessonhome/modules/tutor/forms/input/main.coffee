@@ -1,9 +1,10 @@
 ###
 API:
   pattern : <regexp> #required
-  min : <minimum_if_pattern_is_digits> #optional:
-  max : <maximum_if_pattern_is_digits> #optional:
-  errMessage : <message_about_error> #optional:
+  min : <minimum_if_pattern_is_digits> #optional
+  max : <maximum_if_pattern_is_digits> #optional
+  errMessage : <message_about_error> #optional
+  allowSymbolsPattern : <chars allowed for input> #optional
   --------------------------
 
   or:
@@ -25,6 +26,7 @@ API:
       ...
     };
     'errMessage': <General error message>
+    'allowSymbolsPattern': <chars allowed for input>
   }
 Example:
   pattern     : '^\d{1,2}$' #required using some like: (dataObject 'checker').patterns.digits
@@ -64,20 +66,28 @@ class @main extends EE
           min: @tree.min
           max: @tree.max
           errMessage: @tree.errMessage
-        }
+        },
+        'allowSymbolsPattern': @tree.allowSymbolsPattern
       }
 
     maybeOutputErrMessage = (errMessage) ->
       if errMessage? then console.log errMessage
 
+    #Check allowed input chars
+    @input.on 'keypress', (event)=>
+      allowPatt = getValidators().allowSymbolsPattern
+      if !allowPatt?
+        return true
+      else return (new RegExp(allowPatt).test String.fromCharCode(event.keyCode))
+
     @input.on 'change', (event)=>
       validators = getValidators()
-      if validators?
+      val = @input.val()
+      if (val? && val != '') && validators?
         res = []
         for idx, curValidator of validators
           patt = curValidator.pattern
           if patt?
-            val = @input.val()
             min = curValidator.min
             max = curValidator.max
             isBadInput = !(check patt, val)
@@ -93,6 +103,7 @@ class @main extends EE
             maybeOutputErrMessage res[0].errMessage
         else
           @input.removeClass('bad-input')
+      else @input.removeClass('bad-input')
       #################
       @emit 'change'
 
