@@ -8,20 +8,12 @@ class @main
       selector    : 'calendar'
       placeholder : 'с'
       pattern     : '^\\d{2}:\\d{2}$' #required using some like: (dataObject 'checker').patterns.time
-    ###
-      min         : 0
-      max         : 24
-    ###
       errMessage  : 'Пожалуйста введите кол-во часов от 0 до 24'
       allowSymbolsPattern  : "[:0-9]"
     till_time       : module 'tutor/forms/input' :
       selector    : 'calendar'
       placeholder : 'до'
       pattern     : '^\\d{2}:\\d{2}$' #required using some like: (dataObject 'checker').patterns.time
-    ###
-      min         : 0
-      max         : 24
-    ###
       errMessage  : 'Пожалуйста введите кол-во часов от 0 до 24'
       allowSymbolsPattern  : "[:0-9]"
     add_time_button : module 'tutor/button' :
