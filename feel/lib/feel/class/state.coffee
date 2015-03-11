@@ -84,6 +84,10 @@ class module.exports
     tree.__state      = state
     tree._isState     = true
     tree._statename   = @name
+    tree.__states ?= {}
+    __states = tree.__states
+    __states[@name] = state
+    #tree.__states.push state
     for key,val of tree
       state.tree[key] = val
     state.tag = state.tags?()
@@ -103,7 +107,12 @@ class module.exports
     unless state.tree._isModule
       for key,val of state.tree
         if val._isModule
+          if val.__state?
+            state.tree.__states ?= {}
+            for k,v of val.__state.tree.__states
+              state.tree.__states[k] = v
           val.__state = state
+          #val.__states.push state
           val._isState = true
           val._statename = @name
 
@@ -136,7 +145,26 @@ class module.exports
     try
       if state.constructor.__super__?
         state.parent = state.constructor.__super__
+        
         state.parent.__make null,state.parent
+        _p = state.parent
+        _n = state
+        while _p
+          _p.tree.__states ?= {}
+          for k,v of _n.tree.__states
+            _p.tree.__states[k] = v
+          ###
+          unless _p.tree._isModule
+            for key,val of _p.tree
+              if val._isModule
+                if val.__state?
+                  for k,v of val.__state.tree.__states
+                    _p.tree.__states[k] = v
+          ###
+          #val.__state = state
+          _n = _p
+          _p = _p.constructor.__super__
+
     catch e
       console.error "failed make parent in state #{@name}",e,state.parent
       throw e

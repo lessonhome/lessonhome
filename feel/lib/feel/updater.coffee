@@ -38,7 +38,7 @@ class module.exports
           command : 'node'
           psargs : "aux"
         }, (err,list)=>
-          @exec "cat", ["version"], res, =>
+          @exec "cat", ["./version"], res, =>
             if !err
               for p in list
                 for a in p.arguments

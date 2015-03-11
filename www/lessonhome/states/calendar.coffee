@@ -7,17 +7,15 @@ class @main
     from_time       : module 'tutor/forms/input' :
       selector    : 'calendar'
       placeholder : 'с'
-      pattern     : '^\\d{1,2}$' #required using some like: (dataObject 'checker').patterns.digits
-      min         : 0
-      max         : 24
+      pattern     : '^\\d{2}:\\d{2}$' #required using some like: (dataObject 'checker').patterns.time
       errMessage  : 'Пожалуйста введите кол-во часов от 0 до 24'
+      allowSymbolsPattern  : "[:0-9]"
     till_time       : module 'tutor/forms/input' :
       selector    : 'calendar'
       placeholder : 'до'
-      pattern     : '^\\d{1,2}$' #required using some like: (dataObject 'checker').patterns.digits
-      min         : 0
-      max         : 24
+      pattern     : '^\\d{2}:\\d{2}$' #required using some like: (dataObject 'checker').patterns.time
       errMessage  : 'Пожалуйста введите кол-во часов от 0 до 24'
+      allowSymbolsPattern  : "[:0-9]"
     add_time_button : module 'tutor/button' :
       selector    : 'filter_add_time'
       text        :     'Добавить<br>время'
