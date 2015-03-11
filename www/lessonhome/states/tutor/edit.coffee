@@ -1,5 +1,4 @@
 class @main extends template '../tutor'
-  tags : -> 'edit: conditions'
   tree : =>
     items : [
       module 'tutor/header/button' : {

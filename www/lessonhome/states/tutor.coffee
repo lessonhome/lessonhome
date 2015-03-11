@@ -7,20 +7,7 @@ class @main
     header        : state 'tutor/header'  :
       icons       : module '$/header/icons' :
         counter : '5'
-      items : [
-        module 'tutor/header/button' :
-          title : 'Описание'
-          href  : '/tutor/profile'
-          tag   : @exports 'tutor_profile'
-        module 'tutor/header/button' :
-          title : 'Условия'
-          href  : '/tutor/conditions'
-          tag   : @exports 'tutor_conditions'
-        module 'tutor/header/button' :
-          title : 'Отзывы'
-          href  : '/tutor/reviews'
-          tag   : @exports 'tutor_reviews'
-      ]
+      items : @exports()
     left_menu     : state 'tutor/left_menu'
     sub_top_menu  : @exports()   # define if exists
     content       : @exports()   # must be defined

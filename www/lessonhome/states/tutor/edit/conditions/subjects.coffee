@@ -2,6 +2,7 @@ class @main extends template '../../edit'
   route : '/tutor/edit/subjects'
   model   : 'tutor/edit/conditions/subjects'
   title : "редактирование предметы"
+  tags : -> 'edit: conditions'
   tree : =>
     menu_condition  : 'edit: conditions'
     items :

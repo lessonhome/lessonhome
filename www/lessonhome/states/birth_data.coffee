@@ -5,24 +5,9 @@ class @main
       text        : @exports()
       placeholder : 'День'
       selector    : 'first_reg day'
-    birth_month : module 'tutor/forms/unable_enter_list' :
+    birth_month : module 'tutor/forms/drop_down_list' :
       placeholder : 'Месяц'
-      selector    : 'first_reg_size'
-      type : 'unable_to_enter'
-      list : [
-        'Январь'
-        'Февраль'
-        'Март'
-        'Апрель'
-        'Май'
-        'Июнь'
-        'Июль'
-        'Август'
-        'Сентябрь'
-        'Октябрь'
-        'Ноябрь'
-        'Декабрь'
-      ]
+      selector    : 'font_size'
     birth_year  : module 'tutor/forms/drop_down_list' :
       placeholder : 'Год'
-      selector    : 'first_reg_size'
+      selector    : 'font_size'
