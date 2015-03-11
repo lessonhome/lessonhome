@@ -1,17 +1,10 @@
-class @main extends template '../../edit'
+class @main extends template '../edit_description'
   route : '/tutor/edit/general'
   model   : 'tutor/edit/description/general'
   title : "редактирование общее"
   tags : -> 'edit: description'
   tree : =>
     menu_description  : 'edit: description'
-    items :
-      'Общие'       : 'general'
-      'Контакты'    : 'contacts'
-      'Образование' : 'education'
-      'Карьера'     : 'career'
-      'О себе'      : 'about'
-      'Настройки'   : 'settings'
     active_item : 'Общие'
     tutor_edit  : state 'general_data'
     hint        : module 'tutor/hint' :

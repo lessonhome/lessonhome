@@ -1,22 +1,19 @@
 class @main extends template '../tutor'
   tree : =>
     items : [
-      module 'tutor/header/button' : {
+      module 'tutor/header/button' :
         title : 'Описание'
         href  : '/tutor/edit/general'
         tag   : @exports 'menu_description'
-      }
-      module 'tutor/header/button' : {
+      module 'tutor/header/button' :
         title : 'Условия'
         href  : '/tutor/edit/subjects'
         tag   : @exports 'menu_condition'
-      }
     ]
     sub_top_menu : state 'tutor/sub_top_menu' :
       items       : @exports()
       active_item : @exports()
     content : module '$' :
-       #title       : @exports()
       tutor_edit    : @exports()
       hint          : @exports()
       selector_hint : @exports()  #because hint have different style

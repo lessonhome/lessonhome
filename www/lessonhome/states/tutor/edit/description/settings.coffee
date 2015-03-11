@@ -1,17 +1,10 @@
-class @main extends template '../../edit'
+class @main extends template '../edit_description'
   route : '/tutor/edit/settings'
   model   : 'tutor/edit/description/settings'
   title : "редактирование настройки"
   tags : -> 'edit: description'
   tree : =>
     menu_description  : 'edit: description'
-    items       :
-      'Общие'       : 'general'
-      'Контакты'    : 'contacts'
-      'Образование' : 'education'
-      'Карьера'     : 'career'
-      'О себе'      : 'about'
-      'Настройки'   : 'settings'
     active_item : 'Настройки'
     tutor_edit  : module '$' :
       new_orders_toggle : module 'tutor/forms/toggle' :
@@ -68,4 +61,4 @@ class @main extends template '../../edit'
 
 
   init  :=>
-    @parent.tree.content.possibility_save_button = false
+    @parent.parent.tree.content.possibility_save_button = false
