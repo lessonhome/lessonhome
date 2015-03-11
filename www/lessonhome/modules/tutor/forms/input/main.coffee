@@ -85,7 +85,8 @@ class @main extends EE
       val = @input.val()
       if (val? && val != '') && validators?
         res = []
-        for idx, curValidator of validators
+        for idx in getObjectNumIndexes(validators)
+          curValidator = validators[idx]
           patt = curValidator.pattern
           if patt?
             min = curValidator.min
