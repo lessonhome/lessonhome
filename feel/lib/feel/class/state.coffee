@@ -90,6 +90,9 @@ class module.exports
     #tree.__states.push state
     for key,val of tree
       state.tree[key] = val
+    if (state.tags?) && ( typeof state.tags != 'function')
+      tags_ = state.tags
+      state.tags = -> tags_
     state.tag = state.tags?()
     if typeof state.tag == 'string'
       state.tag = [state.tag]
