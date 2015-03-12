@@ -120,7 +120,6 @@ class @main extends EE
               isBadInput = !(checkMinMax min, val, max)
             if isBadInput then res.push curValidator
         if (res.length > 0) && (res.length == getObjectNumIndexes(validators).length)
-          #@box.addClass('bad-input')
           addStyleBadInput @box
           if validators.errMessage?
             maybeOutputErrMessage validators.errMessage
