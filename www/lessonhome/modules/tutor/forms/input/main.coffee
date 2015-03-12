@@ -54,10 +54,10 @@ class @main extends EE
 
     outErr = (err)=>
       @outputErr.text(err)
-      @outputErr.show()
+      @outputErr.addClass('output-error__show')
 
     cleanErr = ()=>
-      @outputErr.hide()
+      @outputErr.removeClass('output-error__show')
       @outputErr.text('')
 
     addStyleBadInput = () =>
