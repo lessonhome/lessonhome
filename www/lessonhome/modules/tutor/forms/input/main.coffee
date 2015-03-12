@@ -89,6 +89,10 @@ class @main extends EE
     maybeOutputErrMessage = (errMessage) ->
       if errMessage? then outErr errMessage
 
+    setNormalState = ->
+      removeStyleBadInput()
+      cleanErr()
+
     #Check allowed input chars
     @input.on 'keypress', (event)=>
       allowPatt = getValidators().allowSymbolsPattern
@@ -96,7 +100,10 @@ class @main extends EE
         return true
       else return (new RegExp(allowPatt).test String.fromCharCode(event.keyCode))
 
-    @input.on 'change', (event)=>
+    @input.on 'focus', (event)=>
+      setNormalState()
+
+    @input.on 'blur', (event)=>
       validators = getValidators()
       val = @input.val()
       if (val? && val != '') && validators?
@@ -120,11 +127,9 @@ class @main extends EE
           else
             maybeOutputErrMessage res[0].errMessage
         else
-          removeStyleBadInput()
-          cleanErr()
+          setNormalState()
       else
-        removeStyleBadInput()
-        cleanErr()
+        setNormalState()
       #################
       @emit 'change'
 
