@@ -1,17 +1,11 @@
-class @main extends template '../../edit'
+class @main extends template '../edit_conditions'
   route : '/tutor/edit/preferences'
   model   : 'tutor/edit/conditions/preferences'
   title : "редактирование условия"
   tags : -> 'edit: conditions'
   tree : =>
     menu_condition  : 'edit: conditions'
-    items :
-      'Предметы'     : 'subjects'
-      'Место'        : 'location'
-      'Календарь'    : 'calendar'
-      'Предпочтения' : 'preferences'
     active_item : 'Предпочтения'
-    #title       : 'Уточните с какими учениками Вы хотите заниматься'
     tutor_edit  : module '$':
       gender_data   : state 'gender_data':
         selector  : 'choose_gender'
