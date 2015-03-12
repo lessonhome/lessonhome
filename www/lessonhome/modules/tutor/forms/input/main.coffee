@@ -41,18 +41,24 @@ class @main extends EE
     #@box = @dom.find ".box"
     @box = @found.box
     @input = @box.children "input"
+    @outputErr = @box.next('.output-error')
 
     @input.on 'focus', => @box.addClass 'focus'
     @input.on 'focusout', => @box.removeClass 'focus'
 
-    @defaultBoxStyle = {
-      'border-color': @box.css('border-color')
-    }
     ############## Share ###############
     getObjectNumIndexes = (obj) ->
       Object.keys(obj).filter (key) ->
         !(isNaN Number(key))
     ####################################
+
+    outErr = (err)=>
+      @outputErr.text(err)
+      @outputErr.show()
+
+    cleanErr = ()=>
+      @outputErr.hide()
+      @outputErr.text('')
 
     addStyleBadInput = () =>
       @box.addClass('bad-input')
@@ -81,7 +87,7 @@ class @main extends EE
       }
 
     maybeOutputErrMessage = (errMessage) ->
-      if errMessage? then console.log errMessage
+      if errMessage? then outErr errMessage
 
     #Check allowed input chars
     @input.on 'keypress', (event)=>
@@ -115,8 +121,10 @@ class @main extends EE
             maybeOutputErrMessage res[0].errMessage
         else
           removeStyleBadInput()
+          cleanErr()
       else
         removeStyleBadInput()
+        cleanErr()
       #################
       @emit 'change'
 
