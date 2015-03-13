@@ -31,6 +31,8 @@ class @main extends EE
           arrowUp: 38
           esc: 27
 
+        startsWith = (str, sBegin)->
+          (new RegExp('^'+sBegin)).test str
         #############
 
         ### Default data for filtration (using into valuesGenerator) ###
@@ -75,15 +77,14 @@ class @main extends EE
 
         ### Correct select after show ###
         configSelect = ($sel) ->
-        startsWith = (str, sBegin)->
-          (new RegExp('^'+sBegin)).test str
 
         valuesGenerator = (sBegin) ->
           dataAr = []
           for key, val of data
             dataAr.push val
           dataAr.filter (str) ->
-            str.text.startsWith sBegin
+            startsWith str, sBegin
+            #str.text.startsWith sBegin
 
         ############## CustomSelect component ###############
         optionsCount = ($sel) ->
