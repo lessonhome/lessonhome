@@ -1,5 +1,4 @@
-
-
 class @main
   tree : => module 'default' :
-    depend : []
+    check_patterns :  module 'lib/global_utilities/check_patterns'
+

@@ -9,7 +9,6 @@ class MasterDir
     @_block().done()
   fixPath : =>
     conf = @conf
-    console.log conf
     if typeof conf == 'string'
       conf = path:_path.resolve "#{process.cwd()}/#{conf}"
     if conf.path
@@ -21,7 +20,6 @@ class MasterDir
         throw new Error 'cant resolve path in config'+_inspect(conf)
     conf.pdir = _path.dirname  conf.dir
     conf.name = _path.basename conf.dir
-    console.log 'ok'
     @conf = conf
   init :  (@master)=>
     @on 'deleted',@onDeleted
@@ -32,9 +30,9 @@ class MasterDir
     for key,val of @conf
       @dir[key]  = val
       @in[key]   = val
-    if @dir.ready
-      yield @regetContent()
-      @_block(false)
+    #if @dir.ready
+    #  yield @regetContent()
+    #  @_block(false)
     yield @stat()
 
   regetContent : =>
@@ -47,7 +45,6 @@ class MasterDir
       for file in @dir.files
         qf.push @master.file file
     [qd,qf] = yield Q.all [Q.all(qd),Q.all(qf)]
-    console.log qd,qf
   stat : =>
     yield @_single()
     #@log 'stat',@file.file.red
@@ -115,7 +112,7 @@ class MasterDir
   initDb : =>
     return if @db?
     db  = yield Main.serviceManager.nearest('db')
-    @db = yield db.get 'watcherDirs'
+    @db = yield db.get 'feel-watcherDirs'
 
   get :   =>
     yield @_unblock()

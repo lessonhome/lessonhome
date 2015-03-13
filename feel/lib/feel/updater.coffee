@@ -16,6 +16,7 @@ class module.exports
     @hand = 0
     @server.listen @port
   handler :(req,res)=>
+    return process.exit(0) if req.url == "/restart"
     return @tail(req,res) if req.url != "/update"
 
     @updating = true
@@ -37,7 +38,7 @@ class module.exports
           command : 'node'
           psargs : "aux"
         }, (err,list)=>
-          @exec "rm", ["-rf",".cache"], res, =>
+          @exec "cat", ["version"], res, =>
             if !err
               for p in list
                 for a in p.arguments

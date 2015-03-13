@@ -18,6 +18,7 @@ class @main
       selector  : 'first_reg price'
     price_button           : module 'button_add' :
       text      : '+'
+      selector  : 'plus'
     students_in_group       : module 'tutor/forms/drop_down_list' :
       text      : 'Групповые занятия :'
       selector  : 'first_reg group'

@@ -16,6 +16,7 @@ class Sites
       @site[site] = new Site site
       qs.push @site[site].init()
     yield Q.all qs
-
-
+  run : =>
+    for name,site of @site
+      yield site.run?()
 module.exports = Sites

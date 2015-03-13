@@ -17,47 +17,23 @@ class WatcherMaster
   run : =>
     db  = yield Main.serviceManager.nearest('db')
     [@dbFiles,@dbDirs] = yield Q.all [
-      db.get 'watcherFiles'
-      db.get 'watcherDirs'
+      db.get 'feel-watcherFiles'
+      db.get 'feel-watcherDirs'
     ]
     deferFiles = Q.defer()
-    qsFiles = []
+    qf = []
+    nfile = _qlimit 40,@newFile
     @dbFiles.find().each (err,file)=>
-      qsFiles.push Q.reject err if err?
-      return deferFiles.resolve Q.all qsFiles unless file?
-      qsFiles.push @newFile(file)
-
+      return qsFiles.push Q.reject err if err?
+      return deferFiles.resolve Q.all qf unless file?
+      qf.push nfile file
     deferDirs = Q.defer()
-    qsDirs = []
-    mq = Q()
-    I = 0
+    qd = []
+    ndir = _qlimit 40,@newDir
     @dbDirs.find().each (err,dir)=>
-      #qsDirs.push Q.reject err if err?
-      deferDirs.reject err if err?
-      unless dir?
-        return deferDirs.resolve mq
-        console.log 'unless'
-        console.log qsDirs.length
-        nq = Q()
-        for q,i in qsDirs
-          do (i,q)=>
-            nq = nq.then =>
-              console.log 'start',i
-              return q
-            .then =>
-              console.log 'done',i
-        deferDirs.resolve nq.then -> console.log 'resolved'
-        console.log 'ok'
-        return
-      console.log dir.dir.red
-      i_ = I++
-      #qsDirs.push  Q().then => @newDir(dir)
-      mq = mq.then =>
-        console.log 'start', i_
-      .then =>
-        @newDir dir
-      .then =>
-        console.log 'done', i_
+      return deferDirs.reject err if err?
+      return deferDirs.resolve Q.all qd unless dir?
+      qd.push ndir dir
     yield Q.all [deferFiles.promise,deferDirs.promise]
     @_block(false)
     @createMonitor().done()
@@ -133,9 +109,7 @@ class WatcherMaster
       @emit 'deleted:dir:'+conf.dir
       
     @dirs[conf.dir] = dir
-    console.log conf.dir
     yield @dirs[conf.dir].init(@)
-    console.log 'inited'
     return dir
   initFile : (name)=>
     f = yield @file(name)

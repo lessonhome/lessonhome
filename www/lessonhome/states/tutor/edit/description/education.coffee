@@ -34,7 +34,7 @@ class @main extends template '../../edit'
         selector  : 'first_reg'
       release_day   : state 'birth_data'  :
         text  : 'Дата выпуска :'
-      add_button    : module 'tutor/button' :
+      add_button    : module 'button_add' :
         text      : '+Добавить'
         selector  : 'edit_add'
     hint        : module 'tutor/hint' :

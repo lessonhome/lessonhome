@@ -1,6 +1,6 @@
 class @main
   tree : -> module '$' :
-    depend      : state 'lib'
+    lib      : state 'lib'
     header      : state './tutor/header' :
       items : [
         module 'tutor/header/button' : {

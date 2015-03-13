@@ -62,12 +62,12 @@ class MasterFile
     yield @updateDb()
 
   delete : =>
-    @emit 'deleted',@file
+    @emit 'deleted'
   onDeleted : =>
     @_block()
     @_block false,new Error 'file deleted',@file.path
     yield @initDb()
-    yield _invoke @db,'delete',path:@file.path
+    yield _invoke @db,'remove',path:@file.path
 
   updateDb  : =>
     yield @_single()
@@ -90,7 +90,7 @@ class MasterFile
   initDb : =>
     return if @db?
     db  = yield Main.serviceManager.nearest('db')
-    @db = yield db.get 'watcherFiles'
+    @db = yield db.get 'feel-watcherFiles'
 
   get :   =>
     yield @_unblock()

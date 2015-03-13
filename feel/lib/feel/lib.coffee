@@ -437,7 +437,8 @@ class Lib
     #Watcher.init()
     #
 
-
+global._deflate = Q.denode require('zlib').deflate
+global._qlimit  = require './lib/qlimit'
 global._crypto  = require 'crypto'
 global._util    = require 'util'
 global._fs      = require 'fs'
@@ -453,7 +454,7 @@ global._invoke  = (args...)-> Q.ninvoke args...
 global._mkdirp  = Q.denode require 'mkdirp'
 module.exports  = Lib
 
-global._waitFor = (obj,action,time=5000)-> Q.then ->
+global._waitFor = (obj,action,time=60000)-> Q.then ->
   waited = false
   defer = Q.defer()
   obj.once action, (args...)=>

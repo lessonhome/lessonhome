@@ -51,7 +51,7 @@ class SlaveDir
   initDb : =>
     return if @db?
     db  = yield Main.serviceManager.nearest('db')
-    @db = yield db.get 'watcherDirs'
+    @db = yield db.get 'feel-watcherDirs'
   get :   =>
     yield @_unblock()
     return @dir

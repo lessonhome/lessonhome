@@ -1,17 +1,20 @@
 @import compass/css3
-$icon_src: 'small_question_sign.png'
-$icon_height: image-height($icon_src)
-$icon_width: image-width($icon_src)
+$font_size: 15px
+$padding_icon: 1.5px
 .hint
-  .icon_block
-    height: $icon_height
-    width: $icon_width
+  .icon_box
+    +inline-block
+    text-align: center
+    border-radius: 50%
+    background-color: rgb(243, 243, 243 )
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26)
     .icon
-      height: 100%
-      width: 100%
-      background: inline-image($icon_src) no-repeat
+      padding: $padding_icon
+      width: $font_size
+      font-size: $font_size
+      color: #757575
   .question_block
-    padding-left: $icon_width
+    padding-left: $font_size+$padding_icon
     .header
     .text
       font-size: 16px

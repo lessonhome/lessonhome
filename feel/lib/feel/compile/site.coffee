@@ -17,15 +17,26 @@ class Site
     qs = []
     qs.push @findModules @watcher.dir @path.modules
     qs.push @findStates  @watcher.dir @path.states
-    yield Q.all qs
-  findModules : (qdir)=>
+    Q.all qs
+  run : =>
+    runObj = _qlimit 8,@runObj
     qs = []
+    for name,module of @module
+      qs.push runObj module
+    yield Q.all qs
+    qs = []
+    for name,state of @state
+      qs.push runObj state
+    yield Q.all qs
+  runObj : (obj)=> obj.run?()
+  findModules : (qdir)=>
     dirs    = (yield (yield qdir).get()).dirs
+    qs = []
     for dir in dirs
       qs.push @findModules @watcher.dir dir
     for dir in dirs
       name = _path.relative @path.modules,dir
-      module = new Module name
+      module = new Module name,@
       @module[name] = module
       qs.push module.init()
     Q.all qs

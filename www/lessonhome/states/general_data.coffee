@@ -4,6 +4,7 @@ class @main
     first_name  : module 'tutor/forms/input':
       selector    : 'first_reg'
       text        : 'Имя :'
+      pattern     : '^[a-z]*$' #required using some like: (dataObject 'checker').patterns.alphabet
     last_name   : module 'tutor/forms/input':
       selector    : 'first_reg'
       text        : 'Фамилия :'

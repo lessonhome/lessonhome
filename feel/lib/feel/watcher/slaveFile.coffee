@@ -31,11 +31,32 @@ class SlaveFile
     for key,val of @conf
       @file[key] = val
       @in[key]   = val
+    @_ready      = false
+    @_readyHash  = false
+    @_masterInit = false
+    @complite = false
     yield @master.initFile @conf.file
     @master.on 'change:file:'+@conf.file, =>
       @loadDb().done()
     yield @loadDb()
     yield @_block(false)
+  ready : =>
+    @complite = true
+    yield @_single()
+    return if @_ready
+    yield @loadDb()
+    @_ready     = true
+    @_readyHash = true
+  readyHash : =>
+    yield @_single()
+    return if @_readyHash
+    yield @loadDb
+    @_readyHash = true
+  masterInit : =>
+    yield @_single()
+    return if @_masterInit
+    yield @master.initFile @conf.file
+    @_masterInit = true
   delete : =>
     @emit 'deleted',@file
   onDeleted : =>
@@ -46,19 +67,28 @@ class SlaveFile
   loadDb : =>
     yield @_single()
     yield @_block()
+    #yield @masterInit()
     yield @initDb()
+    #if @complite
     files = yield _invoke @db.find(file:@file.file),'toArray'
+    #else
+    # files = yield _invoke @db.find({file:@file.file},{hash:1,file:1,path:1,ext:1,name:1}),'toArray'
     @file = files[0]
     yield @_block(false)
     @emit 'change',@file
   initDb : =>
     return if @db?
     db  = yield Main.serviceManager.nearest('db')
-    @db = yield db.get 'watcherFiles'
+    @db = yield db.get 'feel-watcherFiles'
 
   get :   =>
     yield @_unblock()
+    #yield @ready()
     return @file
+  getHash :   =>
+    yield @_unblock()
+    #yield @ready()
+    return @file.hash
 
     
 

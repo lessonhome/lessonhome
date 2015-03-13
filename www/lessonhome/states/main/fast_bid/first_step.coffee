@@ -8,12 +8,19 @@ class @main extends template '../fast_bid'
       name : module 'tutor/forms/input' :
         text      : 'Имя :'
         selector  : 'fast_bid'
+        pattern   : '^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,15}$'
+        errMessage: 'Введите корректное имя (имя может содержать только цифры, символы алфавита и _)'
       phone : module 'tutor/forms/input':
         text: 'Телефон :'
         selector  : 'fast_bid'
+        pattern     : '^\\+7\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}$' #required using some like: (dataObject 'checker').patterns.telephon
+        errMessage  : 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx'
       email : module 'tutor/forms/input':
         text: 'E-mail :'
         selector  : 'fast_bid'
+        #pattern  : /.+@.+\..+/.source()
+        pattern   : /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.source
+        errMessage  : 'Пожалуйста введите корректный email'
       subject :module 'tutor/forms/drop_down_list':
         text: 'Предмет :'
         selector  : 'fast_bid'

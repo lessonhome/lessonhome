@@ -28,8 +28,8 @@ class @main
       till_time     : module 'tutor/forms/input' :
         selector      : 'center_text'
       button_add    : module 'tutor/button' :
-        selector      : 'add_time'
-        text          : '+'
+        selector  :  'plus'
+        text      : '+'
     time_spend_lesson   : state './slider_main' :
       selector    : 'lesson_time'
       start       : 'center_text'

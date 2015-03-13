@@ -1,12 +1,7 @@
-mixin title_block (title, selector)
-  .title_block(class=selector)
-    .title.select=title
-    .line
-mixin field (selector, value)
-  .value(class=selector)!=value
 
 mixin field (selector, value)
   .value(class=selector)!=value
+
 
 //- ---------------------------------------------------------------------------------
 .new_orders
@@ -27,7 +22,10 @@ mixin field (selector, value)
 .save_block
   .button!= save_button
 
-+title_block('Номер телефона', 'phone_number')
+.line_box
+  .line!=line_phone
+
+//+title_block('Номер телефона', 'phone_number')
 
 .old_phone_number
   .title.select Привязанный :
@@ -38,7 +36,9 @@ mixin field (selector, value)
 .change_block
   .button!= change_button
 
-+title_block('E-mail', 'email')
+.line_box
+  .line!=line_email
+//+title_block('E-mail', 'email')
 
 .old_email
   .title.select Старый :
@@ -49,7 +49,8 @@ mixin field (selector, value)
 .change_block
   .button!= change_button
 
-+title_block('Пароль', 'password')
+.line_box
+  .line!=line_password
 +field('old_password', old_password)
 +field('new_password', new_password)
 +field('confirm_password', confirm_password)
