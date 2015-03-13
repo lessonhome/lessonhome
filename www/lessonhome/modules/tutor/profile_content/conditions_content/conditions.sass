@@ -4,6 +4,7 @@ $map_width: 350px
 $height_line: 30px
 $width_title: 130px
 $padding_calendar: 55px
+$height_info_panel: 60px
 $button_wrap: 'main/button_wrap.png'
 $icon_height: image-height($button_wrap)
 $icon_width: image-width($button_wrap)
@@ -20,7 +21,8 @@ main
   .address_block
     overflow: hidden
     .address_time
-      //
+      height: $height_info_panel
+      line-height: $height_info_panel
     .map
       height: 250px
       width: $map_width
@@ -46,6 +48,9 @@ main
 .edit_block.top_padding
   padding-top: 50px
 .subject_details_data
+  .subject
+    height: $height_info_panel
+    line-height: $height_info_panel
   .details_data
     background: #f3f3f3
     position: relative
