@@ -7,6 +7,8 @@ class @main
       text        : 'Имя :'
       pattern     : '^[a-z]*$' #required using some like: (dataObject 'checker').patterns.alphabet
       allowSymbolsPattern : '[a-zA-Zа-яА-ЯёЁ]'
+      #(required using some like: (dataObject 'checker').hints.alphabet)
+      hint        : 'Поле должно содержать только символы русского или английского алфавита'
     last_name   : module 'tutor/forms/input':
       selector    : 'first_reg'
       text        : 'Фамилия :'

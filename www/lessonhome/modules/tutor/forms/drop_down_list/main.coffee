@@ -1,5 +1,6 @@
 class @main extends EE
   show : =>
+    beginMatchCssClass = 'custom-option__begin-match'
     @label = @dom.find "label"
     @list = @label.find ".drop_down_list"
     @input = @list.find "input"
@@ -16,8 +17,6 @@ class @main extends EE
         @list.removeClass 'filter_top_focus'
       else
         @list.removeClass 'focus'
-
-  
 
     curInput = @input
     if @tree.default_options?
@@ -83,8 +82,7 @@ class @main extends EE
           for key, val of data
             dataAr.push val
           dataAr.filter (str) ->
-            startsWith str, sBegin
-            #str.text.startsWith sBegin
+            startsWith str.text, sBegin
 
         ############## CustomSelect component ###############
         optionsCount = ($sel) ->
@@ -170,7 +168,9 @@ class @main extends EE
             when unit.esc
               $sel.hide()
             else
-              showSelectOptions event
+              if $(this).val() != ''
+                showSelectOptions()
+              else $sel.hide()
               return
 
         getCurInput().on 'keydown', (event) ->
@@ -211,13 +211,14 @@ class @main extends EE
             if getCurSel().is(':visible')
               getCurSel().hide()
             else
-              showSelectOptions event
+              showSelectOptions()
           getCurInput().focus()
         #########################################
 
-        showSelectOptions = (event) ->
+        showSelectOptions = () ->
           $sel = getCurSel()
-          correctSelectOptions event, $sel, valuesGenerator
+          strBegin = getCurInput().val()
+          correctSelectOptions strBegin, $sel, valuesGenerator
           bindHandlers $sel
 
         startSelection = (sel) ->
@@ -227,19 +228,24 @@ class @main extends EE
           else
             makeSelected($sel, 1)
 
-        correctSelectOptions = (event, $sel, fnValuesGenerator) ->
+        correctSelectOptions = (strBegin, $sel, fnValuesGenerator) ->
           configSelect(getCurSel())
-          strBegin = getCurInput().val()
-          fillOptions $sel, (fnValuesGenerator strBegin)
+          fillOptions $sel, (fnValuesGenerator strBegin), strBegin
           if optionsCount($sel) > 0
             makeSelected($sel, 0)
             $sel.show()
           return
 
-        fillOptions = (sel, options) ->
+        markBeginText = (str, startStr)->
+          startLen = startStr.length
+          endStr = str.substr(startLen)
+          "<span class='#{beginMatchCssClass}''>#{startStr}</span>#{endStr}"
+
+        fillOptions = (sel, options, sBegin) ->
           html = ''
           options.forEach (optVal) ->
-            html += "<div class='custom-option' value='#{optVal.value}'>#{optVal.text}</div>"
+            optValText = markBeginText(optVal.text, sBegin)
+            html += "<div class='custom-option' value='#{optVal.value}'>#{optValText}</div>"
             return
           $(sel).html html
           return

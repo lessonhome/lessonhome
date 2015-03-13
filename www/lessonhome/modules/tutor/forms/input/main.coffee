@@ -5,6 +5,7 @@ API:
   max : <maximum_if_pattern_is_digits> #optional
   errMessage : <message_about_error> #optional
   allowSymbolsPattern : <chars allowed for input> #optional
+  hint : <hint_popup_on_focus>
   --------------------------
 
   or:
@@ -27,6 +28,7 @@ API:
     };
     'errMessage': <General error message>
     'allowSymbolsPattern': <chars allowed for input>
+    'hint' : <hint_popup_on_focus>
   }
 Example:
   pattern     : '^\d{1,2}$' #required using some like: (dataObject 'checker').patterns.digits
@@ -41,10 +43,21 @@ class @main extends EE
     #@box = @dom.find ".box"
     @box = @found.box
     @input = @box.children "input"
+
     @outputErr = @box.next('.output-error')
+    @hint = @box.siblings('.input__hint')
+    @hintMessage = @hint.find('.hint-message')
 
     @input.on 'focus', => @box.addClass 'focus'
     @input.on 'focusout', => @box.removeClass 'focus'
+
+    @input.on 'focus', =>
+      if @tree.hint?
+        (@hintMessage.text @tree.hint)
+        @hint.fadeIn()
+
+    @input.on 'focusout', =>
+      @hint.hide()
 
     ############## Share ###############
     getObjectNumIndexes = (obj) ->
