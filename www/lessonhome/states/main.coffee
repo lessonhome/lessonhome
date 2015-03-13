@@ -6,7 +6,7 @@ class @main
         module 'tutor/header/button' : {
           title : 'Поиск'
           href  : '/first_step'
-          tag   : 'pupil:main_search'
+          tag   : @exports()
         }
         module 'tutor/header/list_button' : {
           tag   : 'pupil:fast_bid'
@@ -56,8 +56,8 @@ class @main
           href  : '/about_us'
         }
       ]
-    popup       : @exports()
-    filter_top  : @exports()
-    info_panel  : @exports()
-    content     : @exports()
-    footer      : state 'footer'
+    popup       : @exports()              # show info about tutor in main page
+    filter_top  : @exports()              # top filter in main page
+    info_panel  : @exports()              # info panel in main page
+    content     : @exports()              # after info panel block in main page
+    footer      : state 'footer'          # footer in main page

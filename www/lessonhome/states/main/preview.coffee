@@ -1,6 +1,7 @@
 class @main extends template '../main'
   tree : =>
     filter_top  : @exports()
+    tag         : @exports()
     info_panel  : state './info_panel'  :
       subject   : 'Предметы +'
       tutor     : 'Преподаватель +'

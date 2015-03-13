@@ -3,6 +3,7 @@ class @main extends template '../main'
     popup       : @exports()
     filter_top  : @exports()
     info_panel  : @exports()
+    tag         : @exports()
     content     : module '$' :
       search_diagram  : module '$/motivation_block' :
         margin    : 27
