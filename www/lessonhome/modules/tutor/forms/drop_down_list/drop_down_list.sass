@@ -224,11 +224,23 @@ $icon_hover_src : 'main/triangle-24x21_hover.png'
       .icon
         background : inline-image($icon_hover_src ) no-repeat
 
+label>.drop_down_list>input+.select-sets__options
+  border: 2px solid #89d1ff
+  background-color: white
+  z-index: 2
+  width: 100%
+  left: 0
+  text-align: left
+
+label>.drop_down_list>input+.select-sets__options>.custom-option
+  line-height: 29px
+  padding-left: 8px
+
 label>.drop_down_list>input+.select-sets__options>.custom-option__selected
   background: #ebebeb
 
 label>.drop_down_list>input+.select-sets__options>.custom-option>.custom-option__begin-match
-  background: green
+  color: #2c7fd2
 
 //label .m-custom-option__selected
 //label>.drop_down_list>input+.select-sets__options>.custom-option:hover
