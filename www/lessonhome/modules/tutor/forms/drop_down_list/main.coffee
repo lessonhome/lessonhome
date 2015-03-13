@@ -31,7 +31,7 @@ class @main extends EE
           esc: 27
 
         startsWith = (str, sBegin)->
-          (new RegExp('^'+sBegin)).test str
+          (new RegExp('^'+sBegin, 'i')).test str
         #############
 
         ### Default data for filtration (using into valuesGenerator) ###
@@ -72,7 +72,7 @@ class @main extends EE
           $sel.css
             display: 'none'
             position: 'absolute'
-            width: getCurInput().css('width')
+            #width: getCurInput().css('width')
 
         ### Correct select after show ###
         configSelect = ($sel) ->
@@ -238,6 +238,7 @@ class @main extends EE
 
         markBeginText = (str, startStr)->
           startLen = startStr.length
+          startStr = str.substr(0, startLen)
           endStr = str.substr(startLen)
           "<span class='#{beginMatchCssClass}''>#{startStr}</span>#{endStr}"
 
