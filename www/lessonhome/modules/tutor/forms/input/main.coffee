@@ -41,18 +41,24 @@ class @main extends EE
     #@box = @dom.find ".box"
     @box = @found.box
     @input = @box.children "input"
+    @outputErr = @box.next('.output-error')
 
     @input.on 'focus', => @box.addClass 'focus'
     @input.on 'focusout', => @box.removeClass 'focus'
 
-    @defaultBoxStyle = {
-      'border-color': @box.css('border-color')
-    }
     ############## Share ###############
     getObjectNumIndexes = (obj) ->
       Object.keys(obj).filter (key) ->
         !(isNaN Number(key))
     ####################################
+
+    outErr = (err)=>
+      @outputErr.text(err)
+      @outputErr.addClass('output-error__show')
+
+    cleanErr = ()=>
+      @outputErr.removeClass('output-error__show')
+      @outputErr.text('')
 
     addStyleBadInput = () =>
       @box.addClass('bad-input')
@@ -81,7 +87,11 @@ class @main extends EE
       }
 
     maybeOutputErrMessage = (errMessage) ->
-      if errMessage? then console.log errMessage
+      if errMessage? then outErr errMessage
+
+    setNormalState = ->
+      removeStyleBadInput()
+      cleanErr()
 
     #Check allowed input chars
     @input.on 'keypress', (event)=>
@@ -90,7 +100,10 @@ class @main extends EE
         return true
       else return (new RegExp(allowPatt).test String.fromCharCode(event.keyCode))
 
-    @input.on 'change', (event)=>
+    @input.on 'focus', (event)=>
+      setNormalState()
+
+    @input.on 'blur', (event)=>
       validators = getValidators()
       val = @input.val()
       if (val? && val != '') && validators?
@@ -107,16 +120,15 @@ class @main extends EE
               isBadInput = !(checkMinMax min, val, max)
             if isBadInput then res.push curValidator
         if (res.length > 0) && (res.length == getObjectNumIndexes(validators).length)
-          #@box.addClass('bad-input')
           addStyleBadInput @box
           if validators.errMessage?
             maybeOutputErrMessage validators.errMessage
           else
             maybeOutputErrMessage res[0].errMessage
         else
-          removeStyleBadInput()
+          setNormalState()
       else
-        removeStyleBadInput()
+        setNormalState()
       #################
       @emit 'change'
 

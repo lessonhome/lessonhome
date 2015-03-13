@@ -19,8 +19,10 @@ class @main
     add_time_button : module 'tutor/button' :
       selector    : 'filter_add_time'
       text        :     'Добавить<br>время'
-    tag : module 'selected_tag' :
-      text      : 'пн: 12:00 - 16:00'
+    tag       : module '//selected_tag' :
+      day   : 'пн :'
+      from_time : 'c 12:00'
+      to_time   : 'до 16:00'
       selector  : 'choose_course'
       close     : true
     #TODO: make create module selected_tag if user input time and press button add_time_button

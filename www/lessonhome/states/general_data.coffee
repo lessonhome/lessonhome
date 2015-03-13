@@ -24,7 +24,12 @@ class @main
     status      : module 'tutor/forms/drop_down_list' :
       text        : 'Статус :'
       selector    : 'first_reg'
-
+      default_options     : {
+        '0': {value: 'math', text: 'преподаватель(тест)'},
+        '1': {value: 'student', text: 'студент(тест)'},
+        '2': {value: 'aspirant', text: 'аспирант(тест)'},
+        '3': {value: 'advokat', text: 'адвокат(тест)'}
+      }
 
 
 
