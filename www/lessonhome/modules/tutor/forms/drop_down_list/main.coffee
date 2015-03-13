@@ -93,18 +93,10 @@ class @main extends EE
         optionIndex = ($sel, $opt) ->
           (options $sel).index $opt
 
-        @tmpDefaultBackground = null # temporary resolve
-        @tmpSelectedBackground = '#ebebeb'
         markSelected = ($opt) =>
-          if @tmpDefaultBackground == null
-            @tmpDefaultBackground = $opt.css('background')
-          $opt.css 'background':@tmpSelectedBackground
           $opt.addClass('custom-option__selected')
 
-
         markUnselected = ($opt) =>
-          #$opt.css 'background':'white'
-          $opt.css 'background':@tmpDefaultBackground
           $opt.removeClass('custom-option__selected')
 
         makeUnselected = ($sel, idx) ->
