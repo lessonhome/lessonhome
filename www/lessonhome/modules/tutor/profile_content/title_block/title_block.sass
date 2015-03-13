@@ -1,5 +1,5 @@
 @import 'compass/css3'
-$icon_src: 'falldown_triangle2.png'
+$icon_src: 'triangle-6x7-closed.png'
 $icon_height: image-height($icon_src)
 $icon_width: image-width($icon_src)
 $font-size: 20px
@@ -18,9 +18,10 @@ main
     .icon
       width: $icon_width
       height: $icon_height
-      margin: 0 $padding_corner
+      margin: -3px 11px -8px 20px
       +inline-block
       background : inline-image($icon_src) no-repeat
+
   .icon_box:before
     +inline-block
     height: 100%

@@ -18,60 +18,6 @@
   .button
     +inline-block
     height: 59px
-$width_fields: 341px    // it's size fields assigned in forms module, here uze for do center photo relative fields
-$width_photo: 315px
-.photo
-  overflow: hidden
-  width: $width_photo
-  height: 215px
-  +inline-block
-  padding: 0 ($width_fields - $width_photo) / 2 29.5px ($width_fields - $width_photo) / 2
-  $photo_src: 'registration/plus.png'
-  $photo_height: image-height($photo_src)
-  $photo_width: image-width($photo_src)
-  .plus
-    float: left
-    width: $photo_width
-    height: $photo_height
-    background: inline-image($photo_src) no-repeat
-  $photo_src: 'registration/camera_big.png'
-  $photo_height: image-height($photo_src)
-  $photo_width: image-width($photo_src)
-  .camera_big
-    overflow: hidden
-    width: 200px
-    height: 200px
-    margin: 15px 0 0 50px
-    border-radius: 50%
-    background-color: rgb( 228, 228, 228 )
-    .big_photo
-      width: $photo_width
-      height: $photo_height
-      position: relative
-      top: 50%
-      margin: -$photo_height/2 auto 0 auto
-      background: inline-image($photo_src) no-repeat
-  $photo_src: 'registration/camera_small.png'
-  $photo_height: image-height($photo_src)
-  $photo_width: image-width($photo_src)
-  .camera_small
-    overflow: hidden
-    width: 60px
-    height: 60px
-    float: right
-    margin-top: -60px
-    border-radius: 50%
-    background-color: rgb( 228, 228, 228 )
-    .small_photo
-      width: $photo_width
-      height: $photo_height
-      position: relative
-      top: 50%
-      margin: -$photo_height/2 auto 0 auto
-      background: inline-image($photo_src) no-repeat
-
-
-//- ----------------------------------------------------------------------------
 
 .general_data
   width: 100%

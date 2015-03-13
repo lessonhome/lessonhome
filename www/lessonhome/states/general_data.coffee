@@ -1,6 +1,7 @@
 
 class @main
   tree : -> module '$' :
+    add_photos   : module 'add_photos'
     first_name  : module 'tutor/forms/input':
       selector    : 'first_reg'
       text        : 'Имя :'
