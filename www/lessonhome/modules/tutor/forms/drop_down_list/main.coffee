@@ -72,7 +72,7 @@ class @main extends EE
           $sel.css
             display: 'none'
             position: 'absolute'
-            width: getCurInput().css('width')
+            #width: getCurInput().css('width')
 
         ### Correct select after show ###
         configSelect = ($sel) ->
