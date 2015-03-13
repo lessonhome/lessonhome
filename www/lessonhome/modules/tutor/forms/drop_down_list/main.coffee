@@ -75,6 +75,8 @@ class @main extends EE
 
         ### Correct select after show ###
         configSelect = ($sel) ->
+        startsWith = (str, sBegin)->
+          (new RegExp('^'+sBegin)).test str
 
         valuesGenerator = (sBegin) ->
           dataAr = []
