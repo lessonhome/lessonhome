@@ -83,8 +83,7 @@ class @main extends EE
           for key, val of data
             dataAr.push val
           dataAr.filter (str) ->
-            startsWith str, sBegin
-            #str.text.startsWith sBegin
+            startsWith str.text, sBegin
 
         ############## CustomSelect component ###############
         optionsCount = ($sel) ->
