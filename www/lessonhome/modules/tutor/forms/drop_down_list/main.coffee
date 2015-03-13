@@ -169,7 +169,7 @@ class @main extends EE
             when unit.esc
               $sel.hide()
             else
-              showSelectOptions event
+              showSelectOptions()
               return
 
         getCurInput().on 'keydown', (event) ->
@@ -210,13 +210,14 @@ class @main extends EE
             if getCurSel().is(':visible')
               getCurSel().hide()
             else
-              showSelectOptions event
+              showSelectOptions()
           getCurInput().focus()
         #########################################
 
-        showSelectOptions = (event) ->
+        showSelectOptions = () ->
           $sel = getCurSel()
-          correctSelectOptions event, $sel, valuesGenerator
+          strBegin = getCurInput().val()
+          correctSelectOptions strBegin, $sel, valuesGenerator
           bindHandlers $sel
 
         startSelection = (sel) ->
@@ -226,9 +227,8 @@ class @main extends EE
           else
             makeSelected($sel, 1)
 
-        correctSelectOptions = (event, $sel, fnValuesGenerator) ->
+        correctSelectOptions = (strBegin, $sel, fnValuesGenerator) ->
           configSelect(getCurSel())
-          strBegin = getCurInput().val()
           fillOptions $sel, (fnValuesGenerator strBegin)
           if optionsCount($sel) > 0
             makeSelected($sel, 0)
