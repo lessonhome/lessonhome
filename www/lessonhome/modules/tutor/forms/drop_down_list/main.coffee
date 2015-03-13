@@ -169,7 +169,9 @@ class @main extends EE
             when unit.esc
               $sel.hide()
             else
-              showSelectOptions()
+              if $(this).val() != ''
+                showSelectOptions()
+              else $sel.hide()
               return
 
         getCurInput().on 'keydown', (event) ->
