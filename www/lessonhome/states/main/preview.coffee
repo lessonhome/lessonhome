@@ -41,7 +41,7 @@ class @main extends template '../main'
           tutor_exp         : 3
           tutor_place       : 'МО Зеленоград'
           tutor_title       : 'Быстро устраню пробелы в школьной программе'
-          tutor_text        : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
+          tutor_text        : 'Коллектив выступает с несколькими программами. В танцевальной программе выступают 2 пары, исполняющие мексиканские танцы (харибе тапатио), возможен мастер-класс по латиноамериканским танцам'
           tutor_price       : 1500
 
         state './preview/tutors_result' :
