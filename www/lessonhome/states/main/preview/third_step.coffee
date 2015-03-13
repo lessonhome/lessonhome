@@ -2,7 +2,10 @@ class @main extends template '../preview'
   route : '/third_step'
   model : 'main/third_step'
   title : "выберите место занятия"
+  tags  : -> 'pupil:main_search'
   tree : =>
+    popup       : @exports()
+    tag         : 'pupil:main_search'
     filter_top  : state '../filter_top' :
       title : 'Выберите место занятия :'
       at_home_button      : module 'tutor/forms/location_button'  :

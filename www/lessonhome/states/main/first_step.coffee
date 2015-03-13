@@ -1,10 +1,11 @@
 class @main extends template './motivation_content'
   route : '/first_step'
-  tags  : -> 'pupil:main_search'
   model   : 'main/first_step'
   title : "выберите предмет"
+  tags  : -> 'pupil:main_search'
   tree : =>
     popup       : @exports()
+    tag         : 'pupil:main_search'
     filter_top  : state './filter_top' :
       title         : 'Выберите предмет :'
       list_subject    : module 'tutor/forms/drop_down_list' :
