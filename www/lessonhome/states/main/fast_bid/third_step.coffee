@@ -31,10 +31,12 @@ class @main extends template '../fast_bid'
       time_spend_lesson   : state '../slider_main' :
         selector      : 'time_fast_bids'
         start         : 'time_spend_bids'
-        start_text    : 'до'
+        dash          : '-'
+        end         : module 'tutor/forms/input' :
+          selector  : 'time_spend_bids'
         measurement   : 'мин.'
-        handle        : false
-    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+        handle        : true
+    #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
   init : ->
     @parent.tree.filter_top.footer.button_back.selector = 'fast_bid_nav'
     @parent.tree.filter_top.footer.button_back.href     = 'second_step'

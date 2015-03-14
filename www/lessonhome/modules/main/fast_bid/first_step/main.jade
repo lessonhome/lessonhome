@@ -5,9 +5,11 @@ mixin item (value, selector)
 
 ////////////////////////////
 .info.unselect
-  +item(name, 'name')
-  +item(phone, 'phone' )
-  +item(email, 'email')
-  +item(subject, 'subject')
-  +item(call_time, 'call_time')
-  +item(comments, 'comments')
+  .bg_box1
+    +item(name, 'name')
+    +item(phone, 'phone' )
+    +item(call_time, 'call_time')
+    +item(email, 'email')
+  .bg_box2
+    +item(subject, 'subject')
+    +item(comments, 'comments')
