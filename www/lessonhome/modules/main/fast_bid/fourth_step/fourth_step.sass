@@ -6,8 +6,15 @@ $padding_text: 10px
   .bg_box1
     margin-bottom: 10px
   .bg_box1, .bg_box2
+    position: relative
     padding: 12px
     background: rgba(255,255,255,0.4)
+    .hint
+      position: absolute
+      left: 100%
+      top: 0
+      margin-left: 5px
+      margin-top: 7px
     .status
       padding-bottom: $padding
       .title
@@ -33,4 +40,3 @@ $padding_text: 10px
         margin-bottom: $padding_text
       .gender_data
         height: 33px
-

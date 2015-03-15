@@ -20,6 +20,9 @@ class @main extends template '../fast_bid'
       experience : module 'tutor/forms/drop_down_list':
         text      : 'Опыт:'
         selector  : 'fast_bid'
+      status_hint : module 'tutor/hint' :
+        selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       age_slider   : state '../slider_main' :
         selector      : 'time_fast_bids'
         start         : 'time_spend_bids'
@@ -32,6 +35,9 @@ class @main extends template '../fast_bid'
       gender_data   : state 'gender_data':
         selector        : 'choose_gender'
         selector_button : 'registration'
+      gender_hint : module 'tutor/hint' :
+        selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
 
     #hint : 'Расскажите нам<br>ещё немного о<br>Вашем идеальном<br>репетиторе'
 
