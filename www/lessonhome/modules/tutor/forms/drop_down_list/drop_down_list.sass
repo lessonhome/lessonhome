@@ -5,6 +5,7 @@ $icon_height: image-height($icon_src)
 $icon_width: image-width($icon_src)
 $font_size: 20px
 $_font_size: 18px
+$padding_left: 12px
 main
   height: 100%
 label
@@ -21,7 +22,7 @@ label
     position: relative
     height: 100%
     width: 100%
-    padding: 0 (2*$icon_padding+$icon_width) 0 12px
+    padding: 0 (2*$icon_padding+$icon_width) 0 $padding_left
     box-sizing: border-box
     border: 2px solid rgb( 214, 214, 214 )
     +border-radius(4px)
@@ -75,7 +76,7 @@ label
 $icon_padding: 10px
 .list_course
   .drop_down_list
-    padding: 0 (2*$icon_padding+$icon_width) 0 8px
+    padding: 0 (2*$icon_padding+$icon_width) 0 $padding_left
     input
       +input-placeholder
     .icon_box
@@ -156,7 +157,7 @@ $icon_width: image-width($icon_src)
 $font_size: 37px
 .filter_top
   .drop_down_list
-    padding: 0 (2*$icon_padding+$icon_width) 0 12px
+    padding: 0 (2*$icon_padding+$icon_width) 0 $padding_left
     border: 3px solid rgb(214, 214, 214)
     input
       font-size: $font_size
@@ -240,7 +241,7 @@ label>.drop_down_list>input+.select-sets__options
 
 label>.drop_down_list>input+.select-sets__options>.custom-option
   line-height: 29px
-  padding-left: 8px
+  padding-left: $padding_left
 
 label>.drop_down_list>input+.select-sets__options>.custom-option__selected
   background: #ebebeb

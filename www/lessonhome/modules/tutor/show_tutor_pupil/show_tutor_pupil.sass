@@ -1,6 +1,28 @@
 @import "compass/css3"
+$close_icon_src: 'main/close_profile_15x15.png'
+$icon_height: image-height($close_icon_src)
+$icon_width: image-width($close_icon_src)
 main
+.menu_bar
+  height: 70px
+  color: #566878
+  font-size: 20px
+  text-align: center
+  .item
+    height: 100%
+    +inline-block
+  .close_box
+    cursor: pointer
+    position: absolute
+    right: 0
+    top: 0
+    padding: $icon_width
+    .close_icon
+      width: $icon_width
+      height: $icon_height
+      background: inline-image($close_icon_src) no-repeat
 .content
+  padding: 0 58px
   position: relative
   .send_bid_this_tutor
     position: absolute

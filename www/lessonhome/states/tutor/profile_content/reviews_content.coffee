@@ -1,12 +1,9 @@
 class @main
   tree  : => module '$':
-    #send_bid_this_tutor : @exports()
     reviews_rating  : module 'rating_star':
       filling   : 50
       selector      : 'padding_no'
     pupils_number : 6
-#    line : module 'tutor/separate_line':
-#      selector : 'vertical'
     list_reviews : [
       state './review' :
         photo_src : '#'
