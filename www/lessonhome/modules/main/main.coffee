@@ -14,9 +14,10 @@ class @main extends EE
     @inOut         .on 'showPopup', @footerBackCall.hidePopup
 
     @startSearch.on 'click', =>
-      $('body').scrollTop(0)
-      @listSubject = @tree.filter_top.list_subject.class
-      @listSubject.focusInput()
+      if @tree.filter_top.list_subject
+        $('body').scrollTop(0)
+        @listSubject = @tree.filter_top.list_subject.class
+        @listSubject.focusInput()
 
 
 

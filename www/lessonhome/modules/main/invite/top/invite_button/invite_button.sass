@@ -14,11 +14,13 @@ main
 div
   +inline-block
 
+$icon_src: 'mail2.png'
+
 .icon
-  width  : 14px
-  height : 14px
+  width  : image-width($icon_src)
+  height : image-height($icon_src)
   margin-right : 15px
-  background   : inline-image('letter.png') no-repeat
+  background   : inline-image($icon_src) no-repeat
 
 .text
   font-size   : 20px

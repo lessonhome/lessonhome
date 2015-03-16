@@ -40,3 +40,5 @@ class @main extends template '../fast_bid'
     @parent.tree.filter_top.footer.button_next.selector = 'fast_bid_nav'
     @parent.tree.filter_top.footer.button_next.href     = 'second_step'
 
+
+
