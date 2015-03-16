@@ -2,6 +2,7 @@ if popup
   .background_block
   .popup_block
     .menu_bar
+      - console.log (popup);
       each value in popup.items
         .item!= value
       .close_box
