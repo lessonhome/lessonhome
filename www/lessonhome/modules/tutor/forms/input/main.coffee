@@ -146,7 +146,7 @@ class @main extends EE
       @emit 'change'
 
   setValue: (value)=>
-    @input.val(value)
+    @found.box.children('input').val(value)
 
   getValue: ()=>
-    @input.val()
+    @found.box.children('input').val()
