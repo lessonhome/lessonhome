@@ -5,8 +5,18 @@
 //respons
   // type - style sass
   //name, details - content
-.text_line(class=selector)
-  .icon_box
-    .icon
-  .name.select=name
-  .details.select=details
+.box_line.select(class=selector)
+  .title_box
+    .icon_box.unselect
+      .icon
+    if selector == 'address_time'
+      .title Район : #{title}
+    else
+      .title!=title
+  if details
+    .details=details
+  if title_two
+    .title_two_box
+      .icon_box.unselect
+        .icon
+      .title_two!=title_two

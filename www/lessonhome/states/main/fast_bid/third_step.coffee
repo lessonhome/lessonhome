@@ -26,15 +26,26 @@ class @main extends template '../fast_bid'
         start_text    : 'до'
         measurement   : 'мин.'
         handle        : false
+      way_time_hint : module 'tutor/hint' :
+        selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       calendar        : state 'calendar' :
         selector    : 'advance_filter'
+      calendar_hint : module 'tutor/hint' :
+        selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       time_spend_lesson   : state '../slider_main' :
         selector      : 'time_fast_bids'
         start         : 'time_spend_bids'
-        start_text    : 'до'
+        dash          : '-'
+        end         : module 'tutor/forms/input' :
+          selector  : 'time_spend_bids'
         measurement   : 'мин.'
-        handle        : false
-    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+        handle        : true
+      lesson_time_hint : module 'tutor/hint' :
+        selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+    #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
   init : ->
     @parent.tree.filter_top.footer.button_back.selector = 'fast_bid_nav'
     @parent.tree.filter_top.footer.button_back.href     = 'second_step'

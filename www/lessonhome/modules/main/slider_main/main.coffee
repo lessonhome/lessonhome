@@ -1,11 +1,15 @@
 class @main extends EE
   show : =>
     @min = @tree.min
+    if !@min? then @min = 0
     @max = @tree.max
 
     @start = @tree.start?.class
     @end   = @tree.end?.class
     @slider = @tree.move.class
+
+    @start?.setValue @min
+    @end?.setValue @max
 
     setSliderPos = (sliderCorn, inputVal) =>
       sliderCorn.set (inputVal-@min) / (@max-@min)

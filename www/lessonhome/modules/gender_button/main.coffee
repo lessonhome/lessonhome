@@ -5,12 +5,11 @@ class @main extends EE
     @button.on 'click', @click
     @active = @button.hasClass 'active'
     @button.on    'mousedown', @buttonMouseDown
-
   buttonMouseDown : =>
-      @button.addClass('press')
-      @button.on    'mouseup.gender_button',   @buttonMouseUp
-      $('body').on  'mouseup.gender_button',   @buttonMouseUp
-      $('body').on  'mouseleave.gender_button',   @buttonMouseUp
+    @button.addClass('press')
+    @button.on    'mouseup.gender_button',   @buttonMouseUp
+    $('body').on  'mouseup.gender_button',   @buttonMouseUp
+    $('body').on  'mouseleave.gender_button',   @buttonMouseUp
 
   buttonMouseUp : =>
     @button.removeClass('press')
