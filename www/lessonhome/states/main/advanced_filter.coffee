@@ -21,6 +21,7 @@ class @main
         selector      : 'lesson_time'
         start         : 'time_spend'
         measurement   : 'мин.'
+        max           : 80
         handle        : false
       choose_gender   : state 'gender_data':
         selector        : 'advanced_filter'

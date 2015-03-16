@@ -16,6 +16,8 @@ class @main extends template '../preview'
           selector  : 'price'
           text      : 'до'
         measurement   : 'руб.'
+        min : 20
+        max : 80
         handle        : true
       link_back       :  '/third_step'
 
