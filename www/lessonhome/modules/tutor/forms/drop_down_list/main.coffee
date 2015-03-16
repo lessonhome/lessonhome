@@ -17,6 +17,7 @@ class @main extends EE
         @list.removeClass 'filter_top_focus'
       else
         @list.removeClass 'focus'
+      @input.next('.select-sets__options').hide()
 
     curInput = @input
     if @tree.default_options?
