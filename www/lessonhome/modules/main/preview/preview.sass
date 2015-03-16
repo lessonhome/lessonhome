@@ -1,7 +1,4 @@
 @import compass/css3
-$triangle_src: 'main/triangle_down.png'
-$triangle_height: image-height($triangle_src)
-$triangle_width: image-width($triangle_src)
 $close_icon_src: 'main/close_profile_15x15.png'
 $icon_height: image-height($close_icon_src)
 $icon_width: image-width($close_icon_src)
@@ -73,13 +70,6 @@ main
       font-size: $font-size
       color:  #757575
       .section
-        .box_icon
-          padding: 0 11px 0 0
-          +inline-block
-          .icon
-            width: $triangle_width
-            height: $triangle_height
-            background: inline-image($triangle_src) no-repeat
         .text
           +inline-block
       .choose_tutors
@@ -100,7 +90,7 @@ main
           height: image-height($plus_src)
           background: inline-image($plus_src) no-repeat
         .text
-          margin-left: 5px
+          margin-left: 20px
           font-size: 20px
           line-height: 24px
           color: #757575
