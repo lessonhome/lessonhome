@@ -1,5 +1,6 @@
 class @main
   tree  : => module '$':
+    #send_bid_this_tutor : @exports()
     reviews_rating  : module 'rating_star':
       filling   : 50
       selector      : 'padding_no'

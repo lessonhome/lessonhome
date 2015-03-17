@@ -53,7 +53,6 @@ class @main extends EE
 
     @input.on 'focus', =>
       if @tree.hint?
-        (@hintMessage.text @tree.hint)
         @hint.fadeIn()
 
     @input.on 'focusout', =>
@@ -146,7 +145,7 @@ class @main extends EE
       @emit 'change'
 
   setValue: (value)=>
-    @input.val(value)
+    @found.box.children('input').val(value)
 
   getValue: ()=>
-    @input.val()
+    @found.box.children('input').val()

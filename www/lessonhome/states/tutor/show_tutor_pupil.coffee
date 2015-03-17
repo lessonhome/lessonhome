@@ -15,3 +15,5 @@ class @main
     ]
     send_bid_this_tutor : state './send_bid_this_tutor' :
       have_small_button : @exports()
+    line_top      : module 'tutor/separate_line':
+      selector  : 'horizon'

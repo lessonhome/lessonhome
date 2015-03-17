@@ -1,10 +1,11 @@
 mixin illustration_text(text, x, y)
   .text.select(style="top: #{y}px; left: #{x}px;")!=text
 
-mixin item (text)
+mixin item (text, icon_src)
   .item
-    .icon
+    .icon(style="background: url(#{F(icon_src)}) no-repeat center")
     .text.m-font.select=text
+
 
 //- ------------------ CHECK IN -------------------------
 
@@ -75,19 +76,19 @@ mixin item (text)
         img(src=F('main_tutor/mainreg_profile.png'))
       .title.m-font.select Подробный профиль
       .content
-        +item ('Удобный и приятный просмотр')
-        +item ('Фотографии и видео')
-        +item ('Отзывы учеников')
-        +item ('Рейтинг и статистика')
+        +item ('Удобный и приятный просмотр', 'like.png')
+        +item ('Фотографии и видео', 'photo.png')
+        +item ('Отзывы учеников', 'left_forum.png')
+        +item ('Рейтинг и статистика', 'review.png')
     .right
       .icon
         img(src=F('main_tutor/mainreg_settings.png'))
       .title.m-font.select Управляйте вашим бизнесом
       .content
-        +item ('Расписание и синхронизация с личным календарём')
-        +item ('Просмотр текущих учеников и истории платежей')
-        +item ('Ищите учеников и откликайтесь на заявки')
-        +item ('Поддержка клиентов Lesson Home доступна 7 дней в неделю')
+        +item ('Расписание и синхронизация с личным календарём', 'date.png')
+        +item ('Просмотр текущих учеников и истории платежей', 'study.png')
+        +item ('Ищите учеников и откликайтесь на заявки', 'search.png')
+        +item ('Поддержка клиентов Lesson Home доступна 7 дней в неделю', 'left_help.png')
 
 
 

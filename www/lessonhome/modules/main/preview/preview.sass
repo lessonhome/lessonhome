@@ -1,10 +1,8 @@
 @import compass/css3
-$triangle_src: 'main/triangle_down.png'
-$triangle_height: image-height($triangle_src)
-$triangle_width: image-width($triangle_src)
 $close_icon_src: 'main/close_profile_15x15.png'
 $icon_height: image-height($close_icon_src)
 $icon_width: image-width($close_icon_src)
+$plus_src: 'plus-rep.png'
 $font-size: 18px
 $width_filter: 300px
 main
@@ -58,33 +56,75 @@ main
     padding-bottom: 10px
   .choose_tutors_block
     padding-bottom: 10px
-    background-color: rgb(240, 240, 240)
+    text-align: center
+    overflow: hidden
+    background-color: rgba(224, 224, 224, 0.91)
+    border-top: 1px solid #D2D2D2
     //-box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.26)
-    border: 1px dashed #e3e3e3
+    //-border: 1px dashed #e3e3e3
     .choose_tutors_content
+      +inline-block
+      width: 1024px
       padding: 15px 18px
       text-align: left
       font-size: $font-size
       color:  #757575
       .section
-        +inline-block
-        .box_icon
-          padding: 0 11px 0 0
-          +inline-block
-          .icon
-            width: $triangle_width
-            height: $triangle_height
-            background: inline-image($triangle_src) no-repeat
         .text
           +inline-block
       .choose_tutors
+        float: left
         overflow: hidden
         padding: 20px 2px 0 2px
         .choose_tutor
           padding-right: 20px
           float: left
+      .choose_tutors, .add_tutors_hint, .issue_bid
+        +inline-block
+      .add_tutors_hint
+        margin: 25px 25px 0 25px
+        .icon, .text
+          +inline-block
+        .icon
+          width: image-width($plus_src)
+          height: image-height($plus_src)
+          background: inline-image($plus_src) no-repeat
+        .text
+          margin-left: 20px
+          font-size: 20px
+          line-height: 24px
+          color: #757575
+      //-&:after
+        content : ''
+        +inline-block
+        vertical-align : middle
+        height : 100%
+        width : 0px
+      .issue_bid
+        float: right
+        .issue_bid_button
+          height: 35px
+          margin-bottom: 10px
+        .text
+          font-size: 16px
+          line-height: 24px
+          color: #757575
+  .choose_tutors_block.fixed
+    position: fixed
+    width: 100%
+    bottom: 0
+    left: 0
+    right: 0
+    margin: auto
+    z-index: 1
+    .choose_tutors_content
+      .add_tutors_hint
+        margin-left: 120px
+      .issue_bid
+        margin-right: 18px
   .tutors_result
     .tutor_result
       background-color: #f3f3f3
     .tutor_result:hover
       background-color: #e5e5e5
+
