@@ -1,4 +1,3 @@
-
 class @main
   tree  : => module '$':
     content : @exports()
@@ -6,13 +5,15 @@ class @main
       module 'tutor/header/button' :
         href  : '/second_step_popup_profile'
         title : "Анкета"
+        tag   : @exports 'menu_profile'
       module 'tutor/header/button' :
         href  : '/second_step_popup_conditions'
         title : "Условия"
+        tag   : @exports 'menu_conditions'
       module 'tutor/header/button' :
         href  : '/second_step_popup_reviews'
         title : "Отзывы"
-        tag   : 'popup_reviews_tutor'
+        tag   : @exports 'menu_reviews'
     ]
     send_bid_this_tutor : state './send_bid_this_tutor' :
       have_small_button : @exports()
