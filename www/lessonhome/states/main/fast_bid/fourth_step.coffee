@@ -32,6 +32,8 @@ class @main extends template '../fast_bid'
           text      : 'до'
         measurement   : 'мин.'
         handle        : true
+        min           : 0
+        max           : 100
       gender_data   : state 'gender_data':
         selector        : 'choose_gender'
         selector_button : 'registration'
