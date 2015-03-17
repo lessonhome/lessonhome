@@ -53,7 +53,6 @@ class @main extends EE
 
     @input.on 'focus', =>
       if @tree.hint?
-        (@hintMessage.text @tree.hint)
         @hint.fadeIn()
 
     @input.on 'focusout', =>

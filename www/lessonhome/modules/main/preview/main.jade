@@ -12,15 +12,19 @@ if popup
 .advanced_filter!=advanced_filter
 .result_filter
   .sort!=sort
-  .choose_tutors_block
+  .js-choose_tutors_block.fixed
     .choose_tutors_content
       .section
-        .box_icon
-          .icon
         .text Выбранные репетиторы
       .choose_tutors
         each value in choose_tutors
           .choose_tutor!= value
+      .add_tutors_hint
+        .icon
+        .text!= 'Можно добавить<br>ещё репетиторов'
+      .issue_bid
+        .issue_bid_button!= issue_bid_button
+        .text!= 'с прикреплёнными<br>репетиторами'
   .tutors_result
     each value in tutors_result
       .tutor_result!= value
