@@ -33,7 +33,7 @@ class @main extends EE
           res = true
           i = 0
           while i < sBegin.length
-            if str[i] != sBegin[i]
+            if str[i].toLocaleUpperCase() != sBegin[i].toLocaleUpperCase()
               res = false
               break
             i++
