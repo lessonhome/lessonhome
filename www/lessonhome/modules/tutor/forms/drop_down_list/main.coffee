@@ -30,7 +30,14 @@ class @main extends EE
           esc: 27
 
         startsWith = (str, sBegin)->
-          (new RegExp('^'+sBegin, 'i')).test str
+          res = true
+          i = 0
+          while i < sBegin.length
+            if str[i] != sBegin[i]
+              res = false
+              break
+            i++
+          res
         #############
 
         ### Default data for filtration (using into valuesGenerator) ###
