@@ -215,7 +215,7 @@ class @main extends EE
               showSelectOptions()
 
         ### Hiding on click out of label (drop_down_list component) ###
-        $('body').click (event)=>
+        $('body').on 'click.drop_down_list', (event)=>
           if $(event.target).closest(@label).size() == 0
             getCurSel().hide()
         #########################################
