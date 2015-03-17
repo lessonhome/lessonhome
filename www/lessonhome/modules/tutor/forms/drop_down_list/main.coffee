@@ -5,7 +5,6 @@ class @main extends EE
     @list = @label.find ".drop_down_list"
     @input = @list.find "input"
 
-
     @input.on 'focus', =>
       if @label.is '.filter_top'
         @list.addClass 'filter_top_focus'
@@ -17,7 +16,6 @@ class @main extends EE
         @list.removeClass 'filter_top_focus'
       else
         @list.removeClass 'focus'
-      @input.next('.select-sets__options').hide()
 
     curInput = @input
     if @tree.default_options?
@@ -180,6 +178,8 @@ class @main extends EE
               selectedOptionToInput()
 
         getCurSel().on 'click', (event) ->
+          $sel = $(this)
+          $sel.data 'was-click', true
           selectedOptionToInput()
 
         getCurSel().keydown (event) ->
@@ -208,12 +208,16 @@ class @main extends EE
             makeSelected $sel, (optionIndex $sel, $opt)
 
         if getIconBox()?
-          getIconBox().click (event) ->
+          getIconBox().click (event) =>
             if getCurSel().is(':visible')
               getCurSel().hide()
             else
               showSelectOptions()
-          getCurInput().focus()
+
+        ### Hiding on click out of label (drop_down_list component) ###
+        $('body').click (event)=>
+          if $(event.target).closest(@label).size() == 0
+            getCurSel().hide()
         #########################################
 
         showSelectOptions = () ->
