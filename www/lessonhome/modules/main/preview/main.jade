@@ -16,6 +16,8 @@ if popup
     .choose_tutors_content
       .section
         .text Выбранные репетиторы
+        .js-choose_tutors_num!= '(' + choose_tutors_num + ')'
+        .clear_choose_tutors очистить
       .choose_tutors
         each value in choose_tutors
           .choose_tutor!= value
@@ -27,4 +29,4 @@ if popup
         .text!= 'с прикреплёнными<br>репетиторами'
   .tutors_result
     each value in tutors_result
-      .tutor_result!= value
+      .js-tutor_result!= value

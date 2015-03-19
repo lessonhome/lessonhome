@@ -107,6 +107,24 @@ $padding_text: 13px
     line-height: 16px
 
 
+//- - ------ Invite teacher, students button ------------------------------------------------------
+
+$padding: 15px
+$icon_src: 'mail2.png'
++selector('invite', $red, $padding, 20px)
+
+.button_box.invite
+  .button:before
+    content: ""
+    +inline-block
+    width:  image-width($icon_src)
+    height: image-height($icon_src)
+    padding: 0 $padding
+    background: inline-image($icon_src) no-repeat center
+  .button
+    .text
+      padding-left: 0
+
 ////////////////  actions  ////////////////
 
 .button_box:hover

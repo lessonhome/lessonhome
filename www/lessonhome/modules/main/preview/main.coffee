@@ -1,15 +1,25 @@
 class @main extends EE
   show : =>
-    ###
-    @choose_block = @found.choose_tutors_block
-    @choose_block_offset = @choose_block.offset().top
-    console.log @choose_block_offset
-    $(window).on 'scroll', =>
-      current_scroll =  $(window).scrollTop()
-      is_has = @choose_block.hasClass 'fixed'
-      if current_scroll > @choose_block_offset
-        if !is_has then @choose_block.addClass 'fixed'
-      else
-        if is_has then @choose_block.removeClass 'fixed'
+    @tutors_result = @tree.tutors_result
+    @choose_tutors_num = @found.choose_tutors_num
+    @tutors_result[1].tutor_extract.class.found.add_button_bid.on 'click', =>
+      @imgtodrag = $($('.photo')[1]).eq(0)
+      if @imgtodrag
+        @imgclone = @imgtodrag.clone()
+        @imgclone.offset({
+          top:  @imgtodrag.offset().top
+          left: @imgtodrag.offset().left
+        })
+        @imgclone.css({
+            'opacity': '0.5',
+            'position': 'absolute',
+            'height': '150px',
+            'width': '150px',
+            'z-index': '100'
+          })
+        console.log @imgclone.offset()
 
-    ###
+
+
+
+

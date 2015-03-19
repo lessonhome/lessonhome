@@ -1,6 +1,21 @@
 @import compass/css3
 $height : 38px
+$red:   hsl(6,100%,69%)
 $RedHoverColor : #ffb1a8
+
+
+//////////////// function //////////////
+=selector($selector,$b_color,$padding_text,$font_size)
+  .button_box.#{$selector}
+    .button
+      background: $b_color
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
+    &:hover .button
+      background: lighten($b_color, 5%)
+
+
 
 main
   width  : 178px
@@ -29,3 +44,12 @@ $icon_src: 'mail2.png'
 
 main:hover
   background-color: $RedHoverColor
+
+
+
+
+.press,.press:hover
+  padding-top: 1px
+  box-sizing: border-box
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
