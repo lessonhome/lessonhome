@@ -17,10 +17,13 @@ class @main
         dash          : '-'
         measurement   : 'мин.'
         handle        : true
+        min           : 0
+        max           : 100
       time_spend_way   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'time_spend'
         measurement   : 'мин.'
+        min           : 0
         max           : 80
         handle        : false
       choose_gender   : state 'gender_data':

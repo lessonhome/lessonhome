@@ -7,7 +7,7 @@ class @main
       selector    : 'first_reg day'
     birth_month : module 'tutor/forms/drop_down_list' :
       placeholder : 'Месяц'
-      selector    : 'font_size'
+      selector    : 'first_reg month'
     birth_year  : module 'tutor/forms/drop_down_list' :
       placeholder : 'Год'
-      selector    : 'font_size'
+      selector    : 'first_reg month'

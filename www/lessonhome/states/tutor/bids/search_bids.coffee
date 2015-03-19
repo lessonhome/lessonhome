@@ -57,6 +57,8 @@ class @main extends template '../../tutor'
         start_text    : 'до'
         measurement   : 'мин.'
         handle        : false
+        min           : 0
+        max           : 100
       road_time : module 'tutor/forms/input'
       separate_line : module 'tutor/separate_line' :
         selector : 'horizon'

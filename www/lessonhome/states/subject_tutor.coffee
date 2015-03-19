@@ -15,7 +15,7 @@ class @main
       selector  : 'first_reg place'
     price                  : module 'tutor/forms/input' :
       text      : 'Цена :'
-      selector  : 'first_reg price'
+      selector  : 'price_reg'
     price_button           : module 'button_add' :
       text      : '+'
       selector  : 'plus'

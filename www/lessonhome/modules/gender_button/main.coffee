@@ -1,4 +1,3 @@
-
 class @main extends EE
   show : =>
     @button = @dom.find ".button_box"
@@ -20,7 +19,6 @@ class @main extends EE
     return unless @active
     @active = false
     @button.toggleClass 'active inactive'
-
   click : =>
     @active = !@active
     @button.toggleClass 'active inactive'

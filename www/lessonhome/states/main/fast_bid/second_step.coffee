@@ -23,6 +23,8 @@ class @main extends template '../fast_bid'
           text      : 'до'
         measurement   : 'руб.'
         handle        : true
+        min           : 0
+        max           : 100
       price_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

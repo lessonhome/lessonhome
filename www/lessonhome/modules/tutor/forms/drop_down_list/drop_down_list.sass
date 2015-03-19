@@ -1,10 +1,9 @@
 @import compass/css3
-$icon_padding: 6px
-$icon_src: 'falldown_triangle3.png'
-$icon_height: image-height($icon_src)
-$icon_width: image-width($icon_src)
-$font_size: 20px
-$_font_size: 18px
+$border_radius: 4px
+$border_width: 2px
+$border_hover: solid #b3b3b3
+$border_focus: solid rgb( 137, 209, 255 )
+$padding_left:12px
 main
   height: 100%
 label
@@ -14,17 +13,16 @@ label
   cursor: pointer
   .text
     +inline-block
-    font-size: $_font_size
-    color: #757575
+    color: rgba(75, 75, 75, 0.70)
   .drop_down_list
     +inline-block
     position: relative
     height: 100%
     width: 100%
-    padding: 0 (2*$icon_padding+$icon_width) 0 12px
+    padding-left: $padding_left
     box-sizing: border-box
-    border: 2px solid rgb( 214, 214, 214 )
-    +border-radius(4px)
+    border: $border_width solid rgb( 214, 214, 214 )
+    +border-radius($border_radius)
     background-color: rgb( 255, 255, 255 )
     input
       +inline-block
@@ -34,93 +32,100 @@ label
       border: none
       background: none
       outline: none
-      font-size: $font_size
-      color: rgb(0, 0, 0)
-      //font-family: inherit
+      color: #000000
       cursor: text
       +input-placeholder
-        //font-size: $font_size
         color: #757575
         opacity: 1
     .icon_box
-      padding: 0 $icon_padding
       position: absolute
       top: 0
       height: 100%
       right: 0px
       cursor: pointer
       .icon
-        width: $icon_width
-        height: $icon_height
         position: relative
         top: 50%
-        margin-top: -$icon_height / 2
-        background : inline-image($icon_src) no-repeat
     .drop_down_items
       position: absolute
       z-index: 1
       width: 100%
-      .item
-        line-height: 28px
-        font-size: 20px
-        text-align: left
-        padding-left: 12px
   .drop_down_list:after
     +inline-block
     height: 100%
     content: ''
 
+//////////////          drop_box         ///////////////////
+label>.drop_down_list>input+.select-sets__options
+  border: $border_width $border_focus
+  background-color: white
+  z-index: 2
+  width: 100%
+  left: 0
+  text-align: left
+  +border-bottom-right-radius($border_radius)
+  +border-bottom-left-radius($border_radius)
+  position: absolute
+  margin-left: -$border_width
+  border-top: none
 
+label>.drop_down_list>input+.select-sets__options>.custom-option__selected
+  background: #ebebeb
+label>.drop_down_list>input+.select-sets__options>.custom-option>.custom-option__begin-match
+  color: #2c7fd2
+
+
+//////////////// function //////////////
+//data:
+  $selector - selector element
+  $font_size - inner input
+  $_font_size - in text out input
+  $icon_src - path image
+  $icon_padding - padding left and right icon
+  $padding_left - padding left in drop_down_list
+
+=selector($selector,$_font_size,$font_size,$icon_src,$icon_padding)
+  $icon_height: image-height($icon_src)
+  $icon_width: image-width($icon_src)
+  label.#{$selector}
+    .text
+      font-size: $_font_size
+    .drop_down_list
+      padding-right: (2*$icon_padding+$icon_width)
+      input
+        font-size: $font_size
+      .icon_box
+        padding: 0 $icon_padding
+        .icon
+          width: $icon_width
+          height: $icon_height
+          margin-top: -$icon_height / 2
+          background: inline-image($icon_src) no-repeat
+    .drop_down_list>input+.select-sets__options>.custom-option
+      padding-left: $padding_left
+      font-size: $font_size
 /////////////////--------list_course---------//////////////////////
-$icon_padding: 10px
-.list_course
-  .drop_down_list
-    padding: 0 (2*$icon_padding+$icon_width) 0 8px
-    input
-      +input-placeholder
-    .icon_box
-      padding: 0 $icon_padding
-
++selector('list_course',16px,18px,'falldown_triangle3.png',10px)
 
 //////////////---------fast_bid---------////////
-$_font_size: 16px
-$font_size: 18px
++selector('fast_bid',16px,18px,'falldown_triangle3.png',6px)
 .fast_bid
   text-align: left
   .text
-    font-size: $_font_size
     padding-bottom: 10px
   .drop_down_list
-    font-size: $font_size
     height: 37px
-    +input-placeholder
-      //font-size: $font_size
 
 //////////////---------search_bids---------////////
-$_font_size: 18px
-.search_bids
-  text
-    font-size: $_font_size
-
-
-
++selector('search_bids',18px,18px,'falldown_triangle3.png',6px)
 
 /////////////// first step registration /////////////
-$_font_size: 16px
-$font_size: 18px
-$padding_text: 26px
++selector('first_reg',16px,18px,'falldown_triangle3.png',6px)
 .first_reg
   .text
-    text-align: right
-    font-size: $_font_size
-    padding-right: $padding_text
-    color: rgba(75, 75, 75, 0.70)
+    padding-right: 26px
   .drop_down_list
     width: 341px
-    input
-      font-size: $font_size
-    +input-placeholder
-      //font-size: $font_size
 ////
 .day
   .drop_down_list
@@ -129,125 +134,70 @@ $padding_text: 26px
 .place
   .drop_down_list
     width: 171px
-////
+///
 .group
   .drop_down_list
     width: 185px
-//////
+///
 .bet
   .drop_down_list
     width: 122px
 //////////
-$font_size: 18px
-.font_size
+.month
   .drop_down_list
-    input
-      font-size: $font_size
-    +input-placeholder
-      //font-size: $font_size
+    width: 100%
 
 
-
-  /////////////////--------list_subject, list_tutor---------//////////////////////
-$icon_padding: 15px
-$icon_src : 'main/triangle 24x21.png'
-$icon_height: image-height($icon_src)
-$icon_width: image-width($icon_src)
-$font_size: 37px
-.filter_top
-  .drop_down_list
-    padding: 0 (2*$icon_padding+$icon_width) 0 12px
-    border: 3px solid rgb(214, 214, 214)
-    input
-      font-size: $font_size
-      color: rgb(0, 0, 0)
-      +input-placeholder
-        //font-size: $font_size
-    .icon_box
-      padding: 0 $icon_padding
-      .icon
-        width: $icon_width
-        height: $icon_height
-        margin-top: -$icon_height / 2
-        background : inline-image($icon_src) no-repeat
-        color: rgb(203, 211, 218)
+/////////////////--------list_subject, list_tutor in filter_top---------//////////////////////
++selector('filter_top',18px,37px,'main/triangle 24x21.png',15px)
 
 
-
-  /////////////////// actions ///////////////////////
-  //------------------------ hover --------------------------------
+/////////////////// actions ///////////////////////
+//------------------------ hover -----------------------
 
 $icon_hover_src: 'triangle-15-x-13-hover.png'
 label:hover
   .text
     color: #000000
   .drop_down_list
-    border : 2px solid #b3b3b3
+    border: $border_width $border_hover
     .icon_box
       .icon
-        background : inline-image($icon_hover_src) no-repeat
-
+        background: inline-image($icon_hover_src) no-repeat
 
           ///////////// filter_top  ////////////
-$icon_hover_src : 'main/triangle-24x21_hover.png'
+$icon_hover_src: 'main/triangle-24x21_hover.png'
 .filter_top:hover
-  .text
-    color: #000000
   .drop_down_list
-    border : 3px solid #b3b3b3
     .icon_box
       .icon
-        background : inline-image($icon_hover_src) no-repeat
-
+        background: inline-image($icon_hover_src) no-repeat
 
 
   //------------------------ focus --------------------------------
 $icon_hover_src: 'triangle-15-x-13-hover.png'
-label,label:hover
+label.focus,label.focus:hover
   .text
     color: #000000
-  .focus
-    border : 2px solid rgb( 137, 209, 255 )
+  .drop_down_list
+    box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.4)
+    border: $border_width $border_focus
+    border-bottom-left-radius: 0
+    border-bottom-right-radius: 0
     .icon_box
       .icon
-        background : inline-image($icon_hover_src) no-repeat
+        background: inline-image($icon_hover_src) no-repeat
 
-
-///////////// filter_top  ////////////
-$icon_hover_src : 'main/triangle-24x21_hover.png'
-.filter_top,.filter_top:hover
+    ///////////// filter_top  ////////////
+$icon_hover_src: 'main/triangle-24x21_hover.png'
+label.filter_top_focus,label.filter_top_focus:hover
   .text
     color: #000000
-  .filter_top_focus
-    border : 3px solid rgb( 137, 209, 255 )
+  .drop_down_list
+    box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.4)
+    border: $border_width $border_focus
+    border-bottom-left-radius: 0
+    border-bottom-right-radius: 0
     .icon_box
       .icon
-        background : inline-image($icon_hover_src ) no-repeat
-
-label>.drop_down_list>input+.select-sets__options
-  border: 2px solid #89d1ff
-  background-color: white
-  z-index: 2
-  width: 100%
-  left: 0
-  text-align: left
-  +border-bottom-right-radius(4px)
-  +border-bottom-left-radius(4px)
-  position: absolute
-  margin-left: -2px
-  border-top: none
-
-
-label>.drop_down_list>input+.select-sets__options>.custom-option
-  line-height: 29px
-  padding-left: 8px
-
-label>.drop_down_list>input+.select-sets__options>.custom-option__selected
-  background: #ebebeb
-
-label>.drop_down_list>input+.select-sets__options>.custom-option>.custom-option__begin-match
-  color: #2c7fd2
-
-//label .m-custom-option__selected
-//label>.drop_down_list>input+.select-sets__options>.custom-option:hover
-//  background: green
+        background: inline-image($icon_hover_src) no-repeat

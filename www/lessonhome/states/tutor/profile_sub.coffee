@@ -1,21 +1,6 @@
-class @main
+class @main extends template './show_tutor_pupil'
   tree : ->
-    items : [
-      module 'tutor/header/button' : {
-        href  : '/second_step_popup_profile'
-        title : "Анкета"
-        tag   : 'popup_profile_tutor'
-      }
-      module 'tutor/header/button' : {
-        href  : '/second_step_popup_conditions'
-        title : "Условия"
-      }
-      module 'tutor/header/button' : {
-        href  : '/second_step_popup_reviews'
-        title : "Отзывы"
-      }
-    ]
-    content : state './profile_content' :
-      count_review        : 10
-      send_bid_this_tutor : state './profile_content/send_bid_this_tutor' :
-        have_small_button : false
+    content           : state './profile_content' :
+      count_review  : 10
+    have_small_button : false
+    menu_profile      : 'popup_profile_tutor'

@@ -13,6 +13,8 @@ class @main
       end         : 'center_text'
       measurement : 'руб.'
       dash        : '-'
+      min         : 0
+      max         : 100
     list_pupil     : module 'tutor/forms/drop_down_list'  :
       selector        : 'list_course'
       placeholder     : 'Например студент'
@@ -36,6 +38,8 @@ class @main
       end         : 'center_text'
       measurement : 'мин'
       dash        : '-'
+      min         : 0
+      max         : 100
     female            : module 'gender_button' :
       selector          : 'female'
     male              : module 'gender_button' :
