@@ -55,7 +55,7 @@ label
     height: 100%
     content: ''
 
-//////////////          drop_box         ///////////////////
+//////////////     select options box      ///////////////////
 label>.drop_down_list>input+.select-sets__options
   border: $border_width $border_focus
   background-color: white
@@ -74,6 +74,10 @@ label>.drop_down_list>input+.select-sets__options>.custom-option__selected
 label>.drop_down_list>input+.select-sets__options>.custom-option>.custom-option__begin-match
   color: #2c7fd2
 
+//////////////// select options box open   ///////////////
+label.open_select .drop_down_list
+  border-bottom-left-radius: 0
+  border-bottom-right-radius: 0
 
 //////////////// function //////////////
 //data:
@@ -165,7 +169,7 @@ label:hover
       .icon
         background: inline-image($icon_hover_src) no-repeat
 
-          ///////////// filter_top  ////////////
+///////////// filter_top  ////////////
 $icon_hover_src: 'main/triangle-24x21_hover.png'
 .filter_top:hover
   .drop_down_list
@@ -174,7 +178,7 @@ $icon_hover_src: 'main/triangle-24x21_hover.png'
         background: inline-image($icon_hover_src) no-repeat
 
 
-  //------------------------ focus --------------------------------
+//------------------------ focus --------------------------------
 $icon_hover_src: 'triangle-15-x-13-hover.png'
 label.focus,label.focus:hover
   .text
@@ -182,13 +186,11 @@ label.focus,label.focus:hover
   .drop_down_list
     box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.4)
     border: $border_width $border_focus
-    border-bottom-left-radius: 0
-    border-bottom-right-radius: 0
     .icon_box
       .icon
         background: inline-image($icon_hover_src) no-repeat
 
-    ///////////// filter_top  ////////////
+///////////// filter_top  ////////////
 $icon_hover_src: 'main/triangle-24x21_hover.png'
 label.filter_top_focus,label.filter_top_focus:hover
   .text
@@ -196,8 +198,8 @@ label.filter_top_focus,label.filter_top_focus:hover
   .drop_down_list
     box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.4)
     border: $border_width $border_focus
-    border-bottom-left-radius: 0
-    border-bottom-right-radius: 0
     .icon_box
       .icon
         background: inline-image($icon_hover_src) no-repeat
+
+
