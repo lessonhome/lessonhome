@@ -1,7 +1,6 @@
 class @main extends EE
   show: =>
     @hideExtraText() # hide text that is larger than the maximum length and show full text by click
-
   hideExtraText: =>
     max_length = 147
     block = @found.tutor_text
