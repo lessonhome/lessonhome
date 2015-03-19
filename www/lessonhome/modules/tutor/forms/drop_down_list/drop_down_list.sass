@@ -78,8 +78,8 @@ label>.drop_down_list>input+.select-sets__options>.custom-option>.custom-option_
 //////////////// function //////////////
 //data:
   $selector - selector element
-  $font_size - inner input 20px
-  $_font_size - in text out input 18px
+  $font_size - inner input
+  $_font_size - in text out input
   $icon_src - path image
   $icon_padding - padding left and right icon
   $padding_left - padding left in drop_down_list
@@ -104,10 +104,6 @@ label>.drop_down_list>input+.select-sets__options>.custom-option>.custom-option_
     .drop_down_list>input+.select-sets__options>.custom-option
       padding-left: $padding_left
       font-size: $font_size
-      //.drop_down_items
-        .item
-          font-size: $font_size
-          padding-left: $padding_left
 /////////////////--------list_course---------//////////////////////
 +selector('list_course',16px,18px,'falldown_triangle3.png',10px)
 
@@ -186,6 +182,8 @@ label.focus,label.focus:hover
   .drop_down_list
     box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.4)
     border: $border_width $border_focus
+    border-bottom-left-radius: 0
+    border-bottom-right-radius: 0
     .icon_box
       .icon
         background: inline-image($icon_hover_src) no-repeat
@@ -198,6 +196,8 @@ label.filter_top_focus,label.filter_top_focus:hover
   .drop_down_list
     box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.4)
     border: $border_width $border_focus
+    border-bottom-left-radius: 0
+    border-bottom-right-radius: 0
     .icon_box
       .icon
         background: inline-image($icon_hover_src) no-repeat

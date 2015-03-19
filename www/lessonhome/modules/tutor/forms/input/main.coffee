@@ -40,7 +40,7 @@ Example:
 class @main extends EE
   constructor : ->
   show : =>
-    #@box = @dom.find ".box"
+    @label = @dom.find "label"
     @box = @found.box
     @input = @box.children "input"
 
@@ -48,8 +48,8 @@ class @main extends EE
     @hint = @box.siblings('.input__hint')
     @hintMessage = @hint.find('.hint-message')
 
-    @input.on 'focus', => @box.addClass 'focus'
-    @input.on 'focusout', => @box.removeClass 'focus'
+    @input.on 'focus', => @label.addClass 'focus'
+    @input.on 'focusout', => @label.removeClass 'focus'
 
     @input.on 'focus', =>
       if @tree.hint?
