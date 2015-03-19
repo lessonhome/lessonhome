@@ -19,17 +19,11 @@ class @main extends template '../main'
           }
           'errMessage': 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx или корректный email'
         }
-      login_hint      : module 'tutor/hint' :
-        selector : 'small'
-        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
       password        : module 'tutor/forms/input' :
         selector : 'main_check_in'
         text : 'Придумайте пароль'
         pattern: '.{6,}'
         errMessage  : 'Пароль должен быть не меньше 6-ти символов'
-      password_hint   : module 'tutor/hint' :
-        selector : 'small'
-        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
       checkbox        : module 'tutor/forms/checkbox'
       create_account  : module 'link_button' :
         href      : 'tutor/profile/first_step'

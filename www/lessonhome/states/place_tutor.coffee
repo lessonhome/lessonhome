@@ -29,13 +29,13 @@ class @main
       selector  : 'first_reg'
     house      : module 'tutor/forms/input' :
       text      : 'Дом :'
-      selector  : 'first_reg house'
+      selector  : 'first_reg_house'
     building   : module 'tutor/forms/input' :
       text      : 'Строение :'
-      selector  : 'first_reg house'
+      selector  : 'first_reg_house'
     flat       : module 'tutor/forms/input' :
       text      : 'Квартира :'
-      selector  : 'first_reg house'
+      selector  : 'first_reg_house'
     add_button : module 'tutor/button' :
       text     : '+Добавить'
       selector : 'reg_add'

@@ -5,17 +5,25 @@ class @main extends EE
     @list = @label.find ".drop_down_list"
     @input = @list.find "input"
 
+    listenDown = false
     @input.on 'focus', =>
       if @label.is '.filter_top'
-        @list.addClass 'filter_top_focus'
+        @label.addClass 'filter_top_focus'
       else
-        @list.addClass 'focus'
+        @label.addClass 'focus'
 
-    @input.on 'focusout', =>
-      if @label.is '.filter_top'
-        @list.removeClass 'filter_top_focus'
-      else
-        @list.removeClass 'focus'
+      if !listenDown
+        listenDown = true
+        $('body').on 'mousedown.drop_down_list', (t)=>
+          return if $.contains @dom[0],t.target
+          #@input.on 'focusout', =>
+          listenDown = false
+          $('body').off 'mousedown.drop_down_list'
+          if @label.is '.filter_top'
+            @label.removeClass 'filter_top_focus'
+          else
+            @label.removeClass 'focus'
+          @input.next('.select-sets__options').hide()
 
     curInput = @input
     if @tree.default_options?
@@ -240,12 +248,13 @@ class @main extends EE
           else
             makeSelected($sel, 1)
 
-        correctSelectOptions = (strBegin, $sel, fnValuesGenerator) ->
+        correctSelectOptions = (strBegin, $sel, fnValuesGenerator)=>
           configSelect(getCurSel())
           fillOptions $sel, (fnValuesGenerator strBegin), strBegin
           if optionsCount($sel) > 0
             makeSelected($sel, 0)
             $sel.show()
+            $sel.find('>div').css 'line-height', @label.height()+"px"
           return
 
         markBeginText = (str, startStr)->
