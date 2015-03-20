@@ -1,10 +1,13 @@
 
 
 http = require 'http'
+https = require 'https'
+_crypto = require 'crypto'
 os = require "os"
 
 class Server
   constructor : ->
+    @_google = {}
     hostname = os.hostname()
     console.log 'hostname',hostname
     @port = 8081
@@ -37,8 +40,37 @@ class Server
                   @domains.reg.push [domain,sitename]
 
     return Q()
+  google : (req,res,params)=>
+    hash = _crypto.createHash('sha1').update(params).digest('hex')
+    if @_google[hash]?
+      p = @_google[hash]
+      res.statusCode = p.statusCode
+      res.writeHead p.statusCode,p.headers
+      res.write     p.data
+      return res.end()
+      
+    result = (nres)=>
+      data = ""
+      res.statusCode = nres.statusCode
+      res.writeHead nres.statusCode,nres.headers
+      nres.on 'data',(d)=>
+        res.write d
+        data += d.toString()
+      nres.on 'end', =>
+        res.end()
+        @_google[hash] ?= {}
+        @_google[hash].statusCode = nres.statusCode
+        @_google[hash].headers = nres.headers
+        @_google[hash].data = data
+
+    https.get "https://maps.googleapis.com/maps/api/place/autocomplete/json?#{params}&key=AIzaSyBUSFJqRf-3yY35quvhW9LY3QLwj_G9d7A", result
+    .on 'error',(e)=>
+      res.statusCode = 404
+      res.end JSON.strinigfy e
   handler : (req,res)=>
     console.log "#{req.method} \t#{req.headers.host}#{req.url}"
+    if m = req.url.match /^\/google\?(.*)$/
+      return @google req,res,m[1]
     req.time = new Date().getTime()
     #res.on 'finish', => console.log "time\t#{new Date().getTime() - req.time}ms\n"
     site = ""

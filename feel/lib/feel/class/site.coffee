@@ -5,6 +5,8 @@ fs      = require 'fs'
 readdir = Q.denodeify fs.readdir
 Router  = require './server/router'
 _path   = require 'path'
+
+
 class module.exports
   constructor : (@name)->
     @cacheRes     = {}
