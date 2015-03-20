@@ -46,39 +46,45 @@ class @main extends template './motivation_content'
           '31': {value: 'chinese', text: 'китайския язык'}
           '32': {value: 'computer_graphics', text: 'компьютерная графика'}
           '33': {value: 'korean', text: 'корейский язык'}
-          '34': {value: '', text: ''}
-          '35': {value: '', text: ''}
-          '36': {value: '', text: ''}
-          '37': {value: '', text: ''}
-          '38': {value: '', text: ''}
-          '39': {value: '', text: ''}
-          '40': {value: '', text: ''}
-          '41': {value: '', text: ''}
-          '42': {value: '', text: ''}
-          '43': {value: '', text: ''}
-          '44': {value: '', text: ''}
-          '45': {value: '', text: ''}
-          '46': {value: '', text: ''}
-          '47': {value: '', text: ''}
-          '48': {value: '', text: ''}
-          '49': {value: '', text: ''}
-          '50': {value: '', text: ''}
-          '51': {value: '', text: ''}
-          '52': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
-          '': {value: '', text: ''}
+          '34': {value: 'latin', text: 'латынь'}
+          '35': {value: 'literature', text: 'литература'}
+          '36': {value: 'logic', text: 'логика'}
+          '37': {value: 'macroeconomics', text: 'макроэкономика'}
+          '38': {value: 'mathematical_analysis', text: 'математический анализ'}
+          '39': {value: 'management', text: 'менеджмент'}
+          '40': {value: 'microeconomics', text: 'микроэкономика'}
+          '41': {value: 'descriptive_geometry', text: 'начертательная геометрия'}
+          '42': {value: 'norwegian', text: 'норвежский язык'}
+          '43': {value: 'origami', text: 'оригами'}
+          '44': {value: 'preparing_for_school', text: 'подготовка к школе'}
+          '45': {value: 'polish', text: 'польский язык'}
+          '46': {value: 'portuguese', text: 'португальский язык'}
+          '47': {value: 'jurisprudence', text: 'правоведение'}
+          '48': {value: 'psychology', text: 'психология'}
+          '49': {value: 'drawing', text: 'рисование'}
+          '50': {value: 'rhetoric', text: 'риторика'}
+          '51': {value: 'rct', text: 'рки'}
+          '52': {value: 'serbian', text: 'сербский язык'}
+          '53': {value: 'violin', text: 'скрипка1'}
+          '54': {value: 'sol-fa', text: 'сольфеджио'}
+          '55': {value: 'strength_of_materials', text: 'сопротивление материалов'}
+          '56': {value: 'statistics', text: 'статистика'}
+          '57': {value: 'theoretical_mechanics', text: 'теоретическая механика'}
+          '58': {value: 'probability_theory', text: 'теория вероятностей'}
+          '59': {value: 'turkish', text: 'турецкий язык'}
+          '60': {value: 'philosophy', text: 'философия'}
+          '61': {value: 'finnish', text: 'финский язык'}
+          '62': {value: 'flute', text: 'флейта'}
+          '63': {value: 'piano', text: 'фортепиано'}
+          '64': {value: 'hindi', text: 'хинди'}
+          '65': {value: 'drawing', text: 'черчение'}
+          '66': {value: 'czech', text: 'чешский язык'}
+          '67': {value: 'chess', text: 'шахматы'}
+          '68': {value: 'swedish', text: 'шведский язык'}
+          '69': {value: 'econometrics', text: 'эконометрика'}
+          '70': {value: 'economy', text: 'экономика'}
+          '71': {value: 'electrical_engineering', text: 'электротехника'}
+          '72': {value: 'japanese', text: 'японский язык'}
 
 
         }

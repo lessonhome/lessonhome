@@ -8,12 +8,25 @@ class @main extends template '../fast_bid'
       pupil_status : module 'tutor/forms/drop_down_list':
         text: 'Ваш статус :'
         selector  : 'fast_bid'
+        default_options     : {
+          '0': {value: 'preschool_child', text: 'дошкольник'},
+          '1': {value: 'student_junior_school', text: 'школьник - младшая школа'},
+          '2': {value: 'student_high_school', text: 'школьник - средняя школа'},
+          '3': {value: 'student_senior_school', text: 'школьник - старшая школа'},
+          '4': {value: 'student', text: 'студент'},
+          '5': {value: 'grown_up', text: 'взрослый'}
+        }
       course : module 'tutor/forms/drop_down_list':
         text: 'Курс :'
         selector  : 'fast_bid'
       knowledge_level : module 'tutor/forms/drop_down_list':
         text: 'Уровень знаний :'
         selector  : 'fast_bid'
+        default_options     : {
+          '0': {value: 'low', text: 'низкий'},
+          '1': {value: 'average', text: 'средний'},
+          '2': {value: 'advanced', text: 'продвинутый'}
+        }
       price_slider_bids   : state '../slider_main' :
         selector      : 'price_slider_bids'
         start         : 'price_bids'

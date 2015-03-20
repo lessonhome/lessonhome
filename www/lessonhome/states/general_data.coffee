@@ -27,18 +27,12 @@ class @main
       text        : 'Статус :'
       selector    : 'first_reg'
       default_options     : {
-        '0': {value: 'math', text: 'Преподаватель(тест)'},
-        '1': {value: 'student', text: 'Студент(тест)'},
-        '2': {value: 'aspirant', text: 'Аспирант(тест)'},
-        '3': {value: 'advokat', text: 'Адвокат(тест)'},
-        '4': {value: 'test-status1', text: 'Тестовый статус 1'},
-        '5': {value: 'test-status2', text: 'Тестовый статус 2'},
-        '6': {value: 'test-status3', text: 'Тестовый статус 3'},
-        '7': {value: 'test-status4', text: 'Тестовый статус 4'}
+        '0': {value: 'student', text: 'студент'},
+        '1': {value: 'graduate', text: 'аспирант'},
+        '2': {value: 'school_teacher', text: 'школьный преподаватель'},
+        '3': {value: 'high_school_teacher', text: 'преподаватель вуза'},
+        '4': {value: 'private_teacher', text: 'частный преподаватель'}
       }
-
-
-
 
 
 
