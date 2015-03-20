@@ -126,13 +126,19 @@ class @main extends EE
 
 
   checkInput : =>
+    return if @_checkInput
+    @_checkInput = true
     check = Feel.checker.check
     checkMinMax = Feel.checker.checkMinMax
     checkDigits = Feel.checker.checkDigits
     validators = @getValidators()
     val = @input.val()
-    return if val == @val
+    return @_checkInput = false if val == @val
     @val = val
+    @checkFilters()
+    @setValue @val unless val == @val
+    val = @val
+
     if (val? && val != '') && validators?
       res = []
       for idx in @getObjectNumIndexes(validators)
@@ -158,10 +164,12 @@ class @main extends EE
       @setNormalState()
     #################
     @emit 'change',@val
-
+    @_checkInput = false
   setValue: (value)=>
-    @checkInput()
+    #@checkInput()
     return if value == @val
+    @val = value
+    @checkFilters()
     @found.box.children('input').val(value)
     @checkInput()
 
@@ -169,3 +177,14 @@ class @main extends EE
     @checkInput()
     return @val
     #@found.box.children('input').val()
+
+  checkFilters : =>
+    val = @val
+    if @tree.filters?
+      for i,filter of @tree.filters
+        val = @['filter_'+filter](val)
+    #if val != @val
+    @val = val
+      #@setValue val
+  filter_digits : (val)-> ""+1*(""+val).replace /[^\d]/mg,''
+  filter_number : (val)-> ""+1*(""+val).replace /[^\d\.]/mg,''

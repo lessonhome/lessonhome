@@ -80,6 +80,12 @@ label.open_select .drop_down_list
   border-bottom-right-radius: 0
 
 //////////////// function //////////////
+//default if not selector, do any selector with
+  $icon_padding: 6px
+  $icon_width: image-width($icon_src)
+  $font_size: 20px
+  $_font_size: 18px
+
 //data:
   $selector - selector element
   $font_size - inner input
@@ -87,17 +93,21 @@ label.open_select .drop_down_list
   $icon_src - path image
   $icon_padding - padding left and right icon
   $padding_left - padding left in drop_down_list
-
-=selector($selector,$_font_size,$font_size,$icon_src,$icon_padding)
+=selector($selector,$_font_size,$font_size,$icon_src,$icon_padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
   $icon_height: image-height($icon_src)
   $icon_width: image-width($icon_src)
   label.#{$selector}
     .text
       font-size: $_font_size
+      padding-right: $padding_text_r
+      padding-bottom: $padding_text_b
     .drop_down_list
+      width: $width
+      height: $height
       padding-right: (2*$icon_padding+$icon_width)
       input
         font-size: $font_size
+        text-align: $text_align
       .icon_box
         padding: 0 $icon_padding
         .icon
@@ -109,54 +119,40 @@ label.open_select .drop_down_list
       padding-left: $padding_left
       font-size: $font_size
 /////////////////--------list_course---------//////////////////////
-+selector('list_course',16px,18px,'falldown_triangle3.png',10px)
++selector('list_course',16px,18px,'falldown_triangle3.png',10px,none,none,none,none,none)
 
 //////////////---------fast_bid---------////////
-+selector('fast_bid',16px,18px,'falldown_triangle3.png',6px)
++selector('fast_bid',16px,18px,'falldown_triangle3.png',6px,none,10px,none,37px,left)
 .fast_bid
   text-align: left
-  .text
-    padding-bottom: 10px
-  .drop_down_list
-    height: 37px
 
 //////////////---------search_bids---------////////
-+selector('search_bids',18px,18px,'falldown_triangle3.png',6px)
-
++selector('search_bids',18px,18px,'falldown_triangle3.png',6px,none,none,none,none,none)
 /////////////// first step registration /////////////
-+selector('first_reg',16px,18px,'falldown_triangle3.png',6px)
-.first_reg
-  .text
-    padding-right: 26px
-  .drop_down_list
-    width: 341px
++selector('first_reg',16px,18px,'falldown_triangle3.png',6px,26px,none,341px,none,none)
 ////
-.day
-  .drop_down_list
-    width: 91px
-///
-.place
-  .drop_down_list
-    width: 171px
-///
-.group
-  .drop_down_list
-    width: 185px
-///
-.bet
-  .drop_down_list
-    width: 122px
-//////////
-.month
-  .drop_down_list
-    width: 100%
++selector('first_reg_day',16px,18px,'falldown_triangle3.png',6px,26px,none,91px,none,none)
 
+///
++selector('first_reg_place',16px,18px,'falldown_triangle3.png',6px,26px,none,171px,none,none)
+///
++selector('first_reg_group',16px,18px,'falldown_triangle3.png',6px,26px,none,185px,none,none)
+///
++selector('first_reg_bet',16px,18px,'falldown_triangle3.png',6px,26px,none,122px,none,none)
+//////////
++selector('first_reg_month',16px,18px,'falldown_triangle3.png',6px,26px,none,none,none,none)
 
 /////////////////--------list_subject, list_tutor in filter_top---------//////////////////////
-+selector('filter_top',18px,37px,'main/triangle 24x21.png',15px)
++selector('filter_top',18px,37px,'main/triangle 24x21.png',15px,none,none,none,none,none)
 
+/////////// area tutor in city /////////
++selector('area',none,18px,'falldown_triangle3.png',15px,none,none,none,none,none)
+
+/////////// area tutor in city /////////
++selector('in_bids',18px,20px,'falldown_triangle3.png',6px,none,none,none,none,none)
 
 /////////////////// actions ///////////////////////
+
 //------------------------ hover -----------------------
 
 $icon_hover_src: 'triangle-15-x-13-hover.png'
