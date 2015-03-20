@@ -11,8 +11,42 @@ class @main
       selector  : 'address_time'                         #variable class in sass
     map           : module '$/map'  :
       srs       : '#'
-    show_calendar      : module '$/show_calendar'
-    outside_work_areas : [          #separate in new module this []
+    show_calendar      : module '$/show_calendar' :
+      day_time : [
+        {
+          day       : 'пн :'
+          from_time : '12:00'
+          to_time   : '16:00'
+        }
+        {
+          day       : 'вт :'
+          from_time : '12:00'
+          to_time   : '6:00'
+        }
+        {
+          day       : 'ср :'
+          from_time : '12:00'
+          to_time   : '16:00'
+        }
+        {
+          day       : 'чт :'
+          from_time : '12:00'
+          to_time   : '16:00'
+        }
+        {
+          day       : 'пт :'
+          from_time : '12:00'
+          to_time   : '16:00'
+        }
+        {
+          day       : 'пт :'
+          from_time : '12:00'
+          to_time   : '16:00'
+        }
+      ]
+      separate_line       : module '../separate_line'  :
+        selector  : 'calendar'
+    outside_work_areas  : [
       'Бибирево'
       'Бирюлёво'
       'Крюково'
