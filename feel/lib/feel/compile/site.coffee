@@ -40,12 +40,10 @@ class Site
       @module[name] = module
       qs.push module.init()
     Q.all qs
+  initDb : =>
+    db = yield Main.service 'db'
+    @db = yield db.get 'feel-sites'
   findStates  : =>
-
-  
 
 
 module.exports = Site
-
-
-

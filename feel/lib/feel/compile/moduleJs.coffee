@@ -40,7 +40,8 @@ class ModuleJs
   compileFile : (fname,file)=>
     data = yield file.get()
     place = @compiled[fname]
-    place.hash = data.hash
+    place.hash  = data.hash
+    place.site  = @module.site.name
     place.source = data.src
     res = coffee._compileFile fname,true
     place.js  = res.js.replace /call\(this\)\;\n$/mg,'call(that);\n'
@@ -61,7 +62,7 @@ class ModuleJs
   loadDb : (filename)=>
     defer = Q.defer()
     qs    = []
-    find = {module:@module.name}
+    find = {module:@module.name,site:@module.site.name}
     if filename?
       find.filename = filename
     @db.find(find,{hash:1,filename:1}).each (err,file)=>
