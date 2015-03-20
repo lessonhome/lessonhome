@@ -36,10 +36,9 @@ class @main extends template '../fast_bid'
         end         : module 'tutor/forms/input' :
           selector  : 'time_spend_bids'
           text      : 'до'
-        measurement   : 'мин.'
         handle        : true
-        min           : 0
-        max           : 100
+        min           : 18
+        max           : 90
       gender_data   : state 'gender_data':
         selector        : 'choose_gender'
         selector_button : 'registration'

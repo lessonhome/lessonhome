@@ -35,8 +35,10 @@ class @main extends template '../../tutor'
         selector : 'small'
       sort_list     : module 'tutor/forms/drop_down_list':
         placeholder : 'Все'
+        selector    : 'in_bids'
       subject : module 'tutor/forms/drop_down_list':
         placeholder : 'Предмет'
+        selector    : 'in_bids'
 
       list_bids : module 'tutor/bids/list_bids' :
         titles_bid : module '//titles_bid' :

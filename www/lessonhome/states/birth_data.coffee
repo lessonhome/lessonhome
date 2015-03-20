@@ -4,7 +4,7 @@ class @main
     birth_day   : module 'tutor/forms/drop_down_list' :
       text        : @exports()
       placeholder : 'День'
-      selector    : 'first_reg day'
+      selector    : 'first_reg_day'
       default_options     : {
         '0': {value: '1', text: '1'},
         '1': {value: '2', text: '2'},
@@ -40,7 +40,7 @@ class @main
       }
     birth_month : module 'tutor/forms/drop_down_list' :
       placeholder : 'Месяц'
-      selector    : 'first_reg month'
+      selector    : 'first_reg_month'
       default_options     : {
         '0': {value: 'january', text: 'январь'},
         '1': {value: 'february', text: 'февраль'},
@@ -57,7 +57,7 @@ class @main
       }
     birth_year  : module 'tutor/forms/drop_down_list' :
       placeholder : 'Год'
-      selector    : 'first_reg month'
+      selector    : 'first_reg_month'
       default_options     : {
         '0': {value: '1', text: '1997'},
         '1': {value: '2', text: '1996'},

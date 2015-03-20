@@ -19,5 +19,6 @@ class @main extends template '../preview'
         text      : 'Удаленно'
       address_input       : module 'tutor/forms/drop_down_list'  :
         placeholder : 'Даниловский'
+        selector    : 'area'
       link_forward    :  '/fourth_step'
       link_back       :  '/second_step'

@@ -225,21 +225,28 @@ class @main extends EE
         if getIconBox()?
           getIconBox().click (event) =>
             if getCurSel().is(':visible')
-              getCurSel().hide()
+              hideSelect()
             else
               showSelectOptions()
 
         ### Hiding on click out of label (drop_down_list component) ###
         $('body').on 'click.drop_down_list', (event)=>
           if $(event.target).closest(@label).size() == 0
-            getCurSel().hide()
+            hideSelect()
         #########################################
 
-        showSelectOptions = () ->
+        hideSelect = =>
+          getCurSel().hide()
+          @label.removeClass 'open_select'
+
+
+        showSelectOptions = () =>
+          @label.addClass 'open_select'
           $sel = getCurSel()
           strBegin = getCurInput().val()
           correctSelectOptions strBegin, $sel, valuesGenerator
           bindHandlers $sel
+
 
         startSelection = (sel) ->
           $sel = $(sel)
