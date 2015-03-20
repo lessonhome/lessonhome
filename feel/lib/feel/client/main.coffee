@@ -34,6 +34,23 @@ class @Feel
       a = 0.5*(Math.sin((new Date().getTime())/300)+1)
       div.css 'box-shadow', "inset 0 10px 20px -10px rgba(255,0,0,#{a})"
     ,30
+  autocomplete : (options,cb)=>
+    o = ""
+    for key,val of options
+      o+= "&" if o.length
+      o += "#{key}=#{val}"
+    $.getJSON("/google?#{o}")
+    .success (data)->
+      console.log data
+      cb? data
+  autocompleteCity : (input,cb)=>
+    @autocomplete {
+      input : input
+      #language : "ru"
+      #components : "ru"
+      types : "(cities)"
+    },cb
+
 
 window.Feel = new @Feel()
 
