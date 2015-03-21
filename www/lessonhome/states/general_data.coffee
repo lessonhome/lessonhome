@@ -26,6 +26,9 @@ class @main
     status      : module 'tutor/forms/drop_down_list' :
       text        : 'Статус :'
       selector    : 'first_reg'
+      scroll      : module 'tutor/forms/drop_down_list/scroll' :
+        paramsData  : {}
+        #  findContainerMethod'----------------this is paramsData'
       default_options     : {
         '0': {value: 'math', text: 'Преподаватель(тест)'},
         '1': {value: 'student', text: 'Студент(тест)'},
@@ -34,7 +37,13 @@ class @main
         '4': {value: 'test-status1', text: 'Тестовый статус 1'},
         '5': {value: 'test-status2', text: 'Тестовый статус 2'},
         '6': {value: 'test-status3', text: 'Тестовый статус 3'},
-        '7': {value: 'test-status4', text: 'Тестовый статус 4'}
+        '7': {value: 'test-status4', text: 'Тестовый статус 4'},
+        '8': {value: 'test-status4', text: 'Тестовый статус 5'},
+        '9': {value: 'test-status4', text: 'Тестовый статус 6'},
+        '10': {value: 'test-status4', text: 'Тестовый статус 7'},
+        '11': {value: 'test-status4', text: 'Тестовый статус 8'},
+        '12': {value: 'test-status4', text: 'Тестовый статус 9'},
+        '13': {value: 'test-status4', text: 'Тестовый статус 10'},
       }
 
 

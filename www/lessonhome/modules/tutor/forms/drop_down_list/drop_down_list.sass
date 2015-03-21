@@ -224,7 +224,11 @@ $icon_hover_src : 'main/triangle-24x21_hover.png'
       .icon
         background : inline-image($icon_hover_src ) no-repeat
 
-label>.drop_down_list>input+.select-sets__options
+///////////////// select-sets__options ////////////////
+$option_height: 29px
+$options_height: $option_height * 5
+
+label>.drop_down_list>input+*+.select-sets__options
   border: 2px solid #89d1ff
   background-color: white
   z-index: 2
@@ -236,16 +240,25 @@ label>.drop_down_list>input+.select-sets__options
   position: absolute
   margin-left: -2px
   border-top: none
+  display: none
+  height: $options_height
 
+label>.drop_down_list>input+*+.select-sets__options>.options_container
+  height: $options_height
+  overflow: hidden
+  width: 90%
 
-label>.drop_down_list>input+.select-sets__options>.custom-option
-  line-height: 29px
+label>.drop_down_list>input+*+.select-sets__options>.options_container>.options
+  position: relative
+
+label>.drop_down_list>input+*+.select-sets__options>.options_container>.options>.custom-option
+  line-height: $option_height
   padding-left: 8px
 
-label>.drop_down_list>input+.select-sets__options>.custom-option__selected
+label>.drop_down_list>input+*+.select-sets__options>.options_container>.options>.custom-option__selected
   background: #ebebeb
 
-label>.drop_down_list>input+.select-sets__options>.custom-option>.custom-option__begin-match
+label>.drop_down_list>input+*+.select-sets__options>.options_container>.options>.custom-option>.custom-option__begin-match
   color: #2c7fd2
 
 //label .m-custom-option__selected

@@ -5,6 +5,9 @@ class @main extends EE
     @list = @label.find ".drop_down_list"
     @input = @list.find "input"
 
+    @scrollReinit = @tree.scroll?.class.reinit
+    #console.log @tree.scroll?.class.tree.test
+
     @input.on 'focus', =>
       if @label.is '.filter_top'
         @list.addClass 'filter_top_focus'
@@ -56,32 +59,27 @@ class @main extends EE
           #$('.select-sets_input')
           curInput
 
+        #required refactor
+        findOptionsContent = ($dom)->
+          $dom.find('.options')
+
         ### Getting current select elect with options (using pattern Decorator) ###
-        getCurSel = ->
+        findSelectSets = ($dom)->
+          $dom.find('.select-sets__options')
+
+        getCurSel = =>
+          (findSelectSets @dom)
+
+        getCurSelOptions = =>
           $input = getCurInput();
           ### Create select with options for input (if there are no) ###
           if !($sel = $input.data 'select')?
-            $sel = $('<div class="custom-select"></div>')
-            startConfigSelect $sel
-            $input.after $sel
+            $sel = findOptionsContent(findSelectSets @dom)
             $input.data 'select', $sel
           $sel
 
         getIconBox = ->
           getCurInput().siblings('.icon_box')
-
-        ### Configuring select after creating ###
-        startConfigSelect = ($sel) ->
-          $sel.attr
-            'multiple': true
-            'class': 'select-sets__options'
-          $sel.css
-            display: 'none'
-            position: 'absolute'
-            #width: getCurInput().css('width')
-
-        ### Correct select after show ###
-        configSelect = ($sel) ->
 
         valuesGenerator = (sBegin) ->
           dataAr = []
@@ -120,9 +118,9 @@ class @main extends EE
           $opt.attr 'selected','selected'
           markSelected $opt
 
-        findSelected = ($sel) ->
+        findSelected = ($selOpts) ->
           #$sel.find(':selected')
-          $sel.find('[selected="selected"]')
+          $selOpts.find('[selected="selected"]')
 
         findOptionsByOpt = ($opt) ->
           $opt.parent()
@@ -158,19 +156,15 @@ class @main extends EE
         ### Event handling #####################################
         getCurInput().keyup (event) ->
           $sel = getCurSel()
+          $selOpts = getCurSelOptions()
           if $sel.data 'was-enter'
             $sel.data 'was-enter', false
             return
           switch event.keyCode
             when unit.arrowDown
-              nextSelected $sel
-              ###
-              if $sel.is(':visible')
-                $sel.focus();
-                startSelection $sel[0]
-              ###
+              nextSelected $selOpts
             when unit.arrowUp
-              prevSelected $sel
+              prevSelected $selOpts
             when unit.esc
               $sel.hide()
             else
@@ -184,22 +178,12 @@ class @main extends EE
             when unit.enterCode
               selectedOptionToInput()
 
-        getCurSel().on 'click', (event) ->
-          $sel = $(this)
+        getCurSelOptions().on 'click', (event) ->
+          $sel = getCurSel()
           $sel.data 'was-click', true
           selectedOptionToInput()
 
-        getCurSel().keydown (event) ->
-          $sel = $(this)
-          sel = $(this)[0]
-          selLen = options($sel).length;
-          ###
-          when unit.arrowDown
-            nextSelected $sel
-
-          when unit.arrowUp
-            prevSelected $sel
-          ###
+        getCurSelOptions().keydown (event) ->
           switch event.keyCode
             when unit.enterCode
               selectedOptionToInput()
@@ -227,11 +211,12 @@ class @main extends EE
             getCurSel().hide()
         #########################################
 
-        showSelectOptions = () ->
-          $sel = getCurSel()
+        showSelectOptions = () =>
+          $selOpts = getCurSelOptions()
           strBegin = getCurInput().val()
-          correctSelectOptions strBegin, $sel, valuesGenerator
-          bindHandlers $sel
+          correctSelectOptions strBegin, $selOpts, valuesGenerator
+          bindHandlers $selOpts
+          @scrollReinit?()
 
         startSelection = (sel) ->
           $sel = $(sel)
@@ -240,12 +225,11 @@ class @main extends EE
           else
             makeSelected($sel, 1)
 
-        correctSelectOptions = (strBegin, $sel, fnValuesGenerator) ->
-          configSelect(getCurSel())
-          fillOptions $sel, (fnValuesGenerator strBegin), strBegin
-          if optionsCount($sel) > 0
-            makeSelected($sel, 0)
-            $sel.show()
+        correctSelectOptions = (strBegin, $selOpts, fnValuesGenerator) ->
+          fillOptions $selOpts, (fnValuesGenerator strBegin), strBegin
+          if optionsCount($selOpts) > 0
+            makeSelected($selOpts, 0)
+            getCurSel().show()
           return
 
         markBeginText = (str, startStr)->
@@ -254,18 +238,18 @@ class @main extends EE
           endStr = str.substr(startLen)
           "<span class='#{beginMatchCssClass}''>#{startStr}</span>#{endStr}"
 
-        fillOptions = (sel, options, sBegin) ->
+        fillOptions = ($selOpts, options, sBegin) ->
           html = ''
           options.forEach (optVal) ->
             optValText = markBeginText(optVal.text, sBegin)
             html += "<div class='custom-option' value='#{optVal.value}'>#{optValText}</div>"
             return
-          $(sel).html html
+          $selOpts.html html
           return
 
         selectedOptionToInput = () ->
           $sel = getCurSel()
-          $option = findSelected($sel)
+          $option = findSelected(getCurSelOptions())
           $input = getCurInput()
           $input.val $option.text()
           $sel.hide()

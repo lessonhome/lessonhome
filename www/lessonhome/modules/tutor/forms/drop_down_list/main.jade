@@ -9,6 +9,12 @@ label(class=selector)
     input(placeholder="#{placeholder}", id="#{id}")
     .icon_box
       .icon
+    .select-sets__options
+      .options_container
+        .options
+      != scroll
+
+    //я это св-во не использую, автору кода возможно стоит убрать эту часть
     if list
       .dropdown_items
         each value in list
