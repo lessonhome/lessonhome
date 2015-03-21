@@ -35,11 +35,15 @@ class @main extends EE
         startsWith = (str, sBegin)->
           res = true
           i = 0
-          while i < sBegin.length
-            if str[i].toLocaleUpperCase() != sBegin[i].toLocaleUpperCase()
-              res = false
-              break
-            i++
+          len = sBegin.length
+          if str.length < len
+            res = false
+          else
+            while i < sBegin.length
+              if str[i].toLocaleUpperCase() != sBegin[i].toLocaleUpperCase()
+                res = false
+                break
+              i++
           res
         #############
 
