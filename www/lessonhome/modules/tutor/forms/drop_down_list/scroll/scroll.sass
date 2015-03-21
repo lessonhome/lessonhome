@@ -7,17 +7,17 @@ label
   display: inline-block
   cursor: pointer
 
-  /* background: green; */
   position: absolute
   //left: 100%
-  top: $size
+  //top: $size
+  top: 0
   right: 0
-  height: 100%
+  height: 100% - 20%
   width: $size
 
 label>.scroll_box
   height: 100%
-  background: rgba(0,0,0,0.1)
+  //background: rgba(0,0,0,0.01)
   +border-radius($bradius)
 
 label>.scroll_box>.scroll
@@ -32,10 +32,9 @@ label>.scroll_box>.scroll
 label>.top_arrow_container, label>.bottom_arrow_container
   width: $size
   height: $size
-  background: transparent
   position: relative
 
-.top_arrow, .bottom_arrow
+label>.top_arrow_container>.top_arrow, label>.bottom_arrow_container>.bottom_arrow
   position: absolute
   border: $size solid transparent
   border-left-width: $size / 2
@@ -45,7 +44,8 @@ label>.top_arrow_container, label>.bottom_arrow_container
 
 label>.top_arrow_container>.top_arrow
   border-bottom-color: #cecece
-  margin-top: -($size * 2)
+  //margin-top: -($size * 2)
+  margin-top: -($size)
 
 label>.bottom_arrow_container>.bottom_arrow
   border-top-color: #cecece
