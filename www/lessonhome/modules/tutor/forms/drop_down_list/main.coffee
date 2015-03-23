@@ -93,8 +93,17 @@ class @main extends EE
           dataAr = []
           for key, val of data
             dataAr.push val
-          dataAr.filter (str) ->
+          dataAr = dataAr.filter (str) ->
             startsWith str.text, sBegin
+          ### Sorting
+          console.log 'dataAr ='
+          console.log dataAr
+          dataAr = dataAr.sort (elt1, elt2)->
+            elt1.text > elt2.text;
+          console.log 'Sorting dataAr ='
+          console.log dataAr
+          ###
+          dataAr
 
         ############## CustomSelect component ###############
         optionsCount = ($sel) ->
