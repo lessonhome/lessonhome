@@ -28,8 +28,8 @@ class module.exports
     .then @loadModules
     .then @loadStates
     .then @router.init
-    .then =>
-      console.log @dataObject "./example", "states/main"
+    #.then =>
+    #  console.log @dataObject "./example", "states/main"
   configInit : =>
     return Q() unless fs.existsSync @path.config
     return Q() unless fs.statSync(@path.config).isDirectory()
@@ -38,7 +38,7 @@ class module.exports
     readdir dir
     .then (files)=>
       files.reduce (promise,file)=>
-        stat = fs.statSync("#{dicr}/#{file}")
+        stat = fs.statSync("#{dir}/#{file}")
         if stat.isDirectory()
           return promise.then => @configDir "#{dir}/#{file}"
         if stat.isFile()

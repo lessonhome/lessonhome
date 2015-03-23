@@ -2,8 +2,8 @@
 
 class Path
   constructor : ->
-    @sites = 'www'
-
+    @sites  = 'www'
+    @root   = process.cwd()
 module.exports = Path
 
 

@@ -34,8 +34,11 @@
     "wolfy87-eventemitter" : "*",
     "watch" : "*",
     "mime" : "*",
+    "rimraf" : "*",
     "mongodb":"*",
-    "rimraf" : "*"
+    "colors" : "*",
+    "v8-profiler" : "*",
+    "yuicompressor" : "*"
   }
 }
 

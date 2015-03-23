@@ -31,6 +31,7 @@ class Service extends EE
   start : =>
     @restart = false
     if @master
+      console.log @args
       @worker = _cluster.fork @args
       @worker.on 'disconnect',  => @emit.apply @,[ 'disconnect',arguments... ]
       @worker.on 'exit',        => @emit.apply @,[ 'exit',      arguments... ]

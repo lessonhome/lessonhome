@@ -12,7 +12,7 @@ killall nodejs 2>> /dev/null
 if [ "$#" -eq 1 ];then
   node --harmony --debug ./feel/bin/debug & 
 else
-  node --harmony ./feel/bin/feel &
+  node --harmony ./feel/bin/feel2 &
 fi
 #node ./feel/bin/updater --harmony --force & 
 

@@ -7,7 +7,7 @@
   var check = require ('./check_npm');
 
   check.make( function (){
-    var run = require ('./run');
+    var run = require ('./run2');
     run (lib);
   });
 

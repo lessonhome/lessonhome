@@ -9,10 +9,11 @@ Site = require './site'
 
 class Sites
   constructor : ->
+    Wrap @
     @db = Main.db.collection 'modules'
     @site = {}
   init    : => Q.tick =>
-    console.log 'sites:init'
+    Log 'sites:init'
     _readdir Path.sites
     .then (sites)=>
       qs = []
@@ -32,7 +33,7 @@ class Sites
         qs.push site.rescanModules()
       Q.all qs
   loadDb  : => Q.tick =>
-    console.log 'sites:loadDb'
+    Log 'sites:loadDb'
     defer = Q.defer()
     qs = []
     @db.find().each (err,module)=>
