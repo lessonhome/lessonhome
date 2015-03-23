@@ -8,6 +8,8 @@ class @main
       height    : '87px'
       text      : 'Интересы :'
       selector  : 'first_reg'
+    slogan     : module 'tutor/forms/input'  :
+      text        : 'Девиз :'
     about      : module 'tutor/forms/textarea' :
       height    : '117px'
       text      : 'О себе :'
