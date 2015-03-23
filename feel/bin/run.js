@@ -7,7 +7,8 @@ module.exports = function(lib){
 
   var Command = require(lib + '/feel/command');
   var command = new Command();
-  command.init().then(command.run).done();
+  //command.init().then(command.run).done();
+  command.run();
 }
 
 
