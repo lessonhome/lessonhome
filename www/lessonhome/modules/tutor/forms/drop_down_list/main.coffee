@@ -196,10 +196,11 @@ class @main extends EE
             when unit.enterCode
               selectedOptionToInput()
             when unit.tabCode
-              if event.shiftKey
-                prevSelected $selOpts
-              else nextSelected $selOpts
-              event.preventDefault()
+              if $sel.is(':visible')
+                if event.shiftKey
+                  prevSelected $selOpts
+                else nextSelected $selOpts
+                event.preventDefault()
 
 
         getCurSelOptions().on 'click', (event) ->
@@ -237,11 +238,11 @@ class @main extends EE
 
         showSelectOptions = () =>
           $selOpts = getCurSelOptions()
-          optHeight = $selOpts.find('.custom-option').height()
-          getCurSel().height(optHeight * @tree.options_count)
           strBegin = getCurInput().val()
           correctSelectOptions strBegin, $selOpts, valuesGenerator
           bindHandlers $selOpts
+          optHeight = $selOpts.find('.custom-option').height()
+          getCurSel().height(optHeight * @tree.options_count)
           @scrollReinit?()
 
         @show_select_sets = showSelectOptions
