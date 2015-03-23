@@ -1,126 +1,74 @@
 @import compass/css3
-
+$padding_field: 10px
+$width_fields: 339px
 main
   padding-top: 46px
   padding-bottom: 50px
-
 .center_block>.advanced_search
-  padding-left : 20px
-
+  padding-left: 20px
 .filters
-  margin-left   : 28px
-  margin-bottom : 32px
-
+  margin-left: 28px
+  margin-bottom: 32px
+  .left_block
+    margin-right: 18px
+    float: left
+    .list_block
+      padding-bottom: $padding_field
+      .value
+        width: $width_fields
+    .button_block
+      padding-top: $padding_field
+      .save_button
+        height: 33px
+        +inline-block
   .right_block
     +inline-block
-
-  .left_block
-    margin-right : 18px
-    float : left
-
-    div
-      .title
-        padding-left: 2px
-      .value
-        width: 339px
-        height: 37px
-
-    .subject
-      margin-bottom : 10px
-
-    .saved_filters
-      margin-bottom : 19px
-
-    .button_block
-      padding-left: 3px
-      text-align: left
-      div
-        +inline-block
-
-  .left_block>div, .right_block>.place, .right_block>.your_address
-    .title
-      font-size : 18px
-      color     : #222528
-      padding-bottom : 7px
-
-  .right_block
     .place
-      margin-bottom: 14px
-      padding-left: 2px
-      .value
-        div
-          +inline-block
-        .tutor
-          width: 76px
-        .student
-          width: 132px
-          margin: 0 12px
-        .web
-          width: 102px
-        .hint
-          margin-left: 7px
-          height: 18px
-          width:  18px
-
-    .road_time
-      margin-bottom: 15px
-
-    .your_address
-      margin-bottom: 11px
-
-    .your_address
+      padding-bottom: $padding_field
       .title
-        font-size : 16px
-        padding-bottom: 9px
-      .value
-        width: 339px
+        padding-bottom: $padding_field
+      $padding_button: 6.5px
+      .tutor, .student, .web
         height: 37px
-
+        +inline-block
+      .tutor
+        padding-right: $padding_button
+      .web
+        padding-left: $padding_button
+      .student
+        padding: 0 $padding_button
+      .hint
+        +inline-block
+        margin-left: 7px
+        height: 18px
+        width: 18px
+    .list_block
+      padding-bottom: $padding_field
+      .value
+        width: $width_fields
     .road_time
-      margin-bottom: 0
+      padding-top: $padding_field
       .title
         margin-bottom: 9px
         font-size: 16px
-      .value>.title
-        font-size: 18px
-
-  .right_block .road_time .value
-    div
-      +inline-block
-    .time
-      width : 54px
-      height : 37px
-      margin-right : 5px
-      margin-left  : 5px
-    .slider
-      margin-left      : 4px
-
-
-/*-----------------------------------------*/
-
 .separate_line
-  height   : 2px
+  height: 2px
 
 /*-----------------------------------------*/
 
 .center_block
-  padding-top : 26px
-
+  padding-top: 26px
   .advanced_search, .list_bids
     +inline-block
     position: relative
     cursor: pointer
-
   $advanced_search_width: 41px
   $advanced_search_height: 32px
-
   .advanced_search
     width: $advanced_search_width
     height: $advanced_search_height
-    padding-right : 11px
-    float : left
-
-
+    padding-right: 11px
+    float: left
     .advanced_filter
       box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.55)
       position: absolute
@@ -128,43 +76,39 @@ main
       z-index: 1
       width: 300px
       display: none
-
     .button
       width: $advanced_search_width
       height: $advanced_search_height
-      background : inline-image('arrow_right.PNG') no-repeat
+      background: inline-image('arrow_right.PNG') no-repeat
       background-color: #e1e3e5
       box-shadow: 0 1px 3px rgba(0,0,0, 0.65)
-      background-position : center center
-
+      background-position: center center
     .title
-      padding : 7px 10px 7px 10px
-      background-color : #e1e3e5
-      text-align : center
-
+      padding: 7px 10px 7px 10px
+      background-color: #e1e3e5
+      text-align: center
     .content
-      padding-left : 15px
+      padding-left: 15px
       .course
-        margin-top : 17px
+        margin-top: 17px
         .arrow, .text
           +inline-block
         .arrow
-          width  : 4px
-          height : 6px
-          margin-right : 8px
-          background : inline-image('triangle-small.png') no-repeat
+          width: 4px
+          height: 6px
+          margin-right: 8px
+          background: inline-image('triangle-small.png') no-repeat
       .courses_list
-        width : 170px
-        padding-left : 10px
-        margin-top : 8px
+        width: 170px
+        padding-left: 10px
+        margin-top: 8px
       .selected_courses
-        margin-top : 8px
+        margin-top: 8px
         .course
           +inline-block
-          background-color : rgb( 226, 226, 226 )
-
+          background-color: rgb( 226, 226, 226 )
   .list_bids
-    width : 700px
+    width: 700px
 
 
 

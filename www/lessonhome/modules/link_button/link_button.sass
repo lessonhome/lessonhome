@@ -1,56 +1,120 @@
 @import compass/css3
-$RedHoverColor : #ffb1a8
-
+$blue:  hsl(210,100%,69%)
+$red:   hsl(6,100%,69%)
+$gray:  hsl(0,0%,69%)
+$green: hsl(87,62%,69%)
+$light_green: hsl(78,70%,65%)
 main
   +inline-block
   height: 100%
-
 a
   display: block
   height: 100%
   .button
     +inline-block
-    height: 100%
-    background-color: rgb( 205, 205, 205 )
     +border-radius(4px)
-    color: #757575
+    height: 100%
     .text
       +inline-block
-      padding: 0 13px
-      font-size: 16px
-
+      vertical-align: sub
+      color: #757575
   .button:after
     content: ''
     +inline-block
     height: 100%
 
+//////////////// state rules ////////////
+//TODO: now i add in jade for teg 'a' class '.active' because buttons have active state,
+//TODO: change class '.active' to 'inactive' and add class '.active' if user do logic actions
+.inactive
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px
+
+.active
+  cursor: pointer
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    .text
+      color : #fff
+
+.hidden
+  display: none
+
+.visibility
+  visibility: hidden
+
+//////////////// function //////////////
+=selector($selector,$b_color,$padding_text,$font_size)
+  a.#{$selector}
+    .button
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
+    &.active
+      .button
+        background: $b_color
+    &.active:hover
+      .button
+        background: lighten($b_color, 5%)
+    &.inactive
+      .button
+        background: $gray
+    &.inactive:hover
+      .button
+        background: lighten($gray, 5%)
+
+
+//- ----------------------- CREATE ACCOUNT -----------------
+
++selector('create_account', $red, 16px, 20px)
+
+//- ----------------------- Motivation button ----------------
+
++selector('order_call', $red,26px,25px)
+
+////////-------tutor reports: support button ----------------
+
+$font-size: 16px
+$padding_text: 11.5px
++selector('support', $green, $padding_text, $font-size)
+
 /////////-------top filter-------/////////
-a
-  .subject_back, .onward_block, .issue_bid
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
-    background: rgb(148, 201, 254)
-    .text
-      +inline-block
-      font-size: 26px
-      padding: 0 15px
-      color: rgb(255, 255, 255)
-  .issue_bid
-    background-color: rgb(240, 123, 111)
-    .text
-      padding: 0 20px
-  .subject_back:after, .onward_block:after, .issue_bid:after
-    content: ''
-    +inline-block
-    height: 100%
+$font-size: 26px
+$padding_text: 15px
++selector('subject_back',$blue,15px,26px)
++selector('onward_block',$blue,15px,26px)
++selector('issue_bid',$red,20px,26px)
 
 
-////////////////-------active--------////////////////
+//- ---------- Fast bid: navigation buttons (next, back), issue bid button ---------------------
 
-  .active
-    background-color: rgb( 240, 123, 111 )
-    box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-    .text
-      color: #fff
++selector('fast_bid_nav', $blue, 21px, 20px)
++selector('fast_bid_issue', $red, 21px, 20px)
 
-  .inactive:hover
-    background-color: $RedHoverColor
+//- ---------- Tutor bids reports: popup : send button ---------------------
+
++selector('reports_popup_send', $blue, 12.5px, 18px)
+
+//- --------- Invite students, invite tutor --------------------------------
+
++selector('invite', $red, 10px, 18px)
+
+////////////////-------actions--------////////////////
+
+.active:hover
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+
+
+.inactive:hover
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 2px 0px, rgba(0, 0, 0, 0.1) 0px -3px 0px 0px inset
+
+.press,.press:hover
+  padding-top: 1px
+  box-sizing: border-box
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+
+
+

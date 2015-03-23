@@ -13,6 +13,8 @@ class @main
       end         : 'center_text'
       measurement : 'руб.'
       dash        : '-'
+      min         : 0
+      max         : 100
     list_pupil     : module 'tutor/forms/drop_down_list'  :
       selector        : 'list_course'
       placeholder     : 'Например студент'
@@ -28,15 +30,22 @@ class @main
       till_time     : module 'tutor/forms/input' :
         selector      : 'center_text'
       button_add    : module 'tutor/button' :
-        selector      : 'add_time'
-        text          : '+'
+        selector  :  'plus'
+        text      : '+'
     time_spend_lesson   : state './slider_main' :
       selector    : 'lesson_time'
       start       : 'center_text'
       end         : 'center_text'
       measurement : 'мин'
       dash        : '-'
+      min         : 0
+      max         : 100
     female            : module 'gender_button' :
       selector          : 'female'
     male              : module 'gender_button' :
       selector          : 'male'
+
+
+
+
+

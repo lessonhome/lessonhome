@@ -1,68 +1,14 @@
-class @main extends template '../../../tutor'
+class @main extends template '../edit_conditions'
   route : '/tutor/edit/calendar'
   model   : 'tutor/edit/conditions/calendar'
   title : "редактирование календарь"
   tags : -> 'edit: conditions'
   tree  : =>
-    items : [
-      module 'tutor/header/button' : {
-        title : 'Описание'
-        href  : '/tutor/edit/general'
-      }
-      module 'tutor/header/button' : {
-        title : 'Условия'
-        href  : '/tutor/edit/subjects'
-        tag   : 'edit: conditions'
-      }
-    ]
-    sub_top_menu : state 'tutor/sub_top_menu' :
-      items :
-        'Предметы'     : 'subjects'
-        'Место'        : 'location'
-        'Календарь'    : 'calendar'
-        'Предпочтения' : 'preferences'
-      active_item : 'Календарь'
-
-    content : module '$':
-      calendar : module '//calendar' :
-        calendar_hint : module 'tutor/hint' :
-          selector : 'small'
-          text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      time_entry_hint : module 'tutor/hint' :
-        selector : 'small'
-      time_entry_fields : [
-        module '//time_entry_field' :
-          input_from : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          input_to : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          text_input : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-
-        module '//time_entry_field' :
-          input_from : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          input_to : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          text_input : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-
-        module '//time_entry_field' :
-          input_from : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          input_to : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-          text_input : module 'tutor/forms/input' :
-            selector : 'edit_calendar'
-
-
-      ]
-
-      add_entry_field : module 'tutor/button' :
-        text     : '+'
-        selector : 'add_smth'
-
-  init : ->
-    @parent.tree.left_menu.setActive 'Анкета'
-    @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
-
+    menu_condition  : 'edit: conditions'
+    active_item : 'Календарь'
+    tutor_edit  : module '$'  :
+      calendar    : state 'calendar'  :
+        selector  : 'advance_filter'
+      hint       : module 'tutor/hint_dz' :
+        selector  : 'small'
+        text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'

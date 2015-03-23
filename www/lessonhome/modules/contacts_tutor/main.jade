@@ -1,0 +1,16 @@
+mixin field (selector, value)
+  .value(class=selector)!= value
+/////////////
++field ('country', country)
++field ('city', city)
+.title_box
+  .title Адрес :
+  .button_box
+    .address_button!=address_button
+.line_box
+  .line!= line
++field ('mobile_phone', mobile_phone)
++field ('extra_phone', extra_phone)
++field ('post', post)
++field ('skype',skype)
++field ('site',site)

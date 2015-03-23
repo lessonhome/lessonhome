@@ -1,7 +1,9 @@
 class @main extends template '../main'
   tree : =>
+    popup       : @exports()
     filter_top  : @exports()
     info_panel  : @exports()
+    tag         : @exports()
     content     : module '$' :
       search_diagram  : module '$/motivation_block' :
         margin    : 27
@@ -22,9 +24,10 @@ class @main extends template '../main'
           learn           : 'Занимайтесь'
       choose_search   : module '$/motivation_block' :
         margin    : 58
-        button    : module 'tutor/button'  :
+        button    : module 'link_button'  :
           selector  : 'order_call'
           text      : 'Заказать звонок'
+          href      : '/main_callback'
         title     : '3 способа поиска'
         img  :
           src : F('main/main_search.png')

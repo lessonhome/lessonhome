@@ -16,7 +16,8 @@ class module.exports
     @hand = 0
     @server.listen @port
   handler :(req,res)=>
-    return res.end() if req.url != "/update"
+    return process.exit(0) if req.url == "/restart"
+    return @tail(req,res) if req.url != "/update"
 
     @updating = true
     @hand++
@@ -24,6 +25,10 @@ class module.exports
     res.setHeader 'Connection', 'Transfer-Encoding'
     res.setHeader 'Content-Type', 'text/plain; charset=utf-8'
     res.setHeader 'Transfer-Encoding', 'chunked'
+    boo = false
+    res.on 'close', =>
+      res.closed = true
+      @end(res)
 
     @exec "git", ["pull"], res, =>
       process.chdir 'feel'
@@ -33,23 +38,27 @@ class module.exports
           command : 'node'
           psargs : "aux"
         }, (err,list)=>
-          @exec "rm", ["-rf",".cache"], res, =>
-            boo = false
+          @exec "cat", ["./version"], res, =>
             if !err
               for p in list
                 for a in p.arguments
                   if a.match /feel.bin.feel$/
                     @log res,"#{process.cwd()} $ kill "+p.pid+"\n"
-                    @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,60000, => @end res
+                    @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,600000, => @end res
                     ps.kill p.pid, =>
                     boo = true
 
             if !boo
               @log res, "Can't find process node:feel!\n"
               @end res
-
+  tail : (req,res)=>
+    res.on 'close', =>
+      res.closed = true
+      @end(res)
+    @exec "tail", ["-f","-n","30","/var/log/upstart/feel.log"],res,1200000, => @end res
 
   end : (res)=>
+    return if res.closed
     res.end "====================================="
     @hand--
     if @hand <= 0

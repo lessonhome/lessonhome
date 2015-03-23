@@ -1,26 +1,12 @@
-mixin info_block(block_class, header, value)
-  .container
-    label(class=block_class)
-      .value.g-standardField!= value
-      .m-title.g-edit-smallTitle!= header
+mixin field (selector, value)
+  .value(class=selector)!=value
+/////////////
 
-//- -------------------------------------------------
-.block
-  +info_block('place_of_work', 'Место работы :', place_of_work)
-  +info_block('post', 'Должность :', post)
-
-  .button_block
-    .add_button!= add_button
-
++field('place_of_work', place_of_work)
++field('post', post)
+.add_button!= add_button
+.line_box
   .line!=line
-
-  +info_block('experience_tutoring', 'Опыт репетиторства :', experience_tutoring)
-  +info_block('number_of_students', 'Количество учеников :', number_of_students)
-  +info_block('extra_info', 'Доп.информация/<br>награды :', extra_info)
-
-  .button_block
-    .save_button!= save_button
-
-//-.hint!= hint
-
-
++field('experience_tutoring', experience_tutoring)
++field('extra_info', extra_info)
+//.hint!= hint

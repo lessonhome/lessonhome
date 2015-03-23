@@ -18,4 +18,6 @@ class @main
     your_name     : module 'tutor/forms/input':
       text      : 'Ваше имя :'
       selector  : 'fast_bid'
-    invite_button : module '//invite_button'
+    invite_button : module 'tutor/button' :
+      text: 'Пригласить!'
+      selector: 'invite'

@@ -1,12 +1,12 @@
 class @main
   tree : -> module '$' :
-    depend      : state 'lib'
+    lib      : state 'lib'
     header      : state './tutor/header' :
       items : [
         module 'tutor/header/button' : {
           title : 'Поиск'
           href  : '/first_step'
-          tag   : 'pupil:main_search'
+          tag   : @exports()
         }
         module 'tutor/header/list_button' : {
           tag   : 'pupil:fast_bid'
@@ -56,27 +56,8 @@ class @main
           href  : '/about_us'
         }
       ]
-    filter_top  : @exports()
-    info_panel  : @exports()
-    content     : @exports()
-    footer : module 'footer' :
-      logo : module 'tutor/header/logo'
-      callback_popup : module 'callback_popup' :
-        selector : 'footer'
-        name        : module 'tutor/forms/input'  :
-          text : 'Имя'
-        placeholder : 'Ваше имя'
-        tel_number  : module 'tutor/forms/input'  :
-          text : 'Телефон'
-        placeholder : 'Телефон'
-        comments  : module 'tutor/forms/textarea' :
-          placeholder : 'Комментарий'
-        pupil       : module 'tutor/header/button_toggle' :
-          text   : 'Я ученик'
-          selector      : 'call_back_pupil inactive'
-        tutor       : module 'tutor/header/button_toggle' :
-          text  : 'Я репетитор'
-          selector      : 'call_back_tutor inactive'
-        order_call  : module 'tutor/button' :
-          text  : 'Заказать звонок'
-          selector      : 'call_back'
+    popup       : @exports()              # show info about tutor in main page
+    filter_top  : @exports()              # top filter in main page
+    info_panel  : @exports()              # info panel in main page
+    content     : @exports()              # after info panel block in main page
+    footer      : state 'footer'          # footer in main page

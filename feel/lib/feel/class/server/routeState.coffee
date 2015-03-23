@@ -18,18 +18,54 @@ class RouteState
     @state = @site.state[@statename].make()
     @tags = {}
     @getTop()
-    @walk_tree_down @top,(node)=>
+    @walk_tree_down @top,@,'top',(node,pnode,key)=>
       if node._isState
-        for k of node.__state.tag
-          @tags[k] = true
-        node.__state.page_tags = @tags
+        if node.__states
+          o = node.__states
+        else
+          o = {}
+          o[node._statename] = node.__state
+        for sn,s of o
+          for k of s.tag
+            @tags[k] = true
+        for sn,s of o
+          s.page_tags = @tags
+        #node = pnode[key] = @getTopOfNode node
+
     if @top._isState
-      @top.__state.page_tags = @tags
+      if @top.__states
+        o = @top.__states
+      else
+        o = {}
+        o[node._statename] = @top.__state
+      for sn,s of o
+        s.page_tags = @tags
     @modules  = {}
     @css      = ""
     @jsModules = ""
     @jsClient = Feel.clientJs
-
+  getTopNode : (node,force=false)=>
+    return node if node?._isModule
+    return node if node.__gotted
+    node.__gotted = true
+    return node unless node.__state?.parent?
+    p = @getTopNode node.__state.parent.tree
+    if force
+      o = node
+    else
+      o = {}
+      for key,val of node
+        o[key] = val if key.match /^_.*/
+    #o._smart = true
+    for key,val of o
+      delete o[key] unless key.match /^_.*/
+    for key,val of p
+      o[key] ?= val
+    #return @getTopNode node.__state.parent.tree
+    #
+    #else
+    #  return node
+    return o
   getTop : (node)=>
     return @top if @top?
     node ?= @state
@@ -38,22 +74,25 @@ class RouteState
     else
       return @top = node.tree
   getTree : (top)=>
+    return if top.__inner
+    top.__inner = true
     tree = {}
     for key,val of top
       if (typeof val == 'function' || typeof val == 'object') && !val._smart
         tree[key] = @getTree val
       else
         tree[key] = val
+    delete tree.__inner
+    delete top.__inner
     return tree
-  walk_tree_down : (node,foo)=>
+  walk_tree_down : (node,pnode,key,foo)=>
     if (typeof node == 'object' || typeof node == 'function') && !node?._smart
-      foo node
+      foo node,pnode,key
       for key,val of node
-        @walk_tree_down node[key],foo
+        @walk_tree_down node[key],node,key,foo
   go : =>
     @stack = []
-    @parse @top,null,@top,@top
-    
+    @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?
       @cssModule 'default'
     for modname of @modules
@@ -75,6 +114,7 @@ class RouteState
       @site.moduleJsTag('lib/jquery')+
       @site.moduleJsTag('lib/q')+
       @site.moduleJsTag('lib/event_emitter')+
+      @site.moduleJsTag('lib/jade')+
       '
       <script id="feel-js-client">
           window.EE = EventEmitter;
@@ -106,7 +146,10 @@ class RouteState
       if err?
         @res.writeHead 404
         return @res.end err
-      
+      @res.setHeader 'Access-Control-Allow-Origin', '*'
+      @res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+      @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
+      @res.setHeader 'Access-Control-Allow-Credentials', true
       @res.setHeader 'ETag',resHash
       @res.setHeader 'Cache-Control', 'public, max-age=100'
       @res.setHeader 'content-encoding', 'deflate'
@@ -118,6 +161,7 @@ class RouteState
       @res.end resdata
       console.log "state #{@statename}",200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
   removeHtml : (node)=>
+    return if node?._smart
     for key,val of node
       if key == '_html'
         delete node[key]
@@ -126,7 +170,11 @@ class RouteState
   cssModule : (modname)=>
     @css += "<style id=\"f-css-#{modname}\">\n#{@site.modules[modname].allCss}\n</style>\n"
     
-  parse : (now,uniq,module,state)=>
+  parse : (now,uniq,module,state,_pnode,_pkey)=>
+    #return if now.__parsed
+    if now?.__state?.parent?.tree?
+      @getTopNode now, true
+      #_pnode[_pkey] = now
     new_module = module
     new_state  = state
     if now._isModule
@@ -141,7 +189,7 @@ class RouteState
         now._name = @stack[@stack.length-1]+"/#{m[1]}"
       @stack.push now._name
     for key,val of now
-      if typeof val == 'object'
+      if typeof val == 'object' && !val._smart
         if val.__state?
           new_state = val
         else
@@ -150,28 +198,42 @@ class RouteState
           new_module = val
         else
           new_module = module
-        @parse val,uniq,new_module,new_state
+        #console.log val
+        #now.__parsed = true
+        @parse val,uniq,new_module,new_state,now,key
+        #delete now.__parsed
     if now._isModule
       @modules[now._name] = true
       o = @getO now,uniq
       if !@site.modules[now._name]?
         throw new Error "can't find module '#{now._name}' in state '#{@statename}'"
       now._html = @site.modules[now._name].doJade o,@,state.__state
+      ms = now._html.match /js-\w+--{{UNIQ}}/mg
+      now._domregx = {}
+      if ms then for m in ms
+        m = m.match(/js-(\w+)--/)[1]
+        now._domregx[m] = true
+      now._html = now._html.replace /{{UNIQ}}/mg,uniq
       @stack.pop()
 
   getO  : (obj,uniq)=>
     ret = {}
     for key,val of obj
       ret[key] = val
-      if typeof val == 'object'
+      if typeof val == 'object' && !val._smart
+        #if val.__getO
+        #  delete obj[key]
+        #  delete ret[key]
+        #else
+        #val.__getO = true
         ret[key] = @getO val,uniq
+        #delete val.__getO
       if ret[key]?._isModule
         ret[key]._uniq?= @rand = rand(@rand)#Math.floorMath.random()*10000
         html = ""
         if ret[key]._html?
           idn = ret[key]._name.replace /\//g, '-'
           ret[key] = ret[key]._html.replace "m-#{idn}", "m-#{idn}\" uniq=\"#{uniq}:#{ret[key]._uniq}\" class=\"m-#{uniq}-#{idn}"
-          
     return ret
   
 

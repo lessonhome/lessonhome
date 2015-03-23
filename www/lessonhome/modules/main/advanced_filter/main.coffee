@@ -2,21 +2,15 @@
 class @main extends EE
   show : =>
     # change visibility show_hidden
-    @sections = @dom.find '.section'
+    @sections = @found.section
     for section in @sections
       section = $ section
-      title  = section.find '.js-title'
       do (section)=>
+        title = section.find(">.title")
         title.click => @change_visibility section
 
-    # gender button
-    @female = @tree.female.class
-    @male   = @tree.male.class
-    @female.on 'active', @male.disable
-    @male.on 'active', @female.disable
-
     #select experience
-    @experience = @dom.find '.js-experience>div'
+    @experience = @found.experience.children()
     for exp,i in @experience
       exp = $ exp
       do (exp,i)=>
@@ -29,7 +23,7 @@ class @main extends EE
             @experience.last().removeClass 'background'
             @experience.last().addClass 'hover'
           @change_background exp
-
+ 
 
 
 ############## function ##############

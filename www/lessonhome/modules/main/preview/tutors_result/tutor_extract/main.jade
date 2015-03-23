@@ -1,3 +1,4 @@
+- var max_text_length = 113;
 .name_verification_block
   .tutor_name.select=tutor_name
   .verification
@@ -6,9 +7,10 @@
 .tutor_status.select=tutor_status + ', опыт ' + tutor_exp + ' года'
 .tutor_place.select=tutor_place
 .tutor_title.select=tutor_title
-.tutor_text.select=tutor_text
+.js-tutor_text.select=tutor_text
+
 .button_prise_panel
-  .add_button_bid!=add_button_bid
+  .js-add_button_bid!=add_button_bid
   .price_block
     .icon
     .tutor_price.select=tutor_price + ' '

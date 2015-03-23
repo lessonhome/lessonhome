@@ -1,295 +1,153 @@
 @import compass/css3
-$RedHoverColor : #ffb1a8
+
+$blue:  hsl(210,100%,69%)
+$red:   hsl(6,100%,69%)
+$gray:  hsl(0,0%,69%)
+$green: hsl(87,62%,69%)
+$light_green: hsl(78,70%,65%)
+
 main
   height: 100%
   cursor: pointer
-//- ------------ HOVER ---------------------
-.button:hover
-  background-color : $RedHoverColor
-//- ---------------------------------------------
-.fixed, .add, .streamlined, .color_blue
-  +inline-block
-  height: 35px
-  background-color: rgb( 240, 123, 111 )
-  border-radius: 4px
-  box-shadow: 0 1px 1px rgba(0,0,0, 0.65)
-  text-align: center
-  .text
-    +inline-block
-    line-height: 35px
-    font-size: 20px
-    color  : white
-.color_blue
-  width: 130px
-  background-color: rgb( 137, 209, 255 )
-  box-sizing: border-box
-.streamlined>.text
-  padding: 0 12px
-.dark_blue
-  width: 103px
-  height: 35px
-  background-color: rgb( 203, 211, 218 )
-  box-sizing: border-box
-  border-radius: 4px
-  text-align: center
-  .text
-    +inline-block
-    line-height: 35px
-    font-size: 18px
-    color: rgb( 136, 149, 161 )
-.fixed
-  min-width: 130px
-  box-sizing: border-box
-.add
-  .text
-    padding: 3px 10px 3px 10px
-    height: 33px
-    box-sizing: border-box
-    font-size: 24px
-/*--------------------------------------------------*/
-.support, .fill
-  +inline-block
-  width: 110px
-  height: 34px
-  background-color: rgb( 88, 105, 122 )
-  border-radius: 4px
-  text-align: center
-  .text
-    +inline-block
-    line-height: 34px
-    font-size: 18px
-    color: white
-.support
-  background-color: rgb( 88, 105, 122 )
-.fill
-  background-color: rgb( 137, 209, 255 )
-// ------------------------- CHECK IN -----------------------
-.button.check_in_first, .button.check_in_second, .button.callback
-  +inline-block
-  background-color: rgb( 240, 123, 111 )
-  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.59)
-  .text
-    color: #fff
-.button.check_in_first
-  width: 496px
-  height: 64px
-  .text
-    line-height: 64px
-    font-size: 25px
-.button.check_in_second
-  width: 208px
-  height: 50px
-  .text
-    text-align: center
-    line-height: 50px
-    font-size: 24px
-.button.callback
-  width: 265px
-  height: 54px
-  .text
-    line-height: 54px
-    font-size: 26px
-
-.button.check_in_first:hover, .button.check_in_second:hover, .button.callback:hover
-  background-color: $RedHoverColor
-
-//- ----------------------- CREATE ACCOUNT -----------------
-$line_height: 33px
-.button.create_account
-  width: 190px
-  height: $line_height
-  padding-top: 5px
-  box-sizing: border-box
-  background-color: rgb( 240, 123, 111 )
-  box-shadow : 0px 1px 1px 0px rgba(0, 0, 0, 0.59)
-  text-align: center
-  .text
-    font-size   : 20px
-    color       : #fff
-//- ------------------ TUTOR REGISTRATION BUTTONS ------------
-
-
-.button
+.button_box
   height: 100%
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
-  border-radius: 4px
-
-/////////////-----------it's big button in top filter----------------//////////////
-.at_home_button, .in_tutoring_button, .remotely_button
-  background: rgb(148, 201, 254)
-  .text
+  .button
+    height: 100%
     +inline-block
-    font-size: 26px
-    padding: 0 25px
-    color: rgb(255, 255, 255)
-.remotely_button
-  background-color: rgb(240, 123, 111)
-.at_home_button:after, .in_tutoring_button:after, .remotely_button:after
-  content: ''
-  +inline-block
-  height: 100%
-
-.subject_back, .onward_block, .issue_bid
-  background: rgb(148, 201, 254)
-  .text
+    +border-radius(4px)
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    .text
+      +inline-block
+      color: #ffffff
+  .button:after
+    content: ''
     +inline-block
-    font-size: 26px
-    padding: 0 15px
-    color: rgb(255, 255, 255)
-.issue_bid
-  background-color: rgb(240, 123, 111)
-  .text
-    padding: 0 20px
-.subject_back:after, .onward_block:after, .issue_bid:after
-  content: ''
-  +inline-block
-  height: 100%
+    height: 100%
+
+//////////////// function //////////////
+=selector($selector,$b_color,$padding_text,$font_size)
+  .button_box.#{$selector}
+    .button
+      background: $b_color
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
+    &:hover .button
+      background: lighten($b_color, 5%)
+
 
 ////------------- motivation button ----------------////
-.order_call, .start_search
-  +inline-block
-  background-color: rgb(201, 92, 81)
-  box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-  .text
-    +inline-block
-    padding: 0 28px
-    font-size: 26px
-    color: rgb(255, 255, 255)
-.order_call:after, .start_search:after
-  content: ''
-  +inline-block
-  height: 100%
-    
+$font_size: 26px
+$padding_text: 28px
++selector('start_search',$red,26px,25px)
+
 ////---------------- advance filter button --------------////To do moved module in button_add
-.add_time
-  text-align: center
-  background-color: #f07b6f
-  box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.51)
-  .text
-    padding: 0 11px
-    font-size: 30px
-    font-weight: 600
-    color: #ffffff
+//-  $font_size: 30px
+  $padding_text: 11px
+  +selector('add_time',hsl(210,98.1,78.8),11px,30px)
+  .add_time
+    .button
+      .text
+        font-weight: 600
+
+///////////-----------button in header popup element -----------//////////
+$font_size: 20px
+$padding_text: 12px
++selector('call_back',$red,12px,20px)
++selector('in_out',$red,12px,20px)
+
+//////////////-------------add button bid this tutor in preview----------/////////////
+$font_size: 20px
+$padding_text: 13px
++selector('add_button_bid',$blue,12px,20px)
+//////////////--------- fill button in report bid --------///////////////
+$font-size: 16px
+$padding_text: 13px
++selector('fill', $blue, $padding_text, $font-size)
 
 
-///////////---------send_bid_this_tutor------------//////////
-$triangle_left: 'main/profile_triangle_left.png'
-$triangle_right: 'main/profile_triangle_right.png'
-$triangle_height: image-height($triangle_right)
-$triangle_width: image-width($triangle_right)
-.send_bid_this_tutor, .small_send_bid_this_tutor
-  position: relative
-  border-bottom-right-radius: 0
-  background: url(F('main/pattern_dots_profilebutton.png'))
-  box-shadow: 0px 1px 1px 0px rgba(9, 12, 18, 0.54)
-  .close
-    position: absolute
-    margin-left: 13px
-    top: 50%
-    margin-top: -$triangle_height/2
-    .close_background
-      background: inline-image($triangle_right) no-repeat
-      width: $triangle_width
-      height: $triangle_height
-  .text
-    +inline-block
-    line-height: 24px
-    padding: 0 14px
-    font-size: 16px
-    color: #ffffff
-.send_bid_this_tutor:after
-  content: ''
-  +inline-block
-  height: 100%
-.small_send_bid_this_tutor
-  width: 56px
-  .close
-    .close_background
-      background: inline-image($triangle_left) no-repeat
-      
-    
-    
-///////////-----------button in header-----------//////////
-.call_back, .in_out
-  background-color: rgb(240, 123, 111)
-  .text
-    +inline-block
-    padding: 0 12px
-    font-size: 20px
-    color: #ffffff
-.call_back:after, .in_out:after
-  content: ''
-  +inline-block
-  height: 100%
-//- ---------------- EDIT : SAVE, ADD BUTTONS, SEARCH_BIDS_SAVE --------------------------
+// ------------------------- CHECK IN -----------------------
+
++selector('check_in_first', $red, 53.5px, 25px)
++selector('check_in_second', $red, 19px, 24px)
++selector('callback', $red, 28.5px, 26px)
 
 
-//////////////-------------add_button_bid----------/////////////
-.add_button_bid
-  text-align: center
-  border-radius: 4px
-  background-color: rgb(148, 201, 254)
-  box-shadow: 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-  .text
-    padding: 0 13px
-    +inline-block
-    font-size: 20px
-    color: #ffffff
-    font-weight: inherit
-.add_button_bid:after
-  content: ''
-  +inline-block
-  height: 100%
-
-//- ---------------- EDIT : SAVE, ADD BUTTONS, REGISTRATION POPUP: REG_ADD --------------------------
+//- ---------------- EDIT: SAVE, ADD BUTTONS; REGISTRATION POPUP: REG_ADD; SEARCH_BIDS: SAVE BUTTON --------------------------
 
 
-.button.edit_save, .button.edit_add, .button.search_bids_save, .button.reg_add
-  width: 128px
-  height: 33px
-  padding-top: 5px
-  box-sizing: border-box
-  background-color: rgb( 240, 123, 111 )
-  border-radius: 4px
-  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.65)
-  text-align: center
-  .text
-    font-size : 20px
-    color     : #fff
-    font-family : 'Open Sans', sans-serif
++selector('edit_save', $red, 11.5px, 20px)
 
-
-.button.search_bids_save
-  padding-top: 6px
-  .text
-    font-size: 18px
-
-
-.button.edit_save:hover, .button.edit_add:hover, .button.search_bids_save:hover, .button.reg_add:hover, .button.create_account:hover
-  background-color : $RedHoverColor
-
++selector('reg_add', $red, 11.5px, 20px)
++selector('search_bids_save', $red, 11.5px, 18px)
 
 
 //- ----------- EDIT PLUS BUTTON (ADD SMTH) ---------------------
 
-$height : 33px
++selector('add_smth', $red, 9.5px, 34px)
 
-.button.add_smth
-  width  : 38px
-  height : $height
-  text-align       : center
-  background-color : rgb( 240, 123, 111 )
-  border-radius    : 4px
-  box-shadow       : 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-  cursor : pointer
-  .text
-    line-height : 31px
-    font-size   : 34px
-    font-family : 'Open Sans', sans-serif
-    color       : #fff
 
-.button.add_smth:hover
-  background-color : $RedHoverColor
+//- ----------- Registration popup, first_step : understand button ----------------------
+
++selector('understand', $light_green, 31.5px, 23px)
+
+.button_box.understand
+  .button
+    .text
+      color: rgb(0, 0, 0)
+
+
+//- --------- Advanced filter; calendar : add time button ------------------------------------
+
++selector('filter_add_time', $red, 4px, 12px)
+
+.button_box.filter_add_time
+  .button
+    text-align: center
+    line-height: 16px
+
+
+//- - ------ Invite teacher, students button ------------------------------------------------------
+
+$padding: 15px
+$icon_src: 'mail2.png'
++selector('invite', $red, $padding, 20px)
+
+.button_box.invite
+  .button:before
+    content: ""
+    +inline-block
+    width:  image-width($icon_src)
+    height: image-height($icon_src)
+    padding: 0 $padding
+    background: inline-image($icon_src) no-repeat center
+  .button
+    .text
+      padding-left: 0
+
+////////////////  actions  ////////////////
+
+.button_box:hover
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+
+
+
+.press,.press:hover
+  padding-top: 1px
+  box-sizing: border-box
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+
+
+
+
+
+
+
+
+
+
 
 
 

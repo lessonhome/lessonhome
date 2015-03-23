@@ -1,57 +1,30 @@
-mixin selected_course(title)
-  .course
-    .text=title
-    .delete
-
-mixin info_block(block_class, title, value)
-  div(class=block_class)
-    .title=title
+mixin info_block(value)
+  .list_block
     .value!= value
-
+/////////////////////
 .filters
   .left_block
-    +info_block('subject', 'Предмет :', subject_list)
-    +info_block('saved_filters', 'Сохранённые фильтры :', saved_filters)
+    +info_block(subject_list)
+    +info_block(saved_filters)
     .button_block
       .save_button!= save_button
-
   .right_block
     .place
-      .title Место :
-      .value.unselect
-        .tutor!= tutor
-        .student!= student
-        .web!= web
-        .hint!= location_hint
-
-    +info_block('your_address', 'Ваш адрес :', address_list)
-
+      .title.select Место :
+      .tutor!= tutor
+      .student!= student
+      .web!= web
+      .hint!= location_hint
+    +info_block(address_list)
     .road_time
-      .title Время на дорогу :
-      .value
-        .title до
-        .time!= road_time
-        .title мин.
-        .slider!= slider
-
+      .title.select Время на дорогу :
+      .value!= road_time_slider
 .separate_line!= separate_line
-
 .center_block(style='min-height:#{min_height}')
   .advanced_search
     .advanced_filter!=advanced_filter
     .button
-    //-
-      .title.g-font-bidTitles Расширенный поиск
-      .content
-        .course
-          .arrow
-          .text Курс
-        .courses_list!= courses_list
-        .selected_courses
-          +selected_course('Олимпиада')
-
-
-
   .list_bids!= list_bids
+
 
 

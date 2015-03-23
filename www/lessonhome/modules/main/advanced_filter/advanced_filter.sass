@@ -9,7 +9,8 @@ $padding_section: 25px
 $padding_title: 20px
 $padding_icon: 10px
 $padding_experience: 10px
-$padding_sex_button: 15px
+$padding_reviews: 15px
+
 main
   padding: 15px 30px 30px 35px
   font-size: 18px
@@ -52,7 +53,7 @@ main
       content: ''
       clear: both
       display: block
-    .js-experience
+    .experience
       .little, .big, .bigger, .no_experience
         margin: 2px 0
         .text
@@ -62,20 +63,10 @@ main
           padding: $padding_experience 7px
       .no_experience
         margin-bottom: 0
-    .sex_button
-      .female, .male
-        float: left
-        height: 28px
-      .female
-        padding-right: $padding_sex_button/2
-      .male
-        padding-left: $padding_sex_button/2
-    .sex_button:after
-      display: block
-      content: ""
-      clear: both
+    .choose_gender
+      height: 28px
   .reviews_block, .verification_block
-    padding: $padding_sex_button/2 0
+    padding: $padding_reviews/2 0
   .verification_block
     padding-bottom: 0
 
@@ -100,21 +91,21 @@ main
       display: block
 
 ///////////////   experience hover or click    //////////////
-.section
-  .show_hidden
-    .js-experience
-      .little.background, .big.background, .bigger.background, .no_experience.background
-        .text
-          background: #ff7c6f
-          color: #ffffff
 
 .section
   .show_hidden
-    .js-experience
-      .little.hover:hover, .big.hover:hover, .bigger.hover:hover, .no_experience.hover:hover
+    .experience
+      .hover:hover
         .text
           background: #cecece
 
+.section
+  .show_hidden
+    .experience
+      .background
+        .text
+          background: #ff7c6f
+          color: #ffffff
 
 
 

@@ -1,0 +1,37 @@
+@import compass/css3
+@import compass/css3
+$height: 37px
+$padding: 7px
+main
+  height: 100%
+.location_buttons
+  padding-bottom: $padding
+  height: 33px
+  div
+    +inline-block
+  .title
+    padding-right: 30px
+    color:  #757575
+  .tutor, .student, .web
+    height: 100%
+
+  .tutor
+    padding-right: 5.5px
+  .web
+    padding-left: 5.5px
+  .student
+    padding: 0 5.5px
+.value
+  +inline-block
+  height: $height
+  padding: $padding 0
+.house, .building
+  +inline-block
+$padding_address: 24.5px
+.house
+  padding-right: $padding_address
+.building
+  padding-left: $padding_address
+.flat
+  margin-right: 250px
+  padding-bottom: 0

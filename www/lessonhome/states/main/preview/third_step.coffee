@@ -2,18 +2,23 @@ class @main extends template '../preview'
   route : '/third_step'
   model : 'main/third_step'
   title : "выберите место занятия"
+  tags  : -> 'pupil:main_search'
   tree : =>
+    popup       : @exports()
+    tag         : 'pupil:main_search'
     filter_top  : state '../filter_top' :
       title : 'Выберите место занятия :'
-      at_home_button      : module 'tutor/button'  :
-        selector  : 'at_home_button'
+      at_home_button      : module 'tutor/forms/location_button'  :
+        selector  : 'top_filter'
         text      : 'У себя'
-      in_tutoring_button  : module 'tutor/button'  :
-        selector  : 'in_tutoring_button'
+      in_tutoring_button  : module 'tutor/forms/location_button'  :
+        selector  : 'top_filter'
         text      : 'У репетитора'
-      remotely_button     : module 'tutor/button'  :
-        selector  : 'remotely_button'
+      remotely_button     : module 'tutor/forms/location_button'  :
+        selector  : 'top_filter'
         text      : 'Удаленно'
-      address_input       : module 'tutor/forms/input'  :
-        selector    : 'address_input'
-        placeholder : 'Cимоновский вал 12, кв 98'
+      address_input       : module 'tutor/forms/drop_down_list'  :
+        placeholder : 'Даниловский'
+        selector    : 'area'
+      link_forward    :  '/fourth_step'
+      link_back       :  '/second_step'

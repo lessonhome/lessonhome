@@ -1,36 +1,34 @@
 mixin illustration_text(text, x, y)
-  .text(style="top: #{y}px; left: #{x}px;")!=text
+  .text.select(style="top: #{y}px; left: #{x}px;")!=text
 
-mixin item (text)
+mixin item (text, icon_src)
   .item
-    .icon
-    .text.m-font=text
+    .icon(style="background: url(#{F(icon_src)}) no-repeat center")
+    .text.m-font.select=text
+
 
 //- ------------------ CHECK IN -------------------------
 
 .check_in
-  .title.m-font Lesson <span>Home</span> соединяет высоко-квалифицированных<br>репетиторов с учениками для занятий любым удобным способом.
-  .title_conditions!= 'Подробная информация об условиях сотрудничества изложена<br>в '
-    a.m-Link Условиях оказания информационных услуг
+  .title.m-font.select Lesson <span>Home</span> соединяет высоко-квалифицированных<br>репетиторов с учениками для занятий любым удобным способом.
+  .title_conditions.select!= 'Подробная информация об условиях сотрудничества изложена<br>в '
+    a.m-Link.select Условиях оказания информационных услуг
 
   .check_in_fields.unselect
-    .title Пройти регистрацию
+    .title.select Пройти регистрацию
     .login
       .input!= login
-      .hint!= login_hint
     .password
       .input!= password
-      .hint!= password_hint
 
     .checkbox
       .field!= checkbox
-      .text.m-font!= 'Я прочитал и согласен с '
-        a.m-Link Условиями оказания информационных услуг
+      .text.m-font.select!= 'Я прочитал и согласен с '
+        a.m-Link.select Условиями оказания информационных услуг
 
       .buttons
-        .a.m-Link.phone_check_in Регистрация по телефону
-        .create_account
-          a(href='tutor/profile/first_step')!=create_account
+        .a.m-Link.phone_check_in.select Регистрация по телефону
+        .create_account!=create_account
 
 
 //- ------------- HOW IT WORKS --------------------
@@ -38,7 +36,7 @@ mixin item (text)
 //-F('main_tutor/mainreg_how.png')
 
 .how_it_works(scrolltop="how-it-works")
-  .title.m-landingBlockTitle Как это работает?
+  .title.m-landingBlockTitle.select Как это работает?
   .illustrations
     img(src=F('main_tutor/mainreg_how.png'))
     +illustration_text ('Условия', 60, 159)
@@ -62,40 +60,40 @@ mixin item (text)
 .advantages(scrolltop="advantages")
   .photo
   .title
-    .text.m-font Тысячи учеников и их родителей ищут<br> репетиторов онлайн каждый день!
-    .text.m-font Площадка <span>LESSON HOME</span> позволяет создать бесплатны<br> онлайн профиль, в котором есть всё необходимое, чтобы<br> продемонстрировать свою квалификацию и опыт.
+    .text.m-font.select Тысячи учеников и их родителей ищут<br> репетиторов онлайн каждый день!
+    .text.m-font.select Площадка <span>LESSON HOME</span> позволяет создать бесплатны<br> онлайн профиль, в котором есть всё необходимое, чтобы<br> продемонстрировать свою квалификацию и опыт.
   .content
     .left
       .icon
         img(src=F('main_tutor/mainreg_go.png'))
-      .title.m-font Создать профиль<br> <span class="red">быстро</span> и <span class="blue">бесплатно</span>
+      .title.m-font.select Создать профиль<br> <span class="red">быстро</span> и <span class="blue">бесплатно</span>
       .button_block
         .button!= check_in_second
     .center
       .icon
         img(src=F('main_tutor/mainreg_profile.png'))
-      .title.m-font Подробный профиль
+      .title.m-font.select Подробный профиль
       .content
-        +item ('Удобный и приятный просмотр')
-        +item ('Фотографии и видео')
-        +item ('Отзывы учеников')
-        +item ('Рейтинг и статистика')
+        +item ('Удобный и приятный просмотр', 'like.png')
+        +item ('Фотографии и видео', 'photo.png')
+        +item ('Отзывы учеников', 'left_forum.png')
+        +item ('Рейтинг и статистика', 'review.png')
     .right
       .icon
         img(src=F('main_tutor/mainreg_settings.png'))
-      .title.m-font Управляйте вашим бизнесом
+      .title.m-font.select Управляйте вашим бизнесом
       .content
-        +item ('Расписание и синхронизация с личным календарём')
-        +item ('Просмотр текущих учеников и истории платежей')
-        +item ('Ищите учеников и откликайтесь на заявки')
-        +item ('Поддержка клиентов Lesson Home доступна 7 дней в неделю')
+        +item ('Расписание и синхронизация с личным календарём', 'date.png')
+        +item ('Просмотр текущих учеников и истории платежей', 'study.png')
+        +item ('Ищите учеников и откликайтесь на заявки', 'search.png')
+        +item ('Поддержка клиентов Lesson Home доступна 7 дней в неделю', 'left_help.png')
 
 
 
 //- -------- WAYS TO FIND -------------------------
 
 .ways_to_find(scrolltop="ways-to-find")
-  .title.m-landingBlockTitle 3 способа поиска
+  .title.m-landingBlockTitle.select 3 способа поиска
   .illustrations
     img(src=F('main_tutor/main_search.png'))
     +illustration_text ('Подберите себе<br>ученика сами', 57, 159)

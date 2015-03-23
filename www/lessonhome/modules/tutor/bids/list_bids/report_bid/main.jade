@@ -1,9 +1,23 @@
-mixin item (text, fill_button, support_button)
-  .item
-    .icon
-    .text= text
-    .fill_button!= fill_button
-    .support_button!= support_button
+- url = $req.url
+
+
+mixin item(element)
+  if element.value
+    - value = element.value
+  else
+    - value = element.default_text
+
+  - selector = element.selector
+  if selector == 'active'
+    .item.active
+      .icon
+      .text.select=value
+      a(href=url+'/'+element.fill_button_href)
+        .fill_button!= fill_button
+  else
+    .item(class=selector)
+      .icon
+      .text.select=value
 
 mixin report_line (title, value, selector)
   div(class=selector)
@@ -21,7 +35,7 @@ mixin line (title, value, selector)
   .select_button
     .content!= checkbox
   .bid
-    .basic_block
+    .basic_block.select
       .number_date
         .text!= number + '<br>'
           div(style="color: #444444")= date
@@ -44,7 +58,7 @@ mixin line (title, value, selector)
             .start
             .start
     .report_block
-      .details_block_background.details_closed
+      .details_block_background.details_closed.select
         .header
           .icon
           .title.m-title Просмотреть доп.информацию
@@ -56,7 +70,7 @@ mixin line (title, value, selector)
           +line('Ближайшее метро :', near_metro, 'dark' )
           +line('Комментарии :', comments, 'light' )
           +line('Цель занятия :', lesson_goal, 'dark' )
-      .data
+      .data.select
         .title.m-title Данные
         .content
           .full_name= full_name
@@ -65,19 +79,40 @@ mixin line (title, value, selector)
           +report_line('Skype :', skype, 'skype')
           +report_line('Желаемое время :', wish_time, 'wish_time')
       .report
-        .title.m-title Отчёт
+        .title.m-title.select Отчёт
         .content
           .items
-            .item.active
-              .icon
-              .text Ознакомительный звонок ученику
-            +item('Дата первого занятия')
-            +item('Как прошло первое занятие?')
-            +item('Оплата')
-          .buttons
-            .fill_button!= fill_button
+            +item(first_call)
+            +item(first_lesson_date)
+            +item(first_lesson_result)
+            +item(payment)
+          //-
+            if first_call
+              +item(first_call, fill_button, 'filled')
+              if first_lesson_date
+                +item(first_lesson_date, fill_button, 'filled')
+                if first_lesson_result
+                  +item(first_lesson_result, fill_button, 'filled')
+                  if payment
+                    +item(payment, fill_button, 'filled')
+                  else
+                    +item('Оплата', fill_button, 'active', '#')
+                else
+                  +item('Как прошло первое занятие?', fill_button, 'active', url + '/first_lesson_result')
+              else
+                +item('Дата первого занятия', fill_button, 'active', url + '/first_lesson_date')
+            else
+              +item('Ознакомительный звонок ученику', fill_button, 'active', url + '/first_call')
+          .support
             .support_button!= support_button
-      .review
+      .review.select
         .title.m-title Отзыв
         .content
           .text Пока не собран.
+
+
+//-
+  first_call          : 'Первый звонок прошёл удачно'
+  first_lesson_date   : '13 января'
+  first_lesson_result : false
+  payment

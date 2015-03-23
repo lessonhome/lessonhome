@@ -1,0 +1,83 @@
+@import compass/css3
+$close_src: 'main/close_10x10.png'
+$close_height: image-height($close_src)
+$close_width: image-width($close_src)
+$triangle_src: 'main/triangle_33x18.png'
+$triangle_down_src: 'main/triangle_33x18down.png'
+$triangle_width: image-width($triangle_src)
+$triangle_height: image-height($triangle_src)
+$border_width: 1px
+
+
+.triangle_box
+  position: relative
+  z-index: 1
+  .triangle
+    +inline-block
+    width: $triangle_width
+    height: $triangle_height
+
+.header
+  .triangle
+    background: inline-image($triangle_src) no-repeat
+
+.footer
+  margin-top: -1px
+  text-align: center
+  .triangle
+    vertical-align: top
+    background: inline-image($triangle_down_src) no-repeat
+
+.popup
+  margin-top: -$border_width
+  border: $border_width solid #cccccc
+  position: relative
+  width: 344px
+  padding: 30px 41px 40px 23px
+  overflow: hidden
+  box-sizing: border-box
+  background-color: rgb(255, 255, 255)
+  a
+    display: block
+
+  a>.close_box, .close_box
+    cursor: pointer
+    position: absolute
+    right: 0
+    top:  0
+    padding: 10px
+    .close
+      background: inline-image($close_src) no-repeat
+      height: $close_height
+      width: $close_width
+  .name, .tel_number
+    width: 100%
+    height: 32px
+    padding-bottom: 14px
+  .comments
+    height: 90px
+    padding-bottom: 0px
+  .button_panel_choose
+    padding-bottom: 30px
+    .pupil, .tutor
+      cursor: pointer
+      height: 33px
+    .pupil
+      float: left
+    .tutor
+      float: right
+  .order_call
+    float: left
+    height: 38px
+  .button_panel_choose:after
+    content: ''
+    display: block
+    clear: both
+
+
+
+
+
+
+
+

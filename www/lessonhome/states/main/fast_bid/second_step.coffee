@@ -5,15 +5,28 @@ class @main extends template '../fast_bid'
   tree : ->
     progress : 2
     content : module '$' :
-      your_status : module 'tutor/forms/drop_down_list':
+      pupil_status : module 'tutor/forms/drop_down_list':
         text: 'Ваш статус :'
         selector  : 'fast_bid'
+        default_options     : {
+          '0': {value: 'preschool_child', text: 'дошкольник'},
+          '1': {value: 'student_junior_school', text: 'школьник - младшая школа'},
+          '2': {value: 'student_high_school', text: 'школьник - средняя школа'},
+          '3': {value: 'student_senior_school', text: 'школьник - старшая школа'},
+          '4': {value: 'student', text: 'студент'},
+          '5': {value: 'grown_up', text: 'взрослый'}
+        }
       course : module 'tutor/forms/drop_down_list':
         text: 'Курс :'
         selector  : 'fast_bid'
       knowledge_level : module 'tutor/forms/drop_down_list':
         text: 'Уровень знаний :'
         selector  : 'fast_bid'
+        default_options     : {
+          '0': {value: 'low', text: 'низкий'},
+          '1': {value: 'average', text: 'средний'},
+          '2': {value: 'advanced', text: 'продвинутый'}
+        }
       price_slider_bids   : state '../slider_main' :
         selector      : 'price_slider_bids'
         start         : 'price_bids'
@@ -22,12 +35,21 @@ class @main extends template '../fast_bid'
           selector  : 'price_bids'
           text      : 'до'
         measurement   : 'руб.'
-        selector_two  : 'bids_move'
+        handle        : true
+        min           : 400
+        max           : 5000
+      price_hint : module 'tutor/hint' :
+        selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       goal : module 'tutor/forms/textarea':
         text: 'Опишите цель :'
         selector  : 'fast_bid'
-    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+    #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->
-    @parent.tree.filter_top.footer.back_link = 'first_step'
-    @parent.tree.filter_top.footer.next_link = 'third_step'
+    @parent.tree.filter_top.footer.button_back.selector = 'fast_bid_nav'
+    @parent.tree.filter_top.footer.button_back.href     = 'first_step'
+    @parent.tree.filter_top.footer.issue_bid.selector   = 'fast_bid_issue'
+    @parent.tree.filter_top.footer.issue_bid.href       = false
+    @parent.tree.filter_top.footer.button_next.selector = 'fast_bid_nav'
+    @parent.tree.filter_top.footer.button_next.href     = 'third_step'

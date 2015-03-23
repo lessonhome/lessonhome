@@ -11,14 +11,21 @@ $blue_color: #94c9fe
 main
   height: 100%
 .button
-  padding: 0 20px
+  //-padding: 0 20px
   position: relative
   cursor: pointer
   height: 100%
   .title
     +inline-block
+    height: 100%
+    padding: 0 20px
     font-size: 16px
     color: #757575
+  .title:after
+    +inline-block
+    height: 100%
+    content: ""
+
   .popup_box
     cursor: default
     position: absolute
@@ -40,7 +47,7 @@ main
       border: $border_width solid #cccccc
       position: relative
       width: 344px
-      padding: 20px 41px 30px 23px
+      padding: 30px 41px 30px 23px
       box-sizing: border-box
       background-color: rgb(255, 255, 255)
       .close_box
@@ -58,13 +65,17 @@ main
         height: 32px
         padding-bottom: $padding_bottom
       .password
-        padding-bottom: $padding_bottom
+        padding-bottom: 9px
       .forgot_password
         text-align: left
-        color: $blue_color
+        color: #B3B3B3
         font-size: 16px
-        padding-bottom: $padding_bottom
+        padding-left: 3px
+        padding-bottom: 20px
+        text-decoration: underline
         cursor: pointer
+      .forgot_password:hover
+        color: #757575
       .enter_registration_block
         text-align: left
         height: 38px

@@ -1,11 +1,11 @@
 .grade
-  .title Рейтинг :
+  .title.select Рейтинг :
   .reviews_rating!=reviews_rating
-  .number_pupils='( '+pupils_number+' учеников )'
+  .number_pupils.select='( '+pupils_number+' учеников )'
 .reviews
   each value in list_reviews
     .review!= value
-if send_bid_this_tutor
+//if send_bid_this_tutor
   .send_bid_this_tutor!=send_bid_this_tutor
 //.hint
   .vertical_line!=line

@@ -1,15 +1,23 @@
+$icon_src: 'close.png'
+$icon_height: image-height($icon_src)
+$icon_width: image-width($icon_src)
 .registration_popup
-  position : relative
-  width    : 761px
-  background-color : rgb( 255, 255, 255 )
-  box-shadow : 0px 0px 6px 0px rgba(0, 0, 0, 0.26)
-
+  position: relative
+  width: 760px
+  background-color: rgb( 255, 255, 255 )
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.26)
   .exit
-    position : absolute
-    top      : 10px
-    right    : 10px
+    position: absolute
+    top: 10px
+    right: 10px
     a
-      display : block
-      width   : 10px
-      height  : 10px
-      background : inline-image('close.png') no-repeat
+      display: block
+      width: $icon_width
+      height: $icon_height
+      background: inline-image($icon_src) no-repeat
+  .header
+    padding: 48px 0 28px 0
+  .content
+    padding: 22.5px 160px 61.5px 0      //$content_width: 600px used variable in child modules
+    text-align: right
+

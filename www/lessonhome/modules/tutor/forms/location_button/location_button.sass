@@ -1,32 +1,81 @@
 @import compass/css3
+$gray:  hsl(0,0%,69%)
+$red:   hsl(6,100%,69%)
 main
   height: 100%
-.button
-  +inline-block
-  height: 100%
-  box-sizing: border-box
-  +border-radius(4px)
-  background-color: rgb( 205, 205, 205 )
   cursor: pointer
-  .text
-    +inline-block
-    vertical-align: baseline
-    padding: 0 15px
-    font-size: 18px
-    color: #757575
-    font-weight: 400
-.button:after
-  content: ''
-  +inline-block
+.button_box
   height: 100%
+  .button
+    +inline-block
+    height: 100%
+    box-sizing: border-box
+    +border-radius(4px)
+    .text
+      +inline-block
+      vertical-align: baseline
+      color: #757575
+  .button:after
+    content: ''
+    +inline-block
+    height: 100%
 
-/////////////////// action ////////////////
+//////////////// state rules ////////////
+.inactive
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px
 .active
-  box-shadow       : 0px 1px 3px 0px rgba(9, 12, 18, 0.65)
-  background-color : rgb( 240, 123, 111 )
-  .text
-    color : #fff
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    .text
+      color : #fff
+
+
+//////////////// function //////////////
+=selector($selector,$padding_text,$font_size)
+  .button_box.#{$selector}
+    .button
+      .text
+        padding: 0 $padding_text
+        font-size: $font_size
+    &.inactive
+      .button
+        background: $gray
+    &.active
+      .button
+        background: $red
+
+    &.inactive:hover
+      .button
+        background: lighten($gray, 5%)
+    &.active:hover
+      .button
+        background: lighten($red, 5%)
+
+////////////////// place of learning in fast_bids ////////////////////
++selector('place_learn',15px,18px)
+
+////////////////// status_button in fast_bids  ////////////////////
++selector('status_button',10px,16px)
+
+/////////////-----------it's big button in top filter----------------//////////////
++selector('top_filter',26px,25px)
+
+
+/////////////////// actions ////////////////
+
+.active:hover
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
 
 
 .inactive:hover
-  background-color : #ffb1a8
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 2px 0px, rgba(0, 0, 0, 0.1) 0px -3px 0px 0px inset
+
+.press,.press:hover
+  padding-top: 1px
+  box-sizing: border-box
+  .button
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+

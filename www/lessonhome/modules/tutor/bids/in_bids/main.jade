@@ -1,13 +1,11 @@
-.hint_block
+.hint_block.select
   .title.g-font-middleTitle!= 'Список учеников, <br> которые отправили Вам заявки'
   .hint!= hint
 .bar
   .select_all
-    .button!= select_all_checkbox
-    .title Выбрать всё
+    .check_box!= select_all_checkbox
   .delete
     .icon
     .title Удалить
-  .select_subject!= subject
-
+  .subject!= subject
 .list_bids!= list_bids

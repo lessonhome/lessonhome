@@ -1,0 +1,22 @@
+@import compass/css3
+$padding: 7px
+$height: 37px
+.value, .gender_data, .birth_data
+  +inline-block
+  height: $height
+  padding: $padding 0
+
+.first_name
+  padding-top: 0
+.status
+  padding-bottom: 0
+
+$width_fields: 341px    // it's size fields assigned in forms module, here uze for do center photo relative fields
+$width_photo: 315px
+.add_photos
+  width: $width_photo
+  height: 215px
+  +inline-block
+  padding: 0 ($width_fields - $width_photo) / 2 29.5px ($width_fields - $width_photo) / 2
+
+//- ----------------------------------------------------------------------------

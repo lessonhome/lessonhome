@@ -5,19 +5,16 @@ class @main extends template '../tutor'
   tags   : -> 'tutor:profile'
   tree : ->
     items : [
-      module 'tutor/header/button' : {
+      module 'tutor/header/button' :
         title : 'Описание'
         href  : '/tutor/profile'
         tag   : 'tutor:profile'
-      }
-      module 'tutor/header/button' : {
+      module 'tutor/header/button' :
         title : 'Условия'
         href  : '/tutor/conditions'
-      }
-      module 'tutor/header/button' : {
+      module 'tutor/header/button' :
         title : 'Отзывы'
         href  : '/tutor/reviews'
-      }
     ]
     content : state './profile_content' :
       popup         : @exports()

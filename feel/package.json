@@ -34,6 +34,8 @@
     "wolfy87-eventemitter" : "*",
     "watch" : "*",
     "mime" : "*",
-    "mongodb":"*"
+    "mongodb":"*",
+    "rimraf" : "*"
   }
 }
+

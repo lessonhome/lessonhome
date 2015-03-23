@@ -1,47 +1,38 @@
 @import 'compass/css3'
-$icon_src: 'falldown_triangle2.png'
+$icon_src: 'triangle-6x7-closed.png'
 $icon_height: image-height($icon_src)
 $icon_width: image-width($icon_src)
 $font-size: 20px
 $padding_corner: 21.5px
-$block_height: 60px
 main
-  height: $block_height
+  height: 100%
   font-size: $font-size
   color: #000000
   background-color: rgb(227, 231, 236)
-.text_line
+.box_line
   height: 100%
-  .icon_box
+  padding: 0 25px
+  .title_box
+    float: left
+    .title
+      +inline-block
+  .title_two_box
+    float: right
+    .title_two
+      +inline-block
+  .details
     height: 100%
-    cursor: pointer
-    .icon
+    padding-left: 20px
+    float: left
+
+  .title_box, .title_two_box
+    height: 100%
+    .icon_box
       width: $icon_width
       height: $icon_height
-      margin: 0 $padding_corner
+      padding-right: 10px
       +inline-block
-      background : inline-image($icon_src) no-repeat
-  .icon_box:before
-    +inline-block
-    height: 100%
-    content: ""
-  .name
-    font-size: 24px
-    color: #414141
-    padding-right: 45px
-  .name, .details, .icon_box
-    +inline-block
-
-.text_line.title_on_corner //this style if name and details class position in opposite corner
-  .name
-    padding-right:  0
-  .details
-    float: right
-    padding-right: $icon_width/2 + $padding_corner
-    line-height: $block_height
-
-
-.text_line:before
-  +inline-block
-  height: 100%
-  content: ""
+      .icon
+        width: 100%
+        height: 100%
+        background : inline-image($icon_src) no-repeat

@@ -1,0 +1,31 @@
+@import compass/css3
+
+main
+  height: 100%
+div
+  height: 100%
+  .title, .sex_man, .sex_woman
+    +inline-block
+  .sex_man, .sex_woman
+    height: 100%
+////////////////////////
+$padding_sex_button: 60px
+.choose_gender
+  .title
+    text-align: right
+    padding-right: 26px
+    font-size: 16px
+    color: rgba(75, 75, 75, 0.70)
+  .sex_man
+    padding-right: $padding_sex_button/2
+  .sex_woman
+    padding-left: $padding_sex_button/2
+
+//////////advanced_filter/////////////
+$padding_sex_button: 15px
+.advanced_filter
+  .sex_man
+    padding-right: $padding_sex_button/2
+  .sex_woman
+    padding-left: $padding_sex_button/2
+

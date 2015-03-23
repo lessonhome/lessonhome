@@ -1,64 +1,37 @@
-class @main extends template '../../../tutor'
+class @main extends template '../edit_description'
   route : '/tutor/edit/career'
   model   : 'tutor/edit/description/career'
   title : "редактирование карьеры"
   tags : -> 'edit: description'
   tree : =>
-    items : [
-      module 'tutor/header/button' : {
-        title : 'Описание'
-        href  : '/tutor/edit/general'
-        tag   : 'edit: description'
-      }
-      module 'tutor/header/button' : {
-        title : 'Условия'
-        href  : '/tutor/edit/subjects'
-      }
-    ]
-    sub_top_menu : state 'tutor/sub_top_menu' :
-      items :
-        'Общие'       : 'general'
-        'Контакты'    : 'contacts'
-        'Образование' : 'education'
-        'Карьера'     : 'career'
-        'О себе'      : 'about'
-        'Настройки'   : 'settings'
-        #'Медиа'       : 'media'
-      active_item : 'Карьера'
-    content : module '$' :
-      place_of_work : module 'tutor/forms/input'
-      post : module 'tutor/forms/input'
-      add_button    : module 'tutor/button' :
+    menu_description  : 'edit: description'
+    active_item : 'Карьера'
+    tutor_edit  : module '$' :
+      place_of_work : module 'tutor/forms/input'  :
+        selector    : 'first_reg'
+        text        : 'Место работы :'
+      post : module 'tutor/forms/input' :
+        selector    : 'first_reg'
+        text        : 'Должность :'
+      add_button    : module 'button_add' :
         text     : '+Добавить'
         selector : 'edit_add'
       line : module 'tutor/separate_line' :
-        selector : 'gradient'
-      experience_tutoring : module 'tutor/forms/drop_down_list'
-      number_of_students : module 'tutor/forms/drop_down_list'
+        selector : 'horizon'
+      experience_tutoring : module 'tutor/forms/drop_down_list' :
+        selector    : 'first_reg'
+        text        : 'Опыт репетиторства :'
+        default_options     : {
+          '0': {value: '1-2years', text: '1-2 года'},
+          '1': {value: '3-4years', text: '3-4 года'},
+          '2': {value: 'more_than_4_years', text: 'более 4 лет'},
+          '3': {value: 'no_matter', text: 'неважно'}
+        }
       extra_info : module 'tutor/forms/textarea' :
+        text      : 'Доп. информация/<br>награды'
+        selector  : 'first_reg'
         height : '117px'
-
-      save_button : module 'tutor/button' :
-        text     : 'Сохранить'
-        selector : 'edit_save'
-
-
-      hint : module 'tutor/hint' :
-        selector : 'horizontal'
-        header : 'Это подсказка'
-        text : 'Поскольку состояния всего нашего мира зависят от времени,
-                 то и состояние какой-либо системы тоже может зависеть от времени,
-                 как обычно и происходит. Однако в некоторых исключительных случаях
-                 зависимость какой-либо величины от времени может оказаться пренебрежимо
-                 слабой, так что с высокой точностью можно считать эту характеристику независящей от времени.
-                 Если такие величины описывают динамику какой-либо системы,'
-
-
-
-  init : ->
-    @parent.tree.left_menu.setActive 'Анкета'
-    @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
-
-
-
-
+    hint        : module 'tutor/hint' :
+      selector  : 'horizontal'
+      header    : 'Это подсказка'
+      text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'

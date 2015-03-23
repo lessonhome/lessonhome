@@ -22,9 +22,35 @@ class @Feel
       e.message += a+"\n" if typeof a == 'string'
       e.message += JSON.stringify(a)+"\n" if typeof a == 'object'
     console.error e.name,e.message,e.stack
+    @activeError()
     #console.error e.message
     #console.error e.stack
-  
+  activeError : ->
+    return if @activated
+    @activated = true
+    return if location.hostname.match /lessonhome/
+    div = $('<div id="g-global_error"></div>').appendTo('body')
+    setInterval ->
+      a = 0.5*(Math.sin((new Date().getTime())/300)+1)
+      div.css 'box-shadow', "inset 0 10px 20px -10px rgba(255,0,0,#{a})"
+    ,30
+  autocomplete : (options,cb)=>
+    o = ""
+    for key,val of options
+      o+= "&" if o.length
+      o += "#{key}=#{val}"
+    $.getJSON("/google?#{o}")
+    .success (data)->
+      console.log data
+      cb? data
+  autocompleteCity : (input,cb)=>
+    @autocomplete {
+      input : input
+      #language : "ru"
+      #components : "ru"
+      types : "(cities)"
+    },cb
+
 
 window.Feel = new @Feel()
 

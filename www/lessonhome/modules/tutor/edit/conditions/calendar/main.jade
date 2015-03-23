@@ -1,28 +1,6 @@
-mixin day(text)
-  .day=text
-
-.header Определите свободное время<br> для проведения Ваших занятий
+.hint!=hint
 .calendar!= calendar
-//-.calendar
-  .week
-    .passive.g-font-edit-calendar пн
-    .active.g-font-edit-calendar вт
-    .passive.g-font-edit-calendar ср
-    .passive.g-font-edit-calendar чт
-    .active_rn.g-font-edit-calendar пт
-    .active_ln.g-font-edit-calendar сб
-    .passive.g-font-edit-calendar вс
 
-  .hint!= calendar_hint
 
-.time_entry_fields
-  each value in time_entry_fields
-    .time_entry_field!= value
-
-.hint_block
-  .add_block
-    .button!= add_entry_field
-    .hint!= time_entry_hint
-  .hint Если Вы ещё точно не уверены в своём расписании - укажите примерное время с небольшим запасом.<br>Это максимально упростит поиск ученикам и они сами Вас найдут!
 
 

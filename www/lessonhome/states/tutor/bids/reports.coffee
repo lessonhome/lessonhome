@@ -33,8 +33,12 @@ class @main extends template '../../tutor'
 
       select_all_checkbox : module 'tutor/forms/checkbox' :
         selector : 'small'
-      select_all_list     : module 'tutor/forms/drop_down_list'
-      subject : module 'tutor/forms/drop_down_list'
+      sort_list     : module 'tutor/forms/drop_down_list':
+        placeholder : 'Все'
+        selector    : 'in_bids'
+      subject : module 'tutor/forms/drop_down_list':
+        placeholder : 'Предмет'
+        selector    : 'in_bids'
 
       list_bids : module 'tutor/bids/list_bids' :
         titles_bid : module '//titles_bid' :
@@ -53,8 +57,13 @@ class @main extends template '../../tutor'
             selectable     : true
             checkbox       : module 'tutor/forms/checkbox' :
               selector : 'small'
-            fill_button    : module '//fill_button'
-            support_button : module '//support_button'
+            fill_button    : module 'tutor/button' :
+              selector: 'fill'
+              text: 'Заполнить'
+            support_button : module 'link_button' :
+              selector: 'support'
+              text: 'Поддержка'
+              href: 'reports/support'
 
             number    : 25723
             date      : "10 ноября"
@@ -82,13 +91,39 @@ class @main extends template '../../tutor'
             skype               : 'melanholic'
             wish_time           : 'вторник 18:30-20:00'
 
+            first_call          :
+              selector: 'filled'
+              default_text: 'Как прошло первое занятие?'
+              value: 'отлично'
+              fill_button_href: 'first_call'
+            first_lesson_date   :
+              selector: 'active'
+              default_text: 'Дата первого занятия'
+              value: false
+              fill_button_href: 'first_lesson_date'
+            first_lesson_result :
+              selector: 'inactive'
+              default_text: 'Ознакомительный звонок ученику'
+              value: false
+              fill_button_href: 'first_lesson_result'
+            payment             :
+              selector: 'inactive'
+              default_text: 'Оплата'
+              value: false
+              fill_button_href: 'payment'
+
 
           module '//report_bid' :
             selectable   : true
             checkbox  : module 'tutor/forms/checkbox' :
               selector : 'small'
-            fill_button    : module '//fill_button'
-            support_button : module '//support_button'
+            fill_button    : module 'tutor/button' :
+              selector: 'fill'
+              text: 'Заполнить'
+            support_button : module 'link_button' :
+              selector: 'support'
+              text: 'Поддержка'
+              href: 'reports/support'
 
             number    : 15723
             date      : "20 декабря"
@@ -115,6 +150,27 @@ class @main extends template '../../tutor'
             post                : 'seragj@mail.ru'
             skype               : 'melanholic'
             wish_time           : 'вторник 18:30-20:00'
+
+            first_call          :
+              selector: 'filled'
+              default_text: 'Как прошло первое занятие?'
+              value: 'Первый звонок прошёл удачно'
+              fill_button_href: 'first_call'
+            first_lesson_date   :
+              selector: 'filled'
+              default_text: 'Дата первого занятия'
+              value: '13 января'
+              fill_button_href: 'first_lesson_date'
+            first_lesson_result :
+              selector: 'active'
+              default_text: 'Ознакомительный звонок ученику'
+              value: false
+              fill_button_href: 'first_lesson_result'
+            payment             :
+              selector: 'inactive'
+              default_text: 'Оплата'
+              value: false
+              fill_button_href: 'payment'
         ]
   init : ->
     @parent.tree.left_menu.setActive 'Заявки'

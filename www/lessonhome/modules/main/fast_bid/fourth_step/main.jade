@@ -1,16 +1,19 @@
 .info.unselect
-  .status
-    .title Статус :
-    .value
-      .student!= student
-      .teacher!= teacher
-      .professor!= professor
-      .native!=native
-  .experience!= experience
-  .text_box
-    .title Возраст :
-  .age_slider!=age_slider
-  .sex
-    .title Пол :
-    .sex_man!= sex_man
-    .sex_woman!= sex_woman
+  .bg_box1
+    .status
+      .title.select Статус :
+      .value
+        .student!= student
+        .teacher!= teacher
+        .professor!= professor
+        .native!=native
+    .experience!= experience
+    .hint!=status_hint
+  .bg_box2
+    .text_box
+      .title.select Возраст :
+    .age_slider!=age_slider
+    .sex
+      .title.select Пол :
+      .gender_data!=gender_data
+    .hint!=gender_hint

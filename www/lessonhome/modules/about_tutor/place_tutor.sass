@@ -1,0 +1,14 @@
+@import compass/css3
+$height: 37px
+$padding: 7px
+$width_fields: 341px      // size fields assigned in forms module
+$width_content: 600px     // this variable in parent module
+main
+  height: 100%
+.value
+  +inline-block
+  padding: $padding 0 ////($width_content - $width_fields)
+.reason
+  padding-top: 0
+.about
+  padding-bottom: 0

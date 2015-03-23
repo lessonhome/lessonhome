@@ -1,22 +1,6 @@
-mixin info_block (block_class, title, value)
-  label(class=block_class)
-    .value.g-standardField!= value
-    .title.g-edit-smallTitle!= title
-
-.header Уточните с какими учениками Вы хотите заниматься
-
-
-.hint!= hint
-
-.select_block
-  .sex
-    .value.g-standardField
-      .sex_man!= sex_man
-      .sex_woman!= sex_woman
-    .title.g-edit-smallTitle Пол :
-
-  +info_block('category', 'Класс :', category)
-  +info_block('status', 'Статус :', status)
-
-  .button_block
-    .button!= button
+mixin field (selector, value)
+  .value(class=selector)!=value
+/////////////
+.gender_data!=gender_data
+//+field('category', category)
++field('status', status)

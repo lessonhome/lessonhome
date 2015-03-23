@@ -1,28 +1,5 @@
-mixin field (selector, title, value)
-  label(class=selector)
-    .title=title
-    .value!= value
 
-.fields
-  +field ('subject', 'Предмет :', subject)
-  +field ('categories', 'Разделы :', categories)
-  +field ('directions', 'Направления :', directions)
-  +field ('categories_of_students', 'Категории учеников :', categories_of_students)
-  +field ('place', 'Место :', place)
-
-  label.price
-    .title Цена :
-    .value!= price
-    .price_button!= price_button
-  .line
-    label.group_lessons
-      .title Групповые занятия :
-      .value
-        .students_in_group!= students_in_group
-    label.group_lessons_bet!= group_lessons_bet
-
-  +field ('comments', 'Комментарии :', comments)
-
+.subject_tutor!=subject_tutor
   .button_block
     .add_button!= add_button
 

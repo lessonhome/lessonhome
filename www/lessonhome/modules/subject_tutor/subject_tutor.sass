@@ -1,0 +1,36 @@
+@import compass/css3
+$height : 37px
+$padding: 7px
+$width_fields: 341px
+main
+  height: 100%
+.value, .block_price_place, .group_block
+  +inline-block
+  padding: $padding 0
+  height: $height
+.subject
+  padding-top: 0
+.block_price_place
+  position: relative
+  .place
+    padding-right: 33px
+  .price, .place
+    +inline-block
+    height: 100%
+  .price_button
+    height: 33px
+    +inline-block
+    position: absolute
+    margin-left: 22px
+.group_block
+  .students_in_group, .group_lessons_bet
+    +inline-block
+    height: 100%
+  $padding_group: 16.5px
+  .students_in_group
+    padding-right: $padding_group
+  .group_lessons_bet
+    padding-left: $padding_group
+.comments
+  padding-bottom: 0
+  height: 100%

@@ -1,4 +1,5 @@
 - selector = selector || "";
-
-.button.inactive.unselect(class=selector)
-  .text=text
+.button_box.inactive(class=selector)
+  .button
+    if text
+      .text!=text

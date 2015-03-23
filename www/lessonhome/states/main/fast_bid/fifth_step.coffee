@@ -10,4 +10,5 @@ class @main extends template '../preview'
         height: 246
         width:  255
       progress_bar : module 'main/fast_bid/progress_bar' :
-        progress : 5
+        progress  : 5
+        link      : false

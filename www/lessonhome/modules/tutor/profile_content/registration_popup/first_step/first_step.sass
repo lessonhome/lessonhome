@@ -1,133 +1,25 @@
 @import compass/css3
-
-$height : 37px
-
 .hint
-  position : absolute
-  top   : 278px
-  right : -264px
-  width  : 361px
-  height : 337px
-  box-sizing : border-box
-  border : 3px solid #afe0ff
-  background-color : #fff
+  position: absolute
+  top: 278px
+  right: -264px
+  width: 361px
+  height: 337px
+  text-align: center
+  box-sizing: border-box
+  border: 3px solid #afe0ff
+  background-color: #fff
   .text
-    line-height : 22px
-    padding : 26px 29px 37px 30px
-    text-align  : left
-    color       : rgb(0, 0, 0)
-    font-size   : 18px
-    font-family : 'Open Sans', sans-serif
+    line-height: 22px
+    padding: 26px 29px 37px 30px
+    text-align: left
+    color: rgb(0, 0, 0)
+    font-size: 18px
   .button
     +inline-block
+    height: 59px
+
+.general_data
+  width: 100%
 
 
-//- -------------------------------------------------------------------------------
-
-.photo
-  position : relative
-  width  : 315px
-  height : 215px
-  margin : 50px 0 29.5px 258px
-  .plus
-    position : absolute
-    width  : 50px
-    height : 50px
-    background : inline-image('registration/plus.png') no-repeat
-
-  .camera_big
-    position : absolute
-    left   : 43px
-    top    : 13px
-    width  : 201px
-    height : 200px
-    border-radius       : 50%
-    background          : inline-image('registration/camera_big.png') no-repeat
-    background-position : center
-    background-color    : rgb( 228, 228, 228 )
-
-  .camera_small
-    position : absolute
-    top  : 153px
-    left : 257px
-    width  : 59px
-    height : 58px
-    border-radius       : 50%
-    background          : inline-image('registration/camera_small.png') no-repeat
-    background-position : center
-    background-color    : rgb( 228, 228, 228 )
-
-
-//- ----------------------------------------------------------------------------
-
-
-.fields
-  text-align    : right
-  margin-right  : 164px
-  margin-bottom : 61.5px
-  label, .sex, .line>label
-    display : block
-    cursor  : pointer
-    padding : 5.5px 0
-    //-margin-bottom : 11px
-    .title, .value
-      +inline-block
-
-    .title
-      width        : 150px
-      height       : $height
-      line-height  : $height
-      text-align   : right
-      margin-right : 26px
-
-      font-size   : 16px
-      color       : rgba(75, 75, 75, 0.70)
-      font-family : 'Open Sans', sans-serif
-
-    .value
-      width  : 341px
-      height : $height
-
-  div:last-child
-    margin-bottom : 0
-
-  .sex
-    cursor : default
-    .value
-      div
-        +inline-block
-      .sex_man
-        margin-right : 85px
-      .sex_man, .sex_woman
-        width     : 128px
-        height    : 33px
-        font-size : 20px
-    .value:after
-      content : ''
-      +inline-block
-      vertical-align : middle
-      height : 100%
-      width : 0px
-
-  .line
-    label
-      +inline-block
-      cursor: pointer
-    label.birth_date
-      padding-right: 4.5px
-      .value
-        width: initial
-        .birth_day
-          +inline-block
-          width  : 91px
-          height : $height
-
-    label.birth_month
-      width   : 131px
-      height  : $height
-      padding : 5.5px 4.5px
-
-    label.birth_year
-      width  : 101px
-      height : $height
-      padding-left : 4.5px

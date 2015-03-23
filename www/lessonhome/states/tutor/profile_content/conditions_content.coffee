@@ -1,19 +1,52 @@
 class @main
   tree : -> module '$' :
-    send_bid_this_tutor       : @exports()
     line_place  : module 'tutor/separate_line' :
       title     : 'Место :'
       link      : './edit/location'
       edit      :  @exports()
       selector  : 'horizon'
     address_time  : module 'tutor/profile_content/title_block'  :
-      name      : 'Новогиреевская улица дом 12 кв 4'
-      details   : 'Свободное время'
-      selector  : 'title_on_corner'                         #variable class in sass
+      title     : 'Даниловский'
+      title_two   : 'Свободное время'
+      selector  : 'address_time'                         #variable class in sass
     map           : module '$/map'  :
       srs       : '#'
-    show_calendar      : module '$/show_calendar'
-    outside_work_areas : [          #separate in new module this []
+    show_calendar      : module '$/show_calendar' :
+      day_time : [
+        {
+          day       : 'пн :'
+          from_time : '12:00'
+          to_time   : '16:00'
+        }
+        {
+          day       : 'вт :'
+          from_time : '12:00'
+          to_time   : '6:00'
+        }
+        {
+          day       : 'ср :'
+          from_time : '12:00'
+          to_time   : '16:00'
+        }
+        {
+          day       : 'чт :'
+          from_time : '12:00'
+          to_time   : '16:00'
+        }
+        {
+          day       : 'пт :'
+          from_time : '12:00'
+          to_time   : '16:00'
+        }
+        {
+          day       : 'пт :'
+          from_time : '12:00'
+          to_time   : '16:00'
+        }
+      ]
+      separate_line       : module '../separate_line'  :
+        selector  : 'calendar'
+    outside_work_areas  : [
       'Бибирево'
       'Бирюлёво'
       'Крюково'
@@ -29,8 +62,9 @@ class @main
       edit      :  @exports()
       selector  : 'horizon'
     subject       : module 'tutor/profile_content/title_block'  :
-      name    : 'Физика :'
-      details : 'ЕГЭ, ГИА'
+      title     : 'Физика :'
+      details   : 'ЕГЭ, ГИА'
+      selector  : 'subject'
     details_data  : module '$/details_data' :
       outside_work_price  : '1500р.'
       home_price          : '1200р.'

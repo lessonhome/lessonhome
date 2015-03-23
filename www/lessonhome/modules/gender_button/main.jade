@@ -1,9 +1,8 @@
-case selector
- when 'male'
-   .button.unselect.inactive
-     .text М
- when 'female'
-   .button.unselect.inactive
-     .text Ж
-
-
+.button_box.inactive(class=selector)
+  case text
+   when 'М'
+     .button
+       .text М
+   when 'Ж'
+     .button
+       .text Ж

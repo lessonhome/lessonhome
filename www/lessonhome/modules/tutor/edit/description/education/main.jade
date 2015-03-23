@@ -1,30 +1,14 @@
-mixin info_block(block_class, header, value)
-  label(class=block_class)
-    .value.g-standardField!= value
-    .m-title.g-edit-smallTitle= header
-//- -------------------------------------------------
-.block
-  +info_block('country', 'Страна :', country)
-  +info_block('city', 'Город :', city)
-  +info_block('university', 'Вуз :', university)
-  +info_block('faculty', 'Факультет :', faculty)
-  +info_block('chair', 'Кафедра :', chair)
-  +info_block('status', 'Статус :', status)
-  .line
-    label.date
-      .value
-        .day!= release_day
-      .m-title.g-edit-smallTitle Дата выпуска :
-    label.month!= release_month
-    label.year.g-smallField!= release_year
-
-  .button_block
-    .add_button!= add_button
-
-  .button_block
-    .save_button!= save_button
-
-.hint!= hint
+mixin field (selector, value)
+  .value(class=selector)!=value
+/////////////
++field('country', country)
++field('city', city)
++field('university', university)
++field('faculty', faculty)
++field('chair', chair)
++field('status', status)
+.release_day!=release_day
+.add_button!= add_button
 
 
 

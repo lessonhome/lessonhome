@@ -6,13 +6,14 @@ main
   height: 100%
 label
   width: 100%
-  +inline-block
+  display: block
   .text
     font-size: $_font_size
     +inline-block
     cursor: pointer
-    color: #000000
+    color: #757575
   textarea
+    +inline-block
     padding: $padding
     outline: none
     resize: none
@@ -36,9 +37,29 @@ $font_size: 18px
   text-align: left
   .text
     font-size: $_font_size
-    margin-bottom: 10px
+    padding-bottom: 10px
   textarea
     font-size: $font_size
+
+  ////////////---------fast reg-----------//////////
+$padding_text: 26px
+.first_reg
+  .text
+    color: rgba(75, 75, 75, 0.70)
+    font-size: $_font_size
+    padding-right: $padding_text
+  textarea
+    font-size: $font_size
+    width: 341px
+$padding_text: 0px
+.up_text
+  .text
+    display: block
+    padding-bottom: 10px
+    padding-right: $padding_text
+    text-align: left
+
+
 
 
 
@@ -55,9 +76,13 @@ $font_size: 18px
   ///////////----action------//////////
 
 label:hover
+  .text
+    color: #000000
   textarea
     border: 2px solid #b3b3b3
 
 label
+  .text
+    color: #000000
   textarea:focus
     border: 2px solid rgb( 137, 209, 255 )

@@ -6,13 +6,13 @@ class @main extends template '../fast_bid'
     progress : 3
     content : module '$' :
       tutor : module 'tutor/forms/location_button' :
-        selector : 'search_bids'
+        selector : 'place_learn'
         text   : 'у себя'
       student  : module 'tutor/forms/location_button' :
-        selector : 'search_bids'
+        selector : 'place_learn'
         text   : 'у ученика'
       web : module 'tutor/forms/location_button' :
-        selector : 'search_bids'
+        selector : 'place_learn'
         text   : 'удалённо'
       location_hint : module 'tutor/hint' :
         selector : 'small'
@@ -25,28 +25,35 @@ class @main extends template '../fast_bid'
         start         : 'time_spend_bids'
         start_text    : 'до'
         measurement   : 'мин.'
-        selector_two  : 'fast_bids_spend'
-      calendar        : module 'main/calendar' :
-        selector    : 'fast_bids'
-        choose_all  : module 'tutor/forms/checkbox'  :
-          text        : 'выбрать все'
-          selector  : 'small'
-        from_time     : module 'tutor/forms/input' :
-          selector  : 'calendar_fast_bids'
-          text      : 'с'
-        till_time     : module 'tutor/forms/input' :
-          selector  : 'calendar_fast_bids'
-          text      : 'до'
-        button_add    : module 'button_add' :
-          text      : '+'
-
+        handle        : false
+        min           : 15
+        max           : 120
+      way_time_hint : module 'tutor/hint' :
+        selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+      calendar        : state 'calendar' :
+        selector    : 'advance_filter'
+      calendar_hint : module 'tutor/hint' :
+        selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       time_spend_lesson   : state '../slider_main' :
         selector      : 'time_fast_bids'
         start         : 'time_spend_bids'
-        start_text    : 'до'
+        dash          : '-'
+        end         : module 'tutor/forms/input' :
+          selector  : 'time_spend_bids'
         measurement   : 'мин.'
-        selector_two  : 'fast_bids_spend'
-    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+        handle        : true
+        min           : 45
+        max           : 180
+      lesson_time_hint : module 'tutor/hint' :
+        selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+    #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
   init : ->
-    @parent.tree.filter_top.footer.back_link = 'second_step'
-    @parent.tree.filter_top.footer.next_link = 'fourth_step'
+    @parent.tree.filter_top.footer.button_back.selector = 'fast_bid_nav'
+    @parent.tree.filter_top.footer.button_back.href     = 'second_step'
+    @parent.tree.filter_top.footer.issue_bid.selector   = 'fast_bid_issue'
+    @parent.tree.filter_top.footer.issue_bid.href       = false
+    @parent.tree.filter_top.footer.button_next.selector = 'fast_bid_nav'
+    @parent.tree.filter_top.footer.button_next.href     = 'fourth_step'

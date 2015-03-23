@@ -5,16 +5,20 @@ class @main extends template './preview'
       progress_bar : module '//progress_bar' :
         progress : @exports()
       content      : @exports()   # must be defined
-      hint         : @exports()
+      #hint         : @exports()    # while hint it's not need
       footer       : module '//footer' :
-        button_back : module '//button_back' :
-          selector : 'active'
-        back_link   : @exports()  # must be defined
-        issue_bid : module '//issue_bid' :
-          selector : 'active'
-        button_next : module '//button_next' :
-          selector : 'active'
-        next_link   : @exports()  # must be defined
+        button_back : module 'link_button' :
+          selector: @exports()
+          text:     'Назад'
+          href     : @exports()
+        issue_bid : module 'link_button' :
+          selector: @exports()
+          text: 'Оформить заявку сейчас'
+          href: @exports()
+        button_next : module 'link_button' :
+          selector:  @exports()
+          text:     'Далее'
+          href:     @exports()
 
 
 

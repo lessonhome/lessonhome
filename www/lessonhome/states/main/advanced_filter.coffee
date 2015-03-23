@@ -7,41 +7,31 @@ class @main
         selector  : 'choose_course'
         text      : 'ЕГЭ'
         close     : true
-      calendar        : module './calendar' :
-        selector    : 'advance_filter'
-        choose_all  : module 'tutor/forms/checkbox'  :
-          text        : 'выбрать все'
-          selector  : 'small'
-        from_time     : module 'tutor/forms/input' :
-          selector  : 'calendar'
-          text      : 'с'
-        till_time     : module 'tutor/forms/input' :
-          selector  : 'calendar'
-          text      : 'до'
-        button_add    : module 'button_add' :
-          text      : '+'
+      calendar        : state '../calendar' :
+        selector  : 'advance_filter'
       time_spend_lesson   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'time_spend'
         end           : module 'tutor/forms/input' :
-          selector  : 'end'
+          selector    : 'time_spend'
+        dash          : '-'
         measurement   : 'мин.'
-        selector_two  : 'advance_move'
         handle        : true
+        min           : 45
+        max           : 180
       time_spend_way   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'time_spend'
         measurement   : 'мин.'
-        selector_two  : 'advance_move'
-        handle        : true
-      female            : module 'gender_button' :
-        selector    : 'female'
-      male              : module 'gender_button' :
-        selector    : 'male'
+        min           : 15
+        max           : 120
+        handle        : false
+      choose_gender   : state 'gender_data':
+        selector        : 'advanced_filter'
+        selector_button : 'advance_filter'
       with_reviews      : module 'tutor/forms/checkbox'  :
         text      : 'С отзывами'
         selector  : 'small'
-
       with_verification : module 'tutor/forms/checkbox'  :
         text      : 'Верифицированные'
         selector  : 'small'

@@ -1,0 +1,18 @@
+.calendar_box
+  .panel
+    .weak_box
+      .calendar_week
+        .monday.hover пн
+        .tuesday.hover вт
+        .wednesday.hover ср
+        .thursday.hover чт
+        .friday.hover пт
+        .saturday.hover сб
+        .sunday.hover вс
+    .separate_line!=separate_line
+  .day_time_box
+    each day,i in day_time
+      .day_time(class="index_#{i%2}")
+        .day!=day.day
+        .time c #{day.from_time} до #{day.to_time}
+      .separate_line!=separate_line

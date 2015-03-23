@@ -4,21 +4,29 @@ class @main extends template '../main'
   model : 'main/registration'
   title : "Регистрация"
   tree : ->
+    popup : @exports()
     content : module 'main_tutor/content'  :
       login           : module 'tutor/forms/input' :
         selector : 'main_check_in'
         text : 'Введите ваш телефон или email адрес'
-      login_hint      : module 'tutor/hint' :
-        selector : 'small'
-        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
+        validators: {
+          '0': {
+            pattern: /^((\+?7)|8)?\d{10}$/.source
+          }, #required using some like: (dataObject 'checker').patterns.simpleTelephon
+          '1': {
+            pattern: /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.source,
+            #errMessage: 'Пожалуйста введите корректный email'
+          }
+          'errMessage': 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx или корректный email'
+        }
       password        : module 'tutor/forms/input' :
         selector : 'main_check_in'
         text : 'Придумайте пароль'
-      password_hint   : module 'tutor/hint' :
-        selector : 'small'
-        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
+        pattern: '.{6,}'
+        errMessage  : 'Пароль должен быть не меньше 6-ти символов'
       checkbox        : module 'tutor/forms/checkbox'
-      create_account  : module 'tutor/button' :
+      create_account  : module 'link_button' :
+        href      : 'tutor/profile/first_step'
         selector  : 'create_account'
         text      : 'Создать аккаунт'
       check_in_first  : module 'tutor/button' :
@@ -27,6 +35,11 @@ class @main extends template '../main'
       check_in_second : module 'tutor/button' :
         selector  : 'check_in_second'
         text      : 'Прямо сейчас!'
-      callback    : module 'tutor/button' :
-        selector  : 'callback'
+      callback    : module 'link_button' :
+        selector  : 'order_call'
         text      : 'Заказать звонок'
+        href      : '/main_tutor_callback'
+
+
+
+
