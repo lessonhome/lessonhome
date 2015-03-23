@@ -5,7 +5,7 @@ class @main extends template './preview'
       progress_bar : module '//progress_bar' :
         progress : @exports()
       content      : @exports()   # must be defined
-      hint         : @exports()
+      #hint         : @exports()    # while hint it's not need
       footer       : module '//footer' :
         button_back : module 'link_button' :
           selector: @exports()

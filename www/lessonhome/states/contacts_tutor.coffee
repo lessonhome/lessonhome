@@ -15,6 +15,7 @@ class @main
     mobile_phone  : module 'tutor/forms/input' :
       text      : 'Мобильный телефон :'
       selector  : 'first_reg'
+      placeholder: '+7(xxx)xxx–xx–xx'
     extra_phone   : module 'tutor/forms/input' :
       text      : 'Доп. телефон :'
       selector  : 'first_reg'

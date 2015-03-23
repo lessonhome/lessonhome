@@ -1,14 +1,33 @@
 @import compass/css3
-$padding: 7px
+$padding: 8px
 .info
-  .box
-    padding: $padding 0
-  .text_box
-    padding: $padding 0
-    text-align: left
-    .title_price
-      +inline-block
-      font-size: 16px
-      color: #222528
-  .price_slider_bids
-    padding: $padding 0
+  .bg_box1, .bg_box2
+    margin-bottom: 10px
+  .bg_box2
+    position: relative
+  .bg_box1, .bg_box2, .bg_box3
+    padding: 12px
+    background: rgba(255,255,255,0.4)
+    .box
+      padding: $padding 0
+    .text_box
+      padding: $padding 0
+      text-align: left
+      .title_price
+        +inline-block
+        font-size: 16px
+        color: #222528
+    .price_slider_bids
+      padding-top: $padding
+    .hint
+      position: absolute
+      left: 100%
+      top: 0
+      margin-left: 5px
+      margin-top: 7px
+    .pupil_status, .text_box
+      padding-top: 0
+    .knowledge_level
+      padding-bottom: 0
+    .goal
+      padding: 0

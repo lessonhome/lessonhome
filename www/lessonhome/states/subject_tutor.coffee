@@ -12,19 +12,19 @@ class @main
       selector  : 'first_reg'
     place                  : module 'tutor/forms/drop_down_list' :
       text      : 'Место :'
-      selector  : 'first_reg place'
+      selector  : 'first_reg_place'
     price                  : module 'tutor/forms/input' :
       text      : 'Цена :'
-      selector  : 'first_reg price'
+      selector  : 'price_reg'
     price_button           : module 'button_add' :
       text      : '+'
       selector  : 'plus'
     students_in_group       : module 'tutor/forms/drop_down_list' :
       text      : 'Групповые занятия :'
-      selector  : 'first_reg group'
+      selector  : 'first_reg_group'
     group_lessons_bet       : module 'tutor/forms/drop_down_list' :
       placeholder : 'Ставка'
-      selector    : 'first_reg bet'
+      selector    : 'first_reg_bet'
     comments                : module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'

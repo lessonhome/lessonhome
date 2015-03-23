@@ -1,17 +1,10 @@
-class @main extends template '../../edit'
+class @main extends template '../edit_description'
   route : '/tutor/edit/education'
   model   : 'tutor/edit/description/education'
   title : "редактирование образования"
   tags : -> 'edit: description'
   tree : =>
     menu_description  : 'edit: description'
-    items       :
-      'Общие'       : 'general'
-      'Контакты'    : 'contacts'
-      'Образование' : 'education'
-      'Карьера'     : 'career'
-      'О себе'      : 'about'
-      'Настройки'   : 'settings'
     active_item : 'Образование'
     tutor_edit  : module '$' :
       country       : module 'tutor/forms/drop_down_list' :

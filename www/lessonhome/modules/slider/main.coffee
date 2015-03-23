@@ -1,6 +1,6 @@
 
 
-class Cursor
+class Cursor extends EE
   constructor : (@dom,@l,@r)->
   init : (@lb,@rb)=>
     @px @pos()
@@ -30,6 +30,10 @@ class Cursor
   move : (e)=>
     @m = e.pageX
     @pos @px Math.sign(@r()-@l())*(@m-@sm)+@spx
+
+  set : (x)->
+    @x(x)
+    @pos @px()
   
 class @main extends EE
   show : =>
@@ -40,33 +44,46 @@ class @main extends EE
     @dom_left   = @slider.find '.icon_cursor_left'
     @dom_right  = @slider.find '.icon_cursor_right'
     @box_slider.on 'mousedown',@mouseDown
-    @width = => 2*@box_slider.width()-@box_slider.outerWidth()-@dom_left.outerWidth()-@dom_right.outerWidth()
-    @left   = new Cursor @dom_left,(=>0),@width
-    @right  = new Cursor @dom_right,@width,(=>0)
-    @left.pos   = (px)=>
+    @width = =>
+      l = @dom_left?.outerWidth?()
+      r = @dom_right?.outerWidth?()
+      sw = 0 # сумарная ширина ползунков
+      sw += l if l?
+      sw += r if r?
+      2*@box_slider.width()-@box_slider.outerWidth()-sw
+    @left   = new Cursor @dom_left,(=>0),@width  if @dom_left.length
+    @right  = new Cursor @dom_right,@width,(=>0) if @dom_right.length
+    @left?.pos   = (px)=>
       return +@slider.css('margin-left').replace('px','') unless px?
       @slider.css('margin-left',px)
-      @emit 'left_slider_move', px
+      @emit 'left_slider_move', @left.x()
       return px
-    @right.pos  = (px)=>
+    @right?.pos  = (px)=>
       return +@slider.css('margin-right').replace('px','') unless px?
       @slider.css('margin-right',px)
-      @emit 'right_slider_move'
+      @emit 'right_slider_move', @right.x()
       return px
-    @left .init 0,@right
-    @right.init @left,1
+    r = null
+    l = null
+    r = @right
+    r?= 1
+    l = @left
+    l?= 0
+
+    @left?.init?(0,r)
+    @right?.init?(l,1)
   mouseDown : (e)=>
-    left  =  e.pageX-(@dom_left.offset().left+@dom_left.outerWidth()/2)
-    right =  e.pageX-(@dom_right.offset().left+@dom_right.outerWidth()/2)
-    if Math.abs(left)<Math.abs(right)
+    left  =  e.pageX-(@dom_left.offset().left+@dom_left.outerWidth()/2)   if @left?
+    right =  e.pageX-(@dom_right.offset().left+@dom_right.outerWidth()/2) if @right?
+    if (@left? && !@right?) || ((Math.abs(left)<Math.abs(right)) && @left?)
       target = @left
       dx     = left
-    else
+    else if @right?
       target = @right
       dx     = right
-    target.drag dx
-    target.down e
-
+    if target?
+      target.drag dx
+      target.down e
 ###
 
 

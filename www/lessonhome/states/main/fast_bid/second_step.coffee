@@ -5,7 +5,7 @@ class @main extends template '../fast_bid'
   tree : ->
     progress : 2
     content : module '$' :
-      your_status : module 'tutor/forms/drop_down_list':
+      pupil_status : module 'tutor/forms/drop_down_list':
         text: 'Ваш статус :'
         selector  : 'fast_bid'
       course : module 'tutor/forms/drop_down_list':
@@ -23,10 +23,15 @@ class @main extends template '../fast_bid'
           text      : 'до'
         measurement   : 'руб.'
         handle        : true
+        min           : 0
+        max           : 100
+      price_hint : module 'tutor/hint' :
+        selector : 'small'
+        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       goal : module 'tutor/forms/textarea':
         text: 'Опишите цель :'
         selector  : 'fast_bid'
-    hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
+    #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->
     @parent.tree.filter_top.footer.button_back.selector = 'fast_bid_nav'

@@ -12,8 +12,10 @@ class @main
     button_in_out :  module '$/button_in_out' :
       title       : 'Выход'
       login       :  module './forms/input'  :
+        selector    : 'in_out'
         placeholder : 'Логин'
       password   :  module './forms/input'  :
+        selector    : 'in_out'
         placeholder : 'Пароль'
       enter       : module './button' :
         text  : 'Войти'

@@ -17,21 +17,21 @@ class @main
         dash          : '-'
         measurement   : 'мин.'
         handle        : true
+        min           : 0
+        max           : 100
       time_spend_way   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'time_spend'
         measurement   : 'мин.'
+        min           : 0
+        max           : 80
         handle        : false
-      female            : module 'gender_button' :
-        selector    : 'advance_filter'
-        text        : 'Ж'
-      male              : module 'gender_button' :
-        selector    : 'advance_filter'
-        text        : 'М'
+      choose_gender   : state 'gender_data':
+        selector        : 'advanced_filter'
+        selector_button : 'advance_filter'
       with_reviews      : module 'tutor/forms/checkbox'  :
         text      : 'С отзывами'
         selector  : 'small'
-
       with_verification : module 'tutor/forms/checkbox'  :
         text      : 'Верифицированные'
         selector  : 'small'

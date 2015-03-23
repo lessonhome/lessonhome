@@ -22,19 +22,29 @@ div
     margin-top: 15px
 ///////////////////////
 .time_fast_bids, .way_fast_bids
-  text-align: left
-  padding-right: 3px
   .box_input
     +inline-block
     height: 37px
   .move
-    width: 210px
+    width: 208px
+.time_fast_bids
+  .box_input
+    .start
+      padding-right: 5px
+    .end
+      padding-left: 5px
+  .move
+    width: 100%
+    padding-top: 8px
+
 /////////////////////////
 .price_slider_top
   .box_input
     height: 55px
-    .start, .end
-      padding: 0 5px
+    .start
+      padding-right: 5px
+    .end
+      padding-left: 5px
     .measurement
       font-size: 24px
   .move
@@ -43,11 +53,13 @@ div
     margin-bottom: 30px
 ////////////////////////////
 .price_slider_bids
-  text-align: center
+  text-align: left
   .box_input
     height: 37px
-    .start, .end
-      padding: 0 5px
+    .start
+      padding-right: 5px
+    .end
+      padding-left: 5px
     .measurement
       padding-left: 9px
       font-size: 18px
@@ -61,8 +73,8 @@ div
   .move
     width: 206px
   .box_input
+    height: 37px
     .start
-      height: 37px
     .measurement
       padding-right: 4px
       padding-left:  5px

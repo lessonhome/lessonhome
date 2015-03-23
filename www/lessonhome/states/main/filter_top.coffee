@@ -12,11 +12,11 @@ class @main
     button_back         : module 'link_button'  :
       selector  : 'subject_back'
       text      : 'Назад'
-      href      : @exports()
+      href      : @exports 'link_back'
     button_issue        : module 'link_button'  :
       selector  : 'issue_bid'
       text      : 'Оформить заявку сейчас'
-      #href      : '#'
+      href      : '/fast_bid/first_step'
     button_onward        : module 'link_button'  :
       selector  : 'onward_block'
       text      : 'Далее'

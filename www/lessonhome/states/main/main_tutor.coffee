@@ -11,26 +11,19 @@ class @main extends template '../main'
         text : 'Введите ваш телефон или email адрес'
         validators: {
           '0': {
-            pattern: '^\\+7\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}$',
-            #errMessage: 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx',
-          }, #required using some like: (dataObject 'checker').patterns.telephon
+            pattern: /^((\+?7)|8)?\d{10}$/.source
+          }, #required using some like: (dataObject 'checker').patterns.simpleTelephon
           '1': {
             pattern: /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.source,
             #errMessage: 'Пожалуйста введите корректный email'
           }
           'errMessage': 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx или корректный email'
         }
-      login_hint      : module 'tutor/hint' :
-        selector : 'small'
-        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
       password        : module 'tutor/forms/input' :
         selector : 'main_check_in'
         text : 'Придумайте пароль'
         pattern: '.{6,}'
         errMessage  : 'Пароль должен быть не меньше 6-ти символов'
-      password_hint   : module 'tutor/hint' :
-        selector : 'small'
-        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
       checkbox        : module 'tutor/forms/checkbox'
       create_account  : module 'link_button' :
         href      : 'tutor/profile/first_step'

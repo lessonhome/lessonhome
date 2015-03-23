@@ -1,68 +1,48 @@
 @import compass/css3
-main
-  position : relative
+.container
+  position: relative
   z-index: 0
-  text-align: initial
-
-.gray_line, .blue_line
-  position : absolute
-  top      : 50%
-  $height: 3px
-  height : $height
-  margin-top: -$height/2
-
-.gray_line
-  width  : 100%
-  background-color : rgb( 223, 225, 228 )
-
-.blue_line
-  background-color : #89d1ff
-  z-index: 1
-
-.block
-  +inline-block
-  position : relative
-  z-index  : 200
-
-
-.block.checked, .block.big
-  width:  52px
-  height: 52px
-  box-shadow: 0px 0px 17px 0px rgb(255,255,255)
-  margin-left         : 50px
-  border-radius       : 50%
-
-.block.checked
-  background          : inline-image('check.png') no-repeat
-  background-position : center
-  background-color    : #89d1ff
-  a
-    width:   100%
-    height:  100%
-    display: block
-
-.block.big
-  background-color : #89d1ff
-  .value
-    line-height : 52px
-
-.block.small
-  $height : 36px
-  $width: 36px
-  width  : $width
-  height : $height
-  margin-left : 58px
-  background-color : rgb( 223, 225, 228 )
-  border-radius    : 50%
-  .value
-    line-height : $height
-
-.block.big, .block.small
-  .value
+  a, .panel
+    width: 56px
+    height: 56px
+    padding: 0 25px
     +inline-block
-    width: 100%
+    position: relative
+    z-index: 1
+  .one
+    padding-left: 0
+  .fourth
+    padding-right: 0
+  a, .panel
+    .block
+      +inline-block
+      width: 36px
+      height: 36px
+      background-color : rgb( 223, 225, 228 )
+      .value
+        height: 100%
+        width: 100%
+    .progress
+      width: 100%
+      height: 100%
+      background-color : #89d1ff
+    .progress, .block
+      +border-radius(50%)
+  a:after, .panel:after
+    content: ''
+    +inline-block
     height: 100%
-
-
-.block:first-child
-  margin-left: 0
+  .line_box
+    position: absolute
+    top: 50%
+    height: 3px
+    left: 0
+    right: 10px
+    .gray_line, .blue_line
+      height: 100%
+      width: 100%
+      position: absolute
+    .gray_line
+      background-color: #dfe1e4
+    .blue_line
+      background-color : #89d1ff

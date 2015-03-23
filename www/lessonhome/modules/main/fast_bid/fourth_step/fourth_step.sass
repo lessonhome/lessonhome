@@ -1,25 +1,42 @@
 @import compass/css3
-$padding: 7px
-$margin: 10px
+$padding: 8px
+$padding_text: 10px
 .info
   text-align: left
-  .status
-    padding: $padding 0
-    .title
-      margin-bottom: $margin
-    .value
-      text-align: left
-      .student, .teacher, .professor, .native
-        height: 28px
-  .experience, .text_box, .age_slider, .sex
-    padding: $padding 0
-    .title
-      margin-bottom: $margin
-    .sex_man, .sex_woman
-      +inline-block
-      height: 33px
-
-    .sex_man
-      padding-right: 31px
-    .sex_woman
-      padding-left: 31px
+  .bg_box1
+    margin-bottom: 10px
+  .bg_box1, .bg_box2
+    position: relative
+    padding: 12px
+    background: rgba(255,255,255,0.4)
+    .hint
+      position: absolute
+      left: 100%
+      top: 0
+      margin-left: 5px
+      margin-top: 7px
+    .status
+      padding-bottom: $padding
+      .title
+        margin-bottom: $padding_text
+      .value
+        text-align: left
+        .student, .teacher, .professor, .native
+          padding: 3px 0
+          height: 28px
+        .student
+          padding-top: 0
+        .native
+          padding-bottom: 0
+    .experience
+      padding-top: $padding
+    .text_box
+      padding-bottom: $padding
+    .age_slider
+      padding: $padding 0
+    .sex
+      padding-top: $padding
+      .title
+        margin-bottom: $padding_text
+      .gender_data
+        height: 33px

@@ -5,6 +5,7 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$ROOT"
 
 
+
 killall node 2>> /dev/null
 killall nodejs 2>> /dev/null
 
