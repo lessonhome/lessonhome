@@ -5,6 +5,7 @@ class @main
     depend : [
       state 'lib'
       module 'lib/mousewheel'
+      data('example').main()
     ]
   init : =>
     arr = []

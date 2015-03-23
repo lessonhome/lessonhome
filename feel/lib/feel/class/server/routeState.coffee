@@ -15,35 +15,8 @@ class RouteState
     @o =
       res : @res
       req : @req
-    @state = @site.state[@statename].make()
-    @tags = {}
-    @getTop()
-    @walk_tree_down @top,@,'top',(node,pnode,key)=>
-      if node._isState
-        if node.__states
-          o = node.__states
-        else
-          o = {}
-          o[node._statename] = node.__state
-        for sn,s of o
-          for k of s.tag
-            @tags[k] = true
-        for sn,s of o
-          s.page_tags = @tags
-        #node = pnode[key] = @getTopOfNode node
-
-    if @top._isState
-      if @top.__states
-        o = @top.__states
-      else
-        o = {}
-        o[node._statename] = @top.__state
-      for sn,s of o
-        s.page_tags = @tags
-    @modules  = {}
-    @css      = ""
-    @jsModules = ""
-    @jsClient = Feel.clientJs
+  
+    
   getTopNode : (node,force=false)=>
     return node if node?._isModule
     return node if node.__gotted
@@ -90,7 +63,36 @@ class RouteState
       foo node,pnode,key
       for key,val of node
         @walk_tree_down node[key],node,key,foo
-  go : =>
+  go : => do Q.async =>
+    @state = yield @site.state[@statename].make()
+    @tags = {}
+    @getTop()
+    @walk_tree_down @top,@,'top',(node,pnode,key)=>
+      if node._isState
+        if node.__states
+          o = node.__states
+        else
+          o = {}
+          o[node._statename] = node.__state
+        for sn,s of o
+          for k of s.tag
+            @tags[k] = true
+        for sn,s of o
+          s.page_tags = @tags
+        #node = pnode[key] = @getTopOfNode node
+
+    if @top._isState
+      if @top.__states
+        o = @top.__states
+      else
+        o = {}
+        o[node._statename] = @top.__state
+      for sn,s of o
+        s.page_tags = @tags
+    @modules  = {}
+    @css      = ""
+    @jsModules = ""
+    @jsClient = Feel.clientJs
     @stack = []
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?
