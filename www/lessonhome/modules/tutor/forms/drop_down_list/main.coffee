@@ -221,6 +221,8 @@ class @main extends EE
 
         showSelectOptions = () =>
           $selOpts = getCurSelOptions()
+          optHeight = $selOpts.find('.custom-option').height()
+          getCurSel().height(optHeight * @tree.options_count)
           strBegin = getCurInput().val()
           correctSelectOptions strBegin, $selOpts, valuesGenerator
           bindHandlers $selOpts

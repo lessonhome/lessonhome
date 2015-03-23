@@ -27,8 +27,9 @@ class @main
       text        : 'Статус :'
       selector    : 'first_reg'
       scroll      : module 'tutor/forms/drop_down_list/scroll' :
-        paramsData  : {}
-        #  findContainerMethod'----------------this is paramsData'
+        paramsData  : {} #{findContainerMethod:'prev'}
+      options_count: 7
+
       default_options     : {
         '0': {value: 'math', text: 'Преподаватель(тест)'},
         '1': {value: 'student', text: 'Студент(тест)'},
