@@ -39,7 +39,8 @@ class module.exports
       @src += " var #{f} = that.function_#{f};"
     @src += " var $urls   = that.site.router.url,
                   $router = that.site.router,
-                  $site   = that.site;"
+                  $site   = that.site,
+                  $db     = that.site.db;"
     @src += src
     @src += " }).call(file); file"
     try
@@ -226,7 +227,7 @@ class module.exports
   walk_tree_down : (node,foo)=>
     if (typeof node == 'object' || typeof node == 'function') && !node?._smart
       for key,val of node
-        foo node,key,val
+        foo node,key,val if val?
       for key,val of node
         @walk_tree_down node[key],foo
   statename_resolve : (str)=>
@@ -313,4 +314,7 @@ class module.exports
 
   function_F : (f)=> Feel.static.F @site.name,f
   function_extend : ()=> {}
-    
+  function_data : (s)=>
+    obj = @site.dataObject s,_path.relative "#{process.cwd()}/#{@site.path.states}/../",@path
+    obj.$site = @site
+    return obj
