@@ -185,15 +185,22 @@ class @main extends EE
             when unit.esc
               $sel.hide()
             else
-              if $(this).val() != ''
+              if !($sel.is(':visible'))
                 showSelectOptions()
-              else $sel.hide()
               return
 
         getCurInput().on 'keydown', (event) ->
+          $sel = getCurSel()
+          $selOpts = getCurSelOptions()
           switch event.keyCode
             when unit.enterCode
               selectedOptionToInput()
+            when unit.tabCode
+              if event.shiftKey
+                prevSelected $selOpts
+              else nextSelected $selOpts
+              event.preventDefault()
+
 
         getCurSelOptions().on 'click', (event) ->
           $sel = getCurSel()

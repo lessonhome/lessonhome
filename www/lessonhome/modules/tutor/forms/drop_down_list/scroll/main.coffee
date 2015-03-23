@@ -6,7 +6,7 @@ class @main extends EE
     'scrollMinLen': 10
     'min': 0
     'autoHide': false
-    'logging': true
+    'logging': false
     'findContainerMethod': 'prev'
     #'showTestContainer': true
 
