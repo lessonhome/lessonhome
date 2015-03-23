@@ -8,11 +8,15 @@ class @main extends EE
     @scrollReinit = @tree.scroll?.class.reinit
     #console.log @tree.scroll?.class.tree.test
 
+    @show_select_sets = null
+
     @input.on 'focus', =>
       if @label.is '.filter_top'
         @list.addClass 'filter_top_focus'
       else
         @list.addClass 'focus'
+
+      @show_select_sets?()
 
     @input.on 'focusout', =>
       if @label.is '.filter_top'
@@ -221,6 +225,8 @@ class @main extends EE
           correctSelectOptions strBegin, $selOpts, valuesGenerator
           bindHandlers $selOpts
           @scrollReinit?()
+
+        @show_select_sets = showSelectOptions
 
         startSelection = (sel) ->
           $sel = $(sel)
