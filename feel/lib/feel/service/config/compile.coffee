@@ -2,7 +2,7 @@
 
 
 @bin        = "compile/main"
-@autostart  = true
+@autostart  = false
 @single     = true
 
 

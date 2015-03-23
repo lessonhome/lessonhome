@@ -2,6 +2,6 @@
 
 
 @bin          = 'watcher/slave'
-@autostart    = true
+@autostart    = false
 
 
