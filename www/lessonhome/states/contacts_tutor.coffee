@@ -3,6 +3,11 @@ class @main
     country : module 'tutor/forms/drop_down_list' :
       text        : 'Страна :'
       selector    : 'first_reg'
+      default_options     : {
+        '0': {value: 'Australia', text: 'Австралия'},
+        '0': {value: 'Australia', text: 'Австралия'},
+
+      }
     city    : module 'tutor/forms/drop_down_list' :
       text        : 'Город :'
       selector    : 'first_reg'

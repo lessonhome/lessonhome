@@ -11,6 +11,13 @@ class @main extends template '../preview'
       list_subject    : module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
         placeholder : 'Например студент'
+        default_options     : {
+          '0': {value: 'student', text: 'студент'},
+          '1': {value: 'graduate', text: 'аспирант'},
+          '2': {value: 'school_teacher', text: 'школьный преподаватель'},
+          '3': {value: 'high_school_teacher', text: 'преподаватель вуза'},
+          '4': {value: 'private_teacher', text: 'частный преподаватель'}
+        }
       choose_subject  : module 'selected_tag'  :
         selector  : 'choose_subject'
         text      : 'Преподаватель вуза'
