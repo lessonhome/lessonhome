@@ -8,7 +8,7 @@ class @main extends template '../registration_popup'
       about_tutor      : state 'about_tutor'
 
   init : ->
-    @parent.tree.popup.footer.back_link = 'fourth_step'
+    @parent.tree.popup.footer.back_link = 'third_step'
     @parent.tree.popup.footer.next_link = '/tutor/profile'
 
 

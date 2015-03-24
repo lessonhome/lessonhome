@@ -11,10 +11,6 @@ class @main
     city    : module 'tutor/forms/drop_down_list' :
       text        : 'Город :'
       selector    : 'first_reg'
-    address_button : module 'button_add'  :
-      text    : 'Укажите место'
-      selector  : 'add_address'
-
     line    : module 'tutor/separate_line' :
       selector : 'horizon'
     mobile_phone  : module 'tutor/forms/input' :

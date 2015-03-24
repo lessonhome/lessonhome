@@ -5,8 +5,7 @@ mixin field (selector, value)
 +field ('city', city)
 .title_box
   .title Адрес :
-  .button_box
-    .address_button!=address_button
+  a(href = '#') Укажите подробный адресс
 .line_box
   .line!= line
 +field ('mobile_phone', mobile_phone)

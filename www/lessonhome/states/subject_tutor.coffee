@@ -86,27 +86,21 @@ class @main
       selector  : 'first_reg'
     pre_school      : module 'tutor/forms/checkbox' :
       text      : 'дошкольники'
-      selector  : 'small'
-      selector2  : ' font_16'
+      selector  : 'small font_16'
     junior_school   : module 'tutor/forms/checkbox' :
-      selector  : 'small'
-      selector2  : ' font_16'
+      selector  : 'small font_16'
       text      : 'младшая школа'
     medium_school   : module 'tutor/forms/checkbox' :
-      selector  : 'small'
-      selector2  : ' font_16'
+      selector  : 'small font_16'
       text      : 'средняя школа'
     high_school     : module 'tutor/forms/checkbox' :
-      selector  : 'small'
-      selector2  : ' font_16'
+      selector  : 'small font_16'
       text      : 'старшая школа'
     student         : module 'tutor/forms/checkbox' :
-      selector  : 'small'
-      selector2  : ' font_16'
+      selector  : 'small font_16'
       text      : 'студент'
     adult           : module 'tutor/forms/checkbox' :
-      selector  : 'small'
-      selector2  : ' font_16'
+      selector  : 'small font_16'
       text      : 'взрослый'
     time_spend_lesson : state 'main/slider_main' :
       selector      : 'time_fast_bids'
