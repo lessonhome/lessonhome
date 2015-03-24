@@ -1,6 +1,5 @@
 
 
-_cookie = require 'cookies'
 
 
 class Register
@@ -13,20 +12,16 @@ class Register
     @accaunts = {}
     @sessions = {}
     acc  = yield _invoke @accaunt.find(),'toArray'
-    sess = yield _invoke @accaunt.find(),'toArray'
+    sess = yield _invoke @session.find(),'toArray'
     for a in acc
       @accaunts[a.id]   = a
     for s in sess
       @sessions[s.hash] = s
-  register : (req,res)=>
+  register : (session)=>
     o = {}
-    cookie = new _cookie req,res
-    session = cookie.get 'session'
-    console.log session
     unless session? && @sessions[session]?
       session = yield @newAccaunt()
       created = true
-    cookie.set 'session',session
     session = @sessions[session]
     accaunt = @accaunts[session.accaunt]
     unless created
@@ -36,7 +31,10 @@ class Register
       .catch @onError
       _invoke(@session,'update',{hash:session.hash},{$set:{accessTime:(new Date())}},{upsert:true})
       .catch @onError
-    req.user = accaunt
+    return {
+      session:session.hash
+      accaunt:accaunt
+    }
   newAccaunt : =>
     accaunt =
       registered    : false

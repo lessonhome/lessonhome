@@ -1,6 +1,6 @@
 
 crypto  = require 'crypto'
-
+_cookies = require 'cookies'
 rand  = (num)-> crypto.createHash('sha1').update(num).digest('hex').substr 0,10
 
 class RouteState
@@ -64,7 +64,11 @@ class RouteState
       for key,val of node
         @walk_tree_down node[key],node,key,foo
   go : => do Q.async =>
-    yield @site.register.register @req,@res
+    cookie = new _cookies @req,@res
+    _session = cookie.get 'session'
+    register = yield @site.register.register _session
+    cookie.set 'session',register.session
+    @req.user = register.accaunt
     @state = yield @site.state[@statename].make(null,null,@req,@res)
     @tags = {}
     @getTop()

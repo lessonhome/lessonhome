@@ -5,7 +5,6 @@ fs      = require 'fs'
 readdir = Q.denodeify fs.readdir
 Router  = require './server/router'
 _path   = require 'path'
-Register = require './register'
 
 class module.exports
   constructor : (@name)->
@@ -22,13 +21,14 @@ class module.exports
     @state        = {}
     @modules      = {}
     @router       = new Router @
-    @register     = new Register()
   init : =>
     Q()
     .then => Main.service('db')
     .then (db)=>
       @db = db
-      @register.init()
+      Main.service 'register'
+    .then (reg)=>
+      @register = reg
     .then @configInit
     .then @loadModules
     .then @loadStates
