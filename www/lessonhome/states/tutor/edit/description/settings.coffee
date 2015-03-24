@@ -29,16 +29,18 @@ class @main extends template '../edit_description'
       change_button : module 'tutor/button' :
         text     : 'Изменить'
         selector : 'edit_save'
+      old_phone_number : '+7*** *** ** 98'
       new_phone_number : module 'tutor/forms/input' :
         text      : 'Новый :'
         selector  : 'first_reg'
+      old_email : 'dd******@mail.ru'
       new_email : module 'tutor/forms/input'  :
         text      : 'Новый :'
         selector  : 'first_reg'
-      new_password : module 'tutor/forms/input' :
+      old_password : module 'tutor/forms/input' :
         text      : 'Старый :'
         selector  : 'first_reg'
-      old_password : module 'tutor/forms/input' :
+      new_password : module 'tutor/forms/input' :
         text      : 'Новый :'
         selector  : 'first_reg'
       confirm_password : module 'tutor/forms/input' :

@@ -1,9 +1,10 @@
 
 
 
-@handler = (args...)=>
-  console.log 'handled',args...
-  return status:'ok'
+@handler = (obj,name)=>
+  console.log 'handled',name
+  db= yield @$db.get 'feel-smth'
+  return yield _invoke db, 'insert', {name:name}
 
 
 
