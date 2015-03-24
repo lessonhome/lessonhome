@@ -10,11 +10,37 @@ main
   height: $height
 .subject
   padding-top: 0
-.block_price_place
+.categories_of_students
+  padding: 12px 0
+  .title
+    margin-top: -52px
+    padding-right: 26px
+    +inline-block
+  .check_panel
+    +inline-block
+    text-align: left
+    width: $width_fields
+    .right_block
+      float: right
+    .left_block, .right_block
+      +inline-block
+      div
+        padding: 3px 0
+.time_spend_box
+  padding: $padding 0
+  .title
+    padding-right: 26px
+    margin-top: -45px
+    +inline-block
+  .time_spend_lesson
+    text-align: left
+    width: $width_fields
+    +inline-block
+.block_price_place, .group_block
   position: relative
-  .place
+  .place, .students_in_group
     padding-right: 33px
-  .price, .place
+  .price, .place, .students_in_group, .group_lessons_price
     +inline-block
     height: 100%
   .price_button
@@ -22,15 +48,6 @@ main
     +inline-block
     position: absolute
     margin-left: 22px
-.group_block
-  .students_in_group, .group_lessons_bet
-    +inline-block
-    height: 100%
-  $padding_group: 16.5px
-  .students_in_group
-    padding-right: $padding_group
-  .group_lessons_bet
-    padding-left: $padding_group
 .comments
   padding-bottom: 0
   height: 100%

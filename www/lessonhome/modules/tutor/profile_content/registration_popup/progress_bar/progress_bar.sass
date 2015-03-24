@@ -1,62 +1,66 @@
 @import compass/css3
-main
-  position : relative
-
-.gray_line, .blue_line
-  position : absolute
-  top      : 50%
-
-.gray_line
-  height : 2px
-  width  : 100%
-  margin-top : -1px
-  background-color : rgba(205, 205, 205, 0.302)
-
-.blue_line
-  height      : 3px
-  margin-top  : -1.5px
-  margin-left : 210px
-  background-color : #89d1ff
-
-.block
-  +inline-block
-  position : relative
-  z-index  : 200
-
-.block.checked, .block.big
-  width  : 52px
-  height : 52px
-  margin-left         : 50px
-  border-radius       : 50%
-
-.block.checked
-  background          : inline-image('check.png') no-repeat
-  background-position : center
-  background-color    : #89d1ff
-  a
-    width:   100%
-    height:  100%
-    display: block
-
-.block.big
-  background-color : #89d1ff
-  .value
-    line-height : 52px
-
-.block.small
-  $height : 36px
-  width  : 36px
-  height : $height
-  margin-left : 58px
-  background-color : rgb( 205, 205, 205 )
-  border-radius    : 50%
-  .value
-    line-height : $height
-
-.block.big, .block.small
-  .value
-    +inline-block
-    font-size   : 20px
-    color       : rgb(255, 255, 255)
-    font-family : 'Open Sans', sans-serif
-
+$height_big: 52px
+$height_small: 36px
+$height_line: 2px
+.container
+  position: relative
+  z-index: 0
+  .progress_box
+    position: relative
+    display: inline-block
+    a
+      .progress.block
+        .value
+          height: 100%
+          width: 100%
+          background: inline-image('check.png') no-repeat
+          background-position: center
+    a, .panel
+      width: $height_big
+      height: $height_big
+      padding: 0 25px
+      +inline-block
+      position: relative
+      z-index: 1
+      .block
+        width: $height_small
+        height: $height_small
+        background-color : rgb( 223, 225, 228 )
+        .value
+          line-height: $height_small
+      .progress
+        width: 100%
+        height: 100%
+        background-color : #89d1ff
+        .value
+          line-height: $height_big
+      .progress, .block
+        +inline-block
+        +border-radius(50%)
+        .value
+          font-size: 20px
+          color: #ffffff
+    .one
+      padding-left: 0
+    .fourth
+      padding-right: 0
+    a:after, .panel:after
+      content: ''
+      +inline-block
+      height: 100%
+    //////////////////////
+    .blue_line
+      position: absolute
+      height: $height_line
+      background: #89d1ff
+      top: 50%
+      margin-top: -($height_line/2)
+  /////////////////////////////
+  .gray_line
+    position: absolute
+    z-index: -1
+    height: $height_line
+    background: #dfe1e4
+    width: 100%
+    top: 50%
+    margin-top: -($height_line/2)

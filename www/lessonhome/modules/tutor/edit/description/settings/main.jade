@@ -29,7 +29,7 @@ mixin field (selector, value)
 
 .old_phone_number
   .title.select Привязанный :
-  .text.select +7*** *** ** 98
+  .text.select!= old_phone_number
 
 +field('new_phone_number', new_phone_number)
 
@@ -42,7 +42,7 @@ mixin field (selector, value)
 
 .old_email
   .title.select Старый :
-  .text.select dd******@mail.ru
+  .text.select!= old_email
 
 +field('new_email', new_email)
 

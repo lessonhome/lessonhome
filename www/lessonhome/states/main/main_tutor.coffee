@@ -24,7 +24,7 @@ class @main extends template '../main'
         text : 'Придумайте пароль'
         pattern: '.{6,}'
         errMessage  : 'Пароль должен быть не меньше 6-ти символов'
-      checkbox        : module 'tutor/forms/checkbox'
+      agree_checkbox        : module 'tutor/forms/checkbox'
       create_account  : module 'link_button' :
         href      : 'tutor/profile/first_step'
         selector  : 'create_account'
