@@ -38,7 +38,8 @@
     "mongodb":"*",
     "colors" : "*",
     "v8-profiler" : "*",
-    "yuicompressor" : "*"
+    "yuicompressor" : "*",
+    "cookies" : "*"
   }
 }
 

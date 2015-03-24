@@ -64,7 +64,8 @@ class RouteState
       for key,val of node
         @walk_tree_down node[key],node,key,foo
   go : => do Q.async =>
-    @state = yield @site.state[@statename].make()
+    yield @site.register.register @req,@res
+    @state = yield @site.state[@statename].make(null,null,@req,@res)
     @tags = {}
     @getTop()
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
@@ -163,6 +164,11 @@ class RouteState
       @res.end resdata
       console.log "state #{@statename}",200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
   removeHtml : (node)=>
+    if node.req?
+      delete node.req
+    if node.res?
+      delete node.res
+
     return if node?._smart
     for key,val of node
       if key == '_html'

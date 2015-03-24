@@ -449,6 +449,7 @@ global._path    = require 'path'
 global._stat    = Q.denode _fs.stat
 global._inspect = _util.inspect
 global._hash    = (f)-> _crypto.createHash('sha1').update(f).digest('hex')
+global._randomHash = (b=20)-> _crypto.randomBytes(b).toString('hex')
 global._shash   = (f)-> _hash(f).substr 0,10
 global._invoke  = (args...)-> Q.ninvoke args...
 global._mkdirp  = Q.denode require 'mkdirp'

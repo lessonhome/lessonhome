@@ -42,16 +42,37 @@ class module.exports
                   $site   = that.site,
                   $db     = that.site.db;"
     @src += src
+    @src += "
+      if (this.main && this.main.prototype && this.main.prototype.tree){
+      var __oldtree = this.main.prototype.tree;
+      this.main.prototype.tree = function(){
+          var that = this;
+          "
+          
+    for f in context
+      @src += "
+      var __old#{f} = #{f};
+          #{f} = function(){
+            return __old#{f}.call.apply(__old#{f}, [that].concat([].slice.call(arguments), [that]));
+          };
+          "
+    @src +="
+          return __oldtree.call.apply(__oldtree, [that].concat([].slice.call(arguments)));
+      };}
+    "
     @src += " }).call(file); file"
+    @makeClass()
+  makeClass : =>
+    that = @
     try
-      @src = eval @src
+      src = eval @src
     catch e
       console.error e
       throw new Error "Failed exec state #{@name} "+e
-    return unless @src.main?
-    throw new Error "Not defined 'class @main' in state '#{@name}'" unless @src.main?
+    return unless src.main?
+    throw new Error "Not defined 'class @main' in state '#{@name}'" unless src.main?
     
-    @class = @src.main
+    @class = src.main
     @class::__make = => @make.apply @, arguments
     @class::__bind_exports = => @bind_exports.apply @, arguments
     @class::statename = @name
@@ -77,12 +98,18 @@ class module.exports
       if @class::[name] == @class::constructor.__super__[name]
         @class::[name] = foo
 
-  make           : (o,state)=> do Q.async =>
+  make           : (o,state,...,req,res)=> do Q.async =>
+    @makeClass()
     state         ?= new @class()
+    req._smart = true
+    res._smart = true
+    state.req = req
+    state.res = res
     state._smart  = true
     state.exports = (name='{{NULL}}')=> __exports:name
     state.name = @name
     tree = state.tree()
+    
     tree.__state      = state
     tree._isState     = true
     tree._statename   = @name
@@ -159,7 +186,7 @@ class module.exports
       if state.constructor.__super__?
         state.parent = state.constructor.__super__
         
-        yield state.parent.__make null,state.parent
+        yield state.parent.__make null,state.parent,req,res
         _p = state.parent
         _n = state
         while _p
@@ -243,7 +270,7 @@ class module.exports
     if m
       return path.normalize @dir+str
     return str
-  function_state  : (o)=> do Q.async =>
+  function_state  : (o,...,state)=> do Q.async =>
     if typeof o == 'string'
       name = @statename_resolve o
       o = null
@@ -262,14 +289,14 @@ class module.exports
     try
       @site.createState name
       @sdepend[name] = true
-      state = yield @site.state[name].make o
+      state = yield @site.state[name].make o,null,state.req,state.res
       tree = {}
       for key,val of state.tree
         tree[key] = val
       return tree
     catch e
       throw new Error "Failed make state '#{o}':'#{name}' from state '#{@name}':\n"+e
-  function_template  : (o)=>
+  function_template  : (o,...,state)=>
     if typeof o == 'string'
       name = @statename_resolve o
       o = null
@@ -291,7 +318,7 @@ class module.exports
       return @site.state[name].class
     catch e
       throw new Error "Failed make state '#{o}':'#{name}' from state '#{@name}':\n"+e
-  function_module : (o)=>
+  function_module : (o,...,state)=>
     mod = {}
     mod._isModule   = true
     name = 'unknown'
@@ -312,9 +339,12 @@ class module.exports
       throw new Error "Can't find module '#{name}' in state '#{@name}'"
     return mod
 
-  function_F : (f)=> Feel.static.F @site.name,f
+  function_F : (f,...,state)=> Feel.static.F @site.name,f
   function_extend : ()=> {}
-  function_data : (s)=>
+  function_data : (s,...,state)=>
     obj = @site.dataObject s,_path.relative "#{process.cwd()}/#{@site.path.states}/../",@path
-    obj.$site = @site
+    obj.$site   = @site
+    obj.$req    = state.req
+    obj.$res    = state.res
+    obj.$user   = state.req.user
     return obj
