@@ -1,8 +1,6 @@
 - selector = selector || 'big'
-label
-  div(class=selector)
+label(class=selector)
+  .check_box
     .check
   if text
-    .text(class=selector2)!=text
-
-//TODO: сделать selector у верхнего div, чтобы не было 2 идентификаторов
+    .text!=text
