@@ -1,7 +1,7 @@
 
 class @main
   tree : -> module '$' :
-    subject                : module 'tutor/forms/drop_down_list' :
+    subject         : module 'tutor/forms/drop_down_list' :
       text      : 'Предмет :'
       selector  : 'first_reg'
       default_options     : {
@@ -81,40 +81,63 @@ class @main
 
 
       }
-    list_course             : module 'tutor/forms/drop_down_list' :
+    list_course     : module 'tutor/forms/drop_down_list' :
       text      : 'Курс :'
       selector  : 'first_reg'
-    categories_of_students : module 'tutor/forms/drop_down_list' :
-      text      : 'Категория ученика :'
-      selector  : 'first_reg'
-      default_options     : {
-        '0': {value: 'preschool_child', text: 'дошкольник'},
-        '1': {value: 'student_junior_school', text: 'школьник - младшая школа'},
-        '2': {value: 'student_high_school', text: 'школьник - средняя школа'},
-        '3': {value: 'student_senior_school', text: 'школьник - старшая школа'},
-        '4': {value: 'student', text: 'студент'},
-        '5': {value: 'grown_up', text: 'взрослый'}
-      }
-    place                  : module 'tutor/forms/drop_down_list' :
+    pre_school      : module 'tutor/forms/checkbox' :
+      text      : 'дошкольники'
+      selector  : 'small'
+      selector2  : ' font_16'
+    junior_school   : module 'tutor/forms/checkbox' :
+      selector  : 'small'
+      selector2  : ' font_16'
+      text      : 'младшая школа'
+    medium_school   : module 'tutor/forms/checkbox' :
+      selector  : 'small'
+      selector2  : ' font_16'
+      text      : 'средняя школа'
+    high_school     : module 'tutor/forms/checkbox' :
+      selector  : 'small'
+      selector2  : ' font_16'
+      text      : 'старшая школа'
+    student         : module 'tutor/forms/checkbox' :
+      selector  : 'small'
+      selector2  : ' font_16'
+      text      : 'студент'
+    adult           : module 'tutor/forms/checkbox' :
+      selector  : 'small'
+      selector2  : ' font_16'
+      text      : 'взрослый'
+    time_spend_lesson : state 'main/slider_main' :
+      selector      : 'time_fast_bids'
+      start         : 'time_spend_bids'
+      dash          : '-'
+      end         : module 'tutor/forms/input' :
+        selector  : 'time_spend_bids'
+      measurement   : 'мин.'
+      handle        : true
+      min           : 45
+      max           : 180
+    place             : module 'tutor/forms/drop_down_list' :
       text      : 'Место :'
       selector  : 'first_reg_place'
-    price                  : module 'tutor/forms/input' :
+    price             : module 'tutor/forms/input' :
       text      : 'Цена :'
       selector  : 'price_reg'
-    price_button           : module 'button_add' :
+    price_button      : module 'button_add' :
       text      : '+'
       selector  : 'plus'
-    students_in_group       : module 'tutor/forms/drop_down_list' :
+    students_in_group : module 'tutor/forms/drop_down_list' :
       text      : 'Групповые занятия :'
-      selector  : 'first_reg_group'
-    group_lessons_bet       : module 'tutor/forms/drop_down_list' :
-      placeholder : 'Ставка'
-      selector    : 'first_reg_bet'
-    comments                : module 'tutor/forms/textarea' :
+      selector  : 'first_reg_place'
+    group_lessons_price : module 'tutor/forms/input' :
+      text      : 'Цена :'
+      selector    : 'price_reg'
+    comments          : module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'
       selector  : 'first_reg'
-    add_button              : module 'tutor/button' :
+    add_button        : module 'tutor/button' :
       text     : '+Добавить'
       selector : 'reg_add'
 
