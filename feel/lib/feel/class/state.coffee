@@ -39,7 +39,8 @@ class module.exports
       @src += " var #{f} = that.function_#{f};"
     @src += " var $urls   = that.site.router.url,
                   $router = that.site.router,
-                  $site   = that.site;"
+                  $site   = that.site,
+                  $db     = that.site.db;"
     @src += src
     @src += " }).call(file); file"
     try
@@ -76,7 +77,7 @@ class module.exports
       if @class::[name] == @class::constructor.__super__[name]
         @class::[name] = foo
 
-  make           : (o,state)=>
+  make           : (o,state)=> do Q.async =>
     state         ?= new @class()
     state._smart  = true
     state.exports = (name='{{NULL}}')=> __exports:name
@@ -106,6 +107,15 @@ class module.exports
         temp[tag] = true
         #state.page_tag[tag] = true
     state.tag = temp
+    cont = true
+    while cont
+      cont = false
+      q = Q()
+      @walk_tree_down state.tree, (node,key,val)=>
+        if Q.isPromise val
+          cont = true
+          q = q.then => val.then (ret)=> node[key] = ret
+      yield q
 
 
     unless state.tree._isModule
@@ -119,7 +129,6 @@ class module.exports
           #val.__states.push state
           val._isState = true
           val._statename = @name
-
     try
       do (state)=>
         @walk_tree_down state.tree, (node,key,val)=>
@@ -150,7 +159,7 @@ class module.exports
       if state.constructor.__super__?
         state.parent = state.constructor.__super__
         
-        state.parent.__make null,state.parent
+        yield state.parent.__make null,state.parent
         _p = state.parent
         _n = state
         while _p
@@ -218,7 +227,7 @@ class module.exports
   walk_tree_down : (node,foo)=>
     if (typeof node == 'object' || typeof node == 'function') && !node?._smart
       for key,val of node
-        foo node,key,val
+        foo node,key,val if val?
       for key,val of node
         @walk_tree_down node[key],foo
   statename_resolve : (str)=>
@@ -234,7 +243,7 @@ class module.exports
     if m
       return path.normalize @dir+str
     return str
-  function_state  : (o)=>
+  function_state  : (o)=> do Q.async =>
     if typeof o == 'string'
       name = @statename_resolve o
       o = null
@@ -253,7 +262,7 @@ class module.exports
     try
       @site.createState name
       @sdepend[name] = true
-      state = @site.state[name].make o
+      state = yield @site.state[name].make o
       tree = {}
       for key,val of state.tree
         tree[key] = val
@@ -305,4 +314,7 @@ class module.exports
 
   function_F : (f)=> Feel.static.F @site.name,f
   function_extend : ()=> {}
-    
+  function_data : (s)=>
+    obj = @site.dataObject s,_path.relative "#{process.cwd()}/#{@site.path.states}/../",@path
+    obj.$site = @site
+    return obj

@@ -1,7 +1,10 @@
 
 
 
-@main = (o)->
-  ololo : "oh,yes"
-  rly   : "yes"
+@main = (o)=>
+  @db = yield @$db.get 'feel-smth'
+  yield _invoke @db.find(), 'toArray'
+
+  
+
   

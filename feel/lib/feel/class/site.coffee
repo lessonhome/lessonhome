@@ -24,6 +24,9 @@ class module.exports
     @router       = new Router @
   init : =>
     Q()
+    .then => Main.service('db')
+    .then (db)=>
+      @db = db
     .then @configInit
     .then @loadModules
     .then @loadStates
@@ -105,6 +108,7 @@ class module.exports
       @modules[module.name] = new Module module,@
       return @modules[module.name].init()
   dataObject : (name,context)=>
+    console.log 'dataObject',name,context
     suffix  = ""
     postfix = name
     file = ""
@@ -131,6 +135,14 @@ class module.exports
       file = _path.normalize @path.src+"/"+suffix+"/"+postfix+".d.coffee"
     console.log file
     obj = require process.cwd()+"/"+file
+    for key,val of obj
+      if typeof val == 'function'
+        if val?.constructor?.name == 'GeneratorFunction'
+          obj[key] = Q.async val
+        else
+          do (obj,key,val)->
+            obj[key] = (args...)-> Q.then -> val.apply obj,args
+    obj.$db = @db
     return obj
   handler : (req,res,site)=>
     m     = req.url.match /^\/js\/(\w+)\/(.+)$/

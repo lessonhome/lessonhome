@@ -50,6 +50,27 @@ class @Feel
       #components : "ru"
       types : "(cities)"
     },cb
+  send : (name,args...)=> Q().then =>
+    @index ?= 0
+    index = @index++
+    window["jsonCallback#{index}"] = ->
+    d = Q.defer()
+    data = encodeURIComponent JSON.stringify args
+    $.ajax({
+      dataType : 'jsonp'
+      jsonpCallback : "jsonCallback#{index}"
+      contentType : 'application/json'
+      method : 'GET'
+      url:"//#{location.hostname}:8082/#{name}?data=#{data}&callback=?"
+      crossDomain : true
+    })
+    .success (data)=>
+      d.resolve JSON.parse decodeURIComponent data.data
+    .error   (e)->
+      d.reject e
+    return d.promise
+
+
 
 
 window.Feel = new @Feel()

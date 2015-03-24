@@ -92,6 +92,7 @@ class module.exports
   doJade : (o,route,state)=>
     eo    =
       F     : (f)=> Feel.static.F @site.name,f
+      data  : (s)=> @site.dataObject s,_path.relative "#{@site.path.modules}/../","#{@site.path.modules}/#{@name}"
       $tag  : (f)=>
         if typeof f == 'string'
           return state.tag[f]?
