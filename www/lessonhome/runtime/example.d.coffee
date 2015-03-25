@@ -1,4 +1,3 @@
-
 ###
 
 @main = (table)=>
@@ -45,26 +44,31 @@ result = yield _invoke db, 'write', file
 
 wait(1000)
 .then ->
-  send(test)
+  send('test')
 .then (data)->
   exists 'name'
 .then (exists)->
-  stat 'name' if exists
-.then (stat)->
-  read 'file' if stat.isFile()
-.catch (err)->
-  console.error err
 
-  Q.denode
+  if exists
+    return stat 'name'
+  else throw 'not exist'
+.then (stat)->
+  _invoke db,'write',file
+.then (status)->
+
+.done()
+
+Q.denode
   
 wait = (dt)->
   defer = Q.defer()
   setTimeout ->
+    defer.resolve(1234)
     defer.reject new Error 'error'
   ,dt
-  return defer.promise.then (msg)->
+  return defer.promise
 
-foo =  Q.async =>
+foo =  -> do Q.async =>
   yield wait 1000
   data = yield send 'test'
   exists = yield exists 'name'

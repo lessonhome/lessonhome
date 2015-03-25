@@ -1,17 +1,6 @@
 
 class @main
   tree : -> module '$' :
-    tutor : module 'tutor/forms/location_button' :
-      selector  : 'place_learn'
-      text      : 'У себя'
-    student  : module 'tutor/forms/location_button' :
-      selector  : 'place_learn'
-      text      : 'У ученика'
-    web : module 'tutor/forms/location_button' :
-      selector  : 'place_learn'
-      text      : 'Удалённо'
-
-
     country : module 'tutor/forms/drop_down_list' :
       text      : 'Страна :'
       selector  : 'first_reg'
