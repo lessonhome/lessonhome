@@ -1,4 +1,9 @@
 class @main extends template '../main'
+  access : ['other']
+  redirect : {
+    'pupil' : '/first_step'
+    'tutor' : '/tutor/search_bids'
+  }
   route : '/main_tutor'
   tags  : -> 'pupil:main_tutor'
   model : 'main/registration'

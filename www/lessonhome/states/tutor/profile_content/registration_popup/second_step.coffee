@@ -2,12 +2,12 @@ class @main extends template '../registration_popup'
   route : '/tutor/profile/second_step'
   model : 'tutor/profile_registration/second_step'
   title : "Регистрация : шаг2"
-  tree : ->
+  tree : =>
     progress  : 2
     content   : module '$' :
-      contacts_tutor  : state 'contacts_tutor'
-
-  init : ->
+      contacts_tutor  : state 'contacts_tutor' :
+        address_popup   : @exports()
+  init : =>
     @parent.tree.popup.footer.back_link = 'first_step'
     @parent.tree.popup.footer.next_link = 'third_step'
 

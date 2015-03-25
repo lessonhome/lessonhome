@@ -11,6 +11,8 @@ class @main
     city    : module 'tutor/forms/drop_down_list' :
       text        : 'Город :'
       selector    : 'first_reg'
+    # var popup respond address
+    address_popup   : @exports()
     line    : module 'tutor/separate_line' :
       selector : 'horizon'
     mobile_phone  : module 'tutor/forms/input' :
