@@ -155,12 +155,12 @@ class RouteState
       @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
       @res.setHeader 'Access-Control-Allow-Credentials', true
       @res.setHeader 'ETag',resHash
-      @res.setHeader 'Cache-Control', 'public, max-age=100'
+      @res.setHeader 'Cache-Control', 'public, max-age=2'
       @res.setHeader 'content-encoding', 'deflate'
       @res.setHeader 'content-length',resdata.length
       @res.statusCode = 200
       d = new Date()
-      d.setTime d.getTime()+100
+      d.setTime d.getTime()+2
       @res.setHeader 'Expires',d.toGMTString()
       @res.end resdata
       console.log "state #{@statename}",200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"

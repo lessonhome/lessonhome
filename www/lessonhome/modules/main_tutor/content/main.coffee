@@ -6,10 +6,13 @@ class @main extends EE
     @submit   = @tree.create_account.class
     @checkbox = @tree.agree_checkbox.class
     @submit.on 'submit', @tryRegister
-
+    @found.form.on 'submit', @tryRegister
+    @success = false
     Feel.HashScrollControl @dom
 
-  tryRegister : =>
+  tryRegister : (e)=>
+    return if @success
+    e?.preventDefault?()
     pass = @password.getValue()
     login = @login.getValue()
     return unless pass.length > 6
@@ -31,6 +34,7 @@ class @main extends EE
     }).then ({status})=>
       console.log 'register',status
       if status == 'success'
+        @success = true
         @found.form.submit()
     .done()
 

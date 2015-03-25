@@ -13,7 +13,9 @@ class @main extends EE
     @login = @tree.login.class
     @password = @tree.password.class
     @submit  = @tree.enter.class
+    @success = false
     @submit.on 'submit', @tryLogin
+    @found.form.on 'submit', @tryLogin
     if @registered
       @title.on 'click', @exit
     else
@@ -39,7 +41,9 @@ class @main extends EE
     @emit 'hidePopup'
   exit    : =>
     window.location.replace('/form/tutor/logout')
-  tryLogin : =>
+  tryLogin : (e)=>
+    return if @success
+    e?.preventDefault?()
     pass = @password.getValue()
     login = @login.getValue()
     return unless pass.length > 6
@@ -60,5 +64,6 @@ class @main extends EE
     }).then ({status,session})=>
       console.log 'login',status
       if status == 'success'
+        @success = true
         @found.form.submit()
     .done()
