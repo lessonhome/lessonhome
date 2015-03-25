@@ -187,8 +187,10 @@ global.Wrap = (obj,prot)->
             e.message += "\n#{proto.constructor.name}::#{key}(".red
             na = []
             for a,i in args
-              if typeof a == 'object'
-                a = '{'+Object.keys(a).join(',')+'}'
+              if typeof a == 'object' && (a != null)
+                try a = '{'+Object.keys(a).join(',')+'}'
+                catch e
+                  a = '...'
               else if typeof a == 'string'
                 a = a
               else a = '...'
@@ -449,6 +451,11 @@ global._path    = require 'path'
 global._stat    = Q.denode _fs.stat
 global._inspect = _util.inspect
 global._hash    = (f)-> _crypto.createHash('sha1').update(f).digest('hex')
+global._args    = (a)->
+  for ar,i in a
+    if ar == null
+      a[i] = undefined
+  return a
 global._randomHash = (b=20)-> _crypto.randomBytes(b).toString('hex')
 global._shash   = (f)-> _hash(f).substr 0,10
 global._invoke  = (args...)-> Q.ninvoke args...

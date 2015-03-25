@@ -138,7 +138,6 @@ class @main extends EE
     @checkFilters()
     @setValue @val unless val == @val
     val = @val
-
     if (val? && val != '') && validators?
       res = []
       for idx in @getObjectNumIndexes(validators)

@@ -22,6 +22,7 @@ class SlaveProcessConnect
     @on   = @__on
     @emit = @__emit
   __function : (name,args...)=>
+    args = _args args
     Main.messanger.query 'connectorFunction',@__data.id,name,args...
   __get : (name)=>
     Main.messanger.query 'connectorVarGet',@__data.id,name
