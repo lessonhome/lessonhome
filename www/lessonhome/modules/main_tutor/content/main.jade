@@ -14,7 +14,8 @@ mixin item (text, icon_src)
   .title_conditions.select!= 'Подробная информация об условиях сотрудничества изложена<br>в '
     a.m-Link.select Условиях оказания информационных услуг
 
-  .check_in_fields.unselect
+  form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
+    input.js-submit(type='submit')
     .title.select Пройти регистрацию
     .login
       .input!= login

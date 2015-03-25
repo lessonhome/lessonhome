@@ -7,8 +7,8 @@
     console.log 'register.c',$.user
     yield $.register.newType $.user,$.session,data
   catch e
-    return 'failed: '+e.message
-  return 'success'
+    return {status:'failed: '+e.message}
+  return {status:'success'}
 
 
 

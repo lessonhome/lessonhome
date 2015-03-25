@@ -3,7 +3,7 @@
     .title Выход
   else
     .title Вход
-  form.js-form.popup_box(action="/form/login" method="post")
+  form.js-form.popup_box(action="/form/tutor/login" method="post" name="login")
     .triangle_box
       .triangle
     .popup
@@ -16,3 +16,5 @@
         .enter!=enter
         .registration
           a.select(href = '/main_tutor') Регистрация
+
+    input.js-submit(type="submit")

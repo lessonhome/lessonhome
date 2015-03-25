@@ -14,7 +14,11 @@ class @main extends EE
     @password = @tree.password.class
     @submit  = @tree.enter.class
     @submit.on 'submit', @tryLogin
-    @title.on 'click', @togglePopup
+    if @registered
+      @title.on 'click', @exit
+    else
+      @title.on 'click', @togglePopup
+
     @close_box.on 'click', @hidePopup
 
   togglePopup : =>
@@ -33,7 +37,8 @@ class @main extends EE
     @popupVisible = false
     @popup_box.hide()
     @emit 'hidePopup'
-
+  exit    : =>
+    window.location.replace('/form/tutor/logout')
   tryLogin : =>
     pass = @password.getValue()
     login = @login.getValue()

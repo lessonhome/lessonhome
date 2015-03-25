@@ -7,7 +7,8 @@ class RouteState
   constructor : (@statename,@req,@res,@site)->
     @rand = "1"
     @reqHash =
-      url : @req.url
+      url     : @req.url
+      session : @req.session
     sha1 = require('crypto').createHash('sha1')
     sha1.update JSON.stringify @reqHash
     @reqHash = sha1.digest('hex')

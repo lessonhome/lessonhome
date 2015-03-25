@@ -28,8 +28,11 @@ class @main extends EE
     Feel.send( 'register',{
       password : pass
       login    : login
-    }).then (status,msg)->
-      console.log 'register',status,msg
+    }).then ({status})=>
+      console.log 'register',status
+      if status == 'success'
+        @found.form.submit()
+    .done()
 
 
 

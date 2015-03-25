@@ -16,6 +16,7 @@ class @main extends template '../main'
         module 'lib/lzstring'
       ]
       login           : module 'tutor/forms/input' :
+        name : 'email'
         selector : 'main_check_in'
         text : 'Введите ваш телефон или email адрес'
         validators: {
@@ -29,6 +30,7 @@ class @main extends template '../main'
           'errMessage': 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx или корректный email'
         }
       password        : module 'tutor/forms/input' :
+        name       :'password'
         type      : 'password'
         selector : 'main_check_in'
         text : 'Придумайте пароль'
