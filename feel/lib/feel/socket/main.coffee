@@ -17,7 +17,7 @@ class Socket
   run  : =>
 
   handler : (req,res)=> Q.spawn =>
-    cookie = new _cookies req,res
+    req.cookie = cookie = new _cookies req,res
     session = cookie.get 'session'
     register = yield @register.register session
     session = register.session
@@ -36,11 +36,15 @@ class Socket
           else
             do (obj,key,val)->
               obj[key] = (args...)-> Q.then -> val.apply obj,args
-      obj.$db = @db
-      obj.$req = req
-      obj.$res = res
-      obj.$user = req.user
-    ret = yield @handlers[path].handler data...
+    $ = {}
+    $.db = @db
+    $.req = req
+    $.res = res
+    $.user = req.user
+    $.session = session
+    $.cookie = cookie
+    $.register = @register
+    ret = yield @handlers[path].handler $,data...
     res.statusCode = 200
     res.setHeader 'content-type','application/json; charset=UTF-8'
     res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(JSON.stringify(ret)))});"

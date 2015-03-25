@@ -39,7 +39,8 @@
     "colors" : "*",
     "v8-profiler" : "*",
     "yuicompressor" : "*",
-    "cookies" : "*"
+    "cookies" : "*",
+    "bcrypt": "*"
   }
 }
 

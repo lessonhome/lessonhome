@@ -6,6 +6,10 @@ class @main extends template '../main'
   tree : ->
     popup : @exports()
     content : module 'main_tutor/content'  :
+      depend : [
+        module 'lib/crypto'
+        module 'lib/lzstring'
+      ]
       login           : module 'tutor/forms/input' :
         selector : 'main_check_in'
         text : 'Введите ваш телефон или email адрес'
@@ -20,6 +24,7 @@ class @main extends template '../main'
           'errMessage': 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx или корректный email'
         }
       password        : module 'tutor/forms/input' :
+        type      : 'password'
         selector : 'main_check_in'
         text : 'Придумайте пароль'
         pattern: '.{6,}'

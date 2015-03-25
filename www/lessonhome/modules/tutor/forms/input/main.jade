@@ -1,11 +1,12 @@
 - placeholder = placeholder || "";
 - selector = selector || "";
 - value = value || "";
+- type = type || "text";
 label(class=selector).unselect
   if text
     .text.select!=text
   .box.js-box
-    input.js-input(placeholder=placeholder value=value)
+    input.js-input(placeholder=placeholder value=value type=type)
   .output-error
   .input__hint
     .hint-message!=hint

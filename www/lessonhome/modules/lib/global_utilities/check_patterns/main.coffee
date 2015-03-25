@@ -4,9 +4,8 @@ class Check_Patterns
       digits : '^\\d*$'
       alphabet : '^[a-z]*'
 
-  show : ->
+  Dom : =>
     @register 'checker'
-
   check : (pattern, value) ->
     (new RegExp(pattern)).test value
 

@@ -1,5 +1,9 @@
 class @main
   tree : => module '$' :
+    depend : [
+      module 'lib/crypto'
+      module 'lib/lzstring'
+    ]
     logo      : module '$/logo'
     top_menu : module '$/top_menu' :
       items     : @exports()
@@ -15,6 +19,7 @@ class @main
         selector    : 'in_out'
         placeholder : 'Логин'
       password   :  module './forms/input'  :
+        type        : 'password'
         selector    : 'in_out'
         placeholder : 'Пароль'
       enter       : module './button' :

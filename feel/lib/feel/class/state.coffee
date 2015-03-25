@@ -347,4 +347,7 @@ class module.exports
     obj.$req    = state.req
     obj.$res    = state.res
     obj.$user   = state.req.user
+    obj.$session= state.req.session
+    obj.$register= state.req.register
+    obj.$cookie = state.req.cookie
     return obj
