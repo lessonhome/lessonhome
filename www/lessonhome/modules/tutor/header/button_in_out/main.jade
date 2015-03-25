@@ -1,5 +1,8 @@
 .button
-  .title=title
+  if registered
+    .title Выход
+  else
+    .title Вход
   form.js-form.popup_box(action="/form/login" method="post")
     .triangle_box
       .triangle

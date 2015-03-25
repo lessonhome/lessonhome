@@ -14,7 +14,7 @@ class @main
         selector: 'header'
 
     button_in_out :  module '$/button_in_out' :
-      title       : 'Выход'
+      registered  : data('checkRegistered').check()
       login       :  module './forms/input'  :
         selector    : 'in_out'
         placeholder : 'Логин'
