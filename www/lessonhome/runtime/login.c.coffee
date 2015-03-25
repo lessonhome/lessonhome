@@ -4,10 +4,11 @@
 @handler = ($,data)->
   try
     obj = yield $.register.login $.user,$.session,data
-    $.cookie.set 'sessoin',obj.session.hash,{overwrite:true}
+    $.cookie.set 'session'
+    $.cookie.set 'session',obj.session.hash
   catch e
-    return 'failed: '+e.message
-  return 'success'
+    return {status:'failed: '+e.message}
+  return {status:'success',session:obj.session.hash}
 
 
 

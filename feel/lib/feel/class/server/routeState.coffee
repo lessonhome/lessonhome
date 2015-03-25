@@ -114,6 +114,7 @@ class RouteState
     json_tree = JSON.stringify(@getTree(@top))
     end +=
       @site.moduleJsTag('lib/jquery')+
+      @site.moduleJsTag('lib/cookie')+
       @site.moduleJsTag('lib/q')+
       @site.moduleJsTag('lib/event_emitter')+
       @site.moduleJsTag('lib/jade')+

@@ -29,7 +29,6 @@ class Router
               @url.reg.push [r,statename]
             
   handler : (req,res)=> do Q.async =>
-    console.log 'router handler',req.url
     if req.url == '/favicon.ico'
       req.url = '/file/666/favicon.ico'
 
@@ -40,10 +39,12 @@ class Router
     cookie = new _cookies req,res
     req.cookie = cookie
     _session = cookie.get 'session'
+    console.log  req.url,_session
     req.register = @site.register
     register = yield @site.register.register _session
     req.session = register.session
-    cookie.set 'session',register.session,{overwrite:true}
+    cookie.set 'session'
+    cookie.set 'session',register.session
     req.user = register.accaunt
     if req.url.match /^\/form\/.*$/
       return @redirect req,res,req.headers.referer

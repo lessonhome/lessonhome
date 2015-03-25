@@ -31,7 +31,6 @@ class Register
       created = true
     session = @sessions[session]
     accaunt = @accaunts[session.accaunt]
-    console.log 'regcheck',session,accaunt,created
     unless created
       session.accessTime = new Date()
       accaunt.accessTime = new Date()
@@ -39,6 +38,16 @@ class Register
       .catch @onError
       _invoke(@session,'update',{hash:session.hash},{$set:{accessTime:(new Date())}},{upsert:true})
       .catch @onError
+    types = ""
+    for key,val of accaunt.type
+      if val
+        types += ":" if types
+        types += key
+    idstr = 'user'.red+':'.grey+('('+types+')').yellow
+    idstr += ':'.grey+accaunt.login.cyan if accaunt.login?
+    idstr += ':'.grey+accaunt.id.substr(0,5).blue
+    idstr += ':'.grey+session.hash.substr(0,5).blue
+    console.log idstr
     return {
       session:session.hash
       accaunt:accaunt
@@ -49,15 +58,20 @@ class Register
     throw new Error 'login already exists'  if @logins[data.login]?
     throw new Error 'bad user id'           if !@accaunts[user.id]?
     user = @accaunts[user.id]
-    console.log 'newType',user
     
     throw new Error 'already logined'       if user.registered
     throw new Error 'bad session'           if !@sessions[sessionhash]?
     user = @accaunts[user.id]
     user.registered = true
     user.login      = data.login
-    @logins[user.login] = user
-    user[data.type]      = true
+    @logins[user.login]   = user
+    user[data.type]       = true
+    user.other      = false
+    user.type       ?= {}
+    user.type[data.type]  = true
+    user.type['other']    = false
+    data.password = data.login+data.password
+    console.log "'#{data.password}'",_hash data.password
     user.hash       = yield @passwordCrypt _hash data.password
     user.accessTime = new Date()
     yield _invoke(@accaunt,'update', {id:user.id},{$set:user},{upsert:true})
@@ -68,9 +82,10 @@ class Register
     throw new Error 'bad user id'           if !@accaunts[user.id]?
     throw new Error 'bad session'           unless @sessions[sessionhash]?
     user = @accaunts[user.id]
-    console.log user
     throw new Error 'already logined'       if user.registered
     tryto = @logins[data.login]
+    data.password = data.login+data.password
+    console.log "'#{data.password}'",_hash(data.password),tryto.hash
     throw new Error 'wrong pass' unless yield @passwordCompare _hash(data.password), tryto.hash
     olduser = user
     hashs = []
@@ -95,6 +110,9 @@ class Register
         id            : _randomHash()
         registerTime  : new Date()
         accessTime    : new Date()
+        other         : true
+        type          :
+          other       : true
         sessions      : {}
       @accaunts[accaunt.id]   = accaunt
       sessionhash = yield @newSession accaunt.id

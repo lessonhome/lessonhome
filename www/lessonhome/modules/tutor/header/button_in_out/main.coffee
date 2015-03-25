@@ -49,6 +49,8 @@ class @main extends EE
     Feel.send( 'login',{
       password : pass
       login    : login
-    }).then (status,msg)->
-      console.log 'login',status,msg
-
+    }).then ({status,session})=>
+      console.log 'login',status
+      if status == 'success'
+        @found.form.submit()
+    .done()
