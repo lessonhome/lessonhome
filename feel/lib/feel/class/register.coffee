@@ -54,13 +54,13 @@ class Register
     }
 
   newType : (user,sessionhash,data)=>
-    throw new Error 'wrong data'            unless data?.login? && data?.password? && data?.type?
-    throw new Error 'login already exists'  if @logins[data.login]?
-    throw new Error 'bad user id'           if !@accaunts[user.id]?
+    throw err:'bad_query'     unless data?.login? && data?.password? && data?.type?
+    throw err:'login_exists'  if @logins[data.login]?
+    throw err:'bad_session'   if !@accaunts[user.id]?
     user = @accaunts[user.id]
     
-    throw new Error 'already logined'       if user.registered
-    throw new Error 'bad session'           if !@sessions[sessionhash]?
+    throw err:'already_logined'       if user.registered
+    throw err:'bad_session'           if !@sessions[sessionhash]?
     user = @accaunts[user.id]
     user.registered = true
     user.login      = data.login
@@ -77,16 +77,16 @@ class Register
     yield _invoke(@accaunt,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
   login : (user,sessionhash,data)=>
-    throw new Error 'wrong data'            unless data?.login? && data?.password?
-    throw new Error 'login not exists'      if !@logins[data.login]?
-    throw new Error 'bad user id'           if !@accaunts[user.id]?
-    throw new Error 'bad session'           unless @sessions[sessionhash]?
+    throw err:'bad_query'            unless data?.login? && data?.password?
+    throw err:'login_not_exists'      if !@logins[data.login]?
+    throw err:'bad_session'           if !@accaunts[user.id]?
+    throw err:'bad_session'           unless @sessions[sessionhash]?
     user = @accaunts[user.id]
-    throw new Error 'already logined'       if user.registered
+    throw err:'already_logined'       if user.registered
     tryto = @logins[data.login]
     data.password = data.login+data.password
     console.log "'#{data.password}'",_hash(data.password),tryto.hash
-    throw new Error 'wrong pass' unless yield @passwordCompare _hash(data.password), tryto.hash
+    throw err:'wrong_password'    unless yield @passwordCompare _hash(data.password), tryto.hash
     olduser = user
     hashs = []
     for hash of olduser.sessions

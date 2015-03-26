@@ -6,8 +6,9 @@
   try
     console.log 'register.c',$.user
     yield $.register.newType $.user,$.session,data
-  catch e
-    return {status:'failed: '+e.message}
+  catch err
+    err.err ?= 'internal_error'
+    return {status:'failed',err:err.err}
   return {status:'success'}
 
 

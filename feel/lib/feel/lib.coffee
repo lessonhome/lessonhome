@@ -179,9 +179,15 @@ global.Wrap = (obj,prot)->
               break if err.match /\(native\)/
               nerrs += "\n\t"+err.replace(/\n/g,"")
             unless _util.isError e
+              oe = e
               e = JSON.stringify e unless typeof e == 'string'
               ne = new Error()
               ne.message = e
+              if typeof oe == 'object' && oe != null
+                ne._obj = oe
+                for key,val of oe
+                  ne[key] = val
+
               e = ne
             e.message ?= ""
             e.message += "\n#{proto.constructor.name}::#{key}(".red
@@ -424,11 +430,18 @@ global.ExceptionJson = (e)=>
   name    : e.name
   message : e.message
   stack   : e.stack
+  _obj     : e._obj
 global.ExceptionUnJson = (j)=>
   e = new Error()
   e.stack   = j.stack
   e.message = j.message
   e.name    = j.name
+  e._obj     = j._obj
+  if e._obj? && (typeof e._obj == 'object') && e._obj != null
+    for key,val of e._obj
+      e[key] = val
+
+
   return e
 #global.Watcher  = new (lrequire('watcher'))()
 
