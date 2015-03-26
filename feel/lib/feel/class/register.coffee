@@ -1,6 +1,6 @@
 
 
-bcrypt = require 'bcrypt'
+bcrypt = require 'bcryptjs'
 
 
 
