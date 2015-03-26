@@ -1,4 +1,3 @@
-
 mixin item (progress, value_src, href, selector)
   - href = href || '';
   - src = F(value_src);
@@ -53,6 +52,12 @@ mixin item (progress, value_src, href, selector)
       +item(3, src_3, 'third_step')
       +item(4, src_4, false, 'fourth')
       - widthBlue = widthBlue*(progress-1)
+    when 5
+      +item(1, src_1, false, 'one')
+      +item(2, src_2, false)
+      +item(3, src_3, false)
+      +item(4, src_4, false, 'fourth')
+      - widthBlue = widthBlue*(progress-2)
   .line_box
     .gray_line
     .blue_line(style='width: #{widthBlue}px')

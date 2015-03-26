@@ -1,4 +1,9 @@
 class @main extends template '../main'
+  access : ['other']
+  redirect : {
+    'pupil' : '/first_step'
+    'tutor' : '/tutor/search_bids'
+  }
   route : '/main_tutor'
   tags  : -> 'pupil:main_tutor'
   model : 'main/registration'
@@ -6,7 +11,12 @@ class @main extends template '../main'
   tree : ->
     popup : @exports()
     content : module 'main_tutor/content'  :
+      depend : [
+        module 'lib/crypto'
+        module 'lib/lzstring'
+      ]
       login           : module 'tutor/forms/input' :
+        name : 'email'
         selector : 'main_check_in'
         text : 'Введите ваш телефон или email адрес'
         validators: {
@@ -19,18 +29,14 @@ class @main extends template '../main'
           }
           'errMessage': 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx или корректный email'
         }
-      login_hint      : module 'tutor/hint' :
-        selector : 'small'
-        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
       password        : module 'tutor/forms/input' :
+        name       :'password'
+        type      : 'password'
         selector : 'main_check_in'
         text : 'Придумайте пароль'
         pattern: '.{6,}'
         errMessage  : 'Пароль должен быть не меньше 6-ти символов'
-      password_hint   : module 'tutor/hint' :
-        selector : 'small'
-        text     : 'Придумайте достаточно сложный пароль минимум 6 символов'
-      checkbox        : module 'tutor/forms/checkbox'
+      agree_checkbox        : module 'tutor/forms/checkbox'
       create_account  : module 'link_button' :
         href      : 'tutor/profile/first_step'
         selector  : 'create_account'

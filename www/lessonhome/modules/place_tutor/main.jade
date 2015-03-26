@@ -2,11 +2,6 @@ mixin field (selector, value)
   .value(class=selector)!= value
 /////////////////
 
-.location_buttons
-  .title Место :
-  .tutor!= tutor
-  .student!= student
-  .web!= web
 +field ('country', country)
 +field ('city', city)
 +field ('area', area)

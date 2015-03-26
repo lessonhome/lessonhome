@@ -20,6 +20,12 @@ class @main extends template '../fast_bid'
       experience : module 'tutor/forms/drop_down_list':
         text      : 'Опыт:'
         selector  : 'fast_bid'
+        default_options     : {
+          '0': {value: '1-2years', text: '1-2 года'},
+          '1': {value: '3-4years', text: '3-4 года'},
+          '2': {value: 'more_than_4_years', text: 'более 4 лет'},
+          '3': {value: 'no_matter', text: 'неважно'}
+        }
       status_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -30,8 +36,9 @@ class @main extends template '../fast_bid'
         end         : module 'tutor/forms/input' :
           selector  : 'time_spend_bids'
           text      : 'до'
-        measurement   : 'мин.'
         handle        : true
+        min           : 18
+        max           : 90
       gender_data   : state 'gender_data':
         selector        : 'choose_gender'
         selector_button : 'registration'

@@ -17,8 +17,9 @@ label
   display: block
   width: 100%
   height: 100%
-  div:not(.text)
+  div
     +inline-block
+  .check_box
     +border-radius(4px)
     box-sizing: border-box
     background-color: #fff
@@ -31,36 +32,42 @@ label
       top: 0
       left: 0
   .text
-    +inline-block
     padding-left: 11px
-    cursor: pointer
+    //cursor: pointer
     font-size: $font_size
     color: #757575
   ///////////// big //////////////////////
-  .big
+label.big
+  .check_box
     width: $check_big_width
     height: $check_big_height
     .check
       background: inline-image($check_big) no-repeat
 
   ///////////// small //////////////////////
-  .small
+label.small
+  .check_box
     width: $check_small_width
     height: $check_small_height
     box-sizing: border-box
     .check
       background: inline-image($check_small) no-repeat
 
+  /////////////// font_16 ////////////
+label.font_16
+  .text
+    font-size: 16px
   ////////////--------------action-----------///////////
-label
-  div
-    .check.active
+label.active
+  .check_box
+    .check
       display: block
-
-label:hover
   .text
     color: #000000
-  div:not(.text)
-    border-color: #b3b3b3
 
+label:hover
+  .check_box
+    border-color: #b3b3b3
+  .text
+    color: #000000
 

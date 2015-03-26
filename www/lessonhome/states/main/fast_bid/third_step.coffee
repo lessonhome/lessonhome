@@ -26,6 +26,8 @@ class @main extends template '../fast_bid'
         start_text    : 'до'
         measurement   : 'мин.'
         handle        : false
+        min           : 15
+        max           : 120
       way_time_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -42,6 +44,8 @@ class @main extends template '../fast_bid'
           selector  : 'time_spend_bids'
         measurement   : 'мин.'
         handle        : true
+        min           : 45
+        max           : 180
       lesson_time_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

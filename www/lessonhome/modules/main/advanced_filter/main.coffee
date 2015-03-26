@@ -10,7 +10,7 @@ class @main extends EE
         title.click => @change_visibility section
 
     #select experience
-    @experience = @dom.find '.js-experience>div'
+    @experience = @found.experience.children()
     for exp,i in @experience
       exp = $ exp
       do (exp,i)=>
@@ -23,7 +23,7 @@ class @main extends EE
             @experience.last().removeClass 'background'
             @experience.last().addClass 'hover'
           @change_background exp
-
+ 
 
 
 ############## function ##############

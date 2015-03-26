@@ -11,11 +11,9 @@ class @main extends template '../main'
 
     content : module '$' :
       popup           : @exports()
-      line_top      : module 'tutor/separate_line':
-        selector  : 'horizon'
       advanced_filter : state './advanced_filter'
       sort            :  module '$/sort'
-
+      choose_tutors_num : 2
       choose_tutors : [
         state './preview/all_rating_photo' :
           src       : '#'

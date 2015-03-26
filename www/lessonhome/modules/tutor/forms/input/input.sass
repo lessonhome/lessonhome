@@ -1,7 +1,4 @@
 @import compass/css3
-$font_size: 20px          // text inside input - placeholder
-$_font_size: 18px         // label text
-$padding: 8px
 main
   height: 100%
   width: 100%
@@ -11,20 +8,17 @@ label
   height: 100%
   position: relative
   .text
-    font-size: $_font_size
     +inline-block
     cursor: pointer
-    color: #000000
+    color: rgba(75, 75, 75, 0.70)
   .box
     +inline-block
     height: 100%
     width: 100%
-    padding: 0 $padding
     box-sizing: border-box
     border: 2px solid #d6d6d6
     +border-radius(4px)
     background-color: rgb( 255, 255, 255 )
-    padding: 0 8px
     input
       +inline-block
       outline: none
@@ -33,12 +27,9 @@ label
       margin: 0
       border: none
       background: none
-      font-size: $font_size
       color: rgb(0, 0, 0)
-      font-family: inherit
-      cursor : text
+      cursor: text
       +input-placeholder
-        //font-size: $font_size
         color: #757575
   .box:after
     +inline-block
@@ -49,234 +40,12 @@ label:after
   height: 100%
   +inline-block
 
-
-//////////---------main page-----------////////////
-
-////////////// price fourth step slider////////////////////
-
-$font_size: 39px
-$_font_size: 24px
-$padding_text: 10px
-.price
-  .text
-    padding-right: $padding_text
-    font-size: $_font_size
-  .box
-    width: 116px
-    input
-      text-align: center
-      font-size: $font_size
-
-
-
-/////////// prise fast bids //////////
-$_font_size: 18px
-$font_size: 20px
-$padding_text: 10px
-.price_bids
-  text-align: left
-  .text
-    padding-right: $padding_text
-    font-size: $_font_size
-  .box
-    width: 75px
-    input
-      font-size: $font_size
-      text-align: center
-    +input-placeholder
-      //font-size: $font_size
-
-//////////// calendar advance filter ////////////
-$font_size: 18px
-$padding: 2px
-$padding_text: 5px
-.calendar
-  .text
-    padding-right: $padding_text
-    font-size: 16px
-  .box
-    padding: 0 $padding
-    width: 72px
-    text-align: center
-    input
-      font-size: $font_size
-      text-align: center
-    +input-placeholder
-      //font-size: $font_size
-
-//////////// calendar fast_bids ////////////
-$font_size: 18px
-$padding: 2px
-$padding_text: 7px
-.calendar_fast_bids
-  .text
-    padding-right: $padding_text
-  .box
-    padding: 0 $padding
-    width: 70px
-    text-align: center
-    input
-      font-size: $font_size
-      text-align: center
-    +input-placeholder
-      //font-size: $font_size
-
-
-
-/////////////// advance filter slider//////////
-$font_size: 18px
-$padding: 2px
-.time_spend
-  .box
-    padding: 0 $padding
-    width: 50px
-    text-align: center
-    input
-      font-size: $font_size
-      text-align: center
-    +input-placeholder
-      //font-size: $font_size
-
-
-///////////////  issue fast bids ///////////
-$font_size: 18px
-$_font_size: 16px
-.fast_bid
-  .text
-    float: left
-    padding-bottom: 10px
-    font-size: $_font_size
-  .box
-    height: 37px
-
-
-/////////// fast bids time_spend_bids  /////////
-
-$font_size: 18px
-$_font_size: 18px
-.time_spend_bids
-  .text
-    padding-right: 8px
-    font-size: $_font_size
-  .box
-    padding: 0 $padding
-    width: 54px
-    text-align: center
-    input
-      font-size: $font_size
-      text-align: center
-    +input-placeholder
-      //font-size: $font_size
-
-
-/////////////// first step registration /////////////
-$_font_size: 16px
-$font_size: 18px
-$padding_text: 26px
-.first_reg
-  .text
-    text-align: right
-    font-size: $_font_size
-    padding-right: $padding_text
-    color: rgba(75, 75, 75, 0.70)
-  .box
-    width: 341px
-    input
-      font-size: $font_size
-///////
-$padding_text: 18px
-.price
-  .text
-    padding-right: $padding_text
-  .box
-    width: 71px
-
-///////
-$padding_text: 26px
-.house
-  .text
-    padding-right: $padding_text
-  .box
-    width: 91px
-
-
-  //- ----------------------- BIDS REPORTS POPUP ---------------------------
-
-$_font_size: 20px
-$font_size: 20px
-$padding_text: 10px
-.report_popup
-  .text
-    //text-align: right
-    font-size: $_font_size
-    padding-right: $padding_text
-    color: rgba(75, 75, 75, 0.70)
-  .box
-    width: 120px
-    input
-      font-size: $font_size
-.time_report_popup
-  .box
-    width: 70px
-
-
-//- ---------------------SEARCH BIDS: ROAD TIME SLIDER -----------------------
-$padding_text: 5px
-.road_time_search_bids
-  .text
-    padding-right: $padding_text
-  .box
-    width: 54px
-
-  //- --------------------- SMALL RADIUS -----------------------------------
-.small_radius
-  .box
-    +border-radius(4px)
-
-
-  //- ----------------------- EDIT : CALENDAR ---------------------------------
-.edit_calendar
-  .box
-    border-color: rgb( 202, 211, 218 )
-
-
-  //- ------------------------ MAIN :CHECK IN --------------------
-.main_check_in
-  .text
-    padding-bottom: 10px
-  .box
-    height : 39px
-    input
-    +input-placeholder
-      color: #cbd3da
-
-//- ----------------------- In/Out form  --------------------------
-
-.in_out
-  .box
-    input
-      +input-placeholder
-        color: #cdcdcd
-
-
-
-  //////////////////////////// action class //////////////////////////////
-
-  /////////----------------hover-------------/////
-label:hover
-  .text
-    color:  #000000
-  .box
-    border: 2px solid #b3b3b3
-
-  /////////----------------focus-------------/////
-label,label:hover
-  .focus
-    border: 2px solid rgb( 137, 209, 255 )
+////////////////////////// error/////////////////////////
+$bg_color: #b2b2b2
+$bg_color_w: #ffffff
 
 label .box.bad-input
   border: 2px solid red
-  //border-color: red
 
 label .output-error
   display: none
@@ -286,9 +55,7 @@ label .output-error
 
 label .output-error.output-error__show
   display: inline-block
-$bg_color: #b2b2b2
-$bg_color_w: #ffffff
-label>.input__hint
+label .input__hint
   display: none
   padding: 15px
   width: 300px
@@ -302,7 +69,7 @@ label>.input__hint
   text-align: left
   min-height: 50px
 
-label>.input__hint>.bubble-arrow, label>.input__hint>.bubble-arrow-after
+label .input__hint .bubble-arrow, label .input__hint .bubble-arrow-after
   width: 0
   height: 0
   position: absolute
@@ -310,11 +77,11 @@ label>.input__hint>.bubble-arrow, label>.input__hint>.bubble-arrow-after
   top: 13px
   border: 12px solid transparent
   border-right-color: $bg_color
-label>.input__hint>.bubble-arrow-after
+label .input__hint .bubble-arrow-after
   top: 14px
   border: 11px solid transparent
   border-right-color: $bg_color_w
-label>.input__hint>.hint-message
+label .input__hint .hint-message
   font-size: 14px
   line-height: 20px
   +inline-block
@@ -322,3 +89,91 @@ label>.input__hint>.hint-message
   content: ''
   height: 100%
   +inline-block
+
+//////////////// function//////////////
+  data:
+  $selector - selector element
+  $font_size - inner input
+  $_font_size - in text out input
+  $padding - padding in drop_down_list
+  $padding_text_r - padding right text
+  $padding_text_b - padding bottom text
+  $width - width box if have text in left side to input
+  $height - width box if have text in top side to input
+=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
+  label.#{$selector}
+    .text
+      font-size: $_font_size
+      padding-right: $padding_text_r
+      padding-bottom: $padding_text_b
+    .box
+      width: $width
+      height: $height
+      padding: 0 $padding
+      input
+        text-align: $text_align
+        font-size: $font_size
+
+//////////---------main page-----------////////////
+
+////////////// price fourth step slider////////////////////
++selector(price,24px,39px,12px,10px,0,116px,none,center)
+
+/////////// prise fast bids//////////
++selector(price_bids,18px,20px,2px,10px,0,75px,none,center)
+.price_bids
+  text-align: left
+
+//////////// calendar advance filter////////////
++selector(calendar,16px,18px,2px,0,0,72px,none,center)
+
+/////////////// advance filter slider//////////
++selector(time_spend,16px,18px,2px,7px,0,50px,none,center)
+
+///////////////  issue fast bids///////////
++selector(fast_bid,16px,18px,12px,0,10px,none,37px,none)
+.fast_bid
+  text-align: left
+
+/////////// fast bids time_spend_bids/////////
++selector(time_spend_bids,18px,18px,2px,8px,0,54px,none,center)
+
+/////////////// first step registration/////////////
+
++selector(first_reg,16px,18px,12px,26px,0,341px,none,none)
+/////// first_reg_house////////
++selector(first_reg_house,16px,18px,12px,26px,0,91px,none,none)
+/////// price////////////
++selector(price_reg,16px,18px,2px,18px,0,71px,none,center)
+
+//- ----------------------- BIDS REPORTS POPUP ---------------------------
++selector(report_popup,20px,20px,8px,10px,0,120px,none,none)
+
+////
++selector(time_report_popup,20px,20px,8px,10px,0,70px,none,none)
+
+//- ---------------------SEARCH BIDS: ROAD TIME SLIDER -----------------------
++selector(road_time_search_bids,20px,20px,8px,5px,0,54px,none,none)
+
+//- ------------------------ MAIN :CHECK IN --------------------
++selector(main_check_in,18px,20px,12px,0,10px,none,37px,none)
+
+//------------------------ In/Out form  --------------------------
++selector(in_out,18px,20px,12px,0,10px,none,none,none)
+
+
+//////////////////////////// action class//////////////////////////////
+
+/////////----------------hover-------------/////
+label:hover
+  .text
+    color: #000000
+  .box
+    border: 2px solid #b3b3b3
+
+/////////----------------focus-------------/////
+label.focus,label.focus:hover
+  .text
+    color: #000000
+  .box
+    border: 2px solid rgb( 137, 209, 255 )

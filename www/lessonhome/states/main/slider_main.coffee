@@ -2,6 +2,8 @@ class @main
   tree : => module '$' :
     selector      : @exports()
     start         : module 'tutor/forms/input' :
+      filters   : ['digits']
+      allowSymbolsPattern : "^\\d*$"
       selector  : @exports 'start'
       text      : @exports 'start_text'
     # if us end(second input) determine selector and text in parent module

@@ -10,11 +10,12 @@ class @main extends EE
 
     @show_select_sets = null
 
+    listenDown = false
     @input.on 'focus', =>
       if @label.is '.filter_top'
-        @list.addClass 'filter_top_focus'
+        @label.addClass 'filter_top_focus'
       else
-        @list.addClass 'focus'
+        @label.addClass 'focus'
 
       @show_select_sets?()
 
@@ -23,6 +24,18 @@ class @main extends EE
         @list.removeClass 'filter_top_focus'
       else
         @list.removeClass 'focus'
+      if !listenDown
+        listenDown = true
+        $('body').on 'mousedown.drop_down_list', (t)=>
+          return if $.contains @dom[0],t.target
+          #@input.on 'focusout', =>
+          listenDown = false
+          $('body').off 'mousedown.drop_down_list'
+          if @label.is '.filter_top'
+            @label.removeClass 'filter_top_focus'
+          else
+            @label.removeClass 'focus'
+          @input.next('.select-sets__options').hide()
 
     curInput = @input
     if @tree.default_options?
@@ -226,17 +239,20 @@ class @main extends EE
         if getIconBox()?
           getIconBox().click (event) =>
             if getCurSel().is(':visible')
-              getCurSel().hide()
+              hideSelect()
             else
               showSelectOptions()
 
         ### Hiding on click out of label (drop_down_list component) ###
         $('body').on 'click.drop_down_list', (event)=>
           if $(event.target).closest(@label).size() == 0
-            getCurSel().hide()
+            hideSelect()
         #########################################
-
+        hideSelect = =>
+          getCurSel().hide()
+          @label.removeClass 'open_select'
         showSelectOptions = () =>
+          @label.addClass 'open_select'
           $selOpts = getCurSelOptions()
           strBegin = getCurInput().val()
           correctSelectOptions strBegin, $selOpts, valuesGenerator
@@ -259,6 +275,7 @@ class @main extends EE
           if optionsCount($selOpts) > 0
             makeSelected($selOpts, 0)
             getCurSel().show()
+            getCurSel().find('>div').css 'line-height', @label.height()+"px"
           return
 
         markBeginText = (str, startStr)->

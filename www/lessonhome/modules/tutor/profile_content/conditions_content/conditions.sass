@@ -1,5 +1,6 @@
 $padding_text:  20px
 $background_title_block:  #E2E7EC
+$height_address_time: 310px
 $map_width: 350px
 $height_line: 30px
 $width_title: 130px
@@ -18,20 +19,21 @@ main
 .edit_block
   padding-bottom: 20px
 .address_and_free_time
+  height: $height_address_time
   .address_block
+    height: 100%
     overflow: hidden
     .address_time
       height: $height_info_panel
       line-height: $height_info_panel
     .map
-      height: 250px
+      height: $height_address_time - $height_info_panel
       width: $map_width
       float: left
     .show_calendar
       margin-left: $map_width + $padding_calendar
-      padding-left: 60px
-      background: red
-      height: 225px
+      background: #f3f3f3
+      height: $height_address_time - $height_info_panel
 .info_block
   height: $height_line
   line-height: $height_line

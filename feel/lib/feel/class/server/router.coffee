@@ -1,6 +1,6 @@
 
 RouteState = require './routeState'
-
+_cookies = require 'cookies'
 
 class Router
   constructor : (@site)->
@@ -28,7 +28,8 @@ class Router
             else if r instanceof RegExp
               @url.reg.push [r,statename]
             
-  handler : (req,res)=>
+  handler : (req,res)=> do Q.async =>
+    yield 1
     if req.url == '/favicon.ico'
       req.url = '/file/666/favicon.ico'
 
@@ -36,6 +37,18 @@ class Router
       return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/file\/.*/
       return Q().then => Feel.static.handler req,res,@site.name
+    cookie = new _cookies req,res
+    req.cookie = cookie
+    _session = cookie.get 'session'
+    console.log  req.url,_session
+    yield @setSession req,res,cookie,_session
+    if req.url.match /^\/form\/tutor\/login$/
+      return @redirect req,res,'/tutor/search_bids'
+    if req.url.match /^\/form\/tutor\/register$/
+      return @redirect req,res,'/tutor/profile/first_step'
+    if req.url.match /^\/form\/tutor\/logout$/
+      yield @setSession req,res,cookie,""
+      return @redirect req,res,'/first_step'
     statename = ""
     if @url.text[req.url]?
       statename = @url.text[req.url]
@@ -53,6 +66,19 @@ class Router
       return
     route = new RouteState statename,req,res,@site
     return Q().then route.go
-
+  setSession : (req,res,cookie,session)=> do Q.async =>
+    req.register = @site.register
+    register = yield @site.register.register session
+    req.session = register.session
+    cookie.set 'session'
+    cookie.set 'session',register.session
+    req.user = register.accaunt
+  redirect : (req,res,location='/')=> do Q.async =>
+    yield console.log 'redirect',location
+    res.statusCode = 302
+    console.log req.headers
+    res.setHeader 'location',location
+    res.end()
+    
 
 module.exports = Router

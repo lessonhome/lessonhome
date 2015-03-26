@@ -19,7 +19,9 @@ class Viewer
     @iny = 0
     @sc = 0.5
     @nsc = 0.6
-    @onmm $(window).width()/2,80
+    @mx = $(window).width()/2
+    @my = 80
+    @onmm()
     @x = @nx
     @y = @ny
     @ix = @inx
@@ -31,10 +33,12 @@ class Viewer
     $(window).scrollTop @scroll
     @dom.remove()
   mousemove : (e)=>
-    x = e.clientX
-    y = e.clientY
-    @onmm x,y
-  onmm : (x,y)=>
+    @mx = e.clientX
+    @my = e.clientY
+    @onmm()
+  onmm : =>
+    x = @mx
+    y = @my
     fw = @frame.width()
     fh = @frame.height()
     Iw = @img.width()
@@ -45,17 +49,17 @@ class Viewer
     Ih = 3000 if Ih < 100
     ww = $(window).width()
     wh = $(window).height()
-    w = fw*@sc+600
-    h = fh*@sc
-    iw = Iw*@sc+600
-    ih = Ih*@sc
+    w = fw*@nsc+600
+    h = fh*@nsc
+    iw = Iw*@nsc+600
+    ih = Ih*@nsc
     W = ww
     H = wh
     
-    dx = fw*(@sc-1)/2
-    dy = fh*(@sc-1)/2
-    idx = Iw*(@sc-1)/2
-    idy = Ih*(@sc-1)/2
+    dx = fw*(@nsc-1)/2
+    dy = fh*(@nsc-1)/2
+    idx = Iw*(@nsc-1)/2
+    idy = Ih*(@nsc-1)/2
 
     cx = (x-W)/W+1
     cy = (y-(H))/(H)+1
@@ -75,19 +79,19 @@ class Viewer
     @iny += idy
   mousewheel : (e)=>
     @nsc *= 1+0.1 * e.deltaY
-    mx = 1.2
+    mx = 1.4
     c = @nsc/@sc
     if c > 1
       @nsc = @sc*mx
     if c < 1
       @nsc = @sc/mx
-    
   timer : =>
     @x += (@nx-@x)/10
     @y += (@ny-@y)/10
     @ix += (@inx-@ix)/10
     @iy += (@iny-@iy)/10
     @sc += (@nsc-@sc)/10
+    @onmm()
     rheight = @rimg.height()
     rheight = 3000 if rheight < 100
     riw = @rimg.width()

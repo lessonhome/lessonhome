@@ -4,17 +4,17 @@ $b_color: #dfe1e4
 .calendar_box
   +inline-block
   text-align: left
+  font-size: 20px
   .choose_all
     margin-bottom: $margin_top
     color: #757575
   .calendar_week
+    box-shadow: inset 0 -3px 0 0 rgba(0, 0, 0, 0.14)
     +inline-block
     +border-radius(4px)
     background-color: $b_color
-    font-size: 20px
-    font-weight: 600
     color: #a1a1a1
-    .monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday
+    div
       float: left
       cursor: pointer
   .calendar_week:after
@@ -43,50 +43,21 @@ $b_color: #dfe1e4
     padding: 6px 0
 
 
-//////////////// function //////////////
-=calendar($selector,$padding_day,$padding_day_hand,$padding_time_box,$padding_time_box_hand)
-  .calendar_box.#{$selector}
-    .calendar_week
-      div
-        padding: $padding_day $padding_day_hand
-      .monday, .sunday
-        padding: $padding_day ($padding_day_hand+1px)
-    .show-hidden-block
-      .time_box
-        padding: $padding_time_box $padding_time_box_hand
-
-
 //////////////////// advance filter ////////////////
-  $padding_day: 10px
-  $padding_day_hand: 5px
-  $padding_time_box: 8px
-  $padding_time_box_hand: 6px
-  .advance_filter
-    .calendar_week
-      .monday, .sunday
-        padding: $padding_day ($padding_day_hand+1px)
-      .tuesday, .wednesday, .thursday, .friday, .saturday
-        padding: $padding_day $padding_day_hand
-    .js-show-hidden-block
-      .time_box
-        padding: $padding_time_box $padding_time_box_hand
 
-+calendar('advance_filter', 10px, 5px, 8px, 6px)
+
 .advance_filter
   width: 235px
-////////////////// fast_bids /////////////////
-  $all_padding_input: 10px
-  $padding_day: 12.7px
-  .fast_bids
-    .calendar_week
-      div
-        padding: 10px $padding_day
-    .js-show-hidden-block
-      .time_box
-        width: 228px
-        padding: 11px 10px
-
-
+  .calendar_week
+    div
+      padding: 3px 5px 8px 5px
+    .monday
+      padding-left: 10px
+    .sunday
+      padding-right: 11px
+  .js-show-hidden-block
+    .time_box
+      padding: 6px 8px
 
 
 ////////////----------active-------------/////////////

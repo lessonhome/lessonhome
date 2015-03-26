@@ -1,106 +1,103 @@
 @import compass/css3
-$advantages_photo_src : 'main_tutor/mainreg_team.png'
+$advantages_photo_src: 'main_tutor/mainreg_team.png'
 .m-font
-  color       : #363636
+  color: #363636
 
 .m-landingBlockTitle
-  font-size   : 50px
-  color       : rgb( 201, 92, 81 )
+  font-size: 50px
+  color: rgb( 201, 92, 81 )
 
 .m-text
-  font-size   : 30px
-  color       : rgb( 0, 0, 0 )
+  font-size: 30px
+  color: rgb( 0, 0, 0 )
 
 .m-Link
-  font-size       : 16px
-  color           : #f07b6f
-  text-decoration : underline
+  font-size: 16px
+  color: #f07b6f
+  text-decoration: underline
 
 main
-  overflow : hidden
-  padding  : 44px 0 0 0
+  overflow: hidden
+  padding: 44px 0 0 0
 
 // ------------------------- CHECK IN -------------------------------------------
 
 .check_in
-  padding-bottom : 35px
-  text-align     : center
+  padding-bottom: 35px
+  text-align: center
   .title
-    line-height   : 32px
-    margin-bottom : 6px
-    font-size     : 24px
+    line-height: 32px
+    margin-bottom: 6px
+    font-size: 24px
     span
-      color       : #f07b6f
-
+      color: #f07b6f
   .title_conditions
-    margin-bottom : 35px
-    line-height   : 19px
-    font-size     : 16px
-    color         : #18293a
-
+    margin-bottom: 35px
+    line-height: 19px
+    font-size: 16px
+    color: #18293a
   .check_in_fields
-    width         : 440px
-    padding-right : 16px
-    margin : 0 auto
-    text-align : left
+    .submit
+      position : fixed
+      color : white
+      top : -8000px
+      background : white
+    width: 440px
+    +inline-block
+    text-align: left
     .title
-      margin-bottom : 22px
-      text-align    : center
-      font-size     : 30px
-      font-weight   : 600
-      color         : #89d1ff
+      margin-bottom: 22px
+      text-align: center
+      font-size: 30px
+      font-weight: 600
+      color: #89d1ff
 
     .login, .password
-      position : relative
+      position: relative
       +inline-block
-      padding-right : 8px
 
     .login>.input, .password>.input
-      width  : 425px
+      width: 425px
 
-    .login>.hint, .password>.hint
-      position : absolute
-      top   : 35px
-      right : -20px
 
     .login
-      margin-bottom : 15px
+      margin-bottom: 15px
 
     .password
-      margin-bottom : 7px
+      margin-bottom: 7px
 
     .checkbox
-      text-align    : left
-      margin-bottom : 28px
+      text-align: left
+      margin-bottom: 28px
       .field, .text
         +inline-block
       .field
-        margin-right : 15px
+        margin-right: 15px
       .text
-        width : 360px
-        line-height : 17px
-        font-size   : 16px
+        width: 360px
+        line-height: 17px
+        font-size: 16px
       .buttons
-        margin-top : 30px
+        margin-top: 30px
         div
           +inline-block
         .create_account
           height: 33px
         .phone_check_in
-          margin-right : 32px
+          margin-right: 32px
 
 //- ------------------------ HOW IT WORKS -------------------------------------
 
 .how_it_works
-  overflow : hidden
-  padding  : 60px 0 75px 0
-  background       : inline-image('pattern_blue.png')
-  //-box-shadow       : 0px 3px 6px 0px rgba(9, 12, 18, 0.27)
+  overflow: hidden
+  padding: 60px 0 75px 0
+  background: inline-image('pattern_blue.png')
+  //-box-shadow: 0px 3px 6px 0px rgba(9, 12, 18, 0.27)
   .illustrations
-    width  : 768px
-    height : 600px
-    position : relative
-    margin : 60px auto 70px auto
+    width: 768px
+    height: 600px
+    position: relative
+    margin: 60px auto 70px auto
     .text
       position: absolute
       font-size: 20px
@@ -113,25 +110,25 @@ main
 //- ------------------------ ADVANTAGES ----------------------------------------
 
 .advantages
-  overflow : hidden
+  overflow: hidden
   .photo
-    width  : 249px
-    height : 245px
-    margin : 55px 0 40px 0
+    width: 249px
+    height: 245px
+    margin: 55px 0 40px 0
     +inline-block
     background: inline-image($advantages_photo_src) no-repeat
 
   .title
-    margin-bottom : 150px
+    margin-bottom: 150px
     .text
-      font-size   : 30px
+      font-size: 30px
       span
-        color     : #f07b6f
-  .title :first-child
-    margin-bottom : 15px
+        color: #f07b6f
+  .title:first-child
+    margin-bottom: 15px
 
   .content
-    margin : 0 auto 50px auto
+    margin: 0 auto 50px auto
     div
       +inline-block
       vertical-align: top
@@ -229,15 +226,15 @@ main
 //- --------------------- WAYS TO FIND ------------------------------------
 
 .ways_to_find
-  overflow : hidden
-  padding  : 60px 0 75px 0
-  background       : inline-image('pattern_green.png')
-  box-shadow       : 0px 3px 6px 0px rgba(9, 12, 18, 0.27)
+  overflow: hidden
+  padding: 60px 0 75px 0
+  background: inline-image('pattern_green.png')
+  box-shadow: 0px 3px 6px 0px rgba(9, 12, 18, 0.27)
   .illustrations
-    width  : 770px
-    height : 500px
-    position : relative
-    margin : 60px auto 70px auto
+    width: 770px
+    height: 500px
+    position: relative
+    margin: 60px auto 70px auto
     .text
       position: absolute
       font-size: 20px
@@ -248,59 +245,59 @@ main
     height: 54px
 
   //-.content
-    $block_height : 525px
+    $block_height: 525px
     div
       +inline-block
 
     .left
-      width  : 225px
-      height : $block_height
+      width: 225px
+      height: $block_height
       .icon
-        width  : 115px
-        height : 115px
-        margin : 0 auto 20px auto
-        background-color : #94c9fe
+        width: 115px
+        height: 115px
+        margin: 0 auto 20px auto
+        background-color: #94c9fe
 
       .title
-        margin-bottom : 40px
-        font-size     : 22.13px
+        margin-bottom: 40px
+        font-size: 22.13px
         span.red
-          color : #f07b6f
+          color: #f07b6f
         span.blue
-          color : #4d96da
+          color: #4d96da
 
       .button
         +inline-block
 
     .center
-      width  : 332px
-      height : $block_height
+      width: 332px
+      height: $block_height
       .icon
-        width  : 140px
-        height : 140px
-        margin : 0 auto 20px auto
-        background-color : #94c9fe
+        width: 140px
+        height: 140px
+        margin: 0 auto 20px auto
+        background-color: #94c9fe
 
       .title
-        font-size : 30px
+        font-size: 30px
 
       .content>div
         div
         .icon
-          width  : 27px
-          height : 27px
-          float  : left
-          background-color : rgb( 209, 209, 209 )
+          width: 27px
+          height: 27px
+          float: left
+          background-color: rgb( 209, 209, 209 )
         .text
-          font-size   : 24px
-          margin-left : 40px
+          font-size: 24px
+          margin-left: 40px
 
 
     .right
-      width  : 386px
-      height : $block_height
+      width: 386px
+      height: $block_height
       .title
-        font-size   : 29px
+        font-size: 29px
       .content>.item>.text
-        font-size   : 22px
+        font-size: 22px
 

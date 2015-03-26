@@ -1,21 +1,17 @@
 if popup
   .background_block
-  .popup_block
-    .menu_bar
-      each value in popup.items
-        .item!= value
-      .close_box
-        .close_icon
-    .line_top!=line_top
-    .popup_content
-      .popup!=popup.content
+  .popup!=popup
 .advanced_filter!=advanced_filter
 .result_filter
   .sort!=sort
   .js-choose_tutors_block.fixed
     .choose_tutors_content
       .section
+        .box_icon
+          .icon
         .text Выбранные репетиторы
+        .js-choose_tutors_num!= '(' + choose_tutors_num + ')'
+        .clear_choose_tutors очистить
       .choose_tutors
         each value in choose_tutors
           .choose_tutor!= value
@@ -27,4 +23,4 @@ if popup
         .text!= 'с прикреплёнными<br>репетиторами'
   .tutors_result
     each value in tutors_result
-      .tutor_result!= value
+      .js-tutor_result!= value

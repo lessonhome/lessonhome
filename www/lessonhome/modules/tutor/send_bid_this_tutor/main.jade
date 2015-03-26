@@ -1,0 +1,8 @@
+if have_small_button
+  .button!=button
+    .button_wrap
+  .small_button!=small_button
+    .button_wrap
+else
+  .button(style = 'display: block')!=button
+    .button_wrap

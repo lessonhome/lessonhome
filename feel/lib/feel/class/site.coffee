@@ -5,6 +5,7 @@ fs      = require 'fs'
 readdir = Q.denodeify fs.readdir
 Router  = require './server/router'
 _path   = require 'path'
+
 class module.exports
   constructor : (@name)->
     @cacheRes     = {}
@@ -22,10 +23,18 @@ class module.exports
     @router       = new Router @
   init : =>
     Q()
+    .then => Main.service('db')
+    .then (db)=>
+      @db = db
+      Main.service 'register'
+    .then (reg)=>
+      @register = reg
     .then @configInit
     .then @loadModules
     .then @loadStates
     .then @router.init
+    #.then =>
+    #  console.log @dataObject "./example", "states/main"
   configInit : =>
     return Q() unless fs.existsSync @path.config
     return Q() unless fs.statSync(@path.config).isDirectory()
@@ -101,6 +110,7 @@ class module.exports
       @modules[module.name] = new Module module,@
       return @modules[module.name].init()
   dataObject : (name,context)=>
+    console.log 'dataObject',name,context
     suffix  = ""
     postfix = name
     file = ""
@@ -127,14 +137,22 @@ class module.exports
       file = _path.normalize @path.src+"/"+suffix+"/"+postfix+".d.coffee"
     console.log file
     obj = require process.cwd()+"/"+file
+    for key,val of obj
+      if typeof val == 'function'
+        if val?.constructor?.name == 'GeneratorFunction'
+          obj[key] = Q.async val
+        else
+          do (obj,key,val)->
+            obj[key] = (args...)-> Q.then -> val.apply obj,args
+    obj.$db = @db
     return obj
   handler : (req,res,site)=>
     m     = req.url.match /^\/js\/(\w+)\/(.+)$/
     return @res404 req,res unless m
     if m[2].match /\.\./
       return @res404 req,res unless m
-    hash  = m[1]
-    module = m[2]
+    hash    = m[1]
+    module  = m[2]
     if @modules[module]?.allJs?
       res.setHeader "Content-Type", "text/javascript; charset=utf-8"
       if hash == @modules[m[2]]?.jsHash

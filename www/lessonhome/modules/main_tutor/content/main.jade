@@ -14,17 +14,16 @@ mixin item (text, icon_src)
   .title_conditions.select!= 'Подробная информация об условиях сотрудничества изложена<br>в '
     a.m-Link.select Условиях оказания информационных услуг
 
-  .check_in_fields.unselect
+  form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
+    input.js-submit(type='submit')
     .title.select Пройти регистрацию
     .login
       .input!= login
-      .hint!= login_hint
     .password
       .input!= password
-      .hint!= password_hint
 
     .checkbox
-      .field!= checkbox
+      .field!= agree_checkbox
       .text.m-font.select!= 'Я прочитал и согласен с '
         a.m-Link.select Условиями оказания информационных услуг
 

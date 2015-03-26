@@ -14,6 +14,14 @@ class @main extends template '../edit_conditions'
       status : module 'tutor/forms/drop_down_list'  :
         text      : 'Статус :'
         selector  : 'first_reg'
+        default_options     : {
+          '0': {value: 'preschool_child', text: 'дошкольник'},
+          '1': {value: 'student_junior_school', text: 'школьник - младшая школа'},
+          '2': {value: 'student_high_school', text: 'школьник - средняя школа'},
+          '3': {value: 'student_senior_school', text: 'школьник - старшая школа'},
+          '4': {value: 'student', text: 'студент'},
+          '5': {value: 'grown_up', text: 'взрослый'}
+        }
     hint        : module 'tutor/hint' :
       selector  : 'horizontal'
       header    : 'Это подсказка'

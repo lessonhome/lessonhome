@@ -2,8 +2,56 @@
 $height : 37px
 $padding: 7px
 $width_fields: 341px
+$icon_src: 'close.png'
+$icon_height: image-height($icon_src)
+$icon_width: image-width($icon_src)
 main
   height: 100%
+/////////////////// popup /////////////////////////
+.background
+  position: fixed
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  background: rgba(0,0,0,0.7)
+  z-index: 1
+  text-align: center
+  .address_box
+    width: 612px
+    background: #ffffff
+    +inline-block
+    $height: 50px
+    .title_box
+      height: $height
+      position: relative
+      background: #e3e3e3
+      text-align: left
+      .title
+        line-height: $height
+        font-size: 16px
+        padding-left: 12px
+      a
+        display: block
+        width: $icon_width
+        height: $icon_height
+        padding: 10px
+        position: absolute
+        right: 0
+        top: 0
+        .close_bg
+          background: inline-image($icon_src) no-repeat
+          display: block
+          width: 100%
+          height: 100%
+    .address_popup
+      padding: 37px 62px 37px 0
+      text-align: right
+.background:after
+  content: ''
+  +inline-block
+  height: 100%
+  //////////////////////////// content ////////////////////////
 .value, .title_box
   +inline-block
   height: $height
@@ -14,13 +62,15 @@ main
     line-height: 37px
     padding-right: 26px
     color: rgba(75, 75, 75, 0.70)
-  .button_box
-    height: 33px
-    width: $width_fields
-    +inline-block
-    .address_button
-      float: left
-      height: 100%
+  a
+    width: 341px
+    display: inline-block
+    text-align: left
+    font-size: 16px
+    color: #349adb
+    text-decoration: underline
+  .title:hover
+    color: #000000
 .line_box
   margin: 23px 0 5px 0
   height: 2px

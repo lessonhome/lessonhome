@@ -1,7 +1,6 @@
 class @main
   tree : -> module '$'  :
     popup               : @exports()
-    send_bid_this_tutor : @exports()
     photo               : module 'mime/photo' :
       src      : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
     all_rating          : module '../rating_star':

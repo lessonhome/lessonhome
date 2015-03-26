@@ -34,6 +34,44 @@ class @Feel
       a = 0.5*(Math.sin((new Date().getTime())/300)+1)
       div.css 'box-shadow', "inset 0 10px 20px -10px rgba(255,0,0,#{a})"
     ,30
+  autocomplete : (options,cb)=>
+    o = ""
+    for key,val of options
+      o+= "&" if o.length
+      o += "#{key}=#{val}"
+    $.getJSON("/google?#{o}")
+    .success (data)->
+      console.log data
+      cb? data
+  autocompleteCity : (input,cb)=>
+    @autocomplete {
+      input : input
+      #language : "ru"
+      #components : "ru"
+      types : "(cities)"
+    },cb
+  send : (name,args...)=> Q().then =>
+    @index ?= 0
+    index = @index++
+    window["jsonCallback#{index}"] = ->
+    d = Q.defer()
+    data = encodeURIComponent JSON.stringify args
+    $.ajax({
+      dataType : 'jsonp'
+      jsonpCallback : "jsonCallback#{index}"
+      contentType : 'application/json'
+      method : 'GET'
+      url:"//#{location.hostname}:8082/#{name}?data=#{data}&callback=?"
+      crossDomain : true
+    })
+    .success (data)=>
+      d.resolve JSON.parse decodeURIComponent data.data
+    .error   (e)->
+      d.reject e
+    return d.promise
+
+
+
 
 window.Feel = new @Feel()
 
