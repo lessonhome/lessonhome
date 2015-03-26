@@ -40,7 +40,7 @@
     "v8-profiler" : "*",
     "yuicompressor" : "*",
     "cookies" : "*",
-    "bcrypt": "*"
+    "bcryptjs": "*"
   }
 }
 
