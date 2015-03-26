@@ -5,11 +5,11 @@
 label(class=selector)
   if text
     .text.select!=text
-  .drop_down_list
-    input(placeholder="#{placeholder}", id="#{id}")
-    .icon_box
+  .js-drop_down_list
+    input.js-input(placeholder="#{placeholder}", id="#{id}")
+    .js-icon_box
       .icon
-    .select-sets__options
+    .js-select_sets
       .options_container
-        .options
+        .js-options
       != scroll

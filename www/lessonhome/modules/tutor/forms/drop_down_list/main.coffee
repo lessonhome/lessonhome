@@ -1,72 +1,46 @@
 class @main extends EE
+  constructor : ->
+    @unit =
+      enterCode : 13
+      tabCode   : 9
+      arrowDown : 40
+      arrowUp   : 38
+      esc       : 27
+
+  Dom : =>
+    @label        = @dom.find ">label"
+    @list         = @found.drop_down_list
+    @input        = @found.input
+    @icon_box     = @found.icon_box
+    @select_sets  = @found.select_sets
+    @options      = @found.options
+    @items        = @options.find '>div'
   show : =>
-    beginMatchCssClass = 'custom-option__begin-match'
-    @label = @dom.find "label"
-    @list = @label.find ".drop_down_list"
-    @input = @list.find "input"
-
-    @scrollReinit = @tree.scroll?.class.reinit
-    #console.log @tree.scroll?.class.tree.test
-
-    @show_select_sets = null
-
-    listenDown = false
+    @scroll = @tree.scroll?.class
+    @isFocus = false
     @input.on 'focus', =>
-      if @label.is '.filter_top'
-        @label.addClass 'filter_top_focus'
-      else
-        @label.addClass 'focus'
-
-      @show_select_sets?()
+      return if @isFocus
+      @isFocus = true
+      @label.addClass 'focus'
+      @showSelectOptions()
 
     @input.on 'focusout', =>
-      if @label.is '.filter_top'
-        @list.removeClass 'filter_top_focus'
-      else
-        @list.removeClass 'focus'
-      if !listenDown
-        listenDown = true
+      return if !@isFocus
+      @isFocus = false
+      if !@bodyListenMD
+        @bodyListenMD = true
         $('body').on 'mousedown.drop_down_list', (t)=>
           return if $.contains @dom[0],t.target
-          #@input.on 'focusout', =>
-          listenDown = false
           $('body').off 'mousedown.drop_down_list'
-          if @label.is '.filter_top'
-            @label.removeClass 'filter_top_focus'
-          else
-            @label.removeClass 'focus'
-          @input.next('.select-sets__options').hide()
+          @bodyListenMD = false
+          @label.removeClass 'focus'
+          @select_sets.hide()
 
-    curInput = @input
     if @tree.default_options?
-      do (curInput) =>
-
-        ### Share ###
-        unit =
-          enterCode: 13
-          tabCode: 9
-          arrowDown: 40
-          arrowUp: 38
-          esc: 27
-
-        startsWith = (str, sBegin)->
-          res = true
-          i = 0
-          len = sBegin.length
-          if str.length < len
-            res = false
-          else
-            while i < sBegin.length
-              if str[i].toLocaleUpperCase() != sBegin[i].toLocaleUpperCase()
-                res = false
-                break
-              i++
-          res
-        #############
-
+      do =>
         ### Default data for filtration (using into valuesGenerator) ###
         ###
-        data =
+        @tree.default_options =
           {
            '0': {value: 'math', text: 'математика'},
            '1': {value: 'algebra', text: 'алгебра'},
@@ -74,59 +48,33 @@ class @main extends EE
            '3': {value: 'anatomy', text: 'анатомия'}
           }
         ###
-        data = @tree.default_options
-
-        getCurInput = ->
-          #$('.select-sets_input')
-          curInput
-
-        #required refactor
-        findOptionsContent = ($dom)->
-          $dom.find('.options')
 
         ### Getting current select elect with options (using pattern Decorator) ###
-        findSelectSets = ($dom)->
-          $dom.find('.select-sets__options')
 
-        getCurSel = =>
-          (findSelectSets @dom)
-
-        getCurSelOptions = =>
-          $input = getCurInput();
-          ### Create select with options for input (if there are no) ###
-          if !($sel = $input.data 'select')?
-            $sel = findOptionsContent(findSelectSets @dom)
-            $input.data 'select', $sel
-          $sel
-
-        getIconBox = ->
-          getCurInput().siblings('.icon_box')
-
-        valuesGenerator = (sBegin) ->
-          dataAr = []
-          for key, val of data
-            dataAr.push val
-          dataAr = dataAr.filter (str) ->
-            startsWith str.text, sBegin
-          ### Sorting
-          console.log 'dataAr ='
-          console.log dataAr
-          dataAr = dataAr.sort (elt1, elt2)->
-            elt1.text > elt2.text;
-          console.log 'Sorting dataAr ='
-          console.log dataAr
-          ###
-          dataAr
+        valuesGenerator = (sBegin)=>
+          arr = []
+          for key,opt of @tree.default_options
+            d = @getDistance(opt.text, sBegin)
+            if 0<=d<=0.33
+              arr.push {d,opt}
+          for i in [0...arr.length-1]
+            for j in [i+1...arr.length]
+              if arr[i].d > arr[j].d
+                k = arr[i]
+                arr[i] = arr[j]
+                arr[j] = k
+          ret = []
+          for it in arr
+            ret.push it.opt
+          return ret
 
         ############## CustomSelect component ###############
-        optionsCount = ($sel) ->
-          $sel.find('.custom-option').size()
+        optionsCount = ($sel) => @items.size()
 
-        options = ($sel) ->
-          $sel.find('.custom-option')
+        options = ($sel) => @items
 
-        optionIndex = ($sel, $opt) ->
-          (options $sel).index $opt
+        optionIndex = ($sel, $opt) =>
+          @items.index $opt
 
         markSelected = ($opt) =>
           $opt.addClass('custom-option__selected')
@@ -134,114 +82,113 @@ class @main extends EE
         markUnselected = ($opt) =>
           $opt.removeClass('custom-option__selected')
 
-        makeUnselected = ($sel, idx) ->
-          $opt = options($sel).eq(idx)
+        makeUnselected = ($sel, idx) =>
+          $opt = @items.eq(idx)
           $opt.removeAttr 'selected'
           markUnselected $opt
 
-        makeUnselectedCurrent = ($sel) ->
+        makeUnselectedCurrent = ($sel) =>
           makeUnselected $sel, selectedIndex($sel)
 
-        makeSelected = ($sel, idx) ->
+        makeSelected = ($sel, idx) =>
           makeUnselectedCurrent $sel
-          $opt = options($sel).eq(idx)
+          $opt = @items.eq(idx)
           $opt.attr 'selected','selected'
           markSelected $opt
 
-        findSelected = ($selOpts) ->
-          #$sel.find(':selected')
-          $selOpts.find('[selected="selected"]')
+        findSelected = ($selOpts) => @items.filter('[selected="selected"]')
 
-        findOptionsByOpt = ($opt) ->
+        findOptionsByOpt = ($opt) =>
           $opt.parent()
 
-        selectedIndex = ($sel) ->
+        selectedIndex = ($sel) =>
           $opt = findSelected($sel)
-          options($sel).index($opt)
+          @items.index($opt)
 
-        setCurrentOption = ($sel, idx) ->
-          chSelected = ->
-            makeSelected $sel, idx
-          setTimeout chSelected, 0
+        setCurrentOption = ($sel, idx) =>
+          #chSelected = ->
+          makeSelected $sel, idx
+          #setTimeout chSelected, 0
 
-        prevSelectedIndex = ($sel, idx) ->
-          selLen = optionsCount($sel)
+        prevSelectedIndex = ($sel, idx) =>
+          selLen = @items.size()
           newSelectedIndex = ((idx - 1) + selLen) % selLen
 
-        nextSelectedIndex = ($sel, idx) ->
-          selLen = optionsCount($sel)
+        nextSelectedIndex = ($sel, idx) =>
+          selLen = @items.size()
           newSelectedIndex = (idx + 1) % selLen
 
-        prevSelected = ($sel) ->
+        prevSelected = ($sel) =>
           curIdx = selectedIndex($sel)
           makeUnselected $sel, curIdx
           setCurrentOption $sel, prevSelectedIndex($sel, curIdx)
 
-        nextSelected = ($sel) ->
+        nextSelected = ($sel) =>
           curIdx = selectedIndex($sel)
           makeUnselected $sel, curIdx
           setCurrentOption $sel, nextSelectedIndex($sel, curIdx)
         #########################################
 
         ### Event handling #####################################
-        getCurInput().keyup (event) ->
-          $sel = getCurSel()
-          $selOpts = getCurSelOptions()
-          if $sel.data 'was-enter'
-            $sel.data 'was-enter', false
+        @input.keyup (event) =>
+          if @select_sets.data 'was-enter'
+            @select_sets.data 'was-enter', false
             return
           switch event.keyCode
-            when unit.arrowDown
-              nextSelected $selOpts
-            when unit.arrowUp
-              prevSelected $selOpts
-            when unit.esc
-              $sel.hide()
+            when @unit.arrowDown
+              event.preventDefault()
+            when @unit.arrowUp
+              event.preventDefault()
+            when @unit.esc
+              @select_sets.hide()
             else
-              if !($sel.is(':visible'))
-                showSelectOptions()
+              #if !(@select_sets.is(':visible'))
+              showSelectOptions()
               return
 
-        getCurInput().on 'keydown', (event) ->
-          $sel = getCurSel()
-          $selOpts = getCurSelOptions()
+        @input.on 'keydown', (event) =>
           switch event.keyCode
-            when unit.enterCode
+            when @unit.arrowDown
+              event.preventDefault()
+              nextSelected @options
+              selectedOptionToInput(false)
+            when @unit.arrowUp
+              event.preventDefault()
+              prevSelected @options
+              selectedOptionToInput(false)
+            when @unit.enterCode
               selectedOptionToInput()
-            when unit.tabCode
-              if $sel.is(':visible')
+            when @unit.tabCode
+              if @select_sets.is(':visible')
                 if event.shiftKey
-                  prevSelected $selOpts
-                else nextSelected $selOpts
+                  prevSelected @options
+                else nextSelected @options
                 event.preventDefault()
 
 
-        getCurSelOptions().on 'click', (event) ->
-          $sel = getCurSel()
-          $sel.data 'was-click', true
+        @options.on 'click', (event) =>
+          @select_sets.data 'was-click', true
           selectedOptionToInput()
 
-        getCurSelOptions().keydown (event) ->
+        @options.keydown (event) =>
           switch event.keyCode
-            when unit.enterCode
+            when @unit.enterCode
               selectedOptionToInput()
-            when unit.esc
+            when @unit.esc
               $(this).hide()
           return
 
-        bindHandlers = ($sel) ->
-          $opts = options($sel)
-          $opts.on 'mouseenter', (event) ->
+        bindHandlers = ($sel) =>
+          @items.on 'mouseenter', (event) =>
             $opt = $(this)
             $sel = findOptionsByOpt($opt)
             makeSelected $sel, (optionIndex $sel, $opt)
 
-        if getIconBox()?
-          getIconBox().click (event) =>
-            if getCurSel().is(':visible')
-              hideSelect()
-            else
-              showSelectOptions()
+        @icon_box?.click? (event) =>
+          if @select_sets.is(':visible')
+            hideSelect()
+          else
+            showSelectOptions()
 
         ### Hiding on click out of label (drop_down_list component) ###
         $('body').on 'click.drop_down_list', (event)=>
@@ -249,58 +196,65 @@ class @main extends EE
             hideSelect()
         #########################################
         hideSelect = =>
-          getCurSel().hide()
+          @select_sets.hide()
           @label.removeClass 'open_select'
-        showSelectOptions = () =>
+        @showSelectOptions = showSelectOptions = =>
           @label.addClass 'open_select'
-          $selOpts = getCurSelOptions()
-          strBegin = getCurInput().val()
-          correctSelectOptions strBegin, $selOpts, valuesGenerator
-          bindHandlers $selOpts
-          optHeight = $selOpts.find('.custom-option').height()
-          getCurSel().height(optHeight * @tree.options_count)
-          @scrollReinit?()
+          strBegin = @input.val()
+          correctSelectOptions strBegin, @options, valuesGenerator
+          bindHandlers @options
+          optHeight = @items.height()
+          @select_sets.height(optHeight * @tree.options_count)
+          @scroll?.reinit?()
 
-        @show_select_sets = showSelectOptions
 
-        startSelection = (sel) ->
+        startSelection = (sel) =>
           $sel = $(sel)
-          if optionsCount($sel) == 1
+          if @items.size() == 1
             makeSelected($sel, 0)
           else
             makeSelected($sel, 1)
 
-        correctSelectOptions = (strBegin, $selOpts, fnValuesGenerator) ->
+        correctSelectOptions = (strBegin, $selOpts, fnValuesGenerator) =>
           fillOptions $selOpts, (fnValuesGenerator strBegin), strBegin
-          if optionsCount($selOpts) > 0
+          if @items.size() > 0
             makeSelected($selOpts, 0)
-            getCurSel().show()
-            getCurSel().find('>div').css 'line-height', @label.height()+"px"
+            @select_sets.show()
+            @items.css 'line-height', @list.height()+"px"
           return
 
-        markBeginText = (str, startStr)->
+        markBeginText = (str, startStr)=>
           startLen = startStr.length
           startStr = str.substr(0, startLen)
           endStr = str.substr(startLen)
-          "<span class='#{beginMatchCssClass}''>#{startStr}</span>#{endStr}"
+          "<span class='custom-option__begin-match'>#{startStr}</span>#{endStr}"
 
-        fillOptions = ($selOpts, options, sBegin) ->
+        fillOptions = ($selOpts, options, sBegin) =>
           html = ''
           options.forEach (optVal) ->
             optValText = markBeginText(optVal.text, sBegin)
             html += "<div class='custom-option' value='#{optVal.value}'>#{optValText}</div>"
             return
-          $selOpts.html html
+          @options.empty()
+          @items = $ html
+          @options.append @items
           return
+        selectedOptionToInput = (hide=true)=>
+          $option = @items.filter('.custom-option__selected')
+          console.log @option
 
-        selectedOptionToInput = () ->
-          $sel = getCurSel()
-          $option = findSelected(getCurSelOptions())
-          $input = getCurInput()
-          $input.val $option.text()
-          $sel.hide()
-          $sel.data 'was-enter', true
-          $input.focus()
+          console.log $option
+          @input.val $option.text()
+          if hide
+            @select_sets.hide()
+            @select_sets.data 'was-enter', true
+            @input.focus()
           return
+  ####### FUNCTIONS #############
   focusInput: =>
     @input.focus()
+  getDistance : (from,to)=>
+    console.log from,to,typeof from,typeof to
+    Feel.diff.match from,to
+
+
