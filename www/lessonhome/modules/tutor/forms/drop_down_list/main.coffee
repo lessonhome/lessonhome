@@ -179,7 +179,7 @@ class @main extends EE
           return
 
         bindHandlers = ($sel) =>
-          @items.on 'mouseenter', (event) =>
+          @items.on 'mouseenter', (event) ->
             $opt = $(this)
             $sel = findOptionsByOpt($opt)
             makeSelected $sel, (optionIndex $sel, $opt)
