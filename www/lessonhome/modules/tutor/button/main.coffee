@@ -2,7 +2,7 @@
 
 class @main extends EE
   Dom : =>
-    @button = @found['button'].parent()
+    @button = @found.button.parent()
   show : =>
     @button.on    'mousedown', @mdown
     @button.on 'click',(e)=>
