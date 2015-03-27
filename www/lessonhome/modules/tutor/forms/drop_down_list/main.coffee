@@ -76,20 +76,13 @@ class @main extends EE
         optionIndex = ($sel, $opt) =>
           @items.index $opt
 
-        makeUnselected = (idx) =>
-          $opt = @items.eq(idx)
-          $opt.removeClass '.selected'
-
-        makeUnselectedCurrent = =>
-          makeUnselected selectedIndex @options
 
         makeSelected = (idx) =>
-          console.log idx
-          makeUnselectedCurrent()
+          @items.removeClass 'selected'
           idx = @items.size()-1 if idx>= @items.size()
           if idx>=0
             $opt = @items.eq idx
-            $opt.addClass '.selected'
+            $opt.addClass 'selected'
           else
             @input.val ''
 
@@ -101,12 +94,12 @@ class @main extends EE
 
         prevSelected = =>
           curIdx = selectedIndex @options
-          makeUnselected @options, curIdx
+          @items.removeClass 'selected'
           makeSelected curIdx-1
 
         nextSelected = =>
           curIdx = selectedIndex @options
-          makeUnselected @options, curIdx
+          @items.removeClass 'selected'
           makeSelected curIdx+1
         #########################################
 
@@ -206,7 +199,7 @@ class @main extends EE
           startLen = startStr.length
           startStr = str.substr(0, startLen)
           endStr = str.substr(startLen)
-          "<span class='custom-option__begin-match'>#{startStr}</span>#{endStr}"
+          "<span class='begin'>#{startStr}</span>#{endStr}"
 
         fillOptions = ($selOpts, options, sBegin) =>
           html = ''
