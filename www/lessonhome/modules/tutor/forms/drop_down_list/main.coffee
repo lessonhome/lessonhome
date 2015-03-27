@@ -82,51 +82,39 @@ class @main extends EE
         markUnselected = ($opt) =>
           $opt.removeClass('custom-option__selected')
 
-        makeUnselected = ($sel, idx) =>
+        makeUnselected = (idx) =>
           $opt = @items.eq(idx)
           $opt.removeAttr 'selected'
           markUnselected $opt
 
-        makeUnselectedCurrent = ($sel) =>
-          makeUnselected $sel, selectedIndex($sel)
+        makeUnselectedCurrent = =>
+          makeUnselected selectedIndex @options
 
-        makeSelected = ($sel, idx) =>
-          makeUnselectedCurrent $sel
-          $opt = @items.eq(idx)
-          $opt.attr 'selected','selected'
-          markSelected $opt
-
-        findSelected = ($selOpts) => @items.filter('[selected="selected"]')
-
-        findOptionsByOpt = ($opt) =>
-          $opt.parent()
+        makeSelected = (idx) =>
+          makeUnselectedCurrent()
+          idx = @items.size()-1 if idx>= @items.size()
+          if idx>0
+            $opt = @items.eq idx
+            $opt.attr 'selected','selected'
+            markSelected $opt
+          else
+            @input.val ''
 
         selectedIndex = ($sel) =>
-          $opt = findSelected($sel)
-          @items.index($opt)
+          $opt = @items.filter('[selected="selected"]')
+          if $opt.length
+            @items.index($opt)
+          else -1
 
-        setCurrentOption = ($sel, idx) =>
-          #chSelected = ->
-          makeSelected $sel, idx
-          #setTimeout chSelected, 0
+        prevSelected = =>
+          curIdx = selectedIndex @options
+          makeUnselected @options, curIdx
+          makeSelected curIdx-1
 
-        prevSelectedIndex = ($sel, idx) =>
-          selLen = @items.size()
-          newSelectedIndex = ((idx - 1) + selLen) % selLen
-
-        nextSelectedIndex = ($sel, idx) =>
-          selLen = @items.size()
-          newSelectedIndex = (idx + 1) % selLen
-
-        prevSelected = ($sel) =>
-          curIdx = selectedIndex($sel)
-          makeUnselected $sel, curIdx
-          setCurrentOption $sel, prevSelectedIndex($sel, curIdx)
-
-        nextSelected = ($sel) =>
-          curIdx = selectedIndex($sel)
-          makeUnselected $sel, curIdx
-          setCurrentOption $sel, nextSelectedIndex($sel, curIdx)
+        nextSelected = =>
+          curIdx = selectedIndex @options
+          makeUnselected @options, curIdx
+          makeSelected curIdx+1
         #########################################
 
         ### Event handling #####################################
@@ -180,9 +168,7 @@ class @main extends EE
 
         bindHandlers = ($sel) =>
           @items.on 'mouseenter', (event) ->
-            $opt = $(this)
-            $sel = findOptionsByOpt($opt)
-            makeSelected $sel, (optionIndex $sel, $opt)
+            makeSelected optionIndex @options, $(this)
 
         @icon_box?.click? (event) =>
           if @select_sets.is(':visible')
@@ -211,14 +197,14 @@ class @main extends EE
         startSelection = (sel) =>
           $sel = $(sel)
           if @items.size() == 1
-            makeSelected($sel, 0)
+            makeSelected 0
           else
-            makeSelected($sel, 1)
+            makeSelected 1
 
         correctSelectOptions = (strBegin, $selOpts, fnValuesGenerator) =>
           fillOptions $selOpts, (fnValuesGenerator strBegin), strBegin
           if @items.size() > 0
-            makeSelected($selOpts, 0)
+            makeSelected 0
             @select_sets.show()
             @items.css 'line-height', @list.height()+"px"
           return
