@@ -1,4 +1,6 @@
 @import compass/css3
+$bg_color: #b2b2b2
+$bg_color_w: #ffffff
 main
   height: 100%
   width: 100%
@@ -12,85 +14,76 @@ label
     cursor: pointer
     color: rgba(75, 75, 75, 0.70)
   .box
-    +inline-block
-    height: 100%
     width: 100%
-    box-sizing: border-box
-    border: 2px solid #d6d6d6
-    +border-radius(4px)
-    background-color: rgb( 255, 255, 255 )
-    input
-      +inline-block
-      outline: none
-      width: 100%
-      padding: 0
-      margin: 0
-      border: none
-      background: none
-      color: rgb(0, 0, 0)
-      cursor: text
-      +input-placeholder
-        color: #757575
-    input:-webkit-autofill
-      -webkit-box-shadow: 0 0 0px 1000px white inset
-  .box:after
-    +inline-block
     height: 100%
-    content: ''
+    +inline-block
+    .input_box
+      +inline-block
+      height: 100%
+      width: 100%
+      box-sizing: border-box
+      border: 2px solid #d6d6d6
+      +border-radius(4px)
+      background-color: rgb( 255, 255, 255 )
+      input
+        +inline-block
+        outline: none
+        width: 100%
+        padding: 0
+        margin: 0
+        border: none
+        background: none
+        color: rgb(0, 0, 0)
+        cursor: text
+        +input-placeholder
+          color: #757575
+      input:-webkit-autofill
+        -webkit-box-shadow: 0 0 0px 1000px white inset
+    .input_box:after
+      +inline-block
+      height: 100%
+      content: ''
+    .output_error
+      display: none
+      color: red
+      font-size: 14px
+      padding: 2px
+  .input_hint
+    display: none
+    padding: 15px
+    width: 300px
+    background: $bg_color_w
+    border: 1px solid $bg_color
+    box-sizing: border-box
+    position: absolute
+    left: 100%
+    top: -7px
+    margin-left: 24px
+    text-align: left
+    min-height: 50px
+    .bubble-arrow, .bubble-arrow-after
+      width: 0
+      height: 0
+      position: absolute
+      right: 100%
+      top: 13px
+      border: 12px solid transparent
+      border-right-color: $bg_color
+    .bubble-arrow-after
+      top: 14px
+      border: 11px solid transparent
+      border-right-color: $bg_color_w
+    .hint-message
+      font-size: 14px
+      line-height: 20px
+      +inline-block
+
 label:after
   content: ''
   height: 100%
   +inline-block
 
-////////////////////////// error/////////////////////////
-$bg_color: #b2b2b2
-$bg_color_w: #ffffff
 
-label .box.bad-input
-  border: 2px solid red
-
-label .output-error
-  display: none
-  color: red
-  font-size: 14px
-  padding: 2px
-
-label .output-error.output-error__show
-  display: inline-block
-label .input__hint
-  display: none
-  padding: 15px
-  width: 300px
-  background: $bg_color_w
-  border: 1px solid $bg_color
-  box-sizing: border-box
-  position: absolute
-  left: 100%
-  top: -7px
-  margin-left: 24px
-  text-align: left
-  min-height: 50px
-
-label .input__hint .bubble-arrow, label .input__hint .bubble-arrow-after
-  width: 0
-  height: 0
-  position: absolute
-  right: 100%
-  top: 13px
-  border: 12px solid transparent
-  border-right-color: $bg_color
-label .input__hint .bubble-arrow-after
-  top: 14px
-  border: 11px solid transparent
-  border-right-color: $bg_color_w
-label .input__hint .hint-message
-  font-size: 14px
-  line-height: 20px
-  +inline-block
-//label>.input__hint:after
-  content: ''
-  height: 100%
-  +inline-block
 
 //////////////// function//////////////
   data:
@@ -110,12 +103,15 @@ label .input__hint .hint-message
       padding-bottom: $padding_text_b
     .box
       width: $width
-      height: $height
-      padding: 0 $padding
-      input
-        text-align: $text_align
-        font-size: $font_size
+      .input_box
+        padding: 0 $padding
+        height: $height
+        input
+          text-align: $text_align
+          font-size: $font_size
 
+    //.output-error.output-error_show
+      width: $width
 //////////---------main page-----------////////////
 
 ////////////// price fourth step slider////////////////////
@@ -170,12 +166,22 @@ label .input__hint .hint-message
 label:hover
   .text
     color: #000000
-  .box
+  .box .input_box
     border: 2px solid #b3b3b3
 
 /////////----------------focus-------------/////
 label.focus,label.focus:hover
   .text
     color: #000000
-  .box
+  .box .input_box
     border: 2px solid rgb( 137, 209, 255 )
+
+
+///////////////// errors ////////////
+///////////// add class 'bad-input' to class 'output-error' for show
+label .box .input_box.bad-input
+  border: 2px solid red
+
+///////////// add class 'output-error_show' to class 'output-error' for show
+label .box .output_error.output_error_show
+  +inline-block

@@ -40,14 +40,15 @@ Example:
 class @main extends EE
   constructor : ->
   Dom : =>
-    @label = @dom.find "label"
-    @box    = @found.box
-    @input  = @box.children "input"
-    #@box   = @dom.find ".box"
-    @outputErr    = @box.next('.output-error')
-    @hint         = @box.siblings('.input__hint')
-    @hintMessage  = @hint.find('.hint-message')
-    @val    = @input.val()
+    @label        = @dom.find ">label"
+    @box          = @found.box
+    @input_box    = @found.input_box
+    @input        = @found.input
+    @outputErr    = @found.output_error
+    @hint         = @found.input_hint
+    @hintMessage  = @found.hint_message
+    @val          = @input.val()
+
   show : =>
     @input.on 'focus', => @label.addClass 'focus'
     @input.on 'focusout', => @label.removeClass 'focus'
@@ -88,18 +89,19 @@ class @main extends EE
   ####################################
 
   outErr : (err)=>
+    console.log err
     @outputErr.text(err)
-    @outputErr.addClass('output-error__show')
+    @outputErr.addClass('output_error_show')
 
   cleanErr : =>
-    @outputErr.removeClass('output-error__show')
+    @outputErr.removeClass('output_error_show')
     @outputErr.text('')
 
   addStyleBadInput : =>
-    @box.addClass('bad-input')
+    @input_box.addClass('bad-input')
 
   removeStyleBadInput : =>
-    @box.removeClass('bad-input')
+    @input_box.removeClass('bad-input')
 
   # Note!
   #If module instance saved into 'first_name' property then pattern maybe finded by this path:
