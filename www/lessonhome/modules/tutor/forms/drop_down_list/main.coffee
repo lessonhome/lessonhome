@@ -91,6 +91,7 @@ class @main extends EE
           makeUnselected selectedIndex @options
 
         makeSelected = (idx) =>
+          console.log idx
           makeUnselectedCurrent()
           idx = @items.size()-1 if idx>= @items.size()
           if idx>0
