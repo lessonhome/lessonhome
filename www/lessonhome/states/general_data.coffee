@@ -3,6 +3,11 @@ class @main
   tree : -> module '$' :
     add_photos   : module 'add_photos'
     first_name  : module 'tutor/forms/input':
+      level2left : 'text'
+      level1left : 'text'
+      level1right : 'right'
+      level3left : 'text'
+      level3right : 'right'
       selector    : 'first_reg'
       text        : 'Имя :'
       pattern     : '^[a-z]*$' #required using some like: (dataObject 'checker').patterns.alphabet

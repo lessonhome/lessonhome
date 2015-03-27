@@ -64,9 +64,7 @@ class Socket
     res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(JSON.stringify(ret)))});"
 
   resolve : (context,path,pref)=>
-    console.log pref
     name = pref+path.substr 1
-    console.log context,name
     #"runtime#{path}.c.coffee"
     suffix  = ""
     postfix = name

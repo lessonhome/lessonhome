@@ -9,9 +9,10 @@ class @Feel
         mod.main::class = {}
         for name,obj of mod
           mod.main::class[name] = obj
-      else for name,obj of mod
-        window[name] = obj
-        console.log "global class window['#{name}'];"
+      else if !mod._not_global
+        for name,obj of mod
+          window[name] = obj
+          console.log "global class window['#{name}'];"
     @active = new @activeState @root.tree
     window.onerror = (e)=> @error e
   error : (e,args...)=>
@@ -51,7 +52,6 @@ class @Feel
       types : "(cities)"
     },cb
   send : (context,name,args...)=> Q().then =>
-    console.log context,name
     m = name.match /^([^\w]*)/
     pref = ""
     if m

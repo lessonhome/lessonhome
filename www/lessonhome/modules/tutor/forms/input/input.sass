@@ -1,13 +1,80 @@
 @import compass/css3
 $bg_color: #b2b2b2
 $bg_color_w: #ffffff
+
+
+=block()
+  +inline-block
+  float : left
+  padding : 0
+  margin : 0
+  +box-sizing('border-box')
+  width : 100%
+  position : relative
 main
-  height: 100%
-  width: 100%
+  +block
 label
+  +block
+  cursor : pointer
+  div
+    +block
+    height : 1em
+    div
+      +block
+      line-height : 2em
+      height : 100%
+      font-size : 0.5em
+
+label .level2 .left
+  position : absolute
+  float : right
+  left : -100%
+  width : 100%
+label div div input
+  +block()
+  height : 100%
+label
+  .level1,.level3
+    .left,.right
+      position : absolute
+      left : 0
+    .left
+      text-align : left
+    .right
+      text-align : right
+
+
+label .hint
+  +block
+  display : none
+  position : absolute
+
+
+//+selector(first_reg,16px,18px,12px,26px,0,341px,none,none)
+//=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
+  label.#{$selector}
+    .level1>div,.level2>.left
+      font-size: $_font_size
+      padding-right: $padding_text_r
+      padding-bottom: $padding_text_b
+    .box
+      width: $width
+      .input_box
+        padding: 0 $padding
+        height: $height
+        input
+          text-align: $text_align
+          font-size: $font_size
+
+    //.output-error.output-error_show
+      width: $width
+
+
+//main
+  width: 100%
+//label
   +inline-block
   width: 100%
-  height: 100%
   position: relative
   .text
     +inline-block
@@ -15,11 +82,10 @@ label
     color: rgba(75, 75, 75, 0.70)
   .box
     width: 100%
-    height: 100%
     +inline-block
     .input_box
       +inline-block
-      height: 100%
+      height : 37px
       width: 100%
       box-sizing: border-box
       border: 2px solid #d6d6d6
@@ -78,7 +144,7 @@ label
       line-height: 20px
       +inline-block
 
-label:after
+//label:after
   content: ''
   height: 100%
   +inline-block
@@ -95,7 +161,7 @@ label:after
   $padding_text_b - padding bottom text
   $width - width box if have text in left side to input
   $height - width box if have text in top side to input
-=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
+//=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
   label.#{$selector}
     .text
       font-size: $_font_size
@@ -113,13 +179,15 @@ label:after
     //.output-error.output-error_show
       width: $width
 //////////---------main page-----------////////////
-
+=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
+  .div
+    background : red
 ////////////// price fourth step slider////////////////////
 +selector(price,24px,39px,12px,10px,0,116px,none,center)
 
 /////////// prise fast bids//////////
 +selector(price_bids,18px,20px,2px,10px,0,75px,none,center)
-.price_bids
+//.price_bids
   text-align: left
 
 //////////// calendar advance filter////////////
@@ -130,7 +198,7 @@ label:after
 
 ///////////////  issue fast bids///////////
 +selector(fast_bid,16px,18px,12px,0,10px,none,37px,none)
-.fast_bid
+//.fast_bid
   text-align: left
 
 /////////// fast bids time_spend_bids/////////
@@ -163,14 +231,14 @@ label:after
 //////////////////////////// action class//////////////////////////////
 
 /////////----------------hover-------------/////
-label:hover
+//label:hover
   .text
     color: #000000
   .box .input_box
     border: 2px solid #b3b3b3
 
 /////////----------------focus-------------/////
-label.focus,label.focus:hover
+//label.focus,label.focus:hover
   .text
     color: #000000
   .box .input_box
@@ -179,9 +247,9 @@ label.focus,label.focus:hover
 
 ///////////////// errors ////////////
 ///////////// add class 'bad-input' to class 'output-error' for show
-label .box .input_box.bad-input
+//label .box .input_box.bad-input
   border: 2px solid red
 
 ///////////// add class 'output-error_show' to class 'output-error' for show
-label .box .output_error.output_error_show
+//label .box .output_error.output_error_show
   +inline-block

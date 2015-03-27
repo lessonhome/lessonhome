@@ -1,9 +1,34 @@
+
 - placeholder = placeholder || "";
 - selector = selector || "";
 - value = value || "";
 - type = type || "text";
 - name = name || "text";
+
 label(class=selector).unselect
+  if level1left || level1right
+    .level1
+      if level1left
+        .left.select!= level1left
+      if level1right
+        .right.select!= level1right
+  .level2
+    if level2left
+      .left.select!= level2left
+    .right
+      input.js-input(placeholder=placeholder value=value type=type name=name)
+  if level3left || level3right
+    .level3
+      if level3left
+        .left.select!=level3left
+      if level3right
+        .right.select!=level3right
+  .js-hint
+    .js-hint_message!=hint
+    .bubble-arrow
+    .bubble-arrow-after
+        
+//
   if text
     .text.select!=text
   .js-box

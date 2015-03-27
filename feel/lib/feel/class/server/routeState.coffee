@@ -90,7 +90,8 @@ class RouteState
         o[node._statename] = @top.__state
       for sn,s of o
         s.page_tags = @tags
-    @modules  = {}
+    @modules    = {}
+    @modulesExt = {}
     @css      = ""
     @jsModules = ""
     @jsClient = Feel.clientJs
@@ -101,8 +102,12 @@ class RouteState
     for modname of @modules
       if @site.modules[modname].allCss
         @cssModule modname
+    for modname,val of @modulesExt
+      @cssModuleExt modname,val
+      for key of val
+        @modules[key] = true
     for modname of @modules
-      if @site.modules[modname].allCoffee
+      if @site.modules[modname]?.allCoffee
         @jsModules += "$Feel.modules['#{modname}'] = #{@site.modules[modname].allCoffee};"
     title   = @state.title
     title  ?= @statename
@@ -178,7 +183,9 @@ class RouteState
         @removeHtml val
   cssModule : (modname)=>
     @css += "<style id=\"f-css-#{modname}\">\n#{@site.modules[modname].allCss}\n</style>\n"
-    
+  cssModuleExt    : (modname,exts)=>
+    css = @site.modules[modname].getAllCssExt exts
+    @css += "<style id=\"f-css-#{modname}-exts\">\n#{css}\n</style>\n"
   parse : (now,uniq,module,state,_pnode,_pkey)=>
     #return if now.__parsed
     if now?.__state?.parent?.tree?
@@ -213,6 +220,10 @@ class RouteState
         #delete now.__parsed
     if now._isModule
       @modules[now._name] = true
+      if now._extends_modules.length
+        @modulesExt[now._name] ?= {}
+        for ext in now._extends_modules
+          @modulesExt[now._name][ext] = true
       o = @getO now,uniq
       if !@site.modules[now._name]?
         throw new Error "can't find module '#{now._name}' in state '#{@statename}'"

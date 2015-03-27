@@ -23,6 +23,8 @@ class module.exports
     @id         = module.name.replace /\//g, '-'
     @jade       = {}
     @css        = {}
+    @cssSrc     = {}
+    @allCssRelative = {}
     @coffee     = {}
     @js         = {}
     @allCss     = ""
@@ -125,6 +127,9 @@ class module.exports
         throw new Error "Failed execute jade in module #{@name} with vars #{JSON.stringify(o)}:\n\t"+e
     return ""
   makeSass : =>
+    @allCssRelative = {}
+    @cssSrc         = {}
+    @css            = {}
     for filename, file of @files
       if file.ext == 'sass'
         path = "#{@site.path.sass}/#{@name}/#{file.name}.css"
@@ -133,26 +138,45 @@ class module.exports
         catch e
           console.error e
           throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
+        @cssSrc[filename] = src
         @css[filename] = @parseCss src,filename
     return Q()
   makeSassAsync : =>
     files = []
     for filename,file of @files
       files.push file
+    @allCssRelative = {}
+    @cssSrc = {}
+    @css    = {}
     return files.reduce (promise,file)=>
       return promise unless file.ext == 'sass'
       path = "#{@site.path.sass}/#{@name}/#{file.name}.css"
       return promise.then => readfile path
       .then (src)=>
         src = src.toString()
-        @css[file.name+'.'+file.ext] = @parseCss src,filename
+        filename = file.name + '.'+file.ext
+        @cssSrc[filename] = src
+        @css[filename]    = @parseCss src,filename
     , Q()
     .then @makeAllCss
+  getAllCssExt : (exts)=>
+    css = ""
+    for ext of exts
+      css += @site.modules[ext]?.getCssRelativeTo? @name if @site.modules[ext]?.getCssRelativeTo?
+    return css
+  getCssRelativeTo : (rel)=>
+    return @allCssRelative[rel] if @allCssRelative?[rel]?
+    @allCssRelative ?= {}
+    @allCssRelative[rel] = ""
+    for filename,src of @cssSrc
+      @allCssRelative[rel] += "/*#{@name}:#{filename} relative to #{rel}*/\n"
+      @allCssRelative[rel] += @parseCss src,filename,@site.modules[rel].id
+    return @allCssRelative[rel]
   makeAllCss : =>
     @allCss = ""
     for name,src of @css
       @allCss += "/*#{name}*/\n#{src}\n"
-  parseCss : (css,filename)=>
+  parseCss : (css,filename,relative=@id)=>
     ret = ''
     m = css.match /\$FILE--\"([^\$]*)\"--FILE\$/g
     if m then for f in m
@@ -181,10 +205,10 @@ class module.exports
           newpref += ","
         replaced = false
         if sel.match /^main.*/
-          sel = sel.replace /^main/, "#m-#{@id}"
+          sel = sel.replace /^main/, "#m-#{relative}"
           replaced = true
         if !(sel.match /^\.(g-[\w-]+)/) && (!replaced)
-          newpref += "#m-#{@id}"
+          newpref += "#m-#{relative}"
         #continue if sel == 'main'
         m2 = sel.match /([^\s]+)/g
         if m2
@@ -193,7 +217,7 @@ class module.exports
             leftpref = ""
             if m3
               leftpref = " " unless replaced
-              newpref += leftpref+"\.mod-#{@id}--#{m3[1]}"
+              newpref += leftpref+"\.mod-#{relative}--#{m3[1]}"
             else if a.match /^\.(g-[\w-]+)/
               leftpref = " " unless replaced
               newpref += leftpref+a
@@ -205,7 +229,7 @@ class module.exports
           leftpref = ""
           if m3
             leftpref = " " unless replaced
-            newpref += leftpref+"\.mod-#{@id}--#{m3[1]}"
+            newpref += leftpref+"\.mod-#{relative}--#{m3[1]}"
           else if sel.match /^\.(g-[\w-]+)/
             leftpref = " " unless replaced
             newpref += leftpref+sel
@@ -214,9 +238,7 @@ class module.exports
             newpref += leftpref+sel
     else newpref = pref
     newpref=pref if filename.match /.*\.g\.sass$/
-    ret = newpref+body+@parseCss(post,filename)
-    
-
+    ret = newpref+body+@parseCss(post,filename,relative)
     return ret
   makeCoffee  : =>
     @newCoffee = {}

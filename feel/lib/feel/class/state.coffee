@@ -332,7 +332,16 @@ class module.exports
           m     = val
       else
         throw new Error 'wrong module name', o
+    lastn = name
+    arr = name.split(':')
+    name = arr.shift()
     mod._name  = name
+    for ext,i in arr
+      arr[i] = path.normalize "#{name}/#{ext}"
+      if !@site.modules[arr[i]]?
+        throw new Error "extends module '#{arr[i]}' not exists in state:#{@name}::#{lastn}".red
+
+    mod._extends_modules = arr
     for key,val of m
       mod[key] = val
     if (!name.match(/^\/\/.*/)) && (!@site.modules[name]?)
