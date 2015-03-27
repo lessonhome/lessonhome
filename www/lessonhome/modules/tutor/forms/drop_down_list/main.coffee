@@ -59,6 +59,7 @@ class @main extends EE
               o = {d,opt}
               arr.push o if o?
             break if sBegin.length > 2 && arr.length > 5
+            break if arr.length > 10
           return [] unless arr.length
           for i in [0...arr.length-1]
             for j in [i+1...arr.length]
