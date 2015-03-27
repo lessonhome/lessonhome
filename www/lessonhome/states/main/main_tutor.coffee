@@ -19,7 +19,7 @@ class @main extends template '../main'
         name : 'email'
         selector : 'main_check_in'
         text : 'Введите ваш телефон или email адрес'
-        validators: {
+        ###validators: {
           '0': {
             pattern: /^((\+?7)|8)?\d{10}$/.source
           }, #required using some like: (dataObject 'checker').patterns.simpleTelephon
@@ -29,13 +29,16 @@ class @main extends template '../main'
           }
           'errMessage': 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx или корректный email'
         }
+      ###
       password        : module 'tutor/forms/input' :
         name       :'password'
         type      : 'password'
         selector : 'main_check_in'
         text : 'Придумайте пароль'
+        ###
         pattern: '.{6,}'
         errMessage  : 'Пароль должен быть не меньше 6-ти символов'
+        ###
       agree_checkbox        : module 'tutor/forms/checkbox'
       create_account  : module 'link_button' :
         href      : 'tutor/profile/first_step'

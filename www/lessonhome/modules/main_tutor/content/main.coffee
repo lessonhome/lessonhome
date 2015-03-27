@@ -12,15 +12,15 @@ class @main extends EE
 
   tryRegister : (e)=>
     return if @success
+    #@$send( './loginExists',login).then (exists)=> console.log exists
     e?.preventDefault?()
     pass = @password.getValue()
     login = @login.getValue()
-    return unless pass.length >= 6
-    return unless login.length > 3
-    return unless @checkbox.state
+    #return unless pass.length>=5
+    #return unless login.length > 3
 
-    err = @js.check login,pass
-    @printErrors err.err if err?
+    err = @js.check login,pass,@checkbox.state
+    @printErrors err.err if err?.err?
     return if err?
     unless pass.substr(0,1) == '`'
       len = pass.length
@@ -46,6 +46,7 @@ class @main extends EE
 
     .done()
   printErrors : (err)=>
+    #console.log err
     switch err
       when 'wrong_password'
         @password.outErr 'Неверный пароль'
@@ -56,8 +57,10 @@ class @main extends EE
       when 'already_logined'
         console.log err
       when 'bad_login'
+        @login.outErr 'Некорректный логин. Используйте для логина символы латинского алфавита и цифры'
         console.log err
       when 'bad_password'
+        @password.outErr 'Плохой пароль'
         console.log err
       when 'short_login'
         @login.outErr 'Слишком короткий логин'
@@ -65,6 +68,8 @@ class @main extends EE
       when 'short_password'
         @password.outErr 'Слишком короткий пароль'
         console.log err
+      when 'select_agree_checkbox'
+        alert 'Чекбокс'
       else
         console.log err
 
