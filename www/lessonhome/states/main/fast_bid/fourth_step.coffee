@@ -49,9 +49,9 @@ class @main extends template '../fast_bid'
     #hint : 'Расскажите нам<br>ещё немного о<br>Вашем идеальном<br>репетиторе'
 
   init : ->
-    @parent.tree.filter_top.footer.button_back.selector = 'fast_bid_nav'
-    @parent.tree.filter_top.footer.button_back.href     = 'third_step'
-    @parent.tree.filter_top.footer.issue_bid.selector   = 'fast_bid_issue'
-    @parent.tree.filter_top.footer.issue_bid.href       = 'fifth_step'
-    @parent.tree.filter_top.footer.button_next.selector = 'fast_bid_nav visibility'
-    @parent.tree.filter_top.footer.button_next.href     = false
+    @parent.tree.filter_top.button_back.selector = 'fast_bid_nav'
+    @parent.tree.filter_top.button_back.href     = 'third_step'
+    @parent.tree.filter_top.issue_bid.selector   = 'fast_bid_issue'
+    @parent.tree.filter_top.issue_bid.href       = 'fifth_step'
+    @parent.tree.filter_top.button_next.selector = 'fast_bid_nav visibility'
+    @parent.tree.filter_top.button_next.href     = false

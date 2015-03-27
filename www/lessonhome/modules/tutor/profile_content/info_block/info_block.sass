@@ -1,23 +1,25 @@
-$font-size : 18px
+$font-size: 16px
+$min-widthTitle: 210px
 main
   font-size: $font-size
   color: #757575
 .section
-  $min-widthTitle : 210px
   line-height: 2*$font-size
   overflow: hidden
-  .title
-    float: left
-    min-width: $min-widthTitle
-  .value
-    margin-left: $min-widthTitle
-    color: #000000
-    padding-left: 30px
+  .box
+    padding: 0 20px 0 10px
+    .title
+      float: left
+      min-width: $min-widthTitle
+    .value
+      margin-left: $min-widthTitle
+      color: #000000
+      padding-left: 30px
 ////////////// subject_class, have size different //////////////
-$min-widthTitle : 200px
 .section.subject_class
   line-height: 30px
-  .title
-    min-width: $min-widthTitle
-  .value
-    margin-left: $min-widthTitle
+  .box
+    .title
+      min-width: $min-widthTitle
+    .value
+      margin-left: $min-widthTitle

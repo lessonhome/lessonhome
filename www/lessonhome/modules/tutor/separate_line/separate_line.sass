@@ -24,10 +24,8 @@ main
     color: #757575
 div
   .up_color
-    height: 50%
     background: #cccccc
   .down_color
-    height: 50%
     background: rgba(204,204,204,0.3)
 
 .horizon
@@ -36,10 +34,25 @@ div
   top: 50%
   right: 0
   height: 2px
+  width: 100%
   +box-shadow(0px 1px 0px rgba(0,0,0,0.27) inset)
+  .up_color
+    height: 50%
+  .down_color
+    height: 50%
+
 
 .vertical
   height: 100%
+  width: 2px
+  .up_color
+    width: 50%
+    height: 100%
+    +inline-block
+  .down_color
+    width: 50%
+    height: 100%
+    +inline-block
 
 .gradient
   height: 100%

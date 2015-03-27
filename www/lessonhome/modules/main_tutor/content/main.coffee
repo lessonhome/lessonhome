@@ -15,7 +15,7 @@ class @main extends EE
     e?.preventDefault?()
     pass = @password.getValue()
     login = @login.getValue()
-    return unless pass.length > 6
+    return unless pass.length >= 6
     return unless login.length > 3
     return unless @checkbox.state
     unless pass.substr(0,1) == '`'
@@ -31,11 +31,24 @@ class @main extends EE
     Feel.send( 'register',{
       password : pass
       login    : login
-    }).then ({status})=>
+    }).then ({status,err})=>
       console.log 'register',status
       if status == 'success'
         @success = true
         @found.form.submit()
+      ###
+      else
+        switch err
+          when 'wrong_password'
+
+          when 'login_exists'
+          when 'already_logined'
+          when 'bad_login'
+          when 'bad_password'
+          else
+      ###
+
+
     .done()
 
 

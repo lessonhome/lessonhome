@@ -20,9 +20,9 @@ class @main extends template '../tutor'
       popup         : @exports()
       contacts : module './profile_content/info_block' :
         section :
-          'Телефон :'     : '11.11.11'
+          'Телефон :'     : '+7 (495) 254-55-55'
           'Почта :'       : 'yandex@rambler.ru'
-          'Скап :'        : 'baklane'
+          'Скайп :'       : 'baklane'
           'Личный сайт :' : 'prepod.ru'
       progress  : module './profile_content/progress' :
         filling  : '56%'

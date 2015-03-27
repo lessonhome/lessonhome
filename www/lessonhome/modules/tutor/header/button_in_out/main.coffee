@@ -66,4 +66,15 @@ class @main extends EE
       if status == 'success'
         @success = true
         @found.form.submit()
+      ###
+      else
+        switch err
+          when 'wrong_password'
+
+          when 'login_not_exists'
+          when 'already_logined'
+          when 'bad_login'
+          when 'bad_password'
+          else
+      ###
     .done()

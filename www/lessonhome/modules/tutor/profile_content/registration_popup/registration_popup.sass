@@ -2,6 +2,7 @@
 $icon_src: 'close.png'
 $icon_height: image-height($icon_src)
 $icon_width: image-width($icon_src)
+$footer_height: 36px
 .registration_popup
   position: relative
   width: 760px
@@ -25,4 +26,15 @@ $icon_width: image-width($icon_src)
   .content
     padding: 22.5px 160px 61.5px 0      //$content_width: 600px used variable in child modules
     text-align: right
+  .footer
+    padding-bottom: 30px
+    height: $footer_height
+    .button_back, .button_next, .save_notice
+      height: 100%
+      +inline-block
+    .save_notice
+      line-height: $footer_height
+      font-size: 18px
+      width: 428px
+      text-align: center
 

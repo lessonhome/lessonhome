@@ -16,5 +16,8 @@ class @main extends EE
     $('body').off 'mouseup.link_button'
     $('body').off 'mouseleave.link_button'
     @link.removeClass 'press'
-
+  submit : =>
+    href = @link.attr 'href'
+    if href
+      window.location.replace href
 

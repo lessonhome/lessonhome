@@ -1,11 +1,14 @@
 class @main
+  ###
   access : ['tutor']
   redirect : {
     'pupil'   : '/first_step'
     #TODO: make page new url for tutor login
     'default' : '/main_tutor'
   }
-  tree : -> module '$' :
+
+  ###
+  tree : => module '$' :
     depend        : [
       module '$/edit'
       state 'lib'

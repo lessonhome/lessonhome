@@ -8,8 +8,9 @@ class @main extends template '../registration_popup'
       understand_button : module 'tutor/button' :
         selector: 'understand'
         text:      'Спасибо, я понял'
-      general_data      : state 'general_data'
+      form      : state 'general_data'
   init : ->
-    @parent.tree.popup.footer.button_back.selector = 'inactive'
-    @parent.tree.popup.footer.back_link = false
-    @parent.tree.popup.footer.next_link = 'second_step'
+    @parent.tree.popup.button_back.selector = 'fast_bid_nav inactive'
+    @parent.tree.popup.button_back.href = false
+    @parent.tree.popup.button_next.selector = 'fast_bid_nav'
+    @parent.tree.popup.button_next.href = 'second_step'

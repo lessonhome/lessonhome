@@ -8,5 +8,7 @@
   // selector - style sass
 each val, key in section
   .section.select(class=selector)
-    .title!=key
-    .value!=val
+    .box
+      .title!=key
+      .value!=val
+      .line_horizon!=line_horizon

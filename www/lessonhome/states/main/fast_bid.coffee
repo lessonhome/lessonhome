@@ -11,19 +11,18 @@ class @main extends template './preview'
         progress : @exports()
       content      : @exports()   # must be defined
       #hint         : @exports()     while hint it's not need
-      footer       : module '//footer' :
-        button_back : module 'link_button' :
-          selector: @exports()
-          text:     'Назад'
-          href     : @exports()
-        issue_bid : module 'link_button' :
-          selector: @exports()
-          text: 'Оформить заявку сейчас'
-          href: @exports()
-        button_next : module 'link_button' :
-          selector:  @exports()
-          text:     'Далее'
-          href:     @exports()
+      button_back : module 'link_button' :
+        selector: @exports()
+        text:     'Назад'
+        href     : @exports()
+      issue_bid : module 'link_button' :
+        selector: @exports()
+        text: 'Оформить заявку сейчас'
+        href: @exports()
+      button_next : module 'link_button' :
+        selector:  @exports()
+        text:     'Далее'
+        href:     @exports()
 
 
 

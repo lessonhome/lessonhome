@@ -5,10 +5,12 @@ class @main extends template '../registration_popup'
   tree : ->
     progress  : 4
     content : module '$' :
-      about_tutor      : state 'about_tutor'
+      form      : state 'about_tutor'
 
   init : ->
-    @parent.tree.popup.footer.back_link = 'third_step'
-    @parent.tree.popup.footer.next_link = '/tutor/profile'
+    @parent.tree.popup.button_back.selector = 'fast_bid_nav'
+    @parent.tree.popup.button_back.href = 'third_step'
+    @parent.tree.popup.button_next.selector = 'fast_bid_nav'
+    @parent.tree.popup.button_next.href = '/tutor/profile'
 
 

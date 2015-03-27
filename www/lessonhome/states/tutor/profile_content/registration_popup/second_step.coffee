@@ -5,11 +5,14 @@ class @main extends template '../registration_popup'
   tree : =>
     progress  : 2
     content   : module '$' :
-      contacts_tutor  : state 'contacts_tutor' :
+      form  : state 'contacts_tutor' :
         address_popup   : @exports()
   init : =>
-    @parent.tree.popup.footer.back_link = 'first_step'
-    @parent.tree.popup.footer.next_link = 'third_step'
+    @parent.tree.popup.button_back.selector = 'fast_bid_nav'
+    @parent.tree.popup.button_back.href = 'first_step'
+    @parent.tree.popup.button_next.selector = 'fast_bid_nav'
+    @parent.tree.popup.button_next.href = 'third_step'
+
 
 
 

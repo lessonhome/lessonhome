@@ -71,11 +71,12 @@ class @main
       distance_work_price : '900р.'
       subject_data        : module 'tutor/profile_content/info_block' :
         section :
-          'Разделы  :'                    : 'Школьный курс'
           'Категория ученика :'           : 'Школьники 8-11 классов, студенты'
           'Комментарии :'                 : 'Олимпиадные задачи школьного уровня, операционные системы'
           'Групповые занятия :'           : 'до 5 человек, по 1000 р.'
-          'Продолжительность :'  : '60-90 минут'
+          'Продолжительность :'           : '60-90 минут'
         selector : 'subject_class'
+        line_horizon  :  module 'tutor/separate_line' :
+          selector  : 'horizon'
       line_vertical : module 'tutor/separate_line':
         selector  : 'vertical'
