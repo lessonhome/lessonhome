@@ -7,6 +7,7 @@ class @main
     @form = @tree.content.form.class
 
     @bNext.on 'submit', @next
+
   next : =>
     console.log 'next'
     @form.save().then (success)=>

@@ -6,10 +6,11 @@
 label(class=selector).unselect
   if text
     .text.select!=text
-  .box.js-box
-    input.js-input(placeholder=placeholder value=value type=type name=name)
-  .output-error
-  .input__hint
-    .hint-message!=hint
+  .js-box
+    .js-input_box
+      input.js-input(placeholder=placeholder value=value type=type name=name)
+    .js-output_error
+  .js-input_hint
+    .js-hint_message!=hint
     .bubble-arrow
     .bubble-arrow-after
