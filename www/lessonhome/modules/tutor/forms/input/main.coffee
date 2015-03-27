@@ -68,7 +68,7 @@ class @main extends EE
 
     @input.on 'focus', (event)=>
       @setNormalState()
-    @input.on 'blur', @checkInput
+    #@input.on 'blur', @checkInput
 
     keyDownTime = 0
     keyDownDT   = 500
