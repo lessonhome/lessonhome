@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
+    android:layout_gravity="start"
+    android:gravity="center_vertical"
     android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="48dp">
 
     <ImageView
         android:id="@+id/nav_button_image"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"/>
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/noth"/>
 
 
     <TextView
@@ -19,9 +22,10 @@
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:paddingLeft="72dp"
-        android:paddingRight="72dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:textStyle="bold"
         android:textSize="14sp"/>
 
 
-</FrameLayout>
+</RelativeLayout>
