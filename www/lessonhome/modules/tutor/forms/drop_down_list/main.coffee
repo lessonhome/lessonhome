@@ -58,14 +58,14 @@ class @main extends EE
             if 0<=d<=0.33
               o = {d,opt}
               arr.push o if o?
+            break if sBegin.length > 2 && arr.length > 5
+          return [] unless arr.length
           for i in [0...arr.length-1]
             for j in [i+1...arr.length]
-              if arr[i]? && arr[j]? && (arr[i].d > arr[j].d)
+              if arr[i].d > arr[j].d
                 k = arr[i]
                 arr[i] = arr[j]
                 arr[j] = k
-              unless arr[i]? && arr[j]?
-                console.log arr
           ret = []
           for it in arr
             ret.push it.opt
@@ -216,9 +216,6 @@ class @main extends EE
           return
         selectedOptionToInput = (hide=true)=>
           $option = @items.filter('.selected')
-          console.log @option
-
-          console.log $option
           @input.val $option.text()
           if hide
             @select_sets.hide()
@@ -229,7 +226,6 @@ class @main extends EE
   focusInput: =>
     @input.focus()
   getDistance : (from,to)=>
-    console.log from,to,typeof from,typeof to
     Feel.diff.match from,to
 
 
