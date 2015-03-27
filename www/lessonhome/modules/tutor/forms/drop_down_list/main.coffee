@@ -64,6 +64,8 @@ class @main extends EE
                 k = arr[i]
                 arr[i] = arr[j]
                 arr[j] = k
+              unless arr[i]? && arr[j]?
+                console.log arr
           ret = []
           for it in arr
             ret.push it.opt
