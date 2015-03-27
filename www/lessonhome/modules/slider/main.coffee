@@ -22,9 +22,14 @@ class Cursor extends EE
   down : (e)=>
     @sm   = e.pageX
     @spx  = @px()
+    Feel.unselect true
     $('body').on 'mousemove.slider', @move
-    $('body').one 'mouseup.slider', => $('body').off ".slider"
-    $('body').one 'mouseleave.slider', => $('body').off ".slider"
+    $('body').one 'mouseup.slider', =>
+      Feel.unselect false
+      $('body').off ".slider"
+    $('body').one 'mouseleave.slider', => 
+      Feel.unselect false
+      $('body').off ".slider"
   drag : (dx)=>
     @pos @px @px()+Math.sign(@r()-@l())*dx
   move : (e)=>
