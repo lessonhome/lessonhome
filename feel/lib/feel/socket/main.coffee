@@ -23,12 +23,22 @@ class Socket
     session = register.session
     req.user = register.accaunt
     _ = url.parse(req.url,true)
-    data = JSON.parse _.query.data
+    data    = JSON.parse _.query.data
+    context = JSON.parse _.query.context
+    pref = JSON.parse _.query.pref
     cb   = _.query.callback
     path = _.pathname
-    unless @handlers[path]?
-      @handlers[path] = require "#{process.cwd()}/www/lessonhome/runtime#{path}.c.coffee"
-      obj = @handlers[path]
+    clientName = yield @resolve context,path,pref
+    _keys = []
+    for d in data
+      if typeof d == 'object' && d!= null
+        _keys.push '{'+Object.keys(d).join(',')+'}'
+      else
+        _keys.push d
+    console.log "client:".blue+clientName.yellow+("::handler("+_keys.join(',')+");").grey
+    unless @handlers[clientName]?
+      @handlers[clientName] = require "#{process.cwd()}/www/lessonhome/#{clientName}.c.coffee"
+      obj = @handlers[clientName]
       for key,val of obj
         if typeof val == 'function'
           if val?.constructor?.name == 'GeneratorFunction'
@@ -44,11 +54,45 @@ class Socket
     $.session = session
     $.cookie = cookie
     $.register = @register
-    ret = yield @handlers[path].handler $,data...
+    try
+      ret = yield @handlers[clientName].handler $,data...
+    catch e
+      console.error Exception e
+      ret = {err:"internal_error",status:'failed'}
     res.statusCode = 200
     res.setHeader 'content-type','application/json; charset=UTF-8'
     res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(JSON.stringify(ret)))});"
 
+  resolve : (context,path,pref)=>
+    console.log pref
+    name = pref+path.substr 1
+    console.log context,name
+    #"runtime#{path}.c.coffee"
+    suffix  = ""
+    postfix = name
+    file = ""
+    m = name.match /^(\w)\:(.*)$/
+    if m
+      suffix  = m[1]
+      postfix = m[2]
+    suffix = switch suffix
+      when 's' then 'states'
+      when 'm' then 'modules'
+      when 'r' then 'runtime'
+      else ''
+    m = context.match /^(\w+)\/(.*)$/
+    s = m[1]
+    p = m[2]
+    if postfix.match /^\./
+      suffix = s if !suffix
+      file = _path.normalize suffix+"/"+p+"/"+postfix
+    else if postfix.match /^\//
+      suffix = "runtime" if !suffix
+      file = _path.normalize suffix+postfix
+    else
+      suffix = "runtime" if !suffix
+      file = _path.normalize suffix+"/"+postfix
+    return file
 
 module.exports = Socket
 

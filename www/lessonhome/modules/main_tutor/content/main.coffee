@@ -28,7 +28,7 @@ class @main extends EE
       pass = '`'+pass
       @password.setValue pass
       @password.setFlush?()
-    Feel.send( 'register',{
+    @$send( 'register',{
       password : pass
       login    : login
     }).then ({status,err})=>

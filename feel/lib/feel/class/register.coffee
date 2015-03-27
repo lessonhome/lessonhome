@@ -102,7 +102,8 @@ class Register
     qs.push _invoke(@accaunt,'update', {id:user.id},{$set:user},{upsert:true})
     yield Q.all qs
     return {session:@sessions[sessionhash],user:user}
-  passwordCrypt : (pass)=> _invoke  bcrypt,'hash',pass,10
+  loginExists     : (name)=> @logins[name]?
+  passwordCrypt   : (pass)=> _invoke  bcrypt,'hash',pass,10
   passwordCompare : (pass,hash)=> _invoke  bcrypt,'compare',pass,hash
   newAccaunt : =>
     try
