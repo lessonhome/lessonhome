@@ -16,7 +16,7 @@ class @main
   save : => Q().then =>
     if @check_form()
       console.log @getData()
-      return Feel.send('saveFormTutorProfileFirstStep',@getData())
+      return @$send('saveFormTutorProfileFirstStep',@getData())
       .then ({status,err})=>
         if status=='success'
           return true

@@ -221,7 +221,7 @@ class module.exports
   makeCoffee  : =>
     @newCoffee = {}
     for filename, file of @files
-      if file.ext == 'coffee'
+      if file.ext == 'coffee' && !filename.match(/.*\.[d|c]\.coffee$/)
         src = ""
         try
           src = Feel.cacheCoffee file.path

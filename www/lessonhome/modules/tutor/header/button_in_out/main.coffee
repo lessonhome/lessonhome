@@ -58,7 +58,7 @@ class @main extends EE
       pass = '`'+pass
       @password.setValue pass
       @password.setFlush?()
-    Feel.send( 'login',{
+    @$send( 'login',{
       password : pass
       login    : login
     }).then ({status,session})=>

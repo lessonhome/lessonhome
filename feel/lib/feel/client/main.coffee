@@ -50,18 +50,26 @@ class @Feel
       #components : "ru"
       types : "(cities)"
     },cb
-  send : (name,args...)=> Q().then =>
+  send : (context,name,args...)=> Q().then =>
+    console.log context,name
+    m = name.match /^([^\w]*)/
+    pref = ""
+    if m
+      pref=m[1]
+      name = name.substr pref.length
     @index ?= 0
     index = @index++
     window["jsonCallback#{index}"] = ->
     d = Q.defer()
     data = encodeURIComponent JSON.stringify args
+    context = encodeURIComponent JSON.stringify context
+    pref = encodeURIComponent JSON.stringify pref
     $.ajax({
       dataType : 'jsonp'
       jsonpCallback : "jsonCallback#{index}"
       contentType : 'application/json'
       method : 'GET'
-      url:"//#{location.hostname}:8082/#{name}?data=#{data}&callback=?"
+      url:"//#{location.hostname}:8082/#{name}?data=#{data}&context=#{context}&pref=#{pref}&callback=?"
       crossDomain : true
     })
     .success (data)=>

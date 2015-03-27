@@ -11,6 +11,8 @@ class @activeState
           catch e then return Feel.error e, "new #{val._name}() failed"
           cl = @classes[val._uniq]
           cl.tree = val
+          do (val)=>
+            cl.$send = (args...)=> Feel.send "modules/"+val._name,args...
           cl._smart = true
           cl.__isClass = true
           @order.push val._uniq

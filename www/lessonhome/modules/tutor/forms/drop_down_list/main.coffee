@@ -77,7 +77,7 @@ class @main extends EE
 
         options = ($sel) => @items
 
-        optionIndex = ($sel, $opt) =>
+        optionIndex = ($opt)=>
           @items.index $opt
 
 
@@ -144,10 +144,6 @@ class @main extends EE
                 event.preventDefault()
 
 
-        @options.on 'click', (event) =>
-          @select_sets.data 'was-click', true
-          selectedOptionToInput()
-
         @options.keydown (event) =>
           switch event.keyCode
             when @unit.enterCode
@@ -157,8 +153,13 @@ class @main extends EE
           return
 
         bindHandlers = ($sel) =>
-          @items.on 'mouseenter', (event) ->
-            makeSelected optionIndex @options, $(this)
+          @items.on 'mouseenter', (event)->
+            makeSelected optionIndex $(this)
+          that = this
+          @items.on 'click', (event)->
+            makeSelected optionIndex $(this)
+            that.select_sets.data 'was-click', true
+            selectedOptionToInput()
 
         @icon_box?.click? (event) =>
           if @select_sets.is(':visible')

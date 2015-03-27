@@ -6,10 +6,12 @@ class @main
     @name.on 'change', @sendName
     @phone.on 'change', @sendPhone
   sendName : (val)=>
-    Feel.send 'saveForm', 'fast_bid',{name:val}
+    @$send 'saveForm', 'fast_bid',{name:val}
     .then (msg)->
       console.log 'saved',msg
   sendPhone : (val)=>
-    Feel.send 'saveForm', 'fast_bid',{phone:val}
+    @$send 'saveForm', 'fast_bid',{phone:val}
     .then (msg)->
       console.log 'saved', msg
+
+

@@ -63,7 +63,7 @@ class module.exports
         stat = fs.statSync "#{path}/#{filename}"
         if stat.isDirectory()
           return promise.then => @createStates "#{path}/#{filename}",dir+filename+"/"
-        if stat.isFile() && filename.match /^\w.*\.coffee$/
+        if stat.isFile() && filename.match(/^\w.*\.coffee$/) && !filename.match(/^.*\.[c|d]\.coffee$/)
           name = dir+filename.match(/^(.*)\.\w+$/)[1]
           return promise.then => @createState name
         return promise
