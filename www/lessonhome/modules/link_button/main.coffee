@@ -21,3 +21,5 @@ class @main extends EE
     if href
       window.location.replace href
 
+
+

@@ -13,3 +13,5 @@ class @main
     @$send 'saveForm', 'fast_bid',{phone:val}
     .then (msg)->
       console.log 'saved', msg
+
+
