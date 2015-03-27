@@ -1,0 +1,52 @@
+@import compass/css3
+
+$size: 15px
+$bradius: 10px
+
+label
+  display: inline-block
+  cursor: pointer
+
+  position: absolute
+  //left: 100%
+  //top: $size
+  top: 0
+  right: 0
+  height: 100% - 20%
+  width: $size
+
+label>.scroll_box
+  height: 100%
+  //background: rgba(0,0,0,0.01)
+  +border-radius($bradius)
+
+label>.scroll_box>.scroll
+  background: #5fc5ff
+  height: 40px
+  width: $size
+  +border-radius($bradius)
+  position: relative
+  top: 0px
+  left: 0px
+
+label>.top_arrow_container, label>.bottom_arrow_container
+  width: $size
+  height: $size
+  position: relative
+
+label>.top_arrow_container>.top_arrow, label>.bottom_arrow_container>.bottom_arrow
+  position: absolute
+  border: $size solid transparent
+  border-left-width: $size / 2
+  border-right-width: $size / 2
+  height: 0
+  width: 0
+
+label>.top_arrow_container>.top_arrow
+  border-bottom-color: #cecece
+  //margin-top: -($size * 2)
+  margin-top: -($size)
+
+label>.bottom_arrow_container>.bottom_arrow
+  border-top-color: #cecece
+

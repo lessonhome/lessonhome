@@ -56,7 +56,8 @@ label
     content: ''
 
 //////////////     select options box      ///////////////////
-label>.drop_down_list>input+.select-sets__options
+label>.drop_down_list>.select_sets
+  display : none
   border: $border_width $border_focus
   background-color: white
   z-index: 2
@@ -69,9 +70,9 @@ label>.drop_down_list>input+.select-sets__options
   margin-left: -$border_width
   border-top: none
 
-label>.drop_down_list>input+.select-sets__options>.custom-option__selected
+label>.drop_down_list>.select_sets>*>*>.selected
   background: #ebebeb
-label>.drop_down_list>input+.select-sets__options>.custom-option>.custom-option__begin-match
+label>.drop_down_list>.select_sets>*>*>.custom-option>.begin
   color: #2c7fd2
 
 //////////////// select options box open   ///////////////
@@ -115,7 +116,7 @@ label.open_select .drop_down_list
           height: $icon_height
           margin-top: -$icon_height / 2
           background: inline-image($icon_src) no-repeat
-    .drop_down_list>input+.select-sets__options>.custom-option
+    .drop_down_list>.select_sets>.options_container>.options>.custom-option
       padding-left: $padding_left
       font-size: $font_size
 /////////////////--------list_course---------//////////////////////
@@ -185,17 +186,12 @@ label.focus,label.focus:hover
     .icon_box
       .icon
         background: inline-image($icon_hover_src) no-repeat
-
-///////////// filter_top  ////////////
-$icon_hover_src: 'main/triangle-24x21_hover.png'
-label.filter_top_focus,label.filter_top_focus:hover
-  .text
-    color: #000000
-  .drop_down_list
-    box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.4)
-    border: $border_width $border_focus
-    .icon_box
-      .icon
-        background: inline-image($icon_hover_src) no-repeat
+  // -- if &.filter_top
+  $icon_hover_src: 'main/triangle-24x21_hover.png'
+  &.filter_top
+    .drop_down_list
+      .icon_box
+        .icon
+          background: inline-image($icon_hover_src) no-repeat
 
 

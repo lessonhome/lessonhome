@@ -69,6 +69,11 @@ class @Feel
     .error   (e)->
       d.reject e
     return d.promise
+  unselect : (state)=>
+    if state
+      $('body').addClass 'unselect_all'
+    else
+      $('body').removeClass 'unselect_all'
 
 
 
