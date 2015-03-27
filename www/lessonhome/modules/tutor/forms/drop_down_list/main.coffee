@@ -94,7 +94,7 @@ class @main extends EE
           console.log idx
           makeUnselectedCurrent()
           idx = @items.size()-1 if idx>= @items.size()
-          if idx>0
+          if idx>=0
             $opt = @items.eq idx
             $opt.attr 'selected','selected'
             markSelected $opt
