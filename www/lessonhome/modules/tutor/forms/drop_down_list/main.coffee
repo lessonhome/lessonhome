@@ -76,16 +76,9 @@ class @main extends EE
         optionIndex = ($sel, $opt) =>
           @items.index $opt
 
-        markSelected = ($opt) =>
-          $opt.addClass('custom-option__selected')
-
-        markUnselected = ($opt) =>
-          $opt.removeClass('custom-option__selected')
-
         makeUnselected = (idx) =>
           $opt = @items.eq(idx)
-          $opt.removeAttr 'selected'
-          markUnselected $opt
+          $opt.removeClass '.selected'
 
         makeUnselectedCurrent = =>
           makeUnselected selectedIndex @options
@@ -96,13 +89,12 @@ class @main extends EE
           idx = @items.size()-1 if idx>= @items.size()
           if idx>=0
             $opt = @items.eq idx
-            $opt.attr 'selected','selected'
-            markSelected $opt
+            $opt.addClass '.selected'
           else
             @input.val ''
 
         selectedIndex = ($sel) =>
-          $opt = @items.filter('[selected="selected"]')
+          $opt = @items.filter('.selected')
           if $opt.length
             @items.index($opt)
           else -1
@@ -227,7 +219,7 @@ class @main extends EE
           @options.append @items
           return
         selectedOptionToInput = (hide=true)=>
-          $option = @items.filter('.custom-option__selected')
+          $option = @items.filter('.selected')
           console.log @option
 
           console.log $option
