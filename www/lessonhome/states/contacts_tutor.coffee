@@ -23,7 +23,7 @@ class @main
       text      : 'Доп. телефон :'
       selector  : 'first_reg'
     post          : module 'tutor/forms/input' :
-      text      : 'Почта :'
+      text      : 'Почта(email) :'
       selector  : 'first_reg'
     skype         : module 'tutor/forms/input' :
       text      : 'Skype :'

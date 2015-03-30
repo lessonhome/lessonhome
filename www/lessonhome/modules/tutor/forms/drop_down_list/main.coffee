@@ -22,7 +22,7 @@ class @main extends EE
       return if @isFocus
       @isFocus = true
       @label.addClass 'focus'
-      @showSelectOptions()
+      @showSelectOptions?()
 
     @input.on 'focusout', =>
       return if !@isFocus

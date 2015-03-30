@@ -5,8 +5,10 @@ class @main
   show : =>
     @first_name = @tree.first_name.class
     @first_name.input.on 'focusout',@check_form
+
     @last_name = @tree.last_name.class
     @last_name.input.on 'focusout',@check_form
+
     @patronymic = @tree.patronymic.class
     @patronymic.input.on 'focusout',@check_form
 
@@ -18,19 +20,18 @@ class @main
       console.log @getData()
       return @$send('saveFormTutorProfileFirstStep',@getData())
       .then ({status,err})=>
-        if status=='success'
-          return true
-        else
-          return false
+      if status=='success'
+        return true
+      else
+        return false
     else
       return false
 
   check_form : =>
-    ret = @js.check @getData()
-    if ret?.err?
-      @parseError ret.err
-      return false
-    return true
+    errs = @js.check @getData()
+    for e in errs
+      @parseError e
+    return errs.length==0
   getData : =>
     first_name  : @first_name.getValue()
     last_name   : @last_name.getValue()
