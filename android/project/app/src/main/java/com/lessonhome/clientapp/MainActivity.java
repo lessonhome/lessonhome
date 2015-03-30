@@ -1,6 +1,7 @@
 package com.lessonhome.clientapp;
 
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,7 +36,9 @@ public class MainActivity extends ActionBarActivity {
         InitActionBar();
         filtermainframent = FilterMainFragment.newInstance(this, myClickListener);
         setMainFragment(filtermainframent);
+
         //mTitle = getTitle();
+        Connection connection = new Connection();
 
 
 
@@ -91,6 +94,9 @@ public class MainActivity extends ActionBarActivity {
                 return true;
             }
         });
+
+        if (Build.VERSION_CODES.LOLLIPOP<=Build.VERSION.SDK_INT)
+            toolbar.setElevation(5);
 
         toolbar.inflateMenu(R.menu.main_activity);
 
