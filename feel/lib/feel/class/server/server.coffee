@@ -72,7 +72,7 @@ class Server
     if m = req.url.match /^\/google\?(.*)$/
       return @google req,res,m[1]
     req.time = new Date().getTime()
-    #res.on 'finish', => console.log "time\t#{new Date().getTime() - req.time}ms\n"
+    #res.on 'finish', => console.log "time".yellow+"\t#{new Date().getTime() - req.time}ms".cyan
     site = ""
     host = req.headers.host
     if @domains.text[host]?

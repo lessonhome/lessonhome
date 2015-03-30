@@ -139,7 +139,7 @@ class module.exports
           console.error e
           throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
         @cssSrc[filename] = src
-        @css[filename] = @parseCss src,filename
+        @css[filename] = Feel.bcss @parseCss src,filename
     return Q()
   makeSassAsync : =>
     files = []
@@ -156,13 +156,14 @@ class module.exports
         src = src.toString()
         filename = file.name + '.'+file.ext
         @cssSrc[filename] = src
-        @css[filename]    = @parseCss src,filename
+        @css[filename]    = Feel.bcss @parseCss src,filename
     , Q()
     .then @makeAllCss
   getAllCssExt : (exts)=>
     css = ""
     for ext of exts
       css += @site.modules[ext]?.getCssRelativeTo? @name if @site.modules[ext]?.getCssRelativeTo?
+    css = Feel.bcss
     return css
   getCssRelativeTo : (rel)=>
     return @allCssRelative[rel] if @allCssRelative?[rel]?
@@ -271,6 +272,7 @@ class module.exports
     @allCoffee += @allJs
     @allCoffee += "}).call(arr);return arr; })()"
     @allCoffee = "" unless num
+    @allCoffee = Feel.bjs @allCoffee
     @setHash()
     return Q()
   makeJs  : =>
@@ -294,6 +296,7 @@ class module.exports
         @allJs += "(function(){ #{src} }).call(arr);"
     @allJs += "return arr; })()"
     @allJs  = "" unless num
+    @allJs  = Feel.bjs @allJs
     @setHash()
     return Q()
   setHash : =>

@@ -4,25 +4,26 @@
 - value = value || "";
 - type = type || "text";
 - name = name || "text";
+- level1left = level1left || "";
+- level1right = level1right || "";
+- level2left = level2left || "";
+- level3left = level3left || "";
+- level3right = level3right || "";
+- l1hide = ((level1left+level1right) == "");
+- l3hide = ((level3left+level3right) == "");
+
 
 label(class=selector).unselect
-  if level1left || level1right
-    .level1
-      if level1left
-        .left.select!= level1left
-      if level1right
-        .right.select!= level1right
-  .level2
-    if level2left
-      .left.select!= level2left
+  .js-level1(hide=l1hide)
+    .left.js-left1.select!= level1left
+    .right.js-right1.select!= level1right
+  .js-level2
+    .left.js-left2.select!= level2left
     .right
       input.js-input(placeholder=placeholder value=value type=type name=name)
-  if level3left || level3right
-    .level3
-      if level3left
-        .left.select!=level3left
-      if level3right
-        .right.select!=level3right
+  .js-level3(hide=l3hide)
+    .left.js-left3.select!= level3left
+    .right.js-right3.select!= leve31right
   .js-hint
     .js-hint_message!=hint
     .bubble-arrow

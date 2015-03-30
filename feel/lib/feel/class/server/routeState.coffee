@@ -5,6 +5,7 @@ rand  = (num)-> crypto.createHash('sha1').update(num).digest('hex').substr 0,10
 
 class RouteState
   constructor : (@statename,@req,@res,@site)->
+    @time()
     @rand = "1"
     @reqHash =
       url     : @req.url
@@ -16,7 +17,14 @@ class RouteState
     @o =
       res : @res
       req : @req
-  
+    @time "constr"
+  time : (str="")=>
+    if !@_time?
+      @_time = new Date().getTime()
+    else
+      t = new Date().getTime()
+      console.log "time: #{t-@_time}ms ".grey+str.red
+      @_time = t
     
   getTopNode : (node,force=false)=>
     return node if node?._isModule
@@ -65,7 +73,10 @@ class RouteState
       for key,val of node
         @walk_tree_down node[key],node,key,foo
   go : => do Q.async =>
+    @res.on 'finish', => console.log "time".yellow+"\t#{new Date().getTime() - @req.time}ms".cyan
+    @time "go s"
     @state = yield @site.state[@statename].make(null,null,@req,@res)
+    @time 'make'
     @tags = {}
     @getTop()
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
@@ -109,6 +120,7 @@ class RouteState
     for modname of @modules
       if @site.modules[modname]?.allCoffee
         @jsModules += "$Feel.modules['#{modname}'] = #{@site.modules[modname].allCoffee};"
+    @time 'parse'
     title   = @state.title
     title  ?= @statename
     end  = ""
@@ -117,7 +129,9 @@ class RouteState
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
     end += @css+'</head><body>'+@top._html
     @removeHtml @top
+    @time "remove html"
     json_tree = JSON.stringify(@getTree(@top))
+    @time "stringify"
     end +=
       @site.moduleJsTag('lib/jquery')+
       @site.moduleJsTag('lib/cookie')+
@@ -126,6 +140,7 @@ class RouteState
       @site.moduleJsTag('lib/jade')+
       '
       <script id="feel-js-client">
+      '+('
           window.EE = EventEmitter;
           var $Feel = {}; 
           $Feel.root = {
@@ -135,16 +150,18 @@ class RouteState
           (function(){
             '+@jsClient+'
             
-            }).call($Feel);
+            }).call($Feel); ')+'
       </script>'+
       '<script id="feed-js-modules">
           console.log("Feel",$Feel); 
       '+@jsModules+'</script>'+
       '<script id="feel-js-startFeel">Feel.init();</script>'+
       '</body></html>'
+    @time "end str finish"
     sha1 = require('crypto').createHash('sha1')
     sha1.update end
     resHash = sha1.digest('hex').substr 0,8
+    @time "create hash"
     if resHash == @reqEtag
       @res.writeHead 304
       console.log "state #{@statename}",304
@@ -155,6 +172,7 @@ class RouteState
       if err?
         @res.writeHead 404
         return @res.end err
+      @time 'zlib'
       @res.setHeader 'Access-Control-Allow-Origin', '*'
       @res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
       @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'

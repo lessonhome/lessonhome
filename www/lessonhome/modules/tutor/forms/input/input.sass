@@ -15,34 +15,68 @@ main
   +block
 label
   +block
-  cursor : pointer
+  color   : rgba(75,75,75,0.7)
+  cursor  : pointer
+  background-color : white
   div
     +block
     height : 1em
+    line-height : 1em
     div
       +block
-      line-height : 2em
-      height : 100%
-      font-size : 0.5em
+      height : inherit
+  .level2 .left
+    font-size : 0.5em
+  .level1,.level3
+    height : auto
+    +box-sizing(content-box)
+    line-height : 1.5em
+    div
+      height : auto
+      line-height : inherit
+      font-size : inherit
 
 label .level2 .left
   position : absolute
   float : right
   left : -100%
   width : 100%
+label .level2 .right
+  border : 2px solid #d6d6d6
+  +border-radius(4px)
+  
 label div div input
   +block()
-  height : 100%
+  margin-top : -2px
+  line-height : inherit
+  height  : inherit
+  outline : none
+  border  : none
+  background : none
+  color : black
+  cursor : text
+  font-size : 0.5em
+  +input-placeholder
+    color : #757575
+    opacity : 1
+  &:-webkit-autofill
+    -webkit-box-shadow: 0 0 0 1000px white inset
 label
   .level1,.level3
     .left,.right
-      position : absolute
       left : 0
+      padding : 0.3em 0.3em 0 0.3em
     .left
       text-align : left
     .right
       text-align : right
+  .level3
+    color : red
 
+label
+  *,* *,* * *
+    &.hide,&[hide]
+      display : none
 
 label .hint
   +block
@@ -50,7 +84,30 @@ label .hint
   position : absolute
 
 
+
+=selector($selector,$text_padding,$text_size,$input_padding,$input_size,$error_padding,$error_size)
+  label.#{$selector}
+    .level2 .left
+      padding   : $text_padding
+      font-size : $text_size
+    .level1,.level3
+      font-size : $text_size
+    .level1 div
+      padding   : $text_padding
+    .level2 .right input
+      padding   : $input_padding
+      font-size : $input_size
+    .level3
+      font-size : $error_size
+      div
+        padding   : $error_padding
+
++selector(first_reg,0 26px,16px,0 12px,none,none,none)
+
+
+
 //+selector(first_reg,16px,18px,12px,26px,0,341px,none,none)
+
 //=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
   label.#{$selector}
     .level1>div,.level2>.left

@@ -36,7 +36,43 @@ Example:
   max         : 24
   errMessage  : 'Укажите кол-во часов в диапазоне от 0 до 24
 ###
+#
+#
+#
 
+
+class @main extends EE
+  Dom : =>
+    @input  = @found.input
+    @label  = @dom.find ">label"
+    if typeof @tree.match =='string'
+      @tree.match = 0:@tree.match
+    for key,val of @tree.match
+      @tree.match[key] = new RegExp val
+
+    
+  show    : =>
+    @input.on 'focus',    @onFocus
+    @input.on 'focusout', @onBlur
+    @input.on 'input',    @onInput
+    @input.on 'keydown',  @onKeyDown
+    @input.on 'keyup',    @onKeyUp
+  onFocus : =>
+    @emit 'focus'
+    @label.addClass 'focus'
+  onBlur  : =>
+    @emit 'blur'
+    @label.removeClass 'focus'
+
+  onInput   : =>
+    console.log 'input'
+    
+  onKeyDown : (e)=>
+    str = @val+String.fromCharCode(e.keyCode)
+    console.log 'kdown',e,"'#{@input.val()}#{String.fromCharCode(e.keyCode)}'"
+  onKeyUp   : =>
+
+###
 class @main extends EE
   constructor : ->
   Dom : =>
@@ -82,11 +118,9 @@ class @main extends EE
       setTimeout keyDownTimeout,keyDownDT
 
 
-  ############## Share ###############
   getObjectNumIndexes : (obj)->
     Object.keys(obj).filter (key)->
       !(isNaN Number(key))
-  ####################################
 
   outErr : (err)=>
     console.log err
@@ -149,7 +183,7 @@ class @main extends EE
           min = curValidator.min
           max = curValidator.max
           isBadInput = !(check patt, val)
-          ### Extra check if exist min and max ###
+          ## Extra check if exist min and max ##
           if !isBadInput && (min? || max?) && (checkDigits val)
             isBadInput = !(checkMinMax min, val, max)
           if isBadInput then res.push curValidator
@@ -163,7 +197,6 @@ class @main extends EE
         @setNormalState()
     else
       @setNormalState()
-    #################
     @emit 'change',@val
     @_checkInput = false
   setValue: (value)=>
@@ -189,3 +222,4 @@ class @main extends EE
       #@setValue val
   filter_digits : (val)-> ""+1*(""+val).replace /[^\d]/mg,''
   filter_number : (val)-> ""+1*(""+val).replace /[^\d\.]/mg,''
+###
