@@ -50,14 +50,17 @@ class @main extends EE
     @val          = @input.val()
 
   show : =>
-    @input.on 'focus', => @label.addClass 'focus'
-    @input.on 'focusout', => @label.removeClass 'focus'
-
     @input.on 'focus', =>
+      @label.addClass 'focus'
       if @tree.hint?
         @hint.fadeIn()
+    @input.on 'keydown', (e)=>
+      console.log e.keyCode
+      if e.keyCode == 13 then @emit 'pressingEnter'
+
 
     @input.on 'focusout', =>
+      @label.removeClass 'focus'
       @hint.hide()
     #Check allowed input chars
     @input.on 'keypress', (event)=>
@@ -171,7 +174,7 @@ class @main extends EE
     return if value == @val
     @val = value
     @checkFilters()
-    @found.box.children('input').val(value)
+    @input.val(value)
     @checkInput()
 
   getValue: =>
@@ -187,5 +190,11 @@ class @main extends EE
     #if val != @val
     @val = val
       #@setValue val
+  setFocus: =>
+    @input.focus()
+    @input.select()
+  clearField: =>
+    @input.val('')
+
   filter_digits : (val)-> ""+1*(""+val).replace /[^\d]/mg,''
   filter_number : (val)-> ""+1*(""+val).replace /[^\d\.]/mg,''

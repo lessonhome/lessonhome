@@ -1,6 +1,9 @@
 @import compass/css3
 $bg_color: #b2b2b2
 $bg_color_w: #ffffff
+$text_color: rgba(75, 75, 75, 0.70)
+$border_color: #d6d6d6
+
 main
   height: 100%
   width: 100%
@@ -12,7 +15,7 @@ label
   .text
     +inline-block
     cursor: pointer
-    color: rgba(75, 75, 75, 0.70)
+    color: $text_color
   .box
     width: 100%
     height: 100%
@@ -22,7 +25,7 @@ label
       height: 100%
       width: 100%
       box-sizing: border-box
-      border: 2px solid #d6d6d6
+      border: 2px solid $border_color
       +border-radius(4px)
       background-color: rgb( 255, 255, 255 )
       input
@@ -155,6 +158,10 @@ label:after
 
 //- ------------------------ MAIN :CHECK IN --------------------
 +selector(main_check_in,18px,20px,12px,0,10px,none,37px,none)
+label.main_check_in
+  .text
+    font-size: 16px
+    padding-bottom: 6px
 
 //------------------------ In/Out form  --------------------------
 +selector(in_out,18px,20px,12px,0,10px,none,none,none)
@@ -168,6 +175,12 @@ label:hover
     color: #000000
   .box .input_box
     border: 2px solid #b3b3b3
+
+label.main_check_in:hover
+  .text
+    color: $text_color
+  .box .input_box
+    border: 2px solid $border_color
 
 /////////----------------focus-------------/////
 label.focus,label.focus:hover

@@ -36,21 +36,22 @@ main
     line-height: 19px
     font-size: 16px
     color: #18293a
+
   .check_in_fields
     .submit
       position : fixed
       color : white
       top : -8000px
       background : white
-    width: 440px
+    width: 425px
     +inline-block
     text-align: left
     .title
-      margin-bottom: 22px
+      margin-bottom: 15px
       text-align: center
       font-size: 30px
       font-weight: 600
-      color: #89d1ff
+      color: #000000
 
     .login, .password
       position: relative
@@ -76,13 +77,22 @@ main
       .text
         width: 360px
         line-height: 17px
-        font-size: 16px
+        font-size: 14px
+        color: #444444
+        a
+          font-size: 14px
+      .checkbox_error
+        display: none
+        margin-top: 15px
+        color: red
+        font-size: 14px
       .buttons
         margin-top: 30px
-        div
+        div, a
           +inline-block
         .create_account
-          height: 33px
+          height: 36px
+          vertical-align: baseline
         .phone_check_in
           margin-right: 32px
 
