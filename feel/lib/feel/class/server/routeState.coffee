@@ -134,7 +134,7 @@ class RouteState
     @time "stringify"
     end +=
       @site.moduleJsTag('lib/jquery')+
-      @site.moduleJsTag('lib/cookie')+
+      @site.moduleJsTag('lib/jquery/plugins')+
       @site.moduleJsTag('lib/q')+
       @site.moduleJsTag('lib/event_emitter')+
       @site.moduleJsTag('lib/jade')+

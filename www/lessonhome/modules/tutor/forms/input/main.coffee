@@ -45,32 +45,133 @@ class @main extends EE
   Dom : =>
     @input  = @found.input
     @label  = @dom.find ">label"
+    @tree.match   ?= {}
+    @tree.replace ?= {}
     if typeof @tree.match =='string'
       @tree.match = 0:@tree.match
     for key,val of @tree.match
       @tree.match[key] = new RegExp val
-
-    
+    @tree.replace = @parseRegexpObj @tree.replace
+    @tree.replaceCursor = @parseRegexpObj @tree.replaceCursor,''
+  parseRegexpObj : (obj,ext='mg')=>
+    obj ?= {}
+    if typeof obj =='string'
+      obj = 0:obj
+    nobj = {}
+    for key,val of obj
+      if typeof val == 'string'
+        reg = new RegExp val,ext
+        s   = ""
+      else
+        reg = Object.keys val
+        s   = val[reg[0]]
+        reg = new RegExp reg[0],ext
+      nobj[key] = [reg,s]
+    return nobj
   show    : =>
     @input.on 'focus',    @onFocus
     @input.on 'focusout', @onBlur
+    @input.on 'blur', @onBlur
     @input.on 'input',    @onInput
+    @input.on 'keypress',  @onKeyPress
     @input.on 'keydown',  @onKeyDown
     @input.on 'keyup',    @onKeyUp
+    @input.on 'paste',    @onPaste
+  onPaste : =>
+    setTimeout =>
+      @emit 'paste'
+      @input.setCursorPosition @input.val().length
+    ,1
   onFocus : =>
     @emit 'focus'
     @label.addClass 'focus'
+    if @tree.selectOnFocus
+      setTimeout =>
+        @input.setSelection(0,@input.val().length)
+      ,0
   onBlur  : =>
     @emit 'blur'
     @label.removeClass 'focus'
-
+    console.log 'blur'
   onInput   : =>
-    console.log 'input'
-    
+    @replaceInput()
+    setTimeout @checkChange,0
   onKeyDown : (e)=>
-    str = @val+String.fromCharCode(e.keyCode)
-    console.log 'kdown',e,"'#{@input.val()}#{String.fromCharCode(e.keyCode)}'"
+    switch e.keyCode
+      when 13
+        e.preventDefault()
+        @emit 'submit',@input.val()
+    setTimeout @checkChange,0
+  onKeyPress : (e)=>
+    try position = @input.getCursorPosition()
+
+    val = @input.val()
+    try
+      start = @input.getSelectionStart()
+      end = @input.getSelectionEnd()
+      unless start? || end?
+        start = val.length
+        end = val.length
+      str = val.substr(0,start)+String.fromCharCode(e.keyCode)+val.substr(end)
+    catch e
+      console.error e
+      str = val+String.fromCharCode(e.keyCode)
+    rstr = @matchReplace str
+    if rstr == str
+      return
+    else if val == rstr
+      return e.preventDefault()
+    else
+      e.preventDefault()
+      @replaceInput val,rstr,position,true
+  matchReplace : (rstr)=>
+    for key,v of @tree.replace
+      nv = rstr.replace v[0],v[1]
+      rstr = nv
+    return rstr
+  replaceInput : (val,rstr,position,forceCursor=false)=>
+    val     ?= @input.val()
+    rstr    ?= @matchReplace val
+    position?= @input.getCursorPosition()
+    return if @input.val()==rstr
+    @input.val rstr
+    rc = false
+    if forceCursor then for key,v of @tree.replaceCursor
+      if m = rstr.substr(position).match v[0]
+        rc = true
+        position += m.index
+    if forceCursor then if !rc && Math.abs(val.length-rstr.length)<=1
+      position ?= val.length
+      if rstr.length > val.length
+        position++
+      else if rstr.length==val.length
+        if rstr.substr(0,position+1)!= val.substr(0,position+1)
+          position++
+      @input.setCursorPosition position
+    if (rc && forceCursor) || !forceCursor
+      @input.setCursorPosition position
+    
+      @input.setCursorPosition position
+
+    ###
+    e.preventDefault()
+    console.log "nval: '#{str}'"
+    console.log @input
+    ###
+    #console.log 'kdown',e,"'#{@input.val()}'#{String.fromCharCode(e.keyCode)}'"
   onKeyUp   : =>
+  checkChange : =>
+    val = @input.val()
+    if @val != val
+      @val = val
+      @emit 'change',@val
+  setValue : (val)=>
+    @checkChange()
+    if val != @val
+      @input.val val
+      @replaceInput()
+      @checkChange()
+  getValue : => @val
 
 ###
 class @main extends EE
