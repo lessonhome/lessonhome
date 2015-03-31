@@ -25,12 +25,13 @@ class @main
   save : => Q().then =>
     if @check_form()
       console.log @getData()
-      return @$send('saveFormTutorProfileFirstStep',@getData())
-      .then ({status,err})=>
-        if status=='success'
-          return true
-        else
-          return false
+      return @$send('./save',@getData())
+      .then ({status,errs})=>
+      if status=='success'
+        return true
+      if errs?.length
+        @parseError errs
+      return false
     else
       return false
 
