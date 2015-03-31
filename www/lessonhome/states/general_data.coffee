@@ -41,7 +41,7 @@ class @main
       selector        : 'choose_gender'
       title           : 'true'
       selector_button : 'registration'
-    birth_data    : state 'birth_data'  :
+    birth_data    : state 'data_date'  :
       text  : 'Дата рождения :'
     status      : module 'tutor/forms/drop_down_list' :
       text        : 'Статус :'

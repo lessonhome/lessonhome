@@ -16,7 +16,7 @@ mixin item (text, icon_src)
 
   form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
     input.js-submit(type='submit')
-    .title.select Пройти регистрацию
+    .title.select Регистрация
     .login
       .input!= login
     .password
@@ -24,11 +24,11 @@ mixin item (text, icon_src)
 
     .checkbox
       .field!= agree_checkbox
-      .text.m-font.select!= 'Я прочитал и согласен с '
+      .text.select!= 'Я прочитал и согласен с '
         a.m-Link.select Условиями оказания информационных услуг
-
+      .js-checkbox_error Пожалуйста, ознакомьтесь с условиями оказания услуг
       .buttons
-        .a.m-Link.phone_check_in.select Регистрация по телефону
+        a(href="/main_tutor_callback").m-Link.phone_check_in.select Регистрация по телефону
         .create_account!=create_account
 
 

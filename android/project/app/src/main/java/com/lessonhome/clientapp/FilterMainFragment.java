@@ -1,12 +1,13 @@
 package com.lessonhome.clientapp;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 /**
@@ -20,6 +21,7 @@ public class FilterMainFragment extends Fragment {
     Context context;
     FilterViewPagerAdapter mPagesAdapter;
     ViewPager mViewPager;
+    ListView FilteredApplications;
     RelativeLayout MainLay;
     View.OnClickListener mclicklistener;
 
@@ -59,9 +61,19 @@ public class FilterMainFragment extends Fragment {
 
 
         MainLay = (RelativeLayout)inflater.inflate(R.layout.filter_fragment, container, false);
-        mViewPager = (ViewPager)MainLay.findViewById(R.id.mviewpager);
+        mViewPager = (ViewPager)MainLay.findViewById(R.id.filter_viewPager);
         mPagesAdapter = new FilterViewPagerAdapter(context, getChildFragmentManager(), mclicklistener);
         mViewPager.setAdapter(mPagesAdapter);
+/*
+        FilteredApplications = (ListView)MainLay.findViewById(R.id.filtered_applications_listView);
+        FilteredApplications.setAdapter(null);//todo set adapter
+        FilteredApplications.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });*/
+
 
         return MainLay;
     }

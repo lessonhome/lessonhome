@@ -25,7 +25,7 @@ class @main extends template '../edit_description'
       status        : module 'tutor/forms/drop_down_list' :
         text      : 'Статус :'
         selector  : 'first_reg'
-      release_date   : state 'birth_data'  :
+      release_date   : state 'data_date'  :
         text  : 'Дата выпуска :'
       add_button    : module 'button_add' :
         text      : '+Добавить'

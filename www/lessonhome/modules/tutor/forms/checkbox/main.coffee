@@ -9,5 +9,7 @@ class @main extends EE
     @dom.on 'click', =>
       @label.toggleClass('active')
       @state = @label.hasClass 'active'
+      @emit 'change',@state
+
 
 

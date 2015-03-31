@@ -49,7 +49,7 @@ public class NavListAdapter extends BaseAdapter
             if (position==0)
             {
 
-                view = lInflater.inflate(R.layout.nav_drawer_profile, parent, false);//todo change
+                view = lInflater.inflate(R.layout.profile_nav_drawer, parent, false);
                 ((TextView)view.findViewById(R.id.name)).setText("I am GROOT");
                 ((TextView)view.findViewById(R.id.mail)).setText("i@am.groot");
             }

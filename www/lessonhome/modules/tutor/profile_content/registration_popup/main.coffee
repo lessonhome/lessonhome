@@ -1,6 +1,4 @@
 
-
-
 class @main
   show : =>
     @bNext = @tree.button_next.class
@@ -10,7 +8,7 @@ class @main
 
   next : =>
     console.log 'next'
-    @form.save().then (success)=>
+    @form?.save?().then (success)=>
       if success
         @bNext.submit()
 
