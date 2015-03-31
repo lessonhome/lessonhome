@@ -71,17 +71,24 @@ class @main extends EE
   show    : =>
     @input.on 'focus',    @onFocus
     @input.on 'focusout', @onBlur
-    @input.on 'blur', @onBlur
+    @input.on 'blur',     @onBlur
     @input.on 'input',    @onInput
-    @input.on 'keypress',  @onKeyPress
+    @input.on 'keypress', @onKeyPress
     @input.on 'keydown',  @onKeyDown
     @input.on 'keyup',    @onKeyUp
-    @input.on 'paste',    @onPaste
-  onPaste : =>
+    @input.on 'paste',    @onJQPaste
+    @on 'submit',         @onSubmit
+    @on 'change',         @onChange
+    @on 'paste',         @onPaste
+
+  onJQPaste : =>
     setTimeout =>
       @emit 'paste'
-      @input.setCursorPosition @input.val().length
     ,1
+  onPaste   : =>
+    @input.setCursorPosition @input.val().length
+    @_emittedEnd = ""
+    @emitEnd()
   onFocus : =>
     @emit 'focus'
     @label.addClass 'focus'
@@ -89,14 +96,26 @@ class @main extends EE
       setTimeout =>
         @input.setSelection(0,@input.val().length)
       ,0
-  onBlur  : =>
+  onBlur    : =>
     @emit 'blur'
     @label.removeClass 'focus'
     console.log 'blur'
+    @emitEnd()
+  onChange : =>
+    @_emittedEnd = ""
+  onSubmit : =>
+    @emitEnd()
+  emitEnd   : =>
+    @_emittedEnd ?= ""
+    if @val != @_emittedEnd
+      @_emittedEnd = @val
+      @emit 'end',@val
+      
   onInput   : =>
     @replaceInput()
     setTimeout @checkChange,0
   onKeyDown : (e)=>
+    @_emittedEnd = ""
     switch e.keyCode
       when 13
         e.preventDefault()
