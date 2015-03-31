@@ -21,7 +21,7 @@ class Socket
     session = cookie.get 'session'
     register = yield @register.register session
     session = register.session
-    req.user = register.accaunt
+    req.user = register.account
     _ = url.parse(req.url,true)
     data    = JSON.parse _.query.data
     context = JSON.parse _.query.context

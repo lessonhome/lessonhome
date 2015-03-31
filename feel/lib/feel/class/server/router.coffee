@@ -72,7 +72,7 @@ class Router
     req.session = register.session
     cookie.set 'session'
     cookie.set 'session',register.session
-    req.user = register.accaunt
+    req.user = register.account
   redirect : (req,res,location='/')=> do Q.async =>
     yield console.log 'redirect',location
     res.statusCode = 302
