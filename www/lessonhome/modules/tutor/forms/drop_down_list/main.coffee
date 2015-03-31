@@ -6,8 +6,14 @@ class @main extends EE
       arrowDown : 40
       arrowUp   : 38
       esc       : 27
+    @_list = {}
+
+
 
   Dom : =>
+    @tree.default_options ?= {}
+    for key,opt of @tree.default_options
+      @_list[opt.text]= true
     @label        = @dom.find ">label"
     @list         = @found.drop_down_list
     @input        = @found.input
@@ -15,6 +21,12 @@ class @main extends EE
     @select_sets  = @found.select_sets
     @options      = @found.options
     @items        = @options.find '>div'
+  closeList : =>
+    $('body').off 'mousedown.drop_down_list'
+    @emit 'change',@getValue()
+    @bodyListenMD = false
+    @label.removeClass 'focus'
+    @select_sets.hide()
   show : =>
     @scroll = @tree.scroll?.class
     @isFocus = false
@@ -31,10 +43,7 @@ class @main extends EE
         @bodyListenMD = true
         $('body').on 'mousedown.drop_down_list', (t)=>
           return if $.contains @dom[0],t.target
-          $('body').off 'mousedown.drop_down_list'
-          @bodyListenMD = false
-          @label.removeClass 'focus'
-          @select_sets.hide()
+          @closeList()
 
     if @tree.default_options?
       do =>
@@ -223,11 +232,26 @@ class @main extends EE
             @select_sets.hide()
             @select_sets.data 'was-enter', true
             @input.focus()
+            @closeList()
+
           return
   ####### FUNCTIONS #############
   focusInput: =>
     @input.focus()
+
   getDistance : (from,to)=>
     Feel.diff.match from,to
+
+  getValue : => @input.val()
+
+  exists : => @_list[@getValue()]
+
+  suitability: ()=>
+    el_val = @getValue()
+    for key,opt of @tree.default_options
+      if el_val == opt.text || el_val == ''
+        return true
+      else
+        return false
 
 
