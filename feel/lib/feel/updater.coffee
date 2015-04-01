@@ -64,8 +64,12 @@ class module.exports
     if @hand <= 0
       process.exit()
   log : (res,msg)=>
-    res.write msg
     process.stdout.write msg
+    if typeof msg == 'string'
+      nmsg = msg.replace /\[\d\dm/g,""
+    else
+      nmsg = msg
+    res.write nmsg
 
   exec : (cmd,args,res,time,cb)=>
     t = new Date().getTime()
