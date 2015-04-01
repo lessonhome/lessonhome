@@ -121,7 +121,7 @@ class module.exports
   compass : =>
     defer = Q.defer()
     process.chdir 'feel'
-    console.log 'compass compile'
+    console.log 'compass compile'.magenta
     compass = spawn 'compass', ['compile']
     process.chdir '..'
     compass.stdout.on 'data', (data)=>
@@ -129,7 +129,7 @@ class module.exports
       if data.toString().substr(9,5).match /write/
         m = data.toString().substr(14).match /.*(modules\/.*)\.css/
         if m
-          console.log m[1]+".sass"
+          console.log "sass\t\t".cyan,"#{m[1]}.sass".grey
       else
         process.stdout.write data
     compass.stderr.on 'data', (data)=> process.stderr.write 'compass: '+data
@@ -142,7 +142,7 @@ class module.exports
   npm : =>
     defer = Q.defer()
     process.chdir 'feel'
-    console.log 'npm install'
+    console.log 'npm install'.red
     npm = spawn 'npm', ['i']
     process.chdir '..'
     npm.stdout.on 'data', (data)=> process.stdout.write data
@@ -168,8 +168,10 @@ class module.exports
       @rebuildSass o.site,o.dir,o.name
     if o.ext == 'jade'
       @site[o.site].modules[o.dir].rebuildJade()
+    if o.ext == 'coffee'
+      @site[o.site].modules[o.dir].rebuildCoffee()
   rebuildSass : (site,module,name)=>
-    console.log "rebuild sass for #{site}/#{module}:#{name}.sass"
+    console.log "rebuild sass for #{site}/#{module}:#{name}.sass".yellow
     cache = "#{@path.cache}/#{site}/modules/#{module}/#{name}.css"
     @sassChanged["#{site}/#{module}"] = {
       site
@@ -181,6 +183,7 @@ class module.exports
         return @compileSass()
   
   compileSass : =>
+    @_compiling = true
     @compass()
     .then =>
       arr = []
@@ -193,6 +196,12 @@ class module.exports
           m.rescanFiles()
           .then m.makeSassAsync
       , Q()
+    .catch =>
+      setTimeout =>
+        @compileSass() unless @_compiling
+      , 3000
+    .then =>
+      @_compiling = false
     .done()
     
   loadClient : =>

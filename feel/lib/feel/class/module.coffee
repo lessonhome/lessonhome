@@ -57,38 +57,59 @@ class module.exports
   replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-]+)/,"$1mod-#{@id}--$2")
   replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-]+)/,"$1js-$2--{{UNIQ}} $2")
   makeJade : =>
-    @jade = {}
+    _jade = {}
     for filename, file of @files
       if file.ext == 'jade' && file.name == 'main'
-        @jade.fnCli = Feel.cacheFile file.path
-        break if @jade.fnCli?
-        console.log "jade #{@name}"
+        _jade.fnCli = Feel.cacheFile file.path
+        break if _jade.fnCli?
+        console.log "jade\t\t".blue,"#{@name}".grey
 
-        @jade.fnCli = jade.compileFileClient file.path, {
+        _jade.fnCli = jade.compileFileClient file.path, {
           compileDebug : false
         }
         while true
-          n = @jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(m-[\w-]+)(?: [\w-]+)*\\\"/, @replacer)
-          break if n == @jade.fnCli
-          @jade.fnCli = n
+          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(m-[\w-]+)(?: [\w-]+)*\\\"/, @replacer)
+          break if n == _jade.fnCli
+          _jade.fnCli = n
         while true
-          n = @jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\\\"/, @replacer2)
-          break if n == @jade.fnCli
-          @jade.fnCli = n
+          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\\\"/, @replacer2)
+          break if n == _jade.fnCli
+          _jade.fnCli = n
         ###
-        m = @jade.fnCli.match(/class=\\\"([\w-\s]+)\\\"/mg)
+        m = _jade.fnCli.match(/class=\\\"([\w-\s]+)\\\"/mg)
         console.log m
         if m then for m_ in m
           m_ = m_.match /(js-\w+)/mg
           console.log m_
         ###
-        Feel.cacheFile file.path, @jade.fnCli
+        Feel.cacheFile file.path, _jade.fnCli
         break
-    if @jade.fnCli?
-      @jade.fn = eval "(#{@jade.fnCli})"
+    if _jade.fnCli?
+      _jade.fn = eval "(#{_jade.fnCli})"
+    @jade = _jade
   rebuildJade : =>
+    @_rebuildingJade = true
     @rescanFiles()
     .then @makeJade
+    .catch (e)=>
+      console.error Exception e
+      setTimeout =>
+        @rebuildJade() unless @_rebuildingJade
+      , 3000
+    .then =>
+      @_rebuildingJade = false
+  rebuildCoffee : =>
+    @_rebuildingCoffee = true
+    @rescanFiles()
+    .then @makeCoffee
+    .catch (e)=>
+      console.error Exception e
+      setTimeout =>
+        @rebuildCoffee() unless @_rebuildingCoffee
+      , 3000
+    .then =>
+      @_rebuildingCoffee = false
+
   doJade : (o,route,state)=>
     eo    =
       F     : (f)=> Feel.static.F @site.name,f
@@ -131,7 +152,7 @@ class module.exports
         try
           src = fs.readFileSync(path).toString()
         catch e
-          console.error e
+          console.error Exception e
           throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
         @css[filename] = @parseCss src,filename
     return Q()
@@ -218,24 +239,25 @@ class module.exports
     
 
     return ret
-  makeCoffee  : =>
+  makeCoffee  : => Q.then =>
     @newCoffee = {}
     for filename, file of @files
       if file.ext == 'coffee' && !filename.match(/.*\.[d|c]\.coffee$/)
         src = ""
         try
+          console.log 'coffee\t'.yellow,"#{@name}/#{filename}".grey
           src = Feel.cacheCoffee file.path
         catch e
-          console.error e
-          throw new Error "failed read coffee in module #{@name}: #{file.name}(#{path})",e
+          console.error Exception e
+          throw new Error "failed read coffee in module #{@name}: #{file.name}(#{file.path})",e
         @newCoffee[filename] = src
       if file.ext == 'js'
         src = ""
         try
           src = fs.readFileSync file.path
         catch e
-          console.error e
-          throw new Error "failed read js in module #{@name}: #{file.name}(#{path})",e
+          console.error Exception e
+          throw new Error "failed read js in module #{@name}: #{file.name}(#{file.path})",e
         @newCoffee[filename] = src
     @coffee     = @newCoffee
     @allCoffee  = "(function(){ var arr = {}; (function(){"
@@ -250,7 +272,6 @@ class module.exports
     @allCoffee += "}).call(arr);return arr; })()"
     @allCoffee = "" unless num
     @setHash()
-    return Q()
   makeJs  : =>
     @newJs = {}
     for filename, file of @files
@@ -259,8 +280,8 @@ class module.exports
         try
           src = fs.readFileSync file.path
         catch e
-          console.error e
-          throw new Error "failed read js in module #{@name}: #{file.name}(#{path})",e
+          console.error Exception e
+          throw new Error "failed read js in module #{@name}: #{file.name}(#{file.path})",e
         @newJs[filename] = src
     @js     = @newJs
     @allJs  = "(function(){ var arr = {};"
