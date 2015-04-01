@@ -38,7 +38,7 @@ class module.exports
           command : 'node'
           psargs : "aux"
         }, (err,list)=>
-          @exec "cat", ["./version"], res, =>
+          @exec "cat", ["./feel/version"], res, =>
             if !err
               for p in list
                 for a in p.arguments
@@ -64,8 +64,12 @@ class module.exports
     if @hand <= 0
       process.exit()
   log : (res,msg)=>
-    res.write msg
     process.stdout.write msg
+    if msg?.toString?()
+      msg = msg.toString()
+    if typeof msg == 'string'
+      msg = msg.replace /\[\d\dm/g,""
+    res.write msg
 
   exec : (cmd,args,res,time,cb)=>
     t = new Date().getTime()

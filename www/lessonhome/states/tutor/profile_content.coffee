@@ -42,7 +42,7 @@ class @main
       link      : './edit/about'
       edit      : @exports()
       selector  : 'horizon'
-    private             : module '$/private' :
+    private_            : module '$/private' :
       text : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
     line_med            : module 'tutor/separate_line':
       title    : 'Медиа'
