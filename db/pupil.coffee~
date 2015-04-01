@@ -6,14 +6,7 @@
 pupil :
   person       : "hash32141234" # persons.id
   fast_bid_progress : 2 # текущий шаг подачи заявки  
-  status : "student" # статус ученика
-    # preschooler дошкольник
-    # junior school младшая школа 
-    # secondary school средняя школа 
-    # high school старшая школа 
-    # student студент 
-    # adult взрослый 
-
+  status : "дошкольник" # статус ученика
   phone_call :
     phones      : [ "9150527355" ]
     description : "желательно с 19 до 21 часа" 
