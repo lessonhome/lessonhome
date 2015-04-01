@@ -65,11 +65,11 @@ class module.exports
       process.exit()
   log : (res,msg)=>
     process.stdout.write msg
+    if msg?.toString?()
+      msg = msg.toString()
     if typeof msg == 'string'
-      nmsg = msg.replace /\[\d\dm/g,""
-    else
-      nmsg = msg
-    res.write nmsg
+      msg = msg.replace /\[\d\dm/g,""
+    res.write msg
 
   exec : (cmd,args,res,time,cb)=>
     t = new Date().getTime()
