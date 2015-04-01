@@ -5,28 +5,7 @@ class @main
     first_name  : module 'tutor/forms/input':
       text2 : 'Имя :'
       selector    : 'first_reg'
-      #pattern     : '^[a-z]*$' #required using some like: (dataObject 'checker').patterns.alphabet
-      #allowSymbolsPattern : '[a-zA-Zа-яА-ЯёЁ]'
-      #(required using some like: (dataObject 'checker').hints.alphabet)
       hint        : 'Поле должно содержать только символы русского или английского алфавита'
-      replace     : [
-        "^\\s+"
-        "\\s+$"
-        "d": "a"
-      ]
-      replace     : [
-        {"^(8|7)(?!\\+7)":"+7"}
-        {"^(.*)(\\+7)":"$2$1"}
-        "\\+7"
-        "[^\\d_]"
-        {"^(.*)$":"$1__________"}
-        {"^([\\d_]{0,10})(.*)$": "$1"}
-        {"^([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)$":"+7 ($1$2$3) $4$5$6-$7$8-$9$10"}
-      ]
-      replaceCursor     : [
-        "(_)"
-      ]
-      selectOnFocus : true
     last_name   : module 'tutor/forms/input':
       replace : '[^a-zA-Zа-яА-ЯёЁ]'
       patterns: [
