@@ -45,7 +45,7 @@ class module.exports
     .then => @version()
     .then =>
       return if @version == @oversion
-      _rmrf('.cache')
+      _rmrf('.cache').then -> _rmrf 'feel/.sass-cache'
     .then => mkdirp '.cache'
     .then =>
       _writeFile '.cache/version',@sVersion
