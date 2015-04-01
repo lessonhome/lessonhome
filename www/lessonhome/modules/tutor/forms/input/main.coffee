@@ -44,14 +44,17 @@ Example:
 class @main extends EE
   Dom : =>
     @input  = @found.input
+    @val    = @input.val()
     @label  = @dom.find ">label"
     @tree.match   ?= {}
     @tree.replace ?= {}
+    @tree.error_align     = 'left'
     if typeof @tree.match =='string'
       @tree.match = 0:@tree.match
     for key,val of @tree.match
       @tree.match[key] = new RegExp val
     @tree.replace = @parseRegexpObj @tree.replace
+    @tree.patterns = @parseRegexpObj @tree.patterns
     @tree.replaceCursor = @parseRegexpObj @tree.replaceCursor,''
   parseRegexpObj : (obj,ext='mg')=>
     obj ?= {}
@@ -79,7 +82,8 @@ class @main extends EE
     @input.on 'paste',    @onJQPaste
     @on 'submit',         @onSubmit
     @on 'change',         @onChange
-    @on 'paste',         @onPaste
+    @on 'paste',          @onPaste
+    @on 'end',            @onEnd
 
   onJQPaste : =>
     setTimeout =>
@@ -106,21 +110,34 @@ class @main extends EE
   onSubmit : =>
     @emitEnd()
   emitEnd   : =>
+    return if @val == ""
     @_emittedEnd ?= ""
+    return unless @doMatch()
     if @val != @_emittedEnd
       @_emittedEnd = @val
       @emit 'end',@val
-      
+  onEnd     : (val)=>
+    console.log 'end',val
   onInput   : =>
     @replaceInput()
     setTimeout @checkChange,0
   onKeyDown : (e)=>
+    @hideError()
     @_emittedEnd = ""
     switch e.keyCode
       when 13
         e.preventDefault()
         @emit 'submit',@input.val()
     setTimeout @checkChange,0
+  ping : (alpha)=>
+    @clearPing() if !alpha?
+    return @clearPing() if alpha < 0.01
+    alpha ?= 1.0
+    @input.css 'box-shadow',"0 0 15px rgba(255,50,50,#{alpha})"
+    @pingTimer = setTimeout (=>@ping alpha*0.9) ,33
+  clearPing : =>
+    clearTimeout @pingTimer if @pingTimer? && @pingTimer>0
+    @input.css 'box-shadow','none'
   onKeyPress : (e)=>
     try position = @input.getCursorPosition()
 
@@ -139,10 +156,39 @@ class @main extends EE
     if rstr == str
       return
     else if val == rstr
+      @ping()
       return e.preventDefault()
     else
       e.preventDefault()
       @replaceInput val,rstr,position,true
+  doMatch : =>
+    for key,val of @tree.patterns
+      unless @val.match val[0]
+        return @showError val[1]
+    return true
+
+  addPattern : (str,error="")=>
+    if typeof str == 'string'
+      str = new RegExp str,'mg'
+    i = Object.keys(@tree.patterns).length
+    @tree.patterns[i] = [str,error]
+  addError : (name,text="")=>
+    @tree.errors?= {}
+    @tree.errors[name] = text
+  showError : (error="",error_align=@tree.error_align)=>
+    @clearPing()
+    str = error
+    if @tree.errors?[error]?
+      str = @tree.errors[error]
+    @emit 'error', error,str
+    @found.text3.html str
+    @found.level3.attr 'hide','false'
+    @label.addClass 'error'
+    console.log 'error',@val,str
+    return false
+  hideError : =>
+    @label.removeClass 'error'
+    @found.level3.attr 'hide','hide'
   matchReplace : (rstr)=>
     for key,v of @tree.replace
       nv = rstr.replace v[0],v[1]

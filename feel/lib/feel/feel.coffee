@@ -164,12 +164,13 @@ class module.exports
       dir   : m[3]
       name  : m[4]
       ext   : m[5]
-    if o.ext == 'sass'
-      @rebuildSass o.site,o.dir,o.name
-    if o.ext == 'jade'
-      @site[o.site].modules[o.dir].rebuildJade()
-    if o.ext == 'coffee'
-      @site[o.site].modules[o.dir].rebuildCoffee()
+    if o.type == 'modules'
+      if o.ext == 'sass'
+        @rebuildSass o.site,o.dir,o.name
+      if o.ext == 'jade'
+        @site[o.site].modules[o.dir]?.rebuildJade()
+      if o.ext == 'coffee'
+        @site[o.site].modules[o.dir]?.rebuildCoffee()
   rebuildSass : (site,module,name)=>
     console.log "rebuild sass for #{site}/#{module}:#{name}.sass".yellow
     cache = "#{@path.cache}/#{site}/modules/#{module}/#{name}.css"

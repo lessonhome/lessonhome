@@ -20,7 +20,6 @@ label
   +block
   color   : $text_color
   cursor  : pointer
-  background-color : white
   div
     +block
     height : 1em
@@ -28,7 +27,7 @@ label
     div
       +block
       height : inherit
-  .level2 .left
+  .level2 .text2
     font-size : 0.5em
   .level1,.level3
     height : auto
@@ -39,15 +38,32 @@ label
       line-height : inherit
       font-size : inherit
 
-label .level2 .left
+label .level2 .text2
   position : absolute
   float : right
   left : -100%
   width : 100%
 label .level2 .right
+  background-color : white
   border : 2px solid $border_color
   +border-radius(4px)
-  
+label:hover
+  color: #000000
+  .level2 .right
+    border: 2px solid #b3b3b3
+label.focus,label.focus:hover
+  color: #000000
+  .level2 .right
+    border: 2px solid rgb( 137, 209, 255 )
+label.error,label.error:hover
+  .level2 .right
+    border : 2px solid rgba(255,61,61,0.7)
+    +box-shadow(0 0 9px rgba(255,61,61,0.8))
+label.error.focus,label.error:hover,label.error:hover.focus
+  .level2 .right
+    border : 2px solid rgba(255,61,61,1)
+    +box-shadow(0 0 14px rgba(255,61,61,0.8))
+
 label div div input
   +block()
   margin-top : -2px
@@ -66,19 +82,19 @@ label div div input
     -webkit-box-shadow: 0 0 0 1000px white inset
 label
   .level1,.level3
-    .left,.right
+    div
       left : 0
       padding : 0.3em 0.3em 0 0.3em
-    .left
       text-align : left
     .right
       text-align : right
   .level3
     color : red
+    //font-weight : bold
 
 label
-  *,* *,* * *
-    &.hide,&[hide]
+  *, * *
+    &.hide,&[hide=hide]
       display : none
 
 label .hint
@@ -90,7 +106,7 @@ label .hint
 
 =selector($selector,$text_padding,$text_size,$input_padding,$input_size,$error_padding,$error_size)
   label.#{$selector}
-    .level2 .left
+    .level2 .text2
       padding   : $text_padding
       font-size : $text_size
     .level1,.level3
@@ -106,10 +122,34 @@ label .hint
         padding   : $error_padding
 
 +selector(first_reg,0 26px,16px,0 12px,none,none,none)
+//
+  1 : 2
+  2 : 4
+  3 : 3
+  4 : 1
+  5 : 1
+
+//+selector(fast_bid,16px,18px,12px,0,10px,none,37px,none)
++selector(fast_bid,10px 0,16px,0 12px, 18px,none,none)
 
 
 
 //+selector(first_reg,16px,18px,12px,26px,0,341px,none,none)
+
+//=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
+  label.#{$selector}
+    .text
+      font-size: $_font_size
+      padding-right: $padding_text_r
+      padding-bottom: $padding_text_b
+    .box
+      width: $width
+      .input_box
+        padding: 0 $padding
+        height: $height
+        input
+          text-align: $text_align
+          font-size: $font_size
 
 //=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
   label.#{$selector}

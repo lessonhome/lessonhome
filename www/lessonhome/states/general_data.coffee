@@ -3,11 +3,10 @@ class @main
   tree : -> module '$' :
     add_photos   : module 'add_photos'
     first_name  : module 'tutor/forms/input':
-      level2left : 'Имя :'
+      text2 : 'Имя :'
       selector    : 'first_reg'
-      text        : 'Имя :'
-      pattern     : '^[a-z]*$' #required using some like: (dataObject 'checker').patterns.alphabet
-      allowSymbolsPattern : '[a-zA-Zа-яА-ЯёЁ]'
+      #pattern     : '^[a-z]*$' #required using some like: (dataObject 'checker').patterns.alphabet
+      #allowSymbolsPattern : '[a-zA-Zа-яА-ЯёЁ]'
       #(required using some like: (dataObject 'checker').hints.alphabet)
       hint        : 'Поле должно содержать только символы русского или английского алфавита'
       replace     : [
@@ -16,8 +15,8 @@ class @main
         "d": "a"
       ]
       replace     : [
-        "^(8|7)(?!\\+7)":"+7"
-        "^(.*)(\\+7)":"$2$1"
+        {"^(8|7)(?!\\+7)":"+7"}
+        {"^(.*)(\\+7)":"$2$1"}
         "\\+7"
         "[^\\d_]"
         {"^(.*)$":"$1__________"}
@@ -30,8 +29,11 @@ class @main
       selectOnFocus : true
     last_name   : module 'tutor/forms/input':
       replace : '[^a-zA-Zа-яА-ЯёЁ]'
+      patterns: [
+        {".+@.+\..+":"error"}
+      ]
       selector    : 'first_reg'
-      level2left        : 'Фамилия :'
+      text2       : 'Фамилия :'
       allowSymbolsPattern : '[a-zA-Zа-яА-ЯёЁ]'
     patronymic  : module 'tutor/forms/input':
       selector    : 'first_reg'

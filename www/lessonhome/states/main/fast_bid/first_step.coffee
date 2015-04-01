@@ -6,23 +6,46 @@ class @main extends template '../fast_bid'
     progress : 1
     content : module '$' :
       name : module 'tutor/forms/input' :
-        text      : 'Имя :'
+        text1      : 'Имя :'
         selector  : 'fast_bid'
         pattern   : '^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,15}$'
         errMessage: 'Введите корректное имя (имя может содержать только цифры, символы алфавита и _)'
         value     : data('form').get('fast_bid','name')
       phone : module 'tutor/forms/input':
-        text: 'Телефон :'
+        text1: 'Телефон :'
         selector  : 'fast_bid'
-        pattern     : '^\\+7\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}$' #required using some like: (dataObject 'checker').patterns.telephon
-        errMessage  : 'Пожалуйста введите телефонный номер в виде +7(xxx)xxx-xx-xx'
         value      : data('form').get('fast_bid','phone')
+        replace     : [
+          {"^(8|7)(?!\\+7)":"+7"}
+          {"^(.*)(\\+7)":"$2$1"}
+          "\\+7"
+          "[^\\d_]"
+          {"^(.*)$":"$1__________"}
+          {"^([\\d_]{0,10})(.*)$": "$1"}
+          {"^([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)$":"+7 ($1$2$3) $4$5$6-$7$8-$9$10"}
+        ]
+        replaceCursor     : [
+          "(_)"
+        ]
+        selectOnFocus : true
+        patterns : [
+          "^\\+7 \\(\\d\\d\\d\\) \\d\\d\\d-\\d\\d-\\d\\d$" : "Введите телефон <br>в формате +7 (926) 123-45-45"
+        ]
       email : module 'tutor/forms/input':
-        text: 'E-mail :'
+        text1: 'E-mail :'
         selector  : 'fast_bid'
-        #pattern  : /.+@.+\..+/.source()
-        pattern   : /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.source
+        replace   : [
+         { "(^[^\\w])" : ""}
+         { "(\\@[^\\w])" : "@"}
+         { "([^\\w\\d-\\.@])" : ""}
+        ]
+        errors :
+          bad : "Введите корректный email"
+        patterns  : [
+          "\\w.*@\\w+\\.\\w+" : "bad"
+        ]
         errMessage  : 'Пожалуйста введите корректный email'
+        
       subject :module 'tutor/forms/drop_down_list':
         text: 'Предмет :'
         selector  : 'fast_bid'
