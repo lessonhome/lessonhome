@@ -9,10 +9,12 @@ class @main
       placeholder : 'с'
       pattern     : '^\\d{2}:\\d{2}$' #required using some like: (dataObject 'checker').patterns.time
       errMessage  : 'Пожалуйста введите кол-во часов от 0 до 24'
+      align : 'center'
       allowSymbolsPattern  : "[:0-9]"
     till_time       : module 'tutor/forms/input' :
       selector    : 'calendar'
       placeholder : 'до'
+      align : 'center'
       pattern     : '^\\d{2}:\\d{2}$' #required using some like: (dataObject 'checker').patterns.time
       errMessage  : 'Пожалуйста введите кол-во часов от 0 до 24'
       allowSymbolsPattern  : "[:0-9]"
