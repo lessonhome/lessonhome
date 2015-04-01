@@ -31,20 +31,20 @@ class @main extends template '../edit_description'
         selector : 'edit_save'
       old_phone_number : '+7*** *** ** 98'
       new_phone_number : module 'tutor/forms/input' :
-        text      : 'Новый :'
+        text2      : 'Новый :'
         selector  : 'first_reg'
       old_email : 'dd******@mail.ru'
       new_email : module 'tutor/forms/input'  :
-        text      : 'Новый :'
+        text2      : 'Новый :'
         selector  : 'first_reg'
       old_password : module 'tutor/forms/input' :
-        text      : 'Старый :'
+        text2      : 'Старый :'
         selector  : 'first_reg'
       new_password : module 'tutor/forms/input' :
-        text      : 'Новый :'
+        text2      : 'Новый :'
         selector  : 'first_reg'
       confirm_password : module 'tutor/forms/input' :
-        text      : 'Подтвердите :'
+        text2      : 'Подтвердите :'
         selector  : 'first_reg'
       line_phone : module 'tutor/separate_line' :
         title     : 'Номер телефона'

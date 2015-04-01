@@ -5,8 +5,9 @@ mixin field (selector, value)
 +field ('country', country)
 +field ('city', city)
 +field ('area', area)
-+field ('near_metro', near_metro)
-+field ('street', street)
-+field ('house', house)
-+field ('building', building)
-+field ('flat', flat)
+.input_block
+  .input.near_metro!= near_metro
+  .input.street!= street
+  .input.house!= house
+  .input.building!=  building
+  .input.flat!= flat

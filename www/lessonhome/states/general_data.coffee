@@ -8,12 +8,8 @@ class @main
       hint        : 'Поле должно содержать только символы русского или английского алфавита'
     last_name   : module 'tutor/forms/input':
       replace : '[^a-zA-Zа-яА-ЯёЁ]'
-      patterns: [
-        {".+@.+\..+":"error"}
-      ]
       selector    : 'first_reg'
       text2       : 'Фамилия :'
-      allowSymbolsPattern : '[a-zA-Zа-яА-ЯёЁ]'
     patronymic  : module 'tutor/forms/input':
       selector    : 'first_reg'
       level2left        : 'Отчество :'

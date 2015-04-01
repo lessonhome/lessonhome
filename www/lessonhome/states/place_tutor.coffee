@@ -11,19 +11,19 @@ class @main
       text      : 'Район :'
       selector  : 'first_reg'
     near_metro : module 'tutor/forms/input' :
-      text      : 'Ближайшее метро :'
+      text2      : 'Ближайшее метро :'
       selector  : 'first_reg'
     street     : module 'tutor/forms/input' :
-      text      : 'Улица :'
+      text2      : 'Улица :'
       selector  : 'first_reg'
     house      : module 'tutor/forms/input' :
-      text      : 'Дом :'
+      text2      : 'Дом :'
       selector  : 'first_reg_house'
     building   : module 'tutor/forms/input' :
-      text      : 'Строение :'
+      text2      : 'Строение :'
       selector  : 'first_reg_house'
     flat       : module 'tutor/forms/input' :
-      text      : 'Квартира :'
+      text2      : 'Квартира :'
       selector  : 'first_reg_house'
     add_button : module 'tutor/button' :
       text     : '+Добавить'
