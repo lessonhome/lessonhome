@@ -86,11 +86,20 @@ class Server
       res.end JSON.strinigfy e
   handlerHttpRedirect : (req,res)=>
     res.statusCode = 301
-    res.setHeader 'location', "https://#{req.headers.host}#{req.url}"
+    host = req.headers.host
+    if m = host.match /^www\.(.*)$/
+      host = m[1]
+    res.setHeader 'location', "https://#{host}#{req.url}"
     res.end()
   handler : (req,res)=>
     if @ssh
       res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
+    host = req.headers.host
+    if m = host.match /^www\.(.*)$/
+      res.statusCode = 301
+      host = m[1]
+      res.setHeader 'location', "//#{host}#{req.url}"
+      return res.end()
     console.log "#{req.method} \t#{req.headers.host}#{req.url}"
     if m = req.url.match /^\/google\?(.*)$/
       return @google req,res,m[1]
