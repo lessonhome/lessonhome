@@ -40,7 +40,9 @@
     "v8-profiler" : "*",
     "yuicompressor" : "*",
     "cookies" : "*",
-    "bcryptjs": "*"
+    "bcryptjs": "*",
+    "spdy":"*",
+    "http2":"*"
   }
 }
 

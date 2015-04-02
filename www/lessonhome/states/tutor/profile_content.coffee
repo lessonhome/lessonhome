@@ -2,7 +2,7 @@ class @main
   tree : -> module '$'  :
     popup               : @exports()
     photo               : module 'mime/photo' :
-      src      : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
+      src      : '//cs10490.vk.me/u168292091/a_fc7a117a.jpg'
     all_rating          : module '../rating_star':
       filling  : 40
     progress            : @exports()
@@ -51,8 +51,8 @@ class @main
       selector : 'horizon'
     media               : module '$/media' :
       photo1  : module 'mime/photo' :
-        src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
+        src : '//cs10490.vk.me/u168292091/a_fc7a117a.jpg'
       photo2  : module 'mime/photo' :
-        src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
+        src : '//cs10490.vk.me/u168292091/a_fc7a117a.jpg'
       video   : module 'mime/video' :
-        src : 'http://cs10490.vk.me/u168292091/a_fc7a117a.jpg'
+        src : '//cs10490.vk.me/u168292091/a_fc7a117a.jpg'

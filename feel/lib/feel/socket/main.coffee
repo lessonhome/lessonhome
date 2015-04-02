@@ -1,6 +1,8 @@
 
 
 http = require 'http'
+os = require 'os'
+spdy = require 'spdy'
 url  = require 'url'
 _cookies = require 'cookies'
 
@@ -13,7 +15,17 @@ class Socket
     @register = yield Main.service 'register'
     @server = http.createServer @handler
     @server.listen 8082
+    if os.hostname() == 'pi0h.org'
+      yield @runSsh()
     @handlers = {}
+  runSsh : =>
+    options = {
+      key: _fs.readFileSync '/key/server.key'
+      cert : _fs.readFileSync '/key/server.crt'
+      ca : _fs.readFileSync '/key/ca.pem'             
+    }                       
+    @sshServer = spdy.createServer options,@handler 
+    @sshServer.listen 8084
   run  : =>
 
   handler : (req,res)=> Q.spawn =>
@@ -95,6 +107,4 @@ class Socket
     return file
 
 module.exports = Socket
-
-
 

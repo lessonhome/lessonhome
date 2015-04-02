@@ -1,6 +1,7 @@
 
 
-http = require 'http'
+http  = require 'http'
+spdy  = require 'spdy'
 https = require 'https'
 _crypto = require 'crypto'
 os = require "os"
@@ -14,12 +15,16 @@ class Server
     switch hostname
       when 'pi0h.org'
         @port = 8081
+        @ssh = true
       else
         @port = 8081
   init : =>
-    @server = http.createServer @handler
+    unless @ssh
+      @server = http.createServer @handler
+    else
+      @server = http.createServer @handlerHttpRedirect
     @server.listen @port
-
+    @runSsh() if @ssh
     console.log "listen port #{@port}"
     @domains =
       text : {}
@@ -40,6 +45,14 @@ class Server
                   @domains.reg.push [domain,sitename]
 
     return Q()
+  runSsh : =>
+    options = {
+      key: _fs.readFileSync '/key/server.key'
+      cert : _fs.readFileSync '/key/server.crt'
+      #ca : _fs.readFileSync '/key/ca.pem'
+    }
+    @sshServer = spdy.createServer options,@handler
+    @sshServer.listen 8083
   google : (req,res,params)=>
     hash = _crypto.createHash('sha1').update(params).digest('hex')
     if @_google[hash]?
@@ -67,7 +80,13 @@ class Server
     .on 'error',(e)=>
       res.statusCode = 404
       res.end JSON.strinigfy e
+  handlerHttpRedirect : (req,res)=>
+    res.statusCode = 301
+    res.setHeader 'location', "https://#{req.headers.host}#{req.url}"
+    res.end()
   handler : (req,res)=>
+    if @ssh
+      res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
     console.log "#{req.method} \t#{req.headers.host}#{req.url}"
     if m = req.url.match /^\/google\?(.*)$/
       return @google req,res,m[1]
