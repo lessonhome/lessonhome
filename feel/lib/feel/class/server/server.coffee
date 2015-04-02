@@ -51,6 +51,8 @@ class Server
       cert : _fs.readFileSync '/key/server.crt'
       ciphers: "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4"
       honorCipherOrder: true
+      autoSpdy31 : true
+      ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'
     }
     @sshServer = spdy.createServer options,@handler
