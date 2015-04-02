@@ -5,7 +5,7 @@ spdy  = require 'spdy'
 os    = require 'os'
 spawn = require('child_process').spawn
 ps    = require 'ps-node'
-
+_fs = require 'fs'
 
 class module.exports
   constructor : ->
