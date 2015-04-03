@@ -16,18 +16,18 @@ class @main
     line    : module 'tutor/separate_line' :
       selector : 'horizon'
     mobile_phone  : module 'tutor/forms/input' :
-      text      : 'Мобильный телефон :'
+      text2      : 'Мобильный телефон :'
       selector  : 'first_reg'
-      placeholder: '+7(xxx)xxx–xx–xx'
+      placeholder: '+7 (xxx) xxx–xx–xx'
     extra_phone   : module 'tutor/forms/input' :
-      text      : 'Доп. телефон :'
+      text2      : 'Доп. телефон :'
       selector  : 'first_reg'
     post          : module 'tutor/forms/input' :
-      text      : 'Почта(email) :'
+      text2      : 'Почта(email) :'
       selector  : 'first_reg'
     skype         : module 'tutor/forms/input' :
-      text      : 'Skype :'
+      text2      : 'Skype :'
       selector  : 'first_reg'
     site          : module 'tutor/forms/input' :
-      text      : 'Личный сайт :'
+      text2      : 'Личный сайт :'
       selector  : 'first_reg'

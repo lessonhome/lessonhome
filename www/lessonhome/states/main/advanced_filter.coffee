@@ -11,9 +11,10 @@ class @main
         selector  : 'advance_filter'
       time_spend_lesson   : state './slider_main' :
         selector      : 'lesson_time'
-        start         : 'time_spend'
+        start         : 'calendar'
         end           : module 'tutor/forms/input' :
-          selector    : 'time_spend'
+          selector    : 'calendar'
+          align : 'center'
         dash          : '-'
         measurement   : 'мин.'
         handle        : true
@@ -21,7 +22,7 @@ class @main
         max           : 180
       time_spend_way   : state './slider_main' :
         selector      : 'lesson_time'
-        start         : 'time_spend'
+        start         : 'calendar'
         measurement   : 'мин.'
         min           : 15
         max           : 120

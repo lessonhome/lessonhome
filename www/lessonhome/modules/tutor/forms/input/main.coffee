@@ -56,6 +56,8 @@ class @main extends EE
     @tree.replace = @parseRegexpObj @tree.replace
     @tree.patterns = @parseRegexpObj @tree.patterns
     @tree.replaceCursor = @parseRegexpObj @tree.replaceCursor,''
+    @hint         = @found.hint
+    @hintMessage  = @found.hint_message
   parseRegexpObj : (obj,ext='mg')=>
     obj ?= {}
     if typeof obj =='string'
@@ -96,12 +98,14 @@ class @main extends EE
   onFocus : =>
     @emit 'focus'
     @label.addClass 'focus'
+    @hint?.fadeIn?()  if @tree.hint?
     if @tree.selectOnFocus
       setTimeout =>
         @input.setSelection(0,@input.val().length)
       ,0
   onBlur    : =>
     @emit 'blur'
+    @hint?.fadeOut?() if @tree.hint?
     @label.removeClass 'focus'
     console.log 'blur'
     @emitEnd()
@@ -247,8 +251,6 @@ class @main extends EE
     @input_box    = @found.input_box
     @input        = @found.input
     @outputErr    = @found.output_error
-    @hint         = @found.input_hint
-    @hintMessage  = @found.hint_message
     @val          = @input.val()
 
   show : =>

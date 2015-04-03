@@ -136,7 +136,6 @@ class @main extends template '../../tutor'
         handle        : false
         min           : 15
         max           : 120
-      road_time : module 'tutor/forms/input'
       separate_line : module 'tutor/separate_line' :
         selector : 'horizon'
       list_bids : module 'tutor/bids/list_bids' :

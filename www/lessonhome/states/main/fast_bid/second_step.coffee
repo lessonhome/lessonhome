@@ -29,11 +29,13 @@ class @main extends template '../fast_bid'
         }
       price_slider_bids   : state '../slider_main' :
         selector      : 'price_slider_bids'
-        start         : 'price_bids'
+        start         : 'calendar'
         start_text    : 'от'
         end         : module 'tutor/forms/input' :
-          selector  : 'price_bids'
-          text      : 'до'
+          selector  : 'calendar'
+          text2      : 'до'
+          align : 'center'
+
         measurement   : 'руб.'
         handle        : true
         min           : 400
