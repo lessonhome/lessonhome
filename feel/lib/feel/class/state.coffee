@@ -14,11 +14,11 @@ class module.exports
     
   init : =>
     #return unless @name.match(/^test.*/) || @name.match(/^dev.*/)
-    console.log "state #{@name}"
+    console.log "state\t\t".magenta, "#{@name}".cyan
     try
       src = coffee._compileFile @path
     catch e
-      console.error e
+      console.error Exception e
       throw new Error "Failed compile satate #{@name}"
     
     context = [
@@ -67,7 +67,7 @@ class module.exports
     try
       src = eval @src
     catch e
-      console.error e
+      console.error Exception e
       throw new Error "Failed exec state #{@name} "+e
     return unless src.main?
     throw new Error "Not defined 'class @main' in state '#{@name}'" unless src.main?
@@ -179,7 +179,7 @@ class module.exports
               key
             }
     catch e
-      console.error "failed match exports in state #{@name}", e
+      console.error "failed match exports in state #{@name}", Exception e
       throw e
     @bind_exports state,o
     try
@@ -206,14 +206,14 @@ class module.exports
           _p = _p.constructor.__super__
 
     catch e
-      console.error "failed make parent in state #{@name}",e,state.parent
+      console.error "failed make parent in state #{@name}",Exception(e),state.parent
       throw e
     if state.parent
       state.parent.__bind_exports state.parent, state.tree
     try
       state.init?()
     catch e
-      console.error "failed state init #{@name}",e
+      console.error "failed state init #{@name}",Exception e
       throw e
     osdepend = {}
     for name of @sdepend
@@ -243,7 +243,7 @@ class module.exports
                   newo[k] = node[k]
                   state.parent.__bind_exports state.parent, newo
     catch e
-      console.error "failed merge tree in state #{@name} with object", o,e
+      console.error "failed merge tree in state #{@name} with object", o,Exception e
       throw e
     
   walk_tree_up : (node, foo)=>
@@ -332,7 +332,16 @@ class module.exports
           m     = val
       else
         throw new Error 'wrong module name', o
+    lastn = name
+    arr = name.split(':')
+    name = arr.shift()
     mod._name  = name
+    for ext,i in arr
+      arr[i] = path.normalize "#{name}/#{ext}"
+      if !@site.modules[arr[i]]?
+        throw new Error "extends module '#{arr[i]}' not exists in state:#{@name}::#{lastn}".red
+
+    mod._extends_modules = arr
     for key,val of m
       mod[key] = val
     if (!name.match(/^\/\/.*/)) && (!@site.modules[name]?)

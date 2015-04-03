@@ -17,7 +17,7 @@ class @main extends template '../edit_description'
         text      : 'ВУЗ :'
         selector  : 'first_reg'
       faculty       : module 'tutor/forms/input'  :
-        text      : 'Факультет :'
+        text2      : 'Факультет :'
         selector  : 'first_reg'
       chair         : module 'tutor/forms/drop_down_list' :
         text      : 'Кафедра :'

@@ -23,6 +23,7 @@ class @main extends EE
     @items        = @options.find '>div'
   closeList : =>
     $('body').off 'mousedown.drop_down_list'
+    $('body').off 'mouseleave.drop_down_list'
     @emit 'change',@getValue()
     @bodyListenMD = false
     @label.removeClass 'focus'
@@ -41,9 +42,11 @@ class @main extends EE
       @isFocus = false
       if !@bodyListenMD
         @bodyListenMD = true
-        $('body').on 'mousedown.drop_down_list', (t)=>
+        f = (t)=>
           return if $.contains @dom[0],t.target
           @closeList()
+        $('body').on 'mousedown.drop_down_list', f
+        $('body').on 'mouseleave.drop_down_list', @closeList
 
     if @tree.default_options?
       do =>
@@ -146,11 +149,14 @@ class @main extends EE
             when @unit.enterCode
               selectedOptionToInput()
             when @unit.tabCode
-              if @select_sets.is(':visible')
-                if event.shiftKey
-                  prevSelected @options
-                else nextSelected @options
-                event.preventDefault()
+              event.preventDefault()
+              nextSelected @options if @exists()
+              selectedOptionToInput(false)
+              #if @select_sets.is(':visible')
+              #  if event.shiftKey
+              #    prevSelected @options
+              #  else nextSelected @options
+              #  event.preventDefault()
 
 
         @options.keydown (event) =>

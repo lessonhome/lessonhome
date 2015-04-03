@@ -22,7 +22,7 @@ class @main extends template '../fast_bid'
         selector  : 'fast_bid'
       time_spend_way   : state '../slider_main' :
         selector      : 'way_fast_bids'
-        start         : 'time_spend_bids'
+        start         : 'calendar'
         start_text    : 'до'
         measurement   : 'мин.'
         handle        : false
@@ -38,10 +38,11 @@ class @main extends template '../fast_bid'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       time_spend_lesson   : state '../slider_main' :
         selector      : 'time_fast_bids'
-        start         : 'time_spend_bids'
+        start         : 'calendar'
         dash          : '-'
         end         : module 'tutor/forms/input' :
-          selector  : 'time_spend_bids'
+          selector  : 'calendar'
+          align : 'center'
         measurement   : 'мин.'
         handle        : true
         min           : 45

@@ -3,19 +3,16 @@ class @main
   tree : -> module '$' :
     add_photos   : module 'add_photos'
     first_name  : module 'tutor/forms/input':
+      text2 : 'Имя :'
       selector    : 'first_reg'
-      text        : 'Имя :'
-      pattern     : '^[a-z]*$' #required using some like: (dataObject 'checker').patterns.alphabet
-      allowSymbolsPattern : '[a-zA-Zа-яА-ЯёЁ]'
-      #(required using some like: (dataObject 'checker').hints.alphabet)
       hint        : 'Поле должно содержать только символы русского или английского алфавита'
     last_name   : module 'tutor/forms/input':
+      replace : '[^a-zA-Zа-яА-ЯёЁ]'
       selector    : 'first_reg'
-      text        : 'Фамилия :'
-      allowSymbolsPattern : '[a-zA-Zа-яА-ЯёЁ]'
+      text2       : 'Фамилия :'
     patronymic  : module 'tutor/forms/input':
       selector    : 'first_reg'
-      text        : 'Отчество :'
+      level2left        : 'Отчество :'
       allowSymbolsPattern : '[a-zA-Zа-яА-ЯёЁ]'
     gender_data   : state 'gender_data':
       selector        : 'choose_gender'

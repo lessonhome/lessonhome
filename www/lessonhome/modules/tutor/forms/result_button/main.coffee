@@ -5,9 +5,15 @@ class @main extends EE
     @button = @dom.find ".button_box"
     @button.on 'click', @click
 
-    @button.on    'mousedown', => @button.addClass('press')
-    @button.on    'mouseup',   => @button.removeClass('press')
-    $('body').on  'mouseup',   => @button.removeClass('press')
+    @button.on  'mousedown.result_button', @mdown
+  mdown : =>
+    @button.addClass('press')
+    $('body').on  'mouseup.result_button',@mup
+    $('body').on  'mouseleave.result_button',@mup
+  mup  : =>
+    $('body').off  'mouseup.result_button'
+    $('body').off  'mouseleave.result_button'
+    @button.removeClass('press')
 
   disable : =>
     @button.removeClass 'active'

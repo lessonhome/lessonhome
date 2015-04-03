@@ -1,10 +1,11 @@
 
 
 http  = require 'http'
+spdy  = require 'spdy'
 os    = require 'os'
 spawn = require('child_process').spawn
 ps    = require 'ps-node'
-
+_fs = require 'fs'
 
 class module.exports
   constructor : ->
@@ -12,10 +13,25 @@ class module.exports
     @updating = false
   run : ->
     #return if os.hostname() != 'pi0h.org'
-    @server = http.createServer @handler
+    @ssh = true if os.hostname() == 'pi0h.org'
+    options = {
+      key: _fs.readFileSync '/key/server.key'
+      cert : _fs.readFileSync '/key/server.crt'
+      ciphers: "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4"
+      honorCipherOrder: true
+      autoSpdy31 : true
+      ssl : true
+      #ca : _fs.readFileSync '/key/ca.pem'
+    }
+    unless @ssh
+      @server = http.createServer @handler
+    else
+      @server = spdy.createServer options,@handler
     @hand = 0
     @server.listen @port
   handler :(req,res)=>
+    if @ssh
+      res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
     return process.exit(0) if req.url == "/restart"
     return @tail(req,res) if req.url != "/update"
 
@@ -38,7 +54,7 @@ class module.exports
           command : 'node'
           psargs : "aux"
         }, (err,list)=>
-          @exec "cat", ["./version"], res, =>
+          @exec "cat", ["./feel/version"], res, =>
             if !err
               for p in list
                 for a in p.arguments
@@ -64,8 +80,12 @@ class module.exports
     if @hand <= 0
       process.exit()
   log : (res,msg)=>
-    res.write msg
     process.stdout.write msg
+    if msg?.toString?()
+      msg = msg.toString()
+    if typeof msg == 'string'
+      msg = msg.replace /\[\d\dm/g,""
+    res.write msg
 
   exec : (cmd,args,res,time,cb)=>
     t = new Date().getTime()

@@ -2,7 +2,7 @@
 global.Q = require "q"
 Q.longStackSupport = true
 global.CLONE = require './lib/clone'
-
+_beautify = require 'js-beautify'
 LoadSites = require './scripts/loadSites'
 Server    = require './class/server/server'
 fs        = require 'fs'
@@ -45,7 +45,7 @@ class module.exports
     .then => @version()
     .then =>
       return if @version == @oversion
-      _rmrf('.cache')
+      _rmrf('.cache').then -> _rmrf 'feel/.sass-cache'
     .then => mkdirp '.cache'
     .then =>
       _writeFile '.cache/version',@sVersion
@@ -121,7 +121,7 @@ class module.exports
   compass : =>
     defer = Q.defer()
     process.chdir 'feel'
-    console.log 'compass compile'
+    console.log 'compass compile'.magenta
     compass = spawn 'compass', ['compile']
     process.chdir '..'
     compass.stdout.on 'data', (data)=>
@@ -129,7 +129,7 @@ class module.exports
       if data.toString().substr(9,5).match /write/
         m = data.toString().substr(14).match /.*(modules\/.*)\.css/
         if m
-          console.log m[1]+".sass"
+          console.log "sass\t\t".cyan,"#{m[1]}.sass".grey
       else
         process.stdout.write data
     compass.stderr.on 'data', (data)=> process.stderr.write 'compass: '+data
@@ -142,7 +142,7 @@ class module.exports
   npm : =>
     defer = Q.defer()
     process.chdir 'feel'
-    console.log 'npm install'
+    console.log 'npm install'.red
     npm = spawn 'npm', ['i']
     process.chdir '..'
     npm.stdout.on 'data', (data)=> process.stdout.write data
@@ -164,12 +164,17 @@ class module.exports
       dir   : m[3]
       name  : m[4]
       ext   : m[5]
-    if o.ext == 'sass'
-      @rebuildSass o.site,o.dir,o.name
-    if o.ext == 'jade'
-      @site[o.site].modules[o.dir].rebuildJade()
+    if o.type == 'modules'
+      if o.ext == 'sass'
+        @rebuildSass o.site,o.dir,o.name
+      if o.ext == 'jade'
+        @site[o.site].modules[o.dir]?.rebuildJade()
+      if o.ext == 'coffee'
+        @site[o.site].modules[o.dir]?.rebuildCoffee()
+    if o.type == 'states'
+      @site[o.site].loadStates()
   rebuildSass : (site,module,name)=>
-    console.log "rebuild sass for #{site}/#{module}:#{name}.sass"
+    console.log "rebuild sass for #{site}/#{module}:#{name}.sass".yellow
     cache = "#{@path.cache}/#{site}/modules/#{module}/#{name}.css"
     @sassChanged["#{site}/#{module}"] = {
       site
@@ -181,6 +186,7 @@ class module.exports
         return @compileSass()
   
   compileSass : =>
+    @_compiling = true
     @compass()
     .then =>
       arr = []
@@ -193,6 +199,12 @@ class module.exports
           m.rescanFiles()
           .then m.makeSassAsync
       , Q()
+    .catch =>
+      setTimeout =>
+        @compileSass() unless @_compiling
+      , 3000
+    .then =>
+      @_compiling = false
     .done()
     
   loadClient : =>
@@ -203,6 +215,7 @@ class module.exports
       for key,val of @client
         @clientJs += val unless key == 'main'
       @clientJs += @client['main']
+    @clientJs = @bjs @clientJs
   loadClientDir : (path,dir)=>
     readdir "#{path}#{dir}"
     .then (files)=>
@@ -225,6 +238,34 @@ class module.exports
             q = q.then =>
               curl state.class::route
     return q
+  bcss : (css)=>
+    return _beautify.css css,{
+      "indent-size" : 2
+      "selector-separator-newline" : true
+      "newline-between-rules" : true
+    }
+  bjs  : (js)=>
+    return _beautify.js js,{
+      "indent_size": 2,
+      "indent_char": " ",
+      "indent_level": 1,
+      "indent_with_tabs": false,
+      "preserve_newlines": true,
+      "max_preserve_newlines": 10,
+      "jslint_happy": true,
+      "space_after_anon_function": false,
+      "brace_style": "collapse",
+      "keep_array_indentation": false,
+      "keep_function_indentation": false,
+      "space_before_conditional": true,
+      "break_chained_methods": false,
+      "eval_code": false,
+      "unescape_strings": false,
+      "wrap_line_length": 0,
+      "wrap_attributes": "auto",
+      "wrap_attributes_indent_size": 4
+    }
+
 
     
     

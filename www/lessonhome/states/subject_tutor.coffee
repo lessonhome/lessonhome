@@ -104,10 +104,11 @@ class @main
       text      : 'взрослый'
     time_spend_lesson : state 'main/slider_main' :
       selector      : 'time_fast_bids'
-      start         : 'time_spend_bids'
+      start         : 'calendar'
       dash          : '-'
       end         : module 'tutor/forms/input' :
-        selector  : 'time_spend_bids'
+        selector  : 'calendar'
+        align     : 'center'
       measurement   : 'мин.'
       handle        : true
       min           : 45
@@ -116,8 +117,9 @@ class @main
       text      : 'Место :'
       selector  : 'first_reg_place'
     price             : module 'tutor/forms/input' :
-      text      : 'Цена :'
-      selector  : 'price_reg'
+      text2       : 'Цена :'
+      selector    : 'calendar'
+      align : 'center'
     price_button      : module 'button_add' :
       text      : '+'
       selector  : 'plus'
@@ -125,8 +127,9 @@ class @main
       text      : 'Групповые занятия :'
       selector  : 'first_reg_place'
     group_lessons_price : module 'tutor/forms/input' :
-      text      : 'Цена :'
-      selector    : 'price_reg'
+      text2       : 'Цена :'
+      selector    : 'calendar'
+      align       : 'center'
     comments          : module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'

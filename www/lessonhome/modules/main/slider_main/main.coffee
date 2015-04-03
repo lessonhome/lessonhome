@@ -11,7 +11,8 @@ class @main extends EE
     @start = @tree.start?.class
     @end   = @tree.end?.class
     @slider = @tree.move.class
-
+    @end?.addReplace? /\D/,""
+    @start?.addReplace? /\D/,""
     @start?.setValue @min
     @end?.setValue @max
 
@@ -21,12 +22,12 @@ class @main extends EE
     setInputVal = (inputCmp, x) =>
       inputCmp.setValue (Math.round (@max-@min)*x + @min)
 
-    @start?.on 'change', =>
+    @start?.on 'end', =>
       slider = @slider.left if @slider.left?
       slider ?= @slider.right if @slider.right?
       setSliderPos(slider, +@start.getValue()) if slider?
 
-    @end?.on 'change', =>
+    @end?.on 'end', =>
       slider = @slider.right if @slider.right?
       slider ?= @slider.left if @slider.left?
       setSliderPos(slider, +@end.getValue()) if slider

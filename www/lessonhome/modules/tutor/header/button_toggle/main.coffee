@@ -4,10 +4,16 @@ class @main extends EE
     @active = @button.hasClass 'active'
     @dom.on 'click', @click
 
-    @button.on    'mousedown', => @button.addClass('press')
-    @button.on    'mouseup',   => @button.removeClass('press')
-    $('body').on  'mouseup',   => @button.removeClass('press')
+    @button.on    'mousedown', @mdown
 
+  mdown : =>
+    @button.addClass 'press'
+    $('body').on 'mouseup.button_toggle', @mup
+    $('body').on 'mouseleave.button_toggle', @mup
+  mup   : =>
+    @button.removeClass 'press'
+    $('body').off 'mouseup.button_toggle'
+    $('body').off 'mouseleave.button_toggle'
 
   disable : =>
     if !@active then return

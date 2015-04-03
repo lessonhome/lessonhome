@@ -4,13 +4,220 @@ $bg_color_w: #ffffff
 $text_color: rgba(75, 75, 75, 0.70)
 $border_color: #d6d6d6
 
+
+
+=block()
+  +inline-block
+  float : left
+  padding : 0
+  margin : 0
+  +box-sizing('border-box')
+  width : 100%
+  position : relative
 main
-  height: 100%
-  width: 100%
+  +block
 label
+  +block
+  color   : $text_color
+  cursor  : pointer
+  div
+    +block
+    height : 1em
+    line-height : 1em
+    div
+      +block
+      height : inherit
+  .level2 .text2
+    font-size : 0.5em
+  .level1,.level3
+    height : auto
+    +box-sizing(content-box)
+    line-height : 1.5em
+    div
+      height : auto
+      line-height : inherit
+      font-size : inherit
+
+label .level2 .text2
+  position : absolute
+  float : right
+  right : 100%
+  width : auto
+  white-space: nowrap
+  +box-sizing(content-box)
+
+label .level2 .right
+  background-color : white
+  border : 2px solid $border_color
+  +border-radius(4px)
+  overflow : hidden
+label:hover
+  color: #000000
+  .level2 .right
+    border: 2px solid #b3b3b3
+label.focus,label.focus:hover
+  color: #000000
+  .level2 .right
+    border: 2px solid rgb( 137, 209, 255 )
+label.error,label.error:hover
+  .level2 .right
+    border : 2px solid rgba(255,61,61,0.7)
+    +box-shadow(0 0 9px rgba(255,61,61,0.8))
+label.error.focus,label.error:hover,label.error:hover.focus
+  .level2 .right
+    border : 2px solid rgba(255,61,61,1)
+    +box-shadow(0 0 14px rgba(255,61,61,0.8))
+
+label div div input
+  +block()
+  margin-top : -2px
+  line-height : inherit
+  height  : inherit
+  outline : none
+  border  : none
+  background : none
+  color : black
+  cursor : text
+  font-size : 0.5em
+  +input-placeholder
+    color : #757575
+    opacity : 1
+  //&:-webkit-autofill
+    -webkit-box-shadow: 0 0 0 1000px white inset
+label
+  .level1,.level3
+    div
+      left : 0
+      padding : 0.3em 0.3em 0 0.3em
+      text-align : left
+    .right
+      text-align : right
+  .level3
+    color : red
+    //font-weight : bold
+
+label
+  *, * *
+    &.hide,&[hide=hide]
+      display : none
+
+label .hint
+  +block
+  height : auto
+  font-size : 16px
+  display : none
+  position : absolute
+  overflow : hidden
+  +box-sizing(content-box)
+  padding: 15px
+  width: 300px
+  background: $bg_color_w
+  border: 1px solid $bg_color
+  box-sizing: border-box
+  left: 100%
+  top: -7px
+  margin-left: 24px
+  text-align: left
+  min-height: 50px
+  .bubble-arrow, .bubble-arrow-after
+    width: 0
+    height: 0
+    position: absolute
+    right: 100%
+    top: 13px
+    border: 12px solid transparent
+    border-right-color: $bg_color
+  .bubble-arrow-after
+    top: 14px
+    border: 11px solid transparent
+    border-right-color: $bg_color_w
+  .hint_message
+    font-size: 14px
+    line-height: 20px
+    +inline-block
+    position : relative
+    overflow : hidden
+    +box-sizing(content-box)
+
+
+
+
+
+=selector($selector,$text_padding,$text_size,$input_padding,$input_size,$error_padding,$error_size)
+  label.#{$selector}
+    .level2 .text2
+      padding   : $text_padding
+      font-size : $text_size
+    .level1,.level3
+      font-size : $text_size
+    .level1 div
+      padding   : $text_padding
+    .level2 .right input
+      padding   : $input_padding
+      font-size : $input_size
+    .level3
+      font-size : $error_size
+      div
+        padding   : $error_padding
+
++selector(first_reg,0 26px,16px,0 12px,none,none,none)
+//
+  1 : 2
+  2 : 4
+  3 : 3
+  4 : 1
+  5 : 1
+
+//+selector(fast_bid,16px,18px,12px,0,10px,none,37px,none)
++selector(fast_bid,10px 0,16px,0 12px, 18px,none,none)
+
+
+//////////// calendar advance filter////////////
++selector(calendar,0 10px,20px,0 8px,18px,none,none)
++selector(price_slider_top,0 10px,25px,0 8px,39px,none,none)
+//-+selector(calendar,16px,18px,2px,0,0,72px,none,center)
+
+//+selector(first_reg,16px,18px,12px,26px,0,341px,none,none)
+
+//=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
+  label.#{$selector}
+    .text
+      font-size: $_font_size
+      padding-right: $padding_text_r
+      padding-bottom: $padding_text_b
+    .box
+      width: $width
+      .input_box
+        padding: 0 $padding
+        height: $height
+        input
+          text-align: $text_align
+          font-size: $font_size
+
+//=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
+  label.#{$selector}
+    .level1>div,.level2>.left
+      font-size: $_font_size
+      padding-right: $padding_text_r
+      padding-bottom: $padding_text_b
+    .box
+      width: $width
+      .input_box
+        padding: 0 $padding
+        height: $height
+        input
+          text-align: $text_align
+          font-size: $font_size
+
+    //.output-error.output-error_show
+      width: $width
+
+
+//main
+  width: 100%
+//label
   +inline-block
   width: 100%
-  height: 100%
   position: relative
   .text
     +inline-block
@@ -18,11 +225,10 @@ label
     color: $text_color
   .box
     width: 100%
-    height: 100%
     +inline-block
     .input_box
       +inline-block
-      height: 100%
+      height : 37px
       width: 100%
       box-sizing: border-box
       border: 2px solid $border_color
@@ -81,10 +287,13 @@ label
       line-height: 20px
       +inline-block
 
-label:after
+//label:after
   content: ''
   height: 100%
   +inline-block
+
+
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!           !!!!!!!!!!!!!!!!!!!  10 235
 
 
 
@@ -98,7 +307,7 @@ label:after
   $padding_text_b - padding bottom text
   $width - width box if have text in left side to input
   $height - width box if have text in top side to input
-=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
+//=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
   label.#{$selector}
     .text
       font-size: $_font_size
@@ -116,24 +325,36 @@ label:after
     //.output-error.output-error_show
       width: $width
 //////////---------main page-----------////////////
-
+=selector($selector,$_font_size,$font_size,$padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
+  .div
+    background : red
 ////////////// price fourth step slider////////////////////
 +selector(price,24px,39px,12px,10px,0,116px,none,center)
 
 /////////// prise fast bids//////////
 +selector(price_bids,18px,20px,2px,10px,0,75px,none,center)
-.price_bids
+//.price_bids
   text-align: left
 
+//
+  1 : 2
+  2 : 4
+  3 : 3
+  4 : 1
+  5 : 1
+
+
+
 //////////// calendar advance filter////////////
-+selector(calendar,16px,18px,2px,0,0,72px,none,center)
+//+selector(calendar,)
+//-+selector(calendar,16px,18px,2px,0,0,72px,none,center)
 
 /////////////// advance filter slider//////////
 +selector(time_spend,16px,18px,2px,7px,0,50px,none,center)
 
 ///////////////  issue fast bids///////////
 +selector(fast_bid,16px,18px,12px,0,10px,none,37px,none)
-.fast_bid
+//.fast_bid
   text-align: left
 
 /////////// fast bids time_spend_bids/////////
@@ -158,7 +379,7 @@ label:after
 
 //- ------------------------ MAIN :CHECK IN --------------------
 +selector(main_check_in,18px,20px,12px,0,10px,none,37px,none)
-label.main_check_in
+//label.main_check_in
   .text
     font-size: 16px
     padding-bottom: 6px
@@ -170,20 +391,20 @@ label.main_check_in
 //////////////////////////// action class//////////////////////////////
 
 /////////----------------hover-------------/////
-label:hover
+//label:hover
   .text
     color: #000000
   .box .input_box
     border: 2px solid #b3b3b3
 
-label.main_check_in:hover
+//label.main_check_in:hover
   .text
     color: $text_color
   .box .input_box
     border: 2px solid $border_color
 
 /////////----------------focus-------------/////
-label.focus,label.focus:hover
+//label.focus,label.focus:hover
   .text
     color: #000000
   .box .input_box
@@ -192,9 +413,9 @@ label.focus,label.focus:hover
 
 ///////////////// errors ////////////
 ///////////// add class 'bad-input' to class 'output-error' for show
-label .box .input_box.bad-input
+//label .box .input_box.bad-input
   border: 2px solid red
 
 ///////////// add class 'output-error_show' to class 'output-error' for show
-label .box .output_error.output_error_show
+//label .box .output_error.output_error_show
   +inline-block

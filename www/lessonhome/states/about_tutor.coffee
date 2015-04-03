@@ -9,9 +9,8 @@ class @main
       text      : 'Интересы :'
       selector  : 'first_reg'
     slogan     : module 'tutor/forms/input'  :
-      text        : 'Девиз :'
+      text2        : 'Девиз :'
       selector  : 'first_reg'
-      height    : '87px'
     about      : module 'tutor/forms/textarea' :
       height    : '117px'
       text      : 'О себе :'

@@ -1,6 +1,8 @@
 
 
 http = require 'http'
+os = require 'os'
+spdy = require 'spdy'
 url  = require 'url'
 _cookies = require 'cookies'
 
@@ -13,7 +15,21 @@ class Socket
     @register = yield Main.service 'register'
     @server = http.createServer @handler
     @server.listen 8082
+    if os.hostname() == 'pi0h.org'
+      yield @runSsh()
     @handlers = {}
+  runSsh : =>
+    options = {
+      key: _fs.readFileSync '/key/server.key'
+      cert : _fs.readFileSync '/key/server.crt'
+      ciphers: "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4"
+      honorCipherOrder: true
+      autoSpdy31 : true
+      ssl : true
+      #ca : _fs.readFileSync '/key/ca.pem'             
+    }                       
+    @sshServer = spdy.createServer options,@handler 
+    @sshServer.listen 8084
   run  : =>
 
   handler : (req,res)=> Q.spawn =>
@@ -64,9 +80,7 @@ class Socket
     res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(JSON.stringify(ret)))});"
 
   resolve : (context,path,pref)=>
-    console.log pref
     name = pref+path.substr 1
-    console.log context,name
     #"runtime#{path}.c.coffee"
     suffix  = ""
     postfix = name
@@ -95,6 +109,4 @@ class Socket
     return file
 
 module.exports = Socket
-
-
 

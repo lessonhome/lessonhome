@@ -17,8 +17,9 @@ if address_popup
   a(href = '/tutor/profile/second_step_address') Укажите подробный адресс
 .line_box
   .line!= line
-+field ('mobile_phone', mobile_phone)
-+field ('extra_phone', extra_phone)
-+field ('post', post)
-+field ('skype',skype)
-+field ('site',site)
+
+.input.mobile_phone!=mobile_phone
+.input.extra_phone!=extra_phone
+.input.post!=post
+.input.skype!=skype
+.input.site!=site

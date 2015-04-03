@@ -5,6 +5,7 @@ class @main extends EE
 
     @link.on     'mousedown', @mdown
     @link.click (e)=>
+      return unless e.button==0
       e.preventDefault()
       @emit 'submit'
   mdown : =>

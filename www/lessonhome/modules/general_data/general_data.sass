@@ -1,11 +1,16 @@
 @import compass/css3
 $padding: 7px
 $height: 37px
-.value, .gender_data, .birth_data
+.input
   +inline-block
-  height: $height
   padding: $padding 0
-
+  font-size : $height
+  width : 341px
+  +box-sizing('border-box')
+.gender_data,.birth_data,.status
+  +inline-block
+  padding : $padding 0
+  height : $height
 .first_name
   padding-top: 0
 .status

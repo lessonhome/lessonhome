@@ -5,6 +5,7 @@ rand  = (num)-> crypto.createHash('sha1').update(num).digest('hex').substr 0,10
 
 class RouteState
   constructor : (@statename,@req,@res,@site)->
+    @time()
     @rand = "1"
     @reqHash =
       url     : @req.url
@@ -16,7 +17,14 @@ class RouteState
     @o =
       res : @res
       req : @req
-  
+    @time "constr"
+  time : (str="")=>
+    if !@_time?
+      @_time = new Date().getTime()
+    else
+      t = new Date().getTime()
+      console.log "time: #{t-@_time}ms ".grey+str.red
+      @_time = t
     
   getTopNode : (node,force=false)=>
     return node if node?._isModule
@@ -65,7 +73,10 @@ class RouteState
       for key,val of node
         @walk_tree_down node[key],node,key,foo
   go : => do Q.async =>
+    @res.on 'finish', => console.log "time".yellow+"\t#{new Date().getTime() - @req.time}ms".cyan
+    @time "go s"
     @state = yield @site.state[@statename].make(null,null,@req,@res)
+    @time 'make'
     @tags = {}
     @getTop()
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
@@ -90,7 +101,8 @@ class RouteState
         o[node._statename] = @top.__state
       for sn,s of o
         s.page_tags = @tags
-    @modules  = {}
+    @modules    = {}
+    @modulesExt = {}
     @css      = ""
     @jsModules = ""
     @jsClient = Feel.clientJs
@@ -101,9 +113,14 @@ class RouteState
     for modname of @modules
       if @site.modules[modname].allCss
         @cssModule modname
+    for modname,val of @modulesExt
+      @cssModuleExt modname,val
+      for key of val
+        @modules[key] = true
     for modname of @modules
-      if @site.modules[modname].allCoffee
+      if @site.modules[modname]?.allCoffee
         @jsModules += "$Feel.modules['#{modname}'] = #{@site.modules[modname].allCoffee};"
+    @time 'parse'
     title   = @state.title
     title  ?= @statename
     end  = ""
@@ -112,34 +129,39 @@ class RouteState
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
     end += @css+'</head><body>'+@top._html
     @removeHtml @top
-    json_tree = JSON.stringify(@getTree(@top))
+    @time "remove html"
+    json_tree = _toJson(@getTree(@top))
+    @time "stringify"
     end +=
       @site.moduleJsTag('lib/jquery')+
-      @site.moduleJsTag('lib/cookie')+
+      @site.moduleJsTag('lib/jquery/plugins')+
       @site.moduleJsTag('lib/q')+
       @site.moduleJsTag('lib/event_emitter')+
       @site.moduleJsTag('lib/jade')+
       '
       <script id="feel-js-client">
+      '+('
           window.EE = EventEmitter;
           var $Feel = {}; 
           $Feel.root = {
-              "tree" : '+json_tree+'
+              "tree" : InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
           };
           $Feel.modules = {};
           (function(){
             '+@jsClient+'
             
-            }).call($Feel);
+            }).call($Feel); ')+'
       </script>'+
       '<script id="feed-js-modules">
           console.log("Feel",$Feel); 
       '+@jsModules+'</script>'+
       '<script id="feel-js-startFeel">Feel.init();</script>'+
       '</body></html>'
+    @time "end str finish"
     sha1 = require('crypto').createHash('sha1')
     sha1.update end
     resHash = sha1.digest('hex').substr 0,8
+    @time "create hash"
     if resHash == @reqEtag
       @res.writeHead 304
       console.log "state #{@statename}",304
@@ -150,6 +172,7 @@ class RouteState
       if err?
         @res.writeHead 404
         return @res.end err
+      @time 'zlib'
       @res.setHeader 'Access-Control-Allow-Origin', '*'
       @res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
       @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
@@ -178,7 +201,9 @@ class RouteState
         @removeHtml val
   cssModule : (modname)=>
     @css += "<style id=\"f-css-#{modname}\">\n#{@site.modules[modname].allCss}\n</style>\n"
-    
+  cssModuleExt    : (modname,exts)=>
+    css = @site.modules[modname].getAllCssExt exts
+    @css += "<style id=\"f-css-#{modname}-exts\">\n#{css}\n</style>\n"
   parse : (now,uniq,module,state,_pnode,_pkey)=>
     #return if now.__parsed
     if now?.__state?.parent?.tree?
@@ -213,6 +238,10 @@ class RouteState
         #delete now.__parsed
     if now._isModule
       @modules[now._name] = true
+      if now._extends_modules.length
+        @modulesExt[now._name] ?= {}
+        for ext in now._extends_modules
+          @modulesExt[now._name][ext] = true
       o = @getO now,uniq
       if !@site.modules[now._name]?
         throw new Error "can't find module '#{now._name}' in state '#{@statename}'"

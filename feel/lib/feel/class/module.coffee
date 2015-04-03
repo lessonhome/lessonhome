@@ -23,6 +23,8 @@ class module.exports
     @id         = module.name.replace /\//g, '-'
     @jade       = {}
     @css        = {}
+    @cssSrc     = {}
+    @allCssRelative = {}
     @coffee     = {}
     @js         = {}
     @allCss     = ""
@@ -57,38 +59,59 @@ class module.exports
   replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-]+)/,"$1mod-#{@id}--$2")
   replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-]+)/,"$1js-$2--{{UNIQ}} $2")
   makeJade : =>
-    @jade = {}
+    _jade = {}
     for filename, file of @files
       if file.ext == 'jade' && file.name == 'main'
-        @jade.fnCli = Feel.cacheFile file.path
-        break if @jade.fnCli?
-        console.log "jade #{@name}"
+        _jade.fnCli = Feel.cacheFile file.path
+        break if _jade.fnCli?
+        console.log "jade\t\t".blue,"#{@name}".grey
 
-        @jade.fnCli = jade.compileFileClient file.path, {
+        _jade.fnCli = jade.compileFileClient file.path, {
           compileDebug : false
         }
         while true
-          n = @jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(m-[\w-]+)(?: [\w-]+)*\\\"/, @replacer)
-          break if n == @jade.fnCli
-          @jade.fnCli = n
+          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(m-[\w-]+)(?: [\w-]+)*\\\"/, @replacer)
+          break if n == _jade.fnCli
+          _jade.fnCli = n
         while true
-          n = @jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\\\"/, @replacer2)
-          break if n == @jade.fnCli
-          @jade.fnCli = n
+          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\\\"/, @replacer2)
+          break if n == _jade.fnCli
+          _jade.fnCli = n
         ###
-        m = @jade.fnCli.match(/class=\\\"([\w-\s]+)\\\"/mg)
+        m = _jade.fnCli.match(/class=\\\"([\w-\s]+)\\\"/mg)
         console.log m
         if m then for m_ in m
           m_ = m_.match /(js-\w+)/mg
           console.log m_
         ###
-        Feel.cacheFile file.path, @jade.fnCli
+        Feel.cacheFile file.path, _jade.fnCli
         break
-    if @jade.fnCli?
-      @jade.fn = eval "(#{@jade.fnCli})"
+    if _jade.fnCli?
+      _jade.fn = eval "(#{_jade.fnCli})"
+    @jade = _jade
   rebuildJade : =>
+    @_rebuildingJade = true
     @rescanFiles()
     .then @makeJade
+    .catch (e)=>
+      console.error Exception e
+      setTimeout =>
+        @rebuildJade() unless @_rebuildingJade
+      , 3000
+    .then =>
+      @_rebuildingJade = false
+  rebuildCoffee : =>
+    @_rebuildingCoffee = true
+    @rescanFiles()
+    .then @makeCoffee
+    .catch (e)=>
+      console.error Exception e
+      setTimeout =>
+        @rebuildCoffee() unless @_rebuildingCoffee
+      , 3000
+    .then =>
+      @_rebuildingCoffee = false
+
   doJade : (o,route,state)=>
     eo    =
       F     : (f)=> Feel.static.F @site.name,f
@@ -125,34 +148,57 @@ class module.exports
         throw new Error "Failed execute jade in module #{@name} with vars #{JSON.stringify(o)}:\n\t"+e
     return ""
   makeSass : =>
+    @allCssRelative = {}
+    @cssSrc         = {}
+    @css            = {}
     for filename, file of @files
       if file.ext == 'sass'
         path = "#{@site.path.sass}/#{@name}/#{file.name}.css"
         try
           src = fs.readFileSync(path).toString()
         catch e
-          console.error e
+          console.error Exception e
           throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
-        @css[filename] = @parseCss src,filename
+        @cssSrc[filename] = src
+        @css[filename] = Feel.bcss @parseCss src,filename
     return Q()
   makeSassAsync : =>
     files = []
     for filename,file of @files
       files.push file
+    @allCssRelative = {}
+    @cssSrc = {}
+    @css    = {}
     return files.reduce (promise,file)=>
       return promise unless file.ext == 'sass'
       path = "#{@site.path.sass}/#{@name}/#{file.name}.css"
       return promise.then => readfile path
       .then (src)=>
         src = src.toString()
-        @css[file.name+'.'+file.ext] = @parseCss src,filename
+        filename = file.name + '.'+file.ext
+        @cssSrc[filename] = src
+        @css[filename]    = Feel.bcss @parseCss src,filename
     , Q()
     .then @makeAllCss
+  getAllCssExt : (exts)=>
+    css = ""
+    for ext of exts
+      css += @site.modules[ext]?.getCssRelativeTo? @name if @site.modules[ext]?.getCssRelativeTo?
+    css = Feel.bcss
+    return css
+  getCssRelativeTo : (rel)=>
+    return @allCssRelative[rel] if @allCssRelative?[rel]?
+    @allCssRelative ?= {}
+    @allCssRelative[rel] = ""
+    for filename,src of @cssSrc
+      @allCssRelative[rel] += "/*#{@name}:#{filename} relative to #{rel}*/\n"
+      @allCssRelative[rel] += @parseCss src,filename,@site.modules[rel].id
+    return @allCssRelative[rel]
   makeAllCss : =>
     @allCss = ""
     for name,src of @css
       @allCss += "/*#{name}*/\n#{src}\n"
-  parseCss : (css,filename)=>
+  parseCss : (css,filename,relative=@id)=>
     ret = ''
     m = css.match /\$FILE--\"([^\$]*)\"--FILE\$/g
     if m then for f in m
@@ -181,10 +227,10 @@ class module.exports
           newpref += ","
         replaced = false
         if sel.match /^main.*/
-          sel = sel.replace /^main/, "#m-#{@id}"
+          sel = sel.replace /^main/, "#m-#{relative}"
           replaced = true
         if !(sel.match /^\.(g-[\w-]+)/) && (!replaced)
-          newpref += "#m-#{@id}"
+          newpref += "#m-#{relative}"
         #continue if sel == 'main'
         m2 = sel.match /([^\s]+)/g
         if m2
@@ -193,7 +239,7 @@ class module.exports
             leftpref = ""
             if m3
               leftpref = " " unless replaced
-              newpref += leftpref+"\.mod-#{@id}--#{m3[1]}"
+              newpref += leftpref+"\.mod-#{relative}--#{m3[1]}"
             else if a.match /^\.(g-[\w-]+)/
               leftpref = " " unless replaced
               newpref += leftpref+a
@@ -205,7 +251,7 @@ class module.exports
           leftpref = ""
           if m3
             leftpref = " " unless replaced
-            newpref += leftpref+"\.mod-#{@id}--#{m3[1]}"
+            newpref += leftpref+"\.mod-#{relative}--#{m3[1]}"
           else if sel.match /^\.(g-[\w-]+)/
             leftpref = " " unless replaced
             newpref += leftpref+sel
@@ -214,28 +260,27 @@ class module.exports
             newpref += leftpref+sel
     else newpref = pref
     newpref=pref if filename.match /.*\.g\.sass$/
-    ret = newpref+body+@parseCss(post,filename)
-    
-
+    ret = newpref+body+@parseCss(post,filename,relative)
     return ret
-  makeCoffee  : =>
+  makeCoffee  : => Q.then =>
     @newCoffee = {}
     for filename, file of @files
       if file.ext == 'coffee' && !filename.match(/.*\.[d|c]\.coffee$/)
         src = ""
         try
+          console.log 'coffee\t'.yellow,"#{@name}/#{filename}".grey
           src = Feel.cacheCoffee file.path
         catch e
-          console.error e
-          throw new Error "failed read coffee in module #{@name}: #{file.name}(#{path})",e
+          console.error Exception e
+          throw new Error "failed read coffee in module #{@name}: #{file.name}(#{file.path})",e
         @newCoffee[filename] = src
       if file.ext == 'js'
         src = ""
         try
           src = fs.readFileSync file.path
         catch e
-          console.error e
-          throw new Error "failed read js in module #{@name}: #{file.name}(#{path})",e
+          console.error Exception e
+          throw new Error "failed read js in module #{@name}: #{file.name}(#{file.path})",e
         @newCoffee[filename] = src
     @coffee     = @newCoffee
     @allCoffee  = "(function(){ var arr = {}; (function(){"
@@ -249,8 +294,8 @@ class module.exports
     @allCoffee += @allJs
     @allCoffee += "}).call(arr);return arr; })()"
     @allCoffee = "" unless num
+    @allCoffee = Feel.bjs @allCoffee
     @setHash()
-    return Q()
   makeJs  : =>
     @newJs = {}
     for filename, file of @files
@@ -259,8 +304,8 @@ class module.exports
         try
           src = fs.readFileSync file.path
         catch e
-          console.error e
-          throw new Error "failed read js in module #{@name}: #{file.name}(#{path})",e
+          console.error Exception e
+          throw new Error "failed read js in module #{@name}: #{file.name}(#{file.path})",e
         @newJs[filename] = src
     @js     = @newJs
     @allJs  = "(function(){ var arr = {};"
@@ -272,6 +317,7 @@ class module.exports
         @allJs += "(function(){ #{src} }).call(arr);"
     @allJs += "return arr; })()"
     @allJs  = "" unless num
+    @allJs  = Feel.bjs @allJs
     @setHash()
     return Q()
   setHash : =>

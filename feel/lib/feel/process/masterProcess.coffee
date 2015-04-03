@@ -43,6 +43,7 @@ class MasterProcess extends EE
     @fork = new MasterProcessFork @conf
     yield @bindForkEvents()
     yield @fork.init()
+    @starting = false
   stop : =>
     return unless @running || @starting
     yield @wait() if @starting
@@ -89,7 +90,7 @@ class MasterProcess extends EE
     for event,listener of @listeners
       do (event,ln=@listenersNow)=>
         ln[event] = (args...)=> @listeners[event] args...
-        @fork.on event, (args)=> ln[event] args...
+        @fork.on event, (args...)=> ln[event] args...
     for msg,arr of @ee._events
       arr ?= []
       arr = [arr] unless util.isArray arr

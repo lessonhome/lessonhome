@@ -1,5 +1,5 @@
 mixin field (selector, value)
-  .value(class = selector)!= value
+  .value.input(class = selector)!= value
 
 /////////////////////////////////////
 .add_photos!=add_photos
@@ -9,5 +9,5 @@ mixin field (selector, value)
 .gender_data!=gender_data
 .birth_data!=birth_data
 .js-out_err
-+field ('status', status)
+.value.status!= status
 

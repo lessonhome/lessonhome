@@ -9,9 +9,10 @@ class @Feel
         mod.main::class = {}
         for name,obj of mod
           mod.main::class[name] = obj
-      else for name,obj of mod
-        window[name] = obj
-        console.log "global class window['#{name}'];"
+      else if !mod._not_global
+        for name,obj of mod
+          window[name] = obj
+          console.log "global class window['#{name}'];"
     @active = new @activeState @root.tree
     window.onerror = (e)=> @error e
   error : (e,args...)=>
@@ -51,7 +52,6 @@ class @Feel
       types : "(cities)"
     },cb
   send : (context,name,args...)=> Q().then =>
-    console.log context,name
     m = name.match /^([^\w]*)/
     pref = ""
     if m
@@ -64,12 +64,14 @@ class @Feel
     data = encodeURIComponent JSON.stringify args
     context = encodeURIComponent JSON.stringify context
     pref = encodeURIComponent JSON.stringify pref
+    pport = 8082
+    pport = 8084 if location.protocol == 'https:'
     $.ajax({
       dataType : 'jsonp'
       jsonpCallback : "jsonCallback#{index}"
       contentType : 'application/json'
       method : 'GET'
-      url:"//#{location.hostname}:8082/#{name}?data=#{data}&context=#{context}&pref=#{pref}&callback=?"
+      url:"//#{location.hostname}:#{pport}/#{name}?data=#{data}&context=#{context}&pref=#{pref}&callback=?"
       crossDomain : true
     })
     .success (data)=>

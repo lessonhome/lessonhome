@@ -40,7 +40,11 @@
     "v8-profiler" : "*",
     "yuicompressor" : "*",
     "cookies" : "*",
-    "bcryptjs": "*"
+    "bcryptjs": "*",
+    "js-beautify" : "*",
+    "spdy":"*",
+    "http2":"*",
+    "js-infinite-json":"*"
   }
 }
 

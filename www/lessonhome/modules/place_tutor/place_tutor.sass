@@ -9,12 +9,24 @@ main
   +inline-block
   height: $height
   padding: $padding 0
-.house, .building
+.input_block
   +inline-block
-.house
-  padding-right: $padding_address
-.building
-  padding-left: $padding_address
-.flat
-  margin-right: 250px
-  padding-bottom: 0
+  width : 341px
+.input_block
+  .input
+    +inline-block
+    font-size: $height
+    width : 100%
+    padding: $padding 0
+  .house, .building
+    +inline-block
+    width : 91px
+  .house
+    padding-right: $padding_address
+    float : left
+  .building
+    padding-left: $padding_address
+  .flat
+    width : 91px
+    margin-right: 250px
+    padding-bottom: 0

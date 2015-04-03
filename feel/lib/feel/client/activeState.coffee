@@ -6,8 +6,12 @@ class @activeState
     @order    = []
     @watchDown @,'tree', (node,key,val)=>
       if val?._isModule
-        if Feel.modules[val._name]?.main?
-          try @classes[val._uniq] = new Feel.modules[val._name].main()
+        mainClass = Feel.modules[val._name]?.main
+        for _i,ext_mod of val._extends_modules
+          if Feel.modules[ext_mod]?.main?
+            mainClass = Feel.modules[ext_mod]?.main
+        if mainClass
+          try @classes[val._uniq] = new mainClass()
           catch e then return Feel.error e, "new #{val._name}() failed"
           cl = @classes[val._uniq]
           cl.tree = val
@@ -18,8 +22,11 @@ class @activeState
           @order.push val._uniq
           cl.tree?.class = cl
           cl.js ?= {}
-          for key,val of Feel.modules[val._name]
-            cl.js[key] = val
+          for key_,val_ of Feel.modules[val._name]
+            cl.js[key_] = val_
+          for _i,ext_mod of val._extends_modules
+            for  key_,val_ of Feel.modules[ext_mod]
+              cl.js[key_] = val_
           cl.register = (name,obj=cl)->
             throw new Error "can't register module #{name} in Feel, already exists" if Feel[name]?
             Feel[name] = obj
@@ -42,9 +49,11 @@ class @activeState
       try cl.show?()
       catch e then return Feel.error e, " #{mod._name}.show() failed"
   parseTree : (node,statename)=>
+    return if node._parseIn
     if node._statename?
       statename = node._statename
-    return if node?.__isClass
+    return if node?.__isClass || node._smart
+    node._parseIn = true
     uniq_pref = @uniq_pref
     if node._isModule?
       if @classes[node._uniq]?
@@ -69,11 +78,12 @@ class @activeState
       dom_parent = @dom.parent
       @dom.parent = dom
     for key,val of node
-      if typeof val == 'object'
+      if typeof val == 'object' && val!=null
         @parseTree val,statename
     if node._isModule
       @dom.parent = dom_parent
       @uniq_pref  = uniq_pref
+    delete node._parseIn
 
   watchDown : (nparent,nkey,foo)=>
     node = nparent[nkey]
