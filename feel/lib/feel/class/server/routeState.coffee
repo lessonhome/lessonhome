@@ -130,7 +130,7 @@ class RouteState
     end += @css+'</head><body>'+@top._html
     @removeHtml @top
     @time "remove html"
-    json_tree = JSON.stringify(@getTree(@top))
+    json_tree = _toJson(@getTree(@top))
     @time "stringify"
     end +=
       @site.moduleJsTag('lib/jquery')+
@@ -144,7 +144,7 @@ class RouteState
           window.EE = EventEmitter;
           var $Feel = {}; 
           $Feel.root = {
-              "tree" : '+json_tree+'
+              "tree" : InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
           };
           $Feel.modules = {};
           (function(){

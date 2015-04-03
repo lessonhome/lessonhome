@@ -180,7 +180,7 @@ global.Wrap = (obj,prot)->
               nerrs += "\n\t"+err.replace(/\n/g,"")
             unless _util.isError e
               oe = e
-              e = JSON.stringify e unless typeof e == 'string'
+              e = _inspect e unless typeof e == 'string'
               ne = new Error()
               ne.message = e
               if typeof oe == 'object' && oe != null
@@ -451,7 +451,7 @@ class Lib
   init : ->
     #Watcher.init()
     #
-
+_js_infinite_json = require 'js-infinite-json'
 global._deflate = Q.denode require('zlib').deflate
 global._qlimit  = require './lib/qlimit'
 global._crypto  = require 'crypto'
@@ -464,6 +464,9 @@ global._path    = require 'path'
 global._stat    = Q.denode _fs.stat
 global._inspect = _util.inspect
 global._hash    = (f)-> _crypto.createHash('sha1').update(f).digest('hex')
+global._toJson  = (o)-> _js_infinite_json.stringify o
+global._unJson  = (o)-> _js_infinite_json.parse     o
+
 global._args    = (a)->
   for ar,i in a
     if ar == null

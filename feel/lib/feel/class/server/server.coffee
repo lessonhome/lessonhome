@@ -121,7 +121,7 @@ class Server
         res.writeHead 500
         res.end 'Internal Server Error'
         console.error "Failed route #{host}#{req.url} to site #{site}:\n\t"
-        throw e
+        console.error Exception e
       .done()
     else
       res.writeHead 404
