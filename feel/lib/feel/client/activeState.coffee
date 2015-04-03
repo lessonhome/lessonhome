@@ -49,9 +49,11 @@ class @activeState
       try cl.show?()
       catch e then return Feel.error e, " #{mod._name}.show() failed"
   parseTree : (node,statename)=>
+    return if node._parseIn
     if node._statename?
       statename = node._statename
-    return if node?.__isClass
+    return if node?.__isClass || node._smart
+    node._parseIn = true
     uniq_pref = @uniq_pref
     if node._isModule?
       if @classes[node._uniq]?
@@ -76,11 +78,12 @@ class @activeState
       dom_parent = @dom.parent
       @dom.parent = dom
     for key,val of node
-      if typeof val == 'object'
+      if typeof val == 'object' && val!=null
         @parseTree val,statename
     if node._isModule
       @dom.parent = dom_parent
       @uniq_pref  = uniq_pref
+    delete node._parseIn
 
   watchDown : (nparent,nkey,foo)=>
     node = nparent[nkey]

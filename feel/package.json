@@ -41,7 +41,10 @@
     "yuicompressor" : "*",
     "cookies" : "*",
     "bcryptjs": "*",
-    "js-beautify" : "*"
+    "js-beautify" : "*",
+    "spdy":"*",
+    "http2":"*",
+    "js-infinite-json":"*"
   }
 }
 
