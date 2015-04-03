@@ -2,8 +2,8 @@ mixin field (selector, value)
   .value(class=selector)!=value
 /////////////
 
-+field('place_of_work', place_of_work)
-+field('post', post)
+.input.place_of_work!=place_of_work
+.input.post!=post
 .add_button!= add_button
 .line_box
   .line!=line

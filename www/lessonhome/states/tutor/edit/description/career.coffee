@@ -9,10 +9,10 @@ class @main extends template '../edit_description'
     tutor_edit  : module '$' :
       place_of_work : module 'tutor/forms/input'  :
         selector    : 'first_reg'
-        text        : 'Место работы :'
+        text2        : 'Место работы :'
       post : module 'tutor/forms/input' :
         selector    : 'first_reg'
-        text        : 'Должность :'
+        text2        : 'Должность :'
       add_button    : module 'button_add' :
         text     : '+Добавить'
         selector : 'edit_add'
