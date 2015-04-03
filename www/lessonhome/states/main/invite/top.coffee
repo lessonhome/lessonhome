@@ -10,13 +10,13 @@ class @main
       text : 'репетитор'
       selector:  @exports()
     friend_name   : module 'tutor/forms/input':
-      text      : 'Имя друга :'
+      text1     : 'Имя друга :'
       selector  : 'fast_bid'
     friend_email  : module 'tutor/forms/input':
-      text      : 'E-mail друга :'
+      text1     : 'E-mail друга :'
       selector  : 'fast_bid'
     your_name     : module 'tutor/forms/input':
-      text      : 'Ваше имя :'
+      text1     : 'Ваше имя :'
       selector  : 'fast_bid'
     invite_button : module 'tutor/button' :
       text: 'Пригласить!'
