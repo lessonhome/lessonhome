@@ -33,7 +33,7 @@ class module.exports
     if @ssh
       res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
     return process.exit(0) if req.url == "/restart"
-    return @tail(req,res) if req.url != "/update"
+    return @tail(req,res,1000) if req.url != "/update"
 
     @updating = true
     @hand++
@@ -67,11 +67,11 @@ class module.exports
             if !boo
               @log res, "Can't find process node:feel!\n"
               @end res
-  tail : (req,res)=>
+  tail : (req,res,num=30)=>
     res.on 'close', =>
       res.closed = true
       @end(res)
-    @exec "tail", ["-f","-n","30","/var/log/upstart/feel.log"],res,1200000, => @end res
+    @exec "tail", ["-f","-n","#{num}","/var/log/upstart/feel.log"],res,1200000, => @end res
 
   end : (res)=>
     return if res.closed
