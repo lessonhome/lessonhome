@@ -33,7 +33,7 @@ class module.exports
     if @ssh
       res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
     return process.exit(0) if req.url == "/restart"
-    return @tail(req,res,1000) if req.url != "/update"
+    return @tail(req,res,30) if req.url != "/update"
 
     @updating = true
     @hand++
