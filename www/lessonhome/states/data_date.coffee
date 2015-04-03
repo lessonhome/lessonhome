@@ -38,6 +38,7 @@ class @main
         '29': {value: '30', text: '30'},
         '30': {value: '31', text: '31'}
       }
+      value : ''
     month : module 'tutor/forms/drop_down_list' :
       placeholder : 'Месяц'
       selector    : 'first_reg_month'

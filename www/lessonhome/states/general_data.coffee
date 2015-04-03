@@ -6,18 +6,22 @@ class @main
       text2 : 'Имя :'
       selector    : 'first_reg'
       hint        : 'Поле должно содержать только символы русского или английского алфавита'
+      value       : data('person').get('first_name')
     last_name   : module 'tutor/forms/input':
       replace : '[^a-zA-Zа-яА-ЯёЁ]'
       selector    : 'first_reg'
       text2       : 'Фамилия :'
-    patronymic  : module 'tutor/forms/input':
+      value       : data('person').get('last_name')
+    middle_name  : module 'tutor/forms/input':
       selector    : 'first_reg'
-      level2left        : 'Отчество :'
+      text2       : 'Отчество :'
       allowSymbolsPattern : '[a-zA-Zа-яА-ЯёЁ]'
+      value       : data('person').get('middle_name')
     gender_data   : state 'gender_data':
       selector        : 'choose_gender'
       title           : 'true'
       selector_button : 'registration'
+      value           : data('person').get('sex')
     birth_data    : state 'data_date'  :
       text  : 'Дата рождения :'
     status      : module 'tutor/forms/drop_down_list' :

@@ -1,9 +1,10 @@
 class @main extends EE
-  show : =>
+  Dom : =>
     @button = @dom.find ".button_box"
-    @button.on 'click', @click
     @active = @button.hasClass 'active'
-    @button.on    'mousedown', @buttonMouseDown
+  show : =>
+    @button.on 'click', @click
+    @button.on 'mousedown', @buttonMouseDown
   buttonMouseDown : =>
     @button.addClass('press')
     @button.on    'mouseup.gender_button',   @buttonMouseUp

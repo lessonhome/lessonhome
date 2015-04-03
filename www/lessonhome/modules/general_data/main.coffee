@@ -14,8 +14,10 @@ class @main
     @last_name = @tree.last_name.class
     @last_name.input.on 'focusout',@check_form
 
-    @patronymic = @tree.patronymic.class
-    @patronymic.input.on 'focusout',@check_form
+    @middle_name = @tree.middle_name.class
+    @middle_name.input.on 'focusout',@check_form
+
+    @sex = @tree.gender_data.class
 
     @day = @tree.birth_data.day.class
     @day.input.on 'focusout',@check_form
@@ -28,10 +30,6 @@ class @main
     @year = @tree.birth_data.year.class
     @year.input.on 'focusout',@check_form
     @year.input.on 'focus',@clearOutErrDate
-
-
-
-
 
 
   save : => Q().then =>
@@ -49,11 +47,11 @@ class @main
 
   check_form : =>
     errs = []
-    if !@day.suitability()
+    if !@day.exists()
       errs.push 'bad_day'
-    if !@month.suitability()
+    if !@month.exists()
       errs.push 'bad_month'
-    if !@year.suitability()
+    if !@year.exists()
       errs.push 'bad_year'
     errs = @js.check errs, @getData()
     for e in errs
@@ -64,11 +62,13 @@ class @main
     return {
       first_name  : @first_name.getValue()
       last_name   : @last_name.getValue()
-      patronymic  : @patronymic.getValue()
+      middle_name : @middle_name.getValue()
+      sex         : @sex.state
       day         : @day.getValue()
       month       : @month.getValue()
       year        : @year.getValue()
     }
+
 
   parseError : (err)=>
     switch err
@@ -76,7 +76,7 @@ class @main
         @first_name.outErr "Слишком короткое имя"
       when "short_last_name"
         @last_name.outErr "Слишком короткая фамилия"
-      when "short_patronymic"
+      when "short_middle_name"
         @patronymic.outErr "Слишком короткое отчество"
       when "empty_date"
         @outErrDate "Заполните дату"
@@ -95,5 +95,29 @@ class @main
   clearOutErrDate : (err) =>
     @out_err.hide()
     @out_err.text('')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
