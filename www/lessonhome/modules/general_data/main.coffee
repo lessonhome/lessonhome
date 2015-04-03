@@ -9,13 +9,13 @@ class @main
 
   show : =>
     @first_name = @tree.first_name.class
-    @first_name.input.on 'focusout',@check_form
+    @first_name.on 'blur',@check_form
 
     @last_name = @tree.last_name.class
-    @last_name.input.on 'focusout',@check_form
+    @last_name.on 'blur',@check_form
 
     @middle_name = @tree.middle_name.class
-    @middle_name.input.on 'focusout',@check_form
+    @middle_name.on 'blur',@check_form
 
     @sex = @tree.gender_data.class
 
@@ -73,11 +73,11 @@ class @main
   parseError : (err)=>
     switch err
       when "short_first_name"
-        @first_name.outErr "Слишком короткое имя"
+        @first_name.showError "Слишком короткое имя"
       when "short_last_name"
-        @last_name.outErr "Слишком короткая фамилия"
+        @last_name.showError "Слишком короткая фамилия"
       when "short_middle_name"
-        @patronymic.outErr "Слишком короткое отчество"
+        @patronymic.showError "Слишком короткое отчество"
       when "empty_date"
         @outErrDate "Заполните дату"
       when "bad_day"

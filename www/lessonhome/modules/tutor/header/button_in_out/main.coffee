@@ -2,20 +2,22 @@
 
 class @main extends EE
   Dom  : =>
-    @registered = @tree.registered
-    @button = @dom.find ".button"
-    @title  = @button.find ".title"
-    @popup_box = @button.find ".popup_box"
-    @close_box = @popup_box.find ".close_box"
+    @registered   = @tree.registered
+    @button       = @dom.find ".button"
+    @title        = @button.find ".title"
+    @popup_box    = @button.find ".popup_box"
+    @close_box    = @popup_box.find ".close_box"
     @popupVisible = @popup_box.is ':visible'
 
   show : =>
-    @login = @tree.login.class
+    @login    = @tree.login.class
     @password = @tree.password.class
-    @submit  = @tree.enter.class
-    @success = false
-    @submit.on 'submit', @tryLogin
-    @found.form.on 'submit', @tryLogin
+    @submit   = @tree.enter.class
+    @success  = false
+    @submit.on      'submit', @tryLogin
+    @found.form.on  'submit', @tryLogin
+    @login.on 'submit',=> @password.focus()
+    @password.on 'submit', @tryLogin
     if @registered
       @title.on 'click', @exit
     else
@@ -44,10 +46,10 @@ class @main extends EE
   tryLogin : (e)=>
     return if @success
     e?.preventDefault?()
-    pass = @password.getValue()
+    pass  = @password.getValue()
     login = @login.getValue()
-    return unless pass.length > 6
-    return unless login.length > 3
+    return unless pass.length   > 1
+    return unless login.length  > 1
     unless pass.substr(0,1) == '`'
       len = pass.length
       pass = LZString.compress((CryptoJS.SHA1(pass)).toString(CryptoJS.enc.Hex)).toString()

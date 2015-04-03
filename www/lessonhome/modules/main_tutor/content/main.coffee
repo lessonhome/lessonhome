@@ -2,6 +2,7 @@ class @main extends EE
   show : =>
     console.log @tree
     @password = @tree.password.class
+
     @hashedPassword = false
     @login    = @tree.login.class
     @submit   = @tree.create_account.class
@@ -10,16 +11,15 @@ class @main extends EE
     @submit.on 'submit', @tryRegister
     @found.form.on 'submit', (e)=> e.preventDefault() unless @success
     @success = false
-    @login.on 'pressingEnter', =>
-      @password.setFocus()
-      if @hashedPassword
-        @password.clearField()
-        @hashedPassword = false
-    @password.on 'pressingEnter', @tryRegister
-    @checkbox.on 'change', (state)=>
-      if state then @checkbox_error.hide()
+    @checkbox.on 'change', (state)=> @checkbox_error.hide()
     Feel.HashScrollControl @dom
-
+    @login.on 'submit',=>
+      @password.focus()
+    @login.on 'focus',=>
+      if @hashedPassword
+        @password.setValue ''
+        @hashedPassword = false
+    @password.on 'submit',@tryRegister
   tryRegister : (e)=>
     return if @success
     #@$send( './loginExists',login).then (exists)=> console.log exists
@@ -62,30 +62,30 @@ class @main extends EE
     #console.log err
     switch err
       when 'wrong_password'
-        @password.outErr 'Неверный пароль'
+        @password.showError 'Неверный пароль'
         console.log err
       when 'login_exists'
-        @login.outErr 'Такой логин занят'
+        @login.showError 'Такой логин занят'
         console.log err
       when 'already_logined'
         href = "/tutor/profile"
         window.location =  href
         console.log err
       when 'bad_login'
-        @login.outErr 'Некорректный логин. Используйте для логина символы латинского алфавита и цифры'
+        @login.showError 'Некорректный логин. Используйте для логина символы латинского алфавита и цифры'
         console.log err
       when 'bad_password'
-        @password.outErr 'Плохой пароль'
+        @password.showError 'Плохой пароль'
         console.log err
       when 'empty_login_form'
-        @login.outErr 'Заполните форму'
+        @login.showError 'Заполните форму'
       when 'empty_password_form'
-        @password.outErr 'Заполните форму'
+        @password.showError 'Заполните форму'
       when 'short_login'
-        @login.outErr 'Слишком короткий логин'
+        @login.showError 'Слишком короткий логин'
         console.log err
       when 'short_password'
-        @password.outErr 'Слишком короткий пароль'
+        @password.showError 'Слишком короткий пароль'
         console.log err
       when 'select_agree_checkbox'
         @checkbox_error.show()

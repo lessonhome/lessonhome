@@ -1,4 +1,10 @@
+- state = ''+state
+- state = state || false
+- if (state == 'true') state = 'active'
+- if (state =='false') state = ""
 - selector = selector || 'big'
+- selector += " "+state
+
 label(class=selector)
   .check_box
     .check

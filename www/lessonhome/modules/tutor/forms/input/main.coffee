@@ -87,7 +87,8 @@ class @main extends EE
     @on 'change',         @onChange
     @on 'paste',          @onPaste
     @on 'end',            @onEnd
-
+  focus : =>
+    @input.focus()
   onJQPaste : =>
     setTimeout =>
       @emit 'paste'
@@ -332,7 +333,7 @@ class @main extends EE
     }
 
   maybeOutputErrMessage : (errMessage)=>
-    if errMessage? then @outErr errMessage
+    if errMessage? then @showError errMessage
   setNormalState : =>
     @removeStyleBadInput()
     @cleanErr()
