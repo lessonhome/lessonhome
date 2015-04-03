@@ -9,3 +9,4 @@ class @main
       selector  : @exports 'selector_button'
       text      : 'М'
     title         : @exports()
+    value         : @exports()
