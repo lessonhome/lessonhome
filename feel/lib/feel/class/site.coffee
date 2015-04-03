@@ -55,6 +55,8 @@ class module.exports
       ,Q()
     
   loadStates : =>
+    for key,val of @state
+      delete @state[key]
     @createStates @path.states,""
   createStates : (path,dir)=>
     readdir path

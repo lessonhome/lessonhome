@@ -171,6 +171,8 @@ class module.exports
         @site[o.site].modules[o.dir]?.rebuildJade()
       if o.ext == 'coffee'
         @site[o.site].modules[o.dir]?.rebuildCoffee()
+    if o.type == 'states'
+      @site[o.site].loadStates()
   rebuildSass : (site,module,name)=>
     console.log "rebuild sass for #{site}/#{module}:#{name}.sass".yellow
     cache = "#{@path.cache}/#{site}/modules/#{module}/#{name}.css"
