@@ -41,12 +41,16 @@ label
 label .level2 .text2
   position : absolute
   float : right
-  left : -100%
-  width : 100%
+  right : 100%
+  width : auto
+  white-space: nowrap
+  +box-sizing(content-box)
+
 label .level2 .right
   background-color : white
   border : 2px solid $border_color
   +border-radius(4px)
+  overflow : hidden
 label:hover
   color: #000000
   .level2 .right
@@ -78,7 +82,7 @@ label div div input
   +input-placeholder
     color : #757575
     opacity : 1
-  &:-webkit-autofill
+  //&:-webkit-autofill
     -webkit-box-shadow: 0 0 0 1000px white inset
 label
   .level1,.level3
@@ -99,8 +103,43 @@ label
 
 label .hint
   +block
+  height : auto
+  font-size : 16px
   display : none
   position : absolute
+  overflow : hidden
+  +box-sizing(content-box)
+  padding: 15px
+  width: 300px
+  background: $bg_color_w
+  border: 1px solid $bg_color
+  box-sizing: border-box
+  left: 100%
+  top: -7px
+  margin-left: 24px
+  text-align: left
+  min-height: 50px
+  .bubble-arrow, .bubble-arrow-after
+    width: 0
+    height: 0
+    position: absolute
+    right: 100%
+    top: 13px
+    border: 12px solid transparent
+    border-right-color: $bg_color
+  .bubble-arrow-after
+    top: 14px
+    border: 11px solid transparent
+    border-right-color: $bg_color_w
+  .hint_message
+    font-size: 14px
+    line-height: 20px
+    +inline-block
+    position : relative
+    overflow : hidden
+    +box-sizing(content-box)
+
+
 
 
 
@@ -134,7 +173,8 @@ label .hint
 
 
 //////////// calendar advance filter////////////
-+selector(calendar,0,16px,0 2px,18px,none,none)
++selector(calendar,0 10px,20px,0 8px,18px,none,none)
++selector(price_slider_top,0 10px,25px,0 8px,39px,none,none)
 //-+selector(calendar,16px,18px,2px,0,0,72px,none,center)
 
 //+selector(first_reg,16px,18px,12px,26px,0,341px,none,none)

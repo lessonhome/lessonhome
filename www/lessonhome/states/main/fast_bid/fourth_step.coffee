@@ -31,11 +31,12 @@ class @main extends template '../fast_bid'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       age_slider   : state '../slider_main' :
         selector      : 'time_fast_bids'
-        start         : 'time_spend_bids'
+        start         : 'calendar'
         start_text    : 'от'
         end         : module 'tutor/forms/input' :
-          selector  : 'time_spend_bids'
-          text      : 'до'
+          selector  : 'calendar'
+          text2      : 'до'
+          align : 'center'
         handle        : true
         min           : 18
         max           : 90

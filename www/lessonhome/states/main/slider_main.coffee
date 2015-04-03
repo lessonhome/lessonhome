@@ -5,7 +5,8 @@ class @main
       filters   : ['digits']
       allowSymbolsPattern : "^\\d*$"
       selector  : @exports 'start'
-      text      : @exports 'start_text'
+      align : 'center'
+      text2     : @exports 'start_text'
     # if us end(second input) determine selector and text in parent module
     end           : @exports()
     min           : @exports()

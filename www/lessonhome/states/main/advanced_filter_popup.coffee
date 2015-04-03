@@ -22,13 +22,15 @@ class @main
       selector  : 'choose_course'
       text      : 'Старшая школа'
       close     : true
-    calendar        : module './calendar' :
+    calendar        : module 'calendar' :
       choose_all      : module 'tutor/forms/checkbox':
-        selector        : 'small'
+        selector      : 'small'
       from_time     : module 'tutor/forms/input' :
-        selector      : 'time'
+        selector      : 'calendar'
+        align : 'center'
       till_time     : module 'tutor/forms/input' :
-        selector      : 'center_text'
+        selector      : 'calendar'
+        align         : 'center'
       button_add    : module 'tutor/button' :
         selector  :  'plus'
         text      : '+'

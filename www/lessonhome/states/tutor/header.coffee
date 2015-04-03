@@ -16,12 +16,12 @@ class @main
     button_in_out :  module '$/button_in_out' :
       registered  : data('checkRegistered').check()
       login       :  module './forms/input'  :
-        selector    : 'in_out'
+        selector    : 'first_reg'
         placeholder : 'Логин'
         name        : 'email'
       password   :  module './forms/input'  :
         type        : 'password'
-        selector    : 'in_out'
+        selector    : 'fast_bid'
         placeholder : 'Пароль'
         name        : 'password'
       enter       : module './button' :

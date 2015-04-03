@@ -61,12 +61,16 @@ class @main extends EE
     @left?.pos   = (px)=>
       return +@slider.css('margin-left').replace('px','') unless px?
       @slider.css('margin-left',px)
-      @emit 'left_slider_move', @left.x()
+      setTimeout =>
+        @emit 'left_slider_move', @left.x()
+      ,1
       return px
     @right?.pos  = (px)=>
       return +@slider.css('margin-right').replace('px','') unless px?
       @slider.css('margin-right',px)
-      @emit 'right_slider_move', @right.x()
+      setTimeout =>
+        @emit 'right_slider_move', @right.x()
+      ,1
       return px
     r = null
     l = null

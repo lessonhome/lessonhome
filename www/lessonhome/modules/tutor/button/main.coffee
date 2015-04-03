@@ -4,8 +4,9 @@ class @main extends EE
   Dom : =>
     @button = @found.button.parent()
   show : =>
-    @button.on    'mousedown', @mdown
+    @button.on  'mousedown', @mdown
     @button.on 'click',(e)=>
+      return if e.button!=0
       e.preventDefault()
       @emit 'submit'
   mdown : =>

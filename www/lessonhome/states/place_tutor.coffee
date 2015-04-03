@@ -18,13 +18,13 @@ class @main
       selector  : 'first_reg'
     house      : module 'tutor/forms/input' :
       text2      : 'Дом :'
-      selector  : 'first_reg_house'
+      selector  : 'first_reg'
     building   : module 'tutor/forms/input' :
       text2      : 'Строение :'
-      selector  : 'first_reg_house'
+      selector  : 'first_reg'
     flat       : module 'tutor/forms/input' :
       text2      : 'Квартира :'
-      selector  : 'first_reg_house'
+      selector  : 'first_reg'
     add_button : module 'tutor/button' :
       text     : '+Добавить'
       selector : 'reg_add'
