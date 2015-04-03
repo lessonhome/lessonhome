@@ -56,6 +56,7 @@ class @main extends EE
     @tree.replace = @parseRegexpObj @tree.replace
     @tree.patterns = @parseRegexpObj @tree.patterns
     @tree.replaceCursor = @parseRegexpObj @tree.replaceCursor,''
+    @tree.selectOnFocus ?= true
     @hint         = @found.hint
     @hintMessage  = @found.hint_message
   parseRegexpObj : (obj,ext='mg')=>
@@ -176,6 +177,11 @@ class @main extends EE
       str = new RegExp str,'mg'
     i = Object.keys(@tree.patterns).length
     @tree.patterns[i] = [str,error]
+  addReplace : (reg,replace="")=>
+    if typeof reg == 'string'
+      reg = new RegExp reg,'mg'
+    i = Object.keys(@tree.replace).length
+    @tree.replace[i] = [reg,replace]
   addError : (name,text="")=>
     @tree.errors?= {}
     @tree.errors[name] = text

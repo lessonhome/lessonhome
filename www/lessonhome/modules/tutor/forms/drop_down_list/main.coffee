@@ -149,11 +149,14 @@ class @main extends EE
             when @unit.enterCode
               selectedOptionToInput()
             when @unit.tabCode
-              if @select_sets.is(':visible')
-                if event.shiftKey
-                  prevSelected @options
-                else nextSelected @options
-                event.preventDefault()
+              event.preventDefault()
+              nextSelected @options if @exists()
+              selectedOptionToInput(false)
+              #if @select_sets.is(':visible')
+              #  if event.shiftKey
+              #    prevSelected @options
+              #  else nextSelected @options
+              #  event.preventDefault()
 
 
         @options.keydown (event) =>
