@@ -16,6 +16,9 @@ class @main
     button_in_out :  module '$/button_in_out' :
       registered  : data('checkRegistered').check()
       login       :  module './forms/input'  :
+        replace : [
+          '[^\\d-\\(\\)@\\w\\+\\s\\.]'
+        ]
         text1 : "Телефон или email"
         selector    : 'fast_bid'
         placeholder : 'Логин'
