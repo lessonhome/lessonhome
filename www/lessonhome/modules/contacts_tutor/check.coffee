@@ -1,6 +1,4 @@
-
 @check = (f)=>
-  console.log f
   errs = []
   if 0 < f.mobile_phone.length < 3
     errs.push "wrong_mobile"
@@ -13,5 +11,3 @@
   if 0 < f.site.length < 3
     errs.push "wrong_site"
   return errs
-
-

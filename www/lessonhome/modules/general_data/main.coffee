@@ -6,6 +6,8 @@ class @main
     @day_err = @found.day_err
     @month_err = @found.month_err
     @year_err = @found.year_err
+    @out_err_day    = @found.out_err_day
+    @out_err_status = @found.out_err_status
 
   show : =>
     @first_name = @tree.first_name.class
@@ -20,22 +22,21 @@ class @main
     @sex = @tree.gender_data.class
 
     @day = @tree.birth_data.day.class
-    @day.input.on 'focusout',@check_form
-    @day.input.on 'focus',@clearOutErrDate
-
+    
     @month = @tree.birth_data.month.class
-    @month.input.on 'focusout',@check_form
-    @month.input.on 'focus',@clearOutErrDate
 
     @year = @tree.birth_data.year.class
-    @year.input.on 'focusout',@check_form
-    @year.input.on 'focus',@clearOutErrDate
+
+    #TODO: move it's code in drop_down_list.coffee
+    @day.input.on 'focus',    => @clearOutErr @out_err_day
+    @month.input.on 'focus',  => @clearOutErr @out_err_day
+    @year.input.on 'focus',   => @clearOutErr @out_err_day
+    @status.input.on 'focus', => @clearOutErr @out_err_status
 
     @status = @tree.status.class
 
   save : => Q().then =>
     if @check_form()
-      console.log @getData()
       return @$send('./save',@getData())
       .then ({status,errs})=>
         if status=='success'
@@ -48,14 +49,16 @@ class @main
       return false
 
   check_form : =>
-    errs = []
+    errs = @js.check @getData()
     if !@day.exists()
       errs.push 'bad_day'
     if !@month.exists()
       errs.push 'bad_month'
     if !@year.exists()
       errs.push 'bad_year'
-    errs = @js.check errs, @getData()
+    if !@status.exists()
+      errs.push 'bad_status'
+    
     for e in errs
       @parseError e
     return errs.length==0
@@ -72,7 +75,6 @@ class @main
       status      : @status.getValue()
     }
 
-
   parseError : (err)=>
     switch err
       when "short_first_name"
@@ -80,47 +82,35 @@ class @main
       when "short_last_name"
         @last_name.showError "Слишком короткая фамилия"
       when "short_middle_name"
-        @patronymic.showError "Слишком короткое отчество"
+        @middle_name.showError "Слишком короткое отчество"
+      when "empty_first_name"
+        @first_name.showError "Заполните имя"
+      when "empty_last_name"
+        @last_name.showError "Заполните фамилию"
+      when "empty_patronymic"
+        @middle_name.showError "Заполните отчество"
       when "empty_date"
-        @outErrDate "Заполните дату"
+        @outErr "Заполните дату", @out_err_day
+      when "empty_status"
+        @outErr "Выберите статус", @out_err_status
       when "bad_day"
-        @outErrDate "Введите корректный день"
+        @outErr "Введите корректный день", @out_err_day
       when "bad_month"
-        @outErrDate "Введите корректный месяц"
+        @outErr "Введите корректный месяц", @out_err_day
       when "bad_year"
-        @outErrDate "Введите корректный год"
-
-  outErrDate : (err) =>
-    @out_err.show()
-    @out_err.text err
+        @outErr "Введите корректный год", @out_err_day
+      when "bad_status"
+        @outErr "Выберите статус из списка", @out_err_status
 
 
-  clearOutErrDate : (err) =>
-    @out_err.hide()
-    @out_err.text('')
+  outErr : (err, el) =>
+    el.text err
+    setTimeout =>
+      el.show()
+    , 100
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  clearOutErr : (el) =>
+    el.addClass 'hide'
+    el.text('')
 
 
