@@ -17,7 +17,7 @@ class @main extends template '../main'
       ]
       login           : module 'tutor/forms/input' :
         replace : [
-          "[^\\d-\\(\\)@\\w\\+\\s\\.]"
+          "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
         ]
         name        : 'email'
         selector    : 'fast_bid'

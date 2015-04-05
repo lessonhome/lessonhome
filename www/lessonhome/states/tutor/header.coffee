@@ -17,7 +17,7 @@ class @main
       registered  : data('checkRegistered').check()
       login       :  module './forms/input'  :
         replace : [
-          '[^\\d-\\(\\)@\\w\\+\\s\\.]'
+          '[^\\d-\\(\\)\\@\\w\\+\\s\\.]'
         ]
         text1 : "Телефон или email"
         selector    : 'fast_bid'
