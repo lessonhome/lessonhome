@@ -7,17 +7,22 @@ check = require("./check")
   errs = check.check errs,data
   return unless $.user.tutor
   if errs.length
-    return {success:false,errs:errs}
+    return {status:'failed',errs:errs}
 
-  month = @convertMonthToNumber(data.month)
+  month = yield @convertMonthToNumber data.month
   birthday = new Date(data.year,month,data.day)
-
+  console.log birthday,data.year,month,data.day
   db= yield $.db.get 'persons'
   yield _invoke db, 'update',{account:$.user.id},{$set:{first_name:data.first_name, middle_name:data.middle_name,last_name:data.last_name, sex:data.sex , birthday:birthday }},{upsert:true}
 
-  return {success:true}
 
-@convertMonthToNumber: (month_str)=>
+  status = yield @convertStatus data.status
+  db= yield $.db.get 'tutor'
+  yield _invoke db, 'update',{account:$.user.id},{$set:{status:status}},{upsert:true}
+
+  return {status:'success'}
+
+@convertMonthToNumber= (month_str)=>
   switch month_str
     when 'январь'
       return 0
@@ -43,3 +48,20 @@ check = require("./check")
       return 10
     when 'декабрь'
       return 11
+
+
+@convertStatus= (status_rus)=>
+  switch status_rus
+    when 'школьник'
+      return 'schoolboy'
+    when 'студент'
+      return 'student'
+    when 'аспирант/выпускник'
+      return 'graduate'
+    when 'кандидат наук'
+      return 'phd'
+    when 'доктор наук'
+      return 'phd2'
+
+
+

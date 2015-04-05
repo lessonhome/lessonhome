@@ -38,7 +38,7 @@ class @main
         '29': {value: '30', text: '30'},
         '30': {value: '31', text: '31'}
       }
-      value : ''
+      value : @exports 'day_value'
     month : module 'tutor/forms/drop_down_list' :
       placeholder : 'Месяц'
       selector    : 'first_reg_month'
@@ -56,6 +56,7 @@ class @main
         '10': {value: 'november', text: 'ноябрь'},
         '11': {value: 'december', text: 'декабрь'}
       }
+      value: @exports 'month_value'
     year  : module 'tutor/forms/drop_down_list' :
       placeholder : 'Год'
       selector    : 'first_reg_month'
@@ -143,3 +144,6 @@ class @main
         '80': {value: '81', text: '1917'},
         '81': {value: '82', text: '1916'}
       }
+      value: @exports 'year_value'
+
+
