@@ -122,6 +122,8 @@ class @main extends EE
     if @val != @_emittedEnd
       @_emittedEnd = @val
       @emit 'end',@val
+  shake : =>
+  
   onEnd     : (val)=>
     console.log 'end',val
   onInput   : =>
