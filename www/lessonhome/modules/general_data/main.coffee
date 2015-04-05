@@ -26,6 +26,7 @@ class @main
     @month = @tree.birth_data.month.class
 
     @year = @tree.birth_data.year.class
+    @status = @tree.status.class
 
     #TODO: move it's code in drop_down_list.coffee
     @day.input.on 'focus',    => @clearOutErr @out_err_day
@@ -87,7 +88,7 @@ class @main
         @first_name.showError "Заполните имя"
       when "empty_last_name"
         @last_name.showError "Заполните фамилию"
-      when "empty_patronymic"
+      when "empty_middle_name"
         @middle_name.showError "Заполните отчество"
       when "empty_date"
         @outErr "Заполните дату", @out_err_day
