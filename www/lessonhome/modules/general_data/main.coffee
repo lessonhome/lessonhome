@@ -31,17 +31,19 @@ class @main
     @year.input.on 'focusout',@check_form
     @year.input.on 'focus',@clearOutErrDate
 
+    @status = @tree.status.class
 
   save : => Q().then =>
     if @check_form()
       console.log @getData()
       return @$send('./save',@getData())
       .then ({status,errs})=>
-      if status=='success'
-        return true
-      if errs?.length
-        @parseError errs
-      return false
+        if status=='success'
+          console.log true
+          return true
+        if errs?.length
+          @parseError errs
+        return false
     else
       return false
 
@@ -67,6 +69,7 @@ class @main
       day         : @day.getValue()
       month       : @month.getValue()
       year        : @year.getValue()
+      status      : @status.getValue()
     }
 
 
