@@ -87,3 +87,8 @@ class @main
   clearOutErrDate : (err) =>
     @out_err.hide()
     @out_err.text('')
+
+
+
+
+

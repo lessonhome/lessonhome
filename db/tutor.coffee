@@ -5,7 +5,7 @@
 
 
 tutor:
-  person      : "asdfadsf"       # persons.id
+  account      : "asdfadsf"       # account.id
   registration_progress : 3     # текущий шаг регистрации
                   # use function new Date(year,month,day) to get it
   status      : 'graduate'  # статус преподавателя
