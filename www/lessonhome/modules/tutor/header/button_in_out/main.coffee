@@ -48,8 +48,11 @@ class @main extends EE
     e?.preventDefault?()
     pass  = @password.getValue()
     login = @login.getValue()
-    return unless pass.length   > 1
-    return unless login.length  > 1
+
+    ret = @js.check login,pass
+    if ret?.err?
+      return @showError ret.err
+    login = ret.login if ret?.login?
     unless pass.substr(0,1) == '`'
       len = pass.length
       pass = LZString.compress((CryptoJS.SHA1(pass)).toString(CryptoJS.enc.Hex)).toString()
@@ -63,11 +66,13 @@ class @main extends EE
     @$send( 'login',{
       password : pass
       login    : login
-    }).then ({status,session})=>
+    }).then ({status,session,err})=>
       console.log 'login',status
       if status == 'success'
         @success = true
         @found.form.submit()
+      else if err?
+        @showError err
       ###
       else
         switch err
@@ -80,3 +85,25 @@ class @main extends EE
           else
       ###
     .done()
+  showError : (err)=>
+    switch err
+      when 'already_logined'
+        @login.showError 'Кажется вы уже вошли. Сначала надо выйти!'
+        @password.showError()
+      when 'empty_login'
+        @login.showError 'Введите логин'
+      when 'empty_password'
+        @password.showError "Введите пароль"
+      when 'bad_password','wrong_password'
+        @password.showError 'Неверный пароль'
+      when 'bad_login'
+        @login.showError 'Введите телефон или email'
+      when 'short_password'
+        @password.showError 'Слишком короткий пароль'
+      when 'login_not_exists'
+        @login.showError 'Пользователь с таким логином не зарегестрирован'
+      else
+        @login.showError()
+        @password.showError "что-то пошло не так"
+
+

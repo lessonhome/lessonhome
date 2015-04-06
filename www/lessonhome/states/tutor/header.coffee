@@ -16,10 +16,15 @@ class @main
     button_in_out :  module '$/button_in_out' :
       registered  : data('checkRegistered').check()
       login       :  module './forms/input'  :
-        selector    : 'first_reg'
+        replace : [
+          '[^\\d-\\(\\)\\@\\w\\+\\s\\.]'
+        ]
+        text1 : "Телефон или email"
+        selector    : 'fast_bid'
         placeholder : 'Логин'
         name        : 'email'
       password   :  module './forms/input'  :
+        text1 : "Пароль"
         type        : 'password'
         selector    : 'fast_bid'
         placeholder : 'Пароль'

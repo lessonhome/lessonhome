@@ -122,6 +122,20 @@ class @main extends EE
     if @val != @_emittedEnd
       @_emittedEnd = @val
       @emit 'end',@val
+  shake : (d=1)=>
+    @_shake_x = 0
+    clearTimeout @_shake_t if @shake_t?
+    @shake_t = null
+    f = =>
+      @shake_t = null
+      a =d*Math.sin(@_shake_x*2.0*Math.PI)
+      @found.input_box.css 'transform',"translate(0,#{a}px)"
+      if @_shake_x >= 2
+        @found.input_box.css 'transform',"none"
+        return
+      @_shake_x+=0.4
+      @_shake_t = setTimeout f,30
+    f()
   onEnd     : (val)=>
     console.log 'end',val
   onInput   : =>
@@ -136,10 +150,14 @@ class @main extends EE
         @emit 'submit',@input.val()
     setTimeout @checkChange,0
   ping : (alpha)=>
-    @clearPing() if !alpha?
-    return @clearPing() if alpha < 0.01
+    if !alpha?
+      @clearPing()
+    if alpha < 0.01
+      @found.input_box.css 'box-shadow',"none"
+      return @clearPing()
+    @shake(0.5) unless alpha?
     alpha ?= 1.0
-    @input.css 'box-shadow',"0 0 15px rgba(255,50,50,#{alpha})"
+    @found.input_box.css 'box-shadow',"0 0 15px rgba(255,50,50,#{alpha})"
     @pingTimer = setTimeout (=>@ping alpha*0.9) ,33
   clearPing : =>
     clearTimeout @pingTimer if @pingTimer? && @pingTimer>0
@@ -188,6 +206,7 @@ class @main extends EE
     @tree.errors[name] = text
   showError : (error="",error_align=@tree.error_align)=>
     @clearPing()
+    @shake()
     str = error
     if @tree.errors?[error]?
       str = @tree.errors[error]

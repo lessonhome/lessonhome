@@ -15,7 +15,7 @@ label(class=selector).unselect
     .js-text1.select!= text1
   .js-level2
     .js-text2.select(hide=(text2==""))!= text2
-    .right
+    .right.js-input_box
       input.js-input(placeholder=placeholder value=value type=type name=name style="text-align:#{align};")
   .js-level3(hide=(text3==""))
     .js-text3.select(style="float:#{error_align};")!= text3

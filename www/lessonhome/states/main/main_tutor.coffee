@@ -16,6 +16,9 @@ class @main extends template '../main'
         module 'lib/lzstring'
       ]
       login           : module 'tutor/forms/input' :
+        replace : [
+          "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
+        ]
         name        : 'email'
         selector    : 'fast_bid'
         text1       : 'Введите ваш телефон или email адрес'

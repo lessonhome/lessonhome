@@ -3,8 +3,7 @@ check = require("./check")
 
 @handler = ($,data)=>
   console.log data
-  errs = []
-  errs = check.check errs,data
+  errs = check.check data
   return unless $.user.tutor
   if errs.length
     return {status:'failed',errs:errs}

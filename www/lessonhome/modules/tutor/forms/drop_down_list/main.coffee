@@ -250,14 +250,13 @@ class @main extends EE
 
   getValue : => @input.val()
 
-  exists : => @_list[@getValue()]
+  exists : => @_list[@getValue()]?
 
   suitability: ()=>
     el_val = @getValue()
     for key,opt of @tree.default_options
-      if el_val == opt.text || el_val == ''
+      if el_val == opt.text
         return true
-      else
-        return false
+    return false
 
 

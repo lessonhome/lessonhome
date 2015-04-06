@@ -26,12 +26,16 @@ class @main extends EE
     e?.preventDefault?()
     pass = @password.getValue()
     login = @login.getValue()
+    #unless @checkEmail login
+    #  unless login = @checkPhone login
+    #    return @login.showError 'Введите корректный телефон или email'
     #return unless pass.length>=5
     #return unless login.length > 3
 
-    err = @js.check login,pass,@checkbox.state
-    @printErrors err.err if err?.err?
-    return if err?
+    ret = @js.check login,pass,@checkbox.state
+    @printErrors ret.err if ret?.err?
+    return if ret?.err?
+    login = ret.login if ret?.login?
     console.log pass
     unless pass.substr(0,1) == '`'
       len = pass.length
@@ -43,13 +47,11 @@ class @main extends EE
       pass = '`'+pass
       @password.setValue pass
       @hashedPassword = true
-      @password.setFlush?()
-    console.log pass
     @$send( 'register',{
       password : pass
       login    : login
     }).then ({status,err})=>
-      console.log 'register',status
+      console.log 'register',arguments
       if status == 'success'
         @success = true
         @found.form.submit()
@@ -58,6 +60,21 @@ class @main extends EE
 
 
     .done()
+  checkEmail : (login)=>
+    re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+    re.test login
+  checkPhone : (login)=>
+    return null unless login.match /^[-\+\d\(\)\s]+$/
+    p = login.replace /\D/,""
+    return null if p.length > 11
+    if p.length == 11
+      if p.match /^[7|8]/
+        p = p.substr 1
+      else return null
+    if p.length == 7 || p.length == 10
+      return p
+    return null
+
   printErrors : (err)=>
     #console.log err
     switch err
@@ -68,19 +85,21 @@ class @main extends EE
         @login.showError 'Такой логин занят'
         console.log err
       when 'already_logined'
-        href = "/tutor/profile"
-        window.location =  href
-        console.log err
+        @login.showError "Кажется вы уже вошли. Сначала надо выйти!"
+        @password.showError()
+        #href = "/tutor/profile"
+        #window.location =  href
+        #console.log err
       when 'bad_login'
-        @login.showError 'Некорректный логин. Используйте для логина символы латинского алфавита и цифры'
+        @login.showError 'Используйте для логина корректный телефон или email'
         console.log err
       when 'bad_password'
         @password.showError 'Плохой пароль'
         console.log err
       when 'empty_login_form'
-        @login.showError 'Заполните форму'
+        @login.showError 'Введите телефон или email'
       when 'empty_password_form'
-        @password.showError 'Заполните форму'
+        @password.showError 'Введите пароль для нового аккаунта'
       when 'short_login'
         @login.showError 'Слишком короткий логин'
         console.log err
@@ -91,5 +110,5 @@ class @main extends EE
         @checkbox_error.show()
         #alert 'Чекбокс'
       else
-        console.log err
-
+        @login.showError()
+        @password.showError 'что-то пошло не так'
