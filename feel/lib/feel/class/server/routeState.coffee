@@ -139,6 +139,9 @@ class RouteState
     json_tree = _toJson(@getTree(@top))
     @time "stringify"
     end +=
+      "<script>
+      'use strict';
+      #{Feel.clientRegenerator}</script>"+
       @site.moduleJsTag('lib/jquery')+
       @site.moduleJsTag('lib/jquery/plugins')+
       @site.moduleJsTag('lib/q')+
@@ -146,6 +149,7 @@ class RouteState
       @site.moduleJsTag('lib/jade')+
       '
       <script id="feel-js-client">
+      "use strict";
       '+('
           window.EE = EventEmitter;
           var $Feel = {}; 
@@ -159,9 +163,12 @@ class RouteState
             }).call($Feel); ')+'
       </script>'+
       '<script id="feed-js-modules">
+      "use strict";
           console.log("Feel",$Feel); 
       '+@jsModules+'</script>'+
-      '<script id="feel-js-startFeel">Feel.init();</script>'+
+      '<script id="feel-js-startFeel">
+      "use strict";
+      Feel.init();</script>'+
       '</body></html>'
     @time "end str finish"
     sha1 = require('crypto').createHash('sha1')

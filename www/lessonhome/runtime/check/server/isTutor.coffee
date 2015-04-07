@@ -1,0 +1,5 @@
+
+
+@checker =  ($)=> $.user.tutor == true
+
+

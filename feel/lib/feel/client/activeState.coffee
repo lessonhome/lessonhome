@@ -39,14 +39,24 @@ class @activeState
       return unless @classes[mod._uniq]?
       cl  = @classes[mod._uniq]
       if cl.dom?
-        try cl.Dom? cl.dom
+        try
+          retdom = cl.Dom? cl.dom
+          if Q.isPromise retdom
+            retdom.catch (e)->
+              Feel.error Exception(e)," #{mod._name}.Dom() failed"
+            .done()
         catch e then return Feel.error e, " #{mod._name}.Dom() failed"
     @watchUp @,'tree', (node,key,val)=>
       return unless node[key]?._isModule
       mod = node[key]
       return unless @classes[mod._uniq]?
       cl  = @classes[mod._uniq]
-      try cl.show?()
+      try
+        retshow = cl.show?()
+        if Q.isPromise retshow
+          retshow.catch (e)->
+            Feel.error Exception(e)," #{mod._name}.show() failed"
+          .done()
       catch e then return Feel.error e, " #{mod._name}.show() failed"
   parseTree : (node,statename)=>
     return if node._parseIn

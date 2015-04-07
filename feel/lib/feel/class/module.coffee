@@ -294,7 +294,7 @@ class module.exports
     @allCoffee += @allJs
     @allCoffee += "}).call(arr);return arr; })()"
     @allCoffee = "" unless num
-    @allCoffee = Feel.bjs @allCoffee
+    @allCoffee = Feel.bjs _regenerator @allCoffee
     @setHash()
   makeJs  : =>
     @newJs = {}
@@ -317,7 +317,7 @@ class module.exports
         @allJs += "(function(){ #{src} }).call(arr);"
     @allJs += "return arr; })()"
     @allJs  = "" unless num
-    @allJs  = Feel.bjs @allJs
+    @allJs  = Feel.bjs _regenerator @allJs
     @setHash()
     return Q()
   setHash : =>

@@ -42,7 +42,7 @@ this.toEn = (function toEn(str) {
     );
 
     var newStr = new String();
-
+    var ch;
     for (var i = 0; i < str.length; i++) {
 
         ch = str.charAt(i);
