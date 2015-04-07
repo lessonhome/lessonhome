@@ -466,7 +466,8 @@ global._inspect = _util.inspect
 global._hash    = (f)-> _crypto.createHash('sha1').update(f).digest('hex')
 global._toJson  = (o)-> _js_infinite_json.stringify o
 global._unJson  = (o)-> _js_infinite_json.parse     o
-
+regenerator = require("regenerator")
+global._regenerator = (source)-> regenerator.compile(source).code
 global._args    = (a)->
   for ar,i in a
     if ar == null

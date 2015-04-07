@@ -1,5 +1,5 @@
 class @main extends template '../main'
-  access : ['other']
+  access : ['other','pupil']
   redirect : {
     'pupil' : '/first_step'
     'tutor' : '/tutor/search_bids'

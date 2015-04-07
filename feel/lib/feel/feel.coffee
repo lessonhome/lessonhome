@@ -210,12 +210,13 @@ class module.exports
   loadClient : =>
     @client   = {}
     @clientJs = ""
+    @clientRegenerator = require('regenerator').compile('',includeRuntime:true).code
     @loadClientDir 'feel/lib/feel/client',''
     .then =>
       for key,val of @client
         @clientJs += val unless key == 'main'
       @clientJs += @client['main']
-    @clientJs = @bjs @clientJs
+    @clientJs = @bjs _regenerator @clientJs
   loadClientDir : (path,dir)=>
     readdir "#{path}#{dir}"
     .then (files)=>
