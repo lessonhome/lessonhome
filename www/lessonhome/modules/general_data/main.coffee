@@ -69,12 +69,14 @@ class @main
 
   parseError : (err)=>
     switch err
+      #short
       when "short_first_name"
         @first_name.showError "Слишком короткое имя"
       when "short_last_name"
         @last_name.showError "Слишком короткая фамилия"
       when "short_middle_name"
         @middle_name.showError "Слишком короткое отчество"
+      #empty
       when "empty_first_name"
         @first_name.showError "Заполните имя"
       when "empty_last_name"
@@ -85,6 +87,7 @@ class @main
         @outErr "Заполните дату", @out_err_date, [@day, @month, @year]
       when "empty_status"
         @outErr "Выберите статус", @out_err_status, @status
+      #correct
       when "bad_day"
         @outErr "Введите корректный день", @out_err_date, @day
       when "bad_month"
