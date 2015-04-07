@@ -109,7 +109,6 @@ class module.exports
     state.exports = (name='{{NULL}}')=> __exports:name
     state.name = @name
     tree = state.tree()
-    
     tree.__state      = state
     tree._isState     = true
     tree._statename   = @name
@@ -127,6 +126,14 @@ class module.exports
       state.tag = [state.tag]
     else if !state.tag?.length?
       state.tag = []
+    state.access ?= []
+    state.access = state.access() if typeof state.access =='function'
+    state.access ?= []
+    if typeof state.access == 'string'
+      state.access = [state.access]
+    state.redirect ?= {}
+     
+
     temp = {}
     #state.page_tags ?= {}
     for tag in state.tag

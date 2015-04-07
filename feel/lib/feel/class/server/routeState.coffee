@@ -78,6 +78,8 @@ class RouteState
     @state = yield @site.state[@statename].make(null,null,@req,@res)
     @time 'make'
     @tags = {}
+    @access   = {}
+    @redirect = {}
     @getTop()
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       if node._isState
@@ -89,10 +91,14 @@ class RouteState
         for sn,s of o
           for k of s.tag
             @tags[k] = true
+          for a in s.access
+            @access[a] = true
+          for k,v of s.redirect
+            @redirect[k] = v
         for sn,s of o
           s.page_tags = @tags
         #node = pnode[key] = @getTopOfNode node
-
+    console.log @access,@redirect
     if @top._isState
       if @top.__states
         o = @top.__states
