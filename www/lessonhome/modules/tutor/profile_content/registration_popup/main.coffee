@@ -7,8 +7,7 @@ class @main
     @bNext.on 'submit', @next
 
   next : =>
-    console.log 'next'
     @form?.save?().then (success)=>
       if success
         @bNext.submit()
-
+    .done()

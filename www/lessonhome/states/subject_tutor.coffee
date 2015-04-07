@@ -134,9 +134,7 @@ class @main
       height    : '80px'
       text      : 'Комментарии :'
       selector  : 'first_reg'
-    add_button        : module 'tutor/button' :
-      text     : '+Добавить'
-      selector : 'reg_add'
+
 
 
 

@@ -4,6 +4,10 @@ label(class=selector)
   if text
     .text.select!=text
   if height
-    textarea(style="height : #{height}", placeholder=placeholder, maxlength="300")
+    textarea(style="height : #{height}", placeholder=placeholder maxlength="300" value=value)
   else
-    textarea(style="height : 100%", placeholder=placeholder maxlength="300")
+    textarea(style="height : 100%", placeholder=placeholder maxlength="300" value=value)
+
+
+
+
