@@ -9,3 +9,5 @@ class @main extends EE
 
   getValue : =>
     return @val
+
+

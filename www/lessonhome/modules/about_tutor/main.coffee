@@ -34,3 +34,41 @@ class @main
     #for e in errs
       #@parseError e
     return errs.length==0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
