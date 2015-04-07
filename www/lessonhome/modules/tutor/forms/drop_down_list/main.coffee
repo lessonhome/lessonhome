@@ -252,11 +252,7 @@ class @main extends EE
 
   exists : => @_list[@getValue()]?
 
-  suitability: ()=>
-    el_val = @getValue()
-    for key,opt of @tree.default_options
-      if el_val == opt.text
-        return true
-    return false
+  err_effect       : => @label.addClass 'err_effect'
+  clean_err_effect : => @label.remove 'err_effect'
 
 

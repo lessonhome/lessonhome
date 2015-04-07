@@ -14,7 +14,7 @@ class @main extends template '../fast_bid'
       phone : module 'tutor/forms/input':
         text1: 'Телефон :'
         selector  : 'fast_bid'
-        value      : data('form').get('fast_bid','phone')
+        value      : data('form').get('fast_bid','phone').then (p)-> if p then p else  "+7 (___) ___-__-__"
         replace     : [
           {"^(8|7)(?!\\+7)":"+7"}
           {"^(.*)(\\+7)":"$2$1"}
@@ -33,6 +33,7 @@ class @main extends template '../fast_bid'
         ]
       email : module 'tutor/forms/input':
         text1: 'E-mail :'
+        text2 : 'asdfasd'
         selector  : 'fast_bid'
         replace   : [
          { "(^[^\\w])" : ""}

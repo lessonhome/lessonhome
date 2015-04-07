@@ -1,30 +1,21 @@
+
+
 class @main
   Dom : =>
     @out_err = @found.out_err
 
   show : =>
     @mobile_phone = @tree.mobile_phone.class
-    @mobile_phone.input.on 'focusout',@check_form
-
-    @extra_phone = @tree.extra_phone.class
-    @extra_phone.input.on 'focusout',@check_form
-
-    @post = @tree.post.class
-    @post.input.on 'focusout',@check_form
-
-    @skype = @tree.skype.class
-    @skype.input.on 'focusout',@check_form
-
-    @site = @tree.site.class
-    @site.input.on 'focusout',@check_form
-
-    @country = @tree.country.class
-    @country.input.on 'focusout',@check_form
-    @country.input.on 'focus',@clearOutErrDate
-
+    @extra_phone  = @tree.extra_phone.class
+    @post         = @tree.post.class
+    @skype        = @tree.skype.class
+    @site         = @tree.site.class
+    @country      = @tree.country.class
     @city = @tree.city.class
-    @city.input.on 'focusout',@check_form
-    @city.input.on 'focus',@clearOutErrDate
+
+    #TODO: move it's code in drop_down_list.coffee
+    @country.input.on 'focus', => @clearOutErr
+    @city.input.on    'focus', => @clearOutErr
 
 
 
@@ -42,9 +33,9 @@ class @main
 
   check_form : =>
     errs = @js.check @getData()
-    if !@country.suitability()
+    if !@country.exists() @
       errs.push 'bad_country'
-    if !@city.suitability()
+    if !@city.exists()
       errs.push 'bad_city'
     for e in errs
       @parseError e
@@ -79,12 +70,12 @@ class @main
         @outErrDate "Введите правильный город"
 
 
-  outErrDate : (err) =>
+  outErr : (err) =>
     @out_err.show()
     @out_err.text err
 
 
-  clearOutErrDate : (err) =>
+  clearOutErr : (err) =>
     @out_err.hide()
     @out_err.text('')
 
