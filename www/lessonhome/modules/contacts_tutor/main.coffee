@@ -2,7 +2,8 @@
 
 class @main
   Dom : =>
-    @out_err = @found.out_err
+    @err_country = @found.err_country
+    @err_city = @found.err_city
 
   show : =>
     @mobile_phone = @tree.mobile_phone.class
@@ -11,11 +12,13 @@ class @main
     @skype        = @tree.skype.class
     @site         = @tree.site.class
     @country      = @tree.country.class
-    @city = @tree.city.class
+    @city         = @tree.city.class
 
     #TODO: move it's code in drop_down_list.coffee
-    @country.input.on 'focus', => @clearOutErr
-    @city.input.on    'focus', => @clearOutErr
+    @country.input.on 'focus', => @clearOutErr @err_country, @country
+    @city.input.on    'focus', => @clearOutErr @err_city, @city
+
+
 
   save : => Q().then =>
     console.log 'Call Save'
@@ -36,10 +39,9 @@ class @main
   check_form : =>
 
     errs = @js.check @getData()
-
-    if !@country.exists()
+    if !@country.exists() && @country.getValue().length!=0
       errs.push 'bad_country'
-    if !@city.exists()
+    if !@city.exists() && @city.getValue().length!=0
       errs.push 'bad_city'
 
     for e_ in errs
@@ -62,29 +64,51 @@ class @main
 
   parseError : (err)=>
     switch err
-      when "wrong_mobile"
+      #short
+      when "bad_mobile"
         @mobile_phone.showError "Неккоректный телефон"
-      when "wrong_extra_phone"
+      when "bad_extra_phone"
         @extra_phone.showError "Неккоректный доп. телефон"
-      when "wrong_post"
+      when "bad_post"
         @post.showError "Некорректный email"
-      when "wrong_skype"
-        @skype.showError "Только английские буквы"
-      when "wrong_site"
+      when "bad_skype"
+        @skype.showError "Неккоректный скайп"
+      when "bad_site"
         @site.showError "Неверный формат названия"
       when "bad_country"
         @outErr "Введите правильную страну"
       when "bad_city"
         @outErr "Введите правильный город"
+      #empty
+      when "empty_mobile"
+        @mobile_phone.showError "Введите телефон"
+      when "empty_extra_phone"
+        @extra_phone.showError "Введите доп. телефон"
+      when "empty_post"
+        @post.showError "Введите email"
+      when "empty_skype"
+        @skype.showError "Введите скайп"
+      when "empty_site"
+        @site.showError "Введите сайт"
+      when "empty_country"
+        @outErr "Выберите страну"
+      when "empty_city"
+        @outErr "Выберите город"
 
 
-  outErr : (err) =>
-    @out_err.show()
-    @out_err.text err
 
-  clearOutErr : (err) =>
-    @out_err.hide()
-    @out_err.text('')
+  outErr : (err, err_el, el) =>
+    el.err_effect()
+    err_el.text err
+    setTimeout =>
+      err_el.show()
+    , 100
+
+
+  clearOutErr : (err_el ,el) =>
+    el.clean_err_effect()
+    err_el.addClass 'hide'
+    err_el.text('')
 
 
 

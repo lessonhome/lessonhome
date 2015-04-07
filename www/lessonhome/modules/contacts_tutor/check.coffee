@@ -1,14 +1,30 @@
 @check = (f)=>
   console.log f
   errs = []
+  #short
   if 0 < f.mobile_phone.length < 3
-    errs.push "wrong_mobile"
+    errs.push "bad_mobile"
   if 0 < f.extra_phone.length < 3
-    errs.push "wrong_extra_phone"
+    errs.push "bad_extra_phone"
   if 0 < f.post.length < 3
-    errs.push "wrong_post"
+    errs.push "bad_post"
   if 0 < f.skype.length < 3
-    errs.push "wrong_skype"
+    errs.push "bad_skype"
   if 0 < f.site.length < 3
-    errs.push "wrong_site"
+    errs.push "bad_site"
+  #empty
+  if f.mobile_phone.length == 0
+    errs.push "empty_mobile"
+  if f.extra_phone.length == 0
+    errs.push "empty_extra_phone"
+  if f.post.length == 0
+    errs.push "empty_post"
+  if f.skype.length == 0
+    errs.push "empty_skype"
+  if f.site.length == 0
+    errs.push "empty_site"
+  if f.country.length == 0
+    errs.push "empty_country"
+  if f.city.length == 0
+    errs.push "empty_city"
   return errs
