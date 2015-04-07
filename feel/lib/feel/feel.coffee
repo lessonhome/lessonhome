@@ -209,7 +209,7 @@ class module.exports
     
   loadClient : =>
     @client   = {}
-    @clientJs = ""
+    @clientJs = @cacheCoffee 'feel/lib/feel/client.lib.coffee'
     @clientRegenerator = require('regenerator').compile('',includeRuntime:true).code
     @loadClientDir 'feel/lib/feel/client',''
     .then =>
