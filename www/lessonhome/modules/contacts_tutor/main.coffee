@@ -17,40 +17,48 @@ class @main
     @country.input.on 'focus', => @clearOutErr
     @city.input.on    'focus', => @clearOutErr
 
-
-
   save : => Q().then =>
+    console.log 'Call Save'
     if @check_form()
+      console.log 'aaaaaaa'
       return @$send('./save',@getData())
       .then ({status,errs})=>
-      if status=='success'
-        return true
-      if errs?.length
-        @parseError errs
-      return false
+        if status=='success'
+          console.log 'save_true'
+          return true
+        if errs?.length
+          @parseError errs
+        return false
     else
+      console.log 'bbbbbb'
       return false
 
   check_form : =>
+
     errs = @js.check @getData()
-    if !@country.exists() @
+
+    if !@country.exists()
       errs.push 'bad_country'
     if !@city.exists()
       errs.push 'bad_city'
-    for e in errs
-      @parseError e
+
+    for e_ in errs
+      @parseError e_
+    console.log errs,1
+
     return errs.length==0
 
 
   getData : =>
-    mobile_phone  : @mobile_phone.getValue()
-    extra_phone   : @extra_phone.getValue()
-    post          : @post.getValue()
-    skype         : @skype.getValue()
-    site          : @site.getValue()
-    country       : @country.getValue()
-    city          : @city.getValue()
-
+    return {
+      mobile_phone: @mobile_phone.getValue()
+      extra_phone: @extra_phone.getValue()
+      post: @post.getValue()
+      skype: @skype.getValue()
+      site: @site.getValue()
+      country: @country.getValue()
+      city: @city.getValue()
+    }
 
   parseError : (err)=>
     switch err
@@ -65,15 +73,14 @@ class @main
       when "wrong_site"
         @site.showError "Неверный формат названия"
       when "bad_country"
-        @outErrDate "Введите правильную страну"
+        @outErr "Введите правильную страну"
       when "bad_city"
-        @outErrDate "Введите правильный город"
+        @outErr "Введите правильный город"
 
 
   outErr : (err) =>
     @out_err.show()
     @out_err.text err
-
 
   clearOutErr : (err) =>
     @out_err.hide()

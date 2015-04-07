@@ -11,4 +11,4 @@ class @main
     @form?.save?().then (success)=>
       if success
         @bNext.submit()
-
+    .done()
