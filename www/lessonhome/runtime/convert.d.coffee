@@ -39,3 +39,40 @@
       return 'кандидат наук'
     when 'phd2'
       return 'доктор наук'
+
+# convert ISO to date (example: ISO to 12.2.2002)
+
+@convertToDate =(birthday)=>
+  day   = birthday.getDate?()
+  month = birthday.getMonth?() + 1
+  year  = birthday.getFullYear?()
+  return day+'.'+month+'.'+year
+
+@convertTutorStatusToRus =(status)=>
+  switch status
+    when 'schoolboy'
+      return 'школьник'
+    when 'student'
+      return 'студент'
+    when 'graduate'
+      return 'аспирант/выпускник'
+    when 'phd'
+      return 'кандидат наук'
+    when 'phd2'
+      return 'доктор наук'
+
+###
+
+@getWork =(work)=>
+  return work.pop().name if work?.pop().name?
+  console.log 'start'
+  console.log work
+  console.log 'end'
+  return 'заполнить'
+
+
+###
+
+
+@getLinkToFill =(href)=>
+  return "<a href=#{href}>заполнить</a>"

@@ -2,6 +2,7 @@
 
 class Viewer
   constructor : (@state,@parent)->
+    Wrap @
     @dom = $('<div class="viewer"><div class="left"><div class="in"></div><iframe></iframe></div><div class="right"><div class="in"></div><div class="img"><img /></div></div></div>')
     @frame = @dom.find 'iframe'
     @img   = @dom.find '.img'
@@ -22,13 +23,13 @@ class Viewer
     @nsc = 0.6
     @mx = $(window).width()/2
     @my = 80
-    @onmm()
+    @onmm().done()
     @x = @nx
     @y = @ny
     @ix = @inx
     @iy = @iny
     @timer()
-    @dom.find('.in').click @parent.remove
+    @dom.find('.in').click @parent.remove.out
   remove : =>
     $('body').removeClass 'g-fixed'
     $(window).scrollTop @scroll
@@ -92,7 +93,7 @@ class Viewer
     @ix += (@inx-@ix)/10
     @iy += (@iny-@iy)/10
     @sc += (@nsc-@sc)/10
-    @onmm()
+    yield @onmm()
     rheight = @rimg.height()
     rheight = 3000 if rheight < 100
     riw = @rimg.width()
@@ -108,18 +109,20 @@ class Viewer
 
 
 class @main
+  constructor : ->
+    Wrap @
   show : =>
     @models = @dom.find 'a.model'
-    @models.click @open
+    @models.click @open.out
     @node = {}
     for name,state of @tree.states
       if state.model
         @node["#{state.model}"] = state
-    $(window).mousemove (e)=> @viewer?.mousemove? e
-    $(window).mousewheel (e)=> @viewer?.mousewheel? e
-    $(window).keydown @remove
-    setInterval @timer, 1000/60
-    @setSort()
+    $(window).mousemove (e)=> @viewer?.mousemove?.out e
+    $(window).mousewheel (e)=> @viewer?.mousewheel?.out e
+    $(window).keydown @remove.out
+    setInterval @timer.out, 1000/60
+    yield @setSort()
     @fixeddiv = @dom.find '.fixed *'
 
     titles = @dom.find('.state .title')
@@ -154,7 +157,7 @@ class @main
     @dom.find('.state .route').css "width", R+"%"
     @dom.find('.state .model').css "width",M+"%"
   remove : =>
-    @viewer?.remove?()
+    yield @viewer?.remove?()
     delete @viewer
 
   open : (e)=>
@@ -170,7 +173,7 @@ class @main
     return false unless state
 
     if @viewer?
-      @viewer.remove()
+      yield @viewer.remove()
       delete @viewer
     @viewer = new Viewer state,@
     @dom.append @viewer.dom
@@ -183,7 +186,7 @@ class @main
       cl = d.attr 'class'
       do (d,cl)=>
         d.click =>
-          @sort cl
+          @sort.out cl
     divs = @dom.find '.state'
     arr = []
     for d,i in divs
@@ -215,8 +218,8 @@ class @main
           k = @arr[i]
           @arr[i] = @arr[j]
           @arr[j] = k
-          @place @arr,i
-          @place @arr,j
+          yield @place @arr,i
+          yield @place @arr,j
     @setSorted cl
   setSorted : (cl)=>
     @dom.find('.top .sorted').removeClass 'sorted'

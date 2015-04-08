@@ -1,16 +1,5 @@
 
-
-require 'colors'
-global._colors = require 'colors/safe'
-###
-__used = 0
-setInterval ->
-  n = process.memoryUsage().heapUsed
-  console.log "+"+(n-__used)/1024
-  __used = n
-, 5000
-###
-
+window?.global ?= window
 
 last = ""
 log =
@@ -79,21 +68,6 @@ global.VC = (classes...)->
 
     Child_Projection
 
-_getCallerFile = ->
-  try
-    err = new Error()
-    callerfile = null
-    currentfile = null
-    Error.prepareStackTrace = (err, stack)->stack
-    currentfile = err.stack.shift().getFileName()
-    for f in err.stack
-      console.log f.getFileName()
-    while err.stack.length
-      callerfile = err.stack.shift().getFileName()
-      if(currentfile != callerfile)
-        return callerfile
-  catch err
-    undefined
 
 strlen = (str,len,real)->
   real ?= str.length
@@ -112,28 +86,26 @@ global.Wrap = (obj,prot)->
   __FNAME__ = ""
   _single = {}
   logFunction = (args...)->
-    s = "#{Main.name}".blue+":".grey
-    s+= "#{Main.processId}".gray+":".grey if Main.processId?
-    s+= "#{proto.constructor.name}".cyan
-    s+= "#{__functionName__}".cyan
+    s = ""
+    s+= "#{proto.constructor.name}"
+    s+= "#{__functionName__}"
     for val,i in args
-      if _util.isError val
+      if val?.name? && val.name == 'Error'
         args[i] = Exception val
       if typeof (args[i]) == 'string'
-        args[i] = (""+args[i]).green
+        args[i] = (""+args[i])
     console.log s,args...
   errorFunction = (args...)->
-    s= "\n********************************************************\n".red
-    s+= "ERROR".red+":#{Main.name}:".yellow
-    s+= "#{Main.processId}:".yellow if Main.processId?
-    s+= "#{proto.constructor.name}".yellow
-    s+= "#{__functionName__}".yellow
+    s= "\n********************************************************\n"
+    s+= "ERROR"+":"
+    s+= "#{proto.constructor.name}"
+    s+= "#{__functionName__}"
     for val,i in args
-      if _util.isError val
+      if val?.name? && val.name == 'Error'
         args[i] = Exception val
       if typeof (args[i]) == 'string'
-        args[i] = (""+args[i]).magenta
-    console.log s,args...,"\n********************************************************".red
+        args[i] = (""+args[i])
+    console.log s,args...,"\n********************************************************"
   single = (name=__FNAME__)-> Q.then ->
     obj._lock('__s_'+name,true).then (id)->
       #return single(__FNAME__) if _single[__FNAME__]
@@ -149,7 +121,7 @@ global.Wrap = (obj,prot)->
     if (typeof val=='function') #&& !proto.__wraped[key]
       #proto.__wraped[key] = true
       do (key,val)->
-        fname = "::".grey+key.cyan+"()".blue
+        fname = "::"+key+"()"
         FNAME = key
         gen = null
         if val?.constructor?.name == 'GeneratorFunction'
@@ -178,9 +150,17 @@ global.Wrap = (obj,prot)->
               break if err.match /q\.js/
               break if err.match /\(native\)/
               nerrs += "\n\t"+err.replace(/\n/g,"")
-            unless _util.isError e
+            unless e?.name? && e.name == "Error"
               oe = e
-              e = _inspect e unless typeof e == 'string'
+              unless typeof e == 'string'
+                try
+                  _e = JSON.strigify e
+                  e = _e
+                catch _err
+                  if typeof e == 'object' && e != null
+                    e = "{"+Object.keys(e).join(',')+"}"
+                  else
+                    e = "?"
               ne = new Error()
               ne.message = e
               if typeof oe == 'object' && oe != null
@@ -190,7 +170,7 @@ global.Wrap = (obj,prot)->
 
               e = ne
             e.message ?= ""
-            e.message += "\n#{proto.constructor.name}::#{key}(".red
+            e.message += "\n#{proto.constructor.name}::#{key}("
             na = []
             for a,i in args
               if typeof a == 'object' && (a != null)
@@ -201,8 +181,8 @@ global.Wrap = (obj,prot)->
                 a = a
               else a = '...'
               na.push a
-            e.message += na.join(',').red
-            e.message += ");".red+nerrs.grey
+            e.message += na.join(',')
+            e.message += ");"+nerrs
             #if key != 'destructor'
             #  if typeof obj.destructor == 'function'
             #    return obj.destructor(e)
@@ -212,6 +192,7 @@ global.Wrap = (obj,prot)->
             throw e
           return q
         #proto[key] = foo
+        foo.out = -> obj[key](arguments...).done()
         obj[key] = foo if !prot?
   obj.log   ?= (args...)-> logFunction.apply    obj,args
   obj.error ?= (args...)-> errorFunction.apply  obj,args
@@ -309,10 +290,7 @@ global.Wrap = (obj,prot)->
       ee.once action, (args...)->
         ret = foo args...
         ret.done() if Q.isPromise ret
-global.lrequire = (name)-> require './lib/'+name
 
-global.Path     = new (require('./service/path'))()
-global.Q        = require 'q'
 
 #Q.longStackSupport  = true
 
@@ -413,7 +391,6 @@ Q.Promise::wait = (t,args...)->
 Q.wait = -> Q().wait arguments...
 Q.tick = -> Q().wait arguments...
 Q.Promise::tick = Q.Promise::wait
-global.EE           = require('events').EventEmitter
 
 class Wraper extends EE
   constructor : ->
@@ -422,9 +399,9 @@ global.Wraper = Wraper
 
 global.Exception = (e)=>
   str = ""
-  str += (e.name+"\n").blue    if e.name?
-  str += (e.message+"\n").cyan if e.message?
-  str += (""+e.stack).grey          if e.stack?
+  str += (e.name+"\n") if e.name?
+  str += (e.message+"\n") if e.message?
+  str += (""+e.stack)          if e.stack?
   return str
 global.ExceptionJson = (e)=>
   name    : e.name
@@ -451,6 +428,7 @@ class Lib
   init : ->
     #Watcher.init()
     #
+###
 _js_infinite_json = require 'js-infinite-json'
 global._deflate = Q.denode require('zlib').deflate
 global._qlimit  = require './lib/qlimit'
@@ -468,16 +446,19 @@ global._toJson  = (o)-> _js_infinite_json.stringify o
 global._unJson  = (o)-> _js_infinite_json.parse     o
 regenerator = require("regenerator")
 global._regenerator = (source)-> regenerator.compile(source).code
+###
 global._args    = (a)->
   for ar,i in a
     if ar == null
       a[i] = undefined
   return a
+###
 global._randomHash = (b=20)-> _crypto.randomBytes(b).toString('hex')
 global._shash   = (f)-> _hash(f).substr 0,10
+###
 global._invoke  = (args...)-> Q.ninvoke args...
-global._mkdirp  = Q.denode require 'mkdirp'
-module.exports  = Lib
+#global._mkdirp  = Q.denode require 'mkdirp'
+#module.exports  = Lib
 
 global._waitFor = (obj,action,time=60000)-> Q.then ->
   waited = false
@@ -503,4 +484,4 @@ global._Inited = (obj)-> Q.then ->
   return false
 
 
-
+global.LibClass = Lib

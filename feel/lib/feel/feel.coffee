@@ -38,8 +38,6 @@ class module.exports
     @path =
       www   : "www"
       cache : ".cache"
-    @init()
-    .done()
   init : =>
     Q()
     .then => @version()
@@ -93,10 +91,10 @@ class module.exports
       sass = file.match /^.cache\/(.*)\.css$/
       if sass[1] && !fs.existsSync "www/#{sass[1]}.sass"
         fs.unlinkSync file
-  cacheFile : (path,data)=>
+  cacheFile : (path,data,sfx="")=>
     path = _path.normalize path
     cache = path.replace /^\w+\//, ".cache\/"
-    cache = _path.normalize cache
+    cache = _path.normalize cache+sfx
     cache = ".cache/"+cache unless cache.match /^\.cache\//
     return null if cache == path
     cachedir = _path.dirname cache
@@ -209,13 +207,14 @@ class module.exports
     
   loadClient : =>
     @client   = {}
-    @clientJs = ""
+    @clientJs = @cacheCoffee 'feel/lib/feel/client.lib.coffee'
+    @clientRegenerator = require('regenerator').compile('',includeRuntime:true).code
     @loadClientDir 'feel/lib/feel/client',''
     .then =>
       for key,val of @client
         @clientJs += val unless key == 'main'
       @clientJs += @client['main']
-    @clientJs = @bjs @clientJs
+    @clientJs = @bjs _regenerator @clientJs
   loadClientDir : (path,dir)=>
     readdir "#{path}#{dir}"
     .then (files)=>

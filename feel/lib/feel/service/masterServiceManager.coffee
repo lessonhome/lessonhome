@@ -31,12 +31,23 @@ class MasterServiceManager
           @waitFor[serv] = true
     @log()
     qs = []
+    os = require 'os'
+    
     for name,conf of @config
       if conf.autostart && conf.single
-        qs.push Main.processManager.runProcess {
-          name      : 'service-'+name
-          services  : [name]
-        }
+        num = 1
+        num = os.cpus().length if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
+        _q = Q()
+        for i in [1..num]
+          do (name,conf)=>
+            _q = _q.then =>
+              Main.processManager.runProcess {
+                name      : 'service-'+name
+                services  : [name]
+              }
+            .then (p)=>
+              _waitFor p,'run',3*60*1000
+        qs.push _q
     yield Q.all qs
   connectService : (processId,serviceId)=>
     process = yield Main.processManager.getProcess processId

@@ -27,7 +27,7 @@ if popup
       .progress!= progress
   .personal_data
     .name_verification_block
-      .tutor_name.select!= tutor_name
+      .tutor_name.select!= last_name + ' ' + first_name + ' ' + middle_name
       if with_verification
         .verification
           .with_verification(style = 'background: #{with_verification}')

@@ -20,10 +20,10 @@ class @main extends template '../tutor'
       popup         : @exports()
       contacts : module './profile_content/info_block' :
         section :
-          'Телефон :'     : '+7 (495) 254-55-55'
-          'Почта :'       : 'yandex@rambler.ru'
-          'Скайп :'       : 'baklane'
-          'Личный сайт :' : 'prepod.ru'
+          'Телефон :'     : data('person').get('phone').then (p)-> p[0] if p?[0]?
+          'Почта :'       : data('person').get('email').then (e)-> e[0] if e?[0]?
+          'Скайп :'       : data('person').get('social_networks').then (s)-> s.skype[0] if s?.skype?[0]?
+          'Личный сайт :' : data('person').get('site').then (s)-> s[0] if s?[0]?
       progress  : module './profile_content/progress' :
         filling  : '56%'
       edit      : true

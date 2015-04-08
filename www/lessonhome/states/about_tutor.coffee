@@ -9,7 +9,7 @@ class @main
       height    : '87px'
       text      : 'Интересы :'
       selector  : 'first_reg'
-      value     : data('person').get('interests')
+      value     : data('person').get('interests').then (i)-> i?.description
     slogan     : module 'tutor/forms/input'  :
       text2        : 'Девиз :'
       selector  : 'first_reg'
