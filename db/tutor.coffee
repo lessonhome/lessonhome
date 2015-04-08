@@ -57,7 +57,13 @@ tutor:
     {
       name        : 'математика'
       description : 'подготовка к ЕГЭ, старшие классы; 3,4 классы; студенты'
-      tags        : ['ЕГЭ','ГИА','ОГЭ','school:high','school:3','school:4', 'students']
+      tags        : ['ЕГЭ','ГИА','ОГЭ','school:high','school:0','school:3','school:4', 'student']
+        # school:0 preschoolers дошкольники
+        # school:1 junior school младшая школа
+        # school:2 secondary school средняя школа
+        # school:3 high school старшая школа
+        # student студент
+        # adult взрослый
       price :
         range   : [1000,1500] # одно значение если не диапазон а фиксированная цена
         duration: "90"        # продолжительность в минутах 

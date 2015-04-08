@@ -22,9 +22,9 @@ class @main
         if status=='success'
           console.log true
           return true
-      #if errs?.length
-        #@parseError errs
-      return false
+        #if errs?.length
+          #@parseError errs
+        return false
     else
       return false
 
@@ -34,14 +34,6 @@ class @main
     #for e in errs
       #@parseError e
     return errs.length==0
-
-
-
-
-
-
-
-
 
 
 
