@@ -11,7 +11,6 @@ $check_big_width: image-width($check_big)
 $font_size: 18px
 main
   height: 100%
-  position: relative
 label
   cursor: pointer
   display: block
@@ -24,16 +23,16 @@ label
     box-sizing: border-box
     background-color: #fff
     border: 2px solid rgb( 205, 205, 205 )
+    position: relative
     .check
       display: none
       height: 100%
       width: 100%
       position: absolute
-      top: 0
-      left: 0
+      left: -1px
+      top: -2px
   .text
     padding-left: 11px
-    //cursor: pointer
     font-size: $font_size
     color: #757575
   ///////////// big //////////////////////
@@ -42,6 +41,8 @@ label.big
     width: $check_big_width
     height: $check_big_height
     .check
+      width: $check_big_width
+      height: $check_big_height
       background: inline-image($check_big) no-repeat
 
   ///////////// small //////////////////////
@@ -49,8 +50,9 @@ label.small
   .check_box
     width: $check_small_width
     height: $check_small_height
-    box-sizing: border-box
     .check
+      width: $check_small_width
+      height: $check_small_height
       background: inline-image($check_small) no-repeat
 
   /////////////// font_16 ////////////
