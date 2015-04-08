@@ -45,7 +45,9 @@
     "spdy":"*",
     "http2":"*",
     "js-infinite-json":"*",
-    "regenerator" : "*"
+    "regenerator" : "*",
+    "ipware" : "*",
+    "useragent":"*"
   }
 }
 
