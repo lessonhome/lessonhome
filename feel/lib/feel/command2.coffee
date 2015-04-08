@@ -8,4 +8,5 @@ class module.exports
   init : =>
   run : =>
     @feel = new Feel()
+    @feel.init()
 

@@ -6,6 +6,8 @@
   'lessonhome.org'
   'lessonhome.ru'
   'www.lessonhome.ru'
+  'prep.su'
+  'pi0h.org'
 ]
 
 

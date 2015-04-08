@@ -31,12 +31,14 @@ class MasterProcess extends EE
     @on 'running', => @running = true
     @listeners =
       ready   : @fReady
+      run     : @fRun
       restart : @fRestart
       exit    : @fExit
     @receive 'query',@onQuery
   init    : =>
     @log @name
-    @start()
+    yield @start()
+    return @
   start   : =>
     return if @running || @starting
     @starting = true
@@ -99,6 +101,9 @@ class MasterProcess extends EE
     @log @name+":"+@id
     @running = true
     @emit 'running'
+  fRun    : =>
+    @log @name+":"+@id
+    @emit 'run'
   fRestart  : =>
     @log @name+":"+@id
     @restart()
