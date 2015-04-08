@@ -28,6 +28,7 @@ class SlaveProcessFork
       for name in @conf.services
         qs.push @serviceManager.start name
     yield Q.all qs
+    @messanger.send 'run'
   service : (name)=> @serviceManager.nearest name
 
 
