@@ -1,10 +1,27 @@
 @import compass/css3
 $height : 37px
 $padding: 7px
+$price_block_padding: 6px
 $width_fields: 341px
 main
   height: 100%
-.value, .block_price_place, .group_block
+.tag_block
+  padding: 0 0 11px 30px
+  text-align: left
+  .subject_tag
+    +inline-block
+.add_sub_block
+  cursor: pointer
+  padding-bottom: 17px
+  text-align: right
+  .add_subject
+    font-size: 14px
+    color: #349adb
+    width: $width_fields
+    +inline-block
+    text-align: left
+    text-decoration: underline
+.value
   +inline-block
   padding: $padding 0
   height: $height
@@ -26,7 +43,34 @@ main
       +inline-block
       div
         padding: 3px 0
-.time_spend_box
+.place_price
+  position: relative
+  padding: $padding 0
+  margin-right: -117px
+  .select_all_price
+    background: #e6e6e6
+    padding: 10px
+    text-align: left
+    position: absolute
+    top: 35px
+    left: 92px
+  .title
+    padding-right: 26px
+    float: left
+    margin-left: 123px
+  .place_price_tutor
+    +inline-block
+    padding: 0 $price_block_padding $price_block_padding 0
+  .place_price_pupil
+    +inline-block
+    padding: 0 0 $price_block_padding $price_block_padding
+  .place_price_remote
+    +inline-block
+    padding: $price_block_padding $price_block_padding 0 0
+  .place_price_group
+    +inline-block
+    padding: $price_block_padding 0 0 $price_block_padding
+//.time_spend_box
   padding: $padding 0
   .title
     padding-right: 26px
@@ -36,7 +80,7 @@ main
     text-align: left
     width: $width_fields
     +inline-block
-.block_price_place, .group_block
+//.block_price_place, .group_block
   position: relative
   .place, .students_in_group
     padding-right: 98px

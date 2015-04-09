@@ -2,8 +2,8 @@
 
 class @main
   Dom : =>
-    @err_country = @found.err_country
-    @err_city = @found.err_city
+    @err_country = @found.out_err_country
+    @err_city = @found.out_err_city
 
   show : =>
     @mobile_phone = @tree.mobile_phone.class
@@ -21,33 +21,25 @@ class @main
 
 
   save : => Q().then =>
-    console.log 'Call Save'
     if @check_form()
-      console.log 'aaaaaaa'
       return @$send('./save',@getData())
       .then ({status,errs})=>
         if status=='success'
-          console.log 'save_true'
           return true
         if errs?.length
           @parseError errs
         return false
     else
-      console.log 'bbbbbb'
       return false
 
   check_form : =>
-
     errs = @js.check @getData()
     if !@country.exists() && @country.getValue().length!=0
       errs.push 'bad_country'
     if !@city.exists() && @city.getValue().length!=0
       errs.push 'bad_city'
-
-    for e_ in errs
-      @parseError e_
-    console.log errs,1
-
+    for e in errs
+      @parseError e
     return errs.length==0
 
 
@@ -76,9 +68,9 @@ class @main
       when "bad_site"
         @site.showError "Неверный формат названия"
       when "bad_country"
-        @outErr "Введите правильную страну"
+        @outErr "Введите правильную страну", @err_country, @country
       when "bad_city"
-        @outErr "Введите правильный город"
+        @outErr "Введите правильный город", @err_city, @city
       #empty
       when "empty_mobile"
         @mobile_phone.showError "Введите телефон"
@@ -91,9 +83,9 @@ class @main
       when "empty_site"
         @site.showError "Введите сайт"
       when "empty_country"
-        @outErr "Выберите страну"
+        @outErr "Выберите страну", @err_country, @country
       when "empty_city"
-        @outErr "Выберите город"
+        @outErr "Выберите город", @err_city, @city
 
 
 
@@ -107,7 +99,7 @@ class @main
 
   clearOutErr : (err_el ,el) =>
     el.clean_err_effect()
-    err_el.addClass 'hide'
+    err_el.hide()
     err_el.text('')
 
 

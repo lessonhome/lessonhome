@@ -1,6 +1,10 @@
 
 class @main
   tree : -> module '$' :
+    subject_tag     : module 'selected_tag' :
+      close     : true
+      text      : 'Математика'
+      selector  : 'choose_course'
     subject         : module 'tutor/forms/drop_down_list' :
       text      : 'Предмет :'
       selector  : 'first_reg'
@@ -102,34 +106,17 @@ class @main
     adult           : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'взрослый'
-    time_spend_lesson : state 'main/slider_main' :
-      selector      : 'time_fast_bids'
-      start         : 'calendar'
-      dash          : '-'
-      end         : module 'tutor/forms/input' :
-        selector  : 'calendar'
-        align     : 'center'
-      measurement   : 'мин.'
-      handle        : true
-      min           : 45
-      max           : 180
-    place             : module 'tutor/forms/drop_down_list' :
-      text      : 'Место :'
-      selector  : 'first_reg_place'
-    price             : module 'tutor/forms/input' :
-      text2       : 'Цена :'
-      selector    : 'calendar'
-      align : 'center'
-    price_button      : module 'button_add' :
-      text      : '+'
-      selector  : 'plus'
-    students_in_group : module 'tutor/forms/drop_down_list' :
-      text      : 'Групповые занятия :'
-      selector  : 'first_reg_place'
-    group_lessons_price : module 'tutor/forms/input' :
-      text2       : 'Цена :'
-      selector    : 'calendar'
-      align       : 'center'
+    place_price_tutor : state 'tutor/profile_content/registration_popup/place_price'  :
+      title : 'У РЕПЕТИТОРА'
+    place_price_pupil : state 'tutor/profile_content/registration_popup/place_price'  :
+      title : 'У УЧЕНИКА'
+    place_price_remote : state 'tutor/profile_content/registration_popup/place_price'  :
+      title : 'УДАЛЕННО'
+    place_price_group : state 'tutor/profile_content/registration_popup/place_price'  :
+      title : 'ГРУППОВЫЕ'
+    select_all_price  : module 'tutor/forms/checkbox' :
+      selector  : 'small font_16'
+      text      : 'Применить<br> цены ко всем<br> предметам'
     comments          : module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'

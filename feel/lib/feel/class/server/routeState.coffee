@@ -2,7 +2,8 @@
 crypto  = require 'crypto'
 _cookies = require 'cookies'
 rand  = (num)-> crypto.createHash('sha1').update(num).digest('hex').substr 0,10
-
+get_ip = require('ipware')().get_ip
+useragent = require('useragent')
 class RouteState
   constructor : (@statename,@req,@res,@site)->
     @time()
@@ -73,7 +74,18 @@ class RouteState
       for key,val of node
         @walk_tree_down node[key],node,key,foo
   go : => do Q.async =>
-    @res.on 'finish', => console.log "time".yellow+"\t#{new Date().getTime() - @req.time}ms".cyan
+    @res.on 'finish', =>
+      agent = ""
+      ip = get_ip(@req)?.clientIp
+      ip?= ""
+      ua = useragent.parse @req.headers['user-agent']
+      ua.family ?= ""
+      ua.major  ?= ""
+      ua.minor  ?= ""
+      host = @req?.headers?.host
+      host ?= ""
+      console.log process.pid+":time".yellow+"\t#{new Date().getTime() - @req.time}ms".cyan+
+        " #{host}:#{ip}:#{ua.family}:#{ua.major}:#{ua.minor}".grey
     @time "go s"
     @state = yield @site.state[@statename].make(null,null,@req,@res)
     @time 'make'
@@ -199,7 +211,7 @@ class RouteState
       d.setTime d.getTime()+2
       @res.setHeader 'Expires',d.toGMTString()
       @res.end resdata
-      console.log "state #{@statename}",200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
+      console.log process.pid+":state #{@statename}",200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
   removeHtml : (node)=>
     if node.req?
       delete node.req
