@@ -1,9 +1,9 @@
-mixin field (selector, value)
-  .value(class=selector)!= value
-///////////
-
-+field ('subject', subject)
-+field ('list_course', list_course)
+.tag_block
+  .subject_tag!=subject_tag
+.add_sub_block
+  .add_subject +Добавить еще один предмет
+.value.subject!= subject
+.value.list_course!= list_course
 //+field ('categories_of_students', categories_of_students)
 .categories_of_students
   .title Категории учеников :
@@ -16,14 +16,18 @@ mixin field (selector, value)
       .high_school!=high_school
       .student!=student
       .adult!=adult
-.time_spend_box
-  .title Время одного занятия :
-  .time_spend_lesson!=time_spend_lesson
-.block_price_place
-  +field ('place', place)
+.place_price
+  .select_all_price!=select_all_price
+  .title Цена и место :
+  .js-place_price_tutor!=place_price_tutor
+  .js-place_price_pupil!=place_price_pupil
+  .js-place_price_remote!=place_price_remote
+  .js-place_price_group!=place_price_group
+//.block_price_place
+  .value.place!= place
   .price!= price
   .price_button!= price_button
-.group_block
+//.group_block
   .students_in_group!= students_in_group
   .group_lessons_price!= group_lessons_price
-+field ('comments', comments)
+.value.comments!= comments

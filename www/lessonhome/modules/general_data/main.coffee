@@ -111,7 +111,7 @@ class @main
 
   clearOutErr : (err_el ,el) =>
     el.clean_err_effect()
-    err_el.addClass 'hide'
+    err_el.hide()
     err_el.text('')
 
 

@@ -4,6 +4,7 @@ class @main extends template '../registration_popup'
   title : "Регистрация : шаг3"
   tree : ->
     progress  : 3
+    #data('tutor').get('registration_progress')
     content : module '$' :
       form : state 'subject_tutor'
 
