@@ -153,7 +153,7 @@ class RouteState
     end +=
       "<script>
       'use strict';
-      StopIteration = undefined;
+      window.StopIteration = undefined;
       #{Feel.clientRegenerator}</script>"+
       @site.moduleJsTag('lib/jquery')+
       @site.moduleJsTag('lib/jquery/plugins')+

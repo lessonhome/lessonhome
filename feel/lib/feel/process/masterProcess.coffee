@@ -37,13 +37,13 @@ class MasterProcess extends EE
     @receive 'query',@onQuery
   init    : =>
     @log @name
-    yield @start()
+    yield @start true
     return @
-  start   : =>
+  start   : (isFirst=false)=>
     return if @running || @starting
     @starting = true
     @fork = new MasterProcessFork @conf
-    yield @bindForkEvents()
+    yield @bindForkEvents isFirst
     yield @fork.init()
     @starting = false
   stop : =>
@@ -84,7 +84,7 @@ class MasterProcess extends EE
     @manager.query.once "#{name}:#{nid}", (err,data)=>
       @send "query:#{id}",err,data
     @manager.query.emit name,nid,args...
-  bindForkEvents : =>
+  bindForkEvents : (isFirst=false)=>
     if @listenersNow?
       for event of @listeners
         @listenersNow[event] = ->
@@ -93,6 +93,7 @@ class MasterProcess extends EE
       do (event,ln=@listenersNow)=>
         ln[event] = (args...)=> @listeners[event] args...
         @fork.on event, (args...)=> ln[event] args...
+    return if isFirst
     for msg,arr of @ee._events
       arr ?= []
       arr = [arr] unless util.isArray arr

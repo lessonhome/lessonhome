@@ -37,7 +37,8 @@ class MasterProcessConnector
       else
         @dataArray.vars.push key
   data      : => @dataArray
-  qFunction : (name,args...)=>  @target[name] args...
+  qFunction : (name,args...)=>
+    @target[name] args...
   qVarGet   : (name)=>          @target[name]
   qVarSet   : (name,val)=>      @target[name] = val
   qOn       : (action)=>

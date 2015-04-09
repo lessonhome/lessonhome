@@ -47,19 +47,14 @@ class Register
     idstr += ':'.grey+account.login.cyan if account.login?
     idstr += ':'.grey+account.id.substr(0,5).blue
     idstr += ':'.grey+session.hash.substr(0,5).blue
-    console.log idstr
     return {
       session:session.hash
       account:account
     }
 
   newType : (user,sessionhash,data)=>
-    console.log 'newtype'.red
     throw err:'bad_query'     unless data?.login? && data?.password? && data?.type?
-    #console.log @logins,data.login
-    console.log 'before'.yellow
     throw err:'login_exists'  if @logins[data.login]?
-    console.log 'after'.yellow
     throw err:'bad_session'   if !@accounts[user.id]?
     user = @accounts[user.id]
     
@@ -75,7 +70,6 @@ class Register
     user.type[data.type]  = true
     user.type['other']    = false
     data.password = data.login+data.password
-    console.log "'#{data.password}'",_hash data.password
     user.hash       = yield @passwordCrypt _hash data.password
     user.accessTime = new Date()
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
@@ -89,7 +83,6 @@ class Register
     throw err:'already_logined'       if user.registered
     tryto = @logins[data.login]
     data.password = data.login+data.password
-    console.log "'#{data.password}'",_hash(data.password),tryto.hash
     throw err:'wrong_password'    unless yield @passwordCompare _hash(data.password), tryto.hash
     olduser = user
     hashs = []
