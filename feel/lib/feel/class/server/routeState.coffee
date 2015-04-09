@@ -212,10 +212,6 @@ class RouteState
       d.setTime d.getTime()+1
       @res.setHeader 'Expires',d.toGMTString()
       @res.end resdata
-      if @statename == 'dev/urls'
-        setTimeout =>
-          throw new Error 'ololo :D'
-        , 100
       console.log process.pid+":state #{@statename}",200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
   removeHtml : (node)=>
     if node.req?
