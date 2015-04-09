@@ -166,16 +166,23 @@ class @main extends EE
     try position = @input.getCursorPosition()
 
     val = @input.val()
+    _char = ""
+    if e.key? && e.key && key.length == 1
+      _char = e.key
+    else if e.keyCode? && e.keyCode
+      _char = String.fromCharCode(e.keyCode)
+    else if e.charCode? && e.charCode
+      _char = String.fromCharCode(e.charCode)
     try
       start = @input.getSelectionStart()
       end = @input.getSelectionEnd()
       unless start? || end?
         start = val.length
         end = val.length
-      str = val.substr(0,start)+String.fromCharCode(e.keyCode)+val.substr(end)
+      str = val.substr(0,start)+_char+val.substr(end)
     catch e
       console.error e
-      str = val+String.fromCharCode(e.keyCode)
+      str = val+_char
     rstr = @matchReplace str
     if rstr == str
       return
@@ -228,6 +235,7 @@ class @main extends EE
     val     ?= @input.val()
     rstr    ?= @matchReplace val
     position?= @input.getCursorPosition()
+    console.log rstr
     return if @input.val()==rstr
     @input.val rstr
     rc = false
