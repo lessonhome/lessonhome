@@ -117,26 +117,6 @@ class @main
     select_all_price  : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'Применить<br> цены ко всем<br> предметам'
-    ###
-    place             : module 'tutor/forms/drop_down_list' :
-      text      : 'Место :'
-      selector  : 'first_reg_place'
-    price             : module 'tutor/forms/input' :
-      text2       : 'Цена :'
-      selector    : 'calendar'
-      align : 'center'
-    price_button      : module 'button_add' :
-      text      : '+'
-      selector  : 'plus'
-    students_in_group : module 'tutor/forms/drop_down_list' :
-      text      : 'Групповые занятия :'
-      selector  : 'first_reg_place'
-    group_lessons_price : module 'tutor/forms/input' :
-      text2       : 'Цена :'
-      selector    : 'calendar'
-      align       : 'center'
-
-    ###
     comments          : module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'
