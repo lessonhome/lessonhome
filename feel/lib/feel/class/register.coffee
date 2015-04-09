@@ -54,8 +54,12 @@ class Register
     }
 
   newType : (user,sessionhash,data)=>
+    console.log 'newtype'.red
     throw err:'bad_query'     unless data?.login? && data?.password? && data?.type?
+    #console.log @logins,data.login
+    console.log 'before'.yellow
     throw err:'login_exists'  if @logins[data.login]?
+    console.log 'after'.yellow
     throw err:'bad_session'   if !@accounts[user.id]?
     user = @accounts[user.id]
     

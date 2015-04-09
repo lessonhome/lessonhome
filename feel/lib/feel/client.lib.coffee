@@ -193,6 +193,8 @@ global.Wrap = (obj,prot)->
           return q
         #proto[key] = foo
         foo.out = -> obj[key](arguments...).done()
+        #return console.log key,foo,prot
+        #obj.__inner ?= {}
         obj[key] = foo if !prot?
   obj.log   ?= (args...)-> logFunction.apply    obj,args
   obj.error ?= (args...)-> errorFunction.apply  obj,args
@@ -261,7 +263,22 @@ global.Wrap = (obj,prot)->
     _lockArr['__lock_'+sel] = false
     obj._block(false,'__lock_'+sel+id)
     return Q()
-
+  ###
+  keys = Object.keys obj.__inner
+  IND  = 0
+  fooTIM =  =>
+    return unless keys[IND]?
+    console.log 'bind',keys[IND]
+    obj[keys[IND]] = obj.__inner[keys[IND]]
+    IND++
+    fooTIM()
+  #setTimeout fooTIM,0
+  fooTIM()
+  return
+  ###
+  #if obj.__inner?
+  #  for key,val of obj.__inner
+  #    proto[key] = val
     
       
         #c[key] = foo

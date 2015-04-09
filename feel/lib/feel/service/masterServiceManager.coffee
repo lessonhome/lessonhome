@@ -38,16 +38,23 @@ class MasterServiceManager
         num = 1
         num = os.cpus().length if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
         _q = Q()
-        for i in [1..num]
-          do (name,conf)=>
-            _q = _q.then =>
-              Main.processManager.runProcess {
-                name      : 'service-'+name
-                services  : [name]
-              }
-            .then (p)=>
-              _waitFor p,'run',3*60*1000
-        qs.push _q
+
+        if num != 1
+          for i in [1..num]
+            do (name,conf)=>
+              _q = _q.then =>
+                Main.processManager.runProcess {
+                  name      : 'service-'+name
+                  services  : [name]
+                }
+              _q = _q.then (p)=>
+                _waitFor p,'run',3*60*1000
+          qs.push _q
+        else
+          qs.push Main.processManager.runProcess {
+            name      : 'service-'+name
+            services  : [name]
+          }
     yield Q.all qs
   connectService : (processId,serviceId)=>
     process = yield Main.processManager.getProcess processId

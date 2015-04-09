@@ -85,7 +85,7 @@ class RouteState
       host = @req?.headers?.host
       host ?= ""
       console.log process.pid+":time".yellow+"\t#{new Date().getTime() - @req.time}ms".cyan+
-        " #{host}:#{ip}:#{ua.family}:#{ua.major}:#{ua.minor}".grey
+        " #{host}#{@req.url}:#{ip}:#{ua.family}:#{ua.major}:#{ua.minor}".grey
     @time "go s"
     @state = yield @site.state[@statename].make(null,null,@req,@res)
     @time 'make'
@@ -153,6 +153,7 @@ class RouteState
     end +=
       "<script>
       'use strict';
+      StopIteration = undefined;
       #{Feel.clientRegenerator}</script>"+
       @site.moduleJsTag('lib/jquery')+
       @site.moduleJsTag('lib/jquery/plugins')+
@@ -203,12 +204,12 @@ class RouteState
       @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
       @res.setHeader 'Access-Control-Allow-Credentials', true
       @res.setHeader 'ETag',resHash
-      @res.setHeader 'Cache-Control', 'public, max-age=2'
+      @res.setHeader 'Cache-Control', 'public, max-age=1'
       @res.setHeader 'content-encoding', 'deflate'
       @res.setHeader 'content-length',resdata.length
       @res.statusCode = 200
       d = new Date()
-      d.setTime d.getTime()+2
+      d.setTime d.getTime()+1
       @res.setHeader 'Expires',d.toGMTString()
       @res.end resdata
       console.log process.pid+":state #{@statename}",200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
