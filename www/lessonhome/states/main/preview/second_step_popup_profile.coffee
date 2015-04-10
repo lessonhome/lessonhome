@@ -3,5 +3,9 @@ class @main extends template './second_step'
   model : 'main/second_step_popup_profile'
   title : "подробная информация о репетиторе - анкета"
   tags  : -> 'popup_profile_tutor'
+  access : ['pupil']
+  redirect : {
+    'default' : 'main/first_step'
+  }
   tree : ->
     popup : state 'tutor/profile_sub'

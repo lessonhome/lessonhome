@@ -3,6 +3,10 @@ class @main extends template '../preview'
   model : 'main/application/5_step'
   title : "быстрое оформление заявки: финальный шаг"
   tags  : -> 'pupil:fast_bid'
+  access : ['pupil']
+  redirect : {
+    'default' : 'main/fast_bid/first_step'
+  }
   tree : ->
     filter_top : module '$' :
       thanks_icon :

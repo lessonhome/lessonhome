@@ -1,9 +1,4 @@
 class @main
-  access : ['tutor', 'pupil', 'other']
-  redirect : {
-    'default' : '/first_step'
-  }
-
   tree : -> module '$' :
     lib      : state 'lib'
     header      : state './tutor/header' :

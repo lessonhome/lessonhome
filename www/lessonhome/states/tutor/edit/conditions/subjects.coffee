@@ -3,6 +3,10 @@ class @main extends template '../edit_conditions'
   model   : 'tutor/edit/conditions/subjects'
   title : "редактирование предметы"
   tags : -> 'edit: conditions'
+  access : ['tutor']
+  redirect : {
+    'default' : 'main/first_step'
+  }
   tree : =>
     menu_condition  : 'edit: conditions'
     active_item : 'Предметы'

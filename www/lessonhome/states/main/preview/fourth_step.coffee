@@ -3,6 +3,10 @@ class @main extends template '../preview'
   model : 'main/fourth_step'
   title : "выберите диапазон цены"
   tags  : -> 'pupil:main_search'
+  access : ['pupil']
+  redirect : {
+    'default' : 'main/first_step'
+  }
   tree : =>
     popup       : @exports()
     tag         : 'pupil:main_search'

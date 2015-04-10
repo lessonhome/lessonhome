@@ -5,6 +5,9 @@ class @main extends template './motivation_content'
   model   : 'main/first_step'
   title : "выберите предмет"
   tags  : -> 'pupil:main_search'
+  access : ['other','pupil', 'tutor']
+  redirect : {
+  }
   tree : =>
     popup       : @exports()
     tag         : 'pupil:main_search'

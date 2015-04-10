@@ -3,6 +3,9 @@ class @main extends template '../motivation_content'
   model   : 'main/invite_student'
   title : "Пригласить друга"
   tags : -> 'pupil:fast_bid'
+  access : ['other', 'pupil', 'tutor']
+  redirect : {
+  }
   tree : ->
     filter_top  : state './top' :
       header : 'Ваш друг ищет репетитора?<br>Пригласите его к нам и мы поможем!'

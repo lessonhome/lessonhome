@@ -3,6 +3,10 @@ class @main extends template '../edit_conditions'
   model   : 'tutor/edit/conditions/calendar'
   title : "редактирование календарь"
   tags : -> 'edit: conditions'
+  access : ['tutor']
+  redirect : {
+    'default' : 'main/first_step'
+  }
   tree  : =>
     menu_condition  : 'edit: conditions'
     active_item : 'Календарь'
