@@ -3,6 +3,10 @@ class @main extends template '../../tutor'
   model   : 'tutor/bids/reports'
   title : "отчет"
   tags   : -> 'tutor:reports'
+  access : ['tutor']
+  redirect : {
+    'default' : 'main/first_step'
+  }
   tree : ->
     items : [
       module 'tutor/header/button' : {

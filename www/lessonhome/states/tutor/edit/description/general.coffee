@@ -3,6 +3,10 @@ class @main extends template '../edit_description'
   model   : 'tutor/edit/description/general'
   title : "редактирование общее"
   tags : -> 'edit: description'
+  access : ['tutor']
+  redirect : {
+    'default' : 'main/first_step'
+  }
   tree : =>
     menu_description  : 'edit: description'
     active_item : 'Общие'

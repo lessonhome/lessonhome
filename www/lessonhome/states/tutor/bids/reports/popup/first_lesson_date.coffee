@@ -2,6 +2,10 @@ class @main extends template '../popup'
   route : '/tutor/reports/first_lesson_date'
   model : 'tutor/bids/reports_step2_fill'
   title : "Дата первого занятия"
+  access : ['tutor']
+  redirect : {
+    'default' : 'main/first_step'
+  }
   tree : ->
     content : module '$' :
       date : module 'tutor/forms/input' :

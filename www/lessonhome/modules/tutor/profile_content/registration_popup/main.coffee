@@ -14,7 +14,8 @@ class @main
         @$send('./save',@progress).then ({status})=>
           if status=='success'
             return true
-
         ###
         @bNext.submit()
     .done()
+
+

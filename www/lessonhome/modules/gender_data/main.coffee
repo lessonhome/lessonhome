@@ -14,6 +14,8 @@ class @main extends EE
     @man  .on 'active', =>
       @woman .disable()
       @state = "male"
+      console.log @state
     @woman.on 'active', =>
       @state = "female"
       @man   .disable()
+      console.log @state

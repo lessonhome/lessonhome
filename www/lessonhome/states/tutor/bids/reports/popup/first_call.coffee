@@ -2,6 +2,10 @@ class @main extends template '../popup'
   route : '/tutor/reports/first_call'
   model : 'tutor/bids/reports_step1_fill'
   title : "Первый звонок"
+  access : ['tutor']
+  redirect : {
+    'default' : 'main/first_step'
+  }
   tree : ->
     content : module '$' :
       success_button : module 'tutor/forms/result_button' :

@@ -2,6 +2,10 @@ class @main extends template '../registration_popup'
   route : '/tutor/profile/first_step'
   model : 'tutor/profile_registration/first_step'
   title : "первый вход"
+  access : ['tutor']
+  redirect : {
+    'default' : 'main/first_step'
+  }
   tree : ->
     progress  : 1
     #data('tutor').get('registration_progress').then (p)->

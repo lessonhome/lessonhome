@@ -19,6 +19,8 @@
     errs.push "empty_date"
   if f.status.length == 0
     errs.push "empty_status"
+  if f.sex == 'unselect'
+    errs.push "unselect sex"
   return errs
   # not correct
   if f.day*1<1 && f.day*1>32

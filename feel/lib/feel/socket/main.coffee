@@ -77,7 +77,11 @@ class Socket
       ret = {err:"internal_error",status:'failed'}
     res.statusCode = 200
     res.setHeader 'content-type','application/json; charset=UTF-8'
-    res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(JSON.stringify(ret)))});"
+    ret = JSON.stringify(ret)
+    unless ret? && typeof ret == 'string'
+      console.error Exception new Error "failed JSON.stringify client reurned object"
+      ret = JSON.stringify {status:"failed",err:"internal_error"}
+    res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(ret))});"
 
   resolve : (context,path,pref)=>
     name = pref+path.substr 1

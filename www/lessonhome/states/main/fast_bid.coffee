@@ -1,9 +1,4 @@
 class @main extends template './preview'
-  access : ['other']
-  redirect : {
-    'pupil' : '/first_step'
-    'tutor' : '/tutor/search_bids'
-  }
   tags  : -> 'pupil:fast_bid'
   tree : ->
     filter_top : module '$' :

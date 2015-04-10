@@ -10,6 +10,7 @@ class @main
     @last_name    = @tree.last_name.class
     @middle_name  = @tree.middle_name.class
     @sex          = @tree.gender_data.class
+    console.log @sex 
     @day          = @tree.birth_data.day.class
     @month        = @tree.birth_data.month.class
     @year         = @tree.birth_data.year.class
@@ -26,11 +27,15 @@ class @main
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
-      .then ({status,errs})=>
+      .then ({status,errs,err})=>
+        if err?
+          errs?=[]
+          errs.push err
         if status=='success'
           return true
         if errs?.length
-          @parseError errs
+          for e in errs
+            @parseError e
         return false
     else
       return false
@@ -96,7 +101,11 @@ class @main
         @outErr "Введите корректный год", @out_err_date, @year
       when "bad_status"
         @outErr "Выберите статус из списка", @out_err_status, @status
-
+      when "unselect sex"
+        #@outErr "Выберите пол", @out_err_sex, @sex
+        alert 'sex'
+      else
+        alert 'die'
 
   outErr : (err, err_el, el) =>
     if el instanceof Array

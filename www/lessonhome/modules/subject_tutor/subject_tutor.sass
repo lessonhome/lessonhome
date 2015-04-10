@@ -24,7 +24,7 @@ main
 .value
   +inline-block
   padding: $padding 0
-  height: $height
+  font-size: $height
 .subject
   padding-top: 0
 .categories_of_students
@@ -95,6 +95,45 @@ main
     +inline-block
     position: absolute
     margin-left: 22px
+
+.price
+  padding: 12px 0
+  div
+    +inline-block
+  .title
+    vertical-align: top
+    padding-right: 26px
+    padding-top: 10px
+  .slider
+    width : $width_fields
+
+
+.place
+  padding: 12px 0
+  .title
+    padding-right: 26px
+    line-height: 22px
+    +inline-block
+  .check_panel
+    +inline-block
+    text-align: left
+    width: $width_fields
+    .left_block, .right_block
+      +inline-block
+      div
+        padding: 3px 0
+    .right_block
+      margin-left: 25px
+
+
+
+
+
+.duration
+  width : $width_fields
+
 .comments
   padding-bottom: 0
   height: 100%
+
+

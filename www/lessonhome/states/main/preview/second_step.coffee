@@ -3,6 +3,10 @@ class @main extends template '../preview'
   model : 'main/second_step'
   title : "выберите статус преподавателя"
   tags  : -> 'pupil:main_search'
+  access : ['pupil']
+  redirect : {
+    'default' : 'main/first_step'
+  }
   tree : ->
     popup       : @exports()
     tag         : 'pupil:main_search'

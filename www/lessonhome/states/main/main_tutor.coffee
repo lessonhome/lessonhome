@@ -1,13 +1,12 @@
 class @main extends template '../main'
-  access : ['other','pupil']
-  redirect : {
-    'pupil' : '/first_step'
-    'tutor' : '/tutor/search_bids'
-  }
   route : '/main_tutor'
   tags  : -> 'pupil:main_tutor'
   model : 'main/registration'
   title : "Регистрация"
+  access : ['other','pupil']
+  redirect : {
+    'tutor' : 'tutor/search_bids'
+  }
   tree : ->
     popup : @exports()
     content : module 'main_tutor/content'  :
