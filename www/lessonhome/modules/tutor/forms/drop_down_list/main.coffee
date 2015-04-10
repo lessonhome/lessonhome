@@ -28,6 +28,8 @@ class @main extends EE
     @bodyListenMD = false
     @label.removeClass 'focus'
     @select_sets.hide()
+    @emit 'blur'
+    @emit 'focusout'
   show : =>
     @scroll = @tree.scroll?.class
     @isFocus = false
@@ -36,6 +38,7 @@ class @main extends EE
       @isFocus = true
       @label.addClass 'focus'
       @showSelectOptions?()
+      @emit 'focus'
 
     @input.on 'focusout', =>
       return if !@isFocus
@@ -47,6 +50,7 @@ class @main extends EE
           @closeList()
         $('body').on 'mousedown.drop_down_list', f
         $('body').on 'mouseleave.drop_down_list', @closeList
+
 
     if @tree.default_options?
       do =>

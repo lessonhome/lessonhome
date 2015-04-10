@@ -79,7 +79,7 @@ class Socket
     res.setHeader 'content-type','application/json; charset=UTF-8'
     ret = JSON.stringify(ret)
     unless ret? && typeof ret == 'string'
-      console.error Exception new Error "failed JSON.stringify client reurned object"
+      console.error Exception new Error "failed JSON.stringify client returned object"
       ret = JSON.stringify {status:"failed",err:"internal_error"}
     res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(ret))});"
 

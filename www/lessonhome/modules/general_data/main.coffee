@@ -6,6 +6,7 @@ class @main
     @out_err_status   = @found.out_err_status
 
   show : =>
+    # input
     @first_name   = @tree.first_name.class
     @last_name    = @tree.last_name.class
     @middle_name  = @tree.middle_name.class
@@ -15,14 +16,19 @@ class @main
     @month        = @tree.birth_data.month.class
     @year         = @tree.birth_data.year.class
     @status       = @tree.status.class
-    #TODO: try @gender one be active else false
-    #@gender       = @tree.gender.class
 
-    #TODO: move it's code in drop_down_list.coffee
-    @day.input.on     'focus',  => @clearOutErr @out_err_date, @day
-    @month.input.on   'focus',  => @clearOutErr @out_err_date, @month
-    @year.input.on    'focus',  => @clearOutErr @out_err_date, @year
-    @status.input.on  'focus',  => @clearOutErr @out_err_status, @status
+
+    # drop_down_list focus TODO: make in drop_down_list clear_err_effect on element after focus and start writing, same input
+    @day.on     'focus',  => @clearOutErr @out_err_date,  @day
+    @month.on   'focus',  => @clearOutErr @out_err_date,  @month
+    @year.on    'focus',  => @clearOutErr @out_err_date,  @year
+    @status.on  'focus',  => @clearOutErr @out_err_status, @status
+    ### drop_down_list blur
+    @day.on     'blur',  => @save
+    @month.on   'blur',  => @save
+    @year.on    'blur',  => @save
+    @status.on  'blur',  => @save
+    ###
 
   save : => Q().then =>
     if @check_form()
