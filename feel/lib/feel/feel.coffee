@@ -197,10 +197,11 @@ class module.exports
           m.rescanFiles()
           .then m.makeSassAsync
       , Q()
-    .catch =>
-      setTimeout =>
-        @compileSass() unless @_compiling
-      , 3000
+    .catch (e)=>
+      console.error Exception e
+      #setTimeout =>
+      #  @compileSass() unless @_compiling
+      #, 3000
     .then =>
       @_compiling = false
     .done()

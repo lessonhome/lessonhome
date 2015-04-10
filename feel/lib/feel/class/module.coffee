@@ -95,9 +95,9 @@ class module.exports
     .then @makeJade
     .catch (e)=>
       console.error Exception e
-      setTimeout =>
-        @rebuildJade() unless @_rebuildingJade
-      , 3000
+      #setTimeout =>
+      #  @rebuildJade() unless @_rebuildingJade
+      #, 3000
     .then =>
       @_rebuildingJade = false
   rebuildCoffee : =>
@@ -106,9 +106,9 @@ class module.exports
     .then @makeCoffee
     .catch (e)=>
       console.error Exception e
-      setTimeout =>
-        @rebuildCoffee() unless @_rebuildingCoffee
-      , 3000
+      #setTimeout =>
+      #  @rebuildCoffee() unless @_rebuildingCoffee
+      #, 3000
     .then =>
       @_rebuildingCoffee = false
 
