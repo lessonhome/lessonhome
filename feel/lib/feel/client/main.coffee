@@ -42,7 +42,6 @@ class @Feel
       o += "#{key}=#{val}"
     $.getJSON("/google?#{o}")
     .success (data)->
-      console.log data
       cb? data
   autocompleteCity : (input,cb)=>
     @autocomplete {
@@ -64,6 +63,7 @@ class @Feel
     data = encodeURIComponent JSON.stringify args
     context = encodeURIComponent JSON.stringify context
     pref = encodeURIComponent JSON.stringify pref
+
     pport = 8082
     pport = 8084 if location.protocol == 'https:'
     $.ajax({

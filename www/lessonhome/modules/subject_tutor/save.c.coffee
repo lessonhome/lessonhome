@@ -1,15 +1,18 @@
 
-check = require("./check")
+#check = require("./check")
 
 @handler = ($,data)=>
   console.log data
   errs = []
-  errs = check.check errs,data
+  #errs = check.check errs,data
+
   return unless $.user.tutor
   if errs.length
     return {status:'failed',errs:errs}
 
   tags = []
+
+  tags.push data.list_course
   if data.pre_school    then tags.push 'school:0'
   if data.junior_school then tags.push 'school:1'
   if data.medium_school then tags.push 'school:2'
@@ -17,23 +20,20 @@ check = require("./check")
   if data.student       then tags.push 'student'
   if data.adult         then tags.push 'adult'
 
+  range = []
+  range.push data.price_from
+  range.push data.price_till
+
+  place = []
+  if data.place_tutor  then place.push 'tutor'
+  if data.place_pupil  then place.push 'pupil'
+  if data.place_remote then place.push 'remote'
+  if data.place_cafe   then place.push 'cafe'
 
   db= yield $.db.get 'tutor'
-  yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:{name:data.subject, description:data.list_course, place:[data.place], tags:tags }}},{upsert:true}
-
+  yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:{name:data.name, description:data.description, place:place, tags:tags, price: {duration:data.duration, range:range } }}},{upsert:true}
+  ###
   return {status:'success'}
 
-    return {
-      subject             : @subject.getValue()
-      list_course         : @list_course.getValue()
-      place               : @place.getValue()
-      students_in_group   : @students_in_group.getValue()
-      price               : @price.getValue()
-      group_lessons_price : @group_lessons_price.getValue()
-      pre_school    : @pre_school   .state
-      junior_school : @junior_school.state
-      medium_school : @medium_school.state
-      high_school   : @high_school  .state
-      student       : @student      .state
-      adult         : @adult        .state
-    }
+
+

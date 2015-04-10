@@ -167,7 +167,7 @@ class @main extends EE
 
     val = @input.val()
     _char = ""
-    if e.key? && e.key && key.length == 1
+    if e.key? && e.key && e.key.length == 1
       _char = e.key
     else if e.keyCode? && e.keyCode
       _char = String.fromCharCode(e.keyCode)

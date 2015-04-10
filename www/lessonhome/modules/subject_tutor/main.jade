@@ -16,18 +16,39 @@
       .high_school!=high_school
       .student!=student
       .adult!=adult
-.place_price
-  .select_all_price!=select_all_price
-  .title Цена и место :
-  .js-place_price_tutor!=place_price_tutor
-  .js-place_price_pupil!=place_price_pupil
-  .js-place_price_remote!=place_price_remote
-  .js-place_price_group!=place_price_group
-//.block_price_place
-  .value.place!= place
-  .price!= price
-  .price_button!= price_button
-//.group_block
-  .students_in_group!= students_in_group
-  .group_lessons_price!= group_lessons_price
+
+.value.duration!= duration
+
+.price
+  .title Средняя цена занятия :
+  .slider!= price_slider
+
+
+.place
+  .title!='Вы согласны<br>заниматься :'
+  .check_panel
+    .left_block
+      .tutor!=place_tutor
+      .pupil!=place_pupil
+    .right_block
+      .remote!=place_remote
+      .cafe!=place_cafe
+
+//
+  .place_price
+    .select_all_price!=select_all_price
+    .title Цена и место :
+    .js-place_price_tutor!=place_price_tutor
+    .js-place_price_pupil!=place_price_pupil
+    .js-place_price_remote!=place_price_remote
+    .js-place_price_group!=place_price_group
+  //.block_price_place
+    .value.place!= place
+    .price!= price
+    .price_button!= price_button
+  //.group_block
+    .students_in_group!= students_in_group
+    .group_lessons_price!= group_lessons_price
+
+
 .value.comments!= comments

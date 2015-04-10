@@ -117,10 +117,52 @@ class @main
     select_all_price  : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'Применить<br> цены ко всем<br> предметам'
+    price_slider   : state 'main/slider_main' :
+      selector      : 'price_slider_bids'
+      start         : 'calendar'
+      start_text    : 'от'
+      end         : module 'tutor/forms/input' :
+        selector  : 'calendar'
+        text2     : 'до'
+        align     : 'center'
+
+      measurement   : 'руб.'
+      handle        : true
+      min           : 400
+      max           : 5000
+
+    duration :   module 'tutor/forms/input' :
+      text2      : 'Среднее время занятия :'
+      selector  : 'first_reg'
+
+    place_tutor      : module 'tutor/forms/checkbox' :
+      text      : 'у себя'
+      selector  : 'small font_16'
+    place_pupil      : module 'tutor/forms/checkbox' :
+      text      : 'у ученика'
+      selector  : 'small font_16'
+    place_remote      : module 'tutor/forms/checkbox' :
+      text      : 'удалённо'
+      selector  : 'small font_16'
+    place_cafe      : module 'tutor/forms/checkbox' :
+      text      : 'в кафе'
+      selector  : 'small font_16'
     comments          : module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'
       selector  : 'first_reg'
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

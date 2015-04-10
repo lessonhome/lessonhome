@@ -17,5 +17,3 @@ class @main extends template '../registration_popup'
     @parent.tree.popup.button_back.href = 'third_step'
     @parent.tree.popup.button_next.selector = 'fast_bid_nav'
     @parent.tree.popup.button_next.href = '/tutor/profile'
-
-
