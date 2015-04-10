@@ -8,11 +8,10 @@ if address_popup
         .title Укажите адрес
         a(href = '/tutor/profile/second_step')
           .close_bg
-
       .address_popup!=address_popup
-+field ('country', country)
+.value.country!= country
 .js-out_err_country
-+field ('city', city)
+.value.city!= city
 .js-out_err_city
 .title_box
   .title Адрес :

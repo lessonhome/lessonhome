@@ -7,7 +7,7 @@ class @main extends template '../registration_popup/second_step'
     'default' : 'main/first_step'
   }
   tree : =>
-    form   : state 'place_tutor'
+    address_popup   : state 'place_tutor'
 
 
 
