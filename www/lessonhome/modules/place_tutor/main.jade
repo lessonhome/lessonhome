@@ -1,13 +1,11 @@
-mixin field (selector, value)
-  .value(class=selector)!= value
-/////////////////
 
-+field ('country', country)
-+field ('city', city)
-+field ('area', area)
+.value.country!= country
+.value.city!= city
+.value.area!= area
 .input_block
   .input.near_metro!= near_metro
   .input.street!= street
   .input.house!= house
   .input.building!=  building
   .input.flat!= flat
+.save_button!=save_button
