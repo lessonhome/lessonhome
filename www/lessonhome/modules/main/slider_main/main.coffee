@@ -7,7 +7,6 @@ class @main extends EE
       e = new Error "not defined variable min/max in main/slader_main"
       console.error e,@tree
       throw e
-    foo()
     @start = @tree.start?.class
     @end   = @tree.end?.class
     @slider = @tree.move.class
