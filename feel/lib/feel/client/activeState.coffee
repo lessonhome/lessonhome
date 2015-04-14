@@ -30,6 +30,20 @@ class @activeState
           cl.register = (name,obj=cl)->
             throw new Error "can't register module #{name} in Feel, already exists" if Feel[name]?
             Feel[name] = obj
+          ###
+          for key_,val_ of cl
+            if typeof val_ == 'function'
+              do (cl,key_,val_)=>
+                foo = (args...)=>
+                  try
+                    ret = val_.apply cl,args
+                    if Q.isPromise ret
+                      ret = ret.catch (e)=>
+                        throw @parseError e,cl,val_
+                  catch e
+                    throw @parseError e,cl,val_
+          ###
+          Wrap cl,null,false
     @dom = {}
     @uniq_pref = ""
     @parseTree @tree
@@ -58,6 +72,8 @@ class @activeState
             Feel.error Exception(e)," #{mod._name}.show() failed"
           .done()
       catch e then return Feel.error e, " #{mod._name}.show() failed"
+  parseError : (e,obj,foo)=>
+
   parseTree : (node,statename)=>
     return if node._parseIn
     if node._statename?
