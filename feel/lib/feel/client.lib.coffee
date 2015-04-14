@@ -80,7 +80,8 @@ strlen = (str,len,real)->
 global.Wrap = (obj,prot,PR=true)->
   proto = prot
   proto ?= obj?.__proto__
-  return unless proto?
+  unless proto?
+    proto = obj
   return if obj.__wraped
   __functionName__ = ""
   __FNAME__ = ""
@@ -118,7 +119,7 @@ global.Wrap = (obj,prot,PR=true)->
   obj.__wraped = true
   #proto.__wraped ?= {}
   for key,val of proto
-    if (typeof val=='function') #&& !proto.__wraped[key]
+    if (typeof val=='function')#&& !proto.__wraped[key]
       #proto.__wraped[key] = true
       do (key,val)->
         fname = "::"+key+"()"
@@ -174,8 +175,10 @@ global.Wrap = (obj,prot,PR=true)->
               e = ne
             e.message ?= ""
             mname = ""
+            pcname = proto?.constructor?.name
+            pcname ?= ""
             mname = obj?.tree?._name if obj?.tree?._name?
-            e.message += "\n#{mname}::#{proto.constructor.name}::#{key}("
+            e.message += "\n#{mname}::#{pcname}::#{key}("
             na = []
             for a,i in args
               if typeof a == 'object' && (a != null)

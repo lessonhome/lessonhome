@@ -44,6 +44,7 @@ class @activeState
                     throw @parseError e,cl,val_
           ###
           Wrap cl,null,false
+          Wrap cl.js,null,false if cl?.js?
     @dom = {}
     @uniq_pref = ""
     @parseTree @tree
