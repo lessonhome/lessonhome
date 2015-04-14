@@ -273,7 +273,7 @@ class module.exports
         catch e
           console.error Exception e
           throw new Error "failed read coffee in module #{@name}: #{file.name}(#{file.path})",e
-        @newCoffee[filename] = src
+        @newCoffee[filename] = _regenerator src
       if file.ext == 'js'
         src = ""
         try
@@ -281,7 +281,7 @@ class module.exports
         catch e
           console.error Exception e
           throw new Error "failed read js in module #{@name}: #{file.name}(#{file.path})",e
-        @newCoffee[filename] = src
+        @newCoffee[filename] = _regenerator src
     @coffee     = @newCoffee
     @allCoffee  = "(function(){ var arr = {}; (function(){"
     @allJs      = ""
@@ -294,8 +294,20 @@ class module.exports
     @allCoffee += @allJs
     @allCoffee += "}).call(arr);return arr; })()"
     @allCoffee = "" unless num
-    @allCoffee = Feel.bjs _regenerator @allCoffee
+    @allCoffee =  @allCoffee
     @setHash()
+  jsfile : (fname)=>
+    f = @coffee[fname]
+    f ?= @coffee[fname+".coffee"]
+    f ?= @coffee[fname+".js"]
+    if f?.toString
+      f = f.toString()
+    return f
+  jsfilet : (fname)=>
+    f = @jsfile fname
+    return f unless f
+    return f.replace /^\}\)\.call\(this\)\;$/mgi,"}).call(_FEEL_that);"
+  jsNames : (fname)=> Object.keys @coffee
   makeJs  : =>
     @newJs = {}
     for filename, file of @files

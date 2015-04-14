@@ -149,22 +149,38 @@ class module.exports
     obj.$db = @db
     return obj
   handler : (req,res,site)=>
-    m     = req.url.match /^\/js\/(\w+)\/(.+)$/
-    return @res404 req,res unless m
-    if m[2].match /\.\./
+    if req.url.match /\.\./
       return @res404 req,res unless m
-    hash    = m[1]
-    module  = m[2]
-    if @modules[module]?.allJs?
+    if m = req.url.match /^\/js\/(\w+)\/(.+)$/
+      hash    = m[1]
+      module  = m[2]
+      data    = @modules[module]?.allJs
+      hash    = @modules[module]?.jsHash
+    else if m = req.url.match /^\/jsfile\/(\w+)\/(.+)\/([\w-\.]+)$/
+      hash    = m[1]
+      module  = m[2]
+      fname   = m[3]
+      data    = @modules[module]?.jsfile fname
+      console.log module,fname
+      hash    = @modules[module]?.jsHash
+    else if m = req.url.match /^\/jsfilet\/(\w+)\/(.+)\/([\w-\.]+)$/
+      hash    = m[1]
+      module  = m[2]
+      fname   = m[3]
+      data    = @modules[module]?.jsfilet fname
+      console.log module,fname
+      hash    = @modules[module]?.jsHash
+
+    if data?
       res.setHeader "Content-Type", "text/javascript; charset=utf-8"
-      if hash == @modules[m[2]]?.jsHash
+      if hash
         return @res304 req,res if req.headers['if-none-match'] == hash
         res.setHeader 'ETag', hash
         res.setHeader 'Cache-Control', 'public, max-age=126144001'
         res.setHeader 'Cache-Control', 'public, max-age=126144001'
         res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
       zlib = require 'zlib'
-      return zlib.deflate @modules[module].allJs,{level:9},(err,resdata)=>
+      return zlib.deflate data,{level:9},(err,resdata)=>
         return @res404 req,res,err if err?
         res.statusCode = 200
         res.setHeader 'Content-Length', resdata.length
@@ -174,8 +190,13 @@ class module.exports
   moduleJsUrl : (name)=>
     hash = @modules[name]?.jsHash
     "/js/#{hash}/#{name}"
+  moduleJsFileUrl :  (name,fname)=>
+    hash = @modules[name]?.jsHash
+    "/jsfilet/#{hash}/#{name}/#{fname}"
   moduleJsTag : (name)=>
     "<script type='text/javascript' src='#{@moduleJsUrl(name)}'></script>"
+  moduleJsFileTag : (name,fname)=>
+    "<script type='text/javascript' src='#{@moduleJsFileUrl(name,fname)}'></script>"
   res404  : (req,res,err)=>
     res.writeHead 404
     res.end()
