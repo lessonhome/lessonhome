@@ -1,4 +1,7 @@
 class @main extends template '../registration_popup'
+  forms :
+    tutor_account :
+      fields : ['first_name','last_name','middle_name','sex','birthday','status']
   route : '/tutor/profile/first_step'
   model : 'tutor/profile_registration/first_step'
   title : "первый вход"
