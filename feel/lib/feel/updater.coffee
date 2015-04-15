@@ -1,5 +1,5 @@
 
-utils = require 'utils'
+utils = require 'util'
 http  = require 'http'
 spdy  = require 'spdy'
 os    = require 'os'
