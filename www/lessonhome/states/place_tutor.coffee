@@ -26,7 +26,7 @@ class @main
       text2      : 'Квартира :'
       selector  : 'first_reg'
     save_button : module 'link_button' :
-      text      : 'Сохранить'
+      text      : '+Добавить'
       selector  :  'fast_bid_nav'
       href      :  '/tutor/profile/second_step'
 

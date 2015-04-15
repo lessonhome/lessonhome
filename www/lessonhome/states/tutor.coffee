@@ -10,7 +10,6 @@ class @main
   ###
   tree : => module '$' :
     depend        : [
-      module '$/edit'
       state 'lib'
     ]
     header        : state 'tutor/header'  :
