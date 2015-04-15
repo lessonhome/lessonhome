@@ -135,9 +135,9 @@ class RouteState
       @cssModuleExt modname,val
       for key of val
         @modules[key] = true
-    for modname of @modules
-      if @site.modules[modname]?.allCoffee
-        @jsModules += "$Feel.modules['#{modname}'] = #{@site.modules[modname].allCoffee};"
+    #for modname of @modules
+    #  if @site.modules[modname]?.allCoffee
+    #    @jsModules += "$Feel.modules['#{modname}'] = #{@site.modules[modname].allCoffee};"
     @time 'parse'
     title   = @state.title
     title  ?= @statename
@@ -178,8 +178,14 @@ class RouteState
       '<script id="feed-js-modules">
       "use strict";
           console.log("Feel",$Feel); 
-      '+@jsModules+'</script>'+
-      '<script id="feel-js-startFeel">
+      '+@jsModules+'</script>'
+    for modname of @modules
+      if @site.modules[modname]?.allCoffee
+        end += "<script>window._FEEL_that = $Feel.modules['#{modname}'] = {};</script>"
+        names =  @site.modules[modname].jsNames()
+        for n in names
+          end += @site.moduleJsFileTag modname,n
+    end +=  '<script id="feel-js-startFeel">
       "use strict";
       Feel.init();</script>'+
       '</body></html>'
