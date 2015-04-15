@@ -6,6 +6,7 @@ os    = require 'os'
 spawn = require('child_process').spawn
 ps    = require 'ps-node'
 _fs = require 'fs'
+Q = require 'q'
 
 class module.exports
   constructor : ->
@@ -29,7 +30,7 @@ class module.exports
       @server = spdy.createServer options,@handler
     @hand = 0
     @server.listen @port
-  handler :(req,res)=>
+  handler :(req,res)=> Q.spawn =>
     if @ssh
       res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
     return process.exit(0) if req.url == "/restart"
@@ -45,29 +46,28 @@ class module.exports
     res.on 'close', =>
       res.closed = true
       @end(res)
-
-    @exec "git", ["pull"], res, =>
-      process.chdir 'feel'
-      @exec "npm",["i"],res, =>
-        process.chdir '..'
-        ps.lookup {
-          command : 'iojs'
-          psargs : "aux"
-        }, (err,list)=>
-          @exec "cat", ["./feel/version"], res, =>
-            console.log list
-            if !err
-              for p in list
-                for a in p.arguments
-                  if a.match(/feel\/bin\/feel/) || a.match(/feel\/lib\/feel\/process.*/)
-                    @log res,"#{process.cwd()} $ kill "+p.pid+"\n"
-                    @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,600000, => @end res
-                    ps.kill p.pid, =>
-                    boo = true
-
-            if !boo
-              @log res, "Can't find process node:feel!\n"
-              @end res
+    yield @exec "stop",["feel"], res
+    list = Q.ninvoke ps, 'lookup', {
+      command : 'iojs'
+      psargs : "aux"
+    }
+    console.log list
+    for p in list then for a in p.arguments then if a.match(/feel\/bin\/feel/) || a.match(/feel\/lib\/feel\/process.*/)
+      @log res,"#{process.cwd()} $ kill "+p.pid+"\n"
+      @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,600000
+      .then => @end res
+      ps.kill p.pid, =>
+      boo = true
+    if !boo
+      @log res, "Can't find process node:feel!\n"
+      @end res
+      return
+    yield @exec "git", ["pull"], res
+    yield @exec "cat", ["./feel/version"], res
+    process.chdir 'feel'
+    yield @exec "npm",["i"],res
+    process.chdir '..'
+    yield @exec "start",["feel"], res
   tail : (req,res,num=30)=>
     res.on 'close', =>
       res.closed = true
@@ -88,12 +88,10 @@ class module.exports
       msg = msg.replace /\[\d\dm/g,""
     res.write msg
 
-  exec : (cmd,args,res,time,cb)=>
+  exec : (cmd,args,res,time)=>
+    defer = Q.defer()
     t = new Date().getTime()
 
-    unless cb?
-      cb    = time
-      time  = null
     @log res, "#{process.cwd()} $ "+cmd+" "+args.join(" ")+"\n"
     prog = spawn cmd, args
     prog.stdout.on 'data', (data)=> @log res,data
@@ -102,13 +100,14 @@ class module.exports
       if false # time?
         nt = new Date().getTime()
         if nt-t<time
-          return @exec cmd,args,res,time-(nt-t),cb
-      cb()
+          return d.resolve @exec cmd,args,res,time-(nt-t)
+      d.resolve()
 
     if time
       setTimeout =>
         prog.kill()
       , time
+    return defer.promise
 
 
 
