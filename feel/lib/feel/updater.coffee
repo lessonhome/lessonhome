@@ -59,7 +59,7 @@ class module.exports
             if !err
               for p in list
                 for a in p.arguments
-                  if a.match(/feel\/bin\/feel/) || a.match(/feel\/lib\/process.*/)
+                  if a.match(/feel\/bin\/feel/) || a.match(/feel\/lib\/feel\/process.*/)
                     @log res,"#{process.cwd()} $ kill "+p.pid+"\n"
                     @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,600000, => @end res
                     ps.kill p.pid, =>
