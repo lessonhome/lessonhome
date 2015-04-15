@@ -10,8 +10,9 @@ class @main
     @first_name   = @tree.first_name.class
     @last_name    = @tree.last_name.class
     @middle_name  = @tree.middle_name.class
+    # button
     @sex          = @tree.gender_data.class
-    console.log @sex 
+    # drop_down_list
     @day          = @tree.birth_data.day.class
     @month        = @tree.birth_data.month.class
     @year         = @tree.birth_data.year.class
@@ -33,18 +34,19 @@ class @main
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
-      .then ({status,errs,err})=>
-        if err?
-          errs?=[]
-          errs.push err
-        if status=='success'
-          return true
-        if errs?.length
-          for e in errs
-            @parseError e
-        return false
+      .then @onReceive
     else
       return false
+  onReceive : ({status,errs,err})=>
+    if err?
+      errs?=[]
+      errs.push err
+    if status=='success'
+      return true
+    if errs?.length
+      for e in errs
+        @parseError e
+    return false
 
   check_form : =>
     errs = @js.check @getData()

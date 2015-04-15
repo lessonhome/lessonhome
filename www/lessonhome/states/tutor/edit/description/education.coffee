@@ -20,8 +20,8 @@ class @main extends template '../edit_description'
       university    : module 'tutor/forms/drop_down_list' :
         text      : 'ВУЗ :'
         selector  : 'first_reg'
-      faculty       : module 'tutor/forms/input'  :
-        text2      : 'Факультет :'
+      faculty       : module 'tutor/forms/drop_down_list' :
+        text      : 'Факультет :'
         selector  : 'first_reg'
       chair         : module 'tutor/forms/drop_down_list' :
         text      : 'Кафедра :'

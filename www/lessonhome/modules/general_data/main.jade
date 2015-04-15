@@ -1,14 +1,13 @@
-mixin field (selector, value)
-  .value.input(class = selector)!= value
 
-/////////////////////////////////////
 .add_photos!=add_photos
-+field ('first_name', first_name)
-+field ('last_name', last_name)
-+field ('middle_name', middle_name)
+.first_name!= first_name
+.last_name!= last_name
+.middle_name!= middle_name
 .gender_data!=gender_data
 .birth_data!=birth_data
-.js-out_err_date.hide
+.err
+  .js-out_err_date.hide
 .value.status!= status
-.js-out_err_status.hide
+.err
+  .js-out_err_status.hide
 
