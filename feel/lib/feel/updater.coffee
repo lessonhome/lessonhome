@@ -55,7 +55,7 @@ class module.exports
           psargs : "aux"
         }, (err,list)=>
           @exec "cat", ["./feel/version"], res, =>
-            @log utils.inspect list
+            console.log list
             if !err
               for p in list
                 for a in p.arguments
