@@ -1,5 +1,5 @@
 
-
+utils = require 'utils'
 http  = require 'http'
 spdy  = require 'spdy'
 os    = require 'os'
@@ -55,7 +55,7 @@ class module.exports
           psargs : "aux"
         }, (err,list)=>
           @exec "cat", ["./feel/version"], res, =>
-            @log list
+            @log utils.inspect list
             if !err
               for p in list
                 for a in p.arguments
