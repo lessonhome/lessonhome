@@ -51,7 +51,7 @@ class module.exports
       @exec "npm",["i"],res, =>
         process.chdir '..'
         ps.lookup {
-          command : 'iojs'
+          command : '/usr/bin/iojs'
           psargs : "aux"
         }, (err,list)=>
           @exec "cat", ["./feel/version"], res, =>
