@@ -55,11 +55,11 @@ class module.exports
           psargs : "aux"
         }, (err,list)=>
           @exec "cat", ["./feel/version"], res, =>
-            console.log list
+            @log list
             if !err
               for p in list
                 for a in p.arguments
-                  if a.match /feel\/...\/feel.*/
+                  if a.match(/feel\/bin\/feel/) || a.match(/feel\/lib\/process.*/)
                     @log res,"#{process.cwd()} $ kill "+p.pid+"\n"
                     @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,600000, => @end res
                     ps.kill p.pid, =>
