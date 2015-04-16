@@ -293,7 +293,7 @@ class module.exports
       "wrap_attributes_indent_size": 4
     }
   yjs     : (js)=> do Q.async =>
-    ret = yield ycompress js,type:'js'
+    ret = yield ycompress js,{type:'js'}
     return ret
   dyjs    : (js)=> ycompress(js).then (yjs)=> _deflate yjs
   ycss    : (css)=>
