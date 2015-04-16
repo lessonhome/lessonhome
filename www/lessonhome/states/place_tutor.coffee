@@ -25,9 +25,12 @@ class @main
     flat       : module 'tutor/forms/input' :
       text2      : 'Квартира :'
       selector  : 'first_reg'
-    save_button : module 'link_button' :
+    add_button : module 'button_add' :
       text      : '+Добавить'
-      selector  :  'fast_bid_nav'
+      selector  :  'edit_add'
+    save_button : module 'link_button' :
+      text      : 'Сохранить'
+      selector  :  'edit_save'
       href      :  '/tutor/profile/second_step'
 
 

@@ -4,6 +4,7 @@ class @main
   Dom : =>
     @out_err_date     = @found.out_err_date
     @out_err_status   = @found.out_err_status
+    @out_err_sex      = @found.out_err_sex
 
   show : =>
     # input
@@ -110,7 +111,7 @@ class @main
       when "bad_status"
         @outErr "Выберите статус из списка", @out_err_status, @status
       when "unselect sex"
-        #@outErr "Выберите пол", @out_err_sex, @sex
+        @outErr "Выберите пол", @out_err_sex, @sex
         alert 'sex'
       else
         alert 'die'
