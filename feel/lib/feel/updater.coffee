@@ -31,6 +31,13 @@ class module.exports
     @hand = 0
     @server.listen @port
   handler :(req,res)=> Q.spawn =>
+    try
+      yield @fhandler(req,res)
+    catch e
+      yield @exec "start",["feel"], res
+      throw e
+
+  fhandler : (req,res)=> do Q.async =>
     if @ssh
       res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
     return process.exit(0) if req.url == "/restart"
@@ -47,27 +54,26 @@ class module.exports
       res.closed = true
       @end(res)
     yield @exec "stop",["feel"], res
-    list = Q.ninvoke ps, 'lookup', {
+    list = yield Q.ninvoke ps, 'lookup', {
       command : 'iojs'
       psargs : "aux"
     }
-    console.log list
+    if typeof list =='object'  && list != null
+      @log res, utils.inspect list
     for p in list then for a in p.arguments then if a.match(/feel\/bin\/feel/) || a.match(/feel\/lib\/feel\/process.*/)
       @log res,"#{process.cwd()} $ kill "+p.pid+"\n"
-      @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,600000
-      .then => @end res
       ps.kill p.pid, =>
       boo = true
     if !boo
       @log res, "Can't find process node:feel!\n"
-      @end res
-      return
     yield @exec "git", ["pull"], res
     yield @exec "cat", ["./feel/version"], res
     process.chdir 'feel'
     yield @exec "npm",["i"],res
     process.chdir '..'
     yield @exec "start",["feel"], res
+    @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,600000
+    .then => @end res
   tail : (req,res,num=30)=>
     res.on 'close', =>
       res.closed = true
@@ -100,8 +106,8 @@ class module.exports
       if false # time?
         nt = new Date().getTime()
         if nt-t<time
-          return d.resolve @exec cmd,args,res,time-(nt-t)
-      d.resolve()
+          return defer.resolve @exec cmd,args,res,time-(nt-t)
+      defer.resolve()
 
     if time
       setTimeout =>
