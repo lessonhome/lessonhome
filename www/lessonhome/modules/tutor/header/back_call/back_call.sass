@@ -31,7 +31,7 @@ main
       height: $phone_height
       margin-right: 10px
       +inline-block
-      background: inline-image($phone_src) no-repeat
+      background: url(F($phone_src)) no-repeat
     .text
       +inline-block
   .call_back_popup
@@ -47,7 +47,7 @@ main
         +inline-block
         width: $triangle_width
         height: $triangle_height
-        background: inline-image($triangle_src) no-repeat
+        background: url(F($triangle_src)) no-repeat
     .popup
       margin-top: -$border_width
       border: $border_width solid #cccccc
@@ -64,7 +64,7 @@ main
         top:  0
         padding: 10px
         .close
-          background: inline-image($close_src) no-repeat
+          background: url(F($close_src)) no-repeat
           height: $close_height
           width: $close_width
       .name, .tel_number

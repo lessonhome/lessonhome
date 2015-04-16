@@ -83,7 +83,7 @@ $report_items_width: 480px
     width       : 460px
     padding-top : 9px
     margin      : 6px 0px 30px 34px
-    background  : inline-image('updown_triangle.png') no-repeat
+    background  : url(F('updown_triangle.png')) no-repeat
     background-position : 40px 0px
 
     .title
@@ -179,7 +179,7 @@ $report_items_width: 480px
               margin-bottom : 22px
             .item.filled
               .icon
-                background: inline-image($fill_sign_src) no-repeat center
+                background: url(F($fill_sign_src)) no-repeat center
                 background-color : #89d1ff
               .text:after
                 content: " >>>"
@@ -240,14 +240,14 @@ $report_items_width: 480px
             width  : 16px
             height : 16px
             margin-right : 8px
-            //-background : inline-image('info_opened.png') no-repeat
+            //-background : url(F('info_opened.png')) no-repeat
 
         .details_block
           display: none
           width       : 460px
           padding-top : 9px
           margin      : 10px 20px 0px 30px
-          background  : inline-image('updown_triangle.png') no-repeat
+          background  : url(F('updown_triangle.png')) no-repeat
           background-position : 40px 0px
 
           .title
@@ -272,9 +272,9 @@ $report_items_width: 480px
               overflow : hidden
 
       .details_block_background.details_closed>.header>.icon
-        background : inline-image('info_closed.png') no-repeat
+        background : url(F('info_closed.png')) no-repeat
       .details_block_background.details_open>.header>.icon
-        background : inline-image('info_opened.png') no-repeat
+        background : url(F('info_opened.png')) no-repeat
 
     .basic_block>.status>.text>.start
       +inline-block
