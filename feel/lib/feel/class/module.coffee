@@ -151,53 +151,85 @@ class module.exports
     @allCssRelative = {}
     @cssSrc         = {}
     @css            = {}
+    qs = []
     for filename, file of @files
       if file.ext == 'sass'
-        path = "#{@site.path.sass}/#{@name}/#{file.name}.css"
-        try
-          src = fs.readFileSync(path).toString()
-        catch e
-          console.error Exception e
-          throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
-        @cssSrc[filename] = src
-        @css[filename] = Feel.bcss @parseCss src,filename
-    return Q()
-  makeSassAsync : =>
-    files = []
-    for filename,file of @files
-      files.push file
+        qs.push do (filename,file)=> do Q.async =>
+          path = "#{@site.path.sass}/#{@name}/#{file.name}.css"
+          data = Feel.qCacheFile path,null,'css'
+          datasrc = yield Feel.qCacheFile path,null,'csssrc'
+          unless datasrc
+            try
+              src = (yield _readFile(path)).toString()
+            catch e
+              console.error Exception e
+              throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
+            @cssSrc[filename] = src
+            yield Feel.qCacheFile path,src,'csssrc'
+          else
+            @cssSrc[filename] = datasrc
+          data = yield data
+          unless data
+            @css[filename] = @parseCss @cssSrc[filename],filename
+            if _production
+              @css[filename] = yield Feel.ycss @css[filename]
+            else
+              @css[filename] = Feel.bcss @css[filename]
+            yield Feel.qCacheFile path,@css[filename],'css'
+          else
+            @css[filename] = data
+    return Q.all qs
+  makeSassAsync : => do Q.async =>
     @allCssRelative = {}
     @cssSrc = {}
     @css    = {}
-    return files.reduce (promise,file)=>
-      return promise unless file.ext == 'sass'
-      path = "#{@site.path.sass}/#{@name}/#{file.name}.css"
-      return promise.then => readfile path
-      .then (src)=>
-        src = src.toString()
-        filename = file.name + '.'+file.ext
-        @cssSrc[filename] = src
-        @css[filename]    = Feel.bcss @parseCss src,filename
-    , Q()
-    .then @makeAllCss
+    qs = []
+    for filename,file of @files
+      continue unless file.ext == 'sass'
+      qs.push do (filename,file)=> do Q.async =>
+        path = "#{@site.path.sass}/#{@name}/#{file.name}.css"
+        data = Feel.qCacheFile path,null,'css'
+        datasrc = yield Feel.qCacheFile path,null,'csssrc'
+        unless datasrc
+          try
+            src = (yield _readFile(path)).toString()
+          catch e
+            console.error Exception e
+            throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
+          @cssSrc[filename] = src
+          yield Feel.qCacheFile path,src,'csssrc'
+        else
+          @cssSrc[filename] = datasrc
+        data = yield data
+        unless data
+          @css[filename] = @parseCss @cssSrc[filename],filename
+          if _production
+            @css[filename] = yield Feel.ycss @css[filename]
+          else
+            @css[filename] = Feel.bcss @css[filename]
+          yield Feel.qCacheFile path,@css[filename],'css'
+        else
+          @css[filename] = data
+    yield Q.all qs
+    yield @makeAllCss()
   getAllCssExt : (exts)=>
     css = ""
     for ext of exts
       css += @site.modules[ext]?.getCssRelativeTo? @name if @site.modules[ext]?.getCssRelativeTo?
-    css = Feel.bcss
+    css = Feel.bcss css
     return css
   getCssRelativeTo : (rel)=>
     return @allCssRelative[rel] if @allCssRelative?[rel]?
     @allCssRelative ?= {}
     @allCssRelative[rel] = ""
     for filename,src of @cssSrc
-      @allCssRelative[rel] += "/*#{@name}:#{filename} relative to #{rel}*/\n"
+      @allCssRelative[rel] += "/*#{@name}:#{filename} relative to #{rel}*/"
       @allCssRelative[rel] += @parseCss src,filename,@site.modules[rel].id
     return @allCssRelative[rel]
   makeAllCss : =>
     @allCss = ""
     for name,src of @css
-      @allCss += "/*#{name}*/\n#{src}\n"
+      @allCss += "/*#{name}*/#{src}"
   parseCss : (css,filename,relative=@id)=>
     ret = ''
     m = css.match /\$FILE--\"([^\$]*)\"--FILE\$/g
@@ -262,26 +294,44 @@ class module.exports
     newpref=pref if filename.match /.*\.g\.sass$/
     ret = newpref+body+@parseCss(post,filename,relative)
     return ret
-  makeCoffee  : => Q.then =>
+  makeCoffee  : => do Q.async =>
     @newCoffee = {}
+    qs = []
     for filename, file of @files
       if file.ext == 'coffee' && !filename.match(/.*\.[d|c]\.coffee$/)
-        src = ""
-        try
+        do (filename,file)=> qs.push do Q.async =>
           console.log 'coffee\t'.yellow,"#{@name}/#{filename}".grey
-          src = Feel.cacheCoffee file.path
-        catch e
-          console.error Exception e
-          throw new Error "failed read coffee in module #{@name}: #{file.name}(#{file.path})",e
-        @newCoffee[filename] = _regenerator src
+          src = ""
+          datasrc = yield Feel.qCacheFile file.path,null,'mcoffeefile'
+          if datasrc
+            @newCoffee[filename] = datasrc
+            return
+          try
+            src = Feel.cacheCoffee file.path
+          catch e
+            console.error Exception e
+            throw new Error "failed read coffee in module #{@name}: #{file.name}(#{file.path})",e
+          @newCoffee[filename] = _regenerator src
+          if _production
+            @newCoffee[filename] = yield Feel.yjs @newCoffee[filename]
+          yield Feel.qCacheFile file.path,@newCoffee[filename],'mcoffeefile'
       if file.ext == 'js'
-        src = ""
-        try
-          src = fs.readFileSync file.path
-        catch e
-          console.error Exception e
-          throw new Error "failed read js in module #{@name}: #{file.name}(#{file.path})",e
-        @newCoffee[filename] = _regenerator src
+        do (filename,file)=> qs.push do Q.async =>
+          src = ""
+          datasrc = Feel.cacheFile file.path,null,'mcoffeefile'
+          if datasrc
+            @newCoffee[filename] = datasrc
+            return
+          try
+            src = fs.readFileSync file.path
+          catch e
+            console.error Exception e
+            throw new Error "failed read js in module #{@name}: #{file.name}(#{file.path})",e
+          @newCoffee[filename] = _regenerator src
+          if _production
+            @newCoffee[filename] = yield Feel.yjs @newCoffee[filename]
+          yield Feel.qCacheFile file.path,@newCoffee[filename],'mcoffeefile'
+    yield Q.all qs
     @coffee     = @newCoffee
     @allCoffee  = "(function(){ var arr = {}; (function(){"
     @allJs      = ""
@@ -294,7 +344,8 @@ class module.exports
     @allCoffee += @allJs
     @allCoffee += "}).call(arr);return arr; })()"
     @allCoffee = "" unless num
-    @allCoffee =  @allCoffee
+    #if _production
+    #  @allCoffee = yield Feel.yjs @allCoffee
     @setHash()
   jsfile : (fname)=>
     f = @coffee[fname]
@@ -306,7 +357,8 @@ class module.exports
   jsfilet : (fname)=>
     f = @jsfile fname
     return f unless f
-    return f.replace /^\}\)\.call\(this\)\;$/mgi,"}).call(_FEEL_that);"
+    #return f.replace /^\}\)\.call\(this\)\;$/mgi,"}).call(_FEEL_that);"
+    return "(function(){"+f+"}).call(_FEEL_that);"
   jsNames : (fname)=> Object.keys @coffee
   makeJs  : =>
     @newJs = {}
@@ -329,7 +381,12 @@ class module.exports
         @allJs += "(function(){ #{src} }).call(arr);"
     @allJs += "return arr; })()"
     @allJs  = "" unless num
-    @allJs  = Feel.bjs _regenerator @allJs
+    #if _production
+    #  return Feel.yjs(_regenerator @allJs)
+    #  .then (js)=>
+    #    @allJs = js
+    #    @setHash()
+    @allJs  = _regenerator @allJs
     @setHash()
     return Q()
   setHash : =>

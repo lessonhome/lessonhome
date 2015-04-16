@@ -232,10 +232,10 @@ class RouteState
       else if typeof val == 'object'
         @removeHtml val
   cssModule : (modname)=>
-    @css += "<style id=\"f-css-#{modname}\">\n#{@site.modules[modname].allCss}\n</style>\n"
+    @css += "<style id=\"f-css-#{modname}\">#{@site.modules[modname].allCss}</style>"
   cssModuleExt    : (modname,exts)=>
     css = @site.modules[modname].getAllCssExt exts
-    @css += "<style id=\"f-css-#{modname}-exts\">\n#{css}\n</style>\n"
+    @css += "<style id=\"f-css-#{modname}-exts\">#{css}</style>"
   parse : (now,uniq,module,state,_pnode,_pkey)=>
     #return if now.__parsed
     if now?.__state?.parent?.tree?

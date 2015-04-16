@@ -82,15 +82,18 @@ class module.exports
       throw new Error "create state '#{name}' circular depend"
   loadModules : =>
     @createModules @path.modules, ""
-  createModules : (path,dir)=>
+  createModules : (path,dir)=> do Q.async =>
     module        = {}
     module.files  = {}
-    readdir path
-    .then (files)=>
-      files.reduce (promise,filename)=>
-        stat = fs.statSync "#{path}/#{filename}"
+    files = yield readdir path
+    q = Q()
+    for filename in files
+      do (filename)=> q = q.then =>  do Q.async =>
+        #files.reduce (promise,filename)=>
+        stat = yield _stat "#{path}/#{filename}"
         if stat.isDirectory()
-          return promise.then => @createModules "#{path}/#{filename}", dir+filename+"/"
+          #return promise.then =>
+          yield @createModules "#{path}/#{filename}", dir+filename+"/"
         if stat.isFile() && dir && !filename.match(/^\..*$/)
           reg = filename.match(/^(.*)\.(\w+)$/)
           filepath = "#{path}/#{filename}"
@@ -104,13 +107,11 @@ class module.exports
               name : filename
               ext  : ""
               path : filepath
-        return promise
-      , Q()
-    .then =>
-      return if !dir
-      module.name = dir.match(/^(.*)\/$/)[1]
-      @modules[module.name] = new Module module,@
-      return @modules[module.name].init()
+    yield q
+    return if !dir
+    module.name = dir.match(/^(.*)\/$/)[1]
+    @modules[module.name] = new Module module,@
+    return @modules[module.name].init()
   dataObject : (name,context)=>
     console.log 'dataObject',name,context
     suffix  = ""
