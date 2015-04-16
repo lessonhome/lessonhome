@@ -1,6 +1,6 @@
 .calendar_box(class = selector)
-  .choose_all!= choose_all
-  .calendar_week
+  .js-choose_all!= choose_all
+  .js-calendar_week
     .monday.hover пн
     .tuesday.hover вт
     .wednesday.hover ср
@@ -13,12 +13,8 @@
       .from_time!=from_time
       .dash -
       .till_time!=till_time
-      .add_time_button!= add_time_button
+      .js-add_time_button!= add_time_button
   .tag!=tag
-
-      //-.close_box
-        .close
-    //-.button_add!=button_add
 
 
 

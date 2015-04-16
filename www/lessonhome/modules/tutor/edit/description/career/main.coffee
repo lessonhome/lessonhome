@@ -1,17 +1,37 @@
 class @main
   Dom : =>
     @out_err_experience     = @found.out_err_experience
-
+    @add_button             = @found.add_button
+    @clone_el               = @found.clone_el
+    @place_of_work          = @found.place_of_work
+    @post                   = @found.post
 
   show : =>
-    # input
-    @place      = @tree.place_of_work.class
-    @post       = @tree.post.class
+    @work = []
+    for key,val of @tree.work
+      @work.push
+        place : val.place_of_work.class
+        post  : val.post.class
     # drop_down_list
     @experience = @tree.experience_tutoring.class
 
     # drop_down_list catch focus
-    @experience.on  'focus',  => @clearOutErr @out_err_experience,  @experience
+    #@experience.on  'focus',  => @clearOutErr @out_err_experience,  @experience
+
+
+    # add more work place
+    @add_button.on 'click', => @cloneInput()
+
+
+
+
+  cloneInput : =>
+    el = @clone_el.clone()
+    el.find('input').val('')
+    el.appendTo('.block_work')
+
+
+
 
 
 
@@ -40,24 +60,27 @@ class @main
     return errs.length==0
 
   getData : =>
-    return {
-      place             : @place.getValue()
-      post              : @post.getValue()
-      experience        : @experience.getValue()
-    }
+    experience  : @experience.getValue()
+    work        : for w in @work
+      place : w.place.getValue()
+      post  : w.post.getValue()
 
-  parseError : (err)=>
+  parseError : (err,index)=>
+    if typeof err == 'object'
+      for key,val of err
+        @parseError key, val
+      return
     switch err
     #short
       when "short_place"
-        @place.showError "Слишком короткое место"
+        @work[index].place.showError "Слишком короткое место"
       when "short_post"
-        @post.showError "Слишком короткая должность"
+        @work[index].post.showError "Слишком короткая должность"
     #empty
       when "empty_place"
-        @place.showError "Введите место"
+        @work[index].place.showError "Введите место"
       when "empty_post"
-        @post.showError "Введите должность"
+        @work[index].post.showError "Введите должность"
       when "empty_exp"
         @outErr "Выберите опыт", @out_err_experience, @experience
       else
