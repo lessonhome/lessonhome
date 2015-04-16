@@ -2,15 +2,16 @@
 @check = (f)=>
   errs = []
   # short
-  if 0 < f.place.length < 3
-    errs.push "short_place"
-  if 0 < f.post.length < 3
-    errs.push "short_post"
-  # empty
-  if f.place.length == 0
-    errs.push "empty_place"
-  if f.post.length == 0
-    errs.push "empty_post"
+  for w,index in f.work
+    if 0 < w.place.length < 3
+      errs.push "short_place":index
+    if 0 < w.post.length < 3
+      errs.push "short_post":index
+    # empty
+    if w.place.length == 0
+      errs.push "empty_place":index
+    if w.post.length == 0
+      errs.push "empty_post":index
   if f.experience.length == 0
     errs.push "empty_exp"
   return errs

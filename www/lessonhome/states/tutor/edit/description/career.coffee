@@ -11,12 +11,16 @@ class @main extends template '../edit_description'
     menu_description  : 'edit: description'
     active_item : 'Карьера'
     tutor_edit  : module '$' :
-      place_of_work : module 'tutor/forms/input'  :
-        selector    : 'first_reg'
-        text2        : 'Место работы :'
-      post : module 'tutor/forms/input' :
-        selector    : 'first_reg'
-        text2        : 'Должность :'
+      work  : [
+        {
+          place_of_work: module 'tutor/forms/input':
+            selector: 'first_reg'
+            text2: 'Место работы :'
+          post: module 'tutor/forms/input':
+            selector: 'first_reg'
+            text2: 'Должность :'
+        }
+      ]
       add_button    : module 'button_add' :
         text     : '+Добавить'
         selector : 'edit_add'
