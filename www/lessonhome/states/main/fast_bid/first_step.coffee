@@ -36,7 +36,6 @@ class @main extends template '../fast_bid'
         ]
       email : module 'tutor/forms/input':
         text1: 'E-mail :'
-        text2 : 'asdfasd'
         selector  : 'fast_bid'
         replace   : [
          { "(^[^\\w])" : ""}
