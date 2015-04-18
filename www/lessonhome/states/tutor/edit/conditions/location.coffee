@@ -1,3 +1,5 @@
+###
+
 class @main extends template '../edit_conditions'
   route : '/tutor/edit/location'
   model   : 'tutor/edit/conditions/location'
@@ -11,3 +13,5 @@ class @main extends template '../edit_conditions'
     menu_condition  : 'edit: conditions'
     active_item : 'Место'
     tutor_edit : state 'place_tutor'
+
+###

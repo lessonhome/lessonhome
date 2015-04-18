@@ -1,15 +1,31 @@
 class @main extends EE
   Dom : =>
     @label = @dom.find "label"
-    @check_box = @label.children '.check_box'
-    @check = @check_box.children ".check"
-    @state = @label.hasClass 'active'
+    @check_box = @found.check_box
+    @check = @found.check
 
   show : =>
     @dom.on 'click', =>
       @label.toggleClass('active')
       @state = @label.hasClass 'active'
       @emit 'change',@state
+
+
+
+
+
+
+  getValue : =>
+    @label.hasClass 'active'
+
+  setValue : (val)=>
+    @label.hasClass = val
+
+  # showError() and hideError() = no
+
+  # event:  end, focus, blur, change
+
+
 
 
 

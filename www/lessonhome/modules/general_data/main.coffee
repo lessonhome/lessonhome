@@ -13,11 +13,14 @@ class @main
     @middle_name  = @tree.middle_name.class
     # button
     @sex          = @tree.gender_data.class
+    console.log @sex
+    alert @sex
     # drop_down_list
     @day          = @tree.birth_data.day.class
     @month        = @tree.birth_data.month.class
     @year         = @tree.birth_data.year.class
     @status       = @tree.status.class
+
 
 
     # drop_down_list focus TODO: make in drop_down_list clear_err_effect on element after focus and start writing, same input

@@ -24,7 +24,7 @@ class @main
       selector_button : 'registration'
       value           : data('person').get('sex').then (s)->
         return s if s?
-        return 'unselect'
+        return false
     birth_data    : state 'data_date'  :
       text  : 'Дата рождения :'
       day_value   : data('person').get('birthday').then (b)-> b?.getDate?()

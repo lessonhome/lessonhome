@@ -24,15 +24,25 @@ class @main extends EE
   closeList : =>
     $('body').off 'mousedown.drop_down_list'
     $('body').off 'mouseleave.drop_down_list'
-    @emit 'change',@getValue()
+    @emitChange()
     @bodyListenMD = false
     @label.removeClass 'focus'
     @select_sets.hide()
     @emit 'blur'
     @emit 'focusout'
+  emitChange : =>
+    @lastChange ?= ""
+    val = @getValue()
+    return if val == @lastChange
+    @lastChange = val
+    @emit 'change',val
+  onBlur : =>
+    @emit 'end', @getValue()
+
   show : =>
     @scroll = @tree.scroll?.class
     @isFocus = false
+    @on 'blur',@onBlur
     @input.on 'focus', =>
       return if @isFocus
       @isFocus = true
@@ -124,6 +134,7 @@ class @main extends EE
         #########################################
 
         ### Event handling #####################################
+        @input.on 'input', @emitChange
         @input.keyup (event) =>
           if @select_sets.data 'was-enter'
             @select_sets.data 'was-enter', false
@@ -252,11 +263,29 @@ class @main extends EE
   getDistance : (from,to)=>
     Feel.diff.match from,to
 
-  getValue : => @input.val()
+
 
   exists : => @_list[@getValue()]?
 
   err_effect       : => @label.addClass 'err_effect'
   clean_err_effect : => @label.remove 'err_effect'
 
+
+  ########
+
+  setValue : (val)=>
+    @input.val val
+
+  getValue : => @input.val()
+
+  showError : (error)=>
+    if @errorDiv?
+      @errorDiv.text error
+      @errorDiv.show()
+  hide : =>
+    if @errorDiv?
+      @errorDiv.hide()
+      @errorDiv.text ""
+  setErrorDiv : (div)=>
+    @errorDiv = $ div
 
