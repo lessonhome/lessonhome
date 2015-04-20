@@ -10,14 +10,28 @@ class @main
     @building = @tree.building.class
     @flat = @tree.flat.class
 
+    @bSave = @tree.save_button.class
+    @bSave.on 'submit', @next
+
+  next : =>
+    @save?().then (success)=>
+      if success
+        ###
+        @$send('./save',@progress).then ({status})=>
+          if status=='success'
+            return true
+        ###
+        @bSave.submit()
+    .done()
+
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
       .then ({status,errs})=>
-      if status=='success'
-        return true
-      if errs?.length
-        @parseError errs
+        if status=='success'
+          return true
+        #if errs?.length
+          #@parseError errs
       return false
     else
       return false
