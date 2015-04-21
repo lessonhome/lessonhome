@@ -70,15 +70,6 @@ class @main
       edit     : @exports()
       selector : 'horizon'
     media               : module '$/media' :
-      photos : data('ava').get(true).then (photos)=>
-        console.log photos
-        arr = []
-        for p in photos
-          arr.push module 'mime/photo' :
-            photo : p
-            src : F 'vk.unknown.man.jpg'
-        console.log arr
-        return arr
       photo1  : module 'mime/photo' :
         src : F 'vk.unknown.man.jpg'
       photo2  : module 'mime/photo' :
