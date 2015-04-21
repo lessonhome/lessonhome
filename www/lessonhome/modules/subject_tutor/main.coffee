@@ -23,6 +23,7 @@ class @main
 
     # drop_down_list
     @subject       = @tree.subject.class
+    @subject_tag
     @course        = @tree.course.class
     #@place              = @tree.price.class
     #@students_in_group  = @tree.students_in_group.class
