@@ -41,7 +41,7 @@ class @main
     @tree.country.value = location.then (l)-> l?.country
     @tree.city.value = location.then (l)-> l?.city
     @tree.area.value = location.then (l)-> l?.area
-    @tree.near_metro.value = location.then (l)-> l?.near_metro
+    @tree.near_metro.value = location.then (l)-> l?.metro
     @tree.street.value = location.then (l)-> l?.street
     @tree.house.value = location.then (l)-> l?.house
     @tree.building.value = location.then (l)-> l?.building

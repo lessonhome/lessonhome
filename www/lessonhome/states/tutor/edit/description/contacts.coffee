@@ -10,7 +10,10 @@ class @main extends template '../edit_description'
   tree : =>
     menu_description  : 'edit: description'
     active_item : 'Контакты'
-    tutor_edit  : state 'contacts_tutor'
+    tutor_edit  : state 'contacts_tutor' :
+      address_popup   : @exports()
+      address_popup_href: @exports()
+      address_popup_close_href: @exports()
     hint        : module 'tutor/hint' :
       selector  : 'horizontal'
       header    : 'Это подсказка'
