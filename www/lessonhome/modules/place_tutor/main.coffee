@@ -24,12 +24,27 @@ class @main
 
 
 
+    @bSave = @tree.save_button.class
+    @bSave.on 'submit', @next
+
+  next : =>
+    @save?().then (success)=>
+      if success
+        ###
+        @$send('./save',@progress).then ({status})=>
+          if status=='success'
+            return true
+        ###
+        @bSave.submit()
+    .done()
+
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
       .then @onReceive
     else
       return false
+
   onReceive : ({status,errs,err})=>
     if err?
       errs?=[]
@@ -41,6 +56,7 @@ class @main
         @parseError e
     return false
 
+
   check_form : =>
     errs = @js.check @getData()
     if !@country.exists() && @country.getValue().length!=0
@@ -50,16 +66,17 @@ class @main
     if !@area.exists() && @area.getValue().length!=0
       errs.push 'bad_area'
 
+
   getData: =>
     return {
-      country     : @country.getValue()
-      city        : @city.getValue()
-      area        : @area.getValue()
-      near_metro  : @near_metro.getValue()
-      street      : @street.getValue()
-      house       : @house.getValue()
-      building    : @building.getValue()
-      flat        : @flat.getValue()
+      country: @country.getValue()
+      city: @city.getValue()
+      area: @area.getValue()
+      street: @street.getValue()
+      house: @house.getValue()
+      building: @building.getValue()
+      flat: @flat.getValue()
+      metro: @near_metro.getValue()
     }
 
   parseError : (err)=>

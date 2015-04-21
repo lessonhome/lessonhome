@@ -2,7 +2,7 @@
 @check = (f)=>
   errs = []
   # short
-  if f.near_metro.length < 3
+  if f.metro.length < 3
     errs.push "short_near_metro"
   if f.street.length < 3
     errs.push "short_street"
@@ -14,7 +14,7 @@
     errs.push "short_flat"
 
   # long
-  if f.near_metro.length > 100
+  if f.metro.length > 100
     errs.push "long_near_metro"
   if f.street.length > 100
     errs.push "long_street"
@@ -27,7 +27,7 @@
 
 
   # empty
-  if f.near_metro.length == 0
+  if f.metro.length == 0
     errs.push "empty_near_metro"
   if f.street.length == 0
     errs.push "empty_street"
