@@ -6,7 +6,7 @@ class @main
       text2 : 'Имя :'
       selector    : 'first_reg'
       hint        : 'Поле должно содержать только символы русского или английского алфавита'
-      #value       : data('person').get('first_name')
+      value       : data('person').get('first_name')
       link_form   : 'tutor_account' : 'first_name' : 'value'
     last_name   : module 'tutor/forms/input':
       replace : '[^a-zA-Zа-яА-ЯёЁ]'

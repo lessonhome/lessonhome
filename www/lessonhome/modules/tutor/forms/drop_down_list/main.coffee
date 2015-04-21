@@ -282,10 +282,13 @@ class @main extends EE
     if @errorDiv?
       @errorDiv.text error
       @errorDiv.show()
-  hide : =>
+    @label.addClass 'err_effect'
+  hideError : =>
+    console.log 'fff'
     if @errorDiv?
       @errorDiv.hide()
       @errorDiv.text ""
+    @label.removeClass 'err_effect'
   setErrorDiv : (div)=>
     @errorDiv = $ div
 
