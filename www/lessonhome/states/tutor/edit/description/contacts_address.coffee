@@ -1,7 +1,7 @@
-class @main extends template '../registration_popup/second_step'
-  route : '/tutor/profile/second_step_address'
+class @main extends template './contacts'
+  route : '/tutor/edit/contacts_address'
   model : 'tutor/profile_registration/second_step_address'
-  title : "Регистрация : шаг2_адрес"
+  title : "Редактирование полный адрес"
   access : ['tutor']
   redirect : {
     'default' : 'main/first_step'

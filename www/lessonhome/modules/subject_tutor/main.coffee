@@ -1,11 +1,29 @@
 
 class @main
   Dom: =>
-
+    @hide_el      = @found.hide
+    @del          = @found.delete
+    @container    = @found.container
+    @bg_block     = @found.bg_block
   show: =>
+    @hide_el.on 'click', =>
+      text = @hide_el.text()
+      if text == 'Свернуть'
+        @container.hide()
+        text = @hide_el.text('Развернуть')
+      if text == 'Развернуть'
+        @container.show()
+        text = @hide_el.text('Свернуть')
+
+    @del.on 'click', =>
+      @bg_block.remove()
+
+
+
+
     # drop_down_list
-    @subject            = @tree.subject.class
-    @list_course        = @tree.list_course.class
+    @subject       = @tree.subject.class
+    @course        = @tree.course.class
     #@place              = @tree.price.class
     #@students_in_group  = @tree.students_in_group.class
 
