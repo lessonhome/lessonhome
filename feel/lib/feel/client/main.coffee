@@ -79,6 +79,21 @@ class @Feel
     .error   (e)->
       d.reject e
     return d.promise
+  json : (url,data)=> Q().then =>
+    d = Q.defer()
+    #data = encodeURIComponent JSON.stringify data
+    $.ajax({
+      data        : data
+      dataType    : 'json'
+      contentType : "application/json"
+      method      : "POST"
+      url         : url
+    })
+    .success (data)=>
+      d.resolve data
+    .error (e)=>
+      d.reject e
+    return d.promise
   unselect : (state)=>
     if state
       $('body').addClass 'unselect_all'

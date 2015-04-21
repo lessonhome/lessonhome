@@ -142,14 +142,14 @@ class module.exports
         #state.page_tag[tag] = true
     state.tag = temp
     cont = true
+    qs = []
     while cont
       cont = false
-      q = Q()
       @walk_tree_down state.tree, (node,key,val)=>
         if Q.isPromise val
           cont = true
-          q = q.then => val.then (ret)=> node[key] = ret
-      yield q
+          qs.push val.then (ret)=> node[key] = ret
+      yield Q.all qs
 
 
     unless state.tree._isModule

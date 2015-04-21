@@ -14,3 +14,4 @@ feel/node_modules
 **/.DS_Store
 feel/.npmversion
 **/Icon
+**/static/user_data

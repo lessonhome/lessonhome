@@ -2,7 +2,8 @@ class @main
   tree : -> module '$'  :
     popup               : @exports()
     photo               : module 'mime/photo' :
-      src      : F 'vk.unknown.man.jpg'
+      photo   : data('ava').get()
+      src     : F 'vk.unknown.man.jpg'
     all_rating          : module '../rating_star':
       filling  : 40
     progress            : @exports()
@@ -69,6 +70,15 @@ class @main
       edit     : @exports()
       selector : 'horizon'
     media               : module '$/media' :
+      photos : data('ava').get(true).then (photos)=>
+        console.log photos
+        arr = []
+        for p in photos
+          arr.push module 'mime/photo' :
+            photo : p
+            src : F 'vk.unknown.man.jpg'
+        console.log arr
+        return arr
       photo1  : module 'mime/photo' :
         src : F 'vk.unknown.man.jpg'
       photo2  : module 'mime/photo' :

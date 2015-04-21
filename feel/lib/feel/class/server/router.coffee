@@ -42,6 +42,10 @@ class Router
     _session = cookie.get 'session'
     console.log  req.url,_session
     yield @setSession req,res,cookie,_session
+    if req.url.match /^\/(upload)\/.*/
+      return Q().then => @site.handler req,res,@site.name
+    if req.url.match /^\/(uploaded)\/.*/
+      return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/form\/tutor\/login$/
       return @redirect req,res,'/tutor/search_bids'
     if req.url.match /^\/form\/tutor\/register$/

@@ -7,8 +7,7 @@ class @main extends template '../tutor'
   redirect : {
     'default' : 'main/first_step'
   }
-
-  tree : ->
+  tree : =>
     items : [
       module 'tutor/header/button' :
         title : 'Описание'
@@ -32,6 +31,6 @@ class @main extends template '../tutor'
       progress  : module './profile_content/progress' :
         filling  : '56%'
       edit      : true
-  init : ->
+  init : =>
     @parent.tree.left_menu.setActive 'Анкета'
 

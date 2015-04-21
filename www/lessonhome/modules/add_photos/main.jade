@@ -1,6 +1,20 @@
+- var style = "";
+- if (photo)
+- {
+- style = "height:"+315*photo.hheight/photo.hwidth+"px"
+-}
+
+
 .photo
-  .plus
-  .camera_big
-    .big_photo
-  .camera_small
-    .small_photo
+  if !photo
+    .plus.js-other
+    .camera_big.js-other
+      .big_photo
+    .camera_small.js-other
+      .small_photo
+  .js-photo(style=style)
+    div
+    if photo
+      img(src="#{photo.hurl}" width="100%")
+  .input.js-wrap
+    input.js-input(accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="")

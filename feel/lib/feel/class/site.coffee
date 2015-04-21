@@ -5,6 +5,7 @@ fs      = require 'fs'
 readdir = Q.denodeify fs.readdir
 Router  = require './server/router'
 _path   = require 'path'
+FileUpload = require './server/fileupload'
 
 class module.exports
   constructor : (@name)->
@@ -21,6 +22,7 @@ class module.exports
     @state        = {}
     @modules      = {}
     @router       = new Router @
+    @fileupload   = new FileUpload @
   init : =>
     Q()
     .then => Main.service('db')
@@ -29,6 +31,7 @@ class module.exports
       Main.service 'register'
     .then (reg)=>
       @register = reg
+    .then @fileupload.init
     .then @configInit
     .then @loadModules
     .then @loadStates
@@ -150,6 +153,10 @@ class module.exports
     obj.$db = @db
     return obj
   handler : (req,res,site)=>
+    if req.url.match /^\/upload\//
+      return @fileupload.handler req,res
+    if req.url.match /^\/uploaded\//
+      return @fileupload.uploaded req,res
     if req.url.match /\.\./
       return @res404 req,res unless m
     if m = req.url.match /^\/js\/(\w+)\/(.+)$/

@@ -214,7 +214,8 @@ global.Wrap = (obj,prot,PR=true)->
           catch e
             console.error Exception e
           if Q.isPromise ret
-            return ret.done()
+            ret.done()
+            return
           return ret
         #return console.log key,foo,prot
         #obj.__inner ?= {}
