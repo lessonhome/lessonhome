@@ -4,8 +4,8 @@ class @main
 
   show: =>
     # drop_down_list
-    @subject            = @tree.subject.class
-    @list_course        = @tree.list_course.class
+    @subject       = @tree.subject.class
+    @course        = @tree.course.class
     #@place              = @tree.price.class
     #@students_in_group  = @tree.students_in_group.class
 

@@ -24,6 +24,8 @@ main
 
 
 
+
+
 //////////////// function //////////////TODO: not use function now, but do using funk if have many style this module
 //=tag($selector, $padding_day, $padding_day_hand, $padding_time_box, $padding_time_box_hand)
   .calendar_box.#{$selector}
@@ -64,6 +66,19 @@ $color: #000000
   line-height: $height_line
   .close
     padding: 0 $padding_close
+  .text
+    font-size: $font_size
+    color: $color
+    padding: 0 (2*$padding_close+$icon_width) 0 10px
+
+
+$height_line: 30px
+$font_size: 24px
+$color: #000000
+.choose_subject
+  background: none
+  height: $height_line
+  line-height: $height_line
   .text
     font-size: $font_size
     color: $color

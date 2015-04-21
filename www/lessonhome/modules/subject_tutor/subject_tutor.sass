@@ -5,135 +5,100 @@ $price_block_padding: 6px
 $width_fields: 341px
 main
   height: 100%
-.tag_block
-  padding: 0 0 11px 30px
-  text-align: left
-  .subject_tag
-    +inline-block
-.add_sub_block
-  cursor: pointer
-  padding-bottom: 17px
-  text-align: right
-  .add_subject
-    font-size: 14px
-    color: #349adb
-    width: $width_fields
-    +inline-block
-    text-align: left
-    text-decoration: underline
-.value
-  +inline-block
-  padding: $padding 0
-  font-size: $height
 .subject
-  padding-top: 0
-.categories_of_students
-  padding: 12px 0
-  .title
-    margin-top: -52px
-    padding-right: 26px
-    +inline-block
-  .check_panel
-    +inline-block
-    text-align: left
-    width: $width_fields
-    .right_block
-      float: right
-    .left_block, .right_block
+  margin-right: -26px
+  +inline-block
+  padding-bottom: $padding
+  font-size: $height
+.bg_block
+  width: 700px
+  padding: 10px 100px 10px 0
+  box-sizing: border-box
+  background: #E6E6E6
+  .container
+    .tag_block
+      padding: 0 0 11px 30px
+      text-align: left
+      .subject_tag
+        +inline-block
+    .value
       +inline-block
+      padding: $padding 0
+      font-size: $height
+    .categories_of_students
+      padding: 12px 0
+      .title
+        margin-top: -52px
+        padding-right: 26px
+        +inline-block
+      .check_panel
+        +inline-block
+        text-align: left
+        width: $width_fields
+        .right_block
+          float: right
+        .left_block, .right_block
+          +inline-block
+          div
+            padding: 3px 0
+    .place_price
+      position: relative
+      padding: $padding 0
+      margin-right: -117px
+      .select_all_price
+        background: #e6e6e6
+        padding: 10px
+        text-align: left
+        position: absolute
+        top: 35px
+        left: 92px
+      .title
+        padding-right: 26px
+        float: left
+        margin-left: 123px
+      .place_price_tutor
+        +inline-block
+        padding: 0 $price_block_padding $price_block_padding 0
+      .place_price_pupil
+        +inline-block
+        padding: 0 0 $price_block_padding $price_block_padding
+      .place_price_remote
+        +inline-block
+        padding: $price_block_padding $price_block_padding 0 0
+      .place_price_group
+        +inline-block
+        padding: $price_block_padding 0 0 $price_block_padding
+    .price
+      padding: 12px 0
       div
-        padding: 3px 0
-.place_price
-  position: relative
-  padding: $padding 0
-  margin-right: -117px
-  .select_all_price
-    background: #e6e6e6
-    padding: 10px
-    text-align: left
-    position: absolute
-    top: 35px
-    left: 92px
-  .title
-    padding-right: 26px
-    float: left
-    margin-left: 123px
-  .place_price_tutor
-    +inline-block
-    padding: 0 $price_block_padding $price_block_padding 0
-  .place_price_pupil
-    +inline-block
-    padding: 0 0 $price_block_padding $price_block_padding
-  .place_price_remote
-    +inline-block
-    padding: $price_block_padding $price_block_padding 0 0
-  .place_price_group
-    +inline-block
-    padding: $price_block_padding 0 0 $price_block_padding
-//.time_spend_box
-  padding: $padding 0
-  .title
-    padding-right: 26px
-    margin-top: -45px
-    +inline-block
-  .time_spend_lesson
-    text-align: left
-    width: $width_fields
-    +inline-block
-//.block_price_place, .group_block
-  position: relative
-  .place, .students_in_group
-    padding-right: 98px
-  .price, .place, .students_in_group, .group_lessons_price
-    +inline-block
-    height: 100%
-  .price,.group_lessons_price
-    font-size : $height
-    width : 71px
-  .price_button
-    height: 33px
-    +inline-block
-    position: absolute
-    margin-left: 22px
-
-.price
-  padding: 12px 0
-  div
-    +inline-block
-  .title
-    vertical-align: top
-    padding-right: 26px
-    padding-top: 10px
-  .slider
-    width : $width_fields
-
-
-.place
-  padding: 12px 0
-  .title
-    padding-right: 26px
-    line-height: 22px
-    +inline-block
-  .check_panel
-    +inline-block
-    text-align: left
-    width: $width_fields
-    .left_block, .right_block
-      +inline-block
-      div
-        padding: 3px 0
-    .right_block
-      margin-left: 25px
-
-
-
-
-
-.duration
-  width : $width_fields
-
-.comments
-  padding-bottom: 0
-  height: 100%
+        +inline-block
+      .title
+        vertical-align: top
+        padding-right: 26px
+        padding-top: 10px
+      .slider
+        width : $width_fields
+    .place
+      padding: 12px 0
+      .title
+        padding-right: 26px
+        line-height: 22px
+        +inline-block
+      .check_panel
+        +inline-block
+        text-align: left
+        width: $width_fields
+        .left_block, .right_block
+          +inline-block
+          div
+            padding: 3px 0
+        .right_block
+          margin-left: 25px
+    .duration
+      width: 91px
+      margin-right: 250px
+    .comments
+      padding-bottom: 0
+      height: 100%
 
 

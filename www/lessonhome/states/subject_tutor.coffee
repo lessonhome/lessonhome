@@ -1,10 +1,6 @@
 
 class @main
   tree : -> module '$' :
-    subject_tag     : module 'selected_tag' :
-      close     : true
-      text      : 'Математика'
-      selector  : 'choose_course'
     subject         : module 'tutor/forms/drop_down_list' :
       text      : 'Предмет :'
       selector  : 'first_reg'
@@ -85,8 +81,15 @@ class @main
 
 
       }
-    list_course     : module 'tutor/forms/drop_down_list' :
-      text      : 'Курс :'
+    subject_tag     : module 'selected_tag' :
+      close     : false
+      text      : 'Математика'
+      selector  : 'choose_subject'
+    qualification     : module 'tutor/forms/drop_down_list' :
+      text      : 'Квалификация :'
+      selector  : 'first_reg'
+    course     : module 'tutor/forms/drop_down_list' :
+      text      : 'Направление подготовки :'
       selector  : 'first_reg'
     pre_school      : module 'tutor/forms/checkbox' :
       text      : 'дошкольники'
@@ -114,18 +117,15 @@ class @main
       title : 'УДАЛЕННО'
     place_price_group : state 'tutor/profile_content/registration_popup/place_price'  :
       title : 'ГРУППОВЫЕ'
-    select_all_price  : module 'tutor/forms/checkbox' :
-      selector  : 'small font_16'
-      text      : 'Применить<br> цены ко всем<br> предметам'
     price_slider   : state 'main/slider_main' :
       selector      : 'price_slider_bids'
       start         : 'calendar'
-      start_text    : 'от'
+      start_text    : ''
       end         : module 'tutor/forms/input' :
         selector  : 'calendar'
-        text2     : 'до'
+        text2     : ''
         align     : 'center'
-
+      dash          : '-'
       measurement   : 'руб.'
       handle        : true
       min           : 400
@@ -147,6 +147,9 @@ class @main
     place_cafe      : module 'tutor/forms/checkbox' :
       text      : 'в кафе'
       selector  : 'small font_16'
+    group_learning         : module 'tutor/forms/drop_down_list' :
+      text      : 'Групповые занятия :'
+      selector  : 'first_reg'
     comments          : module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'

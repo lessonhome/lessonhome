@@ -1,54 +1,34 @@
-.tag_block
-  .subject_tag!=subject_tag
-.add_sub_block
-  .add_subject +Добавить еще один предмет
-.value.subject!= subject
-.value.list_course!= list_course
-//+field ('categories_of_students', categories_of_students)
-.categories_of_students
-  .title Категории учеников :
-  .check_panel
-    .left_block
-      .pre_school!=pre_school
-      .junior_school!=junior_school
-      .medium_school!=medium_school
-    .right_block
-      .high_school!=high_school
-      .student!=student
-      .adult!=adult
+.subject!= subject
+.bg_block
+  .container
+    .tag_block
+      .subject_tag!=subject_tag
+    .value.qualification!=qualification
+    .value.course!=course
+    .categories_of_students
+      .title Категории учеников :
+      .check_panel
+        .left_block
+          .pre_school!=pre_school
+          .junior_school!=junior_school
+          .medium_school!=medium_school
+        .right_block
+          .high_school!=high_school
+          .student!=student
+          .adult!=adult
+    .value.duration!= duration
+    .price
+      .title Средняя цена занятия :
+      .slider!= price_slider
+    .place
+      .title!='Место занятий :'
+      .check_panel
+        .left_block
+          .tutor!=place_tutor
+          .pupil!=place_pupil
+        .right_block
+          .remote!=place_remote
+          .cafe!=place_cafe
 
-.value.duration!= duration
-
-.price
-  .title Средняя цена занятия :
-  .slider!= price_slider
-
-
-.place
-  .title!='Вы согласны<br>заниматься :'
-  .check_panel
-    .left_block
-      .tutor!=place_tutor
-      .pupil!=place_pupil
-    .right_block
-      .remote!=place_remote
-      .cafe!=place_cafe
-
-//
-  .place_price
-    .select_all_price!=select_all_price
-    .title Цена и место :
-    .js-place_price_tutor!=place_price_tutor
-    .js-place_price_pupil!=place_price_pupil
-    .js-place_price_remote!=place_price_remote
-    .js-place_price_group!=place_price_group
-  //.block_price_place
-    .value.place!= place
-    .price!= price
-    .price_button!= price_button
-  //.group_block
-    .students_in_group!= students_in_group
-    .group_lessons_price!= group_lessons_price
-
-
-.value.comments!= comments
+    .value.group_learning!=group_learning
+    .value.comments!= comments
