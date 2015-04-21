@@ -13,7 +13,7 @@ $blu: 58px
 
 .hint.horizontal, .hint.vertical
   .question_sign_block
-    background: inline-image('hint.png') no-repeat
+    background: url(F('hint.png')) no-repeat
     height: 64px
     width: 64px
 
@@ -71,7 +71,7 @@ $blu: 58px
         .icon, .text
           +inline-block
         .icon
-          //-background: inline-image('falldown_triangle3.png') no-repeat
+          //-background: url(F('falldown_triangle3.png')) no-repeat
           width: $icon_right_width
           height: $icon_down_height
           margin-right: 9px
@@ -81,9 +81,9 @@ $blu: 58px
           font-size: 16px
           vertical-align: top
       .button.open>.icon
-        background: inline-image($triangle_down_src) no-repeat
+        background: url(F($triangle_down_src)) no-repeat
       .button.closed>.icon
-        background: inline-image($triangle_right_src) no-repeat
+        background: url(F($triangle_right_src)) no-repeat
   .bottom_block
     .text
       padding-top: 0
@@ -94,7 +94,7 @@ $blu: 58px
 
     .question_sign_block
       float: left
-      background: inline-image('hint.png') no-repeat
+      background: url(F('hint.png')) no-repeat
       height: 64px
       width: 64px
 
@@ -115,7 +115,7 @@ $blu: 58px
     height : 18px
     border-radius       : 50%
     box-shadow          : 0px 1px 3px 0px rgba(10, 11, 12, 0.26)
-    background          : inline-image('small_question_sign.png') no-repeat
+    background          : url(F('small_question_sign.png')) no-repeat
     background-position : center
     background-color    : rgb( 243, 243, 243 )
 
@@ -129,7 +129,7 @@ $blu: 58px
 
     .question_sign_block
       height : 64px
-      background : inline-image('hint.png') no-repeat
+      background : url(F('hint.png')) no-repeat
 
     .header
 
@@ -165,7 +165,7 @@ $blu: 58px
         left: -11px
         width: 11px
         height: 16px
-        background: inline-image('inside_out_angle.png') no-repeat
+        background: url(F('inside_out_angle.png')) no-repeat
 
   .field.left
     left: initial
@@ -174,7 +174,7 @@ $blu: 58px
     z-index: 1000
     .text
       .angle
-        background: inline-image('inside_out_angle_UP_LEFT.png') no-repeat
+        background: url(F('inside_out_angle_UP_LEFT.png')) no-repeat
         top: initial
         bottom: 0
         left: initial

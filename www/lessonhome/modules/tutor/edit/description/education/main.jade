@@ -1,13 +1,25 @@
-mixin field (selector, value)
-  .value(class=selector)!=value
-/////////////
-+field('country', country)
-+field('city', city)
-+field('university', university)
-.input.faculty!=faculty
-+field('chair', chair)
-+field('status', status)
+
+.value.country!=country
+.err
+  .js-out_err_country
+.value.city!=city
+.err
+  .js-out_err_city
+.value.university!=university
+.err
+  .js-out_err_university
+.value.faculty!=faculty
+.err
+  .js-out_err_faculty
+.value.chair!=chair
+.err
+  .js-out_err_chair
+.value.status!=status
+.err
+  .js-out_err_status
 .release_date!=release_date
+.err
+  .js-out_err_date
 .add_button!= add_button
 
 

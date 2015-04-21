@@ -3,7 +3,6 @@ class @main extends EE
     @man    = @tree.sex_man.class
     @woman  = @tree.sex_woman.class
     @state  = @tree.value
-    console.log @state
 
     switch @state
       when "male"
@@ -14,8 +13,7 @@ class @main extends EE
     @man  .on 'active', =>
       @woman .disable()
       @state = "male"
-      console.log @state
     @woman.on 'active', =>
       @state = "female"
       @man   .disable()
-      console.log @state
+

@@ -163,16 +163,16 @@ class @main extends EE
     clearTimeout @pingTimer if @pingTimer? && @pingTimer>0
     @input.css 'box-shadow','none'
   onKeyPress : (e)=>
+    return if e?.ctrlKey || e?.altKey
     try position = @input.getCursorPosition()
 
     val = @input.val()
     _char = ""
-    if e.key? && e.key && e.key.length == 1
-      _char = e.key
-    else if e.keyCode? && e.keyCode
-      _char = String.fromCharCode(e.keyCode)
-    else if e.charCode? && e.charCode
+    if e.charCode? && e.charCode
       _char = String.fromCharCode(e.charCode)
+    else if e.key? && e.key && e.key.length == 1
+      _char = e.key
+    console.log _char,e
     try
       start = @input.getSelectionStart()
       end = @input.getSelectionEnd()

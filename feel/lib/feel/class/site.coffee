@@ -82,15 +82,18 @@ class module.exports
       throw new Error "create state '#{name}' circular depend"
   loadModules : =>
     @createModules @path.modules, ""
-  createModules : (path,dir)=>
+  createModules : (path,dir)=> do Q.async =>
     module        = {}
     module.files  = {}
-    readdir path
-    .then (files)=>
-      files.reduce (promise,filename)=>
-        stat = fs.statSync "#{path}/#{filename}"
+    files = yield readdir path
+    q = Q()
+    for filename in files
+      do (filename)=> q = q.then =>  do Q.async =>
+        #files.reduce (promise,filename)=>
+        stat = yield _stat "#{path}/#{filename}"
         if stat.isDirectory()
-          return promise.then => @createModules "#{path}/#{filename}", dir+filename+"/"
+          #return promise.then =>
+          yield @createModules "#{path}/#{filename}", dir+filename+"/"
         if stat.isFile() && dir && !filename.match(/^\..*$/)
           reg = filename.match(/^(.*)\.(\w+)$/)
           filepath = "#{path}/#{filename}"
@@ -104,13 +107,11 @@ class module.exports
               name : filename
               ext  : ""
               path : filepath
-        return promise
-      , Q()
-    .then =>
-      return if !dir
-      module.name = dir.match(/^(.*)\/$/)[1]
-      @modules[module.name] = new Module module,@
-      return @modules[module.name].init()
+    yield q
+    return if !dir
+    module.name = dir.match(/^(.*)\/$/)[1]
+    @modules[module.name] = new Module module,@
+    return @modules[module.name].init()
   dataObject : (name,context)=>
     console.log 'dataObject',name,context
     suffix  = ""
@@ -149,22 +150,38 @@ class module.exports
     obj.$db = @db
     return obj
   handler : (req,res,site)=>
-    m     = req.url.match /^\/js\/(\w+)\/(.+)$/
-    return @res404 req,res unless m
-    if m[2].match /\.\./
+    if req.url.match /\.\./
       return @res404 req,res unless m
-    hash    = m[1]
-    module  = m[2]
-    if @modules[module]?.allJs?
+    if m = req.url.match /^\/js\/(\w+)\/(.+)$/
+      hash    = m[1]
+      module  = m[2]
+      data    = @modules[module]?.allJs
+      hash    = @modules[module]?.jsHash
+    else if m = req.url.match /^\/jsfile\/(\w+)\/(.+)\/([\w-\.]+)$/
+      hash    = m[1]
+      module  = m[2]
+      fname   = m[3]
+      data    = @modules[module]?.jsfile fname
+      console.log module,fname
+      hash    = @modules[module]?.jsHash
+    else if m = req.url.match /^\/jsfilet\/(\w+)\/(.+)\/([\w-\.]+)$/
+      hash    = m[1]
+      module  = m[2]
+      fname   = m[3]
+      data    = @modules[module]?.jsfilet fname
+      console.log module,fname
+      hash    = @modules[module]?.jsHash
+
+    if data?
       res.setHeader "Content-Type", "text/javascript; charset=utf-8"
-      if hash == @modules[m[2]]?.jsHash
+      if hash
         return @res304 req,res if req.headers['if-none-match'] == hash
         res.setHeader 'ETag', hash
         res.setHeader 'Cache-Control', 'public, max-age=126144001'
         res.setHeader 'Cache-Control', 'public, max-age=126144001'
         res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
       zlib = require 'zlib'
-      return zlib.deflate @modules[module].allJs,{level:9},(err,resdata)=>
+      return zlib.deflate data,{level:9},(err,resdata)=>
         return @res404 req,res,err if err?
         res.statusCode = 200
         res.setHeader 'Content-Length', resdata.length
@@ -174,8 +191,13 @@ class module.exports
   moduleJsUrl : (name)=>
     hash = @modules[name]?.jsHash
     "/js/#{hash}/#{name}"
+  moduleJsFileUrl :  (name,fname)=>
+    hash = @modules[name]?.jsHash
+    "/jsfilet/#{hash}/#{name}/#{fname}"
   moduleJsTag : (name)=>
     "<script type='text/javascript' src='#{@moduleJsUrl(name)}'></script>"
+  moduleJsFileTag : (name,fname)=>
+    "<script type='text/javascript' src='#{@moduleJsFileUrl(name,fname)}'></script>"
   res404  : (req,res,err)=>
     res.writeHead 404
     res.end()

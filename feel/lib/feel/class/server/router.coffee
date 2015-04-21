@@ -33,7 +33,7 @@ class Router
     if req.url == '/favicon.ico'
       req.url = '/file/666/favicon.ico'
 
-    if req.url.match /^\/js\/.*/
+    if req.url.match /^\/(js|jsfile|jsfilet)\/.*/
       return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/file\/.*/
       return Q().then => Feel.static.handler req,res,@site.name

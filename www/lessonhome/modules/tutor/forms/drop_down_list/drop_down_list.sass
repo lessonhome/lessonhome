@@ -115,7 +115,7 @@ label.open_select .drop_down_list
           width: $icon_width
           height: $icon_height
           margin-top: -$icon_height / 2
-          background: inline-image($icon_src) no-repeat
+          background: url(F($icon_src)) no-repeat
     .drop_down_list>.select_sets>.options_container>.options>.custom-option
       padding-left: $padding_left
       font-size: $font_size
@@ -144,7 +144,7 @@ label.open_select .drop_down_list
 +selector('first_reg_month',16px,18px,'falldown_triangle3.png',6px,26px,none,none,none,none)
 
 /////////////////--------list_subject, list_tutor in filter_top---------//////////////////////
-+selector('filter_top',18px,37px,'main/triangle 24x21.png',15px,none,none,none,none,none)
++selector('filter_top',18px,37px,'main/triangle_24x21.png',15px,none,none,none,none,none)
 
 /////////// area tutor in city /////////
 +selector('area',none,18px,'falldown_triangle3.png',15px,none,none,none,none,none)
@@ -164,7 +164,7 @@ label:hover
     border: $border_width $border_hover
     .icon_box
       .icon
-        background: inline-image($icon_hover_src) no-repeat
+        background: url(F($icon_hover_src)) no-repeat
 
 ///////////// filter_top  ////////////
 $icon_hover_src: 'main/triangle-24x21_hover.png'
@@ -172,7 +172,7 @@ $icon_hover_src: 'main/triangle-24x21_hover.png'
   .drop_down_list
     .icon_box
       .icon
-        background: inline-image($icon_hover_src) no-repeat
+        background: url(F($icon_hover_src)) no-repeat
 
 
 //------------------------ focus --------------------------------
@@ -185,14 +185,14 @@ label.focus,label.focus:hover
     border: $border_width $border_focus
     .icon_box
       .icon
-        background: inline-image($icon_hover_src) no-repeat
+        background: url(F($icon_hover_src)) no-repeat
   // -- if &.filter_top
   $icon_hover_src: 'main/triangle-24x21_hover.png'
   &.filter_top
     .drop_down_list
       .icon_box
         .icon
-          background: inline-image($icon_hover_src) no-repeat
+          background: url(F($icon_hover_src)) no-repeat
 
 
 ////------------errors-------------/////////////

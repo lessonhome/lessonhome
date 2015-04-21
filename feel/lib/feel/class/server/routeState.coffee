@@ -135,14 +135,15 @@ class RouteState
       @cssModuleExt modname,val
       for key of val
         @modules[key] = true
-    for modname of @modules
-      if @site.modules[modname]?.allCoffee
-        @jsModules += "$Feel.modules['#{modname}'] = #{@site.modules[modname].allCoffee};"
+    #for modname of @modules
+    #  if @site.modules[modname]?.allCoffee
+    #    @jsModules += "$Feel.modules['#{modname}'] = #{@site.modules[modname].allCoffee};"
     @time 'parse'
     title   = @state.title
     title  ?= @statename
     end  = ""
     end += '<!DOCTYPE html><html><head><meta charset="utf-8">'
+    end += '<meta name="viewport" content="width=device-width">'
     end += '<title>'+title+'</title>'
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
     end += @css+'</head><body>'+@top._html
@@ -178,8 +179,14 @@ class RouteState
       '<script id="feed-js-modules">
       "use strict";
           console.log("Feel",$Feel); 
-      '+@jsModules+'</script>'+
-      '<script id="feel-js-startFeel">
+      '+@jsModules+'</script>'
+    for modname of @modules
+      if @site.modules[modname]?.allCoffee
+        end += "<script>window._FEEL_that = $Feel.modules['#{modname}'] = {};</script>"
+        names =  @site.modules[modname].jsNames()
+        for n in names
+          end += @site.moduleJsFileTag modname,n
+    end +=  '<script id="feel-js-startFeel">
       "use strict";
       Feel.init();</script>'+
       '</body></html>'
@@ -226,10 +233,10 @@ class RouteState
       else if typeof val == 'object'
         @removeHtml val
   cssModule : (modname)=>
-    @css += "<style id=\"f-css-#{modname}\">\n#{@site.modules[modname].allCss}\n</style>\n"
+    @css += "<style id=\"f-css-#{modname}\">#{@site.modules[modname].allCss}</style>"
   cssModuleExt    : (modname,exts)=>
     css = @site.modules[modname].getAllCssExt exts
-    @css += "<style id=\"f-css-#{modname}-exts\">\n#{css}\n</style>\n"
+    @css += "<style id=\"f-css-#{modname}-exts\">#{css}</style>"
   parse : (now,uniq,module,state,_pnode,_pkey)=>
     #return if now.__parsed
     if now?.__state?.parent?.tree?

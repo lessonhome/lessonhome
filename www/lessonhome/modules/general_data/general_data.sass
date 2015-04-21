@@ -1,7 +1,7 @@
 @import compass/css3
 $padding: 7px
 $height: 37px
-.input
+.first_name, .last_name, .middle_name
   +inline-block
   padding: $padding 0
   font-size : $height
@@ -15,16 +15,18 @@ $height: 37px
   padding-top: 0
 .status
   padding-bottom: 0
-
-.out_err_date, .out_err_status
-  width: 341px
-  float: right
-  text-align: left
-  color: red
-  font-size: 16px
-  display: none
-  padding: 0.3em
-  box-sizing: border-box
+.err
+  overflow: hidden
+  div
+    float: right
+    width: 341px
+    text
+    text-align: left
+    color: red
+    font-size: 16px
+    display: none
+    padding: 0.3em
+    box-sizing: border-box
 
 $width_fields: 341px    // it's size fields assigned in forms module, here uze for do center photo relative fields
 $width_photo: 315px

@@ -12,7 +12,7 @@
     float: left
     width: $photo_width
     height: $photo_height
-    background: inline-image($photo_src) no-repeat
+    background: url(F($photo_src)) no-repeat
   $photo_src: 'registration/camera_big.png'
   $photo_height: image-height($photo_src)
   $photo_width: image-width($photo_src)
@@ -29,7 +29,7 @@
       position: relative
       top: 50%
       margin: -$photo_height/2 auto 0 auto
-      background: inline-image($photo_src) no-repeat
+      background: url(F($photo_src)) no-repeat
   $photo_src: 'registration/camera_small.png'
   $photo_height: image-height($photo_src)
   $photo_width: image-width($photo_src)
@@ -47,7 +47,7 @@
       position: relative
       top: 50%
       margin: -$photo_height/2 auto 0 auto
-      background: inline-image($photo_src) no-repeat
+      background: url(F($photo_src)) no-repeat
 
 
 //- ----------------------------------------------------------------------------

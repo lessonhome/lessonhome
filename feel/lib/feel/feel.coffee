@@ -17,6 +17,8 @@ Static    = require './class/static'
 _readFile = Q.denodeify fs.readFile
 _writeFile = Q.denodeify fs.writeFile
 _rmrf     = Q.denodeify require('rimraf')
+yui       = require 'yuicompressor'
+ycompress = Q.denode yui.compress
 curl = (url)->
   def = Q.defer()
   http = require("http")
@@ -103,7 +105,7 @@ class module.exports
     if fs.existsSync cache
       cacheStat = fs.statSync cache
       if cacheStat.isFile() && (cacheStat.mtime>srcStat.mtime) && !data?
-        return fs.readFileSync cache
+        return fs.readFileSync(cache).toString()
       if cacheStat.isFile()
         fs.unlinkSync cache
     return data if !data?
@@ -111,11 +113,36 @@ class module.exports
       mkdirp.sync cachedir
     fs.writeFileSync cache, data
     return data
+  qCacheFile : (path,data,sfx="")=> do Q.async =>
+    path = _path.normalize path
+    cache = path.replace /^\w+\//, ".cache\/"
+    cache = _path.normalize cache+sfx
+    cache = ".cache/"+cache unless cache.match /^\.cache\//
+    return null if cache == path
+    cachedir = _path.dirname cache
+    srcStat = yield _stat path
+
+    if yield _exists cache
+      cacheStat = yield _stat cache
+      if cacheStat.isFile() && (cacheStat.mtime>srcStat.mtime) && !data?
+        return (yield _readFile cache).toString()
+      if cacheStat.isFile()
+        yield _unlink cache
+    return data if !data?
+    if !yield _exists cachedir
+      yield _mkdirp cachedir
+    yield _writeFile cache, data
+    return data
   cacheCoffee : (path)=>
     data = @cacheFile path
     return data if data?
     data = coffee._compileFile path
     return @cacheFile path,data
+  qCacheCoffee : (path)=> do Q.async =>
+    data = yield @qCacheFile path
+    return data if data?
+    data = coffee._compileFile path
+    return @qCacheFile path,data
   compass : =>
     defer = Q.defer()
     process.chdir 'feel'
@@ -206,16 +233,16 @@ class module.exports
       @_compiling = false
     .done()
     
-  loadClient : =>
+  loadClient : => do Q.async =>
     @client   = {}
     @clientJs = @cacheCoffee 'feel/lib/feel/client.lib.coffee'
-    @clientRegenerator = require('regenerator').compile('',includeRuntime:true).code
-    @loadClientDir 'feel/lib/feel/client',''
-    .then =>
-      for key,val of @client
-        @clientJs += val unless key == 'main'
+    #@clientRegenerator = require('regenerator').compile('',includeRuntime:true).code
+    @clientRegenerator = (yield _readFile 'feel/lib/feel/regenerator.runtime.js').toString()
+    yield @loadClientDir 'feel/lib/feel/client',''
+    for key,val of @client
+      @clientJs += val unless key == 'main'
       @clientJs += @client['main']
-    @clientJs = @bjs _regenerator @clientJs
+    @clientJs = yield @yjs _regenerator @clientJs
   loadClientDir : (path,dir)=>
     readdir "#{path}#{dir}"
     .then (files)=>
@@ -265,6 +292,15 @@ class module.exports
       "wrap_attributes": "auto",
       "wrap_attributes_indent_size": 4
     }
+  yjs     : (js)=> do Q.async =>
+    ret = yield ycompress js,{type:'js'}
+    return ret
+  dyjs    : (js)=> ycompress(js).then (yjs)=> _deflate yjs
+  ycss    : (css)=>
+    console.log 'ycss'
+    ycompress css, type:"css"
+  dycss   : (css)=> ycompress(css,{type:"css"}).then (ycss)=> _deflate ycss
+
 
 
     

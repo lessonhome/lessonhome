@@ -77,10 +77,11 @@ strlen = (str,len,real)->
     n--
   return str
 
-global.Wrap = (obj,prot)->
+global.Wrap = (obj,prot,PR=true)->
   proto = prot
   proto ?= obj?.__proto__
-  return unless proto?
+  unless proto?
+    proto = obj
   return if obj.__wraped
   __functionName__ = ""
   __FNAME__ = ""
@@ -118,7 +119,7 @@ global.Wrap = (obj,prot)->
   obj.__wraped = true
   #proto.__wraped ?= {}
   for key,val of proto
-    if (typeof val=='function') #&& !proto.__wraped[key]
+    if (typeof val=='function')#&& !proto.__wraped[key]
       #proto.__wraped[key] = true
       do (key,val)->
         fname = "::"+key+"()"
@@ -132,16 +133,18 @@ global.Wrap = (obj,prot)->
           __functionName__ = fname
           if gen?
             q = gen.apply obj,args
-          else
+          else if PR
             q = Q.then -> val.apply obj,args
-          if key == 'init'
+          else
+            q = null
+          if key == 'init' && q?
             __inited = false
             obj.once 'inited',-> __inited = true
             q = q.then (arg)->
               obj.emit 'inited' unless __inited
               return arg
-          q = q.then (a)-> unsingle(FNAME).then -> a
-          q = q.catch (e)->
+          q = q?.then (a)-> unsingle(FNAME).then -> a
+          catchE = (e)->
             errs = Exception(nerror).match /(at.*\n)/g
             nerrs = ""
             for err in errs
@@ -150,7 +153,8 @@ global.Wrap = (obj,prot)->
               break if err.match /q\.js/
               break if err.match /\(native\)/
               nerrs += "\n\t"+err.replace(/\n/g,"")
-            unless e?.name? && e.name == "Error"
+            
+            unless e?.name? && e.name.match /Error/
               oe = e
               unless typeof e == 'string'
                 try
@@ -170,7 +174,11 @@ global.Wrap = (obj,prot)->
 
               e = ne
             e.message ?= ""
-            e.message += "\n#{proto.constructor.name}::#{key}("
+            mname = ""
+            pcname = proto?.constructor?.name
+            pcname ?= ""
+            mname = obj?.tree?._name if obj?.tree?._name?
+            e.message += "\n#{mname}::#{pcname}::#{key}("
             na = []
             for a,i in args
               if typeof a == 'object' && (a != null)
@@ -190,9 +198,24 @@ global.Wrap = (obj,prot)->
             e.stack ?= ""
             e.stack = e.stack.replace e.message,""
             throw e
+          q = q?.catch catchE
+          unless q?
+            __ret = null
+            try
+              __ret = val.apply obj,args
+            catch e
+              catchE e
+          q ?= __ret
           return q
         #proto[key] = foo
-        foo.out = -> obj[key](arguments...).done()
+        foo.out = ->
+          try
+            ret = obj[key](arguments...)
+          catch e
+            console.error Exception e
+          if Q.isPromise ret
+            return ret.done()
+          return ret
         #return console.log key,foo,prot
         #obj.__inner ?= {}
         obj[key] = foo if !prot?

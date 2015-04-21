@@ -1,12 +1,16 @@
-mixin field (selector, value)
-  .value(class=selector)!=value
-/////////////
 
-.input.place_of_work!=place_of_work
-.input.post!=post
-.add_button!= add_button
+
+.block_work
+  each val in work
+    .js-clone_el
+      .js-place_of_work!=val.place_of_work
+      .js-post!=val.post
+.button_block
+  .js-add_button!= add_button
 .line_box
   .line!=line
-+field('experience_tutoring', experience_tutoring)
-+field('extra_info', extra_info)
+.experience_tutoring!=experience_tutoring
+.err
+  .js-out_err_experience
+.extra_info!=extra_info
 //.hint!= hint

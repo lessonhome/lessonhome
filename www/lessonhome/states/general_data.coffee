@@ -7,6 +7,7 @@ class @main
       selector    : 'first_reg'
       hint        : 'Поле должно содержать только символы русского или английского алфавита'
       value       : data('person').get('first_name')
+      link_form   : 'tutor_account' : 'first_name' : 'value'
     last_name   : module 'tutor/forms/input':
       replace : '[^a-zA-Zа-яА-ЯёЁ]'
       selector    : 'first_reg'
@@ -23,7 +24,7 @@ class @main
       selector_button : 'registration'
       value           : data('person').get('sex').then (s)->
         return s if s?
-        return 'unselect'
+        return false
     birth_data    : state 'data_date'  :
       text  : 'Дата рождения :'
       day_value   : data('person').get('birthday').then (b)-> b?.getDate?()

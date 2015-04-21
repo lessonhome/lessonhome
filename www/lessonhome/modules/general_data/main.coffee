@@ -4,18 +4,23 @@ class @main
   Dom : =>
     @out_err_date     = @found.out_err_date
     @out_err_status   = @found.out_err_status
+    @out_err_sex      = @found.out_err_sex
 
   show : =>
     # input
     @first_name   = @tree.first_name.class
     @last_name    = @tree.last_name.class
     @middle_name  = @tree.middle_name.class
+    # button
     @sex          = @tree.gender_data.class
-    console.log @sex 
+    console.log @sex
+    alert @sex
+    # drop_down_list
     @day          = @tree.birth_data.day.class
     @month        = @tree.birth_data.month.class
     @year         = @tree.birth_data.year.class
     @status       = @tree.status.class
+
 
 
     # drop_down_list focus TODO: make in drop_down_list clear_err_effect on element after focus and start writing, same input
@@ -33,18 +38,19 @@ class @main
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
-      .then ({status,errs,err})=>
-        if err?
-          errs?=[]
-          errs.push err
-        if status=='success'
-          return true
-        if errs?.length
-          for e in errs
-            @parseError e
-        return false
+      .then @onReceive
     else
       return false
+  onReceive : ({status,errs,err})=>
+    if err?
+      errs?=[]
+      errs.push err
+    if status=='success'
+      return true
+    if errs?.length
+      for e in errs
+        @parseError e
+    return false
 
   check_form : =>
     errs = @js.check @getData()
@@ -108,7 +114,7 @@ class @main
       when "bad_status"
         @outErr "Выберите статус из списка", @out_err_status, @status
       when "unselect sex"
-        #@outErr "Выберите пол", @out_err_sex, @sex
+        @outErr "Выберите пол", @out_err_sex, @sex
         alert 'sex'
       else
         alert 'die'

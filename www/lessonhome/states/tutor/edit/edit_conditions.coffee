@@ -2,7 +2,7 @@ class @main extends template '../edit'
   tree  : =>
     items :
       'Предметы'     : 'subjects'
-      'Место'        : 'location'
+      #'Место'        : 'location'
       'Календарь'    : 'calendar'
       'Предпочтения' : 'preferences'
     active_item     : @exports()

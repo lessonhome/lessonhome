@@ -1,18 +1,25 @@
 @import compass/css3
 $padding: 7px
 $height: 37px
-.value, .add_button
+$width: 341px
+.block_work .clone_el div, .experience_tutoring, .extra_info
   +inline-block
   padding: $padding 0
-  height: $height
-.input
-  +inline-block
-  padding: $padding 0
+.block_work .clone_el div
   font-size: $height
-.input,.add_button
-  width : 341px
-.place_of_work
+  width: $width
+.button_block
+  height: $height
+  width: $width
+  padding: $padding 0
+  +inline-block
+  .add_button
+    +inline-block
+    height: 100%
+.block_work .clone_el .place_of_work
   padding-top: 0
+.experience_tutoring
+  height: $height
 .extra_info
   height: 100%
   padding-bottom: 0
@@ -22,3 +29,17 @@ $height: 37px
   .line
     position: absolute
     width: 100%
+
+///////// errs
+.err
+  overflow: hidden
+  div
+    float: right
+    width: 341px
+    text
+    text-align: left
+    color: red
+    font-size: 16px
+    display: none
+    padding: 0.3em
+    box-sizing: border-box

@@ -11,6 +11,9 @@ setInterval ->
 , 5000
 ###
 
+global._production = false
+if require('os').hostname() == 'pi0h.org'
+  global._production = true
 
 last = ""
 log =
@@ -459,13 +462,16 @@ global._util    = require 'util'
 global._fs      = require 'fs'
 global._readdir = Q.denode _fs.readdir
 global._readFile= Q.denode _fs.readFile
+global._writeFile = Q.denode _fs.writeFile
 global._exists  = Q.rdenode _fs.exists
 global._path    = require 'path'
 global._stat    = Q.denode _fs.stat
+global._unlink    = Q.denode _fs.unlink
 global._inspect = _util.inspect
 global._hash    = (f)-> _crypto.createHash('sha1').update(f).digest('hex')
 global._toJson  = (o)-> _js_infinite_json.stringify o
 global._unJson  = (o)-> _js_infinite_json.parse     o
+global._mkdirp  = Q.denode require 'mkdirp'
 regenerator = require("regenerator")
 global._regenerator = (source)-> regenerator.compile(source).code
 global._args    = (a)->
