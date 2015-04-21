@@ -19,6 +19,8 @@ class @main
       value : data('person').get('location').then (l)-> l?.city
     # var popup respond address
     address_popup   : @exports()
+    href        : @exports()
+    href_back   : @exports()
 
     line    : module 'tutor/separate_line' :
       selector : 'horizon'
