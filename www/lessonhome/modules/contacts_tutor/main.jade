@@ -6,7 +6,7 @@ if address_popup
     .address_box
       .title_box
         .title Укажите адрес
-        a(href = '/tutor/profile/second_step')
+        a(href = href_back)
           .close_bg
       .address_popup!=address_popup
 .value.country!= country
@@ -16,7 +16,7 @@ if address_popup
 .js-out_err_city
 .title_box
   .title Место занятий :
-  a(href = '/tutor/profile/second_step_address') Укажите подробный адрес
+  a(href = href) Укажите подробный адресс
 .line_box
   .line!= line
 

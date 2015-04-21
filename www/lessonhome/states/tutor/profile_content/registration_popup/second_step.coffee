@@ -11,6 +11,8 @@ class @main extends template '../registration_popup'
     #data('tutor').get('registration_progress')
     content   : module '$' :
       form  : state 'contacts_tutor' :
+        href_back : '/tutor/profile/second_step'
+        href      : '/tutor/profile/second_step_address'
         address_popup   : @exports()
   init : =>
     @parent.tree.popup.button_back.selector = 'fast_bid_nav'
