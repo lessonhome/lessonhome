@@ -132,7 +132,7 @@ class @main
       max           : 5000
 
     duration :   module 'tutor/forms/input' :
-      text2      : 'Среднее время занятия :'
+      text2      : 'Время занятия :'
       selector  : 'first_reg'
 
     place_tutor      : module 'tutor/forms/checkbox' :
@@ -145,7 +145,7 @@ class @main
       text      : 'удалённо'
       selector  : 'small font_16'
     place_cafe      : module 'tutor/forms/checkbox' :
-      text      : 'в кафе'
+      text      : 'другое место'
       selector  : 'small font_16'
     group_learning         : module 'tutor/forms/drop_down_list' :
       text      : 'Групповые занятия :'

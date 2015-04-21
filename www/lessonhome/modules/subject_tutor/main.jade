@@ -1,8 +1,11 @@
 .subject!= subject
 .bg_block
+  .tag_block
+    .subject_tag!=subject_tag
+    .control_block
+      .delete Удалить
+      .hide Свернуть
   .container
-    .tag_block
-      .subject_tag!=subject_tag
     .value.qualification!=qualification
     .value.course!=course
     .categories_of_students
@@ -18,7 +21,7 @@
           .adult!=adult
     .value.duration!= duration
     .price
-      .title Средняя цена занятия :
+      .title Цена занятия :
       .slider!= price_slider
     .place
       .title!='Место занятий :'

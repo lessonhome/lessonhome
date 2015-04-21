@@ -12,15 +12,25 @@ main
   font-size: $height
 .bg_block
   width: 700px
-  padding: 10px 100px 10px 0
+  padding: 10px 100px 25px 0
   box-sizing: border-box
   background: #E6E6E6
-  .container
-    .tag_block
-      padding: 0 0 11px 30px
-      text-align: left
-      .subject_tag
+  .tag_block
+    width: 650px
+    padding: 0 0 11px 30px
+    text-align: left
+    .subject_tag
+      +inline-block
+    .control_block
+      float: right
+      .delete, .hide
+        cursor: pointer
         +inline-block
+      .delete
+        padding-right: 5px
+      .hide
+        padding-left: 5px
+  .container
     .value
       +inline-block
       padding: $padding 0
