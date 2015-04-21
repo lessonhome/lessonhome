@@ -22,6 +22,10 @@ class @main extends EE
     @active = !@active
     @button.toggleClass 'active inactive'
     @emit 'active' if @active
+  setActive : =>
+    @active = !@active
+    @button.addClass 'active'
+    @emit 'active'
 
 
 # listen emit in parent module and do toggle

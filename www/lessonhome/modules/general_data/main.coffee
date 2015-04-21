@@ -4,7 +4,6 @@ class @main
   Dom : =>
     @out_err_date     = @found.out_err_date
     @out_err_status   = @found.out_err_status
-    @out_err_sex      = @found.out_err_sex
 
   show : =>
     # input
@@ -13,8 +12,6 @@ class @main
     @middle_name  = @tree.middle_name.class
     # button
     @sex          = @tree.gender_data.class
-    console.log @sex
-    alert @sex
     # drop_down_list
     @day          = @tree.birth_data.day.class
     @month        = @tree.birth_data.month.class
@@ -24,11 +21,13 @@ class @main
 
 
     # drop_down_list focus TODO: make in drop_down_list clear_err_effect on element after focus and start writing, same input
-    @day.on     'focus',  => @clearOutErr @out_err_date,  @day
-    @month.on   'focus',  => @clearOutErr @out_err_date,  @month
-    @year.on    'focus',  => @clearOutErr @out_err_date,  @year
-    @status.on  'focus',  => @clearOutErr @out_err_status, @status
-    ### drop_down_list blur
+    @day.on     'focus',  => @day.hideError()
+    @month.on   'focus',  => @month.hideError()
+    @year.on    'focus',  => @year.hideError()
+    @status.on  'focus',  => @status.hideError()
+    @sex.on     'select',  => @sex.hideError()
+
+    ### drop_down_list blurs
     @day.on     'blur',  => @save
     @month.on   'blur',  => @save
     @year.on    'blur',  => @save
@@ -77,7 +76,7 @@ class @main
       first_name  : @first_name.getValue()
       last_name   : @last_name.getValue()
       middle_name : @middle_name.getValue()
-      sex         : @sex.state
+      sex         : @sex.getValue()
       day         : @day.getValue()
       month       : @month.getValue()
       year        : @year.getValue()
@@ -85,6 +84,7 @@ class @main
     }
 
   parseError : (err)=>
+
     switch err
       #short
       when "short_first_name"
@@ -101,38 +101,31 @@ class @main
       when "empty_middle_name"
         @middle_name.showError "Заполните отчество"
       when "empty_date"
-        @outErr "Заполните дату", @out_err_date, [@day, @month, @year]
+        @day.setErrorDiv @out_err_date
+        errArr = [@day, @month, @year]
+        for val in errArr
+          #console.log errArr[val], errArr[key]
+          val.showError "Заполните дату"
       when "empty_status"
-        @outErr "Выберите статус", @out_err_status, @status
+        @status.setErrorDiv @out_err_status
+        @status.showError "Выберите статус"
       #correct
       when "bad_day"
-        @outErr "Введите корректный день", @out_err_date, @day
+        @day.setErrorDiv @out_err_date
+        @day.showError "Введите корректный день"
       when "bad_month"
-        @outErr "Введите корректный месяц", @out_err_date, @month
+        @month.setErrorDiv @out_err_date
+        @month.showError "Введите корректный месяц"
       when "bad_year"
-        @outErr "Введите корректный год", @out_err_date, @year
+        @year.setErrorDiv @out_err_date
+        @year.showError "Введите корректный год"
       when "bad_status"
-        @outErr "Выберите статус из списка", @out_err_status, @status
-      when "unselect sex"
-        @outErr "Выберите пол", @out_err_sex, @sex
-        alert 'sex'
+        @status.setErrorDiv @out_err_date
+        @status.showError "Выберите статус из списка"
+      when "unselect_sex"
+        @sex.showError "Выберите пол"
       else
         alert 'die'
 
-  outErr : (err, err_el, el) =>
-    if el instanceof Array
-      for _el in el
-        _el.err_effect()
-    else
-      el.err_effect()
-    err_el.text err
-    setTimeout =>
-      err_el.show()
-    , 100
-
-  clearOutErr : (err_el ,el) =>
-    el.clean_err_effect()
-    err_el.hide()
-    err_el.text('')
 
 
