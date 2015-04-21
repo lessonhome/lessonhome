@@ -1,8 +1,10 @@
 @import compass/css3
 
+$width : 315px
+
 .photo
-  overflow: hidden
-  width: 100%
+  position : relative
+  width: $width
   height: 100%
   +inline-block
   $photo_src: 'registration/plus.png'
@@ -49,5 +51,46 @@
       margin: -$photo_height/2 auto 0 auto
       background: url(F($photo_src)) no-repeat
 
+.photo
+  .input
+    position : absolute
+    left : 0
+    top  : 0
+    width : 100%
+    height : 100%
+    z-index : 10001
+    input
+      position : relative
+      opacity : 0
+      cursor : pointer
+      left  : 0
+      top : 0
+      width : 100%
+      height : 100%
+  .photo
+    +box-shadow( 0 0 20px rgba(0,0,0,0.2))
+    position : relative
+    left : 0
+    top  : 0
+    img
+      position : relative
+      left : 0
+      top : 0
+      width : 100%
+    div
+      position : absolute
+      top : 0
+      left : 0
+      background : rgba(0,0,0,0)
+      width : 100%
+      height : 100%
+      z-index : 1000
+.photo:hover
+  .photo
+    +box-shadow( 0 0 30px rgba(0,0,0,0.6))
+    div
+      background : rgba(0,0,0,0.01)
+      +box-shadow( inset 0 0 10px rgba(0,0,0,0.1))
 
+      
 //- ----------------------------------------------------------------------------

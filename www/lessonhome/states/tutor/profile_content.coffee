@@ -2,7 +2,8 @@ class @main
   tree : -> module '$'  :
     popup               : @exports()
     photo               : module 'mime/photo' :
-      src      : F 'vk.unknown.man.jpg'
+      photo   : data('ava').get()
+      src     : F 'vk.unknown.man.jpg'
     all_rating          : module '../rating_star':
       filling  : 40
     progress            : @exports()

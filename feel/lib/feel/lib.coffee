@@ -472,6 +472,7 @@ global._hash    = (f)-> _crypto.createHash('sha1').update(f).digest('hex')
 global._toJson  = (o)-> _js_infinite_json.stringify o
 global._unJson  = (o)-> _js_infinite_json.parse     o
 global._mkdirp  = Q.denode require 'mkdirp'
+global._rename  = Q.denode _fs.rename
 regenerator = require("regenerator")
 global._regenerator = (source)-> regenerator.compile(source).code
 global._args    = (a)->

@@ -1,7 +1,13 @@
 
 class @main
   tree : -> module '$' :
-    add_photos   : module 'add_photos'
+    add_photos   : module 'add_photos' :
+      photo : data('ava').get()
+      depend : [
+        module 'lib/jquery/ui_widget'
+        module 'lib/jquery/iframe_transport_plugin'
+        module 'lib/jquery/fileupload'
+      ]
     first_name  : module 'tutor/forms/input':
       text2 : 'Имя :'
       selector    : 'first_reg'

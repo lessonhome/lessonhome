@@ -47,7 +47,11 @@
     "js-infinite-json":"*",
     "regenerator" : "*",
     "ipware" : "*",
-    "useragent":"*"
+    "useragent":"*",
+    "jquery-file-upload-middleware":"",
+    "express":"*",
+    "body-parser":"*",
+    "imagemagick": "*"
   }
 }
 
