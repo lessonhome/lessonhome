@@ -42,7 +42,7 @@ class @main extends template '../edit_description'
 
   init: ->
     education = data('person').get('education')
-    @tree.tutor_edit.country.value = education.then (edu)-> edu?.country?
+    @tree.tutor_edit.country.value = education.then (edu)-> edu?.country
     @tree.tutor_edit.city.value = education.then (edu)-> edu?.city
     @tree.tutor_edit.university.value = education.then (edu)-> edu?.name
     @tree.tutor_edit.faculty.value = education.then (edu)-> edu?.faculty
