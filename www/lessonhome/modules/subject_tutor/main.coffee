@@ -1,12 +1,11 @@
 
 class @main
   Dom: =>
-
+    @out_err_subject = @found.out_err_subject
   show: =>
 
     # drop_down_list
     @subject       = @tree.subject.class
-
 
   save : => Q().then =>
     if @check_form()
@@ -34,3 +33,12 @@ class @main
     return {
       subject: @subject.getValue()
     }
+
+  parseError : (err)=>
+    switch err
+      when "empty_subject"
+        @subject.setErrorDiv @out_err_subject
+        @subject.showError "Выберите предмет"
+      when "bad_subject"
+        @subject.setErrorDiv @out_err_subject
+        @subject.showError "Выберите корректный предмет"

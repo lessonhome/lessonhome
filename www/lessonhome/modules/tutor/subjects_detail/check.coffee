@@ -17,13 +17,13 @@
   if f.group_learning.length == 0
     errs.push "empty_group_learning"
   active = false
-  for val in categories_of_students
+  for val in f.categories_of_students
     if val
       active = true
   if !active
     errs.push "empty_categories_of_students"
   active = false
-  for val in place
+  for val in f.place
     if val
       active = true
   if !active

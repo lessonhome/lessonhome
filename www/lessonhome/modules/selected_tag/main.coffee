@@ -14,6 +14,8 @@ class @main extends EE
     console.log 'send req by id ' +  @selected_tag_id
 
 
+  getValue: => @tree.text
+
 
 ###
 5. selected_tag:

@@ -9,6 +9,9 @@ class @main
     @out_err_course         = @found.out_err_course
     @out_err_qualification  = @found.out_err_qualification
     @out_err_group_learning = @found.out_err_group_learning
+    @out_err_categories_of_students = @found.out_err_categories_of_students
+    @out_err_place = @found.out_err_place
+    #@out_err_group_learning = @found.out_err_group_learning
 
   show: =>
     @hide_el.on 'click', =>
@@ -52,8 +55,8 @@ class @main
     @place_remote = @tree.place_remote.class
     @place_cafe   = @tree.place_cafe.class
 
-
-
+    @categories_of_students = [@pre_school.getValue(),@junior_school.getValue(), @medium_school.getValue(), @high_school.getValue(), @student.getValue(), @adult.getValue()]
+    @place = [@place_tutor.getValue(),@place_pupil.getValue(), @place_remote.getValue(),@place_cafe.getValue()]
 
   save : => Q().then =>
     if @check_form()
@@ -85,19 +88,18 @@ class @main
 
 
   getData : =>
-    categories_of_students = [@pre_school.getValue(),@junior_school.getValue(), @medium_school.getValue(), @high_school.getValue(), @student.getValue(), @adult.getValue()]
-    place = [@place_tutor.getValue(),@place_pupil.getValue(), @place_remote.getValue(),@place_cafe.getValue()]
     return {
       subject_tag             : @subject_tag.getValue()
       course                  : @course.getValue()
       qualification           : @qualification.getValue()
       group_learning          : @group_learning.getValue()
       comments                : @comments.getValue()
-      categories_of_students  : categories_of_students
+      categories_of_students  : @categories_of_students
       duration                : @duration.getValue()
       price_from              : @price_from.getValue()
       price_till              : @price_till.getValue()
-      place                   : place
+      place                   : @place
+
     }
 
 
@@ -122,8 +124,14 @@ class @main
         @qualification.setErrorDiv @out_err_qualification
         @qualification.showError "Выберите квалификацию"
       when "empty_group_learning"
-        @group_learning.setErrorDiv @out_err_course
+        @group_learning.setErrorDiv @out_err_group_learning
         @group_learning.showError "Выберите групповые занятия"
+      when "empty_categories_of_students"
+        @pre_school.setErrorDiv @out_err_categories_of_students
+        @pre_school.showError "Выберите категории учеников"
+      when "empty_place"
+        @place_tutor.setErrorDiv @out_err_place
+        @place_tutor.showError "Выберите место занятий"
 
     #correct
       when "bad_course"
