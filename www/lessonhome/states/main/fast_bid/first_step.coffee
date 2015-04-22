@@ -2,8 +2,9 @@ class @main extends template '../fast_bid'
   route : '/fast_bid/first_step'
   model : 'main/application/1_step'
   title : "быстрое оформление заявки: первый шаг"
-  access : ['other', 'pupil', 'tutor']
+  access : ['other', 'pupil']
   redirect : {
+    tutor : 'tutor/profile'
   }
   tree : ->
     progress : 1

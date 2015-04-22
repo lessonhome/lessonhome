@@ -86,12 +86,39 @@ class RouteState
       host ?= ""
       console.log process.pid+":time".yellow+"\t#{new Date().getTime() - @req.time}ms".cyan+
         " #{host}#{@req.url}:#{ip}:#{ua.family}:#{ua.major}:#{ua.minor}".grey
+    sclass = @site.state[@statename].class
+    sclass::access ?= []
+    sclass::access = sclass::access() if typeof sclass::access =='function'
+    sclass::access ?= []
+    if typeof sclass::access == 'string'
+      sclass::access = [sclass::access]
+    if sclass::access.length
+      s = {}
+      for el in sclass::access
+        s[el] = true
+      sclass::access = s
+    sclass::redirect ?= {}
+    access = false
+    console.log sclass::access,sclass::redirect,@req.user.type
+    for key,val of @req.user.type
+      continue unless val
+      if sclass::access[key]
+        access = true
+        break
+    unless access
+      for key,val of sclass::redirect
+        if @req.user.type[key]
+          return @redirect @req,@res,val
+      if sclass::redirect.default
+        return @redirect @req,@res,sclass::redirect.default
+      return @redirect @req,@res,'/403'
+      
     @time "go s"
     @state = yield @site.state[@statename].make(null,null,@req,@res)
     @time 'make'
     @tags = {}
-    @access   = {}
-    @redirect = {}
+    #@access   = {}
+    #@redirect = {}
     @getTop()
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       if node._isState
@@ -103,14 +130,14 @@ class RouteState
         for sn,s of o
           for k of s.tag
             @tags[k] = true
-          for a in s.access
-            @access[a] = true
-          for k,v of s.redirect
-            @redirect[k] = v
+          #for a in s.access
+          #  @access[a] = true
+          #for k,v of s.redirect
+          #  @redirect[k] = v
         for sn,s of o
           s.page_tags = @tags
         #node = pnode[key] = @getTopOfNode node
-    console.log @access,@redirect
+    #console.log @access,@redirect
     if @top._isState
       if @top.__states
         o = @top.__states
@@ -306,7 +333,15 @@ class RouteState
           idn = ret[key]._name.replace /\//g, '-'
           ret[key] = ret[key]._html.replace "m-#{idn}", "m-#{idn}\" uniq=\"#{uniq}:#{ret[key]._uniq}\" class=\"m-#{uniq}-#{idn}"
     return ret
-  
+  redirect : (req,res,val)=>
+    if @site.state[val]?
+      val = @site.state[val].class::route
+    unless val
+      val = '/403'
+    res.statusCode = 301
+    res.setHeader 'location', val
+    res.setHeader 'Cache-Control','no-cache'
+    res.end()
 
 module.exports = RouteState
 
