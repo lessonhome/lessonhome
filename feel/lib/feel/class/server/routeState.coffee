@@ -61,7 +61,7 @@ class RouteState
     top.__inner = true
     tree = {}
     for key,val of top
-      if (typeof val == 'function' || typeof val == 'object') && !val._smart
+      if val && (typeof val == 'function' || typeof val == 'object') && !val._smart
         tree[key] = @getTree val
       else
         tree[key] = val
@@ -69,7 +69,7 @@ class RouteState
     delete top.__inner
     return tree
   walk_tree_down : (node,pnode,key,foo)=>
-    if (typeof node == 'object' || typeof node == 'function') && !node?._smart
+    if node && (typeof node == 'object' || typeof node == 'function') && !node?._smart
       foo node,pnode,key
       for key,val of node
         @walk_tree_down node[key],node,key,foo
@@ -230,7 +230,7 @@ class RouteState
     for key,val of node
       if key == '_html'
         delete node[key]
-      else if typeof val == 'object'
+      else if typeof val == 'object' && val
         @removeHtml val
   cssModule : (modname)=>
     @css += "<style id=\"f-css-#{modname}\">#{@site.modules[modname].allCss}</style>"
@@ -256,7 +256,7 @@ class RouteState
         now._name = @stack[@stack.length-1]+"/#{m[1]}"
       @stack.push now._name
     for key,val of now
-      if typeof val == 'object' && !val._smart
+      if val && typeof val == 'object' && !val._smart
         if val.__state?
           new_state = val
         else
@@ -291,7 +291,7 @@ class RouteState
     ret = {}
     for key,val of obj
       ret[key] = val
-      if typeof val == 'object' && !val._smart
+      if val && typeof val == 'object' && !val._smart
         #if val.__getO
         #  delete obj[key]
         #  delete ret[key]
