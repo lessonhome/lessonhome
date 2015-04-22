@@ -21,7 +21,7 @@ class @Feel
     e.message ?= ""
     for a in args
       e.message += a+"\n" if typeof a == 'string'
-      e.message += JSON.stringify(a)+"\n" if typeof a == 'object'
+      e.message += JSON.stringify(a)+"\n" if a && typeof a == 'object'
     console.error e.name,e.message,e.stack
     @activeError()
     #console.error e.message

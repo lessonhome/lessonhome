@@ -52,7 +52,7 @@ class Router
       return @redirect req,res,'/tutor/profile/first_step'
     if req.url.match /^\/form\/tutor\/logout$/
       yield @setSession req,res,cookie,""
-      return @redirect req,res,'/first_step'
+      return @redirect req,res,'/'
     statename = ""
     if @url.text[req.url]?
       statename = @url.text[req.url]
