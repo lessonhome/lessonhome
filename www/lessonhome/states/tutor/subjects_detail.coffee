@@ -10,9 +10,16 @@ class @main
     course     : module 'tutor/forms/drop_down_list' :
       text      : 'Направление подготовки :'
       selector  : 'first_reg'
+      default_options     : {
+        '0': {value: 'russia', text: 'Россия'},
+        '1': {value: 'ukraine', text: 'Украина'},
+        '2': {value: 'belarus', text: 'Белоруссия'}
+      }
+      #value: data('tutor').get('subjects').then (s)-> s.tags?[0]
     pre_school      : module 'tutor/forms/checkbox' :
       text      : 'дошкольники'
       selector  : 'small font_16'
+      #value     : data('tutor').get('subjects').then (s)-> s.
     junior_school   : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'младшая школа'
@@ -53,6 +60,7 @@ class @main
     duration :   module 'tutor/forms/input' :
       text2      : 'Время занятия :'
       selector  : 'first_reg'
+      value: data('tutor').get('subjects').then (s)-> s.duration
 
     place_tutor      : module 'tutor/forms/checkbox' :
       text      : 'у себя'
@@ -69,7 +77,14 @@ class @main
     group_learning         : module 'tutor/forms/drop_down_list' :
       text      : 'Групповые занятия :'
       selector  : 'first_reg'
+      default_options     : {
+        '0': {value: 'russia', text: 'Россия'},
+        '1': {value: 'ukraine', text: 'Украина'},
+        '2': {value: 'belarus', text: 'Белоруссия'}
+      }
     comments          : module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'
       selector  : 'first_reg'
+
+
