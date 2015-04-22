@@ -5,7 +5,7 @@ class @main
       items : [
         module 'tutor/header/button' : {
           title : 'Поиск'
-          href  : '/first_step'
+          href  : '/'
           tag   : @exports()
         }
         module 'tutor/header/list_button' : {
