@@ -30,11 +30,6 @@ class @main
   next : =>
     @save?().then (success)=>
       if success
-        ###
-        @$send('./save',@progress).then ({status})=>
-          if status=='success'
-            return true
-        ###
         @bSave.submit()
     .done()
 
