@@ -5,8 +5,8 @@ class @main
       text      : 'Математика'
       selector  : 'choose_subject'
     #qualification     : module 'tutor/forms/drop_down_list' :
-      text      : 'Квалификация :'
-      selector  : 'first_reg'
+    #  text      : 'Квалификация :'
+    #  selector  : 'first_reg'
     course     : module 'tutor/forms/drop_down_list' :
       text      : 'Направление подготовки :'
       selector  : 'first_reg'
