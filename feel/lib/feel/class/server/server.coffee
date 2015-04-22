@@ -6,6 +6,7 @@ https = require 'https'
 _crypto = require 'crypto'
 os = require "os"
 
+
 class Server
   constructor : ->
     @_google = {}
@@ -18,6 +19,7 @@ class Server
         @ssh = true
       else
         @port = 8081
+
   init : =>
     unless @ssh
       @server = http.createServer @handler
@@ -92,6 +94,7 @@ class Server
     res.setHeader 'location', "https://#{host}#{req.url}"
     res.end()
   handler : (req,res)=>
+    
     if @ssh
       res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
     host = req.headers.host
