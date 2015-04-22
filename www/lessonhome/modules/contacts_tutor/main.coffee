@@ -14,7 +14,6 @@ class @main
     @country      = @tree.country.class
     @city         = @tree.city.class
 
-    #TODO: move it's code in drop_down_list.coffee
     @country.input.on 'focus', => @clearOutErr @err_country, @country
     @city.input.on    'focus', => @clearOutErr @err_city, @city
 
@@ -33,6 +32,7 @@ class @main
       return false
 
   check_form : =>
+    @mobile_phone.doMatch()
     errs = @js.check @getData()
     if !@country.exists() && @country.getValue().length!=0
       errs.push 'bad_country'

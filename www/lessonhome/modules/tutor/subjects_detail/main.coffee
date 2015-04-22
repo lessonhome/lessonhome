@@ -7,7 +7,7 @@ class @main
     @bg_block     = @found.bg_block
 
     @out_err_course         = @found.out_err_course
-    @out_err_qualification  = @found.out_err_qualification
+    #@out_err_qualification  = @found.out_err_qualification
     @out_err_group_learning = @found.out_err_group_learning
     @out_err_categories_of_students = @found.out_err_categories_of_students
     @out_err_place = @found.out_err_place
@@ -30,7 +30,7 @@ class @main
     @subject_tag    = @tree.subject_tag.class
     # drop_down_list
     @course         = @tree.course.class
-    @qualification  = @tree.qualification.class
+    #@qualification  = @tree.qualification.class
     @group_learning = @tree.group_learning.class
 
     # input
@@ -76,8 +76,8 @@ class @main
     errs = @js.check @getData()
     if !@course.exists() && @course.getValue() != 0
       errs.push 'bad_course'
-    if !@qualification.exists() && @qualification.getValue() != 0
-      errs.push 'bad_qualification'
+    #if !@qualification.exists() && @qualification.getValue() != 0
+    #  errs.push 'bad_qualification'
     if !@group_learning.exists() && @group_learning.getValue() != 0
       errs.push 'bad_group_learning'
 
@@ -91,7 +91,7 @@ class @main
     return {
       subject_tag             : @subject_tag.getValue()
       course                  : @course.getValue()
-      qualification           : @qualification.getValue()
+      #qualification           : @qualification.getValue()
       group_learning          : @group_learning.getValue()
       comments                : @comments.getValue()
       categories_of_students  : @categories_of_students
@@ -120,9 +120,9 @@ class @main
       when "empty_course"
         @course.setErrorDiv @out_err_course
         @course.showError "Выберите курс"
-      when "empty_qualification"
-        @qualification.setErrorDiv @out_err_qualification
-        @qualification.showError "Выберите квалификацию"
+      #when "empty_qualification"
+      #  @qualification.setErrorDiv @out_err_qualification
+      #  @qualification.showError "Выберите квалификацию"
       when "empty_group_learning"
         @group_learning.setErrorDiv @out_err_group_learning
         @group_learning.showError "Выберите групповые занятия"
@@ -137,9 +137,9 @@ class @main
       when "bad_course"
         @course.setErrorDiv @out_err_course
         @course.showError "Выберите корректный курс"
-      when "bad_qualification"
-        @qualification.setErrorDiv @out_err_qualification
-        @course.showError "Выберите корректную квалификацию"
+      #when "bad_qualification"
+      #  @qualification.setErrorDiv @out_err_qualification
+      #  @course.showError "Выберите корректную квалификацию"
       when "bad_group_learning"
         @group_learning.setErrorDiv @out_err_course
         @group_learning.showError "Выберите корректный курс"

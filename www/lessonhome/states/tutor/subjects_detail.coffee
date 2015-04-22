@@ -4,7 +4,7 @@ class @main
       close     : false
       text      : 'Математика'
       selector  : 'choose_subject'
-    qualification     : module 'tutor/forms/drop_down_list' :
+    #qualification     : module 'tutor/forms/drop_down_list' :
       text      : 'Квалификация :'
       selector  : 'first_reg'
     course     : module 'tutor/forms/drop_down_list' :
