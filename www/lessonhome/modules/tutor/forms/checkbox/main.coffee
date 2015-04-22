@@ -5,6 +5,7 @@ class @main extends EE
     @check = @found.check
 
   show : =>
+    @state = @tree.state  
     @dom.on 'click', =>
       @label.toggleClass('active')
       @state = @label.hasClass 'active'
