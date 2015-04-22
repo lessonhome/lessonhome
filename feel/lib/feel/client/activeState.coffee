@@ -122,13 +122,13 @@ class @activeState
     #unless node._smart then for key,val of node
       #continue if node[key]?.__isClass
       #foo? node,key,val
-    if (!node._smart) && ((typeof node == 'object') || (typeof node == 'function'))
+    if node && (!node._smart) && ((typeof node == 'object') || (typeof node == 'function'))
       for key,val of node
         @watchDown node,key, foo
   watchUp : (nparent,nkey,foo)=>
     node = nparent[nkey]
     foo? nparent,nkey,node
-    if (!node._smart) && ((typeof node == 'object') || (typeof node == 'function'))
+    if node && (!node._smart) && ((typeof node == 'object') || (typeof node == 'function'))
       for key,val of node
         @watchUp node,key, foo
     #return if node?.__isClass
