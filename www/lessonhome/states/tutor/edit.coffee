@@ -14,6 +14,7 @@ class @main extends template '../tutor'
       items       : @exports()
       active_item : @exports()
     content : module '$' :
+      changes_field : module '//changes_field'
       tutor_edit    : @exports()                    # this property responds for content
       hint          : @exports()                    # this property responds for hint
       save_button       : module 'tutor/button' :

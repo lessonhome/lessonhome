@@ -9,6 +9,7 @@ class @main extends template '../registration_popup/second_step'
   tree : =>
     address_popup   : state 'place_tutor'
 
+      
 
 
 

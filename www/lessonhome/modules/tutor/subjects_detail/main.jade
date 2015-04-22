@@ -1,0 +1,46 @@
+.js-bg_block
+  .tag_block
+    .subject_tag!=subject_tag
+    .control_block
+      .js-hide Свернуть
+      .js-delete Удалить
+  .js-container
+    .value.qualification!=qualification
+    .err
+      .js-out_err_qualification
+    .value.course!=course
+    .err
+      .js-out_err_course
+    .categories_of_students
+      .title Категории учеников :
+      .check_panel
+        .left_block
+          .pre_school!=pre_school
+          .junior_school!=junior_school
+          .medium_school!=medium_school
+        .right_block
+          .high_school!=high_school
+          .student!=student
+          .adult!=adult
+      .err
+        .js-out_err_categories_of_students
+    .value.duration!= duration
+    .price
+      .title Цена занятия :
+      .slider!= price_slider
+    .place
+      .title!='Место занятий :'
+      .check_panel
+        .left_block
+          .tutor!=place_tutor
+          .pupil!=place_pupil
+        .right_block
+          .remote!=place_remote
+          .cafe!=place_cafe
+      .err
+        .js-out_err_place
+
+    .value.group_learning!=group_learning
+    .err
+      .js-out_err_group_learning
+    .value.comments!= comments

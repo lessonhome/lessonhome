@@ -1,6 +1,7 @@
 
 class @main
   Dom : =>
+    @changes_field = @found.changes_field
   show : =>
     @save_button = @tree.save_button?.class
     @tutor_edit = @tree.tutor_edit.class
@@ -14,7 +15,8 @@ class @main
           if status=='success'
             return true
         ###
-        @bNext.submit()
+        @changes_field.fadeIn()
+        return true
     .done()
 
 

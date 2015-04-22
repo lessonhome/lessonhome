@@ -18,7 +18,7 @@ class @main
       }
       value : data('person').get('location').then (l)-> l?.city
     # var popup respond address
-    address_popup   : @exports()
+    address_popup   :         @exports()
     href        : @exports()
     href_back   : @exports()
 
@@ -28,7 +28,35 @@ class @main
       text2      : 'Мобильный телефон :'
       selector  : 'first_reg'
       placeholder: '+7 (xxx) xxx–xx–xx'
-      value: data('person').get('phone').then (p)-> p[0] if p?[0]?
+      value: data('person').get('phone').then (p)-> if p?[0]? then p[0] else "+7 (___) ___-__-__"
+      #p[0] if p?[0]?
+      replace     : [
+        {"^(8|7)(?!\\+7)":"+7"}
+        {"^(.*)(\\+7)":"$2$1"}
+        "\\+7"
+        "[^\\d_]"
+        {"^(.*)$":"$1__________"}
+        {"^([\\d_]{0,10})(.*)$": "$1"}
+        {"^([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)$":"+7 ($1$2$3) $4$5$6-$7$8-$9$10"}
+      ]
+      replaceCursor     : [
+        "(_)"
+      ]
+      selectOnFocus : true
+      patterns : [
+        "^\\+7 \\(\\d\\d\\d\\) \\d\\d\\d-\\d\\d-\\d\\d$" : "Введите телефон <br>в формате +7 (926) 123-45-45"
+      ]
+
+
+
+
+
+
+
+
+
+
+
     extra_phone   : module 'tutor/forms/input' :
       text2      : 'Доп. телефон :'
       selector  : 'first_reg'
@@ -45,3 +73,15 @@ class @main
       text2      : 'Личный сайт :'
       selector  : 'first_reg'
       value: data('person').get('site').then (s)-> s[0] if s?[0]?
+
+
+
+
+
+
+
+
+
+
+
+

@@ -21,7 +21,10 @@ class @main extends EE
   click : =>
     @active = !@active
     @button.toggleClass 'active inactive'
-    @emit 'active' if @active
+    if @active
+      @emit 'active'
+    else
+      @emit 'inactive'
   setActive : =>
     @active = !@active
     @button.addClass 'active'

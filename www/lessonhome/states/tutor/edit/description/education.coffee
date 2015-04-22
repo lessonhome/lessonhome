@@ -40,4 +40,14 @@ class @main extends template '../edit_description'
       text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'
 
 
+  init: ->
+    education = data('person').get('education')
+    @tree.tutor_edit.country.value = education.then (edu)-> edu?.country
+    @tree.tutor_edit.city.value = education.then (edu)-> edu?.city
+    @tree.tutor_edit.university.value = education.then (edu)-> edu?.name
+    @tree.tutor_edit.faculty.value = education.then (edu)-> edu?.faculty
+    @tree.tutor_edit.chair.value = education.then (edu)-> edu?.chair
+    @tree.tutor_edit.status.value = education.then (edu)-> edu?.qualification
+
+
 

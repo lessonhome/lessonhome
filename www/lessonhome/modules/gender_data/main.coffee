@@ -4,15 +4,20 @@ class @main extends EE
   show: =>
     @man    = @tree.sex_man.class
     @woman  = @tree.sex_woman.class
-
+    @state  = @tree.value
 
     switch @getValue()
       when "male"
         @setValue "male"
       when "female"
-        @setValue(@woman)
+        @setValue "female"
       else
 
+    @man  .on 'inactive', =>
+      @state = false
+
+    @woman.on 'inactive', =>
+      @state = false
 
     @man  .on 'active', =>
       @woman .disable()
@@ -28,11 +33,13 @@ class @main extends EE
   setValue : (val)=>
     if val == "male"
       @man.setActive()
+      @state = "male"
     if val == 'female'
       @woman.setActive()
+      @state = "female"
 
 
-  getValue : => @tree.value
+  getValue : => @state
 
   showError : (error)=>
     @out_err_sex.text error
