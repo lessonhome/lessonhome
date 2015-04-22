@@ -85,25 +85,19 @@ class @main
 
 
   getData : =>
+    categories_of_students = [@pre_school.getValue(),@junior_school.getValue(), @medium_school.getValue(), @high_school.getValue(), @student.getValue(), @adult.getValue()]
+    place = [@place_tutor.getValue(),@place_pupil.getValue(), @place_remote.getValue(),@place_cafe.getValue()]
     return {
-      subject_tag     : @subject_tag.getValue()
-      course          : @course.getValue()
-      qualification   : @qualification.getValue()
-      group_learning  : @group_learning.getValue()
-      comments        : @comments.getValue()
-      pre_school      : @pre_school.getValue()
-      junior_school   : @junior_school.getValue()
-      medium_school   : @medium_school.getValue()
-      high_school     : @high_school.getValue()
-      student         : @student.getValue()
-      adult           : @adult.getValue()
-      duration        : @duration.getValue()
-      price_from      : @price_from.getValue()
-      price_till      : @price_till.getValue()
-      place_tutor     : @place_tutor.getValue()
-      place_pupil     : @place_pupil.getValue()
-      place_remote    : @place_remote.getValue()
-      place_cafe      : @place_cafe.getValue()
+      subject_tag             : @subject_tag.getValue()
+      course                  : @course.getValue()
+      qualification           : @qualification.getValue()
+      group_learning          : @group_learning.getValue()
+      comments                : @comments.getValue()
+      categories_of_students  : categories_of_students
+      duration                : @duration.getValue()
+      price_from              : @price_from.getValue()
+      price_till              : @price_till.getValue()
+      place                   : place
     }
 
 

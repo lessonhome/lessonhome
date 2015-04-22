@@ -17,7 +17,16 @@ class @main extends EE
   setValue : (val)=>
     @label.hasClass = val
 
-  # showError() and hideError() = no
+  showError : (error)=>
+    if @errorDiv?
+      @errorDiv.text error
+      @errorDiv.show()
+  hideError : =>
+    if @errorDiv?
+      @errorDiv.hide()
+      @errorDiv.text ""
+  setErrorDiv : (div)=>
+    @errorDiv = $ div
 
   # event:  end, focus, blur, change
 
