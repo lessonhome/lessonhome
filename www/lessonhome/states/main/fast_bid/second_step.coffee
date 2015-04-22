@@ -4,6 +4,7 @@ class @main extends template '../fast_bid'
   title : "быстрое оформление заявки: второй шаг"
   access : ['pupil']
   redirect : {
+    'tutor' : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'
   }
   tree : ->
