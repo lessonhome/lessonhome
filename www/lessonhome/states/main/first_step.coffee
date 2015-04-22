@@ -1,7 +1,7 @@
 
 
 class @main extends template './motivation_content'
-  route : '/first_step'
+  route : '/'
   model   : 'main/first_step'
   title : "выберите предмет"
   tags  : -> 'pupil:main_search'
