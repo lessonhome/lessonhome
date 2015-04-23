@@ -218,7 +218,16 @@ class module.exports
     if state.parent
       state.parent.__bind_exports state.parent, state.tree
     try
-      state.init?()
+      yield state.init?()
+      cont  = true
+      qs    = []
+      while cont
+        cont = false
+        @walk_tree_down state.tree, (node,key,val)=>
+          if Q.isPromise val
+            cont = true
+            qs.push val.then (ret)=> node[key] = ret
+        yield Q.all qs
     catch e
       console.error "failed state init #{@name}",Exception e
       throw e

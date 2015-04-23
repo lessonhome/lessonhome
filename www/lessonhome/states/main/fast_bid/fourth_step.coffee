@@ -2,7 +2,7 @@ class @main extends template '../fast_bid'
   route : '/fast_bid/fourth_step'
   model : 'main/application/4_step'
   title : "быстрое оформление заявки: четвёртый шаг"
-  access : ['pupil']
+  access : ['pupil','other']
   redirect : {
     tutor : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'
