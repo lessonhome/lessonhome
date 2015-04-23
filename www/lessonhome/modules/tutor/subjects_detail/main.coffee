@@ -108,11 +108,11 @@ class @main
     switch err
     # short
       when "short_duration"
-        @duration.showError "Слишком короткое имя"
+        @duration.showError "Введите время занятия"
 
     # long
       when "long_duration"
-        @duration.showError "Слишком длинное имя"
+        @duration.showError "Слишком большая продолжительность"
 
     #empty
       when "empty_duration"
