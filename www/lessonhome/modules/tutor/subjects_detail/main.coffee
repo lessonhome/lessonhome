@@ -55,8 +55,6 @@ class @main
     @place_remote = @tree.place_remote.class
     @place_cafe   = @tree.place_cafe.class
 
-    @categories_of_students = [@pre_school.getValue(),@junior_school.getValue(), @medium_school.getValue(), @high_school.getValue(), @student.getValue(), @adult.getValue()]
-    @place = [@place_tutor.getValue(),@place_pupil.getValue(), @place_remote.getValue(),@place_cafe.getValue()]
 
   save : => Q().then =>
     if @check_form()
@@ -88,6 +86,8 @@ class @main
 
 
   getData : =>
+    @categories_of_students = [@pre_school.getValue(),@junior_school.getValue(), @medium_school.getValue(), @high_school.getValue(), @student.getValue(), @adult.getValue()]
+    @place = [@place_tutor.getValue(),@place_pupil.getValue(), @place_remote.getValue(),@place_cafe.getValue()]
     return {
       subject_tag             : @subject_tag.getValue()
       course                  : @course.getValue()
