@@ -18,6 +18,8 @@
     errs.push "empty_group_learning"
   active = false
   for val in f.categories_of_students
+    console.log 'val :'
+    console.log val
     if val
       active = true
   if !active

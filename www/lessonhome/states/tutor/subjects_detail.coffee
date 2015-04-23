@@ -2,7 +2,7 @@ class @main
   tree : -> module '$' :
     subject_tag     : module 'selected_tag' :
       close     : false
-      text      : 'Математика'
+      text      : data('tutor').get('subjects').then (s)-> s.name
       selector  : 'choose_subject'
     qualification     : module 'tutor/forms/drop_down_list' :
       text      : 'Квалификация :'
@@ -15,11 +15,12 @@ class @main
         '1': {value: 'ukraine', text: 'Украина'},
         '2': {value: 'belarus', text: 'Белоруссия'}
       }
-      #value: data('tutor').get('subjects').then (s)-> s.tags?[0]
+      value: data('tutor').get('subjects').then (s)-> s.tags?[0]
     pre_school      : module 'tutor/forms/checkbox' :
       text      : 'дошкольники'
       selector  : 'small font_16'
-      #value     : data('tutor').get('subjects').then (s)-> s.
+      value     : data('tutor').get('subjects').then (s)->
+        #if s.tags[""]
     junior_school   : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'младшая школа'
