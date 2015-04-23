@@ -32,6 +32,7 @@
 
   db= yield $.db.get 'tutor'
   yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:{name:data.name, description:data.description, place:place, tags:tags, price: {duration:data.duration, range:range } }}},{upsert:true}
+  yield $.status 'tutor_prereg_3', true
   ###
   return {status:'success'}
 

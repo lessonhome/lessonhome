@@ -99,7 +99,6 @@ class RouteState
       sclass::access = s
     sclass::redirect ?= {}
     access = false
-    console.log sclass::access,sclass::redirect,@req.user.type
     for key,val of @req.user.type
       continue unless val
       if sclass::access[key]
@@ -112,7 +111,33 @@ class RouteState
       if sclass::redirect.default
         return @redirect @req,@res,sclass::redirect.default
       return @redirect @req,@res,'/403'
-      
+    if sclass::status?
+      qs = []
+      for key,val of sclass::status
+        neg  = false
+        name = key
+        if name.match /^\!/
+          neg = true
+          name = name.substr 1
+        do (key,val,neg,name)=>
+          qs.push @req.status(name).then (status)=>
+            if typeof val == 'string'
+              val = {
+                value     : true
+                redirect  : val
+              }
+            console.log status,val
+            unless neg
+              if status == val.value
+                return redirect:val.redirect
+            else
+              if status != val.value
+                return redirect:val.redirect
+      arr = yield Q.all qs
+      console.log arr
+      for el in arr
+        if el?.redirect?
+          return @redirect @req,@res,el.redirect
     @time "go s"
     @state = yield @site.state[@statename].make(null,null,@req,@res)
     @time 'make'

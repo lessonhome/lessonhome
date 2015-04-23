@@ -30,6 +30,7 @@ class Router
               @url.reg.push [r,statename]
             
   handler : (req,res)=> do Q.async =>
+    req.status = (args...)=> @site.status req,res,args...
     if (redirect = @_redirects?.redirect?[req?.url])?
       return @redirect req,res,redirect
     yield 1
