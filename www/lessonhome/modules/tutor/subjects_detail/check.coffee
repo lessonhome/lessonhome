@@ -2,10 +2,10 @@
 @check = (f)=>
   errs = []
   # short
-  if f.duration.length < 3
+  if f.duration.length < 1
     errs.push "short_duration"
   # long
-  if f.duration.length > 100
+  if f.duration.length > 3
     errs.push "long_duration"
   # empty
   if f.duration.length == 0
@@ -18,6 +18,8 @@
     errs.push "empty_group_learning"
   active = false
   for val in f.categories_of_students
+    console.log 'val :'
+    console.log val
     if val
       active = true
   if !active

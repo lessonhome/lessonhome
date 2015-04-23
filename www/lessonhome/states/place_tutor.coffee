@@ -12,7 +12,7 @@ class @main
       selector  : 'first_reg'
     near_metro : module 'tutor/forms/input' :
       text2      : 'Ближайшее метро :'
-      selector  : 'first_reg'
+      selector   : 'first_reg'
     street     : module 'tutor/forms/input' :
       text2      : 'Улица :'
       selector  : 'first_reg'
@@ -33,7 +33,7 @@ class @main
       selector  :  'edit_save'
       href      :  '/tutor/profile/second_step'
 
-  init: ->
+  init: =>
     location = data('person').get('location')
     console.log location
     console.log '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'

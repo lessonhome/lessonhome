@@ -2,7 +2,7 @@ class @main
   tree : -> module '$' :
     subject_tag     : module 'selected_tag' :
       close     : false
-      text      : 'Математика'
+      text      : data('tutor').get('subjects').then (s)-> s.name
       selector  : 'choose_subject'
     #qualification     : module 'tutor/forms/drop_down_list' :
     #  text      : 'Квалификация :'
@@ -10,9 +10,17 @@ class @main
     course     : module 'tutor/forms/drop_down_list' :
       text      : 'Направление подготовки :'
       selector  : 'first_reg'
+      default_options     : {
+        '0': {value: 'russia', text: 'Россия'},
+        '1': {value: 'ukraine', text: 'Украина'},
+        '2': {value: 'belarus', text: 'Белоруссия'}
+      }
+      value: data('tutor').get('subjects').then (s)-> s.tags?[0]
     pre_school      : module 'tutor/forms/checkbox' :
       text      : 'дошкольники'
       selector  : 'small font_16'
+      value     : data('tutor').get('subjects').then (s)->
+        #if s.tags[""]
     junior_school   : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'младшая школа'
@@ -37,7 +45,7 @@ class @main
     place_price_group : state 'tutor/profile_content/registration_popup/place_price'  :
       title : 'ГРУППОВЫЕ'
     price_slider   : state 'main/slider_main' :
-      selector      : 'price_slider_bids'
+      selector      : 'price_fast_reg'
       start         : 'calendar'
       start_text    : ''
       end         : module 'tutor/forms/input' :
@@ -53,6 +61,7 @@ class @main
     duration :   module 'tutor/forms/input' :
       text2      : 'Время занятия :'
       selector  : 'first_reg'
+      value: data('tutor').get('subjects').then (s)-> s.duration
 
     place_tutor      : module 'tutor/forms/checkbox' :
       text      : 'у себя'
@@ -69,7 +78,14 @@ class @main
     group_learning         : module 'tutor/forms/drop_down_list' :
       text      : 'Групповые занятия :'
       selector  : 'first_reg'
+      default_options     : {
+        '0': {value: 'russia', text: 'Россия'},
+        '1': {value: 'ukraine', text: 'Украина'},
+        '2': {value: 'belarus', text: 'Белоруссия'}
+      }
     comments          : module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'
       selector  : 'first_reg'
+
+

@@ -24,5 +24,6 @@ class @main extends template '../preview'
       address_input       : module 'tutor/forms/drop_down_list'  :
         placeholder : 'Даниловский'
         selector    : 'area'
+        text        : 'Район :'
       link_forward    :  '/fourth_step'
       link_back       :  '/second_step'

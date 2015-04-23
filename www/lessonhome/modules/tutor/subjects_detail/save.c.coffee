@@ -9,9 +9,9 @@ check = require("./check")
     return {status:'failed',errs:errs}
 
   tags = []
-  if data.categories_of_students[0] then tags.push "school:0"
-
   for val, key in data.categories_of_students
+    console.log 'AAron'
+    console.log val
     if val
       switch key
         when 0
