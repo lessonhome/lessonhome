@@ -3,9 +3,10 @@ class @main extends EE
     @label = @dom.find "label"
     @check_box = @found.check_box
     @check = @found.check
-    @state = @label.hasClass 'active'
-
   show : =>
+    @state = @tree.value
+    console.log 'state is'+@state
+    @setValue @state
     @dom.on 'click', =>
       @label.toggleClass('active')
       @state = @label.hasClass 'active'
@@ -18,7 +19,15 @@ class @main extends EE
     @label.hasClass 'active'
 
   setValue : (val)=>
-    @label.hasClass = val
+    switch val
+      when true
+        return if @label.addClass 'active'
+        @label.addClass 'active'
+        @state = true
+      else
+        return if !@label.addClass 'active'
+        @label.removeClass 'active'
+        @state = false
 
   showError : (error)=>
     if @errorDiv?

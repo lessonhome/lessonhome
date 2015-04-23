@@ -76,3 +76,9 @@
 
 @getLinkToFill =(href)=>
   return "<a href=#{href}>заполнить</a>"
+
+
+@tutorTagToCheckbox =(tags, checkbox)=>
+  for val in tags
+    if val == checkbox then return true
+  return false
