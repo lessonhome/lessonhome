@@ -4,6 +4,7 @@ _cookies = require 'cookies'
 
 class Router
   constructor : (@site)->
+    @_redirects = require process.cwd()+"/www/#{@site.name}/router/redirects"
     @url =
       text  : {}
       reg   : []
@@ -29,6 +30,8 @@ class Router
               @url.reg.push [r,statename]
             
   handler : (req,res)=> do Q.async =>
+    if (redirect = @_redirects?.redirect?[req?.url])?
+      return @redirect req,res,redirect
     yield 1
     if req.url == '/favicon.ico'
       req.url = '/file/666/favicon.ico'
@@ -52,7 +55,7 @@ class Router
       return @redirect req,res,'/tutor/profile/first_step'
     if req.url.match /^\/form\/tutor\/logout$/
       yield @setSession req,res,cookie,""
-      return @redirect req,res,'/first_step'
+      return @redirect req,res,'/'
     statename = ""
     if @url.text[req.url]?
       statename = @url.text[req.url]

@@ -3,9 +3,9 @@ class @main extends EE
     @label = @dom.find "label"
     @check_box = @found.check_box
     @check = @found.check
+    @state = @label.hasClass 'active'
 
   show : =>
-    @state = @tree.state  
     @dom.on 'click', =>
       @label.toggleClass('active')
       @state = @label.hasClass 'active'

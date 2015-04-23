@@ -1,0 +1,7 @@
+
+
+@redirect = {
+  '/first_step' : '/'
+}
+
+

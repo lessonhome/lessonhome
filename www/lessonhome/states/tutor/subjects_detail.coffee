@@ -4,9 +4,9 @@ class @main
       close     : false
       text      : data('tutor').get('subjects').then (s)-> s.name
       selector  : 'choose_subject'
-    qualification     : module 'tutor/forms/drop_down_list' :
-      text      : 'Квалификация :'
-      selector  : 'first_reg'
+    #qualification     : module 'tutor/forms/drop_down_list' :
+    #  text      : 'Квалификация :'
+    #  selector  : 'first_reg'
     course     : module 'tutor/forms/drop_down_list' :
       text      : 'Направление подготовки :'
       selector  : 'first_reg'

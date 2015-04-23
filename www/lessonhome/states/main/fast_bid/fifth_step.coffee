@@ -5,6 +5,7 @@ class @main extends template '../preview'
   tags  : -> 'pupil:fast_bid'
   access : ['pupil']
   redirect : {
+    tutor : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'
   }
   tree : ->

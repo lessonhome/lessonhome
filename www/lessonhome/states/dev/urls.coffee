@@ -1,5 +1,7 @@
 
 class @main
+  access : ['tutor','pupil','other']
+  redirect : {}
   route :  '/urls'
   tree : => module 'dev/urls' :
     depend : [

@@ -12,8 +12,8 @@
     errs.push "empty_duration"
   if f.course.length == 0
     errs.push "empty_course"
-  if f.qualification.length == 0
-    errs.push "empty_qualification"
+  #if f.qualification.length == 0
+  #  errs.push "empty_qualification"
   if f.group_learning.length == 0
     errs.push "empty_group_learning"
   active = false
