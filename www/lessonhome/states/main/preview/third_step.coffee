@@ -3,7 +3,7 @@ class @main extends template '../preview'
   model : 'main/third_step'
   title : "выберите место занятия"
   tags  : -> 'pupil:main_search'
-  access : ['pupil']
+  access : ['pupil','other']
   redirect : {
     'default' : 'main/first_step'
   }
