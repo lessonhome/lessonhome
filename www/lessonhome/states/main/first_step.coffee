@@ -94,11 +94,13 @@ class @main extends template './motivation_content'
 
 
         }
-      choose_subject  : module '../selected_tag'  :
+      ###choose_subject  : module '../selected_tag'  :
         selector  : 'choose_subject'
         id        : '123'
         text      : 'Алгебра'
         close     : true
+
+      ###
       empty_choose_subject : module '../selected_tag' :
         selector  : 'choose_subject'
         id        : ''
