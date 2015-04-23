@@ -17,10 +17,10 @@ class @main
     @building   = @tree.building.class
     @flat       = @tree.flat.class
 
-    # drop_down_list focus TODO: make in drop_down_list clear_err_effect on element after focus and start writing, same input
-    @country.on     'focus',  => @clearOutErr @out_err_country, @country
-    @city.on        'focus',  => @clearOutErr @out_err_city,    @city
-    @area.on        'focus',  => @clearOutErr @out_err_area,    @area
+    # clear errors
+    @country.on     'focus',  => @hideError
+    @city.on        'focus',  => @hideError
+    @area.on        'focus',  => @hideError
 
 
 
@@ -28,7 +28,7 @@ class @main
     @bSave.on 'submit', @next
 
   next : =>
-    @save?().then (success)=>
+    @save().then (success)=>
       if success
         @bSave.submit()
     .done()
@@ -60,6 +60,10 @@ class @main
       errs.push 'bad_city'
     if !@area.exists() && @area.getValue().length!=0
       errs.push 'bad_area'
+    for e in errs
+      @parseError e
+    return errs.length==0
+    return true
 
 
   getData: =>
@@ -102,19 +106,25 @@ class @main
 
       # correct
       when "bad_country"
-        @outErr "Выберите значение из списка", @out_err_country, @country
+        @country.setErrorDiv @out_err_country
+        @country.showError "Выберите страну  из списка"
+        console.log 'bad'
       when "bad_city"
-        @outErr "Выберите значение из списка", @out_err_city, @city
+        @city.setErrorDiv @out_err_city
+        @city.showError "Выберите город  из списка"
       when "bad_area"
-        @outErr "Выберите значение из списка", @out_err_area, @area
+        @area.setErrorDiv @out_err_area
+        @area.showError "Выберите район из списка"
       # empty
       when "empty_country"
-        @outErr "Выберите страну", @out_err_country, @country
+        @country.setErrorDiv @out_err_country
+        @country.showError "Выберите страна"
       when "empty_city"
-        @outErr "Выберите город", @out_err_city, @city
+        @city.setErrorDiv @out_err_city
+        @city.showError "Выберите город"
       when "empty_area"
-        @outErr "Выберите район", @out_err_area, @area
-
+        @area.setErrorDiv @out_err_area
+        @area.showError "Выберите район"
       when "empty_near_metro"
         @near_metro.showError "Заполните поле"
       when "empty_street"
