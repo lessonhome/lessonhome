@@ -9,6 +9,7 @@ check = require("./check")
     return {status:'failed',errs:errs}
 
   tags = []
+  tags.push data.course
   for val, key in data.categories_of_students
     console.log 'AAron'
     console.log val
@@ -26,6 +27,7 @@ check = require("./check")
           tags.push "student"
         when 5
           tags.push "adult"
+
   price_range = []
   price_range.push data.price_from
   price_range.push data.price_till
@@ -44,6 +46,6 @@ check = require("./check")
           place.push "other"
 
   db= yield $.db.get 'tutor'
-  yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:{name:data.subject_tag, description:data.comments, tags:tags, price:{range:price_range, duration:data.duration},place:place, groups:{description:data.group_learning} }}},{upsert:true}
+  yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:{name:data.subject_tag, description:data.comments, tags:tags, price:[{range:price_range, duration:data.duration}],place:place, groups:[{description:data.group_learning}] }}},{upsert:true}
 
   return {status:'success'}

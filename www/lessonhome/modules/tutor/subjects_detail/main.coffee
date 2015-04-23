@@ -61,7 +61,7 @@ class @main
       return @$send('./save',@getData())
       .then ({status,errs})=>
         if status=='success'
-          return false
+          return true
         #if errs?.length
          # @parseError errs
         return false

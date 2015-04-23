@@ -9,8 +9,7 @@ class @main
       text2     : @exports 'start_text'
     # if us end(second input) determine selector and text in parent module
     end           : @exports()
-    min           : @exports()
-    max           : @exports()
+    value         : @exports()
     dash          : @exports()
     measurement   : @exports()
     move          : module '../slider':

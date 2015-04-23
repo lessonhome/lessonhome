@@ -1,19 +1,22 @@
 class @main extends EE
-  show : =>
-    @min = @tree.min
-    #if !@min? then @min = 0
-    @max = @tree.max
-    unless @max? && @min?
-      e = new Error "not defined variable min/max in main/slader_main"
-      console.error e,@tree
-      throw e
+  Dom : =>
     @start = @tree.start?.class
     @end   = @tree.end?.class
     @slider = @tree.move.class
-    @end?.addReplace? /\D/,""
-    @start?.addReplace? /\D/,""
-    @start?.setValue @min
-    @end?.setValue @max
+    if @tree.min? || @tree.max?
+      throw new Error 'use new syntax tree.value.{min|max} insted tree.{min|max}'
+    unless @tree.value?
+      console.log @
+      throw new Error 'need value in tree(new style of slider/main_slider)'
+    @tree.value.left ?=  @tree.value.min
+    @tree.value.right ?=  @tree.value.max
+
+  show : =>
+    console.log 'show slider main'
+
+    #@start?.setValue @tree.value.left
+    #@end?.setValue @tree.value.right
+
 
     setSliderPos = (sliderCorn, inputVal) =>
       sliderCorn.set (inputVal-@min) / (@max-@min)
@@ -41,6 +44,31 @@ class @main extends EE
       input = @end  if @end?
       input ?= @start if @start?
       setInputVal input, x
+
+    @setValue @tree.value
+    unless @max? && @min?
+      e = new Error "not defined variable min/max in main/slader_main"
+      console.error e,@tree
+      throw e
+    @end?.addReplace? /\D/,""
+    @start?.addReplace? /\D/,""
+
+  setValue : (v)=>
+    throw new Error 'bad value' unless v.min? && v.max? && v.left? && v.right?
+    @min = v.min
+    @max = v.max
+    @start?.setValue? v.left
+    @end?.setValue? v.right
+    @end?.emit? 'end'
+    @start?.emit? 'end'
+  getValue : =>
+    return {
+      left : @start?.getValue?()
+      right : @end.getValue?()
+      min : @min
+      max : @max
+    }
+
 
 
 

@@ -37,13 +37,17 @@ class Cursor extends EE
     @pos @px Math.sign(@r()-@l())*(@m-@sm)+@spx
 
   set : (x)->
+    console.log 'set',x
     @x(x)
     @pos @px()
   
 class @main extends EE
+
+
   show : =>
-    window.FF ?= []
-    FF.push @
+    console.log 'show slider'
+  Dom : =>
+
     @box_slider = @dom.find ".box_slider"
     @slider     = @box_slider.find ".slider"
     @dom_left   = @slider.find '.icon_cursor_left'
