@@ -3,7 +3,7 @@ class @main extends template '../preview'
   model : 'main/application/5_step'
   title : "быстрое оформление заявки: финальный шаг"
   tags  : -> 'pupil:fast_bid'
-  access : ['pupil']
+  access : ['pupil','other']
   redirect : {
     tutor : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'

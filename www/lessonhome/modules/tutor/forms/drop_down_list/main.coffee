@@ -40,6 +40,8 @@ class @main extends EE
     @emit 'end', @getValue()
 
   show : =>
+    @maxListHeight = @list.height()*5
+
     @scroll = @tree.scroll?.class
     @isFocus = false
     @on 'blur',@onBlur
@@ -84,8 +86,8 @@ class @main extends EE
             if 0<=d<=0.33
               o = {d,opt}
               arr.push o if o?
-            break if sBegin.length > 2 && arr.length > 5
-            break if arr.length > 10
+            #break if sBegin.length > 2 && arr.length > 5
+            #break if arr.length > 10
           return [] unless arr.length
           for i in [0...arr.length-1]
             for j in [i+1...arr.length]
@@ -113,6 +115,13 @@ class @main extends EE
           if idx>=0
             $opt = @items.eq idx
             $opt.addClass 'selected'
+            bottom = @options.height()-$opt.position().top-$opt.height()
+            top    = $opt.position().top
+            console.log bottom,top,@options.scrollTop()
+            if bottom<0
+              @options.scrollTop @options.scrollTop()-bottom
+            if top<0
+              @options.scrollTop @options.scrollTop()+top
           else
             @input.val ''
 
@@ -227,7 +236,11 @@ class @main extends EE
           if @items.size() > 0
             makeSelected 0
             @select_sets.show()
+            lh = @list.height()*@items.size()
             @items.css 'line-height', @list.height()+"px"
+            h = @maxListHeight
+            h = lh if lh < h
+            @options.height h
           return
 
         markBeginText = (str, startStr)=>
@@ -239,7 +252,7 @@ class @main extends EE
         fillOptions = ($selOpts, options, sBegin) =>
           html = ''
           options.forEach (optVal) ->
-            optValText = markBeginText(optVal.text, sBegin)
+            optValText = markBeginText(optVal.text, "")
             html += "<div class='custom-option' value='#{optVal.value}'>#{optValText}</div>"
             return
           @options.empty()
