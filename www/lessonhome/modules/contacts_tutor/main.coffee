@@ -11,11 +11,15 @@ class @main
     @post         = @tree.post.class
     @skype        = @tree.skype.class
     @site         = @tree.site.class
+    # drop_down_list
     @country      = @tree.country.class
     @city         = @tree.city.class
 
-    @country.input.on 'focus', => @clearOutErr @err_country, @country
-    @city.input.on    'focus', => @clearOutErr @err_city, @city
+
+
+    # clear error
+    @country.input.on 'focus',  => @country.hideError()
+    @city.input.on    'focus',  => @city.hideError()
 
 
 
@@ -45,13 +49,13 @@ class @main
 
   getData : =>
     return {
-      mobile_phone: @mobile_phone.getValue()
-      extra_phone: @extra_phone.getValue()
-      post: @post.getValue()
-      skype: @skype.getValue()
-      site: @site.getValue()
-      country: @country.getValue()
-      city: @city.getValue()
+      mobile_phone  : @mobile_phone.getValue()
+      extra_phone   : @extra_phone.getValue()
+      post          : @post.getValue()
+      skype         : @skype.getValue()
+      site          : @site.getValue()
+      country       : @country.getValue()
+      city          : @city.getValue()
     }
 
   parseError : (err)=>
@@ -83,25 +87,11 @@ class @main
       when "empty_site"
         @site.showError "Введите сайт"
       when "empty_country"
-        @outErr "Выберите страну", @err_country, @country
+        @country.setErrorDiv @out_err_country
+        @country.showError "Выберите курс"
       when "empty_city"
-        @outErr "Выберите город", @err_city, @city
-
-
-
-  outErr : (err, err_el, el) =>
-    el.err_effect()
-    err_el.text err
-    setTimeout =>
-      err_el.show()
-    , 100
-
-
-  clearOutErr : (err_el ,el) =>
-    el.clean_err_effect()
-    err_el.hide()
-    err_el.text('')
-
+        @city.setErrorDiv @out_err_city
+        @city.showError "Выберите курс"
 
 
 

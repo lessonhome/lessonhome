@@ -11,6 +11,9 @@ class @main extends EE
       @state = @label.hasClass 'active'
       @emit 'change',@state
 
+
+
+
   getValue : =>
     @label.hasClass 'active'
 

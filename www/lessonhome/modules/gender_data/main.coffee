@@ -45,6 +45,5 @@ class @main extends EE
     @out_err_sex.text error
     @out_err_sex.show()
   hideError : =>
-    console.log 'hhhh'
     @out_err_sex.hide()
     @out_err_sex.text ""
