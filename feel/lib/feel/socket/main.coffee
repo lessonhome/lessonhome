@@ -27,12 +27,16 @@ class Socket
       autoSpdy31 : true
       ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'             
-    }                       
-    @sshServer = spdy.createServer options,@handler 
+    }
+    @sshServer = spdy.createServer options,@handler
     @sshServer.listen 8084
   run  : =>
 
   handler : (req,res)=> Q.spawn =>
+    $ = {}
+    $.req = req
+    $.res = res
+    $.register = @register
     req.cookie = cookie = new _cookies req,res
     session = cookie.get 'session'
     register = yield @register.register session
@@ -62,14 +66,18 @@ class Socket
           else
             do (obj,key,val)->
               obj[key] = (args...)-> Q.then -> val.apply obj,args
-    $ = {}
     $.db = @db
-    $.req = req
-    $.res = res
+    do (req,res)=>
+      req ?= {}
+      req.status ?= {}
+      console.log req,req.status
+      req.status = (args...)=>
+        @status req,res,args...
+    $.status = $.req.status
     $.user = req.user
     $.session = session
     $.cookie = cookie
-    $.register = @register
+    $.updateUser = => @updateUser req,res,$
     try
       ret = yield @handlers[clientName].handler $,data...
     catch e
@@ -82,7 +90,23 @@ class Socket
       console.error Exception new Error "failed JSON.stringify client returned object"
       ret = JSON.stringify {status:"failed",err:"internal_error"}
     res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(ret))});"
-
+  status : (req,res,name,value)=>
+    db = yield @db.get 'accounts'
+    status = yield _invoke db.find({id:req.user.id},{status:1}),'toArray'
+    status = status?[0]?.status
+    status ?= {}
+    if value? && status[name]!= value
+      status[name] = value
+      yield _invoke db,'update', {id:req.user.id},{$set:{status:status}},{upsert:true}
+    return status[name]
+  updateUser : (req,res,$)=>
+    cookie = req.cookie
+    session = cookie.get 'session'
+    register = yield @register.register session
+    session = register.session
+    req.user = register.account
+    $.user = req.user
+    $.session = session
   resolve : (context,path,pref)=>
     name = pref+path.substr 1
     #"runtime#{path}.c.coffee"
