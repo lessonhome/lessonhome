@@ -59,18 +59,23 @@ class @main
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          return true
-        #if errs?.length
-         # @parseError errs
-        return false
+      .then @onReceive
     else
       return false
 
+  onReceive : ({status,errs,err})=>
+    if err?
+      errs?=[]
+      errs.push err
+    if status=='success'
+      return true
+    if errs?.length
+      for e in errs
+        @parseError e
+    return false
+
 
   check_form : =>
-    errs = []
     errs = @js.check @getData()
     if !@course.exists() && @course.getValue() != 0
       errs.push 'bad_course'
