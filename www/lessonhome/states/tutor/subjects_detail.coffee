@@ -45,7 +45,7 @@ class @main
     place_price_group : state 'tutor/profile_content/registration_popup/place_price'  :
       title : 'ГРУППОВЫЕ'
     price_slider   : state 'main/slider_main' :
-      selector      : 'price_slider_bids'
+      selector      : 'price_fast_reg'
       start         : 'calendar'
       start_text    : ''
       end         : module 'tutor/forms/input' :
