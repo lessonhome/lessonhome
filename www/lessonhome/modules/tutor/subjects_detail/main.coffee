@@ -26,30 +26,6 @@ class @main
     @del.on 'click', =>
       @bg_block.remove()
 
-    # tag
-    @subject_tag    = @tree.subject_tag.class
-    # drop_down_list
-    @course         = @tree.course.class
-    @group_learning = @tree.group_learning.class
-    # input
-    @duration   = @tree.duration.class
-    @price_from = @tree.price_slider.start.class
-    @price_till = @tree.price_slider.end.class
-    # text area
-    @comments       = @tree.comments.class
-    # checkboxes
-    @pre_school     = @tree.pre_school.class
-    @junior_school  = @tree.junior_school.class
-    @medium_school  = @tree.medium_school.class
-    @high_school    = @tree.high_school.class
-    @student        = @tree.student.class
-    @adult          = @tree.adult.class
-    @place_tutor    = @tree.place_tutor.class
-    @place_pupil    = @tree.place_pupil.class
-    @place_remote   = @tree.place_remote.class
-    @place_cafe     = @tree.place_cafe.class
-
-
     # fined div error
     @course           .setErrorDiv @out_err_course
     @group_learning   .setErrorDiv @out_err_group_learning
@@ -73,77 +49,4 @@ class @main
     @place_remote.on      'change', => @place_remote.hideError()
     @place_cafe.on        'change', => @place_cafe.hideError()
 
-  save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then @onReceive
-    else
-      return false
-
-  onReceive : ({status,errs,err})=>
-    if err?
-      errs?=[]
-      errs.push err
-    if status=='success'
-      return true
-    if errs?.length
-      for e in errs
-        @parseError e
-    return false
-
-  check_form : =>
-    errs = @js.check @getData()
-    if !@course.exists() && @course.getValue() != 0
-      errs.push 'bad_course'
-    if !@group_learning.exists() && @group_learning.getValue() != 0
-      errs.push 'bad_group_learning'
-    for e in errs
-      @parseError e
-    return errs.length==0
-    return true
-
-
-  getData : =>
-    @categories_of_students = [@pre_school.getValue(),@junior_school.getValue(), @medium_school.getValue(), @high_school.getValue(), @student.getValue(), @adult.getValue()]
-    @place = [@place_tutor.getValue(),@place_pupil.getValue(), @place_remote.getValue(),@place_cafe.getValue()]
-    return {
-      subject_tag             : @subject_tag.getValue()
-      course                  : @course.getValue()
-      group_learning          : @group_learning.getValue()
-      comments                : @comments.getValue()
-      duration                : @duration.getValue()
-      price_from              : @price_from.getValue()
-      price_till              : @price_till.getValue()
-      place                   : @place
       categories_of_students  : @categories_of_students
-
-    }
-
-
-  parseError : (err)=>
-    switch err
-    # short
-      when "short_duration"
-        @duration.showError "Введите время занятия"
-    # long
-      when "long_duration"
-        @duration.showError "Слишком большая продолжительность"
-    #empty
-      when "empty_duration"
-        @duration.showError "Заполните имя"
-      when "empty_course"
-        @course.showError "Выберите направление"
-      when "empty_group_learning"
-        @group_learning.showError "Выберите групповые занятия"
-      when "empty_categories_of_students"
-        @pre_school.showError "Выберите категории учеников"
-      when "empty_place"
-        @place_tutor.showError "Выберите место занятий"
-    #correct
-      when "bad_course"
-        @course.showError "Выберите корректное направление"
-      when "bad_group_learning"
-        @group_learning.showError "Выберите корректный курс"
-      else
-        alert 'die'
-
