@@ -9,7 +9,8 @@
   catch err
     err.err     ?= 'internal_error'
     return {status:'failed',err:err.err}
+  yield $.updateUser()
+  yield $.status 'tutor',true
   return {status:'success',session:obj.session.hash}
-
 
 

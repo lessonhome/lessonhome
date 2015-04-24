@@ -18,21 +18,17 @@ class @main
     @year         = @tree.birth_data.year.class
     @status       = @tree.status.class
 
-
-
-    # drop_down_list focus TODO: make in drop_down_list clear_err_effect on element after focus and start writing, same input
+    # clear error
     @day.on     'focus',  => @day.hideError()
     @month.on   'focus',  => @month.hideError()
     @year.on    'focus',  => @year.hideError()
     @status.on  'focus',  => @status.hideError()
-    @sex.on     'select',  => @sex.hideError()
+    @sex.on     'select', => @sex.hideError()
 
-    ### drop_down_list blurs
-    @day.on     'blur',  => @save
-    @month.on   'blur',  => @save
-    @year.on    'blur',  => @save
-    @status.on  'blur',  => @save
-    ###
+    # error div
+    @day.setErrorDiv @out_err_date
+    @status.setErrorDiv @out_err_status
+
 
   save : => Q().then =>
     if @check_form()
@@ -84,7 +80,6 @@ class @main
     }
 
   parseError : (err)=>
-
     switch err
       #short
       when "short_first_name"
@@ -101,23 +96,17 @@ class @main
       when "empty_middle_name"
         @middle_name.showError "Заполните отчество"
       when "empty_date"
-        @day.setErrorDiv @out_err_date
         errArr = [@day, @month, @year]
         for val in errArr
-          #console.log errArr[val], errArr[key]
           val.showError "Заполните дату"
       when "empty_status"
-        @status.setErrorDiv @out_err_status
         @status.showError "Выберите статус"
       #correct
       when "bad_day"
-        @day.setErrorDiv @out_err_date
         @day.showError "Введите корректный день"
       when "bad_month"
-        @month.setErrorDiv @out_err_date
         @month.showError "Введите корректный месяц"
       when "bad_year"
-        @year.setErrorDiv @out_err_date
         @year.showError "Введите корректный год"
       when "bad_status"
         @status.setErrorDiv @out_err_date

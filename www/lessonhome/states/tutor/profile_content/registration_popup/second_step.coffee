@@ -6,6 +6,9 @@ class @main extends template '../registration_popup'
   redirect : {
     'default' : 'main/first_step'
   }
+  status : {
+    '!tutor_prereg_1':'/tutor/profile/first_step'
+  }
   tree : =>
     progress  : 2
     #data('tutor').get('registration_progress')

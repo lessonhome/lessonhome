@@ -64,8 +64,6 @@ class @main
         @parseError e_, i
       i++
     return errs.length==0
-    return true
-
 
   getData : =>
     @subjects_val = []

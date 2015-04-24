@@ -33,5 +33,6 @@ check = require("./check")
 
   db= yield $.db.get 'tutor'
   yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:subjects_db}},{upsert:true}
+  yield $.status 'tutor_prereg_3', true
 
   return {status:'success'}

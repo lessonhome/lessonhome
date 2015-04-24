@@ -212,4 +212,12 @@ class module.exports
   res304  : (req,res)=>
     res.writeHead 304
     res.end()
-
+  status : (req,res,name,value)=> do Q.async =>
+    db = yield @db.get 'accounts'
+    status = yield _invoke db.find({id:req.user.id},{status:1}),'toArray'
+    status = status?[0]?.status
+    status ?= {}
+    if value? && status[name]!= value
+      status[name] = value
+      yield _invoke db,'update', {id:req.user.id},{$set:{status:status}},{upsert:true}
+    return status[name]

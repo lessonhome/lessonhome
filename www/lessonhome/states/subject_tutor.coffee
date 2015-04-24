@@ -5,13 +5,13 @@ class @main
       text      : 'Предмет :'
       selector  : 'first_reg'
       default_options     : {
-        '0': {value: 'english', text: 'английский язык'},
-        '1': {value: 'math', text: 'математика'},
-        '2': {value: 'russian_language', text: 'русский язык'},
-        '3': {value: 'music', text: 'музыка'},
-        '4': {value: 'physics', text: 'физика'},
-        '5': {value: 'chemistry', text: 'химия'},
-        '6': {value: 'german', text: 'немецкий язык'},
+        '0': {value: 'english', text: 'английский язык'}
+        '1': {value: 'math', text: 'математика'}
+        '2': {value: 'russian_language', text: 'русский язык'}
+        '3': {value: 'music', text: 'музыка'}
+        '4': {value: 'physics', text: 'физика'}
+        '5': {value: 'chemistry', text: 'химия'}
+        '6': {value: 'german', text: 'немецкий язык'}
         '7': {value: 'primary_school', text: 'начальная школа'}
         '8': {value: 'french', text: 'франзузский язык'}
         '9': {value: 'social_studies', text: 'обществознание'}
@@ -78,8 +78,6 @@ class @main
         '70': {value: 'economy', text: 'экономика'}
         '71': {value: 'electrical_engineering', text: 'электротехника'}
         '72': {value: 'japanese', text: 'японский язык'}
-
-
       }
     subjects     : [
       state 'tutor/subjects_detail'

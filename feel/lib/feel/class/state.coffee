@@ -375,4 +375,5 @@ class module.exports
     obj.$session= state.req.session
     obj.$register= state.req.register
     obj.$cookie = state.req.cookie
+    obj.$status = state.req.status
     return obj
