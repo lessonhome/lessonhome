@@ -79,6 +79,7 @@
 
 
 @tutorTagToCheckbox =(tags, checkbox)=>
+  return if !tags?
   for val in tags
     if val == checkbox then return true
   return false

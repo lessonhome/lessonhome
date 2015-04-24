@@ -1,7 +1,7 @@
 
 class @main
   tree : -> module '$' :
-    subject         : module 'tutor/forms/drop_down_list' :
+    select_subject_field : module 'tutor/forms/drop_down_list' :
       text      : 'Предмет :'
       selector  : 'first_reg'
       default_options     : {
@@ -81,4 +81,6 @@ class @main
 
 
       }
-    subjects_detail     : state 'tutor/subjects_detail'
+    subjects     : [
+      state 'tutor/subjects_detail'
+    ]
