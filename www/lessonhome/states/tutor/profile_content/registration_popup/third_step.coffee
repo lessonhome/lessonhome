@@ -8,14 +8,14 @@ class @main extends template '../registration_popup'
   }
   status :
     '!tutor_prereg_2':'/tutor/profile/second_step'
-  tree : ->
+  tree : =>
     progress  : 3
     #data('tutor').get('registration_progress')
     content : module '$' :
       form : state 'subject_tutor'
 
-  init : ->
+  init : =>
     @parent.tree.popup.button_back.selector = 'fast_bid_nav'
-    @parent.tree.popup.button_back.href = 'second_step'
+    @parent.tree.popup.button_back.href     = 'second_step'
     @parent.tree.popup.button_next.selector = 'fast_bid_nav'
-    @parent.tree.popup.button_next.href = 'fourth_step'
+    @parent.tree.popup.button_next.href     = 'fourth_step'
