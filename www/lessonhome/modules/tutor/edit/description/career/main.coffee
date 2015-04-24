@@ -1,10 +1,6 @@
 class @main
   Dom : =>
     @out_err_experience     = @found.out_err_experience
-    @add_button             = @found.add_button
-    @clone_el               = @found.clone_el
-    @place_of_work          = @found.place_of_work
-    @post                   = @found.post
 
   show : =>
     @work = []
@@ -16,21 +12,10 @@ class @main
     @experience = @tree.experience_tutoring.class
 
     # drop_down_list catch focus
-    #@experience.on  'focus',  => @clearOutErr @out_err_experience,  @experience
+    @experience.on  'focus',  => @experience.hideError()
 
-
-    # add more work place
-    @add_button.on 'click', => @cloneInput()
-
-
-
-
-  cloneInput : =>
-    el = @clone_el.clone()
-    el.find('input').val('')
-    el.appendTo('.block_work')
-
-
+    # error div
+    @experience.setErrorDiv @out_err_experience
 
 
 
@@ -82,24 +67,9 @@ class @main
       when "empty_post"
         @work[index].post.showError "Введите должность"
       when "empty_exp"
-        @outErr "Выберите опыт", @out_err_experience, @experience
+        @experience.showError "Выберите опыт"
+      #correct
+      when "bad_experience"
+        @experience.showError "Выберите корректный опыт"
       else
         alert 'die'
-
-
-
-  outErr : (err, err_el, el) =>
-    if el instanceof Array
-      for _el in el
-        _el.err_effect()
-    else
-      el.err_effect()
-    err_el.text err
-    setTimeout =>
-      err_el.show()
-    , 100
-
-  clearOutErr : (err_el ,el) =>
-    el.clean_err_effect()
-    err_el.hide()
-    err_el.text('')

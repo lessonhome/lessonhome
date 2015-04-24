@@ -2,8 +2,8 @@
 
 class @main
   Dom : =>
-    @err_country = @found.out_err_country
-    @err_city = @found.out_err_city
+    @out_err_country  = @found.out_err_country
+    @out_err_city     = @found.out_err_city
 
   show : =>
     @mobile_phone = @tree.mobile_phone.class
@@ -21,7 +21,9 @@ class @main
     @country.input.on 'focus',  => @country.hideError()
     @city.input.on    'focus',  => @city.hideError()
 
-
+    # error div
+    @country.setErrorDiv @out_err_country
+    @city.setErrorDiv @out_err_city
 
   save : => Q().then =>
     if @check_form()
@@ -72,9 +74,9 @@ class @main
       when "bad_site"
         @site.showError "Неверный формат названия"
       when "bad_country"
-        @outErr "Введите правильную страну", @err_country, @country
+        @country.showError "Введите правильную страну"
       when "bad_city"
-        @outErr "Введите правильный город", @err_city, @city
+        @city.showError "Введите правильный город"
       #empty
       when "empty_mobile"
         @mobile_phone.showError "Введите телефон"
@@ -87,11 +89,10 @@ class @main
       when "empty_site"
         @site.showError "Введите сайт"
       when "empty_country"
-        @country.setErrorDiv @out_err_country
-        @country.showError "Выберите курс"
+        @country.showError "Выберите страну"
       when "empty_city"
-        @city.setErrorDiv @out_err_city
-        @city.showError "Выберите курс"
+        @city.showError "Выберите город"
+
 
 
 

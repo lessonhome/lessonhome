@@ -21,9 +21,9 @@ class @main extends template '../edit_description'
             text2: 'Должность :'
         }
       ]
-      add_button    : module 'button_add' :
-        text     : '+Добавить'
-        selector : 'edit_add'
+      #add_button    : module 'button_add' :
+      #  text     : '+Добавить'
+      #  selector : 'edit_add'
       line : module 'tutor/separate_line' :
         selector : 'horizon'
       experience_tutoring : module 'tutor/forms/drop_down_list' :

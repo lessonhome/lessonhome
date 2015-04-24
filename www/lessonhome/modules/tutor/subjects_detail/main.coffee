@@ -132,7 +132,7 @@ class @main
       when "empty_duration"
         @duration.showError "Заполните имя"
       when "empty_course"
-        @course.showError "Выберите курс"
+        @course.showError "Выберите направление"
       when "empty_group_learning"
         @group_learning.showError "Выберите групповые занятия"
       when "empty_categories_of_students"
@@ -141,7 +141,7 @@ class @main
         @place_tutor.showError "Выберите место занятий"
     #correct
       when "bad_course"
-        @course.showError "Выберите корректный курс"
+        @course.showError "Выберите корректное направление"
       when "bad_group_learning"
         @group_learning.showError "Выберите корректный курс"
       else
