@@ -19,15 +19,12 @@ class @main
     else
       return false
   check_form : =>
-    errs = []
     errs = @js.check @getData()
     if !@subject.exists() && @subject.getValue() != 0
       errs.push 'bad_subject'
     for e in errs
       @parseError e
     return errs.length==0
-    return true
-
 
   getData : =>
     return {
