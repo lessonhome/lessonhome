@@ -78,7 +78,8 @@
   return "<a href=#{href}>заполнить</a>"
 
 
-@tutorTagToCheckbox =(tags, checkbox)=>
+@tutorTagToCheckbox = (tags,checkbox)=>
+  return false unless tags?.length? && checkbox?
   for val in tags
     if val == checkbox then return true
   return false
