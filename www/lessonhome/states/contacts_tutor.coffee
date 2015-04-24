@@ -4,17 +4,14 @@ class @main
       text        : 'Страна :'
       selector    : 'first_reg'
       default_options     : {
-        '0': {value: 'russia', text: 'Россия'},
-        '1': {value: 'ukraine', text: 'Украина'},
-        '2': {value: 'belarus', text: 'Белоруссия'}
+        '0': {value: 'russia', text: 'Россия'}
       }
       value : data('person').get('location').then (l)-> l?.country
     city    : module 'tutor/forms/drop_down_list' :
       text        : 'Город :'
       selector    : 'first_reg'
       default_options     : {
-        '0': {value: 'moscow', text: 'Москва'},
-        '1': {value: 'spb', text: 'Санкт Петербург'}
+        '0': {value: 'moscow', text: 'Москва'}
       }
       value : data('person').get('location').then (l)-> l?.city
     # var popup respond address

@@ -31,9 +31,9 @@ class @main extends template '../edit_description'
         selector  : 'first_reg'
       release_date   : state 'data_date'  :
         text  : 'Дата выпуска :'
-      add_button    : module 'button_add' :
-        text      : '+Добавить'
-        selector  : 'edit_add'
+      #add_button    : module 'button_add' :
+      #  text      : '+Добавить'
+      #  selector  : 'edit_add'
     hint        : module 'tutor/hint' :
       selector  : 'horizontal'
       header    : 'Это подсказка'

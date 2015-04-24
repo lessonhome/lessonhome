@@ -4,9 +4,15 @@ class @main
     country : module 'tutor/forms/drop_down_list' :
       text      : 'Страна :'
       selector  : 'first_reg'
+      default_options     : {
+        '0': {value: 'russia', text: 'Россия'}
+    }
     city    : module 'tutor/forms/drop_down_list' :
       text      : 'Город :'
       selector  : 'first_reg'
+      default_options     : {
+        '0': {value: 'moscow', text: 'Москва'}
+      }
     area    : module 'tutor/forms/drop_down_list' :
       text      : 'Район :'
       selector  : 'first_reg'
@@ -25,9 +31,6 @@ class @main
     flat       : module 'tutor/forms/input' :
       text2      : 'Квартира :'
       selector  : 'first_reg'
-    add_button : module 'button_add' :
-      text      : '+Добавить'
-      selector  :  'edit_add'
     save_button : module 'link_button' :
       text      : 'Сохранить'
       selector  :  'edit_save'

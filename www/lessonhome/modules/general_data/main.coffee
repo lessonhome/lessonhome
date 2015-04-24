@@ -27,6 +27,8 @@ class @main
 
     # error div
     @day.setErrorDiv @out_err_date
+    @month.setErrorDiv @out_err_date
+    @year.setErrorDiv @out_err_date
     @status.setErrorDiv @out_err_status
 
 
@@ -98,7 +100,8 @@ class @main
       when "empty_date"
         errArr = [@day, @month, @year]
         for val in errArr
-          val.showError "Заполните дату"
+          if !val.exists()
+            val.showError "Заполните дату"
       when "empty_status"
         @status.showError "Выберите статус"
       #correct
@@ -109,7 +112,6 @@ class @main
       when "bad_year"
         @year.showError "Введите корректный год"
       when "bad_status"
-        @status.setErrorDiv @out_err_date
         @status.showError "Выберите статус из списка"
       when "unselect_sex"
         @sex.showError "Выберите пол"
