@@ -14,6 +14,7 @@ class @main
         post  : val.post.class
     # drop_down_list
     @experience = @tree.experience_tutoring.class
+    @extra_info = @tree.extra_info.class
 
     # drop_down_list catch focus
     #@experience.on  'focus',  => @clearOutErr @out_err_experience,  @experience
@@ -29,11 +30,6 @@ class @main
     el = @clone_el.clone()
     el.find('input').val('')
     el.appendTo('.block_work')
-
-
-
-
-
 
   save : => Q().then =>
     if @check_form()
@@ -60,6 +56,7 @@ class @main
     return errs.length==0
 
   getData : =>
+    extra_info  : @extra_info.getValue()
     experience  : @experience.getValue()
     work        : for w in @work
       place : w.place.getValue()

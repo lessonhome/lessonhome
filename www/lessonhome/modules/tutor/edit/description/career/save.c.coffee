@@ -9,11 +9,10 @@
   if errs.length
     return {status:'failed',errs:errs}
 
+  db= yield $.db.get 'persons'
+  yield _invoke db, 'update',{account:$.user.id},{$set:{work:data.work}},{upsert:true}
 
   db= yield $.db.get 'tutor'
-  yield _invoke db, 'update',{account:$.user.id},{$set:{reason:data.reason, slogan:data.slogan,about:data.about }},{upsert:true}
-
-  db= yield $.db.get 'persons'
-  yield _invoke db, 'update',{account:$.user.id},{$set:{interests:{description:data.interests}}},{upsert:true}
+  yield _invoke db, 'update',{account:$.user.id},{$set:{experience:data.experience, extra:[{type:'text',text:data.extra_info}]}},{upsert:true}
 
   return {status:'success'}
