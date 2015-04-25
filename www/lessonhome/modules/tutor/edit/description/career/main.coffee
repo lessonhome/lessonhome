@@ -10,16 +10,13 @@ class @main
         post  : val.post.class
     # drop_down_list
     @experience = @tree.experience_tutoring.class
+    @extra_info = @tree.extra_info.class
 
     # drop_down_list catch focus
     @experience.on  'focus',  => @experience.hideError()
 
     # error div
     @experience.setErrorDiv @out_err_experience
-
-
-
-
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
@@ -45,6 +42,7 @@ class @main
     return errs.length==0
 
   getData : =>
+    extra_info  : @extra_info.getValue()
     experience  : @experience.getValue()
     work        : for w in @work
       place : w.place.getValue()
