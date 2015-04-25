@@ -51,13 +51,13 @@ class @main extends template '../edit_description'
         text2      : 'Подтвердите :'
         selector  : 'first_reg'
       line_phone : module 'tutor/separate_line' :
-        title     : 'Номер телефона'
+        title     : 'Изменить номер телефона'
         selector  : 'horizon'
       line_email : module 'tutor/separate_line' :
-        title     : 'E-mail'
+        title     : 'Изменить e-mail'
         selector  : 'horizon'
       line_password : module 'tutor/separate_line' :
-        title     : 'Пароль'
+        title     : 'Изменить пароль'
         selector  : 'horizon'
 
     hint        : module 'tutor/hint' :

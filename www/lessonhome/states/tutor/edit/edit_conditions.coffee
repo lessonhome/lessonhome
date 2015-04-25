@@ -4,7 +4,7 @@ class @main extends template '../edit'
       'Предметы'     : 'subjects'
       #'Место'        : 'location'
       'Календарь'    : 'calendar'
-      'Предпочтения' : 'preferences'
+      'Места выезда' : 'preferences'
     active_item     : @exports()
     menu_condition  : @exports()
     tutor_edit      : @exports()
