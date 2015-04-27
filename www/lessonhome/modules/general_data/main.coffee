@@ -26,9 +26,9 @@ class @main
     @sex.on     'select', => @sex.hideError()
 
     # error div
-    @day.setErrorDiv @out_err_date
-    @month.setErrorDiv @out_err_date
-    @year.setErrorDiv @out_err_date
+    @day.setErrorDiv    @out_err_date
+    @month.setErrorDiv  @out_err_date
+    @year.setErrorDiv   @out_err_date
     @status.setErrorDiv @out_err_status
 
 

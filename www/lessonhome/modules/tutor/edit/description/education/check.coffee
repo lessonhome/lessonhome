@@ -13,16 +13,11 @@
     errs.push "empty_faculty"
   if f.chair.length == 0
     errs.push "empty_chair"
-  if f.status.length == 0
-    errs.push "empty_status"
-  if f.day.length==0 && f.month.length==0 && f.year.length==0
-    errs.push "empty_date"
+
+
   ###
   # not correct
-  if f.day*1<1 && f.day*1>32
-    errs.push "bad_day"
-  if f.year*1<1930 && f.day*1>1997
-    errs.push "bad_year"
+
   return errs
 
 
