@@ -54,12 +54,12 @@ class @main
 
   check_form : =>
     errs = @js.check @getData()
-    if !@country.exists() && @country.getValue().length!=0
-      errs.push 'bad_country'
-    if !@city.exists() && @city.getValue().length!=0
-      errs.push 'bad_city'
-    if !@area.exists() && @area.getValue().length!=0
-      errs.push 'bad_area'
+    #if !@country.exists() && @country.getValue().length!=0
+    #  errs.push 'bad_country'
+    #if !@city.exists() && @city.getValue().length!=0
+    #  errs.push 'bad_city'
+    #if !@area.exists() && @area.getValue().length!=0
+    #  errs.push 'bad_area'
     for e in errs
       @parseError e
     return errs.length==0

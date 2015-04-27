@@ -49,6 +49,7 @@ class @main
     return false
   check_form : =>
     errs = @js.check @getData()
+    ###
     if !@country.exists() && @country.getValue().length!=0
       errs.push 'bad_country'
     if !@city.exists() && @city.getValue().length!=0
@@ -73,6 +74,7 @@ class @main
       errs.push 'empty_date'
     if @year.exists() && !@month.exists() && !@day.exists()
       errs.push 'empty_date'
+    ###
     for e in errs
       @parseError e
     return errs.length==0
