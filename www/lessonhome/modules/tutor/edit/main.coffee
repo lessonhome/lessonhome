@@ -15,6 +15,7 @@ class @main
           if status=='success'
             return true
         ###
+        $('body,html').animate({scrollTop:0}, 500)
         @changes_field.fadeIn()
         return true
     .done()

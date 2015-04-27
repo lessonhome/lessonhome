@@ -16,14 +16,16 @@ class @main extends template '../edit_description'
           place_of_work: module 'tutor/forms/input':
             selector: 'first_reg'
             text2: 'Место работы :'
+            value : data('person').get('work').then (w)-> return w[0].place if w?[0]?.place?
           post: module 'tutor/forms/input':
             selector: 'first_reg'
             text2: 'Должность :'
+            value : data('person').get('work').then (w)-> return w[0].post if w?[0]?.post?
         }
       ]
-      add_button    : module 'button_add' :
-        text     : '+Добавить'
-        selector : 'edit_add'
+      #add_button    : module 'button_add' :
+      #  text     : '+Добавить'
+      #  selector : 'edit_add'
       line : module 'tutor/separate_line' :
         selector : 'horizon'
       experience_tutoring : module 'tutor/forms/drop_down_list' :
@@ -35,10 +37,12 @@ class @main extends template '../edit_description'
           '2': {value: 'more_than_4_years', text: 'более 4 лет'},
           '3': {value: 'no_matter', text: 'неважно'}
         }
+        value: data('tutor').get('experience').then (e_)-> return e_ if e_?
       extra_info : module 'tutor/forms/textarea' :
         text      : 'Доп. информация/<br>награды'
         selector  : 'first_reg'
         height : '117px'
+        value: data('tutor').get('extra').then (e_)-> return e_[0].text if e_?[0]?.text?
     hint        : module 'tutor/hint' :
       selector  : 'horizontal'
       header    : 'Это подсказка'
