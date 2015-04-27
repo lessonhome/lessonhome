@@ -16,8 +16,11 @@
       .js-add_time_button!= add_time_button
   .js-tags
     .js-tag!=tag
-    for tag_box in tags
-      .tag_box!= tag_box
+    each val in tags
+      .tag
+        .text!= val.day
+        .value_from!= val.period.start
+        .value_still!= val.period.end
 
 
 
