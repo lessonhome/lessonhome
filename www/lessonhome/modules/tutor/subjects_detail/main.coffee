@@ -13,6 +13,28 @@ class @main
     @out_err_categories_of_students = @found.out_err_categories_of_students
     @out_err_place                  = @found.out_err_place
 
+    subject = @tree
+    @subject_tag = subject.subject_tag.class
+    @course = subject.course.class
+    @group_learning = subject.group_learning.class
+    @duration = subject.duration.class
+    @price_from = subject.price_slider.start.class
+    @price_till = subject.price_slider.end.class
+    @comments = subject.comments.class
+
+    @pre_school = subject.pre_school.class
+    @junior_school = subject.junior_school.class
+    @medium_school = subject.medium_school.class
+    @high_school = subject.high_school.class
+    @student = subject.student.class
+    @adult = subject.adult.class
+    @place_tutor = subject.place_tutor.class
+    @place_pupil = subject.place_pupil.class
+    @place_remote = subject.place_remote.class
+    @place_cafe = subject.place_cafe.class
+ 
+
+
   show: =>
     # hide and delete function subject details
     @hide_el.on 'click', =>
@@ -49,4 +71,3 @@ class @main
     @place_remote.on      'change', => @place_remote.hideError()
     @place_cafe.on        'change', => @place_cafe.hideError()
 
-      categories_of_students  : @categories_of_students

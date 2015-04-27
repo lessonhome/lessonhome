@@ -5,14 +5,16 @@ check = require("./check")
   console.log data
   errs = check.check data
   return {status:"failed",errs:["access_failed"]} unless $.user.tutor
-  if errs.length
+  if errs?.length
     return {status:'failed',errs:errs}
 
-  subjects_db = []
-  i = 0
-  for subject in data.val
-    subjects_db[i].name = subject.subject_tag
+  subjects_db = {}
+  for i,subject in data.subjects_val
+    subjects_db[i] = {}
+    #subjects_db[i].name = subject.subject_tag
+    subjects_db[i].description ?= []
     subjects_db[i].description.push subject.comments
+    subjects_db[i].tags ?= []
     subjects_db[i].tags.push subject.course
     if subject.pre_school then subjects_db[i].tags.push "school:0"
     if subject.junior_school then subjects_db[i].tags.push "school:1"
@@ -23,13 +25,15 @@ check = require("./check")
     price_range = []
     price_range.push subject.price_from
     price_range.push subject.price_till
+    subjects_db[i].price = {}
     subjects_db[i].price.range = price_range
     subjects_db[i].price.duration = subject.duration
+    subjects_db[i].place ?= []
     if subject.place_tutor then subjects_db[i].place.push "tutor"
     if subject.place_pupil then subjects_db[i].place.push "pupil"
     if subject.place_remote then subjects_db[i].place.push "remote"
     if subject.place_cafe then subjects_db[i].place.push "other"
-    subjects_db[i].groups[0].description = subject.group_learning
+    subjects_db[i].groups = [description:subject.group_learning]
 
   db= yield $.db.get 'tutor'
   yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:subjects_db}},{upsert:true}

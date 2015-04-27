@@ -38,10 +38,10 @@ class @main extends template '../../tutor'
       select_all_checkbox : module 'tutor/forms/checkbox' :
         selector : 'small'
       sort_list     : module 'tutor/forms/drop_down_list':
-        placeholder : 'Все'
+        placeholder : 'Все заявки'
         selector    : 'in_bids'
       subject : module 'tutor/forms/drop_down_list':
-        placeholder : 'Предмет'
+        placeholder : 'Все предмет'
         selector    : 'in_bids'
 
       list_bids : module 'tutor/bids/list_bids' :
