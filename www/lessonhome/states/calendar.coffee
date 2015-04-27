@@ -22,9 +22,10 @@ class @main
       selector    : 'filter_add_time'
       text        :     'Добавить<br>время'
     tag       : module '//selected_tag' :
-      day   : 'пн :'
-      from_time : 'c 12:00'
-      to_time   : 'до 16:00'
+      day   : ''
+      from_time : ''
+      to_time   : ''
       selector  : 'choose_course'
       close     : true
+    tags : data('tutor').get('calendar').then (c)-> return c if c?
     #TODO: make create module selected_tag if user input time and press button add_time_button
