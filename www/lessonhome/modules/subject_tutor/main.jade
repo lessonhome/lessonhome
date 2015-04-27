@@ -1,4 +1,5 @@
-.subject!= subject
+.subject!= select_subject_field
 .err
   .js-out_err_subject
-.subjects_detail!=subjects_detail
+each s in subjects
+  .subjects_detail!=s
