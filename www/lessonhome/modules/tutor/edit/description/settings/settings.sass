@@ -1,4 +1,7 @@
 @import compass/css3
+$close_src: 'close.png'
+$close_height: image-height($close_src)
+$close_width: image-width($close_src)
 $padding: 7px
 $height: 37px
 main
@@ -25,12 +28,35 @@ main
     .notice_email_checkbox
       padding-left: 10px
 .callback
+  position: relative
   padding: $padding+8px 0 $padding
   .callback_toggle, .callback_comment
     text-align: left
     width: 341px
   .callback_comment
     padding-top: 10px
+  .hint
+    padding: 5px
+    position: absolute
+    top: 0
+    width: 695px
+    left: 0
+    background: aliceblue
+    z-index: 2
+    text-align: left
+    display: none
+    .text
+      line-height: 26px
+    .close_block
+      cursor: pointer
+      position: absolute
+      right: 0
+      top: 0
+      padding: 10px
+      .close
+        width: $close_width
+        height: $close_height
+        background: url(F($close_src)) no-repeat
 .old_email, .old_phone_number
   padding: $padding 0
   .text
