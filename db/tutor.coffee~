@@ -106,17 +106,6 @@ tutor:
   #pref_gender: 'man' #предпочтения пол        TODO Не понимаю зачем это нужно
   #pref_status: 'студент' #предпочтения статус TODO 
 
-  reviews: [
-    {
-      name   : ""
-      date   : ""
-      text   : ""
-      rating : ""
-      
-    }
-  ]
-
-
 
 
     

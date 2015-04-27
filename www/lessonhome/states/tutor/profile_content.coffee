@@ -22,7 +22,7 @@ class @main
           return e_ if e_? && e_?.length
           return data('convert').getLinkToFill "./edit/career"
         'Место работы :'        : data('person').get('work').then (w)->
-          return w.pop().name if w?.pop?().name? && w?.pop?().name?.length
+          return w[0].place if w?[0]?.place? && w?[0]?.place?.length
           return data('convert').getLinkToFill "./edit/career"
     line_con            : module 'tutor/separate_line':
       title     : 'Контакты'
@@ -38,22 +38,22 @@ class @main
     education           : module '$/info_block' :
       section :
         'ВУЗ :'         : data('person').get('education').then (edu)->
-          return edu.pop().name if edu?.pop?().name? && edu?.pop?().name?.length
+          return edu[0].name if edu?[0]?.name? && edu?[0]?.name?.length
           return data('convert').getLinkToFill "./edit/education"
         'Город :'       : data('person').get('education').then (edu)->
-          return edu.pop().city if edu?.pop?().city? && edu?.pop?().city?.length
+          return edu[0].city if edu?[0]?.city? && edu?[0]?.city?.length
           return data('convert').getLinkToFill "./edit/education"
         'Фаультет :'    : data('person').get('education').then (edu)->
-          return edu.pop().faculty if edu?.pop?().faculty? && edu?.pop?().faculty?.length
+          return edu[0].faculty if edu?[0]?.faculty? && edu?[0]?.faculty?.length
           return data('convert').getLinkToFill "./edit/education"
         'Кафедра :'     : data('person').get('education').then (edu)->
-          return edu.pop().chair if edu?.pop?().chair? && edu?.pop?().chair?.length
+          return edu[0].chair if edu?[0]?.chair? && edu?[0]?.chair?.length
           return data('convert').getLinkToFill "./edit/education"
         'Квалификация :'      : data('person').get('education').then (edu)->
-          return edu.pop().qualification if edu?.pop?().qualification? && edu?.pop?().qualification?.length
+          return edu[0].qualification if edu?[0]?.qualification? && edu?[0]?.qualification?.length
           return data('convert').getLinkToFill "./edit/education"
         'Год выпуска:'  : data('person').get('education').then (edu)->
-          return edu.pop().period.end if edu?.pop?().period?.end? && edu?.pop?().period?.end?.length
+          return edu[0].period.end if edu?[0]?.period?.end? && edu?[0]?.period?.end?.length
           return data('convert').getLinkToFill "./edit/education"
 
     line_pri            : module 'tutor/separate_line':

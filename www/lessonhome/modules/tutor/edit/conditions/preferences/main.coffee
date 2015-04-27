@@ -1,4 +1,4 @@
 
-#class @main
-#  show : =>
+class @main extends EE
+  show : =>
 

@@ -3,8 +3,13 @@
   .reviews_rating!=reviews_rating
   .number_pupils.select='( '+pupils_number+' учеников )'
 .reviews
-  each value in list_reviews
-    .review!= value
+  if list_reviews.length
+    each value in list_reviews
+      .review!= value
+  else
+    .no_reviews
+      .text1 Пока нет ни одого отзыва.
+      .text2 Каждый отзыв собирается оператором после<br>удачно завершённой заявки.
 //if send_bid_this_tutor
   .send_bid_this_tutor!=send_bid_this_tutor
 //.hint
