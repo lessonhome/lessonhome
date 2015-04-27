@@ -5,6 +5,8 @@ class @main
   show : =>
     @save_button = @tree.save_button?.class
     @tutor_edit = @tree.tutor_edit.class
+    if @tree.tutor_edit?.calendar?
+      @tutor_edit = @tree.tutor_edit.calendar.class
     @save_button?.on 'submit', @b_save
 
   b_save : =>

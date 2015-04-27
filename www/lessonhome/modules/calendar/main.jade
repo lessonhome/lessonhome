@@ -1,20 +1,28 @@
 .calendar_box(class = selector)
   .js-choose_all!= choose_all
   .js-calendar_week
-    .monday.hover пн
-    .tuesday.hover вт
-    .wednesday.hover ср
-    .thursday.hover чт
-    .friday.hover пт
-    .saturday.hover сб
-    .sunday.hover вс
+    .js-day.monday.hover пн
+    .js-day.tuesday.hover вт
+    .js-day.wednesday.hover ср
+    .js-day.thursday.hover чт
+    .js-day.friday.hover пт
+    .js-day.saturday.hover сб
+    .js-day.sunday.hover вс
   .js-show-hidden-block
     .time_box
       .from_time!=from_time
       .dash -
       .till_time!=till_time
       .js-add_time_button!= add_time_button
-  .tag!=tag
+  .js-tags
+    .js-tag!=tag
+    each val in tags
+      .tag
+        .text!= val.day
+        .value_from!= val.period.start
+        .value_still!= val.period.end
+
+
 
 
 
