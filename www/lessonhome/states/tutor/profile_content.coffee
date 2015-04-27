@@ -52,8 +52,8 @@ class @main
         'Квалификация :'      : data('person').get('education').then (edu)->
           return edu[0].qualification if edu?[0]?.qualification? && edu?[0]?.qualification?.length
           return data('convert').getLinkToFill "./edit/education"
-        'Год выпуска:'  : data('person').get('education').then (edu)->
-          return edu[0].period.end if edu?[0]?.period?.end? && edu?[0]?.period?.end?.length
+        'Период обучения :'  : data('person').get('education').then (edu)->
+          return "#{edu[0].period.start} - #{edu[0].period.end} гг." if edu?[0]?.period?.start? && edu?[0]?.period?.start?.length && edu?[0]?.period?.end? && edu?[0]?.period?.end?.length
           return data('convert').getLinkToFill "./edit/education"
 
     line_pri            : module 'tutor/separate_line':

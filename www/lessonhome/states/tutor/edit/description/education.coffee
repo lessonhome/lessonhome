@@ -26,18 +26,23 @@ class @main extends template '../edit_description'
       chair         : module 'tutor/forms/drop_down_list' :
         text      : 'Кафедра :'
         selector  : 'first_reg'
-      status        : module 'tutor/forms/drop_down_list' :
+      qualification : module 'tutor/forms/drop_down_list' :
         text      : 'Статус :'
         selector  : 'first_reg'
-      release_date   : state 'data_date'  :
-        text  : 'Дата выпуска :'
+      learn_from    : module 'tutor/forms/drop_down_list'  :
+        text        : 'Период обучения :'
+        selector    : 'first_reg_from'
+        placeholder : 'с'
+      learn_till    : module 'tutor/forms/drop_down_list'  :
+        selector    : 'first_reg_till'
+        placeholder : 'до'
       #add_button    : module 'button_add' :
       #  text      : '+Добавить'
       #  selector  : 'edit_add'
-    hint        : module 'tutor/hint' :
-      selector  : 'horizontal'
-      header    : 'Это подсказка'
-      text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'
+    #hint        : module 'tutor/hint' :
+    #  selector  : 'horizontal'
+    #  header    : ''
+    #  text      : ''
 
 
   init: =>
@@ -47,7 +52,10 @@ class @main extends template '../edit_description'
     @tree.tutor_edit.university.value = education.then (edu)-> edu[0].name if edu?[0]?.name?
     @tree.tutor_edit.faculty.value = education.then (edu)-> edu[0].faculty if edu?[0]?.faculty?
     @tree.tutor_edit.chair.value = education.then (edu)-> edu[0].chair if edu?[0]?.chair?
-    @tree.tutor_edit.status.value = education.then (edu)-> edu[0].qualification if edu?[0]?.qualification?
+    @tree.tutor_edit.qualification.value = education.then (edu)-> edu[0].qualification if edu?[0]?.qualification?
+    @tree.tutor_edit.learn_from.value = education.then (edu)-> edu[0].period.start if edu?[0]?.period?.start?
+    @tree.tutor_edit.learn_till.value   = education.then (edu)-> edu[0].period.end if edu?[0]?.period?.end?
+
 
 
 

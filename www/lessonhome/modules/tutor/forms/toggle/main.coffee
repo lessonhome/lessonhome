@@ -6,8 +6,9 @@ class @main extends EE
 
     @first_value.on 'click', => @value_click(@first_value, @second_value, @toggle_block, @first_value)
     @toggle_block.on 'click', => @toggle_block_click(@first_value, @second_value, @toggle_block)
-    @second_value.on 'click', => @value_click(@first_value, @second_value, @toggle_block, @second_value)
-
+    @second_value.on 'click', =>
+      @value_click(@first_value, @second_value, @toggle_block, @second_value)
+      @emit 'sec_active'
   value_click: (first_value, second_value, toggle_block, element)=>
     if element.hasClass("active_value")
       return 0
@@ -30,5 +31,6 @@ class @main extends EE
   change_toggle_activities: (toggle_block)=>
     if toggle_block.hasClass("active_toggle")
       toggle_block.removeClass("active_toggle")
+      @emit 'sec_active'
     else toggle_block.addClass("active_toggle")
 

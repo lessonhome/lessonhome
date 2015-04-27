@@ -18,6 +18,10 @@ mixin field (selector, value)
   .title.select Можно ли оператору<br>Вам звонить?
   .callback_toggle!=callback_toggle
   .callback_comment!= callback_comment
+  .js-hint
+    .text Рекомендуем оставить возможность оператру звонить Вам.<br>Так Вы сразу получите информацию об ученике, любые вопросы будут быстро решены.<br>Чтобы Вам звонили только в определенное время - укажите это в комментариях.
+    .js-close_block
+      .close
 
 .save_block
   .button!= save_button
