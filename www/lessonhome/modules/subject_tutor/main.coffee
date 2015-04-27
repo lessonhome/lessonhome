@@ -1,15 +1,16 @@
 
 class @main
   show: =>
-    @subjects = []
-    i = 0
-    for subject in @tree.subjects
+    @subjects = {}
+  
+    for i,subject of @tree.subjects
+      @subjects[i] = {}
       @subjects[i].subject_tag = subject.subject_tag.class
       @subjects[i].course = subject.course.class
       @subjects[i].group_learning = subject.group_learning.class
       @subjects[i].duration = subject.duration.class
-      @subjects[i].price_from = subject.price_from.class
-      @subjects[i].price_till = subject.price_till.class
+      @subjects[i].price_from = subject.price_slider.start.class
+      @subjects[i].price_till = subject.price_slider.end.class
       @subjects[i].comments = subject.comments.class
 
       @subjects[i].pre_school = subject.pre_school.class
@@ -22,7 +23,7 @@ class @main
       @subjects[i].place_pupil = subject.place_pupil.class
       @subjects[i].place_remote = subject.place_remote.class
       @subjects[i].place_cafe = subject.place_cafe.class
-      i++
+  
 
   save : => Q().then =>
     if @check_form()
@@ -37,38 +38,50 @@ class @main
       errs.push err
     if status=='success'
       return true
-    if errs?.length
+    ###
       i = 0
+
       for e in errs
         for e_ in e
           @parseError e_, i
         i++
+    ###
+    if errs?.length
+      for e in errs
+        if typeof e == 'object'
+          _e = Object.keys(e)[0]
+          i = e[_e]
+        else
+          _e = e
+          i = null
+        @parseError _e, i
     return false
 
 
   check_form : =>
     errs = @js.check @getData()
-    i = 0
-    for subject_val in @subjects_val
-      if !subject_val[i].course.exists() && subject_val[i].course.getValue() != 0
-        errs[i].push 'bad_course'
+    for i,subject_val of @subjects
+      if !subject_val.course.exists() && subject_val.course.getValue() != 0
+        errs.push 'bad_course':i
       #if !@qualification.exists() && @qualification.getValue() != 0
       #  errs.push 'bad_qualification'
-      if !subject_val[i].group_learning.exists() && subject_val[i].group_learning.getValue() != 0
-        errs[i].push 'bad_group_learning'
-      i++
+      if !subject_val.group_learning.exists() && subject_val.group_learning.getValue() != 0
+        errs.push 'bad_group_learning':i
 
-    i = 0
     for e in errs
-      for e_ in e
-        @parseError e_, i
-      i++
+      if typeof e == 'object'
+        _e = Object.keys(e)[0]
+        i = e[_e]
+      else
+        _e = e
+        i = null
+      @parseError _e, i
     return errs.length==0
 
   getData : =>
-    @subjects_val = []
-    i = 0
-    for subject in @subjects
+    @subjects_val = {}
+    for i,subject of @subjects
+      @subjects_val[i] = {}
       @subjects_val[i].subject_tag = subject.subject_tag.getValue()
       @subjects_val[i].course = subject.course.getValue()
       @subjects_val[i].group_learning = subject.group_learning.getValue()
@@ -87,11 +100,8 @@ class @main
       @subjects_val[i].place_pupil = subject.place_pupil.getValue()
       @subjects_val[i].place_remote = subject.place_remote.getValue()
       @subjects_val[i].place_cafe = subject.place_cafe.getValue()
-      i++
-
-
     return {
-      val : @subjects_val
+      subjects_val : @subjects_val
     }
     ###
       @categories_of_students = [@pre_school.getValue(),@junior_school.getValue(), @medium_school.getValue(), @high_school.getValue(), @student.getValue(), @adult.getValue()]
@@ -112,25 +122,24 @@ class @main
 
 
   parseError : (err, i)=>
-
     switch err
-    # short
+      # short
       when "short_duration"
         @subjects[i].duration.showError "Введите время занятия"
 
-    # long
+      # long
       when "long_duration"
         @subjects[i].duration.showError "Слишком большая продолжительность"
 
-    #empty
+      #empty
       when "empty_duration"
         @subjects[i].duration.showError "Заполните имя"
       when "empty_course"
         @subjects[i].course.setErrorDiv @out_err_course
         @subjects[i].course.showError "Выберите курс"
-    #when "empty_qualification"
-    #  @qualification.setErrorDiv @out_err_qualification
-    #  @qualification.showError "Выберите квалификацию"
+      #when "empty_qualification"
+      #  @qualification.setErrorDiv @out_err_qualification
+      #  @qualification.showError "Выберите квалификацию"
       when "empty_group_learning"
         @subjects[i].group_learning.setErrorDiv @out_err_group_learning
         @subjects[i].group_learning.showError "Выберите групповые занятия"
@@ -141,13 +150,13 @@ class @main
         @subjects[i].place_tutor.setErrorDiv @out_err_place
         @subjects[i].place_tutor.showError "Выберите место занятий"
 
-    #correct
+      #correct
       when "bad_course"
         @subjects[i].course.setErrorDiv @out_err_course
         @subjects[i].course.showError "Выберите корректный курс"
-    #when "bad_qualification"
-    #  @qualification.setErrorDiv @out_err_qualification
-    #  @course.showError "Выберите корректную квалификацию"
+      #when "bad_qualification"
+      #  @qualification.setErrorDiv @out_err_qualification
+      #  @course.showError "Выберите корректную квалификацию"
       when "bad_group_learning"
         @subjects[i].group_learning.setErrorDiv @out_err_course
         @subjects[i].group_learning.showError "Выберите корректный курс"
