@@ -13,8 +13,8 @@
     errs.push "empty_first_name"
   if f.last_name.length == 0
     errs.push "empty_last_name"
-  if f.middle_name.length == 0
-    errs.push "empty_middle_name"
+  #if f.middle_name.length == 0
+  #  errs.push "empty_middle_name"
   if f.day.length==0 && f.month.length==0 && f.year.length==0
     errs.push "empty_date"
   if f.status.length == 0
