@@ -8,6 +8,7 @@
   'www.lessonhome.ru'
   'prep.su'
   'pi0h.org'
+  '192.168.88.232'
 ]
 
 
