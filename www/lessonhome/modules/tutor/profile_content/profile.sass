@@ -3,9 +3,8 @@ $contact_src: 'tutor/profile_contacts.png'
 $education_src: 'tutor/profile_edu.png'
 $private_src: 'tutor/profile_about.png'
 $media_src: 'tutor/profile_media.png'
-$width_margin : 180px    //width photo and margin-right personal data
+$width_margin : 200px    //width photo and margin-right personal data
 $margin_bottom_box : 30px  //in the section_box
-$padding_left : 30px
 main
   padding: 50px 20px
 
@@ -51,8 +50,8 @@ main
       width: 160px
       margin: auto
   .personal_data
+    padding: 0 30px 0 30px
     margin-left: $width_margin
-    padding-left: $padding_left
     $font_line: 30px
     .name_verification_block
       font-size: $font_line
@@ -109,14 +108,13 @@ main
 div>.icon_box
   position: absolute
   height: 100%
-.contacts_box, .education_box, .private_box, .media_box
+.contacts_box, .education_box, .about_box, .media_box
   margin-bottom: $margin_bottom_box
   padding-right: 48px
   position: relative
   min-height: 100px
-.private_box, .media_box
-  margin-top: 9px
 .media_box
+  margin-top: 9px
   padding-right: 33px
   margin-bottom: 0
 $icon_height: image-height($contact_src)
@@ -143,7 +141,7 @@ $icon_width: image-width($education_src)
 
 $icon_height: image-height($private_src)
 $icon_width: image-width($private_src)
-.private_box .icon_box .icon
+.about_box .icon_box .icon
   width: $icon_width
   height: $icon_height
   background: url(F($private_src)) no-repeat
@@ -163,6 +161,9 @@ $icon_width: image-width($media_src)
   margin-top: - $icon_height / 2
   margin-left: ($width_margin - $icon_width) / 2
 
-.contacts_box .contacts, .education_box .education, .private_box .private, .media_box .media
+.contacts_box .contacts, .education_box .education, .about_box .about, .media_box .media
   margin-left: $width_margin
   padding-left: $margin_bottom_box
+
+.media_box .media
+  padding-left: 0
