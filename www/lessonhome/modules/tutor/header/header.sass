@@ -1,4 +1,11 @@
 @import compass/css3
+$font-size: 16px
+$triangle_src: 'main/triangle_33x18.png'
+$triangle_width: image-width($triangle_src)
+$triangle_height: image-height($triangle_src)
+$border_width: 1px
+$color_text: #757575
+
 main
   height : 100%
   text-align: center
@@ -8,7 +15,7 @@ main
 .right_box
   float: right
   height: 100%
-  .back_call, .button_in_out
+  .back_call, .button_in_out,   .tutor_icon
     height: 100%
     +inline-block
   .back_call
@@ -17,6 +24,62 @@ main
     +inline-block
     height: 100%
     content: ""
+  .tutor_icon
+    position: relative
+    margin-right: 20px
+    .icon
+      +inline-block
+      height: 47px
+      width: 47px
+      background-color: #f5f5f5
+    .hidden
+      position: absolute
+      left: 50%
+      top: 80px - $triangle_height
+      display: none
+      .box_menu
+        position: relative
+        left: -50%
+        .triangle_box
+          .triangle
+            +inline-block
+            width: $triangle_width
+            height: $triangle_height
+            background: url(F($triangle_src)) no-repeat
+        .menu
+          padding: 5px 15px 10px 15px
+          margin-top: -$border_width
+          border: $border_width solid #cccccc
+          background: white
+          a
+            +inline-block
+            height: 100%
+            width: 100%
+            text-decoration: none
+            color: $color_text
+            .title
+              line-height: 32px
+              font-size: 16px
+  .tutor_icon:after
+    content: ''
+    height: 100%
+    +inline-block
+  .tutor_icon:hover
+    .hidden
+      display: block
+
+
+
+
+
+
+
+
+
+
+
+
+
   //.button_in_out
     padding: 0 20px
 .left_box

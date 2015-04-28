@@ -37,11 +37,11 @@ class @main
       selector  : 'horizon'
     education           : module '$/info_block' :
       section :
-        'ВУЗ :'         : data('person').get('education').then (edu)->
-          return edu[0].name if edu?[0]?.name? && edu?[0]?.name?.length
-          return data('convert').getLinkToFill "./edit/education"
         'Город :'       : data('person').get('education').then (edu)->
           return edu[0].city if edu?[0]?.city? && edu?[0]?.city?.length
+          return data('convert').getLinkToFill "./edit/education"
+        'ВУЗ :'         : data('person').get('education').then (edu)->
+          return edu[0].name if edu?[0]?.name? && edu?[0]?.name?.length
           return data('convert').getLinkToFill "./edit/education"
         'Фаультет :'    : data('person').get('education').then (edu)->
           return edu[0].faculty if edu?[0]?.faculty? && edu?[0]?.faculty?.length
@@ -76,3 +76,4 @@ class @main
         src : F 'vk.unknown.man.jpg'
       video   : module 'mime/video' :
         src : F 'vk.unknown.man.jpg'
+
