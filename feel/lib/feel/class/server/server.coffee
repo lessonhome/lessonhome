@@ -98,7 +98,7 @@ class Server
     if @ssh
       res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
     host = req.headers.host
-    if m = host.match /^www\.(.*)$/
+    if m = host?.match /^www\.(.*)$/
       res.statusCode = 301
       host = m[1]
       res.setHeader 'location', "//#{host}#{req.url}"

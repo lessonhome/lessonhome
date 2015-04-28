@@ -8,3 +8,5 @@ iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8083 -m mark --mark
 
  iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 8081
  iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 443 -j REDIRECT --to-ports 8083
+ iptables -t nat -I OUTPUT -p tcp -d 192.168.88.232 --dport 80 -j REDIRECT --to-ports 8081
+ iptables -t nat -I OUTPUT -p tcp -d 192.168.88.232 --dport 443 -j REDIRECT --to-ports 8083
