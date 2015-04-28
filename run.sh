@@ -10,7 +10,7 @@ killall node 2>> /dev/null
 killall nodejs 2>> /dev/null
 
 if [ "$#" -eq 1 ];then
-  node --harmony --debug ./feel/bin/debug & 
+  iojs ./feel/bin/feel &
 else
   node --harmony ./feel/bin/feel &
 fi

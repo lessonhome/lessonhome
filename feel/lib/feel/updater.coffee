@@ -34,7 +34,7 @@ class module.exports
     try
       yield @fhandler(req,res)
     catch e
-      yield @exec "start",["feel"], res
+      yield @exec "sudo",["systemctl","start","feel.service"], res
       throw e
 
   fhandler : (req,res)=> do Q.async =>
@@ -53,7 +53,7 @@ class module.exports
     res.on 'close', =>
       res.closed = true
       @end(res)
-    yield @exec "stop",["feel"], res
+    yield @exec "sudo",["systemctl","stop","feel.service"], res
     list = yield Q.ninvoke ps, 'lookup', {
       command : 'iojs'
       psargs : "aux"
@@ -71,14 +71,15 @@ class module.exports
     process.chdir 'feel'
     yield @exec "npm",["i"],res
     process.chdir '..'
-    yield @exec "start",["feel"], res
-    @exec "tail", ["-f","-n","0","/var/log/upstart/feel.log"],res,600000
+    yield @exec "sudo",["systemctl","start","feel.service"], res
+    @exec "sudo", ["journalctl","-f","-n","0","-u","feel.service"],res,600000
     .then => @end res
   tail : (req,res,num=30)=>
     res.on 'close', =>
       res.closed = true
       @end(res)
-    @exec "tail", ["-f","-n","#{num}","/var/log/upstart/feel.log"],res,1200000, => @end res
+    #@exec "tail", ["-f","-n","#{num}","/var/log/upstart/feel.log"],res,1200000, => @end res
+    @exec "sudo", ["journalctl","-f","-n","#{num}","-u","feel.service"],res,1200000,=>@end res
 
   end : (res)=>
     return if res.closed
