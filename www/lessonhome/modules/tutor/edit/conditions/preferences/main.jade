@@ -1,3 +1,18 @@
 .title Выберите районы в которые Вам удобно выезжать к ученику
 .value.area!=area
-.value.metro!=metro
+.js-area_tags
+  if ((typeof area_tags !== "undefined" && area_tags !== null ? area_tags[0] : void 0) != null)
+    for key,val in area_tags
+      .tag
+        .text_box
+          .text!=key
+        .js-close_box
+          .close
+
+//.value.metro!=metro
+.js-metro_tags
+.js-tag
+  .text_box
+    .text
+  .js-close_box
+    .close

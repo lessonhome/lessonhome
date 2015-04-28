@@ -63,8 +63,12 @@ class @main
       selector  : 'horizon'
     about            : module '$/info_block' :
       section :
-        'Интересы :'        : 'scsdcs sdcscsd sadcsdcs SDCASDC'
-        'О себе :'          : 'ssdcsds sdcdscds sdcsdcsd sdcsds sdcssd sdcsdcsd sdcsdcsd sdcsdcsd sdcsdcsd sdcsdc'
+        'Интересы :'        : data('person').get('interests').then (i)->
+          return i[0].description if i?[0]?.description? && i?[0]?.description?.length
+          return data('convert').getLinkToFill "./edit/about"
+        'О себе :'          : data('tutor').get('about').then (a)->
+          return a if a? && a?.length
+          return data('convert').getLinkToFill "./edit/about"
       #text : data('tutor').get('about')
     line_med            : module 'tutor/separate_line':
       title    : 'Медиа'
