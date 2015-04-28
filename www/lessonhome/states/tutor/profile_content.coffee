@@ -12,7 +12,7 @@ class @main
     first_name  : data('person').get('first_name')
     middle_name : data('person').get('middle_name')
     last_name   : data('person').get('last_name')
-    with_verification   : true
+    #with_verification   : true
     personal_data       : module '$/info_block' :
       section   :
         'Дата рождения :'       : data('person').get('birthday').then (b)-> data('convert').convertToDate b if b?
@@ -61,9 +61,11 @@ class @main
       link      : './edit/about'
       edit      : @exports()
       selector  : 'horizon'
-    private_            : module '$/private' :
-      text : data('tutor').get('about')
-      #'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
+    about            : module '$/info_block' :
+      section :
+        'Интересы :'        : 'scsdcs sdcscsd sadcsdcs SDCASDC'
+        'О себе :'          : 'ssdcsds sdcdscds sdcsdcsd sdcsds sdcssd sdcsdcsd sdcsdcsd sdcsdcsd sdcsdcsd sdcsdc'
+      #text : data('tutor').get('about')
     line_med            : module 'tutor/separate_line':
       title    : 'Медиа'
       link      : './edit/media'
