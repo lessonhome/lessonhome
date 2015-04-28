@@ -1,8 +1,19 @@
 .logo
   !=logo
-.right_box.unselect
+.right_box
   .back_call!=back_call
-  .button_in_out!=button_in_out
+  if $req.user.registered
+    .tutor_icon
+      .icon!= tutor_icon
+      .hidden
+        .box_menu
+          .triangle_box
+            .triangle
+          .menu
+            each val in tutor_icon_list
+              != val
+  else
+    .button_in_out!=button_in_out
 .left_box.unselect
   if icons
     .icons!=icons

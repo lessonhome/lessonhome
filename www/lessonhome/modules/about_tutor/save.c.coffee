@@ -14,6 +14,6 @@
   yield _invoke db, 'update',{account:$.user.id},{$set:{reason:data.reason, slogan:data.slogan,about:data.about }},{upsert:true}
 
   db= yield $.db.get 'persons'
-  yield _invoke db, 'update',{account:$.user.id},{$set:{interests:{description:data.interests}}},{upsert:true}
+  yield _invoke db, 'update',{account:$.user.id},{$set:{interests:[{description:data.interests}]}},{upsert:true}
 
   return {status:'success'}

@@ -32,3 +32,23 @@ class @main
       enter       : module './button' :
         text  : 'Войти'
         selector      : 'in_out'
+
+    tutor_icon : module 'mime/photo' :
+      photo   : data('ava').get()
+      src     : F 'vk.unknown.man.jpg'
+    tutor_icon_list : [
+      module 'tutor/header/list_button/item' :
+        title : 'Профиль'
+        link : '/tutor/profile'
+      module 'tutor/header/list_button/item' :
+        title : 'Заявки'
+        link : '/tutor/search_bids'
+      module 'tutor/header/list_button/item' :
+        title : 'Помощь'
+        link : '#'
+      module 'tutor/header/list_button/item' :
+        title : 'Выход'
+        link : '/form/tutor/logout'
+    ]
+
+
