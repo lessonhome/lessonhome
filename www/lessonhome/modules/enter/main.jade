@@ -1,0 +1,11 @@
+.enter_block
+  form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
+    input.js-submit(type='submit')
+    .login
+      .input!= login
+    .password
+      .input!= password
+    .forgot_password Забыли пароль
+    .buttons
+      .enter_button!=enter_button
+      a(href = '/main_tutor') Регистрация
