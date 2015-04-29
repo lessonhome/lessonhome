@@ -17,6 +17,7 @@ class @main
           if status=='success'
             return true
         ###
+        console.log 'IS SEND!!!'
         $('body,html').animate({scrollTop:0}, 500)
         @changes_field.fadeIn()
         return true
