@@ -1,5 +1,6 @@
 class @main extends EE
   Dom : =>
+    @tree.value ?= @tree.state if @tree.state?
     @label = @dom.find "label"
     @check_box = @found.check_box
     @check = @found.check
@@ -15,19 +16,15 @@ class @main extends EE
 
 
 
-  getValue : =>
-    @label.hasClass 'active'
+  getValue : => @state = @label.hasClass 'active'
 
   setValue : (val)=>
-    switch val
-      when true
-        return if @label.addClass 'active'
-        @label.addClass 'active'
-        @state = true
-      else
-        return if !@label.addClass 'active'
-        @label.removeClass 'active'
-        @state = false
+    if val
+      @label.addClass 'active'
+      @state = @label.hasClass 'active'
+    else
+      @label.removeClass 'active'
+      @state = @label.hasClass 'active'
 
   showError : (error)=>
     if @errorDiv?

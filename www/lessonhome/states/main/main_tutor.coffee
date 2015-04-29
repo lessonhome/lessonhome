@@ -27,7 +27,7 @@ class @main extends template '../main'
         selector    : 'fast_bid'
         text1       : 'Придумайте пароль'
       agree_checkbox        : module 'tutor/forms/checkbox' :
-        state : true
+        value : true
       create_account  : module 'link_button' :
         href      : 'tutor/profile/first_step'
         selector  : 'create_account'
