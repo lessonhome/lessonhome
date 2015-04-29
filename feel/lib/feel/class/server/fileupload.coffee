@@ -77,8 +77,8 @@ class FileUpload
     yield Q.all qs
     db = yield Main.service 'db'
     db = yield db.get 'persons'
-    photos = yield _invoke db.find({account:req.user.id},{photos:1}), 'toArray'
-    photos = photos?[0]?.photos
+    photos = yield _invoke db.find({account:req.user.id},{ava:1}), 'toArray'
+    photos = photos?[0]?.ava
     photos ?= []
     for o in arr
       photos.push
@@ -98,14 +98,17 @@ class FileUpload
         ourl    : Feel.static.F @site.name,"user_data/images/"+o.original
         hurl    : Feel.static.F @site.name,"user_data/images/"+o.high
         lurl    : Feel.static.F @site.name,"user_data/images/"+o.low
-    yield _invoke db, 'update', {account:req.user.id},{$set:{photos:photos}},{upsert:true}
+    yield _invoke db, 'update', {account:req.user.id},{$set:{ava:photos}},{upsert:true}
     res.setHeader 'content-type','application/json'
-    el = photos.pop()
-    res.end JSON.stringify {
-      url : el.hurl
-      width : el.hwidth
-      height : el.hheight
-    }
+    if photos.length
+      el = photos.pop()
+      res.end JSON.stringify {
+        url : el.hurl
+        width : el.hwidth
+        height : el.hheight
+      }
+    else
+      res.end JSON.stringify {}
     
   parseImage : (o)=>
     qs = []

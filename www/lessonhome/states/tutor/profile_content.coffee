@@ -1,9 +1,19 @@
 class @main
   tree : -> module '$'  :
     popup               : @exports()
+    ###
     photo               : module 'mime/photo' :
       photo   : data('ava').get()
       src     : F 'vk.unknown.man.jpg'
+    ###
+    photo : module 'add_photos' :
+      photo : data('ava').get()
+      min : true
+      depend : [
+        module 'lib/jquery/ui_widget'
+        module 'lib/jquery/iframe_transport_plugin'
+        module 'lib/jquery/fileupload'
+      ]
     all_rating          : module '../rating_star':
       filling  : 40
     progress            : @exports()

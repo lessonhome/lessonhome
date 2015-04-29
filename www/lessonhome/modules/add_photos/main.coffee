@@ -13,6 +13,16 @@ class AddPhotos
       dataType : 'json'
       done : @done.out
       progressall : @progressall.out
+    @found.remove_photo.click @remove_photo.out
+  remove_photo : =>
+    yield @$send 'removeAva'
+    $.getJSON('/uploaded/image')
+    .success (data)=>
+      console.log data
+      @setPhoto data.url,data.width,data.height
+    .error (err)=>
+      console.error err
+    
   done : (e,data)=>
     @log e,data
     $.getJSON('/uploaded/image')
@@ -26,7 +36,7 @@ class AddPhotos
     @resetInput()
   resetInput : =>
     @dom.find('input').remove()
-    @found.wrap.append @input=$('<input accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="" class="input" />')
+    @found.input_wrap.append @input=$('<input accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="" class="input" />')
     @input.fileupload
       dataType : 'json'
       done : @done.out
@@ -44,21 +54,29 @@ class AddPhotos
     #if h > dh
     #  h = dh
     #  w = dh/a
-    whide = @photo.find 'img'
-    if whide.length == 0
-      whide = @found.other
-    img = $ "<img src='#{url}' width='100%' />"
-    img.hide()
-    img.css 'opacity',0
-    img.appendTo @photo
-    img.on 'load',=>
+    whide = @found.photos.find '.block'
+    thenf = =>
       console.log 'load'
       whide.animate({'opacity':0},500)
       setTimeout =>
-        whide.remove()
-        @photo.css {width : w,height:h}
-        img.show()
-        img.animate({opacity:1},500)
+        whide.filter('.photo').remove()
+        whide.filter('.unknown').hide()
+        if url
+          @found.photos.css {width : w,height:h}
+          img.show()
+          img.animate({opacity:1},500)
+        else
+          @found.photos.css {width:w,height:@found.unknown.height()}
+          @found.unknown.show()
+          @found.unknown.animate {opacity:1},500
       ,500
+    if url
+      img = $ "<div class='block photo'><img src='#{url}' width='100%' /></div>"
+      img.hide()
+      img.css 'opacity',0
+      img.appendTo @found.photos
+      img.find('img').on 'load',thenf
+    else
+      thenf()
 
 @main = AddPhotos

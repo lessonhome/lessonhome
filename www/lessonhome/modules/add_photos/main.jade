@@ -1,20 +1,28 @@
 - var style = "";
+- var w = 315;
+- if (min)w = 200;
 - if (photo)
 - {
-- style = "height:"+315*photo.hheight/photo.hwidth+"px"
+-   style = "height:"+w*photo.hheight/photo.hwidth+"px"
 -}
 
 
-.photo
-  if !photo
-    .plus.js-other
-    .camera_big.js-other
-      .big_photo
-    .camera_small.js-other
-      .small_photo
-  .js-photo(style=style)
-    div
-    if photo
-      img(src="#{photo.hurl}" width="100%")
-  .input.js-wrap
-    input.js-input(accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="")
+.js-container(min=min)
+  .js-back
+    .js-photos(style=style)
+      if photo
+        .block.photo
+          img(src=photo.hurl width="100%")
+        .block.js-unknown(style="display:none")
+          .img
+      else
+        .block.js-unknown
+          .img
+    
+  .js-front
+    .js-remove_photo
+    .js-load_text Загрузить фотографию
+    .js-input_wrap
+      input.js-input(accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="")
+
+
