@@ -5,7 +5,7 @@
 - }else {
 - var w = max,h = max;
 - }
-- if (w > h){ if(w>max){a=max/w; w*=a;h*=a;} }
+- if (w >= h){ if(w>max){a=max/w; w*=a;h*=a;} }
 - else if (h > w){ if(h>max){a=max/h; w*=a;h*=a;} }
 if photo
   img(src=photo.lurl style="width:#{w}px;height:#{h}px")
