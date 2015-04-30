@@ -61,6 +61,10 @@ class @main extends EE
     @end?.setValue? v.right
     @end?.emit? 'end'
     @start?.emit? 'end'
+  recheck : =>
+    @end?.emit? 'end'
+    @start?.emit? 'end'
+
   getValue : =>
     return {
       left : @start?.getValue?()
