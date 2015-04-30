@@ -24,10 +24,18 @@ class @main extends template '../tutor'
       popup         : @exports()
       contacts : module './profile_content/info_block' :
         section :
-          'Телефон :'     : data('person').get('phone').then (p)-> p[0] if p?[0]?
-          'Почта :'       : data('person').get('email').then (e)-> e[0] if e?[0]?
-          'Скайп :'       : data('person').get('social_networks').then (s)-> s.skype[0] if s?.skype?[0]?
-          'Личный сайт :' : data('person').get('site').then (s)-> s[0] if s?[0]?
+          'Телефон :'     : data('person').get('phone').then (p)->
+            return p[0] if p?[0]? && p[0] && p[0]!="+7 (___) ___-__-__"
+            return data('convert').getLinkToFill "./edit/contacts"
+          'Почта :'       : data('person').get('email').then (e)->
+            return e[0] if e?[0]? && e[0]
+            return data('convert').getLinkToFill "./edit/contacts"
+          'Скайп :'       : data('person').get('social_networks').then (s)->
+            return s.skype[0] if s?.skype?[0]? && s.skype[0]
+            return data('convert').getLinkToFill "./edit/contacts"
+          'Личный сайт :' : data('person').get('site').then (s)->
+            return s[0] if s?[0]? && s[0]
+            return data('convert').getLinkToFill "./edit/contacts"
       progress  : module './profile_content/progress' :
         filling  : '56%'
       edit      : true

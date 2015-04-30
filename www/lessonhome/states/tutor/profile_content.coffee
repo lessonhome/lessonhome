@@ -25,9 +25,15 @@ class @main
     #with_verification   : true
     personal_data       : module '$/info_block' :
       section   :
-        'Дата рождения :'       : data('person').get('birthday').then (b)-> data('convert').convertToDate b if b?
-        'Статус :'              : data('tutor').get('status').then (s)-> data('convert').convertTutorStatusToRus s if s?
-        'Город :'               : data('person').get('location').then (l)-> l?.city
+        'Дата рождения :'       : data('person').get('birthday').then (b)->
+          return data('convert').convertToDate b if b
+          return data('convert').getLinkToFill "./edit/general"
+        'Статус :'              : data('tutor').get('status').then (s)->
+          return data('convert').convertTutorStatusToRus s if s? && s
+          return data('convert').getLinkToFill "./edit/general"
+        'Город :'               : data('person').get('location').then (l)->
+          return l.city if l?.city?
+          return data('convert').getLinkToFill "./edit/contacts"
         'Опыт репетиторства :'  : data('tutor').get('experience').then (e_)->
           return e_ if e_? && e_?.length
           return data('convert').getLinkToFill "./edit/career"
@@ -85,11 +91,11 @@ class @main
       link      : './edit/media'
       edit     : @exports()
       selector : 'horizon'
-    media               : module '$/media' :
-      photo1  : module 'mime/photo' :
-        src : F 'vk.unknown.man.jpg'
-      photo2  : module 'mime/photo' :
-        src : F 'vk.unknown.man.jpg'
-      video   : module 'mime/video' :
-        src : F 'vk.unknown.man.jpg'
+    #media               : module '$/media' :
+    #  photo1  : module 'mime/photo' :
+    #    src : F 'vk.unknown.man.jpg'
+    #  photo2  : module 'mime/photo' :
+    #    src : F 'vk.unknown.man.jpg'
+    #  video   : module 'mime/video' :
+    #    src : F 'vk.unknown.man.jpg'
 

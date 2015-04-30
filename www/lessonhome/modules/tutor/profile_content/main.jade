@@ -27,7 +27,11 @@ if popup
       .progress!= progress
   .personal_data
     .name_verification_block
-      .tutor_name.select!= last_name + ' ' + first_name + ' ' + middle_name
+      if last_name && first_name && middle_name
+        .tutor_name.select!= last_name + ' ' + first_name + ' ' + middle_name
+      else
+        .tutor_name.select
+          a(href="./edit/general") Заполните имя
       if with_verification
         .verification
           .with_verification(style = 'background: #{with_verification}')
@@ -46,4 +50,10 @@ if contacts
 .separate_box!=line_pri
 +section_box ('about', about)
 .separate_box!=line_med
-+section_box ('media', media)
+.media_box
+  .media
+    .photo1
+    .photo2
+    .photo3
+    .photo4
+    .video5

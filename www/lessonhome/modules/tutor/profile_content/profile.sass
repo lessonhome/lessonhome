@@ -59,6 +59,9 @@ main
       .tutor_name
         +inline-block
         font-size: 20px
+        a
+          color: #a8a8a8
+          font-size: 16px
       .verification
         position: relative
         +inline-block
@@ -103,7 +106,9 @@ main
 .separate_box
   padding-bottom: 4px
   overflow: hidden
-
+.contacts_box .contacts, .education_box .education, .about_box .about
+  margin-left: $width_margin
+  padding-left: $margin_bottom_box
 div>.icon_box
   position: absolute
   height: 100%
@@ -114,8 +119,20 @@ div>.icon_box
   min-height: 100px
 .media_box
   margin-top: 9px
-  padding-right: 33px
-  margin-bottom: 0
+  padding-right: 0
+  padding-left: 0
+  .media
+    width: 100%
+    overflow: hidden
+    padding: 0px 24px
+    box-sizing: border-box
+    div
+      cursor: pointer
+      width: 132px
+      height: 130px
+      margin-right: 6px
+      float: left
+      background-color: rgb(186, 187, 189)
 $icon_height: image-height($contact_src)
 $icon_width: image-width($contact_src)
 .contacts_box .icon_box .icon
@@ -148,21 +165,3 @@ $icon_width: image-width($private_src)
   top: 50%
   margin-top: - $icon_height / 2
   margin-left: ($width_margin - $icon_width) / 2
-
-$icon_height: image-height($media_src)
-$icon_width: image-width($media_src)
-.media_box .icon_box .icon
-  width: $icon_width
-  height: $icon_height
-  background: url(F($media_src)) no-repeat
-  position: relative
-  top: 50%
-  margin-top: - $icon_height / 2
-  margin-left: ($width_margin - $icon_width) / 2
-
-.contacts_box .contacts, .education_box .education, .about_box .about, .media_box .media
-  margin-left: $width_margin
-  padding-left: $margin_bottom_box
-
-.media_box .media
-  padding-left: 0
