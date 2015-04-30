@@ -1,4 +1,14 @@
+- console.log(photo)
+- var max = 55,a;
+- if (photo){
+- var w = photo.lwidth,h = photo.lheight;
+- }else {
+- var w = max,h = max;
+- }
+- if (w >= h){ if(w>max){a=max/w; w*=a;h*=a;} }
+- else if (h > w){ if(h>max){a=max/h; w*=a;h*=a;} }
 if photo
-  img(src=photo.lurl)
+  img(src=photo.lurl style="width:#{w}px;height:#{h}px")
 else
-  img(src=src)
+  img(src=src style="width:auto;height:#{max}px")
+

@@ -11,11 +11,11 @@ class @main extends EE
     if @check_form()
       return @$send('./save',@getData())
       .then ({status,errs})=>
-      if status=='success'
-        return true
-      #if errs?.length
-      #@parseError errs
-      return false
+        if status=='success'
+          return true
+        #if errs?.length
+        #@parseError errs
+        return false
     else
       return false
 
