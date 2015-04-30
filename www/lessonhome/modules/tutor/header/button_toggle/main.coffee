@@ -3,6 +3,11 @@ class @main extends EE
     @button = @dom.find ".button_box"
     @active = @button.hasClass 'active'
     @dom.on 'click', @click
+    console.log @tree.value
+    if @tree.value? && @tree.value == 'active'
+      @active = true
+      @button.addClass 'active'
+      @emit 'active'
 
     @button.on    'mousedown', @mdown
 
@@ -27,7 +32,5 @@ class @main extends EE
     @button.removeClass 'inactive'
     @button.addClass 'active'
     @emit 'active'
-
-
 
 

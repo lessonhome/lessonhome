@@ -4,7 +4,7 @@
 if selector == 'header'
   .triangle_box(class=selector)
     .triangle
-.popup
+.js-popup
   if href
     a(href=href)
       .close_box
@@ -18,6 +18,8 @@ if selector == 'header'
   .button_panel_choose
     .pupil!=pupil
     .tutor!=tutor
+  .err
+    .js-out_err_type
   .order_call!=order_call
 
 if selector == 'footer'

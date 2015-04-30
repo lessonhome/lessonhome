@@ -30,6 +30,7 @@ class @main extends EE
       new_tag.remove()
     )
     $(tags_div).append(new_tag)
+    @area.setValue('')
 
   getData: =>
     return {
