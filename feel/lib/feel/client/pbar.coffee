@@ -38,6 +38,7 @@ class @PBar
     @start() if @p<=0
     inc = Math.pow(1-@p,1/8)*@inc
     d = x - @p
+    console.log 'set',@p,x,inc
     if x < @p
       @p += inc
     else
