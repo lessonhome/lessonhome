@@ -35,25 +35,20 @@ class @PBar
       ,1000
     ,400
   set  : (x=0.001)=>
-    console.log @p
     @start() if @p<=0
     inc = Math.pow(1-@p,1/8)*@inc
     d = x - @p
-    console.log 'set',@p,x,inc
     if x < @p
       @p += inc
     else
       @p = x
     if @p > 1
       @p = 1
-    console.log @p
     return @stop() if @p>=1
     @div.width @p*$(window).width()
   timer : =>
-    console.log 'timer',@p
     return unless 0 < @p < 1
     @p += Math.pow(1-@p,1/8)*@tinc
-    console.log 'timerp',@p
     @div.width @p*$(window).width()
 
 
