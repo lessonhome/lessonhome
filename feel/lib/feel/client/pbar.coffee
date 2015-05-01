@@ -50,9 +50,10 @@ class @PBar
     return @stop() if @p>=1
     @div.width @p*$(window).width()
   timer : =>
+    console.log 'timer',@p
     return unless 0 < @p < 1
     @p += Math.pow(1-@p,1/8)*@tinc
-    console.log @p
+    console.log 'timerp',@p
     @div.width @p*$(window).width()
 
 
