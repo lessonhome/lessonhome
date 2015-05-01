@@ -39,10 +39,28 @@ class AddPhotos
     @found.input_wrap.append @input=$('<input accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="" class="input" />')
     @input.fileupload
       dataType : 'json'
-      done : @done.out
-      progressall : @progressall.out
+      done : @done
+      #maxChunkSize : 10
+      #multipart : true
+      #progressInterval : 10
+      #bitrateInterval : 100
+      #seqentialUploads : true
+      #singleFileUploads : false
+      #processData : true
+      progressall : @progressall
+      progress : @start
+      #progress : @progressone.out
+      #start : @start.out
+      start: @start
+    @input.on 'change', @start
+  start : (e,data)=>
+    console.log 'start'
   progressall : (e,data)=>
-    @log e,data
+    Feel.pbar.start()
+    Feel.pbar.set data.loaded*0.5/data.total
+    @log 'pall',e,data
+  progressdone : (e,data)=>
+    @log 'done',e,data
   add : (e,data)=>
     @log e,data
     return true
@@ -55,10 +73,13 @@ class AddPhotos
     #  h = dh
     #  w = dh/a
     whide = @found.photos.find '.block'
+    Feel.pbar.set()
     thenf = =>
+      Feel.pbar.set()
       console.log 'load'
       whide.animate({'opacity':0},500)
       setTimeout =>
+        Feel.pbar.stop()
         whide.filter('.photo').remove()
         whide.filter('.unknown').hide()
         if url

@@ -1,0 +1,39 @@
+@import compass/css3
+
+
+#pbar
+  z-index : 123321
+  position : fixed
+  top : 0
+  left : 0
+  width : 0
+  height : 2px
+  background : #d55
+  border-radius : 1px
+  transition: width 400ms ease-out, opacity 1000ms
+  //transition-duration: 300ms
+  //will-change: width,opacity
+  box-shadow: 0 0 16px rgba(200,70,70,0.9)
+  .dt
+    position: absolute
+    height: 2px
+    top : 0
+    box-shadow: #d55 1px 0 6px 1px
+    border-radius : 100%
+    opacity: 0.6
+    width: 180px
+    -webkit-animation: pulse 2s ease-out 0s infinite
+    right: -80px
+    clip: rect(-6px,90px,14px,-6px)
+  .dd
+    -webkit-animation: pulse 2s ease-out 0s infinite
+    opacity: 0.6
+    width: 20px
+    right : 0
+    clip: rect(-6px,22px,14px,10px)
+    position: absolute
+    height: 2px
+    top : 0
+    box-shadow: #d55 1px 0 6px 1px
+    border-radius : 100%
+    

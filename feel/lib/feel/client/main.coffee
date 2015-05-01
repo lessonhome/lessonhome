@@ -14,7 +14,10 @@ class @Feel
           window[name] = obj
           console.log "global class window['#{name}'];"
     @active = new @activeState @root.tree
+    @pbar = new @PBar()
+    @pbar.init()
     window.onerror = (e)=> @error e
+
   error : (e,args...)=>
     return unless e?
     e = new Error e unless e?.stack? || e?.name?
@@ -51,6 +54,7 @@ class @Feel
       types : "(cities)"
     },cb
   send : (context,name,args...)=> Q().then =>
+    @pbar.start()
     m = name.match /^([^\w]*)/
     pref = ""
     if m
@@ -75,6 +79,7 @@ class @Feel
       crossDomain : true
     })
     .success (data)=>
+      @pbar.stop()
       d.resolve JSON.parse decodeURIComponent data.data
     .error   (e)->
       d.reject e
@@ -104,5 +109,4 @@ class @Feel
 
 
 window.Feel = new @Feel()
-
 
