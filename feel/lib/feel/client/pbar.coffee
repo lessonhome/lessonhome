@@ -35,6 +35,7 @@ class @PBar
       ,1000
     ,400
   set  : (x=0.001)=>
+    console.log @p
     @start() if @p<=0
     inc = Math.pow(1-@p,1/8)*@inc
     d = x - @p
