@@ -18,9 +18,9 @@ class @PBar
   start : =>
     @div.stop true,true
     @div.css {'opacity':1}
-    @p = 0.1
-    @div.width 0
     @div.show()
+    @p = 0.1 unless @p > 0
+    @div.width @p*$(window).width()
   stop : =>
     @p = 1
     @div.width $(window).width()
