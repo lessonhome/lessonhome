@@ -44,11 +44,13 @@ class @PBar
       @p = x
     if @p > 1
       @p = 1
+    console.log @p
     return @stop() if @p>=1
     @div.width @p*$(window).width()
   timer : =>
     return unless 0 < @p < 1
     @p += Math.pow(1-@p,1/8)*@tinc
+    console.log @p
     @div.width @p*$(window).width()
 
 
