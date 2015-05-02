@@ -9,11 +9,10 @@ check = require("./check")
     return {status:'failed',errs:errs}
 
   subjects_db = {}
-  for i,subject in data.subjects_val
+  for i,subject of data.subjects_val
     subjects_db[i] = {}
-    #subjects_db[i].name = subject.subject_tag
-    subjects_db[i].description ?= []
-    subjects_db[i].description.push subject.comments
+    subjects_db[i].name = subject.name
+    subjects_db[i].description = subject.comments
     subjects_db[i].tags ?= []
     subjects_db[i].tags.push subject.course
     if subject.pre_school then subjects_db[i].tags.push "school:0"
@@ -36,6 +35,7 @@ check = require("./check")
     subjects_db[i].groups = [description:subject.group_learning]
 
   db= yield $.db.get 'tutor'
+  console.log subjects_db
   yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:subjects_db}},{upsert:true}
   yield $.status 'tutor_prereg_3', true
 

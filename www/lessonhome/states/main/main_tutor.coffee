@@ -1,6 +1,5 @@
 
 
-
 class @main extends template '../main'
   route : '/main_tutor'
   tags  : -> 'pupil:main_tutor'

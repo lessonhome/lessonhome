@@ -43,7 +43,10 @@
 # convert ISO to date (example: ISO to 12.2.2002)
 
 @convertToDate =(birthday)=>
+  return if !birthday?
   day   = birthday.getDate?()
+  console.log 'day : '+day
+  console.log '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   month = birthday.getMonth?() + 1
   year  = birthday.getFullYear?()
   return day+'.'+month+'.'+year

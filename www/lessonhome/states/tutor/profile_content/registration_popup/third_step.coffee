@@ -9,7 +9,7 @@ class @main extends template '../registration_popup'
   status :
     '!tutor_prereg_2':'/tutor/profile/second_step'
   tree : =>
-    progress  : 3
+    progress  : data('registration_progress').get().then (p=0)=> p+1
     #data('tutor').get('registration_progress')
     content : module '$' :
       form : state 'subject_tutor'

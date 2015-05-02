@@ -1,6 +1,8 @@
-.js-bg_block
+- var style = ""; console.log(subject_name); if (!subject_name) style += "display:none;";
+- if (!subject_name)subject_name = "";
+.js-bg_block(style=style)
   .tag_block
-    .subject_tag!=subject_tag
+    .js-subject_tag!=subject_name
     .control_block
       .js-hide Свернуть
       .js-delete Удалить

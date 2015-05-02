@@ -6,7 +6,7 @@ class @main extends template './errors_template'
   access : ['other', 'tutor', 'pupil']
   redirect : {}
   tree : =>
-    photo : module 'mime/photo' :
+    photo :
       src     : F 'errors/under_construction.jpg'
     top_text : 'Данный раздел сайта в разработке.'
     center_text : 'Если вы <a class="blue">зарегистрировались</a>, то мы сообщим<br>Вам об обновлениях!'

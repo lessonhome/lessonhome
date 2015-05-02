@@ -51,7 +51,7 @@ class @main extends EE
       @label.addClass 'focus'
       @showSelectOptions?()
       @emit 'focus'
-
+    @input.on 'focus', @hideError
     @input.on 'focusout', =>
       return if !@isFocus
       @isFocus = false
