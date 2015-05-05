@@ -10,7 +10,7 @@ class @main extends template '../edit_conditions'
   }
   tree : =>
     menu_condition  : 'edit: conditions'
-    active_item : 'Предпочтения'
+    active_item : 'Места выезда'
     tutor_edit  : module '$':
       area : module 'tutor/forms/drop_down_list'  :
         text      : 'Район :'
