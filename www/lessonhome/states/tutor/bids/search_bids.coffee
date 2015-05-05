@@ -138,8 +138,11 @@ class @main extends template '../../tutor'
         start_text    : 'до'
         measurement   : 'мин.'
         handle        : false
-        min           : 15
-        max           : 120
+        value :
+          min           : 15
+          max           : 120
+          left          : 30
+          right         : 120
       separate_line : module 'tutor/separate_line' :
         selector : 'horizon'
       list_bids : module 'tutor/bids/list_bids' :

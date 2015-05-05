@@ -15,6 +15,7 @@ class AddPhotos
       progressall : @progressall.out
     @found.remove_photo.click @remove_photo.out
   remove_photo : =>
+    return unless @found.photos.find('>.photo').length
     yield @$send 'removeAva'
     $.getJSON('/uploaded/image')
     .success (data)=>
