@@ -10,7 +10,7 @@ class @main extends template '../registration_popup'
     'default' : 'main/first_step'
   }
   tree : ->
-    progress  : 1
+    progress  : data('registration_progress').get().then (p=0)=> p+1
     #data('tutor').get('registration_progress').then (p)->
     #return p if p?
 

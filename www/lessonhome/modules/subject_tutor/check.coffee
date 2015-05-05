@@ -6,7 +6,7 @@
     if subject.duration.length < 1
       errs.push "short_duration":i
     # long
-    if subject.duration.length > 3
+    if subject.duration.length > 100
       errs.push "long_duration":i
     # empty
     if subject.duration.length == 0

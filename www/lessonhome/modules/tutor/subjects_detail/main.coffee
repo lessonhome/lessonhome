@@ -14,7 +14,7 @@ class @main
     @out_err_place                  = @found.out_err_place
 
     subject = @tree
-    @subject_tag = subject.subject_tag.class
+    #@subject_tag = subject.subject_tag.class
     @course = subject.course.class
     @group_learning = subject.group_learning.class
     @duration = subject.duration.class
@@ -70,4 +70,10 @@ class @main
     @place_pupil.on       'change', => @place_pupil.hideError()
     @place_remote.on      'change', => @place_remote.hideError()
     @place_cafe.on        'change', => @place_cafe.hideError()
+  showName : (name)=>
+    return unless name
+    @found.subject_tag.text(name)
+    @found.bg_block.show()
+    @tree.price_slider.class.recheck()
+
 

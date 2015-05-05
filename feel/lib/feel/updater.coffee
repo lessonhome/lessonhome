@@ -36,7 +36,6 @@ class module.exports
     catch e
       yield @exec "sudo",["systemctl","start","feel.service"], res
       throw e
-
   fhandler : (req,res)=> do Q.async =>
     if @ssh
       res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'

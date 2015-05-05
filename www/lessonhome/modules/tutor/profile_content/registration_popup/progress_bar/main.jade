@@ -20,32 +20,33 @@ mixin item (progress, content, href, selector)
 //width: 52px
 //padding: 25px
 - var widthBlue = 56 + 2*25
+- console.log (progress)
 .container
   .progress_box
     case progress
       when 1
-        +item(1, 1, false, 'one')
-        +item(false, 2, false)
-        +item(false, 3, false)
-        +item(false, 4, false, 'fourth')
+        +item(progress>1, 1, 'first_step', 'one')
+        +item(progress>2, 2, false)
+        +item(progress>3, 3, false)
+        +item(progress>4, 4, false, 'fourth')
         - widthBlue = widthBlue*(progress-1)
       when 2
-        +item(1, 1, 'first_step', 'one')
-        +item(2, 2, false)
-        +item(false, 3, false)
-        +item(false, 4, false, 'fourth')
+        +item(progress>1, 1, 'first_step', 'one')
+        +item(progress>2, 2, 'second_step')
+        +item(progress>3, 3, false)
+        +item(progress>4, 4, false, 'fourth')
         - widthBlue = widthBlue*(progress-1)
       when 3
-        +item(1, 1, 'first_step', 'one')
-        +item(2, 2, 'second_step')
-        +item(3, 3, false)
-        +item(false, 4, false, 'fourth')
+        +item(progress>1, 1, 'first_step', 'one')
+        +item(progress>2, 2, 'second_step')
+        +item(progress>3, 3, 'third_step')
+        +item(progress>4, 4, false, 'fourth')
         - widthBlue = widthBlue*(progress-1)
-      when 4
-        +item(1, 1, 'first_step', 'one')
-        +item(2, 2, 'second_step')
-        +item(3, 3, 'third_step')
-        +item(4, 4, false, 'fourth')
-        - widthBlue = widthBlue*(progress-1)
+      default
+        +item(progress>1, 1, 'first_step', 'one')
+        +item(progress>2, 2, 'second_step')
+        +item(progress>3, 3, 'third_step')
+        +item(progress>4, 4, 'fourth_step', 'fourth')
+          - widthBlue = widthBlue*(progress-1)
     .blue_line(style='width: #{widthBlue}px')
   .gray_line

@@ -79,6 +79,9 @@ class @main
         '71': {value: 'electrical_engineering', text: 'электротехника'}
         '72': {value: 'japanese', text: 'японский язык'}
       }
+      value : data('tutor').get('subjects').then (s)->
+        a = s?[0]?.name
+        return a?=""
     subjects     : [
       state 'tutor/subjects_detail'
     ]

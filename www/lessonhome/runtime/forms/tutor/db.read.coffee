@@ -1,14 +1,15 @@
 
-base    = require './base'
-_fields  = {}
-for key,val of base
-  for f in val
-    _fields[f] = key
-db = {}
-for b of base
-  db[b] 
 
-@read = ($,obj={},fields=Object.keys(_fields))=>
+@read = ($,fields=$.base.fields)=>
+  @dbs = {}
+  for f in fields
+    dbname = $.base.dbname f
+    bname  = $.base.toBName f
+    @dbs[dbname] ?= []
+    @dbs[dbname].push {}[bname] = 1
+
+
+
   b = {}
   for f in fields
     continue unless _fields[f]?

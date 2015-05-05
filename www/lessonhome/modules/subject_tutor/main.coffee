@@ -5,7 +5,8 @@ class @main
   
     for i,subject of @tree.subjects
       @subjects[i] = {}
-      @subjects[i].subject_tag = subject.subject_tag.class
+      @subjects[i].class = subject.class
+      #@subjects[i].subject_tag = subject.subject_tag.class
       @subjects[i].course = subject.course.class
       @subjects[i].group_learning = subject.group_learning.class
       @subjects[i].duration = subject.duration.class
@@ -24,7 +25,11 @@ class @main
       @subjects[i].place_remote = subject.place_remote.class
       @subjects[i].place_cafe = subject.place_cafe.class
   
-
+    @subject_list = @tree.select_subject_field.class
+    @subject_list.on 'end',(name)=>
+      console.log 'end',name
+      console.log @subjects
+      @subjects?[0]?.class?.showName? name
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
@@ -61,6 +66,9 @@ class @main
   check_form : =>
     errs = @js.check @getData()
     for i,subject_val of @subjects
+      console.log 'omg',subject_val.class.found.subject_tag.text()
+      unless subject_val.class.found.subject_tag.text()
+        errs.push 'empty_subject':i
       if !subject_val.course.exists() && subject_val.course.getValue() != 0
         errs.push 'bad_course':i
       #if !@qualification.exists() && @qualification.getValue() != 0
@@ -82,7 +90,8 @@ class @main
     @subjects_val = {}
     for i,subject of @subjects
       @subjects_val[i] = {}
-      @subjects_val[i].subject_tag = subject.subject_tag.getValue()
+      @subjects_val[i].name = subject.class.found.subject_tag.text()
+      #@subjects_val[i].subject_tag = subject.subject_tag.getValue()
       @subjects_val[i].course = subject.course.getValue()
       @subjects_val[i].group_learning = subject.group_learning.getValue()
       @subjects_val[i].duration = subject.duration.getValue()
@@ -126,14 +135,17 @@ class @main
       # short
       when "short_duration"
         @subjects[i].duration.showError "Введите время занятия"
-
+      when 'empty_subject'
+        console.log 'empty'
+        @tree.select_subject_field.class.setErrorDiv @dom.find '>.err>div'
+        @tree.select_subject_field.class.showError "Выберите предмет"
       # long
       when "long_duration"
-        @subjects[i].duration.showError "Слишком большая продолжительность"
+        @subjects[i].duration.showError ""
 
       #empty
       when "empty_duration"
-        @subjects[i].duration.showError "Заполните имя"
+        @subjects[i].duration.showError ""
       when "empty_course"
         @subjects[i].course.setErrorDiv @out_err_course
         @subjects[i].course.showError "Выберите курс"

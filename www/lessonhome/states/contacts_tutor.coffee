@@ -45,15 +45,6 @@ class @main
       ]
 
 
-
-
-
-
-
-
-
-
-
     extra_phone   : module 'tutor/forms/input' :
       text2      : 'Доп. телефон :'
       selector  : 'first_reg'
