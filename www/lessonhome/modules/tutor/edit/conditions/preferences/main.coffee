@@ -6,6 +6,7 @@ class @main extends EE
     @area  = @tree.area.class
   show : =>
     @area.on 'end', => @addTag @getTags(), @area_tags_div, @area.getValue()
+    @area.on 'press_enter', => @addTag @getTags(), @area_tags_div, @area.getValue()
     @closeHandler()
   save : => Q().then =>
     if @check_form()
