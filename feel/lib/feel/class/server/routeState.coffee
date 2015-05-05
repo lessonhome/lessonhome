@@ -74,7 +74,6 @@ class RouteState
       for key,val of node
         @walk_tree_down node[key],node,key,foo
   go : => do Q.async =>
-    #console.log yield @site.form.get 'tutor',{account:@req.user.id}
     @res.on 'finish', =>
       agent = ""
       ip = get_ip(@req)?.clientIp
@@ -143,9 +142,11 @@ class RouteState
     @state = yield @site.state[@statename].make(null,null,@req,@res)
     @time 'make'
     @tags = {}
+    @$forms = {}
     #@access   = {}
     #@redirect = {}
     @getTop()
+    qforms = []
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       if node._isState
         if node.__states
@@ -154,6 +155,17 @@ class RouteState
           o = {}
           o[node._statename] = node.__state
         for sn,s of o
+          if s.forms?
+            if typeof s.forms == 'function'
+              s.forms = s.forms()
+            if typeof s.forms == 'string'
+              s.forms = [s.forms]
+            for f in s.forms
+              unless @$forms[f]
+                @$forms[f] ?= @site.form.get f,{account:@req.user.id}
+                do (f)=>
+                  qforms.push @$forms[f].then (data)=>
+                    @$forms[f] = data
           for k of s.tag
             @tags[k] = true
           #for a in s.access
@@ -164,6 +176,7 @@ class RouteState
           s.page_tags = @tags
         #node = pnode[key] = @getTopOfNode node
     #console.log @access,@redirect
+
     if @top._isState
       if @top.__states
         o = @top.__states
@@ -178,6 +191,20 @@ class RouteState
     @jsModules = ""
     @jsClient = Feel.clientJs
     @stack = []
+    yield Q.all qforms
+    @walk_tree_down @top,@,'top',(node,pnode,key)=>
+      return unless node.$form && (typeof node.$form == 'object')
+      fname = Object.keys(node.$form)?[0]
+      return console.error "bad form"+_inspect(node.$form) unless fname && @$forms[fname]?
+      field = node.$form[fname]
+      place = 'value'
+      if typeof field == 'object'
+        t = Object.keys(field)[0]
+        place = field[t]
+        field = t
+      delete node.$form
+      console.log node[place]
+      node[place] = @$forms[fname][field]
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?
       @cssModule 'default'

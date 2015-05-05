@@ -11,7 +11,6 @@ class @main extends EE
         @setValue "male"
       when "female"
         @setValue "female"
-      else
 
     @man  .on 'inactive', =>
       @state = false

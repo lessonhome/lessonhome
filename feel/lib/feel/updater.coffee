@@ -38,7 +38,7 @@ class module.exports
       throw e
   fhandler : (req,res)=> do Q.async =>
     if @ssh
-      res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
+      res.setHeader  'Strict-Transport-Security','max-age=604800; includeSubDomains; preload'
     return process.exit(0) if req.url == "/restart"
     return @tail(req,res,1000) if req.url != "/update"
 

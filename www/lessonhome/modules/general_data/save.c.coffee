@@ -18,6 +18,7 @@ check = require("./check")
   status = yield @convertStatus data.status
   db= yield $.db.get 'tutor'
   yield _invoke db, 'update',{account:$.user.id},{$set:{status:status}},{upsert:true}
+  yield $.form.flush {account:$.user.id}
   yield $.status 'tutor_prereg_1',true
   return {status:'success'}
 

@@ -96,7 +96,7 @@ class Server
   handler : (req,res)=>
     
     if @ssh
-      res.setHeader  'Strict-Transport-Security','max-age=3600; includeSubDomains; preload'
+      res.setHeader  'Strict-Transport-Security','max-age=604800; includeSubDomains; preload'
     host = req.headers.host
     if m = host?.match /^www\.(.*)$/
       res.statusCode = 301
