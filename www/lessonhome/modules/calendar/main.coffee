@@ -59,12 +59,9 @@ class @main extends EE
     for day in @select_days
       do (day)=>
         new_tag = @newTag(day)
-        #@insertTag
+        # insertTag
         day_number = @convertDay day
-        day_time_from_int = parseInt(@from.substr(0,2), 10)
-        console.log day_number
         tags_div = $(@tags).children()
-        console.log tags_div
         for tag_div in tags_div
           tag_div = $ tag_div
           tag_div_day_number = @convertDay tag_div.find(".day").text()
@@ -73,12 +70,15 @@ class @main extends EE
             return true
           else
             if day_number == tag_div_day_number
-              if !@compareTime(@from, tag_div.find(".time_from").text())
-              #if day_time_from_int <= parseInt(tag_div.find(".time_from").text().substr(0,2), 10)
-                new_tag.insertBefore(tag_div)
-                return true
-
+              console.log "current : "+@from+" div : "+tag_div.find(".time_from").text()+" compare_result : "+@compareTime(@from, tag_div.find(".time_from").text())
+              switch @compareTime(@from, tag_div.find(".time_from").text())
+                when 1
+                  new_tag.insertBefore(tag_div)
+                  return true
+                when 0
+                  return false
         @tags.append(new_tag)
+        return true
 
   newTag: (day)=>
     new_tag = @tag.clone()
@@ -92,7 +92,10 @@ class @main extends EE
     return new_tag
 
   # compare two time format "9:05"
-  # return true if first time more than second or equal and false if second bigger
+  # return 1 if second bigger
+  # return -1 if other
+  # return 0
+
   compareTime: (first_time, second_time)=>
     first = {}
     first.separator_pos = first_time.indexOf(':', 0)
@@ -104,16 +107,20 @@ class @main extends EE
     second.hours = parseInt(second_time.substr(0, ++second.separator_pos))
     second.minutes = parseInt(second_time.substr(second.separator_pos, second_time.length - second.separator_pos))
 
+
     if first.hours < second.hours
-      return true
+      return 1
     else
       if first.hours == second.hours
-        if first.minutes >= second.minutes
-          return true
+        if first.minutes > second.minutes
+          return -1
         else
-          return false
+          if first.minutes < second.minutes
+            return 1
+          else
+            return 0
       else
-        return true
+        return 1
 
   # handlers
 
@@ -155,6 +162,8 @@ class @main extends EE
   # checks
 
   timeCheck: =>
+    @from = @from_time.getValue()
+    @till = @till_time.getValue()
     @select_days = []
     i = 0
     for day in @days
@@ -163,11 +172,14 @@ class @main extends EE
     if !@select_days.length
       @showError 'Выберите хотя бы один день'
       return false
-    if !@from_time.getValue()
+    if !@from
       @showError 'Заполните время'
       return false
-    if !@till_time.getValue()
+    if !@till
       @showError 'Заполните время'
+      return false
+    if !@compareTime(@from, @till)
+      @showError 'Пожалуйста, укажите правильно промежуток времени'
       return false
     return true
     TODO 'write a func of check'

@@ -16,8 +16,5 @@ class @main extends template '../edit_conditions'
       #hint       : module 'tutor/hint_dz' :
       #  selector  : 'small'
       #  text      : 'Поскольку'
-      save_button       : module 'tutor/button' :
-        text      : 'Сохранить'
-        selector  : 'edit_save'
   init  :=>
     @parent.parent.tree.content.possibility_save_button = false         # exception property, not this save button in state

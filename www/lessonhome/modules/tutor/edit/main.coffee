@@ -4,6 +4,8 @@ class @main
     @changes_field = @found.changes_field
   show : =>
     @save_button = @tree.save_button?.class
+    if @tree.tutor_edit?.calendar?.save_button?
+      @save_button = @tree.tutor_edit.calendar.save_button.class
     @tutor_edit = @tree.tutor_edit.class
     if @tree.tutor_edit?.calendar?
       @tutor_edit = @tree.tutor_edit.calendar.class

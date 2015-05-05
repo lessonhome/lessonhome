@@ -28,4 +28,7 @@ class @main
       selector  : 'choose_course'
       close     : true
     tags : data('tutor').get('calendar').then (c)-> return c if c?
+    save_button       : module 'tutor/button' :
+      text      : 'Сохранить'
+      selector  : 'edit_save'
     #TODO: make create module selected_tag if user input time and press button add_time_button
