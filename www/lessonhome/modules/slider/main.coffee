@@ -40,10 +40,11 @@ class Cursor extends EE
     console.log 'set',x
     @x(x)
     @pos @px()
-  
+ 
+
+
+
 class @main extends EE
-
-
   show : =>
     console.log 'show slider'
   Dom : =>
