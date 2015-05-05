@@ -5,16 +5,18 @@ class Data
     Wrap @
     @form = {}
     @data  = {}
+    @flushs = {}
   init : =>
     @db = yield Main.service 'db'
     
       
   get : (fname,find,fields)=>
-    hash = _shash fname+JSON.stringify find
-    return @returnData fname,find,fields,hash if @data[hash]
-    data = yield @loadData fname,find,fields,hash
+    fhash= @findtohash find
+    hash = _shash fname+fhash
+    return @returnData fname,find,fields,hash,@data[hash] if @data[hash]
+    data = yield @loadData fname,find,fields,hash,fhash
     return @returnData fname,find,fields,hash,data
-  loadData : (fname,find,fields,hash)=>
+  loadData : (fname,find,fields,hash,fhash)=>
     yield @loadForm fname unless @form[fname]?
     $ = {}
     $.find = find
@@ -26,11 +28,27 @@ class Data
     data.form = @form[fname]
     data.hash = hash
     @data[hash] = data
+    @flushs[fhash] ?= []
+    @flushs[fhash].push [@data,hash]
     return data
-
+  findtohash : (find)=>
+    keys = Object.keys(find).sort()
+    o = {}
+    for k in keys
+      o[k] = find[k]
+    return _shash JSON.stringify o
   returnData : (fname,find,fields,hash,data=@data[hash])=>
-    return data.data
-
+    fields ?= Object.keys data.data
+    ret = {}
+    for f in fields
+      ret[f] = data.data[f]
+    return ret
+  flush : (find)=>
+    fhash = @findtohash find
+    if @flushs?[fhash]?
+      for o in @flushs[fhash]
+        delete o[0][o[1]]
+    delete @flushs[fhash]
   loadForm : (fname)=>
     form = {}
     form.name = fname
@@ -45,7 +63,7 @@ class Data
     if files['db.read']
       form.f['db.read'] = require process.cwd()+"/#{form.dir}/db.read.coffee"
     else
-      form.f['db.read'] = require process.cwd()+"/db.read.coffee"
+      form.f['db.read'] = require process.cwd()+"/www/lessonhome/runtime/forms/db.read.coffee"
     form.dbread = new form.f['db.read']
     Wrap form.dbread
     form.fields   = []

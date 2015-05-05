@@ -12,6 +12,7 @@ class Socket
     
   init : =>
     @db = yield Main.service 'db'
+    @form = yield Main.service 'data'
     @register = yield Main.service 'register'
     @server = http.createServer @handler
     @server.listen 8082
@@ -77,6 +78,7 @@ class Socket
     $.user = req.user
     $.session = session
     $.cookie = cookie
+    $.form = @form
     $.updateUser = => @updateUser req,res,$
     try
       ret = yield @handlers[clientName].handler $,data...
