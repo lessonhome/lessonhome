@@ -7,6 +7,7 @@ class Data
     @data  = {}
   init : =>
     @db = yield Main.service 'db'
+    
       
   get : (fname,find,fields)=>
     hash = _shash fname+JSON.stringify find

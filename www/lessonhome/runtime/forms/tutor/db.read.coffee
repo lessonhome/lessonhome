@@ -13,6 +13,7 @@ class DbRead
     for db,arr of @dbs
       qs.push @getObjFromDb $,db,find,arr
     qs = yield Q.all qs
+    console.log qs
     obj = {}
     i = 0
     for db of @dbs
