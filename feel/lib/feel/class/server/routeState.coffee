@@ -74,7 +74,7 @@ class RouteState
       for key,val of node
         @walk_tree_down node[key],node,key,foo
   go : => do Q.async =>
-    console.log yield @site.form.get 'tutor',{account:@req.user.id}
+    #console.log yield @site.form.get 'tutor',{account:@req.user.id}
     @res.on 'finish', =>
       agent = ""
       ip = get_ip(@req)?.clientIp

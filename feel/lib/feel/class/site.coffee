@@ -145,6 +145,7 @@ class module.exports
       suffix = "runtime" if !suffix
       file = _path.normalize @path.src+"/"+suffix+"/"+postfix+".d.coffee"
     console.log file
+    delete require.cache[require.resolve(process.cwd()+"/"+file)]
     obj = require process.cwd()+"/"+file
     for key,val of obj
       if typeof val == 'function'
