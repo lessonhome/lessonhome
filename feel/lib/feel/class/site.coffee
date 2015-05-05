@@ -31,6 +31,9 @@ class module.exports
       Main.service 'register'
     .then (reg)=>
       @register = reg
+      Main.service 'data'
+    .then (data)=>
+      @form = data
     .then @fileupload.init
     .then @configInit
     .then @loadModules
