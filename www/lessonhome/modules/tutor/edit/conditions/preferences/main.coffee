@@ -6,6 +6,7 @@ class @main extends EE
     @area  = @tree.area.class
   show : =>
     @area.on 'end', => @addTag @getTags(), @area_tags_div, @area.getValue()
+    @area.on 'press_enter', => @addTag @getTags(), @area_tags_div, @area.getValue()
     @closeHandler()
   save : => Q().then =>
     if @check_form()
@@ -21,6 +22,7 @@ class @main extends EE
 
   addTag: (tags_arr, tags_div, tag_text)=>
     return if !tag_text
+    @area.setValue('')
     if tags_arr.length
       for val in tags_arr
         if tag_text == val then return 0
@@ -30,7 +32,7 @@ class @main extends EE
       new_tag.remove()
     )
     $(tags_div).append(new_tag)
-    @area.setValue('')
+
 
   getData: =>
     return {
