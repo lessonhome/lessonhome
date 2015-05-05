@@ -12,7 +12,12 @@ class @main extends template '../edit_conditions'
     active_item : 'Календарь'
     tutor_edit  : module '$'  :
       calendar    : state 'calendar'  :
-        selector  : 'advance_filter'
+        selector  : 'advance_filter edit'
       #hint       : module 'tutor/hint_dz' :
       #  selector  : 'small'
-      #  text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'
+      #  text      : 'Поскольку'
+      save_button       : module 'tutor/button' :
+        text      : 'Сохранить'
+        selector  : 'edit_save'
+  init  :=>
+    @parent.parent.tree.content.possibility_save_button = false         # exception property, not this save button in state
