@@ -10,6 +10,7 @@ class Db
     @client = require('mongodb').MongoClient
   init : =>
     @log()
+    @feel = yield @connect 'feel'
   connect : (dbname)=>
     return @connections[dbname] if @connections[dbname]
     connecting = @connecting[dbname]?
@@ -29,8 +30,9 @@ class Db
       delete @connecting[dbname]
     return defer.promise
   get   : (name)=>
-    feel = yield @connect 'feel'
-    return feel.collection name
+    n = "_c_#{name}"
+    @get[n] ?= @feel.collection name
+    return @get[n]
   close : =>
     for name,connect of @connections
       connect.close()

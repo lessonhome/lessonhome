@@ -138,15 +138,11 @@ class @main extends template '../../tutor'
         start_text    : 'до'
         measurement   : 'мин.'
         handle        : false
-        value         :
-          min : 15
-          max : 120
-          left : data('tutor').get('subjects').then (s)->
-            p = s?[0]?.price?.range?.shift?()
-            p ?= 15
-          right : data('tutor').get('subjects').then (s)->
-            p = s?[0]?.price?.range?.pop?()
-            p ?= 60
+        value :
+          min           : 15
+          max           : 120
+          left          : 30
+          right         : 120
       separate_line : module 'tutor/separate_line' :
         selector : 'horizon'
       list_bids : module 'tutor/bids/list_bids' :
