@@ -1,5 +1,4 @@
 
-
 class @main
   Dom : =>
     @out_err_country  = @found.out_err_country
@@ -14,8 +13,6 @@ class @main
     # drop_down_list
     @country      = @tree.country.class
     @city         = @tree.city.class
-
-
 
     # clear error
     @country.input.on 'focus',  => @country.hideError()

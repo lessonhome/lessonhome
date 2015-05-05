@@ -171,6 +171,7 @@ class @main extends EE
               prevSelected @options
               selectedOptionToInput(false)
             when @unit.enterCode
+              @emit 'press_enter'
               selectedOptionToInput()
             when @unit.tabCode
               event.preventDefault()
