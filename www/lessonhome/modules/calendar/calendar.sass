@@ -44,60 +44,63 @@ $icon_width: image-width($icon_src)
         height: 100%
         top: 0
         right: 0
-  .tags
-    .tag
-      padding: 6px 0
-      display: none
-    .tag_box
+.tags
+  position: absolute
+  +inline-block
+  padding: 32px 0 0 35px
+  .tag
+    padding: 6px 0
+    display: none
+  .tag_box
+    +inline-block
+    height: 25px
+    overflow: hidden
+    background-color: #dadada
+    border: 1px solid rgba(0,0,0,0.1)
+    box-sizing: border-box
+    +border-radius(4px)
+    .day_box
+      text-align: center
+      background: #aacceb
+      width: 40px
+    .time_box
+      padding: 0 10px 0 6px
+    .day_box, .time_box
+      height: 100%
       +inline-block
-      height: 25px
-      overflow: hidden
-      background-color: #dadada
-      border: 1px solid rgba(0,0,0,0.1)
-      box-sizing: border-box
-      +border-radius(4px)
-      .day_box
-        text-align: center
-        background: #aacceb
-        width: 40px
-      .time_box
-        padding: 0 10px 0 6px
-      .day_box, .time_box
+    .day_box, .time_box
+      .day, .time
+        +inline-block
+        font-size: 14px
+        color: #4e4e4e
+    .close_box
+      width: $icon_width
+      height: $icon_height
+      padding: 3px
+      margin-right: 6.5px
+      cursor: pointer
+      +inline-block
+      background: #ffffff
+      opacity: 0.5
+      .close
         height: 100%
-        +inline-block
-      .day_box, .time_box
-        .day, .time
-          +inline-block
-          font-size: 14px
-          color: #4e4e4e
-      .close_box
-        width: $icon_width
-        height: $icon_height
-        padding: 3px
-        margin-right: 6.5px
-        cursor: pointer
-        +inline-block
-        background: #ffffff
-        opacity: 0.5
-        .close
-          height: 100%
-          width: 100%
-          background: url(F($icon_src)) no-repeat
-      .close_box:hover
-        opacity: 0.9
-      .day_box:after, .time_box:after
-        content: ''
-        height: 100%
-        +inline-block
+        width: 100%
+        background: url(F($icon_src)) no-repeat
+    .close_box:hover
+      opacity: 0.9
+    .day_box:after, .time_box:after
+      content: ''
+      height: 100%
+      +inline-block
 
-    .tag_box:hover
-      background: #e0e0e0
-      border: 1px solid rgba(0,0,0,0.3)
-      .day_box
-        background: #b1d2f2
-      .day_box, .time_box
-        .day, .time
-          color: #000000
+  .tag_box:hover
+    background: #e0e0e0
+    border: 1px solid rgba(0,0,0,0.3)
+    .day_box
+      background: #b1d2f2
+    .day_box, .time_box
+      .day, .time
+        color: #000000
 
 
 
