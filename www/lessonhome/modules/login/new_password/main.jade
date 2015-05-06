@@ -1,0 +1,9 @@
+.enter_block
+  form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
+    input.js-submit(type='submit')
+    .login
+      .input!= password
+    .password
+      .input!= confirm_password
+    .buttons
+      .save_button!=save_button

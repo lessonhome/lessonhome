@@ -1,4 +1,4 @@
-class @main extends template './main'
+class @main extends template '../main'
   route : '/enter'
   model : 'main/second_step'
   title : "вход"
@@ -9,7 +9,7 @@ class @main extends template './main'
     'pupil' : 'main/first_step'
   }
   tree : =>
-    content : module 'enter'  :
+    content : module '$'  :
       depend : [
         module 'lib/crypto'
         module 'lib/lzstring'
@@ -19,14 +19,14 @@ class @main extends template './main'
           "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
         ]
         name        : 'email'
-        selector    : 'fast_bid'
+        selector    : 'registration'
         text1       : 'Телефон или email'
       password        : module 'tutor/forms/input' :
         name        : 'password'
         type        : 'password'
-        selector    : 'fast_bid'
+        selector    : 'registration'
         text1       : 'Пароль'
       enter_button    : module 'link_button' :
         href      : 'tutor/profile/first_step'
-        selector  : 'create_account'
+        selector  : 'enter_office'
         text      : 'Войти'
