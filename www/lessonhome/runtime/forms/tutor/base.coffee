@@ -3,6 +3,6 @@
 #   @dbname = ['fieldname':'dbname','fieldname']
 #   dbname = fieldname if second
 
-@tutor    = ['status']
+@tutor    = ['status','settings']
 
 

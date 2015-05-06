@@ -3,6 +3,7 @@ class @main extends template '../edit_description'
   model   : 'tutor/edit/description/settings'
   title : "редактирование настройки"
   tags : -> 'edit: description'
+  forms : ['tutor']
   access : ['tutor']
   redirect : {
     'default' : 'main/first_step'
@@ -14,6 +15,7 @@ class @main extends template '../edit_description'
       new_orders_toggle : module 'tutor/forms/toggle' :
         first_value : 'Получать'
         second_value : 'Не получать'
+        value : $form : tutor : 'settings_new_orders'
       notice_sms_checkbox : module 'tutor/forms/checkbox' :
         text      : 'по смс'
         selector  : 'small'
@@ -103,7 +105,7 @@ class @main extends template '../edit_description'
   init  :=>
     @parent.parent.tree.content.possibility_save_button = false         # exception property, not this save button in state
     settings = data('tutor').get('settings')
-    @tree.tutor_edit.new_orders_toggle.value = settings.then (s)-> s?.new_orders
+    #@tree.tutor_edit.new_orders_toggle.value = settings.then (s)-> s?.new_orders
     ###
       @tree.tutor_edit.notice_sms_checkbox.value = settings.then (s)-> s?.get_notifications.then (arr)->
         for key, val of arr

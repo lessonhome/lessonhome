@@ -9,4 +9,5 @@ status =
 
 class @F2V
   $status       : (data)-> status[data?.status]
+  $settings_new_orders : (data)-> data?.settings?.new_orders
 
