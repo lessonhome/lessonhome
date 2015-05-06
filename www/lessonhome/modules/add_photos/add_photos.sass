@@ -11,7 +11,7 @@ $mheight : 200px
   width : 100%
 .container
   +transition(all 200ms ease-out)
-  +box-shadow( 0 0 20px rgba(0,0,0,0.2))
+  +box-shadow( 5px 5px 15px rgba(0,0,0,0.6))
   +block
   width     : $width
   .back
@@ -83,7 +83,8 @@ $mheight : 200px
         width  : 100%
         opacity : 0
 .container:hover
-  +box-shadow( 0 0 30px rgba(0,0,0,0.6))
+  +box-shadow( 5px 5px 15px rgba(0,0,0,0.8))
+  +transform(scale(0.999))// translate(1px,1px))
   .front
     background : rgba(0,0,0,0.01)
     +box-shadow( inset 0 0 10px rgba(0,0,0,0.1))
@@ -92,7 +93,9 @@ $mheight : 200px
       bottom : -1px
     .remove_photo
       opacity : 0.7
-    
+.container:active
+  +transform(scale(0.995) translate(1px,1px))
+  
 .container .front .remove_photo:hover
   opacity : 1
 

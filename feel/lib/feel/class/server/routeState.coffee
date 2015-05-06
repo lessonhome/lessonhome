@@ -147,6 +147,7 @@ class RouteState
     #@redirect = {}
     @getTop()
     qforms = []
+
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       if node._isState
         if node.__states
@@ -161,11 +162,24 @@ class RouteState
             if typeof s.forms == 'string'
               s.forms = [s.forms]
             for f in s.forms
-              unless @$forms[f]
-                @$forms[f] ?= @site.form.get f,{account:@req.user.id}
-                do (f)=>
-                  qforms.push @$forms[f].then (data)=>
-                    @$forms[f] = data
+              fname = f
+              fields = undefined
+              if typeof f == 'object'
+                fname   = Object.keys(f)[0]
+                fields  = f[fname]
+                if typeof fields == 'string'
+                  fields = [fields]
+              #unless @$forms[f]
+              @$forms[fname] ?= {}
+              boo = false
+              if fields then for field in fields
+                boo = true
+                @$forms[fname][field] = true
+              @$forms[fname].__all = true unless boo
+              #  @$forms[f] ?= @site.form.get f,@req,@res
+              #  do (f)=>
+              #    qforms.push @$forms[f].then (data)=>
+              #      @$forms[f] = data
           for k of s.tag
             @tags[k] = true
           #for a in s.access
@@ -176,7 +190,14 @@ class RouteState
           s.page_tags = @tags
         #node = pnode[key] = @getTopOfNode node
     #console.log @access,@redirect
-
+    for form,fields of @$forms
+      do (form,fields)=> qforms.push do Q.async =>
+        unless fields?.__all
+          fields = Object.keys fields
+          fields = undefined unless fields?.length > 0
+        else
+          fields = undefined
+        @$forms[form] = yield @site.form.get form,@req,@res,fields
     if @top._isState
       if @top.__states
         o = @top.__states
@@ -193,18 +214,44 @@ class RouteState
     @stack = []
     yield Q.all qforms
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
-      return unless node.$form && (typeof node.$form == 'object')
-      fname = Object.keys(node.$form)?[0]
-      return console.error "bad form"+_inspect(node.$form) unless fname && @$forms[fname]?
-      field = node.$form[fname]
-      place = 'value'
-      if typeof field == 'object'
-        t = Object.keys(field)[0]
-        place = field[t]
-        field = t
-      delete node.$form
-      console.log node[place]
-      node[place] = @$forms[fname][field]
+      do =>
+        return unless node?._isModule
+        return unless node.$form && (typeof node.$form == 'object')
+        fname = Object.keys(node.$form)?[0]
+        return console.error "bad form"+_inspect(node.$form) unless fname && @$forms[fname]?
+        field = node.$form[fname]
+        place = 'value'
+        if typeof field == 'object'
+          t = Object.keys(field)[0]
+          place = field[t]
+          field = t
+        delete node.$form
+        node[place] = @$forms[fname][field]
+      do =>
+        for k,val of node
+          continue if val?._isModule
+          continue unless typeof val == 'object'
+          continue unless val
+          continue unless val.$form
+          continue unless typeof val.$form == 'object'
+          fname = Object.keys(val.$form)?[0]
+          unless fname && @$forms[fname]?
+            console.error "bad form"+_inspect(val.$form)
+            continue
+          field = val.$form[fname]
+          place = 'value'
+          boo = false
+          if typeof field == 'object'
+            t = Object.keys(field)[0]
+            place = field[t]
+            field = t
+            boo = true
+          delete node[k]
+          unless boo
+            node[k] = @$forms[fname][field]
+          else
+            node[place] = @$forms[fname][field]
+
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?
       @cssModule 'default'

@@ -38,5 +38,5 @@ check = require("./check")
   console.log subjects_db
   yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:subjects_db}},{upsert:true}
   yield $.status 'tutor_prereg_3', true
-
+  yield $.form.flush ['tutor','account'],$.req,$.res
   return {status:'success'}

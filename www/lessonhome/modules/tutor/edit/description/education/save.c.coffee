@@ -11,5 +11,6 @@
 
   db= yield $.db.get 'persons'
   yield _invoke db, 'update',{account:$.user.id},{$set:{education:[{country:data.country, city:data.city, name:data.university, faculty:data.faculty, chair:data.chair, qualification:data.qualification, period:{start:data.learn_from, end:data.learn_till} }]}},{upsert:true}
+  yield $.form.flush ['person'],$.req,$.res
 
   return {status:'success'}

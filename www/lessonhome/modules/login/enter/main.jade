@@ -5,7 +5,8 @@
       .input!= login
     .password
       .input!= password
-    .forgot_password Забыли пароль
+    .text_block
+      a(href = '/forgot_password').forgot_password Забыли пароль?
+      a(href = '/main_tutor') Регистрация
     .buttons
       .enter_button!=enter_button
-      a(href = '/main_tutor') Регистрация

@@ -6,6 +6,7 @@ readdir = Q.denodeify fs.readdir
 Router  = require './server/router'
 _path   = require 'path'
 FileUpload = require './server/fileupload'
+Form = require './form'
 
 class module.exports
   constructor : (@name)->
@@ -31,9 +32,8 @@ class module.exports
       Main.service 'register'
     .then (reg)=>
       @register = reg
-      Main.service 'data'
-    .then (data)=>
-      @form = data
+      @form = new Form
+      @form.init()
     .then @fileupload.init
     .then @configInit
     .then @loadModules

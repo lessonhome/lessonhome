@@ -6,7 +6,7 @@
   #if progress==4  then return {status: 'last_step'}
   db= yield $.db.get 'tutor'
   yield _invoke db, 'update',{account:$.user.id},{$set:{registration_progress:++progress}},{upsert:true}
-
+  yield $.form.flush ['tutor'],$.req,$.res
   return {status:'success'}
 
 

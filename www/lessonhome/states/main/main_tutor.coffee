@@ -1,5 +1,4 @@
 
-
 class @main extends template '../main'
   route : '/main_tutor'
   tags  : -> 'pupil:main_tutor'
@@ -21,12 +20,12 @@ class @main extends template '../main'
           "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
         ]
         name        : 'email'
-        selector    : 'fast_bid'
+        selector    : 'registration'
         text1       : 'Введите ваш телефон или email адрес'
       password        : module 'tutor/forms/input' :
         name        :'password'
         type        : 'password'
-        selector    : 'fast_bid'
+        selector    : 'registration'
         text1       : 'Придумайте пароль'
       agree_checkbox        : module 'tutor/forms/checkbox' :
         value : true
