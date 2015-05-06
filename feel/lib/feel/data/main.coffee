@@ -63,7 +63,7 @@ class Data
     ret = {}
     ret[f] = data.vdata[f] for f in fields
     return ret
-  flush : (find)=>
+  flush : (find,dbname)=>
     fhash = @findtohash find
     if @flushs?[fhash]?
       for o in @flushs[fhash]

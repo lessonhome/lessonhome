@@ -109,8 +109,8 @@ strlen = (str,len,real)->
 global.Wrap = (obj,prot)->
   proto = prot
   proto ?= obj?.__proto__
-  return unless proto?
-  return if obj.__wraped
+  return obj unless proto?
+  return obj if obj.__wraped
   __functionName__ = ""
   __FNAME__ = ""
   _single = {}

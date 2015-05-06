@@ -5,6 +5,7 @@ os = require 'os'
 spdy = require 'spdy'
 url  = require 'url'
 _cookies = require 'cookies'
+Form = require '../class/form'
 
 class Socket
   constructor : ->
@@ -12,7 +13,8 @@ class Socket
     
   init : =>
     @db = yield Main.service 'db'
-    @form = yield Main.service 'data'
+    @form = new Form
+    yield @form.init()
     @register = yield Main.service 'register'
     @server = http.createServer @handler
     @server.listen 8082
