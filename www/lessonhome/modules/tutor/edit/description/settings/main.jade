@@ -22,36 +22,33 @@ mixin field (selector, value)
     .text Рекомендуем оставить возможность оператру звонить Вам.<br>Так Вы сразу получите информацию об ученике, любые вопросы будут быстро решены.<br>Чтобы Вам звонили только в определенное время - укажите это в комментариях.
     .js-close_block
       .close
-
 .save_block
-  .button!= save_button
-
-.line_box
-  .line!=line_phone
+  .button!=save_button_notice
 
 //+title_block('Номер телефона', 'phone_number')
-
-.old_phone_number
-  .title.select Привязанный :
-  .text.select!= old_phone_number
-
-+field('new_phone_number', new_phone_number)
-
-.change_block
-  .button!= change_button
-
 .line_box
-  .line!=line_email
-//+title_block('E-mail', 'email')
+  .line!=line_login
+.enter_change_login
+  .old_login
+    .title.select Привязанный :
+    .text.select!= old_login
+  +field('new_login', new_login)
+  .password!=password
+  .change_block
+    .button!= change_button_login
 
-.old_email
-  .title.select Старый :
-  .text.select!= old_email
+//-
+  .line_box
+    .line!=line_email
 
-+field('new_email', new_email)
+  .old_email
+    .title.select Старый :
+    .text.select!= old_email
 
-.change_block
-  .button!= change_button
+  +field('new_email', new_email)
+
+  .change_block
+    .button!= change_button_email
 
 .line_box
   .line!=line_password
@@ -60,6 +57,5 @@ mixin field (selector, value)
 +field('confirm_password', confirm_password)
 
 .save_block
-  .button!= save_button
-
+  .button!= save_button_password
 

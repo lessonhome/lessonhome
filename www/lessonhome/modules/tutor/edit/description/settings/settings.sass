@@ -6,7 +6,7 @@ $padding: 7px
 $height: 37px
 main
   //text-align: right
-.value
+.value, .enter_change_login>.value
   +inline-block
   padding: $padding 0
   font-size: $height
@@ -16,6 +16,7 @@ main
   .value
     text-align: left
     width: 341px
+
 .get_notice
   padding: $padding+8 0
   .val
@@ -56,15 +57,24 @@ main
       .close
         width: $close_width
         height: $close_height
-        background: url(F($close_src)) no-repeat
-.old_email, .old_phone_number
+        background: url(F($close_src)) no-repea
+
+
+.enter_change_login
+  .password
+    +inline-block
+    padding: 7px 0
+    font-size: 37px
+    width: 341px
+
+.old_email, .enter_change_login>.old_login
   padding: $padding 0
   .text
     text-align: left
     width: 341px
     font-size: 20px
 
-.new_orders, .get_notice, .callback, .old_email, .old_phone_number
+.new_orders, .get_notice, .callback, .old_email, .enter_change_login>.old_login
   color: #757575
   div
     +inline-block
@@ -84,7 +94,7 @@ $font_size_line: 20px       //because in child separate line have font_size: 18p
 
 //- ------------ BUTTONS -----------------------------
 
-.save_block, .change_block
+.save_block, .change_block, .enter_change_login>.change_block, .confirm_change_login>.save_block
   height: 33px
   padding: $padding 0
   .button

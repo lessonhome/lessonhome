@@ -115,6 +115,11 @@ tutor:
       
     }
   ]
+  
+  settings : # настройки 
+    new_orders : 'true' # новые заказы получать или не получать : true || false 
+    get_notifications : ['sms', 'email'] # или одно из ; получать уведомления 
+    call_operator_possibility : 'true'
 
 
 

@@ -94,7 +94,7 @@ class @main extends EE
   # compare two time format "9:05"
   # return 1 if second bigger
   # return -1 if other
-  # return 0
+  # return 0 if equal
 
   compareTime: (first_time, second_time)=>
     first = {}
