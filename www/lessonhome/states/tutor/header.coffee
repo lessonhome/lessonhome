@@ -1,4 +1,5 @@
 class @main
+  forms : 'tutor'
   tree : => module '$' :
     depend : [
       module 'lib/crypto'
@@ -14,7 +15,7 @@ class @main
         selector: 'header'
 
     button_in_out :  module '$/button_in_out' :
-      registered  : data('checkRegistered').check()
+      registered  : $form : tutor : 'registered' #data('checkRegistered').check()
       login       :  module './forms/input'  :
         replace : [
           '[^\\d-\\(\\)\\@\\w\\+\\s\\.]'

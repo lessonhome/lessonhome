@@ -25,6 +25,27 @@ class Data
     obj = yield @form[fname].dbread.read $,fields
     data = {}
     data.data = obj
+    data.fdata = {}
+    data.fdata[key] = val for key,val of data.data
+    qs = []
+    if $.form.d2f? then for key,val of $.form.d2f
+      if (m=key.match(/^\$(.*)$/)) && (typeof val == 'function')
+        do (m,key)=>
+          qs.push $.form.d2f[key](data.data).then (v)=>
+            data.fdata[m[1]] = v
+            return
+    yield Q.all qs
+    data.vdata = {}
+    data.vdata[key] = val for key,val of data.fdata
+    qs = []
+    if $.form.f2v? then for key,val of $.form.f2v
+      if (m=key.match(/^\$(.*)$/)) && (typeof val == 'function')
+        do (m,key)=>
+          qs.push $.form.f2v[key](data.fdata).then (v)=>
+            data.vdata[m[1]] = v
+            return
+    yield Q.all qs
+    console.log data.data,data.fdata,data.vdata
     data.form = @form[fname]
     data.hash = hash
     @data[hash] = data
@@ -38,10 +59,9 @@ class Data
       o[k] = find[k]
     return _shash JSON.stringify o
   returnData : (fname,find,fields,hash,data=@data[hash])=>
-    fields ?= Object.keys data.data
+    fields ?= Object.keys data.vdata
     ret = {}
-    for f in fields
-      ret[f] = data.data[f]
+    ret[f] = data.vdata[f] for f in fields
     return ret
   flush : (find)=>
     fhash = @findtohash find
@@ -64,8 +84,17 @@ class Data
       form.f['db.read'] = require process.cwd()+"/#{form.dir}/db.read.coffee"
     else
       form.f['db.read'] = require process.cwd()+"/www/lessonhome/runtime/forms/db.read.coffee"
-    form.dbread = new form.f['db.read']
-    Wrap form.dbread
+    if files.convert
+      form.f.convert = require process.cwd()+"/#{form.dir}/convert.coffee"
+      if form.f.convert?.F2V?
+        form.f2v = Wrap new form.f.convert.F2V
+      if form.f.convert?.V2F?
+        form.v2f = Wrap new form.f.convert.V2F
+      if form.f.convert?.F2B?
+        form.F2B = Wrap new form.f.convert.F2B
+      if form.f.convert?.B2F?
+        form.b2f = Wrap new form.f.convert.B2F
+    form.dbread = Wrap new form.f['db.read']
     form.fields   = []
     form.bfields  = {}
     form.ffields  = {}
