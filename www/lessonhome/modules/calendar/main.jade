@@ -14,17 +14,35 @@
       .dash -
       .till_time!=till_time
       .js-add_time_button!= add_time_button
+  .js-error
+  .js-save_button!=save_button
 .js-tags
-  .js-tag!=tag
   each val in tags
     .tag
-      .text!= val.day
-      .value_from!= val.period.start
-      .value_still!= val.period.end
+      .tag_box
+        .day_box
+          .day!=val.day
+        .time_box
+          .time
+            .text c
+            .time_from!=val.period.start
+            .text до
+            .time_till!=val.period.end
+        .js-close_box
+          .close
 
-
-
-
+.js-tag(style="display: none")
+  .tag_box
+    .day_box
+      .day
+    .time_box
+      .time
+        .text c
+        .time_from
+        .text до
+        .time_till
+    .js-close_box
+      .close
 
 
 
