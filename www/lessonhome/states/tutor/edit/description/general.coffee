@@ -4,6 +4,7 @@ class @main extends template '../edit_description'
   title : "редактирование общее"
   tags : -> 'edit: description'
   access : ['tutor']
+  forms : 'tutor'
   redirect : {
     'default' : 'main/first_step'
   }

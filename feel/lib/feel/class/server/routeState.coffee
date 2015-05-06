@@ -193,18 +193,44 @@ class RouteState
     @stack = []
     yield Q.all qforms
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
-      return unless node.$form && (typeof node.$form == 'object')
-      fname = Object.keys(node.$form)?[0]
-      return console.error "bad form"+_inspect(node.$form) unless fname && @$forms[fname]?
-      field = node.$form[fname]
-      place = 'value'
-      if typeof field == 'object'
-        t = Object.keys(field)[0]
-        place = field[t]
-        field = t
-      delete node.$form
-      console.log node[place]
-      node[place] = @$forms[fname][field]
+      do =>
+        return unless node?._isModule
+        return unless node.$form && (typeof node.$form == 'object')
+        fname = Object.keys(node.$form)?[0]
+        return console.error "bad form"+_inspect(node.$form) unless fname && @$forms[fname]?
+        field = node.$form[fname]
+        place = 'value'
+        if typeof field == 'object'
+          t = Object.keys(field)[0]
+          place = field[t]
+          field = t
+        delete node.$form
+        node[place] = @$forms[fname][field]
+      do =>
+        for k,val of node
+          continue if val?._isModule
+          continue unless typeof val == 'object'
+          continue unless val
+          continue unless val.$form
+          continue unless typeof val.$form == 'object'
+          fname = Object.keys(val.$form)?[0]
+          unless fname && @$forms[fname]?
+            console.error "bad form"+_inspect(val.$form)
+            continue
+          field = val.$form[fname]
+          place = 'value'
+          boo = false
+          if typeof field == 'object'
+            t = Object.keys(field)[0]
+            place = field[t]
+            field = t
+            boo = true
+          delete node[k]
+          unless boo
+            node[k] = @$forms[fname][field]
+          else
+            node[place] = @$forms[fname][field]
+
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?
       @cssModule 'default'

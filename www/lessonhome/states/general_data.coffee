@@ -31,23 +31,28 @@ class @main
       selector        : 'choose_gender'
       title           : 'true'
       selector_button : 'registration'
-      value           : data('person').get('sex').then (s)->
-        return s if s?
-        return false
+      value           : $form : 'tutor' : 'sex'
+      #data('person').get('sex').then (s)->
+      #return s if s?
+      #return false
       #$form   : 'tutor' : 'sex'
     birth_data    : state 'data_date'  :
       text  : 'Дата рождения :'
-      day_value   : data('person').get('birthday').then (b)-> b?.getDate?()
-      month_value : data('person').get('birthday').then (b)-> data('convert').convertNumberToMonth(b?.getMonth?())
-      year_value  : data('person').get('birthday').then (b)-> b?.getFullYear?()
+      #day_value   : data('person').get('birthday').then (b)-> b?.getDate?()
+      #month_value : data('person').get('birthday').then (b)-> data('convert').convertNumberToMonth(b?.getMonth?())
+      #year_value  : data('person').get('birthday').then (b)-> b?.getFullYear?()
+      day_value   : $form : 'tutor' : 'birthday'
+      month_value : $form : 'tutor' : 'birthmotn'
+      year_value  : $form : 'tutor' : 'birthyear'
     status      : module 'tutor/forms/drop_down_list' :
       text        : 'Статус :'
       selector    : 'first_reg'
       scroll      : module 'tutor/forms/drop_down_list/scroll' :
         paramsData  : {} #{findContainerMethod:'prev'}
       options_count: 7
-      value: data('tutor').get('status').then (s)->
-        if s then data('convert').convertStatusToRus s
+      #value: data('tutor').get('status').then (s)->
+      #  if s then data('convert').convertStatusToRus s
+      $form : tutor : 'status'
       default_options     : {
         '0': {value: 'schoolboy', text: 'школьник'},
         '1': {value: 'student', text: 'студент'},
@@ -55,14 +60,6 @@ class @main
         '3': {value: 'phd', text: 'кандидат наук'},
         '4': {value: 'phd2', text: 'доктор наук'}
       }
-
-
-
-
-
-
-
-
 
 
 

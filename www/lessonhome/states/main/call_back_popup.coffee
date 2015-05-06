@@ -1,4 +1,5 @@
 class @main
+  forms : 'tutor'
   tree : => module '$' :
     selector    : @exports()
     href        : @exports()
@@ -7,14 +8,14 @@ class @main
     your_name  : module 'tutor/forms/input'  :
       placeholder : 'Ваше имя'
       selector : 'fast_bid'
-      value      : data('person').get('first_name').then (f)->
-        return f if f?
+      $form : tutor : 'first_name'
     tel_number  : module 'tutor/forms/input'  :
       placeholder : 'Телефон'
       selector : 'fast_bid'
-      value : data('person').get('phone').then (p)->
-        return p[0] if p?[0]? && p[0] && p[0]!="+7 (___) ___-__-__"
-      placeholder: '+7 (xxx) xxx–xx–xx'
+      #value : data('person').get('phone').then (p)->
+      #  return p[0] if p?[0]? && p[0] && p[0]!="+7 (___) ___-__-__"
+      $form : tutor : 'firstphone'
+      placeholder: '+7 (___) ___–__–__'
       replace     : [
         {"^(8|7)(?!\\+7)":"+7"}
         {"^(.*)(\\+7)":"$2$1"}
@@ -39,8 +40,9 @@ class @main
     tutor       : module 'tutor/header/button_toggle' :
       text  : 'Я репетитор'
       selector      : 'call_back_tutor inactive'
-      value : data('person').get('first_name').then (f)->
-        return 'active' if f? && f 
+      #value : data('person').get('first_name').then (f)->
+      #  return 'active' if f? && f
+      $form : tutor : 'activeTutor'
     order_call  : module 'tutor/button' :
       text  : 'Заказать звонок'
       selector      : 'call_back'

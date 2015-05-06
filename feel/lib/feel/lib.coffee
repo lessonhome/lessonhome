@@ -312,6 +312,7 @@ global.Wrap = (obj,prot)->
       ee.once action, (args...)->
         ret = foo args...
         ret.done() if Q.isPromise ret
+  return obj
 global.lrequire = (name)-> require './lib/'+name
 
 global.Path     = new (require('./service/path'))()
