@@ -13,6 +13,7 @@
     err.err ?= 'internal_error'
     return {status:'failed',err:err.err}
   console.log 'end'
+  yield $.form.flush '*',$.req,$.res
   return {status:'success'}
 
 

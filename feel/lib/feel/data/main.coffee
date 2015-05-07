@@ -11,8 +11,10 @@ class Data
     
       
   get : (fname,find,fields)=>
-    fhash= @findtohash find
+    @log find
+    fhash= yield @findtohash find
     hash = _shash fname+fhash
+    @log fhash,hash
     return @returnData fname,find,fields,hash,@data[hash] if @data[hash]
     data = yield @loadData fname,find,fields,hash,fhash
     return @returnData fname,find,fields,hash,data
@@ -53,10 +55,12 @@ class Data
     @flushs[fhash].push [@data,hash]
     return data
   findtohash : (find)=>
+    @log find
     keys = Object.keys(find).sort()
     o = {}
     for k in keys
       o[k] = find[k]
+    @log o
     return _shash JSON.stringify o
   returnData : (fname,find,fields,hash,data=@data[hash])=>
     fields ?= Object.keys data.vdata
@@ -64,7 +68,7 @@ class Data
     ret[f] = data.vdata[f] for f in fields
     return ret
   flush : (find,dbname)=>
-    fhash = @findtohash find
+    fhash = yield @findtohash find
     if @flushs?[fhash]?
       for o in @flushs[fhash]
         delete o[0][o[1]]

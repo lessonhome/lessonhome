@@ -1,6 +1,6 @@
 
 class @main
-  forms : ['person':['avatar','first_name','last_name','middle_name','sex','birthday','birthmonth','birthyear'],'tutor':'status']
+  forms : ['person','tutor']
   tree : -> module '$' :
     add_photos   : module 'add_photos' :
       depend : [

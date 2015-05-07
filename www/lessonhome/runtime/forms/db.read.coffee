@@ -8,7 +8,7 @@ class DbRead
       bname  = $.form.toBName f
       @dbs[dbname] ?= {}
       @dbs[dbname][bname] = 1
-    find = account:$.find.account
+    find = $.find
     qs = []
     for db,arr of @dbs
       qs.push @getObjFromDb $,db,find,arr

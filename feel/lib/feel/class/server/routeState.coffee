@@ -214,6 +214,7 @@ class RouteState
     @jsClient = Feel.clientJs
     @stack = []
     yield Q.all qforms
+    console.log @$forms
     @time 'forms get'
     
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
