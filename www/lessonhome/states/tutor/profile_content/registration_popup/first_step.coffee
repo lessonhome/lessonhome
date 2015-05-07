@@ -1,7 +1,5 @@
 class @main extends template '../registration_popup'
-  forms :
-    tutor_account :
-      fields : ['first_name','last_name','middle_name','sex','birthday','status']
+  forms : [{account:['registration_progress']}]
   route : '/tutor/profile/first_step'
   model : 'tutor/profile_registration/first_step'
   title : "первый вход"
@@ -10,9 +8,7 @@ class @main extends template '../registration_popup'
     'default' : 'main/first_step'
   }
   tree : ->
-    progress  : data('registration_progress').get().then (p=0)=> p+1
-    #data('tutor').get('registration_progress').then (p)->
-    #return p if p?
+    progress  : $form : account : 'registration_progress'
     close   : false
     content : module '$' :
       understand_button : module 'tutor/button' :

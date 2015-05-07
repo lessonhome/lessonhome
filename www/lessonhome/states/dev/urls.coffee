@@ -2,7 +2,7 @@
 class @main
   access : ['tutor','pupil','other']
   redirect : {}
-  forms : ['person':['first_name']]
+  forms : [{'person':['first_name']}]
   route :  '/urls'
   tree : => module 'dev/urls' :
     depend : [
@@ -10,6 +10,7 @@ class @main
       module 'lib/mousewheel'
     ]
     user : $form :person:"first_name"
+
   init : =>
     arr = []
     o = {}

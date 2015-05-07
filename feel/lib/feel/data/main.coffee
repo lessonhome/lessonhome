@@ -22,7 +22,7 @@ class Data
     $.find = find
     $.form = @form[fname]
     $.db = @db
-    obj = yield @form[fname].dbread.read $,fields
+    obj = yield @form[fname].dbread.read $
     data = {}
     data.data = obj
     data.fdata = {}
@@ -45,7 +45,6 @@ class Data
             data.vdata[m[1]] = v
             return
     yield Q.all qs
-    console.log data.data,data.fdata,data.vdata
     data.form = @form[fname]
     data.hash = hash
     @data[hash] = data

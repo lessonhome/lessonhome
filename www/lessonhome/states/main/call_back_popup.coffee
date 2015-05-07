@@ -12,8 +12,6 @@ class @main
     tel_number  : module 'tutor/forms/input'  :
       placeholder : 'Телефон'
       selector : 'fast_bid'
-      #value : data('person').get('phone').then (p)->
-      #  return p[0] if p?[0]? && p[0] && p[0]!="+7 (___) ___-__-__"
       $form : person : 'firstphone'
       placeholder: '+7 (___) ___–__–__'
       replace     : [
@@ -40,8 +38,6 @@ class @main
     tutor       : module 'tutor/header/button_toggle' :
       text  : 'Я репетитор'
       selector      : 'call_back_tutor inactive'
-      #value : data('person').get('first_name').then (f)->
-      #  return 'active' if f? && f
       $form : account : 'activeTutor'
     order_call  : module 'tutor/button' :
       text  : 'Заказать звонок'

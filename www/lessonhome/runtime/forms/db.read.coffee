@@ -27,7 +27,6 @@ class DbRead
 
   getObjFromDb : ($,bname,find,fields)=>
     db = yield $.db.get bname
-    console.log bname,find,fields
     cursor = db.find(find,fields).limit(1)
     obj = yield _invoke cursor,'nextObject'
     cursor.close()

@@ -221,12 +221,22 @@ class RouteState
         return console.error "bad form"+_inspect(node.$form) unless fname && @$forms[fname]?
         field = node.$form[fname]
         place = 'value'
+        func = undefined
         if typeof field == 'object'
           t = Object.keys(field)[0]
-          place = field[t]
-          field = t
+          if typeof field[t] == 'function'
+            func = field[t]
+            field = t
+          else
+            place = field[t]
+            field = t
+            if typeof place == 'object'
+              t = Object.keys(place)[0]
+              func = place[t] if typeof place[t] == 'function'
+              place = t
         delete node.$form
         node[place] = @$forms[fname][field]
+        node[place] = func? node[place] if func
       do =>
         for k,val of node
           continue if val?._isModule
@@ -240,17 +250,28 @@ class RouteState
             continue
           field = val.$form[fname]
           place = 'value'
+          func = undefined
           boo = false
           if typeof field == 'object'
             t = Object.keys(field)[0]
-            place = field[t]
-            field = t
-            boo = true
+            if typeof field[t] == 'function'
+              func = field[t]
+              field = t
+            else
+              boo = true
+              place = field[t]
+              field = t
+              if typeof place == 'object'
+                t = Object.keys(place)[0]
+                func = place[t] if typeof place[t] == 'function'
+                place = t
           delete node[k]
           unless boo
             node[k] = @$forms[fname][field]
+            node[k] = func? node[k] if func
           else
             node[place] = @$forms[fname][field]
+            node[place] = func? node[place] if func
     @time 'forms set'
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?

@@ -7,4 +7,10 @@ class @F2V
       true
     else
       false
-
+  $registration_progress : (data)->
+    s = data?.status
+    return 5 if s?.tutor_prereg_4
+    return 4 if s?.tutor_prereg_3
+    return 3 if s?.tutor_prereg_2
+    return 2 if s?.tutor_prereg_1
+    return 1

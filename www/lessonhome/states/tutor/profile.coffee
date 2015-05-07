@@ -3,6 +3,7 @@ class @main extends template '../tutor'
   model   : 'tutor/profile/profile'
   title : "анкета"
   tags   : -> 'tutor:profile'
+  forms : [{person:['phone','email','skype','site']}]
   access : ['tutor']
   redirect : {
     'default' : 'main/first_step'
@@ -24,18 +25,14 @@ class @main extends template '../tutor'
       popup         : @exports()
       contacts : module './profile_content/info_block' :
         section :
-          'Телефон :'     : data('person').get('phone').then (p)->
-            return p[0] if p?[0]? && p[0] && p[0]!="+7 (___) ___-__-__"
-            return data('convert').getLinkToFill "./edit/contacts"
-          'Почта :'       : data('person').get('email').then (e)->
-            return e[0] if e?[0]? && e[0]
-            return data('convert').getLinkToFill "./edit/contacts"
-          'Скайп :'       : data('person').get('social_networks').then (s)->
-            return s.skype[0] if s?.skype?[0]? && s.skype[0]
-            return data('convert').getLinkToFill "./edit/contacts"
-          'Личный сайт :' : data('person').get('site').then (s)->
-            return s[0] if s?[0]? && s[0]
-            return data('convert').getLinkToFill "./edit/contacts"
+          'Телефон :'     : $form : person : phone : (s)->
+            s || '<a href="./edit/contacts">заполнить</a>'
+          'Почта :'     : $form : person : email : (s)->
+            s || '<a href="./edit/contacts">заполнить</a>'
+          'Скайп :'     : $form : person : skype : (s)->
+            s || '<a href="./edit/contacts">заполнить</a>'
+          'Личный сайт :'     : $form : person : site : (s)->
+            s || '<a href="./edit/contacts">заполнить</a>'
       progress  : module './profile_content/progress' :
         filling  : '56%'
       edit      : true

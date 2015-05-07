@@ -34,12 +34,6 @@ class @main extends template '../fast_bid'
         value         :
           min : 15
           max : 120
-          #left : data('tutor').get('subjects').then (s)->
-          #  p = s?[0]?.price?.range?.shift?()
-          #  p ?= 15
-          #right : data('tutor').get('subjects').then (s)->
-          #  p = s?[0]?.price?.range?.pop?()
-          #  p ?= 60
       way_time_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -60,12 +54,6 @@ class @main extends template '../fast_bid'
         value         :
           min : 45
           max : 180
-          left : data('tutor').get('subjects').then (s)->
-          #  p = s?[0]?.price?.range?.shift?()
-          #  p ?= 45
-          #right : data('tutor').get('subjects').then (s)->
-          #  p = s?[0]?.price?.range?.pop?()
-          #  p ?= 60
       lesson_time_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
