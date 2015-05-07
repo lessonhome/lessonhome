@@ -89,7 +89,7 @@ class Server
   handlerHttpRedirect : (req,res)=>
     res.statusCode = 301
     host = req.headers.host
-    if m = host.match /^www\.(.*)$/
+    if m = host?.match /^www\.(.*)$/
       host = m[1]
     res.setHeader 'location', "https://#{host}#{req.url}"
     res.end()
