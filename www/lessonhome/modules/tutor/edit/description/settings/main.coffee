@@ -9,8 +9,10 @@ class @main
     @callback_toggle = @tree.callback_toggle.class
     @callback_comment = @tree.callback_comment.class
     @save_button_notice = @tree.save_button_notice.class
-    # phone
+    # change login
     @new_login = @tree.new_login.class
+    @password  = @tree.password.class
+    @change_button_login = @tree.change_button_login.class
     # email
     @new_email = @tree.new_email.class
     # password
@@ -29,6 +31,40 @@ class @main
 
     @save_button_notice.on 'submit', @b_save_notice
     @save_button_password.on 'submit', @b_save_password
+
+    @change_button_login.on 'submit', @tryChangeLogin
+
+  tryChangeLogin : =>
+    pass  = @password.getValue()
+    login = @new_login.getValue()
+
+    ret = @js.check login,pass
+
+    @printErrors ret.err if ret?.err?
+    return if ret?.err?
+    login = ret.login if ret?.login?
+    console.log pass
+    unless pass.substr(0,1) == '`'
+      len = pass.length
+      pass = LZString.compress((CryptoJS.SHA1(pass)).toString(CryptoJS.enc.Hex)).toString()
+      str = ""
+      for i in [0...len-1]
+        str += pass[i]
+      pass = str
+      pass = '`'+pass
+      @password.setValue pass
+      @hashedPassword = true
+    @$send( 'loginUpdate',{
+      password : pass
+      login    : login
+    }).then ({status,err})=>
+      #console.log 'login Changed', arguments
+      console.log 'status : '+status
+      if status == 'success'
+        @success = true
+        $('body,html').animate({scrollTop:0}, 500)
+      else
+        @printErrors err
 
   b_save_notice : =>
     @save_notice().then (success)=>
@@ -113,3 +149,37 @@ class @main
     #correct
       #else
        # alert 'die'
+
+  printErrors : (err)=>
+    switch err
+      when 'wrong_password'
+        @password.showError 'Неверный пароль'
+        console.log err
+      when 'login_exists'
+        @new_login.showError 'Такой логин занят'
+        console.log err
+      when 'already_logined'
+        @new_login.showError "Кажется вы уже вошли. Сначала надо выйти!"
+        @password.showError()
+    #href = "/tutor/profile"
+    #window.location =  href
+    #console.log err
+      when 'bad_login'
+        @new_login.showError 'Используйте для логина корректный телефон или email'
+        console.log err
+      when 'bad_password'
+        @password.showError 'Плохой пароль'
+        console.log err
+      when 'empty_login_form'
+        @new_login.showError 'Введите телефон или email'
+      when 'empty_password_form'
+        @password.showError 'Введите пароль для нового аккаунта'
+      when 'short_login'
+        @new_login.showError 'Слишком короткий логин'
+        console.log err
+      when 'short_password'
+        @password.showError 'Слишком короткий пароль'
+        console.log err
+      else
+        @new_login.showError()
+        @password.showError 'что-то пошло не так'

@@ -1,7 +1,9 @@
 
+# data:{login,password,newlogin}
 
 
 @handler = ($,data)->
+  data.login ?= $.user.login
   try
     obj = yield $.register.loginUpdate $.user,$.session,data
   catch err

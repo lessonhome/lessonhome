@@ -19,18 +19,22 @@ class @main extends template '../edit_description'
       notice_sms_checkbox : module 'tutor/forms/checkbox' :
         text      : 'по смс'
         selector  : 'small'
-        value     : true
+        #value     : true
+        value     : $form : tutor : 'settings_get_notifications_sms'
       notice_email_checkbox : module 'tutor/forms/checkbox' :
         text      : 'на email'
         selector  : 'small'
-        value     : true
+        #value    : true
+        value     : $form : tutor : 'settings_get_notifications_email'
       callback_toggle : module 'tutor/forms/toggle' :
         first_value : 'Да'
         second_value : 'Нет'
+        value : $form : tutor : 'settings_call_operator_possibility'
       callback_comment : module 'tutor/forms/textarea' :
         height    : '77px'
         selector  : 'first_reg'
         placeholder : 'Комментарий'
+        value : $form : tutor : 'phone_call_description'
       save_button_notice : module 'tutor/button' :
         text     : 'Сохранить'
         selector : 'edit_save'
@@ -53,22 +57,6 @@ class @main extends template '../edit_description'
       new_login : module 'tutor/forms/input' :
         text2      : 'Новый :'
         selector  : 'first_reg'
-        replace     : [
-          {"^(8|7)(?!\\+7)":"+7"}
-          {"^(.*)(\\+7)":"$2$1"}
-          "\\+7"
-          "[^\\d_]"
-          {"^(.*)$":"$1__________"}
-          {"^([\\d_]{0,10})(.*)$": "$1"}
-          {"^([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)([\\d_]?)$":"+7 ($1$2$3) $4$5$6-$7$8-$9$10"}
-        ]
-        replaceCursor     : [
-          "(_)"
-        ]
-        selectOnFocus : true
-        patterns : [
-          "^\\+7 \\(\\d\\d\\d\\) \\d\\d\\d-\\d\\d-\\d\\d$" : "Введите телефон <br>в формате +7 (926) 123-45-45"
-        ]
 
       password: module 'tutor/forms/input' :
         text2      : 'Ваш пароль :'
@@ -115,5 +103,3 @@ class @main extends template '../edit_description'
         return false
 
     ###
-    phone_call = data('tutor').get('phone_call')
-    @tree.tutor_edit.callback_comment.value = phone_call.then (p)-> p?.description

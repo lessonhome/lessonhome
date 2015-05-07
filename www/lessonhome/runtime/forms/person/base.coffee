@@ -11,6 +11,7 @@
   'birthday'
   'phone'
   'ava'
+  'email'
 ]
 
 

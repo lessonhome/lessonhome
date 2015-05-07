@@ -3,6 +3,7 @@ class @main extends template '../fast_bid'
   model : 'main/application/1_step'
   title : "быстрое оформление заявки: первый шаг"
   access : ['other', 'pupil']
+  forms : ['pupil','person' ]
   redirect : {
     tutor : 'tutor/profile'
   }
@@ -14,11 +15,11 @@ class @main extends template '../fast_bid'
         selector  : 'fast_bid'
         pattern   : '^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,15}$'
         errMessage: 'Введите корректное имя (имя может содержать только цифры, символы алфавита и _)'
-        value     : data('form').get('fast_bid','name')
+        value     : $form : person : 'first_name'
       phone : module 'tutor/forms/input':
         text1: 'Телефон :'
         selector  : 'fast_bid'
-        value      : data('form').get('fast_bid','phone').then (p)-> if p then p else  "+7 (___) ___-__-__"
+        value     : $form : pupil : 'phone_call_phones_first'
         replace     : [
           {"^(8|7)(?!\\+7)":"+7"}
           {"^(.*)(\\+7)":"$2$1"}
@@ -49,6 +50,7 @@ class @main extends template '../fast_bid'
           "\\w.*@\\w+\\.\\w+" : "bad"
         ]
         errMessage  : 'Пожалуйста введите корректный email'
+        value : $form : person : 'email_first'
         
       subject :module 'tutor/forms/drop_down_list':
         text: 'Предмет :'
@@ -128,14 +130,16 @@ class @main extends template '../fast_bid'
           '71': {value: 'electrical_engineering', text: 'электротехника'}
           '72': {value: 'japanese', text: 'японский язык'}
 
-
         }
+        value : $form : pupil : 'subjects_0_subject'
       call_time : module 'tutor/forms/textarea':
         text: 'В какое время Вам звонить :'
         selector  : 'fast_bid'
+        value     : $form : pupil : 'phone_call_description'
       comments : module 'tutor/forms/textarea':
         text: 'Комментарии :'
         selector  : 'fast_bid'
+        value : $form : pupil : 'subjects_0_comments'
     #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->

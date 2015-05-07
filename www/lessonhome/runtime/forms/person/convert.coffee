@@ -10,3 +10,4 @@ class @F2V
   $firstphone   : (data)-> data?.phone?[0]
   $avatar       : (data)-> data?.ava?[data?.ava?.length-1] if data?.ava?.length > 0
   $avatars      : (data)-> data?.ava
+  $email_first  : (data)-> data?.email?[0]
