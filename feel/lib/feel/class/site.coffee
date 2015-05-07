@@ -6,6 +6,7 @@ readdir = Q.denodeify fs.readdir
 Router  = require './server/router'
 _path   = require 'path'
 FileUpload = require './server/fileupload'
+Form = require './form'
 
 class module.exports
   constructor : (@name)->
@@ -31,9 +32,8 @@ class module.exports
       Main.service 'register'
     .then (reg)=>
       @register = reg
-      Main.service 'data'
-    .then (data)=>
-      @form = data
+      @form = new Form
+      @form.init()
     .then @fileupload.init
     .then @configInit
     .then @loadModules
@@ -173,14 +173,12 @@ class module.exports
       module  = m[2]
       fname   = m[3]
       data    = @modules[module]?.jsfile fname
-      console.log module,fname
       hash    = @modules[module]?.jsHash
     else if m = req.url.match /^\/jsfilet\/(\w+)\/(.+)\/([\w-\.]+)$/
       hash    = m[1]
       module  = m[2]
       fname   = m[3]
       data    = @modules[module]?.jsfilet fname
-      console.log module,fname
       hash    = @modules[module]?.jsHash
 
     if data?

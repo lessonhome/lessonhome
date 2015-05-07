@@ -100,6 +100,39 @@ class Register
     yield Q.all qs
     return {session:@sessions[sessionhash],user:user}
   loginExists     : (name)=> @logins[name]?
+  loginUpdate : (user,sessionhash,data)=>
+    throw err:'bad_query'            unless data?.login? && data?.password? && data?.newlogin?
+    throw err:'login_not_exists'      if !@logins[data.login]?
+    throw err:'login_exists'  if @logins[data.newlogin]?
+    throw err:'bad_session'           if !@accounts[user.id]?
+    throw err:'bad_session'           unless @sessions[sessionhash]?
+    user = @accounts[user.id]
+    throw err:'not_logined'       unless user.registered
+    data_password = data.login+data.password
+    throw err:'wrong_password'    unless yield @passwordCompare _hash(data_password), user.hash
+    ndata_password = data.newlogin+data.password
+
+    user.hash       = yield @passwordCrypt _hash ndata_password
+    delete @logins[user.login]
+    user.login = data.newlogin
+    @logins[user.login] = user
+    user.accessTime = new Date()
+    yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+    return {session:@sessions[sessionhash],user:user}
+  passwordUpdate : (user,sessionhash,data)=>
+    throw err:'bad_query'            unless data?.login? && data?.password? && data?.newpassword?
+    throw err:'login_not_exists'      if !@logins[data.login]?
+    throw err:'bad_session'           if !@accounts[user.id]?
+    throw err:'bad_session'           unless @sessions[sessionhash]?
+    user = @accounts[user.id]
+    throw err:'not_logined'       unless user.registered
+    data_password = data.login+data.password
+    throw err:'wrong_password'    unless yield @passwordCompare _hash(data_password), user.hash
+    ndata_password = data.login+data.newpassword
+    user.hash       = yield @passwordCrypt _hash ndata_password
+    user.accessTime = new Date()
+    yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+    return {session:@sessions[sessionhash],user:user}
   passwordCrypt   : (pass)=> _invoke  bcrypt,'hash',pass,10
   passwordCompare : (pass,hash)=> _invoke  bcrypt,'compare',pass,hash
   newAccount : =>

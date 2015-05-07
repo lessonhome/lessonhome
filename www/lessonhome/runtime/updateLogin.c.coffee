@@ -3,14 +3,11 @@
 
 @handler = ($,data)->
   try
-    obj = yield $.register.login $.user,$.session,data
-    $.cookie.set 'session'
-    $.cookie.set 'session',obj.session.hash
+    obj = yield $.register.loginUpdate $.user,$.session,data
   catch err
     err.err     ?= 'internal_error'
     return {status:'failed',err:err.err}
   yield $.updateUser()
-  yield $.status 'tutor',true
   yield $.form.flush ['account'],$.req,$.res
   return {status:'success',session:obj.session.hash}
 

@@ -99,6 +99,7 @@ class FileUpload
         hurl    : Feel.static.F @site.name,"user_data/images/"+o.high
         lurl    : Feel.static.F @site.name,"user_data/images/"+o.low
     yield _invoke db, 'update', {account:req.user.id},{$set:{ava:photos}},{upsert:true}
+    yield @site.form.flush ['person'],req,res
     res.setHeader 'content-type','application/json'
     if photos.length
       el = photos.pop()

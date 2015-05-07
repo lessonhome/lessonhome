@@ -8,5 +8,6 @@
     rows[0].ava.pop()
     yield _invoke db,'update',{account:$.user.id},{$set:{ava:rows[0].ava}},{upsert:true}
   console.log 'ava'.yellow, rows?[0]?.ava
+  yield $.form.flush ['person'],$.req,$.res
   return {status:'success'}
   

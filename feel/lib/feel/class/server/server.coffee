@@ -89,7 +89,7 @@ class Server
   handlerHttpRedirect : (req,res)=>
     res.statusCode = 301
     host = req.headers.host
-    if m = host.match /^www\.(.*)$/
+    if m = host?.match /^www\.(.*)$/
       host = m[1]
     res.setHeader 'location', "https://#{host}#{req.url}"
     res.end()
@@ -103,7 +103,7 @@ class Server
       host = m[1]
       res.setHeader 'location', "//#{host}#{req.url}"
       return res.end()
-    console.log "#{req.method} \t#{req.headers.host}#{req.url}"
+    #console.log "#{req.method} \t#{req.headers.host}#{req.url}"
     if m = req.url.match /^\/google\?(.*)$/
       return @google req,res,m[1]
     req.time = new Date().getTime()

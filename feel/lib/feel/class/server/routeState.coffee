@@ -24,7 +24,7 @@ class RouteState
       @_time = new Date().getTime()
     else
       t = new Date().getTime()
-      console.log "time: #{t-@_time}ms ".grey+str.red
+      console.log "time: #{t-@_time}ms ".grey+str.red,(new Date().getTime()-@req.time)
       @_time = t
     
   getTopNode : (node,force=false)=>
@@ -147,6 +147,7 @@ class RouteState
     #@redirect = {}
     @getTop()
     qforms = []
+
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       if node._isState
         if node.__states
@@ -161,11 +162,24 @@ class RouteState
             if typeof s.forms == 'string'
               s.forms = [s.forms]
             for f in s.forms
-              unless @$forms[f]
-                @$forms[f] ?= @site.form.get f,{account:@req.user.id}
-                do (f)=>
-                  qforms.push @$forms[f].then (data)=>
-                    @$forms[f] = data
+              fname = f
+              fields = undefined
+              if typeof f == 'object'
+                fname   = Object.keys(f)[0]
+                fields  = f[fname]
+                if typeof fields == 'string'
+                  fields = [fields]
+              #unless @$forms[f]
+              @$forms[fname] ?= {}
+              boo = false
+              if fields then for field in fields
+                boo = true
+                @$forms[fname][field] = true
+              @$forms[fname].__all = true unless boo
+              #  @$forms[f] ?= @site.form.get f,@req,@res
+              #  do (f)=>
+              #    qforms.push @$forms[f].then (data)=>
+              #      @$forms[f] = data
           for k of s.tag
             @tags[k] = true
           #for a in s.access
@@ -175,8 +189,16 @@ class RouteState
         for sn,s of o
           s.page_tags = @tags
         #node = pnode[key] = @getTopOfNode node
+    @time 'walk tree'
     #console.log @access,@redirect
-
+    for form,fields of @$forms
+      do (form,fields)=> qforms.push do Q.async =>
+        unless fields?.__all
+          fields = Object.keys fields
+          fields = undefined unless fields?.length > 0
+        else
+          fields = undefined
+        @$forms[form] = yield @site.form.get form,@req,@res,fields
     if @top._isState
       if @top.__states
         o = @top.__states
@@ -192,6 +214,8 @@ class RouteState
     @jsClient = Feel.clientJs
     @stack = []
     yield Q.all qforms
+    @time 'forms get'
+    
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       do =>
         return unless node?._isModule
@@ -230,7 +254,7 @@ class RouteState
             node[k] = @$forms[fname][field]
           else
             node[place] = @$forms[fname][field]
-
+    @time 'forms set'
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?
       @cssModule 'default'

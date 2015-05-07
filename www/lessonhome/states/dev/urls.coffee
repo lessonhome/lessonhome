@@ -3,9 +3,7 @@ class @main
   access : ['tutor','pupil','other']
   redirect : {}
   route :  '/urls'
-  forms : ['tutor']
   tree : => module 'dev/urls' :
-    $form  : 'tutor':'first_name':'username'
     depend : [
       state 'lib'
       module 'lib/mousewheel'
