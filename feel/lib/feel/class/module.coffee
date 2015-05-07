@@ -145,7 +145,7 @@ class module.exports
           </div>
         "
       catch e
-        throw new Error "Failed execute jade in module #{@name} with vars #{JSON.stringify(o)}:\n\t"+e
+        throw new Error "Failed execute jade in module #{@name} with vars #{_inspect(o)}:\n\t"+e
     return ""
   makeSass : =>
     @allCssRelative = {}
