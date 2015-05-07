@@ -37,9 +37,7 @@ class Form
         if typeof d == 'string'
           yield @loadForm d unless @form[d]
           fl = yield @form[d].find.get req,res
-          console.log 'flush'.red, fl,d
           return @service.flush fl,d
-        console.log 'flush'.red, d
         return @service.flush d
     yield Q.all qs
         

@@ -126,7 +126,6 @@ class RouteState
                 value     : true
                 redirect  : val
               }
-            console.log status,val
             unless neg
               if status == val.value
                 return redirect:val.redirect
@@ -134,7 +133,6 @@ class RouteState
               if status != val.value
                 return redirect:val.redirect
       arr = yield Q.all qs
-      console.log arr
       for el in arr
         if el?.redirect?
           return @redirect @req,@res,el.redirect
@@ -190,7 +188,6 @@ class RouteState
           s.page_tags = @tags
         #node = pnode[key] = @getTopOfNode node
     @time 'walk tree'
-    #console.log @access,@redirect
     for form,fields of @$forms
       do (form,fields)=> qforms.push do Q.async =>
         unless fields?.__all
@@ -214,7 +211,6 @@ class RouteState
     @jsClient = Feel.clientJs
     @stack = []
     yield Q.all qforms
-    console.log @$forms
     @time 'forms get'
     
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
