@@ -11,10 +11,8 @@ class Data
     
       
   get : (fname,find,fields)=>
-    @log find
     fhash= yield @findtohash find
     hash = _shash fname+fhash
-    @log fhash,hash
     return @returnData fname,find,fields,hash,@data[hash] if @data[hash]
     data = yield @loadData fname,find,fields,hash,fhash
     return @returnData fname,find,fields,hash,data
@@ -55,12 +53,10 @@ class Data
     @flushs[fhash].push [@data,hash]
     return data
   findtohash : (find)=>
-    @log find
     keys = Object.keys(find).sort()
     o = {}
     for k in keys
       o[k] = find[k]
-    @log o
     return _shash JSON.stringify o
   returnData : (fname,find,fields,hash,data=@data[hash])=>
     fields ?= Object.keys data.vdata
