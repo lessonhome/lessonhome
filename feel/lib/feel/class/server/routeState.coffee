@@ -24,7 +24,7 @@ class RouteState
       @_time = new Date().getTime()
     else
       t = new Date().getTime()
-      console.log "time: #{t-@_time}ms ".grey+str.red
+      console.log "time: #{t-@_time}ms ".grey+str.red,(new Date().getTime()-@req.time)
       @_time = t
     
   getTopNode : (node,force=false)=>
@@ -189,6 +189,7 @@ class RouteState
         for sn,s of o
           s.page_tags = @tags
         #node = pnode[key] = @getTopOfNode node
+    @time 'walk tree'
     #console.log @access,@redirect
     for form,fields of @$forms
       do (form,fields)=> qforms.push do Q.async =>
@@ -213,6 +214,8 @@ class RouteState
     @jsClient = Feel.clientJs
     @stack = []
     yield Q.all qforms
+    @time 'forms get'
+    
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       do =>
         return unless node?._isModule
@@ -251,7 +254,7 @@ class RouteState
             node[k] = @$forms[fname][field]
           else
             node[place] = @$forms[fname][field]
-
+    @time 'forms set'
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?
       @cssModule 'default'

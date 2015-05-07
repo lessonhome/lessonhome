@@ -11,6 +11,7 @@ class @main extends template '../registration_popup'
   tree : ->
     progress  : data('registration_progress').get().then (p=0)=> p+1
     #data('tutor').get('registration_progress')
+    close   : true
     content : module '$' :
       form      : state 'about_tutor'
 

@@ -13,3 +13,4 @@ class @main extends template '../profile'
         text      : 'Вперед'
         selector  :  @exports()
         href      :  @exports()
+      close         : @exports()

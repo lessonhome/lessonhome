@@ -173,14 +173,12 @@ class module.exports
       module  = m[2]
       fname   = m[3]
       data    = @modules[module]?.jsfile fname
-      console.log module,fname
       hash    = @modules[module]?.jsHash
     else if m = req.url.match /^\/jsfilet\/(\w+)\/(.+)\/([\w-\.]+)$/
       hash    = m[1]
       module  = m[2]
       fname   = m[3]
       data    = @modules[module]?.jsfilet fname
-      console.log module,fname
       hash    = @modules[module]?.jsHash
 
     if data?

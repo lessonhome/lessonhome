@@ -122,10 +122,10 @@ class @main extends template '../../tutor'
       web : module 'tutor/forms/location_button' :
         selector : 'place_learn'
         text   : 'удалённо'
-      location_hint : module 'tutor/hint' :
-        selector : 'small'
-        field_position : 'left'
-        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+      #location_hint : module 'tutor/hint' :
+      #  selector : 'small'
+      #  field_position : 'left'
+      #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       address_list : module 'tutor/forms/drop_down_list' :
         selector  : 'search_bids fast_bid'
         text      : 'Ваш адрес :'

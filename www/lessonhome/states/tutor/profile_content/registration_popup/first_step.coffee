@@ -13,7 +13,7 @@ class @main extends template '../registration_popup'
     progress  : data('registration_progress').get().then (p=0)=> p+1
     #data('tutor').get('registration_progress').then (p)->
     #return p if p?
-
+    close   : false
     content : module '$' :
       understand_button : module 'tutor/button' :
         selector: 'understand'
