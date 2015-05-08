@@ -8,6 +8,7 @@ class @main extends template '../edit_conditions'
   redirect : {
     'default' : 'main/first_step'
   }
+  forms : [{tutor:['check_out_the_areas']}]
   tree : =>
     menu_condition  : 'edit: conditions'
     active_item : 'Места выезда'
@@ -26,6 +27,6 @@ class @main extends template '../edit_conditions'
           }
 
       ###
-      area_tags: data('tutor').get('check_out_the_areas')
+      area_tags: $form : tutor : 'check_out_the_areas'
 
 

@@ -92,14 +92,3 @@ class @main extends template '../edit_description'
 
   init  :=>
     @parent.parent.tree.content.possibility_save_button = false         # exception property, not this save button in state
-    settings = data('tutor').get('settings')
-    #@tree.tutor_edit.new_orders_toggle.value = settings.then (s)-> s?.new_orders
-    ###
-      @tree.tutor_edit.notice_sms_checkbox.value = settings.then (s)-> s?.get_notifications.then (arr)->
-        for key, val of arr
-          console.log 'val : '+val+'key : '+key
-          if val == 'sms'
-            return true
-        return false
-
-    ###

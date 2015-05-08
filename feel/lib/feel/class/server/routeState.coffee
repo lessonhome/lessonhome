@@ -26,7 +26,11 @@ class RouteState
       t = new Date().getTime()
       console.log "time: #{t-@_time}ms ".grey+str.red,(new Date().getTime()-@req.time)
       @_time = t
-    
+  getField : (obj,field)->
+    a = field?.split? '.'
+    a ?= [null]
+    obj = obj?[f] for f in a
+    return obj
   getTopNode : (node,force=false)=>
     return node if node?._isModule
     return node if node.__gotted
@@ -235,7 +239,7 @@ class RouteState
               func = place[t] if typeof place[t] == 'function'
               place = t
         delete node.$form
-        node[place] = @$forms[fname][field]
+        node[place] = @getField @$forms[fname],field
         node[place] = func? node[place] if func
       do =>
         for k,val of node
@@ -267,10 +271,10 @@ class RouteState
                 place = t
           delete node[k]
           unless boo
-            node[k] = @$forms[fname][field]
+            node[k] = @getField @$forms[fname],field
             node[k] = func? node[k] if func
           else
-            node[place] = @$forms[fname][field]
+            node[place] = @getField @$forms[fname],field
             node[place] = func? node[place] if func
     @time 'forms set'
     @parse @top,null,@top,@top,@,'top'

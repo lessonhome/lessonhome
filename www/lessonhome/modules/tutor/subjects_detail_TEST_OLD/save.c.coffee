@@ -47,5 +47,5 @@ check = require("./check")
 
   db= yield $.db.get 'tutor'
   yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:{name:data.subject_tag, description:data.comments, tags:tags, price:[{range:price_range, duration:data.duration}],place:place, groups:[{description:data.group_learning}] }}},{upsert:true}
-
+  yield $.form.flush ['tutor'],$.req,$.res
   return {status:'success'}
