@@ -3,6 +3,7 @@ class @main
   Dom : =>
     @out_err_country  = @found.out_err_country
     @out_err_city     = @found.out_err_city
+    @link_more     = @found.link_more
 
   show : =>
     @mobile_phone = @tree.mobile_phone.class
@@ -22,8 +23,12 @@ class @main
     @country.setErrorDiv @out_err_country
     @city.setErrorDiv @out_err_city
 
-  save : => Q().then =>
-    if @check_form()
+
+    # link more address
+    @link_more.on 'click', => @save(false)
+
+  save :(link=true) => Q().then =>
+    if @check_form(link)
       return @$send('./save',@getData())
       .then ({status,errs})=>
         if status=='success'
@@ -34,9 +39,10 @@ class @main
     else
       return false
 
-  check_form : =>
-    @mobile_phone.doMatch()
+  check_form :(link) =>
     errs = @js.check @getData()
+    if link
+      if !@mobile_phone.doMatch() then errs.push "bad_mobile"
     if !@country.exists() && @country.getValue().length!=0
       errs.push 'bad_country'
     if !@city.exists() && @city.getValue().length!=0
