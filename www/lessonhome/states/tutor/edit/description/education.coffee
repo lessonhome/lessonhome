@@ -7,6 +7,7 @@ class @main extends template '../edit_description'
   redirect : {
     'default' : 'main/first_step'
   }
+  forms : [{person:['edu']}]
   tree : =>
     menu_description  : 'edit: description'
     active_item : 'Образование'
@@ -14,28 +15,36 @@ class @main extends template '../edit_description'
       country       : module 'tutor/forms/drop_down_list' :
         text      : 'Страна :'
         selector  : 'first_reg'
+        $form : person : 'edu.country'
       city          : module 'tutor/forms/drop_down_list' :
         text      : 'Город :'
         selector  : 'first_reg'
+        $form : person : 'edu.city'
       university    : module 'tutor/forms/drop_down_list' :
         text      : 'ВУЗ :'
         selector  : 'first_reg'
+        $form : person : 'edu.name'
       faculty       : module 'tutor/forms/drop_down_list' :
         text      : 'Факультет :'
         selector  : 'first_reg'
+        $form : person : 'edu.faculty'
       chair         : module 'tutor/forms/drop_down_list' :
         text      : 'Кафедра :'
         selector  : 'first_reg'
+        $form : person : 'edu.chair'
       qualification : module 'tutor/forms/drop_down_list' :
         text      : 'Статус :'
         selector  : 'first_reg'
+        $form : person : 'edu.qualification'
       learn_from    : module 'tutor/forms/drop_down_list'  :
         text        : 'Период обучения :'
         selector    : 'first_reg_from'
         placeholder : 'с'
+        $form : person : 'edu.period.start'
       learn_till    : module 'tutor/forms/drop_down_list'  :
         selector    : 'first_reg_till'
         placeholder : 'до'
+        $form : person : 'edu.period.end'
       #add_button    : module 'button_add' :
       #  text      : '+Добавить'
       #  selector  : 'edit_add'
@@ -43,19 +52,5 @@ class @main extends template '../edit_description'
     #  selector  : 'horizontal'
     #  header    : ''
     #  text      : ''
-
-
-  init: =>
-    education = data('person').get('education')
-    @tree.tutor_edit.country.value = education.then (edu)-> edu[0].country if edu?[0]?.country?
-    @tree.tutor_edit.city.value = education.then (edu)-> edu[0].city if edu?[0]?.city?
-    @tree.tutor_edit.university.value = education.then (edu)-> edu[0].name if edu?[0]?.name?
-    @tree.tutor_edit.faculty.value = education.then (edu)-> edu[0].faculty if edu?[0]?.faculty?
-    @tree.tutor_edit.chair.value = education.then (edu)-> edu[0].chair if edu?[0]?.chair?
-    @tree.tutor_edit.qualification.value = education.then (edu)-> edu[0].qualification if edu?[0]?.qualification?
-    @tree.tutor_edit.learn_from.value = education.then (edu)-> edu[0].period.start if edu?[0]?.period?.start?
-    @tree.tutor_edit.learn_till.value   = education.then (edu)-> edu[0].period.end if edu?[0]?.period?.end?
-
-
 
 

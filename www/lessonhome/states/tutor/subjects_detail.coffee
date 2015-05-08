@@ -1,13 +1,7 @@
 class @main
+  forms : [{tutor:['subject','isTag','srange','isPlace']}]
   tree : -> module '$' :
-    subject_name : data('tutor').get('subjects').then (s)-> s?[0]?.name
-    #subject_tag     : module 'selected_tag' :
-    #  close     : false
-    #  text      : data('tutor').get('subjects').then (s)-> s?[0]?.name
-    #  selector  : 'choose_subject'
-    #qualification     : module 'tutor/forms/drop_down_list' :
-    #  text      : 'Квалификация :'
-    #  selector  : 'first_reg'
+    subject_name : $form : tutor : 'subject.name'
     course     : module 'tutor/forms/drop_down_list' :
       text      : 'Направление подготовки :'
       selector  : 'first_reg'
@@ -15,39 +9,31 @@ class @main
         '0': {value: 'ege', text: 'ЕГЭ'},
         '1': {value: 'gia', text: 'ГИА'}
       }
-      value: data('tutor').get('subjects').then (s)-> s?[0]?.tags?[0]
+      $form : tutor : 'subject.tags.0'
     pre_school      : module 'tutor/forms/checkbox' :
       text      : 'дошкольники'
       selector  : 'small font_16'
-      value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.tags, "school:0")
+      $form : tutor : 'isTag.school:0'
     junior_school   : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'младшая школа'
-      value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.tags, "school:1")
+      $form : tutor : 'isTag.school:1'
     medium_school   : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'средняя школа'
-      value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.tags, "school:2")
+      $form : tutor : 'isTag.school:2'
     high_school     : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'старшая школа'
-      value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.tags, "school:3")
+      $form : tutor : 'isTag.school:3'
     student         : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'студент'
-      value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.tags, "student")
+      $form : tutor : 'isTag.student'
     adult           : module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'взрослый'
-      value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.tags, "adult")
-    #place_price_tutor : state 'tutor/profile_content/registration_popup/place_price'  :
-    #  title : 'У РЕПЕТИТОРА'
-    #place_price_pupil : state 'tutor/profile_content/registration_popup/place_price'  :
-    #  title : 'У УЧЕНИКА'
-    #place_price_remote : state 'tutor/profile_content/registration_popup/place_price'  :
-    #  title : 'УДАЛЕННО'
-    #place_price_group : state 'tutor/profile_content/registration_popup/place_price'  :
-    #  title : 'ГРУППОВЫЕ'
+      $form : tutor : 'isTag.adult'
     price_slider   : state 'main/slider_main' :
       selector      : 'price_fast_reg'
       start         : 'calendar'
@@ -61,34 +47,30 @@ class @main
       value         :
         min : 400
         max : 5000
-        left : data('tutor').get('subjects').then (s)->
-          p = s?[0]?.price?.range?.shift?()
-          p ?= 600
-        right : data('tutor').get('subjects').then (s)->
-          p = s?[0]?.price?.range?.pop?()
-          p ?= 900
+        left : $form : tutor : 'srange.left'
+        right : $form : tutor : 'srange.right'
 
     duration :   module 'tutor/forms/input' :
       text2      : 'Время занятия :'
       selector  : 'first_reg'
-      value: data('tutor').get('subjects').then (s)-> s?[0]?.price?.duration
+      $form : tutor : 'subject.price.duration'
 
     place_tutor      : module 'tutor/forms/checkbox' :
       text      : 'у себя'
       selector  : 'small font_16'
-      value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.place, "tutor")
+      $form : tutor : 'isPlace.tutor'
     place_pupil      : module 'tutor/forms/checkbox' :
       text      : 'у ученика'
       selector  : 'small font_16'
-      value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.place, "pupil")
+      $form : tutor : 'isPlace.pupil'
     place_remote      : module 'tutor/forms/checkbox' :
       text      : 'удалённо'
       selector  : 'small font_16'
-      value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.place, "remote")
+      $form : tutor : 'isPlace.remote'
     place_cafe      : module 'tutor/forms/checkbox' :
       text      : 'другое место'
       selector  : 'small font_16'
-      value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.place, "other")
+      $form : tutor : 'isPlace.other'
     group_learning         : module 'tutor/forms/drop_down_list' :
       text      : 'Групповые занятия :'
       selector  : 'first_reg'
@@ -97,11 +79,11 @@ class @main
         '1': {value: 'ukraine', text: 'Украина'},
         '2': {value: 'belarus', text: 'Белоруссия'}
       }
-      value : data('tutor').get('subjects').then (s)-> return s?[0]?.groups?[0]?.description
+      $form : tutor : 'subject.groups.0.description'
     comments          : module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'
       selector  : 'first_reg'
-      value     : data('tutor').get('subjects').then (s)-> return s?[0]?.description
+      $form : tutor : 'subject.description'
 
 

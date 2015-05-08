@@ -9,9 +9,9 @@ class @main extends template '../registration_popup'
   status : {
     '!tutor_prereg_1':'/tutor/profile/first_step'
   }
+  forms : [{account:['registration_progress']}]
   tree : =>
-    progress  : data('registration_progress').get().then (p=0)=> p+1
-    #data('tutor').get('registration_progress')
+    progress  : $form : account : 'registration_progress'
     close     : true
     content   : module '$' :
       form  : state 'contacts_tutor' :
