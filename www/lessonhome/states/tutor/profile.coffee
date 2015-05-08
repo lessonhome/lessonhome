@@ -36,6 +36,7 @@ class @main extends template '../tutor'
       progress  : module './profile_content/progress' :
         filling  : '56%'
       edit      : true
+      add       : true
   init : =>
     @parent.tree.left_menu.setActive 'Анкета'
 

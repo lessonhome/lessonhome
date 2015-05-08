@@ -70,8 +70,8 @@ class @main
           s || '<a href="./edit/about">заполнить</a>'
     line_med            : module 'tutor/separate_line':
       title    : 'Медиа'
-      link      : './edit/media'
-      edit     : @exports()
+      link      : '#'
+      add     : @exports()
       selector : 'horizon'
     #media               : module '$/media' :
     #  photo1  : module 'mime/photo' :

@@ -5,35 +5,51 @@ $margin: ($heightSectionMenu - $heightIcon)/2
 main
   font-size: 16px
 div
+  line-height: $heightSectionMenu
   height : $heightSectionMenu
   a
     overflow : hidden
-    display  : block
+    +inline-block
+    vertical-align: baseline
     height: 100%
     text-decoration: none
-    .icon
-      width  : $heightIcon
-      height : $heightIcon
-      float  : left
-      margin : $margin 24px $margin 28px
+    div
+      +inline-block
+      vertical-align: baseline
+    .icon_box
+      margin : 0 24px 0 28px
+      .icon
+        width  : $heightIcon
+        height : $heightIcon
     .title
-      float: left
-      line-height: $heightSectionMenu
       color: #757575
+  .edit
+    float: right
+    a
+      text-decoration: none
+      color: rgb(184, 171, 171)
+      font-size: 13px
+      padding-right: 15px
+    a:hover
+      color: rgb(139, 139, 139)
+  a:after
+    +inline-block
+    content: ''
+    height: 100%
 /*------------------------------------------------------------*/
-.profile>a>.icon
+.profile>a>.icon_box>.icon
   background : url(F('left_menu/left_profile.png')) no-repeat
-.bids>a>.icon
+.bids>a>.icon_box>.icon
   background : url(F('left_menu/bell.png')) no-repeat
-.payment>a>.icon
+.payment>a>.icon_box>.icon
   background : url(F('left_menu/left_payment.png')) no-repeat
-.documents>a>.icon
+.documents>a>.icon_box>.icon
   background : url(F('left_menu/left_docs.png')) no-repeat
-.forum>a>.icon
+.forum>a>.icon_box>.icon
   background : url(F('left_menu/left_forum.png')) no-repeat
-.articles>a>.icon
+.articles>a>.icon_box>.icon
   background : url(F('left_menu/left_articles.png')) no-repeat
-.support>a>.icon
+.support>a>.icon_box>.icon
   background : url(F('left_menu/left_help.png')) no-repeat
 /*--------------------------------------------------------------*/
 //-
