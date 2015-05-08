@@ -2,6 +2,7 @@ class @main
   forms : [{'tutor':['calendar']}]
   tree : -> module '$' :
     selector        : @exports()
+    tags_selector   : @exports()
     choose_all      : module 'tutor/forms/checkbox'  :
       text        : 'выбрать все'
       selector    : 'small'

@@ -39,6 +39,7 @@ class @main extends template '../fast_bid'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       calendar        : state 'calendar' :
         selector    : 'advance_filter'
+        tags_selector : 'fast_bid'
       calendar_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

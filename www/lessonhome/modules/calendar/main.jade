@@ -1,3 +1,5 @@
+- tags_selector = tags_selector || ''
+
 .calendar_box(class = selector)
   .js-choose_all!= choose_all
   .js-calendar_week
@@ -16,7 +18,7 @@
       .js-add_time_button!= add_time_button
   .js-error
   .js-save_button!=save_button
-.js-tags
+.tags(class=tags_selector)
   each val in tags
     .tag
       .tag_box

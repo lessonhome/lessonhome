@@ -3,7 +3,8 @@ class @main extends EE
   Dom : =>
     @days = @found.day
     @add_time_button = @found.add_time_button
-    @tags = @found.tags
+    @tags = @dom.find('.tags')
+    console.log @tags
     @tag = @found.tag
     @error = @found.error
     @choose_all = @tree.choose_all.class
