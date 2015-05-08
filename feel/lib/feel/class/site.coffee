@@ -162,7 +162,7 @@ class module.exports
     if req.url.match /^\/uploaded\//
       return @fileupload.uploaded req,res
     if req.url.match /\.\./
-      return @res404 req,res unless m
+      return Feel.res404 req,res unless m
     if m = req.url.match /^\/js\/(\w+)\/(.+)$/
       hash    = m[1]
       module  = m[2]
@@ -191,12 +191,12 @@ class module.exports
         res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
       zlib = require 'zlib'
       return zlib.deflate data,{level:9},(err,resdata)=>
-        return @res404 req,res,err if err?
+        return Feel.res500 req,res,err if err?
         res.statusCode = 200
         res.setHeader 'Content-Length', resdata.length
         res.setHeader 'Content-Encoding', 'deflate'
         return res.end resdata
-    return @res404 req,res
+    return Feel.res404 req,res
   moduleJsUrl : (name)=>
     hash = @modules[name]?.jsHash
     "/js/#{hash}/#{name}"

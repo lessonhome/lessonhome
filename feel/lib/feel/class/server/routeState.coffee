@@ -114,7 +114,7 @@ class RouteState
           return @redirect @req,@res,val
       if sclass::redirect.default
         return @redirect @req,@res,sclass::redirect.default
-      return @redirect @req,@res,'/403'
+      return Feel.res403 @req,@res #@redirect @req,@res,'/403'
     if sclass::status?
       qs = []
       for key,val of sclass::status
@@ -354,9 +354,7 @@ class RouteState
 
     zlib    = require 'zlib'
     zlib.deflate end,{level:9},(err,resdata)=>
-      if err?
-        @res.writeHead 404
-        return @res.end err
+      return Feel.res500 @req,@res,err if err?
       @time 'zlib'
       @res.setHeader 'Access-Control-Allow-Origin', '*'
       @res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
@@ -462,7 +460,7 @@ class RouteState
     if @site.state[val]?
       val = @site.state[val].class::route
     unless val
-      val = '/403'
+      Feel.res403 req,res
     res.statusCode = 301
     res.setHeader 'location', val
     res.setHeader 'Cache-Control','no-cache'

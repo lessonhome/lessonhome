@@ -94,7 +94,21 @@ class Server
     res.setHeader 'location', "https://#{host}#{req.url}"
     res.end()
   handler : (req,res)=>
-    
+    if req.url == '/404'
+      _end = res.end
+      res.end = ->
+        res.statusCode = 404
+        _end.apply res,arguments
+    else if req.url == '/500'
+      _end = res.end
+      res.end = ->
+        res.statusCode = 500
+        _end.apply res,arguments
+    else if req.url == '/403'
+      _end = res.end
+      res.end = ->
+        res.statusCode = 403
+        _end.apply res,arguments
     if @ssh
       res.setHeader  'Strict-Transport-Security','max-age=604800; includeSubDomains; preload'
     host = req.headers.host
@@ -121,13 +135,20 @@ class Server
     if Feel.site[site]?
       Q().then => Feel.site[site].router.handler req,res
       .catch (e)=>
-        res.writeHead 500
-        res.end 'Internal Server Error'
         console.error "Failed route #{host}#{req.url} to site #{site}:\n\t"
         console.error Exception e
+        unless req.url == '/500'
+          req.url = "/500"
+          return @handler req,res
+        res.statusCode = 500
+        res.end 'Internal Server Error'
       .done()
     else
-      res.writeHead 404
+      unless req.url == '/404'
+        req.headers.host = Object.keys(@domains.text)?[0]
+        req.url = '/404'
+        return @handler req,res
+      res.statusCode = 404
       res.end('Unknown host')
   run : =>
 

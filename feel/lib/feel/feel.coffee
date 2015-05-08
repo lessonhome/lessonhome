@@ -300,7 +300,18 @@ class module.exports
     console.log 'ycss'
     ycompress css, type:"css"
   dycss   : (css)=> ycompress(css,{type:"css"}).then (ycss)=> _deflate ycss
-
+  res404  : (req,res,err)=>
+    console.error err if err?
+    req.url = '/404'
+    @server.handler req,res
+  res403  : (req,res,err)=>
+    console.error err if err?
+    req.url = '/403'
+    @server.handler req,res
+  res500  : (req,res,err)=>
+    console.error err if err?
+    req.url = '/500'
+    @server.handler req,res
 
 
     
