@@ -3,6 +3,7 @@ class @main extends template '../fast_bid'
   model : 'main/application/2_step'
   title : "быстрое оформление заявки: второй шаг"
   access : ['pupil','other']
+  forms : ['pupil']
   redirect : {
     'tutor' : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'
@@ -21,9 +22,11 @@ class @main extends template '../fast_bid'
           '4': {value: 'student', text: 'студент'},
           '5': {value: 'grown_up', text: 'взрослый'}
         }
+        value : $form : pupil : 'status'
       course : module 'tutor/forms/drop_down_list':
         text: 'Курс :'
         selector  : 'fast_bid'
+        value : $form : pupil : 'subjects_0_course'
       knowledge_level : module 'tutor/forms/drop_down_list':
         text: 'Уровень знаний :'
         selector  : 'fast_bid'
@@ -32,6 +35,7 @@ class @main extends template '../fast_bid'
           '1': {value: 'average', text: 'средний'},
           '2': {value: 'advanced', text: 'продвинутый'}
         }
+        value : $form : pupil : 'subjects_0_knowledge_level'
       price_slider_bids   : state '../slider_main' :
         selector      : 'price_slider_bids'
         start         : 'calendar'
@@ -45,7 +49,8 @@ class @main extends template '../fast_bid'
         value         :
           min : 400
           max : 5000
-          #left : data('tutor').get('subjects').then (s)->
+          left  : $form : pupil : 'subjects_0_lesson_price_left'
+          right : $form : pupil : 'subjects_0_lesson_price_right'
           #  p = s?[0]?.price?.range?.shift?()
           #  p ?= 600
           #right : data('tutor').get('subjects').then (s)->
@@ -57,6 +62,7 @@ class @main extends template '../fast_bid'
       goal : module 'tutor/forms/textarea':
         text: 'Опишите цель :'
         selector  : 'fast_bid'
+        value : $form : pupil : 'subjects_0_goal'
     #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->

@@ -1,2 +1,2 @@
 
-@pupil   = ['phone_call', 'subjects']
+@pupil   = ['phone_call', 'subjects', 'status']

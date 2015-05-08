@@ -12,7 +12,7 @@ check = require("./check")
   yield _invoke db, 'update',{account:$.user.id},{$set:{first_name:data.name, email:[data.email] }},{upsert:true}
 
   db= yield $.db.get 'pupil'
-  yield _invoke db, 'update',{person:$.user.id},{$set:{phone_call:{phones:[data.phone], description:data.call_time}, subjects:[{subject:data.subject, comments:data.comments}]}},{upsert:true}
+  yield _invoke db, 'update',{account:$.user.id},{$set:{phone_call:{phones:[data.phone], description:data.call_time}, 'subjects.0.subject':data.subject, 'subjects.0.comments':data.comments}},{upsert:true}
 
   yield $.form.flush ['pupil','persons'],$.req,$.res
   return {status:'success'}

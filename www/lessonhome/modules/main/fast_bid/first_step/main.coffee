@@ -25,8 +25,8 @@ class @main
       return false
 
   check_form : =>
-    @phone.doMatch()
     errs = @js.check @getData()
+    if !@phone.doMatch() then errs.push "bad_phone"
     if !@subject.exists()
       errs.push 'bad_subject'
     for e in errs
