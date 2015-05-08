@@ -12,6 +12,13 @@
   'phone'
   'ava'
   'email'
+  'interests'
+  'location'
+  'work'
+  'education'
+  'about'
+  'site'
+  'social_networks'
 ]
 
 

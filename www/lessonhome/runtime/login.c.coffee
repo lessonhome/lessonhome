@@ -11,7 +11,7 @@
     return {status:'failed',err:err.err}
   yield $.updateUser()
   yield $.status 'tutor',true
-  yield $.form.flush ['account'],$.req,$.res
+  yield $.form.flush '*',$.req,$.res
   return {status:'success',session:obj.session.hash}
 
 

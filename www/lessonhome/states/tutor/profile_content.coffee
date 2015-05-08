@@ -1,13 +1,9 @@
 class @main
+  forms : [{person : ['eperiod','equalification','echair','efaculty','ename','ecity','workplace','avatar','first_name','middle_name','interests','last_name','birthdate','city']},{tutor:['status','experience']}]
   tree : -> module '$'  :
     popup               : @exports()
-    ###
-    photo               : module 'mime/photo' :
-      photo   : data('ava').get()
-      src     : F 'vk.unknown.man.jpg'
-    ###
     photo : module 'add_photos' :
-      photo : data('ava').get()
+      photo : $form : person : 'avatar'
       min : true
       depend : [
         module 'lib/jquery/ui_widget'
@@ -19,27 +15,22 @@ class @main
     progress            : @exports()
     count_review        : @exports()
     send_bid_this_tutor : @exports()
-    first_name  : data('person').get('first_name')
-    middle_name : data('person').get('middle_name')
-    last_name   : data('person').get('last_name')
+    first_name  : $form : person : 'first_name'
+    middle_name : $form : person : 'middle_name'
+    last_name   : $form : person : 'last_name'
     #with_verification   : true
     personal_data       : module '$/info_block' :
       section   :
-        'Дата рождения :'       : data('person').get('birthday').then (b)->
-          return data('convert').convertToDate b if b
-          return data('convert').getLinkToFill "./edit/general"
-        'Статус :'              : data('tutor').get('status').then (s)->
-          return data('convert').convertTutorStatusToRus s if s? && s
-          return data('convert').getLinkToFill "./edit/general"
-        'Город :'               : data('person').get('location').then (l)->
-          return l.city if l?.city?
-          return data('convert').getLinkToFill "./edit/contacts"
-        'Опыт репетиторства :'  : data('tutor').get('experience').then (e_)->
-          return e_ if e_? && e_?.length
-          return data('convert').getLinkToFill "./edit/career"
-        'Место работы :'        : data('person').get('work').then (w)->
-          return w[0].place if w?[0]?.place? && w?[0]?.place?.length
-          return data('convert').getLinkToFill "./edit/career"
+        'Дата рождения :'       : $form : person : birthdate  : (s)->
+          s || '<a href="./edit/general">заполнить</a>'
+        'Статус :'              : $form : tutor  : status     : (s)->
+          s || '<a href="./edit/general">заполнить</a>'
+        'Город :'               : $form : person : city       : (s)->
+          s || '<a href="./edit/contacts">заполнить</a>'
+        'Опыт репетиторства :'  : $form : tutor  : experience : (s)->
+          s || '<a href="./edit/career">заполнить</a>'
+        'Место работы :'        : $form : person : workplace  : (s)->
+          s || '<a href="./edit/career">заполнить</a>'
     line_con            : module 'tutor/separate_line':
       title     : 'Контакты'
       link      : './edit/contacts'
@@ -53,24 +44,18 @@ class @main
       selector  : 'horizon'
     education           : module '$/info_block' :
       section :
-        'Город :'       : data('person').get('education').then (edu)->
-          return edu[0].city if edu?[0]?.city? && edu?[0]?.city?.length
-          return data('convert').getLinkToFill "./edit/education"
-        'ВУЗ :'         : data('person').get('education').then (edu)->
-          return edu[0].name if edu?[0]?.name? && edu?[0]?.name?.length
-          return data('convert').getLinkToFill "./edit/education"
-        'Фаультет :'    : data('person').get('education').then (edu)->
-          return edu[0].faculty if edu?[0]?.faculty? && edu?[0]?.faculty?.length
-          return data('convert').getLinkToFill "./edit/education"
-        'Кафедра :'     : data('person').get('education').then (edu)->
-          return edu[0].chair if edu?[0]?.chair? && edu?[0]?.chair?.length
-          return data('convert').getLinkToFill "./edit/education"
-        'Квалификация :'      : data('person').get('education').then (edu)->
-          return edu[0].qualification if edu?[0]?.qualification? && edu?[0]?.qualification?.length
-          return data('convert').getLinkToFill "./edit/education"
-        'Период обучения :'  : data('person').get('education').then (edu)->
-          return "#{edu[0].period.start} - #{edu[0].period.end} гг." if edu?[0]?.period?.start? && edu?[0]?.period?.start?.length && edu?[0]?.period?.end? && edu?[0]?.period?.end?.length
-          return data('convert').getLinkToFill "./edit/education"
+        'Город :'           : $form : person : ecity : (s)->
+          s || '<a href="./edit/education">заполнить</a>'
+        'Вуз :'             : $form : person : ename : (s)->
+          s || '<a href="./edit/education">заполнить</a>'
+        'Факультет :'       : $form : person : efaculty : (s)->
+          s || '<a href="./edit/education">заполнить</a>'
+        'Кафедра :'         : $form : person : echair : (s)->
+          s || '<a href="./edit/education">заполнить</a>'
+        'Квалификация :'    : $form : person : equalification : (s)->
+          s || '<a href="./edit/education">заполнить</a>'
+        'Период обучения :' : $form : person : eperiod : (s)->
+          s || '<a href="./edit/education">заполнить</a>'
 
     line_pri            : module 'tutor/separate_line':
       title     : 'О себе'
@@ -79,17 +64,14 @@ class @main
       selector  : 'horizon'
     about            : module '$/info_block' :
       section :
-        'Интересы :'        : data('person').get('interests').then (i)->
-          return i[0].description if i?[0]?.description? && i?[0]?.description?.length
-          return data('convert').getLinkToFill "./edit/about"
-        'О себе :'          : data('tutor').get('about').then (a)->
-          return a if a? && a?.length
-          return data('convert').getLinkToFill "./edit/about"
-      #text : data('tutor').get('about')
+        'Интересы :'       : $form : person : interests : (s)->
+          s || '<a href="./edit/about">заполнить</a>'
+        'О себе :'       : $form : person : about : (s)->
+          s || '<a href="./edit/about">заполнить</a>'
     line_med            : module 'tutor/separate_line':
       title    : 'Медиа'
-      link      : './edit/media'
-      edit     : @exports()
+      link      : '#'
+      add     : @exports()
       selector : 'horizon'
     #media               : module '$/media' :
     #  photo1  : module 'mime/photo' :

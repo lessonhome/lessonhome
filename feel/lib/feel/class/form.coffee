@@ -6,6 +6,10 @@ class Form
     Wrap @
     @form = {}
   init : =>
+    @formnames = []
+    formnames = yield _readdir "www/lessonhome/runtime/forms"
+    for f in formnames
+      @formnames.push f unless f.match /\./
     @service = yield Main.service 'data'
   get : (fname,req,res,fields)=>
     yield @loadForm fname unless @form[fname]
@@ -16,14 +20,16 @@ class Form
     form = {}
     files = {}
     files[f] = true for f in data
-    if files.find
+    if files['find.coffee']
       form.find = require process.cwd()+"/www/lessonhome/runtime/forms/#{fname}/find"
     else
       form.find = require process.cwd()+"/www/lessonhome/runtime/forms/find"
     form.find = Wrap new form.find
     @form[fname] = form
   flush : (data,req,res)=>
-    if (typeof data == 'string') || (typeof data == 'object')
+    if data == '*'
+      data = @formnames
+    if (typeof data == 'string') || (!data?.length>0)
       data = [data]
     qs = []
     for d in data

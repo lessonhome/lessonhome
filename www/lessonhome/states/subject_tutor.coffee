@@ -1,5 +1,6 @@
 
 class @main
+  forms : [{'tutor':['subjects']}]
   tree : -> module '$' :
     select_subject_field : module 'tutor/forms/drop_down_list' :
       text      : 'Предмет :'
@@ -79,7 +80,7 @@ class @main
         '71': {value: 'electrical_engineering', text: 'электротехника'}
         '72': {value: 'japanese', text: 'японский язык'}
       }
-      value : data('tutor').get('subjects').then (s)->
+      value : $form : tutor : subjects : (s)->
         a = s?[0]?.name
         return a?=""
     subjects     : [

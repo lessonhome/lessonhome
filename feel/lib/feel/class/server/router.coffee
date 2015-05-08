@@ -33,7 +33,6 @@ class Router
     req.status = (args...)=> @site.status req,res,args...
     if (redirect = @_redirects?.redirect?[req?.url])?
       return @redirect req,res,redirect
-    yield 1
     if req.url == '/favicon.ico'
       req.url = '/file/666/favicon.ico'
 
@@ -73,7 +72,7 @@ class Router
       res.end 'Error 404'
       return
     route = new RouteState statename,req,res,@site
-    return Q().then route.go
+    return route.go()
   setSession : (req,res,cookie,session)=> do Q.async =>
     req.register = @site.register
     register = yield @site.register.register session
@@ -84,7 +83,6 @@ class Router
   redirect : (req,res,location='/')=> do Q.async =>
     yield console.log 'redirect',location
     res.statusCode = 302
-    console.log req.headers
     res.setHeader 'location',location
     res.end()
     

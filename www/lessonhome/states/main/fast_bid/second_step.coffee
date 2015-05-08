@@ -51,11 +51,6 @@ class @main extends template '../fast_bid'
           max : 5000
           left  : $form : pupil : 'subjects_0_lesson_price_left'
           right : $form : pupil : 'subjects_0_lesson_price_right'
-          #  p = s?[0]?.price?.range?.shift?()
-          #  p ?= 600
-          #right : data('tutor').get('subjects').then (s)->
-          #  p = s?[0]?.price?.range?.pop?()
-          #  p ?= 900
       price_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

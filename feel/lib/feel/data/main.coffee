@@ -11,7 +11,7 @@ class Data
     
       
   get : (fname,find,fields)=>
-    fhash= @findtohash find
+    fhash= yield @findtohash find
     hash = _shash fname+fhash
     return @returnData fname,find,fields,hash,@data[hash] if @data[hash]
     data = yield @loadData fname,find,fields,hash,fhash
@@ -22,7 +22,7 @@ class Data
     $.find = find
     $.form = @form[fname]
     $.db = @db
-    obj = yield @form[fname].dbread.read $,fields
+    obj = yield @form[fname].dbread.read $
     data = {}
     data.data = obj
     data.fdata = {}
@@ -45,7 +45,6 @@ class Data
             data.vdata[m[1]] = v
             return
     yield Q.all qs
-    console.log data.data,data.fdata,data.vdata
     data.form = @form[fname]
     data.hash = hash
     @data[hash] = data
@@ -64,7 +63,7 @@ class Data
     ret[f] = data.vdata[f] for f in fields
     return ret
   flush : (find,dbname)=>
-    fhash = @findtohash find
+    fhash = yield @findtohash find
     if @flushs?[fhash]?
       for o in @flushs[fhash]
         delete o[0][o[1]]

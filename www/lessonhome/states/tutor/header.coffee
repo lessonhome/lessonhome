@@ -15,7 +15,7 @@ class @main
         selector: 'header'
 
     button_in_out :  module '$/button_in_out' :
-      registered  : $form : account : 'registered' #data('checkRegistered').check()
+      registered  : $form : account : 'registered'
       login       :  module './forms/input'  :
         replace : [
           '[^\\d-\\(\\)\\@\\w\\+\\s\\.]'

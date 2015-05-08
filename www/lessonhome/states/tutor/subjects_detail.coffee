@@ -40,14 +40,14 @@ class @main
       selector  : 'small font_16'
       text      : 'взрослый'
       value     : data('tutor').get('subjects').then (s)-> data('convert').tutorTagToCheckbox(s?[0]?.tags, "adult")
-    place_price_tutor : state 'tutor/profile_content/registration_popup/place_price'  :
-      title : 'У РЕПЕТИТОРА'
-    place_price_pupil : state 'tutor/profile_content/registration_popup/place_price'  :
-      title : 'У УЧЕНИКА'
-    place_price_remote : state 'tutor/profile_content/registration_popup/place_price'  :
-      title : 'УДАЛЕННО'
-    place_price_group : state 'tutor/profile_content/registration_popup/place_price'  :
-      title : 'ГРУППОВЫЕ'
+    #place_price_tutor : state 'tutor/profile_content/registration_popup/place_price'  :
+    #  title : 'У РЕПЕТИТОРА'
+    #place_price_pupil : state 'tutor/profile_content/registration_popup/place_price'  :
+    #  title : 'У УЧЕНИКА'
+    #place_price_remote : state 'tutor/profile_content/registration_popup/place_price'  :
+    #  title : 'УДАЛЕННО'
+    #place_price_group : state 'tutor/profile_content/registration_popup/place_price'  :
+    #  title : 'ГРУППОВЫЕ'
     price_slider   : state 'main/slider_main' :
       selector      : 'price_fast_reg'
       start         : 'calendar'

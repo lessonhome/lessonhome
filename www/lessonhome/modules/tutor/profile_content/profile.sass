@@ -1,10 +1,10 @@
 @import compass/css3
-$contact_src: 'tutor/profile_contacts.png'
+$contact_src:   'tutor/profile_contacts.png'
 $education_src: 'tutor/profile_edu.png'
-$private_src: 'tutor/profile_about.png'
-$media_src: 'tutor/profile_media.png'
-$width_margin : 200px    //width photo and margin-right personal data
-$margin_bottom_box : 30px  //in the section_box
+$private_src:   'tutor/profile_about.png'
+$add_media_src: 'tutor/add_media.gif'
+$width_margin :       200px    //width photo and margin-right personal data
+$margin_bottom_box :  30px  //in the section_box
 main
   padding: 50px 20px
 
@@ -15,8 +15,8 @@ main
   position: fixed
   left: 0
   right: 0
-  width : 100%
-  height : 100%
+  width: 100%
+  height: 100%
   top: 0
   bottom: 0
   z-index : 100000
@@ -124,17 +124,40 @@ div>.icon_box
   padding-right: 0
   padding-left: 0
   .media
+    text-align: center
     width: 100%
     overflow: hidden
     padding: 0px 24px
     box-sizing: border-box
-    div
+    //div
       cursor: pointer
       width: 132px
       height: 130px
       margin-right: 6px
       float: left
       background-color: rgb(186, 187, 189)
+    .add_button
+      cursor: pointer
+      background: #e5e5e5
+      padding: 25px 35px
+      +border-radius(2px)
+      +inline-block
+      $icon_height: image-height($add_media_src)
+      $icon_width: image-width($add_media_src)
+      .icon
+        +inline-block
+        width: $icon_width
+        height: $icon_height
+        background: url(F($add_media_src)) no-repeat
+        padding-right: 30px
+      .text
+        font-size: 20px
+        color: #7d7d7d
+        +inline-block
+    .add_button:after
+      content: ''
+      height: 100%
+      +inline-block
 $icon_height: image-height($contact_src)
 $icon_width: image-width($contact_src)
 .contacts_box .icon_box .icon

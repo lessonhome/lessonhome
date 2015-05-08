@@ -46,12 +46,6 @@ class @main extends template '../fast_bid'
         value         :
           min : 18
           max : 90
-          #left : data('tutor').get('subjects').then (s)->
-          #  p = s?[0]?.price?.range?.shift?()
-          #  p ?= 18
-          #right : data('tutor').get('subjects').then (s)->
-          #  p = s?[0]?.price?.range?.pop?()
-          #  p ?= 50
       gender_data   : state 'gender_data':
         selector        : 'choose_gender'
         selector_button : 'registration'
