@@ -68,9 +68,7 @@ class Router
       #unless req.url == '/urls'
       #  req.url = '/urls'
       #  return @handler req,res
-      res.writeHead 404
-      res.end 'Error 404'
-      return
+      return Feel.res404 req,res
     route = new RouteState statename,req,res,@site
     return route.go()
   setSession : (req,res,cookie,session)=> do Q.async =>

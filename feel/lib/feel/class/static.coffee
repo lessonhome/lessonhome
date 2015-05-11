@@ -88,9 +88,9 @@ class Static
     
   handler : (req,res,site)=>
     m     = req.url.match /^\/file\/(\w+)\/([^\.].*)\.(\w+)$/
-    return @res404 req,res unless m
+    return Feel.res404 req,res unless m
     if m[2].match /\.\./
-      return @res404 req,res unless m
+      return Feel.res404 req,res unless m
     hash  = m[1]
     fname = "#{m[2]}.#{m[3]}"
     path  = "./www/#{site}/static/#{fname}"
@@ -110,7 +110,7 @@ class Static
 
       fs.readFile path, (err,data)=> fs.stat path,(err2,stat)=>
         if err? || err2?
-          return @res404 req,res
+          return Feel.res500 req,res,err||err2
         @files[path] =
           data : data
           mime : mime.lookup path
@@ -121,7 +121,7 @@ class Static
     res.writeHead 304
     res.end()
   res303 : (req,res,location)=>
-    return @res404 req,res if req.url == location
+    return Feel.res500 req,res if req.url == location
     res.statusCode = 303
     res.setHeader 'Location', location
     res.end()
@@ -129,7 +129,7 @@ class Static
     res.setHeader 'Content-type', file.mime
     zlib = require 'zlib'
     zlib.deflate file.data,{level:9},(err,resdata)=>
-      return @res404 req,res,err if err?
+      return Feel.res500 req,res,err if err?
       res.statusCode = 200
       res.setHeader 'Content-Length', resdata.length
       res.setHeader 'Content-Encoding', 'deflate'
