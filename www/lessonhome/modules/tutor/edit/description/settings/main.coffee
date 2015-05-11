@@ -56,7 +56,7 @@ class @main
       @hashedPassword = true
     @$send( 'loginUpdate',{
       password : pass
-      login    : login
+      newlogin    : login
     }).then ({status,err})=>
       #console.log 'login Changed', arguments
       console.log 'status : '+status
