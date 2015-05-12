@@ -64,6 +64,6 @@ class @main extends template '../fast_bid'
     @parent.tree.filter_top.button_back.selector = 'fast_bid_nav'
     @parent.tree.filter_top.button_back.href     = 'first_step'
     @parent.tree.filter_top.issue_bid.selector   = 'fast_bid_issue'
-    @parent.tree.filter_top.issue_bid.href       = false
+    @parent.tree.filter_top.issue_bid.href       = 'fifth_step'
     @parent.tree.filter_top.button_next.selector = 'fast_bid_nav'
     @parent.tree.filter_top.button_next.href     = 'third_step'

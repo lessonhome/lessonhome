@@ -215,4 +215,8 @@ class @main extends EE
     @error.text('')
     @error.hide()
 
+  getValue : =>
+    data = @getData()
+    return data.calendar
+
 

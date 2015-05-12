@@ -19,19 +19,20 @@
   .js-error
   .js-save_button!=save_button
 .tags(class=tags_selector)
-  each val in tags
-    .tag
-      .tag_box
-        .day_box
-          .day!=val.day
-        .time_box
-          .time
-            .text c
-            .time_from!=val.period.start
-            .text до
-            .time_till!=val.period.end
-        .js-close_box
-          .close
+  if tags
+    each val, index in tags
+      .tag
+        .tag_box
+          .day_box
+            .day!=val.day
+          .time_box
+            .time
+              .text c
+              .time_from!=val.period.start
+              .text до
+              .time_till!=val.period.end
+          .js-close_box
+            .close
 
 .js-tag(style="display: none")
   .tag_box

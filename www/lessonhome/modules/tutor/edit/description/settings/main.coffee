@@ -30,9 +30,44 @@ class @main
       @hint.hide()
 
     @save_button_notice.on 'submit', @b_save_notice
-    @save_button_password.on 'submit', @b_save_password
+    @save_button_password.on 'submit', @trySavePassword
 
     @change_button_login.on 'submit', @tryChangeLogin
+
+
+  trySavePassword : =>
+    pass    = @old_password.getValue()
+    newpass = @new_password.getValue()
+    confirm_pass = @confirm_password.getValue()
+
+    if newpass!=confirm_pass
+      @confirm_password.showError("пароли не совпадают")
+      console.log @confirm_password
+      return false
+
+    unless pass.substr(0,1) == '`'
+      len = pass.length
+      pass = LZString.compress((CryptoJS.SHA1(pass)).toString(CryptoJS.enc.Hex)).toString()
+      str = ""
+      for i in [0...len-1]
+        str += pass[i]
+      pass = str
+      pass = '`'+pass
+      @new_password.setValue pass
+      @hashedPassword = true
+    @$send( 'passwordUpdate',{
+      password : pass
+      newpassword : newpass
+    }).then ({status,err})=>
+      #console.log 'login Changed', arguments
+      console.log 'status : '+status
+      if status == 'success'
+        @success = true
+        $('body,html').animate({scrollTop:0}, 500)
+      else
+        #@printErrors err
+
+
 
   tryChangeLogin : =>
     pass  = @password.getValue()

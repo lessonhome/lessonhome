@@ -21,3 +21,5 @@ class @main extends EE
     else
       @button.removeClass 'inactive'
       @button.addClass 'active'
+
+  getValue : => @button.hasClass 'active'

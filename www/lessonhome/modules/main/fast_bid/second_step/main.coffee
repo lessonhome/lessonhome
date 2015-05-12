@@ -34,3 +34,6 @@ class @main
       goal : @goal.getValue()
     }
 
+  parseError : (errs)=>
+    return true
+

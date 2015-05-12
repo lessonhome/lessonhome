@@ -4,6 +4,7 @@ class @main extends template '../edit_conditions'
   title : "редактирование календарь"
   tags : -> 'edit: conditions'
   access : ['tutor']
+  forms : [{'tutor':['calendar']}]
   redirect : {
     'default' : 'main/first_step'
   }
@@ -13,6 +14,7 @@ class @main extends template '../edit_conditions'
     tutor_edit  : module '$'  :
       calendar    : state 'calendar'  :
         selector  : 'advance_filter edit'
+        tags      : $form : tutor : 'calendar'
       #hint       : module 'tutor/hint_dz' :
       #  selector  : 'small'
       #  text      : 'Поскольку'

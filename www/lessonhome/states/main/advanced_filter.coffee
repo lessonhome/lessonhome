@@ -9,6 +9,7 @@ class @main
         close     : true
       calendar        : state '../calendar' :
         selector  : 'advance_filter'
+        tags      : ''
       time_spend_lesson   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'calendar'

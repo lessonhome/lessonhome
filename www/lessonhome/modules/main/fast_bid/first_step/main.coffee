@@ -10,6 +10,8 @@ class @main
     @comments  = @tree.comments.class
 
   show : =>
+    # change
+    @name.on 'focusout', @checkIssueBidActive
     # error div
     @subject.setErrorDiv @out_err_subject
   save : => Q().then =>
@@ -32,6 +34,17 @@ class @main
     for e in errs
       @parseError e
     return errs.length==0
+
+  checkIssueBidActive : =>
+    # ib - issue bid
+    ib_errs = @js.check @getData()
+    if !@phone.doMatch() then ib_errs.push "bad_phone"
+    if !@subject.exists()
+      ib_errs.push 'bad_subject'
+    ib_active = false
+    for e in ib_errs
+      ib_active = true
+    return ib_active
 
 
   getData : =>

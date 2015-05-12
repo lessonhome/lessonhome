@@ -29,7 +29,7 @@ class @main
       to_time   : ''
       selector  : 'choose_course'
       close     : true
-    tags : $form : tutor : 'calendar'
+    tags : @exports()
     save_button       : module 'tutor/button' :
       text      : 'Сохранить'
       selector  : 'edit_save'

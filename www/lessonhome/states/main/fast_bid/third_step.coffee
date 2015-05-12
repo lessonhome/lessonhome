@@ -7,18 +7,22 @@ class @main extends template '../fast_bid'
     'tutor' : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'
   }
+  forms : [{pupil:['first_subject', 'isPlace']}]
   tree : ->
     progress : 3
     content : module '$' :
       tutor : module 'tutor/forms/location_button' :
         selector : 'place_learn'
         text   : 'у себя'
+        $form : pupil : 'isPlace.tutor'
       student  : module 'tutor/forms/location_button' :
         selector : 'place_learn'
         text   : 'у ученика'
+        $form : pupil : 'isPlace.pupil'
       web : module 'tutor/forms/location_button' :
         selector : 'place_learn'
         text   : 'удалённо'
+        $form : pupil : 'isPlace.other'
       location_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -34,12 +38,14 @@ class @main extends template '../fast_bid'
         value         :
           min : 15
           max : 120
+          right :  $form : pupil : '$first_subject.road_time'
       way_time_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       calendar        : state 'calendar' :
         selector    : 'advance_filter'
         tags_selector : 'fast_bid'
+        tags : $form : pupil : 'first_subject.calendar'
       calendar_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -63,6 +69,6 @@ class @main extends template '../fast_bid'
     @parent.tree.filter_top.button_back.selector = 'fast_bid_nav'
     @parent.tree.filter_top.button_back.href     = 'second_step'
     @parent.tree.filter_top.issue_bid.selector   = 'fast_bid_issue'
-    @parent.tree.filter_top.issue_bid.href       = false
+    @parent.tree.filter_top.issue_bid.href       = 'fifth_step'
     @parent.tree.filter_top.button_next.selector = 'fast_bid_nav'
     @parent.tree.filter_top.button_next.href     = 'fourth_step'
