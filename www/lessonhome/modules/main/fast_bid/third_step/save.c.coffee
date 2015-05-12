@@ -15,5 +15,6 @@
   db= yield $.db.get 'pupil'
   yield _invoke db, 'update',{account:$.user.id},{$set:{'subjects.0.place':data.place, 'subjects.0.road_time':data.time_spend_way, 'subjects.0.calendar':data.calendar, 'subjects.0.lesson_duration':data.lesson_duration}},{upsert:true}
 
-  yield $.form.flush ['person','pupil'],$.req,$.res
+  yield $.status 'fast_bid',4
+  yield $.form.flush ['person','pupil', 'account'],$.req,$.res
   return {status:'success'}

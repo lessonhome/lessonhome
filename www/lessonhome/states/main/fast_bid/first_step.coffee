@@ -3,12 +3,12 @@ class @main extends template '../fast_bid'
   model : 'main/application/1_step'
   title : "быстрое оформление заявки: первый шаг"
   access : ['other', 'pupil']
-  forms : ['pupil','person' ]
+  forms : ['pupil','person', {account:['fast_bid_progress']}]
   redirect : {
     tutor : 'tutor/profile'
   }
   tree : ->
-    progress : 1
+    progress : $form : account : 'fast_bid_progress'
     content : module '$' :
       name : module 'tutor/forms/input' :
         text1      : 'Имя :'
