@@ -6,7 +6,14 @@
 pupil :
   person       : "hash32141234" # persons.id
   fast_bid_progress : 2 # текущий шаг подачи заявки  
-  status : "дошкольник" # статус ученика
+  status : "student" # статус ученика
+    # preschooler дошкольник
+    # junior school младшая школа 
+    # secondary school средняя школа 
+    # high school старшая школа 
+    # student студент 
+    # adult взрослый 
+
   phone_call :
     phones      : [ "9150527355" ]
     description : "желательно с 19 до 21 часа" 
@@ -31,7 +38,11 @@ pupil :
       ]
       lesson_duration : "90 мин." # продолжительность одного занятия 
       requirements_for_tutor: # требования к репетитору 
-        status : "преподаватель вуза" # статус 
+        status : "school_teacher" # статус
+	  # student Студент
+	  # school_teacher Преподаватель школы
+	  # high_school_teacher Преподаватель ВУЗа
+          # native_speaker Носитель языка
         experience : "больше 5 лет" # опыт преподавания 
         sex : "female" # пол 
         with_reviews : "true" # с отзывами 

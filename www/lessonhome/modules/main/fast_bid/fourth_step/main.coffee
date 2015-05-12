@@ -34,10 +34,11 @@ class @main
 
   getData : =>
     status = []
-    if @student.getValue()   then status.push 'Студент'
-    if @teacher.getValue()   then status.push 'Преподаватель школы'
-    if @professor.getValue() then status.push 'Преподаватель ВУЗа'
-    if @native.getValue()    then status.push 'Носитель языка'
+    if @student.getValue()   then status.push 'student'
+    if @teacher.getValue()   then status.push 'school_teacher'
+    if @professor.getValue() then status.push 'high_school_teacher'
+    if @native.getValue()    then status.push 'native_speaker'
+
     return {
       status     : status
       experience : @experience.getValue()

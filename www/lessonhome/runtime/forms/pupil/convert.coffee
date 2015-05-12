@@ -20,3 +20,11 @@ class @F2V
     for key,tag of tags
       ret[tag] = true
     return ret
+
+  $isStatus    : (data)->
+    ret = {}
+    tags = (yield @$first_subject(data))?.requirements_for_tutor?.status || []
+    for key,tag of tags
+      ret[tag] = true
+    return ret
+

@@ -22,5 +22,12 @@ class @main extends EE
     if href
       window.location.replace href
 
+  makeActive : =>
+    return if @link.hasClass 'active'
+    @link.removeClass 'inactive'
+    @link.addClass 'active'
 
-
+  makeInactive : =>
+    return if @link.hasClass 'inactive'
+    @link.removeClass 'active'
+    @link.addClass 'inactive'

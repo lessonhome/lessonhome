@@ -7,7 +7,7 @@ class @main extends template '../fast_bid'
     'tutor' : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'
   }
-  forms : [{pupil:['first_subject', 'isPlace']}]
+  forms : [{pupil:['first_subject', 'isPlace'], person:['location']}]
   tree : ->
     progress : 3
     content : module '$' :
@@ -29,6 +29,7 @@ class @main extends template '../fast_bid'
       your_address : module 'tutor/forms/drop_down_list':
         text: 'Ваш адрес :'
         selector  : 'fast_bid'
+        $form : person : 'location.full_address'
       time_spend_way   : state '../slider_main' :
         selector      : 'way_fast_bids'
         start         : 'calendar'
@@ -38,7 +39,7 @@ class @main extends template '../fast_bid'
         value         :
           min : 15
           max : 120
-          right :  $form : pupil : '$first_subject.road_time'
+          left :  $form : pupil : 'first_subject.road_time'
       way_time_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -61,6 +62,8 @@ class @main extends template '../fast_bid'
         value         :
           min : 45
           max : 180
+          left  : $form : pupil : 'first_subject.lesson_duration.0'
+          right : $form : pupil : 'first_subject.lesson_duration.1'
       lesson_time_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

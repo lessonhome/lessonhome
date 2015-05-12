@@ -10,10 +10,31 @@ class @main
     @comments  = @tree.comments.class
 
   show : =>
+    if @tree.name?.value?
+        @emit 'make_active_issue_bid_button'
+
     # change
-    @name.on 'focusout', @checkIssueBidActive
+    @name.on 'blur', =>
+      if @checkIssueBidActive()
+        @emit 'make_active_issue_bid_button'
+      else
+        @emit 'make_inactive_issue_bid_button'
+
+    @phone.on 'blur', =>
+      if @checkIssueBidActive()
+        @emit 'make_active_issue_bid_button'
+      else
+        @emit 'make_inactive_issue_bid_button'
+
+    @subject.on 'end', =>
+      if @checkIssueBidActive()
+        @emit 'make_active_issue_bid_button'
+      else
+        @emit 'make_inactive_issue_bid_button'
+
     # error div
     @subject.setErrorDiv @out_err_subject
+    
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
@@ -36,15 +57,12 @@ class @main
     return errs.length==0
 
   checkIssueBidActive : =>
-    # ib - issue bid
-    ib_errs = @js.check @getData()
-    if !@phone.doMatch() then ib_errs.push "bad_phone"
+    errs = @js.check @getData()
+    if !@phone.doMatch() then errs.push "bad_phone"
     if !@subject.exists()
-      ib_errs.push 'bad_subject'
-    ib_active = false
-    for e in ib_errs
-      ib_active = true
-    return ib_active
+      errs.push 'bad_subject'
+    return errs.length==0
+
 
 
   getData : =>

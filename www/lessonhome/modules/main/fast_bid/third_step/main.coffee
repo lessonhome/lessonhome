@@ -41,12 +41,10 @@ class @main
     lesson_duration.push ld_val.left
     lesson_duration.push ld_val.right
 
-    time_spend_way_val = @time_spend_way.getValue()
-
     return {
       place: place
       your_address: @your_address.getValue()
-      time_spend_way: time_spend_way_val.left
+      time_spend_way: @time_spend_way.getValue().left
       calendar: @calendar.getValue()
       lesson_duration: lesson_duration
     }

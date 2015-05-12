@@ -7,6 +7,8 @@ class @main
     @button_next?.on 'submit', @b_next
     @button_issue_bid?.on 'submit', @b_issue_bid
 
+    @content?.on 'make_active_issue_bid_button', => @button_issue_bid?.makeActive()
+    @content?.on 'make_inactive_issue_bid_button', => @button_issue_bid?.makeInactive()
   b_next : =>
     @content?.save?().then (success)=>
       @button_next.submit() if success

@@ -7,21 +7,26 @@ class @main extends template '../fast_bid'
     tutor : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'
   }
+  forms : [{pupil:['first_subject', 'isStatus']}]
   tree : ->
     progress : 4
     content : module '$' :
       student : module 'tutor/forms/location_button' :
         selector : 'status_button'
         text : 'Студент'
+        $form : pupil : 'isStatus.student'
       teacher : module 'tutor/forms/location_button' :
-        selector : 'status_button active'
+        selector : 'status_button'
         text : 'Преподаватель школы'
+        $form : pupil : 'isStatus.school_teacher'
       professor : module 'tutor/forms/location_button' :
         selector : 'status_button'
         text : 'Преподаватель ВУЗа'
+        $form : pupil : 'isStatus.high_school_teacher'
       native : module 'tutor/forms/location_button' :
         selector : 'status_button'
         text : 'Носитель языка'
+        $form : pupil : 'isStatus.native_speaker'
       experience : module 'tutor/forms/drop_down_list':
         text      : 'Опыт:'
         selector  : 'fast_bid'
@@ -31,6 +36,7 @@ class @main extends template '../fast_bid'
           '2': {value: 'more_than_4_years', text: 'более 4 лет'},
           '3': {value: 'no_matter', text: 'неважно'}
         }
+        $form : pupil : 'first_subject.requirements_for_tutor.experience'
       status_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -46,9 +52,12 @@ class @main extends template '../fast_bid'
         value         :
           min : 18
           max : 90
+          left  : $form : pupil : 'first_subject.requirements_for_tutor.age.0'
+          right : $form : pupil : 'first_subject.requirements_for_tutor.age.1'
       gender_data   : state 'gender_data':
         selector        : 'choose_gender'
         selector_button : 'registration'
+        value : $form : pupil : 'first_subject.requirements_for_tutor.sex'
       gender_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

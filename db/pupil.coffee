@@ -38,9 +38,14 @@ pupil :
       ]
       lesson_duration : "90 мин." # продолжительность одного занятия 
       requirements_for_tutor: # требования к репетитору 
-        status : "преподаватель вуза" # статус 
+        status : "school_teacher" # статус
+	  # student Студент
+	  # school_teacher Преподаватель школы
+	  # high_school_teacher Преподаватель ВУЗа
+          # native_speaker Носитель языка
         experience : "больше 5 лет" # опыт преподавания 
         sex : "female" # пол 
+	age : [20, 45] # возраст 
         with_reviews : "true" # с отзывами 
         verified : "true" # верефицированные 
 
