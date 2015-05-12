@@ -1,14 +1,14 @@
 class @main extends EE
   Dom : =>
-    @start = @tree.start?.class
-    @end   = @tree.end?.class
+    @start  = @tree.start?.class
+    @end    = @tree.end?.class
     @slider = @tree.move.class
     if @tree.min? || @tree.max?
       throw new Error 'use new syntax tree.value.{min|max} insted tree.{min|max}'
     unless @tree.value?
       console.log @
       throw new Error 'need value in tree(new style of slider/main_slider)'
-    @tree.value.left ?=  @tree.value.min
+    @tree.value.left  ?=  @tree.value.min
     @tree.value.right ?=  @tree.value.max
 
   show : =>
@@ -67,10 +67,10 @@ class @main extends EE
 
   getValue : =>
     return {
-      left : @start?.getValue?()
-      right : @end.getValue?()
-      min : @min
-      max : @max
+      left  : @start?.getValue?()
+      right : @end?.getValue?()
+      min   : @min
+      max   : @max
     }
 
 
