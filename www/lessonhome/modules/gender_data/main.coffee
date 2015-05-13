@@ -14,19 +14,26 @@ class @main extends EE
 
     @man  .on 'inactive', =>
       @state = false
+      @emit 'change'
 
     @woman.on 'inactive', =>
       @state = false
+      @emit 'change'
+
 
     @man  .on 'active', =>
       @woman .disable()
       @state = "male"
       @emit 'select'
+      @emit 'change'
+
 
     @woman.on 'active', =>
       @state = "female"
       @man   .disable()
       @emit 'select'
+      @emit 'change'
+
 
 
   setValue : (val)=>

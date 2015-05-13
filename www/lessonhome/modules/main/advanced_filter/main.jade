@@ -5,9 +5,19 @@
       .icon_down
     .title Курс
   .show_hidden
-    .list_course!=list_course
-    .add_course_block
-      .add_course!=add_course
+    .js-list_course!=list_course
+    .js-add_course_block
+      for val, key in add_course
+        .tag
+          .text_box
+            .text!=val
+          .js-close_box
+            .close
+    .js-tag
+      .text_box
+        .text
+      .js-close_box
+        .close
 .js-section
   .timetable.js-title
     .icon_box
@@ -15,7 +25,7 @@
       .icon_down
     .title Расписание
   .show_hidden
-    .calendar!=calendar
+    .js-calendar!=calendar
 .js-section
   .time_one_lesson.js-title
     .icon_box
@@ -23,7 +33,7 @@
       .icon_down
     .title Время одного занятия
   .show_hidden
-    .time_spend_lesson!=time_spend_lesson
+    .js-time_spend_lesson!=time_spend_lesson
 .js-section
   .time_to_way.js-title
     .icon_box
@@ -31,7 +41,7 @@
       .icon_down
     .title Время на дорогу
   .show_hidden
-    .time_spend_way!=time_spend_way
+    .js-time_spend_way!=time_spend_way
 .js-section
   .experience.js-title
     .icon_box
