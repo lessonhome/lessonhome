@@ -1,4 +1,5 @@
 class @main extends template '../main'
+  forms : [{tutors:['tutor']}]
   tree : =>
     filter_top  : @exports()
     tag         : @exports()
@@ -49,7 +50,7 @@ class @main extends template '../main'
         selector  : 'add_button_bid'
         text      : 'Оформить заявку'
 
-
+      tutors : $form : tutors : 'tutor'
       tutors_result : [
           state './preview/tutors_result' :
             src               : '#'
