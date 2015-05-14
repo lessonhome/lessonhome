@@ -11,8 +11,8 @@ class @main
       #  value     : @exports 'val_list_course'
       calendar        : state '../calendar' :
         selector  : 'advance_filter'
-        value     : @exports 'val_list_calendar'
-        tags      : ''
+        tags     : @exports 'val_list_calendar'
+        #tags      : ''
       time_spend_lesson   : state './slider_main' :
         selector      : 'lesson_time'
         start         : 'calendar'

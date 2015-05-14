@@ -32,19 +32,18 @@ class @main extends template '../main'
 
       sort            :  module '$/sort'
       choose_tutors_num : 2
-      choose_tutors : [
-        state './preview/all_rating_photo' :
-          src       : '#'
-          filling   : 100
-          selector  : 'padding_1px_small'
-          close     : true
-
-        state './preview/all_rating_photo' :
-          src       : '#'
-          filling   : 50
-          selector  : 'padding_1px_small'
-          close     : true
-      ]
+      choose_tutors : []
+      #  state './preview/all_rating_photo' :
+      #    src       : '#'
+      #    #filling   : 100
+      #    selector  : 'padding_1px_small'
+      #    close     : true
+      #
+      #  state './preview/all_rating_photo' :
+      #    src       : '#'
+      #    #filling   : 50
+      #    selector  : 'padding_1px_small'
+      #    close     : true
 
       issue_bid_button : module 'tutor/button' :
         selector  : 'add_button_bid'
@@ -52,76 +51,45 @@ class @main extends template '../main'
 
       tutors : $form : tutors : 'tutor'
       tutors_result : [
-          state './preview/tutors_result' :
-            src               : '#'
-            filling           : 100
-            count_review      : 255
-            tutor_name        : 'Чехов Андрей Юрьевич'
-            with_verification : 'rgb(183, 210, 120)'
-            tutor_subject     : 'Математика'
-            tutor_status      : 'cтудент'
-            tutor_exp         : 3
-            tutor_place       : 'МО Зеленоград'
-            tutor_title       : 'Быстро устраню пробелы в школьной программе'
-            tutor_text        : 'Коллектив выступает с несколькими программами. В танцевальной программе выступают 2 пары, исполняющие мексиканские танцы (харибе тапатио), возможен мастер-класс по латиноамериканским танцам'
-            tutor_price       : 1500
-
-          state './preview/tutors_result' :
-            src               : '#'
-            filling           : 100
-            count_review      : 255
-            tutor_name        : 'Чехов Андрей Юрьевич'
-            with_verification : 'rgb(183, 210, 120)'
-            tutor_subject     : 'Математика'
-            tutor_status      : 'cтудент'
-            tutor_exp         : 3
-            tutor_place       : 'МО Зеленоград'
-            tutor_title       : 'Быстро устраню пробелы в школьной программе'
-            tutor_text        : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
-            tutor_price       : 1500
-
-          state './preview/tutors_result' :
-            src               : '#'
-            filling           : 100
-            count_review      : 255
-            tutor_name        : 'Чехов Андрей Юрьевич'
-            with_verification : 'rgb(183, 210, 120)'
-            tutor_subject     : 'Математика'
-            tutor_status      : 'cтудент'
-            tutor_exp         : 3
-            tutor_place       : 'МО Зеленоград'
-            tutor_title       : 'Быстро устраню пробелы в школьной программе'
-            tutor_text        : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
-            tutor_price       : 1500
-
-          state './preview/tutors_result' :
-            src               : '#'
-            filling           : 100
-            count_review      : 255
-            tutor_name        : 'Чехов Андрей Юрьевич'
-            with_verification : 'rgb(183, 210, 120)'
-            tutor_subject     : 'Математика'
-            tutor_status      : 'cтудент'
-            tutor_exp         : 3
-            tutor_place       : 'МО Зеленоград'
-            tutor_title       : 'Быстро устраню пробелы в школьной программе'
-            tutor_text        : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
-            tutor_price       : 1500
-
-          state './preview/tutors_result' :
-            src               : '#'
-            filling           : 100
-            count_review      : 255
-            tutor_name        : 'Чехов Андрей Юрьевич'
-            with_verification : 'rgb(183, 210, 120)'
-            tutor_subject     : 'Математика'
-            tutor_status      : 'cтудент'
-            tutor_exp         : 3
-            tutor_place       : 'МО Зеленоград'
-            tutor_title       : 'Быстро устраню пробелы в школьной программе'
-            tutor_text        : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laLorem ipsum dolor sit amet, consectetur adipisicing elit'
-            tutor_price       : 1500
-        ]
+        state './preview/tutors_result' :
+          image : {
+            src: '/test_miniature.jpg'
+            w: 1000
+            h: 800
+          }
+          # вытянуть значение
+          #filling           : 100 # вытянуть значение
+          count_review      : 0 # вытянуть значение
+          value :
+            tutor_name        : 'Чехов Андрей Юрьевич' # вытянуть значение
+            with_verification : 'rgb(183, 210, 120)' # вытянуть значение
+            tutor_subject     : 'Математика' # вытянуть значение
+            tutor_status      : 'cтудент' # вытянуть значение
+            tutor_exp         : 3 # вытянуть значение
+            tutor_place       : 'МО Зеленоград' # вытянуть значение
+            tutor_title       : 'Быстро устраню пробелы в школьной программе' # вытянуть значение
+            tutor_text        : 'Коллектив выступает с несколькими программами. В танцевальной программе выступают 2 пары, исполняющие мексиканские танцы (харибе тапатио), возможен мастер-класс по латиноамериканским танцам' # вытянуть значение
+            tutor_price       : 1500 # вытянуть значение
+        state './preview/tutors_result' :
+          image : {
+            src: '/test_miniature.jpg'
+            w: 1000
+            h: 800
+          }
+          # вытянуть значение
+          #filling           : 100 # вытянуть значение
+          count_review      : 0 # вытянуть значение
+          value :
+            tutor_name        : 'Чехов Андрей Юрьевич' # вытянуть значение
+            with_verification : 'rgb(183, 210, 120)' # вытянуть значение
+            tutor_subject     : 'Математика' # вытянуть значение
+            tutor_status      : 'cтудент' # вытянуть значение
+            tutor_exp         : 3 # вытянуть значение
+            tutor_place       : 'МО Зеленоград' # вытянуть значение
+            tutor_title       : 'Быстро устраню пробелы в школьной программе' # вытянуть значение
+            tutor_text        : 'Коллектив выступает с несколькими программами. В танцевальной программе выступают 2 пары, исполняющие мексиканские танцы (харибе тапатио), возможен мастер-класс по латиноамериканским танцам' # вытянуть значение
+            tutor_price       : 1500 # вытянуть значение
+      ]
 
 
 
