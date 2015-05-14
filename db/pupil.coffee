@@ -8,8 +8,8 @@ pupil :
   phones  : {
     0 : "9150527355"
   }
-  bids : {
-    0 : {
+  bids :[
+    {
       complited : false
       fast_bid_progress : 2 # текущий шаг подачи заявки
       status            : "student" # статус ученика
@@ -20,7 +20,7 @@ pupil :
       # student студент 
       # adult взрослый 
       phone_call :
-        phones      : { 0:"9150527355" }  # дефолтные значения берутся из pupil.phones, 
+        phones      : ["9150527355" ]  # дефолтные значения берутся из pupil.phones, 
                                         # новые телевоны добавляются в pupil.phones
         description : "желательно с 19 до 21 часа"
       subjects : {
@@ -55,6 +55,6 @@ pupil :
           with_reviews : "true" # с отзывами 
           verified : "true" # верефицированные 
         }
-      }
-    }
-  }
+     }
+  ]
+

@@ -7,9 +7,9 @@ class @main extends template '../fast_bid'
     tutor : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'
   }
-  forms : [{pupil:['first_subject', 'isStatus']}]
+  forms : [{pupil:['first_subject', 'isStatus'], account:['fast_bid_progress']}]
   tree : ->
-    progress : 4
+    progress : $form : account : 'fast_bid_progress'
     content : module '$' :
       student : module 'tutor/forms/location_button' :
         selector : 'status_button'

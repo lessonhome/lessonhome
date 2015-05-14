@@ -8,6 +8,7 @@ class @main extends template '../preview'
     tutor : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'
   }
+  forms : [{account:['fast_bid_progress']}]
   tree : ->
     filter_top : module '$' :
       thanks_icon :
@@ -15,5 +16,5 @@ class @main extends template '../preview'
         height: 246
         width:  255
       progress_bar : module 'main/fast_bid/progress_bar' :
-        progress  : 5
+        progress  : $form : account : 'fast_bid_progress'
         link      : false

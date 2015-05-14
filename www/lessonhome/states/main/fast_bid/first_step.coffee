@@ -3,12 +3,12 @@ class @main extends template '../fast_bid'
   model : 'main/application/1_step'
   title : "быстрое оформление заявки: первый шаг"
   access : ['other', 'pupil']
-  forms : ['pupil','person' ]
+  forms : ['pupil','person', {account:['fast_bid_progress']}]
   redirect : {
     tutor : 'tutor/profile'
   }
   tree : ->
-    progress : 1
+    progress : $form : account : 'fast_bid_progress'
     content : module '$' :
       name : module 'tutor/forms/input' :
         text1      : 'Имя :'
@@ -19,7 +19,7 @@ class @main extends template '../fast_bid'
       phone : module 'tutor/forms/input':
         text1: 'Телефон :'
         selector  : 'fast_bid'
-        value     : $form : pupil : 'phone_call_phones_first'
+        value     : $form : pupil : 'newBid.phone_call.phones.0' #'phone_call_phones_first'
         replace     : [
           {"^(8|7)(?!\\+7)":"+7"}
           {"^(.*)(\\+7)":"$2$1"}

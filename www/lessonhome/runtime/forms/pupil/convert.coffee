@@ -28,3 +28,9 @@ class @F2V
       ret[tag] = true
     return ret
 
+  $newBid : (data)->
+    last = data?.bids?[data?.bids?.length-1]
+    last ?= {}
+    last = {} unless last.complited == false
+    return last
+

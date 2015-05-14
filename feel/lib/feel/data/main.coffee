@@ -74,7 +74,6 @@ class Data
               fdt[m[1]] = v
               return
     yield Q.all qs
-    console.log data.data,data.fdata
     qs = []
     if $.form.mb2f? then for key,val of $.form.mb2f
       if (m=key.match(/^\$(.*)$/)) && (typeof val == 'function')
@@ -83,7 +82,6 @@ class Data
             data.fdata[m[1]] = v if v?
             return
     yield Q.all qs
-    console.log data.data,data.fdata
     data.vdata = []
     qs = []
     for fdt,index in data.fdata
@@ -97,7 +95,6 @@ class Data
               vdt[m[1]] = v
               return
     yield Q.all qs
-    console.log data.fdata,data.vdata
     qs = []
     if $.form.mf2v? then for key,val of $.form.mf2v
       if (m=key.match(/^\$(.*)$/)) && (typeof val == 'function')
@@ -106,7 +103,6 @@ class Data
             data.vdata[m[1]] = v if v?
             return
     yield Q.all qs
-    console.log data.fdata,data.vdata
     return data
   findtohash : (find)=>
     keys = Object.keys(find).sort()

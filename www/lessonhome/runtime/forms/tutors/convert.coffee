@@ -10,12 +10,10 @@ status =
 
 class @MB2F
   $tutor : =>
-    @log arguments
     return
 
 class @MF2V
   $tutor : (data)=>
-    @log arguments
     data
   ###
   $status       : (data)-> status[data?.status]
