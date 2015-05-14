@@ -32,7 +32,6 @@ class DbRead
     db = yield $.db.get bname
     cursor = db.find(find,fields)
     obj = yield _invoke cursor,'toArray'
-    @log obj
     cursor.close()
     return obj
 

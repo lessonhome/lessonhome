@@ -18,3 +18,16 @@
   yield $.status 'fast_bid',4
   yield $.form.flush ['person','pupil', 'account'],$.req,$.res
   return {status:'success'}
+
+
+
+
+
+
+
+
+
+
+
+
+

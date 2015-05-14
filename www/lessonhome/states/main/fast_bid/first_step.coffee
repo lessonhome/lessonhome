@@ -19,7 +19,7 @@ class @main extends template '../fast_bid'
       phone : module 'tutor/forms/input':
         text1: 'Телефон :'
         selector  : 'fast_bid'
-        value     : $form : pupil : 'phone_call_phones_first'
+        value     : $form : pupil : 'newBid.phone_call.phones.0' #'phone_call_phones_first'
         replace     : [
           {"^(8|7)(?!\\+7)":"+7"}
           {"^(.*)(\\+7)":"$2$1"}
