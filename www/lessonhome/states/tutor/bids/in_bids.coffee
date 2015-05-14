@@ -30,7 +30,7 @@ class @main extends template '../../tutor'
     content : module '$' :
       hint : module 'tutor/hint_dz' :
         selector  : ''
-        text      : 'Дополнительную информацию по заявке можно открыт по клику.'
+        text      : 'Дополнительную информацию по заявке можно открыть по клику.'
 
       select_all_checkbox : module 'tutor/forms/checkbox' :
         selector  : 'small'
