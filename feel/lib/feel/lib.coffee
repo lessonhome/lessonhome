@@ -320,6 +320,43 @@ global.Q        = require 'q'
 
 #Q.longStackSupport  = true
 
+global._lookDown = (obj,foo)-> do Q.async ->
+  [foo,first]=[first,undefined] unless foo?
+  return unless obj && ((typeof obj == 'function') || (typeof obj == 'object'))
+  qs = []
+  if first
+    qs.push foo obj,first,obj[first]
+  else for key,val of obj
+    qs.push foo obj,key,val
+  yield Q.all qs
+  qs = []
+  if first
+    if (typeof obj[first] == 'function') || (typeof obj[first] == 'object')
+      qs.push _lookDown obj[first],foo
+  else for key,val of obj
+    if (typeof val == 'function') || (typeof val == 'object')
+      qs.push _lookDown val,foo
+  yield Q.all qs
+  return
+global._lookUp = (obj,first,foo)-> do Q.async ->
+  [foo,first]=[first,undefined] unless foo?
+  return unless obj && ((typeof obj == 'function') || (typeof obj == 'object'))
+  qs = []
+  if first
+    if (typeof obj[first] == 'function') || (typeof obj[first] == 'object')
+      qs.push _lookUp obj[first],foo
+  else for key,val of obj
+    if (typeof val == 'function') || (typeof val == 'object')
+      qs.push _lookUp val,foo
+  yield Q.all qs
+  qs = []
+  if first
+    qs.push foo obj,first,obj[first]
+  else for key,val of obj
+    qs.push foo obj,key,val
+  yield Q.all qs
+  return
+
 
 
 Q.rdenodeify = (f)-> Q.denodeify (as...,cb)-> f? as..., (a,b)->cb? b,a

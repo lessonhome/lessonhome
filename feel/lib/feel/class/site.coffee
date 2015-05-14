@@ -1,5 +1,6 @@
 
 State   = require './state'
+NState   = require './nstate'
 Module  = require './module'
 fs      = require 'fs'
 readdir = Q.denodeify fs.readdir
@@ -21,6 +22,7 @@ class module.exports
     @path.sass    = "#{@path.cache}/modules"
     @config       = {}
     @state        = {}
+    @nstate       = {}
     @modules      = {}
     @router       = new Router @
     @fileupload   = new FileUpload @
@@ -60,12 +62,15 @@ class module.exports
           return promise
       ,Q()
     
-  loadStates : =>
+  loadStates : => do Q.async =>
     for key,val of @state
       delete @state[key]
-    @createStates @path.states,""
-  createStates : (path,dir)=>
-    readdir path
+    yield @createStates @path.states,""
+    for sname,state of @nstate
+      yield state.init()
+      yield state.tree()
+  createStates : (path,dir)=> do Q.async =>
+    yield readdir path
     .then (files)=>
       files.reduce (promise,filename)=>
         stat = fs.statSync "#{path}/#{filename}"
@@ -76,9 +81,11 @@ class module.exports
           return promise.then => @createState name
         return promise
       , Q()
+
   createState : (name)=>
     if !@state[name]?
-      @state[name] = new State @, name
+      @state[name]  = new State  @, name
+      @nstate[name] = new NState @, name if name == 'dev/urls'
       @state[name].init()
       if !@state[name].class?
         delete @state[name]

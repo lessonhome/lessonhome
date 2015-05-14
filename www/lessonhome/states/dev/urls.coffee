@@ -1,13 +1,14 @@
 
+
 class @main
   access : ['tutor','pupil','other']
   redirect : {}
   forms : [{'person':['first_name']}]
   route :  '/urls'
-  tree : => module 'dev/urls' :
+  tree : => @module 'dev/urls' :
     depend : [
-      state 'lib'
-      module 'lib/mousewheel'
+      @state 'lib'
+      @module 'lib/mousewheel'
     ]
     user : $form :person:"first_name"
 
@@ -32,4 +33,3 @@ class @main
           arr[j]  = k
 
     @tree.states = arr
-        
