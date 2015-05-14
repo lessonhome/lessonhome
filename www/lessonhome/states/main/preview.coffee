@@ -12,7 +12,24 @@ class @main extends template '../main'
 
     content : module '$' :
       popup           : @exports()
-      advanced_filter : state './advanced_filter'
+
+
+      advanced_filter : state './advanced_filter' :
+        val_list_course       : 'ЕГЭ' # вытянуть значение
+        val_add_course        : ['ЕГЭ'] # вытянуть значение
+        val_list_calendar     : 11 # вытянуть значение
+        val_time_spend_lesson : # вытянуть значение
+          min : 45
+          max : 180
+        val_time_spend_way    : # вытянуть значение
+          min : 15
+          max : 120
+        val_choose_gender     : 11 # вытянуть значение
+        val_with_reviews      : 11 # вытянуть значение
+        val_with_verification : 11 # вытянуть значение
+        
+
+
       sort            :  module '$/sort'
       choose_tutors_num : 2
       choose_tutors : [

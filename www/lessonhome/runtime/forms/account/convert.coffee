@@ -14,3 +14,9 @@ class @F2V
     return 3 if s?.tutor_prereg_2
     return 2 if s?.tutor_prereg_1
     return 1
+
+  $fast_bid_progress : (data)->
+    if data?.status?.fast_bid
+      return data.status.fast_bid
+    else
+      return 1

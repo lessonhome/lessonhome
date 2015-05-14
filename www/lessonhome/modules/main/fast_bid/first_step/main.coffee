@@ -34,7 +34,7 @@ class @main
 
     # error div
     @subject.setErrorDiv @out_err_subject
-    
+
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
