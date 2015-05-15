@@ -1,8 +1,17 @@
-.photo(class = selector)
+- console.log ("MODULE".red);
+- width_photo = 58;
+- if (selector = 'extract')
+-  width_photo = 120;
+- height_photo = image.h*width_photo/image.w;
+.photo(class = selector, style="width: #{width_photo}px; height: #{height_photo}px;")
+  img(src=F(image.src), width=width_photo, height=height_photo)
   if close
     .close_box
       .close_icon
-.all_rating!=all_rating
+//.all_rating!=all_rating
 if count_review
-  a
-    .count_review.select!=count_review + ' отзывов'
+  a(href='#')
+    .js-count_review.select!=count_review + ' отзывов'
+else
+  a(href='#')
+    .js-count_review.select!=count_review + ' отзывов'
