@@ -10,7 +10,7 @@
   unless lastBid?.complited == false
     lastBid = {complited : false}
     pupil.bids.push lastBid
-  lastBid.complited = true 
+  lastBid.complited = true
   yield _invoke db, 'update',{account:$.user.id},{$set:pupil},{upsert:true}
 
   yield $.status 'fast_bid',5
