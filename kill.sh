@@ -1,1 +1,1 @@
-killall -KILL iojs nodejs node
+killall -KILL iojs nodejs node 2>> /dev/null

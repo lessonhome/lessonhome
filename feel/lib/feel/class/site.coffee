@@ -66,9 +66,18 @@ class module.exports
     for key,val of @state
       delete @state[key]
     yield @createStates @path.states,""
-    for sname,state of @nstate
-      yield state.init()
-      yield state.tree()
+    yield state.init()        for sname,state of @nstate
+    yield state.tree()        for sname,state of @nstate
+    yield state.treeExtend()  for sname,state of @nstate
+    #yield state.treeStateResolve()  for sname,state of @nstate
+
+
+    foo = => do Q.async =>
+      d = new Date().getTime()
+      yield @nstate['test/urls'].use({},true) #for sname,state of @nstate
+      console.log (new Date().getTime())-d
+    #yield foo() for i in [0..100]
+    #console.log JSON.stringify @nstate state.object.tree,2,2 for sname,state of @nstate
   createStates : (path,dir)=> do Q.async =>
     yield readdir path
     .then (files)=>
@@ -83,9 +92,11 @@ class module.exports
       , Q()
 
   createState : (name)=>
+    if name.match /^test/
+      @nstate[name] = new NState @, name
+      return
     if !@state[name]?
       @state[name]  = new State  @, name
-      @nstate[name] = new NState @, name if name == 'dev/urls'
       @state[name].init()
       if !@state[name].class?
         delete @state[name]
