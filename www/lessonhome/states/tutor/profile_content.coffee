@@ -10,9 +10,9 @@ class @main
         module 'lib/jquery/iframe_transport_plugin'
         module 'lib/jquery/fileupload'
       ]
-    all_rating          : module '../rating_star':
-      filling  : 40
-    progress            : @exports()
+    #all_rating          : module '../rating_star':
+    #  filling  : 40
+    #progress            : @exports()
     count_review        : @exports()
     send_bid_this_tutor : @exports()
     first_name  : $form : person : 'first_name'

@@ -3,6 +3,7 @@ class @main
   forms : [{'tutor':['calendar']}]
   tree : -> module '$' :
     selector        : @exports()
+    value           : @exports()
     tags_selector   : @exports()
     choose_all      : module 'tutor/forms/checkbox'  :
       text        : 'выбрать все'
@@ -30,7 +31,6 @@ class @main
       to_time   : ''
       selector  : 'choose_course'
       close     : true
-    tags : @exports()
     save_button       : module 'tutor/button' :
       text      : 'Сохранить'
       selector  : 'edit_save'

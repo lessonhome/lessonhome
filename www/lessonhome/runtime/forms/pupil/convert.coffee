@@ -16,14 +16,14 @@ class @F2V
 
   $isPlace    : (data)->
     ret = {}
-    tags = (yield @$first_subject(data))?.place || []
+    tags = (yield @$newBid(data)).subjects?[0]?.place || []
     for key,tag of tags
       ret[tag] = true
     return ret
 
   $isStatus    : (data)->
     ret = {}
-    tags = (yield @$first_subject(data))?.requirements_for_tutor?.status || []
+    tags = (yield @$newBid(data)).subjects?[0]?.requirements_for_tutor?.status || []
     for key,tag of tags
       ret[tag] = true
     return ret
@@ -33,4 +33,3 @@ class @F2V
     last ?= {}
     last = {} unless last.complited == false
     return last
-

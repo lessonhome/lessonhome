@@ -1,17 +1,17 @@
 - var max_text_length = 113;
 .name_verification_block
-  .tutor_name.select=tutor_name
+  .js-tutor_name.select=value.tutor_name
   .verification
-    .with_verification(style = 'background-color: #{with_verification};')
-.tutor_subject.select=tutor_subject
-.tutor_status.select=tutor_status + ', опыт ' + tutor_exp + ' года'
-.tutor_place.select=tutor_place
-.tutor_title.select=tutor_title
-.js-tutor_text.select=tutor_text
+    .js-with_verification(style = 'background-color: #{value.with_verification};')
+.js-tutor_subject.select=value.tutor_subject
+.js-tutor_status.select=value.tutor_status + ', опыт ' + value.tutor_exp + ' года'
+.js-tutor_place.select=value.tutor_place
+.js-tutor_title.select=value.tutor_title
+.js-tutor_text.select=value.tutor_text
 
 .button_prise_panel
-  .js-add_button_bid!=add_button_bid
+  .js-add_button_bid!=value.add_button_bid
   .price_block
     .icon
-    .tutor_price.select=tutor_price + ' '
+    .js-tutor_price.select=value.tutor_price + ' '
       span р/ч

@@ -33,8 +33,8 @@ class @main extends template '../tutor'
             s || '<a href="./edit/contacts">заполнить</a>'
           'Личный сайт :'     : $form : person : site : (s)->
             s || '<a href="./edit/contacts">заполнить</a>'
-      progress  : module './profile_content/progress' :
-        filling  : '56%'
+      #progress  : module './profile_content/progress' :
+      #  filling  : '56%'
       edit      : true
       add       : true
   init : =>

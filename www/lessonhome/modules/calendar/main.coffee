@@ -72,6 +72,7 @@ class @main extends EE
           else
             if day_number == tag_div_day_number
               console.log "current : "+@from+" div : "+tag_div.find(".time_from").text()+" compare_result : "+@compareTime(@from, tag_div.find(".time_from").text())
+              console.log 'compare time : '+@compareTime(@from, tag_div.find(".time_from").text())
               switch @compareTime(@from, tag_div.find(".time_from").text())
                 when 1
                   new_tag.insertBefore(tag_div)
@@ -121,7 +122,7 @@ class @main extends EE
           else
             return 0
       else
-        return 1
+        return -1
 
   # handlers
 

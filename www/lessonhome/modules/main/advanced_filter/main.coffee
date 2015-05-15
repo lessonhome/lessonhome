@@ -1,4 +1,3 @@
-
 class @main extends EE
   Dom : =>
     @add_course_block  = @found.add_course_block
@@ -22,7 +21,8 @@ class @main extends EE
 
     # action
     @list_course.on         'change',=> @emit 'change'
-    @add_course.on          'change',=> @emit 'change'
+    # TODO: add_course hard code, not this module, only this file have this variables
+    #@add_course.on          'change',=> @emit 'change'
     @calendar.on            'change',=> @emit 'change'
     @time_spend_lesson.on   'change',=> @emit 'change'
     @time_spend_way.on      'change',=> @emit 'change'
@@ -31,7 +31,7 @@ class @main extends EE
     @with_verification.on   'change',=> @emit 'change'
 
     @list_course.on         'and',=> @emit 'and'
-    @add_course.on          'and',=> @emit 'and'
+    #@add_course.on          'and',=> @emit 'and'
     @calendar.on            'and',=> @emit 'and'
     @time_spend_lesson.on   'and',=> @emit 'and'
     @time_spend_way.on      'and',=> @emit 'and'
@@ -113,6 +113,7 @@ class @main extends EE
 
 
   getValue : => @getData()
+
   setValue : (data)=>
     @list_course.setValue       data.list_course        if data?.list_course?
     @add_course.setValue        data.add_course         if data?.add_course?
