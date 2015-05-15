@@ -131,15 +131,15 @@ class @main extends template '../fast_bid'
           '72': {value: 'japanese', text: 'японский язык'}
 
         }
-        value : $form : pupil : 'subjects_0_subject'
+        value : $form : pupil : 'newBid.subjects.0.subject'
       call_time : module 'tutor/forms/textarea':
         text: 'В какое время Вам звонить :'
         selector  : 'fast_bid'
-        value     : $form : pupil : 'phone_call_description'
+        value     : $form : pupil : 'newBid.phone_call.description'
       comments : module 'tutor/forms/textarea':
         text: 'Комментарии :'
         selector  : 'fast_bid'
-        value : $form : pupil : 'subjects_0_comments'
+        value : $form : pupil : 'newBid.subjects.0.comments'
     #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->

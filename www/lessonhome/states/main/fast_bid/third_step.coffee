@@ -7,7 +7,7 @@ class @main extends template '../fast_bid'
     'tutor' : 'tutor/profile'
     'default' : 'main/fast_bid/first_step'
   }
-  forms : [{pupil:['first_subject', 'isPlace'], person:['location'], account:['fast_bid_progress'] }]
+  forms : [{pupil:['isPlace', 'newBid'], person:['location'], account:['fast_bid_progress'] }]
   tree : ->
     progress : $form : account : 'fast_bid_progress'
     content : module '$' :
@@ -39,14 +39,14 @@ class @main extends template '../fast_bid'
         value         :
           min : 15
           max : 120
-          left :  $form : pupil : 'first_subject.road_time'
+          left :  $form : pupil : 'newBid.subjects.0.road_time'
       way_time_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       calendar        : state 'calendar' :
         selector    : 'advance_filter'
         tags_selector : 'fast_bid'
-        tags : $form : pupil : 'first_subject.calendar'
+        value : $form : pupil : 'newBid.subjects.0.calendar'
       calendar_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -62,8 +62,8 @@ class @main extends template '../fast_bid'
         value         :
           min : 45
           max : 180
-          left  : $form : pupil : 'first_subject.lesson_duration.0'
-          right : $form : pupil : 'first_subject.lesson_duration.1'
+          left  : $form : pupil : 'newBid.subjects.0.lesson_duration.0'
+          right : $form : pupil : 'newBid.subjects.0.lesson_duration.1'
       lesson_time_hint : module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
