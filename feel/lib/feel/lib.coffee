@@ -518,8 +518,8 @@ global._randomHash = (b=20)-> _crypto.randomBytes(b).toString('hex')
 global._shash   = (f)-> _hash(f).substr 0,10
 global._invoke  = (args...)-> Q.ninvoke args...
 global._mkdirp  = Q.denode require 'mkdirp'
-v8clone = require 'node-v8-clone'
-global._clone   = (o,d=true)-> v8clone.clone o,d
+#v8clone = require 'node-v8-clone'
+#global._clone   = (o,d=true)-> v8clone.clone o,d
 module.exports  = Lib
 
 global._waitFor = (obj,action,time=60000)-> Q.then ->

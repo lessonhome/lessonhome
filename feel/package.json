@@ -51,8 +51,7 @@
     "jquery-file-upload-middleware":"",
     "express":"*",
     "body-parser":"*",
-    "imagemagick": "*",
-    "node-v8-clone" : "*"
+    "imagemagick": "*"
   }
 }
 

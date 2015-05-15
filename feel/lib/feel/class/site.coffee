@@ -1,6 +1,6 @@
 
 State   = require './state'
-NState   = require './nstate'
+#NState   = require './nstate'
 Module  = require './module'
 fs      = require 'fs'
 readdir = Q.denodeify fs.readdir
@@ -66,16 +66,16 @@ class module.exports
     for key,val of @state
       delete @state[key]
     yield @createStates @path.states,""
-    yield state.init()        for sname,state of @nstate
-    yield state.tree()        for sname,state of @nstate
-    yield state.treeExtend()  for sname,state of @nstate
+    #yield state.init()        for sname,state of @nstate
+    #yield state.tree()        for sname,state of @nstate
+    #yield state.treeExtend()  for sname,state of @nstate
     #yield state.treeStateResolve()  for sname,state of @nstate
 
 
-    foo = => do Q.async =>
-      d = new Date().getTime()
-      yield @nstate['test/urls'].use({},true) #for sname,state of @nstate
-      console.log (new Date().getTime())-d
+    #foo = => do Q.async =>
+    #  d = new Date().getTime()
+    #  yield @nstate['test/urls'].use({},true) #for sname,state of @nstate
+    #  console.log (new Date().getTime())-d
     #yield foo() for i in [0..100]
     #console.log JSON.stringify @nstate state.object.tree,2,2 for sname,state of @nstate
   createStates : (path,dir)=> do Q.async =>
@@ -93,7 +93,7 @@ class module.exports
 
   createState : (name)=>
     if name.match /^test/
-      @nstate[name] = new NState @, name
+      #  @nstate[name] = new NState @, name
       return
     if !@state[name]?
       @state[name]  = new State  @, name
