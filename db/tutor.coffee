@@ -57,6 +57,7 @@ tutor:
     {
       name        : 'математика'
       description : 'подготовка к ЕГЭ, старшие классы; 3,4 классы; студенты'
+      
       tags        : ['ЕГЭ','ГИА','ОГЭ','school:high','school:0','school:3','school:4', 'student']
         # school:0 preschoolers дошкольники
         # school:1 junior school младшая школа
@@ -103,6 +104,7 @@ tutor:
       description : "Да! Я ем! Преподавателям тоже иногда нужно есть!"
     }
   ]
+  check_out_the_areas : ["Выхино","Люблино"] # места выезда 
   #pref_gender: 'man' #предпочтения пол        TODO Не понимаю зачем это нужно
   #pref_status: 'студент' #предпочтения статус TODO 
 

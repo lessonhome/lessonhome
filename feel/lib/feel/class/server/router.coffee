@@ -75,8 +75,16 @@ class Router
     req.register = @site.register
     register = yield @site.register.register session
     req.session = register.session
-    cookie.set 'session'
-    cookie.set 'session',register.session
+    cookie.set 'session',null,{
+      #maxAge : (60*60*24*365)
+      expires: new Date("21 May 2020 10:12")
+      overwrite : true
+    }
+    cookie.set 'session',register.session, {
+      #maxAge : (60*60*24*365)
+      expires: new Date("21 May 2020 10:12")
+      overwrite : true
+    }
     req.user = register.account
   redirect : (req,res,location='/')=> do Q.async =>
     yield console.log 'redirect',location
