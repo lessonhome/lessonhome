@@ -47,6 +47,7 @@ class @main
           #[[55.7, 37.6], [55.8, 37.7]],
           [@div.width(), @div.height()]
         )
+        bounds.zoom-=2
         map = new ymaps.Map @div[0],bounds
         map.geoObjects.add myPlacemark
         d.resolve true
