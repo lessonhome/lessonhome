@@ -6,8 +6,6 @@ class @main
   forms : [{'person':['first_name']}]
   route :  '/urls'
   tree : => module 'dev/urls' :
-    map : module 'maps/yandex':
-      value : "береговой проезд 2 3"
     depend : [
       state 'lib'
       module 'lib/mousewheel'
