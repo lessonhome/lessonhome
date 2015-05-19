@@ -318,10 +318,12 @@ class RouteState
       "use strict";
       '+('
           window.EE = EventEmitter;
-          var $Feel = {}; 
+          var $Feel = {};
           $Feel.root = {
               "tree" : InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
           };
+          $Feel.user = {};
+          $Feel.user.id = "'+(@req.user.id||666)+'";
           $Feel.modules = {};
           (function(){
             '+@jsClient+'
