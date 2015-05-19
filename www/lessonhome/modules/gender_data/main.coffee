@@ -19,6 +19,7 @@ class @main extends EE
     @woman.on 'inactive', =>
       @state = false
       @emit 'change'
+      @emit 'end'
 
 
     @man  .on 'active', =>
@@ -26,6 +27,7 @@ class @main extends EE
       @state = "male"
       @emit 'select'
       @emit 'change'
+      @emit 'end'
 
 
     @woman.on 'active', =>
@@ -33,6 +35,7 @@ class @main extends EE
       @man   .disable()
       @emit 'select'
       @emit 'change'
+      @emit 'end'
 
 
 

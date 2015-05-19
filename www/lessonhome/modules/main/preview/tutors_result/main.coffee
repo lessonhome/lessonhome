@@ -3,7 +3,7 @@ class @main extends EE
   show: =>
     @rating_photo   = @tree.rating_photo.class
     @tutor_extract  = @tree.tutor_extract.class
-
+    #@set
   setValue : (data)=>
 
 
