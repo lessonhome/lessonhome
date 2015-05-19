@@ -320,6 +320,39 @@ global.Q        = require 'q'
 
 #Q.longStackSupport  = true
 
+global._lookDown = (obj,first,foo)-> do Q.async ->
+  [foo,first]=[first,undefined] unless foo?
+  return unless obj && ((typeof obj == 'function') || (typeof obj == 'object'))
+  qs = []
+  if first
+    qs.push foo obj,first,obj[first]
+  else for key,val of obj
+    qs.push foo obj,key,val
+  yield Q.all qs
+  if first
+    if (typeof obj[first] == 'function') || (typeof obj[first] == 'object')
+      yield _lookDown obj[first],foo
+  else for key,val of obj
+    if (typeof val == 'function') || (typeof val == 'object')
+      yield _lookDown val,foo
+  return
+global._lookUp = (obj,first,foo)-> do Q.async ->
+  [foo,first]=[first,undefined] unless foo?
+  return unless obj && ((typeof obj == 'function') || (typeof obj == 'object'))
+  if first
+    if (typeof obj[first] == 'function') || (typeof obj[first] == 'object')
+      yield _lookUp obj[first],foo
+  else for key,val of obj
+    if (typeof val == 'function') || (typeof val == 'object')
+      yield _lookUp val,foo
+  qs = []
+  if first
+    qs.push foo obj,first,obj[first]
+  else for key,val of obj
+    qs.push foo obj,key,val
+  yield Q.all qs
+  return
+
 
 
 Q.rdenodeify = (f)-> Q.denodeify (as...,cb)-> f? as..., (a,b)->cb? b,a
@@ -485,6 +518,8 @@ global._randomHash = (b=20)-> _crypto.randomBytes(b).toString('hex')
 global._shash   = (f)-> _hash(f).substr 0,10
 global._invoke  = (args...)-> Q.ninvoke args...
 global._mkdirp  = Q.denode require 'mkdirp'
+#v8clone = require 'node-v8-clone'
+#global._clone   = (o,d=true)-> v8clone.clone o,d
 module.exports  = Lib
 
 global._waitFor = (obj,action,time=60000)-> Q.then ->
