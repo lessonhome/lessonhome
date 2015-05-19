@@ -21,7 +21,7 @@ class @main
   _go : (search,d)=> ymaps.ready =>
     search = "Москва, "+search
     $.ajax
-      url: "http://geocode-maps.yandex.ru/1.x/"
+      url: "https://geocode-maps.yandex.ru/1.x/"
       data :
         geocode : search
         format : "json"
