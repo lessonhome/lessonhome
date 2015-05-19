@@ -295,7 +295,7 @@ class RouteState
     title  ?= @statename
     end  = ""
     end += '<!DOCTYPE html><html><head><meta charset="utf-8">'
-    end += '<meta name="viewport" content="width=1014px">'
+    end += '<meta name="viewport" content="width=1014">'
     end += '<title>'+title+'</title>'
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
     end += @css+'</head><body>'+@top._html
