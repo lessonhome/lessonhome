@@ -1,5 +1,5 @@
 class @main
-  forms : [{'tutor':['calendar', 'subject']}]
+  forms : [{'tutor':['calendar', 'subject'], person:['location', 'address', 'area']}]
   tree : -> module '$' :
     line_place  : module 'tutor/separate_line' :
       title     : 'Место :'
@@ -7,11 +7,11 @@ class @main
       edit      :  @exports()
       selector  : 'horizon'
     address_time  : module 'tutor/profile_content/title_block'  :
-      title     : 'Даниловский'
+      title     :  $form : person : 'area'
       title_two   : 'Свободное время'
       selector  : 'address_time'                         #variable class in sass
-    map           : module '$/map'  :
-      srs       : '#'
+    map : module 'maps/yandex'
+    address : $form : person : 'address'                 # in pair with map
     show_calendar      : module '$/show_calendar' :
       day_time : $form : tutor : 'calendar'
       separate_line       : module '../separate_line'  :
