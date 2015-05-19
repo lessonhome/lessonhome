@@ -36,4 +36,35 @@ class @F2V
     if e?.period?.start && e?.period?.end
       "#{e.period.start} - #{e.period.end} гг."
   $edu        : (data)-> data?.education?[0]
-  $location   : (data)-> data?.location
+  $location   : (data)->
+    console.log data
+    data?.location
+  $address    : (data)->
+    location = data?.location
+    country  = location?.country
+    city     = location?.city
+    street   = location?.street
+    house    = location?.house
+    building = location?.building
+    address = ''
+    address += "#{country} " if country?
+    address += "#{city} " if city?
+    if street?
+      address += "#{street} " if street?
+      if house?
+        address += "#{house} "
+        if building?
+          address += "#{building} "
+    return address
+  $area     : (data)->
+    location = data?.location
+    console.log location
+    city     = location?.city
+    area     = location?.area
+    ret = ''
+    if city?
+      ret += "#{city}"
+      ret += ",  #{area}" if area?
+    else
+      ret += "#{area}" if area?
+    return ret

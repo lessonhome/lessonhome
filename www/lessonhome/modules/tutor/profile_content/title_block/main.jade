@@ -7,16 +7,16 @@
   //name, details - content
 .box_line.select(class=selector)
   .title_box
-    .icon_box.unselect
-      .icon
     if selector == 'address_time'
-      .title Район : #{title}
-    else
       .title!=title
+    else
+      .js-icon_box.unselect
+        .icon
+      .title!=title+' : '
   if details
     .details=details
   if title_two
     .title_two_box
-      .icon_box.unselect
+      //-.icon_box.unselect
         .icon
       .title_two!=title_two

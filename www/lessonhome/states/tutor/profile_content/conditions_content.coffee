@@ -1,4 +1,5 @@
 class @main
+  forms : [{'tutor':['calendar', 'subject'], person:['location', 'address', 'area']}]
   tree : -> module '$' :
     line_place  : module 'tutor/separate_line' :
       title     : 'Место :'
@@ -6,64 +7,24 @@ class @main
       edit      :  @exports()
       selector  : 'horizon'
     address_time  : module 'tutor/profile_content/title_block'  :
-      title     : 'Даниловский'
+      title     :  $form : person : 'area'
       title_two   : 'Свободное время'
       selector  : 'address_time'                         #variable class in sass
-    map           : module '$/map'  :
-      srs       : '#'
+    map : module 'maps/yandex'
+    address : $form : person : 'address'                 # in pair with map
     show_calendar      : module '$/show_calendar' :
-      day_time : [
-        {
-          day       : 'пн :'
-          from_time : '12:00'
-          to_time   : '16:00'
-        }
-        {
-          day       : 'вт :'
-          from_time : '12:00'
-          to_time   : '6:00'
-        }
-        {
-          day       : 'ср :'
-          from_time : '12:00'
-          to_time   : '16:00'
-        }
-        {
-          day       : 'чт :'
-          from_time : '12:00'
-          to_time   : '16:00'
-        }
-        {
-          day       : 'пт :'
-          from_time : '12:00'
-          to_time   : '16:00'
-        }
-        {
-          day       : 'пт :'
-          from_time : '12:00'
-          to_time   : '16:00'
-        }
-      ]
+      day_time : $form : tutor : 'calendar'
       separate_line       : module '../separate_line'  :
         selector  : 'calendar'
-    outside_work_areas  : [
-      'Бибирево'
-      'Бирюлёво'
-      'Крюково'
-    ]
-    distance_work : [
-      'Skype'
-      'Viber'
-      'Livestream'
-    ]
+    outside_work_areas  : $form : tutor : 'check_out_the_areas'
     line_subject  : module 'tutor/separate_line' :
       title     : 'Предметы'
       link      : './edit/subjects'
       edit      :  @exports()
       selector  : 'horizon'
     subject       : module 'tutor/profile_content/title_block'  :
-      title     : 'Физика :'
-      details   : 'ЕГЭ, ГИА'
+      title     : $form : tutor : 'subject.name'
+      details   : $form : tutor : 'subject.tags.0'
       selector  : 'subject'
     details_data  : module '$/details_data' :
       outside_work_price  : '1500р.'

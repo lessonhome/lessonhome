@@ -1,7 +1,10 @@
 @import 'compass/css3'
-$icon_src: 'triangle-6x7-closed.png'
+$icon_src: 'triangle-6x7.png'
+$icon_closed_src: 'triangle-6x7-closed.png'
 $icon_height: image-height($icon_src)
 $icon_width: image-width($icon_src)
+$icon_closed_height: image-height($icon_closed_src)
+$icon_closed_width: image-width($icon_closed_src)
 $font-size: 20px
 $padding_corner: 21.5px
 main
@@ -28,7 +31,7 @@ main
   .title_box, .title_two_box
     height: 100%
     .icon_box
-      width: $icon_width
+      width: $icon_closed_width
       height: $icon_height
       padding-right: 10px
       +inline-block
@@ -36,3 +39,6 @@ main
         width: 100%
         height: 100%
         background : url(F($icon_src)) no-repeat
+    .icon_box.closed
+      .icon
+        background : url(F($icon_closed_src)) no-repeat
