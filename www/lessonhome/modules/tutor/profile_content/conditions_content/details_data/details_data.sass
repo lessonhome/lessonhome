@@ -1,9 +1,9 @@
-$widthLeftBlock : 120px
+$widthLeftBlock : 100px
 $paddingAll     : 20px
 $triangle_width : 21px
 main
   overflow: hidden
-  padding: 35px 0 20px 20px           //use padding in child module, because we need .line_vertical position left to padding+width, paddig-right : 0 because have separate line
+  padding: 25px 0 $paddingAll $paddingAll           //use padding in child module, because we need .line_vertical position left to padding+width, paddig-right : 0 because have separate line
 .triangle
   position: absolute
   width: 0
@@ -24,7 +24,21 @@ main
   color: rgba(0, 0, 0, 0.702)
   width: $widthLeftBlock
   float: left
-  .outside_work_price, .home_price, .distance_work_price
-    margin-bottom: 20px
+  .title
+    position: relative
+    line-height: 30px
+    padding-bottom: 12px
+    .line_horizon
+      height: 2px
+      position: absolute
+      left: -15px
+      right: 5px
+      bottom: 0
+  .price_from
+    padding: 10px 0 15px 0
+  .price_from, .price_till
+    .text
+      font-size: 16px
+      padding-bottom: 10px
 .right_block
   margin-left: $widthLeftBlock

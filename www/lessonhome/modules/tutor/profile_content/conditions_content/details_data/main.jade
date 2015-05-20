@@ -2,13 +2,11 @@
 .line_vertical!=line_vertical
 .left_block.select
   .title Цена :
-  .price
+    .line_horizon!=line_horizon
+  .price_from
     .text от
-    .from!=price_from
+    .from!=price_from + ' р.'
+  .price_till
     .text до
-    .till!=price_till
-    //-
-      .outside_work_price!='Выезд<br/>'+outside_work_price
-      .home_price!='У себя<br/>'+home_price
-      .distance_work_price!='Удалённо<br/>'+distance_work_price
+    .till!=price_till + ' р.'
 .right_block!=subject_data

@@ -27,9 +27,8 @@ class @main
       details   : $form : tutor : 'subject.tags.0'
       selector  : 'subject'
     details_data  : module '$/details_data' :
-      #outside_work_price  : '1500р.'
-      #home_price          : '1200р.'
-      #distance_work_price : '900р.'
+      line_horizon  :  module 'tutor/separate_line' :
+        selector  : 'horizon'
       price_from : $form : tutor : 'srange.left'
       price_till : $form : tutor : 'srange.right'
       subject_data        : module 'tutor/profile_content/info_block' :
