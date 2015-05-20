@@ -39,11 +39,15 @@ class @main extends EE
       input ?= @end  if @end?
       setInputVal input, x
       #input.setValue (Math.round (@max-@min)*x + @min)
+      @emit 'change'
+      @emit 'end'
 
     @slider.on 'right_slider_move', (x) =>
       input = @end  if @end?
       input ?= @start if @start?
       setInputVal input, x
+      @emit 'change'
+      @emit 'end'
 
     @setValue @tree.value
     unless @max? && @min?

@@ -23,7 +23,7 @@ class @main extends template '../main'
         val_time_spend_way    : # вытянуть значение
           min : 15
           max : 120
-        val_choose_gender     : 11 # вытянуть значение
+        val_choose_gender     : false # вытянуть значение
         val_with_reviews      : 11 # вытянуть значение
         val_with_verification : 11 # вытянуть значение
         

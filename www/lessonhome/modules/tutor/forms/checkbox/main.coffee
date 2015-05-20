@@ -18,8 +18,6 @@ class @main extends EE
       @emit 'end'
 
 
-
-
   getValue : => @state = @label.hasClass 'active'
 
   setValue : (val)=>
