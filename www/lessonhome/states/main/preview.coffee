@@ -3,6 +3,7 @@ class @main extends template '../main'
   tree : =>
     filter_top  : @exports()
     tag         : @exports()
+    ###
     info_panel  : state './info_panel'  :
       subject   : 'Предметы +'
       tutor     : 'Преподаватель +'
@@ -10,13 +11,14 @@ class @main extends template '../main'
       price     : 'Цена'
       selector  : 'second_step'
 
+    ###
+
     content : module '$' :
       popup           : @exports()
 
 
       advanced_filter : state './advanced_filter' :
-        val_list_course       : 'ЕГЭ' # вытянуть значение
-        val_add_course        : ['ЕГЭ'] # вытянуть значение
+        val_list_course       : '' # вытянуть значение
         val_list_calendar     : 11 # вытянуть значение
         val_time_spend_lesson : # вытянуть значение
           min : 45

@@ -75,9 +75,10 @@ class @main
       text      : 'Групповые занятия :'
       selector  : 'first_reg'
       default_options     : {
-        '0': {value: 'russia', text: 'Россия'},
-        '1': {value: 'ukraine', text: 'Украина'},
-        '2': {value: 'belarus', text: 'Белоруссия'}
+        '0': {value: '0', text: 'не проводятся'},
+        '1': {value: '1', text: '2-4 ученика'},
+        '2': {value: '2', text: 'до 8 учеников'},
+        '3': {value: '3', text: 'от 10 учеников'}
       }
       $form : tutor : 'subject.groups.0.description'
     comments          : module 'tutor/forms/textarea' :

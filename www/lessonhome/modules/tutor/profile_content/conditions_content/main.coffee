@@ -10,7 +10,7 @@ class @main
     @subject_div.on 'click', => @subjectOnClick @subject, @details_data
     @map.go(@address).then (ret)->
       if !ret
-        console.log 'map is not defined'
+        console.log ret
 
 
   subjectOnClick : (subject, details)=>

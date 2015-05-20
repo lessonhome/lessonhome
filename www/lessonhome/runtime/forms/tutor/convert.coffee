@@ -48,3 +48,48 @@ class @F2V
       right : r?.pop?() || 1500
     }
     return ret
+  $sduration  : (data)->
+    d = (yield @$subject(data))?.price?.duration
+    if d?
+      ret = d + " минут"
+    else
+      ret = ''
+    return ret
+  $splace : (data)->
+    places = {'tutor':'у репетитора', 'pupil':'у ученика', 'remote':'удалённо', other:'другое место'}
+    ret = ''
+    p = (yield @$subject(data))?.place
+    if p?
+      for key,val of p
+        ret += places[val]+", "
+      if ret.length
+        ret = ret.substring(0, ret.length - 2)
+    return ret
+
+  $scategory_of_student : (data)->
+    #categories_of_student = {'school:0':'дошкольники', 'school:1':'младшая школа', 'school:2':'средняя школа', 'school:3':'старшая школа', 'student':'студент', 'adult':'взрослый'}
+    ret = ''
+    tags = (yield @$subject(data))?.tags
+    if tags? && tags
+      for key,tag of tags
+        switch tag
+          when "school:0"
+            ret += "дошкольники, "
+          when "school:1"
+            ret += "младшая школа, "
+          when "school:2"
+            ret += "средняя школа, "
+          when 'school:3'
+            ret += "старшая школа, "
+          when 'student'
+            ret += "студент, "
+          when 'adult'
+            ret += "взрослый, "
+
+      if ret.length
+        ret = ret.substring(0, ret.length - 2)
+
+    return ret
+
+
+

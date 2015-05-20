@@ -92,6 +92,9 @@ class @main extends EE
     close_box = new_tag.find(".close_box")
     close_box.click => tag_box.parent().remove()
     return new_tag
+    @on 'change'
+    @on 'end'
+
 
   # compare two time format "9:05"
   # return 1 if second bigger

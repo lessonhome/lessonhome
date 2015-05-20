@@ -108,7 +108,7 @@ class @main extends template './motivation_content'
         close     : true
       link_forward    :  '/second_step'
 
-
+    ###
     info_panel  : state './info_panel'  :
       math : module '//item' :
         title: 'Математические +'
@@ -161,3 +161,5 @@ class @main extends template './motivation_content'
           'Предмет 6'
         ]
       selector : 'first_step'
+
+    ###

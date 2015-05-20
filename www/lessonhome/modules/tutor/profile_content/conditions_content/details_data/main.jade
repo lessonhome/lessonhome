@@ -1,7 +1,14 @@
 .triangle
 .line_vertical!=line_vertical
 .left_block.select
-    .outside_work_price!='Выезд<br/>'+outside_work_price
-    .home_price!='У себя<br/>'+home_price
-    .distance_work_price!='Удалённо<br/>'+distance_work_price
+  .title Цена :
+  .price
+    .text от
+    .from!=price_from
+    .text до
+    .till!=price_till
+    //-
+      .outside_work_price!='Выезд<br/>'+outside_work_price
+      .home_price!='У себя<br/>'+home_price
+      .distance_work_price!='Удалённо<br/>'+distance_work_price
 .right_block!=subject_data
