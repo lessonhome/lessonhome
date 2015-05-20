@@ -36,9 +36,6 @@ class @F2V
     if e?.period?.start && e?.period?.end
       "#{e.period.start} - #{e.period.end} гг."
   $edu        : (data)-> data?.education?[0]
-  $location   : (data)->
-    console.log data
-    data?.location
   $address    : (data)->
     location = data?.location
     country  = location?.country

@@ -1,5 +1,5 @@
 class @main
-  forms : [{'tutor':['calendar', 'subject'], person:['location', 'address', 'area']}]
+  forms : [{'tutor':['calendar', 'subject', 'srange', 'sduration', 'splace', 'scategory_of_student'], person:['location', 'address', 'area']}]
   tree : -> module '$' :
     line_place  : module 'tutor/separate_line' :
       title     : 'Место :'
@@ -27,15 +27,18 @@ class @main
       details   : $form : tutor : 'subject.tags.0'
       selector  : 'subject'
     details_data  : module '$/details_data' :
-      outside_work_price  : '1500р.'
-      home_price          : '1200р.'
-      distance_work_price : '900р.'
+      #outside_work_price  : '1500р.'
+      #home_price          : '1200р.'
+      #distance_work_price : '900р.'
+      price_from : $form : tutor : 'srange.left'
+      price_till : $form : tutor : 'srange.right'
       subject_data        : module 'tutor/profile_content/info_block' :
         section :
-          'Категория ученика :'           : 'Школьники 8-11 классов, студенты'
-          'Комментарии :'                 : 'Олимпиадные задачи школьного уровня, операционные системы'
-          'Групповые занятия :'           : 'до 5 человек, по 1000 р.'
-          'Продолжительность :'           : '60-90 минут'
+          'Категория ученика :'           : $form : tutor : 'scategory_of_student'
+          'Комментарии :'                 : $form : tutor : 'subject.description'
+          'Групповые занятия :'           : $form : tutor : 'subject.groups.0.description'
+          'Место занятий :'               : $form : tutor : 'splace'
+          'Продолжительность :'           : $form : tutor : 'sduration'
         selector : 'subject_class'
         line_horizon  :  module 'tutor/separate_line' :
           selector  : 'horizon'

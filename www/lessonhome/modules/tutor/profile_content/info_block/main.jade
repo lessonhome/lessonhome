@@ -7,8 +7,9 @@
   // section - content
   // selector - style sass
 each val, key in section
-  .section.select(class=selector)
-    .box
-      .title!=key
-      .value!=val
-      .line_horizon!=line_horizon
+  if val
+    .section.select(class=selector)
+      .box
+        .title!=key
+        .value!=val
+        .line_horizon!=line_horizon
