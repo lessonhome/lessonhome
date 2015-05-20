@@ -44,8 +44,8 @@ class @F2V
   $srange   : (data)->
     r = (yield @$subject(data))?.price?.range
     ret =  {
-      left : r?[0] | 500
-      right : r?.pop?() | 1500
+      left : r?[0] || 500
+      right : r?.pop?() || 1500
     }
     return ret
   $sduration  : (data)->
