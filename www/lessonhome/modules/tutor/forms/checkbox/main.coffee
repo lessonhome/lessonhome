@@ -15,6 +15,7 @@ class @main extends EE
       @label.toggleClass('active')
       @state = @label.hasClass 'active'
       @emit 'change',@state
+      @emit 'end'
 
 
 

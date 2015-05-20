@@ -15,8 +15,7 @@ class @main extends template '../main'
 
 
       advanced_filter : state './advanced_filter' :
-        val_list_course       : 'ЕГЭ' # вытянуть значение
-        val_add_course        : ['ЕГЭ'] # вытянуть значение
+        val_list_course       : '' # вытянуть значение
         val_list_calendar     : 11 # вытянуть значение
         val_time_spend_lesson : # вытянуть значение
           min : 45
