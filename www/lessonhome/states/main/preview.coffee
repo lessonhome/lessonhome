@@ -3,12 +3,15 @@ class @main extends template '../main'
   tree : =>
     filter_top  : @exports()
     tag         : @exports()
+    ###
     info_panel  : state './info_panel'  :
       subject   : 'Предметы +'
       tutor     : 'Преподаватель +'
       place     : 'Место'
       price     : 'Цена'
       selector  : 'second_step'
+
+    ###
 
     content : module '$' :
       popup           : @exports()
