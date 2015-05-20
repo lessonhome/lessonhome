@@ -2,7 +2,6 @@
 check = require("./check")
 
 @handler = ($,data)=>
-  console.log data
   errs = check.check data
   return {status:"failed",errs:["access_failed"]} unless $.user.tutor
   if errs.length

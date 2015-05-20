@@ -2,7 +2,6 @@
 check = require("./check")
 
 @handler = ($,data)=>
-  console.log data
   errs = check.check data
   return {status:"failed",errs:["access_failed"]} unless $.user.tutor
   if errs?.length
@@ -35,7 +34,6 @@ check = require("./check")
     subjects_db[i].groups = [description:subject.group_learning]
 
   db= yield $.db.get 'tutor'
-  console.log subjects_db
   yield _invoke db, 'update',{account:$.user.id},{$set:{subjects:subjects_db}},{upsert:true}
   yield $.status 'tutor_prereg_3', true
   yield $.form.flush ['tutor','account'],$.req,$.res

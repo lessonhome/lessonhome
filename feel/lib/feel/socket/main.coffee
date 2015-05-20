@@ -73,7 +73,6 @@ class Socket
     do (req,res)=>
       req ?= {}
       req.status ?= {}
-      console.log req,req.status
       req.status = (args...)=>
         @status req,res,args...
     $.status = $.req.status
