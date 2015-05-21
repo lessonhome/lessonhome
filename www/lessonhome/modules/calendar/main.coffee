@@ -56,7 +56,7 @@ class @main extends EE
     @till = @till_time.getValue()
     @from_time.setValue('')
     @till_time.setValue('')
-
+    add_tag = false
     for day in @select_days
       do (day)=>
         new_tag = @newTag(day)
@@ -68,6 +68,7 @@ class @main extends EE
           tag_div_day_number = @convertDay tag_div.find(".day").text()
           if day_number < tag_div_day_number
             new_tag.insertBefore(tag_div)
+            add_tag = true
             return true
           else
             if day_number == tag_div_day_number
@@ -76,12 +77,16 @@ class @main extends EE
               switch @compareTime(@from, tag_div.find(".time_from").text())
                 when 1
                   new_tag.insertBefore(tag_div)
+                  add_tag = true
                   return true
                 when 0
                   return false
         @tags.append(new_tag)
+        add_tag = true
         return true
-
+    if add_tag
+      @emit 'change'
+      @emit 'end'
   newTag: (day)=>
     new_tag = @tag.clone()
     new_tag.show()
@@ -90,7 +95,10 @@ class @main extends EE
     new_tag.find(".time_till").text(@till)
     tag_box = new_tag.find(".tag_box")
     close_box = new_tag.find(".close_box")
-    close_box.click => tag_box.parent().remove()
+    close_box.click =>
+      tag_box.parent().remove()
+      @emit 'change'
+      @emit 'end'
     return new_tag
     @on 'change'
     @on 'end'

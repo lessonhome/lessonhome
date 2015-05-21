@@ -15,22 +15,26 @@ class @main extends EE
     # button
     @choose_gender      = @tree.choose_gender.class
     # checkbox
-    @with_reviews       = @tree.choose_gender.class
-    @with_verification  = @tree.choose_gender.class
+    @with_reviews       = @tree.with_reviews.class
+    @with_verification  = @tree.with_verification.class
 
     # action
     # TODO: add_course hard code, not this module, only this file have this variables
+
+    @on 'change', => console.log @getValue()
+    @on 'end', => console.log @getValue()
+
     @calendar.on            'change',=> @emit 'change'
     @time_spend_lesson.on   'change',=> @emit 'change'
     @time_spend_way.on      'change',=> @emit 'change'
-    #@choose_gender.on       'change',=> @emit 'change'
+    @choose_gender.on       'change',=> @emit 'change'
     @with_reviews.on        'change',=> @emit 'change'
     @with_verification.on   'change',=> @emit 'change'
 
     @calendar.on            'end',=> @emit 'end'
     @time_spend_lesson.on   'end',=> @emit 'end'
     @time_spend_way.on      'end',=> @emit 'end'
-    #@choose_gender.on       'end',=> @emit 'end'
+    @choose_gender.on       'end',=> @emit 'end'
     @with_reviews.on        'end',=> @emit 'end'
     @with_verification.on   'end',=> @emit 'end'
 
@@ -62,8 +66,6 @@ class @main extends EE
             @experience.last().addClass 'hover'
           @change_background exp
 
-    @on 'change', => console.log @getValue()
-    @on 'end', => console.log @getValue()
 
 ############## function ##############
   addTag: (tags_arr, tags_div, tag_text)=>
@@ -74,14 +76,14 @@ class @main extends EE
         if tag_text == val then return 0
     new_tag = $(@tag).clone()
     new_tag.find(".text").text(tag_text)
-    @emit 'change'
-    @emit 'end'
     new_tag.find(".close_box").click( =>
       new_tag.remove()
       @emit 'change'
       @emit 'end'
     )
     $(tags_div).append(new_tag)
+    @emit 'change'
+    @emit 'end'
   getTags: =>
     data = []
     children = $(@add_course_block).children()
@@ -130,12 +132,23 @@ class @main extends EE
 
 
   getData : =>
+    add_course_tags = []
+    add_course_children = @add_course_block.children()
+    for child in add_course_children
+      tag = {}
+      tag.text = $(child).find(".text").text()
+      add_course_tags.push tag
+    experience = []
+    for child in @experience
+      if $(child).hasClass("background") then experience.push $(child).find(".text").text()
+
     return {
-      #add_course        : @add_course
+      add_course_tags   : add_course_tags
       calendar          : @calendar.getValue()
       time_spend_lesson : @time_spend_lesson.getValue()
-      time_spend_way    : @day.getValue()
-      #choose_gender     : @choose_gender.getValue()
+      time_spend_way    : @time_spend_way.getValue()
+      experience        : experience
+      choose_gender     : @choose_gender.getValue()
       with_reviews      : @with_reviews.getValue()
       with_verification : @with_verification.getValue()
     }
