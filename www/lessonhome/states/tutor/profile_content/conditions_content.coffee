@@ -8,7 +8,7 @@ class @main
       selector  : 'horizon'
     address_time  : module 'tutor/profile_content/title_block'  :
       title     :  $form : person : 'area'
-      title_two   : 'Свободное время'
+      #title_two   : 'Свободное время'
       selector  : 'address_time'                         #variable class in sass
     map : module 'maps/yandex'
     address : $form : person : 'address'                 # in pair with map
