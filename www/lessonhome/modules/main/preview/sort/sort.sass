@@ -1,6 +1,9 @@
 @import compass/css3
 $padding_top_hover: 8px
 $padding_left_hover: 5px
+$triangle_up_src: 'main/triangle-6x7_up.jpg'
+$icon_up_height: image-height($triangle_up_src)
+$icon_up_width:  image-width($triangle_up_src)
 $triangle_src: 'main/triangle_down.png'
 $icon_height: image-height($triangle_src)
 $icon_width: image-width($triangle_src)
@@ -27,6 +30,10 @@ $height_font: 16px
       .price, .experience, .way_time
         +inline-block
         vertical-align: top
+  .section.up
+    .box
+      .icon
+        background: url(F($triangle_up_src)) no-repeat
   .section:hover
     .box
       border-radius: 4px
