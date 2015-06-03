@@ -21,11 +21,11 @@ class module.exports
       console.error Exception e
       throw new Error "Failed compile satate #{@name}"
     
-    context = [
+    @context = [
       'module'
       'state'
       'template'
-      'exports' # fix module.exports to undefined, use @exports instead
+      #'exports' # fix module.exports to undefined, use @exports instead
       'extend'
       'data'
       'F'
@@ -35,7 +35,7 @@ class module.exports
     @src  = "var file = {};
             (function(){"
 
-    for f in context
+    for f in @context
       @src += " var #{f} = that.function_#{f};"
     @src += " var $urls   = that.site.router.url,
                   $router = that.site.router,
@@ -49,7 +49,7 @@ class module.exports
           var that = this;
           "
           
-    for f in context
+    for f in @context
       @src += "
       var __old#{f} = #{f};
           #{f} = function(){
@@ -101,6 +101,9 @@ class module.exports
   make           : (o,state,...,req,res)=> do Q.async =>
     @makeClass()
     state         ?= new @class()
+    for f in @context
+      do (f,state)=>
+        state[f] = => @['function_'+f] arguments...,state
     req._smart = true
     res._smart = true
     state.req = req
@@ -265,12 +268,12 @@ class module.exports
       throw e
     
   walk_tree_up : (node, foo)=>
-    if (typeof node == 'object' || typeof node == 'function') && !node?._smart
+    if node && (typeof node == 'object' || typeof node == 'function') && !node?._smart
       for key,val of node
         @walk_tree_up node[key],foo
         foo node,key,val
   walk_tree_down : (node,foo)=>
-    if (typeof node == 'object' || typeof node == 'function') && !node?._smart
+    if node && (typeof node == 'object' || typeof node == 'function') && !node?._smart
       for key,val of node
         foo node,key,val if val?
       for key,val of node

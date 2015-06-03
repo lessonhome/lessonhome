@@ -33,6 +33,7 @@ class State
     @object.exports = @exports
     @object.state   = @f_state
     @object.module  = @f_module
+    @object.forms   = {}
     throw new Error "need function tree in state #{@name}" unless typeof @object?.tree=='function'
     tree    = yield @object.tree()
     @object.tree =
