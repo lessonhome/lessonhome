@@ -1,4 +1,6 @@
 class @main extends EE
+  Dom : =>
+    @sort = @tree.sort.class
   show : =>
     @tutors_result = @tree.tutors_result
     @choose_tutors_num = @found.choose_tutors_num
@@ -18,6 +20,18 @@ class @main extends EE
             'z-index': '100'
           })
         console.log @imgclone.offset()
+
+    @sort.on 'change', => @emit 'change'
+    @sort.on 'end', => @emit 'end'
+
+    @on 'change', => console.log @getValue()
+    @on 'end', => console.log @getValue()
+
+  getValue : =>
+    return {
+      sort : @sort.getValue()
+    }
+
 
 
 
