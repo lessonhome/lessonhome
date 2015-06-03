@@ -40,7 +40,10 @@ class module.exports
     @src += " var $urls   = that.site.router.url,
                   $router = that.site.router,
                   $site   = that.site,
-                  $db     = that.site.db;"
+                  $db     = that.site.db;
+              this.template = that.function_template;
+                  
+                  "
     @src += src
     @src += "
       if (this.main && this.main.prototype && this.main.prototype.tree){
@@ -317,7 +320,7 @@ class module.exports
       return tree
     catch e
       throw new Error "Failed make state '#{o}':'#{name}' from state '#{@name}':\n"+e
-  function_template  : (o,...,state)=>
+  function_template  : (o)=>
     if typeof o == 'string'
       name = @statename_resolve o
       o = null
