@@ -11,6 +11,38 @@ class Register
     db = yield Main.service 'db'
     @account  = yield db.get 'accounts'
     @session = yield db.get 'sessions'
+    @dbpersons = yield db.get 'persons'
+    @dbpupil  = yield db.get 'pupil'
+    @dbtutor  = yield db.get 'tutor'
+
+
+    ids = {}
+    _ids = (yield _invoke @dbpersons.find({},{account:1}),'toArray')
+    ids[row.account] = true for row in _ids
+    console.log Object.keys(ids).length
+    _ids = (yield _invoke @dbpupil.find({},{account:1}),'toArray')
+    ids[row.account] = true for row in _ids
+    console.log Object.keys(ids).length
+    _ids = (yield _invoke @dbtutor.find({},{account:1}),'toArray')
+    ids[row.account] = true for row in _ids
+    console.log Object.keys(ids).length
+    
+    nids = {}
+    d = new Date()
+    d.setDate d.getDate()-1
+    _ids = (yield _invoke @account.find({id:{$nin:Object.keys(ids)},accessTime:{$lt:d}},{id:1}),'toArray')
+    nids[row.id] = true for row in _ids
+    nids = Object.keys nids
+    console.log nids.length
+    yield _invoke @account, 'remove',{id:{$in:nids}}
+    yield _invoke @session, 'remove',{account:{$in:nids}}
+    yield _invoke @dbpersons, 'remove',{account:{$in:nids}}
+    yield _invoke @dbtutor, 'remove',{account:{$in:nids}}
+    yield _invoke @dbpupil, 'remove',{account:{$in:nids}}
+    d = new Date()
+    d.setDate d.getDate()-30
+    yield _invoke @session,'remove',{accessTime:{$lt:d}}
+
     @accounts = {}
     @sessions = {}
     @logins   = {}
@@ -23,7 +55,7 @@ class Register
     for s in sess
       @sessions[s.hash] = s
 
-  register : (session)=>
+  register : (session,unknown)=>
     o = {}
     created = false
     unless session? && @sessions[session]?.account? && @accounts[@sessions[session].account]?
@@ -31,7 +63,10 @@ class Register
       created = true
     session = @sessions[session]
     account = @accounts[session.account]
-    unless created
+    if typeof unknown == 'string' && (m = unknown.match /^set(.*)$/)
+      if m[1] == session.hash.substr 0,8
+        delete account.unknown
+    if !created && !account.unknown
       session.accessTime = new Date()
       account.accessTime = new Date()
       _invoke(@account,'update',{id:account.id},{$set:{accessTime:(new Date())}},{upsert:true})
@@ -145,9 +180,10 @@ class Register
         type          :
           other       : true
         sessions      : {}
+        unknown       : 'need'
       @accounts[account.id]   = account
       sessionhash = yield @newSession account.id
-      yield _invoke(@account,'update', {id:account.id},{$set:account},{upsert:true})
+      #yield _invoke(@account,'update', {id:account.id},{$set:account},{upsert:true})
     catch e
       delete @accounts[account.id]  if account?.id?
       delete @sessions[sessionhash] if sessionhash?
@@ -163,7 +199,8 @@ class Register
     try
       account.sessions[session.hash] = true
       @sessions[session.hash] = session
-      yield _invoke(@session,'update', {hash:session.hash},{$set:session},{upsert:true})
+      unless account.unknown
+        yield _invoke(@session,'update', {hash:session.hash},{$set:session},{upsert:true})
     catch e
       delete @sessions[session.hash]  if session?.hash?
       delete @account?.sessions?[session.hash] if session?.hash? && @account?.sessions?[session.hash]?

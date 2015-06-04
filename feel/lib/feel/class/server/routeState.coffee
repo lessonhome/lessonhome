@@ -324,6 +324,7 @@ class RouteState
           };
           $Feel.user = {};
           $Feel.user.id = "'+(@req.user.id||666)+'";
+          $Feel.user.sessionpart = "'+(@req.session.substr(0,8))+'";
           $Feel.modules = {};
           (function(){
             '+@jsClient+'
