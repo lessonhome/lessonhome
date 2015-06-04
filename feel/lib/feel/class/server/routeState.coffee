@@ -345,34 +345,33 @@ class RouteState
       Feel.init();</script>'+
       '</body></html>'
     @time "end str finish"
-    #sha1 = require('crypto').createHash('sha1')
-    #sha1.update end
-    #resHash = sha1.digest('hex').substr 0,8
-    #@time "create hash"
-    #if resHash == @reqEtag
-    #  @res.writeHead 304
-    #  console.log "state #{@statename}",304
-    #  return @res.end()
+    sha1 = require('crypto').createHash('sha1')
+    sha1.update end
+    resHash = sha1.digest('hex').substr 0,8
+    @time "create hash"
+    if resHash == @reqEtag
+      @res.statusCode = 304
+      #  console.log "state #{@statename}",304
+      return @res.end()
     @res.setHeader 'Access-Control-Allow-Origin', '*'
     @res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
     @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
     @res.setHeader 'Access-Control-Allow-Credentials', true
-    #@res.setHeader 'ETag',resHash
+    @res.setHeader 'ETag',resHash
     @res.setHeader 'Cache-Control', 'public, max-age=1'
     @res.setHeader 'content-encoding', 'deflate'
-    #@res.setHeader 'content-length',resdata.length
     #@res.statusCode = 200
     d = new Date()
     d.setTime d.getTime()+1
     @res.setHeader 'Expires',d.toGMTString()
-    @res.writeHead 200
+    #@res.writeHead @res.statusCode||200
     zlib    = require 'zlib'
     zlib.deflate end,{level:9},(err,resdata)=>
-      #return Feel.res500 @req,@res,err if err?
-      return @res.end() if err?
+      return Feel.res500 @req,@res,err if err?
+      @res.setHeader 'content-length',resdata.length
       @res.end resdata
       @time 'zlib'
-      console.log process.pid+":state #{@statename}",200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
+      console.log process.pid+":state #{@statename}",@res.statusCode||200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
   removeHtml : (node)=>
     if node.req?
       delete node.req
