@@ -10,7 +10,6 @@ class @main
     @extra_phone  = @tree.extra_phone.class
     @post         = @tree.post.class
     @skype        = @tree.skype.class
-    @site         = @tree.site.class
     # drop_down_list
     @country      = @tree.country.class
     @city         = @tree.city.class
@@ -43,10 +42,10 @@ class @main
     errs = @js.check @getData()
     if link
       if !@mobile_phone.doMatch() then errs.push "bad_mobile"
-    if !@country.exists() && @country.getValue().length!=0
-      errs.push 'bad_country'
-    if !@city.exists() && @city.getValue().length!=0
-      errs.push 'bad_city'
+    #if !@country.exists() && @country.getValue().length!=0
+    #  errs.push 'bad_country'
+    #if !@city.exists() && @city.getValue().length!=0
+    #  errs.push 'bad_city'
     for e in errs
       @parseError e
     return errs.length==0
@@ -58,7 +57,6 @@ class @main
       extra_phone   : @extra_phone.getValue()
       post          : @post.getValue()
       skype         : @skype.getValue()
-      site          : @site.getValue()
       country       : @country.getValue()
       city          : @city.getValue()
     }
@@ -74,8 +72,6 @@ class @main
         @post.showError "Некорректный email"
       when "bad_skype"
         @skype.showError "Неккоректный скайп"
-      when "bad_site"
-        @site.showError "Неверный формат названия"
       when "bad_country"
         @country.showError "Введите правильную страну"
       when "bad_city"
@@ -89,8 +85,6 @@ class @main
         @post.showError "Введите email"
       when "empty_skype"
         @skype.showError "Введите скайп"
-      when "empty_site"
-        @site.showError "Введите сайт"
       when "empty_country"
         @country.showError "Выберите страну"
       when "empty_city"

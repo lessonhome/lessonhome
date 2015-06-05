@@ -42,11 +42,12 @@ class @main
       options_count: 7
       $form : tutor : 'status'
       default_options     : {
-        '0': {value: 'schoolboy', text: 'школьник'},
-        '1': {value: 'student', text: 'студент'},
-        '2': {value: 'graduate', text: 'аспирант/выпускник'},
-        '3': {value: 'phd', text: 'кандидат наук'},
-        '4': {value: 'phd2', text: 'доктор наук'}
+        '0': {value: 'schoolboy', text: 'школьный учитель'},
+        '1': {value: 'schoolboy', text: 'преподаватель ВУЗа'},
+        '2': {value: 'student',   text: 'студент'},
+        '3': {value: 'graduate',  text: 'аспирант/выпускник'},
+        '4': {value: 'phd',       text: 'кандидат наук'},
+        '5': {value: 'phd2',      text: 'доктор наук'}
       }
 
 

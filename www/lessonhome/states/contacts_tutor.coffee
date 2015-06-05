@@ -12,7 +12,41 @@ class @main
       text        : 'Город :'
       selector    : 'first_reg'
       default_options     : {
-        '0': {value: 'moscow', text: 'Москва'}
+        '0': {value: 'moscow', text: 'Москва'},
+        '1': {value: 'saint_petersburg', text: 'Санкт-Петербург'},
+        '2': {value: 'novosibirsk', text: 'Новосибирск'},
+        '3': {value: 'yekaterinburg', text: 'Екатеринбург'},
+        '4': {value: 'nizhny_novgorod', text: 'Нижний Новгород'},
+        '5': {value: 'kazan', text: 'Казань'},
+        '6': {value: 'samara', text: 'Самара'},
+        '7': {value: 'chelyabinsk', text: 'Челябинск'},
+        '8': {value: 'omsk', text: 'Омск'},
+        '9': {value: 'rostov_on_don', text: 'Ростов-на-Дону'},
+        '10': {value: 'ufa', text: 'Уфа'},
+        '11': {value: 'krasnoyarsk', text: 'Красноярск'},
+        '12': {value: 'perm', text: 'Пермь'},
+        '13': {value: 'volgograd', text: 'Волгоград'},
+        '14': {value: 'voronezh', text: 'Воронеж'},
+        '15': {value: 'saratov', text: 'Саратов'},
+        '16': {value: 'krasnodar', text: 'Краснодар'},
+        '17': {value: 'tolyatti', text: 'Тольятти'},
+        '18': {value: 'tyumen', text: 'Тюмень'},
+        '19': {value: 'izhevsk', text: 'Ижевск'},
+        '20': {value: 'barnaul', text: 'Барнаул'},
+        '21': {value: 'ulyanovsk', text: 'Ульяновск'},
+        '22': {value: 'irkutsk', text: 'Иркутск'},
+        '23': {value: 'vladivostok', text: 'Владивосток'},
+        '24': {value: 'yaroslavl', text: 'Ярославль'},
+        '25': {value: 'khabarovsk', text: 'Хабаровск'},
+        '26': {value: 'makhachkala', text: 'Махачкала'},
+        '27': {value: 'orenburg', text: 'Оренбург'},
+        '28': {value: 'tomsk', text: 'Томск'},
+        '29': {value: 'novokuznetsk', text: 'Кемерово'},
+        '30': {value: 'ryazan', text: 'Рязань'},
+        '31': {value: 'astrakhan', text: 'Астрахань'},
+        '32': {value: 'naberezhnye_chelny', text: 'Набережные Челны'},
+        '33': {value: 'penza', text: 'Пенза'},
+        '34': {value: 'lipetsk', text: 'Липецк'}
       }
       value : $form : person : 'city'
     # var popup respond address
@@ -58,11 +92,6 @@ class @main
       text2      : 'Skype :'
       selector  : 'first_reg'
       value: $form : person : 'skype'
-    site          : module 'tutor/forms/input' :
-      text2      : 'Личный сайт :'
-      selector  : 'first_reg'
-      value: $form : person : 'site'
-
 
 
 
