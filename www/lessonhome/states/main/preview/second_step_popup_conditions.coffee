@@ -1,4 +1,4 @@
-class @main extends template './second_step'
+class @main extends @template './second_step'
   route : '/second_step_popup_conditions'
   model : 'main/second_step_popup_conditions'
   title : "подробная информация о репетиторе - условия"
@@ -8,4 +8,4 @@ class @main extends template './second_step'
     'default' : 'main/first_step'
   }
   tree  : ->
-    popup : state 'tutor/profile_content/conditions_sub'
+    popup : @state 'tutor/profile_content/conditions_sub'

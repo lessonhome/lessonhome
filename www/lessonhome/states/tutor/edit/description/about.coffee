@@ -1,4 +1,4 @@
-class @main extends template '../edit_description'
+class @main extends @template '../edit_description'
   route : '/tutor/edit/about'
   model   : 'tutor/edit/description/about'
   title : "редактирование о себе"
@@ -10,7 +10,7 @@ class @main extends template '../edit_description'
   tree : =>
     menu_description  : 'edit: description'
     active_item : 'О себе'
-    tutor_edit  : state 'about_tutor'
+    tutor_edit  : @state 'about_tutor'
     #hint        : module 'tutor/hint' :
     #  selector  : 'horizontal'
     #  header    : 'Это подсказка'

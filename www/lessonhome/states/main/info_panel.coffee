@@ -1,5 +1,5 @@
 class @main
-  tree : => module '$' :
+  tree : => @module '$' :
 # data
     math              : @exports()
     natural_research  : @exports()

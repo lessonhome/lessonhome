@@ -1,4 +1,4 @@
-class @main extends template '../fast_bid'
+class @main extends @template '../fast_bid'
   route : '/fast_bid/third_step'
   model : 'main/application/3_step'
   title : "быстрое оформление заявки: третий шаг"
@@ -10,27 +10,27 @@ class @main extends template '../fast_bid'
   forms : [{pupil:['isPlace', 'newBid'], person:['location'], account:['fast_bid_progress'] }]
   tree : ->
     progress : $form : account : 'fast_bid_progress'
-    content : module '$' :
-      tutor : module 'tutor/forms/location_button' :
+    content : @module '$' :
+      tutor : @module 'tutor/forms/location_button' :
         selector : 'place_learn'
         text   : 'у себя'
         $form : pupil : 'isPlace.tutor'
-      student  : module 'tutor/forms/location_button' :
+      student  : @module 'tutor/forms/location_button' :
         selector : 'place_learn'
         text   : 'у ученика'
         $form : pupil : 'isPlace.pupil'
-      web : module 'tutor/forms/location_button' :
+      web : @module 'tutor/forms/location_button' :
         selector : 'place_learn'
         text   : 'удалённо'
         $form : pupil : 'isPlace.other'
-      location_hint : module 'tutor/hint' :
+      location_hint : @module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      your_address : module 'tutor/forms/drop_down_list':
+      your_address : @module 'tutor/forms/drop_down_list':
         text: 'Ваш адрес :'
         selector  : 'fast_bid'
         $form : person : 'location.full_address'
-      time_spend_way   : state '../slider_main' :
+      time_spend_way   : @state '../slider_main' :
         selector      : 'way_fast_bids'
         start         : 'calendar'
         start_text    : 'до'
@@ -40,21 +40,21 @@ class @main extends template '../fast_bid'
           min : 15
           max : 120
           left :  $form : pupil : 'newBid.subjects.0.road_time'
-      way_time_hint : module 'tutor/hint' :
+      way_time_hint : @module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      calendar        : state 'calendar' :
+      calendar        : @state 'calendar' :
         selector    : 'advance_filter'
         tags_selector : 'fast_bid'
         value : $form : pupil : 'newBid.subjects.0.calendar'
-      calendar_hint : module 'tutor/hint' :
+      calendar_hint : @module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      time_spend_lesson   : state '../slider_main' :
+      time_spend_lesson   : @state '../slider_main' :
         selector      : 'time_fast_bids'
         start         : 'calendar'
         dash          : '-'
-        end         : module 'tutor/forms/input' :
+        end         : @module 'tutor/forms/input' :
           selector  : 'calendar'
           align : 'center'
         measurement   : 'мин.'
@@ -64,7 +64,7 @@ class @main extends template '../fast_bid'
           max : 180
           left  : $form : pupil : 'newBid.subjects.0.lesson_duration.0'
           right : $form : pupil : 'newBid.subjects.0.lesson_duration.1'
-      lesson_time_hint : module 'tutor/hint' :
+      lesson_time_hint : @module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
     #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'

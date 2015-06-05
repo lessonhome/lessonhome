@@ -1,4 +1,4 @@
-class @main extends template '../edit_description'
+class @main extends @template '../edit_description'
   route : '/tutor/edit/career'
   model   : 'tutor/edit/description/career'
   title : "редактирование карьеры"
@@ -11,14 +11,14 @@ class @main extends template '../edit_description'
   tree : =>
     menu_description  : 'edit: description'
     active_item : 'Карьера'
-    tutor_edit  : module '$' :
+    tutor_edit  : @module '$' :
       work  : [
         {
-          place_of_work: module 'tutor/forms/input':
+          place_of_work: @module 'tutor/forms/input':
             selector: 'first_reg'
             text2: 'Место работы :'
             $form : person : 'work.place'
-          post: module 'tutor/forms/input':
+          post: @module 'tutor/forms/input':
             selector: 'first_reg'
             text2: 'Должность :'
             $form : person : 'work.post'
@@ -27,9 +27,9 @@ class @main extends template '../edit_description'
       #add_button    : module 'button_add' :
       #  text     : '+Добавить'
       #  selector : 'edit_add'
-      line : module 'tutor/separate_line' :
+      line : @module 'tutor/separate_line' :
         selector : 'horizon'
-      experience_tutoring : module 'tutor/forms/drop_down_list' :
+      experience_tutoring : @module 'tutor/forms/drop_down_list' :
         selector    : 'first_reg'
         text        : 'Опыт репетиторства :'
         default_options     : {
@@ -39,7 +39,7 @@ class @main extends template '../edit_description'
           '3': {value: 'no_matter', text: 'неважно'}
         }
         $form : tutor : 'experience'
-      extra_info : module 'tutor/forms/textarea' :
+      extra_info : @module 'tutor/forms/textarea' :
         text      : 'Доп. информация/<br>награды'
         selector  : 'first_reg'
         height : '117px'

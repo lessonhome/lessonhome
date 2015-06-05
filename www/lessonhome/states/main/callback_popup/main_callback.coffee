@@ -1,4 +1,4 @@
-class @main extends template '../first_step'
+class @main extends @template '../first_step'
   route : '/main_callback'
   model : 'main/first_step.2'
   title : "обратный звонок"
@@ -6,7 +6,7 @@ class @main extends template '../first_step'
   redirect : {
   }
   tree : ->
-    popup : state '../call_back_popup' :
+    popup : @state '../call_back_popup' :
       href: '/first_step'
 
 

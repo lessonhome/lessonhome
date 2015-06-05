@@ -1,5 +1,5 @@
 class @main
-  tree : => module '$' :
+  tree : => @module '$' :
     selector      : @exports()
     start         : module 'tutor/forms/input' :
       filters   : ['digits']
@@ -12,6 +12,6 @@ class @main
     value         : @exports()
     dash          : @exports()
     measurement   : @exports()
-    move          : module '../slider':
+    move          : @module '../slider':
       handle    : @exports()
     # variable handle response left hand

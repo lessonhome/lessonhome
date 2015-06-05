@@ -1,4 +1,4 @@
-class @main extends template '../edit_conditions'
+class @main extends @template '../edit_conditions'
   route : '/tutor/edit/calendar'
   model   : 'tutor/edit/conditions/calendar'
   title : "редактирование календарь"
@@ -11,8 +11,8 @@ class @main extends template '../edit_conditions'
   tree  : =>
     menu_condition  : 'edit: conditions'
     active_item : 'Календарь'
-    tutor_edit  : module '$'  :
-      calendar    : state 'calendar'  :
+    tutor_edit  : @module '$'  :
+      calendar    : @state 'calendar'  :
         selector  : 'advance_filter edit'
         value     : $form : tutor : 'calendar'
       #hint       : module 'tutor/hint_dz' :

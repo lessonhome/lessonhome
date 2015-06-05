@@ -1,4 +1,4 @@
-class @main extends template '../../tutor'
+class @main extends @template '../../tutor'
   route : '/tutor/out_bids'
   model   : 'tutor/bids/out_bids'
   title : "исходящие заявки"
@@ -9,39 +9,39 @@ class @main extends template '../../tutor'
   }
   tree : ->
     items : [
-      module 'tutor/header/button' : {
+      @module 'tutor/header/button' : {
         title : 'Поиск'
         href  : '/tutor/search_bids'
       }
-      module 'tutor/header/button' : {
+      @module 'tutor/header/button' : {
         title : 'Входящие'
         href  : '/tutor/in_bids'
       }
-      module 'tutor/header/button' : {
+      @module 'tutor/header/button' : {
         title : 'Исходящие'
         href  : '/tutor/out_bids'
         tag   : 'tutor:out_bids'
       }
-      module 'tutor/header/button' : {
+      @module 'tutor/header/button' : {
         title : 'Отчёты'
         href  : '/tutor/reports'
       }
     ]
-    content : module '$' :
-      hint : module 'tutor/hint_dz' :
+    content : @module '$' :
+      hint : @module 'tutor/hint_dz' :
         selector  : ''
         text      : 'Дополнительную информацию по заявке можно открыть по клику.'
-      select_all_checkbox : module 'tutor/forms/checkbox' :
+      select_all_checkbox : @module 'tutor/forms/checkbox' :
         selector : 'small'
-      sort_list     : module 'tutor/forms/drop_down_list':
+      sort_list     : @module 'tutor/forms/drop_down_list':
         placeholder : 'Все'
         selector    : 'in_bids'
-      subject : module 'tutor/forms/drop_down_list':
+      subject : @module 'tutor/forms/drop_down_list':
         placeholder : 'Предмет'
         selector    : 'in_bids'
 
-      list_bids : module 'tutor/bids/list_bids' :
-        titles_bid : module '//titles_bid' :
+      list_bids : @module 'tutor/bids/list_bids' :
+        titles_bid : @module '//titles_bid' :
           indent     : true
 
           number_date   : 'Номер/Дата'
@@ -55,7 +55,7 @@ class @main extends template '../../tutor'
         all_bids : [
           module '//bid' :
             selectable   : true
-            checkbox  : module 'tutor/forms/checkbox' :
+            checkbox  : @module 'tutor/forms/checkbox' :
               selector : 'small'
 
             number    : 25723
@@ -78,9 +78,9 @@ class @main extends template '../../tutor'
             comments            : '-'
             lesson_goal         : 'Устранить пробелы в знаниях'
 
-          module '//bid' :
+          @module '//bid' :
             selectable   : true
-            checkbox  : module 'tutor/forms/checkbox' :
+            checkbox  : @module 'tutor/forms/checkbox' :
               selector : 'small'
 
             number    : 15723

@@ -12,9 +12,9 @@ class @main extends @template './motivation_content'
   tree : =>
     popup       : @exports()
     tag         : 'pupil:main_search'
-    filter_top  : state './filter_top' :
+    filter_top  : @state './filter_top' :
       title         : 'Выберите предмет :'
-      list_subject    : module 'tutor/forms/drop_down_list' :
+      list_subject    : @module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
         placeholder : 'Предмет'
         default_options     : {
@@ -101,7 +101,7 @@ class @main extends @template './motivation_content'
         close     : true
 
       ###
-      empty_choose_subject : module '../selected_tag' :
+      empty_choose_subject : @module '../selected_tag' :
         selector  : 'choose_subject'
         id        : ''
         text      : ''

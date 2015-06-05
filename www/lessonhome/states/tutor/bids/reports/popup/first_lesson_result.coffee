@@ -1,4 +1,4 @@
-class @main extends template '../popup'
+class @main extends @template '../popup'
   route : '/tutor/reports/first_lesson_result'
   model : 'tutor/bids/reports_step3_fill'
   title : "Первое занятие"
@@ -7,11 +7,11 @@ class @main extends template '../popup'
     'default' : 'main/first_step'
   }
   tree : ->
-    content : module '$' :
-      success_button : module 'tutor/forms/result_button' :
+    content : @module '$' :
+      success_button : @module 'tutor/forms/result_button' :
         selector : 'success'
 
-      fail_button : module 'tutor/forms/result_button' :
+      fail_button : @module 'tutor/forms/result_button' :
         selector : 'fail'
 
 

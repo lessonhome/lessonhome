@@ -1,4 +1,4 @@
-class @main extends template '../main'
+class @main extends @template '../main'
   route : '/new_password'
   model : 'main/second_step'
   title : "Новый пароль"
@@ -9,12 +9,12 @@ class @main extends template '../main'
     'pupil' : 'main/first_step'
   }
   tree : =>
-    content : module '$'  :
+    content : @module '$'  :
       depend : [
-        module 'lib/crypto'
-        module 'lib/lzstring'
+        @module 'lib/crypto'
+        @module 'lib/lzstring'
       ]
-      password           : module 'tutor/forms/input' :
+      password           : @module 'tutor/forms/input' :
         replace : [
           "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
         ]
@@ -22,12 +22,12 @@ class @main extends template '../main'
         type        : 'password'
         selector    : 'registration'
         text1       : 'Новый пароль'
-      confirm_password    : module 'tutor/forms/input' :
+      confirm_password    : @module 'tutor/forms/input' :
         name        : 'password'
         type        : 'password'
         selector    : 'registration'
         text1       : 'Подтвердить пароль'
-      save_button    : module 'link_button' :
+      save_button    : @module 'link_button' :
         href      : '/tutor/search_bids'
         selector  : 'save_enter'
         text      : 'Сохранить и войти'

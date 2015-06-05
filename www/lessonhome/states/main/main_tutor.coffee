@@ -1,5 +1,5 @@
 
-class @main extends template '../main'
+class @main extends @template '../main'
   route : '/main_tutor'
   tags  : -> 'pupil:main_tutor'
   model : 'main/registration'
@@ -10,36 +10,36 @@ class @main extends template '../main'
   }
   tree : ->
     popup : @exports()
-    content : module 'main_tutor/content'  :
+    content : @module 'main_tutor/content'  :
       depend : [
-        module 'lib/crypto'
-        module 'lib/lzstring'
+        @module 'lib/crypto'
+        @module 'lib/lzstring'
       ]
-      login           : module 'tutor/forms/input' :
+      login           : @module 'tutor/forms/input' :
         replace : [
           "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
         ]
         name        : 'email'
         selector    : 'registration'
         text1       : 'Введите ваш телефон или email адрес'
-      password        : module 'tutor/forms/input' :
+      password        : @module 'tutor/forms/input' :
         name        :'password'
         type        : 'password'
         selector    : 'registration'
         text1       : 'Придумайте пароль'
-      agree_checkbox        : module 'tutor/forms/checkbox' :
+      agree_checkbox        : @module 'tutor/forms/checkbox' :
         value : true
-      create_account  : module 'link_button' :
+      create_account  : @module 'link_button' :
         href      : 'tutor/profile/first_step'
         selector  : 'create_account'
         text      : 'Создать аккаунт'
-      check_in_first  : module 'tutor/button' :
+      check_in_first  : @module 'tutor/button' :
         selector  : 'check_in_first'
         text      : 'Зарегистрируйся прямо сейчас!'
-      check_in_second : module 'tutor/button' :
+      check_in_second : @module 'tutor/button' :
         selector  : 'check_in_second'
         text      : 'Прямо сейчас!'
-      callback    : module 'link_button' :
+      callback    : @module 'link_button' :
         selector  : 'order_call'
         text      : 'Заказать звонок'
         href      : '/main_tutor_callback'

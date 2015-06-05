@@ -1,9 +1,9 @@
 class @main
-  tree : => module '$' :
-    logo : module 'tutor/header/logo'
-    back_call : module 'tutor/header/back_call'  :
+  tree : => @module '$' :
+    logo : @module 'tutor/header/logo'
+    back_call : @module 'tutor/header/back_call'  :
       selector: 'footer'
-      call_back_popup : state 'main/call_back_popup' :
+      call_back_popup : @state 'main/call_back_popup' :
         selector: 'footer'
 ###
       module 'call_back_popup' :

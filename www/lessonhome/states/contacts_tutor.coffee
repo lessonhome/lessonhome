@@ -1,14 +1,14 @@
 class @main
   forms : [{person:['country','city','phone','phone2','skype','email','site']}]
-  tree : -> module '$' :
-    country : module 'tutor/forms/drop_down_list' :
+  tree : => @module '$' :
+    country : @module 'tutor/forms/drop_down_list' :
       text        : 'Страна :'
       selector    : 'first_reg'
       default_options     : {
         '0': {value: 'russia', text: 'Россия'}
       }
       value : $form : person : 'country'
-    city    : module 'tutor/forms/drop_down_list' :
+    city    : @module 'tutor/forms/drop_down_list' :
       text        : 'Город :'
       selector    : 'first_reg'
       default_options     : {
@@ -54,9 +54,9 @@ class @main
     href        : @exports()
     href_back   : @exports()
 
-    line    : module 'tutor/separate_line' :
+    line    : @module 'tutor/separate_line' :
       selector : 'horizon'
-    mobile_phone  : module 'tutor/forms/input' :
+    mobile_phone  : @module 'tutor/forms/input' :
       text2      : 'Мобильный телефон :'
       selector  : 'first_reg'
       placeholder: '+7 (xxx) xxx–xx–xx'
@@ -80,15 +80,15 @@ class @main
       ]
 
 
-    extra_phone   : module 'tutor/forms/input' :
+    extra_phone   : @module 'tutor/forms/input' :
       text2      : 'Доп. телефон :'
       selector  : 'first_reg'
       value: $form : person : 'phone2'
-    post          : module 'tutor/forms/input' :
+    post          : @module 'tutor/forms/input' :
       text2      : 'Почта(email) :'
       selector  : 'first_reg'
       value: $form : person : 'email'
-    skype         : module 'tutor/forms/input' :
+    skype         : @module 'tutor/forms/input' :
       text2      : 'Skype :'
       selector  : 'first_reg'
       value: $form : person : 'skype'

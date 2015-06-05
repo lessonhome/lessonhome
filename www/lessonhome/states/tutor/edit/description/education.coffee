@@ -1,4 +1,4 @@
-class @main extends template '../edit_description'
+class @main extends @template '../edit_description'
   route : '/tutor/edit/education'
   model   : 'tutor/edit/description/education'
   title : "редактирование образования"
@@ -11,37 +11,37 @@ class @main extends template '../edit_description'
   tree : =>
     menu_description  : 'edit: description'
     active_item : 'Образование'
-    tutor_edit  : module '$' :
+    tutor_edit  : @module '$' :
       country       : module 'tutor/forms/drop_down_list' :
         text      : 'Страна :'
         selector  : 'first_reg'
         $form : person : 'edu.country'
-      city          : module 'tutor/forms/drop_down_list' :
+      city          : @module 'tutor/forms/drop_down_list' :
         text      : 'Город :'
         selector  : 'first_reg'
         $form : person : 'edu.city'
-      university    : module 'tutor/forms/drop_down_list' :
+      university    : @module 'tutor/forms/drop_down_list' :
         text      : 'ВУЗ :'
         selector  : 'first_reg'
         $form : person : 'edu.name'
-      faculty       : module 'tutor/forms/drop_down_list' :
+      faculty       : @module 'tutor/forms/drop_down_list' :
         text      : 'Факультет :'
         selector  : 'first_reg'
         $form : person : 'edu.faculty'
-      chair         : module 'tutor/forms/drop_down_list' :
+      chair         : @module 'tutor/forms/drop_down_list' :
         text      : 'Кафедра :'
         selector  : 'first_reg'
         $form : person : 'edu.chair'
-      qualification : module 'tutor/forms/drop_down_list' :
+      qualification : @module 'tutor/forms/drop_down_list' :
         text      : 'Статус :'
         selector  : 'first_reg'
         $form : person : 'edu.qualification'
-      learn_from    : module 'tutor/forms/drop_down_list'  :
+      learn_from    : @module 'tutor/forms/drop_down_list'  :
         text        : 'Период обучения :'
         selector    : 'first_reg_from'
         placeholder : 'с'
         $form : person : 'edu.period.start'
-      learn_till    : module 'tutor/forms/drop_down_list'  :
+      learn_till    : @module 'tutor/forms/drop_down_list'  :
         selector    : 'first_reg_till'
         placeholder : 'до'
         $form : person : 'edu.period.end'

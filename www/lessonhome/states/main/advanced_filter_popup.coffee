@@ -1,13 +1,13 @@
 class @main
-  tree : => module '$' :
-    list_course     : module 'tutor/forms/drop_down_list'  :
+  tree : => @module '$' :
+    list_course     : @module 'tutor/forms/drop_down_list'  :
       selector        : 'list_course'
       placeholder     : 'Например ЕГЭ'
-    add_course      : module '../selected_tag'  :
+    add_course      : @module '../selected_tag'  :
       selector  : 'choose_course'
       text      : 'Олимпиада'
       close     : true
-    price_of_lesson   : state './slider_main' :
+    price_of_lesson   : @state './slider_main' :
       selector    : 'lesson_price'
       start       : 'center_text'
       end         : 'center_text'
@@ -15,26 +15,26 @@ class @main
       dash        : '-'
       min         : 0
       max         : 100
-    list_pupil     : module 'tutor/forms/drop_down_list'  :
+    list_pupil     : @module 'tutor/forms/drop_down_list'  :
       selector        : 'list_course'
       placeholder     : 'Например студент'
-    add_pupil      : module '../selected_tag'  :
+    add_pupil      : @module '../selected_tag'  :
       selector  : 'choose_course'
       text      : 'Старшая школа'
       close     : true
-    calendar        : module 'calendar' :
-      choose_all      : module 'tutor/forms/checkbox':
+    calendar        : @module 'calendar' :
+      choose_all      : @module 'tutor/forms/checkbox':
         selector      : 'small'
-      from_time     : module 'tutor/forms/input' :
+      from_time     : @module 'tutor/forms/input' :
         selector      : 'calendar'
         align : 'center'
-      till_time     : module 'tutor/forms/input' :
+      till_time     : @module 'tutor/forms/input' :
         selector      : 'calendar'
         align         : 'center'
-      button_add    : module 'tutor/button' :
+      button_add    : @module 'tutor/button' :
         selector  :  'plus'
         text      : '+'
-    time_spend_lesson   : state './slider_main' :
+    time_spend_lesson   : @state './slider_main' :
       selector    : 'lesson_time'
       start       : 'center_text'
       end         : 'center_text'
@@ -42,9 +42,9 @@ class @main
       dash        : '-'
       min         : 0
       max         : 100
-    female            : module 'gender_button' :
+    female            : @module 'gender_button' :
       selector          : 'female'
-    male              : module 'gender_button' :
+    male              : @module 'gender_button' :
       selector          : 'male'
 
 

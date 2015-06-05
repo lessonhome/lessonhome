@@ -1,4 +1,4 @@
-class @main extends template '../../tutor'
+class @main extends @template '../../tutor'
   route : '/tutor/reviews'
   model : 'tutor/profile/reviews'
   title : "отзывы"
@@ -8,20 +8,20 @@ class @main extends template '../../tutor'
     'default' : 'main/first_step'
   }
 
-  tree : ->
+  tree : =>
     items : [
-      module 'tutor/header/button' :
+      @module 'tutor/header/button' :
         title : 'Описание'
         href  : '/tutor/profile'
-      module 'tutor/header/button' :
+      @module 'tutor/header/button' :
         title : 'Условия'
         href  : '/tutor/conditions'
-      module 'tutor/header/button' :
+      @module 'tutor/header/button' :
         title : 'Отзывы'
         href  : '/tutor/reviews'
         tag   : 'tutor:reviews'
     ]
-    content : state './reviews_content'
+    content : @state './reviews_content'
 
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'

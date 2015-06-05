@@ -1,4 +1,4 @@
-class @main extends template '../fast_bid'
+class @main extends @template '../fast_bid'
   route : '/fast_bid/second_step'
   model : 'main/application/2_step'
   title : "быстрое оформление заявки: второй шаг"
@@ -10,8 +10,8 @@ class @main extends template '../fast_bid'
   }
   tree : ->
     progress : $form : account : 'fast_bid_progress'
-    content : module '$' :
-      pupil_status : module 'tutor/forms/drop_down_list':
+    content : @module '$' :
+      pupil_status : @module 'tutor/forms/drop_down_list':
         text: 'Ваш статус :'
         selector  : 'fast_bid'
         default_options     : {
@@ -23,11 +23,11 @@ class @main extends template '../fast_bid'
           '5': {value: 'grown_up', text: 'взрослый'}
         }
         value : $form : pupil : 'newBid.status'
-      course : module 'tutor/forms/drop_down_list':
+      course : @module 'tutor/forms/drop_down_list':
         text: 'Курс :'
         selector  : 'fast_bid'
         value : $form : pupil : 'newBid.subjects.0.course'
-      knowledge_level : module 'tutor/forms/drop_down_list':
+      knowledge_level : @module 'tutor/forms/drop_down_list':
         text: 'Уровень знаний :'
         selector  : 'fast_bid'
         default_options     : {
@@ -36,11 +36,11 @@ class @main extends template '../fast_bid'
           '2': {value: 'advanced', text: 'продвинутый'}
         }
         value : $form : pupil : 'newBid.subjects.0.knowledge'
-      price_slider_bids   : state '../slider_main' :
+      price_slider_bids   : @state '../slider_main' :
         selector      : 'price_slider_bids'
         start         : 'calendar'
         start_text    : 'от'
-        end         : module 'tutor/forms/input' :
+        end         : @module 'tutor/forms/input' :
           selector  : 'calendar'
           text2      : 'до'
           align : 'center'
@@ -51,10 +51,10 @@ class @main extends template '../fast_bid'
           max : 5000
           left  : $form : pupil : 'newBid.subjects.0.lesson_price.0'
           right : $form : pupil : 'newBid.subjects.0.lesson_price.1'
-      price_hint : module 'tutor/hint' :
+      price_hint : @module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      goal : module 'tutor/forms/textarea':
+      goal : @module 'tutor/forms/textarea':
         text: 'Опишите цель :'
         selector  : 'fast_bid'
         value : $form : pupil : 'newBid.subjects.0.goal'

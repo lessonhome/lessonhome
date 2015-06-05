@@ -1,6 +1,6 @@
 class @main
-  tree  : => module '$':
-    reviews_rating  : module 'rating_star':
+  tree  : => @module '$':
+    reviews_rating  : @module 'rating_star':
       filling   : 0
       selector      : 'padding_no'
     pupils_number : 0

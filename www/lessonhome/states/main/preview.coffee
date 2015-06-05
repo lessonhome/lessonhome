@@ -1,4 +1,4 @@
-class @main extends template '../main'
+class @main extends @template '../main'
   forms : [{tutors:['tutor']}]
   tree : =>
     filter_top  : @exports()
@@ -17,7 +17,7 @@ class @main extends template '../main'
       popup           : @exports()
 
 
-      advanced_filter : state './advanced_filter' :
+      advanced_filter : @state './advanced_filter' :
         val_list_course       : '' # вытянуть значение
         val_list_calendar     : 11 # вытянуть значение
         val_time_spend_lesson : # вытянуть значение
@@ -32,7 +32,7 @@ class @main extends template '../main'
         
 
 
-      sort            :  module '$/sort'
+      sort            :  @module '$/sort'
       choose_tutors_num : 2
       choose_tutors : []
       #  state './preview/all_rating_photo' :
@@ -47,13 +47,13 @@ class @main extends template '../main'
       #    selector  : 'padding_1px_small'
       #    close     : true
 
-      issue_bid_button : module 'tutor/button' :
+      issue_bid_button : @module 'tutor/button' :
         selector  : 'add_button_bid'
         text      : 'Оформить заявку'
 
       tutors : $form : tutors : 'tutor'
       tutors_result : [
-        state './preview/tutors_result' :
+        @state './preview/tutors_result' :
           image : {
             src: '/test_miniature.jpg'
             w: 1000
@@ -72,7 +72,7 @@ class @main extends template '../main'
             tutor_title       : 'Быстро устраню пробелы в школьной программе' # вытянуть значение
             tutor_text        : 'Коллектив выступает с несколькими программами. В танцевальной программе выступают 2 пары, исполняющие мексиканские танцы (харибе тапатио), возможен мастер-класс по латиноамериканским танцам' # вытянуть значение
             tutor_price       : 1500 # вытянуть значение
-        state './preview/tutors_result' :
+        @state './preview/tutors_result' :
           image : {
             src: '/test_miniature.jpg'
             w: 1000

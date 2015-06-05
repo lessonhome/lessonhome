@@ -1,5 +1,5 @@
 
-class @main extends template '../edit_conditions'
+class @main extends @template '../edit_conditions'
   route : '/tutor/edit/preferences'
   model   : 'tutor/edit/conditions/preferences'
   title : "редактирование условия"
@@ -12,8 +12,8 @@ class @main extends template '../edit_conditions'
   tree : =>
     menu_condition  : 'edit: conditions'
     active_item : 'Места выезда'
-    tutor_edit  : module '$':
-      area : module 'tutor/forms/drop_down_list'  :
+    tutor_edit  : @module '$':
+      area : @module 'tutor/forms/drop_down_list'  :
         text      : 'Район :'
         selector  : 'first_reg'
       ###

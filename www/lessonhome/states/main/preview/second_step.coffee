@@ -1,4 +1,4 @@
-class @main extends template '../preview'
+class @main extends @template '../preview'
   route : '/second_step'
   model : 'main/second_step'
   title : "выберите статус преподавателя"
@@ -10,9 +10,9 @@ class @main extends template '../preview'
   tree : ->
     popup       : @exports()
     tag         : 'pupil:main_search'
-    filter_top  : state '../filter_top':
+    filter_top  : @state '../filter_top':
       title : 'Выберите статус преподавателя :'
-      list_subject    : module 'tutor/forms/drop_down_list' :
+      list_subject    : @module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
         placeholder : 'Например студент'
         default_options     : {
@@ -22,7 +22,7 @@ class @main extends template '../preview'
           '3': {value: 'high_school_teacher', text: 'преподаватель вуза'},
           '4': {value: 'private_teacher', text: 'частный преподаватель'}
         }
-      choose_subject  : module 'selected_tag'  :
+      choose_subject  : @module 'selected_tag'  :
         selector  : 'choose_subject'
         text      : 'Преподаватель вуза'
         close     : true

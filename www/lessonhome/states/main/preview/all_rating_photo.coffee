@@ -1,5 +1,5 @@
 class @main
-  tree : => module '$' :
+  tree : => @module '$' :
     image         : @exports()
     close         : @exports()
     count_review  : @exports()

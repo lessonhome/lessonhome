@@ -1,4 +1,4 @@
-class @main extends template '../../tutor'
+class @main extends @template '../../tutor'
   route : '/tutor/reports'
   model   : 'tutor/bids/reports'
   title : "отчет"
@@ -9,25 +9,25 @@ class @main extends template '../../tutor'
   }
   tree : ->
     items : [
-      module 'tutor/header/button' : {
+      @module 'tutor/header/button' : {
         title : 'Поиск'
         href  : '/tutor/search_bids'
       }
-      module 'tutor/header/button' : {
+      @module 'tutor/header/button' : {
         title : 'Входящие'
         href  : '/tutor/in_bids'
       }
-      module 'tutor/header/button' : {
+      @module 'tutor/header/button' : {
         title : 'Исходящие'
         href  : '/tutor/out_bids'
       }
-      module 'tutor/header/button' : {
+      @module 'tutor/header/button' : {
         title : 'Отчёты'
         href  : '/tutor/reports'
         tag   : 'tutor:reports'
       }
     ]
-    content : module '$' :
+    content : @module '$' :
       popup : @exports()
       #hint : module 'tutor/hint' :
       #  selector  : 'horizontal_hide_ability'
@@ -35,17 +35,17 @@ class @main extends template '../../tutor'
       #  text      : 'Нажмите на заявку, чтобы раскрыть всю информацию.<br>Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени,
       #         как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой'
 
-      select_all_checkbox : module 'tutor/forms/checkbox' :
+      select_all_checkbox : @module 'tutor/forms/checkbox' :
         selector : 'small'
-      sort_list     : module 'tutor/forms/drop_down_list':
+      sort_list     : @module 'tutor/forms/drop_down_list':
         placeholder : 'Все заявки'
         selector    : 'in_bids'
-      subject : module 'tutor/forms/drop_down_list':
+      subject : @module 'tutor/forms/drop_down_list':
         placeholder : 'Все предмет'
         selector    : 'in_bids'
 
-      list_bids : module 'tutor/bids/list_bids' :
-        titles_bid : module '//titles_bid' :
+      list_bids : @module 'tutor/bids/list_bids' :
+        titles_bid : @module '//titles_bid' :
           indent     : true
 
           number_date   : 'Номер/Дата'
@@ -57,14 +57,14 @@ class @main extends template '../../tutor'
           status        : 'Статус'
 
         all_bids : [
-          module '//report_bid' :
+          @module '//report_bid' :
             selectable     : true
-            checkbox       : module 'tutor/forms/checkbox' :
+            checkbox       : @module 'tutor/forms/checkbox' :
               selector : 'small'
-            fill_button    : module 'tutor/button' :
+            @fill_button    : @module 'tutor/button' :
               selector: 'fill'
               text: 'Заполнить'
-            support_button : module 'link_button' :
+            @support_button : @module 'link_button' :
               selector: 'support'
               text: 'Поддержка'
               href: 'reports/support'
@@ -117,14 +117,14 @@ class @main extends template '../../tutor'
               fill_button_href: 'payment'
 
 
-          module '//report_bid' :
+          @module '//report_bid' :
             selectable   : true
-            checkbox  : module 'tutor/forms/checkbox' :
+            checkbox  : @module 'tutor/forms/checkbox' :
               selector : 'small'
-            fill_button    : module 'tutor/button' :
+            fill_button    : @module 'tutor/button' :
               selector: 'fill'
               text: 'Заполнить'
-            support_button : module 'link_button' :
+            support_button : @module 'link_button' :
               selector: 'support'
               text: 'Поддержка'
               href: 'reports/support'

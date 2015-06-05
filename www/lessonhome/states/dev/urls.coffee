@@ -4,10 +4,10 @@ class @main
   access : ['tutor','pupil','other']
   redirect : {}
   route :  '/urls'
-  tree : => module 'dev/urls' :
+  tree : => @module 'dev/urls' :
     depend : [
       state 'lib'
-      module 'lib/mousewheel'
+      @module 'lib/mousewheel'
     ]
 
   init : =>

@@ -1,4 +1,4 @@
-class @main extends template '../edit_conditions'
+class @main extends @template '../edit_conditions'
   route : '/tutor/edit/subjects'
   model   : 'tutor/edit/conditions/subjects'
   title : "редактирование предметы"
@@ -10,7 +10,7 @@ class @main extends template '../edit_conditions'
   tree : =>
     menu_condition  : 'edit: conditions'
     active_item : 'Предметы'
-    tutor_edit  : state 'subject_tutor'
+    tutor_edit  : @state 'subject_tutor'
 
 
 

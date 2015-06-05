@@ -1,18 +1,18 @@
-class @main extends template '../main'
+class @main extends @template '../main'
   tree : =>
     popup       : @exports()
     filter_top  : @exports()
     info_panel  : @exports()
     tag         : @exports()
     content     : module '$' :
-      search_diagram  : module '$/motivation_block' :
+      search_diagram  : @module '$/motivation_block' :
         margin    : 27
-        button   : module 'tutor/button' :
+        button   : @module 'tutor/button' :
           selector  : 'start_search'
           text      : 'Начать поиск'
         title     : 'Найти репетитора - легко!'
         img  :
-          src : F('main/main_easy.png')
+          src : @F('main/main_easy.png')
           w   : 703
           h   : 421
         text  :
@@ -22,15 +22,15 @@ class @main extends template '../main'
           issue_bid       : 'Оформите заявку'
           meet            : 'Познакомьтесь'
           learn           : 'Занимайтесь'
-      choose_search   : module '$/motivation_block' :
+      choose_search   : @module '$/motivation_block' :
         margin    : 58
-        button    : module 'link_button'  :
+        button    : @module 'link_button'  :
           selector  : 'order_call'
           text      : 'Заказать звонок'
           href      : '/main_callback'
         title     : '3 способа поиска'
         img  :
-          src : F('main/main_search.png')
+          src : @F('main/main_search.png')
           w   : 648
           h   : 477
         text  :
@@ -39,12 +39,12 @@ class @main extends template '../main'
           issue_bid_help    : 'Оформите заявку<br>и наша команда<br>предложит вам<br>разные варианты'
       choose_tutor     : module '$/motivation_block'  :
         margin   : 34
-        button   : module 'tutor/button' :
+        button   : @module 'tutor/button' :
           selector  : 'start_search'
           text      : 'Начать поиск'
         title     : 'Подбор репетитора'
         img  :
-          src : F('main/main_select.png')
+          src : @F('main/main_select.png')
           w   : 663
           h   : 514
         text  :

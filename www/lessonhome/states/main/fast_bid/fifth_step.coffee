@@ -1,4 +1,4 @@
-class @main extends template '../preview'
+class @main extends @template '../preview'
   route : '/fast_bid/fifth_step'
   model : 'main/application/5_step'
   title : "быстрое оформление заявки: финальный шаг"
@@ -10,11 +10,11 @@ class @main extends template '../preview'
   }
   forms : [{account:['fast_bid_progress']}]
   tree : ->
-    filter_top : module '$' :
+    filter_top : @module '$' :
       thanks_icon :
-        src : F('main/application_star.png')
+        src : @F('main/application_star.png')
         height: 246
         width:  255
-      progress_bar : module 'main/fast_bid/progress_bar' :
+      progress_bar : @module 'main/fast_bid/progress_bar' :
         progress  : $form : account : 'fast_bid_progress'
         link      : false

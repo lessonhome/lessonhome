@@ -1,4 +1,4 @@
-class @main extends template '../motivation_content'
+class @main extends @template '../motivation_content'
   route : '/invite_student'
   model   : 'main/invite_student'
   title : "Пригласить друга"
@@ -7,7 +7,7 @@ class @main extends template '../motivation_content'
   redirect : {
   }
   tree : ->
-    filter_top  : state './top' :
+    filter_top  : @state './top' :
       header : 'Ваш друг ищет репетитора?<br>Пригласите его к нам и мы поможем!'
 
   init: ->
