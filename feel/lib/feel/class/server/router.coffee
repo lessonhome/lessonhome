@@ -30,6 +30,8 @@ class Router
               @url.reg.push [r,statename]
             
   handler : (req,res)=> do Q.async =>
+    host = req.headers.host
+    console.log host
     req.status = (args...)=> @site.status req,res,args...
     if (redirect = @_redirects?.redirect?[req?.url])?
       return @redirect req,res,redirect
@@ -73,7 +75,8 @@ class Router
     return route.go()
   setSession : (req,res,cookie,session)=> do Q.async =>
     req.register = @site.register
-    register = yield @site.register.register session
+    unknown = cookie.get 'unknown'
+    register = yield @site.register.register session,unknown
     req.session = register.session
     cookie.set 'session',null,{
       #maxAge : (60*60*24*365)
@@ -85,6 +88,7 @@ class Router
       expires: new Date("21 May 2020 10:12")
       overwrite : true
     }
+    cookie.set 'unknown',register.account.unknown,{httpOnly:false} if register.account.unknown != unknown
     req.user = register.account
   redirect : (req,res,location='/')=> do Q.async =>
     yield console.log 'redirect',location

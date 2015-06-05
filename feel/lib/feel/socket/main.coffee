@@ -36,15 +36,19 @@ class Socket
   run  : =>
 
   handler : (req,res)=> Q.spawn =>
+    host = req.headers.host
+    console.log host
     $ = {}
     $.req = req
     $.res = res
     $.register = @register
     req.cookie = cookie = new _cookies req,res
     session = cookie.get 'session'
-    register = yield @register.register session
+    unknown = cookie.get 'unknown'
+    register = yield @register.register session,unknown
     session = register.session
     req.user = register.account
+    cookie.set 'unknown',req.user.unknown,{httpOnly:false} unless req.user.unknown == unknown
     _ = url.parse(req.url,true)
     data    = JSON.parse _.query.data
     context = JSON.parse _.query.context
@@ -105,9 +109,12 @@ class Socket
   updateUser : (req,res,$)=>
     cookie = req.cookie
     session = cookie.get 'session'
-    register = yield @register.register session
+    unknown = cookie.get 'unknown'
+    register = yield @register.register session, cookie.get('unknown')
     session = register.session
     req.user = register.account
+    cookie.set 'unknown',register.account.unknown,{httpOnly:false} if unknown != register.account.unknown
+
     $.user = req.user
     $.session = session
   resolve : (context,path,pref)=>
