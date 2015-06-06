@@ -4,6 +4,7 @@ class @main
     subject_name : $form : tutor : 'subject.name'
     course     : @module 'tutor/forms/drop_down_list' :
       text      : 'Направление подготовки :'
+      placeholder : 'Например ЕГЭ'
       selector  : 'first_reg'
       default_options     : {
         '0': {value: 'ege', text: 'ЕГЭ'},
@@ -51,9 +52,9 @@ class @main
         right : $form : tutor : 'srange.right'
 
     duration :   @module 'tutor/forms/input' :
-      text2      : 'Время занятия :'
+      text2      : 'Длительность занятия :'
       selector  : 'first_reg'
-      $form : tutor : 'subject.price.duration'
+      $form : tutor : 'subject.price.duration' : (val)-> val || 90
 
     place_tutor      : @module 'tutor/forms/checkbox' :
       text      : 'у себя'
@@ -80,7 +81,7 @@ class @main
         '2': {value: '2', text: 'до 8 учеников'},
         '3': {value: '3', text: 'от 10 учеников'}
       }
-      $form : tutor : 'subject.groups.0.description'
+      $form : tutor : 'subject.groups.0.description' : (val)-> val || 'не проводятся'
     comments          : @module 'tutor/forms/textarea' :
       height    : '80px'
       text      : 'Комментарии :'

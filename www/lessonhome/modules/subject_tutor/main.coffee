@@ -69,8 +69,8 @@ class @main
       console.log 'omg',subject_val.class.found.subject_tag.text()
       unless subject_val.class.found.subject_tag.text()
         errs.push 'empty_subject':i
-      if !subject_val.course.exists() && subject_val.course.getValue() != 0
-        errs.push 'bad_course':i
+      #if !subject_val.course.exists() && subject_val.course.getValue() != 0
+      #  errs.push 'bad_course':i
       #if !@qualification.exists() && @qualification.getValue() != 0
       #  errs.push 'bad_qualification'
       if !subject_val.group_learning.exists() && subject_val.group_learning.getValue() != 0

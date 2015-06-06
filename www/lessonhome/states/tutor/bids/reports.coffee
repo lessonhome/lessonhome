@@ -61,10 +61,10 @@ class @main extends @template '../../tutor'
             selectable     : true
             checkbox       : @module 'tutor/forms/checkbox' :
               selector : 'small'
-            @fill_button    : @module 'tutor/button' :
+            fill_button    : @module 'tutor/button' :
               selector: 'fill'
               text: 'Заполнить'
-            @support_button : @module 'link_button' :
+            support_button : @module 'link_button' :
               selector: 'support'
               text: 'Поддержка'
               href: 'reports/support'
