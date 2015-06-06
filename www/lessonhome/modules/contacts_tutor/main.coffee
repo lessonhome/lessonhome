@@ -40,8 +40,8 @@ class @main
 
   check_form :(link) =>
     errs = @js.check @getData()
-    if link
-      if !@mobile_phone.doMatch() then errs.push "bad_mobile"
+    #if link
+    #  if !@mobile_phone.doMatch() then errs.push "bad_mobile"
     #if !@country.exists() && @country.getValue().length!=0
     #  errs.push 'bad_country'
     #if !@city.exists() && @city.getValue().length!=0

@@ -37,7 +37,7 @@ class @main extends @template '../main'
           select_tutor_self : 'Подберите себе<br>репетитора сами'
           call_us           : 'Позвоните нам<br>и мы все сделаем за вас'
           issue_bid_help    : 'Оформите заявку<br>и наша команда<br>предложит вам<br>разные варианты'
-      choose_tutor     : module '$/motivation_block'  :
+      choose_tutor     : @module '$/motivation_block'  :
         margin   : 34
         button   : @module 'tutor/button' :
           selector  : 'start_search'
