@@ -4,7 +4,8 @@ class @main extends @template '../main_tutor'
   title : "обратный звонок"
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : '/main_callback'
+    'pupil' : '/main_callback'
   }
   tree : ->
     popup : @state '../call_back_popup' :

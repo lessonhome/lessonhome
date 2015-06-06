@@ -5,7 +5,7 @@ class @main extends @template '../preview'
   tags  : -> 'pupil:main_search'
   access : ['pupil','other']
   redirect : {
-    'default' : 'main/first_step'
+    'tutor' : 'main/first_step'
   }
   tree : =>
     popup       : @exports()

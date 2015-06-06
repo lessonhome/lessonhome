@@ -5,7 +5,7 @@ class @main extends @template './second_step'
   tags  : -> 'popup_reviews_tutor'
   access : ['pupil','other']
   redirect : {
-    'default' : 'main/first_step'
+    'tutor' : 'tutor/profile'
   }
   tree : ->
     popup : @state 'tutor/profile_content/reviews_sub'

@@ -5,7 +5,8 @@ class @main extends @template '../edit_description'
   tags : -> 'edit: description'
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
   forms : [{person:['edu']}]
   tree : =>

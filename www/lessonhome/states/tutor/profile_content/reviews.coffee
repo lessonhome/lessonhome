@@ -5,7 +5,8 @@ class @main extends @template '../../tutor'
   tags   : -> 'tutor:reviews'
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
 
   tree : =>

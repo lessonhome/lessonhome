@@ -5,7 +5,6 @@ class @main extends @template '../fast_bid'
   access : ['pupil','other']
   redirect : {
     'tutor' : 'tutor/profile'
-    'default' : 'main/fast_bid/first_step'
   }
   forms : [{pupil:['isPlace', 'newBid'], person:['location'], account:['fast_bid_progress'] }]
   tree : ->

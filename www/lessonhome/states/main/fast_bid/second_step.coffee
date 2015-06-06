@@ -6,7 +6,6 @@ class @main extends @template '../fast_bid'
   forms : ['pupil', {account:['fast_bid_progress']}]
   redirect : {
     'tutor' : 'tutor/profile'
-    'default' : 'main/fast_bid/first_step'
   }
   tree : ->
     progress : $form : account : 'fast_bid_progress'

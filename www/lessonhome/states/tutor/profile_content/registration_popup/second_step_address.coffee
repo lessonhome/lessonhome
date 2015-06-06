@@ -4,7 +4,8 @@ class @main extends @template '../registration_popup/second_step'
   title : "Регистрация : шаг2_адрес"
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
   tree : =>
     address_popup   : @state 'place_tutor'

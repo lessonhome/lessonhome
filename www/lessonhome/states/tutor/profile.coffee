@@ -6,7 +6,8 @@ class @main extends @template '../tutor'
   forms : [{person:['phone','email','skype','site']}]
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
   tree : =>
     items : [

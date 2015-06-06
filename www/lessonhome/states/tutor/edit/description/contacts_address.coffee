@@ -4,7 +4,8 @@ class @main extends @template './contacts'
   title : "Редактирование полный адрес"
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
   tree : =>
     address_popup   : @state 'place_tutor'
