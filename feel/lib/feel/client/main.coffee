@@ -109,7 +109,8 @@ class @Feel
     unknown = $.cookie('unknown')
     $.cookie 'unknown', 'set'+window.Feel.user.sessionpart if unknown == 'need'
     
-
+  go : (href)=>
+    window.location.replace href if href
 
 
 window.Feel = new @Feel()
