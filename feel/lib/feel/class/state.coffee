@@ -35,8 +35,8 @@ class module.exports
     @src  = "var file = {};
             (function(){"
 
-    for f in @context
-      @src += " var #{f} = that.function_#{f};"
+    #for f in @context
+    #  @src += " var #{f} = that.function_#{f};"
     @src += " var $urls   = that.site.router.url,
                   $router = that.site.router,
                   $site   = that.site,
@@ -52,13 +52,13 @@ class module.exports
           var that = this;
           "
           
-    for f in @context
-      @src += "
-      var __old#{f} = #{f};
-          #{f} = function(){
-            return __old#{f}.call.apply(__old#{f}, [that].concat([].slice.call(arguments), [that]));
-          };
-          "
+    #for f in @context
+    #  @src += "
+    #  var __old#{f} = #{f};
+    #      #{f} = function(){
+    #        return __old#{f}.call.apply(__old#{f}, [that].concat([].slice.call(arguments), [that]));
+    #     };
+    #     "
     @src +="
           return __oldtree.call.apply(__oldtree, [that].concat([].slice.call(arguments)));
       };}

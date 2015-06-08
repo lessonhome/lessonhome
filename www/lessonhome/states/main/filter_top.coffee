@@ -1,5 +1,5 @@
 class @main
-  tree : => module '$' :
+  tree : => @module '$' :
     title               : @exports()
     at_home_button      : @exports()
     in_tutoring_button  : @exports()
@@ -13,7 +13,7 @@ class @main
       selector  : 'subject_back'
       text      : 'Назад'
       href      : @exports 'link_back'
-    button_issue        : module 'link_button'  :
+    button_issue        : @module 'link_button'  :
       selector  : 'issue_bid'
       text      : 'Оформить заявку сейчас'
       href      : '/fast_bid/first_step'

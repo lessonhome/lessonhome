@@ -4,7 +4,7 @@ class @main extends @template '../main'
     filter_top  : @exports()
     info_panel  : @exports()
     tag         : @exports()
-    content     : module '$' :
+    content     : @module '$' :
       search_diagram  : @module '$/motivation_block' :
         margin    : 27
         button   : @module 'tutor/button' :

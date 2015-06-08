@@ -30,8 +30,6 @@ class Router
               @url.reg.push [r,statename]
             
   handler : (req,res)=> do Q.async =>
-    host = req.headers.host
-    console.log host
     req.status = (args...)=> @site.status req,res,args...
     if (redirect = @_redirects?.redirect?[req?.url])?
       return @redirect req,res,redirect
@@ -45,7 +43,7 @@ class Router
     cookie = new _cookies req,res
     req.cookie = cookie
     _session = cookie.get 'session'
-    console.log  req.url,_session
+    console.log  req.url.blue,(""+_session).yellow
     yield @setSession req,res,cookie,_session
     if req.url.match /^\/(upload)\/.*/
       return Q().then => @site.handler req,res,@site.name
