@@ -48,10 +48,10 @@ class @main extends @template '../edit_description'
       change_button_email : @module 'tutor/button' :
         text     : 'Изменить'
         selector : 'edit_save'
-      #confirm_code_login : module 'tutor/forms/input' :
+      #confirm_code_login : @module 'tutor/forms/input' :
         #text2      : 'Введите код :'
         #selector  : 'first_reg'
-      #confirm_code_login_button : module 'tutor/button' :
+      #confirm_code_login_button : @module 'tutor/button' :
        # text     : 'Подтвердить'
         #selector : 'edit_save'
       old_login : '+7*** *** ** 98'
@@ -85,7 +85,7 @@ class @main extends @template '../edit_description'
         title     : 'Изменить пароль'
         selector  : 'horizon'
 
-    #hint        : module 'tutor/hint' :
+    #hint        : @module 'tutor/hint' :
     #  selector  : 'horizontal'
     #  header    : 'Это подсказка'
     #  text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'

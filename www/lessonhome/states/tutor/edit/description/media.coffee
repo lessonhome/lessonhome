@@ -5,16 +5,16 @@
     title : "редактирование медиа"
     tree : =>
       items : [
-        module 'tutor/header/button' : {
+        @module 'tutor/header/button' : {
           title : 'Описание'
           href  : '/tutor/edit/general'
         }
-        module 'tutor/header/button' : {
+        @module 'tutor/header/button' : {
           title : 'Условия'
           href  : '/tutor/edit/subjects'
         }
       ]
-      sub_top_menu : state 'tutor/sub_top_menu' :
+      sub_top_menu : @state 'tutor/sub_top_menu' :
         items :
           'Общие'       : 'general'
           'Контакты'    : 'contacts'
@@ -24,41 +24,41 @@
           'Медиа'       : 'media'
           'Настройки'   : 'settings'
         active_item : 'Медиа'
-      content :  module '$':
+      content :  @module '$':
 
         photos : [
 
-          module 'mime/photo' :
+          @module 'mime/photo' :
             src : '#'
 
-          module 'mime/photo' :
+          @module 'mime/photo' :
             src : '#'
 
-          module 'mime/photo' :
+          @module 'mime/photo' :
             src : '#'
 
-          module 'mime/photo' :
+          @module 'mime/photo' :
             src : '#'
         ]
         videos : [
-          module 'mime/video' :
+          @module 'mime/video' :
             src : '#'
 
-          module 'mime/video' :
+          @module 'mime/video' :
             src : '#'
         ]
 
         number_of_photos : 4
         number_of_videos : 2
 
-        add_photos : module '//add_button' :
+        add_photos : @module '//add_button' :
           selector  : 'photo'
 
-        add_videos : module '//add_button' :
+        add_videos : @module '//add_button' :
           selector  : 'video'
 
 
-        hint : module 'tutor/hint' :
+        hint : @module 'tutor/hint' :
           type : 'horizontal'
           header : 'Это подсказка'
           text : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит. Однако в некоторых исключительных случаях зависимость какой-либо величины от времени может оказаться пренебрежимо слабой, так что с высокой точностью можно считать эту характеристику независящей от времени. Если такие величины описывают динамику какой-либо системы,'

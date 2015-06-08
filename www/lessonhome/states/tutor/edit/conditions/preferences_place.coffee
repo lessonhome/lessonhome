@@ -18,7 +18,7 @@ class @main extends @template '../edit_conditions'
         text      : 'Район :'
         selector  : 'first_reg'
       ###
-        metro : module 'tutor/forms/drop_down_list'  :
+        metro : @module 'tutor/forms/drop_down_list'  :
           text      : 'Метро :'
           selector  : 'first_reg'
           default_options     : {

@@ -13,7 +13,7 @@ class @main extends @template '../edit_description'
     menu_description  : 'edit: description'
     active_item : 'Образование'
     tutor_edit  : @module '$' :
-      country       : module 'tutor/forms/drop_down_list' :
+      country       : @module 'tutor/forms/drop_down_list' :
         text      : 'Страна :'
         selector  : 'first_reg'
         $form : person : 'edu.country'
@@ -46,10 +46,10 @@ class @main extends @template '../edit_description'
         selector    : 'first_reg_till'
         placeholder : 'до'
         $form : person : 'edu.period.end'
-      #add_button    : module 'button_add' :
+      #add_button    : @module 'button_add' :
       #  text      : '+Добавить'
       #  selector  : 'edit_add'
-    #hint        : module 'tutor/hint' :
+    #hint        : @module 'tutor/hint' :
     #  selector  : 'horizontal'
     #  header    : ''
     #  text      : ''

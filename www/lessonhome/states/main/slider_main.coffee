@@ -1,13 +1,13 @@
 class @main
   tree : => @module '$' :
     selector      : @exports()
-    start         : module 'tutor/forms/input' :
+    start         : @module 'tutor/forms/input' :
       filters   : ['digits']
       allowSymbolsPattern : "^\\d*$"
       selector  : @exports 'start'
       align : 'center'
       text2     : @exports 'start_text'
-    # if us end(second input) determine selector and text in parent module
+    # if us end(second input) determine selector and text in parent @module
     end           : @exports()
     value         : @exports()
     dash          : @exports()

@@ -94,7 +94,7 @@ class @main extends @template './motivation_content'
 
 
         }
-      ###choose_subject  : module '../selected_tag'  :
+      ###choose_subject  : @module '../selected_tag'  :
         selector  : 'choose_subject'
         id        : '123'
         text      : 'Алгебра'
@@ -109,8 +109,8 @@ class @main extends @template './motivation_content'
       link_forward    :  '/second_step'
 
     ###
-    info_panel  : state './info_panel'  :
-      math : module '//item' :
+    info_panel  : @state './info_panel'  :
+      math : @module '//item' :
         title: 'Математические +'
         list : [
           'Математика 1'
@@ -120,7 +120,7 @@ class @main extends @template './motivation_content'
           'Математика 5'
           'Математика 6'
         ]
-      natural_research  : module '//item' :
+      natural_research  : @module '//item' :
         title : 'Естественно-научные +'
         list : [
           'Предмет 1'
@@ -130,7 +130,7 @@ class @main extends @template './motivation_content'
           'Предмет 5'
           'Предмет 6'
         ]
-      philology         : module '//item' :
+      philology         : @module '//item' :
         title : 'Филологичные +'
         list : [
           'Предмет 1'
@@ -140,7 +140,7 @@ class @main extends @template './motivation_content'
           'Предмет 5'
           'Предмет 6'
         ]
-      foreign_languages : module '//item' :
+      foreign_languages : @module '//item' :
         title : 'Иностранные языки +'
         list : [
           'Предмет 1'
@@ -150,7 +150,7 @@ class @main extends @template './motivation_content'
           'Предмет 5'
           'Предмет 6'
         ]
-      others            : module '//item' :
+      others            : @module '//item' :
         title :'Другие +'
         list : [
           'Предмет 1'

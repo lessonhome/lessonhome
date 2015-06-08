@@ -25,7 +25,7 @@ class @main extends @template '../edit_description'
             $form : person : 'work.post'
         }
       ]
-      #add_button    : module 'button_add' :
+      #add_button    : @module 'button_add' :
       #  text     : '+Добавить'
       #  selector : 'edit_add'
       line : @module 'tutor/separate_line' :
@@ -45,7 +45,7 @@ class @main extends @template '../edit_description'
         selector  : 'first_reg'
         height : '117px'
         $form : tutor : 'extra.0.text'
-    #hint        : module 'tutor/hint' :
+    #hint        : @module 'tutor/hint' :
     #  selector  : 'horizontal'
     #  header    : 'Это подсказка'
     #  text      : 'Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени, как обычно и происходит Если такие величины описывают динамику какой-либо системы,'

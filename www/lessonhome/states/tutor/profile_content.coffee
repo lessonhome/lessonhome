@@ -10,7 +10,7 @@ class @main
         @module 'lib/jquery/iframe_transport_plugin'
         @module 'lib/jquery/fileupload'
       ]
-    #all_rating          : module '../rating_star':
+    #all_rating          : @module '../rating_star':
     #  filling  : 40
     #progress            : @exports()
     count_review        : @exports()
@@ -73,11 +73,11 @@ class @main
       link      : '#'
       add     : @exports()
       selector : 'horizon'
-    #media               : module '$/media' :
-    #  photo1  : module 'mime/photo' :
-    #    src : F 'vk.unknown.man.jpg'
-    #  photo2  : module 'mime/photo' :
-    #    src : F 'vk.unknown.man.jpg'
-    #  video   : module 'mime/video' :
-    #    src : F 'vk.unknown.man.jpg'
+    #media               : @module '$/media' :
+    #  photo1  : @module 'mime/photo' :
+    #    src : @F 'vk.unknown.man.jpg'
+    #  photo2  : @module 'mime/photo' :
+    #    src : @F 'vk.unknown.man.jpg'
+    #  video   : @module 'mime/video' :
+    #    src : @F 'vk.unknown.man.jpg'
 

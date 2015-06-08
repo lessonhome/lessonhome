@@ -30,7 +30,7 @@ class @main extends @template '../../tutor'
     ]
     content : @module '$' :
       popup : @exports()
-      #hint : module 'tutor/hint' :
+      #hint : @module 'tutor/hint' :
       #  selector  : 'horizontal_hide_ability'
       #  header    : ''
       #  text      : 'Нажмите на заявку, чтобы раскрыть всю информацию.<br>Поскольку состояния всего нашего мира зависят от времени, то и состояние какой-либо системы тоже может зависеть от времени,

@@ -4,7 +4,7 @@ class @main extends @template '../main'
     filter_top  : @exports()
     tag         : @exports()
     ###
-    info_panel  : state './info_panel'  :
+    info_panel  : @state './info_panel'  :
       subject   : 'Предметы +'
       tutor     : 'Преподаватель +'
       place     : 'Место'
@@ -13,7 +13,7 @@ class @main extends @template '../main'
 
     ###
 
-    content : module '$' :
+    content : @module '$' :
       popup           : @exports()
 
 
@@ -35,13 +35,13 @@ class @main extends @template '../main'
       sort            :  @module '$/sort'
       choose_tutors_num : 2
       choose_tutors : []
-      #  state './preview/all_rating_photo' :
+      #  @state './preview/all_rating_photo' :
       #    src       : '#'
       #    #filling   : 100
       #    selector  : 'padding_1px_small'
       #    close     : true
       #
-      #  state './preview/all_rating_photo' :
+      #  @state './preview/all_rating_photo' :
       #    src       : '#'
       #    #filling   : 50
       #    selector  : 'padding_1px_small'

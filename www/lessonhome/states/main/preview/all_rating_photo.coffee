@@ -4,6 +4,6 @@ class @main
     close         : @exports()
     count_review  : @exports()
     selector      : @exports 'extract'
-#all_rating    : module 'rating_star'  :
+#all_rating    : @module 'rating_star'  :
 #  selector  : @exports()
 #  filling   : @exports()

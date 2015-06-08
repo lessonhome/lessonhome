@@ -16,7 +16,7 @@ class @main extends @template '../edit_conditions'
       calendar    : @state 'calendar'  :
         selector  : 'advance_filter edit'
         value     : $form : tutor : 'calendar'
-      #hint       : module 'tutor/hint_dz' :
+      #hint       : @module 'tutor/hint_dz' :
       #  selector  : 'small'
       #  text      : 'Поскольку'
   init  :=>

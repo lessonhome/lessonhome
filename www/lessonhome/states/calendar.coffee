@@ -34,4 +34,4 @@ class @main
     save_button       : @module 'tutor/button' :
       text      : 'Сохранить'
       selector  : 'edit_save'
-    #TODO: make create module selected_tag if user input time and press button add_time_button
+    #TODO: make create @module selected_tag if user input time and press button add_time_button

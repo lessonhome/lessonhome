@@ -53,7 +53,7 @@ class @main extends @template '../../tutor'
           status        : 'Статус'
 
         all_bids : [
-          module '//bid' :
+          @module '//bid' :
             selectable   : true
             checkbox  : @module 'tutor/forms/checkbox' :
               selector : 'small'

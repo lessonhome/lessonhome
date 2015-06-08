@@ -3,7 +3,7 @@ class @main
   tree : => @module '$' :
     selector    : @exports()
     href        : @exports()
-    #name        : module 'tutor/forms/input'  :
+    #name        : @module 'tutor/forms/input'  :
       #placeholder : 'Ваше имя'
     your_name  : @module 'tutor/forms/input'  :
       placeholder : 'Ваше имя'

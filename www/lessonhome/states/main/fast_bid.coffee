@@ -14,7 +14,7 @@ class @main extends @template './preview'
         selector: @exports()
         text: 'Оформить заявку сейчас'
         href: @exports()
-      button_next : module 'link_button' :
+      button_next : @module 'link_button' :
         selector:  @exports()
         text:     'Далее'
         href:     @exports()

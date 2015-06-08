@@ -6,21 +6,21 @@ class @main
       call_back_popup : @state 'main/call_back_popup' :
         selector: 'footer'
 ###
-      module 'call_back_popup' :
+      @module 'call_back_popup' :
         selector : 'footer'
-        name        : module 'tutor/forms/input'  :
+        name        : @module 'tutor/forms/input'  :
           placeholder : 'Ваше имя'
-        tel_number  : module 'tutor/forms/input'  :
+        tel_number  : @module 'tutor/forms/input'  :
           placeholder : 'Телефон'
-        comments  : module 'tutor/forms/textarea' :
+        comments  : @module 'tutor/forms/textarea' :
           placeholder : 'Комментарий'
-        pupil       : module 'tutor/header/button_toggle' :
+        pupil       : @module 'tutor/header/button_toggle' :
           text   : 'Я ученик'
           selector      : 'call_back_pupil inactive'
-        tutor       : module 'tutor/header/button_toggle' :
+        tutor       : @module 'tutor/header/button_toggle' :
           text  : 'Я репетитор'
           selector      : 'call_back_tutor inactive'
-        order_call  : module 'tutor/button' :
+        order_call  : @module 'tutor/button' :
           text  : 'Заказать звонок'
           selector      : 'call_back'
 

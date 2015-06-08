@@ -123,7 +123,7 @@ class @main extends @template '../../tutor'
       web : @module 'tutor/forms/location_button' :
         selector : 'place_learn'
         text   : 'удалённо'
-      #location_hint : module 'tutor/hint' :
+      #location_hint : @module 'tutor/hint' :
       #  selector : 'small'
       #  field_position : 'left'
       #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

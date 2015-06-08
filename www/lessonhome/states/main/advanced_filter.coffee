@@ -5,7 +5,7 @@ class @main
         placeholder     : 'Например ЕГЭ'
         value     : @exports 'val_list_course'
       add_course      : @exports 'val_list_course'
-      #add_course      : module '../selected_tag'  :
+      #add_course      : @module '../selected_tag'  :
       #  selector  : 'choose_course'
       #  close     : true
       #  value     : @exports 'val_list_course'

@@ -6,7 +6,7 @@ class @main
   route :  '/urls'
   tree : => @module 'dev/urls' :
     depend : [
-      state 'lib'
+      @state 'lib'
       @module 'lib/mousewheel'
     ]
 
