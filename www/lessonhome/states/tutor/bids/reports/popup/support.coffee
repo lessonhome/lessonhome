@@ -1,13 +1,14 @@
-class @main extends template '../popup'
+class @main extends @template '../popup'
   route : '/tutor/reports/support'
   model : 'tutor/bids/reports_help'
   title : "Поддержка"
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
   tree : ->
-    content : module '$' :
+    content : @module '$' :
       title : 'Возникли вопросы/проблемы в ходе заявки?<br>Напишите оператору курирующему данную заявку.'
 
   init : ->

@@ -1,10 +1,11 @@
-class @main extends template '../registration_popup'
+class @main extends @template '../registration_popup'
   route : '/tutor/profile/fourth_step'
   model : 'tutor/profile_registration/fourth_step'
   title : "Регистрация : шаг4"
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
   status :
     '!tutor_prereg_3':'/tutor/profile/second_step'
@@ -12,8 +13,8 @@ class @main extends template '../registration_popup'
   tree : ->
     progress  : $form : account : 'registration_progress'
     close   : true
-    content : module '$' :
-      form      : state 'about_tutor'
+    content : @module '$' :
+      form      : @state 'about_tutor'
 
   init : ->
     @parent.tree.popup.button_back.selector = 'fast_bid_nav'

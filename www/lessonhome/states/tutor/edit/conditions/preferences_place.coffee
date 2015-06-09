@@ -1,23 +1,24 @@
 
-class @main extends template '../edit_conditions'
+class @main extends @template '../edit_conditions'
   route : '/tutor/edit/preferences'
   model   : 'tutor/edit/conditions/preferences'
   title : "редактирование условия"
   tags : -> 'edit: conditions'
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
   forms : [{tutor:['check_out_the_areas']}]
   tree : =>
     menu_condition  : 'edit: conditions'
     active_item : 'Места выезда'
-    tutor_edit  : module '$':
-      area : module 'tutor/forms/drop_down_list'  :
+    tutor_edit  : @module '$':
+      area : @module 'tutor/forms/drop_down_list'  :
         text      : 'Район :'
         selector  : 'first_reg'
       ###
-        metro : module 'tutor/forms/drop_down_list'  :
+        metro : @module 'tutor/forms/drop_down_list'  :
           text      : 'Метро :'
           selector  : 'first_reg'
           default_options     : {

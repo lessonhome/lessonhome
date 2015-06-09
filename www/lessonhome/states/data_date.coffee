@@ -1,7 +1,7 @@
 
 class @main
-  tree : -> module '$' :
-    day   : module 'tutor/forms/drop_down_list' :
+  tree : => @module '$' :
+    day   : @module 'tutor/forms/drop_down_list' :
       text        : @exports()
       placeholder : 'День'
       selector    : 'first_reg_day'
@@ -39,7 +39,7 @@ class @main
         '30': {value: '31', text: '31'}
       }
       value : @exports 'day_value'
-    month : module 'tutor/forms/drop_down_list' :
+    month : @module 'tutor/forms/drop_down_list' :
       placeholder : 'Месяц'
       selector    : 'first_reg_month'
       default_options     : {
@@ -57,7 +57,7 @@ class @main
         '11': {value: 'december', text: 'декабрь'}
       }
       value: @exports 'month_value'
-    year  : module 'tutor/forms/drop_down_list' :
+    year  : @module 'tutor/forms/drop_down_list' :
       placeholder : 'Год'
       selector    : 'first_reg_month'
       default_options     : {

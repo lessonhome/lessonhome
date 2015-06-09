@@ -303,14 +303,17 @@ class module.exports
   res404  : (req,res,err)=>
     console.error err if err?
     req.url = '/404'
+    res.statusCode = 404
     @server.handler req,res
   res403  : (req,res,err)=>
     console.error err if err?
     req.url = '/403'
+    res.statusCode = 403
     @server.handler req,res
   res500  : (req,res,err)=>
     console.error err if err?
     req.url = '/500'
+    res.statusCode = 500
     @server.handler req,res
 
 

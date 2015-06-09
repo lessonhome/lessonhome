@@ -10,8 +10,6 @@
     errs.push "bad_post"
   if 0 < f.skype.length < 3
     errs.push "bad_skype"
-  if 0 < f.site.length < 5
-    errs.push "bad_site"
   #empty
   #if f.mobile_phone.length == 0
   #  errs.push "empty_mobile"

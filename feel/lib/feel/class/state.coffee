@@ -21,11 +21,11 @@ class module.exports
       console.error Exception e
       throw new Error "Failed compile satate #{@name}"
     
-    context = [
+    @context = [
       'module'
       'state'
       'template'
-      'exports' # fix module.exports to undefined, use @exports instead
+      #'exports' # fix module.exports to undefined, use @exports instead
       'extend'
       'data'
       'F'
@@ -35,12 +35,15 @@ class module.exports
     @src  = "var file = {};
             (function(){"
 
-    for f in context
-      @src += " var #{f} = that.function_#{f};"
+    #for f in @context
+    #  @src += " var #{f} = that.function_#{f};"
     @src += " var $urls   = that.site.router.url,
                   $router = that.site.router,
                   $site   = that.site,
-                  $db     = that.site.db;"
+                  $db     = that.site.db;
+              this.template = that.function_template;
+                  
+                  "
     @src += src
     @src += "
       if (this.main && this.main.prototype && this.main.prototype.tree){
@@ -49,13 +52,13 @@ class module.exports
           var that = this;
           "
           
-    for f in context
-      @src += "
-      var __old#{f} = #{f};
-          #{f} = function(){
-            return __old#{f}.call.apply(__old#{f}, [that].concat([].slice.call(arguments), [that]));
-          };
-          "
+    #for f in @context
+    #  @src += "
+    #  var __old#{f} = #{f};
+    #      #{f} = function(){
+    #        return __old#{f}.call.apply(__old#{f}, [that].concat([].slice.call(arguments), [that]));
+    #     };
+    #     "
     @src +="
           return __oldtree.call.apply(__oldtree, [that].concat([].slice.call(arguments)));
       };}
@@ -101,6 +104,9 @@ class module.exports
   make           : (o,state,...,req,res)=> do Q.async =>
     @makeClass()
     state         ?= new @class()
+    for f in @context
+      do (f,state)=>
+        state[f] = => @['function_'+f] arguments...,state
     req._smart = true
     res._smart = true
     state.req = req
@@ -265,12 +271,12 @@ class module.exports
       throw e
     
   walk_tree_up : (node, foo)=>
-    if (typeof node == 'object' || typeof node == 'function') && !node?._smart
+    if node && (typeof node == 'object' || typeof node == 'function') && !node?._smart
       for key,val of node
         @walk_tree_up node[key],foo
         foo node,key,val
   walk_tree_down : (node,foo)=>
-    if (typeof node == 'object' || typeof node == 'function') && !node?._smart
+    if node && (typeof node == 'object' || typeof node == 'function') && !node?._smart
       for key,val of node
         foo node,key,val if val?
       for key,val of node
@@ -314,7 +320,7 @@ class module.exports
       return tree
     catch e
       throw new Error "Failed make state '#{o}':'#{name}' from state '#{@name}':\n"+e
-  function_template  : (o,...,state)=>
+  function_template  : (o)=>
     if typeof o == 'string'
       name = @statename_resolve o
       o = null

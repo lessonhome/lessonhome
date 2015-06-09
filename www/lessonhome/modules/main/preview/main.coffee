@@ -1,7 +1,11 @@
+
 class @main extends EE
+  constructor : ->
   Dom : =>
     @sort = @tree.sort.class
-  show : =>
+  show : => do Q.async =>
+    console.log 'tutors',@tree.tutors
+    console.log 'send', yield @$send 'tutors'
     @tutors_result = @tree.tutors_result
     @choose_tutors_num = @found.choose_tutors_num
     @tutors_result[1].tutor_extract.class.found.add_button_bid.on 'click', =>
@@ -21,11 +25,11 @@ class @main extends EE
           })
         console.log @imgclone.offset()
 
-    @sort.on 'change', => @emit 'change'
-    @sort.on 'end', => @emit 'end'
+    @sort.on 'change',  => @emit 'change'
+    @sort.on 'end',     => @emit 'end'
 
-    @on 'change', => console.log @getValue()
-    @on 'end', => console.log @getValue()
+    @on 'change', =>  console.log  @getValue()
+    @on 'end',    =>  console.log  @getValue()
 
   getValue : =>
     return {

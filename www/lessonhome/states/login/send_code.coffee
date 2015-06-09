@@ -1,4 +1,4 @@
-class @main extends template '../main'
+class @main extends @template '../main'
   route : '/send_code'
   model : 'main/second_step'
   title : "Отправьте код подтверждения"
@@ -9,22 +9,22 @@ class @main extends template '../main'
     'pupil' : 'main/first_step'
   }
   tree : =>
-    content : module '$'  :
+    content : @module '$'  :
       depend : [
-        module 'lib/crypto'
-        module 'lib/lzstring'
+        @module 'lib/crypto'
+        @module 'lib/lzstring'
       ]
-      newCode_button    : module 'tutor/button' :
+      newCode_button    : @module 'tutor/button' :
         selector  : 'new_code'
         text      : 'Отправить новый код'
-      code           : module 'tutor/forms/input' :
+      code           : @module 'tutor/forms/input' :
         replace : [
           "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
         ]
         name        : 'email'
         selector    : 'registration'
         text1       : 'Введите код :'
-      continue_button    : module 'link_button' :
+      continue_button    : @module 'link_button' :
         href      : '/new_password'
         selector  : 'send_code'
         text      : 'Продолжить'

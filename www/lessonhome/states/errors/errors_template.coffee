@@ -1,6 +1,6 @@
 
 class @main
-  tree : => module '$' :
+  tree : => @module '$' :
     photo : @exports()
     top_text    : @exports()
     center_text : @exports()

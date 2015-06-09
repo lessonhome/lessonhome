@@ -1,4 +1,4 @@
-class @main extends template '../fast_bid'
+class @main extends @template '../fast_bid'
   route : '/fast_bid/first_step'
   model : 'main/application/1_step'
   title : "быстрое оформление заявки: первый шаг"
@@ -9,14 +9,14 @@ class @main extends template '../fast_bid'
   }
   tree : ->
     progress : $form : account : 'fast_bid_progress'
-    content : module '$' :
-      name : module 'tutor/forms/input' :
+    content : @module '$' :
+      name : @module 'tutor/forms/input' :
         text1      : 'Имя :'
         selector  : 'fast_bid'
         pattern   : '^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,15}$'
         errMessage: 'Введите корректное имя (имя может содержать только цифры, символы алфавита и _)'
         value     : $form : person : 'first_name'
-      phone : module 'tutor/forms/input':
+      phone : @module 'tutor/forms/input':
         text1: 'Телефон :'
         selector  : 'fast_bid'
         value     : $form : pupil : 'newBid.phone_call.phones.0' #'phone_call_phones_first'
@@ -36,7 +36,7 @@ class @main extends template '../fast_bid'
         patterns : [
           "^\\+7 \\(\\d\\d\\d\\) \\d\\d\\d-\\d\\d-\\d\\d$" : "Введите телефон <br>в формате +7 (926) 123-45-45"
         ]
-      email : module 'tutor/forms/input':
+      email : @module 'tutor/forms/input':
         text1: 'E-mail :'
         selector  : 'fast_bid'
         replace   : [
@@ -52,7 +52,7 @@ class @main extends template '../fast_bid'
         errMessage  : 'Пожалуйста введите корректный email'
         value : $form : person : 'email_first'
         
-      subject :module 'tutor/forms/drop_down_list':
+      subject :@module 'tutor/forms/drop_down_list':
         text: 'Предмет :'
         selector  : 'fast_bid'
         default_options     : {
@@ -132,11 +132,11 @@ class @main extends template '../fast_bid'
 
         }
         value : $form : pupil : 'newBid.subjects.0.subject'
-      call_time : module 'tutor/forms/textarea':
+      call_time : @module 'tutor/forms/textarea':
         text: 'В какое время Вам звонить :'
         selector  : 'fast_bid'
         value     : $form : pupil : 'newBid.phone_call.description'
-      comments : module 'tutor/forms/textarea':
+      comments : @module 'tutor/forms/textarea':
         text: 'Комментарии :'
         selector  : 'fast_bid'
         value : $form : pupil : 'newBid.subjects.0.comments'

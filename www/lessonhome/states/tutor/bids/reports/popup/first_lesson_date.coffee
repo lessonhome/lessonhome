@@ -1,17 +1,18 @@
-class @main extends template '../popup'
+class @main extends @template '../popup'
   route : '/tutor/reports/first_lesson_date'
   model : 'tutor/bids/reports_step2_fill'
   title : "Дата первого занятия"
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
   tree : ->
-    content : module '$' :
-      date : module 'tutor/forms/input' :
+    content : @module '$' :
+      date : @module 'tutor/forms/input' :
         text2 : 'Дата'
         selector : 'calendar'
-      time : module 'tutor/forms/input' :
+      time : @module 'tutor/forms/input' :
         text2 : 'Время'
         selector : 'calendar'
 

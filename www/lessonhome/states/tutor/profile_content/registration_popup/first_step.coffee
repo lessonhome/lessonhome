@@ -1,20 +1,21 @@
-class @main extends template '../registration_popup'
+class @main extends @template '../registration_popup'
   forms : [{account:['registration_progress']}]
   route : '/tutor/profile/first_step'
   model : 'tutor/profile_registration/first_step'
   title : "первый вход"
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
-  tree : ->
+  tree : =>
     progress  : $form : account : 'registration_progress'
     close   : false
-    content : module '$' :
-      understand_button : module 'tutor/button' :
+    content : @module '$' :
+      understand_button : @module 'tutor/button' :
         selector: 'understand'
         text:      'Спасибо, я понял'
-      form      : state 'general_data'
+      form      : @state 'general_data'
   init : ->
     @parent.tree.popup.button_back.selector = 'fast_bid_nav inactive'
     @parent.tree.popup.button_back.href = false

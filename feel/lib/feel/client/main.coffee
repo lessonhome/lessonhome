@@ -2,6 +2,7 @@
 
 class @Feel
   init : ->
+    setTimeout @checkUnknown,2000
     for key,val of $Feel
       @[key] = val
     for key,mod of $Feel.modules
@@ -104,8 +105,12 @@ class @Feel
       $('body').addClass 'unselect_all'
     else
       $('body').removeClass 'unselect_all'
-
-
+  checkUnknown : =>
+    unknown = $.cookie('unknown')
+    $.cookie 'unknown', 'set'+window.Feel.user.sessionpart if unknown == 'need'
+    
+  go : (href)=>
+    window.location.replace href if href
 
 
 window.Feel = new @Feel()

@@ -1,4 +1,4 @@
-class @main extends template '../edit'
+class @main extends @template '../edit'
   tree  : =>
     items :
       'Предметы'     : 'subjects'

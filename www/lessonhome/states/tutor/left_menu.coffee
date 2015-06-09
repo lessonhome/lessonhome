@@ -1,37 +1,37 @@
 class @main
-  tree : -> module '$' :
+  tree : -> @module '$' :
     items : [
-      module '//item' :
+      @module '//item' :
         title : 'Анкета'
         item_class : 'profile'
         href : 'profile'
 
-      module '//item' :
+      @module '//item' :
         title : 'Заявки'
         item_class : 'bids'
         href : 'search_bids'
 
-      module '//item' :
+      @module '//item' :
         title : 'Оплата'
         item_class : 'payment'
         href : '#'
 
-      module '//item' :
+      @module '//item' :
         title : 'Документы'
         item_class : 'documents'
         href : '#'
 
-      module '//item' :
+      @module '//item' :
         title : 'Форум'
         item_class : 'forum'
         href : '#'
 
-      module '//item' :
+      @module '//item' :
         title : 'Статьи'
         item_class : 'articles'
         href : '#'
 
-      module '//item' :
+      @module '//item' :
         title : 'Поддержка'
         item_class : 'support'
         href : '#'

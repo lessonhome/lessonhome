@@ -1,10 +1,11 @@
-class @main extends template '../registration_popup'
+class @main extends @template '../registration_popup'
   route : '/tutor/profile/second_step'
   model : 'tutor/profile_registration/second_step'
   title : "Регистрация : шаг2"
   access : ['tutor']
   redirect : {
-    'default' : 'main/first_step'
+    'other' : 'main/first_step'
+    'pupil' : 'main/first_step'
   }
   status : {
     '!tutor_prereg_1':'/tutor/profile/first_step'
@@ -13,8 +14,8 @@ class @main extends template '../registration_popup'
   tree : =>
     progress  : $form : account : 'registration_progress'
     close     : true
-    content   : module '$' :
-      form  : state 'contacts_tutor' :
+    content   : @module '$' :
+      form  : @state 'contacts_tutor' :
         href_back : '/tutor/profile/second_step'
         href      : '/tutor/profile/second_step_address'
         address_popup   : @exports()

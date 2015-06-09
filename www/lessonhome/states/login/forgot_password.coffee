@@ -1,4 +1,4 @@
-class @main extends template '../main'
+class @main extends @template '../main'
   route : '/forgot_password'
   model : 'main/second_step'
   title : "Забыли пароль"
@@ -9,18 +9,18 @@ class @main extends template '../main'
     'pupil' : 'main/first_step'
   }
   tree : =>
-    content : module '$'  :
+    content : @module '$'  :
       depend : [
-        module 'lib/crypto'
-        module 'lib/lzstring'
+        @module 'lib/crypto'
+        @module 'lib/lzstring'
       ]
-      login           : module 'tutor/forms/input' :
+      login           : @module 'tutor/forms/input' :
         replace : [
           "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
         ]
         name        : 'email'
         selector    : 'registration'
-      send_button    : module 'link_button' :
+      send_button    : @module 'link_button' :
         href      : '/send_code'
         selector  : 'take_code'
         text      : 'Отправить код'

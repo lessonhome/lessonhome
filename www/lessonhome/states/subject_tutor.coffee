@@ -1,8 +1,8 @@
 
 class @main
   forms : [{'tutor':['subjects']}]
-  tree : -> module '$' :
-    select_subject_field : module 'tutor/forms/drop_down_list' :
+  tree : => @module '$' :
+    select_subject_field : @module 'tutor/forms/drop_down_list' :
       text      : 'Предмет :'
       selector  : 'first_reg'
       default_options     : {
@@ -84,5 +84,5 @@ class @main
         a = s?[0]?.name
         return a?=""
     subjects     : [
-      state 'tutor/subjects_detail'
+      @state 'tutor/subjects_detail'
     ]

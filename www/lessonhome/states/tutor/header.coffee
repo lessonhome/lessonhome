@@ -1,22 +1,22 @@
 class @main
   forms : ['account','person']
-  tree : => module '$' :
+  tree : => @module '$' :
     depend : [
-      module 'lib/crypto'
-      module 'lib/lzstring'
+      @module 'lib/crypto'
+      @module 'lib/lzstring'
     ]
-    logo      : module '$/logo'
-    top_menu : module '$/top_menu' :
+    logo      : @module '$/logo'
+    top_menu : @module '$/top_menu' :
       items     : @exports()
     icons     : @exports()
-    back_call : module '$/back_call'  :
+    back_call : @module '$/back_call'  :
       city            : 'Москва'
-      call_back_popup : state '../main/call_back_popup' :
+      call_back_popup : @state '../main/call_back_popup' :
         selector: 'header'
 
-    button_in_out :  module '$/button_in_out' :
+    button_in_out :  @module '$/button_in_out' :
       registered  : $form : account : 'registered'
-      login       :  module './forms/input'  :
+      login       :  @module './forms/input'  :
         replace : [
           '[^\\d-\\(\\)\\@\\w\\+\\s\\.]'
         ]
@@ -24,30 +24,30 @@ class @main
         selector    : 'fast_bid'
         placeholder : 'Логин'
         name        : 'email'
-      password   :  module './forms/input'  :
+      password   :  @module './forms/input'  :
         text1 : "Пароль"
         type        : 'password'
         selector    : 'fast_bid'
         placeholder : 'Пароль'
         name        : 'password'
-      enter       : module './button' :
+      enter       : @module './button' :
         text  : 'Войти'
         selector      : 'in_out'
 
-    tutor_icon : module 'mime/photo' :
+    tutor_icon : @module 'mime/photo' :
       photo   : $form : person : 'avatar'
-      src     : F 'vk.unknown.man.jpg'
+      src     : @F 'vk.unknown.man.jpg'
     tutor_icon_list : [
-      module 'tutor/header/list_button/item' :
+      @module 'tutor/header/list_button/item' :
         title : 'Профиль'
         link : '/tutor/profile'
-      module 'tutor/header/list_button/item' :
+      @module 'tutor/header/list_button/item' :
         title : 'Заявки'
         link : '/tutor/search_bids'
-      module 'tutor/header/list_button/item' :
+      @module 'tutor/header/list_button/item' :
         title : 'Помощь'
         link : '#'
-      module 'tutor/header/list_button/item' :
+      @module 'tutor/header/list_button/item' :
         title : 'Выход'
         link : '/form/tutor/logout'
     ]

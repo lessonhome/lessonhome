@@ -1,5 +1,5 @@
 
 class @main
-  tree : -> module '$' :
+  tree : => @module '$' :
     items       : @exports()
     active_item : @exports()
