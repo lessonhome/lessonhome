@@ -4,6 +4,7 @@ class @main extends @template './motivation_content'
   route : '/'
   model   : 'main/first_step'
   title : "выберите предмет"
+  forms : ['pupil']
   tags  : -> 'pupil:main_search'
   access : ['other','pupil']
   redirect : {
@@ -91,9 +92,8 @@ class @main extends @template './motivation_content'
           '70': {value: 'economy', text: 'экономика'}
           '71': {value: 'electrical_engineering', text: 'электротехника'}
           '72': {value: 'japanese', text: 'японский язык'}
-
-
         }
+        value : $form : pupil : 'newBid.subjects.0.subject'
       ###choose_subject  : @module '../selected_tag'  :
         selector  : 'choose_subject'
         id        : '123'

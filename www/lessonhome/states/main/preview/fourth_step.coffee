@@ -2,6 +2,7 @@ class @main extends @template '../preview'
   route : '/fourth_step'
   model : 'main/fourth_step'
   title : "выберите диапазон цены"
+  forms : ['pupil']
   tags  : -> 'pupil:main_search'
   access : ['pupil','other']
   redirect : {
@@ -21,10 +22,13 @@ class @main extends @template '../preview'
           text2     : 'до'
           align : 'center'
         measurement   : 'руб.'
-        value :
+        handle        : true
+        value         :
           min : 400
           max : 5000
-          handle        : true
+          left  : $form : pupil : 'newBid.subjects.0.lesson_price.0'
+          right : $form : pupil : 'newBid.subjects.0.lesson_price.1'
+
       link_back       :  '/third_step'
 
 
