@@ -21,9 +21,10 @@ class @main extends template '../preview'
           text2     : 'до'
           align : 'center'
         measurement   : 'руб.'
-        min : 400
-        max : 5000
-        handle        : true
+        value :
+          min : 400
+          max : 5000
+          handle        : true
       link_back       :  '/third_step'
 
 

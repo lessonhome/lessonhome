@@ -130,7 +130,6 @@ class @main extends EE
     @with_verification.setValue data.with_verification  if data?.with_verification?
 
 
-
   getData : =>
     add_course_tags = []
     add_course_children = @add_course_block.children()
