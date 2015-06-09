@@ -66,12 +66,14 @@ class Register
     if typeof unknown == 'string' && (m = unknown.match /^set(.*)$/)
       if m[1] == session.hash.substr 0,8
         delete account.unknown
+        yield _invoke(@account,'update',{id:account.id},{$set:{account}},{upsert:true})
+        yield _invoke(@session,'update',{hash:session.hash},{$set:session},{upsert:true})
     if !created && !account.unknown
       session.accessTime = new Date()
       account.accessTime = new Date()
-      _invoke(@account,'update',{id:account.id},{$set:{accessTime:(new Date())}},{upsert:true})
+      _invoke(@account,'update',{id:account.id},{$set:{account}},{upsert:true})
       .catch @onError
-      _invoke(@session,'update',{hash:session.hash},{$set:{accessTime:(new Date())}},{upsert:true})
+      _invoke(@session,'update',{hash:session.hash},{$set:session},{upsert:true})
       .catch @onError
     types = ""
     for key,val of account.type
