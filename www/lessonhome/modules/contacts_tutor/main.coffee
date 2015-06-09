@@ -38,8 +38,6 @@ class @main
   check_place_click :(e) =>
     if (!@address_box.is(e.target) && @address_box.has(e.target).length == 0)
       Feel.go '/tutor/profile/second_step'
-      # @link_popup.href('/tutor/profile/second_step')
-
 
 
   save :() => Q().then =>
