@@ -1,0 +1,464 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Feel - ReplSet</title><script>if (location.protocol.match(/^http/) && location.pathname.match('\.html') === null && location.pathname.slice(-1) !== '/') {
+  location.href = location.href + '/';
+}</script><link href="../bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script><script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]--><link href="../google-code-prettify/prettify.css" rel="stylesheet" type="text/css"><link href="../style.css" rel="stylesheet" type="text/css"></head><body data-spy="scroll" data-target=".sidebar"><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#top-navigation-collapse" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div id="top-navigation-collapse" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="../index.html">Home</a></li><li><a href="../modules/index.html">Modules</a></li><li class="active"><a href="../classes/index.html">Classes - ReplSet</a></li></ul><div class="options"><label class="checkbox"><input id="options-private" type="checkbox"> Private </label></div></div></div></nav><div class="container-fluid content"><div class="row"><div data-spy="affix" class="hidden-xs sidebar col-sm-3"><div class="cormo-sidenav"><div class="panel panel-default"><div id="undefined_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../classes/Admin.html">Admin</a></li><li><a href="../classes/AggregationCursor.html">AggregationCursor</a></li><li><a href="../classes/BSON.html">BSON</a></li><li><a href="../classes/Binary.html">Binary</a></li><li><a href="../classes/Chunk.html">Chunk</a></li><li><a href="../classes/Code.html">Code</a></li><li><a href="../classes/CommandCursor.html">CommandCursor</a></li><li><a href="../classes/CommandResult.html">CommandResult</a></li><li><a href="../classes/Connection.html">Connection</a></li><li><a href="../classes/DBRef.html">DBRef</a></li><li><a href="../classes/Double.html">Double</a></li><li><a href="../classes/EventEmitter Manages event registering and emitting..html">EventEmitter Manages event registering and emitting.</a></li><li><a href="../classes/FindOperatorsOrdered.html">FindOperatorsOrdered</a></li><li><a href="../classes/GSSAPI.html">GSSAPI</a></li><li><a href="../classes/GridStoreStream.html">GridStoreStream</a></li><li><a href="../classes/Logger.html">Logger</a></li><li><a href="../classes/Long.html">Long</a></li><li><a href="../classes/MasterProcessConnector.html">MasterProcessConnector</a></li><li><a href="../classes/MasterProcessFork.html">MasterProcessFork</a></li><li><a href="../classes/MaxKey.html">MaxKey</a></li><li><a href="../classes/MinKey.html">MinKey</a></li><li><a href="../classes/MongoCR.html">MongoCR</a></li><li><a href="../classes/MongoClient.html">MongoClient</a></li><li><a href="../classes/MongoError.html">MongoError</a></li><li><a href="../classes/Mongos.html">Mongos</a></li><li><a href="../classes/Ping.html">Ping</a></li><li><a href="../classes/Plain.html">Plain</a></li><li><a href="../classes/Pool.html">Pool</a></li><li class="active"><a href="#ReplSet">ReplSet</a></li><li class="cormo-class-property"><a href="#ReplSet__addAuthProvider">addAuthProvider</a></li><li class="cormo-class-property"><a href="#ReplSet__addReadPreferenceStrategy">addReadPreferenceStrategy</a></li><li class="cormo-class-property"><a href="#ReplSet__auth">auth</a></li><li class="cormo-class-property"><a href="#ReplSet__command">command</a></li><li class="cormo-class-property"><a href="#ReplSet__connect">connect</a></li><li class="cormo-class-property"><a href="#ReplSet__connections">connections</a></li><li class="cormo-class-property"><a href="#ReplSet__connections">connections</a></li><li class="cormo-class-property"><a href="#ReplSet__cursor">cursor</a></li><li class="cormo-class-property"><a href="#ReplSet__destroy">destroy</a></li><li class="cormo-class-property"><a href="#ReplSet__getConnection">getConnection</a></li><li class="cormo-class-property"><a href="#ReplSet__getServer">getServer</a></li><li class="cormo-class-property"><a href="#ReplSet__insert">insert</a></li><li class="cormo-class-property"><a href="#ReplSet__isConnected">isConnected</a></li><li class="cormo-class-property"><a href="#ReplSet__isDestroyed">isDestroyed</a></li><li class="cormo-class-property"><a href="#ReplSet__lastIsMaster">lastIsMaster</a></li><li class="cormo-class-property"><a href="#ReplSet__parserType">parserType</a></li><li class="cormo-class-property"><a href="#ReplSet__remove">remove</a></li><li class="cormo-class-property"><a href="#ReplSet__setBSONParserType">setBSONParserType</a></li><li class="cormo-class-property"><a href="#ReplSet__update">update</a></li><li><a href="../classes/Represents the BSON Code type..html">Represents the BSON Code type.</a></li><li><a href="../classes/Represents the BSON DBRef type..html">Represents the BSON DBRef type.</a></li><li><a href="../classes/Represents the BSON Double type..html">Represents the BSON Double type.</a></li><li><a href="../classes/Represents the BSON Long type..html">Represents the BSON Long type.</a></li><li><a href="../classes/Represents the BSON MaxKey type..html">Represents the BSON MaxKey type.</a></li><li><a href="../classes/Represents the BSON MinKey type..html">Represents the BSON MinKey type.</a></li><li><a href="../classes/Represents the BSON ObjectID type.html">Represents the BSON ObjectID type</a></li><li><a href="../classes/Represents the BSON Parser.html">Represents the BSON Parser</a></li><li><a href="../classes/Represents the BSON Symbol type..html">Represents the BSON Symbol type.</a></li><li><a href="../classes/Represents the BSON Timestamp type..html">Represents the BSON Timestamp type.</a></li><li><a href="../classes/Represents the Binary BSON type..html">Represents the Binary BSON type.</a></li><li><a href="../classes/SSPI.html">SSPI</a></li><li><a href="../classes/ScramSHA1.html">ScramSHA1</a></li><li><a href="../classes/Server.html">Server</a></li><li><a href="../classes/Session.html">Session</a></li><li><a href="../classes/SlaveProcessConnector.html">SlaveProcessConnector</a></li><li><a href="../classes/Symbol.html">Symbol</a></li><li><a href="../classes/Timestamp.html">Timestamp</a></li><li><a href="../classes/UnorderedBulkOperation.html">UnorderedBulkOperation</a></li><li><a href="../classes/X509.html">X509</a></li><li><a href="../classes/create.html">create</a></li></ul></div></div></div></div><div class="col-sm-9 col-sm-offset-3"><span id="ReplSet" class="fix-anchor"></span><section><h1 class="class_title">ReplSet</h1><div><p>Creates a new Replset instance</p>
+</div><div></div><div class="panel panel-info"><div data-toggle="collapse" data-target="#ReplSet_ctor_body" class="panel-heading collapsed"><h3 class="panel-title">Constructor<span class="pull-right glyphicon"></span></h3></div><div id="ReplSet_ctor_body" class="panel-collapse collapse"><div class="panel-body"><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>seedlist</code></td><td><span><span class='missing-link'>array</span></span></td><td><span> A list of seeds for the replicaset</span></td></tr><tr><td><span class="method-depth0"></span><code>options.setName</code></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> The Replicaset set name</span></td></tr><tr><td><span class="method-depth0"></span><code>options.secondaryOnlyConnectionAllowed=false</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Allow connection to a secondary only replicaset</span></td></tr><tr><td><span class="method-depth0"></span><code>options.haInterval=5000</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> The High availability period for replicaset inquiry</span></td></tr><tr><td><span class="method-depth0"></span><code>options.emitError=false</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Server will emit errors events</span></td></tr><tr><td><span class="method-depth0"></span><code>options.cursorFactory=Cursor</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Cursor'>Cursor</a></span></td><td><span> The cursor factory class used for all query cursors</span></td></tr><tr><td><span class="method-depth0"></span><code>options.size=5</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Server connection pool size</span></td></tr><tr><td><span class="method-depth0"></span><code>options.keepAlive=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> TCP Connection keep alive enabled</span></td></tr><tr><td><span class="method-depth0"></span><code>options.keepAliveInitialDelay=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Initial delay before TCP keep alive enabled</span></td></tr><tr><td><span class="method-depth0"></span><code>options.noDelay=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> TCP Connection no delay</span></td></tr><tr><td><span class="method-depth0"></span><code>options.connectionTimeout=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> TCP Connection timeout setting</span></td></tr><tr><td><span class="method-depth0"></span><code>options.socketTimeout=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> TCP Socket timeout setting</span></td></tr><tr><td><span class="method-depth0"></span><code>options.singleBufferSerializtion=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Serialize into single buffer, trade of peak memory for serialization speed</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ssl=false</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Use SSL for connection</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ca</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span> SSL Certificate store binary buffer</span></td></tr><tr><td><span class="method-depth0"></span><code>options.cert</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span> SSL Certificate binary buffer</span></td></tr><tr><td><span class="method-depth0"></span><code>options.key</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span> SSL Key file binary buffer</span></td></tr><tr><td><span class="method-depth0"></span><code>options.passphrase</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>string</span></span></td><td><span> SSL Certificate pass phrase</span></td></tr><tr><td><span class="method-depth0"></span><code>options.rejectUnauthorized=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Reject unauthorized server certificates</span></td></tr><tr><td><span class="method-depth0"></span><code>options.promoteLongs=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Convert Long values from the db into Numbers if they fit into 53 bits</span></td></tr><tr><td><span class="method-depth0"></span><code>options.pingInterval=5000</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Ping interval to check the response time to the different servers</span></td></tr><tr><td><span class="method-depth0"></span><code>options.acceptableLatency=250</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Acceptable latency for selecting a server for reading (in milliseconds)</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">var ReplSet = function(seedlist, options) {
+  var self = this;
+  options = options || {};
+
+  // Validate seedlist
+  if(!Array.isArray(seedlist)) throw new MongoError(&quot;seedlist must be an array&quot;);
+  // Validate list
+  if(seedlist.length == 0) throw new MongoError(&quot;seedlist must contain at least one entry&quot;);
+  // Validate entries
+  seedlist.forEach(function(e) {
+    if(typeof e.host != 'string' || typeof e.port != 'number')
+      throw new MongoError(&quot;seedlist entry must contain a host and port&quot;);
+  });
+
+  // Add event listener
+  EventEmitter.call(this);
+
+  // Set the bson instance
+  bsonInstance = bsonInstance == null ? new BSON(bsonTypes) : bsonInstance;
+
+  // Internal state hash for the object
+  this.s = {
+      options: options
+    // Logger instance
+    , logger: Logger('ReplSet', options)
+    // Uniquely identify the replicaset instance
+    , id: replSetId++
+    // Index
+    , index: 0
+    // Ha Index
+    , haId: 0
+    // Current credentials used for auth
+    , credentials: []
+    // Factory overrides
+    , Cursor: options.cursorFactory || BasicCursor
+    // BSON Parser, ensure we have a single instance
+    , bsonInstance: bsonInstance
+    // Pick the right bson parser
+    , bson: options.bson ? options.bson : bsonInstance
+    // Special replicaset options
+    , secondaryOnlyConnectionAllowed: typeof options.secondaryOnlyConnectionAllowed == 'boolean'
+    ? options.secondaryOnlyConnectionAllowed : false
+    , haInterval: options.haInterval || 10000
+    // Are we running in debug mode
+    , debug: typeof options.debug == 'boolean' ? options.debug : false
+    // The replicaset name
+    , setName: options.setName
+    // Swallow or emit errors
+    , emitError: typeof options.emitError == 'boolean' ? options.emitError : false
+    // Grouping tag used for debugging purposes
+    , tag: options.tag
+    // Do we have a not connected handler
+    , disconnectHandler: options.disconnectHandler
+    // Currently connecting servers
+    , connectingServers: {}
+    // Contains any alternate strategies for picking
+    , readPreferenceStrategies: {}
+    // Auth providers
+    , authProviders: {}
+    // All the servers
+    , disconnectedServers: []
+    // Initial connection servers
+    , initialConnectionServers: []
+    // High availability process running
+    , highAvailabilityProcessRunning: false
+    // Full setup
+    , fullsetup: false
+    // All servers accounted for (used for testing)
+    , all: false
+    // Seedlist
+    , seedlist: seedlist
+    // Authentication in progress
+    , authInProgress: false
+    // Servers added while auth in progress
+    , authInProgressServers: []
+    // Minimum heartbeat frequency used if we detect a server close
+    , minHeartbeatFrequencyMS: 500
+  }
+
+  // Add bson parser to options
+  options.bson = this.s.bson;
+  // Set up the connection timeout for the options
+  options.connectionTimeout = options.connectionTimeout || 10000;
+
+  // Replicaset state
+  var replState = new State(this, {
+      id: this.s.id, setName: this.s.setName
+    , connectingServers: this.s.connectingServers
+    , secondaryOnlyConnectionAllowed: this.s.secondaryOnlyConnectionAllowed
+  });
+
+  // Add Replicaset state to our internal state
+  this.s.replState = replState;
+
+  // BSON property (find a server and pass it along)
+  Object.defineProperty(this, 'bson', {
+    enumerable: true, get: function() {
+      var servers = self.s.replState.getAll();
+      return servers.length &gt; 0 ? servers[0].bson : null;
+    }
+  });
+
+  Object.defineProperty(this, 'id', {
+    enumerable:true, get: function() { return self.s.id; }
+  });
+
+  Object.defineProperty(this, 'haInterval', {
+    enumerable:true, get: function() { return self.s.haInterval; }
+  });
+
+  Object.defineProperty(this, 'state', {
+    enumerable:true, get: function() { return self.s.replState; }
+  });
+
+  //
+  // Debug options
+  if(self.s.debug) {
+    // Add access to the read Preference Strategies
+    Object.defineProperty(this, 'readPreferenceStrategies', {
+      enumerable: true, get: function() { return self.s.readPreferenceStrategies; }
+    });
+  }
+
+  Object.defineProperty(this, 'type', {
+    enumerable:true, get: function() { return 'replset'; }
+  });
+
+  // Add the ping strategy for nearest
+  this.addReadPreferenceStrategy('nearest', new Ping(options));
+}
+
+inherits(ReplSet, EventEmitter);
+
+//
+// Plugin methods
+//</pre></div></div></div></section><span id="ReplSet__addAuthProvider" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__addAuthProvider_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::addAuthProvider(name, provider)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Add custom authentication mechanism</p>
+</div></div><div id="ReplSet__addAuthProvider_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>name</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> Name of the authentication mechanism</span></td></tr><tr><td><span class="method-depth0"></span><code>provider</code></td><td><span><span class='missing-link'>object</span></span></td><td><span> Authentication object instance</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.addAuthProvider = function(name, provider) {
+  if(this.s.authProviders == null) this.s.authProviders = {};
+  this.s.authProviders[name] = provider;
+}</pre></div></div></div></section><span id="ReplSet__addReadPreferenceStrategy" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__addReadPreferenceStrategy_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::addReadPreferenceStrategy(name, strategy)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Add custom read preference strategy</p>
+</div></div><div id="ReplSet__addReadPreferenceStrategy_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>name</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> Name of the read preference strategy</span></td></tr><tr><td><span class="method-depth0"></span><code>strategy</code></td><td><span><span class='missing-link'>object</span></span></td><td><span> Strategy object instance</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.addReadPreferenceStrategy = function(name, func) {
+  this.s.readPreferenceStrategies[name] = func;
+}</pre></div></div></div></section><span id="ReplSet__auth" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__auth_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::auth(mechanism, db, param, callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Authenticate using a specified mechanism</p>
+</div></div><div id="ReplSet__auth_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>mechanism</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The Auth mechanism we are invoking</span></td></tr><tr><td><span class="method-depth0"></span><code>db</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The db we are invoking the mechanism against</span></td></tr><tr><td><span class="method-depth0"></span><code>param</code></td><td><span><span class='missing-link'>...object</span></span></td><td><span> Parameters for the specific mechanism</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>authResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.auth = function(mechanism, db) {
+  var allArgs = Array.prototype.slice.call(arguments, 0).slice(0);
+  var self = this;
+  var args = Array.prototype.slice.call(arguments, 2);
+  var callback = args.pop();
+
+  // If we don't have the mechanism fail
+  if(this.s.authProviders[mechanism] == null &amp;&amp; mechanism != 'default')
+    throw new MongoError(f(&quot;auth provider %s does not exist&quot;, mechanism));
+
+  // Authenticate against all the servers
+  var servers = this.s.replState.getAll().slice(0);
+  var count = servers.length;
+  // Correct authentication
+  var authenticated = true;
+  var authErr = null;
+  // Set auth in progress
+  this.s.authInProgress = true;
+
+  // Authenticate against all servers
+  while(servers.length &gt; 0) {
+    var server = servers.shift();
+
+    // Arguments without a callback
+    var argsWithoutCallback = [mechanism, db].concat(args.slice(0));
+    // Create arguments
+    var finalArguments = argsWithoutCallback.concat([function(err, r) {
+      count = count - 1;
+      if(err) authErr = err;
+      if(!r) authenticated = false;
+
+      // We are done
+      if(count == 0) {
+        // We have more servers that are not authenticated, let's authenticate
+        if(self.s.authInProgressServers.length &gt; 0) {
+          self.s.authInProgressServers = [];
+          return self.auth.apply(self, [mechanism, db].concat(args).concat([callback]));
+        }
+
+        // Auth is done
+        self.s.authInProgress = false;
+        // Add successful credentials
+        if(authErr == null) addCredentials(self.s, db, argsWithoutCallback);
+        // Return the auth error
+        if(authErr) return callback(authErr, false);
+        // Successfully authenticated session
+        callback(null, new Session({}, self));
+      }
+    }]);
+
+    // Execute the auth
+    server.auth.apply(server, finalArguments);
+  }
+}
+
+ReplSet.prototype.state = function() {
+  return this.s.replState.state;
+}</pre></div></div></div></section><span id="ReplSet__command" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__command_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::command(ns, cmd, [options.readPreference], [options.connection], callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Execute a command</p>
+</div></div><div id="ReplSet__command_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>ns</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The MongoDB fully qualified namespace (ex: db1.collection1)</span></td></tr><tr><td><span class="method-depth0"></span><code>cmd</code></td><td><span><span class='missing-link'>object</span></span></td><td><span> The command hash</span></td></tr><tr><td><span class="method-depth0"></span><code>options.readPreference</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../classes/undefined.html#ReadPreference'>ReadPreference</a></span></td><td><span> Specify read preference if command supports it</span></td></tr><tr><td><span class="method-depth0"></span><code>options.connection</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../classes/Connection.html#Connection'>Connection</a></span></td><td><span> Specify connection object to execute command against</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>opResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.command = function(ns, cmd, options, callback) {
+  if(typeof options == 'function') callback = options, options = {};
+  if(this.s.replState.state == DESTROYED) return callback(new MongoError(f('topology was destroyed')));
+
+  var server = null;
+  var self = this;
+  // Ensure we have no options
+  options = options || {};
+
+  // Topology is not connected, save the call in the provided store to be
+  // Executed at some point when the handler deems it's reconnected
+  if(!this.isConnected(options) &amp;&amp; this.s.disconnectHandler != null) {
+    callback = bindToCurrentDomain(callback);
+    return this.s.disconnectHandler.add('command', ns, cmd, options, callback);
+  }
+
+  // We need to execute the command on all servers
+  if(options.onAll) {
+    var servers = this.s.replState.getAll();
+    var count = servers.length;
+    var cmdErr = null;
+
+    for(var i = 0; i &lt; servers.length; i++) {
+      servers[i].command(ns, cmd, options, function(err, r) {
+        count = count - 1;
+        // Finished executing command
+        if(count == 0) {
+          // Was it a logout command clear any credentials
+          if(cmd.logout) clearCredentials(self.s, ns);
+          // We have a no master error, immediately refresh the view of the replicaset
+          if(notMasterError(r) || notMasterError(err)) replicasetInquirer(self, self.s, true)();
+          // Return the error
+          callback(err, r);
+        }
+      });
+    }
+
+    return;
+  }
+
+  // Pick the right server based on readPreference
+  try {
+    server = pickServer(self, self.s, options.writeConcern ? ReadPreference.primary : options.readPreference);
+    if(self.s.debug) self.emit('pickedServer', options.writeConcern ? ReadPreference.primary : options.readPreference, server);
+  } catch(err) {
+    return callback(err);
+  }
+
+  // No server returned we had an error
+  if(server == null) return callback(new MongoError(&quot;no server found&quot;));
+  // Execute the command
+  server.command(ns, cmd, options, function(err, r) {
+    // Was it a logout command clear any credentials
+    if(cmd.logout) clearCredentials(self.s, ns);
+    // We have a no master error, immediately refresh the view of the replicaset
+    if(notMasterError(r) || notMasterError(err)) {
+      replicasetInquirer(self, self.s, true)();
+    }
+    // Return the error
+    callback(err, r);
+  });
+}</pre></div></div></div></section><span id="ReplSet__connect" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__connect_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::connect()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Initiate server connect</p>
+</div></div><div id="ReplSet__connect_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.connect = function(_options) {
+  var self = this;
+  // Start replicaset inquiry process
+  setTimeout(replicasetInquirer(this, this.s, false), this.s.haInterval);
+  // Additional options
+  if(_options) for(var name in _options) this.s.options[name] = _options[name];
+
+  // Set the state as connecting
+  this.s.replState.state = CONNECTING;
+
+  // No fullsetup reached
+  this.s.fullsetup = false;
+
+  // For all entries in the seedlist build a server instance
+  this.s.seedlist.forEach(function(e) {
+    // Clone options
+    var opts = cloneOptions(self.s.options);
+    // Add host and port
+    opts.host = e.host;
+    opts.port = e.port;
+    opts.reconnect = false;
+    opts.readPreferenceStrategies = self.s.readPreferenceStrategies;
+    opts.emitError = true;
+    if(self.s.tag) opts.tag = self.s.tag;
+    // Share the auth store
+    opts.authProviders = self.s.authProviders;
+    // Create a new Server
+    var server = new Server(opts);
+    // Add to list of disconnected servers
+    self.s.disconnectedServers.push(server);
+    // Add to list of inflight Connections
+    self.s.initialConnectionServers.push(server);
+  });
+
+  // Attempt to connect to all the servers
+  while(this.s.disconnectedServers.length &gt; 0) {
+    // Get the server
+    var server = this.s.disconnectedServers.shift();
+
+    // Set up the event handlers
+    server.once('error', errorHandlerTemp(this, this.s, 'error'));
+    server.once('close', errorHandlerTemp(this, this.s, 'close'));
+    server.once('timeout', errorHandlerTemp(this, this.s, 'timeout'));
+    server.once('connect', connectHandler(this, this.s));
+
+    // Attempt to connect
+    server.connect();
+  }
+}</pre></div></div></div></section><span id="ReplSet__connections" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__connections_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::connections()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>All raw connections</p>
+</div></div><div id="ReplSet__connections_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>Connection[]</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.connections = function() {
+  return this.s.replState.getAllConnections();
+}</pre></div></div></div></section><span id="ReplSet__connections" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__connections_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::connections()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>All raw connections</p>
+</div></div><div id="ReplSet__connections_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>array</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.connections = function() {
+  return this.s.replset.connections();
+}</pre></div></div></div></section><span id="ReplSet__cursor" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__cursor_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::cursor(ns, cmd, [options.batchSize=0], [options.documents=[]], [options.readPreference], callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Perform one or more remove operations</p>
+</div></div><div id="ReplSet__cursor_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>ns</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The MongoDB fully qualified namespace (ex: db1.collection1)</span></td></tr><tr><td><span class="method-depth0"></span><code>cmd</code></td><td><span><span class='missing-link'>object</span>, <a href='../classes/Long.html#Long'>Long</a></span></td><td><span> Can be either a command returning a cursor or a cursorId</span></td></tr><tr><td><span class="method-depth0"></span><code>options.batchSize=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> Batchsize for the operation</span></td></tr><tr><td><span class="method-depth0"></span><code>options.documents=[]</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>array</span></span></td><td><span> Initial documents list for cursor</span></td></tr><tr><td><span class="method-depth0"></span><code>options.readPreference</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../classes/undefined.html#ReadPreference'>ReadPreference</a></span></td><td><span> Specify read preference if command supports it</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>opResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.cursor = function(ns, cmd, cursorOptions) {
+  cursorOptions = cursorOptions || {};
+  var FinalCursor = cursorOptions.cursorFactory || this.s.Cursor;
+  return new FinalCursor(this.s.bson, ns, cmd, cursorOptions, this, this.s.options);
+}
+
+//
+// Execute write operation
+var executeWriteOperation = function(self, op, ns, ops, options, callback) {
+  if(typeof options == 'function') {
+    callback = options;
+    options = {};
+  }
+
+  var server = null;
+  // Ensure we have no options
+  options = options || {};
+  // Get a primary
+  try {
+    server = pickServer(self, self.s, ReadPreference.primary);
+    if(self.s.debug) self.emit('pickedServer', ReadPreference.primary, server);
+  } catch(err) {
+    return callback(err);
+  }
+
+  // No server returned we had an error
+  if(server == null) return callback(new MongoError(&quot;no server found&quot;));
+
+  // Execute the command
+  server[op](ns, ops, options, function(err, r) {
+    // We have a no master error, immediately refresh the view of the replicaset
+    if(notMasterError(r) || notMasterError(err)) replicasetInquirer(self, self.s, true)();
+    // Return the result
+    callback(err, r);
+  });
+}</pre></div></div></div></section><span id="ReplSet__destroy" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__destroy_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::destroy()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Destroy the server connection</p>
+</div></div><div id="ReplSet__destroy_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.destroy = function(emitClose) {
+  var self = this;
+  if(this.s.logger.isInfo()) this.s.logger.info(f('[%s] destroyed', this.s.id));
+  this.s.replState.state = DESTROYED;
+
+  // Emit close
+  if(emitClose &amp;&amp; self.listeners('close').length &gt; 0) self.emit('close', self);
+
+  // Destroy state
+  this.s.replState.destroy();
+
+  // Clear out any listeners
+  var events = ['timeout', 'error', 'close', 'joined', 'left'];
+  events.forEach(function(e) {
+    self.removeAllListeners(e);
+  });
+}</pre></div></div></div></section><span id="ReplSet__getConnection" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__getConnection_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::getConnection([options.readPreference])<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Get connection</p>
+</div></div><div id="ReplSet__getConnection_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>options.readPreference</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../classes/undefined.html#ReadPreference'>ReadPreference</a></span></td><td><span> Specify read preference if command supports it</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='../classes/Connection.html#Connection'>Connection</a></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.getConnection = function(options) {
+  // Ensure we have no options
+  options = options || {};
+  // Pick the right server based on readPreference
+  var server = pickServer(this, this.s, options.readPreference);
+  if(server == null) return null;
+  // Return connection
+  return server.getConnection();
+}</pre></div></div></div></section><span id="ReplSet__getServer" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__getServer_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::getServer([options.readPreference])<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Get server</p>
+</div></div><div id="ReplSet__getServer_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>options.readPreference</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../classes/undefined.html#ReadPreference'>ReadPreference</a></span></td><td><span> Specify read preference if command supports it</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='../classes/Server.html#Server'>Server</a></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.getServer = function(options) {
+  // Ensure we have no options
+  options = options || {};
+  // Pick the right server based on readPreference
+  return pickServer(this, this.s, options.readPreference);
+}</pre></div></div></div></section><span id="ReplSet__insert" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__insert_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::insert(ns, ops, [options.ordered=true], [options.writeConcern={}], callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Insert one or more documents</p>
+</div></div><div id="ReplSet__insert_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>ns</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The MongoDB fully qualified namespace (ex: db1.collection1)</span></td></tr><tr><td><span class="method-depth0"></span><code>ops</code></td><td><span><span class='missing-link'>array</span></span></td><td><span> An array of documents to insert</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ordered=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Execute in order or out of order</span></td></tr><tr><td><span class="method-depth0"></span><code>options.writeConcern={}</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> Write concern for the operation</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>opResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.insert = function(ns, ops, options, callback) {
+  if(typeof options == 'function') callback = options, options = {};
+  if(this.s.replState.state == DESTROYED) return callback(new MongoError(f('topology was destroyed')));
+  // Topology is not connected, save the call in the provided store to be
+  // Executed at some point when the handler deems it's reconnected
+  if(!this.isConnected() &amp;&amp; this.s.disconnectHandler != null) {
+    callback = bindToCurrentDomain(callback);
+    return this.s.disconnectHandler.add('insert', ns, ops, options, callback);
+  }
+
+  executeWriteOperation(this, 'insert', ns, ops, options, callback);
+}</pre></div></div></div></section><span id="ReplSet__isConnected" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__isConnected_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::isConnected()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Figure out if the server is connected</p>
+</div></div><div id="ReplSet__isConnected_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>boolean</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.isConnected = function(options) {
+  options = options || {};
+  // If we specified a read preference check if we are connected to something
+  // than can satisfy this
+  if(options.readPreference
+    &amp;&amp; options.readPreference.equals(ReadPreference.secondary))
+    return this.s.replState.isSecondaryConnected();
+
+  if(options.readPreference
+    &amp;&amp; options.readPreference.equals(ReadPreference.primary))
+    return this.s.replState.isSecondaryConnected() || this.s.replState.isPrimaryConnected();
+
+  if(this.s.secondaryOnlyConnectionAllowed) return this.s.replState.isSecondaryConnected();
+  return this.s.replState.isPrimaryConnected();
+}</pre></div></div></div></section><span id="ReplSet__isDestroyed" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__isDestroyed_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::isDestroyed()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Figure out if the replicaset instance was destroyed by calling destroy</p>
+</div></div><div id="ReplSet__isDestroyed_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>boolean</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.isDestroyed = function() {
+  return this.s.replState.state == DESTROYED;
+}</pre></div></div></div></section><span id="ReplSet__lastIsMaster" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__lastIsMaster_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::lastIsMaster()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Returns the last known ismaster document for this server</p>
+</div></div><div id="ReplSet__lastIsMaster_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>object</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.lastIsMaster = function() {
+  return this.s.replState.lastIsMaster();
+}</pre></div></div></div></section><span id="ReplSet__parserType" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__parserType_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::parserType()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Name of BSON parser currently used</p>
+</div></div><div id="ReplSet__parserType_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>string</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.parserType = function() {
+  if(this.s.bson.serialize.toString().indexOf('[native code]') != -1)
+    return 'c++';
+  return 'js';
+}</pre></div></div></div></section><span id="ReplSet__remove" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__remove_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::remove(ns, ops, [options.ordered=true], [options.writeConcern={}], callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Perform one or more remove operations</p>
+</div></div><div id="ReplSet__remove_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>ns</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The MongoDB fully qualified namespace (ex: db1.collection1)</span></td></tr><tr><td><span class="method-depth0"></span><code>ops</code></td><td><span><span class='missing-link'>array</span></span></td><td><span> An array of removes</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ordered=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Execute in order or out of order</span></td></tr><tr><td><span class="method-depth0"></span><code>options.writeConcern={}</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> Write concern for the operation</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>opResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.remove = function(ns, ops, options, callback) {
+  if(typeof options == 'function') callback = options, options = {};
+  if(this.s.replState.state == DESTROYED) return callback(new MongoError(f('topology was destroyed')));
+  // Topology is not connected, save the call in the provided store to be
+  // Executed at some point when the handler deems it's reconnected
+  if(!this.isConnected() &amp;&amp; this.s.disconnectHandler != null) {
+    callback = bindToCurrentDomain(callback);
+    return this.s.disconnectHandler.add('remove', ns, ops, options, callback);
+  }
+
+  executeWriteOperation(this, 'remove', ns, ops, options, callback);
+}</pre></div></div></div></section><span id="ReplSet__setBSONParserType" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__setBSONParserType_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::setBSONParserType(type)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Execute a command</p>
+</div></div><div id="ReplSet__setBSONParserType_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>type</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> Type of BSON parser to use (c++ or js)</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.setBSONParserType = function(type) {
+  var nBSON = null;
+
+  if(type == 'c++') {
+    nBSON = require('bson').native().BSON;
+  } else if(type == 'js') {
+    nBSON = require('bson').pure().BSON;
+  } else {
+    throw new MongoError(f(&quot;% parser not supported&quot;, type));
+  }
+
+  this.s.options.bson = new nBSON(bsonTypes);
+}</pre></div></div></div></section><span id="ReplSet__update" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#ReplSet__update_body" class="panel-heading collapsed"><h3 class="panel-title">ReplSet::update(ns, ops, [options.ordered=true], [options.writeConcern={}], callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Perform one or more update operations</p>
+</div></div><div id="ReplSet__update_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>ns</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The MongoDB fully qualified namespace (ex: db1.collection1)</span></td></tr><tr><td><span class="method-depth0"></span><code>ops</code></td><td><span><span class='missing-link'>array</span></span></td><td><span> An array of updates</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ordered=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Execute in order or out of order</span></td></tr><tr><td><span class="method-depth0"></span><code>options.writeConcern={}</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> Write concern for the operation</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>opResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/replset.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">ReplSet.prototype.update = function(ns, ops, options, callback) {
+  if(typeof options == 'function') callback = options, options = {};
+  if(this.s.replState.state == DESTROYED) return callback(new MongoError(f('topology was destroyed')));
+  // Topology is not connected, save the call in the provided store to be
+  // Executed at some point when the handler deems it's reconnected
+  if(!this.isConnected() &amp;&amp; this.s.disconnectHandler != null) {
+    callback = bindToCurrentDomain(callback);
+    return this.s.disconnectHandler.add('update', ns, ops, options, callback);
+  }
+
+  executeWriteOperation(this, 'update', ns, ops, options, callback);
+}</pre></div></div></div></section></div></div></div><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script><script src="../bootstrap-3.2.0-dist/js/bootstrap.min.js"></script><script src="../google-code-prettify/prettify.js"></script><script src="../script.js"></script><script src="../group-examples.js"></script></body></html>

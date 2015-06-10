@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Feel - Ping</title><script>if (location.protocol.match(/^http/) && location.pathname.match('\.html') === null && location.pathname.slice(-1) !== '/') {
+  location.href = location.href + '/';
+}</script><link href="../bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script><script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]--><link href="../google-code-prettify/prettify.css" rel="stylesheet" type="text/css"><link href="../style.css" rel="stylesheet" type="text/css"></head><body data-spy="scroll" data-target=".sidebar"><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#top-navigation-collapse" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div id="top-navigation-collapse" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="../index.html">Home</a></li><li><a href="../modules/index.html">Modules</a></li><li class="active"><a href="../classes/index.html">Classes - Ping</a></li></ul><div class="options"><label class="checkbox"><input id="options-private" type="checkbox"> Private </label></div></div></div></nav><div class="container-fluid content"><div class="row"><div data-spy="affix" class="hidden-xs sidebar col-sm-3"><div class="cormo-sidenav"><div class="panel panel-default"><div id="undefined_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../classes/Admin.html">Admin</a></li><li><a href="../classes/AggregationCursor.html">AggregationCursor</a></li><li><a href="../classes/BSON.html">BSON</a></li><li><a href="../classes/Binary.html">Binary</a></li><li><a href="../classes/Chunk.html">Chunk</a></li><li><a href="../classes/Code.html">Code</a></li><li><a href="../classes/CommandCursor.html">CommandCursor</a></li><li><a href="../classes/CommandResult.html">CommandResult</a></li><li><a href="../classes/Connection.html">Connection</a></li><li><a href="../classes/DBRef.html">DBRef</a></li><li><a href="../classes/Double.html">Double</a></li><li><a href="../classes/EventEmitter Manages event registering and emitting..html">EventEmitter Manages event registering and emitting.</a></li><li><a href="../classes/FindOperatorsOrdered.html">FindOperatorsOrdered</a></li><li><a href="../classes/GSSAPI.html">GSSAPI</a></li><li><a href="../classes/GridStoreStream.html">GridStoreStream</a></li><li><a href="../classes/Logger.html">Logger</a></li><li><a href="../classes/Long.html">Long</a></li><li><a href="../classes/MasterProcessConnector.html">MasterProcessConnector</a></li><li><a href="../classes/MasterProcessFork.html">MasterProcessFork</a></li><li><a href="../classes/MaxKey.html">MaxKey</a></li><li><a href="../classes/MinKey.html">MinKey</a></li><li><a href="../classes/MongoCR.html">MongoCR</a></li><li><a href="../classes/MongoClient.html">MongoClient</a></li><li><a href="../classes/MongoError.html">MongoError</a></li><li><a href="../classes/Mongos.html">Mongos</a></li><li class="active"><a href="#Ping">Ping</a></li><li class="cormo-class-property"><a href="#Ping__close">close</a></li><li class="cormo-class-property"><a href="#Ping__connect">connect</a></li><li class="cormo-class-property"><a href="#Ping__endOperation">endOperation</a></li><li class="cormo-class-property"><a href="#Ping__error">error</a></li><li class="cormo-class-property"><a href="#Ping__ha">ha</a></li><li class="cormo-class-property"><a href="#Ping__pickServer">pickServer</a></li><li class="cormo-class-property"><a href="#Ping__startOperation">startOperation</a></li><li class="cormo-class-property"><a href="#Ping__timeout">timeout</a></li><li><a href="../classes/Plain.html">Plain</a></li><li><a href="../classes/Pool.html">Pool</a></li><li><a href="../classes/ReplSet.html">ReplSet</a></li><li><a href="../classes/Represents the BSON Code type..html">Represents the BSON Code type.</a></li><li><a href="../classes/Represents the BSON DBRef type..html">Represents the BSON DBRef type.</a></li><li><a href="../classes/Represents the BSON Double type..html">Represents the BSON Double type.</a></li><li><a href="../classes/Represents the BSON Long type..html">Represents the BSON Long type.</a></li><li><a href="../classes/Represents the BSON MaxKey type..html">Represents the BSON MaxKey type.</a></li><li><a href="../classes/Represents the BSON MinKey type..html">Represents the BSON MinKey type.</a></li><li><a href="../classes/Represents the BSON ObjectID type.html">Represents the BSON ObjectID type</a></li><li><a href="../classes/Represents the BSON Parser.html">Represents the BSON Parser</a></li><li><a href="../classes/Represents the BSON Symbol type..html">Represents the BSON Symbol type.</a></li><li><a href="../classes/Represents the BSON Timestamp type..html">Represents the BSON Timestamp type.</a></li><li><a href="../classes/Represents the Binary BSON type..html">Represents the Binary BSON type.</a></li><li><a href="../classes/SSPI.html">SSPI</a></li><li><a href="../classes/ScramSHA1.html">ScramSHA1</a></li><li><a href="../classes/Server.html">Server</a></li><li><a href="../classes/Session.html">Session</a></li><li><a href="../classes/SlaveProcessConnector.html">SlaveProcessConnector</a></li><li><a href="../classes/Symbol.html">Symbol</a></li><li><a href="../classes/Timestamp.html">Timestamp</a></li><li><a href="../classes/UnorderedBulkOperation.html">UnorderedBulkOperation</a></li><li><a href="../classes/X509.html">X509</a></li><li><a href="../classes/create.html">create</a></li></ul></div></div></div></div><div class="col-sm-9 col-sm-offset-3"><span id="Ping" class="fix-anchor"></span><section><h1 class="class_title">Ping</h1><div><p>Creates a new Ping read preference strategy instance</p>
+</div><div></div><div class="panel panel-info"><div data-toggle="collapse" data-target="#Ping_ctor_body" class="panel-heading collapsed"><h3 class="panel-title">Constructor<span class="pull-right glyphicon"></span></h3></div><div id="Ping_ctor_body" class="panel-collapse collapse"><div class="panel-body"><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>options.pingInterval=5000</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Ping interval to check the response time to the different servers</span></td></tr><tr><td><span class="method-depth0"></span><code>options.acceptableLatency=250</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Acceptable latency for selecting a server for reading (in milliseconds)</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/strategies/ping.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">var Ping = function(options) {
+  // Add event listener
+  EventEmitter.call(this);
+
+  // Contains the ping state
+  this.s = {
+    // Contains all the ping data
+      pings: {}
+    // Set no options if none provided
+    , options: options || {}
+    // Logger
+    , logger: Logger('Ping', options)
+    // Ping interval
+    , pingInterval: options.pingInterval || 10000
+    , acceptableLatency: options.acceptableLatency || 15
+    // Debug options
+    , debug: typeof options.debug == 'boolean' ? options.debug : false
+    // Index
+    , index: 0
+    // Current ping time
+    , lastPing: null
+
+  }
+
+  // Log the options set
+  if(this.s.logger.isDebug()) this.s.logger.debug(f('ping strategy interval [%s], acceptableLatency [%s]', this.s.pingInterval, this.s.acceptableLatency));
+
+  // If we have enabled debug 
+  if(this.s.debug) {
+    // Add access to the read Preference Strategies
+    Object.defineProperty(this, 'data', {
+      enumerable: true, get: function() { return this.s.pings; }
+    });    
+  }
+}
+
+inherits(Ping, EventEmitter);</pre></div></div></div></section><span id="Ping__close" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Ping__close_body" class="panel-heading collapsed"><h3 class="panel-title">Ping::close(server)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Server connection closed</p>
+</div></div><div id="Ping__close_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>server</code></td><td><span><a href='../classes/Server.html#Server'>Server</a></span></td><td><span> The server that closed</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/strategies/ping.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Ping.prototype.close = function(server) {
+  removeServer(this, server);
+}</pre></div></div></div></section><span id="Ping__connect" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Ping__connect_body" class="panel-heading collapsed"><h3 class="panel-title">Ping::connect(server, callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Server connection happened</p>
+</div></div><div id="Ping__connect_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>server</code></td><td><span><a href='../classes/Server.html#Server'>Server</a></span></td><td><span> The server that connected</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>resultCallback</span></span></td><td><span> The callback to return the result from the function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/strategies/ping.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Ping.prototype.connect = function(server, callback) {
+  var self = this;
+  // Get the command start date
+  var start = new Date();
+  // Execute ping against server
+  server.command('system.$cmd', {ismaster:1}, function(err, r) {
+    var time = new Date().getTime() - start.getTime();
+    self.s.pings[server.name] = time;
+    // Log info for debug
+    if(self.s.logger.isDebug()) self.s.logger.debug(f('connect latency for server [%s] is [%s] ms', server.name, time));
+    // Set last ping
+    self.s.lastPing = new Date();
+    // Done, return
+    callback(null, null);
+  });    
+}</pre></div></div></div></section><span id="Ping__endOperation" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Ping__endOperation_body" class="panel-heading collapsed"><h3 class="panel-title">Ping::endOperation(server, err, result, date)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>End of an operation</p>
+</div></div><div id="Ping__endOperation_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>server</code></td><td><span><a href='../classes/Server.html#Server'>Server</a></span></td><td><span> The server the operation is running against</span></td></tr><tr><td><span class="method-depth0"></span><code>err</code></td><td><span><span class='missing-link'>error</span></span></td><td><span> An error from the operation</span></td></tr><tr><td><span class="method-depth0"></span><code>result</code></td><td><span><span class='missing-link'>object</span></span></td><td><span> The result from the operation</span></td></tr><tr><td><span class="method-depth0"></span><code>date</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date'>Date</a></span></td><td><span> The start time of the operation</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>object</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/strategies/ping.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Ping.prototype.endOperation = function(server, err, result, date) {
+}</pre></div></div></div></section><span id="Ping__error" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Ping__error_body" class="panel-heading collapsed"><h3 class="panel-title">Ping::error(server)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Server connection errored out</p>
+</div></div><div id="Ping__error_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>server</code></td><td><span><a href='../classes/Server.html#Server'>Server</a></span></td><td><span> The server that errored out</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/strategies/ping.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Ping.prototype.error = function(server) {
+  removeServer(this, server);
+}</pre></div></div></div></section><span id="Ping__ha" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Ping__ha_body" class="panel-heading collapsed"><h3 class="panel-title">Ping::ha(set, callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>High availability process running</p>
+</div></div><div id="Ping__ha_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>set</code></td><td><span><a href='../classes/undefined.html#State'>State</a></span></td><td><span> The current replicaset state object </span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>resultCallback</span></span></td><td><span> The callback to return the result from the function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>object</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/strategies/ping.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Ping.prototype.ha = function(topology, state, callback) {
+  var self = this;
+  var servers = state.getAll();
+  var count = servers.length;
+
+  // No servers return
+  if(servers.length == 0) return callback(null, null);
+
+  // Return if we have not yet reached the ping interval
+  if(self.s.lastPing != null) {
+    var diff = new Date().getTime() - self.s.lastPing.getTime();
+    if(diff &lt; self.s.pingInterval) return callback(null, null);
+  }
+
+  // Execute operation
+  var operation = function(_server) {
+    var start = new Date();      
+    // Execute ping against server
+    _server.command('system.$cmd', {ismaster:1}, function(err, r) {
+      count = count - 1;
+      var time = new Date().getTime() - start.getTime();
+      self.s.pings[_server.name] = time;
+      // Log info for debug
+      if(self.s.logger.isDebug()) self.s.logger.debug(f('ha latency for server [%s] is [%s] ms', _server.name, time));
+      // We are done with all the servers
+      if(count == 0) {
+        // Emit ping event
+        topology.emit('ping', err, r ? r.result : null);
+        // Update the last ping time
+        self.s.lastPing = new Date();
+        // Return
+        callback(null, null);
+      }
+    });
+  }
+
+  // Let's ping all servers
+  while(servers.length &gt; 0) {
+    operation(servers.shift());
+  }
+}
+
+var removeServer = function(self, server) {
+  delete self.s.pings[server.name];
+}</pre></div></div></div></section><span id="Ping__pickServer" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Ping__pickServer_body" class="panel-heading collapsed"><h3 class="panel-title">Ping::pickServer(set, readPreference, callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Pick a server</p>
+</div></div><div id="Ping__pickServer_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>set</code></td><td><span><a href='../classes/undefined.html#State'>State</a></span></td><td><span> The current replicaset state object </span></td></tr><tr><td><span class="method-depth0"></span><code>readPreference</code></td><td><span><a href='../classes/undefined.html#ReadPreference'>ReadPreference</a></span></td><td><span> The current readPreference object</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>readPreferenceResultCallback</span></span></td><td><span> The callback to return the result from the function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>object</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/strategies/ping.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Ping.prototype.pickServer = function(set, readPreference) {
+  var self = this;
+  // Only get primary and secondaries as seeds
+  var seeds = {};
+  var servers = [];
+  if(set.primary) {
+    servers.push(set.primary);
+  }
+
+  for(var i = 0; i &lt; set.secondaries.length; i++) {
+    servers.push(set.secondaries[i]);
+  }
+
+  // Filter by tags
+  servers = filterByTags(readPreference, servers);
+
+  // Transform the list
+  var serverList = [];
+  // for(var name in seeds) {
+  for(var i = 0; i &lt; servers.length; i++) {
+    serverList.push({name: servers[i].name, time: self.s.pings[servers[i].name] || 0});
+  }
+
+  // Sort by time
+  serverList.sort(function(a, b) {
+    return a.time &gt; b.time;
+  });
+
+  // Locate lowest time (picked servers are lowest time + acceptable Latency margin)
+  var lowest = serverList.length &gt; 0 ? serverList[0].time : 0;
+
+  // Filter by latency
+  serverList = serverList.filter(function(s) {
+    return s.time &lt;= lowest + self.s.acceptableLatency;
+  });
+
+  // No servers, default to primary
+  if(serverList.length == 0 &amp;&amp; set.primary) {
+    if(self.s.logger.isInfo()) self.s.logger.info(f('picked primary server [%s]', set.primary.name));
+    return set.primary;
+  } else if(serverList.length == 0) {
+    return null
+  }
+
+  // We picked first server
+  if(self.s.logger.isInfo()) self.s.logger.info(f('picked server [%s] with ping latency [%s]', serverList[0].name, serverList[0].time));
+
+  // Add to the index
+  self.s.index = self.s.index + 1;
+  // Select the index
+  self.s.index = self.s.index % serverList.length;
+  // Return the first server of the sorted and filtered list
+  return set.get(serverList[self.s.index].name);
+}</pre></div></div></div></section><span id="Ping__startOperation" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Ping__startOperation_body" class="panel-heading collapsed"><h3 class="panel-title">Ping::startOperation(server, query, date)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Start of an operation</p>
+</div></div><div id="Ping__startOperation_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>server</code></td><td><span><a href='../classes/Server.html#Server'>Server</a></span></td><td><span> The server the operation is running against</span></td></tr><tr><td><span class="method-depth0"></span><code>query</code></td><td><span><span class='missing-link'>object</span></span></td><td><span> The operation running</span></td></tr><tr><td><span class="method-depth0"></span><code>date</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date'>Date</a></span></td><td><span> The start time of the operation</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>object</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/strategies/ping.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Ping.prototype.startOperation = function(server, query, date) {
+}</pre></div></div></div></section><span id="Ping__timeout" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Ping__timeout_body" class="panel-heading collapsed"><h3 class="panel-title">Ping::timeout(server)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Server connection timeout</p>
+</div></div><div id="Ping__timeout_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>server</code></td><td><span><a href='../classes/Server.html#Server'>Server</a></span></td><td><span> The server that timed out</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/strategies/ping.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Ping.prototype.timeout = function(server) {
+  removeServer(this, server);
+}</pre></div></div></div></section></div></div></div><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script><script src="../bootstrap-3.2.0-dist/js/bootstrap.min.js"></script><script src="../google-code-prettify/prettify.js"></script><script src="../script.js"></script><script src="../group-examples.js"></script></body></html>
