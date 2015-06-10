@@ -33,3 +33,11 @@ class @F2V
     last ?= {}
     last = {} unless last.complited == false
     return last
+
+  $lesson_price : (data)->
+    r = (yield @$newBid(data)).subjects?[0]?.lesson_price
+    ret = {
+      left : r?[0] || 400
+      right : r?.pop?() || 5000
+    }
+
