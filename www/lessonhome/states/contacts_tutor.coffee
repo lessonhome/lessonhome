@@ -60,7 +60,8 @@ class @main
       text2      : 'Мобильный телефон :'
       selector  : 'first_reg'
       placeholder: '+7 (xxx) xxx–xx–xx'
-      value: $form : person : 'phone'
+      $form : person :  'phone'
+      #  s || $form : accounts : 'login'
       #p[0] if p?[0]?
       replace     : [
         {"^(8|7)(?!\\+7)":"+7"}
