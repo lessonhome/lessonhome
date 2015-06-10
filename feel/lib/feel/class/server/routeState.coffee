@@ -78,6 +78,8 @@ class RouteState
       for key,val of node
         @walk_tree_down node[key],node,key,foo
   go : => do Q.async =>
+    @req.user ?= {}
+    @req.user.type ?= {other: true}
     @res.on 'finish', =>
       agent = ""
       ip = get_ip(@req)?.clientIp
@@ -110,7 +112,7 @@ class RouteState
         break
     unless access
       for key,val of sclass::redirect
-        if @req.user.type[key]
+        if @req.user?.type?[key]?
           return @redirect @req,@res,val
       if sclass::redirect.default
         return @redirect @req,@res,sclass::redirect.default

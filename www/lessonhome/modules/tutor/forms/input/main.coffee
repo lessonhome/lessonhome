@@ -44,6 +44,7 @@ Example:
 class @main extends EE
   Dom : =>
     @input  = @found.input
+    @input  ?= @dom.find 'input'
     @val    = @input.val()
     @label  = @dom.find ">label"
     @tree.match   ?= {}
@@ -59,6 +60,7 @@ class @main extends EE
     @tree.selectOnFocus ?= true
     @hint         = @found.hint
     @hintMessage  = @found.hint_message
+
   parseRegexpObj : (obj,ext='mg')=>
     obj ?= {}
     if typeof obj =='string'
@@ -87,6 +89,15 @@ class @main extends EE
     @on 'change',         @onChange
     @on 'paste',          @onPaste
     @on 'end',            @onEnd
+    try
+      @replaceInput()
+      @val = @input.val()
+      @hideError()
+      setTimeout =>
+        @input.blur()
+        @hideError()
+      ,10
+    return
   focus : =>
     @input.focus()
   onJQPaste : =>
@@ -228,7 +239,7 @@ class @main extends EE
     @found.level3.attr 'hide','hide'
   matchReplace : (rstr)=>
     for key,v of @tree.replace
-      nv = rstr.replace v[0],v[1]
+      nv = rstr?.replace? v[0],v[1]
       rstr = nv
     return rstr
   replaceInput : (val,rstr,position,forceCursor=false)=>

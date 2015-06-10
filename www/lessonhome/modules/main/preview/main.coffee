@@ -2,7 +2,9 @@
 class @main extends EE
   constructor : ->
   Dom : =>
-    @sort = @tree.sort.class
+    @background_block = $ @found.background_block
+    @popup            = @found.popup
+    @sort             = @tree.sort.class
   show : => do Q.async =>
     console.log 'tutors',@tree.tutors
     console.log 'send', yield @$send 'tutors'
@@ -30,6 +32,13 @@ class @main extends EE
 
     @on 'change', =>  console.log  @getValue()
     @on 'end',    =>  console.log  @getValue()
+
+    @background_block.on 'click',  @check_place_click
+
+
+  check_place_click :(e) =>
+    if (!@popup.is(e.target) && @popup.has(e.target).length == 0)
+      Feel.go '/second_step'
 
   getValue : =>
     return {
