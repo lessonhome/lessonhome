@@ -4,8 +4,15 @@ class @main extends EE
     @button_onward = @tree.button_onward.class
     if @tree.list_subject?
       @subject = @tree.list_subject.class
+    if @tree.tutor_status?
+      @tutor_status = @tree.tutor_status.class
+    #if @tree.at_home_button? && @tree.in_tutoring_button? && @tree.remotely_button?
+      #@at_home_button = @tree.at_home_button.class
+      #@in_tutoring_button = @tree.in_tutoring_button.class
+      #@remotely_button = @tree.remotely_button.class
     if @tree.price_slider_top?
       @lesson_price = @tree.price_slider_top.class
+
 
   show: =>
     @choose_block = @dom.find('.choose_block')
@@ -19,8 +26,11 @@ class @main extends EE
     #@newSubjectTag()
 
     @button_onward.on 'submit', =>
-      @save()
-      @bNext()
+      @save().then (data)=>
+        if data
+          @bNext()
+        else   
+
     @button_back  .on 'submit', =>
       @save()
       @bBack()
@@ -54,6 +64,8 @@ class @main extends EE
     ret = {}
     #console.log ret.subject+' this is ret'
     if @subject? then ret.subject = @subject.getValue()
+    if @tutor_status? then ret.tutor_status = @tutor_status.getValue()
+
     if @lesson_price?
       price = []
       price_val = @lesson_price.getValue()
@@ -62,7 +74,9 @@ class @main extends EE
       ret.lesson_price = price
     return ret
 
-  check_form : => true
-
-
-
+  check_form : =>
+    if @subject?
+      if @subject.getValue().length < 2
+        #@subject.showError('пожалуйста, введите корректный ')
+        return false
+    return true

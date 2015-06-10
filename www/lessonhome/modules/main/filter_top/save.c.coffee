@@ -15,13 +15,13 @@
   lastBid.subjects[0] ?= {}
   if data.subject?
     lastBid.subjects[0].subject = data.subject
-  if data.place?
-    lastBid.subjects[0].place  = data.subject
+  if data.tutor_status?
+    lastBid.subjects[0].requirements_for_tutor ?= {}
+    lastBid.subjects[0].requirements_for_tutor.status = data.tutor_status
+  #if data.place?
+    #lastBid.subjects[0].place  = data.place
   if data.lesson_price?
     lastBid.subjects[0].lesson_price = data.lesson_price
-  if data.requirements_for_tutor?
-    lastBid.requirements_for_tutor ?= {}
-    lastBid.requirements_for_tutor.status = data.requirements_for_tutor.status
 
   yield _invoke db, 'update',{account:$.user.id},{$set:pupil},{upsert:true}
 
