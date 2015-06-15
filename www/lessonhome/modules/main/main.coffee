@@ -1,4 +1,8 @@
 class @main extends EE
+  Dom : =>
+    @popup_wrap = $ @found.popup_wrap
+    @content    = @found.content
+
   show: =>
 
     @startSearch    = @dom.find(".start_search").find(".button")
@@ -19,8 +23,11 @@ class @main extends EE
         @listSubject = @tree.filter_top.list_subject.class
         @listSubject.focusInput()
 
+    @popup_wrap.on 'click',  @check_place_click
 
 
 
-
+  check_place_click :(e) =>
+    if (!@content.is(e.target) && @content.has(e.target).length == 0)
+      Feel.go '/'
 

@@ -12,9 +12,21 @@ class @F2V
     return unless d
     return "#{d?.getDate?()}.#{d?.getMonth?()+1}.#{d?.getFullYear?()}"
   $firstphone   : (data)-> data?.phone?[0]
-  $phone   : (data)-> data?.phone?[0]
+  $phone   : (data)->
+    phone = data?.phone?[0]
+    if !phone && data?.login?
+      unless data.login?.match?(/\@/)
+        phone = data.login.replace(/[^\d]]/g,"")
+        if phone.length == 7
+          phone = '495'+phone
+    return phone
+
   $phone2  : (data)-> data?.phone?[1]
-  $email   : (data)-> data?.email?[0]
+  $email   : (data)->
+    email = data?.email?[0]
+    if !email && data?.login?.match /\@/
+      email = data.login
+    return email
   $skype   : (data)-> data?.social_networks?.skype?[0]
   $site    : (data)-> data?.site?[0]
   $avatar       : (data)-> data?.ava?[data?.ava?.length-1] if data?.ava?.length > 0

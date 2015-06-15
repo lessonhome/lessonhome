@@ -20,5 +20,7 @@
   'site'
   'social_networks'
 ]
-
+@accounts = [
+  'login'
+]
 
