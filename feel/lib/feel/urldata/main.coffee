@@ -45,7 +45,7 @@ class UrlData
     @json.last ?= ''
     str ?= @json.last
     if str == ''
-      str = '0'
+      str = 'q'
       @json.last = str if make
       return str
     w = str.substr -1
@@ -55,7 +55,7 @@ class UrlData
       @json.last = str if make
       return str
     n = yield @next str.substr 0,str.length-1
-    n+='0'
+    n+='q'
     @json.last = n if make
     return n
 
