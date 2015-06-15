@@ -295,7 +295,8 @@ class module.exports
   yjs     : (js)=> do Q.async =>
     ret = yield ycompress js,{type:'js'}
     return ret
-  dyjs    : (js)=> ycompress(js).then (yjs)=> _deflate yjs
+  dyjs    : (js)=>
+    ycompress(js).then (yjs)=> _deflate yjs
   ycss    : (css)=>
     console.log 'ycss'
     ycompress css, type:"css"

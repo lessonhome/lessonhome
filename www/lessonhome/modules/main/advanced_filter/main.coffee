@@ -21,7 +21,12 @@ class @main extends EE
     # action
     # TODO: add_course hard code, not this module, only this file have this variables
 
-    @on 'change', =>
+    @on 'change', => Q.spawn =>
+      v = @getValue()
+      for key,val of v
+        yield Feel.urlData.Short key,val
+      console.log v
+      ###
       data = {}
       state = History.getState()
       console.log 'state',state
@@ -48,7 +53,8 @@ class @main extends EE
       data.bson = _objToUrlString data.bson
       console.log 'data',data
       History.pushState data.obj,data.title,state.url.match(/^([^\?]*)/)[1]+"?#{data.bson}"
-    @on 'end', => console.log @getValue()
+      ###
+    #@on 'end', => console.log @getValue()
 
     @calendar.on            'change',=> @emit 'change'
     @time_spend_lesson.on   'change',=> @emit 'change'
