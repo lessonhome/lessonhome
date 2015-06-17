@@ -1,5 +1,5 @@
 @import compass/css3
-$close_src: 'main/close_10x10.png'
+$close_src: 'delete-cross.gif'
 $close_height: image-height($close_src)
 $close_width: image-width($close_src)
 $triangle_src: 'main/triangle_33x18.png'
@@ -29,17 +29,16 @@ $border_width: 1px
     background: url(F($triangle_down_src)) no-repeat
 
 .popup
-  margin-top: -$border_width
+  width: 360px
   border: $border_width solid #cccccc
   position: relative
-  width: 344px
-  padding: 30px 41px 40px 23px
-  overflow: hidden
+  padding: 24px
+  //overflow: hidden
   box-sizing: border-box
-  background-color: rgb(255, 255, 255)
+  background-color: #ededed
   .err
     text-align: left
-    padding-bottom: 20px
+    padding-bottom: 24px
     div
       display: none
       color: red
@@ -63,22 +62,21 @@ $border_width: 1px
     width: 100%
     overflow: hidden
     font-size: 32px
-    padding-bottom: 14px
+    padding-bottom: 12px
   .comments
-    height: 90px
+    height: 84px
     padding-bottom: 0px
   .button_panel_choose
-    padding-bottom: 10px
+    padding: 0 6px 10px 6px
     .pupil, .tutor
       cursor: pointer
-      height: 33px
+      //height: 33px
     .pupil
       float: left
     .tutor
       float: right
   .order_call
-    float: left
-    height: 38px
+    height: 48px
   .button_panel_choose:after
     content: ''
     display: block

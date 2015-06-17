@@ -1,8 +1,20 @@
+@import compass/css3
 $hoverColor : #ff949b
 $activeColor : #ed645e
 $textColor : #4b5e6e
 main
   height: 100%
-.item
-  float: left
+  line-height: 24px
+  font-size: 16px
+
+.column
+  padding: 0 21px
+  +inline-block
+  text-align: left
+  .item
+    //float: left
+    height: 100%
+main:after
+  content: ''
+  +inline-block
   height: 100%

@@ -1,2 +1,7 @@
-each item in items
-  .item!= item
+
+- var ind = 0;
+while items[ind]
+  .column
+    .item!= items[ind++]
+    if items[ind]
+      .item!= items[ind++]

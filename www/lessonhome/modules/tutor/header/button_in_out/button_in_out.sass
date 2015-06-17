@@ -10,22 +10,18 @@ $padding_bottom: 12px
 $blue_color: #94c9fe
 main
   height: 100%
+  +inline-block
 .button
-  //-padding: 0 20px
   position: relative
   cursor: pointer
-  height: 100%
-  .title
-    +inline-block
-    height: 100%
-    padding: 0 20px
-    font-size: 16px
-    color: #757575
-  .title:after
-    +inline-block
-    height: 100%
-    content: ""
-
+  font-size: 16px
+  color: #ffffff
+  line-height: 24px
+  text-align: left
+  +inline-block
+  a
+    text-decoration: none
+    color: #ffffff
   .popup_box
     .submit
       position : fixed
@@ -103,9 +99,11 @@ main
         +inline-block
         height: 100%
         vertical-align: bottom
-.button:after
+main:before
   +inline-block
   height: 100%
   content: ""
-.button:hover .title
+.button .title:hover
+  color:  #000000
+.button  a:hover
   color:  #000000

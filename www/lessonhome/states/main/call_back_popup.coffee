@@ -6,7 +6,7 @@ class @main
     #name        : @module 'tutor/forms/input'  :
       #placeholder : 'Ваше имя'
     your_name  : @module 'tutor/forms/input'  :
-      placeholder : 'Ваше имя'
+      placeholder : 'Имя'
       selector : 'fast_bid'
       $form : person : 'first_name'
     tel_number  : @module 'tutor/forms/input'  :
@@ -34,11 +34,9 @@ class @main
       placeholder : 'Комментарий'
     pupil       : @module 'tutor/header/button_toggle' :
       text   : 'Я ученик'
-      selector      : 'call_back_pupil inactive'
     tutor       : @module 'tutor/header/button_toggle' :
       text  : 'Я репетитор'
-      selector      : 'call_back_tutor inactive'
       $form : account : 'activeTutor'
     order_call  : @module 'tutor/button' :
-      text  : 'Заказать звонок'
+      text  : 'ЗАКАЗАТЬ ЗВОНОК'
       selector      : 'call_back'
