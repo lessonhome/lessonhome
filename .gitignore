@@ -15,4 +15,4 @@ feel/node_modules
 feel/.npmversion
 **/Icon
 **/static/user_data
-**/static/urldata
+**/static/urldata/**/*.json
