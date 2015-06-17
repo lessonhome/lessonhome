@@ -1,7 +1,6 @@
 class @main extends EE
   Dom : =>
     @button_box   = @dom.find ".button_box"
-    @active = @round_button.hasClass 'active'
   show : =>
     @dom.on 'click', @click
     console.log @tree.value
