@@ -5,17 +5,20 @@ $icon_right_height: image-height($triangle_right_src)
 $icon_right_width: image-width($triangle_right_src)
 $icon_down_height: image-height($triangle_down_src)
 $icon_down_width: image-width($triangle_down_src)
+
+$icon_reset_src: 'close_time.png'
+$icon_reset_height: image-height($icon_reset_src)
+$icon_reset_width: image-width($icon_reset_src)
+
+
 $padding_section: 25px
 $padding_title: 20px
 $padding_icon: 10px
 $padding_experience: 10px
 $padding_reviews: 15px
-$icon_src: 'close_time.png'
-$icon_height: image-height($icon_src)
-$icon_width: image-width($icon_src)
 
 main
-  padding: 15px 30px 30px 35px
+  padding: 15px 0px 30px 35px
   font-size: 18px
   background-color: rgb(243, 243, 243)
   color: rgb(117, 117, 117)
@@ -32,69 +35,34 @@ main
       width: $icon_down_width + abs($icon_right_width - $icon_down_width)
       height: $icon_down_height
       background: url(F($triangle_down_src)) no-repeat
-  .title
+  .title, .reset
     +inline-block
   .title:hover
     color : #000000
+  .reset
+    .icon, .title
+      +inline-block
+    .icon
+      margin-right: 7px
+      width:  $icon_reset_width
+      height: $icon_reset_height
+      background: url(F($icon_reset_src)) no-repeat
+    .title
+      font-size: 14px
+      color: #717171
 
 .section
   text-align: left
-  .course, .timetable, .time_one_lesson, .time_to_way, .experience, .sex
+  .subject, .tutor_status, .place, .timetable, .price, .time_to_way, .experience, .sex
     padding: ($padding_title  - $padding_icon)/2 0   //because icon have padding 10px for usability
     cursor: pointer
-  .course
+  .subject
     padding-top: 0
   .show_hidden
     padding-bottom: $padding_section
-    .list_course
-      height: 33px
-    .add_course_block
-      padding-top: 10px
-      .tag
-        +inline-block
-        margin-right: 5px
-        margin-bottom: 5px
-        height: 25px
-        overflow: hidden
-        background-color: #dadada
-        border: 1px solid rgba(0,0,0,0.1)
-        box-sizing: border-box
-        +border-radius(4px)
-        .text_box
-          padding: 0 10px 0 6px
-          height: 100%
-          +inline-block
-          .text
-            +inline-block
-            font-size: 14px
-            color: #000
-        .close_box
-          width: $icon_width
-          height: $icon_height
-          padding: 3px
-          margin-right: 6.5px
-          cursor: pointer
-          +inline-block
-          background: #ffffff
-          opacity: 0.5
-          .close
-            height: 100%
-            width: 100%
-            background: url(F($icon_src)) no-repeat
-        .close_box:hover
-          opacity: 0.9
-        .text_box:after
-          content: ''
-          height: 100%
-          +inline-block
-      .tag:hover
-        background: #e0e0e0
-        border: 1px solid rgba(0,0,0,0.3)
-
-    .add_course_block:after
-      content: ''
-      clear: both
-      display: block
+    .tutor_status, .place, .experience
+      div
+        margin-bottom: 7px
     .experience
       .little, .big, .bigger, .no_experience
         margin: 2px 0

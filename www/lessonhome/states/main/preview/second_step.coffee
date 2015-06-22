@@ -15,7 +15,7 @@ class @main extends @template '../preview'
       title : 'Выберите статус преподавателя :'
       tutor_status : @module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
-        placeholder : 'Например студент'
+        placeholder : 'студент'
         default_options     : {
           '0': {value: 'student', text: 'студент'},
           '1': {value: 'graduate', text: 'аспирант'},

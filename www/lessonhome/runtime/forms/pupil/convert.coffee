@@ -44,3 +44,4 @@ class @F2V
   $requirements_for_tutor : (data)->
     r = (yield @$newBid(data)).subjects?[0]?.requirements_for_tutor
     return r
+

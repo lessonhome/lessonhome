@@ -1,0 +1,50 @@
+@import compass/css3
+
+$icon_src: 'close_time.png'
+$icon_height: image-height($icon_src)
+$icon_width: image-width($icon_src)
+
+.list
+  margin-bottom: 12px
+
+.tags
+  .tag
+    +inline-block
+    margin-right: 5px
+    margin-bottom: 5px
+    height: 25px
+    overflow: hidden
+    background-color: #dbdbdb
+    border: 1px solid rgba(0,0,0,0.1)
+    box-sizing: border-box
+    +border-radius(4px)
+    .text_box
+      padding: 0 10px 0 6px
+      height: 100%
+      +inline-block
+      .text
+        +inline-block
+        font-size: 14px
+        color: #000
+    .close_box
+      width: $icon_width
+      height: $icon_height
+      padding: 3px
+      margin-right: 6.5px
+      cursor: pointer
+      +inline-block
+      background: #ffffff
+      opacity: 0.5
+      .close
+        height: 100%
+        width: 100%
+        background: url(F($icon_src)) no-repeat
+    .close_box:hover
+      opacity: 0.9
+    .text_box:after
+      content: ''
+      height: 100%
+      +inline-block
+    .tag:hover
+      background: #e0e0e0
+      border: 1px solid rgba(0,0,0,0.3)

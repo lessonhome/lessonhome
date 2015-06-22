@@ -1,23 +1,41 @@
 .js-section
-  .course.js-title
+  .subject.js-title
     .icon_box
       .icon_right
       .icon_down
-    .title Курс
+    .title Предмет
+    .reset
+      .icon
+      .title сбросить
   .show_hidden
-    .js-list_course!=list_course
-    .js-add_course_block
-      for val, key in add_course
-        .tag
-          .text_box
-            .text!=val
-          .js-close_box
-            .close
-    .js-tag
-      .text_box
-        .text
-      .js-close_box
-        .close
+    .js-subject!=subject
+
+.js-section
+  .tutor_status.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Статус репетитора
+  .show_hidden
+    .tutor_status
+      .student!=student
+      .school_teacher!=school_teacher
+      .university_teacher!=university_teacher
+      .private_teacher!=private_teacher
+      .native_speaker!=native_speaker
+
+.js-section
+  .place.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Место занятий
+  .show_hidden
+    .place
+      .pupil!=pupil
+      .tutor!=tutor
+      .remote!=remote
+
 .js-section
   .timetable.js-title
     .icon_box
@@ -27,13 +45,23 @@
   .show_hidden
     .js-calendar!=calendar
 .js-section
-  .time_one_lesson.js-title
+  .price.js-title
     .icon_box
       .icon_right
       .icon_down
-    .title Время одного занятия
+    .title Цена
   .show_hidden
-    .js-time_spend_lesson!=time_spend_lesson
+    .js-price!=price
+.js-section
+  .course.js-title
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Предмет
+  .show_hidden
+    .js-course!=course
+
+
 .js-section
   .time_to_way.js-title
     .icon_box
@@ -48,6 +76,15 @@
       .icon_right
       .icon_down
     .title Опыт
+  .show_hidden
+    .js-experience
+      .little!=little_experience
+      .big!=big_experience
+      .bigger!=bigger_experience
+      .no_experience!=no_experience
+
+
+//-
   .show_hidden
     .js-experience
       .little.hover
@@ -69,3 +106,5 @@
 .section
   .reviews_block!=with_reviews
   .verification_block!=with_verification
+
+
