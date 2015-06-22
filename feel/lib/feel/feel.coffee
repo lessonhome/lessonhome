@@ -294,13 +294,14 @@ class module.exports
     }
   yjs     : (js)=> do Q.async =>
     ret = yield ycompress js,{type:'js'}
-    return ret
+    return ret[0]
   dyjs    : (js)=>
-    ycompress(js).then (yjs)=> _deflate yjs
+    ycompress(js,{type:'js'}).then (yjs)=> _deflate yjs[0]
   ycss    : (css)=>
     console.log 'ycss'
-    ycompress css, type:"css"
-  dycss   : (css)=> ycompress(css,{type:"css"}).then (ycss)=> _deflate ycss
+    ret = yield ycompress css, type:"css"
+    return ret[0]
+  dycss   : (css)=> ycompress(css,{type:"css"}).then (ycss)=> _deflate ycss[0]
   res404  : (req,res,err)=>
     console.error err if err?
     req.url = '/404'
