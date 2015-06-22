@@ -1,0 +1,525 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Feel - Server</title><script>if (location.protocol.match(/^http/) && location.pathname.match('\.html') === null && location.pathname.slice(-1) !== '/') {
+  location.href = location.href + '/';
+}</script><link href="../bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script><script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]--><link href="../google-code-prettify/prettify.css" rel="stylesheet" type="text/css"><link href="../style.css" rel="stylesheet" type="text/css"></head><body data-spy="scroll" data-target=".sidebar"><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#top-navigation-collapse" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div id="top-navigation-collapse" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="../index.html">Home</a></li><li><a href="../modules/index.html">Modules</a></li><li class="active"><a href="../classes/index.html">Classes - Server</a></li></ul><div class="options"><label class="checkbox"><input id="options-private" type="checkbox"> Private </label></div></div></div></nav><div class="container-fluid content"><div class="row"><div data-spy="affix" class="hidden-xs sidebar col-sm-3"><div class="cormo-sidenav"><div class="panel panel-default"><div id="undefined_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../classes/Admin.html">Admin</a></li><li><a href="../classes/AggregationCursor.html">AggregationCursor</a></li><li><a href="../classes/BSON.html">BSON</a></li><li><a href="../classes/Binary.html">Binary</a></li><li><a href="../classes/Chunk.html">Chunk</a></li><li><a href="../classes/Code.html">Code</a></li><li><a href="../classes/CommandCursor.html">CommandCursor</a></li><li><a href="../classes/CommandResult.html">CommandResult</a></li><li><a href="../classes/Connection.html">Connection</a></li><li><a href="../classes/DBRef.html">DBRef</a></li><li><a href="../classes/Double.html">Double</a></li><li><a href="../classes/EventEmitter Manages event registering and emitting..html">EventEmitter Manages event registering and emitting.</a></li><li><a href="../classes/FindOperatorsOrdered.html">FindOperatorsOrdered</a></li><li><a href="../classes/GSSAPI.html">GSSAPI</a></li><li><a href="../classes/GridStoreStream.html">GridStoreStream</a></li><li><a href="../classes/Logger.html">Logger</a></li><li><a href="../classes/Long.html">Long</a></li><li><a href="../classes/MasterProcessConnector.html">MasterProcessConnector</a></li><li><a href="../classes/MasterProcessFork.html">MasterProcessFork</a></li><li><a href="../classes/MaxKey.html">MaxKey</a></li><li><a href="../classes/MinKey.html">MinKey</a></li><li><a href="../classes/MongoCR.html">MongoCR</a></li><li><a href="../classes/MongoClient.html">MongoClient</a></li><li><a href="../classes/MongoError.html">MongoError</a></li><li><a href="../classes/Mongos.html">Mongos</a></li><li><a href="../classes/Ping.html">Ping</a></li><li><a href="../classes/Plain.html">Plain</a></li><li><a href="../classes/Pool.html">Pool</a></li><li><a href="../classes/ReplSet.html">ReplSet</a></li><li><a href="../classes/Represents the BSON Code type..html">Represents the BSON Code type.</a></li><li><a href="../classes/Represents the BSON DBRef type..html">Represents the BSON DBRef type.</a></li><li><a href="../classes/Represents the BSON Double type..html">Represents the BSON Double type.</a></li><li><a href="../classes/Represents the BSON Long type..html">Represents the BSON Long type.</a></li><li><a href="../classes/Represents the BSON MaxKey type..html">Represents the BSON MaxKey type.</a></li><li><a href="../classes/Represents the BSON MinKey type..html">Represents the BSON MinKey type.</a></li><li><a href="../classes/Represents the BSON ObjectID type.html">Represents the BSON ObjectID type</a></li><li><a href="../classes/Represents the BSON Parser.html">Represents the BSON Parser</a></li><li><a href="../classes/Represents the BSON Symbol type..html">Represents the BSON Symbol type.</a></li><li><a href="../classes/Represents the BSON Timestamp type..html">Represents the BSON Timestamp type.</a></li><li><a href="../classes/Represents the Binary BSON type..html">Represents the Binary BSON type.</a></li><li><a href="../classes/SSPI.html">SSPI</a></li><li><a href="../classes/ScramSHA1.html">ScramSHA1</a></li><li class="active"><a href="#Server">Server</a></li><li class="cormo-class-property"><a href="#Server__addAuthProvider">addAuthProvider</a></li><li class="cormo-class-property"><a href="#Server__addReadPreferenceStrategy">addReadPreferenceStrategy</a></li><li class="cormo-class-property"><a href="#Server__auth">auth</a></li><li class="cormo-class-property"><a href="#Server__command">command</a></li><li class="cormo-class-property"><a href="#Server__connect">connect</a></li><li class="cormo-class-property"><a href="#Server__connections">connections</a></li><li class="cormo-class-property"><a href="#Server__connections">connections</a></li><li class="cormo-class-property"><a href="#Server__cursor">cursor</a></li><li class="cormo-class-property"><a href="#Server__destroy">destroy</a></li><li class="cormo-class-property"><a href="#Server__equals">equals</a></li><li class="cormo-class-property"><a href="#Server__getCallbacks">getCallbacks</a></li><li class="cormo-class-property"><a href="#Server__getConnection">getConnection</a></li><li class="cormo-class-property"><a href="#Server__getServer">getServer</a></li><li class="cormo-class-property"><a href="#Server__insert">insert</a></li><li class="cormo-class-property"><a href="#Server__isConnected">isConnected</a></li><li class="cormo-class-property"><a href="#Server__isDestroyed">isDestroyed</a></li><li class="cormo-class-property"><a href="#Server__lastIsMaster">lastIsMaster</a></li><li class="cormo-class-property"><a href="#Server__parserType">parserType</a></li><li class="cormo-class-property"><a href="#Server__remove">remove</a></li><li class="cormo-class-property"><a href="#Server__setBSONParserType">setBSONParserType</a></li><li class="cormo-class-property"><a href="#Server__update">update</a></li><li><a href="../classes/Session.html">Session</a></li><li><a href="../classes/SlaveProcessConnector.html">SlaveProcessConnector</a></li><li><a href="../classes/Symbol.html">Symbol</a></li><li><a href="../classes/Timestamp.html">Timestamp</a></li><li><a href="../classes/UnorderedBulkOperation.html">UnorderedBulkOperation</a></li><li><a href="../classes/X509.html">X509</a></li><li><a href="../classes/create.html">create</a></li></ul></div></div></div></div><div class="col-sm-9 col-sm-offset-3"><span id="Server" class="fix-anchor"></span><section><h1 class="class_title">Server</h1><div><p>Creates a new Server instance</p>
+</div><div></div><div class="panel panel-info"><div data-toggle="collapse" data-target="#Server_ctor_body" class="panel-heading collapsed"><h3 class="panel-title">Constructor<span class="pull-right glyphicon"></span></h3></div><div id="Server_ctor_body" class="panel-collapse collapse"><div class="panel-body"><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>options.reconnect=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Server will attempt to reconnect on loss of connection</span></td></tr><tr><td><span class="method-depth0"></span><code>options.reconnectTries=30</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Server attempt to reconnect #times</span></td></tr><tr><td><span class="method-depth0"></span><code>options.reconnectInterval=1000</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Server will wait # milliseconds between retries</span></td></tr><tr><td><span class="method-depth0"></span><code>options.emitError=false</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Server will emit errors events</span></td></tr><tr><td><span class="method-depth0"></span><code>options.cursorFactory=Cursor</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Cursor'>Cursor</a></span></td><td><span> The cursor factory class used for all query cursors</span></td></tr><tr><td><span class="method-depth0"></span><code>options.host</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The server host</span></td></tr><tr><td><span class="method-depth0"></span><code>options.port</code></td><td><span><span class='missing-link'>number</span></span></td><td><span> The server port</span></td></tr><tr><td><span class="method-depth0"></span><code>options.size=5</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Server connection pool size</span></td></tr><tr><td><span class="method-depth0"></span><code>options.keepAlive=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> TCP Connection keep alive enabled</span></td></tr><tr><td><span class="method-depth0"></span><code>options.keepAliveInitialDelay=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Initial delay before TCP keep alive enabled</span></td></tr><tr><td><span class="method-depth0"></span><code>options.noDelay=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> TCP Connection no delay</span></td></tr><tr><td><span class="method-depth0"></span><code>options.connectionTimeout=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> TCP Connection timeout setting</span></td></tr><tr><td><span class="method-depth0"></span><code>options.socketTimeout=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> TCP Socket timeout setting</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ssl=false</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Use SSL for connection</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ca</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span> SSL Certificate store binary buffer</span></td></tr><tr><td><span class="method-depth0"></span><code>options.cert</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span> SSL Certificate binary buffer</span></td></tr><tr><td><span class="method-depth0"></span><code>options.key</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span> SSL Key file binary buffer</span></td></tr><tr><td><span class="method-depth0"></span><code>options.passphrase</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>string</span></span></td><td><span> SSL Certificate pass phrase</span></td></tr><tr><td><span class="method-depth0"></span><code>options.rejectUnauthorized=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Reject unauthorized server certificates</span></td></tr><tr><td><span class="method-depth0"></span><code>options.promoteLongs=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Convert Long values from the db into Numbers if they fit into 53 bits</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">var Server = function(options) {
+  var self = this;
+
+  // Add event listener
+  EventEmitter.call(this);
+
+  // BSON Parser, ensure we have a single instance
+  if(bsonInstance == null) {
+    bsonInstance = new BSON(bsonTypes);
+  }
+
+  // Reconnect retries
+  var reconnectTries = options.reconnectTries || 30;
+
+  // Keeps all the internal state of the server
+  this.s = {
+    // Options
+      options: options
+    // Contains all the callbacks
+    , callbacks: new Callbacks()
+    // Logger
+    , logger: Logger('Server', options)
+    // Server state
+    , state: DISCONNECTED
+    // Reconnect option
+    , reconnect: typeof options.reconnect == 'boolean' ? options.reconnect :  true
+    , reconnectTries: reconnectTries
+    , reconnectInterval: options.reconnectInterval || 1000
+    // Swallow or emit errors
+    , emitError: typeof options.emitError == 'boolean' ? options.emitError : false
+    // Current state
+    , currentReconnectRetry: reconnectTries
+    // Contains the ismaster
+    , ismaster: null
+    // Contains any alternate strategies for picking
+    , readPreferenceStrategies: options.readPreferenceStrategies
+    // Auth providers
+    , authProviders: options.authProviders || {}
+    // Server instance id
+    , id: serverId++
+    // Grouping tag used for debugging purposes
+    , tag: options.tag
+    // Do we have a not connected handler
+    , disconnectHandler: options.disconnectHandler
+    // wireProtocolHandler methods
+    , wireProtocolHandler: options.wireProtocolHandler || new PreTwoSixWireProtocolSupport()
+    // Factory overrides
+    , Cursor: options.cursorFactory || BasicCursor
+    // BSON Parser, ensure we have a single instance
+    , bsonInstance: bsonInstance
+    // Pick the right bson parser
+    , bson: options.bson ? options.bson : bsonInstance
+    // Internal connection pool
+    , pool: null
+    // Server details
+    , serverDetails: {
+        host: options.host
+      , port: options.port
+      , name: options.port ? f(&quot;%s:%s&quot;, options.host, options.port) : options.host
+    }
+  }
+
+  // Reference state
+  var s = this.s;
+
+  // Add bson parser to options
+  options.bson = s.bson;
+
+  // Set error properties
+  getProperty(this, 'name', 'name', s.serverDetails, {});
+  getProperty(this, 'bson', 'bson', s.options, {});
+  getProperty(this, 'wireProtocolHandler', 'wireProtocolHandler', s.options, {});
+  getSingleProperty(this, 'id', s.id);
+
+  // Add auth providers
+  this.addAuthProvider('mongocr', new MongoCR());
+  this.addAuthProvider('x509', new X509());
+  this.addAuthProvider('plain', new Plain());
+  this.addAuthProvider('gssapi', new GSSAPI());
+  this.addAuthProvider('sspi', new SSPI());
+  this.addAuthProvider('scram-sha-1', new ScramSHA1());
+}
+
+inherits(Server, EventEmitter);</pre></div></div></div></section><span id="Server__addAuthProvider" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__addAuthProvider_body" class="panel-heading collapsed"><h3 class="panel-title">Server::addAuthProvider(name, provider)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Add custom authentication mechanism</p>
+</div></div><div id="Server__addAuthProvider_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>name</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> Name of the authentication mechanism</span></td></tr><tr><td><span class="method-depth0"></span><code>provider</code></td><td><span><span class='missing-link'>object</span></span></td><td><span> Authentication object instance</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.addAuthProvider = function(name, provider) {
+  var self = this;
+  self.s.authProviders[name] = provider;
+}</pre></div></div></div></section><span id="Server__addReadPreferenceStrategy" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__addReadPreferenceStrategy_body" class="panel-heading collapsed"><h3 class="panel-title">Server::addReadPreferenceStrategy(name, strategy)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Add custom read preference strategy</p>
+</div></div><div id="Server__addReadPreferenceStrategy_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>name</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> Name of the read preference strategy</span></td></tr><tr><td><span class="method-depth0"></span><code>strategy</code></td><td><span><span class='missing-link'>object</span></span></td><td><span> Strategy object instance</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.addReadPreferenceStrategy = function(name, strategy) {
+  var self = this;
+  if(self.s.readPreferenceStrategies == null) self.s.readPreferenceStrategies = {};
+  self.s.readPreferenceStrategies[name] = strategy;
+}</pre></div></div></div></section><span id="Server__auth" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__auth_body" class="panel-heading collapsed"><h3 class="panel-title">Server::auth(mechanism, db, param, callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Authenticate using a specified mechanism</p>
+</div></div><div id="Server__auth_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>mechanism</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The Auth mechanism we are invoking</span></td></tr><tr><td><span class="method-depth0"></span><code>db</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The db we are invoking the mechanism against</span></td></tr><tr><td><span class="method-depth0"></span><code>param</code></td><td><span><span class='missing-link'>...object</span></span></td><td><span> Parameters for the specific mechanism</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>authResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.auth = function(mechanism, db) {
+  var self = this;
+  var args = Array.prototype.slice.call(arguments, 2);
+  var callback = args.pop();
+
+  // If we don't have the mechanism fail
+  if(self.s.authProviders[mechanism] == null &amp;&amp; mechanism != 'default')
+    throw new MongoError(f(&quot;auth provider %s does not exist&quot;, mechanism));
+
+  // If we have the default mechanism we pick mechanism based on the wire
+  // protocol max version. If it's &gt;= 3 then scram-sha1 otherwise mongodb-cr
+  if(mechanism == 'default' &amp;&amp; self.s.ismaster &amp;&amp; self.s.ismaster.maxWireVersion &gt;= 3) {
+    mechanism = 'scram-sha-1';
+  } else if(mechanism == 'default') {
+    mechanism = 'mongocr';
+  }
+
+  // Actual arguments
+  var finalArguments = [self, self.s.pool, db].concat(args.slice(0)).concat([function(err, r) {
+    if(err) return callback(err);
+    if(!r) return callback(new MongoError('could not authenticate'));
+    callback(null, new Session({}, self));
+  }]);
+
+  // Let's invoke the auth mechanism
+  self.s.authProviders[mechanism].auth.apply(self.s.authProviders[mechanism], finalArguments);
+}
+
+//
+// Plugin methods
+//</pre></div></div></div></section><span id="Server__command" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__command_body" class="panel-heading collapsed"><h3 class="panel-title">Server::command(ns, cmd, [options.readPreference], [options.connection], callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Execute a command</p>
+</div></div><div id="Server__command_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>ns</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The MongoDB fully qualified namespace (ex: db1.collection1)</span></td></tr><tr><td><span class="method-depth0"></span><code>cmd</code></td><td><span><span class='missing-link'>object</span></span></td><td><span> The command hash</span></td></tr><tr><td><span class="method-depth0"></span><code>options.readPreference</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../classes/undefined.html#ReadPreference'>ReadPreference</a></span></td><td><span> Specify read preference if command supports it</span></td></tr><tr><td><span class="method-depth0"></span><code>options.connection</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../classes/Connection.html#Connection'>Connection</a></span></td><td><span> Specify connection object to execute command against</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>opResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.command = function(ns, cmd, options, callback) {
+  if(typeof options == 'function') callback = options, options = {};
+  var self = this;
+  if(this.s.state == DESTROYED) return callback(new MongoError(f('topology was destroyed')));
+  // Ensure we have no options
+  options = options || {};
+  // Do we have a read Preference it need to be of type ReadPreference
+  if(options.readPreference &amp;&amp; !(options.readPreference instanceof ReadPreference)) {
+    throw new Error(&quot;readPreference must be an instance of ReadPreference&quot;);
+  }
+
+  // Debug log
+  if(self.s.logger.isDebug()) self.s.logger.debug(f('executing command [%s] against %s', JSON.stringify({
+    ns: ns, cmd: cmd, options: debugOptions(debugFields, options)
+  }), self.name));
+
+  // Topology is not connected, save the call in the provided store to be
+  // Executed at some point when the handler deems it's reconnected
+  if(!self.isConnected() &amp;&amp; self.s.disconnectHandler != null) {
+    callback = bindToCurrentDomain(callback);
+    return self.s.disconnectHandler.add('command', ns, cmd, options, callback);
+  }
+
+  // If we have no connection error
+  if(!self.s.pool.isConnected()) return callback(new MongoError(f(&quot;no connection available to server %s&quot;, self.name)));
+
+  // Execute on all connections
+  var onAll = typeof options.onAll == 'boolean' ? options.onAll : false;
+
+  // Check keys
+  var checkKeys = typeof options.checkKeys == 'boolean' ? options.checkKeys: false;
+
+  // Serialize function
+  var serializeFunctions = typeof options.serializeFunctions == 'boolean' ? options.serializeFunctions : false;
+
+  // Query options
+  var queryOptions = {
+    numberToSkip: 0, numberToReturn: -1, checkKeys: checkKeys
+  };
+
+  if(serializeFunctions) queryOptions.serializeFunctions = serializeFunctions;
+
+  // Single operation execution
+  if(!Array.isArray(cmd)) {
+    return executeSingleOperation(self, ns, cmd, queryOptions, options, onAll, callback);    
+  }
+
+  // Build commands for each of the instances
+  var queries = new Array(cmd.length);
+  for(var i = 0; i &lt; cmd.length; i++) {
+    queries[i] = new Query(self.s.bson, ns, cmd[i], queryOptions);
+    queries[i].slaveOk = slaveOk(options.readPreference);
+  }
+
+  // Notify query start to any read Preference strategies
+  if(self.s.readPreferenceStrategies != null)
+    notifyStrategies(self, self.s, 'startOperation', [self, queries, new Date()]);
+
+  // Get a connection (either passed or from the pool)
+  var connection = options.connection || self.s.pool.get();
+
+  // Double check if we have a valid connection
+  if(!connection.isConnected()) {
+    return callback(new MongoError(f(&quot;no connection available to server %s&quot;, self.name)));
+  }
+
+  // Print cmd and execution connection if in debug mode for logging
+  if(self.s.logger.isDebug()) {
+    var json = connection.toJSON();
+    self.s.logger.debug(f('cmd [%s] about to be executed on connection with id %s at %s:%s', JSON.stringify(queries), json.id, json.host, json.port));
+  }
+
+  // Canceled operations
+  var canceled = false;
+  // Number of operations left
+  var operationsLeft = queries.length;
+  // Results
+  var results = [];
+
+  // We need to nest the callbacks
+  for(var i = 0; i &lt; queries.length; i++) {
+    // Get the query object
+    var query = queries[i];
+    
+    // Execute a single command query
+    try {
+      connection.write(query.toBin());
+    } catch(err) {
+      return callback(MongoError.create(err));
+    }    
+
+    // Register the callback
+    self.s.callbacks.register(query.requestId, function(err, result) {
+      // If it's canceled ignore the operation
+      if(canceled) return;
+      // Update the current index
+      operationsLeft = operationsLeft - 1;
+      
+      // If we have an error cancel the operation
+      if(err) {
+        canceled = true;
+        return callback(err);
+      }
+
+      // Return the result
+      if(result.documents[0]['$err']
+        || result.documents[0]['errmsg']
+        || result.documents[0]['err']
+        || result.documents[0]['code']) {
+
+        // Set to canceled
+        canceled = true;
+        // Return the error
+        return callback(MongoError.create(result.documents[0]));
+      }
+
+      // Push results
+      results.push(result.documents[0]);
+
+      // We are done, return the result
+      if(operationsLeft == 0) {
+        // Notify end of command
+        notifyStrategies(self, self.s, 'endOperation', [self, err, result, new Date()]);
+
+        // Turn into command results
+        var commandResults = new Array(results.length);
+        for(var i = 0; i &lt; results.length; i++) {
+          commandResults[i] = new CommandResult(results[i], connection); 
+        }
+
+        // Execute callback, catch and rethrow if needed
+        try { callback(null, commandResults); }
+        catch(err) { process.nextTick(function() { throw err}); }
+      }
+    });
+  }
+}</pre></div></div></div></section><span id="Server__connect" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__connect_body" class="panel-heading collapsed"><h3 class="panel-title">Server::connect()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Initiate server connect</p>
+</div></div><div id="Server__connect_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.connect = function(_options) {
+  var self = this;
+  // Set server specific settings
+  _options = _options || {}
+  if(typeof _options.promoteLongs == 'boolean')  {
+    self.s.options.promoteLongs = _options.promoteLongs;
+  }
+
+  // Destroy existing pool
+  if(self.s.pool) {
+    self.s.pool.destroy();
+    self.s.pool = null;
+  }
+
+  // Set the state to connection
+  self.s.state = CONNECTING;
+  // Create a new connection pool
+  if(!self.s.pool) {
+    self.s.options.messageHandler = messageHandler(self, self.s);
+    self.s.pool = new Pool(self.s.options);
+  }
+
+  // Add all the event handlers
+  self.s.pool.once('timeout', timeoutHandler(self, self.s));
+  self.s.pool.once('close', closeHandler(self, self.s));
+  self.s.pool.once('error', errorHandler(self, self.s));
+  self.s.pool.once('connect', connectHandler(self, self.s));
+  self.s.pool.once('parseError', fatalErrorHandler(self, self.s));
+
+  // Connect the pool
+  self.s.pool.connect();
+}</pre></div></div></div></section><span id="Server__connections" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__connections_body" class="panel-heading collapsed"><h3 class="panel-title">Server::connections()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>All raw connections</p>
+</div></div><div id="Server__connections_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>Connection[]</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.connections = function() {
+  return this.s.pool.getAll();
+}</pre></div></div></div></section><span id="Server__connections" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__connections_body" class="panel-heading collapsed"><h3 class="panel-title">Server::connections()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>All raw connections</p>
+</div></div><div id="Server__connections_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>array</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.connections = function() {
+  return this.s.server.connections();
+}</pre></div></div></div></section><span id="Server__cursor" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__cursor_body" class="panel-heading collapsed"><h3 class="panel-title">Server::cursor(ns, cmd, [options.batchSize=0], [options.documents=[]], [options.readPreference], callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Perform one or more remove operations</p>
+</div></div><div id="Server__cursor_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>ns</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The MongoDB fully qualified namespace (ex: db1.collection1)</span></td></tr><tr><td><span class="method-depth0"></span><code>cmd</code></td><td><span><span class='missing-link'>object</span>, <a href='../classes/Long.html#Long'>Long</a></span></td><td><span> Can be either a command returning a cursor or a cursorId</span></td></tr><tr><td><span class="method-depth0"></span><code>options.batchSize=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> Batchsize for the operation</span></td></tr><tr><td><span class="method-depth0"></span><code>options.documents=[]</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>array</span></span></td><td><span> Initial documents list for cursor</span></td></tr><tr><td><span class="method-depth0"></span><code>options.readPreference</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../classes/undefined.html#ReadPreference'>ReadPreference</a></span></td><td><span> Specify read preference if command supports it</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>opResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.cursor = function(ns, cmd, cursorOptions) {
+  var s = this.s;
+  cursorOptions = cursorOptions || {};
+  var FinalCursor = cursorOptions.cursorFactory || s.Cursor;
+  return new FinalCursor(s.bson, ns, cmd, cursorOptions, this, s.options);
+}</pre></div></div></div></section><span id="Server__destroy" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__destroy_body" class="panel-heading collapsed"><h3 class="panel-title">Server::destroy()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Destroy the server connection</p>
+</div></div><div id="Server__destroy_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.destroy = function(emitClose, emitDestroy) {
+  var self = this;
+  if(self.s.logger.isDebug()) self.s.logger.debug(f('destroy called on server %s', self.name));
+  // Emit close
+  if(emitClose &amp;&amp; self.listeners('close').length &gt; 0) self.emit('close', self);
+
+  // Emit destroy event
+  if(emitDestroy) self.emit('destroy', self);
+  // Set state as destroyed
+  self.s.state = DESTROYED;
+  // Close the pool
+  self.s.pool.destroy();
+  // Flush out all the callbacks
+  if(self.s.callbacks) self.s.callbacks.flush(new MongoError(f(&quot;server %s sockets closed&quot;, self.name)));
+}</pre></div></div></div></section><span id="Server__equals" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__equals_body" class="panel-heading collapsed"><h3 class="panel-title">Server::equals(server)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Compare two server instances</p>
+</div></div><div id="Server__equals_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>server</code></td><td><span><a href='../classes/Server.html#Server'>Server</a></span></td><td><span> Server to compare equality against</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>boolean</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.equals = function(server) {
+  if(typeof server == 'string') return server == this.name;
+  return server.name == this.name;
+}</pre></div></div></div></section><span id="Server__getCallbacks" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__getCallbacks_body" class="panel-heading collapsed"><h3 class="panel-title">Server::getCallbacks()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Get callbacks object</p>
+</div></div><div id="Server__getCallbacks_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>Callbacks</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.getCallbacks = function() {
+  return this.s.callbacks;
+}</pre></div></div></div></section><span id="Server__getConnection" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__getConnection_body" class="panel-heading collapsed"><h3 class="panel-title">Server::getConnection([options.readPreference])<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Get connection</p>
+</div></div><div id="Server__getConnection_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>options.readPreference</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../classes/undefined.html#ReadPreference'>ReadPreference</a></span></td><td><span> Specify read preference if command supports it</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='../classes/Connection.html#Connection'>Connection</a></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.getConnection = function(options) {
+  return this.s.pool.get();
+}</pre></div></div></div></section><span id="Server__getServer" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__getServer_body" class="panel-heading collapsed"><h3 class="panel-title">Server::getServer([options.readPreference])<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Get server</p>
+</div></div><div id="Server__getServer_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>options.readPreference</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../classes/undefined.html#ReadPreference'>ReadPreference</a></span></td><td><span> Specify read preference if command supports it</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='../classes/Server.html#Server'>Server</a></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.getServer = function(options) {
+  return this;
+}</pre></div></div></div></section><span id="Server__insert" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__insert_body" class="panel-heading collapsed"><h3 class="panel-title">Server::insert(ns, ops, [options.ordered=true], [options.writeConcern={}], callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Insert one or more documents</p>
+</div></div><div id="Server__insert_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>ns</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The MongoDB fully qualified namespace (ex: db1.collection1)</span></td></tr><tr><td><span class="method-depth0"></span><code>ops</code></td><td><span><span class='missing-link'>array</span></span></td><td><span> An array of documents to insert</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ordered=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Execute in order or out of order</span></td></tr><tr><td><span class="method-depth0"></span><code>options.writeConcern={}</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> Write concern for the operation</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>opResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.insert = function(ns, ops, options, callback) {
+  if(typeof options == 'function') callback = options, options = {};
+  var self = this;
+  if(this.s.state == DESTROYED) return callback(new MongoError(f('topology was destroyed')));
+  // Topology is not connected, save the call in the provided store to be
+  // Executed at some point when the handler deems it's reconnected
+  if(!self.isConnected() &amp;&amp; self.s.disconnectHandler != null) {
+    callback = bindToCurrentDomain(callback);
+    return self.s.disconnectHandler.add('insert', ns, ops, options, callback);
+  }
+
+  // Setup the docs as an array
+  ops = Array.isArray(ops) ? ops : [ops];
+  // Execute write
+  return self.s.wireProtocolHandler.insert(self, self.s.ismaster, ns, self.s.bson, self.s.pool, self.s.callbacks, ops, options, callback);
+}</pre></div></div></div></section><span id="Server__isConnected" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__isConnected_body" class="panel-heading collapsed"><h3 class="panel-title">Server::isConnected()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Figure out if the server is connected</p>
+</div></div><div id="Server__isConnected_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>boolean</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.isConnected = function() {
+  var self = this;
+  if(self.s.pool) return self.s.pool.isConnected();
+  return false;
+}</pre></div></div></div></section><span id="Server__isDestroyed" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__isDestroyed_body" class="panel-heading collapsed"><h3 class="panel-title">Server::isDestroyed()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Figure out if the server instance was destroyed by calling destroy</p>
+</div></div><div id="Server__isDestroyed_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>boolean</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.isDestroyed = function() {
+  return this.s.state == DESTROYED;
+}
+
+var executeSingleOperation = function(self, ns, cmd, queryOptions, options, onAll, callback) {
+  // Create a query instance
+  var query = new Query(self.s.bson, ns, cmd, queryOptions);
+
+  // Set slave OK
+  query.slaveOk = slaveOk(options.readPreference);
+
+  // Notify query start to any read Preference strategies
+  if(self.s.readPreferenceStrategies != null)
+    notifyStrategies(self, self.s, 'startOperation', [self, query, new Date()]);
+
+  // Get a connection (either passed or from the pool)
+  var connection = options.connection || self.s.pool.get();
+
+  // Double check if we have a valid connection
+  if(!connection.isConnected()) {
+    return callback(new MongoError(f(&quot;no connection available to server %s&quot;, self.name)));
+  }
+
+  // Print cmd and execution connection if in debug mode for logging
+  if(self.s.logger.isDebug()) {
+    var json = connection.toJSON();
+    self.s.logger.debug(f('cmd [%s] about to be executed on connection with id %s at %s:%s', JSON.stringify(cmd), json.id, json.host, json.port));
+  }
+
+  // Execute multiple queries
+  if(onAll) {
+    var connections = self.s.pool.getAll();
+    var total = connections.length;
+    // We have an error
+    var error = null;
+    // Execute on all connections
+    for(var i = 0; i &lt; connections.length; i++) {
+      try {
+        query.incRequestId();
+        connections[i].write(query.toBin());
+      } catch(err) {
+        total = total - 1;
+        if(total == 0) return callback(MongoError.create(err));
+      }
+
+      // Register the callback
+      self.s.callbacks.register(query.requestId, function(err, result) {
+        if(err) error = err;
+        total = total - 1;
+
+        // Done
+        if(total == 0) {
+          // Notify end of command
+          notifyStrategies(self, self.s, 'endOperation', [self, error, result, new Date()]);
+          if(error) return callback(MongoError.create(error));
+          // Execute callback, catch and rethrow if needed
+          try { callback(null, new CommandResult(result.documents[0], connections)); }
+          catch(err) { process.nextTick(function() { throw err}); }
+        }
+      });
+    }
+
+    return;
+  }
+
+  // Execute a single command query
+  try {
+    connection.write(query.toBin());
+  } catch(err) {
+    return callback(MongoError.create(err));
+  }
+
+  // Register the callback
+  self.s.callbacks.register(query.requestId, function(err, result) {
+    // Notify end of command
+    notifyStrategies(self, self.s, 'endOperation', [self, err, result, new Date()]);
+    if(err) return callback(err);
+    if(result.documents[0]['$err']
+      || result.documents[0]['errmsg']
+      || result.documents[0]['err']
+      || result.documents[0]['code']) return callback(MongoError.create(result.documents[0]));
+      // Execute callback, catch and rethrow if needed
+      try { callback(null, new CommandResult(result.documents[0], connection)); }
+      catch(err) { process.nextTick(function() { throw err}); }
+  });  
+}</pre></div></div></div></section><span id="Server__lastIsMaster" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__lastIsMaster_body" class="panel-heading collapsed"><h3 class="panel-title">Server::lastIsMaster()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Returns the last known ismaster document for this server</p>
+</div></div><div id="Server__lastIsMaster_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>object</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.lastIsMaster = function() {
+  return this.s.ismaster;
+}</pre></div></div></div></section><span id="Server__parserType" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__parserType_body" class="panel-heading collapsed"><h3 class="panel-title">Server::parserType()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Name of BSON parser currently used</p>
+</div></div><div id="Server__parserType_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>string</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.parserType = function() {
+  var s = this.s;
+  if(s.options.bson.serialize.toString().indexOf('[native code]') != -1)
+    return 'c++';
+  return 'js';
+}
+
+// // Command
+// {
+//     find: ns
+//   , query: &lt;object&gt;
+//   , limit: &lt;n&gt;
+//   , fields: &lt;object&gt;
+//   , skip: &lt;n&gt;
+//   , hint: &lt;string&gt;
+//   , explain: &lt;boolean&gt;
+//   , snapshot: &lt;boolean&gt;
+//   , batchSize: &lt;n&gt;
+//   , returnKey: &lt;boolean&gt;
+//   , maxScan: &lt;n&gt;
+//   , min: &lt;n&gt;
+//   , max: &lt;n&gt;
+//   , showDiskLoc: &lt;boolean&gt;
+//   , comment: &lt;string&gt;
+//   , maxTimeMS: &lt;n&gt;
+//   , raw: &lt;boolean&gt;
+//   , readPreference: &lt;ReadPreference&gt;
+//   , tailable: &lt;boolean&gt;
+//   , oplogReplay: &lt;boolean&gt;
+//   , noCursorTimeout: &lt;boolean&gt;
+//   , awaitdata: &lt;boolean&gt;
+//   , exhaust: &lt;boolean&gt;
+//   , partial: &lt;boolean&gt;
+// }</pre></div></div></div></section><span id="Server__remove" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__remove_body" class="panel-heading collapsed"><h3 class="panel-title">Server::remove(ns, ops, [options.ordered=true], [options.writeConcern={}], callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Perform one or more remove operations</p>
+</div></div><div id="Server__remove_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>ns</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The MongoDB fully qualified namespace (ex: db1.collection1)</span></td></tr><tr><td><span class="method-depth0"></span><code>ops</code></td><td><span><span class='missing-link'>array</span></span></td><td><span> An array of removes</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ordered=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Execute in order or out of order</span></td></tr><tr><td><span class="method-depth0"></span><code>options.writeConcern={}</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> Write concern for the operation</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>opResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.remove = function(ns, ops, options, callback) {
+  if(typeof options == 'function') callback = options, options = {};
+  var self = this;
+  if(this.s.state == DESTROYED) return callback(new MongoError(f('topology was destroyed')));
+  // Topology is not connected, save the call in the provided store to be
+  // Executed at some point when the handler deems it's reconnected
+  if(!self.isConnected() &amp;&amp; self.s.disconnectHandler != null) {
+    callback = bindToCurrentDomain(callback);
+    return self.s.disconnectHandler.add('remove', ns, ops, options, callback);
+  }
+
+  // Setup the docs as an array
+  ops = Array.isArray(ops) ? ops : [ops];
+  // Execute write
+  return self.s.wireProtocolHandler.remove(self, self.s.ismaster, ns, self.s.bson, self.s.pool, self.s.callbacks, ops, options, callback);
+}</pre></div></div></div></section><span id="Server__setBSONParserType" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__setBSONParserType_body" class="panel-heading collapsed"><h3 class="panel-title">Server::setBSONParserType(type)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Execute a command</p>
+</div></div><div id="Server__setBSONParserType_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>type</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> Type of BSON parser to use (c++ or js)</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.setBSONParserType = function(type) {
+  var nBSON = null;
+
+  if(type == 'c++') {
+    nBSON = require('bson').native().BSON;
+  } else if(type == 'js') {
+    nBSON = require('bson').pure().BSON;
+  } else {
+    throw new MongoError(f(&quot;% parser not supported&quot;, type));
+  }
+
+  this.s.options.bson = new nBSON(bsonTypes);
+}</pre></div></div></div></section><span id="Server__update" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Server__update_body" class="panel-heading collapsed"><h3 class="panel-title">Server::update(ns, ops, [options.ordered=true], [options.writeConcern={}], callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Perform one or more update operations</p>
+</div></div><div id="Server__update_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>ns</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The MongoDB fully qualified namespace (ex: db1.collection1)</span></td></tr><tr><td><span class="method-depth0"></span><code>ops</code></td><td><span><span class='missing-link'>array</span></span></td><td><span> An array of updates</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ordered=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Execute in order or out of order</span></td></tr><tr><td><span class="method-depth0"></span><code>options.writeConcern={}</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> Write concern for the operation</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>opResultCallback</span></span></td><td><span> A callback function</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Server.prototype.update = function(ns, ops, options, callback) {
+  if(typeof options == 'function') callback = options, options = {};
+  var self = this;
+  if(this.s.state == DESTROYED) return callback(new MongoError(f('topology was destroyed')));
+  // Topology is not connected, save the call in the provided store to be
+  // Executed at some point when the handler deems it's reconnected
+  if(!self.isConnected() &amp;&amp; self.s.disconnectHandler != null) {
+    callback = bindToCurrentDomain(callback);
+    return self.s.disconnectHandler.add('update', ns, ops, options, callback);
+  }
+
+  // Setup the docs as an array
+  ops = Array.isArray(ops) ? ops : [ops];
+  // Execute write
+  return self.s.wireProtocolHandler.update(self, self.s.ismaster, ns, self.s.bson, self.s.pool, self.s.callbacks, ops, options, callback);
+}</pre></div></div></div></section></div></div></div><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script><script src="../bootstrap-3.2.0-dist/js/bootstrap.min.js"></script><script src="../google-code-prettify/prettify.js"></script><script src="../script.js"></script><script src="../group-examples.js"></script></body></html>

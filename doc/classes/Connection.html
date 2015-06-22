@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Feel - Connection</title><script>if (location.protocol.match(/^http/) && location.pathname.match('\.html') === null && location.pathname.slice(-1) !== '/') {
+  location.href = location.href + '/';
+}</script><link href="../bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script><script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]--><link href="../google-code-prettify/prettify.css" rel="stylesheet" type="text/css"><link href="../style.css" rel="stylesheet" type="text/css"></head><body data-spy="scroll" data-target=".sidebar"><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#top-navigation-collapse" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div id="top-navigation-collapse" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="../index.html">Home</a></li><li><a href="../modules/index.html">Modules</a></li><li class="active"><a href="../classes/index.html">Classes - Connection</a></li></ul><div class="options"><label class="checkbox"><input id="options-private" type="checkbox"> Private </label></div></div></div></nav><div class="container-fluid content"><div class="row"><div data-spy="affix" class="hidden-xs sidebar col-sm-3"><div class="cormo-sidenav"><div class="panel panel-default"><div id="undefined_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../classes/Admin.html">Admin</a></li><li><a href="../classes/AggregationCursor.html">AggregationCursor</a></li><li><a href="../classes/BSON.html">BSON</a></li><li><a href="../classes/Binary.html">Binary</a></li><li><a href="../classes/Chunk.html">Chunk</a></li><li><a href="../classes/Code.html">Code</a></li><li><a href="../classes/CommandCursor.html">CommandCursor</a></li><li><a href="../classes/CommandResult.html">CommandResult</a></li><li class="active"><a href="#Connection">Connection</a></li><li class="cormo-class-property"><a href="#Connection__connect">connect</a></li><li class="cormo-class-property"><a href="#Connection__destroy">destroy</a></li><li class="cormo-class-property"><a href="#Connection__isConnected">isConnected</a></li><li class="cormo-class-property"><a href="#Connection__toJSON">toJSON</a></li><li class="cormo-class-property"><a href="#Connection__toString">toString</a></li><li class="cormo-class-property"><a href="#Connection__write">write</a></li><li><a href="../classes/DBRef.html">DBRef</a></li><li><a href="../classes/Double.html">Double</a></li><li><a href="../classes/EventEmitter Manages event registering and emitting..html">EventEmitter Manages event registering and emitting.</a></li><li><a href="../classes/FindOperatorsOrdered.html">FindOperatorsOrdered</a></li><li><a href="../classes/GSSAPI.html">GSSAPI</a></li><li><a href="../classes/GridStoreStream.html">GridStoreStream</a></li><li><a href="../classes/Logger.html">Logger</a></li><li><a href="../classes/Long.html">Long</a></li><li><a href="../classes/MasterProcessConnector.html">MasterProcessConnector</a></li><li><a href="../classes/MasterProcessFork.html">MasterProcessFork</a></li><li><a href="../classes/MaxKey.html">MaxKey</a></li><li><a href="../classes/MinKey.html">MinKey</a></li><li><a href="../classes/MongoCR.html">MongoCR</a></li><li><a href="../classes/MongoClient.html">MongoClient</a></li><li><a href="../classes/MongoError.html">MongoError</a></li><li><a href="../classes/Mongos.html">Mongos</a></li><li><a href="../classes/Ping.html">Ping</a></li><li><a href="../classes/Plain.html">Plain</a></li><li><a href="../classes/Pool.html">Pool</a></li><li><a href="../classes/ReplSet.html">ReplSet</a></li><li><a href="../classes/Represents the BSON Code type..html">Represents the BSON Code type.</a></li><li><a href="../classes/Represents the BSON DBRef type..html">Represents the BSON DBRef type.</a></li><li><a href="../classes/Represents the BSON Double type..html">Represents the BSON Double type.</a></li><li><a href="../classes/Represents the BSON Long type..html">Represents the BSON Long type.</a></li><li><a href="../classes/Represents the BSON MaxKey type..html">Represents the BSON MaxKey type.</a></li><li><a href="../classes/Represents the BSON MinKey type..html">Represents the BSON MinKey type.</a></li><li><a href="../classes/Represents the BSON ObjectID type.html">Represents the BSON ObjectID type</a></li><li><a href="../classes/Represents the BSON Parser.html">Represents the BSON Parser</a></li><li><a href="../classes/Represents the BSON Symbol type..html">Represents the BSON Symbol type.</a></li><li><a href="../classes/Represents the BSON Timestamp type..html">Represents the BSON Timestamp type.</a></li><li><a href="../classes/Represents the Binary BSON type..html">Represents the Binary BSON type.</a></li><li><a href="../classes/SSPI.html">SSPI</a></li><li><a href="../classes/ScramSHA1.html">ScramSHA1</a></li><li><a href="../classes/Server.html">Server</a></li><li><a href="../classes/Session.html">Session</a></li><li><a href="../classes/SlaveProcessConnector.html">SlaveProcessConnector</a></li><li><a href="../classes/Symbol.html">Symbol</a></li><li><a href="../classes/Timestamp.html">Timestamp</a></li><li><a href="../classes/UnorderedBulkOperation.html">UnorderedBulkOperation</a></li><li><a href="../classes/X509.html">X509</a></li><li><a href="../classes/create.html">create</a></li></ul></div></div></div></div><div class="col-sm-9 col-sm-offset-3"><span id="Connection" class="fix-anchor"></span><section><h1 class="class_title">Connection</h1><div><p>Creates a new Connection instance</p>
+</div><div></div><div class="panel panel-info"><div data-toggle="collapse" data-target="#Connection_ctor_body" class="panel-heading collapsed"><h3 class="panel-title">Constructor<span class="pull-right glyphicon"></span></h3></div><div id="Connection_ctor_body" class="panel-collapse collapse"><div class="panel-body"><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>options.host</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The server host</span></td></tr><tr><td><span class="method-depth0"></span><code>options.port</code></td><td><span><span class='missing-link'>number</span></span></td><td><span> The server port</span></td></tr><tr><td><span class="method-depth0"></span><code>options.size=5</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Server connection pool size</span></td></tr><tr><td><span class="method-depth0"></span><code>options.keepAlive=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> TCP Connection keep alive enabled</span></td></tr><tr><td><span class="method-depth0"></span><code>options.keepAliveInitialDelay=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> Initial delay before TCP keep alive enabled</span></td></tr><tr><td><span class="method-depth0"></span><code>options.noDelay=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> TCP Connection no delay</span></td></tr><tr><td><span class="method-depth0"></span><code>options.connectionTimeout=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> TCP Connection timeout setting</span></td></tr><tr><td><span class="method-depth0"></span><code>options.socketTimeout=0</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>number</span></span></td><td><span> TCP Socket timeout setting</span></td></tr><tr><td><span class="method-depth0"></span><code>options.singleBufferSerializtion=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Serialize into single buffer, trade of peak memory for serialization speed</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ssl=false</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Use SSL for connection</span></td></tr><tr><td><span class="method-depth0"></span><code>options.ca</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span> SSL Certificate store binary buffer</span></td></tr><tr><td><span class="method-depth0"></span><code>options.cert</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span> SSL Certificate binary buffer</span></td></tr><tr><td><span class="method-depth0"></span><code>options.key</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span> SSL Key file binary buffer</span></td></tr><tr><td><span class="method-depth0"></span><code>options.passphrase</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>string</span></span></td><td><span> SSL Certificate pass phrase</span></td></tr><tr><td><span class="method-depth0"></span><code>options.rejectUnauthorized=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Reject unauthorized server certificates</span></td></tr><tr><td><span class="method-depth0"></span><code>options.promoteLongs=true</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Convert Long values from the db into Numbers if they fit into 53 bits</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/connection/connection.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">var Connection = function(options) {
+  // Add event listener
+  EventEmitter.call(this);
+  // Set empty if no options passed
+  this.options = options || {};
+  // Identification information
+  this.id = _id++;
+  // Logger instance
+  this.logger = Logger('Connection', options);
+  // No bson parser passed in
+  if(!options.bson) throw new Error(&quot;must pass in valid bson parser&quot;);
+  // Get bson parser
+  this.bson = options.bson;
+  // Grouping tag used for debugging purposes
+  this.tag = options.tag;
+  // Message handler
+  this.messageHandler = options.messageHandler;
+
+  // Max BSON message size
+  this.maxBsonMessageSize = options.maxBsonMessageSize || (1024 * 1024 * 16 * 4);
+  // Debug information
+  if(this.logger.isDebug()) this.logger.debug(f('creating connection %s with options [%s]', this.id, JSON.stringify(debugOptions(debugFields, options))));
+
+  // Default options
+  this.port = options.port || 27017;
+  this.host = options.host || 'localhost';
+  this.keepAlive = typeof options.keepAlive == 'boolean' ? options.keepAlive : true;
+  this.keepAliveInitialDelay = options.keepAliveInitialDelay || 0;
+  this.noDelay = typeof options.noDelay == 'boolean' ? options.noDelay : true;
+  this.connectionTimeout = options.connectionTimeout || 0;
+  this.socketTimeout = options.socketTimeout || 0;
+
+  // Check if we have a domain socket
+  this.domainSocket = this.host.indexOf('\/') != -1;
+
+  // Serialize commands using function
+  this.singleBufferSerializtion = typeof options.singleBufferSerializtion == 'boolean' ? options.singleBufferSerializtion : true;
+  this.serializationFunction = this.singleBufferSerializtion ? 'toBinUnified' : 'toBin';
+
+  // SSL options
+  this.ca = options.ca || null;
+  this.cert = options.cert || null;
+  this.key = options.key || null;
+  this.passphrase = options.passphrase || null;
+  this.ssl = typeof options.ssl == 'boolean' ? options.ssl : false;
+  this.rejectUnauthorized = typeof options.rejectUnauthorized == 'boolean' ? options.rejectUnauthorized : true
+
+  // If ssl not enabled
+  if(!this.ssl) this.rejectUnauthorized = false;
+
+  // Response options
+  this.responseOptions = {
+    promoteLongs: typeof options.promoteLongs == 'boolean' ?  options.promoteLongs : true
+  }
+
+  // Flushing
+  this.flushing = false;
+  this.queue = [];
+
+  // Internal state
+  this.connection = null;
+  this.writeStream = null;
+}
+
+inherits(Connection, EventEmitter);
+
+//
+// Connection handlers
+var errorHandler = function(self) {
+  return function(err) {
+    // Debug information
+    if(self.logger.isDebug()) self.logger.debug(f('connection %s for [%s:%s] errored out with [%s]', self.id, self.host, self.port, JSON.stringify(err)));
+    // Emit the error
+    if(self.listeners('error').length &gt; 0) self.emit(&quot;error&quot;, MongoError.create(err), self);
+  }
+}
+
+var timeoutHandler = function(self) {
+  return function() {
+    // Debug information
+    if(self.logger.isDebug()) self.logger.debug(f('connection %s for [%s:%s] timed out', self.id, self.host, self.port));
+    // Emit timeout error
+    self.emit(&quot;timeout&quot;
+      , MongoError.create(f(&quot;connection %s to %s:%s timed out&quot;, self.id, self.host, self.port))
+      , self);
+  }
+}
+
+var closeHandler = function(self) {
+  return function(hadError) {
+    // Debug information
+    if(self.logger.isDebug()) self.logger.debug(f('connection %s with for [%s:%s] closed', self.id, self.host, self.port));
+    // Emit close event
+    if(!hadError) {
+      self.emit(&quot;close&quot;
+        , MongoError.create(f(&quot;connection %s to %s:%s closed&quot;, self.id, self.host, self.port))
+        , self);
+    }
+  }
+}
+
+var dataHandler = function(self) {
+  return function(data) {
+    // Parse until we are done with the data
+    while(data.length &gt; 0) {
+      // If we still have bytes to read on the current message
+      if(self.bytesRead &gt; 0 &amp;&amp; self.sizeOfMessage &gt; 0) {
+        // Calculate the amount of remaining bytes
+        var remainingBytesToRead = self.sizeOfMessage - self.bytesRead;
+        // Check if the current chunk contains the rest of the message
+        if(remainingBytesToRead &gt; data.length) {
+          // Copy the new data into the exiting buffer (should have been allocated when we know the message size)
+          data.copy(self.buffer, self.bytesRead);
+          // Adjust the number of bytes read so it point to the correct index in the buffer
+          self.bytesRead = self.bytesRead + data.length;
+
+          // Reset state of buffer
+          data = new Buffer(0);
+        } else {
+          // Copy the missing part of the data into our current buffer
+          data.copy(self.buffer, self.bytesRead, 0, remainingBytesToRead);
+          // Slice the overflow into a new buffer that we will then re-parse
+          data = data.slice(remainingBytesToRead);
+
+          // Emit current complete message
+          try {
+            var emitBuffer = self.buffer;
+            // Reset state of buffer
+            self.buffer = null;
+            self.sizeOfMessage = 0;
+            self.bytesRead = 0;
+            self.stubBuffer = null;
+            // Emit the buffer
+            self.messageHandler(new Response(self.bson, emitBuffer, self.responseOptions), self);
+          } catch(err) {
+            var errorObject = {err:&quot;socketHandler&quot;, trace:err, bin:self.buffer, parseState:{
+              sizeOfMessage:self.sizeOfMessage,
+              bytesRead:self.bytesRead,
+              stubBuffer:self.stubBuffer}};
+            // We got a parse Error fire it off then keep going
+            self.emit(&quot;parseError&quot;, errorObject, self);
+          }
+        }
+      } else {
+        // Stub buffer is kept in case we don't get enough bytes to determine the
+        // size of the message (&lt; 4 bytes)
+        if(self.stubBuffer != null &amp;&amp; self.stubBuffer.length &gt; 0) {
+          // If we have enough bytes to determine the message size let's do it
+          if(self.stubBuffer.length + data.length &gt; 4) {
+            // Prepad the data
+            var newData = new Buffer(self.stubBuffer.length + data.length);
+            self.stubBuffer.copy(newData, 0);
+            data.copy(newData, self.stubBuffer.length);
+            // Reassign for parsing
+            data = newData;
+
+            // Reset state of buffer
+            self.buffer = null;
+            self.sizeOfMessage = 0;
+            self.bytesRead = 0;
+            self.stubBuffer = null;
+
+          } else {
+
+            // Add the the bytes to the stub buffer
+            var newStubBuffer = new Buffer(self.stubBuffer.length + data.length);
+            // Copy existing stub buffer
+            self.stubBuffer.copy(newStubBuffer, 0);
+            // Copy missing part of the data
+            data.copy(newStubBuffer, self.stubBuffer.length);
+            // Exit parsing loop
+            data = new Buffer(0);
+          }
+        } else {
+          if(data.length &gt; 4) {
+            // Retrieve the message size
+            // var sizeOfMessage = data.readUInt32LE(0);
+            var sizeOfMessage = data[0] | data[1] &lt;&lt; 8 | data[2] &lt;&lt; 16 | data[3] &lt;&lt; 24;
+            // If we have a negative sizeOfMessage emit error and return
+            if(sizeOfMessage &lt; 0 || sizeOfMessage &gt; self.maxBsonMessageSize) {
+              var errorObject = {err:&quot;socketHandler&quot;, trace:'', bin:self.buffer, parseState:{
+                sizeOfMessage: sizeOfMessage,
+                bytesRead: self.bytesRead,
+                stubBuffer: self.stubBuffer}};
+              // We got a parse Error fire it off then keep going
+              self.emit(&quot;parseError&quot;, errorObject, self);
+              return;
+            }
+
+            // Ensure that the size of message is larger than 0 and less than the max allowed
+            if(sizeOfMessage &gt; 4 &amp;&amp; sizeOfMessage &lt; self.maxBsonMessageSize &amp;&amp; sizeOfMessage &gt; data.length) {
+              self.buffer = new Buffer(sizeOfMessage);
+              // Copy all the data into the buffer
+              data.copy(self.buffer, 0);
+              // Update bytes read
+              self.bytesRead = data.length;
+              // Update sizeOfMessage
+              self.sizeOfMessage = sizeOfMessage;
+              // Ensure stub buffer is null
+              self.stubBuffer = null;
+              // Exit parsing loop
+              data = new Buffer(0);
+
+            } else if(sizeOfMessage &gt; 4 &amp;&amp; sizeOfMessage &lt; self.maxBsonMessageSize &amp;&amp; sizeOfMessage == data.length) {
+              try {
+                var emitBuffer = data;
+                // Reset state of buffer
+                self.buffer = null;
+                self.sizeOfMessage = 0;
+                self.bytesRead = 0;
+                self.stubBuffer = null;
+                // Exit parsing loop
+                data = new Buffer(0);
+                // Emit the message
+                self.messageHandler(new Response(self.bson, emitBuffer, self.responseOptions), self);
+              } catch (err) {
+                var errorObject = {err:&quot;socketHandler&quot;, trace:err, bin:self.buffer, parseState:{
+                  sizeOfMessage:self.sizeOfMessage,
+                  bytesRead:self.bytesRead,
+                  stubBuffer:self.stubBuffer}};
+                // We got a parse Error fire it off then keep going
+                self.emit(&quot;parseError&quot;, errorObject, self);
+              }
+            } else if(sizeOfMessage &lt;= 4 || sizeOfMessage &gt; self.maxBsonMessageSize) {
+              var errorObject = {err:&quot;socketHandler&quot;, trace:null, bin:data, parseState:{
+                sizeOfMessage:sizeOfMessage,
+                bytesRead:0,
+                buffer:null,
+                stubBuffer:null}};
+              // We got a parse Error fire it off then keep going
+              self.emit(&quot;parseError&quot;, errorObject, self);
+
+              // Clear out the state of the parser
+              self.buffer = null;
+              self.sizeOfMessage = 0;
+              self.bytesRead = 0;
+              self.stubBuffer = null;
+              // Exit parsing loop
+              data = new Buffer(0);
+            } else {
+              var emitBuffer = data.slice(0, sizeOfMessage);
+              // Reset state of buffer
+              self.buffer = null;
+              self.sizeOfMessage = 0;
+              self.bytesRead = 0;
+              self.stubBuffer = null;
+              // Copy rest of message
+              data = data.slice(sizeOfMessage);
+              // Emit the message
+              self.messageHandler(new Response(self.bson, emitBuffer, self.responseOptions), self);
+            }
+          } else {
+            // Create a buffer that contains the space for the non-complete message
+            self.stubBuffer = new Buffer(data.length)
+            // Copy the data to the stub buffer
+            data.copy(self.stubBuffer, 0);
+            // Exit parsing loop
+            data = new Buffer(0);
+          }
+        }
+      }
+    }
+  }
+}</pre></div></div></div></section><span id="Connection__connect" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Connection__connect_body" class="panel-heading collapsed"><h3 class="panel-title">Connection::connect()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Connect</p>
+</div></div><div id="Connection__connect_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/connection/connection.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Connection.prototype.connect = function(_options) {
+  var self = this;
+  _options = _options || {};
+  // Check if we are overriding the promoteLongs
+  if(typeof _options.promoteLongs == 'boolean') {
+    self.responseOptions.promoteLongs = _options.promoteLongs;
+  }
+
+  // Create new connection instance
+  self.connection = self.domainSocket
+    ? net.createConnection(self.host)
+    : net.createConnection(self.port, self.host);
+
+  // Set the options for the connection
+  self.connection.setKeepAlive(self.keepAlive, self.keepAliveInitialDelay);
+  self.connection.setTimeout(self.connectionTimeout);
+  self.connection.setNoDelay(self.noDelay);
+
+  // If we have ssl enabled
+  if(self.ssl) {
+    var sslOptions = {
+        socket: self.connection
+      , rejectUnauthorized: self.rejectUnauthorized
+    }
+
+    if(self.ca) sslOptions.ca = self.ca;
+    if(self.cert) sslOptions.cert = self.cert;
+    if(self.key) sslOptions.key = self.key;
+    if(self.passphrase) sslOptions.passphrase = self.passphrase;
+
+    // Attempt SSL connection
+    self.connection = tls.connect(self.port, self.host, sslOptions, function() {
+      // Error on auth or skip
+      if(self.connection.authorizationError &amp;&amp; self.rejectUnauthorized) {
+        return self.emit(&quot;error&quot;, self.connection.authorizationError, self, {ssl:true});
+      }
+
+      // Set socket timeout instead of connection timeout
+      self.connection.setTimeout(self.socketTimeout);
+      // We are done emit connect
+      self.emit('connect', self);
+    });
+  } else {
+    self.connection.on('connect', function() {
+      // Set socket timeout instead of connection timeout
+      self.connection.setTimeout(self.socketTimeout);
+      // Emit connect event
+      self.emit('connect', self);
+    });
+  }
+
+  // Add handlers for events
+  self.connection.once('error', errorHandler(self));
+  self.connection.once('timeout', timeoutHandler(self));
+  self.connection.once('close', closeHandler(self));
+  self.connection.on('data', dataHandler(self));
+}</pre></div></div></div></section><span id="Connection__destroy" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Connection__destroy_body" class="panel-heading collapsed"><h3 class="panel-title">Connection::destroy()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Destroy connection</p>
+</div></div><div id="Connection__destroy_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/connection/connection.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Connection.prototype.destroy = function() {
+  if(this.connection) this.connection.destroy();
+}</pre></div></div></div></section><span id="Connection__isConnected" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Connection__isConnected_body" class="panel-heading collapsed"><h3 class="panel-title">Connection::isConnected()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Is the connection connected</p>
+</div></div><div id="Connection__isConnected_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>boolean</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/connection/connection.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Connection.prototype.isConnected = function() {
+  return !this.connection.destroyed &amp;&amp; this.connection.writable;
+}</pre></div></div></div></section><span id="Connection__toJSON" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Connection__toJSON_body" class="panel-heading collapsed"><h3 class="panel-title">Connection::toJSON()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Return json object of connection</p>
+</div></div><div id="Connection__toJSON_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>object</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/connection/connection.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Connection.prototype.toJSON = function() {
+  return {id: this.id, host: this.host, port: this.port};
+}</pre></div></div></div></section><span id="Connection__toString" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Connection__toString_body" class="panel-heading collapsed"><h3 class="panel-title">Connection::toString()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Return id of connection as a string</p>
+</div></div><div id="Connection__toString_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>string</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/connection/connection.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Connection.prototype.toString = function() {
+  return &quot;&quot; + this.id;
+}</pre></div></div></div></section><span id="Connection__write" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Connection__write_body" class="panel-heading collapsed"><h3 class="panel-title">Connection::write(command)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Write to connection</p>
+</div></div><div id="Connection__write_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>command</code></td><td><span><a href='../undefined.html#Command'>Command</a></span></td><td><span> Command to write out need to implement toBin and toBinUnified</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/lib/connection/connection.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Connection.prototype.write = function(buffer) {
+  // Debug log
+  if(this.logger.isDebug()) this.logger.debug(f('writing buffer [%s] to %s:%s', buffer.toString('hex'), this.host, this.port));
+  // Write out the command
+  this.connection.write(buffer, 'binary');
+}</pre></div></div></div></section></div></div></div><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script><script src="../bootstrap-3.2.0-dist/js/bootstrap.min.js"></script><script src="../google-code-prettify/prettify.js"></script><script src="../script.js"></script><script src="../group-examples.js"></script></body></html>

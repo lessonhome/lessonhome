@@ -526,3 +526,32 @@ global._Inited = (obj)-> Q.then ->
 
 
 global.LibClass = Lib
+
+
+global._hash = (str,n)->
+  ret = CryptoJS.SHA1(str).toString()
+  ret = ret.substr 0,n if n?
+  return ret
+
+global._objToBson = (obj,name="")->
+  ret = {}
+  for key,val of obj
+    hash = _hash "#{name}:#{key}",3
+    v    = LZString.compressToEncodedURIComponent JSON.stringify val
+    ret[hash] = v
+  return ret
+
+global._objToUrlString = (obj)=>
+  ret = []
+  for key,val of obj
+    ret.push [key,val]
+  for i in [0...ret.length-1]
+    for j in [(i+1)...ret.length]
+      [ret[i],ret[j]]=[ret[j],ret[i]] if ret[i][0] > ret[j][0]
+  ret2 = ""
+  for a in ret
+    ret2 += "&" if ret2
+    ret2 += "#{a[0]}=#{a[1]}"
+  return ret2
+  
+ 

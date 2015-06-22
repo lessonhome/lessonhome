@@ -7,30 +7,36 @@ main
 .button_box
   height: 100%
   .button
-    height: 100%
+    padding: 2px
+    width: 18px
+    height: 18px
+    border-radius: 50%
     +inline-block
-    +border-radius(4px)
-    .text
-      +inline-block
-      color: #ffffff
-  .button:after
-    content: ''
+    margin-right: 6px
+    background-color: #ffffff
+    border: 3px solid #b0b0b0
+    box-sizing: border-box
+    .round_button
+      display: none
+      height: 100%
+      width: 100%
+      background-color: #00786a
+      border-radius: 50%
+  .text
     +inline-block
-    height: 100%
+    padding-left: 9px
+    font-size: 18px
 
 //////////////// state rules ////////////
-.inactive
+.button_box.active
   .button
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px
-.active
-  .button
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
-    .text
-      color : #fff
+    .round_button
+      display: block
+    //box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px
 
 
 //////////////// function //////////////
-=selector($selector,$padding_text,$font_size)
+//=selector($selector,$padding_text,$font_size)
   .button_box.#{$selector}
     .button
       .text
@@ -53,23 +59,23 @@ main
 
 ///////////-----------back call-----------//////////
 
-+selector('call_back_pupil',12px,20px)
-+selector('call_back_tutor',12px,20px)
+//+selector('call_back_pupil',12px,20px)
+//+selector('call_back_tutor',12px,20px)
 
 
 
 ///////////////--------------action-----------////////////
 
-.active:hover
+//.active:hover
   .button
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
 
 
-.inactive:hover
+//.inactive:hover
   .button
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 2px 0px, rgba(0, 0, 0, 0.1) 0px -3px 0px 0px inset
 
-.press,.press:hover
+//.press,.press:hover
   padding-top: 1px
   box-sizing: border-box
   .button

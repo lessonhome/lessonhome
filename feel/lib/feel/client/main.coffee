@@ -15,9 +15,11 @@ class @Feel
           window[name] = obj
           console.log "global class window['#{name}'];"
     @active = new @activeState @root.tree
+    @urlData = new @urlData()
     @pbar = new @PBar()
     @pbar.init()
     window.onerror = (e)=> @error e
+    @urlData.init()
 
   error : (e,args...)=>
     return unless e?
@@ -111,6 +113,8 @@ class @Feel
     
   go : (href)=>
     window.location.replace href if href
+
+
 
 
 window.Feel = new @Feel()

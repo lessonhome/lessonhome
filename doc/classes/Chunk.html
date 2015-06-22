@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Feel - Chunk</title><script>if (location.protocol.match(/^http/) && location.pathname.match('\.html') === null && location.pathname.slice(-1) !== '/') {
+  location.href = location.href + '/';
+}</script><link href="../bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script><script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]--><link href="../google-code-prettify/prettify.css" rel="stylesheet" type="text/css"><link href="../style.css" rel="stylesheet" type="text/css"></head><body data-spy="scroll" data-target=".sidebar"><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#top-navigation-collapse" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div id="top-navigation-collapse" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="../index.html">Home</a></li><li><a href="../modules/index.html">Modules</a></li><li class="active"><a href="../classes/index.html">Classes - Chunk</a></li></ul><div class="options"><label class="checkbox"><input id="options-private" type="checkbox"> Private </label></div></div></div></nav><div class="container-fluid content"><div class="row"><div data-spy="affix" class="hidden-xs sidebar col-sm-3"><div class="cormo-sidenav"><div class="panel panel-default"><div id="undefined_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../classes/Admin.html">Admin</a></li><li><a href="../classes/AggregationCursor.html">AggregationCursor</a></li><li><a href="../classes/BSON.html">BSON</a></li><li><a href="../classes/Binary.html">Binary</a></li><li class="active"><a href="#Chunk">Chunk</a></li><li class="cormo-class-property"><a href="#Chunk_DEFAULT_CHUNK_SIZE">DEFAULT_CHUNK_SIZE<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Chunk__buildMongoObject">buildMongoObject</a></li><li class="cormo-class-property"><a href="#Chunk__eof">eof</a></li><li class="cormo-class-property"><a href="#Chunk__getc">getc</a></li><li class="cormo-class-property"><a href="#Chunk__length">length</a></li><li class="cormo-class-property"><a href="#Chunk__read">read</a></li><li class="cormo-class-property"><a href="#Chunk__rewind">rewind</a></li><li class="cormo-class-property"><a href="#Chunk__save">save</a></li><li class="cormo-class-property"><a href="#Chunk__write">write</a></li><li><a href="../classes/Code.html">Code</a></li><li><a href="../classes/CommandCursor.html">CommandCursor</a></li><li><a href="../classes/CommandResult.html">CommandResult</a></li><li><a href="../classes/Connection.html">Connection</a></li><li><a href="../classes/DBRef.html">DBRef</a></li><li><a href="../classes/Double.html">Double</a></li><li><a href="../classes/EventEmitter Manages event registering and emitting..html">EventEmitter Manages event registering and emitting.</a></li><li><a href="../classes/FindOperatorsOrdered.html">FindOperatorsOrdered</a></li><li><a href="../classes/GSSAPI.html">GSSAPI</a></li><li><a href="../classes/GridStoreStream.html">GridStoreStream</a></li><li><a href="../classes/Logger.html">Logger</a></li><li><a href="../classes/Long.html">Long</a></li><li><a href="../classes/MasterProcessConnector.html">MasterProcessConnector</a></li><li><a href="../classes/MasterProcessFork.html">MasterProcessFork</a></li><li><a href="../classes/MaxKey.html">MaxKey</a></li><li><a href="../classes/MinKey.html">MinKey</a></li><li><a href="../classes/MongoCR.html">MongoCR</a></li><li><a href="../classes/MongoClient.html">MongoClient</a></li><li><a href="../classes/MongoError.html">MongoError</a></li><li><a href="../classes/Mongos.html">Mongos</a></li><li><a href="../classes/Ping.html">Ping</a></li><li><a href="../classes/Plain.html">Plain</a></li><li><a href="../classes/Pool.html">Pool</a></li><li><a href="../classes/ReplSet.html">ReplSet</a></li><li><a href="../classes/Represents the BSON Code type..html">Represents the BSON Code type.</a></li><li><a href="../classes/Represents the BSON DBRef type..html">Represents the BSON DBRef type.</a></li><li><a href="../classes/Represents the BSON Double type..html">Represents the BSON Double type.</a></li><li><a href="../classes/Represents the BSON Long type..html">Represents the BSON Long type.</a></li><li><a href="../classes/Represents the BSON MaxKey type..html">Represents the BSON MaxKey type.</a></li><li><a href="../classes/Represents the BSON MinKey type..html">Represents the BSON MinKey type.</a></li><li><a href="../classes/Represents the BSON ObjectID type.html">Represents the BSON ObjectID type</a></li><li><a href="../classes/Represents the BSON Parser.html">Represents the BSON Parser</a></li><li><a href="../classes/Represents the BSON Symbol type..html">Represents the BSON Symbol type.</a></li><li><a href="../classes/Represents the BSON Timestamp type..html">Represents the BSON Timestamp type.</a></li><li><a href="../classes/Represents the Binary BSON type..html">Represents the Binary BSON type.</a></li><li><a href="../classes/SSPI.html">SSPI</a></li><li><a href="../classes/ScramSHA1.html">ScramSHA1</a></li><li><a href="../classes/Server.html">Server</a></li><li><a href="../classes/Session.html">Session</a></li><li><a href="../classes/SlaveProcessConnector.html">SlaveProcessConnector</a></li><li><a href="../classes/Symbol.html">Symbol</a></li><li><a href="../classes/Timestamp.html">Timestamp</a></li><li><a href="../classes/UnorderedBulkOperation.html">UnorderedBulkOperation</a></li><li><a href="../classes/X509.html">X509</a></li><li><a href="../classes/create.html">create</a></li></ul></div></div></div></div><div class="col-sm-9 col-sm-offset-3"><span id="Chunk" class="fix-anchor"></span><section><h1 class="class_title">Chunk</h1><div><p>Class for representing a single chunk in GridFS.</p>
+</div><div></div><h4>See Also:</h4><ul><li>Chunk#buildMongoObject</li></ul><div class="panel panel-info"><div data-toggle="collapse" data-target="#Chunk_ctor_body" class="panel-heading collapsed"><h3 class="panel-title">Constructor<span class="pull-right glyphicon"></span></h3></div><div id="Chunk_ctor_body" class="panel-collapse collapse"><div class="panel-body"><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>file</code></td><td></td><td><span> {GridStore} The {@link GridStore} object holding this chunk.</span></td></tr><tr><td><span class="method-depth0"></span><code>mongoObject</code></td><td></td><td><span> {object} The mongo object representation of this chunk.
+</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/gridfs/chunk.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">var Chunk = function(file, mongoObject, writeConcern) {
+  if(!(this instanceof Chunk)) return new Chunk(file, mongoObject);
+
+  this.file = file;
+  var self = this;
+  var mongoObjectFinal = mongoObject == null ? {} : mongoObject;
+  this.writeConcern = writeConcern || {w:1};
+  this.objectId = mongoObjectFinal._id == null ? new ObjectID() : mongoObjectFinal._id;
+  this.chunkNumber = mongoObjectFinal.n == null ? 0 : mongoObjectFinal.n;
+  this.data = new Binary();
+
+  if(mongoObjectFinal.data == null) {
+  } else if(typeof mongoObjectFinal.data == &quot;string&quot;) {
+    var buffer = new Buffer(mongoObjectFinal.data.length);
+    buffer.write(mongoObjectFinal.data, 'binary', 0);
+    this.data = new Binary(buffer);
+  } else if(Array.isArray(mongoObjectFinal.data)) {
+    var buffer = new Buffer(mongoObjectFinal.data.length);
+    buffer.write(mongoObjectFinal.data.join(''), 'binary', 0);
+    this.data = new Binary(buffer);
+  } else if(mongoObjectFinal.data._bsontype === 'Binary') {
+    this.data = mongoObjectFinal.data;
+  } else if(Buffer.isBuffer(mongoObjectFinal.data)) {
+  } else {
+    throw Error(&quot;Illegal chunk format&quot;);
+  }
+  
+  // Update position
+  this.internalPosition = 0;
+};</pre></div></div></div></section><span id="Chunk_DEFAULT_CHUNK_SIZE" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Chunk_DEFAULT_CHUNK_SIZE_body" class="panel-heading collapsed"><h3 class="panel-title">Chunk.DEFAULT_CHUNK_SIZE<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>The default chunk size</p>
+</div></div><div id="Chunk_DEFAULT_CHUNK_SIZE_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/gridfs/chunk.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Chunk.DEFAULT_CHUNK_SIZE = 1024 * 255;
+
+module.exports = Chunk;</pre></div></div></div></section><span id="Chunk__buildMongoObject" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Chunk__buildMongoObject_body" class="panel-heading collapsed"><h3 class="panel-title">Chunk::buildMongoObject(callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Creates a mongoDB object representation of this chunk.</p>
+</div></div><div id="Chunk__buildMongoObject_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td></td><td><span> {function(Object)} This will be called after executing this 
+    method. The object will be passed to the first parameter and will have
+    the structure:
+       
+       <pre><code>
+       {
+         '_id' : , // {number} id for this chunk
+         'files_id' : , // {number} foreign key to the file collection
+         'n' : , // {number} chunk number
+         'data' : , // {bson#Binary} the chunk data itself
+       }
+       </code></pre>
+</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><h4>See Also:</h4><ul><li>href="http://www.mongodb.org/display/DOCS/GridFS+Specification#GridFSSpecification-{{chunks}}">MongoDB GridFS Chunk Object Structure</a></li></ul><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/gridfs/chunk.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Chunk.prototype.buildMongoObject = function(callback) {
+  var mongoObject = {
+    'files_id': this.file.fileId,
+    'n': this.chunkNumber,
+    'data': this.data};
+  // If we are saving using a specific ObjectId
+  if(this.objectId != null) mongoObject._id = this.objectId;
+
+  callback(mongoObject);
+};</pre></div></div></div></section><span id="Chunk__eof" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Chunk__eof_body" class="panel-heading collapsed"><h3 class="panel-title">Chunk::eof()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Checks if the read/write head is at the end.</p>
+</div></div><div id="Chunk__eof_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>boolean</span></span></td><td><span>Whether the read/write head has reached the end of this
+    chunk.</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/gridfs/chunk.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Chunk.prototype.eof = function() {
+  return this.internalPosition == this.length() ? true : false;
+};</pre></div></div></div></section><span id="Chunk__getc" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Chunk__getc_body" class="panel-heading collapsed"><h3 class="panel-title">Chunk::getc()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Reads one character from the data of this chunk and advances the read/write
+head.</p>
+</div></div><div id="Chunk__getc_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>string</span></span></td><td><span>a single character data read if the the read/write head is
+    not at the end of the chunk. Returns an empty String otherwise.</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/gridfs/chunk.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Chunk.prototype.getc = function() {
+  return this.read(1);
+};</pre></div></div></div></section><span id="Chunk__length" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Chunk__length_body" class="panel-heading collapsed"><h3 class="panel-title">Chunk::length()<span class="pull-right glyphicon"></span></h3><div class="method-summary"></div></div><div id="Chunk__length_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>number</span></span></td><td><span>the length of the data</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/gridfs/chunk.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Chunk.prototype.length = function() {
+  return this.data.length();
+};</pre></div></div></div></section><span id="Chunk__read" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Chunk__read_body" class="panel-heading collapsed"><h3 class="panel-title">Chunk::read(length)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Reads data and advances the read/write head.</p>
+</div></div><div id="Chunk__read_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>length</code></td><td></td><td><span> {number} The length of data to read.
+</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>string</span></span></td><td><span>The data read if the given length will not exceed the end of
+    the chunk. Returns an empty String otherwise.</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/gridfs/chunk.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Chunk.prototype.read = function(length) {
+  // Default to full read if no index defined
+  length = length == null || length == 0 ? this.length() : length;
+
+  if(this.length() - this.internalPosition + 1 &gt;= length) {
+    var data = this.data.read(this.internalPosition, length);
+    this.internalPosition = this.internalPosition + length;
+    return data;
+  } else {
+    return '';
+  }
+};
+
+Chunk.prototype.readSlice = function(length) {
+  if ((this.length() - this.internalPosition) &gt;= length) {
+    var data = null;
+    if (this.data.buffer != null) { //Pure BSON
+      data = this.data.buffer.slice(this.internalPosition, this.internalPosition + length);
+    } else { //Native BSON
+      data = new Buffer(length);
+      length = this.data.readInto(data, this.internalPosition);
+    }
+    this.internalPosition = this.internalPosition + length;
+    return data;
+  } else {
+    return null;
+  }
+};</pre></div></div></div></section><span id="Chunk__rewind" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Chunk__rewind_body" class="panel-heading collapsed"><h3 class="panel-title">Chunk::rewind()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Clears the contents of the data in this chunk and resets the read/write head
+to the initial position.</p>
+</div></div><div id="Chunk__rewind_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/gridfs/chunk.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Chunk.prototype.rewind = function() {
+  this.internalPosition = 0;
+  this.data = new Binary();
+};</pre></div></div></div></section><span id="Chunk__save" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Chunk__save_body" class="panel-heading collapsed"><h3 class="panel-title">Chunk::save(callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Saves this chunk to the database. Also overwrites existing entries having the
+same id as this chunk.</p>
+</div></div><div id="Chunk__save_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td></td><td><span> {function(*, GridStore)} This will be called after executing
+    this method. The first parameter will contain null and the second one
+    will contain a reference to this object.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/gridfs/chunk.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Chunk.prototype.save = function(options, callback) {
+  var self = this;
+  if(typeof options == 'function') {
+    callback = options;
+    options = {};
+  }
+
+  self.file.chunkCollection(function(err, collection) {
+    if(err) return callback(err);
+
+    // Merge the options
+    var writeOptions = {};
+    for(var name in options) writeOptions[name] = options[name];
+    for(var name in self.writeConcern) writeOptions[name] = self.writeConcern[name];    
+
+    // collection.remove({'_id':self.objectId}, self.writeConcern, function(err, result) {
+    collection.remove({'_id':self.objectId}, writeOptions, function(err, result) {
+      if(err) return callback(err);
+
+      if(self.data.length() &gt; 0) {
+        self.buildMongoObject(function(mongoObject) {
+          var options = {forceServerObjectId:true};
+          for(var name in self.writeConcern) {
+            options[name] = self.writeConcern[name];
+          }
+
+          collection.insert(mongoObject, writeOptions, function(err, collection) {
+            callback(err, self);
+          });
+        });
+      } else {
+        callback(null, self);
+      }
+    });
+  });
+};</pre></div></div></div></section><span id="Chunk__write" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Chunk__write_body" class="panel-heading collapsed"><h3 class="panel-title">Chunk::write(data, callback)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Writes a data to this object and advance the read/write head.</p>
+</div></div><div id="Chunk__write_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>data</code></td><td></td><td><span> {string} the data to write </span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td></td><td><span> {function(*, GridStore)} This will be called after executing
+    this method. The first parameter will contain null and the second one
+    will contain a reference to this object.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/gridfs/chunk.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Chunk.prototype.write = function(data, callback) {
+  this.data.write(data, this.internalPosition);
+  this.internalPosition = this.data.length();
+  if(callback != null) return callback(null, this);
+  return this;
+};</pre></div></div></div></section></div></div></div><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script><script src="../bootstrap-3.2.0-dist/js/bootstrap.min.js"></script><script src="../google-code-prettify/prettify.js"></script><script src="../script.js"></script><script src="../group-examples.js"></script></body></html>

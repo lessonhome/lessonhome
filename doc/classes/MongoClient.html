@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Feel - MongoClient</title><script>if (location.protocol.match(/^http/) && location.pathname.match('\.html') === null && location.pathname.slice(-1) !== '/') {
+  location.href = location.href + '/';
+}</script><link href="../bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script><script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]--><link href="../google-code-prettify/prettify.css" rel="stylesheet" type="text/css"><link href="../style.css" rel="stylesheet" type="text/css"></head><body data-spy="scroll" data-target=".sidebar"><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#top-navigation-collapse" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div id="top-navigation-collapse" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="../index.html">Home</a></li><li><a href="../modules/index.html">Modules</a></li><li class="active"><a href="../classes/index.html">Classes - MongoClient</a></li></ul><div class="options"><label class="checkbox"><input id="options-private" type="checkbox"> Private </label></div></div></div></nav><div class="container-fluid content"><div class="row"><div data-spy="affix" class="hidden-xs sidebar col-sm-3"><div class="cormo-sidenav"><div class="panel panel-default"><div id="undefined_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../classes/Admin.html">Admin</a></li><li><a href="../classes/AggregationCursor.html">AggregationCursor</a></li><li><a href="../classes/BSON.html">BSON</a></li><li><a href="../classes/Binary.html">Binary</a></li><li><a href="../classes/Chunk.html">Chunk</a></li><li><a href="../classes/Code.html">Code</a></li><li><a href="../classes/CommandCursor.html">CommandCursor</a></li><li><a href="../classes/CommandResult.html">CommandResult</a></li><li><a href="../classes/Connection.html">Connection</a></li><li><a href="../classes/DBRef.html">DBRef</a></li><li><a href="../classes/Double.html">Double</a></li><li><a href="../classes/EventEmitter Manages event registering and emitting..html">EventEmitter Manages event registering and emitting.</a></li><li><a href="../classes/FindOperatorsOrdered.html">FindOperatorsOrdered</a></li><li><a href="../classes/GSSAPI.html">GSSAPI</a></li><li><a href="../classes/GridStoreStream.html">GridStoreStream</a></li><li><a href="../classes/Logger.html">Logger</a></li><li><a href="../classes/Long.html">Long</a></li><li><a href="../classes/MasterProcessConnector.html">MasterProcessConnector</a></li><li><a href="../classes/MasterProcessFork.html">MasterProcessFork</a></li><li><a href="../classes/MaxKey.html">MaxKey</a></li><li><a href="../classes/MinKey.html">MinKey</a></li><li><a href="../classes/MongoCR.html">MongoCR</a></li><li class="active"><a href="#MongoClient">MongoClient</a></li><li class="cormo-class-property"><a href="#MongoClient_connect">connect<span class="pull-right label label-static">static</span></a></li><li><a href="../classes/MongoError.html">MongoError</a></li><li><a href="../classes/Mongos.html">Mongos</a></li><li><a href="../classes/Ping.html">Ping</a></li><li><a href="../classes/Plain.html">Plain</a></li><li><a href="../classes/Pool.html">Pool</a></li><li><a href="../classes/ReplSet.html">ReplSet</a></li><li><a href="../classes/Represents the BSON Code type..html">Represents the BSON Code type.</a></li><li><a href="../classes/Represents the BSON DBRef type..html">Represents the BSON DBRef type.</a></li><li><a href="../classes/Represents the BSON Double type..html">Represents the BSON Double type.</a></li><li><a href="../classes/Represents the BSON Long type..html">Represents the BSON Long type.</a></li><li><a href="../classes/Represents the BSON MaxKey type..html">Represents the BSON MaxKey type.</a></li><li><a href="../classes/Represents the BSON MinKey type..html">Represents the BSON MinKey type.</a></li><li><a href="../classes/Represents the BSON ObjectID type.html">Represents the BSON ObjectID type</a></li><li><a href="../classes/Represents the BSON Parser.html">Represents the BSON Parser</a></li><li><a href="../classes/Represents the BSON Symbol type..html">Represents the BSON Symbol type.</a></li><li><a href="../classes/Represents the BSON Timestamp type..html">Represents the BSON Timestamp type.</a></li><li><a href="../classes/Represents the Binary BSON type..html">Represents the Binary BSON type.</a></li><li><a href="../classes/SSPI.html">SSPI</a></li><li><a href="../classes/ScramSHA1.html">ScramSHA1</a></li><li><a href="../classes/Server.html">Server</a></li><li><a href="../classes/Session.html">Session</a></li><li><a href="../classes/SlaveProcessConnector.html">SlaveProcessConnector</a></li><li><a href="../classes/Symbol.html">Symbol</a></li><li><a href="../classes/Timestamp.html">Timestamp</a></li><li><a href="../classes/UnorderedBulkOperation.html">UnorderedBulkOperation</a></li><li><a href="../classes/X509.html">X509</a></li><li><a href="../classes/create.html">create</a></li></ul></div></div></div></div><div class="col-sm-9 col-sm-offset-3"><span id="MongoClient" class="fix-anchor"></span><section><h1 class="class_title">MongoClient</h1><div><p>Creates a new MongoClient instance</p>
+</div><div></div><div class="panel panel-info"><div data-toggle="collapse" data-target="#MongoClient_ctor_body" class="panel-heading collapsed"><h3 class="panel-title">Constructor<span class="pull-right glyphicon"></span></h3></div><div id="MongoClient_ctor_body" class="panel-collapse collapse"><div class="panel-body"><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/mongo_client.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function MongoClient() {</pre></div></div></div></section><span id="MongoClient_connect" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#MongoClient_connect_body" class="panel-heading collapsed"><h3 class="panel-title">MongoClient.connect(url, [options=null], callback)<span class="label label-static">static</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Connect to MongoDB using a url as documented at</p>
+</div></div><div id="MongoClient_connect_body" class="panel-collapse collapse"><div class="panel-body"><div><p> docs.mongodb.org/manual/reference/connection-string/</p>
+<p>Note that for replicasets the replicaSet query parameter is required in the 2.0 driver</p>
+</div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>url</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> The connection URI string</span></td></tr><tr><td><span class="method-depth0"></span><code>options=null</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> Optional settings.</span></td></tr><tr><td><span class="method-depth1"></span><code>uri_decode_auth=false</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>boolean</span></span></td><td><span> Uri decode the user name and password for authentication</span></td></tr><tr><td><span class="method-depth1"></span><code>db=null</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> A hash of options to set on the db object, see **Db constructor**</span></td></tr><tr><td><span class="method-depth1"></span><code>server=null</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> A hash of options to set on the server objects, see **Server** constructor**</span></td></tr><tr><td><span class="method-depth1"></span><code>replSet=null</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> A hash of options to set on the replSet object, see **ReplSet** constructor**</span></td></tr><tr><td><span class="method-depth1"></span><code>mongos=null</code><span class="pull-right label label-optional">optional</span></td><td><span><span class='missing-link'>object</span></span></td><td><span> A hash of options to set on the mongos object, see **Mongos** constructor**</span></td></tr><tr><td><span class="method-depth0"></span><code>callback</code></td><td><span><span class='missing-link'>MongoClient~connectCallback</span></span></td><td><span> The command result callback</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>null</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/lib/mongo_client.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">MongoClient.connect = function(url, options, callback) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  callback = typeof args[args.length - 1] == 'function' ? args.pop() : null;
+  options = args.length ? args.shift() : null;
+  options = options || {};
+
+  // Set default empty server options  
+  var serverOptions = options.server || {};
+  var mongosOptions = options.mongos || {};
+  var replSetServersOptions = options.replSet || options.replSetServers || {};
+  var dbOptions = options.db || {};
+
+  // If callback is null throw an exception
+  if(callback == null) 
+    throw new Error(&quot;no callback function provided&quot;);
+
+  // Parse the string
+  var object = parse(url, options);
+
+  // Merge in any options for db in options object
+  if(dbOptions) {
+    for(var name in dbOptions) object.db_options[name] = dbOptions[name];
+  }
+
+  // Added the url to the options
+  object.db_options.url = url;
+
+  // Merge in any options for server in options object
+  if(serverOptions) {
+    for(var name in serverOptions) object.server_options[name] = serverOptions[name];
+  }
+
+  // Merge in any replicaset server options
+  if(replSetServersOptions) {
+    for(var name in replSetServersOptions) object.rs_options[name] = replSetServersOptions[name];    
+  }
+
+  if(replSetServersOptions.ssl 
+    || replSetServersOptions.sslValidate
+    || replSetServersOptions.sslCA
+    || replSetServersOptions.sslCert
+    || replSetServersOptions.sslKey
+    || replSetServersOptions.sslPass) {
+    object.server_options.ssl = replSetServersOptions.ssl;
+    object.server_options.sslValidate = replSetServersOptions.sslValidate;
+    object.server_options.sslCA = replSetServersOptions.sslCA;
+    object.server_options.sslCert = replSetServersOptions.sslCert;
+    object.server_options.sslKey = replSetServersOptions.sslKey;
+    object.server_options.sslPass = replSetServersOptions.sslPass;
+  }
+
+  // Merge in any replicaset server options
+  if(mongosOptions) {
+    for(var name in mongosOptions) object.mongos_options[name] = mongosOptions[name];    
+  }
+
+  if(typeof object.server_options.poolSize == 'number') {
+    if(!object.mongos_options.poolSize) object.mongos_options.poolSize = object.server_options.poolSize;
+    if(!object.rs_options.poolSize) object.rs_options.poolSize = object.server_options.poolSize;
+  }
+
+  if(mongosOptions.ssl 
+    || mongosOptions.sslValidate
+    || mongosOptions.sslCA
+    || mongosOptions.sslCert
+    || mongosOptions.sslKey
+    || mongosOptions.sslPass) {
+    object.server_options.ssl = mongosOptions.ssl;
+    object.server_options.sslValidate = mongosOptions.sslValidate;
+    object.server_options.sslCA = mongosOptions.sslCA;
+    object.server_options.sslCert = mongosOptions.sslCert;
+    object.server_options.sslKey = mongosOptions.sslKey;
+    object.server_options.sslPass = mongosOptions.sslPass;
+  }
+
+  // We need to ensure that the list of servers are only either direct members or mongos
+  // they cannot be a mix of monogs and mongod's
+  var totalNumberOfServers = object.servers.length;
+  var totalNumberOfMongosServers = 0;
+  var totalNumberOfMongodServers = 0;
+  var serverConfig = null;
+  var errorServers = {};
+
+  // Failure modes
+  if(object.servers.length == 0) throw new Error(&quot;connection string must contain at least one seed host&quot;);
+
+  // If we have no db setting for the native parser try to set the c++ one first
+  object.db_options.native_parser = _setNativeParser(object.db_options);
+  // If no auto_reconnect is set, set it to true as default for single servers
+  if(typeof object.server_options.auto_reconnect != 'boolean') {
+    object.server_options.auto_reconnect = true;
+  }
+
+  // If we have more than a server, it could be replicaset or mongos list
+  // need to verify that it's one or the other and fail if it's a mix
+  // Connect to all servers and run ismaster
+  for(var i = 0; i &lt; object.servers.length; i++) {
+    // Set up socket options
+    var providedSocketOptions = object.server_options.socketOptions || {};
+
+    var _server_options = {
+        poolSize:1
+      , socketOptions: {
+          connectTimeoutMS: providedSocketOptions.connectTimeoutMS || 30000
+        , socketTimeoutMS:  providedSocketOptions.socketTimeoutMS || 30000
+      }
+      , auto_reconnect:false};
+
+    // Ensure we have ssl setup for the servers
+    if(object.server_options.ssl) {
+      _server_options.ssl = object.server_options.ssl;
+      _server_options.sslValidate = object.server_options.sslValidate;
+      _server_options.sslCA = object.server_options.sslCA;
+      _server_options.sslCert = object.server_options.sslCert;
+      _server_options.sslKey = object.server_options.sslKey;
+      _server_options.sslPass = object.server_options.sslPass;
+    } else if(object.rs_options.ssl) {
+      _server_options.ssl = object.rs_options.ssl;
+      _server_options.sslValidate = object.rs_options.sslValidate;
+      _server_options.sslCA = object.rs_options.sslCA;
+      _server_options.sslCert = object.rs_options.sslCert;
+      _server_options.sslKey = object.rs_options.sslKey;
+      _server_options.sslPass = object.rs_options.sslPass;
+    }
+
+    // Error
+    var error = null;
+    // Set up the Server object
+    var _server = object.servers[i].domain_socket 
+        ? new Server(object.servers[i].domain_socket, _server_options)
+        : new Server(object.servers[i].host, object.servers[i].port, _server_options);
+        
+    var setName;
+
+    var connectFunction = function(__server) { 
+      // Attempt connect
+      new Db(object.dbName, __server, {w:1, native_parser:false}).open(function(err, db) {
+        // Update number of servers
+        totalNumberOfServers = totalNumberOfServers - 1;          
+        // If no error do the correct checks
+        if(!err) {
+          // Close the connection
+          db.close();
+          var isMasterDoc = db.serverConfig.isMasterDoc;
+          // Check what type of server we have
+          if(isMasterDoc.setName) {
+            totalNumberOfMongodServers++;
+            setName = isMasterDoc.setName;
+          }
+          if(isMasterDoc.msg &amp;&amp; isMasterDoc.msg == &quot;isdbgrid&quot;) totalNumberOfMongosServers++;
+        } else {
+          error = err;
+          errorServers[__server.host + &quot;:&quot; + __server.port] = __server;
+        }
+
+        if(totalNumberOfServers == 0) {
+          // Error out
+          if(totalNumberOfMongodServers == 0 &amp;&amp; totalNumberOfMongosServers == 0 &amp;&amp; error) {
+            return callback(error, null);
+          }
+
+          // If we have a mix of mongod and mongos, throw an error
+          if(totalNumberOfMongosServers &gt; 0 &amp;&amp; totalNumberOfMongodServers &gt; 0) {
+            if(db) db.close();
+            return process.nextTick(function() {
+              try {
+                callback(new Error(&quot;cannot combine a list of replicaset seeds and mongos seeds&quot;));
+              } catch (err) {
+                throw err
+              }              
+            })
+          }
+          
+          if(totalNumberOfMongodServers == 0 
+            &amp;&amp; totalNumberOfMongosServers == 0 
+            &amp;&amp; object.servers.length == 1) {
+            var obj = object.servers[0];
+            serverConfig = obj.domain_socket ? 
+                new Server(obj.domain_socket, object.server_options)
+              : new Server(obj.host, obj.port, object.server_options);            
+          } else if(totalNumberOfMongodServers &gt; 0 || totalNumberOfMongosServers &gt; 0) {
+            var finalServers = object.servers
+              .filter(function(serverObj) {
+                return errorServers[serverObj.host + &quot;:&quot; + serverObj.port] == null;
+              })
+              .map(function(serverObj) {
+                return new Server(serverObj.host, serverObj.port, object.server_options);
+              });
+            // Clean out any error servers
+            errorServers = {};
+            // Set up the final configuration
+            if(totalNumberOfMongodServers &gt; 0) {
+              try {
+                if (totalNumberOfMongodServers == 1) {
+                  object.rs_options.replicaSet = object.rs_options.replicaSet || setName;
+                }
+                serverConfig = new ReplSet(finalServers, object.rs_options);
+              } catch(err) {
+                return callback(err, null);
+              }
+            } else {
+              serverConfig = new Mongos(finalServers, object.mongos_options);                         
+            }
+          }
+
+          if(serverConfig == null) {
+            return process.nextTick(function() {
+              try {
+                callback(new Error(&quot;Could not locate any valid servers in initial seed list&quot;));
+              } catch (err) {
+                if(db) db.close();
+                throw err
+              }
+            });
+          }
+
+          // Ensure no firing of open event before we are ready
+          serverConfig.emitOpen = false;
+          // Set up all options etc and connect to the database
+          _finishConnecting(serverConfig, object, options, callback)
+        }
+      });        
+    }
+
+    // Wrap the context of the call
+    connectFunction(_server);    
+  }    
+}
+
+var _setNativeParser = function(db_options) {
+  if(typeof db_options.native_parser == 'boolean') return db_options.native_parser;
+
+  try {
+    require('mongodb-core').BSON.BSONNative.BSON;
+    return true;
+  } catch(err) {
+    return false;
+  }
+}
+
+var _finishConnecting = function(serverConfig, object, options, callback) {
+  // If we have a readPreference passed in by the db options
+  if(typeof object.db_options.readPreference == 'string') {
+    object.db_options.readPreference = new ReadPreference(object.db_options.readPreference);
+  } else if(typeof object.db_options.read_preference == 'string') {
+    object.db_options.readPreference = new ReadPreference(object.db_options.read_preference);
+  }
+
+  // Do we have readPreference tags
+  if(object.db_options.readPreference &amp;&amp; object.db_options.readPreferenceTags) {
+    object.db_options.readPreference.tags = object.db_options.readPreferenceTags;
+  } else if(object.db_options.readPreference &amp;&amp; object.db_options.read_preference_tags) {
+    object.db_options.readPreference.tags = object.db_options.read_preference_tags;
+  }
+
+  // Get the socketTimeoutMS
+  var socketTimeoutMS = object.server_options.socketOptions.socketTimeoutMS || 0;
+
+  // If we have a replset, override with replicaset socket timeout option if available
+  if(serverConfig instanceof ReplSet) {
+    socketTimeoutMS = object.rs_options.socketOptions.socketTimeoutMS || socketTimeoutMS;
+  }
+
+  // Set socketTimeout to the same as the connectTimeoutMS or 30 sec
+  serverConfig.connectTimeoutMS = serverConfig.connectTimeoutMS || 30000;
+  serverConfig.socketTimeoutMS = serverConfig.connectTimeoutMS;
+
+  // Set up the db options
+  var db = new Db(object.dbName, serverConfig, object.db_options);
+  // Open the db
+  db.open(function(err, db){    
+
+    if(err) {
+      return process.nextTick(function() {
+        try {
+          callback(err, null);
+        } catch (err) {
+          if(db) db.close();
+          throw err
+        }
+      });
+    }
+
+    // Reset the socket timeout
+    serverConfig.socketTimeoutMS = socketTimeoutMS || 0;
+
+    // Return object
+    if(err == null &amp;&amp; object.auth){
+      // What db to authenticate against
+      var authentication_db = db;
+      if(object.db_options &amp;&amp; object.db_options.authSource) {
+        authentication_db = db.db(object.db_options.authSource);
+      }
+
+      // Build options object
+      var options = {};
+      if(object.db_options.authMechanism) options.authMechanism = object.db_options.authMechanism;
+      if(object.db_options.gssapiServiceName) options.gssapiServiceName = object.db_options.gssapiServiceName;
+
+      // Authenticate
+      authentication_db.authenticate(object.auth.user, object.auth.password, options, function(err, success){
+        if(success){
+          process.nextTick(function() {
+            try {
+              callback(null, db);            
+            } catch (err) {
+              if(db) db.close();
+              throw err
+            }
+          });
+        } else {
+          if(db) db.close();
+          process.nextTick(function() {
+            try {
+              callback(err ? err : new Error('Could not authenticate user ' + object.auth[0]), null);
+            } catch (err) {
+              if(db) db.close();
+              throw err
+            }
+          });
+        }
+      });
+    } else {
+      process.nextTick(function() {
+        try {
+          callback(err, db);            
+        } catch (err) {
+          if(db) db.close();
+          throw err
+        }
+      })
+    }
+  });
+}
+
+module.exports = MongoClient</pre></div></div></div></section></div></div></div><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script><script src="../bootstrap-3.2.0-dist/js/bootstrap.min.js"></script><script src="../google-code-prettify/prettify.js"></script><script src="../script.js"></script><script src="../group-examples.js"></script></body></html>

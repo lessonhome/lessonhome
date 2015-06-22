@@ -1,0 +1,512 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Feel - Binary</title><script>if (location.protocol.match(/^http/) && location.pathname.match('\.html') === null && location.pathname.slice(-1) !== '/') {
+  location.href = location.href + '/';
+}</script><link href="../bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script><script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]--><link href="../google-code-prettify/prettify.css" rel="stylesheet" type="text/css"><link href="../style.css" rel="stylesheet" type="text/css"></head><body data-spy="scroll" data-target=".sidebar"><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#top-navigation-collapse" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div id="top-navigation-collapse" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="../index.html">Home</a></li><li><a href="../modules/index.html">Modules</a></li><li class="active"><a href="../classes/index.html">Classes - Binary</a></li></ul><div class="options"><label class="checkbox"><input id="options-private" type="checkbox"> Private </label></div></div></div></nav><div class="container-fluid content"><div class="row"><div data-spy="affix" class="hidden-xs sidebar col-sm-3"><div class="cormo-sidenav"><div class="panel panel-default"><div id="undefined_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../classes/Admin.html">Admin</a></li><li><a href="../classes/AggregationCursor.html">AggregationCursor</a></li><li><a href="../classes/BSON.html">BSON</a></li><li class="active"><a href="#Binary">Binary</a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_BYTE_ARRAY">SUBTYPE_BYTE_ARRAY<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_BYTE_ARRAY">SUBTYPE_BYTE_ARRAY<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_BYTE_ARRAY">SUBTYPE_BYTE_ARRAY<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_DEFAULT">SUBTYPE_DEFAULT<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_DEFAULT">SUBTYPE_DEFAULT<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_DEFAULT">SUBTYPE_DEFAULT<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_FUNCTION">SUBTYPE_FUNCTION<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_FUNCTION">SUBTYPE_FUNCTION<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_FUNCTION">SUBTYPE_FUNCTION<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_MD5">SUBTYPE_MD5<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_MD5">SUBTYPE_MD5<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_MD5">SUBTYPE_MD5<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_USER_DEFINED">SUBTYPE_USER_DEFINED<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_USER_DEFINED">SUBTYPE_USER_DEFINED<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_USER_DEFINED">SUBTYPE_USER_DEFINED<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_UUID">SUBTYPE_UUID<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_UUID">SUBTYPE_UUID<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_UUID">SUBTYPE_UUID<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_UUID_OLD">SUBTYPE_UUID_OLD<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_UUID_OLD">SUBTYPE_UUID_OLD<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary_SUBTYPE_UUID_OLD">SUBTYPE_UUID_OLD<span class="pull-right label label-static">static</span><span class="pull-right label label-property">property</span></a></li><li class="cormo-class-property"><a href="#Binary__length">length</a></li><li class="cormo-class-property"><a href="#Binary__length">length</a></li><li class="cormo-class-property"><a href="#Binary__length">length</a></li><li class="cormo-class-property"><a href="#Binary__put">put</a></li><li class="cormo-class-property"><a href="#Binary__put">put</a></li><li class="cormo-class-property"><a href="#Binary__put">put</a></li><li class="cormo-class-property"><a href="#Binary__read">read</a></li><li class="cormo-class-property"><a href="#Binary__read">read</a></li><li class="cormo-class-property"><a href="#Binary__read">read</a></li><li class="cormo-class-property"><a href="#Binary__toJSON">toJSON</a></li><li class="cormo-class-property private"><a href="#Binary__toJSON">toJSON<span class="pull-right label label-private">private</span></a></li><li class="cormo-class-property"><a href="#Binary__toJSON">toJSON</a></li><li class="cormo-class-property"><a href="#Binary__toString">toString</a></li><li class="cormo-class-property private"><a href="#Binary__toString">toString<span class="pull-right label label-private">private</span></a></li><li class="cormo-class-property"><a href="#Binary__toString">toString</a></li><li class="cormo-class-property"><a href="#Binary__value">value</a></li><li class="cormo-class-property"><a href="#Binary__value">value</a></li><li class="cormo-class-property"><a href="#Binary__value">value</a></li><li class="cormo-class-property"><a href="#Binary__write">write</a></li><li class="cormo-class-property"><a href="#Binary__write">write</a></li><li class="cormo-class-property"><a href="#Binary__write">write</a></li><li><a href="../classes/Chunk.html">Chunk</a></li><li><a href="../classes/Code.html">Code</a></li><li><a href="../classes/CommandCursor.html">CommandCursor</a></li><li><a href="../classes/CommandResult.html">CommandResult</a></li><li><a href="../classes/Connection.html">Connection</a></li><li><a href="../classes/DBRef.html">DBRef</a></li><li><a href="../classes/Double.html">Double</a></li><li><a href="../classes/EventEmitter Manages event registering and emitting..html">EventEmitter Manages event registering and emitting.</a></li><li><a href="../classes/FindOperatorsOrdered.html">FindOperatorsOrdered</a></li><li><a href="../classes/GSSAPI.html">GSSAPI</a></li><li><a href="../classes/GridStoreStream.html">GridStoreStream</a></li><li><a href="../classes/Logger.html">Logger</a></li><li><a href="../classes/Long.html">Long</a></li><li><a href="../classes/MasterProcessConnector.html">MasterProcessConnector</a></li><li><a href="../classes/MasterProcessFork.html">MasterProcessFork</a></li><li><a href="../classes/MaxKey.html">MaxKey</a></li><li><a href="../classes/MinKey.html">MinKey</a></li><li><a href="../classes/MongoCR.html">MongoCR</a></li><li><a href="../classes/MongoClient.html">MongoClient</a></li><li><a href="../classes/MongoError.html">MongoError</a></li><li><a href="../classes/Mongos.html">Mongos</a></li><li><a href="../classes/Ping.html">Ping</a></li><li><a href="../classes/Plain.html">Plain</a></li><li><a href="../classes/Pool.html">Pool</a></li><li><a href="../classes/ReplSet.html">ReplSet</a></li><li><a href="../classes/Represents the BSON Code type..html">Represents the BSON Code type.</a></li><li><a href="../classes/Represents the BSON DBRef type..html">Represents the BSON DBRef type.</a></li><li><a href="../classes/Represents the BSON Double type..html">Represents the BSON Double type.</a></li><li><a href="../classes/Represents the BSON Long type..html">Represents the BSON Long type.</a></li><li><a href="../classes/Represents the BSON MaxKey type..html">Represents the BSON MaxKey type.</a></li><li><a href="../classes/Represents the BSON MinKey type..html">Represents the BSON MinKey type.</a></li><li><a href="../classes/Represents the BSON ObjectID type.html">Represents the BSON ObjectID type</a></li><li><a href="../classes/Represents the BSON Parser.html">Represents the BSON Parser</a></li><li><a href="../classes/Represents the BSON Symbol type..html">Represents the BSON Symbol type.</a></li><li><a href="../classes/Represents the BSON Timestamp type..html">Represents the BSON Timestamp type.</a></li><li><a href="../classes/Represents the Binary BSON type..html">Represents the Binary BSON type.</a></li><li><a href="../classes/SSPI.html">SSPI</a></li><li><a href="../classes/ScramSHA1.html">ScramSHA1</a></li><li><a href="../classes/Server.html">Server</a></li><li><a href="../classes/Session.html">Session</a></li><li><a href="../classes/SlaveProcessConnector.html">SlaveProcessConnector</a></li><li><a href="../classes/Symbol.html">Symbol</a></li><li><a href="../classes/Timestamp.html">Timestamp</a></li><li><a href="../classes/UnorderedBulkOperation.html">UnorderedBulkOperation</a></li><li><a href="../classes/X509.html">X509</a></li><li><a href="../classes/create.html">create</a></li></ul></div></div></div></div><div class="col-sm-9 col-sm-offset-3"><span id="Binary" class="fix-anchor"></span><section><h1 class="class_title">Binary</h1><div><p>A class representation of the BSON Binary type.</p>
+</div><div><p>Sub types</p>
+<ul>
+<li><strong>BSON.BSON_BINARY_SUBTYPE_DEFAULT</strong>, default BSON type.</li>
+<li><strong>BSON.BSON_BINARY_SUBTYPE_FUNCTION</strong>, BSON function type.</li>
+<li><strong>BSON.BSON_BINARY_SUBTYPE_BYTE_ARRAY</strong>, BSON byte array type.</li>
+<li><strong>BSON.BSON_BINARY_SUBTYPE_UUID</strong>, BSON uuid type.</li>
+<li><strong>BSON.BSON_BINARY_SUBTYPE_MD5</strong>, BSON md5 type.</li>
+<li><strong>BSON.BSON_BINARY_SUBTYPE_USER_DEFINED</strong>, BSON user defined type.</li>
+</ul>
+</div><div class="panel panel-info"><div data-toggle="collapse" data-target="#Binary_ctor_body" class="panel-heading collapsed"><h3 class="panel-title">Constructor<span class="pull-right glyphicon"></span></h3></div><div id="Binary_ctor_body" class="panel-collapse collapse"><div class="panel-body"><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>buffer</code></td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span> a buffer object containing the binary data.</span></td></tr><tr><td><span class="method-depth0"></span><code>subType</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number'>Number</a></span></td><td><span> the option binary type.</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function Binary(buffer, subType) {
+  if(!(this instanceof Binary)) return new Binary(buffer, subType);
+  
+  this._bsontype = 'Binary';
+
+  if(buffer instanceof Number) {
+    this.sub_type = buffer;
+    this.position = 0;
+  } else {    
+    this.sub_type = subType == null ? BSON_BINARY_SUBTYPE_DEFAULT : subType;
+    this.position = 0;
+  }
+
+  if(buffer != null &amp;&amp; !(buffer instanceof Number)) {
+    // Only accept Buffer, Uint8Array or Arrays
+    if(typeof buffer == 'string') {
+      // Different ways of writing the length of the string for the different types
+      if(typeof Buffer != 'undefined') {
+        this.buffer = new Buffer(buffer);
+      } else if(typeof Uint8Array != 'undefined' || (Object.prototype.toString.call(buffer) == '[object Array]')) {
+        this.buffer = writeStringToArray(buffer);
+      } else {
+        throw new Error(&quot;only String, Buffer, Uint8Array or Array accepted&quot;);
+      }
+    } else {
+      this.buffer = buffer;      
+    }
+    this.position = buffer.length;
+  } else {
+    if(typeof Buffer != 'undefined') {
+      this.buffer =  new Buffer(Binary.BUFFER_SIZE);      
+    } else if(typeof Uint8Array != 'undefined'){
+      this.buffer = new Uint8Array(new ArrayBuffer(Binary.BUFFER_SIZE));
+    } else {
+      this.buffer = new Array(Binary.BUFFER_SIZE);
+    }
+    // Set position to start of buffer
+    this.position = 0;
+  }
+};</pre></div></div></div></section><span id="Binary_SUBTYPE_BYTE_ARRAY" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_BYTE_ARRAY_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_BYTE_ARRAY<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Byte Array BSON type</p>
+</div></div><div id="Binary_SUBTYPE_BYTE_ARRAY_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_BYTE_ARRAY = 2;</pre></div></div></div></section><span id="Binary_SUBTYPE_BYTE_ARRAY" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_BYTE_ARRAY_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_BYTE_ARRAY<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Byte Array BSON type</p>
+</div></div><div id="Binary_SUBTYPE_BYTE_ARRAY_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_BYTE_ARRAY = 2;</pre></div></div></div></section><span id="Binary_SUBTYPE_BYTE_ARRAY" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_BYTE_ARRAY_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_BYTE_ARRAY<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Byte Array BSON type</p>
+</div></div><div id="Binary_SUBTYPE_BYTE_ARRAY_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_BYTE_ARRAY = 2;</pre></div></div></div></section><span id="Binary_SUBTYPE_DEFAULT" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_DEFAULT_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_DEFAULT<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Default BSON type</p>
+</div></div><div id="Binary_SUBTYPE_DEFAULT_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_DEFAULT = 0;</pre></div></div></div></section><span id="Binary_SUBTYPE_DEFAULT" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_DEFAULT_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_DEFAULT<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Default BSON type</p>
+</div></div><div id="Binary_SUBTYPE_DEFAULT_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_DEFAULT = 0;</pre></div></div></div></section><span id="Binary_SUBTYPE_DEFAULT" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_DEFAULT_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_DEFAULT<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Default BSON type</p>
+</div></div><div id="Binary_SUBTYPE_DEFAULT_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_DEFAULT = 0;</pre></div></div></div></section><span id="Binary_SUBTYPE_FUNCTION" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_FUNCTION_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_FUNCTION<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Function BSON type</p>
+</div></div><div id="Binary_SUBTYPE_FUNCTION_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_FUNCTION = 1;</pre></div></div></div></section><span id="Binary_SUBTYPE_FUNCTION" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_FUNCTION_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_FUNCTION<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Function BSON type</p>
+</div></div><div id="Binary_SUBTYPE_FUNCTION_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_FUNCTION = 1;</pre></div></div></div></section><span id="Binary_SUBTYPE_FUNCTION" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_FUNCTION_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_FUNCTION<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Function BSON type</p>
+</div></div><div id="Binary_SUBTYPE_FUNCTION_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_FUNCTION = 1;</pre></div></div></div></section><span id="Binary_SUBTYPE_MD5" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_MD5_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_MD5<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>MD5 BSON type</p>
+</div></div><div id="Binary_SUBTYPE_MD5_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_MD5 = 5;</pre></div></div></div></section><span id="Binary_SUBTYPE_MD5" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_MD5_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_MD5<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>MD5 BSON type</p>
+</div></div><div id="Binary_SUBTYPE_MD5_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_MD5 = 5;</pre></div></div></div></section><span id="Binary_SUBTYPE_MD5" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_MD5_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_MD5<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>MD5 BSON type</p>
+</div></div><div id="Binary_SUBTYPE_MD5_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_MD5 = 5;</pre></div></div></div></section><span id="Binary_SUBTYPE_USER_DEFINED" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_USER_DEFINED_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_USER_DEFINED<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>User BSON type</p>
+</div></div><div id="Binary_SUBTYPE_USER_DEFINED_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_USER_DEFINED = 128;</pre></div></div></div></section><span id="Binary_SUBTYPE_USER_DEFINED" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_USER_DEFINED_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_USER_DEFINED<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>User BSON type</p>
+</div></div><div id="Binary_SUBTYPE_USER_DEFINED_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_USER_DEFINED = 128;</pre></div></div></div></section><span id="Binary_SUBTYPE_USER_DEFINED" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_USER_DEFINED_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_USER_DEFINED<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>User BSON type</p>
+</div></div><div id="Binary_SUBTYPE_USER_DEFINED_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_USER_DEFINED = 128;</pre></div></div></div></section><span id="Binary_SUBTYPE_UUID" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_UUID_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_UUID<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>UUID BSON type</p>
+</div></div><div id="Binary_SUBTYPE_UUID_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_UUID = 4;</pre></div></div></div></section><span id="Binary_SUBTYPE_UUID" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_UUID_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_UUID<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>UUID BSON type</p>
+</div></div><div id="Binary_SUBTYPE_UUID_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_UUID = 4;</pre></div></div></div></section><span id="Binary_SUBTYPE_UUID" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_UUID_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_UUID<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>UUID BSON type</p>
+</div></div><div id="Binary_SUBTYPE_UUID_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_UUID = 4;</pre></div></div></div></section><span id="Binary_SUBTYPE_UUID_OLD" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_UUID_OLD_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_UUID_OLD<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>OLD UUID BSON type</p>
+</div></div><div id="Binary_SUBTYPE_UUID_OLD_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_UUID_OLD = 3;</pre></div></div></div></section><span id="Binary_SUBTYPE_UUID_OLD" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_UUID_OLD_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_UUID_OLD<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>OLD UUID BSON type</p>
+</div></div><div id="Binary_SUBTYPE_UUID_OLD_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_UUID_OLD = 3;</pre></div></div></div></section><span id="Binary_SUBTYPE_UUID_OLD" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary_SUBTYPE_UUID_OLD_body" class="panel-heading collapsed"><h3 class="panel-title">Binary.SUBTYPE_UUID_OLD<span class="label label-static">static</span><span class="label label-property">property</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>OLD UUID BSON type</p>
+</div></div><div id="Binary_SUBTYPE_UUID_OLD_body" class="panel-collapse collapse"><div class="panel-body"><div></div><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.SUBTYPE_UUID_OLD = 3;</pre></div></div></div></section><span id="Binary__length" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__length_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::length()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Length.</p>
+</div></div><div id="Binary__length_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>number</span></span></td><td><span>the length of the binary.</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.length = function length() {
+  return this.position;
+};</pre></div></div></div></section><span id="Binary__length" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__length_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::length()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Length.</p>
+</div></div><div id="Binary__length_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number'>Number</a></span></td><td><span>the length of the binary.</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.length = function length() {
+  return this.position;
+};</pre></div></div></div></section><span id="Binary__length" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__length_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::length()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Length.</p>
+</div></div><div id="Binary__length_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>number</span></span></td><td><span>the length of the binary.</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.length = function length() {
+  return this.position;
+};</pre></div></div></div></section><span id="Binary__put" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__put_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::put(byte_value)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Updates this binary with byte_value.</p>
+</div></div><div id="Binary__put_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>byte_value</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> a single byte we wish to write.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.put = function put(byte_value) {
+  // If it's a string and a has more than one character throw an error
+  if(byte_value['length'] != null &amp;&amp; typeof byte_value != 'number' &amp;&amp; byte_value.length != 1) throw new Error(&quot;only accepts single character String, Uint8Array or Array&quot;);
+  if(typeof byte_value != 'number' &amp;&amp; byte_value &lt; 0 || byte_value &gt; 255) throw new Error(&quot;only accepts number in a valid unsigned byte range 0-255&quot;);
+  
+  // Decode the byte value once
+  var decoded_byte = null;
+  if(typeof byte_value == 'string') {
+    decoded_byte = byte_value.charCodeAt(0);      
+  } else if(byte_value['length'] != null) {
+    decoded_byte = byte_value[0];
+  } else {
+    decoded_byte = byte_value;
+  }
+  
+  if(this.buffer.length &gt; this.position) {
+    this.buffer[this.position++] = decoded_byte;
+  } else {
+    if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer)) {    
+      // Create additional overflow buffer
+      var buffer = new Buffer(Binary.BUFFER_SIZE + this.buffer.length);
+      // Combine the two buffers together
+      this.buffer.copy(buffer, 0, 0, this.buffer.length);
+      this.buffer = buffer;
+      this.buffer[this.position++] = decoded_byte;
+    } else {
+      var buffer = null;
+      // Create a new buffer (typed or normal array)
+      if(Object.prototype.toString.call(this.buffer) == '[object Uint8Array]') {
+        buffer = new Uint8Array(new ArrayBuffer(Binary.BUFFER_SIZE + this.buffer.length));
+      } else {
+        buffer = new Array(Binary.BUFFER_SIZE + this.buffer.length);
+      }      
+      
+      // We need to copy all the content to the new array
+      for(var i = 0; i &lt; this.buffer.length; i++) {
+        buffer[i] = this.buffer[i];
+      }
+      
+      // Reassign the buffer
+      this.buffer = buffer;
+      // Write the byte
+      this.buffer[this.position++] = decoded_byte;
+    }
+  }
+};</pre></div></div></div></section><span id="Binary__put" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__put_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::put(byte_value)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Updates this binary with byte_value.</p>
+</div></div><div id="Binary__put_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>byte_value</code></td><td><span><span class='missing-link'>Character</span></span></td><td><span> a single byte we wish to write.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.put = function put(byte_value) {
+  // If it's a string and a has more than one character throw an error
+  if(byte_value['length'] != null &amp;&amp; typeof byte_value != 'number' &amp;&amp; byte_value.length != 1) throw new Error(&quot;only accepts single character String, Uint8Array or Array&quot;);
+  if(typeof byte_value != 'number' &amp;&amp; byte_value &lt; 0 || byte_value &gt; 255) throw new Error(&quot;only accepts number in a valid unsigned byte range 0-255&quot;);
+  
+  // Decode the byte value once
+  var decoded_byte = null;
+  if(typeof byte_value == 'string') {
+    decoded_byte = byte_value.charCodeAt(0);      
+  } else if(byte_value['length'] != null) {
+    decoded_byte = byte_value[0];
+  } else {
+    decoded_byte = byte_value;
+  }
+  
+  if(this.buffer.length &gt; this.position) {
+    this.buffer[this.position++] = decoded_byte;
+  } else {
+    if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer)) {    
+      // Create additional overflow buffer
+      var buffer = new Buffer(Binary.BUFFER_SIZE + this.buffer.length);
+      // Combine the two buffers together
+      this.buffer.copy(buffer, 0, 0, this.buffer.length);
+      this.buffer = buffer;
+      this.buffer[this.position++] = decoded_byte;
+    } else {
+      var buffer = null;
+      // Create a new buffer (typed or normal array)
+      if(Object.prototype.toString.call(this.buffer) == '[object Uint8Array]') {
+        buffer = new Uint8Array(new ArrayBuffer(Binary.BUFFER_SIZE + this.buffer.length));
+      } else {
+        buffer = new Array(Binary.BUFFER_SIZE + this.buffer.length);
+      }      
+      
+      // We need to copy all the content to the new array
+      for(var i = 0; i &lt; this.buffer.length; i++) {
+        buffer[i] = this.buffer[i];
+      }
+      
+      // Reassign the buffer
+      this.buffer = buffer;
+      // Write the byte
+      this.buffer[this.position++] = decoded_byte;
+    }
+  }
+};</pre></div></div></div></section><span id="Binary__put" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__put_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::put(byte_value)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Updates this binary with byte_value.</p>
+</div></div><div id="Binary__put_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>byte_value</code></td><td><span><span class='missing-link'>string</span></span></td><td><span> a single byte we wish to write.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.put = function put(byte_value) {
+  // If it's a string and a has more than one character throw an error
+  if(byte_value['length'] != null &amp;&amp; typeof byte_value != 'number' &amp;&amp; byte_value.length != 1) throw new Error(&quot;only accepts single character String, Uint8Array or Array&quot;);
+  if(typeof byte_value != 'number' &amp;&amp; byte_value &lt; 0 || byte_value &gt; 255) throw new Error(&quot;only accepts number in a valid unsigned byte range 0-255&quot;);
+  
+  // Decode the byte value once
+  var decoded_byte = null;
+  if(typeof byte_value == 'string') {
+    decoded_byte = byte_value.charCodeAt(0);      
+  } else if(byte_value['length'] != null) {
+    decoded_byte = byte_value[0];
+  } else {
+    decoded_byte = byte_value;
+  }
+  
+  if(this.buffer.length &gt; this.position) {
+    this.buffer[this.position++] = decoded_byte;
+  } else {
+    if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer)) {    
+      // Create additional overflow buffer
+      var buffer = new Buffer(Binary.BUFFER_SIZE + this.buffer.length);
+      // Combine the two buffers together
+      this.buffer.copy(buffer, 0, 0, this.buffer.length);
+      this.buffer = buffer;
+      this.buffer[this.position++] = decoded_byte;
+    } else {
+      var buffer = null;
+      // Create a new buffer (typed or normal array)
+      if(Object.prototype.toString.call(this.buffer) == '[object Uint8Array]') {
+        buffer = new Uint8Array(new ArrayBuffer(Binary.BUFFER_SIZE + this.buffer.length));
+      } else {
+        buffer = new Array(Binary.BUFFER_SIZE + this.buffer.length);
+      }      
+      
+      // We need to copy all the content to the new array
+      for(var i = 0; i &lt; this.buffer.length; i++) {
+        buffer[i] = this.buffer[i];
+      }
+      
+      // Reassign the buffer
+      this.buffer = buffer;
+      // Write the byte
+      this.buffer[this.position++] = decoded_byte;
+    }
+  }
+};</pre></div></div></div></section><span id="Binary__read" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__read_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::read(position, length)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Reads <strong>length</strong> bytes starting at <strong>position</strong>.</p>
+</div></div><div id="Binary__read_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>position</code></td><td><span><span class='missing-link'>number</span></span></td><td><span> read from the given position in the Binary.</span></td></tr><tr><td><span class="method-depth0"></span><code>length</code></td><td><span><span class='missing-link'>number</span></span></td><td><span> the number of bytes to read.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.read = function read(position, length) {
+  length = length &amp;&amp; length &gt; 0
+    ? length
+    : this.position;
+  
+  // Let's return the data based on the type we have
+  if(this.buffer['slice']) {
+    return this.buffer.slice(position, position + length);
+  } else {
+    // Create a buffer to keep the result
+    var buffer = typeof Uint8Array != 'undefined' ? new Uint8Array(new ArrayBuffer(length)) : new Array(length);
+    for(var i = 0; i &lt; length; i++) {
+      buffer[i] = this.buffer[position++];
+    }
+  }
+  // Return the buffer
+  return buffer;
+};</pre></div></div></div></section><span id="Binary__read" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__read_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::read(position, length)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Reads <strong>length</strong> bytes starting at <strong>position</strong>.</p>
+</div></div><div id="Binary__read_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>position</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number'>Number</a></span></td><td><span> read from the given position in the Binary.</span></td></tr><tr><td><span class="method-depth0"></span><code>length</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number'>Number</a></span></td><td><span> the number of bytes to read.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.read = function read(position, length) {
+  length = length &amp;&amp; length &gt; 0
+    ? length
+    : this.position;
+  
+  // Let's return the data based on the type we have
+  if(this.buffer['slice']) {
+    return this.buffer.slice(position, position + length);
+  } else {
+    // Create a buffer to keep the result
+    var buffer = typeof Uint8Array != 'undefined' ? new Uint8Array(new ArrayBuffer(length)) : new Array(length);
+    for(var i = 0; i &lt; length; i++) {
+      buffer[i] = this.buffer[position++];
+    }
+  }
+  // Return the buffer
+  return buffer;
+};</pre></div></div></div></section><span id="Binary__read" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__read_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::read(position, length)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Reads <strong>length</strong> bytes starting at <strong>position</strong>.</p>
+</div></div><div id="Binary__read_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>position</code></td><td><span><span class='missing-link'>number</span></span></td><td><span> read from the given position in the Binary.</span></td></tr><tr><td><span class="method-depth0"></span><code>length</code></td><td><span><span class='missing-link'>number</span></span></td><td><span> the number of bytes to read.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='../undefined.html#Buffer'>Buffer</a></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.read = function read(position, length) {
+  length = length &amp;&amp; length &gt; 0
+    ? length
+    : this.position;
+  
+  // Let's return the data based on the type we have
+  if(this.buffer['slice']) {
+    return this.buffer.slice(position, position + length);
+  } else {
+    // Create a buffer to keep the result
+    var buffer = typeof Uint8Array != 'undefined' ? new Uint8Array(new ArrayBuffer(length)) : new Array(length);
+    for(var i = 0; i &lt; length; i++) {
+      buffer[i] = this.buffer[position++];
+    }
+  }
+  // Return the buffer
+  return buffer;
+};</pre></div></div></div></section><span id="Binary__toJSON" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__toJSON_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::toJSON()<span class="pull-right glyphicon"></span></h3><div class="method-summary"></div></div><div id="Binary__toJSON_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.toJSON = function() {
+  return this.buffer != null ? this.buffer.toString('base64') : '';
+}</pre></div></div></div></section><span id="Binary__toJSON" class="fix-anchor"></span><section class="private"><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__toJSON_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::toJSON()<span class="label label-private">private</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"></div></div><div id="Binary__toJSON_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.toJSON = function() {
+  return this.buffer != null ? this.buffer.toString('base64') : '';
+}</pre></div></div></div></section><span id="Binary__toJSON" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__toJSON_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::toJSON()<span class="pull-right glyphicon"></span></h3><div class="method-summary"></div></div><div id="Binary__toJSON_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.toJSON = function() {
+  return this.buffer != null ? this.buffer.toString('base64') : '';
+}</pre></div></div></div></section><span id="Binary__toString" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__toString_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::toString()<span class="pull-right glyphicon"></span></h3><div class="method-summary"></div></div><div id="Binary__toString_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.toString = function(format) {
+  return this.buffer != null ? this.buffer.slice(0, this.position).toString(format) : '';
+}</pre></div></div></div></section><span id="Binary__toString" class="fix-anchor"></span><section class="private"><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__toString_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::toString()<span class="label label-private">private</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"></div></div><div id="Binary__toString_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.toString = function(format) {
+  return this.buffer != null ? this.buffer.slice(0, this.position).toString(format) : '';
+}
+
+Binary.BUFFER_SIZE = 256;</pre></div></div></div></section><span id="Binary__toString" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__toString_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::toString()<span class="pull-right glyphicon"></span></h3><div class="method-summary"></div></div><div id="Binary__toString_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.toString = function(format) {
+  return this.buffer != null ? this.buffer.slice(0, this.position).toString(format) : '';
+}</pre></div></div></div></section><span id="Binary__value" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__value_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::value()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Returns the value of this binary as a string.</p>
+</div></div><div id="Binary__value_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>string</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.value = function value(asRaw) {
+  asRaw = asRaw == null ? false : asRaw;  
+
+  // Optimize to serialize for the situation where the data == size of buffer
+  if(asRaw &amp;&amp; typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer) &amp;&amp; this.buffer.length == this.position)
+    return this.buffer;
+  
+  // If it's a node.js buffer object
+  if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer)) {
+    return asRaw ? this.buffer.slice(0, this.position) : this.buffer.toString('binary', 0, this.position);
+  } else {
+    if(asRaw) {
+      // we support the slice command use it
+      if(this.buffer['slice'] != null) {
+        return this.buffer.slice(0, this.position);
+      } else {
+        // Create a new buffer to copy content to
+        var newBuffer = Object.prototype.toString.call(this.buffer) == '[object Uint8Array]' ? new Uint8Array(new ArrayBuffer(this.position)) : new Array(this.position);
+        // Copy content
+        for(var i = 0; i &lt; this.position; i++) {
+          newBuffer[i] = this.buffer[i];
+        }
+        // Return the buffer
+        return newBuffer;
+      }
+    } else {
+      return convertArraytoUtf8BinaryString(this.buffer, 0, this.position);
+    }
+  }
+};</pre></div></div></div></section><span id="Binary__value" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__value_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::value()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Returns the value of this binary as a string.</p>
+</div></div><div id="Binary__value_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>string</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.value = function value(asRaw) {
+  asRaw = asRaw == null ? false : asRaw;  
+
+  // Optimize to serialize for the situation where the data == size of buffer
+  if(asRaw &amp;&amp; typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer) &amp;&amp; this.buffer.length == this.position)
+    return this.buffer;
+  
+  // If it's a node.js buffer object
+  if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer)) {
+    return asRaw ? this.buffer.slice(0, this.position) : this.buffer.toString('binary', 0, this.position);
+  } else {
+    if(asRaw) {
+      // we support the slice command use it
+      if(this.buffer['slice'] != null) {
+        return this.buffer.slice(0, this.position);
+      } else {
+        // Create a new buffer to copy content to
+        var newBuffer = Object.prototype.toString.call(this.buffer) == '[object Uint8Array]' ? new Uint8Array(new ArrayBuffer(this.position)) : new Array(this.position);
+        // Copy content
+        for(var i = 0; i &lt; this.position; i++) {
+          newBuffer[i] = this.buffer[i];
+        }
+        // Return the buffer
+        return newBuffer;
+      }
+    } else {
+      return convertArraytoUtf8BinaryString(this.buffer, 0, this.position);
+    }
+  }
+};</pre></div></div></div></section><span id="Binary__value" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__value_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::value()<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Returns the value of this binary as a string.</p>
+</div></div><div id="Binary__value_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(None)</td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String'>String</a></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.value = function value(asRaw) {
+  asRaw = asRaw == null ? false : asRaw;  
+  
+  // If it's a node.js buffer object
+  if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer)) {
+    return asRaw ? this.buffer.slice(0, this.position) : this.buffer.toString('binary', 0, this.position);
+  } else {
+    if(asRaw) {
+      // we support the slice command use it
+      if(this.buffer['slice'] != null) {
+        return this.buffer.slice(0, this.position);
+      } else {
+        // Create a new buffer to copy content to
+        var newBuffer = Object.prototype.toString.call(this.buffer) == '[object Uint8Array]' ? new Uint8Array(new ArrayBuffer(this.position)) : new Array(this.position);
+        // Copy content
+        for(var i = 0; i &lt; this.position; i++) {
+          newBuffer[i] = this.buffer[i];
+        }
+        // Return the buffer
+        return newBuffer;
+      }
+    } else {
+      return convertArraytoUtf8BinaryString(this.buffer, 0, this.position);
+    }
+  }
+};</pre></div></div></div></section><span id="Binary__write" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__write_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::write(string, offset)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Writes a buffer or string to the binary.</p>
+</div></div><div id="Binary__write_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>string</code></td><td><span><span class='missing-link'>(Buffer</span>, <span class='missing-link'>string)</span></span></td><td><span> a string or buffer to be written to the Binary BSON object.</span></td></tr><tr><td><span class="method-depth0"></span><code>offset</code></td><td><span><span class='missing-link'>number</span></span></td><td><span> specify the binary of where to write the content.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>null</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.write = function write(string, offset) {
+  offset = typeof offset == 'number' ? offset : this.position;
+
+  // If the buffer is to small let's extend the buffer
+  if(this.buffer.length &lt; offset + string.length) {
+    var buffer = null;
+    // If we are in node.js
+    if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer)) {      
+      buffer = new Buffer(this.buffer.length + string.length);
+      this.buffer.copy(buffer, 0, 0, this.buffer.length);      
+    } else if(Object.prototype.toString.call(this.buffer) == '[object Uint8Array]') {
+      // Create a new buffer
+      buffer = new Uint8Array(new ArrayBuffer(this.buffer.length + string.length))
+      // Copy the content
+      for(var i = 0; i &lt; this.position; i++) {
+        buffer[i] = this.buffer[i];
+      }
+    }
+    
+    // Assign the new buffer
+    this.buffer = buffer;
+  }
+
+  if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(string) &amp;&amp; Buffer.isBuffer(this.buffer)) {
+    string.copy(this.buffer, offset, 0, string.length);
+    this.position = (offset + string.length) &gt; this.position ? (offset + string.length) : this.position;
+    // offset = string.length
+  } else if(typeof Buffer != 'undefined' &amp;&amp; typeof string == 'string' &amp;&amp; Buffer.isBuffer(this.buffer)) {
+    this.buffer.write(string, 'binary', offset);
+    this.position = (offset + string.length) &gt; this.position ? (offset + string.length) : this.position;
+    // offset = string.length;
+  } else if(Object.prototype.toString.call(string) == '[object Uint8Array]' 
+    || Object.prototype.toString.call(string) == '[object Array]' &amp;&amp; typeof string != 'string') {      
+    for(var i = 0; i &lt; string.length; i++) {
+      this.buffer[offset++] = string[i];
+    }    
+
+    this.position = offset &gt; this.position ? offset : this.position;
+  } else if(typeof string == 'string') {
+    for(var i = 0; i &lt; string.length; i++) {
+      this.buffer[offset++] = string.charCodeAt(i);
+    }
+
+    this.position = offset &gt; this.position ? offset : this.position;
+  }
+};</pre></div></div></div></section><span id="Binary__write" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__write_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::write(string, offset)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Writes a buffer or string to the binary.</p>
+</div></div><div id="Binary__write_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>string</code></td><td><span><span class='missing-link'>(Buffer</span>, <span class='missing-link'>string)</span></span></td><td><span> a string or buffer to be written to the Binary BSON object.</span></td></tr><tr><td><span class="method-depth0"></span><code>offset</code></td><td><span><span class='missing-link'>number</span></span></td><td><span> specify the binary of where to write the content.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><span class='missing-link'>null</span></span></td><td><span></span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/node_modules/bson-ext/lib/bson/binary.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.write = function write(string, offset) {
+  offset = typeof offset == 'number' ? offset : this.position;
+
+  // If the buffer is to small let's extend the buffer
+  if(this.buffer.length &lt; offset + string.length) {
+    var buffer = null;
+    // If we are in node.js
+    if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer)) {      
+      buffer = new Buffer(this.buffer.length + string.length);
+      this.buffer.copy(buffer, 0, 0, this.buffer.length);      
+    } else if(Object.prototype.toString.call(this.buffer) == '[object Uint8Array]') {
+      // Create a new buffer
+      buffer = new Uint8Array(new ArrayBuffer(this.buffer.length + string.length))
+      // Copy the content
+      for(var i = 0; i &lt; this.position; i++) {
+        buffer[i] = this.buffer[i];
+      }
+    }
+    
+    // Assign the new buffer
+    this.buffer = buffer;
+  }
+
+  if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(string) &amp;&amp; Buffer.isBuffer(this.buffer)) {
+    string.copy(this.buffer, offset, 0, string.length);
+    this.position = (offset + string.length) &gt; this.position ? (offset + string.length) : this.position;
+    // offset = string.length
+  } else if(typeof Buffer != 'undefined' &amp;&amp; typeof string == 'string' &amp;&amp; Buffer.isBuffer(this.buffer)) {
+    this.buffer.write(string, 'binary', offset);
+    this.position = (offset + string.length) &gt; this.position ? (offset + string.length) : this.position;
+    // offset = string.length;
+  } else if(Object.prototype.toString.call(string) == '[object Uint8Array]' 
+    || Object.prototype.toString.call(string) == '[object Array]' &amp;&amp; typeof string != 'string') {      
+    for(var i = 0; i &lt; string.length; i++) {
+      this.buffer[offset++] = string[i];
+    }    
+
+    this.position = offset &gt; this.position ? offset : this.position;
+  } else if(typeof string == 'string') {
+    for(var i = 0; i &lt; string.length; i++) {
+      this.buffer[offset++] = string.charCodeAt(i);
+    }
+
+    this.position = offset &gt; this.position ? offset : this.position;
+  }
+};</pre></div></div></div></section><span id="Binary__write" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#Binary__write_body" class="panel-heading collapsed"><h3 class="panel-title">Binary::write(string, offset)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Writes a buffer or string to the binary.</p>
+</div></div><div id="Binary__write_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>string</code></td><td><span><a href='../undefined.html#Buffer'>Buffer</a>, <a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String'>String</a></span></td><td><span> a string or buffer to be written to the Binary BSON object.</span></td></tr><tr><td><span class="method-depth0"></span><code>offset</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number'>Number</a></span></td><td><span> specify the binary of where to write the content.</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><td>(Nothing)</td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /feel/node_modules/mongodb/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">Binary.prototype.write = function write(string, offset) {
+  offset = typeof offset == 'number' ? offset : this.position;
+
+  // If the buffer is to small let's extend the buffer
+  if(this.buffer.length &lt; offset + string.length) {
+    var buffer = null;
+    // If we are in node.js
+    if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(this.buffer)) {      
+      buffer = new Buffer(this.buffer.length + string.length);
+      this.buffer.copy(buffer, 0, 0, this.buffer.length);      
+    } else if(Object.prototype.toString.call(this.buffer) == '[object Uint8Array]') {
+      // Create a new buffer
+      buffer = new Uint8Array(new ArrayBuffer(this.buffer.length + string.length))
+      // Copy the content
+      for(var i = 0; i &lt; this.position; i++) {
+        buffer[i] = this.buffer[i];
+      }
+    }
+    
+    // Assign the new buffer
+    this.buffer = buffer;
+  }
+
+  if(typeof Buffer != 'undefined' &amp;&amp; Buffer.isBuffer(string) &amp;&amp; Buffer.isBuffer(this.buffer)) {
+    string.copy(this.buffer, offset, 0, string.length);
+    this.position = (offset + string.length) &gt; this.position ? (offset + string.length) : this.position;
+    // offset = string.length
+  } else if(typeof Buffer != 'undefined' &amp;&amp; typeof string == 'string' &amp;&amp; Buffer.isBuffer(this.buffer)) {
+    this.buffer.write(string, 'binary', offset);
+    this.position = (offset + string.length) &gt; this.position ? (offset + string.length) : this.position;
+    // offset = string.length;
+  } else if(Object.prototype.toString.call(string) == '[object Uint8Array]' 
+    || Object.prototype.toString.call(string) == '[object Array]' &amp;&amp; typeof string != 'string') {      
+    for(var i = 0; i &lt; string.length; i++) {
+      this.buffer[offset++] = string[i];
+    }    
+
+    this.position = offset &gt; this.position ? offset : this.position;
+  } else if(typeof string == 'string') {
+    for(var i = 0; i &lt; string.length; i++) {
+      this.buffer[offset++] = string.charCodeAt(i);
+    }
+
+    this.position = offset &gt; this.position ? offset : this.position;
+  }
+};</pre></div></div></div></section></div></div></div><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script><script src="../bootstrap-3.2.0-dist/js/bootstrap.min.js"></script><script src="../google-code-prettify/prettify.js"></script><script src="../script.js"></script><script src="../group-examples.js"></script></body></html>

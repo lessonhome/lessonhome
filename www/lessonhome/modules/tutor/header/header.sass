@@ -7,6 +7,7 @@ $border_width: 1px
 $color_text: #757575
 
 main
+  background-color: rgba(0,0,0,0.3)
   height : 100%
   text-align: center
 .logo
@@ -15,12 +16,14 @@ main
 .right_box
   float: right
   height: 100%
-  .back_call, .button_in_out,   .tutor_icon
+  .back_call, .button_in_out, .tutor_icon
     height: 100%
     +inline-block
   .back_call
-    padding: 0 30px 0 0
-  .back_call:before
+    padding: 0 21px 0 0
+  .button_in_out
+    padding: 0 62px 0 21px
+  .back_call:before, .button_in_out::before
     +inline-block
     height: 100%
     content: ""

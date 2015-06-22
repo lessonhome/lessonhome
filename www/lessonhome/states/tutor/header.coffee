@@ -10,7 +10,7 @@ class @main
       items     : @exports()
     icons     : @exports()
     back_call : @module '$/back_call'  :
-      city            : 'Москва'
+      #city            : 'Москва'
       call_back_popup : @state '../main/call_back_popup' :
         selector: 'header'
 

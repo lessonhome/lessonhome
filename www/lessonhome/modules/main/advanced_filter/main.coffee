@@ -16,8 +16,40 @@ class @main extends EE
     # action
     # TODO: add_course hard code, not this module, only this file have this variables
 
-    @on 'change', => console.log @getValue()
-    @on 'end', => console.log @getValue()
+    @on 'change', => Q.spawn =>
+      v = @getValue()
+      for key,val of v
+        yield Feel.urlData.Short key,val
+      console.log v
+      ###
+      data = {}
+      state = History.getState()
+      console.log 'state',state
+      data.title = state.title
+      unless data.title
+        data.title = $('head>title').text()
+      data.obj = {}
+      data.obj[key] = val for key,val of state.data
+      data.bson   = state.url.match /\?(.*)/
+      if data.bson
+        data.bson = data.bson[1].split '&'
+        arr = {}
+        for a in data.bson
+          a = a.split '='
+          arr[a[0]] = a[1]
+        data.bson = arr
+      data.bson ?= {}
+      v = @getValue()
+      bson = _objToBson v,'leftFilter'
+      console.log bson
+      data.obj['leftFilter'] = v
+      for key,val of bson
+        data.bson[key] = val
+      data.bson = _objToUrlString data.bson
+      console.log 'data',data
+      History.pushState data.obj,data.title,state.url.match(/^([^\?]*)/)[1]+"?#{data.bson}"
+      ###
+    #@on 'end', => console.log @getValue()
 
     @calendar.on            'change',=> @emit 'change'
     @price.on               'change',=> @emit 'change'

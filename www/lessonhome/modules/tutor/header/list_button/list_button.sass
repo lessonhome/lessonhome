@@ -1,13 +1,11 @@
 @import compass/css3
-$font-size: 16px
 $triangle_src: 'main/triangle_33x18.png'
 $triangle_width: image-width($triangle_src)
 $triangle_height: image-height($triangle_src)
 $border_width: 1px
-$color_text: #757575
+$color_text: #ffffff
 main
   height: 100%
-  font-size: $font-size
 .visible
   position: relative
   height: 100%
@@ -15,11 +13,9 @@ main
     +inline-block
     height: 100%
     text-decoration: none
-    padding: 0 19px
     color: $color_text
     .title
       +inline-block
-      font-size: 16px
     .title.active
       color: red
   .hover:hover
@@ -55,8 +51,6 @@ main
           text-decoration: none
           color: $color_text
           .title
-            line-height: 32px
-            font-size: 16px
 .visible:hover
   .hidden
     display: block
