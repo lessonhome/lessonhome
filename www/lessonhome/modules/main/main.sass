@@ -1,7 +1,7 @@
 @import compass/css3
 $background_white:  #ffffff
 $footer_height: 313px
-
+$height_line: 52px
 main
   height: 100%
   width: 1014px
@@ -34,16 +34,17 @@ main
   min-height: 100%
   overflow: hidden
   +box-shadow(3px 0 16px 0px rgba(0,0,0,0.17),-3px 0 16px 0px rgba(0,0,0,0.17), 37px 0 43px 0px rgba(0,0,0,0.07), -37px 0 43px 0px rgba(0,0,0,0.07))
-  .header
-    position: relative
-    height: 100px
-    width: 100%
-    background: $background_white
-    +box-shadow(0px 1px 5px 0px rgba(0,0,0,0.20))
-    z-index: 1
-  .filter_top
-    text-align: center
-  $height_line: 52px
+  .background_top
+    background: url(F('main/chalkboard_pattern.png'))
+    .header
+      position: relative
+      height: 100px
+      width: 100%
+      //background: $background_white
+      +box-shadow(0px 1px 5px 0px rgba(0,0,0,0.20))
+      z-index: 1
+    .filter_top
+      text-align: center
   .info_panel
     background-color: rgb(226, 228, 231)
     height: $height_line

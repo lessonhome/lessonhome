@@ -1,6 +1,7 @@
 class @main extends @template '../preview'
   route : '/second_step'
   model : 'main/second_step'
+  forms : ['pupil']
   title : "выберите статус преподавателя"
   tags  : -> 'pupil:main_search'
   access : ['pupil','other']
@@ -12,9 +13,9 @@ class @main extends @template '../preview'
     tag         : 'pupil:main_search'
     filter_top  : @state '../filter_top':
       title : 'Выберите статус преподавателя :'
-      list_subject    : @module 'tutor/forms/drop_down_list' :
+      tutor_status : @module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
-        placeholder : 'Например студент'
+        placeholder : 'студент'
         default_options     : {
           '0': {value: 'student', text: 'студент'},
           '1': {value: 'graduate', text: 'аспирант'},
@@ -22,6 +23,7 @@ class @main extends @template '../preview'
           '3': {value: 'high_school_teacher', text: 'преподаватель вуза'},
           '4': {value: 'private_teacher', text: 'частный преподаватель'}
         }
+        $form : pupil : 'requirements_for_tutor.status'
       choose_subject  : @module 'selected_tag'  :
         selector  : 'choose_subject'
         text      : 'Преподаватель вуза'

@@ -3,7 +3,7 @@
 class @main extends @template './motivation_content'
   route : '/'
   model   : 'main/first_step'
-  title : "выберите предмет"
+  title : "Быстро подберем Вам лучшего репетитора"
   forms : ['pupil']
   tags  : -> 'pupil:main_search'
   access : ['other','pupil']
@@ -14,7 +14,7 @@ class @main extends @template './motivation_content'
     popup       : @exports()
     tag         : 'pupil:main_search'
     filter_top  : @state './filter_top' :
-      title         : 'Выберите предмет :'
+      title         : 'Быстро подберем Вам лучшего репетитора!'
       list_subject    : @module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
         placeholder : 'Предмет'
@@ -101,6 +101,34 @@ class @main extends @template './motivation_content'
         close     : true
 
       ###
+      tutor_status : [
+        @module 'tutor/forms/checkbox'  :
+          text      : 'Студент'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'Частный преподаватель'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'Преподаватель школы'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'Преподаватель ВУЗа'
+          selector  : 'small'
+      ]
+      price : [
+        @module 'tutor/forms/checkbox'  :
+          text      : 'до 500'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'от 500 до 1000'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'от 1000 до 2000'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'от 2000'
+          selector  : 'small'
+      ]
       empty_choose_subject : @module '../selected_tag' :
         selector  : 'choose_subject'
         id        : ''

@@ -26,8 +26,8 @@ class @main extends @template '../preview'
         value         :
           min : 400
           max : 5000
-          left  : $form : pupil : 'newBid.subjects.0.lesson_price.0'
-          right : $form : pupil : 'newBid.subjects.0.lesson_price.1'
+          left  : $form : pupil : 'lesson_price.left'
+          right : $form : pupil : 'lesson_price.right'
 
       link_back       :  '/third_step'
 

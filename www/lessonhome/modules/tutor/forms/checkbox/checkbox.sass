@@ -1,5 +1,5 @@
 @import compass/css3
-$check_small: 'checkbox_small.png'
+$check_small: 'main/check_18x17.gif'
 $check_small_height: image-height($check_small)
 $check_small_width: image-width($check_small)
 
@@ -8,7 +8,7 @@ $check_big_height: image-height($check_big)
 $check_big_width: image-width($check_big)
 
 
-$font_size: 18px
+$font_size: 16px
 main
   height: 100%
 label
@@ -19,10 +19,12 @@ label
   div
     +inline-block
   .check_box
-    +border-radius(4px)
+    //+border-radius(4px)
+    +border-radius(2px)
     box-sizing: border-box
     background-color: #fff
-    border: 2px solid rgb( 205, 205, 205 )
+    //border: 2px solid rgb( 205, 205, 205 )
+    border: 1px solid #a0a0a0
     position: relative
     .check
       display: none
@@ -32,9 +34,9 @@ label
       left: -1px
       top: -2px
   .text
-    padding-left: 11px
+    padding-left: 14px
     font-size: $font_size
-    color: #757575
+    color: #717171
   ///////////// big //////////////////////
 label.big
   .check_box
@@ -62,6 +64,7 @@ label.font_16
   ////////////--------------action-----------///////////
 label.active
   .check_box
+    box-shadow: inset 0px 0px 7px 3px rgba(0, 0, 0, 0.15)
     .check
       display: block
   .text
