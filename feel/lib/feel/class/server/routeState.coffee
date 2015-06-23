@@ -4,6 +4,9 @@ _cookies = require 'cookies'
 rand  = (num)-> crypto.createHash('sha1').update(num).digest('hex').substr 0,10
 get_ip = require('ipware')().get_ip
 useragent = require('useragent')
+
+urldataLinks = ""
+
 class RouteState
   constructor : (@statename,@req,@res,@site)->
     @time()
@@ -303,13 +306,18 @@ class RouteState
     end += @css+'</head><body>'+@top._html
     @removeHtml @top
     @time "remove html"
-    json_tree = _toJson(@getTree(@top))
+    json_tree = @getTree @top
+    try
+      json_ = JSON.stringify json_tree
+    catch e
+      json_ = "InfiniteJSON.parse(decodeURIComponent('#{encodeURIComponent _toJson json_tree}'))"
+    json_tree = json_
     @time "stringify"
     end +=
       "<script>
       'use strict';
-      window.StopIteration = undefined;
-      #{Feel.clientRegenerator}</script>"+
+      window.StopIteration = undefined;</script>
+      <script type='text/javascript' src='/jsclient/#{Feel.clientRegeneratorHash}/regenerator'></script>"+
       @site.moduleJsTag('lib/jquery')+
       @site.moduleJsTag('lib/jquery/plugins')+
       @site.moduleJsTag('lib/q')+
@@ -322,21 +330,20 @@ class RouteState
           window.EE = EventEmitter;
           var $Feel = {};
           $Feel.root = {
-              "tree" : InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
-          };
+              "tree" : '+json_tree+ #InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
+          '};
           $Feel.user = {};
           $Feel.user.id = "'+(@req.user.id||666)+'";
           $Feel.user.sessionpart = "'+(@req.session.substr(0,8))+'";
           $Feel.modules = {};
-          (function(){
-            '+@jsClient+'
-            
-            }).call($Feel); ')+'
-      </script>'+
+          $Feel.urlforms = {};')+
+      '</script>'+
+      "<script type='text/javascript' src='/jsclient/#{Feel.clientJsHash}/client'></script>"+
       '<script id="feed-js-modules">
       "use strict";
           console.log("Feel",$Feel); 
       '+@jsModules+'</script>'
+    end += @site.urldataFilesStr
     for modname of @modules
       if @site.modules[modname]?.allCoffee
         end += "<script>window._FEEL_that = $Feel.modules['#{modname}'] = {};</script>"

@@ -26,23 +26,23 @@ class module.exports
     @modules      = {}
     @router       = new Router @
     @fileupload   = new FileUpload @
-  init : =>
-    Q()
-    .then => Main.service('db')
-    .then (db)=>
-      @db = db
-      Main.service 'register'
-    .then (reg)=>
-      @register = reg
-      @form = new Form
-      @form.init()
-    .then @fileupload.init
-    .then @configInit
-    .then @loadModules
-    .then @loadStates
-    .then @router.init
-    #.then =>
-    #  console.log @dataObject "./example", "states/main"
+  init : => do Q.async =>
+    @db = yield Main.service('db')
+    @register = yield Main.service 'register'
+    @form = new Form
+    @urldata = yield Main.service 'urldata'
+    @urldataFiles = yield @urldata.getFFiles()
+    @urldataFilesStr = ""
+    for fname,file of @urldataFiles
+      @urldataFilesStr += "<script>window._FEEL_that = $Feel.urlforms['#{fname}'] = {};</script>"
+      @urldataFilesStr += "<script type='text/javascript' src='/urlform/#{file.hash}/#{fname}'></script>"
+    @urldataFilesStr += "<script>$Feel.urldataJson = #{yield @urldata.getJsonString()};</script>"
+    yield @form.init()
+    yield @fileupload.init()
+    yield @configInit()
+    yield @loadModules()
+    yield @loadStates()
+    yield @router.init()
   configInit : =>
     return Q() unless fs.existsSync @path.config
     return Q() unless fs.statSync(@path.config).isDirectory()
@@ -198,6 +198,23 @@ class module.exports
       fname   = m[3]
       data    = @modules[module]?.jsfilet fname
       hash    = @modules[module]?.jsHash
+    else if m = req.url.match /^\/urlform\/(\w+)\/(.*)$/
+      hash    = m[1]
+      module  = m[2]
+      data    = @urldataFiles[module]
+      return Feel.res404 req,res unless data.src
+      hash    = data.hash
+      data    = data.src
+    else if m = req.url.match /^\/jsclient\/(\w+)\/(client)$/
+      hash    = m[1]
+      module  = m[2]
+      data    = "(function(){#{Feel.clientJs}}).call($Feel);"
+      hash    = Feel.clientJsHash
+    else if m = req.url.match /^\/jsclient\/(\w+)\/(regenerator)$/
+      hash    = m[1]
+      module  = m[2]
+      data    = Feel.clientRegenerator
+      hash    = Feel.clientRegeneratorHash
 
     if data?
       res.setHeader "Content-Type", "text/javascript; charset=utf-8"

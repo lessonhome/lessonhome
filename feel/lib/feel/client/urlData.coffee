@@ -4,8 +4,18 @@ class @urlData
     @_hash = ""
     @_long  = {}
     @_short = {}
-
+    @urljson = {}
+    @forms   = {}
   init : =>
+    @json = Feel.urldataJson
+    for fname,form of Feel.urlforms
+      @forms[fname] = {}
+      @forms[fname].U2D = Wrap new form.U2D if form.U2D?
+      @forms[fname].D2U = Wrap new form.D2U if form.D2U?
+    Feel.udata = new Feel.UrlDataFunctions
+    @udata = Feel.udata
+    yield @udata.init @json,@forms
+
     @state = History.getState()
     udata = @state.url.match /\?(.*)$/
     if udata
