@@ -4,6 +4,7 @@ $triangle_width: image-width($triangle_src)
 $triangle_height: image-height($triangle_src)
 $border_width: 1px
 $color_text: #ffffff
+$color_active: #27ffba
 main
   height: 100%
 .visible
@@ -17,10 +18,10 @@ main
     .title
       +inline-block
     .title.active
-      color: red
+      color: $color_active
   .hover:hover
     .title
-      color: #000000
+      color: $color_active
   a:after
     content: ''
     height: 100%
@@ -55,4 +56,4 @@ main
   .hidden
     display: block
 .visible:hover a, .visible .hidden .box_menu .menu a:hover
-  color: #000000
+  color: $color_active

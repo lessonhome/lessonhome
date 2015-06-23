@@ -1,16 +1,81 @@
 @import compass/css3
-$height_subject_form: 65px
-$height_address_form: 30px
-$padding_bottom_button: 25px/2
-$padding_top_button: 10px
+$height_subject_form    : 65px
+$height_address_form    : 30px
+$height_title           : 54px
+$padding_bottom_button  : 25px/2
+$padding_top_button     : 10px
 $padding_margin_elements: 20px
+$earth_src              : 'filter_top/mainimage_earth.png'
+$note_src               : 'filter_top/mainimage_note.png'
+$pc_src                 : 'filter_top/mainimage_pc.png'
+$pencils_src            : 'filter_top/mainimage_pencils.png'
+$ruler_src              : 'filter_top/mainimage_ruler.png'
+$vial_src               : 'filter_top/mainimage_vial.png'
+$earth_height           : image-height($earth_src)
+$note_height            : image-height($note_src)
+$pc_height              : image-height($pc_src)
+$pencil_height          : image-height($pencils_src)
+$ruler_height           : image-height($ruler_src)
+$vial_height            : image-height($vial_src)
+$earth_width            : image-width($earth_src)
+$note_width             : image-width($note_src)
+$pc_width               : image-width($pc_src)
+$pencil_width           : image-width($pencils_src)
+$ruler_width            : image-width($ruler_src)
+$vial_width             : image-width($vial_src)
 main
-  background: url(F('main/filter_top.jpg'))
-  padding: 45px 0 80px 0
+  position: relative
+  padding: 30px 0 60px 0
+  background: url(F('filter_top/chalk.png'))
+.background_earth
+  height: $earth_height
+  width: $earth_width
+  background: url(F($earth_src))
+  position: absolute
+  right: 0
+  top: 20px
+.background_note
+  height: $note_height
+  width: $note_width
+  background: url(F($note_src))
+  position: absolute
+  left: 19%
+  top: 25%
+.background_pc
+  height: $pc_height
+  width: $pc_width
+  background: url(F($pc_src))
+  position: absolute
+  right: 19%
+  top: 5%
+.background_pencils
+  height: $pencil_height
+  width: $pencil_width
+  background: url(F($pencils_src))
+  position: absolute
+  left: 0
+  top: 3%
+.background_ruler
+  height: $ruler_height
+  width: $ruler_width
+  background: url(F($ruler_src))
+  position: absolute
+  right: 46%
+  top: 0
+.background_vial
+  height: $vial_height
+  width: $vial_width
+  background: url(F($vial_src))
+  position: absolute
+  right: 34%
+  top: 2%
 .title
+  height: $height_title
+  line-height: $height_title
+  background-color: rgba(0,0,0,0.3)
   font-size: 30px
-  color: rgb(34, 37, 40)
-  padding-bottom: $padding_margin_elements
+  color: rgb(254,254,254)
+  margin-bottom: 80px
 .top_button_panel
   +inline-block
   padding-bottom: 20px

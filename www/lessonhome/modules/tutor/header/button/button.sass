@@ -1,4 +1,5 @@
 @import compass/css3
+$color_active: #27ffba
 main
   height: 100%
 a
@@ -9,13 +10,13 @@ a
   .title
     +inline-block
   .title.active
-    color: red
+    color: $color_active
 a:after
   content: ''
   height: 100%
   +inline-block
 .hover:hover
   .title
-    color: #000000
+    color: $color_active
 a .active
-  color : red
+  color : $color_active
