@@ -52,6 +52,7 @@ class UrlData
     @jsonstring = JSON.stringify @json
     yield @genFiles()
     yield @udata.init @json,@forms
+    #@udata.d2u({mainFilter:{price:{left:10}}}).then(function(u){console.log('a',u);}).catch(function(e){console.error(e)})
   getFFile  : (fname)=> @files[fname] ? {}
   getFFiles : (fname)=> @files
   getJsonString : => @jsonstring
