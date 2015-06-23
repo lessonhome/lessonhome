@@ -1,6 +1,6 @@
 @import compass/css3
 $height_subject_form    : 65px
-$height_address_form    : 30px
+$height_address_form    : 37px
 $height_title           : 54px
 $padding_bottom_button  : 25px/2
 $padding_top_button     : 10px
@@ -23,6 +23,10 @@ $pc_width               : image-width($pc_src)
 $pencil_width           : image-width($pencils_src)
 $ruler_width            : image-width($ruler_src)
 $vial_width             : image-width($vial_src)
+$icon_src: 'close_time.png'
+$icon_height: image-height($icon_src)
+$icon_width: image-width($icon_src)
+
 main
   position: relative
   padding: 30px 0 60px 0
@@ -98,38 +102,8 @@ main
   text-align: center
   .address_input
     height: $height_address_form
+    color: rgb(34, 37, 40)
+    padding-bottom: $padding_margin_elements
+.filters
+  div
     +inline-block
-.price_slider_block
-  //same property
-  .price_slider_top
-    //same property
-.select_block
-  width: 520px
-  margin: 0 auto $padding_margin_elements
-  .list_filter
-    height: $height_subject_form
-  .choose_block
-    margin: 20px 30px 0 30px
-    .choose_button
-      float: left
-      margin: 0 10px 10px 0
-  .choose_block:after
-    content: ""
-    display: block
-    clear: both
-.button_panel
-  +inline-block
-  .button_back_block, .button_issue_block, .button_onward_block
-    float: left
-    height: 50px
-  .button_issue_block
-    padding: 0 $padding_bottom_button
-  .button_back_block
-    padding-right: $padding_bottom_button
-  .button_onward_block
-    padding-left: $padding_bottom_button
-.button_panel:after
-  content: ""
-  display: block
-  clear: both
-

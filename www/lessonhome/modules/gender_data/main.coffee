@@ -56,3 +56,7 @@ class @main extends EE
   hideError : =>
     @out_err_sex.hide()
     @out_err_sex.text ""
+
+  cleanForm : =>
+    @man.disable()
+    @woman.disable()

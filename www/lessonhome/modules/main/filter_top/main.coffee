@@ -1,11 +1,24 @@
 class @main extends EE
   Dom : =>
-    @button_back = @tree.button_back.class
+    @button_back   = @tree.button_back.class
+    @button_issue  = @tree.button_issue.class
     @button_onward = @tree.button_onward.class
     if @tree.list_subject?
       @subject = @tree.list_subject.class
+    if @tree.tutor_status?
+      @tutor_status = @tree.tutor_status.class
+    if @tree.at_home_button? && @tree.in_tutoring_button? && @tree.remotely_button?
+      @at_home_button = @tree.at_home_button.class
+      @in_tutoring_button = @tree.in_tutoring_button.class
+      @remotely_button = @tree.remotely_button.class
+    if @tree.address_input?
+      @address_input = @tree.address_input.class
     if @tree.price_slider_top?
       @lesson_price = @tree.price_slider_top.class
+    @out_err = @found.out_err
+    @tag  = @found.tag
+    @tags = @found.tags
+
 
   show: =>
     @choose_block = @dom.find('.choose_block')
@@ -18,12 +31,26 @@ class @main extends EE
     #console.log @empty_subject_tag
     #@newSubjectTag()
 
+    @button_issue.on 'submit', =>
+      @save().then (data)=>
+        if data
+          @bIssue()
+
     @button_onward.on 'submit', =>
-      @save()
-      @bNext()
+      @save().then (data)=>
+        if data
+          @bNext()
+
     @button_back  .on 'submit', =>
       @save()
       @bBack()
+
+    ### TAGS ###
+    if @subject?
+      @subject.on 'end', => @addTag @getTags(), @tags, @subject.getValue(), @subject
+      @subject.on 'press_enter', => @addTag @getTags(), @tags, @subject.getValue(), @subject
+      @closeHandler()
+
 
   newSubjectTag: =>
     new_tag = @empty_subject_tag
@@ -37,6 +64,9 @@ class @main extends EE
 
   bBack : =>
     @button_back.submit()
+
+  bIssue : =>
+    @button_issue.submit()
 
   save : => Q().then =>
     if @check_form()
@@ -54,6 +84,15 @@ class @main extends EE
     ret = {}
     #console.log ret.subject+' this is ret'
     if @subject? then ret.subject = @subject.getValue()
+    if @tutor_status? then ret.tutor_status = @tutor_status.getValue()
+    if @at_home_button? && @in_tutoring_button? && @remotely_button?
+      place = []
+      if @at_home_button.getValue() then place.push 'pupil'
+      if @in_tutoring_button.getValue() then place.push 'tutor'
+      if @remotely_button.getValue() then place.push 'other'
+      ret.place = place
+    #if @address_input?
+      #d
     if @lesson_price?
       price = []
       price_val = @lesson_price.getValue()
@@ -62,7 +101,52 @@ class @main extends EE
       ret.lesson_price = price
     return ret
 
-  check_form : => true
+  check_form : => return true
+    #r1 = @checkItem @subject, 'пожалуйста, введите корректный предмет'
+    #r2 = @checkItem @tutor_status, 'пожалуйста, выберите статус преподавателя'
+    #if r1 && r2
+      #return true
+    #else
+      #return false
 
+  checkItem :(div, error_text)=>
+    if div?
+      if div.getValue().length < 2
+        div.setErrorDiv @out_err
+        div.showError error_text
+        return false
+    return true
 
-
+############## Tags functions ##############
+  addTag: (tags_arr, tags_div, tag_text, form)=>
+    return if !tag_text
+    form.setValue('')
+    if tags_arr.length
+      for val in tags_arr
+        if tag_text == val then return 0
+    new_tag = $(@tag).clone()
+    new_tag.find(".text").text(tag_text)
+    new_tag.find(".close_box").click( =>
+      new_tag.remove()
+      @emit 'change'
+      @emit 'end'
+    )
+    $(tags_div).append(new_tag)
+    @emit 'change'
+    @emit 'end'
+  getTags: =>
+    data = []
+    children = $(@tags).children()
+    for child in children
+      child = $ child
+      data.push child.find(".text").text()
+    console.log 'data : '+data, children
+    return data
+  closeHandler: =>
+    children = $(@tags).children()
+    for child in children
+      do (child)=>
+        child = $ child
+        child.find(".close_box").click( =>
+          child.remove()
+        )

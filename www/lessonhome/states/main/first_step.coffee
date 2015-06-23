@@ -101,6 +101,34 @@ class @main extends @template './motivation_content'
         close     : true
 
       ###
+      tutor_status : [
+        @module 'tutor/forms/checkbox'  :
+          text      : 'Студент'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'Частный преподаватель'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'Преподаватель школы'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'Преподаватель ВУЗа'
+          selector  : 'small'
+      ]
+      price : [
+        @module 'tutor/forms/checkbox'  :
+          text      : 'до 500'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'от 500 до 1000'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'от 1000 до 2000'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'от 2000'
+          selector  : 'small'
+      ]
       empty_choose_subject : @module '../selected_tag' :
         selector  : 'choose_subject'
         id        : ''

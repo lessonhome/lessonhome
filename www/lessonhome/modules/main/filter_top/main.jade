@@ -5,23 +5,9 @@
 .background_ruler
 .background_vial
 .title.select= title
-if at_home_button || in_tutoring_button || remotely_button
-  .top_button_panel
-    .at_home_button!=at_home_button
-    .in_tutoring_button!=in_tutoring_button
-    .remotely_button!=remotely_button
-if address_input
-  .address_block
-    .address_input!=address_input
-if price_slider_top
-  .price_slider_block
-    .price_slider_top!=price_slider_top
-if list_subject
-  .select_block
-    .list_filter!=list_subject
-    .choose_block
-      .choose_button!=choose_subject
-.button_panel
-  .button_back_block!=button_back
-  .button_issue_block!=button_issue
-  .button_onward_block!=button_onward
+.filters
+  .subject
+  .tutor_status
+  .area
+  .price
+.search_button
