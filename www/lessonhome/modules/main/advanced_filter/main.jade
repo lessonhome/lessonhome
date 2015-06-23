@@ -1,21 +1,27 @@
-.js-section
+.js-section.showed
   .subject.js-title
     .icon_box
       .icon_right
       .icon_down
     .title Предмет
-    .reset
-      .icon
-      .title сбросить
+  .reset.js-subject_reset
+    .icon
+    .title сбросить
   .show_hidden
     .js-subject!=subject
 
-.js-section
+.separator_box
+  .line
+
+.js-section.showed
   .tutor_status.js-title
     .icon_box
       .icon_right
       .icon_down
     .title Статус репетитора
+  .reset.js-tutor_status_reset
+    .icon
+    .title сбросить
   .show_hidden
     .tutor_status
       .student!=student
@@ -24,17 +30,27 @@
       .private_teacher!=private_teacher
       .native_speaker!=native_speaker
 
-.js-section
+.separator_box
+  .line
+
+.js-section.showed
   .place.js-title
     .icon_box
       .icon_right
       .icon_down
     .title Место занятий
+  .reset.js-place_reset
+    .icon
+    .title сбросить
   .show_hidden
     .place
       .pupil!=pupil
       .tutor!=tutor
       .remote!=remote
+    .area!=area
+
+.separator_box
+  .line
 
 .js-section
   .timetable.js-title
@@ -44,6 +60,10 @@
     .title Расписание
   .show_hidden
     .js-calendar!=calendar
+
+.separator_box
+  .line
+
 .js-section
   .price.js-title
     .icon_box
@@ -52,15 +72,9 @@
     .title Цена
   .show_hidden
     .js-price!=price
-.js-section
-  .course.js-title
-    .icon_box
-      .icon_right
-      .icon_down
-    .title Предмет
-  .show_hidden
-    .js-course!=course
 
+.separator_box
+  .line
 
 .js-section
   .time_to_way.js-title
@@ -70,12 +84,19 @@
     .title Время на дорогу
   .show_hidden
     .js-time_spend_way!=time_spend_way
+
+.separator_box
+  .line
+
 .js-section
   .experience.js-title
     .icon_box
       .icon_right
       .icon_down
     .title Опыт
+  .reset.js-experience_reset
+    .icon
+    .title сбросить
   .show_hidden
     .js-experience
       .little!=little_experience
@@ -83,6 +104,8 @@
       .bigger!=bigger_experience
       .no_experience!=no_experience
 
+.separator_box
+  .line
 
 //-
   .show_hidden
@@ -101,8 +124,15 @@
       .icon_right
       .icon_down
     .title Пол
+  .reset.js-sex_reset
+    .icon
+    .title сбросить
   .show_hidden
     .choose_gender!=choose_gender
+
+.separator_box
+  .line
+
 .section
   .reviews_block!=with_reviews
   .verification_block!=with_verification

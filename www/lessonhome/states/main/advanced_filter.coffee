@@ -33,6 +33,13 @@ class @main
       text      : 'Удалённо'
       selector  : 'small'
 
+    area : @state '../tutor/forms/drop_down_list_with_tags' :
+      list: @module 'tutor/forms/drop_down_list:type1'  :
+        selector        : 'filter_area'
+        placeholder     : 'Выберите район'
+        value     : ''
+      tags: ''
+
     little_experience: @module 'tutor/forms/checkbox'  :
       text      : '1-2 года'
       selector  : 'small'

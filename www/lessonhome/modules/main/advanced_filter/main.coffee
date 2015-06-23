@@ -1,7 +1,14 @@
 class @main extends EE
+  Dom : =>
+    @subject_reset      = @found.subject_reset
+    @tutor_status_reset = @found.tutor_status_reset
+    @place_reset        = @found.place_reset
+    @experience_reset   = @found.experience_reset
+    @sex_reset          = @found.sex_reset
   show : =>
     # drop_down_list
     @subject            = @tree.subject.class
+    @area               = @tree.area.class
     # calendar
     @calendar           = @tree.calendar.class
     #slider
@@ -10,8 +17,23 @@ class @main extends EE
     # button
     @choose_gender      = @tree.choose_gender.class
     # checkbox
+    @student            = @tree.student.class
+    @school_teacher     = @tree.school_teacher.class
+    @university_teacher = @tree.university_teacher.class
+    @private_teacher    = @tree.private_teacher.class
+    @native_speaker     = @tree.native_speaker.class
+    @pupil              = @tree.pupil.class
+    @tutor              = @tree.tutor.class
+    @remote             = @tree.remote.class
+    @little_experience  = @tree.little_experience.class
+    @big_experience     = @tree.big_experience.class
+    @bigger_experience  = @tree.bigger_experience.class
+    @no_experience      = @tree.no_experience.class
+
     @with_reviews       = @tree.with_reviews.class
     @with_verification  = @tree.with_verification.class
+    # other
+    @choose_gender      = @tree.choose_gender.class
 
     # action
     # TODO: add_course hard code, not this module, only this file have this variables
@@ -87,6 +109,26 @@ class @main extends EE
             @experience.last().removeClass 'background'
             @experience.last().addClass 'hover'
           @change_background exp
+
+    # reset forms
+    $(@subject_reset).on 'click', => @subject.cleanForm()
+    $(@tutor_status_reset).on 'click', =>
+      @student.setValue false
+      @school_teacher.setValue false
+      @university_teacher.setValue false
+      @private_teacher.setValue false
+      @native_speaker .setValue false
+    $(@place_reset).on 'click', =>
+      @pupil.setValue false
+      @tutor.setValue false
+      @remote.setValue false
+      @area.cleanForm()
+    $(@sex_reset).on 'click', => @choose_gender.cleanForm()
+    $(@experience_reset).on 'click', =>
+      @little_experience.setValue false
+      @big_experience.setValue false
+      @bigger_experience.setValue false
+      @no_experience.setValue false
 
   change_background : (element)=>
     if element.is '.background'
