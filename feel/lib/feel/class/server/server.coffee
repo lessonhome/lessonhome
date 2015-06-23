@@ -13,21 +13,24 @@ class Server
     hostname = os.hostname()
     console.log 'hostname',hostname
     @port = 8081
+    @ip = '127.0.0.1'
+    @ip2 = '176.9.22.118'
+    @ip3 = '176.9.22.124'
     switch hostname
       when 'pi0h.org'
         @port = 8081
+        @ip = @ip2
         @ssh = true
       else
         @port = 8081
-
   init : =>
     unless @ssh
       @server = http.createServer @handler
     else
       @server = http.createServer @handlerHttpRedirect
-    @server.listen @port
+    @server.listen @port,@ip
     @runSsh() if @ssh
-    console.log "listen port #{@port}"
+    console.log "listen port #{@ip}:#{@port}"
     @domains =
       text : {}
       reg  : []
@@ -58,7 +61,7 @@ class Server
       #ca : _fs.readFileSync '/key/ca.pem'
     }
     @sshServer = spdy.createServer options,@handler
-    @sshServer.listen 8083
+    @sshServer.listen 8083,@ip
   google : (req,res,params)=>
     hash = _crypto.createHash('sha1').update(params).digest('hex')
     if @_google[hash]?
