@@ -299,7 +299,7 @@ class module.exports
     return ret[0]
   dyjs    : (js)=>
     ycompress(js,{type:'js'}).then (yjs)=> _deflate yjs[0]
-  ycss    : (css)=>
+  ycss    : (css)=> do Q.async =>
     console.log 'ycss'
     ret = yield ycompress css, type:"css"
     return ret[0]
