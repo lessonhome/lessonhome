@@ -1,6 +1,6 @@
 @import "compass/css3"
 
-$logo_src: 'logo.png'
+$logo_src: 'header/logo.png'
 $logo_height: 50px
 $img_height: image-height($logo_src)
 $img_width: image-width($logo_src)
@@ -12,7 +12,7 @@ a
   height: 100%
   padding: 0 26.5px 0 20px
   .background
-    height : $logo_height
+    height: $logo_height
     width: $img_width * $a
     background: url(F($logo_src))
     +background-size( $img_width*$a $img_height*$a )

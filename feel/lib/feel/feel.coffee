@@ -238,11 +238,13 @@ class module.exports
     @clientJs = @cacheCoffee 'feel/lib/feel/client.lib.coffee'
     #@clientRegenerator = require('regenerator').compile('',includeRuntime:true).code
     @clientRegenerator = (yield _readFile 'feel/lib/feel/regenerator.runtime.js').toString()
+    @clientRegeneratorHash = _shash @clientRegenerator
     yield @loadClientDir 'feel/lib/feel/client',''
     for key,val of @client
       @clientJs += val unless key == 'main'
       @clientJs += @client['main']
     @clientJs = yield @yjs _regenerator @clientJs
+    @clientJsHash = _shash @clientJs
   loadClientDir : (path,dir)=>
     readdir "#{path}#{dir}"
     .then (files)=>
@@ -297,7 +299,7 @@ class module.exports
     return ret[0]
   dyjs    : (js)=>
     ycompress(js,{type:'js'}).then (yjs)=> _deflate yjs[0]
-  ycss    : (css)=>
+  ycss    : (css)=> do Q.async =>
     console.log 'ycss'
     ret = yield ycompress css, type:"css"
     return ret[0]

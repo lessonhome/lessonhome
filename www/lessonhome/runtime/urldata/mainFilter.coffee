@@ -10,9 +10,6 @@ class @D2U
   $priceRight : (obj)=>
     type  : 'int'
     value : obj?.price?.right
-  $price  : (obj)=>
-    type : 'obj'
-    value : obj?.price
 
 
 class @U2D

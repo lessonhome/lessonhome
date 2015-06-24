@@ -3,7 +3,7 @@
 class @main extends @template './motivation_content'
   route : '/'
   model   : 'main/first_step'
-  title : "выберите предмет"
+  title : "Быстро подберем Вам лучшего репетитора"
   forms : ['pupil']
   tags  : -> 'pupil:main_search'
   access : ['other','pupil']
@@ -14,7 +14,7 @@ class @main extends @template './motivation_content'
     popup       : @exports()
     tag         : 'pupil:main_search'
     filter_top  : @state './filter_top' :
-      title         : 'Быстро подберём Вам лучшего репетитора!'
+      title         : 'Быстро подберем Вам лучшего репетитора!'
       list_subject    : @module 'tutor/forms/drop_down_list' :
         selector    : 'filter_top'
         placeholder : 'Предмет'
