@@ -4,20 +4,26 @@ class @main
     start         : @module 'tutor/forms/input' :
       filters   : ['digits']
       allowSymbolsPattern : "^\\d*$"
-      selector  : @exports 'start'
+      selector  : @exports 'advanced_filter_price'
       align : 'center'
       text2     : @exports 'start_text'
     # if us end(second input) determine selector and text in parent @module
     end           : @module 'tutor/forms/input' :
       filters   : ['digits']
       allowSymbolsPattern : "^\\d*$"
-      selector  : @exports 'end'
+      selector  : @exports 'advanced_filter_price'
       align : 'center'
       text2     : @exports 'start_text'
     default       : @exports()
-    value         : @exports()
+    value         :
+      left : @exports()
+      right : @exports()
+      min : @exports()
+      max : @exports()
+      type: @exports()
     dash          : @exports()
     measurement   : @exports()
+    division_value: @exports()
     move          : @module '../slider':
-      handle    : @exports()
+      type    : @exports()
     # variable handle response left hand

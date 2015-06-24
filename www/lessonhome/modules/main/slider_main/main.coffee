@@ -57,10 +57,14 @@ class @main extends EE
     @end?.addReplace? /\D/,""
     @start?.addReplace? /\D/,""
 
+    #
+    @setDivision()
+
   setValue : (v)=>
     throw new Error 'bad value' unless v.min? && v.max? && v.left? && v.right?
     @min = v.min
     @max = v.max
+
     @start?.setValue? v.left
     @end?.setValue? v.right
     @end?.emit? 'end'
@@ -77,6 +81,12 @@ class @main extends EE
       max   : @max
     }
 
-
-  getMoveBlock : => @dom.find('.move')
+  setDivision : =>
+    @move = @tree.move.class
+    @division_value = @tree.division_value
+    number = (@max - @min)/@division_value
+    delta  = (@division_value/(@max - @min)) * 100
+    i = 1
+    while i <= number
+      @move.setLine delta*i++
 

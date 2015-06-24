@@ -46,9 +46,9 @@ class @main extends EE
   show : =>
     console.log 'show slider'
   Dom : =>
-
     @box_slider = @dom.find ".box_slider"
     @slider     = @box_slider.find ".slider"
+    @division_box = @found.division_box
     @d_line     = @found.d_line
     @dom_left   = @slider.find '.icon_cursor_left'
     @dom_right  = @slider.find '.icon_cursor_right'
@@ -97,6 +97,13 @@ class @main extends EE
     if target?
       target.drag dx
       target.down e
+
+
+  setLine: (pos)=>
+    pos+="%"
+    new_line = $(@d_line).clone()
+    new_line.css("left", pos)
+    $(@division_box).append(new_line)
 
 ###
 

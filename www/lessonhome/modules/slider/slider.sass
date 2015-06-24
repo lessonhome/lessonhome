@@ -20,11 +20,13 @@ main
   box-sizing: border-box
   //border: 2px solid #cad3da
   border-radius: 4px
-  background-color: #fff
+  //background-color: #fff
   .slider
     //top: $padding
     //bottom: $padding
     position: absolute
+    z-index: 2
+    min-width: 2*$cursor_size
     left: $padding
     right: $padding
     //overflow: hidden
@@ -37,7 +39,7 @@ main
     .icon_cursor_left, .icon_cursor_right
       height: 100%
       position: relative
-      z-index: 1
+      z-index: 3
       //padding: 0  $padding_box
       cursor: pointer
       width: $cursor_size
@@ -78,6 +80,14 @@ main
       left: 0
       background-color: #a0a0a0
 
+  .wrap
+    position: absolute
+    width: 100%
+    height: $slider_inner_height
+    top: ($cursor_size - $slider_inner_height)/2
+    background-color: #cdcdcd
+    border: 1px solid #a0a0a0
+    +border-radius(4px)
 
 //
   .icon_left, .icon_right

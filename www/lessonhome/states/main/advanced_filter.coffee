@@ -75,17 +75,16 @@ class @main
     price   : @state './slider_main' :
       selector      : 'advanced_filter_price'
       default :
-        min : 500
-        max : 3500
         left : 500
         right : 3500
-        type : 'default'
-        dash          : '-'
-        measurement   : 'руб.'
-        handle        : true
-      value :
-        left  : $urlform : mainFilter : 'price.left'
-        right : $urlform : mainFilter : 'price.right'
+      left  : 500 #$urlform : mainFilter : 'price.left'
+      right : 3500 #$urlform : mainFilter : 'price.right'
+      min : 500
+      max : 3500
+      type : 'default'
+      dash          : '-'
+      measurement   : 'руб.'
+      division_value : 250
       #start         : 'advanced_filter'
       #end           : @module 'tutor/forms/input' :
       #  selector  : 'advanced_filter'
@@ -95,11 +94,18 @@ class @main
 
 
     time_spend_way   : @state './slider_main' :
-      selector      : 'lesson_time'
-      start         : 'calendar'
-      measurement   : 'мин.'
-      handle        : false
-      value     : @exports 'val_time_spend_way'
+      selector      : 'advanced_filter_price'
+      default :
+        left : 500
+        right : 3500
+      left  : 500 #$urlform : mainFilter : 'price.left'
+      right : 3500 #$urlform : mainFilter : 'price.right'
+      min : 500
+      max : 3500
+      #type : 'default'
+      dash          : '-'
+      measurement   : 'руб.'
+      division_value : 250
     choose_gender   : @state 'gender_data':
       selector        : 'advanced_filter'
       selector_button : 'advance_filter'
