@@ -5,7 +5,7 @@ class @main extends EE
     @place_reset        = @found.place_reset
     @experience_reset   = @found.experience_reset
     @sex_reset          = @found.sex_reset
-  show : =>
+  show : => do Q.async =>
     # drop_down_list
     @subject            = @tree.subject.class
     @area               = @tree.area.class
@@ -40,9 +40,14 @@ class @main extends EE
 
     @on 'change', => Q.spawn =>
       v = @getValue()
-      for key,val of v
-        yield Feel.urlData.Short key,val
       console.log v
+      data = {}
+      data.price = v?.price
+      data.gender = v?.choose_gender
+      data.with_reviews = v?.with_reviews
+      data.with_verification = v?.with_verification
+      yield Feel.urlData.set mainFilter:data
+      
       ###
       data = {}
       state = History.getState()
@@ -129,6 +134,7 @@ class @main extends EE
       @big_experience.setValue false
       @bigger_experience.setValue false
       @no_experience.setValue false
+    yield @fromUrl()
 
   change_background : (element)=>
     if element.is '.background'
@@ -149,6 +155,8 @@ class @main extends EE
   getValue : => @getData()
 
   setValue : (data)=>
+    @price.setValue data.price if data.price?
+    return
     #@add_course.setValue        data.add_course         if data?.add_course?
     @calendar.setValue          data.calendar           if data?.calendar?
     @time_spend_lesson.setValue data.time_spend_lesson  if data?.time_spend_lesson?
@@ -173,5 +181,14 @@ class @main extends EE
       with_reviews      : @with_reviews.getValue()
       with_verification : @with_verification.getValue()
     }
-
-
+  toUrl : =>
+  fromUrl : => do Q.async =>
+    v   = @getValue()
+    u   = yield Feel.urlData.getF 'mainFilter'
+    console.log 'FROMURL',u
+    _setKey v,'price.left',  u.price.left  if u?.price?.left?
+    _setKey v,'price.right', u.price.right if u?.price?.right?
+    _setKey v,'choose_gender', u.gender if u?.gender?
+    _setKey v,'with_verification', u.with_verification if u?.with_verification?
+    _setKey v,'with_reviews', u.with_reviews if u?.with_reviews?
+    @setValue v

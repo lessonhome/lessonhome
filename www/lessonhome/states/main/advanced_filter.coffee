@@ -52,9 +52,6 @@ class @main
     no_experience: @module 'tutor/forms/checkbox'  :
       text      : 'нет опыта'
       selector  : 'small'
-
-
-
     calendar        : @state '../calendar' :
           selector  : 'advance_filter'
           value     : @exports 'val_list_calendar'
@@ -77,12 +74,13 @@ class @main
     choose_gender   : @state 'gender_data':
       selector        : 'advanced_filter'
       selector_button : 'advance_filter'
-      value     : @exports 'val_choose_gender'
+      default   : 'male'
+      value     : $urlform : mainFilter : 'gender'
     with_reviews      : @module 'tutor/forms/checkbox'  :
       text      : 'только с отзывами'
       selector  : 'small'
-      value     : @exports 'val_with_reviews'
+      value     : $urlform : mainFilter : 'with_reviews'
     with_verification : @module 'tutor/forms/checkbox'  :
       text      : 'только проверенные<br/>профили'
       selector  : 'small'
-      value     : @exports 'val_with_verification'
+      value     : $urlform : mainFilter : 'with_verification'

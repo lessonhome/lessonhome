@@ -99,12 +99,13 @@ class Server
   handler : (req,res)=>
     m = req.url.match /^([^\?]*)\?(.*)$/
     if m
-      data = m[2].split '&'
+      req.udata = m[2]
+      #data = m[2].split '&'
       req.url  = m[1]
-      req.data = {}
-      for d in data
-        kv = d.split '='
-        req.data[kv[0]] = kv[1]
+      #req.data = {}
+      #for d in data
+      #  kv = d.split '='
+      #  req.data[kv[0]] = kv[1]
     if req.url == '/404'
       _end = res.end
       res.end = ->
