@@ -1,7 +1,12 @@
 
 - var ind = 0;
 while items[ind]
-  .column
+  if line_menu
     .item!= items[ind++]
     if items[ind]
       .item!= items[ind++]
+  else
+    .column
+      .item!= items[ind++]
+      if items[ind]
+        .item!= items[ind++]

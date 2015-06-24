@@ -12,13 +12,13 @@ $border_width: 1px
 .triangle_box
   position: relative
   z-index: 1
+.header
+  text-align: center
+  margin-bottom: -$border_width*2
   .triangle
     +inline-block
     width: $triangle_width
     height: $triangle_height
-
-.header
-  .triangle
     background: url(F($triangle_src)) no-repeat
 
 .footer
