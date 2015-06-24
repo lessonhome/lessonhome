@@ -21,6 +21,7 @@ $form_width: 264px
 $form_left_margin: 23px
 
 
+
 main
   //padding: 15px 0px 30px 35px
   //padding-top: 12px
@@ -64,7 +65,7 @@ main
 .section
   padding: 12px 0
   text-align: left
-  .subject, .tutor_status, .place, .timetable, .price, .time_to_way, .experience, .sex
+  .subject, .tutor_status, .place, .timetable, .course, .group_lessons, .price, .time_to_way, .experience, .sex
     +inline-block
     //padding: ($padding_title  - $padding_icon)/2 0   //because icon have padding 10px for usability
     cursor: pointer
@@ -87,14 +88,14 @@ main
       color: #717171
   .show_hidden
     //padding-bottom: $padding_section
-    overflow: hidden
-    .subject, .area
+    //overflow: hidden
+    .subject, .area, .course, .group_lessons
       width: $form_width
       margin-left: $form_left_margin
-    .subject
-      margin-top: 15px
+    .subject, .course, .group_lessons
+      padding-top: 15px
     .area
-      margin-top: 18px
+      padding-top: 18px
     .tutor_status, .place, .experience
       padding-left: 26px
       padding-top: 14px
@@ -103,7 +104,8 @@ main
     .choose_gender
       height: 36px
       padding: 15px 0 3px 23px
-
+    .price
+      padding: 16px 23px 0 23px
   .reviews_block, .verification_block
     padding: $padding_reviews/2 0 $padding_reviews/2 26px
   .verification_block
