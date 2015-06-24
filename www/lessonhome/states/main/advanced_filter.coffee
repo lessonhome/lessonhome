@@ -3,7 +3,7 @@ class @main
     subject : @state '../tutor/forms/drop_down_list_with_tags' :
       list: @module 'tutor/forms/drop_down_list:type1'  :
         selector        : 'list_course'
-        placeholder     : 'Например ЕГЭ'
+        placeholder     : 'Например физика'
         value     : ''
       tags: ''
 
@@ -35,7 +35,7 @@ class @main
 
     area : @state '../tutor/forms/drop_down_list_with_tags' :
       list: @module 'tutor/forms/drop_down_list:type1'  :
-        selector        : 'filter_area'
+        selector        : 'advanced_filter_form'
         placeholder     : 'Выберите район'
         value     : ''
       tags: ''
@@ -53,21 +53,47 @@ class @main
       text      : 'нет опыта'
       selector  : 'small'
 
+    course : @state '../tutor/forms/drop_down_list_with_tags' :
+      list: @module 'tutor/forms/drop_down_list:type1'  :
+        selector        : 'advanced_filter_form'
+        placeholder     : 'Например ЕГЭ'
+        value     : ''
+      tags: ''
 
+    group_lessons : @module 'tutor/forms/drop_down_list'  :
+      selector        : 'advanced_filter_form'
+      default_options     : {
+        '0': {value: 'no', text: 'не проводятся'}
+        '1': {value: '2-4', text: '2-4 ученика'}
+        '2': {value: 'to8', text: 'до 8 учеников'}
+        '3': {value: 'from10', text: 'от 10 учеников'}
+      }
 
     calendar        : @state '../calendar' :
           selector  : 'advance_filter'
           value     : @exports 'val_list_calendar'
     price   : @state './slider_main' :
-      selector      : 'price'
-      start         : 'calendar'
-      end           : @module 'tutor/forms/input' :
-        selector  : 'calendar'
-        align     : 'center'
-      dash          : '-'
-      measurement   : 'руб.'
-      handle        : true
-      value         : @exports 'val_time_spend_lesson'
+      selector      : 'advanced_filter_price'
+      default :
+        min : 500
+        max : 3500
+        left : 500
+        right : 3500
+        type : 'default'
+        dash          : '-'
+        measurement   : 'руб.'
+        handle        : true
+      value :
+        left  : $urlform : mainFilter : 'price.left'
+        right : $urlform : mainFilter : 'price.right'
+      #start         : 'advanced_filter'
+      #end           : @module 'tutor/forms/input' :
+      #  selector  : 'advanced_filter'
+      #  align     : 'center'
+
+      #value         : @exports 'val_time_spend_lesson'
+
+
     time_spend_way   : @state './slider_main' :
       selector      : 'lesson_time'
       start         : 'calendar'

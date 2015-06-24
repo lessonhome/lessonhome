@@ -1,14 +1,18 @@
 class @main extends EE
   Dom : =>
-    @subject_reset      = @found.subject_reset
-    @tutor_status_reset = @found.tutor_status_reset
-    @place_reset        = @found.place_reset
-    @experience_reset   = @found.experience_reset
-    @sex_reset          = @found.sex_reset
+    @subject_reset       = @found.subject_reset
+    @tutor_status_reset  = @found.tutor_status_reset
+    @place_reset         = @found.place_reset
+    @course_reset        = @found.course_reset
+    @group_lessons_reset = @found.group_lessons_reset
+    @experience_reset    = @found.experience_reset
+    @sex_reset           = @found.sex_reset
   show : =>
     # drop_down_list
     @subject            = @tree.subject.class
     @area               = @tree.area.class
+    @course             = @tree.course.class
+    @group_lessons     = @tree.group_lessons.class
     # calendar
     @calendar           = @tree.calendar.class
     #slider
@@ -129,6 +133,10 @@ class @main extends EE
       @big_experience.setValue false
       @bigger_experience.setValue false
       @no_experience.setValue false
+    $(@course_reset).on 'click', => @course.cleanForm()
+    $(@group_lessons_reset).on 'click', => @group_lessons.setValue ''
+
+    #alert @price.getMoveBlock().width()
 
   change_background : (element)=>
     if element.is '.background'
@@ -165,7 +173,6 @@ class @main extends EE
 
     return {
       subject           : @subject.getValue()
-      calendar          : @calendar.getValue()
       price             : @price.getValue()
       time_spend_way    : @time_spend_way.getValue()
       experience        : experience

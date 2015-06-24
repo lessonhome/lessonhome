@@ -78,6 +78,5 @@ class @main extends EE
     }
 
 
-
-
+  getMoveBlock : => @dom.find('.move')
 

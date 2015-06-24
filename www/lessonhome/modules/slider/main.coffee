@@ -40,8 +40,6 @@ class Cursor extends EE
     console.log 'set',x
     @x(x)
     @pos @px()
- 
-
 
 
 class @main extends EE
@@ -51,6 +49,7 @@ class @main extends EE
 
     @box_slider = @dom.find ".box_slider"
     @slider     = @box_slider.find ".slider"
+    @d_line     = @found.d_line
     @dom_left   = @slider.find '.icon_cursor_left'
     @dom_right  = @slider.find '.icon_cursor_right'
     @box_slider.on 'mousedown',@mouseDown
@@ -98,6 +97,7 @@ class @main extends EE
     if target?
       target.drag dx
       target.down e
+
 ###
 
 
