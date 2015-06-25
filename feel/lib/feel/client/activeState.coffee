@@ -35,6 +35,16 @@ class @activeState
           cl.register = (name,obj=cl)->
             throw new Error "can't register module #{name} in Feel, already exists" if Feel[name]?
             Feel[name] = obj
+          if cl.tree.$urlforms && Object.keys?(cl?.tree?.$urlforms)?.length
+            if cl.getValue?
+              cl?.on 'change', =>Q.spawn =>
+                v = cl.getValue()
+                console.log v
+                for part,form of cl.tree.$urlforms
+                  nv = _setKey v,part
+                  console.log 'udata',nv
+
+                  yield Feel.urlData.set form.form,form.key,nv
           ###
           for key_,val_ of cl
             if typeof val_ == 'function'

@@ -42,15 +42,15 @@ class @main extends EE
     # action
     # TODO: add_course hard code, not this module, only this file have this variables
 
-    @on 'change', => Q.spawn =>
+    @on 'change', => #Q.spawn =>
       v = @getValue()
       console.log v
-      data = {}
-      data.price = v?.price
-      data.gender = v?.choose_gender
-      data.with_reviews = v?.with_reviews
-      data.with_verification = v?.with_verification
-      yield Feel.urlData.set mainFilter:data
+      #data = {}
+      #data.price = v?.price
+      #data.gender = v?.choose_gender
+      #data.with_reviews = v?.with_reviews
+      #data.with_verification = v?.with_verification
+      #yield Feel.urlData.set mainFilter:data
       
       ###
       data = {}
@@ -189,13 +189,13 @@ class @main extends EE
       with_verification : @with_verification.getValue()
     }
   toUrl : =>
-  fromUrl : => do Q.async =>
-    v   = @getValue()
-    u   = yield Feel.urlData.getF 'mainFilter'
-    console.log 'FROMURL',u
-    _setKey v,'price.left',  u.price.left  if u?.price?.left?
-    _setKey v,'price.right', u.price.right if u?.price?.right?
-    _setKey v,'choose_gender', u.gender if u?.gender?
-    _setKey v,'with_verification', u.with_verification if u?.with_verification?
-    _setKey v,'with_reviews', u.with_reviews if u?.with_reviews?
-    @setValue v
+  fromUrl : => #do Q.async =>
+    #v   = @getValue()
+    #u   = yield Feel.urlData.getF 'mainFilter'
+    #console.log 'FROMURL',u
+    #_setKey v,'price.left',  u.price.left  if u?.price?.left?
+    #_setKey v,'price.right', u.price.right if u?.price?.right?
+    #_setKey v,'choose_gender', u.gender if u?.gender?
+    #_setKey v,'with_verification', u.with_verification if u?.with_verification?
+    #_setKey v,'with_reviews', u.with_reviews if u?.with_reviews?
+    #@setValue v

@@ -18,6 +18,8 @@ class @urlData
       @forms[fname] = {}
       @forms[fname].U2D = Wrap (new form.U2D) if form.U2D?
       @forms[fname].D2U = Wrap (new form.D2U) if form.D2U?
+    for key of @forms
+      @data[key] ?= {}
     Feel.udata = new Feel.UrlDataFunctions
     @udata = Feel.udata
     yield @udata.init @json,@forms
@@ -25,10 +27,15 @@ class @urlData
     @state  = History.getState()
     @data   = yield @udata.u2d @state?.url?.match(/\?(.*)$/)?[1]
     @fdata  = yield @udata.u2d fstate?.url?.match(/\?(.*)$/)?[1]
+    for key of @forms
+      @data[key] ?= {}
+      @fdata[key] ?= {}
     console.log 'INITED'
   set : (form,key,val)=>
     if val?
+      console.log @data[form]
       _setKey @data[form],key,val
+      console.log @data[form]
     else if key?
       @data[form] = key
     else
@@ -46,9 +53,13 @@ class @urlData
 
   setUrl : =>
     url = yield @udata.d2u @data
-    History.pushState  @data,@state.title,@state.url.match(/^([^\?]*)/)[1]+"?#{url}"
+    nurl = url
+    nurl = '?'+nurl if nurl
+    History.pushState  @data,@state.title,@state.url.match(/^([^\?]*)/)[1]+"#{nurl}"
     @state = History.getState()
     #data = @state.url.match /\?(.*)$/
     #@data = yield @udata.u2d data
+    #for key of @forms
+    #  @data[key] ?= {}
 
     
