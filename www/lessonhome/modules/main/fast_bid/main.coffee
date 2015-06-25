@@ -19,7 +19,6 @@ class @main
 
   b_issue_bid : =>
     @content?.save?().then (success)=>
-      console.log 'status is : '+success
       @button_issue_bid.submit() if success
       return true
     .done()

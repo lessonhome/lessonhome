@@ -39,11 +39,11 @@ class @activeState
             if cl.getValue?
               cl?.on 'change', =>Q.spawn =>
                 v = cl.getValue()
-                console.log v
                 for part,form of cl.tree.$urlforms
                   nv = _setKey v,part
-                  console.log 'udata',nv
-
+                  #def = undefined
+                  #if cl?.tree.default?
+                  #  def = _setKey cl.tree.default,part
                   yield Feel.urlData.set form.form,form.key,nv
           ###
           for key_,val_ of cl

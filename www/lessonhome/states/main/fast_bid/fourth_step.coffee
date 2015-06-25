@@ -41,18 +41,16 @@ class @main extends @template '../fast_bid'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       age_slider   : @state '../slider_main' :
         selector      : 'time_fast_bids'
-        start         : 'calendar'
+        default :
+          left : 18
+          right : 90
+        #start         : 'calendar'
         start_text    : 'от'
-        end         : @module 'tutor/forms/input' :
-          selector  : 'calendar'
-          text2      : 'до'
-          align : 'center'
-        handle        : true
-        value         :
-          min : 18
-          max : 90
-          left  : $form : pupil : 'newBid.subjects.0.requirements_for_tutor.age.0'
-          right : $form : pupil : 'newBid.subjects.0.requirements_for_tutor.age.1'
+        min : 18
+        max : 90
+        left  : $form : pupil : 'newBid.subjects.0.requirements_for_tutor.age.0'
+        right : $form : pupil : 'newBid.subjects.0.requirements_for_tutor.age.1'
+        division_value : 8
       gender_data   : @state 'gender_data':
         selector        : 'choose_gender'
         selector_button : 'registration'

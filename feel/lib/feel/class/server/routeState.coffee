@@ -292,12 +292,10 @@ class RouteState
       vv = _setKey @req?.udata?[uform?.fkf?.form],uform?.fkf?.key
       uform.node.$urlforms ?= {}
       uform.node.$urlforms[uform.part] = uform.fkf
-      console.log uform,vv
       vv = uform.fkf.foo vv if typeof uform.fkf.foo == 'function'
       path = 'value'
       path += "."+uform.part if uform.part
       _setKey uform.node,path,vv,true
-      console.log uform,vv
     @time 'forms set'
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?

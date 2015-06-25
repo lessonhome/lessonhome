@@ -37,19 +37,23 @@ class @main
       $form : tutor : 'isTag.adult'
     price_slider   : @state 'main/slider_main' :
       selector      : 'price_fast_reg'
-      start         : 'calendar'
-      start_text    : ''
-      end         : @module 'tutor/forms/input' :
-        selector  : 'calendar'
-        align     : 'center'
+      #start         : 'calendar'
+      #start_text    : ''
+      #end         : @module 'tutor/forms/input' :
+        #selector  : 'calendar'
+        #align     : 'center'
+      default :
+        left : 400
+        right : 5000
       dash          : '-'
       measurement   : 'руб.'
-      handle        : true
-      value         :
-        min : 400
-        max : 5000
-        left : $form : tutor : 'srange.left'
-        right : $form : tutor : 'srange.right'
+      division_value : 200
+      type : 'default'
+      #handle        : true
+      min : 400
+      max : 5000
+      left : $form : tutor : 'srange.left'
+      right : $form : tutor : 'srange.right'
 
     duration :   @module 'tutor/forms/input' :
       text2      : 'Длительность занятия :'

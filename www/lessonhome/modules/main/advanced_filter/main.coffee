@@ -7,6 +7,8 @@ class @main extends EE
     @group_lessons_reset = @found.group_lessons_reset
     @experience_reset    = @found.experience_reset
     @sex_reset           = @found.sex_reset
+    @price_reset         = @found.price_reset
+    @time_to_way_reset   = @found.time_to_way_reset
   show : => do Q.async =>
     # drop_down_list
     @subject            = @tree.subject.class
@@ -55,7 +57,6 @@ class @main extends EE
       ###
       data = {}
       state = History.getState()
-      console.log 'state',state
       data.title = state.title
       unless data.title
         data.title = $('head>title').text()
@@ -72,15 +73,12 @@ class @main extends EE
       data.bson ?= {}
       v = @getValue()
       bson = _objToBson v,'leftFilter'
-      console.log bson
       data.obj['leftFilter'] = v
       for key,val of bson
         data.bson[key] = val
       data.bson = _objToUrlString data.bson
-      console.log 'data',data
       History.pushState data.obj,data.title,state.url.match(/^([^\?]*)/)[1]+"?#{data.bson}"
       ###
-    #@on 'end', => console.log @getValue()
 
     @calendar.on            'change',=> @emit 'change'
     @price.on               'change',=> @emit 'change'
@@ -120,7 +118,7 @@ class @main extends EE
           @change_background exp
 
     # reset forms
-    $(@subject_reset).on 'click', => @subject.cleanForm()
+    $(@subject_reset).on 'click', => @subject.reset()
     $(@tutor_status_reset).on 'click', =>
       @student.setValue false
       @school_teacher.setValue false
@@ -131,16 +129,18 @@ class @main extends EE
       @pupil.setValue false
       @tutor.setValue false
       @remote.setValue false
-      @area.cleanForm()
-    $(@sex_reset).on 'click', => @choose_gender.cleanForm()
+      @area.reset()
+    $(@sex_reset).on 'click', => @choose_gender.reset()
     $(@experience_reset).on 'click', =>
       @little_experience.setValue false
       @big_experience.setValue false
       @bigger_experience.setValue false
       @no_experience.setValue false
+    $(@course_reset).on 'click', => @course.reset()
     yield @fromUrl()
-    $(@course_reset).on 'click', => @course.cleanForm()
     $(@group_lessons_reset).on 'click', => @group_lessons.setValue ''
+    $(@price_reset).on 'click', => @price.reset()
+    $(@time_to_way_reset).on 'click', => @time_spend_way.reset()
 
     #alert @price.getMoveBlock().width()
 
@@ -192,7 +192,6 @@ class @main extends EE
   fromUrl : => #do Q.async =>
     #v   = @getValue()
     #u   = yield Feel.urlData.getF 'mainFilter'
-    #console.log 'FROMURL',u
     #_setKey v,'price.left',  u.price.left  if u?.price?.left?
     #_setKey v,'price.right', u.price.right if u?.price?.right?
     #_setKey v,'choose_gender', u.gender if u?.gender?

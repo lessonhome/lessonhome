@@ -2,7 +2,6 @@
 check = require("./check")
 
 @handler = ($,data)=>
-  console.log data
   errs = check.check data
   return unless $.user.tutor
   if errs.length

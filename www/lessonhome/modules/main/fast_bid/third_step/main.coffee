@@ -30,7 +30,6 @@ class @main
     return errs.length==0
 
   getData : =>
-    #console.log @time_spend_way.getValue()
     place = []
     if @tutor.getValue()   then place.push 'tutor'
     if @student.getValue() then place.push 'pupil'

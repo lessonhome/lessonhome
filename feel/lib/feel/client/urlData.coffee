@@ -30,12 +30,9 @@ class @urlData
     for key of @forms
       @data[key] ?= {}
       @fdata[key] ?= {}
-    console.log 'INITED'
   set : (form,key,val)=>
     if val?
-      console.log @data[form]
       _setKey @data[form],key,val
-      console.log @data[form]
     else if key?
       @data[form] = key
     else

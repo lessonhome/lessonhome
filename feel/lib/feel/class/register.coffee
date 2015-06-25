@@ -19,13 +19,13 @@ class Register
     ids = {}
     _ids = (yield _invoke @dbpersons.find({},{account:1}),'toArray')
     ids[row.account] = true for row in _ids
-    console.log Object.keys(ids).length
+    console.log "persons: ".magenta, Object.keys(ids).length
     _ids = (yield _invoke @dbpupil.find({},{account:1}),'toArray')
     ids[row.account] = true for row in _ids
-    console.log Object.keys(ids).length
+    console.log 'pupils: '.magenta,Object.keys(ids).length
     _ids = (yield _invoke @dbtutor.find({},{account:1}),'toArray')
     ids[row.account] = true for row in _ids
-    console.log Object.keys(ids).length
+    console.log 'tutors: '.magenta, Object.keys(ids).length
     
     nids = {}
     d = new Date()
@@ -33,7 +33,7 @@ class Register
     _ids = (yield _invoke @account.find({id:{$nin:Object.keys(ids)},accessTime:{$lt:d}},{id:1}),'toArray')
     nids[row.id] = true for row in _ids
     nids = Object.keys nids
-    console.log nids.length
+    console.log 'illegals: '.magenta,nids.length
     yield _invoke @account, 'remove',{id:{$in:nids}}
     yield _invoke @session, 'remove',{account:{$in:nids}}
     yield _invoke @dbpersons, 'remove',{account:{$in:nids}}
