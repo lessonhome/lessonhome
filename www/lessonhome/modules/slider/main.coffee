@@ -105,6 +105,12 @@ class @main extends EE
     new_line.css("left", pos)
     $(@division_box).append(new_line)
 
+  getType : =>
+    if @tree.type?
+      return @tree.type
+    else
+      return false
+
 ###
 
 

@@ -135,15 +135,18 @@ class @main extends @template '../../tutor'
         selector : 'search_bids_save'
       road_time_slider : @state 'main/slider_main' :
         selector      : 'road_time_search_bids'
-        start         : 'road_time_search_bids'
-        start_text    : 'до'
+        #start         : 'road_time_search_bids'
+        default :
+          left : 15
+          right : 120
+        dash          : 'до'
         measurement   : 'мин.'
-        handle        : false
-        value :
-          min           : 15
-          max           : 120
-          left          : 30
-          right         : 120
+        #handle        : false
+        min            : 15
+        max            : 120
+        left           : 30
+        right          : 120
+        division_value : 18
       separate_line : @module 'tutor/separate_line' :
         selector : 'horizon'
       list_bids : @module 'tutor/bids/list_bids' :

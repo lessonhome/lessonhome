@@ -96,16 +96,16 @@ class @main
     time_spend_way   : @state './slider_main' :
       selector      : 'advanced_filter_price'
       default :
-        left : 500
-        right : 3500
-      left  : 500 #$urlform : mainFilter : 'price.left'
-      right : 3500 #$urlform : mainFilter : 'price.right'
-      min : 500
-      max : 3500
+        left : 30
+        right : 120
+      left  : 30 #$urlform : mainFilter : 'price.left'
+      right : 120 #$urlform : mainFilter : 'price.right'
+      min : 30
+      max : 120
       #type : 'default'
-      dash          : '-'
-      measurement   : 'руб.'
-      division_value : 250
+      dash          : 'до'
+      measurement   : 'мин.'
+      division_value : 18
     choose_gender   : @state 'gender_data':
       selector        : 'advanced_filter'
       selector_button : 'advance_filter'

@@ -31,14 +31,18 @@ class @main extends @template '../fast_bid'
         $form : person : 'location.full_address'
       time_spend_way   : @state '../slider_main' :
         selector      : 'way_fast_bids'
-        start         : 'calendar'
+        default :
+          left : 15
+          right : 120
+        #start         : 'calendar'
         start_text    : 'до'
         measurement   : 'мин.'
-        handle        : false
-        value         :
-          min : 15
-          max : 120
-          left :  $form : pupil : 'newBid.subjects.0.road_time'
+        #handle        : false
+        #value         :
+        min : 15
+        max : 120
+        division_value : 15
+        left :  $form : pupil : 'newBid.subjects.0.road_time'
       way_time_hint : @module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -51,18 +55,18 @@ class @main extends @template '../fast_bid'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
       time_spend_lesson   : @state '../slider_main' :
         selector      : 'time_fast_bids'
-        start         : 'calendar'
+        default :
+          left : 45
+          right : 180
+        #start         : 'calendar'
         dash          : '-'
-        end         : @module 'tutor/forms/input' :
-          selector  : 'calendar'
-          align : 'center'
         measurement   : 'мин.'
-        handle        : true
-        value         :
-          min : 45
-          max : 180
-          left  : $form : pupil : 'newBid.subjects.0.lesson_duration.0'
-          right : $form : pupil : 'newBid.subjects.0.lesson_duration.1'
+        min : 45
+        max : 180
+        left  : $form : pupil : 'newBid.subjects.0.lesson_duration.0'
+        right : $form : pupil : 'newBid.subjects.0.lesson_duration.1'
+        division_value : 15
+        type : 'default'
       lesson_time_hint : @module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
