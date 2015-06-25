@@ -42,6 +42,7 @@ class @UrlDataFunctions
     #console.log 'd2o',ret
     return ret
   d2u : (fname,data)=>
+    return "" unless fname && ((typeof data == 'object')||(typeof fname=='object'))
     if data
       o = {}
       o[fname] = data
@@ -61,20 +62,23 @@ class @UrlDataFunctions
       url +=  '='+f.value unless f.value == true
     return url
   u2d : (url)=>
+    return {} unless url && (typeof url == 'string')
+    console.log url
     fields = url.split '&'
     udata = {}
     for f in fields
       f = f.split('=')
       field = @json.shorts?[f?[0]]
       continue unless field?.field
+      type  = field.type ? 'string'
       form  = field.form
       field = field.field
       continue unless @forms?[form]?.D2U?['$'+field]?
-      type  = field.type ? 'string'
       value = f[1] ? true
       switch type
         when 'int'
-          break
+          value = +value
+          value = undefined unless value == 0 || value
         when 'string'
           try
             value = decodeURIComponent value

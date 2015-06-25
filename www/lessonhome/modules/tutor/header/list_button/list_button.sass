@@ -29,20 +29,21 @@ main
   .hidden
     position: absolute
     left: 50%
-    top: 80px - $triangle_height
+    top: 18px
     display: none
     .box_menu
       position: relative
       left: -50%
       .triangle_box
+        text-align: center
         .triangle
           +inline-block
           width: $triangle_width
           height: $triangle_height
           background: url(F($triangle_src)) no-repeat
       .menu
-        padding: 5px 15px 10px 15px
-        margin-top: -$border_width
+        padding: 15px
+        margin-top: -$border_width*2
         border: $border_width solid #cccccc
         background: white
         a

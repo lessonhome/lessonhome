@@ -545,5 +545,50 @@ global._Inited = (obj)-> Q.then ->
   obj.__initing = 1
   return false
 
+global._setKey = (obj,key,val,force=false)=>
+  key = key?.split '.' if typeof key == 'string'
+  return obj unless key?.length
+  if val? || force
+    obj?[key?[0]] ?= {}
+    obj?[key?[0]] = val if key?.length <= 1
+  obj = obj?[key?.shift?()]
+  return obj if (!key?.length) || (!obj) || (!typeof obj == 'object')
+  return global._setKey obj,key,val,force
+
+# parse obj like : form:key:foo
+parseFKF = (obj)=>
+  ret = {}
+  return ret unless obj
+  if typeof obj == 'string'
+    ret.form = obj
+    return ret
+  if typeof obj == 'object'
+    ret.form = Object.keys(obj)?[0]
+    obj = obj[ret.form]
+    return ret unless obj
+    if typeof obj == 'string'
+      ret.key = obj
+      return ret
+    if typeof obj == 'object'
+      ret.key = Object.keys(obj)?[0]
+      obj = obj[ret.key]
+      ret.foo = obj if typeof obj == 'function'
+      return ret
+  return ret
+  
+global._objRelativeKey = (obj,key,foo,part="")=>
+  return unless obj && (typeof obj =='object')
+  for k,v of obj
+    if k == key
+      foo obj,part,parseFKF v
+      continue
+    if v && typeof v == 'object'
+      npart = part
+      npart += '.' if npart
+      npart += k
+      _objRelativeKey v,key,foo,npart
+
+
+
 
 

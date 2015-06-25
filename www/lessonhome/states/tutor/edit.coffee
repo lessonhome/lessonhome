@@ -10,6 +10,7 @@ class @main extends @template '../tutor'
         href  : '/tutor/edit/subjects'
         tag   : @exports 'menu_condition'
     ]
+    line_menu  : true
     sub_top_menu : @state 'tutor/sub_top_menu' :
       items       : @exports()
       active_item : @exports()

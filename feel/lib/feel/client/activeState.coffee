@@ -1,6 +1,7 @@
 
 
 class @activeState
+  init : =>
   constructor : (@tree)->
     @classes  = {}
     @order    = []
@@ -21,6 +22,10 @@ class @activeState
           cl.__isClass = true
           @order.push val._uniq
           cl.tree?.class = cl
+          if cl.tree?.default?
+            for key,val of cl.tree.default
+              v = _setKey cl.tree.value,key
+              _setKey cl.tree.value, key,val unless v?
           cl.js ?= {}
           for key_,val_ of Feel.modules[val._name]
             cl.js[key_] = val_

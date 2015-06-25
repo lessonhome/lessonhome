@@ -11,6 +11,8 @@ class @main extends EE
       throw new Error 'need value in tree(new style of slider/main_slider)'
     @tree.value.left  ?=  @tree.value.min
     @tree.value.right ?=  @tree.value.max
+    @min ?= @tree.value?.min
+    @max ?= @tree.value?.max
 
   show : =>
     console.log 'show slider main'
@@ -66,7 +68,9 @@ class @main extends EE
     #
     @setDivision()
 
-  setValue : (v)=>
+  setValue : (v={})=>
+    v.max ?= @max
+    v.min ?= @min
     throw new Error 'bad value' unless v.min? && v.max? && v.left? && v.right?
     @min = v.min
     @max = v.max

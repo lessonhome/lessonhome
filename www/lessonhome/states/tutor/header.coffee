@@ -8,6 +8,7 @@ class @main
     logo      : @module '$/logo'
     top_menu : @module '$/top_menu' :
       items     : @exports()
+      line_menu : @exports()
     icons     : @exports()
     back_call : @module '$/back_call'  :
       #city            : 'Москва'

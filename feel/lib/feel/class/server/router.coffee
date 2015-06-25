@@ -43,8 +43,11 @@ class Router
     cookie = new _cookies req,res
     req.cookie = cookie
     _session = cookie.get 'session'
+    req.udata = @site.urldata.u2d req.udata
     console.log  req.url.blue,(""+_session).yellow
     yield @setSession req,res,cookie,_session
+    req.udata = yield req.udata
+    req.udata ?= {}
     if req.url.match /^\/(upload)\/.*/
       return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/(uploaded)\/.*/
