@@ -23,7 +23,7 @@ class @D2U
   $with_reviews : (obj)=>
     type  : 'bool'
     value : obj?.with_reviews
-    default : false
+    default : true
   $with_verification : (obj)=>
     type  : 'bool'
     value : obj?.with_verification

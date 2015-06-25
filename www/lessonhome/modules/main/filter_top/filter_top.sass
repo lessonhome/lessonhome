@@ -27,8 +27,11 @@ $icon_src: 'close_time.png'
 $icon_height: image-height($icon_src)
 $icon_width: image-width($icon_src)
 
-$search_width: 911px
+$search_width: 984px
 $search_height: 46px
+$division_line_height: 34px
+$search_icon_src: 'main/search_icon.png'
+$search_pattern_src: 'main/search_pattern.png'
 
 main
   position: relative
@@ -108,8 +111,58 @@ main
     color: rgb(34, 37, 40)
     padding-bottom: $padding_margin_elements
 .search
+  position: relative
   width: $search_width
   height: $search_height
-  background-color: #fff
-  border: 1px solid #4c4c4c
-  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
+  margin-left: 15px
+  .filters, .button
+    +inline-block
+  .filters
+    width: 911px
+    height: 100%
+    margin-right: 12px
+    background-color: #fff
+    border: 1px solid #4c4c4c
+    box-shadow: inset   0px 1px 3px 0px rgba(0, 0, 0, 0.65)
+    text-align: left
+    div
+      +inline-block
+    .subject
+      height: 100%
+      width: 256px
+      padding-top: 3px
+      box-sizing: border-box
+    .tutor_status
+      position: relative
+      width: 251px
+      height: 100%
+      .top
+        div
+          +inline-block 
+        .title
+        .icon
+      .bottom
+        position: absolute
+        left: 0
+        top: $search_height
+        background-color: #fff
+        .item
+          padding: 6px 0
+    .line
+      width: 1px
+      height: $division_line_height
+      padding: 6px 0
+      box-sizing: border-box
+      background-color: rgba(178, 178, 178, 0.61)
+  .button
+    width: 58px
+    height: 100%
+    cursor: pointer
+    box-sizing: border-box
+    border: 1px solid rgba(0, 0, 0, 0.24)
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), inset 0px 2px 0px 0px rgba(255, 255, 255, 0.2)
+    background: url(F($search_icon_src)) no-repeat center, url(F($search_pattern_src))
+    background-color: #00bbd3
+
+
+

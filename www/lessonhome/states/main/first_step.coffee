@@ -16,7 +16,7 @@ class @main extends @template './motivation_content'
     filter_top  : @state './filter_top' :
       title         : 'Быстро подберем Вам лучшего репетитора!'
       list_subject    : @module 'tutor/forms/drop_down_list' :
-        selector    : 'filter_top'
+        selector    : 'main_subject'
         placeholder : 'Предмет'
         default_options     : {
           '0': {value: 'english', text: 'английский язык'},

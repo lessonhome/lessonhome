@@ -7,8 +7,16 @@
 .title.select= title
 .search
   .filters
-    .subject
+    .subject!=list_subject
+    .line
     .tutor_status
+      .top
+        .title Статус репетитора
+        .icon
+      .bottom
+        each val in tutor_status
+          .item!=val
+    .line
     .area
     .price
   .button

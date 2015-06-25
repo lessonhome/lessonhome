@@ -43,12 +43,6 @@ class @main extends EE
       @save()
       @bBack()
 
-    ### TAGS ###
-    if @subject?
-      @subject.on 'end', => @addTag @getTags(), @tags, @subject.getValue(), @subject
-      @subject.on 'press_enter', => @addTag @getTags(), @tags, @subject.getValue(), @subject
-      @closeHandler()
-
 
   newSubjectTag: =>
     new_tag = @empty_subject_tag
@@ -112,36 +106,3 @@ class @main extends EE
         div.showError error_text
         return false
     return true
-
-############## Tags functions ##############
-  addTag: (tags_arr, tags_div, tag_text, form)=>
-    return if !tag_text
-    form.setValue('')
-    if tags_arr.length
-      for val in tags_arr
-        if tag_text == val then return 0
-    new_tag = $(@tag).clone()
-    new_tag.find(".text").text(tag_text)
-    new_tag.find(".close_box").click( =>
-      new_tag.remove()
-      @emit 'change'
-      @emit 'end'
-    )
-    $(tags_div).append(new_tag)
-    @emit 'change'
-    @emit 'end'
-  getTags: =>
-    data = []
-    children = $(@tags).children()
-    for child in children
-      child = $ child
-      data.push child.find(".text").text()
-    return data
-  closeHandler: =>
-    children = $(@tags).children()
-    for child in children
-      do (child)=>
-        child = $ child
-        child.find(".close_box").click( =>
-          child.remove()
-        )
