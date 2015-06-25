@@ -27,6 +27,9 @@ $icon_src: 'close_time.png'
 $icon_height: image-height($icon_src)
 $icon_width: image-width($icon_src)
 
+$search_width: 911px
+$search_height: 46px
+
 main
   position: relative
   padding: 30px 0 60px 0
@@ -104,6 +107,9 @@ main
     height: $height_address_form
     color: rgb(34, 37, 40)
     padding-bottom: $padding_margin_elements
-.filters
-  div
-    +inline-block
+.search
+  width: $search_width
+  height: $search_height
+  background-color: #fff
+  border: 1px solid #4c4c4c
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.65)
