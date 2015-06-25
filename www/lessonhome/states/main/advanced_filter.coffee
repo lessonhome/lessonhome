@@ -74,8 +74,8 @@ class @main
       default :
         left : 500
         right : 3500
-      left  : 500 #$urlform : mainFilter : 'price.left'
-      right : 3500 #$urlform : mainFilter : 'price.right'
+      left  : $urlform : mainFilter : 'price.left'
+      right : $urlform : mainFilter : 'price.right'
       min : 500
       max : 3500
       type : 'default'
@@ -95,8 +95,8 @@ class @main
       default :
         left : 30
         right : 120
-      left  : 30 #$urlform : mainFilter : 'price.left'
-      right : 120 #$urlform : mainFilter : 'price.right'
+      left  : 30  #$urlform : mainFilter : 'price.left'
+      right : 120  #$urlform : mainFilter : 'price.right'
       min : 30
       max : 120
       #type : 'default'

@@ -227,8 +227,8 @@ class RouteState
         return unless node?._isModule
         return unless node?.value?
         _objRelativeKey node?.value,'$urlform',(obj,part,fkf)=>
-          node.$urlforms ?= {}
-          node.$urlforms[part] = fkf
+          #node.$urlforms ?= {}
+          #node.$urlforms[part] = fkf
           @$urlforms.push {node,part,fkf}
       do =>
         return unless node?._isModule
@@ -290,12 +290,12 @@ class RouteState
             node[place] = func? node[place] if func
     for uform in @$urlforms
       vv = _setKey @req?.udata?[uform?.fkf?.form],uform?.fkf?.key
-      console.log uform,vv
+      uform.node.$urlforms ?= {}
+      uform.node.$urlforms[uform.part] = uform.fkf
       vv = uform.fkf.foo vv if typeof uform.fkf.foo == 'function'
       path = 'value'
       path += "."+uform.part if uform.part
       _setKey uform.node,path,vv,true
-      console.log uform,vv
     @time 'forms set'
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?

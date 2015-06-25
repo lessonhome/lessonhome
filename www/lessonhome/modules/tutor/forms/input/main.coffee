@@ -120,7 +120,6 @@ class @main extends EE
     @emit 'blur'
     @hint?.fadeOut?() if @tree.hint?
     @label.removeClass 'focus'
-    console.log 'blur'
     @emitEnd()
   onChange : =>
     @_emittedEnd = ""
@@ -148,7 +147,7 @@ class @main extends EE
       @_shake_t = setTimeout f,30
     f()
   onEnd     : (val)=>
-    console.log 'end',val
+    #console.log 'end',val
   onInput   : =>
     @replaceInput()
     setTimeout @checkChange,0
@@ -183,7 +182,6 @@ class @main extends EE
       _char = String.fromCharCode(e.charCode)
     else if e.key? && e.key && e.key.length == 1
       _char = e.key
-    console.log _char,e
     try
       start = @input.getSelectionStart()
       end = @input.getSelectionEnd()
@@ -232,7 +230,6 @@ class @main extends EE
     @found.text3.html str
     @found.level3.attr 'hide','false'
     @label.addClass 'error'
-    console.log 'error',@val,str
     return false
   hideError : =>
     @label.removeClass 'error'
@@ -246,7 +243,6 @@ class @main extends EE
     val     ?= @input.val()
     rstr    ?= @matchReplace val
     position?= @input.getCursorPosition()
-    console.log rstr
     return if @input.val()==rstr
     @input.val rstr
     rc = false

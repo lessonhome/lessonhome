@@ -44,20 +44,19 @@ class @main extends EE
     # action
     # TODO: add_course hard code, not this module, only this file have this variables
 
-    @on 'change', => Q.spawn =>
+    @on 'change', => #Q.spawn =>
       v = @getValue()
       console.log v
-      data = {}
-      data.price = v?.price
-      data.gender = v?.choose_gender
-      data.with_reviews = v?.with_reviews
-      data.with_verification = v?.with_verification
-      yield Feel.urlData.set mainFilter:data
+      #data = {}
+      #data.price = v?.price
+      #data.gender = v?.choose_gender
+      #data.with_reviews = v?.with_reviews
+      #data.with_verification = v?.with_verification
+      #yield Feel.urlData.set mainFilter:data
       
       ###
       data = {}
       state = History.getState()
-      console.log 'state',state
       data.title = state.title
       unless data.title
         data.title = $('head>title').text()
@@ -74,15 +73,12 @@ class @main extends EE
       data.bson ?= {}
       v = @getValue()
       bson = _objToBson v,'leftFilter'
-      console.log bson
       data.obj['leftFilter'] = v
       for key,val of bson
         data.bson[key] = val
       data.bson = _objToUrlString data.bson
-      console.log 'data',data
       History.pushState data.obj,data.title,state.url.match(/^([^\?]*)/)[1]+"?#{data.bson}"
       ###
-    #@on 'end', => console.log @getValue()
 
     @calendar.on            'change',=> @emit 'change'
     @price.on               'change',=> @emit 'change'
@@ -193,13 +189,12 @@ class @main extends EE
       with_verification : @with_verification.getValue()
     }
   toUrl : =>
-  fromUrl : => do Q.async =>
-    v   = @getValue()
-    u   = yield Feel.urlData.getF 'mainFilter'
-    console.log 'FROMURL',u
-    _setKey v,'price.left',  u.price.left  if u?.price?.left?
-    _setKey v,'price.right', u.price.right if u?.price?.right?
-    _setKey v,'choose_gender', u.gender if u?.gender?
-    _setKey v,'with_verification', u.with_verification if u?.with_verification?
-    _setKey v,'with_reviews', u.with_reviews if u?.with_reviews?
-    @setValue v
+  fromUrl : => #do Q.async =>
+    #v   = @getValue()
+    #u   = yield Feel.urlData.getF 'mainFilter'
+    #_setKey v,'price.left',  u.price.left  if u?.price?.left?
+    #_setKey v,'price.right', u.price.right if u?.price?.right?
+    #_setKey v,'choose_gender', u.gender if u?.gender?
+    #_setKey v,'with_verification', u.with_verification if u?.with_verification?
+    #_setKey v,'with_reviews', u.with_reviews if u?.with_reviews?
+    #@setValue v

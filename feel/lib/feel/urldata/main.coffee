@@ -43,10 +43,21 @@ class UrlData
         res = yield foo {}
         throw new Error "need type in field #{m[1]} in urlform #{fname}" unless res.type
         @json.forms[fname][m[1]] ?= yield @next()
+        unless res.default?
+          switch res.type
+            when 'int'
+              res.default = undefined
+            when 'string'
+              res.default = ''
+            when 'bool'
+              res.default = false
+            when 'obj'
+              res.default = {}
         @json.shorts[@json.forms[fname][m[1]]] = {
           form  : fname
           field : m[1]
           type  : res.type
+          default : res.default
         }
     yield _writeFile "#{@path}/static/urldata/#{@hostname}.json", JSON.stringify @json,4,4
     @jsonstring = JSON.stringify @json

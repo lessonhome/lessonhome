@@ -8,9 +8,11 @@ class @D2U
   $priceLeft : (obj)=>
     type  : 'int'
     value : obj?.price?.left
+    default : 500
   $priceRight : (obj)=>
     type  : 'int'
     value : obj?.price?.right
+    default : 1500
   $gender : (obj)=>
     i = gender.indexOf(obj?.gender)
     i = undefined unless i >= 0
@@ -21,9 +23,11 @@ class @D2U
   $with_reviews : (obj)=>
     type  : 'bool'
     value : obj?.with_reviews
+    default : false
   $with_verification : (obj)=>
     type  : 'bool'
     value : obj?.with_verification
+    default : false
 
 class @U2D
   $price : (obj)=>

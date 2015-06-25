@@ -15,7 +15,6 @@ class @main extends EE
     @max ?= @tree.value?.max
 
   show : =>
-    console.log 'show slider main'
 
     #@start?.setValue @tree.value.left
     #@end?.setValue @tree.value.right
