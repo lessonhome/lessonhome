@@ -43,6 +43,7 @@ class @main extends EE
 
 
   setValue : (val)=>
+    val ?= @tree.default
     switch val
       when "male"
         @man.setActive()
@@ -58,7 +59,7 @@ class @main extends EE
         @man  .disable()
         @woman.disable()
         @state = ''
-
+    @emit 'change'
 
   getValue : => @state
 

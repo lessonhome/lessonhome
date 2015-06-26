@@ -1,6 +1,7 @@
 div(class=selector)
   .box_input
-    .js-start!=start
+    if (type!='right')
+      .js-start!=start
     if dash
       .dash=dash
     .end!=end

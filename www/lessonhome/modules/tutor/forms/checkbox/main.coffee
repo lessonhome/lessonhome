@@ -10,13 +10,12 @@ class @main extends EE
     @check = @found.check
   show : =>
     @state = @tree.value
-    console.log 'state is'+@state
     @setValue @state
-    @dom.on 'click', =>
-      @label.toggleClass('active')
-      @state = @label.hasClass 'active'
-      @emit 'change',@state
-      @emit 'end'
+    @dom.on 'click', => @setValue !@getValue()
+    #  @label.toggleClass('active')
+    #  @state = @label.hasClass 'active'
+    #  @emit 'change',@state
+    #  @emit 'end'
 
 
   getValue : => @state = @label.hasClass 'active'
@@ -29,6 +28,8 @@ class @main extends EE
     else
       @label.removeClass 'active'
       @state = @label.hasClass 'active'
+    @emit 'change',val
+    @emit 'end',val
   showError : (error)=>
     if @errorDiv?
       @errorDiv.text error

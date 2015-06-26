@@ -22,6 +22,7 @@ class @main
       max : @exports()
       type: @exports()
     dash          : @exports()
+    type          : @exports()
     measurement   : @exports()
     division_value: @exports()
     move          : @module '../slider':

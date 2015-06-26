@@ -1,8 +1,27 @@
 
 
+group_lessons = ['не проводятся','2-4 ученика','до 8 учеников','от 10 учеников']
 gender = ['','male','female','mf']
+tutor_status = 'student,school_teacher,university_teacher,private_teacher,native_speaker'.split ','
+place = 'pupil,tutor,remote'.split ','
+experience = 'little_experience,big_experience,bigger_experience'.split ','
 
-
+boolSet = (obj,list)=>
+  list.sort()
+  v = 0
+  i = 1
+  for s in list
+    v+= i if obj?[s]
+    i*=2
+  return v
+boolSetR = (obj,list)=>
+  list.sort()
+  ret = {}
+  v = obj ? 0
+  for s in list
+    ret[s] = ((v%2)==1)
+    v //= 2
+  return ret
 
 class @D2U
   $priceLeft : (obj)=>
@@ -29,15 +48,56 @@ class @D2U
     type  : 'bool'
     value : obj?.with_verification
     default : false
+  $tutor_status : (obj)=>
+    type : 'int'
+    value : boolSet obj?.tutor_status,tutor_status
+    default : 0
+  $place : (obj)=>
+    type : 'int'
+    value : boolSet obj?.place,place
+    default : 0
+  $placeArea : (obj)=>
+    type : 'string[]'
+    value : obj?.place?.area
+    default : ''
+  $subject : (obj)=>
+    type : 'string[]'
+    value : obj?.subject
+    default : ''
+  $time_spend_way : (obj)=>
+    type : 'int'
+    value : obj?.time_spend_way
+    default : 120
+  $experience : (obj)=>
+    type : 'int'
+    value :  boolSet obj?.experience,experience
+    default : 0
+  $group_lessons : (obj)=>
+    type : 'int'
+    value : group_lessons.indexOf(obj?.group_lessons) ? 0
+    default : 0
+  $course : (obj)=>
+    type : 'string[]'
+    value : obj?.course
+    default : ''
 
 class @U2D
   $price : (obj)=>
     left  : obj?.priceLeft
     right : obj?.priceRight
-  $gender : (obj)=> gender[obj?.gender]
+  $gender : (obj)=> gender[obj?.gender ? 0]
   $with_reviews : (obj)=> obj?.with_reviews
   $with_verification : (obj)=> obj?.with_verification
-
-
+  $tutor_status : (obj)=> boolSetR obj?.tutor_status,tutor_status
+  $place : (obj)=>
+    ret = boolSetR obj?.place,place
+    ret.area = obj?.placeArea
+    return ret
+  $subject : (obj)=> obj?.subject
+  $time_spend_way : (obj)=> obj?.time_spend_way
+  $experience : (obj)=> boolSetR obj?.experience,experience
+  $group_lessons : (obj)=> group_lessons[obj?.group_lessons ? 0]
+  $course : (obj)=> obj?.course
+  
 
 

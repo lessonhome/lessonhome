@@ -1,4 +1,5 @@
 class @main
   tree : => @module '$' :
-    list : @exports()
-    tags : @exports()
+    list  : @exports()
+    tags  : @exports()
+    value : @exports()

@@ -1,105 +1,46 @@
 class @main extends EE
   Dom : =>
-    @subject_reset       = @found.subject_reset
-    @tutor_status_reset  = @found.tutor_status_reset
-    @place_reset         = @found.place_reset
-    @course_reset        = @found.course_reset
-    @group_lessons_reset = @found.group_lessons_reset
-    @experience_reset    = @found.experience_reset
-    @sex_reset           = @found.sex_reset
-    @price_reset         = @found.price_reset
-    @time_to_way_reset   = @found.time_to_way_reset
-  show : => do Q.async =>
-    # drop_down_list
-    @subject            = @tree.subject.class
-    @area               = @tree.area.class
-    @course             = @tree.course.class
-    @group_lessons     = @tree.group_lessons.class
-    # calendar
-    @calendar           = @tree.calendar.class
-    #slider
-    @price              = @tree.price.class
-    @time_spend_way     = @tree.time_spend_way.class
-    # button
-    @choose_gender      = @tree.choose_gender.class
-    # checkbox
-    @student            = @tree.student.class
-    @school_teacher     = @tree.school_teacher.class
-    @university_teacher = @tree.university_teacher.class
-    @private_teacher    = @tree.private_teacher.class
-    @native_speaker     = @tree.native_speaker.class
-    @pupil              = @tree.pupil.class
-    @tutor              = @tree.tutor.class
-    @remote             = @tree.remote.class
-    @little_experience  = @tree.little_experience.class
-    @big_experience     = @tree.big_experience.class
-    @bigger_experience  = @tree.bigger_experience.class
-
-    @with_reviews       = @tree.with_reviews.class
-    @with_verification  = @tree.with_verification.class
-    # other
-    @choose_gender      = @tree.choose_gender.class
-
-    # action
-    # TODO: add_course hard code, not this module, only this file have this variables
+    @inputs =
+      tutor_status : 'student,school_teacher,university_teacher,private_teacher,native_speaker'
+      place : 'pupil,tutor,remote,area'
+      subject : 'subject'
+      course  : 'course'
+      price : 'price'
+      group_lessons : 'group_lessons'
+      experience : 'little_experience,big_experience,bigger_experience'
+      time_to_way : 'time_spend_way'
+      verification : 'with_reviews,with_verification'
+      sex : 'choose_gender'
+    for block,arr of @inputs
+      @inputs[block] = {}
+      b = @inputs[block]
+      b.reset   = @found[block+'_reset']
+      b.inputs  = arr.split ','
+  show : =># do Q.async =>
+    for block,b of @inputs
+      arr = b.inputs
+      b.inputs  = {}
+      do (b)=>
+        b.reset?.click? =>
+          for n,i of b.inputs
+            i?.class?.setValue?()
+        b.get = =>
+          ret = {}
+          for n,i of b.inputs
+            ret[n] = i?.class?.getValue?()
+          return ret
+        b.set = (v)=>
+          for n,i of b.inputs
+            i?.class?.setValue? v?[n]
+      for input in arr
+        b.inputs[input] = i = {}
+        i.class = @tree?[input]?.class
+        i?.class?.on? 'change', => @emit 'change'
 
     @on 'change', => #Q.spawn =>
       v = @getValue()
       console.log v
-      #data = {}
-      #data.price = v?.price
-      #data.gender = v?.choose_gender
-      #data.with_reviews = v?.with_reviews
-      #data.with_verification = v?.with_verification
-      #yield Feel.urlData.set mainFilter:data
-      
-      ###
-      data = {}
-      state = History.getState()
-      data.title = state.title
-      unless data.title
-        data.title = $('head>title').text()
-      data.obj = {}
-      data.obj[key] = val for key,val of state.data
-      data.bson   = state.url.match /\?(.*)/
-      if data.bson
-        data.bson = data.bson[1].split '&'
-        arr = {}
-        for a in data.bson
-          a = a.split '='
-          arr[a[0]] = a[1]
-        data.bson = arr
-      data.bson ?= {}
-      v = @getValue()
-      bson = _objToBson v,'leftFilter'
-      data.obj['leftFilter'] = v
-      for key,val of bson
-        data.bson[key] = val
-      data.bson = _objToUrlString data.bson
-      History.pushState data.obj,data.title,state.url.match(/^([^\?]*)/)[1]+"?#{data.bson}"
-      ###
 
-    @calendar.on            'change',=> @emit 'change'
-    @price.on               'change',=> @emit 'change'
-    @time_spend_way.on      'change',=> @emit 'change'
-    @choose_gender.on       'change',=> @emit 'change'
-    @with_reviews.on        'change',=> @emit 'change'
-    @with_verification.on   'change',=> @emit 'change'
-    
-    @student.on            'change',=> @emit 'change'
-    @school_teacher.on            'change',=> @emit 'change'
-    @university_teacher.on            'change',=> @emit 'change'
-    @private_teacher.on            'change',=> @emit 'change'
-    @native_speaker.on            'change',=> @emit 'change'
-    @pupil.on            'change',=> @emit 'change'
-    @tutor.on            'change',=> @emit 'change'
-
-    @calendar.on            'end',=> @emit 'end'
-    @price.on               'end',=> @emit 'end'
-    @time_spend_way.on      'end',=> @emit 'end'
-    @choose_gender.on       'end',=> @emit 'end'
-    @with_reviews.on        'end',=> @emit 'end'
-    @with_verification.on   'end',=> @emit 'end'
 
     # change visibility show_hidden
     @sections = @found.section
@@ -109,47 +50,6 @@ class @main extends EE
         title = section.find(">.title")
         title.click => @change_visibility section
 
-    #select experience
-    @experience = @found.experience.children()
-    ###
-    for exp,i in @experience
-      exp = $ exp
-      do (exp,i)=>
-        exp.click =>
-          if i == (@experience.length-1)
-             unless @experience.last().hasClass 'background'
-              @experience.filter('.background').removeClass 'background'
-              @experience.addClass 'hover'
-          else
-            @experience.last().removeClass 'background'
-            @experience.last().addClass 'hover'
-          @change_background exp
-    ###
-    # reset forms
-    $(@subject_reset).on 'click', => @subject.reset()
-    $(@tutor_status_reset).on 'click', =>
-      @student.setValue()
-      @school_teacher.setValue()
-      @university_teacher.setValue()
-      @private_teacher.setValue()
-      @native_speaker .setValue()
-    $(@place_reset).on 'click', =>
-      @pupil.setValue()
-      @tutor.setValue()
-      @remote.setValue()
-      @area.reset()
-    $(@sex_reset).on 'click', => @choose_gender.reset()
-    $(@experience_reset).on 'click', =>
-      @little_experience.setValue()
-      @big_experience.setValue()
-      @bigger_experience.setValue()
-    $(@course_reset).on 'click', => @course.reset()
-    yield @fromUrl()
-    $(@group_lessons_reset).on 'click', => @group_lessons.setValue ''
-    $(@price_reset).on 'click', => @price.reset()
-    $(@time_to_way_reset).on 'click', => @time_spend_way.reset()
-
-    #alert @price.getMoveBlock().width()
 
   change_background : (element)=>
     if element.is '.background'
@@ -170,48 +70,9 @@ class @main extends EE
   getValue : => @getData()
 
   setValue : (data)=>
-    @price.setValue data.price if data.price?
-    return
-    #@add_course.setValue        data.add_course         if data?.add_course?
-    @calendar.setValue          data.calendar           if data?.calendar?
-    @time_spend_lesson.setValue data.time_spend_lesson  if data?.time_spend_lesson?
-    @time_spend_way.setValue    data.time_spend_way     if data?.time_spend_way?
-    @choose_gender.setValue     data.choose_gender      if data?.choose_gender?
-    @with_reviews.setValue      data.with_reviews       if data?.with_reviews?
-    @with_verification.setValue data.with_verification  if data?.with_verification?
-
+    b?.set? data?[block] for block,b of @inputs
 
   getData : =>
-    #experience = []
-    #for child in @experience
-    #  if $(child).hasClass("background") then experience.push $(child).find(".text").text()
-
-
-    return {
-      subject           : @subject.getValue()
-      price             : @price.getValue()
-      time_spend_way    : @time_spend_way.getValue()
-      experience        :
-        little  : @little_experience.getValue()
-        big     : @little_experience.getValue()
-        bigger  : @little_experience.getValue()
-      tutor_status :
-        student : @student.getValue()
-        school_teacher : @school_teacher.getValue()
-        university_teacher : @university_teacher.getValue()
-        private_teacher : @private_teacher.getValue()
-        native_speaker : @native_speaker.getValue()
-      choose_gender     : @choose_gender.getValue()
-      with_reviews      : @with_reviews.getValue()
-      with_verification : @with_verification.getValue()
-    }
-  toUrl : =>
-  fromUrl : => #do Q.async =>
-    #v   = @getValue()
-    #u   = yield Feel.urlData.getF 'mainFilter'
-    #_setKey v,'price.left',  u.price.left  if u?.price?.left?
-    #_setKey v,'price.right', u.price.right if u?.price?.right?
-    #_setKey v,'choose_gender', u.gender if u?.gender?
-    #_setKey v,'with_verification', u.with_verification if u?.with_verification?
-    #_setKey v,'with_reviews', u.with_reviews if u?.with_reviews?
-    #@setValue v
+    ret = {}
+    ret[block] = b?.get?() for block,b of @inputs
+    return ret
