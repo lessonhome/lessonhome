@@ -42,7 +42,7 @@ class @main extends EE
       child = $ child
       data.push child.find(".text").text()
     return data
-  cleanForm : =>
+  reset : =>
     @list.setValue('')
     children = $(@tags).children()
     for child in children

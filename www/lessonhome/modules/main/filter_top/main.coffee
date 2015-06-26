@@ -22,13 +22,11 @@ class @main extends EE
 
   show: =>
     @choose_block = @dom.find('.choose_block')
-    #console.log @choose_block
     @i = 2
 
     ### выходит ошибка на ч-ой странице, subject_tag не определена TODO ###
     #@subject_tag = @tree.choose_subject.class
     @empty_subject_tag = @tree.empty_choose_subject
-    #console.log @empty_subject_tag
     #@newSubjectTag()
 
     @button_issue.on 'submit', =>
@@ -45,18 +43,11 @@ class @main extends EE
       @save()
       @bBack()
 
-    ### TAGS ###
-    if @subject?
-      @subject.on 'end', => @addTag @getTags(), @tags, @subject.getValue(), @subject
-      @subject.on 'press_enter', => @addTag @getTags(), @tags, @subject.getValue(), @subject
-      @closeHandler()
-
 
   newSubjectTag: =>
     new_tag = @empty_subject_tag
     new_tag.id = @i++
     new_tag.text = 'new'
-    console.log new_tag.class
     @choose_block.append('<div class="choose_button">' + new_tag + '</div>')
 
   bNext : =>
@@ -82,7 +73,6 @@ class @main extends EE
 
   getData : =>
     ret = {}
-    #console.log ret.subject+' this is ret'
     if @subject? then ret.subject = @subject.getValue()
     if @tutor_status? then ret.tutor_status = @tutor_status.getValue()
     if @at_home_button? && @in_tutoring_button? && @remotely_button?
@@ -116,37 +106,3 @@ class @main extends EE
         div.showError error_text
         return false
     return true
-
-############## Tags functions ##############
-  addTag: (tags_arr, tags_div, tag_text, form)=>
-    return if !tag_text
-    form.setValue('')
-    if tags_arr.length
-      for val in tags_arr
-        if tag_text == val then return 0
-    new_tag = $(@tag).clone()
-    new_tag.find(".text").text(tag_text)
-    new_tag.find(".close_box").click( =>
-      new_tag.remove()
-      @emit 'change'
-      @emit 'end'
-    )
-    $(tags_div).append(new_tag)
-    @emit 'change'
-    @emit 'end'
-  getTags: =>
-    data = []
-    children = $(@tags).children()
-    for child in children
-      child = $ child
-      data.push child.find(".text").text()
-    console.log 'data : '+data, children
-    return data
-  closeHandler: =>
-    children = $(@tags).children()
-    for child in children
-      do (child)=>
-        child = $ child
-        child.find(".close_box").click( =>
-          child.remove()
-        )

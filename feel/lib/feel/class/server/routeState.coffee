@@ -221,8 +221,15 @@ class RouteState
     @stack = []
     yield Q.all qforms
     @time 'forms get'
-    
+    @$urlforms = []
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
+      do =>
+        return unless node?._isModule
+        return unless node?.value?
+        _objRelativeKey node?.value,'$urlform',(obj,part,fkf)=>
+          #node.$urlforms ?= {}
+          #node.$urlforms[part] = fkf
+          @$urlforms.push {node,part,fkf}
       do =>
         return unless node?._isModule
         return unless node.$form && (typeof node.$form == 'object')
@@ -281,6 +288,14 @@ class RouteState
           else
             node[place] = @getField @$forms[fname],field
             node[place] = func? node[place] if func
+    for uform in @$urlforms
+      vv = _setKey @req?.udata?[uform?.fkf?.form],uform?.fkf?.key
+      uform.node.$urlforms ?= {}
+      uform.node.$urlforms[uform.part] = uform.fkf
+      vv = uform.fkf.foo vv if typeof uform.fkf.foo == 'function'
+      path = 'value'
+      path += "."+uform.part if uform.part
+      _setKey uform.node,path,vv,true
     @time 'forms set'
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?
@@ -352,7 +367,7 @@ class RouteState
           end += @site.moduleJsFileTag modname,n
     end +=  '<script id="feel-js-startFeel">
       "use strict";
-      Feel.init();</script>'+
+      Feel.init().done();</script>'+
       '</body></html>'
     @time "end str finish"
     sha1 = require('crypto').createHash('sha1')

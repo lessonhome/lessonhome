@@ -82,7 +82,7 @@ global.Wrap = (obj,prot,PR=true)->
   proto ?= obj?.__proto__
   unless proto?
     proto = obj
-  return if obj.__wraped
+  return obj if obj.__wraped
   __functionName__ = ""
   __FNAME__ = ""
   _single = {}
@@ -331,7 +331,7 @@ global.Wrap = (obj,prot,PR=true)->
       ee.once action, (args...)->
         ret = foo args...
         ret.done() if Q.isPromise ret
-
+  return obj
 
 #Q.longStackSupport  = true
 
@@ -554,4 +554,16 @@ global._objToUrlString = (obj)=>
     ret2 += "#{a[0]}=#{a[1]}"
   return ret2
   
- 
+
+global._setKey = (obj,key,val)=>
+  key = key.split '.' if typeof key == 'string'
+  return obj unless key.length
+  if val?
+    obj[key[0]] ?= {}
+    obj[key[0]] = val if key.length <= 1
+  kk = key.shift()
+  obj = obj[kk] if kk != ""
+  return obj if (!key.length) || (!obj) || (!typeof obj == 'object')
+  return global._setKey obj,key,val
+
+

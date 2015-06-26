@@ -25,6 +25,7 @@ class @main extends EE
     $('body').off 'mousedown.drop_down_list'
     $('body').off 'mouseleave.drop_down_list'
     @emitChange()
+
     @bodyListenMD = false
     @label.removeClass 'focus'
     @select_sets.hide()
@@ -117,7 +118,6 @@ class @main extends EE
             $opt.addClass 'selected'
             bottom = @options.height()-$opt.position().top-$opt.height()
             top    = $opt.position().top
-            console.log bottom,top,@options.scrollTop()
             if bottom<0
               @options.scrollTop @options.scrollTop()-bottom
             if top<0
@@ -268,7 +268,6 @@ class @main extends EE
             @select_sets.data 'was-enter', true
             @input.focus()
             @closeList()
-
           return
   ####### FUNCTIONS #############
   focusInput: =>
@@ -298,7 +297,6 @@ class @main extends EE
       @errorDiv.show()
     @label.addClass 'err_effect'
   hideError : =>
-    console.log 'hide',@errorDiv
     if @errorDiv?
       @errorDiv.hide()
       @errorDiv.text ""

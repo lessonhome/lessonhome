@@ -2,7 +2,6 @@
 #check = require("./check")
 
 @handler = ($,data)=>
-  console.log data
   errs = []
   #errs = check.check data
 

@@ -1,10 +1,10 @@
 
 
 class @Feel
-  init : ->
-    setTimeout @checkUnknown,2000
+  init : => do Q.async =>
     for key,val of $Feel
       @[key] = val
+
     for key,mod of $Feel.modules
       if mod.main?.prototype?
         mod.main::class = {}
@@ -14,12 +14,19 @@ class @Feel
         for name,obj of mod
           window[name] = obj
           console.log "global class window['#{name}'];"
-    @active = new @activeState @root.tree
-    @urlData = new @urlData()
-    @pbar = new @PBar()
-    @pbar.init()
+    
     window.onerror = (e)=> @error e
-    @urlData.init()
+    
+    @urlData = new @urlData()
+    yield @urlData.init()
+    
+    @pbar = new @PBar()
+    yield @pbar.init()
+    
+    @active = new @activeState @root.tree
+    yield @active.init()
+    
+    setTimeout @checkUnknown,2000
 
   error : (e,args...)=>
     return unless e?

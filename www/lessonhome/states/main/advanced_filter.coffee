@@ -52,14 +52,12 @@ class @main
     no_experience: @module 'tutor/forms/checkbox'  :
       text      : 'нет опыта'
       selector  : 'small'
-
     course : @state '../tutor/forms/drop_down_list_with_tags' :
       list: @module 'tutor/forms/drop_down_list:type1'  :
         selector        : 'advanced_filter_form'
         placeholder     : 'Например ЕГЭ'
         value     : ''
       tags: ''
-
     group_lessons : @module 'tutor/forms/drop_down_list'  :
       selector        : 'advanced_filter_form'
       default_options     : {
@@ -68,7 +66,6 @@ class @main
         '2': {value: 'to8', text: 'до 8 учеников'}
         '3': {value: 'from10', text: 'от 10 учеников'}
       }
-
     calendar        : @state '../calendar' :
           selector  : 'advance_filter'
           value     : @exports 'val_list_calendar'
@@ -77,8 +74,8 @@ class @main
       default :
         left : 500
         right : 3500
-      left  : 500 #$urlform : mainFilter : 'price.left'
-      right : 3500 #$urlform : mainFilter : 'price.right'
+      left  : $urlform : mainFilter : 'price.left'
+      right : $urlform : mainFilter : 'price.right'
       min : 500
       max : 3500
       type : 'default'
@@ -96,25 +93,26 @@ class @main
     time_spend_way   : @state './slider_main' :
       selector      : 'advanced_filter_price'
       default :
-        left : 500
-        right : 3500
-      left  : 500 #$urlform : mainFilter : 'price.left'
-      right : 3500 #$urlform : mainFilter : 'price.right'
-      min : 500
-      max : 3500
+        left : 30
+        right : 120
+      left  : 30  #$urlform : mainFilter : 'price.left'
+      right : 120  #$urlform : mainFilter : 'price.right'
+      min : 30
+      max : 120
       #type : 'default'
-      dash          : '-'
-      measurement   : 'руб.'
-      division_value : 250
+      dash          : 'до'
+      measurement   : 'мин.'
+      division_value : 18
     choose_gender   : @state 'gender_data':
       selector        : 'advanced_filter'
       selector_button : 'advance_filter'
-      value     : @exports 'val_choose_gender'
+      default   : 'male'
+      value     : $urlform : mainFilter : 'gender'
     with_reviews      : @module 'tutor/forms/checkbox'  :
       text      : 'только с отзывами'
       selector  : 'small'
-      value     : @exports 'val_with_reviews'
+      value     : $urlform : mainFilter : 'with_reviews'
     with_verification : @module 'tutor/forms/checkbox'  :
       text      : 'только проверенные<br/>профили'
       selector  : 'small'
-      value     : @exports 'val_with_verification'
+      value     : $urlform : mainFilter : 'with_verification'

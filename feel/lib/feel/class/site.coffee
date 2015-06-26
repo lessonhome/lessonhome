@@ -137,7 +137,6 @@ class module.exports
     @modules[module.name] = new Module module,@
     return @modules[module.name].init()
   dataObject : (name,context)=>
-    console.log 'dataObject',name,context
     suffix  = ""
     postfix = name
     file = ""
@@ -162,7 +161,6 @@ class module.exports
     else
       suffix = "runtime" if !suffix
       file = _path.normalize @path.src+"/"+suffix+"/"+postfix+".d.coffee"
-    console.log file
     delete require.cache[require.resolve(process.cwd()+"/"+file)]
     obj = require process.cwd()+"/"+file
     for key,val of obj

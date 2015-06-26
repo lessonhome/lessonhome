@@ -5,9 +5,18 @@
 .background_ruler
 .background_vial
 .title.select= title
-.filters
-  .subject
-  .tutor_status
-  .area
-  .price
-.search_button
+.search
+  .filters
+    .subject!=list_subject
+    .line
+    .tutor_status
+      .top
+        .title Статус репетитора
+        .icon
+      .bottom
+        each val in tutor_status
+          .item!=val
+    .line
+    .area
+    .price
+  .button

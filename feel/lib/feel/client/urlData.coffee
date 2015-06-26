@@ -1,70 +1,62 @@
+
+fstate = History.getState()
+
+
 class @urlData
   constructor : ->
     Wrap @
-    @_hash = ""
-    @_long  = {}
-    @_short = {}
-    @urljson = {}
-    @forms   = {}
+    @_hash    = ""
+    @_long    = {}
+    @_short   = {}
+    @urljson  = {}
+    @forms    = {}
+    @data     = {}
+    @fdata    = {}
   init : =>
     @json = Feel.urldataJson
     for fname,form of Feel.urlforms
       @forms[fname] = {}
-      @forms[fname].U2D = Wrap new form.U2D if form.U2D?
-      @forms[fname].D2U = Wrap new form.D2U if form.D2U?
+      @forms[fname].U2D = Wrap (new form.U2D) if form.U2D?
+      @forms[fname].D2U = Wrap (new form.D2U) if form.D2U?
+    for key of @forms
+      @data[key] ?= {}
     Feel.udata = new Feel.UrlDataFunctions
     @udata = Feel.udata
     yield @udata.init @json,@forms
 
-    @state = History.getState()
-    udata = @state.url.match /\?(.*)$/
-    if udata
-      udata = udata.split '&'
-      arr = {}
-      for el in udata
-        el = el.split '='
-        arr[el[0]] = el[1] ? true if el[0]
-    if arr.s
-      @_short = yield @getDataByHash arr.s
-    delete arr.s
-    @_long = arr
-  Short : (key,val)=>
-    return @_short       unless key?
-    return @_short[key]  unless val?
-    @_short[key] = val
-    console.log key,val
-    yield @setDataByHash @_short
+    @state  = History.getState()
+    @data   = yield @udata.u2d @state?.url?.match(/\?(.*)$/)?[1]
+    @fdata  = yield @udata.u2d fstate?.url?.match(/\?(.*)$/)?[1]
+    for key of @forms
+      @data[key] ?= {}
+      @fdata[key] ?= {}
+  set : (form,key,val)=>
+    if val?
+      _setKey @data[form],key,val
+    else if key?
+      @data[form] = key
+    else
+      for key,val of form
+        @data[key] = val
     yield @setUrl()
-    return val
+  get : (form,key)=>
+    return @data unless form?
+    return @data[form] unless key?
+    return _setKey @data[form],key
+  getF : (form,key)=>
+    return @fdata unless form?
+    return @fdata?[form] unless key?
+    return _setKey @fdata?[form],key
 
-  Long  : (key,val)=>
-
-  getDataByHash : (hash)=>
-    data = $.localStorage.get hash
-    return data
-
-  setDataByHash  : (data)=>
-    data = JSON.stringify data
-    switch data
-      when '','undefined','null','{}','[]','""'
-        @_hash = ""
-      else
-        data = JSON.parse data
-        hash = objectHash(data,{encoding: 'base64'}).substr(0,8)
-        @_hash = hash
-        $.localStorage.set hash,data
   setUrl : =>
-    url = ""
-    url += "s=#{@_hash}" if @_hash
-    keys = Object.keys @_long
-    keys.sort()
-    for k in keys
-      v = @_long[k]
-      continue unless v?
-      url += "&" if url
-      url += k
-      url += "=#{v}" unless v == true
-    History.pushState  {_hash:@_hash,_long:@_long,_short:@_short},@state.title,@state.url.match(/^([^\?]*)/)[1]+"?#{url}"
+    url = yield @udata.d2u @data
+    nurl = url
+    nurl = '?'+nurl if nurl
+    History.pushState  @data,@state.title,@state.url.match(/^([^\?]*)/)[1]+"#{nurl}"
     @state = History.getState()
+    #data = @state.url.match /\?(.*)$/
+    #@data = yield @udata.u2d data
+    #for key of @forms
+    #  @data[key] ?= {}
 
     

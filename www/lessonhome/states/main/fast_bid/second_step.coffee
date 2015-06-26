@@ -37,19 +37,20 @@ class @main extends @template '../fast_bid'
         value : $form : pupil : 'newBid.subjects.0.knowledge'
       price_slider_bids   : @state '../slider_main' :
         selector      : 'price_slider_bids'
-        start         : 'calendar'
-        start_text    : 'от'
-        end         : @module 'tutor/forms/input' :
-          selector  : 'calendar'
-          text2      : 'до'
-          align : 'center'
+        #start         : 'calendar'
+        default :
+          left : 500
+          right : 5000
+        #start_text    : 'от'
+        type : 'default'
+        dash          : '-'
         measurement   : 'руб.'
-        handle        : true
-        value         :
-          min : 400
-          max : 5000
-          left  : $form : pupil : 'lesson_price.left'
-          right : $form : pupil : 'lesson_price.right'
+        #handle        : true
+        min : 400
+        max : 5000
+        left  : $form : pupil : 'lesson_price.left'
+        right : $form : pupil : 'lesson_price.right'
+        division_value : 500
       price_hint : @module 'tutor/hint' :
         selector : 'small'
         text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

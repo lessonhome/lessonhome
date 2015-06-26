@@ -1,6 +1,5 @@
 
 @handler = ($,data)=>
-  console.log data
 
   db= yield $.db.get 'pupil'
   arr = yield _invoke db.find({account:$.user.id}),'toArray'

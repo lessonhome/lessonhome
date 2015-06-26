@@ -3,6 +3,7 @@ class @main extends EE
     @start  = @tree.start?.class
     @end    = @tree.end?.class
     @slider = @tree.move.class
+    @move   = @tree.move.class
     if @tree.min? || @tree.max?
       throw new Error 'use new syntax tree.value.{min|max} insted tree.{min|max}'
     unless @tree.value?
@@ -10,12 +11,18 @@ class @main extends EE
       throw new Error 'need value in tree(new style of slider/main_slider)'
     @tree.value.left  ?=  @tree.value.min
     @tree.value.right ?=  @tree.value.max
+    @min ?= @tree.value?.min
+    @max ?= @tree.value?.max
 
   show : =>
-    console.log 'show slider main'
 
     #@start?.setValue @tree.value.left
     #@end?.setValue @tree.value.right
+
+    if @move.getType() != 'default'
+      $(@found.start).hide()
+
+    #
 
 
     setSliderPos = (sliderCorn, inputVal) =>
@@ -60,7 +67,9 @@ class @main extends EE
     #
     @setDivision()
 
-  setValue : (v)=>
+  setValue : (v={})=>
+    v.max ?= @max
+    v.min ?= @min
     throw new Error 'bad value' unless v.min? && v.max? && v.left? && v.right?
     @min = v.min
     @max = v.max
@@ -82,7 +91,6 @@ class @main extends EE
     }
 
   setDivision : =>
-    @move = @tree.move.class
     @division_value = @tree.division_value
     number = (@max - @min)/@division_value
     delta  = (@division_value/(@max - @min)) * 100
@@ -90,3 +98,8 @@ class @main extends EE
     while i <= number
       @move.setLine delta*i++
 
+  reset : =>
+    @start?.setValue? @min
+    @end?.setValue? @max
+    @end?.emit? 'end'
+    @start?.emit? 'end'

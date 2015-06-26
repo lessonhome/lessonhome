@@ -1,6 +1,7 @@
 
 
 class @activeState
+  init : =>
   constructor : (@tree)->
     @classes  = {}
     @order    = []
@@ -21,6 +22,10 @@ class @activeState
           cl.__isClass = true
           @order.push val._uniq
           cl.tree?.class = cl
+          if cl.tree?.default?
+            for key,val of cl.tree.default
+              v = _setKey cl.tree.value,key
+              _setKey cl.tree.value, key,val unless v?
           cl.js ?= {}
           for key_,val_ of Feel.modules[val._name]
             cl.js[key_] = val_
@@ -30,6 +35,16 @@ class @activeState
           cl.register = (name,obj=cl)->
             throw new Error "can't register module #{name} in Feel, already exists" if Feel[name]?
             Feel[name] = obj
+          if cl.tree.$urlforms && Object.keys?(cl?.tree?.$urlforms)?.length
+            if cl.getValue?
+              cl?.on 'change', =>Q.spawn =>
+                v = cl.getValue()
+                for part,form of cl.tree.$urlforms
+                  nv = _setKey v,part
+                  #def = undefined
+                  #if cl?.tree.default?
+                  #  def = _setKey cl.tree.default,part
+                  yield Feel.urlData.set form.form,form.key,nv
           ###
           for key_,val_ of cl
             if typeof val_ == 'function'
