@@ -25,6 +25,7 @@ class @main extends EE
     $('body').off 'mousedown.drop_down_list'
     $('body').off 'mouseleave.drop_down_list'
     @emitChange()
+
     @bodyListenMD = false
     @label.removeClass 'focus'
     @select_sets.hide()
@@ -267,7 +268,6 @@ class @main extends EE
             @select_sets.data 'was-enter', true
             @input.focus()
             @closeList()
-
           return
   ####### FUNCTIONS #############
   focusInput: =>

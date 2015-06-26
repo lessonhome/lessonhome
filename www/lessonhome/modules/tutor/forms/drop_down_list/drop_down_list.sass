@@ -124,6 +124,32 @@ label>.drop_down_list>.select_sets>*>*>.custom-option>.begin
     .drop_down_list>.select_sets>.options_container>.options>.custom-option
       padding-left: $padding_left
       font-size: $font_size
+
+/////////////////--------Main page ----------////////////////////////////
++selector('main_subject',16px,18px,'main/arrow_6x4_down.gif',10px,none,none,none,none,none)
+.main_subject
+  .drop_down_list
+    border: none
+    input
+      +input-placeholder
+        color: #b5b5b5
+        //opacity: 1
+        font-size: 18px
+    .select_sets
+      border: 1px solid #808080
+.main_subject>.drop_down_list>.select_sets>*>*
+  color: #757575
+  font-size: 16px
+  line-height: 24px
+.main_subject:hover
+  .drop_down_list
+    border: none
+.main_subject.focus,.main_subject.focus:hover
+  .drop_down_list
+    box-shadow: none
+    border: none
+
+
 /////////////////--------list_course---------//////////////////////
 +selector('list_course',16px,18px,'main/arrow_6x4_down.gif',10px,none,none,none,none,none)
 ////////////////--------advanced_filter_form---------//////////////////////
