@@ -19,5 +19,5 @@ class @main
       text1     : 'Ваше имя :'
       selector  : 'fast_bid'
     invite_button : @module 'tutor/button' :
-      text: 'Пригласить!'
+      text: 'ВЫСЛАТЬ ПРИИГЛАШЕНИЕ'
       selector: 'invite'

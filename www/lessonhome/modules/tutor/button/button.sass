@@ -5,21 +5,27 @@ $red:   hsl(6,100%,69%)
 $gray:  hsl(0,0%,69%)
 $green: hsl(87,62%,69%)
 $light_green: hsl(78,70%,65%)
+// later doing hsl color
+$temporary_blue:  #00bbd3
 
 main
   height: 100%
   cursor: pointer
+  width: 100%
 .button_box
   height: 100%
+  width: 100%
   .button
+    width: 100%
     height: 100%
     +inline-block
-    +border-radius(4px)
+    //+border-radius(4px)
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    text-align: center
     .text
-      margin-top: -3px
+      //margin-top: -3px
       +inline-block
-      color: #ffffff
+      color: #202020
   .button:after
     content: ''
     +inline-block
@@ -32,6 +38,16 @@ main
       background: $b_color
       .text
         padding: 0 $padding_text
+        font-size: $font_size
+    &:hover .button
+      background: lighten($b_color, 5%)
+
+//new function for new design, after all element on new, delete old function
+=selector_new($selector,$b_color,$font_size)
+  .button_box.#{$selector}
+    .button
+      background: $b_color
+      .text
         font-size: $font_size
     &:hover .button
       background: lighten($b_color, 5%)
@@ -112,9 +128,9 @@ $padding_text: 13px
 
 //- - ------ Invite teacher, students button ------------------------------------------------------
 
-$padding: 15px
 $icon_src: 'mail2.png'
-+selector('invite', $red, $padding, 20px)
+//+selector('invite', $red, $padding, 20px)
++selector_new('invite', $temporary_blue, 20px)
 
 .button_box.invite
   .button:before
@@ -122,11 +138,8 @@ $icon_src: 'mail2.png'
     +inline-block
     width:  image-width($icon_src)
     height: image-height($icon_src)
-    padding: 0 $padding
+    padding-right: 18px
     background: url(F($icon_src)) no-repeat center
-  .button
-    .text
-      padding-left: 0
 
 // send new code
 +selector('new_code', $gray, 12px, 20px)
