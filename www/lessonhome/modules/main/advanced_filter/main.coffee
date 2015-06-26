@@ -34,7 +34,6 @@ class @main extends EE
     @little_experience  = @tree.little_experience.class
     @big_experience     = @tree.big_experience.class
     @bigger_experience  = @tree.bigger_experience.class
-    @no_experience      = @tree.no_experience.class
 
     @with_reviews       = @tree.with_reviews.class
     @with_verification  = @tree.with_verification.class
@@ -86,6 +85,14 @@ class @main extends EE
     @choose_gender.on       'change',=> @emit 'change'
     @with_reviews.on        'change',=> @emit 'change'
     @with_verification.on   'change',=> @emit 'change'
+    
+    @student.on            'change',=> @emit 'change'
+    @school_teacher.on            'change',=> @emit 'change'
+    @university_teacher.on            'change',=> @emit 'change'
+    @private_teacher.on            'change',=> @emit 'change'
+    @native_speaker.on            'change',=> @emit 'change'
+    @pupil.on            'change',=> @emit 'change'
+    @tutor.on            'change',=> @emit 'change'
 
     @calendar.on            'end',=> @emit 'end'
     @price.on               'end',=> @emit 'end'
@@ -104,6 +111,7 @@ class @main extends EE
 
     #select experience
     @experience = @found.experience.children()
+    ###
     for exp,i in @experience
       exp = $ exp
       do (exp,i)=>
@@ -116,26 +124,25 @@ class @main extends EE
             @experience.last().removeClass 'background'
             @experience.last().addClass 'hover'
           @change_background exp
-
+    ###
     # reset forms
     $(@subject_reset).on 'click', => @subject.reset()
     $(@tutor_status_reset).on 'click', =>
-      @student.setValue false
-      @school_teacher.setValue false
-      @university_teacher.setValue false
-      @private_teacher.setValue false
-      @native_speaker .setValue false
+      @student.setValue()
+      @school_teacher.setValue()
+      @university_teacher.setValue()
+      @private_teacher.setValue()
+      @native_speaker .setValue()
     $(@place_reset).on 'click', =>
-      @pupil.setValue false
-      @tutor.setValue false
-      @remote.setValue false
+      @pupil.setValue()
+      @tutor.setValue()
+      @remote.setValue()
       @area.reset()
     $(@sex_reset).on 'click', => @choose_gender.reset()
     $(@experience_reset).on 'click', =>
-      @little_experience.setValue false
-      @big_experience.setValue false
-      @bigger_experience.setValue false
-      @no_experience.setValue false
+      @little_experience.setValue()
+      @big_experience.setValue()
+      @bigger_experience.setValue()
     $(@course_reset).on 'click', => @course.reset()
     yield @fromUrl()
     $(@group_lessons_reset).on 'click', => @group_lessons.setValue ''
@@ -169,21 +176,31 @@ class @main extends EE
     @calendar.setValue          data.calendar           if data?.calendar?
     @time_spend_lesson.setValue data.time_spend_lesson  if data?.time_spend_lesson?
     @time_spend_way.setValue    data.time_spend_way     if data?.time_spend_way?
-    #@choose_gender.setValue     data.choose_gender      if data?.choose_gender?
+    @choose_gender.setValue     data.choose_gender      if data?.choose_gender?
     @with_reviews.setValue      data.with_reviews       if data?.with_reviews?
     @with_verification.setValue data.with_verification  if data?.with_verification?
 
 
   getData : =>
-    experience = []
-    for child in @experience
-      if $(child).hasClass("background") then experience.push $(child).find(".text").text()
+    #experience = []
+    #for child in @experience
+    #  if $(child).hasClass("background") then experience.push $(child).find(".text").text()
+
 
     return {
       subject           : @subject.getValue()
       price             : @price.getValue()
       time_spend_way    : @time_spend_way.getValue()
-      experience        : experience
+      experience        :
+        little  : @little_experience.getValue()
+        big     : @little_experience.getValue()
+        bigger  : @little_experience.getValue()
+      tutor_status :
+        student : @student.getValue()
+        school_teacher : @school_teacher.getValue()
+        university_teacher : @university_teacher.getValue()
+        private_teacher : @private_teacher.getValue()
+        native_speaker : @native_speaker.getValue()
       choose_gender     : @choose_gender.getValue()
       with_reviews      : @with_reviews.getValue()
       with_verification : @with_verification.getValue()

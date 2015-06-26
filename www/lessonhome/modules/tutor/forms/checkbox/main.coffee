@@ -3,6 +3,7 @@
 
 class @main extends EE
   Dom : =>
+    @tree.default ?= false
     @tree.value ?= @tree.state if @tree.state?
     @label = @dom.find "label"
     @check_box = @found.check_box
@@ -21,13 +22,13 @@ class @main extends EE
   getValue : => @state = @label.hasClass 'active'
 
   setValue : (val)=>
+    val ?= @tree.default
     if val
       @label.addClass 'active'
       @state = @label.hasClass 'active'
     else
       @label.removeClass 'active'
       @state = @label.hasClass 'active'
-
   showError : (error)=>
     if @errorDiv?
       @errorDiv.text error

@@ -1,6 +1,6 @@
 
 
-gender = ['male','female']
+gender = ['','male','female','mf']
 
 
 
@@ -19,6 +19,7 @@ class @D2U
     return {
       type  : 'int'
       value : i
+      default : 0
     }
   $with_reviews : (obj)=>
     type  : 'bool'
