@@ -115,6 +115,20 @@ class @main extends @template './motivation_content'
           text      : 'Преподаватель ВУЗа'
           selector  : 'small'
       ]
+      place : [
+        @module 'tutor/forms/checkbox'  :
+          text      : 'У себя'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'У репетитора'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'Удалённо'
+          selector  : 'small'
+        @module 'tutor/forms/checkbox'  :
+          text      : 'Другое'
+          selector  : 'small'
+      ]
       price : [
         @module 'tutor/forms/checkbox'  :
           text      : 'до 500'

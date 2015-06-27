@@ -9,14 +9,34 @@
   .filters
     .subject!=list_subject
     .line
-    .tutor_status
-      .top
+    .js-tutor_status
+      .top.js-tutor_status_top
         .title Статус репетитора
         .icon
-      .bottom
+      .bottom.js-tutor_status_bottom
         each val in tutor_status
           .item!=val
     .line
-    .area
+    .js-place
+      .top.js-place_top
+        .title Место
+        .icon
+      .bottom.js-place_bottom
+        each val in place
+          .item!=val
+    .line
     .price
+      .top.js-price_top
+        .from
+          .t1 от
+          .val 500
+          .t2 руб.
+        .to
+          .t1 до
+          .val 10000
+          .t2 руб.
+      .bottom.js-price_bottom
+        each val in price
+          .item!=val
   .button
+
