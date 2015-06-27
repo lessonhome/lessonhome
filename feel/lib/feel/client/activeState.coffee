@@ -23,7 +23,9 @@ class @activeState
           @order.push val._uniq
           cl.tree?.class = cl
           if cl.tree?.default?
-            for key,val of cl.tree.default
+            unless typeof cl.tree.default == 'object'
+              cl.tree.value ?= cl.tree.default
+            else for key,val of cl.tree.default
               v = _setKey cl.tree.value,key
               _setKey cl.tree.value, key,val unless v?
           cl.js ?= {}

@@ -1,5 +1,7 @@
 class @main extends EE
   Dom : =>
+    if @tree.type == 'right'
+      delete @tree.start
     @start  = @tree.start?.class
     @end    = @tree.end?.class
     @slider = @tree.move.class
@@ -7,7 +9,6 @@ class @main extends EE
     if @tree.min? || @tree.max?
       throw new Error 'use new syntax tree.value.{min|max} insted tree.{min|max}'
     unless @tree.value?
-      console.log @
       throw new Error 'need value in tree(new style of slider/main_slider)'
     @tree.value.left  ?=  @tree.value.min
     @tree.value.right ?=  @tree.value.max
@@ -21,9 +22,6 @@ class @main extends EE
 
     if @move.getType() != 'default'
       $(@found.start).hide()
-
-    #
-
 
     setSliderPos = (sliderCorn, inputVal) =>
       sliderCorn.set (inputVal-@min) / (@max-@min)
@@ -70,14 +68,16 @@ class @main extends EE
   setValue : (v={})=>
     v.max ?= @max
     v.min ?= @min
-    throw new Error 'bad value' unless v.min? && v.max? && v.left? && v.right?
+    v.left ?= @tree?.default?.left
+    v.right ?= @tree?.default?.right
+    #throw new Error 'bad value' unless v.min? && v.max? && v.left? && v.right?
     @min = v.min
     @max = v.max
-
     @start?.setValue? v.left
     @end?.setValue? v.right
     @end?.emit? 'end'
     @start?.emit? 'end'
+    @emit 'change'
   recheck : =>
     @end?.emit? 'end'
     @start?.emit? 'end'
@@ -98,8 +98,4 @@ class @main extends EE
     while i <= number
       @move.setLine delta*i++
 
-  reset : =>
-    @start?.setValue? @min
-    @end?.setValue? @max
-    @end?.emit? 'end'
-    @start?.emit? 'end'
+  reset : => @setValue()

@@ -555,15 +555,15 @@ global._objToUrlString = (obj)=>
   return ret2
   
 
-global._setKey = (obj,key,val)=>
+global._setKey = (obj,key,val,force=false)=>
   key = key.split '.' if typeof key == 'string'
-  return obj unless key.length
-  if val?
-    obj[key[0]] ?= {}
-    obj[key[0]] = val if key.length <= 1
-  kk = key.shift()
-  obj = obj[kk] if kk != ""
-  return obj if (!key.length) || (!obj) || (!typeof obj == 'object')
-  return global._setKey obj,key,val
+  return obj unless key?.length
+  if val? || force
+    obj?[key?[0]] ?= {}
+    obj?[key?[0]] = val if key?.length <= 1
+  kk = key?.shift()
+  obj = obj?[kk] if kk != ""
+  return obj if (!key?.length) || (!obj) || (!typeof obj == 'object')
+  return global._setKey obj,key,val,force
 
 

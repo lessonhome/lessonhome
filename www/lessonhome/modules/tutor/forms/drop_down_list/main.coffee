@@ -82,11 +82,15 @@ class @main extends EE
 
         valuesGenerator = (sBegin)=>
           arr = []
+          leng = Object.keys(@tree?.default_options ? {}).length
           for key,opt of @tree.default_options
-            d = @getDistance(opt.text, sBegin)
-            if 0<=d<=0.33
-              o = {d,opt}
-              arr.push o if o?
+            if leng > 5
+              d = @getDistance(opt.text, sBegin)
+              if 0<=d<=0.33
+                o = {d,opt}
+                arr.push o if o?
+            else
+              arr.push {0,opt}
             #break if sBegin.length > 2 && arr.length > 5
             #break if arr.length > 10
           return [] unless arr.length
@@ -287,7 +291,9 @@ class @main extends EE
   ########
 
   setValue : (val)=>
+    val ?= @tree.default
     @input.val val
+    @emit 'change'
 
   getValue : => @input.val()
 

@@ -89,14 +89,14 @@ class @main extends EE
     @on 'change',         @onChange
     @on 'paste',          @onPaste
     @on 'end',            @onEnd
-    try
-      @replaceInput()
-      @val = @input.val()
-      @hideError()
-      setTimeout =>
-        @input.blur()
-        @hideError()
-      ,10
+    #try
+    #  @replaceInput()
+    #  @val = @input.val()
+    #  @hideError()
+    #  setTimeout =>
+    #    @input.blur()
+    #    @hideError()
+    #  ,10
     return
   focus : =>
     @input.focus()

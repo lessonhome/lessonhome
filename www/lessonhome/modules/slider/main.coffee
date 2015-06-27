@@ -27,7 +27,7 @@ class Cursor extends EE
     $('body').one 'mouseup.slider', =>
       Feel.unselect false
       $('body').off ".slider"
-    $('body').one 'mouseleave.slider', => 
+    $('body').one 'mouseleave.slider', =>
       Feel.unselect false
       $('body').off ".slider"
   drag : (dx)=>
@@ -53,13 +53,18 @@ class @main extends EE
     @dom_left   = @slider.find '.icon_cursor_left'
     @dom_right  = @slider.find '.icon_cursor_right'
     @box_slider.on 'mousedown',@mouseDown
+    @box_slider.bind 'resize', => console.log 'resize'
     @width = =>
       l = @dom_left?.outerWidth?()
       r = @dom_right?.outerWidth?()
       sw = 0 # сумарная ширина ползунков
       sw += l if l?
       sw += r if r?
-      2*@box_slider.width()-@box_slider.outerWidth()-sw
+      sw = 0 unless l? && r?
+      #2*@box_slider.width()-@box_slider.outerWidth()-sw
+      w = @box_slider.width()-sw/2
+      w = 1 unless w > 0
+      return w
     @left   = new Cursor @dom_left,(=>0),@width  if @dom_left.length
     @right  = new Cursor @dom_right,@width,(=>0) if @dom_right.length
     @left?.pos   = (px)=>
