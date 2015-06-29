@@ -4,8 +4,8 @@ class @main extends @template '../popup'
   title : "Поддержка"
   access : ['tutor']
   redirect : {
-    'other' : 'main/first_step'
-    'pupil' : 'main/first_step'
+    'other' : '/enter'
+    'pupil' : '/enter'
   }
   tree : ->
     content : @module '$' :

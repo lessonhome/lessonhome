@@ -6,8 +6,8 @@ class @main extends @template '../edit_description'
   forms : ['tutor']
   access : ['tutor']
   redirect : {
-    'other' : 'main/first_step'
-    'pupil' : 'main/first_step'
+    'other' : '/enter'
+    'pupil' : '/enter'
   }
   tree : =>
     menu_description  : 'edit: description'

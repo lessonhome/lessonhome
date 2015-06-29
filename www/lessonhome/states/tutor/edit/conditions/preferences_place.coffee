@@ -6,8 +6,8 @@ class @main extends @template '../edit_conditions'
   tags : -> 'edit: conditions'
   access : ['tutor']
   redirect : {
-    'other' : 'main/first_step'
-    'pupil' : 'main/first_step'
+    'other' : '/enter'
+    'pupil' : '/enter'
   }
   forms : [{tutor:['check_out_the_areas']}]
   tree : =>
