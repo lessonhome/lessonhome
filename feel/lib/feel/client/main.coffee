@@ -120,12 +120,12 @@ class @Feel
       $('body').removeClass 'unselect_all'
   checkUnknown : =>
     unknown = $.cookie('unknown')
-    $.cookie 'unknown', 'set'+window.Feel.user.sessionpart if unknown == 'need'
+    $.cookie 'unknown', 'set'+@Feel.user.sessionpart if unknown == 'need'
     
-  go : (href)=> do Q.async =>
-    href = (yield Feel.urlData.udataToUrl href)
+  go : (href)=> Q.spawn =>
+    href = (yield @urlData.udataToUrl href)
     window.location.replace href if href
-  formSubmit : (form)=> do Q.async =>
+  formSubmit : (form)=> Q.spawn =>
     form = $(form)
     url = form.attr 'action'
     url = (yield @urlData.udataToUrl url)
