@@ -5,8 +5,8 @@ class @main extends @template '../registration_popup'
   title : "первый вход"
   access : ['tutor']
   redirect : {
-    'other' : 'main/first_step'
-    'pupil' : 'main/first_step'
+    'other' : '/enter'
+    'pupil' : '/enter'
   }
   tree : =>
     progress  : $form : account : 'registration_progress'

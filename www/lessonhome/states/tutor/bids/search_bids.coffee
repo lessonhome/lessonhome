@@ -5,8 +5,8 @@ class @main extends @template '../../tutor'
   tags   : -> 'tutor:search_bids'
   access : ['tutor']
   redirect : {
-    'other' : 'main/first_step'
-    'pupil' : 'main/first_step'
+    'other' : '/enter'
+    'pupil' : '/enter'
   }
   tree : =>
     items : [

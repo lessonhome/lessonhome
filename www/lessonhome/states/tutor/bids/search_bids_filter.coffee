@@ -4,8 +4,8 @@ class @main extends @template './search_bids'
   title : "поиск заявок с фильтром"
   access : ['tutor']
   redirect : {
-    'other' : 'main/first_step'
-    'pupil' : 'main/first_step'
+    'other' : '/enter'
+    'pupil' : '/enter'
   }
   tree : =>
     advanced_filter : @state 'main/advanced_filter_popup'

@@ -6,8 +6,8 @@ class @main extends @template '../edit_conditions'
   access : ['tutor']
   forms : [{'tutor':['calendar']}]
   redirect : {
-    'other' : 'main/first_step'
-    'pupil' : 'main/first_step'
+    'other' : '/enter'
+    'pupil' : '/enter'
   }
   tree  : =>
     menu_condition  : 'edit: conditions'

@@ -4,8 +4,8 @@ class @main extends @template '../registration_popup'
   title : "Регистрация : шаг4"
   access : ['tutor']
   redirect : {
-    'other' : 'main/first_step'
-    'pupil' : 'main/first_step'
+    'other' : '/enter'
+    'pupil' : '/enter'
   }
   status :
     '!tutor_prereg_3':'/tutor/profile/second_step'
