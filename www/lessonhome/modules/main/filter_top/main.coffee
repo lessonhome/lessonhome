@@ -1,8 +1,14 @@
 class @main extends EE
   Dom : =>
-    @button_back   = @tree.button_back.class
-    @button_issue  = @tree.button_issue.class
-    @button_onward = @tree.button_onward.class
+    @tutor_status        = @found.tutor_status
+    @tutor_status_top    = @found.tutor_status_top
+    @tutor_status_bottom = @found.tutor_status_bottom
+    @place               = @found.place
+    @place_top           = @found.place_top
+    @place_bottom        = @found.place_bottom
+    @price               = @found.price
+    @price_top           = @found.price_top
+    @price_bottom        = @found.price_bottom
     if @tree.list_subject?
       @subject = @tree.list_subject.class
     if @tree.tutor_status?
@@ -21,43 +27,17 @@ class @main extends EE
 
 
   show: =>
-    @choose_block = @dom.find('.choose_block')
-    @i = 2
+    $(@tutor_status_top).on 'click', => $(@tutor_status_bottom).toggle()
+    $(@place_top).on 'click', => $(@place_bottom).toggle()
+    $(@price_top).on 'click', => $(@price_bottom).toggle()
+    $(document).on 'mouseup', (e)=>
+     div = $(@tutor_status)
+     ###
+      if (!div.is(e.target) && div.has(e.target).length == 0)
+         $(@tutor_status_bottom).hide()
 
-    ### выходит ошибка на ч-ой странице, subject_tag не определена TODO ###
-    #@subject_tag = @tree.choose_subject.class
-    @empty_subject_tag = @tree.empty_choose_subject
-    #@newSubjectTag()
-
-    @button_issue.on 'submit', =>
-      @save().then (data)=>
-        if data
-          @bIssue()
-
-    @button_onward.on 'submit', =>
-      @save().then (data)=>
-        if data
-          @bNext()
-
-    @button_back  .on 'submit', =>
-      @save()
-      @bBack()
-
-
-  newSubjectTag: =>
-    new_tag = @empty_subject_tag
-    new_tag.id = @i++
-    new_tag.text = 'new'
-    @choose_block.append('<div class="choose_button">' + new_tag + '</div>')
-
-  bNext : =>
-    @button_onward.submit()
-
-  bBack : =>
-    @button_back.submit()
-
-  bIssue : =>
-    @button_issue.submit()
+      ###
+     # TODO: click on out of element
 
   save : => Q().then =>
     if @check_form()

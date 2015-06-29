@@ -551,7 +551,8 @@ global._setKey = (obj,key,val,force=false)=>
   if val? || force
     obj?[key?[0]] ?= {}
     obj?[key?[0]] = val if key?.length <= 1
-  obj = obj?[key?.shift?()]
+  kk  = key?.shift?()
+  obj = obj?[kk] if kk != ""
   return obj if (!key?.length) || (!obj) || (!typeof obj == 'object')
   return global._setKey obj,key,val,force
 

@@ -32,6 +32,11 @@ $search_height: 46px
 $division_line_height: 34px
 $search_icon_src: 'main/search_icon.png'
 $search_pattern_src: 'main/search_pattern.png'
+$search_title_color: #b5b5b5
+$triangle_down_src: 'main/arrow_6x4_down.gif'
+$triangle_down_height: image-height($triangle_down_src)
+$triangle_down_width: image-width($triangle_down_src)
+
 
 main
   position: relative
@@ -132,22 +137,84 @@ main
       width: 256px
       padding-top: 3px
       box-sizing: border-box
+    .place
+      width: 256px
     .tutor_status
-      position: relative
       width: 251px
+    .tutor_status, .place
+      position: relative
       height: 100%
+      //line-height: $search_height
       .top
+        position: relative
+        height: 100% 
+        cursor: pointer
         div
           +inline-block 
         .title
+          padding-left: 12px
+          font-size: 18px
+          color: $search_title_color
         .icon
+          position: absolute
+          top: ($search_height - $triangle_down_height)/2
+          right: 12px
+          width: $triangle_down_width
+          height: $triangle_down_height
+          background: url(F($triangle_down_src)) no-repeat
+      .top:after
+        +inline-block
+        height: 100%
+        content: ''
       .bottom
+        display: none
         position: absolute
         left: 0
         top: $search_height
+        padding: 6px 0 13px 0
+        width: 100%
+        border: 1px solid #808080
         background-color: #fff
         .item
-          padding: 6px 0
+          line-height: 30px
+          padding-left: 7px
+    .price
+      position: relative
+      height: 100%
+      width: 145px
+      padding: 2px 0 0 12px
+      box-sizing: border-box
+      .top
+        position: relative
+        cursor: pointer
+        .from, .to
+          width: 100%
+          line-height: 18px
+          div
+            +inline-block
+          .t1, .t2
+            font-size: 14px
+            color: #717171
+          .val
+            //padding: 0 13px 0 32px
+            padding-right: 13px
+            box-sizing: border-box
+            width: 74px
+            text-align: right
+            font-size: 18px
+            color: #b5b5b5
+      .bottom
+        display: none
+        position: absolute
+        left: -17px
+        top: $search_height
+        padding: 6px 0 13px 0
+        width: 172px
+        border: 1px solid #808080
+        background-color: #fff
+        .item
+          line-height: 30px
+          padding-left: 7px
     .line
       width: 1px
       height: $division_line_height

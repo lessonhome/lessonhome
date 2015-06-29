@@ -229,7 +229,30 @@ class RouteState
         _objRelativeKey node?.value,'$urlform',(obj,part,fkf)=>
           #node.$urlforms ?= {}
           #node.$urlforms[part] = fkf
-          @$urlforms.push {node,part,fkf}
+          uform = {node,part,fkf}
+          vv = _setKey @req?.udata?[uform?.fkf?.form],uform?.fkf?.key
+          vv = uform.fkf.foo vv if typeof uform.fkf.foo == 'function'
+          vd = _setKey @req?.udatadefault?[uform?.fkf?.form],uform?.fkf?.key
+          vd = uform.fkf.foo vd if typeof uform.fkf.foo == 'function'
+          vv ?= vd
+          uform.node.$urlforms ?= {}
+          uform.node.$urlforms[uform.part] = uform.fkf
+          path = 'value'
+          path += "."+uform.part if uform.part
+          _setKey uform.node,path,vv,true
+          if vd?
+            path = 'default'
+            path += "."+uform.part if uform.part
+            _setKey uform.node,path,vd,true
+      do =>
+        return unless node?._isModule
+        if node?.default?
+          unless typeof node.default == 'object'
+            node.value ?= node.default
+            return
+          for key,val of node.default
+            v = _setKey node.value,key
+            _setKey node.value, key,val unless v?
       do =>
         return unless node?._isModule
         return unless node.$form && (typeof node.$form == 'object')
@@ -296,6 +319,10 @@ class RouteState
       path = 'value'
       path += "."+uform.part if uform.part
       _setKey uform.node,path,vv,true
+      if uform.fkf.default?
+        path = 'default'
+        path += "."+uform.part if uform.part
+        _setKey uform.node,path,uform.fkf.default,true
     @time 'forms set'
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']?

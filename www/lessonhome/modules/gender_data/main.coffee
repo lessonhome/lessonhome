@@ -11,6 +11,9 @@ class @main extends EE
         @setValue "male"
       when "female"
         @setValue "female"
+      when 'fm'
+        @setValue 'fm'
+      else @setValue ''
 
     @man  .on 'inactive', =>
       @state = false
@@ -40,13 +43,23 @@ class @main extends EE
 
 
   setValue : (val)=>
-    if val == "male"
-      @man.setActive()
-      @state = "male"
-    if val == 'female'
-      @woman.setActive()
-      @state = "female"
-
+    val ?= @tree.default
+    switch val
+      when "male"
+        @man.setActive()
+        @state = "male"
+      when 'female'
+        @woman.setActive()
+        @state = "female"
+      when 'fm'
+        @man.setActive()
+        @woman.setActive()
+        @state = "fm"
+      else
+        @man  .disable()
+        @woman.disable()
+        @state = ''
+    @emit 'change'
 
   getValue : => @state
 
@@ -58,5 +71,4 @@ class @main extends EE
     @out_err_sex.text ""
 
   reset : =>
-    @man.disable()
-    @woman.disable()
+    @setValue @tree.default ? ''
