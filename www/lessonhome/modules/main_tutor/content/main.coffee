@@ -54,7 +54,8 @@ class @main extends EE
       console.log 'register',arguments
       if status == 'success'
         @success = true
-        @found.form.submit()
+        Feel.formSubmit @found.form
+        #@found.form.submit()
       else
         @printErrors err
 

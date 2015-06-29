@@ -41,8 +41,7 @@ class @main extends EE
     #@popupVisible = false
     #@popup_box.hide()
     #@emit 'hidePopup'
-  redirect    : (url)=>
-    window.location.replace(url)
+  redirect    : (url)=> Feel.go url
   tryLogin : (e)=>
     return if @success
     e?.preventDefault?()
@@ -70,7 +69,8 @@ class @main extends EE
       console.log 'login',status
       if status == 'success'
         @success = true
-        @found.form.submit()
+        #@found.form.submit()
+        Feel.formSubmit @found.form
       else if err?
         @showError err
       ###

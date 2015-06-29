@@ -92,11 +92,19 @@ class Socket
       ret = {err:"internal_error",status:'failed'}
     res.statusCode = 200
     res.setHeader 'content-type','application/json; charset=UTF-8'
-    ret = JSON.stringify(ret)
-    unless ret? && typeof ret == 'string'
+    ret = ret
+    #ret = JSON.stringify(ret)
+    #unless ret? && typeof ret == 'string'
+    #  console.error Exception new Error "failed JSON.stringify client returned object"
+    #  ret = {status:"failed",err:"internal_error"}
+    #res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(ret))});"
+    try
+      res.end "#{cb}(#{ JSON.stringify( data: ret)});"
+    catch e
+      #unless ret? && typeof ret == 'string'
       console.error Exception new Error "failed JSON.stringify client returned object"
-      ret = JSON.stringify {status:"failed",err:"internal_error"}
-    res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(ret))});"
+      ret = {status:"failed",err:"internal_error"}
+      res.end "#{cb}(#{ JSON.stringify( data: ret)});"
   status : (req,res,name,value)=>
     db = yield @db.get 'accounts'
     status = yield _invoke db.find({id:req.user.id},{status:1}),'toArray'

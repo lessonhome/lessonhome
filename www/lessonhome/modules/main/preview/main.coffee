@@ -5,8 +5,8 @@ class @main extends EE
     @background_block = $ @found.background_block
     @popup            = @found.popup
     @sort             = @tree.sort.class
-  show : => #do Q.async =>
-    #yield @$send 'tutors'
+  show : => do Q.async =>
+    yield @$send 'tutors'
     @tutors_result = @tree.tutors_result
     @choose_tutors_num = @found.choose_tutors_num
     @tutors_result[1].tutor_extract.class.found.add_button_bid.on 'click', =>

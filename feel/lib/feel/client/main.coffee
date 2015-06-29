@@ -26,7 +26,7 @@ class @Feel
     @active = new @activeState @root.tree
     yield @active.init()
     
-    setTimeout @checkUnknown,2000
+    setTimeout @checkUnknown,200
 
   error : (e,args...)=>
     return unless e?
@@ -63,7 +63,7 @@ class @Feel
       #components : "ru"
       types : "(cities)"
     },cb
-  send : (context,name,args...)=> Q().then =>
+  send : (context,name,args...)=> do Q.async =>
     @pbar.start()
     m = name.match /^([^\w]*)/
     pref = ""
@@ -80,17 +80,21 @@ class @Feel
 
     pport = 8082
     pport = 8084 if location.protocol == 'https:'
+    udata = (yield @urlData.getU()) ? ""
+    if udata
+      udata += "&"
     $.ajax({
       dataType : 'jsonp'
       jsonpCallback : "jsonCallback#{index}"
       contentType : 'application/json'
       method : 'GET'
-      url:"//#{location.hostname}:#{pport}/#{name}?data=#{data}&context=#{context}&pref=#{pref}&callback=?"
+      url:"//#{location.hostname}:#{pport}/#{name}?data=#{data}&context=#{context}&#{udata}pref=#{pref}&callback=?"
       crossDomain : true
     })
     .success (data)=>
       @pbar.stop()
-      d.resolve JSON.parse decodeURIComponent data.data
+      #d.resolve JSON.parse decodeURIComponent data.data
+      d.resolve data.data
     .error   (e)->
       d.reject e
     return d.promise
@@ -118,10 +122,16 @@ class @Feel
     unknown = $.cookie('unknown')
     $.cookie 'unknown', 'set'+window.Feel.user.sessionpart if unknown == 'need'
     
-  go : (href)=>
+  go : (href)=> do Q.async =>
+    href = (yield Feel.urlData.udataToUrl href)
     window.location.replace href if href
-
-
+  formSubmit : (form)=> do Q.async =>
+    form = $(form)
+    url = form.attr 'action'
+    url = (yield @urlData.udataToUrl url)
+    form.attr 'action',url
+    form.submit()
+    
 
 
 window.Feel = new @Feel()

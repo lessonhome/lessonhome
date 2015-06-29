@@ -30,6 +30,7 @@ class Router
               @url.reg.push [r,statename]
             
   handler : (req,res)=> do Q.async =>
+    req.site = @site
     req.status = (args...)=> @site.status req,res,args...
     if (redirect = @_redirects?.redirect?[req?.url])?
       return @redirect req,res,redirect
@@ -56,7 +57,12 @@ class Router
     if req.url.match /^\/(uploaded)\/.*/
       return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/form\/tutor\/login$/
-      return @redirect req,res,'/tutor/search_bids'
+      uredirect = _setKey req.udata,'accessRedirect.redirect'
+      if uredirect
+        _setKey req.udata,'accessRedirect.redirect',''
+      else
+        uredirect = '/tutor/search_bids'
+      return @redirect req,res,uredirect
     if req.url.match /^\/form\/tutor\/register$/
       return @redirect req,res,'/tutor/profile/first_step'
     if req.url.match /^\/form\/tutor\/logout$/
@@ -97,6 +103,7 @@ class Router
   redirect : (req,res,location='/')=> do Q.async =>
     yield console.log 'redirect',location
     res.statusCode = 302
+    location = yield req.udataToUrl location
     res.setHeader 'location',location
     res.end()
     

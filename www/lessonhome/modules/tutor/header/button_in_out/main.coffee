@@ -42,7 +42,7 @@ class @main extends EE
     @popup_box.hide()
     @emit 'hidePopup'
   exit    : =>
-    window.location.replace('/form/tutor/logout')
+    Feel.go '/form/tutor/logout'
   tryLogin : (e)=>
     return if @success
     e?.preventDefault?()
@@ -70,7 +70,8 @@ class @main extends EE
       console.log 'login',status
       if status == 'success'
         @success = true
-        @found.form.submit()
+        Feel.formSubmit @found.form
+        #@found.form.submit()
       else if err?
         @showError err
       ###

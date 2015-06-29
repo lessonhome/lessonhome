@@ -47,7 +47,17 @@ class @urlData
     return @fdata unless form?
     return @fdata?[form] unless key?
     return _setKey @fdata?[form],key
-
+  getU : => @udata.d2u @data
+  udataToUrl : (url=window.location)=>
+    obj = {url}
+    urldata = yield @getU()
+    if urldata
+      urldata = "?#{urldata}"
+    else
+      urldata = ""
+    obj.url = obj.url.replace /\?.*$/g,""
+    obj.url += urldata
+    return obj.url
   setUrl : =>
     url = yield @udata.d2u @data
     nurl = url

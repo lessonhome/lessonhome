@@ -113,7 +113,9 @@ class RouteState
       if sclass::access[key]
         access = true
         break
+
     unless access
+      _setKey @req.udata,'accessRedirect.redirect',@req.url
       for key,val of sclass::redirect
         if @req.user?.type?[key]?
           return @redirect @req,@res,val
@@ -510,11 +512,12 @@ class RouteState
           idn = ret[key]._name.replace /\//g, '-'
           ret[key] = ret[key]._html.replace "m-#{idn}", "m-#{idn}\" uniq=\"#{uniq}:#{ret[key]._uniq}\" class=\"m-#{uniq}-#{idn}"
     return ret
-  redirect : (req,res,val)=>
+  redirect : (req,res,val)=> do Q.async =>
     if @site.state[val]?
       val = @site.state[val].class::route
     unless val
-      Feel.res403 req,res
+      return Feel.res403 req,res
+    val = yield req.udataToUrl val
     res.statusCode = 301
     res.setHeader 'location', val
     res.setHeader 'Cache-Control','no-cache'

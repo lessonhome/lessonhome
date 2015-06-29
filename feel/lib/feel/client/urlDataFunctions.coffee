@@ -28,7 +28,7 @@ class @UrlDataFunctions
           continue if field.value == def
           field.value = true
         when 'string'
-          continue unless filed.value
+          continue unless field.value
           field.value = ''+field.value
           continue unless typeof field.value == 'string'
           continue if field.value == field.default

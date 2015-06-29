@@ -19,8 +19,7 @@ class @main extends EE
     @link.removeClass 'press'
   submit : =>
     href = @link.attr 'href'
-    if href
-      window.location.replace href
+    Feel.go href
 
   makeActive : =>
     return if @link.hasClass 'active'

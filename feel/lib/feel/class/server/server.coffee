@@ -89,14 +89,31 @@ class Server
     .on 'error',(e)=>
       res.statusCode = 404
       res.end JSON.strinigfy e
-  handlerHttpRedirect : (req,res)=>
+  handlerHttpRedirect : (req,res)=> #do Q.async =>
     res.statusCode = 301
     host = req.headers.host
     if m = host?.match /^www\.(.*)$/
       host = m[1]
+    #yield req?.udataToUrl?()
     res.setHeader 'location', "https://#{host}#{req.url}"
     res.end()
+  udataToUrl : (req,res,url)=> do Q.async =>
+    unless url?
+      obj = req
+    else
+      obj = {url}
+    unless req?.udata? && req?.site?
+      return obj.url
+    urldata = yield req.site.urldata.d2u req.udata ? {}
+    if urldata
+      urldata = "?#{urldata}"
+    else
+      urldata = ""
+    obj.url = obj.url.replace /\?.*$/g,""
+    obj.url += urldata
+    return obj.url
   handler : (req,res)=>
+    req.udataToUrl = (url)=> @udataToUrl req,res,url
     m = req.url.match /^([^\?]*)\?(.*)$/
     if m
       req.udata = m[2]
@@ -127,6 +144,7 @@ class Server
     if m = host?.match /^www\.(.*)$/
       res.statusCode = 301
       host = m[1]
+      #yield req.udataToUrl()
       res.setHeader 'location', "//#{host}#{req.url}"
       return res.end()
     #console.log "#{req.method} \t#{req.headers.host}#{req.url}"
