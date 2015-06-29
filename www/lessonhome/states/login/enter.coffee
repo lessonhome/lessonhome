@@ -9,7 +9,7 @@ class @main extends @template '../main'
     'pupil' : 'main/first_step'
   }
   tree : =>
-    content : @module '$'  :
+    filter_top : @module '$'  :
       depend : [
         @module 'lib/crypto'
         @module 'lib/lzstring'

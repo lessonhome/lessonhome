@@ -1,6 +1,6 @@
 @import compass/css3
 $background_white:  #ffffff
-$footer_height: 313px
+$footer_height: 312px
 $height_line: 52px
 main
   height: 100%
@@ -29,6 +29,8 @@ main
 //- -----------------------------------------------------------------------
 
 .container
+  padding-bottom: $footer_height
+  box-sizing: border-box
   position: relative
   width: 100%
   min-height: 100%
@@ -52,8 +54,9 @@ main
     line-height: $height_line
   .content
     text-align: center
-  .footer
-    width: 100%
-    position: relative
-    bottom: 0
-    background: #E2E7EC
+.footer
+  width: 100%
+  position: relative
+  bottom: 0
+  background: #E2E7EC
+  margin-top: -$footer_height
