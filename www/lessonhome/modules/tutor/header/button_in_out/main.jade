@@ -2,9 +2,10 @@
   if registered
     .title Выход
   else
-    .title Вход
+    .title
+      a(href = '/enter') Вход
     a(href = '/main_tutor') регистрация
-  form.js-form.popup_box(action="/form/tutor/login" method="post" name="login")
+  //form.js-form.popup_box(action="/form/tutor/login" method="post" name="login")
     .triangle_box
       .triangle
     .popup

@@ -16,6 +16,10 @@ class @main extends @template '../../tutor'
         tag   : 'tutor:search_bids'
       }
       @module 'tutor/header/button' : {
+        title : 'Отчёты'
+        href  : '/tutor/reports'
+      }
+      @module 'tutor/header/button' : {
         title : 'Входящие'
         href  : '/tutor/in_bids'
       }
@@ -23,11 +27,7 @@ class @main extends @template '../../tutor'
         title : 'Исходящие'
         href  : '/tutor/out_bids'
       }
-      @module 'tutor/header/button' : {
-        title : 'Отчёты'
-        href  : '/tutor/reports'
-      }
-    ]
+      ]
     content : @module '$' :
       advanced_filter : @exports()
       min_height      : @exports()

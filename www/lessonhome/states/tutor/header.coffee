@@ -15,7 +15,12 @@ class @main
       call_back_popup : @state '../main/call_back_popup' :
         selector: 'header'
 
-    button_in_out :  @module '$/button_in_out' :
+    button_in_out :  @module '$/button_in_out':
+      enter       : @module './button' :
+        text  : 'Войти'
+        selector      : 'in_out'
+
+    ###
       registered  : $form : account : 'registered'
       login       :  @module './forms/input'  :
         replace : [
@@ -31,9 +36,7 @@ class @main
         selector    : 'fast_bid'
         placeholder : 'Пароль'
         name        : 'password'
-      enter       : @module './button' :
-        text  : 'Войти'
-        selector      : 'in_out'
+    ###
 
     tutor_icon : @module 'mime/photo' :
       photo   : $form : person : 'avatar'

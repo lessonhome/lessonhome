@@ -18,6 +18,9 @@ class @main extends @template '../../tutor'
         title : 'Условия'
         href  : '/tutor/conditions'
       @module 'tutor/header/button' :
+        title : ''
+        href  : ''
+      @module 'tutor/header/button' :
         title : 'Отзывы'
         href  : '/tutor/reviews'
         tag   : 'tutor:reviews'

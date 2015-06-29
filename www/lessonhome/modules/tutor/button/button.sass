@@ -1,5 +1,4 @@
 @import compass/css3
-
 $blue:  hsl(210,100%,69%)
 $red:   hsl(6,100%,69%)
 $gray:  hsl(0,0%,69%)
@@ -132,14 +131,7 @@ $icon_src: 'invite/mail_18x13.png'
 //+selector('invite', $red, $padding, 20px)
 +selector_new('invite', $temporary_blue, 20px)
 
-.button_box.invite
-  .button:before
-    content: ""
-    +inline-block
-    width:  image-width($icon_src)
-    height: image-height($icon_src)
-    margin-right: 18px
-    background: url(F($icon_src)) no-repeat center
+
 
 // send new code
 +selector('new_code', $gray, 12px, 20px)

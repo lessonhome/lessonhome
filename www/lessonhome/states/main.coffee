@@ -28,6 +28,10 @@ class @main
               link : '#'
           ]
         }
+        @module 'tutor/header/button' : {
+          title : 'О нас'
+          href  : '/about_us'
+        }
         @module 'tutor/header/list_button' : {
           tag   : 'pupil:main_tutor'
           title : 'Репетиторам'
@@ -50,10 +54,6 @@ class @main
               title : 'Помощь'
               link : '#'
           ]
-        }
-        @module 'tutor/header/button' : {
-          title : 'О нас'
-          href  : '/about_us'
         }
       ]
     popup       : @exports()              # show info about tutor in main page
