@@ -1,6 +1,5 @@
-- width_photo = 58;
 - if (selector = 'extract')
--  width_photo = 120;
+-  width_photo = 96;
 - height_photo = image.h*width_photo/image.w;
 .photo(class = selector, style="width: #{width_photo}px; height: #{height_photo}px;")
   img(src=F(image.src), width=width_photo, height=height_photo)
@@ -10,7 +9,10 @@
 //.all_rating!=all_rating
 if count_review
   a(href='#')
-    .js-count_review.select!=count_review + ' отзывов'
+    .js-count_review.select!='отзывы ('+count_review+')'
 else
-  a(href='#')
-    .js-count_review.select!=count_review + ' отзывов'
+    .js-count_review.select!='отзывы (0)'
+//-
+  else
+    a(href='#')
+      .js-count_review.select!=count_review + ' отзывов'
