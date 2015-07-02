@@ -1,6 +1,6 @@
 @import compass/css3
 $background_white:  #ffffff
-$footer_height: 312px
+$footer_height: 248px
 $height_line: 52px
 main
   height: 100%
@@ -35,19 +35,18 @@ main
   width: 100%
   min-height: 100%
   overflow: hidden
+  background-color: #5B6D63
+  background-image: url(F('main/chalkboard_pattern.jpg'))
+  position: relative
+  z-index: 1
   +box-shadow(3px 0 16px 0px rgba(0,0,0,0.17),-3px 0 16px 0px rgba(0,0,0,0.17), 37px 0 43px 0px rgba(0,0,0,0.07), -37px 0 43px 0px rgba(0,0,0,0.07))
-  .background_top
-    background-color: #5B6D63
-    background-image: url(F('main/chalkboard_pattern.jpg'))
-    position: relative
-    z-index: 1
-    .header
-      height: 100px
-      width: 100%
-      //background: $background_white
-      +box-shadow(0px 1px 5px 0px rgba(0,0,0,0.20))
-    .filter_top
-      text-align: center
+  .header
+    height: 100px
+    width: 100%
+    //background: $background_white
+    +box-shadow(0px 1px 5px 0px rgba(0,0,0,0.20))
+  .filter_top
+    text-align: center
   .info_panel
     background-color: rgb(226, 228, 231)
     height: $height_line
@@ -58,5 +57,6 @@ main
   width: 100%
   position: relative
   bottom: 0
-  background: #E2E7EC
+  background-color: rgba(255, 255, 255, 0.1)
   margin-top: -$footer_height
+  z-index: 1
