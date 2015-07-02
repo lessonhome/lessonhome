@@ -1,12 +1,24 @@
-.box_slider.unselect
-  .slider
-    if type == 'default'
+
+if type == 'default'
+  .box_slider.unselect.default
+    .slider
       .icon_cursor_left
         .icon_left
-    .icon_cursor_right
-      .icon_right
-    .inner
-  .js-division_box
-    .js-d_line
-  .wrap
+      .icon_cursor_right
+        .icon_right
+      .inner
+    .js-division_box
+      .js-d_line
+    .wrap
+
+else
+  .box_slider.unselect
+    .slider
+      .icon_cursor_right
+        .icon_right
+      .inner
+    .js-division_box
+      .js-d_line
+    .wrap
+
 

@@ -26,7 +26,7 @@ main
     //bottom: $padding
     position: absolute
     z-index: 2
-    min-width: 2*$cursor_size
+    min-width: $cursor_size
     left: -8px
     right: -9px
     top : 7px
@@ -90,6 +90,10 @@ main
     border: 1px solid #a0a0a0
     +border-radius(4px)
 
+
+.box_slider.default
+  .slider
+    min-width: 2*$cursor_size
 //
   .icon_left, .icon_right
     width: $triangle_width
