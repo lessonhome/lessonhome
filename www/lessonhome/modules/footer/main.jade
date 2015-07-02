@@ -1,36 +1,28 @@
-mixin item(title, link)
-  .item
-    a(href=link)
-      .title=title
-
 .top_block
-  .icon.classmates
-  .icon.vk
-  .icon.fb
-  .icon.google
-  .icon.twitter
-
-.line
-
+  .icon
+    .classmates
+  .icon
+    .vk
+  .icon
+    .fb
+  .icon
+    .google
+  .icon
+    .twitter
 .bottom_block
-  .dashed_line
   .left_block
-    .logo!= logo
-    .company_name.select &copy 2014 Lessonhome.ru
-  .dashed_line
+    .search!=search
+    .bids!=bids
+    .help!=help
   .center_block.unselect
-    +item('Поиск', '/first_step')
-    +item('Оформить заявку', '/fast_bid/first_step')
-    +item('Документы', '#')
-    +item('Помощь', '#')
-  .dashed_line
-  .right_block
-    .address_block
-      .icon
-      .address.select!= '121087, Россия, г. Москва,<br>Береговой проезд 2с3'
     .post_block
-      .icon
       .post.select support@lessonhome.ru
     .phone_block
       .back_call!=back_call
-
+.right_block
+  .logo_block
+    .logo!= logo
+    .company_name.select &copy 2014 Lessonhome.ru
+  .address_block
+    .icon
+    .address.select!= '121087, Россия, г. Москва,<br>Береговой проезд 2с3'
