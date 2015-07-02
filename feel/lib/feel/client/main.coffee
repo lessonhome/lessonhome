@@ -120,7 +120,7 @@ class @Feel
       $('body').removeClass 'unselect_all'
   checkUnknown : =>
     unknown = $.cookie('unknown')
-    $.cookie 'unknown', 'set'+@Feel.user.sessionpart if unknown == 'need'
+    $.cookie 'unknown', 'set'+@user.sessionpart if unknown == 'need'
     
   go : (href)=> Q.spawn =>
     href = (yield @urlData.udataToUrl href)
