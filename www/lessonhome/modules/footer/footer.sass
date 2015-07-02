@@ -1,127 +1,107 @@
 @import compass/css3
-
-$icon_width: 24px
-$icon_height: 24px
-
+$min_width_step: 6px
+$icon_map: 'footer/map.png'
+$icon_map_width: image-width($icon_map)
+$icon_map_height:  image-height($icon_map)
+$classmates: 'footer/soc_odn.png'
+$vk: 'footer/soc_vk.png'
+$fb: 'footer/soc_f.png'
+$google: 'footer/soc_g+.png'
+$twitter: 'footer/soc_tw.png'
+$classmates_hover: 'footer/soc_odn_hover.png'
+$vk_hover: 'footer/soc_vk_hover.png'
+$fb_hover: 'footer/soc_f_hover.png'
+$google_hover: 'footer/soc_g+_hover.png'
+$twitter_hover: 'footer/soc_tw_hover.png'
+$icon_height: image-height($classmates)
+$icon_width: image-width($classmates)
+$border:  1px solid rgba(255, 255, 255, 0.47)
+$border_radius: 2px
 main
+  position: relative
   height: 100%
-  padding-bottom: 21px
-  background: url(F('footer/footer_pattern.png'))
   box-shadow: 0px 120px 60px -60px rgba(0, 0, 0, 0.05) inset
+  font-size: 16px
+  color: #ffffff
+  padding: 4*$min_width_step 15px 6*$min_width_step 15px
 
 .top_block
-  height: 70px
-  padding: 21px 0 0 58px
+  padding-bottom: 24px
   box-sizing: border-box
   .icon
     +inline-block
-    width: $icon_width
-    height: $icon_height
-    margin: 0 7px
+    padding: $min_width_step
+    margin: 0 $min_width_step
     cursor: pointer
-
-  .classmates
-    margin-right: 6px
-    background: url(F('footer/soc_odn.png')) no-repeat
-  .vk
-    margin-right: 8px
-    background: url(F('footer/soc_vk.png')) no-repeat
-  .fb
-    margin-left: 8px
-    margin-right: 5px
-    background: url(F('footer/soc_f.png')) no-repeat
-  .google
-    margin-left: 6px
-    background: url(F('footer/soc_g+.png')) no-repeat
-  .twitter
-    background: url(F('footer/soc_tw.png')) no-repeat
-
-  .classmates:hover
-    background: url(F('footer/soc_odn_hover.png')) no-repeat
-  .vk:hover
-    background: url(F('footer/soc_vk_hover.png')) no-repeat
-  .fb:hover
-    background: url(F('footer/soc_f_hover.png')) no-repeat
-  .google:hover
-    background: url(F('footer/soc_g+_hover.png')) no-repeat
-  .twitter:hover
-    background: url(F('footer/soc_tw_hover.png')) no-repeat
-
-
-
+    border: $border
+    +border-radius($border_radius)
+    div
+      width: $icon_width
+      height: $icon_height
+    .classmates
+      background: url(F($classmates)) no-repeat
+    .vk
+      background: url(F($vk)) no-repeat
+    .fb
+      background: url(F($fb)) no-repeat
+    .google
+      background: url(F($google)) no-repeat
+    .twitter
+      background: url(F($twitter)) no-repeat
+    .classmates:hover
+      background: url(F($classmates_hover)) no-repeat
+    .vk:hover
+      background: url(F($vk_hover)) no-repeat
+    .fb:hover
+      background: url(F($fb_hover)) no-repeat
+    .google:hover
+      background: url(F($google_hover)) no-repeat
+    .twitter:hover
+      background: url(F($twitter_hover)) no-repeat
 .top_block :first-child
   margin-left: 0
 .top_block :last-child
   margin-right: 0
-
-.line
-  height: 2px
-  background-color: rgb( 250, 250, 250 )
-  box-shadow: 0 1px 0 0 rgba(172, 172, 172, 0.50) inset
-
-
 .bottom_block
-  padding-left: 36px
-  padding-top: 20px
   div
     +inline-block
     vertical-align: top
   .left_block
-    width: 318px
-    .logo
-      margin: 10px 0 20px 8px
-    .company_name
-      margin-left: 29px
-      font-size: 16px
-      color: #757575
-
-  .dashed_line
-    width: 2px
-    height: 200px
-    background: url(F('footer/dashed_line.png'))
-
+    padding-right: 4*$min_width_step
+    div
+      height: 36px
+      width: 162px
+      border: $border
+      +border-radius($border_radius)
+    .search, .bids
+      margin-bottom: $min_width_step
   .center_block
-    width: 318px
-    padding-top: 11px
-    .item
-      margin-left: 16px
-      a
-        +inline-block
-        text-decoration: none
-        .title
-          font-size: 16px
-          line-height: 25px
-          color: #757575
-        .title:hover
-          color: rgb(0, 0, 0)
-
-  .right_block
-    padding: 8px 0 0 19px
-    .address_block
-      margin-bottom: 35px
-      div
-        +inline-block
-      .icon
-        width: 16px
-        height: 16px
-        background: url(F('footer/map.png')) no-repeat
-        vertical-align: top
-        margin-top: 5px
-      .address
-        margin-left: 6px
-        margin-top: 3px
-        font-size: 16px
-        line-height: 25px
-        color: #757575
+    padding: 4*$min_width_step
+    border: $border
+    +border-radius($border_radius)
     .post_block
-      margin-bottom: 10px
-      div
-        +inline-block
-      .icon
-        width: 16px
-        height: 16px
-        background: url(F('footer/mail.png')) no-repeat
+      height: 24px
       .post
-        margin-left: 10px
-        font-size: 16px
-        color: #757575
+        height: 0.55em
+        line-height: 0.32em
+        +inline-block
+    .phone_block
+      .back_call
+.right_block
+  position: absolute
+  top: 42px
+  right: 15px
+  .logo_block
+    padding-bottom: 4*$min_width_step
+    .logo
+      padding-bottom: $min_width_step
+  .address_block
+    div
+      +inline-block
+    .icon
+      width: $icon_map_width
+      height: $icon_map_height
+      background: url(F($icon_map)) no-repeat
+      padding-right: $min_width_step
+      line-height: 4*$min_width_step
+    .address

@@ -34,7 +34,7 @@ class @main
       @module '//item' :
         title : 'Поддержка'
         item_class : 'support'
-        href : '#'
+        href : 'support'
 
     ]
     setActive : (title)=>
