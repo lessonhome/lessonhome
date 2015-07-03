@@ -18,6 +18,7 @@ class @activeState
           cl.tree = val
           do (val)=>
             cl.$send = (args...)=> Feel.send "modules/"+val._name,args...
+          cl.$clone = (new_tree)=> @clone cl.tree,new_tree
           cl._smart = true
           cl.__isClass = true
           @order.push val._uniq
@@ -129,19 +130,23 @@ class @activeState
       @uniq_pref  = uniq_pref
     delete node._parseIn
 
-  watchDown : (nparent,nkey,foo)=>
+  watchDown : (nparent,nkey,sparent,foo)=>
+    unless foo?
+      foo = sparent
+      sparent = undefined
     node = nparent[nkey]
+    snode = sparent?[nkey]
     return unless node? # && typeof node == 'object'
     #return unless node? && !node?.__isClass
     #if node == @tree
     #  foo? @,'tree',@tree
-    foo? nparent,nkey,node
+    foo? nparent,nkey,node,sparent,snode
     #unless node._smart then for key,val of node
       #continue if node[key]?.__isClass
       #foo? node,key,val
     if node && (!node._smart) && ((typeof node == 'object') || (typeof node == 'function'))
       for key,val of node
-        @watchDown node,key, foo
+        @watchDown node,key,snode,foo
   watchUp : (nparent,nkey,foo)=>
     node = nparent[nkey]
     foo? nparent,nkey,node
@@ -159,6 +164,10 @@ class @activeState
     #if node == @tree
     #  foo? @,'tree',@tree
 
-    
+  clone : (tree,new_tree)=>
+    obj = {tree}
+    nobj = {tree:new_tree}
+    ndom = tree.dom.clone()
+    @watchDown obj,'tree',nobj (node,key,val,snode,sval)=>
 
 
