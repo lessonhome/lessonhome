@@ -7,15 +7,19 @@
 .division_line
 .js-tutor_price.select
   .icon
-  .val=value.tutor_price + ' р/ч'
+  .val='цены от '+value.tutor_price + ' р/ч'
 .division_line
-.js-tutor_subject.select=value.tutor_subject
+.js-tutor_subject.select
+  .tag=value.tutor_subject
 .division_line
 .js-tutor_title.select=value.tutor_title
 .js-tutor_text.select=value.tutor_text
+.division_line
 .bottom_block
   .js-add_button_bid!=add_button_bid
-  .js-tutor_place.select=value.tutor_place
+  .js-tutor_place.select
+    .icon
+    .val=value.tutor_place
 
 //-
   .button_prise_panel
