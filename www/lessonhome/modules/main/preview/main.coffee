@@ -19,7 +19,7 @@ class @main extends EE
       return unless tutor?.name?
       nt = @tree.tutor_test.class.$clone()
       nt.setValue tutor
-      @tutors_result.append nt.dom
+      @tutors_result.append $('<div class="tutor_resilt"></div>').append nt.dom
     ###
     @tutors_result = @tree.tutors_result
     ###
