@@ -130,29 +130,35 @@ class @activeState
       @uniq_pref  = uniq_pref
     delete node._parseIn
 
-  watchDown : (nparent,nkey,sparent,foo)=>
+  watchDown : (nparent,nkey,sparent,foo,tparent)=>
     unless foo?
       foo = sparent
       sparent = undefined
     node = nparent[nkey]
     snode = sparent?[nkey]
+    tnode = tparent?[nkey]
     return unless node? # && typeof node == 'object'
     #return unless node? && !node?.__isClass
     #if node == @tree
     #  foo? @,'tree',@tree
-    foo? nparent,nkey,node,sparent,snode
+    foo? nparent,nkey,node,sparent,snode,tparent,tnode
     #unless node._smart then for key,val of node
       #continue if node[key]?.__isClass
       #foo? node,key,val
     if node && (!node._smart) && ((typeof node == 'object') || (typeof node == 'function'))
       for key,val of node
-        @watchDown node,key,snode,foo
-  watchUp : (nparent,nkey,foo)=>
+        @watchDown node,key,snode,foo,tnode
+  watchUp : (nparent,nkey,sparent,foo,tparent)=>
+    unless foo?
+      foo = sparent
+      sparent = undefined
     node = nparent[nkey]
-    foo? nparent,nkey,node
+    snode = sparent?[nkey]
+    tnode = tparent?[nkey]
+    foo? nparent,nkey,node,sparent,snode,tparent,tnode
     if node && (!node._smart) && ((typeof node == 'object') || (typeof node == 'function'))
       for key,val of node
-        @watchUp node,key, foo
+        @watchUp node,key, snode,foo,tnode
     #return if node?.__isClass
     # unless node._smart then for key,val of node
     #for key,val of node
@@ -167,7 +173,10 @@ class @activeState
   clone : (tree,new_tree)=>
     obj = {tree}
     nobj = {tree:new_tree}
+    ntree = _.cloneDeep tree
+    tobj = {tree:ntree}
     ndom = tree.dom.clone()
-    @watchDown obj,'tree',nobj (node,key,val,snode,sval)=>
-
+    foo = (node,key,val,snode,sval,tnode,tval)=>
+      #if val?._isModule
+    @watchDown obj,'tree',nobj,foo
 
