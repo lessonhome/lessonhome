@@ -1,7 +1,7 @@
-- if (selector = 'extract')
 -  width_photo = 96;
-- height_photo = image.h*width_photo/image.w;
-.photo(class = selector, style="width: #{width_photo}px; height: #{height_photo}px;")
+-  height_photo = 96;
+//-// height_photo = image.h*width_photo/image.w;
+.photo(class = selector)
   img(src=F(image.src), width=width_photo, height=height_photo)
   if close
     .close_box

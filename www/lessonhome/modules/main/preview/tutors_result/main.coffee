@@ -6,10 +6,10 @@ class @main extends EE
     #@set
   setValue : (data)=>
     @rating_photo.setValue {
-      image : data.image
+      photos : data.photos
       count_review : data.count_review
     }
-    delete data.image
+    delete data.photos
     delete data.count_review
     @tutor_extract.setValue data
   getData : =>
