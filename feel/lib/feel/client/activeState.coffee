@@ -176,7 +176,7 @@ class @activeState
     ntree = _.cloneDeep tree
     tobj = {tree:ntree}
     ndom = tree.dom.clone()
-    foo = (node,key,val,snode,sval,tnode,tval)=>
-      #if val?._isModule
-    @watchDown obj,'tree',nobj,foo
+    #foo = (node,key,val,snode,sval,tnode,tval)=>
+    #  #if val?._isModule
+    #@watchDown obj,'tree',nobj,foo
 
