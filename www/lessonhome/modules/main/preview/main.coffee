@@ -16,6 +16,7 @@ class @main extends EE
   show : => do Q.async =>
     @tutors = yield @$send 'tutors'
     for acc,tutor of @tutors
+      return unless tutor?.name?
       nt = @tree.tutor_test.class.$clone()
       nt.setValue tutor
       @tutors_result.append nt.dom

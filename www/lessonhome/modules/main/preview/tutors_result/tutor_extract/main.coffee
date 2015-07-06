@@ -47,7 +47,7 @@ class @main extends EE
     #@tutor_status.  text(value.status ? "")
     #@tutor_exp.     text(value.experience ? "")
     exp = value.experience ? ""
-    exp += " года" if exp && !exp?.match /\s/
+    exp += " года" if exp && !exp?.match? /\s/
     @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
     @found.location.text(value.location?.city ? "")
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?

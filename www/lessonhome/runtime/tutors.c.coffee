@@ -34,8 +34,8 @@ class Tutors
       continue if (t?.subjects?[0]?.name) && (p?.ava?[0]?) && (p?.first_name)
       delete persons[account]
     for account,o of persons
-      t = obj?.tutor
-      p = obj?.person
+      t = o?.tutor
+      p = o?.person
       obj = {}
       obj.name = {}
       obj.name.first = p?.first_name
@@ -43,7 +43,7 @@ class Tutors
       obj.name.middle = p?.middle_name
       obj.about = t?.about
       obj.subjects = {}
-      for ind,val of t.subjects
+      for ind,val of t?.subjects
         ns = obj.subjects[val.name] = {}
         ns.description = val.description
         obj.about = ns.description unless obj.about
