@@ -5,6 +5,8 @@ class @main extends EE
     @background_block  = $ @found.background_block
     @popup             = @found.popup
     @sort              = @tree.sort.class
+    @test              = @found.test
+    @tutors_result     = @found.tutors_result
     @profiles_20       = @found.profiles_20
     @profiles_40       = @found.profiles_40
     @profiles_60       = @found.profiles_60
@@ -12,9 +14,16 @@ class @main extends EE
     @reset_all_filters = @found.reset_all_filters
     @advanced_filter   = @tree.advanced_filter.class
   show : => do Q.async =>
-    yield @$send 'tutors'
+    @tutors = yield @$send 'tutors'
+    for acc,tutor of @tutors
+      nt = @tree.tutor_test.class.$clone()
+      nt.setValue tutor
+      @tutors_result.append nt.dom
+    ###
     @tutors_result = @tree.tutors_result
+    ###
     @choose_tutors_num = @found.choose_tutors_num
+    ###
     @tutors_result[1].tutor_extract.class.found.add_button_bid.on 'click', =>
       @imgtodrag = $($('.photo')[1]).eq(0)
       if @imgtodrag
@@ -30,7 +39,7 @@ class @main extends EE
             'width': '150px',
             'z-index': '100'
           })
-
+    ###
     @sort.on 'change',  => @emit 'change'
     @sort.on 'end',     => @emit 'end'
 

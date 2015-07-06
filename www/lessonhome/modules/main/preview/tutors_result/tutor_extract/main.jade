@@ -1,25 +1,29 @@
 - var max_text_length = 113;
 .name_verification_block
-  .js-tutor_name.select=value.tutor_name
+  .js-tutor_name.select=value.name.last+' '+value.name.first+' '+value.name.middle
   //-.verification
     //-.js-with_verification(style = 'background-color: #{value.with_verification};')
-.js-tutor_status.select=value.tutor_status + ', опыт ' + value.tutor_exp + ' года'
+.js-tutor_status.select=value.status + ', опыт ' + value.experience + ' года'
 .division_line
 .js-tutor_price.select
   .icon
-  .val='цены от '+value.tutor_price + ' р/ч'
+  .val
+    div='цена от '
+    .js-price=Math.floor(value.price_per_hour/10)*10
+    div=' р/ч'
 .division_line
 .js-tutor_subject.select
-  .tag=value.tutor_subject
+  each val,key in value.subjects
+    .tag=key
 .division_line
-.js-tutor_title.select=value.tutor_title
-.js-tutor_text.select=value.tutor_text
+.js-tutor_title.select="О себе:"
+.js-tutor_text.select=value.about
 .division_line
 .bottom_block
   .js-add_button_bid!=add_button_bid
   .js-tutor_place.select
     .icon
-    .val=value.tutor_place
+    .val.js-location=value.location.city
 
 //-
   .button_prise_panel

@@ -243,7 +243,8 @@ class module.exports
     for key,val of @client
       @clientJs += val unless key == 'main'
       @clientJs += @client['main']
-    @clientJs = yield @yjs _regenerator @clientJs
+    @clientJs =  _regenerator @clientJs
+    #@clientJs = yield @yjs _regenerator @clientJs
     @clientJsHash = _shash @clientJs
   loadClientDir : (path,dir)=>
     readdir "#{path}#{dir}"

@@ -5,7 +5,49 @@ class @activeState
   constructor : (@tree)->
     @classes  = {}
     @order    = []
-    @watchDown @,'tree', (node,key,val)=>
+    @initClasses  @tree
+    @initDoms     @tree
+  initDoms : (node)=>
+    obj = tree:node
+    @dom = {
+      root  : (node.dom ? $('body'))
+    }
+    dom = @dom.root.filter('[id^=m-]')
+    dom = dom.add @dom.root.find('[id^=m-]')
+    @dom.root = dom.first()
+    console.log @dom.root
+    console.log node,@dom
+    @uniq_pref = ""
+    @parseTree node
+    @watchUp obj,'tree', (node,key,val)=>
+      return unless node[key]?._isModule
+      mod = node[key]
+      return unless @classes[mod._uniq]?
+      cl  = @classes[mod._uniq]
+      if cl.dom?
+        try
+          retdom = cl.Dom? cl.dom
+          if Q.isPromise retdom
+            retdom.catch (e)->
+              Feel.error Exception(e)," #{mod._name}.Dom() failed"
+            .done()
+        catch e then return Feel.error e, " #{mod._name}.Dom() failed"
+    @watchUp obj,'tree', (node,key,val)=>
+      return unless node[key]?._isModule
+      mod = node[key]
+      return unless @classes[mod._uniq]?
+      cl  = @classes[mod._uniq]
+      try
+        retshow = cl.show?()
+        if Q.isPromise retshow
+          retshow.catch (e)->
+            Feel.error Exception(e)," #{mod._name}.show() failed"
+          .done()
+      catch e then return Feel.error e, " #{mod._name}.show() failed"
+  parseError : (e,obj,foo)=>
+  initClasses : (node)=>
+    obj = tree:node
+    @watchDown obj,'tree', (node,key,val)=>
       if val?._isModule
         mainClass = Feel.modules[val._name]?.main
         for _i,ext_mod of val._extends_modules
@@ -26,9 +68,9 @@ class @activeState
           if cl.tree?.default?
             unless typeof cl.tree.default == 'object'
               cl.tree.value ?= cl.tree.default
-            else for key,val of cl.tree.default
-              v = _setKey cl.tree.value,key
-              _setKey cl.tree.value, key,val unless v?
+            else for _key,_val of cl.tree.default
+              v = _setKey cl.tree.value,_key
+              _setKey cl.tree.value, _key,_val unless v?
           cl.js ?= {}
           for key_,val_ of Feel.modules[val._name]
             cl.js[key_] = val_
@@ -36,7 +78,8 @@ class @activeState
             for  key_,val_ of Feel.modules[ext_mod]
               cl.js[key_] = val_
           cl.register = (name,obj=cl)->
-            throw new Error "can't register module #{name} in Feel, already exists" if Feel[name]?
+            #throw new Error "can't register module #{name} in Feel, already exists" if Feel[name]?
+            #return if Feel[name]?
             Feel[name] = obj
           if cl.tree.$urlforms && Object.keys?(cl?.tree?.$urlforms)?.length
             if cl.getValue?
@@ -48,51 +91,8 @@ class @activeState
                   #if cl?.tree.default?
                   #  def = _setKey cl.tree.default,part
                   yield Feel.urlData.set form.form,form.key,nv
-          ###
-          for key_,val_ of cl
-            if typeof val_ == 'function'
-              do (cl,key_,val_)=>
-                foo = (args...)=>
-                  try
-                    ret = val_.apply cl,args
-                    if Q.isPromise ret
-                      ret = ret.catch (e)=>
-                        throw @parseError e,cl,val_
-                  catch e
-                    throw @parseError e,cl,val_
-          ###
           Wrap cl,null,false
           Wrap cl.js,null,false if cl?.js?
-    @dom = {}
-    @uniq_pref = ""
-    @parseTree @tree
-    @watchUp @,'tree', (node,key,val)=>
-      return unless node[key]?._isModule
-      mod = node[key]
-      return unless @classes[mod._uniq]?
-      cl  = @classes[mod._uniq]
-      if cl.dom?
-        try
-          retdom = cl.Dom? cl.dom
-          if Q.isPromise retdom
-            retdom.catch (e)->
-              Feel.error Exception(e)," #{mod._name}.Dom() failed"
-            .done()
-        catch e then return Feel.error e, " #{mod._name}.Dom() failed"
-    @watchUp @,'tree', (node,key,val)=>
-      return unless node[key]?._isModule
-      mod = node[key]
-      return unless @classes[mod._uniq]?
-      cl  = @classes[mod._uniq]
-      try
-        retshow = cl.show?()
-        if Q.isPromise retshow
-          retshow.catch (e)->
-            Feel.error Exception(e)," #{mod._name}.show() failed"
-          .done()
-      catch e then return Feel.error e, " #{mod._name}.show() failed"
-  parseError : (e,obj,foo)=>
-
   parseTree : (node,statename)=>
     return if node._parseIn
     if node._statename?
@@ -107,9 +107,12 @@ class @activeState
         @dom.root = $('body>#m-'+node._name.replace(/\//g,"-"))
         dom = @dom.root
       if !@dom.parent?
-        @dom.parent = $('body')
+        @dom.parent = @dom.root.parent() #$('body')
+        dom = @dom.root
       if !dom?
-        dom = @dom.parent.find "[uniq$=\"#{node._uniq}\"]"
+        dom = @dom.parent.filter("[uniq$=\"#{node._uniq}\"]")
+        dom = dom.add @dom.parent.find("[uniq$=\"#{node._uniq}\"]")
+        dom = dom.first()
       dom.attr 'state', statename
       dom.attr 'module', node._name if node._isModule
       if obj?
@@ -117,7 +120,9 @@ class @activeState
         obj.pdom = @dom.parent
         obj.found ?= {}
         if node._domregx? then for _js_sel of node._domregx
-          obj.found[_js_sel] = obj.dom.find ".js-#{_js_sel}--#{node._uniq}"
+          console.log 'filter',".js-#{_js_sel}--#{node._uniq}"
+          obj.found[_js_sel] = obj.dom.filter ".js-#{_js_sel}--#{node._uniq}"
+          obj.found[_js_sel] = obj.found[_js_sel].add obj.dom.find ".js-#{_js_sel}--#{node._uniq}"
           
       @uniq_pref = node._uniq+"-"
       dom_parent = @dom.parent
@@ -170,13 +175,90 @@ class @activeState
     #if node == @tree
     #  foo? @,'tree',@tree
 
-  clone : (tree,new_tree)=>
+  clone : (tree)=>
     obj = {tree}
-    nobj = {tree:new_tree}
     ntree = _.cloneDeep tree
-    tobj = {tree:ntree}
-    ndom = tree.dom.clone()
-    #foo = (node,key,val,snode,sval,tnode,tval)=>
-    #  #if val?._isModule
-    #@watchDown obj,'tree',nobj,foo
+    nobj = {tree:ntree}
+    ndom = tree.class?.dom?.clone()
+    ntree.dom = ndom
+    ntree.dom._smart = true
+    foo = (node,key,val,snode,sval)=>
+      if sval?._isModule
+        delete sval.class
+        delete sval.found
+        sval._uniq += _.uniqueId()
+        doms = ndom.find("[class*='m-#{val._uniq}-']").add ndom.filter "[class*='m-#{val._uniq}-']"
+        doms.each ->
+          that = $ @
+          that.attr 'class', that.attr('class').replace 'm-'+val._uniq+'-','m-'+sval._uniq+'-'
+        doms = ndom.find("[class*='--#{val._uniq}']").add ndom.filter "[class*='--#{val._uniq}']"
+        doms.each ->
+          that = $ @
+          _clcl = that.attr('class').split ' '
+          for a,i in _clcl
+            if a.match new RegExp "--#{val._uniq}$"
+              _clcl[i] = a.replace val._uniq,sval._uniq
+          that.attr 'class', _clcl.join ' '
+        doms = ndom.find("[uniq^='#{val._uniq}:']").add ndom.filter "[uniq^='#{val._uniq}:']"
+        doms.each ->
+          that = $ @
+          that.attr 'uniq', that.attr('uniq').replace val._uniq+':',sval._uniq+':'
+        doms = ndom.find("[uniq$=':#{val._uniq}']").add ndom.filter "[uniq$=':#{val._uniq}']"
+        doms.each ->
+          that = $ @
+          that.attr 'uniq', that.attr('uniq').replace ':'+val._uniq,':'+sval._uniq
+        ###
+        mainClass = Feel.modules[sval._name]?.main
+        for _i,ext_mod of sval._extends_modules
+          if Feel.modules[ext_mod]?.main?
+            mainClass = Feel.modules[ext_mod]?.main
+        
+        if mainClass
+          try @classes[sval._uniq] = new mainClass()
+          catch e then return Feel.error e, "new #{sval._name}() failed"
+          cl = @classes[sval._uniq]
+          cl.tree = sval
+          do (sval)=>
+            cl.$send = (args...)=> Feel.send "modules/"+sval._name,args...
+          cl.$clone = (new_tree)=> @clone cl.tree,new_tree
+          cl._smart = true
+          cl.__isClass = true
+          @order.push sval._uniq
+          cl.tree?.class = cl
+          if cl.tree?.default?
+            unless typeof cl.tree.default == 'object'
+              cl.tree.value ?= cl.tree.default
+            else for _key,_val of cl.tree.default
+              v = _setKey cl.tree.value,_key
+              _setKey cl.tree.value,_key,_val unless v?
+          cl.js ?= {}
+          for key_,val_ of Feel.modules[sval._name]
+            cl.js[key_] = val_
+          for _i,ext_mod of sval._extends_modules
+            for key_,val_ of Feel.modules[ext_mod]
+              cl.js[key_] = val_
+          if cl.tree.$urlforms && Object.keys?(cl?.tree?.$urlforms)?.length
+            if cl.getValue?
+              cl?.on 'change', => Q.spawn =>
+                v = cl.getValue()
+                for part,form of cl.tree.$urlforms
+                  nv = _setKey v,part
+                  yield Feel.urlData.set form.form,form.key,nv
+          Wrap cl,null,false
+          Wrap cl.js,null,false if cl?.js?
+          ###
+    @watchDown obj,'tree',nobj,foo
+    @initClasses ntree
+    @initDoms ntree
+    return ntree?.class
+
+
+
+
+
+
+
+
+
+
 

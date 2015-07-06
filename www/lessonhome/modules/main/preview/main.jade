@@ -37,6 +37,7 @@ if popup
       .issue_bid
         .issue_bid_button!= issue_bid_button
         .text!= 'с прикреплёнными<br>репетиторами'
-  .tutors_result
-    each value in tutors_result
+  .js-tutors_result
+  //  each value in tutors_result
       .js-tutor_result!= value
+  .js-tutor_test!=tutor_test
