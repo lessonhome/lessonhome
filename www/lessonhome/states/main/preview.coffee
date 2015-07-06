@@ -15,8 +15,6 @@ class @main extends @template '../main'
 
     content : @module '$' :
       popup           : @exports()
-
-
       advanced_filter : @state './advanced_filter' :
         val_list_course       : '' # вытянуть значение
         val_list_calendar     : 11 # вытянуть значение
@@ -29,8 +27,6 @@ class @main extends @template '../main'
         val_choose_gender     : false # вытянуть значение
         val_with_reviews      : 11 # вытянуть значение
         val_with_verification : 11 # вытянуть значение
-        
-
 
       sort            :  @module '$/sort'
       choose_tutors_num : 2
@@ -49,7 +45,7 @@ class @main extends @template '../main'
 
       issue_bid_button : @module 'tutor/button' :
         selector  : 'add_button_bid'
-        text      : 'Оформить заявку'
+        text      : 'ОФОРМИТЬ ЗАЯВКУ'
 
       tutors : $form : tutors : 'tutor'
       tutors_result : [
