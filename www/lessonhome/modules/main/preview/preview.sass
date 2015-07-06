@@ -2,6 +2,11 @@
 $plus_src: 'plus-rep.png'
 $font-size: 18px
 $width_filter: 312px
+
+$icon_reset_src: 'close_time.png'
+$icon_reset_height: image-height($icon_reset_src)
+$icon_reset_width: image-width($icon_reset_src)
+
 main
   padding: 20px 18px 20px 16px
   overflow: hidden
@@ -26,11 +31,32 @@ main
 .advanced_filter
   width: $width_filter
   float: left
+  .issue_bid_button
+    height: 48px
+  .reset_all_filters
+    margin: 12px 0
+    text-align: left
+    background-color: #ededed
+    border: 1px solid #d9d9d9
+    .icon, .title
+      +inline-block
+      cursor: pointer
+    .icon
+      margin: 0 7px
+      width:  $icon_reset_width
+      height: $icon_reset_height
+      background: url(F($icon_reset_src)) no-repeat
+    .title
+      font-size: 14px
+      line-height: 22px
+      color: #717171
 .result_filter
   margin-left: $width_filter
   padding-left: 18px
   .sort
-    padding-bottom: 10px
+    height: 48px
+    margin-bottom: 12px
+
   .choose_tutors_block
     padding-bottom: 10px
     text-align: center
@@ -96,6 +122,31 @@ main
           font-size: 16px
           line-height: 24px
           color: #757575
+  .profiles_on_page
+    margin-bottom: 12px
+    text-align: left
+    border: 1px solid #d9d9d9
+    box-sizing: border-box
+    background-color: #ededed
+    div
+      +inline-block
+    .title, .item
+      line-height: 20px
+      font-size: 14px
+    .title
+      margin: 0 15px 0 12px
+      color: #000000
+    .item
+      padding: 0 2px
+      color: #202020
+      cursor: pointer
+      .val
+        padding: 0 7px
+    .item.active
+      .val
+        padding: 0 6px
+        border: 1px solid #b7b7b7
+        +border-radius(5px)
   .choose_tutors_block.fixed
     display: none
     position: fixed
@@ -112,7 +163,7 @@ main
         margin-right: 18px
   .tutors_result
     .tutor_result
-      margin-top: 18px
+      margin-bottom: 18px
       background-color: #f3f3f3
     .tutor_result:hover
       background-color: #e5e5e5

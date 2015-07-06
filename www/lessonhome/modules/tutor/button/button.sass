@@ -77,9 +77,15 @@ $padding_text: 12px
 //////////////-------------add button bid this tutor in preview----------/////////////
 $font_size: 18px
 $padding_text: 13px
-+selector_new('add_button_bid', hsl(187,100.0%,41.4%), $font_size)
-.add_button_bid
-  border: 1px solid #666666
+$search_pattern_src: 'main/search_pattern.png'
+//+selector_new('add_button_bid', hsl(187,100.0%,41.4%), $font_size)
+.add_button_bid>.button
+  box-sizing: border-box
+  border: 1px solid rgba(0, 0, 0, 0.24)
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), inset 0px 2px 0px 0px rgba(255, 255, 255, 0.2)
+  background: url(F($search_pattern_src))
+  background-color: #00bbd3
+
 //////////////--------- fill button in report bid --------///////////////
 $font-size: 16px
 $padding_text: 13px

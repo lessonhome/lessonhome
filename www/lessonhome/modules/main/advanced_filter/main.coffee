@@ -76,3 +76,6 @@ class @main extends EE
     ret = {}
     ret[block] = b?.get?() for block,b of @inputs
     return ret
+
+  resetAllFilters : => true
+    # TODO: write a function
