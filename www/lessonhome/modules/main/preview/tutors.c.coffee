@@ -1,17 +1,29 @@
 
+filter = require './filter'
 
 class Tutors
   constructor : ->
     Wrap @
     @timereload = 0
-  init : ($)=>
-    @inited = true
-    @dbtutor = yield $.db.get 'tutor'
-    @dbpersons = yield $.db.get 'persons'
+    @inited = 0
+  init : =>
+    return _waitFor @,'inited' if @inited == 1
+    return if @inited > 1
+    @inited = 1
+    @urldata = yield Main.service 'urldata'
+    @dbtutor = yield @$db.get 'tutor'
+    @dbpersons = yield @$db.get 'persons'
+    yield @reload()
+    @inited = 2
+    @emit 'inited'
+    setInterval =>
+      @reload().done()
+    , 30*1000
   handler : ($,data)->
-    yield @init($) unless @inited
-    persons = yield @reload()
-    return persons
+    yield @init()
+    url = $.req.url.match(/\?(.*)$/)?[1] ? ""
+    mf = (yield @urldata.u2d url)?.mainFilter
+    return filter.filter @persons,mf
   reload : =>
     t = new Date().getTime()
     return @persons unless (t-@timereload)>(1000*10)
@@ -37,6 +49,7 @@ class Tutors
       t = o?.tutor
       p = o?.person
       obj = {}
+      obj.account = account
       obj.name = {}
       obj.name.first = p?.first_name
       obj.name.last  = p?.last_name
@@ -57,8 +70,11 @@ class Tutors
         ns.price.left  = 600    unless ns.price.left > 0
         ns.duration.right = 180 unless ns.duration.right > 0
         ns.duration.left  = 90  unless ns.duration.left > 0
-        ns.price_per_hour  = 0.5*((ns.price.right*60/ns.duration.right)+
-                                 (ns.price.left*60/ns.duration.left))
+        l = ns.price.left*60/ns.duration.left
+        r = ns.price.right*60/ns.duration.right
+        ns.price_per_hour  = 0.5*(r+l)
+        obj.price_left  = Math.min(obj.price_left ? l,l)
+        obj.price_right = Math.max(obj.price_right ? r, r)
         obj.price_per_hour ?= ns.price_per_hour
       obj.experience = t?.experience
       obj.status = t?.status

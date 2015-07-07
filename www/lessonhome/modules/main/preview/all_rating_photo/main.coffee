@@ -17,7 +17,6 @@ class @main extends EE
     @first = photo
     h = photo.lheight*W/photo.lwidth
     w = W
-    console.log photo,@photo.css 'width'
     
     @photo.height h
     @img.attr   'src'   , photo.lurl

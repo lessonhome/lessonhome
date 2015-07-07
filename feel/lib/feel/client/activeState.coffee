@@ -15,8 +15,6 @@ class @activeState
     dom = @dom.root.filter('[id^=m-]')
     dom = dom.add @dom.root.find('[id^=m-]')
     @dom.root = dom.first()
-    console.log @dom.root
-    console.log node,@dom
     @uniq_pref = ""
     @parseTree node
     @watchUp obj,'tree', (node,key,val)=>
@@ -120,7 +118,6 @@ class @activeState
         obj.pdom = @dom.parent
         obj.found ?= {}
         if node._domregx? then for _js_sel of node._domregx
-          console.log 'filter',".js-#{_js_sel}--#{node._uniq}"
           obj.found[_js_sel] = obj.dom.filter ".js-#{_js_sel}--#{node._uniq}"
           obj.found[_js_sel] = obj.found[_js_sel].add obj.dom.find ".js-#{_js_sel}--#{node._uniq}"
           

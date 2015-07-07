@@ -1,7 +1,7 @@
 
 class @main extends EE
   constructor : ->
-  Dom : =>
+  Dom : => do Q.async =>
     @background_block  = $ @found.background_block
     @popup             = @found.popup
     @sort              = @tree.sort.class
@@ -13,13 +13,17 @@ class @main extends EE
     @profiles_80       = @found.profiles_80
     @reset_all_filters = @found.reset_all_filters
     @advanced_filter   = @tree.advanced_filter.class
-  show : => do Q.async =>
-    @tutors = yield @$send 'tutors'
-    for acc,tutor of @tutors
-      return unless tutor?.name?
-      nt = @tree.tutor_test.class.$clone()
-      nt.setValue tutor
-      @tutors_result.append $('<div class="tutor_result"></div>').append nt.dom
+    @tutors = $.localStorage.get 'tutors'
+    @tutors ?= {}
+    @changed = true
+    @now    = []
+    yield @filter()
+    @request()
+  show : =>
+    @advanced_filter.on 'change',=>
+      @changed = true
+      @filter().done()
+      @request()
     ###
     @tutors_result = @tree.tutors_result
     ###
@@ -72,6 +76,63 @@ class @main extends EE
       @setItemInactive @profiles_20
 
     $(@reset_all_filters).on 'click', => @advanced_filter.resetAllFilters()
+  request : => Q.spawn =>
+    return unless @changed
+    return if @sending
+    @sending = true
+    @changed = false
+    tutors = yield @$send './tutors','quiet'
+    storage = $.localStorage.get 'tutors'
+    storage ?= {}
+    tutors  ?= []
+    for val in tutors
+      storage[val.account] = val
+    $.localStorage.set 'tutors',storage
+    @tutors = storage
+    @sending = false
+    yield @filter()
+    if @changed
+      setTimeout @request,3000
+    
+  filter : => do Q.async =>
+    tutors = @js.filter @tutors, (yield Feel.urlData.get())?.mainFilter
+    @tutors_result.empty()
+    otutor = {}
+    for tutor in tutors
+      otutor[tutor.account] = tutor
+    onow = {}
+    for tutor in @now
+      onow[tutor.data.account] = tutor
+    spl = []
+    for i in [0...@now.length]
+      tutor = @now[i]
+      unless otutor[tutor.data.account]?
+        tutor.dom.remove()
+        spl.push i
+        delete onow[tutor.data.account]
+        i--
+    min = 0
+    for s in spl
+      @now.splice s-min,1
+      min++
+
+    nnow = []
+    for tutor,i in tutors
+      if onow[tutor.account]?
+        nnow.push onow[tutor.account]
+        continue
+      nt = @tree.tutor_test.class.$clone()
+      nt.setValue tutor
+      nnow.push {
+        data : tutor
+        dom  : $('<div class="tutor_result"></div>').append nt.dom
+      }
+    for t,i in nnow
+      if i == 0
+        @tutors_result.prepend t.dom
+      else
+        nnow[i-1].dom.after t.dom
+    @now = nnow
 
   check_place_click :(e) =>
     if (!@popup.is(e.target) && @popup.has(e.target).length == 0)

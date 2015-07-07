@@ -9,8 +9,6 @@ class @main extends EE
       photos : data.photos
       count_review : data.count_review
     }
-    delete data.photos
-    delete data.count_review
     @tutor_extract.setValue data
   getData : =>
     rpv = @rating_photo.getValue()
