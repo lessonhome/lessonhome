@@ -15,6 +15,7 @@ class @main extends EE
     @advanced_filter   = @tree.advanced_filter.class
     @tutors = $.localStorage.get 'tutors'
     @tutors ?= {}
+    @tnum = 1
     @now    = []
     @changed = true
     @sending = false
@@ -22,6 +23,11 @@ class @main extends EE
     @request()
   show : =>
     @advanced_filter.on 'change',=> @emit 'change'
+    $(window).on 'scroll',=>
+      ll = @tutors_result.find(':last')
+      dist = ($(window).scrollTop()+$(window).height())-(ll.offset().top+ll.height())
+      if dist >= 0
+        @filter().done()
     @on 'change', =>
       @changed = true
       @filter().done()
@@ -121,8 +127,9 @@ class @main extends EE
     for tutor,i in tutors
       if onow[tutor.account]?
         nnow.push onow[tutor.account]
-        onow[tutor.account].data = tutor
-        onow[tutor.account].nt.setValue tutor
+        if JSON.stringify(onow[tutor.account].data)!=JSON.stringify(tutor)
+          onow[tutor.account].data = tutor
+          onow[tutor.account].nt.setValue tutor
         continue
       nt = @tree.tutor_test.class.$clone()
       nt.setValue tutor
@@ -132,10 +139,17 @@ class @main extends EE
         nt   : nt
       }
     for t,i in nnow
+      break if i>=(@tnum)
       if i == 0
         @tutors_result.prepend t.dom
       else
         nnow[i-1].dom.after t.dom
+      if (i+1)>=(@tnum)
+        ll = @tutors_result.find(':last')
+        dist = ($(window).scrollTop()+$(window).height())-(ll.offset().top+ll.height())
+        if dist >= 0
+          @tnum++
+
     @now = nnow
 
   check_place_click :(e) =>

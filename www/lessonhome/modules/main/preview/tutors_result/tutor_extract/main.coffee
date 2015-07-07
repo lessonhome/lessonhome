@@ -42,7 +42,14 @@ class @main extends EE
     @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
     @tutor_subject.empty()
     for key,val of value.subjects
-      @tutor_subject.append $("<div class='tag'>#{key}</div>") if key
+      if key
+        @tutor_subject.append s=$("<div class='tag'>#{key}</div>")
+        do (s,key,val)=>
+          s.on 'mouseenter',=>
+            @tutor_text.text val.description if val?.description
+            s.on 'mouseleave', =>
+              s.off 'mouseleave'
+              @tutor_text.text value.about ? ""
     #@tutor_subject. text(value.tutor_subject) if value?.tutor_subject?
     #@tutor_status.  text(value.status ? "")
     #@tutor_exp.     text(value.experience ? "")
@@ -52,8 +59,9 @@ class @main extends EE
     @found.location.text(value.location?.city ? "")
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     @tutor_text.    text(value.about ? "")
-    @found.price.text(Math.floor((value.price_per_hour ? 900)/10)*10)
+    @found.price.text(Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
     @hideExtraText()
+
   getValue : => @getData()
 
   getData : => @tree.value

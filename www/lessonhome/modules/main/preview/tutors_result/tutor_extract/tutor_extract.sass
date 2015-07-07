@@ -47,13 +47,16 @@ $map_icon_width: image-width($map_icon_src)
     padding: 0 12px
     +inline-block
     height: 24px
-    line-height: 24px
+    line-height: 22px
     box-sizing: border-box
     border: 1px solid #999999
     +border-radius(2px)
     background-color: #e5e5e5
     font-size: 14px
     color: #444444
+    cursor : pointer
+    &:hover
+      +box-shadow(0 0 10px rgba(0,0,0,0.2))
 .tutor_status
   margin-bottom: 12px
   font-size: 14px

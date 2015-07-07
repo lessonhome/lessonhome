@@ -3,6 +3,7 @@ class @main extends EE
   Dom : =>
     @items = ['price', 'experience', 'rating'] # sort items
   show : =>
+    $(window).on 'scroll', @scroll
     for item in @items
       do (item)=>
         @found[item].on 'click',=>
@@ -23,6 +24,34 @@ class @main extends EE
       @setValue()
       @emit 'change'
     @setValue()
+    @scroll()
+  scroll : =>
+    unless @fixed
+      l = @dom.offset().top-$(window).scrollTop()
+      return unless (l < 4)
+      @dom.addClass 'fixed'
+      @dot = @dom.offset().top
+      unless @fixed?
+        @wi = @dom.width()
+        @he = @dom.height()
+      @fixed = true
+      @dom.css {
+        position : 'fixed'
+        height   : @he
+        width    : @wi
+        'z-index' : 1000
+        top      : 4
+      }
+    else
+      l = @dot-$(window).scrollTop()
+      return if (l < 4)
+      @dom.removeClass 'fixed'
+      @fixed = false
+      @dom.css {
+        position : 'relative'
+        top      : 0
+      }
+
   getValue : => @tree.value
   setValue : (val=@tree.value)=>
     @tree.value.sort = val.sort if val.sort?
