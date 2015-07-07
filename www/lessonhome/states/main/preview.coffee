@@ -54,7 +54,7 @@ class @main extends @template '../main'
       tutor_test :
         @state './preview/tutors_result' :
           image : {
-            src: '/test_miniature.jpg'
+            src: ''
             w: 1000
             h: 800
           }

@@ -1,6 +1,5 @@
 class @main extends EE
   Dom:  =>
-
     @photo        = @dom.find('>.photo')#@found.photo
     @img          = @photo.children 'img'
     @count_review = @found.count_review
@@ -23,8 +22,8 @@ class @main extends EE
     @img.attr   'src'   , photo.lurl
     @img.attr   'width' , "100%"
     @img.attr   'height', "100%"
-    @photo.on 'mouseenter', =>
-      @photo.off 'mouseenter'
+    @photo.on 'mouseover', =>
+      @photo.off 'mouseover'
       @loadHigh()
   loadHigh : =>
     img = $('<img></img>')

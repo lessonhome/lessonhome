@@ -50,6 +50,7 @@ class @main extends EE
       @dom.css {
         position : 'relative'
         top      : 0
+        'z-index' : 0
       }
 
   getValue : => @tree.value

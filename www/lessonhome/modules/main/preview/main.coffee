@@ -103,7 +103,7 @@ class @main extends EE
     
   filter : => do Q.async =>
     tutors = @js.filter @tutors, (yield Feel.urlData.get())?.mainFilter
-    @tutors_result.empty()
+    #@tutors_result.empty()
     otutor = {}
     for tutor in tutors
       otutor[tutor.account] = tutor
@@ -141,9 +141,11 @@ class @main extends EE
     for t,i in nnow
       break if i>=(@tnum)
       if i == 0
-        @tutors_result.prepend t.dom
+        unless @tutors_result.find(':first')[0]==t.dom[0]
+          @tutors_result.prepend t.dom
       else
-        nnow[i-1].dom.after t.dom
+        unless nnow[i-1].dom.next()[0]==t.dom[0]
+          nnow[i-1].dom.after t.dom
       if (i+1)>=(@tnum)
         ll = @tutors_result.find(':last')
         dist = ($(window).scrollTop()+$(window).height())-(ll.offset().top+ll.height())
