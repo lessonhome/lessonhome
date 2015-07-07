@@ -1,6 +1,7 @@
 
 
 group_lessons = ['не проводятся','2-4 ученика','до 8 учеников','от 10 учеников']
+sort          = ['rating','price','experience','way_time','-price','-experience','-rating','-way_time']
 gender = ['','male','female','mf']
 tutor_status = 'student,school_teacher,university_teacher,private_teacher,native_speaker'.split ','
 place = 'pupil,tutor,remote'.split ','
@@ -80,7 +81,14 @@ class @D2U
     type : 'string[]'
     value : obj?.course
     default : ''
-
+  $sort : (obj)=>
+    type : 'int'
+    value : sort.indexOf(obj?.sort) ? 0
+    default : 0
+  $showBy : (obj)=>
+    type : 'bool'
+    value : obj?.showBy == 'list'
+    default : true
 class @U2D
   $price : (obj)=>
     left  : obj?.priceLeft
@@ -97,6 +105,8 @@ class @U2D
   $time_spend_way : (obj)=> obj?.time_spend_way
   $experience : (obj)=> boolSetR obj?.experience,experience
   $group_lessons : (obj)=> group_lessons[obj?.group_lessons ? 0]
+  $sort : (obj)=> sort[obj?.sort ? 0]
+  $showBy : (obj)=> if obj?.showBy==true then 'list' else 'grid'
   $course : (obj)=> obj?.course
   
 

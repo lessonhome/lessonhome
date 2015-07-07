@@ -8,6 +8,7 @@ class @main extends EE
   show: =>
 
   setValue : (value={})=>
+    @tree.all_rating.class.setValue rating:value?.rating
     @tree.value ?= {}
     @tree.value[key] = val for key,val of value
     value = @tree.value
@@ -31,7 +32,7 @@ class @main extends EE
     img.attr   'width' , "100%"
     img.attr   'height', "100%"
     img.css {
-      "z-index" : 1
+      "z-index" : 2
       opacity : 0
     }
     img.appendTo @photo

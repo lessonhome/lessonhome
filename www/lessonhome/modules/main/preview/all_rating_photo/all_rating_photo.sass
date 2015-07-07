@@ -6,6 +6,7 @@ $icon_width: image-width($close_src)
 .photo
   +transition( all 200ms ease-out)
   +box-shadow(2px 2px 10px rgba(0, 0, 0, 0.6))
+  z-index : 1
   cursor : pointer
   position: relative
   width: 130px
@@ -27,17 +28,14 @@ $icon_width: image-width($close_src)
   +transform(scale(2.2))
   +box-shadow(5px 5px 15px rgba(0, 0, 0, 0.8))
 .all_rating
-  margin-top: 8px
-.all_rating
-  margin-top: 20px
+  margin-top: 10px
 a
   display: block
   text-decoration: none
   cursor: pointer
   .count_review
     box-sizing: border-box
-    padding-left: 5px
-    margin-top: 15px
+    margin-top: 5px
     text-align: left
     font-size: 14px
     color: #000000

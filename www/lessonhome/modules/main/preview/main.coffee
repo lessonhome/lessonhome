@@ -15,12 +15,14 @@ class @main extends EE
     @advanced_filter   = @tree.advanced_filter.class
     @tutors = $.localStorage.get 'tutors'
     @tutors ?= {}
-    @changed = true
     @now    = []
+    @changed = true
+    @sending = false
     yield @filter()
     @request()
   show : =>
-    @advanced_filter.on 'change',=>
+    @advanced_filter.on 'change',=> @emit 'change'
+    @on 'change', =>
       @changed = true
       @filter().done()
       @request()
@@ -46,7 +48,6 @@ class @main extends EE
           })
     ###
     @sort.on 'change',  => @emit 'change'
-    @sort.on 'end',     => @emit 'end'
 
 
     @background_block.on 'click',  @check_place_click
@@ -120,12 +121,15 @@ class @main extends EE
     for tutor,i in tutors
       if onow[tutor.account]?
         nnow.push onow[tutor.account]
+        onow[tutor.account].data = tutor
+        onow[tutor.account].nt.setValue tutor
         continue
       nt = @tree.tutor_test.class.$clone()
       nt.setValue tutor
       nnow.push {
         data : tutor
         dom  : $('<div class="tutor_result"></div>').append nt.dom
+        nt   : nt
       }
     for t,i in nnow
       if i == 0

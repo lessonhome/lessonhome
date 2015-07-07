@@ -28,7 +28,10 @@ class @main extends @template '../main'
         val_with_reviews      : 11 # вытянуть значение
         val_with_verification : 11 # вытянуть значение
 
-      sort            :  @module '$/sort'
+      sort            :  @module '$/sort' :
+        value :
+          sort : $urlform : mainFilter : 'sort'
+          show : $urlform : mainFilter : 'showBy'
       choose_tutors_num : 2
       choose_tutors : []
       #  @state './preview/all_rating_photo' :
@@ -55,6 +58,7 @@ class @main extends @template '../main'
             w: 1000
             h: 800
           }
+          rating : 3.5
           # вытянуть значение
           #filling           : 100 # вытянуть значение
           count_review      : 0 # вытянуть значение

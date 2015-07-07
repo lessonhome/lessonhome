@@ -28,8 +28,8 @@ class Tutors
     t = new Date().getTime()
     return @persons unless (t-@timereload)>(1000*10)
     @timereload = t
-    tutor  =  _invoke @dbtutor.find({},{account:1,status:1,subjects:1,reason:1,slogan:1,about:1,experience:1,extra:1,settings:1,calendar:1,check_out_the_areas:1}), 'toArray'
-    person = _invoke @dbpersons.find({},{account:1,ava:1,first_name:1,middle_name:1,last_name:1,sex:1,birthday:1,location:1,interests:1,work:1,education:1}),'toArray'
+    tutor  =  _invoke @dbtutor.find({}),'toArray'#,{account:1,status:1,subjects:1,reason:1,slogan:1,about:1,experience:1,extra:1,settings:1,calendar:1,check_out_the_areas:1}), 'toArray'
+    person = _invoke @dbpersons.find({}),'toArray'#,{account:1,ava:1,first_name:1,middle_name:1,last_name:1,sex:1,birthday:1,location:1,interests:1,work:1,education:1}),'toArray'
     [tutor,person] = [(yield tutor),(yield person)]
     persons = {}
     for val in tutor
@@ -43,12 +43,17 @@ class Tutors
     for account,obj of persons
       t = obj.tutor
       p = obj.person
+      obj.rating = JSON.stringify(obj).length
+      rmax = Math.max(rmax ? obj.rating,obj.rating)
+      rmin = Math.min(rmin ? obj.rating,obj.rating)
+      console.log 'rating'.red,obj.rating,rmax,rmin
       continue if (t?.subjects?[0]?.name) && (p?.ava?[0]?) && (p?.first_name)
       delete persons[account]
     for account,o of persons
       t = o?.tutor
       p = o?.person
       obj = {}
+      obj.rating = o.rating
       obj.account = account
       obj.name = {}
       obj.name.first = p?.first_name
@@ -90,6 +95,14 @@ class Tutors
         }
       obj.location = p.location
       persons[account] = obj
+    rmin ?= 0
+    rmax ?= 1
+    if rmax <= rmin
+      rmax = rmin + 1
+    for acc,p of persons
+      p.rating = (p.rating-rmin)/(rmax-rmin)
+      p.rating *= 3
+      p.rating += 2
     @persons = persons
     return @persons
 
