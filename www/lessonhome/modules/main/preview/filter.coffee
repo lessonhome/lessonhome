@@ -62,9 +62,9 @@ ex = (v)=>
       exp = true if val
     if exp
       exp = 0
-      exp =1 if mf.experience['little_experience']
-      exp =2 if mf.experience['big_experience']
       exp =3 if mf.experience['bigger_experience']
+      exp =2 if mf.experience['big_experience']
+      exp =1 if mf.experience['little_experience']
       if ex(p.experience ? "")<exp
         continue
     if mf.gender
