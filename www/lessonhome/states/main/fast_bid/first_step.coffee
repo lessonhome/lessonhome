@@ -134,7 +134,6 @@ class @main extends @template '../fast_bid'
           '70': {value: 'economy', text: 'экономика'}
           '71': {value: 'electrical_engineering', text: 'электротехника'}
           '72': {value: 'japanese', text: 'японский язык'}
-
         }
         value : $form : pupil : 'newBid.subjects.0.subject'
 

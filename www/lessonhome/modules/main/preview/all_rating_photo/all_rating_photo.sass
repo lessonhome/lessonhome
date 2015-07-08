@@ -2,11 +2,19 @@
 $close_src: 'main/close_10x10.png'
 $icon_height: image-height($close_src)
 $icon_width: image-width($close_src)
+
 .photo
+  +transition( all 200ms ease-out)
+  +box-shadow(2px 2px 10px rgba(0, 0, 0, 0.6))
+  z-index : 100
+  cursor : pointer
   position: relative
-  width: 58px
-  height: 58px
-  background-color: red
+  width: 130px
+  img
+    position : absolute
+    left : 0
+    top : 0
+    z-index : 0
   .close_box
     cursor: pointer
     position: absolute
@@ -16,16 +24,19 @@ $icon_width: image-width($close_src)
       width: $icon_width
       height: $icon_height
       background: url(F($close_src)) no-repeat
+.photo:hover
+  +transform(scale(2.2))
+  +box-shadow(5px 5px 15px rgba(0, 0, 0, 0.8))
 .all_rating
-  margin-top: 8px
-.photo.extract
-.all_rating
-  margin-top: 20px
+  margin-top: 10px
 a
   display: block
-  text-decoration: underline
+  text-decoration: none
   cursor: pointer
   .count_review
-    margin-top: 15px
+    box-sizing: border-box
+    margin-top: 5px
+    text-align: left
     font-size: 14px
-    color: #757575
+    color: #000000
+

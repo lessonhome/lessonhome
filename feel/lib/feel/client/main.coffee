@@ -1,6 +1,8 @@
 
 
 class @Feel
+  constructor : ->
+    window.Feel  = @
   init : => do Q.async =>
     for key,val of $Feel
       @[key] = val
@@ -64,7 +66,11 @@ class @Feel
       types : "(cities)"
     },cb
   send : (context,name,args...)=> do Q.async =>
-    @pbar.start()
+    quiet = false
+    if args[args.length-1] == 'quiet'
+      quiet = true
+      args.pop()
+    @pbar.start() unless quiet
     m = name.match /^([^\w]*)/
     pref = ""
     if m
@@ -92,8 +98,10 @@ class @Feel
       crossDomain : true
     })
     .success (data)=>
-      @pbar.stop()
+      @pbar.stop() unless quiet
       #d.resolve JSON.parse decodeURIComponent data.data
+      if data?.status == 'failed'
+        return d.reject data
       d.resolve data.data
     .error   (e)->
       d.reject e

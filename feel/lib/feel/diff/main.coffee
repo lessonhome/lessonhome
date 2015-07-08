@@ -3,10 +3,9 @@
 
 class @main
   constructor : ->
-  show : =>
-    window._diff = @
-    @register 'diff'
-  
+    @js ?= {}
+    @js.diff_match_patch = require('./diff_match_patch').diff_match_patch
+    @js.toEn = require('./rusLat').toEn
   match : (text,word,from=0,to=0.5,count=20)=>#,t1=0.8,t2=t1,d1=1000,d2=0)=>
     ntext = @js.toEn text
     nword = @js.toEn word
@@ -53,3 +52,5 @@ class @main
       unless m2<0
         return true
     return false
+
+module.exports = new @main

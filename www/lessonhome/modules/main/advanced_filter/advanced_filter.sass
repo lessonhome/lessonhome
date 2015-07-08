@@ -58,23 +58,27 @@ main
     font-size: 18px
     line-height: 24px
     color: #202020
+    padding : 12px 0
   .title:hover
     color : #000000
 
 
 .section
-  padding: 12px 0
+  position : relative
+  //padding-bottom: 12px
   text-align: left
   .subject, .tutor_status, .place, .timetable, .course, .group_lessons, .price, .time_to_way, .experience, .sex
     +inline-block
+    width : 100%
     //padding: ($padding_title  - $padding_icon)/2 0   //because icon have padding 10px for usability
     cursor: pointer
   //.subject
     padding-top: 0
   .reset
     +inline-block
+    position : absolute
     float: right
-    margin-right: 25px
+    right: 25px
     cursor: pointer
     .icon, .title
       +inline-block
@@ -85,32 +89,38 @@ main
       background: url(F($icon_reset_src)) no-repeat
     .title
       font-size: 14px
-      color: #717171
+    color: #717171
+    &:hover
+      color : #606060
+
   .show_hidden
-    //padding-bottom: $padding_section
+    padding-bottom: 12px
     //overflow: hidden
     .subject, .area, .course, .group_lessons
       width: $form_width
       margin-left: $form_left_margin
-    .subject, .course, .group_lessons
+    //.subject, .course, .group_lessons
       padding-top: 15px
-    .area
+    //.area
       padding-top: 18px
     .tutor_status, .place, .experience
       padding-left: 26px
-      padding-top: 14px
+      //padding-top: 14px
       div
         margin-bottom: 7px
     .choose_gender
       height: 36px
-      padding: 15px 0 3px 23px
+      padding: 0px 0 3px 23px
     .price, .time_to_way
-      padding: 16px 23px 0 23px
+      padding: 0px 23px 0 23px
 
   .reviews_block, .verification_block
     padding: $padding_reviews/2 0 $padding_reviews/2 26px
   .verification_block
-    padding-bottom: 0
+    padding-bottom: 12px
+  .reviews_block
+    padding-top : 14px
+    padding-bottom: 12px
 
 ///////--------action----------//////////
 

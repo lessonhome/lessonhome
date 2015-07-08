@@ -1,9 +1,25 @@
 if popup
   .js-background_block
   .js-popup!=popup
-.advanced_filter!=advanced_filter
+.advanced_filter
+  .issue_bid_button!=issue_bid_button
+  .js-reset_all_filters
+    .icon
+    .title сбросить все фильтры
+  .filter!=advanced_filter
 .result_filter
   .sort!=sort
+  //.js-profiles_on_page
+    .title Анкет на странице :
+    .item.active.js-profiles_20
+      .val 20
+    .item.js-profiles_40
+      .val 40
+    .item.js-profiles_60
+      .val 60
+    .item.js-profiles_80
+      .val 80
+
   .js-choose_tutors_block.fixed
     .choose_tutors_content
       .section
@@ -21,6 +37,7 @@ if popup
       .issue_bid
         .issue_bid_button!= issue_bid_button
         .text!= 'с прикреплёнными<br>репетиторами'
-  .tutors_result
-    each value in tutors_result
+  .js-tutors_result
+  //  each value in tutors_result
       .js-tutor_result!= value
+  .js-tutor_test!=tutor_test

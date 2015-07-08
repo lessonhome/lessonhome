@@ -1,35 +1,78 @@
 @import compass/css3
-$padding_top_hover: 8px
-$padding_left_hover: 5px
-$triangle_up_src: 'main/triangle-6x7_up.jpg'
+//$padding_top_hover: 8px
+//$padding_left_hover: 5px
+$triangle_up_src: 'sort_up.png'
 $icon_up_height: image-height($triangle_up_src)
 $icon_up_width:  image-width($triangle_up_src)
-$triangle_src: 'main/triangle_down.png'
+$triangle_src: 'sort_down.png'
 $icon_height: image-height($triangle_src)
 $icon_width: image-width($triangle_src)
 $height_font: 16px
-.sort_block
-  padding: 0 0 0 34px
-  margin-top: -$padding_top_hover
+
+$icon_show_list_src: 'view_list.png'
+$icon_show_list_height: image-height($icon_show_list_src)
+$icon_show_list_width: image-width($icon_show_list_src)
+
+$icon_show_grid_src: 'view_grid.png'
+$icon_show_grid_height: image-height($icon_show_grid_src)
+$icon_show_grid_width: image-width($icon_show_grid_src)
+
+
+main
+  height: 100%
+  background-color: #ededed
+  border: 1px solid #d9d9d9
+  box-sizing: border-box
   text-align: left
-  font-size: $height_font
-  color:  #757575
+main.fixed
+  +box-shadow(0 0 20px rgba(0,0,0,0.6))
+.sort_block
+  height: 100%
+  +inline-block
+  //margin-top: -$padding_top_hover
+  text-align: left
+  //font-size: $height_font
+  //color:  #757575
+  .title
+    +inline-block
+    margin: 0 12px
+    font-size: 14px
+    line-height: 24px
+    color: #000000
   .section
-    padding: 0 $padding_left_hover
+    padding: 0 18px 0 6px
     +inline-block
     cursor: pointer
     .box
-      padding: $padding_top_hover $padding_left_hover
+      height: 36px
+      padding: 0 6px 0 12px
+      box-sizing: border-box
+      //padding: $padding_top_hover $padding_left_hover
       .icon
         width: $icon_width
         height: $icon_height
-        margin: 0 $padding_left_hover 0 0
+        margin: 0 0 0 7px
         //-margin-top: ($height_font - $icon_height)/2
         +inline-block
+        opacity : 0
         background: url(F($triangle_src)) no-repeat
-      .price, .experience, .way_time
+      .title
         +inline-block
-        vertical-align: top
+        //vertical-align: top
+        color: #202020
+        font-size: 14px
+        line-height: 24px
+    .box:after
+      content: ''
+      +inline-block
+      height: 100%
+  .section.active
+    padding: 0 17px 0 5px
+    .box
+      .icon
+        opacity : 1
+      border: 1px solid #b7b7b7
+      +border-radius(4px)
   .section.up
     .box
       .icon
@@ -39,3 +82,25 @@ $height_font: 16px
       border-radius: 4px
       background-color: rgb(235, 235, 235)
       color:  #c4675e
+
+  .show_list, .show_grid
+    +inline-block
+    cursor: pointer
+  $show_icon_side: 24px
+  .show_list
+    width: $show_icon_side
+    height: $show_icon_side
+    background: url(F($icon_show_list_src)) no-repeat center
+  .show_grid
+    margin-left: 12px
+    width:  $show_icon_side
+    height: $show_icon_side
+    background: url(F($icon_show_grid_src)) no-repeat center
+  .show_list.active, .show_grid.active
+    border: 1px solid #b7b7b7
+    box-sizing: border-box
+.sort_block:after
+  content: ''
+  +inline-block
+  height: 100%
+

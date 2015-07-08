@@ -15,8 +15,6 @@ class @main extends @template '../main'
 
     content : @module '$' :
       popup           : @exports()
-
-
       advanced_filter : @state './advanced_filter' :
         val_list_course       : '' # вытянуть значение
         val_list_calendar     : 11 # вытянуть значение
@@ -29,10 +27,11 @@ class @main extends @template '../main'
         val_choose_gender     : false # вытянуть значение
         val_with_reviews      : 11 # вытянуть значение
         val_with_verification : 11 # вытянуть значение
-        
 
-
-      sort            :  @module '$/sort'
+      sort            :  @module '$/sort' :
+        value :
+          sort : $urlform : mainFilter : 'sort'
+          show : $urlform : mainFilter : 'showBy'
       choose_tutors_num : 2
       choose_tutors : []
       #  @state './preview/all_rating_photo' :
@@ -49,49 +48,41 @@ class @main extends @template '../main'
 
       issue_bid_button : @module 'tutor/button' :
         selector  : 'add_button_bid'
-        text      : 'Оформить заявку'
+        text      : 'ОФОРМИТЬ ЗАЯВКУ'
 
       tutors : $form : tutors : 'tutor'
-      tutors_result : [
+      tutor_test :
         @state './preview/tutors_result' :
           image : {
-            src: '/test_miniature.jpg'
+            src: ''
             w: 1000
             h: 800
           }
+          rating : 3.5
           # вытянуть значение
           #filling           : 100 # вытянуть значение
           count_review      : 0 # вытянуть значение
           value :
-            tutor_name        : 'Чехов Андрей Юрьевич' # вытянуть значение
+            name :
+              first   : 'Андрей'
+              middle  : 'Юрьевич'
+              last    : 'Чехов'
+            price_per_hour : 913.123
+            subjects :
+              'математика' :
+                price :
+                  left : 900
+            location :
+              city : 'Москва'
+            #tutor_name        : 'Чехов Андрей Юрьевич' # вытянуть значение
             with_verification : 'rgb(183, 210, 120)' # вытянуть значение
             tutor_subject     : 'Математика' # вытянуть значение
-            tutor_status      : 'cтудент' # вытянуть значение
-            tutor_exp         : 3 # вытянуть значение
+            status      : 'cтудент' # вытянуть значение
+            experience         : 3 # вытянуть значение
             tutor_place       : 'МО Зеленоград' # вытянуть значение
             tutor_title       : 'Быстро устраню пробелы в школьной программе' # вытянуть значение
-            tutor_text        : 'Коллектив выступает с несколькими программами. В танцевальной программе выступают 2 пары, исполняющие мексиканские танцы (харибе тапатио), возможен мастер-класс по латиноамериканским танцам' # вытянуть значение
+            about        : 'Коллектив выступает с несколькими программами. В танцевальной программе выступают 2 пары, исполняющие мексиканские танцы (харибе тапатио), возможен мастер-класс по латиноамериканским танцам' # вытянуть значение
             tutor_price       : 1500 # вытянуть значение
-        @state './preview/tutors_result' :
-          image : {
-            src: '/test_miniature.jpg'
-            w: 1000
-            h: 800
-          }
-          # вытянуть значение
-          #filling           : 100 # вытянуть значение
-          count_review      : 0 # вытянуть значение
-          value :
-            tutor_name        : 'Чехов Андрей Юрьевич' # вытянуть значение
-            with_verification : 'rgb(183, 210, 120)' # вытянуть значение
-            tutor_subject     : 'Математика' # вытянуть значение
-            tutor_status      : 'cтудент' # вытянуть значение
-            tutor_exp         : 3 # вытянуть значение
-            tutor_place       : 'МО Зеленоград' # вытянуть значение
-            tutor_title       : 'Быстро устраню пробелы в школьной программе' # вытянуть значение
-            tutor_text        : 'Коллектив выступает с несколькими программами. В танцевальной программе выступают 2 пары, исполняющие мексиканские танцы (харибе тапатио), возможен мастер-класс по латиноамериканским танцам' # вытянуть значение
-            tutor_price       : 1500 # вытянуть значение
-      ]
 
 
 

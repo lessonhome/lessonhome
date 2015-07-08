@@ -367,6 +367,7 @@ class RouteState
       @site.moduleJsTag('lib/q')+
       @site.moduleJsTag('lib/event_emitter')+
       @site.moduleJsTag('lib/jade')+
+      @site.moduleJsTag('lib/lodash')+
       '
       <script id="feel-js-client">
       "use strict";

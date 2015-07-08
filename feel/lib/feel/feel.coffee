@@ -243,7 +243,8 @@ class module.exports
     for key,val of @client
       @clientJs += val unless key == 'main'
       @clientJs += @client['main']
-    @clientJs = yield @yjs _regenerator @clientJs
+    @clientJs =  _regenerator @clientJs
+    #@clientJs = yield @yjs _regenerator @clientJs
     @clientJsHash = _shash @clientJs
   loadClientDir : (path,dir)=>
     readdir "#{path}#{dir}"
@@ -296,14 +297,20 @@ class module.exports
     }
   yjs     : (js)=> do Q.async =>
     ret = yield ycompress js,{type:'js'}
-    return ret[0]
+    ret = ret?[0] unless typeof ret == 'string'
+    return ret ? ""
   dyjs    : (js)=>
-    ycompress(js,{type:'js'}).then (yjs)=> _deflate yjs[0]
+    ycompress(js,{type:'js'}).then (yjs)=>
+      yjs = yjs?[0] unless typeof yjs == 'string'
+      return _deflate yjs ? ""
   ycss    : (css)=> do Q.async =>
     console.log 'ycss'
     ret = yield ycompress css, type:"css"
-    return ret[0]
-  dycss   : (css)=> ycompress(css,{type:"css"}).then (ycss)=> _deflate ycss[0]
+    ret = ret?[0] unless typeof ret == 'string'
+    return ret ? ""
+  dycss   : (css)=> ycompress(css,{type:"css"}).then (ycss)=>
+    ycss = ycss?[0] unless typeof ycss == 'string'
+    return _deflate ycss ? ""
   res404  : (req,res,err)=>
     console.error err if err?
     req.url = '/404'

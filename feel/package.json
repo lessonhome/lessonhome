@@ -51,7 +51,8 @@
     "jquery-file-upload-middleware":"",
     "express":"*",
     "body-parser":"*",
-    "imagemagick": "*"
+    "imagemagick": "*",
+    "lodash" : "*"
   }
 }
 

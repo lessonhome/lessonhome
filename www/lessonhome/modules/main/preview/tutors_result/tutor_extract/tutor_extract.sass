@@ -1,74 +1,146 @@
 @import compass/css3
 $padding-bottom_block: 10px
+$price_icon_src: 'main/price_icon.png'
+$price_icon_height: image-height($price_icon_src)
+$price_icon_width: image-width($price_icon_src)
+$map_icon_src: 'map.png'
+$map_icon_height: image-height($map_icon_src)
+$map_icon_width: image-width($map_icon_src)
+
+
 .name_verification_block
   margin: 0 0 0 -5px
-  $height_font: 24px
+  $height_font: 18px
   .tutor_name
     +inline-block
     font-size: $height_font
-    color:  #f07b6f
-  $with_verification: 20px
-  .verification
-    margin-top: 3px
-    padding-left: 20px
-    padding-top: ($height_font - $with_verification)/2
+    color:  #000
+    line-height: 24px
+  //-
+    $with_verification: 20px
+    .verification
+      margin-top: 3px
+      padding-left: 20px
+      padding-top: ($height_font - $with_verification)/2
+      +inline-block
+      .with_verification
+        width: $with_verification
+        height: $with_verification
+        border-radius: 50%
+        box-shadow: 0px 0px 10px 4px rgba(204,228,110, 0.6), 0px 0px 8px 0px rgba(58,201,50, 0.6) inset
+
+.tutor_price
+  margin: 8px 0
+  .icon , .val, .val div
     +inline-block
-    .with_verification
-      width: $with_verification
-      height: $with_verification
-      border-radius: 50%
-      box-shadow: 0px 0px 10px 4px rgba(204,228,110, 0.6), 0px 0px 8px 0px rgba(58,201,50, 0.6) inset
+  .val .price
+    padding : 0 3px 
+  .icon
+    margin-right: 12px
+    width: $price_icon_width
+    height: $price_icon_height
+    background: url(F($price_icon_src)) no-repeat
+
 .tutor_subject
-  line-height: 26px
-  font-size: 20px
-  color: #000000
+  .tag
+    margin: 12px 12px 12px 0
+    padding: 0 12px
+    +inline-block
+    height: 24px
+    line-height: 22px
+    box-sizing: border-box
+    border: 1px solid #999999
+    +border-radius(2px)
+    background-color: #e5e5e5
+    font-size: 14px
+    color: #444444
+    cursor : pointer
+    &:hover
+      +box-shadow(0 0 10px rgba(0,0,0,0.2))
 .tutor_status
-  font-size: 16px
-  color: #000000
-.tutor_place
-  line-height: 32px
-  font-size: 16px
-  color: #757575
+  margin-bottom: 12px
+  font-size: 14px
+  line-height: 24px
+  color: #444444
+//-
+  .tutor_place
+    line-height: 32px
+    font-size: 16px
+    color: #757575
 .tutor_title
-  line-height: 30px
-  font-size: 18px
-  color: #82af3b
+  margin-top: 3px
+  line-height: 24px
+  font-size: 14px
+  color: #1b9d6b
 .tutor_text
   margin-top: -2px
   padding-bottom: 1.5 * $padding-bottom_block
-  font-size: 16px
+  font-size: 14px
+  line-height: 24px
   color: #000000
   .visible_text
     +inline-block
     vertical-align: top
-    color: #ff4a38
+    color: #1b9d6b
     cursor: pointer
-$height_button: 35px
-.button_prise_panel
+
+$height_button: 36px
+.bottom_block
+  margin-top: 11px
+  .add_button_bid, .tutor_place
+    +inline-block
   .add_button_bid
     height: $height_button
-    float: left
-  $icon_src: 'main/price.png'
-  $icon_height: image-height($icon_src)
-  $icon_width: image-width($icon_src)
-  $font-size: 24px
-  .price_block
-    margin-top: ($height_button - $icon_height)/2
-    float: right
-    color: #58697a
+    width: 207px
+  .tutor_place
+    text-align: right
+    box-sizing: border-box
+    padding-right: 26px
+    float : right
+    line-height : $height_button
+    .icon, .val
+      +inline-block
     .icon
-      height: $icon_height
-      width: $icon_width
-      background: url(F($icon_src)) no-repeat
+      margin-right: 10px
+      width: $map_icon_width
+      height: $map_icon_height
+      background: url(F($map_icon_src)) no-repeat
+    .val
+      color: #444444
+      font-size: 14px
+      line-height: 24px
+
+//-
+
+  .button_prise_panel
+    .add_button_bid
+      height: $height_button
       float: left
-      margin-right: 15px
-      margin-top: ($font-size - $icon_height)/2
-    .tutor_price
-      font-size: $font-size
+    $icon_src: 'main/price.png'
+    $icon_height: image-height($icon_src)
+    $icon_width: image-width($icon_src)
+    $font-size: 24px
+    .price_block
+      margin-top: ($height_button - $icon_height)/2
       float: right
-      span
-        font-size: 18px
-.button_prise_panel:after
-  content: ''
-  clear: both
-  display: block
+      color: #58697a
+      .icon
+        height: $icon_height
+        width: $icon_width
+        background: url(F($icon_src)) no-repeat
+        float: left
+        margin-right: 15px
+        margin-top: ($font-size - $icon_height)/2
+      .tutor_price
+        font-size: $font-size
+        float: right
+        span
+          font-size: 18px
+  .button_prise_panel:after
+    content: ''
+    clear: both
+    display: block
+
+.division_line
+  border-top: 1px solid #a0a0a0
+  border-bottom: 1px solid #fff
