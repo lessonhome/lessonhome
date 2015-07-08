@@ -593,4 +593,4 @@ global._objRelativeKey = (obj,key,foo,part="")=>
 
 
 
-
+global._diff = require './diff/main'
