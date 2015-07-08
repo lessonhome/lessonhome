@@ -14,6 +14,12 @@ class @main extends EE
     @reset_all_filters = @found.reset_all_filters
     @advanced_filter   = @tree.advanced_filter.class
     @tutors = $.localStorage.get 'tutors'
+    for key,val of @tutors
+      unless val.receive
+        delete @tutors[key]
+      if (new Date().getTime()-val.receive)>1000*60*5
+        delete @tutors[key]
+    $.localStorage.set 'tutors',@tutors
     @tutors ?= {}
     @tnum = 1
     @now    = []
@@ -93,6 +99,7 @@ class @main extends EE
     storage ?= {}
     tutors  ?= []
     for val in tutors
+      val.receive = new Date().getTime()
       storage[val.account] = val
     $.localStorage.set 'tutors',storage
     @tutors = storage
