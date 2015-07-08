@@ -61,6 +61,8 @@ class Tutors
       obj.name.middle = p?.middle_name
       obj.about = t?.about
       obj.subjects = {}
+      obj.gender  = p.sex
+      obj.place = {}
       for ind,val of t?.subjects
         ns = obj.subjects[val.name] = {}
         ns.description = val.description
@@ -81,6 +83,9 @@ class Tutors
         obj.price_left  = Math.min(obj.price_left ? l,l)
         obj.price_right = Math.max(obj.price_right ? r, r)
         obj.price_per_hour ?= ns.price_per_hour
+        console.log ns.place
+        for key,val of val?.place
+          obj.place[val] = true
       obj.experience = t?.experience
       obj.status = t?.status
       obj.photos = []

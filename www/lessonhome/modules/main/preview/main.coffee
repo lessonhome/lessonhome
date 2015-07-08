@@ -25,7 +25,7 @@ class @main extends EE
     @advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll',=>
       ll = @tutors_result.find(':last')
-      dist = ($(window).scrollTop()+$(window).height())-(ll.offset().top+ll.height())
+      dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
       if dist >= 0
         @filter().done()
     @on 'change', =>
@@ -148,7 +148,7 @@ class @main extends EE
           nnow[i-1].dom.after t.dom
       if (i+1)>=(@tnum)
         ll = @tutors_result.find(':last')
-        dist = ($(window).scrollTop()+$(window).height())-(ll.offset().top+ll.height())
+        dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height())
         if dist >= 0
           @tnum++
 
