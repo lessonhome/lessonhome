@@ -32,7 +32,7 @@ class @D2U
   $priceRight : (obj)=>
     type  : 'int'
     value : obj?.price?.right
-    default : 1500
+    default : 3500
   $gender : (obj)=>
     i = gender.indexOf(obj?.gender)
     i = undefined unless i >= 0

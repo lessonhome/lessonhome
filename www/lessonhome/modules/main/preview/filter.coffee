@@ -78,11 +78,11 @@ ex = (v)=>
       out.sort (a,b)=> (a.rating>b.rating)
       _out.sort (a,b)=> (a.rating>b.rating)
     when 'price'
-      out.sort (a,b)=> (a.price_per_hour>=b.price_per_hour)
-      _out.sort (a,b)=> (a.price_per_hour>=b.price_per_hour)
+      out.sort (a,b)=> (a.price_left>=b.price_left)
+      _out.sort (a,b)=> (a.price_left>=b.price_left)
     when '-price'
-      out.sort (a,b)=> (a.price_per_hour<b.price_per_hour)
-      _out.sort (a,b)=> (a.price_per_hour<b.price_per_hour)
+      out.sort (a,b)=> (a.price_right<b.price_right)
+      _out.sort (a,b)=> (a.price_right<b.price_right)
     when 'experience'
       out.sort (a,b)=> (ex(a.experience)<=ex(b.experience))
       _out.sort (a,b)=> (ex(a.experience)<=ex(b.experience))
