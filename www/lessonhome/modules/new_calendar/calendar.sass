@@ -1,0 +1,83 @@
+@import compass/css3
+$min_width_step: 6px
+$morning_src: 'calendar/morning-normal.png'
+$day_src: 'calendar/day-normal.png'
+$evening_src: 'calendar/evening-normal.png'
+$act_morning_src: 'calendar/morning-active.png'
+$act_day_src: 'calendar/day-active.png'
+$act_evening_src: 'calendar/evening-active.png'
+$day_height: image-height($morning_src)
+$day_width: image-width($morning_src)
+.calendar_box
+  .choose_all
+  .calendar_week
+    padding-bottom: 6px
+    div
+      width: $min_width_step*6
+      height: $min_width_step*6
+      +inline-block
+      text-align: center
+      background-color: #b5b5b5
+      margin-right: 6px
+    .sunday
+      margin: 0
+    div
+      .text
+        +inline-block
+    div:after
+      +inline-block
+      content: ''
+      height: 100%
+  .morning_block, .day_block, .evening_block
+    padding-bottom: 6px
+  .evening_block
+    padding: 0
+  .morning_block, .day_block, .evening_block
+    div
+      width: $day_width
+      height: $day_height
+      +inline-block
+      text-align: center
+      margin-right: 6px
+      background-color: #e6e6e6
+      .active
+        width: 100%
+        height: 100%
+        display: none
+    .m_sunday, .d_sunday, .e_sunday
+      margin-right: 0
+  .morning_block
+    div
+      background: url(F($morning_src)) no-repeat, #e6e6e6
+
+  .day_block
+    div
+      background: url(F($day_src)) no-repeat, #e6e6e6
+  .evening_block
+    div
+      background: url(F($evening_src)) no-repeat, #e6e6e6
+  .morning_block
+    div
+      .active
+        background: url(F($act_morning_src)) no-repeat, #009587
+  .day_block
+    div
+      .active
+        background: url(F($act_day_src)) no-repeat, #009587
+  .evening_block
+    div
+      .active
+        background: url(F($act_evening_src)) no-repeat, #009587
+/////////////
+
+
+.calendar_box
+  .morning_block, .day_block, .evening_block
+    .click_day.active_day
+      .active
+        +inline-block
+
+
+
+
+

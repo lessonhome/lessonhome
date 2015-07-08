@@ -4,10 +4,11 @@ class @main
   tree : -> @module '$' :
     selector        : @exports()
     value           : @exports()
-    tags_selector   : @exports()
+    #tags_selector   : @exports()
     choose_all      : @module 'tutor/forms/checkbox'  :
       text        : 'выбрать все'
       selector    : 'small'
+    ###
     from_time       : @module 'tutor/forms/input' :
       selector    : 'calendar'
       placeholder : 'с'
@@ -34,4 +35,5 @@ class @main
     save_button       : @module 'tutor/button' :
       text      : 'Сохранить'
       selector  : 'edit_save'
+    ###
     #TODO: make create @module selected_tag if user input time and press button add_time_button

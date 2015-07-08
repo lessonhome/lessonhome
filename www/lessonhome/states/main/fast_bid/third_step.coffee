@@ -6,75 +6,71 @@ class @main extends @template '../fast_bid'
   redirect : {
     'tutor' : 'tutor/profile'
   }
-  forms : [{pupil:['isPlace', 'newBid'], person:['location'], account:['fast_bid_progress'] }]
+  forms : [{pupil:['newBid', 'isStatus'], account:['fast_bid_progress']}]
   tree : ->
-    progress : $form : account : 'fast_bid_progress'
+    #progress : $form : account : 'fast_bid_progress'
+    progress : 3
     content : @module '$' :
-      tutor : @module 'tutor/forms/location_button' :
-        selector : 'place_learn'
-        text   : 'у себя'
-        $form : pupil : 'isPlace.tutor'
-      student  : @module 'tutor/forms/location_button' :
-        selector : 'place_learn'
-        text   : 'у ученика'
-        $form : pupil : 'isPlace.pupil'
-      web : @module 'tutor/forms/location_button' :
-        selector : 'place_learn'
-        text   : 'удалённо'
-        $form : pupil : 'isPlace.other'
-      location_hint : @module 'tutor/hint' :
-        selector : 'small'
-        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      your_address : @module 'tutor/forms/drop_down_list':
-        text: 'Ваш адрес :'
+      student : @module 'tutor/forms/checkbox'  :
+          text      : 'Студент'
+          selector  : 'small'
+          $form : pupil : 'isStatus.student'
+      teacher : @module 'tutor/forms/checkbox'  :
+        text      : 'Преподаватель школы'
+        selector  : 'small'
+        $form : pupil : 'isStatus.school_teacher'
+
+      professor : @module 'tutor/forms/checkbox'  :
+        text      : 'Преподаватель ВУЗа'
+        selector  : 'small'
+        $form : pupil : 'isStatus.high_school_teacher'
+      native : @module 'tutor/forms/checkbox'  :
+        text      : 'Носитель языка'
+        selector  : 'small'
+        $form : pupil : 'isStatus.native_speaker'
+
+
+      experience : @module 'tutor/forms/drop_down_list':
+        text      : 'Опыт:'
         selector  : 'fast_bid'
-        $form : person : 'location.full_address'
-      time_spend_way   : @state '../slider_main' :
-        selector      : 'way_fast_bids'
-        default :
-          left : 15
-          right : 120
-        #start         : 'calendar'
-        start_text    : 'до'
-        measurement   : 'мин.'
-        #handle        : false
-        #value         :
-        min : 15
-        max : 120
-        division_value : 15
-        left :  $form : pupil : 'newBid.subjects.0.road_time'
-      way_time_hint : @module 'tutor/hint' :
-        selector : 'small'
-        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      calendar        : @state 'calendar' :
-        selector    : 'advance_filter'
-        tags_selector : 'fast_bid'
-        value : $form : pupil : 'newBid.subjects.0.calendar'
-      calendar_hint : @module 'tutor/hint' :
-        selector : 'small'
-        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      time_spend_lesson   : @state '../slider_main' :
+        default_options     : {
+          '0': {value: '1-2years', text: '1-2 года'},
+          '1': {value: '3-4years', text: '3-4 года'},
+          '2': {value: 'more_than_4_years', text: 'более 4 лет'},
+          '3': {value: 'no_matter', text: 'неважно'}
+        }
+        $form : pupil : 'newBid.subjects.0.requirements_for_tutor.experience'
+      #status_hint : @module 'tutor/hint' :
+      #  selector : 'small'
+      #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+      age_slider   : @state '../slider_main' :
         selector      : 'time_fast_bids'
         default :
-          left : 45
-          right : 180
-        #start         : 'calendar'
+          left : 18
+          right : 90
+      #start         : 'calendar'
         dash          : '-'
-        measurement   : 'мин.'
-        min : 45
-        max : 180
-        left  : $form : pupil : 'newBid.subjects.0.lesson_duration.0'
-        right : $form : pupil : 'newBid.subjects.0.lesson_duration.1'
-        division_value : 15
+        measurement   : 'лет'
+        min : 18
+        max : 90
+        left  : $form : pupil : 'newBid.subjects.0.requirements_for_tutor.age.0'
+        right : $form : pupil : 'newBid.subjects.0.requirements_for_tutor.age.1'
+        division_value : 8
         type : 'default'
-      lesson_time_hint : @module 'tutor/hint' :
-        selector : 'small'
-        text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+      gender_data   : @state 'gender_data':
+        selector        : 'choose_gender'
+        selector_button : 'registration'
+        value : $form : pupil : 'newBid.subjects.0.requirements_for_tutor.sex'
+      #gender_hint : @module 'tutor/hint' :
+      #  selector : 'small'
+      #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
     #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
   init : ->
     @parent.tree.filter_top.button_back.selector = 'fast_bid_nav'
     @parent.tree.filter_top.button_back.href     = 'second_step'
+
     @parent.tree.filter_top.issue_bid.selector   = 'fast_bid_issue'
     @parent.tree.filter_top.issue_bid.href       = 'fifth_step'
+
     @parent.tree.filter_top.button_next.selector = 'fast_bid_nav'
     @parent.tree.filter_top.button_next.href     = 'fourth_step'

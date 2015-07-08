@@ -8,7 +8,8 @@ class @main extends @template '../fast_bid'
     tutor : 'tutor/profile'
   }
   tree : ->
-    progress : $form : account : 'fast_bid_progress'
+    #progress : $form : account : 'fast_bid_progress'
+    progress : 1
     content : @module '$' :
       name : @module 'tutor/forms/input' :
         text1      : 'Имя :'
@@ -36,6 +37,10 @@ class @main extends @template '../fast_bid'
         patterns : [
           "^\\+7 \\(\\d\\d\\d\\) \\d\\d\\d-\\d\\d-\\d\\d$" : "Введите телефон <br>в формате +7 (926) 123-45-45"
         ]
+      call_time : @module 'tutor/forms/textarea':
+        text: 'В какое время Вам звонить :'
+        selector  : 'fast_bid'
+        value     : $form : pupil : 'newBid.phone_call.description'
       email : @module 'tutor/forms/input':
         text1: 'E-mail :'
         selector  : 'fast_bid'
@@ -132,10 +137,24 @@ class @main extends @template '../fast_bid'
 
         }
         value : $form : pupil : 'newBid.subjects.0.subject'
-      call_time : @module 'tutor/forms/textarea':
-        text: 'В какое время Вам звонить :'
+
+      pupil_status : @module 'tutor/forms/drop_down_list':
+        text: 'Категория ученика :'
         selector  : 'fast_bid'
-        value     : $form : pupil : 'newBid.phone_call.description'
+        default_options     : {
+          '0': {value: 'preschool_child', text: 'дошкольник'},
+          '1': {value: 'student_junior_school', text: 'школьник - младшая школа'},
+          '2': {value: 'student_high_school', text: 'школьник - средняя школа'},
+          '3': {value: 'student_senior_school', text: 'школьник - старшая школа'},
+          '4': {value: 'student', text: 'студент'},
+          '5': {value: 'grown_up', text: 'взрослый'}
+        }
+        value : $form : pupil : 'newBid.status'
+      course : @module 'tutor/forms/drop_down_list':
+        text: 'Курс :'
+        selector  : 'fast_bid'
+        value : $form : pupil : 'newBid.subjects.0.course'
+
       comments : @module 'tutor/forms/textarea':
         text: 'Комментарии :'
         selector  : 'fast_bid'
@@ -143,10 +162,12 @@ class @main extends @template '../fast_bid'
     #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
 
   init : ->
-    @parent.tree.filter_top.button_back.selector = 'fast_bid_nav visibility'
-    @parent.tree.filter_top.button_back.href     = false
-    @parent.tree.filter_top.issue_bid.selector   = 'fast_bid_issue inactive'
+    @parent.tree.filter_top.button_back.selector = 'fast_bid_nav inactive'
+    @parent.tree.filter_top.button_back.href     = ''
+
+    @parent.tree.filter_top.issue_bid.selector   = 'fast_bid_issue'
     @parent.tree.filter_top.issue_bid.href       = 'fifth_step'
+
     @parent.tree.filter_top.button_next.selector = 'fast_bid_nav'
     @parent.tree.filter_top.button_next.href     = 'second_step'
 

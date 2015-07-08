@@ -1,14 +1,37 @@
 @import compass/css3
+$book: 'fast_bids/fastbid_book.png'
+$book_height: image-height($book)
+$book_width: image-width($book)
+$min_width_step:  6px
 .fast_bid
   .progress_bar
     +inline-block
     padding-top: 73px
   .center
+    position: relative
     padding-top: 40px
     padding-bottom: 22px
+    .book
+      width: $book_width
+      height: $book_height
+      background: url(F($book))
+      position: absolute
+      left: 7*$min_width_step
+      top: 195px
     .content
       +inline-block
-      width: 363px
+      width: 68*$min_width_step
+
+    .add_tutors
+      background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.2)
+      position: absolute
+      top: 0
+      right: 0
+      margin-top: 40px
+      margin-right: 90px
+      width: $min_width_step*32
+      padding: $min_width_step*4
+      box-sizing: border-box
     //.hint
       width: 244px
       +inline-block
@@ -22,10 +45,15 @@
       color: #222528
   .footer
     padding-bottom: 30px
-    height: 36px
+    height: 48px
     //- children: .button_back, .button_next, .issue_bid
     div
       height: 100%
       +inline-block
+    .button_back
+      width: 15*$min_width_step
+    .button_next
+      width: 14*$min_width_step
     .issue_bid
+      width: 37*$min_width_step
       margin: 0 27.5px
