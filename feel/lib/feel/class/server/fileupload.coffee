@@ -116,7 +116,7 @@ class FileUpload
     qs.push _resize
       srcPath : o.tdir+o.name
       dstPath : o.ndir+o.high
-      width   : 640
+      width   : 720
       quality : 0.8
     qs.push _resize
       srcPath : o.tdir+o.name

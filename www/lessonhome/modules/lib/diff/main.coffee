@@ -4,6 +4,7 @@
 class @main
   constructor : ->
   show : =>
+    window._diff = @
     @register 'diff'
   
   match : (text,word,from=0,to=0.5,count=20)=>#,t1=0.8,t2=t1,d1=1000,d2=0)=>

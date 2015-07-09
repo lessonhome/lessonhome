@@ -1,19 +1,9 @@
-.info.unselect
-  .bg_box1
-    .status
-      .title.select Статус :
-      .value
-        .student!= student
-        .teacher!= teacher
-        .professor!= professor
-        .native!=native
-    .experience!= experience
-    .hint!=status_hint
-  .bg_box2
-    .text_box
-      .title.select Возраст :
-    .age_slider!=age_slider
-    .sex
-      .title.select Пол :
-      .gender_data!=gender_data
-    .hint!=gender_hint
+.thanks_block(style = "background: url(#{F('main/filter_top.jpg')})")
+  .icon_block
+    .icon(style="width: #{thanks_icon.width}px; height: #{thanks_icon.height}px; background: url(#{thanks_icon.src});")
+  .progress_bar!= progress_bar
+  .text
+    .t1.select Спасибо!
+    .t2.select Ваша заявка отправлена.
+    .t3.select В ближайшее время оператор свяжется с Вами.
+    .t4.select!= 'Если у вас есть вопросы, то вы можете посмотреть раздел<br><a>помощи</a> или отправить нам <a>сообщение</a>.'

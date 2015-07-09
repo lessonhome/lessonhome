@@ -14,7 +14,7 @@ class @main extends @template './motivation_content'
     popup       : @exports()
     tag         : 'pupil:main_search'
     filter_top  : @state './filter_top' :
-      title         : 'Быстро подберем Вам лучшего репетитора!'
+      title           : 'Быстро подберем Вам лучшего репетитора!'
       list_subject    : @module 'tutor/forms/drop_down_list' :
         selector    : 'main_subject'
         placeholder : 'Предмет'

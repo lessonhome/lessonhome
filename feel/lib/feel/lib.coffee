@@ -492,6 +492,7 @@ _js_infinite_json = require 'js-infinite-json'
 global._deflate = Q.denode require('zlib').deflate
 global._qlimit  = require './lib/qlimit'
 global._crypto  = require 'crypto'
+global._        = require 'lodash'
 global._util    = require 'util'
 global._fs      = require 'fs'
 global._readdir = Q.denode _fs.readdir
@@ -592,4 +593,4 @@ global._objRelativeKey = (obj,key,foo,part="")=>
 
 
 
-
+global._diff = require './diff/main'

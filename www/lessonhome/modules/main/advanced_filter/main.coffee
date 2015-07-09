@@ -37,9 +37,9 @@ class @main extends EE
         i.class = @tree?[input]?.class
         i?.class?.on? 'change', => @emit 'change'
 
-    @on 'change', => #Q.spawn =>
-      v = @getValue()
-      console.log v
+    #@on 'change', => #Q.spawn =>
+    #  v = @getValue()
+    #  console.log v
 
 
     # change visibility show_hidden

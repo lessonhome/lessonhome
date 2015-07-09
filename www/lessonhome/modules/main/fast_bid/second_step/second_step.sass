@@ -1,33 +1,26 @@
 @import compass/css3
-$padding: 8px
+$min_width_step: 6px
 .info
-  .bg_box1, .bg_box2
+  .bg_box, .bg_box1
+    text-align: left
+    padding: 18px 24px
+    background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.2)
+  .bg_box
     margin-bottom: 10px
-  .bg_box2
-    position: relative
-  .bg_box1, .bg_box2, .bg_box3
-    padding: 12px
-    background: rgba(255,255,255,0.4)
-    .box
-      padding: $padding 0
-    .text_box
-      padding: $padding 0
-      text-align: left
-      .title_price
-        +inline-block
-        font-size: 16px
-        color: #222528
-    .price_slider_bids
-      padding-top: $padding
-    .hint
-      position: absolute
-      left: 100%
-      top: 0
-      margin-left: 5px
-      margin-top: 7px
-    .pupil_status, .text_box
-      padding-top: 0
-    .knowledge_level
+  .bg_box, .bg_box1
+    div
+      padding-bottom: 2*$min_width_step
+    .remote, .calendar
       padding-bottom: 0
-    .goal
-      padding: 0
+    .time_spend_lesson
+      padding-bottom: 4*$min_width_step
+  .bg_box1
+    .box_price
+      padding-bottom: 0
+      div
+        padding-bottom: 2*$min_width_step
+      .price_2000
+        padding: 0
+
+
+

@@ -9,7 +9,7 @@ if popup
   .filter!=advanced_filter
 .result_filter
   .sort!=sort
-  .js-profiles_on_page
+  //.js-profiles_on_page
     .title Анкет на странице :
     .item.active.js-profiles_20
       .val 20
@@ -37,6 +37,7 @@ if popup
       .issue_bid
         .issue_bid_button!= issue_bid_button
         .text!= 'с прикреплёнными<br>репетиторами'
-  .tutors_result
-    each value in tutors_result
+  .js-tutors_result
+  //  each value in tutors_result
       .js-tutor_result!= value
+  .js-tutor_test!=tutor_test

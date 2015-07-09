@@ -24,7 +24,8 @@ main
   border: 1px solid #d9d9d9
   box-sizing: border-box
   text-align: left
-
+main.fixed
+  +box-shadow(0 0 20px rgba(0,0,0,0.6))
 .sort_block
   height: 100%
   +inline-block
@@ -53,6 +54,7 @@ main
         margin: 0 0 0 7px
         //-margin-top: ($height_font - $icon_height)/2
         +inline-block
+        opacity : 0
         background: url(F($triangle_src)) no-repeat
       .title
         +inline-block
@@ -67,6 +69,8 @@ main
   .section.active
     padding: 0 17px 0 5px
     .box
+      .icon
+        opacity : 1
       border: 1px solid #b7b7b7
       +border-radius(4px)
   .section.up

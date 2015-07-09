@@ -15,6 +15,10 @@ class @main extends @template '../../tutor'
         href  : '/tutor/search_bids'
       }
       @module 'tutor/header/button' : {
+        title : 'Отчёты'
+        href  : '/tutor/reports'
+      }
+      @module 'tutor/header/button' : {
         title : 'Входящие'
         href  : '/tutor/in_bids'
       }
@@ -22,10 +26,6 @@ class @main extends @template '../../tutor'
         title : 'Исходящие'
         href  : '/tutor/out_bids'
         tag   : 'tutor:out_bids'
-      }
-      @module 'tutor/header/button' : {
-        title : 'Отчёты'
-        href  : '/tutor/reports'
       }
     ]
     content : @module '$' :

@@ -1,69 +1,73 @@
 
 class @main extends EE
   Dom : =>
-    @items = ['price', 'experience', 'way_time'] # sort items
-    @price      = @found.price
-    @experience = @found.experience
-    @way_time   = @found.way_time
-    @show_list  = @found.show_list
-    @show_grid  = @found.show_grid
-
+    @items = ['price', 'experience', 'rating'] # sort items
   show : =>
-    $(@price).on 'click', =>
-      @changeDirection @price
-      @setItemActive   @price
-      @setItemInactive @experience
-      @setItemInactive @way_time
+    $(window).on 'scroll', @scroll
+    for item in @items
+      do (item)=>
+        @found[item].on 'click',=>
+          unless @tree.value.sort == item
+            @tree.value.sort = item
+          else
+            @tree.value.sort = '-'+item
+          @setValue()
+          @emit 'change'
 
-    $(@experience).on 'click', =>
-      @changeDirection @experience
-      @setItemActive   @experience
-      @setItemInactive @price
-      @setItemInactive @way_time
-
-    $(@way_time).on 'click', =>
-      @changeDirection @way_time
-      @setItemActive   @way_time
-      @setItemInactive @price
-      @setItemInactive @experience
-
-    $(@show_list).on 'click', =>
-      return if @show_list.hasClass 'active'
-      @show_list.addClass 'active'
-      @show_grid.removeClass 'active'
-
-    $(@show_grid).on 'click', =>
-      return if @show_grid.hasClass 'active'
-      @show_grid.addClass 'active'
-      @show_list.removeClass 'active'
-
-  changeDirection : (div)=>
-    if div.hasClass 'active'
-      div.toggleClass 'up'
+    @found.show_list?.on 'click', =>
+      @tree.value.show = 'list'
+      @setValue()
       @emit 'change'
-      @emit 'end'
-    return 0
-  getValue : =>
-    ret = []
-    i = 0
-    for section in @sections
-      item = {}
-      section = $ section
-      item.title = @items[i++]
-      if section.hasClass 'up'
-        item.value = 'up'
-      else
-        item.value = 'down'
-      ret.push item
-    return ret
 
+    @found.show_grid?.on 'click', =>
+      @tree.value.show = 'grid'
+      @setValue()
+      @emit 'change'
+    @setValue()
+    @scroll()
+  scroll : =>
+    unless @fixed
+      l = @dom.offset().top-$(window).scrollTop()
+      return unless (l < 4)
+      @dom.addClass 'fixed'
+      @dot = @dom.offset().top
+      unless @fixed?
+        @wi = @dom.width()
+        @he = @dom.height()
+      @fixed = true
+      @dom.css {
+        position : 'fixed'
+        height   : @he
+        width    : @wi
+        'z-index' : 1000
+        top      : 4
+      }
+    else
+      l = @dot-$(window).scrollTop()
+      return if (l < 4)
+      @dom.removeClass 'fixed'
+      @fixed = false
+      @dom.css {
+        position : 'relative'
+        top      : 0
+        'z-index' : 0
+      }
 
-  setItemActive: (div)=>
-    return if div.hasClass 'active'
-    div.addClass 'active'
-    return 0
+  getValue : => @tree.value
+  setValue : (val=@tree.value)=>
+    @tree.value.sort = val.sort if val.sort?
+    @tree.value.show = val.show if val.show?
+    item = @tree.value.sort.replace '-',''
+    for it in @items
+      @found[it].removeClass  'up'
+      @found[it].removeClass  'active'
+    @found[item].addClass 'active'
+    unless @tree.value.sort == item
+      @found[item].addClass 'up'
+    if @tree.value.show == 'list'
+      @found.show_list.addClass 'active'
+      @found.show_grid.removeClass 'active'
+    else
+      @found.show_grid.addClass 'active'
+      @found.show_list.removeClass 'active'
 
-  setItemInactive: (div)=>
-    return if !div.hasClass 'active'
-    div.removeClass 'active'
-    return 0

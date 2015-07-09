@@ -15,17 +15,17 @@ class @main extends @template '../../tutor'
         href  : '/tutor/search_bids'
       }
       @module 'tutor/header/button' : {
+        title : 'Отчёты'
+        href  : '/tutor/reports'
+        tag   : 'tutor:reports'
+      }
+      @module 'tutor/header/button' : {
         title : 'Входящие'
         href  : '/tutor/in_bids'
       }
       @module 'tutor/header/button' : {
         title : 'Исходящие'
         href  : '/tutor/out_bids'
-      }
-      @module 'tutor/header/button' : {
-        title : 'Отчёты'
-        href  : '/tutor/reports'
-        tag   : 'tutor:reports'
       }
     ]
     content : @module '$' :

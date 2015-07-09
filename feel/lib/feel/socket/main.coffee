@@ -73,6 +73,8 @@ class Socket
           else
             do (obj,key,val)->
               obj[key] = (args...)-> Q.then -> val.apply obj,args
+      obj.$db = @db
+      yield obj?.init?()
     $.db = @db
     do (req,res)=>
       req ?= {}

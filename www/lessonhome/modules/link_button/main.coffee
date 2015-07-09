@@ -1,7 +1,7 @@
 
 class @main extends EE
   show : =>
-    @link = @dom.find "a"
+    @link         = @dom.find "a"
 
     @link.on     'mousedown', @mdown
     @link.click (e)=>
@@ -9,14 +9,16 @@ class @main extends EE
       e.preventDefault()
       @emit 'submit'
   mdown : =>
-    @link.addClass('press')
-    $('body').on 'mouseup.link_button', @mup
-    $('body').on 'mouseleave.link_button', @mup
+    if @link.hasClass 'active'
+      @link.addClass('press')
+      $('body').on 'mouseup.link_button', @mup
+      $('body').on 'mouseleave.link_button', @mup
 
   mup   : =>
-    $('body').off 'mouseup.link_button'
-    $('body').off 'mouseleave.link_button'
-    @link.removeClass 'press'
+    if @link.hasClass 'active'
+      $('body').off 'mouseup.link_button'
+      $('body').off 'mouseleave.link_button'
+      @link.removeClass 'press'
   submit : =>
     href = @link.attr 'href'
     Feel.go href

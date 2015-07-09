@@ -1,18 +1,20 @@
-mixin item (value, selector)
-  .box(class=selector)!=value
-
-
 
 /////////////////////////////
 .info
+  .bg_box
+    .title Место :
+    .pupil!=pupil
+    .tutor!=tutor
+    .remote!=remote
+  .bg_box
+    .title Время занятий :
+    .calendar!=calendar
   .bg_box1
-    +item(pupil_status, 'pupil_status')
-    +item(course, 'course')
-    +item(knowledge_level, 'knowledge_level')
-  .bg_box2
-    .text_box
-      .title_price.select Цена одного занятия :
-    .price_slider_bids!=price_slider_bids
-    .hint!=price_hint
-  .bg_box3
-    +item(goal, 'goal')
+    .title Длительность одного занятия :
+    .time_spend_lesson!=time_spend_lesson
+    .box_price
+      .title Цена одного занятия :
+      .price_500!=price_500
+      .price_500_1000!=price_500_1000
+      .price_1000_2000!=price_1000_2000
+      .price_2000!=price_2000

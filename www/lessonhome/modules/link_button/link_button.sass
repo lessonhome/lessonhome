@@ -6,11 +6,13 @@ $green: hsl(87,62%,69%)
 $light_green: hsl(78,70%,65%)
 // later doing hsl color
 $temporary_green: #009587
+$active_gray: #d9d9d9
 main
   +inline-block
   height: 100%
   width: 100%
 a
+  cursor: default
   width: 100%
   display: block
   height: 100%
@@ -23,7 +25,7 @@ a
     .text
       +inline-block
       //vertical-align: sub
-      color: #757575
+      color: #000000
   .button:after
     content: ''
     +inline-block
@@ -37,8 +39,7 @@ a
   cursor: pointer
   .button
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
-    .text
-      color : #fff
+
 
 .hidden
   display: none
@@ -67,21 +68,24 @@ a
         background: lighten($gray, 5%)
 
 // new function for new design
-=selector_new($selector,$b_color,$font_size)
+=selector_new($selector,$b_color,$font_size,$b_radius)
   a.#{$selector}
     .button
+      +border-radius($b_radius)
+      background: $b_color
       .text
         font-size: $font_size
-    &.active
+    //&.active
       .button
-        background: $b_color
     &.active:hover
       .button
         background: lighten($b_color, 5%)
     &.inactive
       .button
-        background: $gray
-    &.inactive:hover
+        opacity: 0.3
+        .text
+          opacity: 0.3
+    //&.inactive:hover
       .button
         background: lighten($gray, 5%)
 
@@ -131,8 +135,10 @@ $padding_text: 15px
 
 //- ---------- Fast bid: navigation buttons (next, back), issue bid button ---------------------
 
-+selector('fast_bid_nav', $blue, 21px, 20px)
-+selector('fast_bid_issue', $red, 21px, 20px)
+//+selector('fast_bid_nav', $blue, 21px, 20px)
++selector_new('fast_bid_nav', $active_gray, 20px,2px)
++selector_new('fast_bid_issue', $active_gray, 20px,2px)
+//+selector('fast_bid_issue', $red, 21px, 20px)
 
 //- ---------- Tutor bids reports: popup : send button ---------------------
 
@@ -141,7 +147,7 @@ $padding_text: 15px
 //- --------- Invite students, invite tutor --------------------------------
 
 //+selector('invite', $red, 10px, 18px)
-+selector_new('invite', $temporary_green, 18px)
++selector_new('invite', $temporary_green, 18px, 0)
 
 
 // save button in popup address
@@ -154,7 +160,7 @@ $padding_text: 15px
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
 
 
-.inactive:hover
+//.inactive:hover
   .button
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 2px 0px, rgba(0, 0, 0, 0.1) 0px -3px 0px 0px inset
 

@@ -1,3 +1,5 @@
+
+
 # filling       : @exports()
 #selector      : 'padding_1px_rating'
 class @main
@@ -7,6 +9,7 @@ class @main
       count_review  : @exports()
       close         : false
       extract       : 'extract'
+      rating        : @exports()
     tutor_extract : @module '$/tutor_extract'  :
       value : @exports()
       ### value have variables

@@ -22,42 +22,32 @@ mixin item (progress, value_src, href, selector)
 //width: 56px
 //padding: 25px
 - var widthBlue = 56 + 2*25
-- var src_1 = 'application_1.png'
-- var src_2 =  'application_2.png'
-- var src_3 = 'application_3.png'
-- var src_4 = 'application_4.png'
 .container
   case progress
     when 1
+      - var src_1 = 'fastbid_1-active.png'
+      - var src_2 =  'application_2.png'
+      - var src_3 = 'application_3.png'
       +item(1, src_1, false, 'one')
       +item(false, src_2, false)
-      +item(false, src_3, false)
-      +item(false, src_4, false, 'fourth')
+      +item(false, src_3, false, 'third')
       - widthBlue = widthBlue*(progress-1)
     when 2
+      - var src_1 = 'fastbid_1-done.png'
+      - var src_2 =  'fastbid_2-active.png'
+      - var src_3 = 'application_3.png'
       +item(1, src_1, 'first_step', 'one')
       +item(2, src_2, false)
-      +item(false, src_3, false)
-      +item(false, src_4, false, 'fourth')
+      +item(false, src_3, false, 'third')
       - widthBlue = widthBlue*(progress-1)
     when 3
+      - var src_1 = 'fastbid_1-done.png'
+      - var src_2 =  'fastbid_2-done.png'
+      - var src_3 = 'fastbid_3-active.png'
       +item(1, src_1, 'first_step', 'one')
       +item(2, src_2, 'second_step')
-      +item(3, src_3, false)
-      +item(false, src_4, false, 'fourth')
+      +item(3, src_3, false, 'third')
       - widthBlue = widthBlue*(progress-1)
-    when 4
-      +item(1, src_1, 'first_step', 'one')
-      +item(2, src_2, 'second_step')
-      +item(3, src_3, 'third_step')
-      +item(4, src_4, 'fourth_step', 'fourth')
-      - widthBlue = widthBlue*(progress-1)
-    when 5
-      +item(1, src_1, false, 'one')
-      +item(2, src_2, false)
-      +item(3, src_3, false)
-      +item(4, src_4, false, 'fourth')
-      - widthBlue = widthBlue*(progress-2)
   .line_box
     .gray_line
     .blue_line(style='width: #{widthBlue}px')

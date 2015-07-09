@@ -1,28 +1,17 @@
 .info.unselect
+  .bg_box
+    .title.select Статус :
+    .student!= student
+    .teacher!= teacher
+    .professor!= professor
+    .native!= native
+    //.hint!= location_hint
+  .bg_box
+    .experience!=experience
+  .bg_box
+    .title Возраст :
+    .age_slider!=age_slider
   .bg_box1
-    .location
-      .title.select Место :
-      .value
-        .tutor!= tutor
-        .student!= student
-        .web!= web
-    .your_address!= your_address
-    .hint!= location_hint
-  .bg_box2
-    .time_spend_way_box
-      .box_title
-        .title.select Время на дорогу :
-      .time_spend_way!=time_spend_way
-    .hint!=way_time_hint
-  .bg_box3
-    .calendar_box
-      .box_title
-        .title.select Дни и время занятий :
-      .calendar!=calendar
-    .hint!=calendar_hint
-  .bg_box4
-    .time_spend_lesson_box
-      .box_title
-        .title.select Время одного занятия :
-      .time_spend_lesson!=time_spend_lesson
-    .hint!=lesson_time_hint
+    .title Пол :
+    .gender_data!=gender_data
+    //.hint!=lesson_time_hint
