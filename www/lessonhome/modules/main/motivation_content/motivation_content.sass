@@ -17,6 +17,8 @@ $pattern_bottom_height: image-height($pattern_bottom_src)
 $pattern_bottom_width: image-width($pattern_bottom_src)
 
 $main_pattern_noise_src: 'main/main_pattern_noise.png'
+$main_pattern_top_src: 'main/main_pattern_top.png'
+$main_pattern_top_height: image-height($main_pattern_top_src)
 
 $board_src: 'main/main_board.jpg'
 $board_height: image-height($board_src)
@@ -51,6 +53,7 @@ $main_apple_width: image-width($main_apple_src)
     margin-top: 36px
     font-size: 32px
     line-height: 48px
+    font-weight: 600
     color: #202020
   .t2
     font-size: 18px
@@ -60,15 +63,15 @@ $main_apple_width: image-width($main_apple_src)
   .wand_left, .wand_right
     position: absolute
   .wand_left
-    top: 69px
+    top: 68px
     left: 39px
     width: $wand_left_width
     height: $wand_left_height
     background: url(F($wand_left_src)) no-repeat
 
   .wand_right
-    top: 0
-    right: 30px
+    top: -5px
+    right: 25px
     width: $wand_right_width
     height: $wand_right_height
     background: url(F($wand_right_src)) no-repeat
@@ -82,6 +85,8 @@ $main_apple_width: image-width($main_apple_src)
   overflow: hidden
   background: url(F($main_pattern_noise_src))
   .title
+    text-align: left
+    padding-left: 85px
     margin: 24px 0 42px 0
     font-size: 20px
     line-height: 24px
@@ -90,7 +95,7 @@ $main_apple_width: image-width($main_apple_src)
     margin-bottom: 60px
     .rep
       width: 228px
-      margin-right: 24px
+      margin: 0 12px
       +inline-block
 
 .board_wrap
@@ -102,6 +107,8 @@ $main_apple_width: image-width($main_apple_src)
     height: $board_height
     background: url(F($board_src)) no-repeat
 .motivation
+  position: relative
+  padding-bottom: 60px
   background: url(F($main_pattern_noise_src))
   .left, .center, .right
     +inline-block
@@ -117,16 +124,27 @@ $main_apple_width: image-width($main_apple_src)
       line-height: 24px
       color: #202020
     .button
+      margin-top: 32px
       height: 48px
-      width: 180px
+      width: 228px
   .left
     margin-right: 39px
     width: 298px
+    .button
+      width: 180px
   .center
     margin-right: 44px
     width: 290px
   .right
     width: 308px
+  .bottom_pattern
+    position: absolute
+    z-index: 1
+    bottom: -$main_pattern_top_height + 1
+    height: $main_pattern_top_height
+    width: 100%
+    background: url(F($main_pattern_top_src))
+$main_pattern_top_src: 'main/main_pattern_top.jpg'
 .ways
   position: relative
   height: 624px
@@ -175,7 +193,7 @@ $main_apple_width: image-width($main_apple_src)
     text-align: left
     .review
       +inline-block
-      margin-left: 24px
+      margin-left: 20px
       width: 480px
       .photo_wrap, .text_box
         +inline-block
@@ -188,6 +206,11 @@ $main_apple_width: image-width($main_apple_src)
           height: 114px
           background-color: #fff
           +border-radius(50%)
+        .name
+          text-align: center
+          color: #202020
+          font-size: 14px
+          line-height: 24px
       .text_box
         position: relative
         width: 312px
