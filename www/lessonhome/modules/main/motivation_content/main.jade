@@ -2,10 +2,11 @@
 //.choose_tutor_block(scrolltop="ways-to-find" style = "background: url(#{F('main/pattern_green2.jpg')})")!=choose_search
 //.choose_search_block(scrolltop="tutor-selection")!=choose_tutor
 
-mixin review(selector, text)
+mixin review(selector, name, text)
   .review(class=selector)
     .photo_wrap
       .photo
+      .name=name
     .text_box
       .quotes_wrap
         .quotes
@@ -38,6 +39,7 @@ mixin review(selector, text)
     .title.select ПОЗВОНИ МНЕ, ПОЗВОНИ!
     .text.select Иногда проще сказать, чем написать - закажите обратный звонок, и наш оператор сделает всё за Вас.<br>Если вы в чём-то сомневаетесь, то мы ответим на все ваши вопросы!
     .button!=callback
+  .bottom_pattern
 .ways
   .main_apple
   .title НЕ ВАЖНО, КАКОЙ ИЗ ВАРИАНТОВ ПОИСКА ВЫ ВЫБЕРЕТЕ,<br>ГЛАВНОЕ - ОНИ ВСЕ ПРИВЕДУТ К ПРАВИЛЬНОМУ РЕЗУЛЬТАТУ.
@@ -47,5 +49,5 @@ mixin review(selector, text)
 .reviews_wrap
   .title ЧТО ГОВОРЯТ О НАС УЧЕНИКИ И РЕПЕТИТОРЫ
   .reviews
-    +review('first',  'Укажите диапазон цены, время и место планируемых занятий и умный поисковик мгновенно подберёт для Вас подходящие анкеты репетиторов из нашей огромной базы.')
-    +review('second', 'Укажите диапазон цены, время и место планируемых занятий и умный поисковик мгновенно подберёт для Вас подходящие анкеты репетиторов из нашей огромной базы.')
+    +review('first', 'Игорь', 'Укажите диапазон цены, время и место планируемых занятий и умный поисковик мгновенно подберёт для Вас подходящие анкеты репетиторов из нашей огромной базы.')
+    +review('second','Татьяна', 'Укажите диапазон цены, время и место планируемых занятий и умный поисковик мгновенно подберёт для Вас подходящие анкеты репетиторов из нашей огромной базы.')

@@ -119,7 +119,7 @@ main
   width: $search_width
   height: $search_height
   margin-left: 15px
-  .filters, .button
+  .filters, a>.button
     +inline-block
   .filters
     width: 911px
@@ -167,6 +167,7 @@ main
         content: ''
       .bottom
         display: none
+        z-index: 2
         position: absolute
         left: 0
         top: $search_height
@@ -204,6 +205,7 @@ main
             color: #b5b5b5
       .bottom
         display: none
+        z-index: 2
         position: absolute
         left: -17px
         top: $search_height
@@ -220,15 +222,26 @@ main
       padding: 6px 0
       box-sizing: border-box
       background-color: rgba(178, 178, 178, 0.61)
-  .button
-    width: 58px
+  a
     height: 100%
-    cursor: pointer
-    box-sizing: border-box
-    border: 1px solid rgba(0, 0, 0, 0.24)
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), inset 0px 2px 0px 0px rgba(255, 255, 255, 0.2)
-    background: url(F($search_icon_src)) no-repeat center, url(F($search_pattern_src))
-    background-color: #00bbd3
+    +inline-block
+    .button
+      width: 58px
+      height: 100%
+      cursor: pointer
+      box-sizing: border-box
+      border: 1px solid rgba(0, 0, 0, 0.24)
+      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), inset 0px 2px 0px 0px rgba(255, 255, 255, 0.2)
+      background: url(F($search_icon_src)) no-repeat center, url(F($search_pattern_src))
+      background-color: #00bbd3
 
-
-
+.issue_bid_button_wrap
+  position: relative
+  text-align: right
+  z-index: 1
+  margin-top: 24px
+  padding-right: 15px
+  .button
+    +inline-block
+    width: 283px
+    height: 46px

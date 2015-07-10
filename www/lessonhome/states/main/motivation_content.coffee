@@ -8,22 +8,22 @@ class @main extends @template '../main'
       reps : [
         @module '$/tutor_block' :
           subject: 'Английский язык'
-          name: 'Иванова А.О.'
+          full_name: 'Иванова А.О.'
           price: 'от 500 руб.за час'
           about_text: 'Очень люблю и ценю свою работу, люблю преподавать материал порциооно, чтобы было легче'
         @module '$/tutor_block' :
           subject: 'Английский язык'
-          name: 'Иванова А.О.'
+          full_name: 'Иванова А.О.'
           price: 'от 500 руб.за час'
           about_text: 'Очень люблю и ценю свою работу, люблю преподавать материал порциооно, чтобы было легче'
         @module '$/tutor_block' :
           subject: 'Английский язык'
-          name: 'Иванова А.О.'
+          full_name: 'Иванова А.О.'
           price: 'от 500 руб.за час'
           about_text: 'Очень люблю и ценю свою работу, люблю преподавать материал порциооно, чтобы было легче'
         @module '$/tutor_block' :
           subject: 'Английский язык'
-          name: 'Иванова А.О.'
+          full_name: 'Иванова А.О.'
           price: 'от 500 руб.за час'
           about_text: 'Очень люблю и ценю свою работу, люблю преподавать материал порциооно, чтобы было легче'
       ]
@@ -36,7 +36,7 @@ class @main extends @template '../main'
         text: 'НАЧАТЬ ПОИСК'
       issue_bid: @module 'link_button' :
         selector: 'main_page_motivation'
-        text: 'НАЧАТЬ ПОИСК'
+        text: 'ОФОРМИТЬ ЗАЯВКУ'
       callback: @module 'link_button' :
         selector: 'main_page_motivation'
-        text: 'НАЧАТЬ ПОИСК'
+        text: 'ОБРАТНЫЙ ЗВОНОК'
