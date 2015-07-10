@@ -10,6 +10,7 @@ class @main extends @template '../fast_bid'
   tree : ->
     #progress : $form : account : 'fast_bid_progress'
     progress : 3
+    b_selector  : 'star'
     content : @module '$' :
       student : @module 'tutor/forms/checkbox'  :
           text      : 'Студент'

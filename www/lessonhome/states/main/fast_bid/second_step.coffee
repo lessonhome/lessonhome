@@ -10,6 +10,7 @@ class @main extends @template '../fast_bid'
   tree : ->
     #progress : $form : account : 'fast_bid_progress'
     progress : 2
+    b_selector  : 'alarm'
     content : @module '$' :
       #knowledge_level : @module 'tutor/forms/drop_down_list':
       #  text: 'Уровень знаний :'
