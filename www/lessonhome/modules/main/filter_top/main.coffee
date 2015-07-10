@@ -24,20 +24,20 @@ class @main extends EE
     @out_err = @found.out_err
     @tag  = @found.tag
     @tags = @found.tags
-
+    @issue_bid_button = @tree.issue_bid_button.class
 
   show: =>
+    #@issue_bid_button.submit()
     $(@tutor_status_top).on 'click', => $(@tutor_status_bottom).toggle()
     $(@place_top).on 'click', => $(@place_bottom).toggle()
     $(@price_top).on 'click', => $(@price_bottom).toggle()
-    $(document).on 'mouseup', (e)=>
-     div = $(@tutor_status)
-     ###
+
+    ###
       if (!div.is(e.target) && div.has(e.target).length == 0)
          $(@tutor_status_bottom).hide()
 
-      ###
-     # TODO: click on out of element
+    ###
+    # TODO: click on out of element
 
   save : => Q().then =>
     if @check_form()

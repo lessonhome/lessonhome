@@ -1,0 +1,26 @@
+@import compass/css3
+
+$main_block_pattern: 'main/main_block_pattern.jpg'
+
+main
+  background: url(F($main_block_pattern))
+  background-color: #ffffff
+  border: 1px solid #bdbdbd
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3)
+.subject, .full_name, .price, .about_text, .open_button>.text
+  line-height: 24px
+  font-size: 14px
+  color: #202020
+.subject
+  padding-top: 5px
+  background-color: #fff
+.photo_wrap
+  height: 120px
+  .photo
+    +inline-block
+    width: 112px
+    height: 112px
+    background-color: rgba(55, 178, 147, 0.60)
+.open_button
+  background-color: #ffffff
+  cursor: pointer

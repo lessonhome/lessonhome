@@ -1,53 +1,24 @@
-mixin item (progress, value_src, href, selector)
-  - href = href || '';
-  - src = F(value_src);
-  if href
-    a(href=href class = selector)
-      if progress
-        .progress.block
-          .value(style = "background: url(#{src}) no-repeat center")
-      else
-        .block
-          .value(style = "background: url(#{src}) no-repeat center")
-  else
-    .panel(class = selector)
-      if progress
-        .progress.block
-          .value(style = "background: url(#{src}) no-repeat center")
-      else
-        .block
-          .value(style = "background: url(#{src}) no-repeat center")
+mixin item (href, selector, line_selector,active_selector)
+    a(href=href).icon(class=selector)
+      .icon_active
+      .icon_done
+      div(class=active_selector)
+    div(class=line_selector)
+
+
 
 //- --------------------------------------------------------
-//width: 56px
-//padding: 25px
-- var widthBlue = 56 + 2*25
 .container
   case progress
     when 1
-      - var src_1 = 'fastbid_1-active.png'
-      - var src_2 =  'application_2.png'
-      - var src_3 = 'application_3.png'
-      +item(1, src_1, false, 'one')
-      +item(false, src_2, false)
-      +item(false, src_3, false, 'third')
-      - widthBlue = widthBlue*(progress-1)
+      +item ('first_step', 'bid_1_active', 'l_white', 'active')
+      +item(false, 'bid_2_active', 'l_white', '')
+      +item(false, 'bid_3_active', '', '')
     when 2
-      - var src_1 = 'fastbid_1-done.png'
-      - var src_2 =  'fastbid_2-active.png'
-      - var src_3 = 'application_3.png'
-      +item(1, src_1, 'first_step', 'one')
-      +item(2, src_2, false)
-      +item(false, src_3, false, 'third')
-      - widthBlue = widthBlue*(progress-1)
+      +item ('first_step', 'bid_1_done', 'l_green', '')
+      +item(false, 'bid_2_active', 'l_white', 'active')
+      +item(false, 'bid_3_active', '', '')
     when 3
-      - var src_1 = 'fastbid_1-done.png'
-      - var src_2 =  'fastbid_2-done.png'
-      - var src_3 = 'fastbid_3-active.png'
-      +item(1, src_1, 'first_step', 'one')
-      +item(2, src_2, 'second_step')
-      +item(3, src_3, false, 'third')
-      - widthBlue = widthBlue*(progress-1)
-  .line_box
-    .gray_line
-    .blue_line(style='width: #{widthBlue}px')
+      +item ('first_step', 'bid_1_done', 'l_green', '')
+      +item('second_step', 'bid_2_done', 'l_green', '')
+      +item(false, 'bid_3_active', '', 'active')

@@ -58,6 +58,6 @@ class @main
       ]
     popup       : @exports()              # show info about tutor in main page
     filter_top  : @exports()              # top filter in main page
-    #info_panel  : @exports()              # info panel in main page
+    info_panel  : @exports()              # info panel in main page
     content     : @exports()              # after info panel block in main page
     footer      : @state 'footer'          # footer in main page

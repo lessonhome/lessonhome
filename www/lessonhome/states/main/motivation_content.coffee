@@ -5,52 +5,38 @@ class @main extends @template '../main'
     info_panel  : @exports()
     tag         : @exports()
     content     : @module '$' :
-      search_diagram  : @module '$/motivation_block' :
-        margin    : 27
-        button   : @module 'tutor/button' :
-          selector  : 'start_search'
-          text      : 'Начать поиск'
-        title     : 'Найти репетитора - легко!'
-        img  :
-          src : @F('main/main_easy.png')
-          w   : 703
-          h   : 421
-        text  :
-          start_search    : 'Начните поиск'
-          view_tutor      : 'Просмотрите<br>репетиторов'
-          selected_tutor  : 'Выберите<br>понравившегося'
-          issue_bid       : 'Оформите заявку'
-          meet            : 'Познакомьтесь'
-          learn           : 'Занимайтесь'
-      choose_search   : @module '$/motivation_block' :
-        margin    : 58
-        button    : @module 'link_button'  :
-          selector  : 'order_call'
-          text      : 'Заказать звонок'
-          href      : '/main_callback'
-        title     : '3 способа поиска'
-        img  :
-          src : @F('main/main_search.png')
-          w   : 648
-          h   : 477
-        text  :
-          select_tutor_self : 'Подберите себе<br>репетитора сами'
-          call_us           : 'Позвоните нам<br>и мы все сделаем за вас'
-          issue_bid_help    : 'Оформите заявку<br>и наша команда<br>предложит вам<br>разные варианты'
-      choose_tutor     : @module '$/motivation_block'  :
-        margin   : 34
-        button   : @module 'tutor/button' :
-          selector  : 'start_search'
-          text      : 'Начать поиск'
-        title     : 'Подбор репетитора'
-        img  :
-          src : @F('main/main_select.png')
-          w   : 663
-          h   : 514
-        text  :
-          more_information  : 'Подробная<br>информация'
-          subject_curse     : 'Предметы и<br>курсы'
-          conditions        : 'Условия'
-          calendar          : 'Рассписание'
-          review            : 'Отзывы'
-#        close     : true
+      reps : [
+        @module '$/tutor_block' :
+          subject: 'Английский язык'
+          full_name: 'Иванова А.О.'
+          price: 'от 500 руб.за час'
+          about_text: 'Очень люблю и ценю свою работу, люблю преподавать материал порциооно, чтобы было легче'
+        @module '$/tutor_block' :
+          subject: 'Английский язык'
+          full_name: 'Иванова А.О.'
+          price: 'от 500 руб.за час'
+          about_text: 'Очень люблю и ценю свою работу, люблю преподавать материал порциооно, чтобы было легче'
+        @module '$/tutor_block' :
+          subject: 'Английский язык'
+          full_name: 'Иванова А.О.'
+          price: 'от 500 руб.за час'
+          about_text: 'Очень люблю и ценю свою работу, люблю преподавать материал порциооно, чтобы было легче'
+        @module '$/tutor_block' :
+          subject: 'Английский язык'
+          full_name: 'Иванова А.О.'
+          price: 'от 500 руб.за час'
+          about_text: 'Очень люблю и ценю свою работу, люблю преподавать материал порциооно, чтобы было легче'
+      ]
+      ways_block_start: @module 'link_button' :
+        selector: 'ways_block_start'
+        text: 'НАЧАТЬ ПОИСК'
+        href: '#'
+      motivation_block_start: @module 'link_button' :
+        selector: 'main_page_motivation'
+        text: 'НАЧАТЬ ПОИСК'
+      issue_bid: @module 'link_button' :
+        selector: 'main_page_motivation'
+        text: 'ОФОРМИТЬ ЗАЯВКУ'
+      callback: @module 'link_button' :
+        selector: 'main_page_motivation'
+        text: 'ОБРАТНЫЙ ЗВОНОК'

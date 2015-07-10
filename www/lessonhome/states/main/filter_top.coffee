@@ -10,6 +10,7 @@ class @main
     place               : @exports()
     price               : @exports()
     choose_subject      : @exports()
+    issue_bid_button    : @exports()
     empty_choose_subject: @exports()
     price_slider_top    : @exports()
     button_back         : @module 'link_button'  :

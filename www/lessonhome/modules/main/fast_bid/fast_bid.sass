@@ -2,6 +2,12 @@
 $book: 'fast_bids/fastbid_book.png'
 $book_height: image-height($book)
 $book_width: image-width($book)
+$alarm: 'fast_bids/fastbid_time.png'
+$alarm_height: image-height($alarm)
+$alarm_width: image-width($alarm)
+$star: 'fast_bids/fastbid_star.png'
+$star_height: image-height($star)
+$star_width: image-width($star)
 $min_width_step:  6px
 .fast_bid
   .progress_bar
@@ -11,13 +17,24 @@ $min_width_step:  6px
     position: relative
     padding-top: 40px
     padding-bottom: 22px
+    .book, .alarm, .star
+      position: absolute
+      left: 7*$min_width_step
+      top: 195px
     .book
       width: $book_width
       height: $book_height
       background: url(F($book))
-      position: absolute
-      left: 7*$min_width_step
-      top: 195px
+    .alarm
+      width: $alarm_width
+      height: $alarm_height
+      background: url(F($alarm))
+    .star
+      width: $star_width
+      height: $star_height
+      background: url(F($star))
+
+
     .content
       +inline-block
       width: 68*$min_width_step

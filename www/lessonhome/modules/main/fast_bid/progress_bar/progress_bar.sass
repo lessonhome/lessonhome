@@ -1,48 +1,95 @@
 @import compass/css3
+$bid_active: 'fast_bids/fastbid_active.png'
+$active_height: image-height($bid_active)
+$active_width: image-width($bid_active)
+
+$bid_1_active: 'fast_bids/fastbid_1-active.png'
+$bid_1_done: 'fast_bids/fastbid_1-done.png'
+$bid_2_active: 'fast_bids/fastbid_2-active.png'
+$bid_2_done: 'fast_bids/fastbid_2-done.png'
+$bid_3_active: 'fast_bids/fastbid_3-active.png'
+$bid_3_done: 'fast_bids/fastbid_3-done.png'
+
+$bid_height: image-height($bid_1_active)
+$bid_width: image-width($bid_1_active)
 .container
   position: relative
   z-index: 0
-  a, .panel
-    width: 56px
-    height: 56px
-    padding: 0 25px
-    +inline-block
+  .icon
     position: relative
-    z-index: 1
-  .one
-    padding-left: 0
-  .third
-    padding-right: 0
-  a, .panel
-    .block
-      +inline-block
-      width: 36px
-      height: 36px
-      background-color : rgb( 223, 225, 228 )
-      .value
-        height: 100%
-        width: 100%
-    .progress
-      width: 100%
-      height: 100%
-      background-color : #89d1ff
-    .progress, .block
-      +border-radius(50%)
-  a:after, .panel:after
-    content: ''
+    width: $bid_width
+    height: $bid_height
     +inline-block
-    height: 100%
-  .line_box
-    position: absolute
-    top: 50%
-    height: 3px
-    left: 0
-    right: 10px
-    .gray_line, .blue_line
-      height: 100%
+    .icon_active, .icon_done
       width: 100%
+      height: 100%
+
+  .bid_1_active
+    .icon_active
+      background:  url(F($bid_1_active))
+  .bid_1_done
+    .icon_done
+      background:  url(F($bid_1_done))
+  .bid_1_active
+    .icon_done
+      display: none
+  .bid_1_done
+    .icon_active
+      display: none
+    .icon_done
+      +inline-block
+
+  .bid_2_active
+    .icon_active
+      background:  url(F($bid_2_active))
+  .bid_2_done
+    .icon_done
+      background:  url(F($bid_2_done))
+  .bid_2_active
+    .icon_done
+      display: none
+  .bid_2_done
+    .icon_active
+      display: none
+    .icon_done
+      +inline-block
+
+
+  .bid_3_active
+    .icon_active
+      background:  url(F($bid_3_active))
+  .bid_3_done
+    .icon_done
+      background:  url(F($bid_3_done))
+  .bid_3_active
+    .icon_done
+      display: none
+  .bid_3_done
+    .icon_active
+      display: none
+    .icon_done
+      +inline-block
+
+  .l_white, .l_green
+    width: 52px
+    height: 2px
+    margin: -1px -2px 0 -2px
+    +inline-block
+  .l_white
+    background: #ffffff
+  .l_green
+    background: #27ffba
+
+
+.container
+  .icon
+    .active
+      background:  url(F($bid_active))
+      width: $active_width
+      height: $active_height
       position: absolute
-    .gray_line
-      background-color: #dfe1e4
-    .blue_line
-      background-color : #89d1ff
+      bottom: 100%
+      left: 50%
+      margin-left: -$active_width/2
+
+

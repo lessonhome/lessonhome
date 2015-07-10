@@ -4,6 +4,8 @@ class @main extends @template './preview'
     filter_top : @module '$' :
       progress_bar : @module '//progress_bar' :
         progress : @exports()
+
+      b_selector  : @exports()
       content      : @exports()   # must be defined
       #hint         : @exports()     while hint it's not need
 

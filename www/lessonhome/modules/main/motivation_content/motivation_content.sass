@@ -1,2 +1,247 @@
+@import compass/css3
+
+$wand_left_src: 'main/wand_left.png'
+$wand_left_height: image-height($wand_left_src)
+$wand_left_width: image-width($wand_left_src)
+
+$wand_right_src: 'main/wand_right.png'
+$wand_right_height: image-height($wand_right_src)
+$wand_right_width: image-width($wand_right_src)
+
+$main_pattern_src: 'main/main_pattern.png'
+$main_pattern_height: image-height($main_pattern_src)
+$main_pattern_width: image-width($main_pattern_src)
+
+$pattern_bottom_src: 'main/main_pattern_bottom.png'
+$pattern_bottom_height: image-height($pattern_bottom_src)
+$pattern_bottom_width: image-width($pattern_bottom_src)
+
+$main_pattern_noise_src: 'main/main_pattern_noise.png'
+$main_pattern_top_src: 'main/main_pattern_top.png'
+$main_pattern_top_height: image-height($main_pattern_top_src)
+
+$board_src: 'main/main_board.jpg'
+$board_height: image-height($board_src)
+$board_width: image-width($board_src)
+
+$quotes_src: 'main/quotes.png'
+$quotes_height: image-height($quotes_src)
+$quotes_width: image-width($quotes_src)
+
+$triangle_src: 'main/corner_review.jpg'
+$triangle_height: image-height($triangle_src)
+$triangle_width: image-width($triangle_src)
+
+$main_apple_src: 'main/main_apple.jpg'
+$main_apple_height: image-height($main_apple_src)
+$main_apple_width: image-width($main_apple_src)
+
 .search_diagram, .choose_tutor_block, .choose_search_block
   padding: 45px 0 60px 0
+
+.simple_search
+  position: relative
+  text-align: left
+  overflow: hidden
+  height: 228px
+  background: url(F($main_pattern_src))
+  background-color: #efefef
+  .t1, .t2
+    +inline-block
+    margin-left: 139px
+  .t1
+    margin-top: 36px
+    font-size: 32px
+    line-height: 48px
+    font-weight: 600
+    color: #202020
+  .t2
+    font-size: 18px
+    line-height: 24px
+    color: #202020
+
+  .wand_left, .wand_right
+    position: absolute
+  .wand_left
+    top: 68px
+    left: 39px
+    width: $wand_left_width
+    height: $wand_left_height
+    background: url(F($wand_left_src)) no-repeat
+
+  .wand_right
+    top: -5px
+    right: 25px
+    width: $wand_right_width
+    height: $wand_right_height
+    background: url(F($wand_right_src)) no-repeat
+  .pattern_bottom
+    position: absolute
+    bottom: 0
+    width: 100%
+    height: $pattern_bottom_height
+    background: url(F($pattern_bottom_src))
+.best_reps
+  overflow: hidden
+  background: url(F($main_pattern_noise_src))
+  .title
+    text-align: left
+    padding-left: 85px
+    margin: 24px 0 42px 0
+    font-size: 20px
+    line-height: 24px
+    color: #202020
+  .reps
+    margin-bottom: 60px
+    .rep
+      width: 228px
+      margin: 0 12px
+      +inline-block
+
+.board_wrap
+  background: url(F($main_pattern_noise_src))
+  text-align: center
+  .board
+    +inline-block
+    width: $board_width
+    height: $board_height
+    background: url(F($board_src)) no-repeat
+.motivation
+  position: relative
+  padding-bottom: 60px
+  background: url(F($main_pattern_noise_src))
+  .left, .center, .right
+    +inline-block
+    vertical-align: top
+    .title, .text
+      text-align: left
+    .title
+      font-size: 20px
+      line-height: 48px
+      color: #3e9ee0
+    .text
+      font-size: 16px
+      line-height: 24px
+      color: #202020
+    .button
+      margin-top: 32px
+      height: 48px
+      width: 228px
+  .left
+    margin-right: 39px
+    width: 298px
+    .button
+      width: 180px
+  .center
+    margin-right: 44px
+    width: 290px
+  .right
+    width: 308px
+  .bottom_pattern
+    position: absolute
+    z-index: 1
+    bottom: -$main_pattern_top_height + 1
+    height: $main_pattern_top_height
+    width: 100%
+    background: url(F($main_pattern_top_src))
+$main_pattern_top_src: 'main/main_pattern_top.jpg'
+.ways
+  position: relative
+  height: 624px
+  background: url(F($main_pattern_src))
+  .main_apple
+    width: $main_apple_width
+    height: $main_apple_height
+    background: url(F($main_apple_src)) no-repeat
+  .pattern_bottom
+    position: absolute
+    bottom: 0
+    width: 100%
+    height: $pattern_bottom_height
+    background: url(F($pattern_bottom_src))
+  .title, .text
+    position: absolute
+    text-align: left
+    line-height: 24px
+    left: 234px
+  .title
+    top: 69px
+    font-size: 20px
+    color: #3e9ee0
+  .text
+    top: 144px
+    font-size: 16px
+    color: #202020
+  .button
+    position: absolute
+    right: 42px
+    bottom: 54px
+    height: 48px
+    width: 180px
+.reviews_wrap
+  padding-top: 24px
+  padding-bottom: 112px
+  background: url(F($main_pattern_noise_src))
+  .title
+    padding-left: 86px
+    margin-bottom: 48px
+    text-align: left
+    font-size: 20px
+    line-height: 24px
+    color: #202020
+  .reviews
+    text-align: left
+    .review
+      +inline-block
+      margin-left: 20px
+      width: 480px
+      .photo_wrap, .text_box
+        +inline-block
+        vertical-align: top
+      .photo_wrap
+        padding-top: 102px
+        margin-right: 52px
+        .photo
+          width: 114px
+          height: 114px
+          background-color: #fff
+          +border-radius(50%)
+        .name
+          text-align: center
+          color: #202020
+          font-size: 14px
+          line-height: 24px
+      .text_box
+        position: relative
+        width: 312px
+        height: 240px
+        box-sizing: border-box
+        padding-top: 24px
+        background-color: #fff
+        box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.40)
+        .quotes_wrap, .text
+          +inline-block
+          vertical-align: top
+        .quotes_wrap
+          width: 72px
+          height: 100%
+          box-sizing: border-box
+          padding-left: 24px
+          .quotes
+            width: $quotes_width
+            height: $quotes_height
+            background: url(F($quotes_src)) no-repeat
+        .text
+          width: 240px
+          text-align: left
+          font-size: 16px
+          line-height: 24px
+          color: #202020
+        .triangle
+          position: absolute
+          bottom: 48px
+          left: -$triangle_width
+          width:  $triangle_width
+          height: $triangle_height
+          background: url(F($triangle_src)) no-repeat
+
