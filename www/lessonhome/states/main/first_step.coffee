@@ -149,6 +149,10 @@ class @main extends @template './motivation_content'
         text      : ''
         close     : true
       link_forward    :  '/second_step'
+      issue_bid_button : @module 'link_button' :
+        selector  : 'add_button_bid'
+        text      : 'Оформить быструю заявку'
+        href      : '/fast_bid/first_step'
 
     info_panel  : @state './info_panel'  :
       math : @module '//item' :
