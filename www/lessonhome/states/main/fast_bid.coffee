@@ -1,4 +1,4 @@
-class @main extends @template '../main'
+class @main extends @template './preview'
   tags  : -> 'pupil:fast_bid'
   tree : ->
     filter_top : @module '$' :
