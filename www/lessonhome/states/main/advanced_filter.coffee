@@ -97,8 +97,6 @@ class @main
       dash          : '-'
       measurement   : 'руб.'
       division_value : 250
-
-
     time_spend_way   : @state './slider_main' :
       selector      : 'advanced_filter_price'
       right : $urlform : mainFilter : 'time_spend_way'

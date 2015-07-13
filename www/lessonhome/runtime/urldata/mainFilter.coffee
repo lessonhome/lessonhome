@@ -107,7 +107,6 @@ class @U2D
     arr2 = []
     for key,val of arr
       arr2.push tutor_status_text[key] if val
-    console.log arr,arr2
     if arr2.length <= 0
       return 'Статус репетитора'
     arr2.sort (a,b)=>a.length>b.length

@@ -82,6 +82,9 @@ class @activeState
           if cl.tree.$urlforms && Object.keys?(cl?.tree?.$urlforms)?.length
             if cl.getValue?
               cl?.on 'change', =>Q.spawn =>
+                return if cl.__ulock2
+                return if cl.__ulock
+                cl.__ulock2 = true
                 v = cl.getValue()
                 for part,form of cl.tree.$urlforms
                   nv = _setKey v,part
@@ -89,8 +92,12 @@ class @activeState
                   #if cl?.tree.default?
                   #  def = _setKey cl.tree.default,part
                   yield Feel.urlData.set form.form,form.key,nv
+                cl.__ulock2 = false
               if cl.setValue?
                 Feel.urlData.on 'change',=> Q.spawn =>
+                  return if cl.__ulock2
+                  return if cl.__ulock
+                  cl.__ulock = true
                   v = {value:yield cl.getValue()}
                   nv = {}
                   v2 = {}
@@ -99,7 +106,11 @@ class @activeState
                     _setKey nv,"value."+part,(yield Feel.urlData.get(form.form,form.key))
                     _setKey v2,"value."+part,(_setKey(v,"value."+part))
                   if JSON.stringify(v2) != JSON.stringify(nv)
-                    cl.setValue _setKey(nv,'value')
+                    if nv.value && (typeof nv.value == 'object')
+                      for key,val of nv.value
+                        _setKey v.value,key, val
+                    cl.setValue _setKey(v,'value')
+                  cl.__ulock = false
           Wrap cl,null,false
           Wrap cl.js,null,false if cl?.js?
   parseTree : (node,statename)=>
