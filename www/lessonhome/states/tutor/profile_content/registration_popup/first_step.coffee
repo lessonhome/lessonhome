@@ -11,14 +11,12 @@ class @main extends @template '../registration_popup'
   tree : =>
     progress  : $form : account : 'registration_progress'
     current_progress: 1
+    selector_button_back  : 'fast_bid_nav inactive'
+    href_button_back      : ''
+    href_button_next      : 'second_step'
     close   : false
     content : @module '$' :
       understand_button : @module 'tutor/button' :
         selector: 'understand'
         text:      'Спасибо, я понял'
       form      : @state 'general_data'
-  init : ->
-    @parent.tree.popup.button_back.selector = 'fast_bid_nav inactive'
-    @parent.tree.popup.button_back.href = false
-    @parent.tree.popup.button_next.selector = 'fast_bid_nav'
-    @parent.tree.popup.button_next.href = 'second_step'
