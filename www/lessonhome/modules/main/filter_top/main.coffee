@@ -1,12 +1,12 @@
 class @main extends EE
   Dom : =>
-    @tutor_status        = @found.tutor_status
+    #@tutor_status        = @found.tutor_status
     @tutor_status_top    = @found.tutor_status_top
     @tutor_status_bottom = @found.tutor_status_bottom
-    @place               = @found.place
+    #@place               = @found.place
     @place_top           = @found.place_top
     @place_bottom        = @found.place_bottom
-    @price               = @found.price
+    #@price               = @found.price
     @price_top           = @found.price_top
     @price_bottom        = @found.price_bottom
     if @tree.list_subject?
@@ -25,19 +25,35 @@ class @main extends EE
     @tag  = @found.tag
     @tags = @found.tags
     @issue_bid_button = @tree.issue_bid_button.class
-
+  setValue : (value={})=>
+    for key,val of value
+      @tree.value[key] = val
+    value = @tree.value
+    @tutor_status_top?.find('.title').text value?.tutor_status_text
+  getValue : => @tree.value
+    
   show: =>
+    @popupAdd @tutor_status_top,@tutor_status_bottom,@found.tutor_status
+    @popupAdd @place_top,@place_bottom,@found.place
+    @popupAdd @price_top,@price_bottom,@found.price
     #@issue_bid_button.submit()
-    $(@tutor_status_top).on 'click', => $(@tutor_status_bottom).toggle()
-    $(@place_top).on 'click', => $(@place_bottom).toggle()
-    $(@price_top).on 'click', => $(@price_bottom).toggle()
-
+    #$(@tutor_status_top).on 'click',  => $(@tutor_status_bottom).toggle()
+    #$(@place_top).on 'click',         => $(@place_bottom).toggle()
+    #$(@price_top).on 'click',         => $(@price_bottom).toggle()
+    @found.submit.on 'click', (e)=>
+      e.preventDefault()
+      Feel.go @found.submit.attr 'href'
     ###
       if (!div.is(e.target) && div.has(e.target).length == 0)
          $(@tutor_status_bottom).hide()
 
     ###
     # TODO: click on out of element
+  popupAdd : (top,bottom,main)=>
+    top.on 'click', =>
+      bottom.toggle()
+      if bottom.is ':visible'
+        Feel.popupAdd main,bottom
 
   save : => Q().then =>
     if @check_form()

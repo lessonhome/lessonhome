@@ -25,3 +25,5 @@ class @main
       selector  : 'onward_block'
       text      : 'Далее'
       href      : @exports 'link_forward'
+    value :
+      tutor_status_text : @exports()

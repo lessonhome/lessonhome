@@ -89,6 +89,17 @@ class @activeState
                   #if cl?.tree.default?
                   #  def = _setKey cl.tree.default,part
                   yield Feel.urlData.set form.form,form.key,nv
+              if cl.setValue?
+                Feel.urlData.on 'change',=> Q.spawn =>
+                  v = {value:yield cl.getValue()}
+                  nv = {}
+                  v2 = {}
+                  for part,form of cl.tree.$urlforms
+                    #return unless part == 'tutor_status_text'
+                    _setKey nv,"value."+part,(yield Feel.urlData.get(form.form,form.key))
+                    _setKey v2,"value."+part,(_setKey(v,"value."+part))
+                  if JSON.stringify(v2) != JSON.stringify(nv)
+                    cl.setValue _setKey(nv,'value')
           Wrap cl,null,false
           Wrap cl.js,null,false if cl?.js?
   parseTree : (node,statename)=>

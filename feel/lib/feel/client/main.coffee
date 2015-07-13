@@ -30,6 +30,11 @@ class @Feel
     
     setTimeout @checkUnknown,200
 
+    @_popupAdd = {}
+    $('body').on 'mousedown.popupAdd', @popupAddDown
+    $('body').on 'mouseleave.popupAdd', @popupAddLeave
+
+
   error : (e,args...)=>
     return unless e?
     e = new Error e unless e?.stack? || e?.name?
@@ -132,7 +137,7 @@ class @Feel
     
   go : (href)=> Q.spawn =>
     href = (yield @urlData.udataToUrl href)
-    window.location.replace href if href
+    window.location.href = href if href
   formSubmit : (form)=> Q.spawn =>
     form = $(form)
     url = form.attr 'action'
@@ -140,6 +145,22 @@ class @Feel
     form.attr 'action',url
     form.submit()
     
+  popupAdd : (main,foo,...,toggle=false)=>
+    foo ?= main
+    unless typeof foo == 'function'
+      _foo = -> foo?.hide?()
+    else
+      _foo = foo
+    @_popupAdd[_.random(true)] = {main,foo:_foo,toggle}
+  popupAddLeave : =>
+    for key,v of  @_popupAdd
+      v?.foo?()
+      delete @_popupAdd[key]
+  popupAddDown  : (t)=>
+    for key,v of  @_popupAdd
+      continue if $.contains (v.main?[0] ? v.main),t.target
+      v?.foo?()
+      delete @_popupAdd[key]
 
 
 window.Feel = new @Feel()

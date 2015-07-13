@@ -11,7 +11,7 @@
     .line
     .js-tutor_status
       .top.js-tutor_status_top
-        .title Статус репетитора
+        .title!=value.tutor_status_text
         .icon
       .bottom.js-tutor_status_bottom
         each val in tutor_status
@@ -25,7 +25,7 @@
         each val in place
           .item!=val
     .line
-    .price
+    .js-price
       .top.js-price_top
         .from
           .t1 от
@@ -38,7 +38,7 @@
       .bottom.js-price_bottom
         each val in price
           .item!=val
-  a(href='/second_step')
+  a.js-submit(href='/second_step')
     .button
 .issue_bid_button_wrap
   .button!=issue_bid_button
