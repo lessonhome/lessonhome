@@ -81,9 +81,9 @@ class @main
         '3': {value: 'from10', text: 'от 10 учеников'}
       }
       value : $urlform : mainFilter : 'group_lessons'
-    calendar        : @state '../calendar' :
-      selector  : 'advance_filter'
-      value     : @exports 'val_list_calendar'
+    #calendar        : @state '../calendar' :
+    #  selector  : 'advance_filter'
+    #  value     : @exports 'val_list_calendar'
     price   : @state './slider_main' :
       selector      : 'advanced_filter_price'
       default :
@@ -97,12 +97,6 @@ class @main
       dash          : '-'
       measurement   : 'руб.'
       division_value : 250
-      #start         : 'advanced_filter'
-      #end           : @module 'tutor/forms/input' :
-      #  selector  : 'advanced_filter'
-      #  align     : 'center'
-
-      #value         : @exports 'val_time_spend_lesson'
 
 
     time_spend_way   : @state './slider_main' :
