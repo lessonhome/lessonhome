@@ -12,12 +12,9 @@ class @main extends @template '../registration_popup'
   forms : [{account:['registration_progress']}]
   tree : ->
     progress  : $form : account : 'registration_progress'
+    selector_button_back  : 'fast_bid_nav'
+    href_button_back      : 'third_step'
+    href_button_next      : '/tutor/profile'
     close   : true
     content : @module '$' :
       form      : @state 'about_tutor'
-
-  init : ->
-    @parent.tree.popup.button_back.selector = 'fast_bid_nav'
-    @parent.tree.popup.button_back.href = 'third_step'
-    @parent.tree.popup.button_next.selector = 'fast_bid_nav'
-    @parent.tree.popup.button_next.href = '/tutor/profile'
