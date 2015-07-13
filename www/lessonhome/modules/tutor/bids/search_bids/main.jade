@@ -1,30 +1,109 @@
-mixin info_block(value)
-  .list_block
-    .value!= value
-/////////////////////
-.filters
-  .left_block
-    +info_block(subject_list)
-    +info_block(saved_filters)
-    .button_block
-      .save_button!= save_button
-  .right_block
-    .place
-      .title.select Место :
-      .tutor!= tutor
-      .student!= student
-      .web!= web
-      .hint!= location_hint
-    +info_block(address_list)
-    .road_time
-      .title.select Время на дорогу :
-      .value!= road_time_slider
-.separate_line!= separate_line
-.center_block(style='min-height:#{min_height}')
-  .advanced_search
-    .advanced_filter!=advanced_filter
-    .button
-  .list_bids!= list_bids
 
+.saved_filters
+  .title_box
+    .title Сохранённые фильтры :
+  .form!=saved_filters
+  .button!=saved_filters_button
+.left
+  .main
+    .section.subject
+      .top
+        .title Предмет :
+          .reset.js-subject_reset
+            .icon
+            .title сбросить
+      .bottom!=subject
+  .js-extra
+    .section.course
+      .top
+        .title Курс
+          .reset.js-course_reset
+            .icon
+            .title сбросить
+      .bottom!=course
+    .section.calendar
+      .top
+        .title Расписание
+          .reset.js-calendar_reset
+            .icon
+            .title сбросить
+      .bottom!=calendar
 
+    .section.category_of_student
+      .top
+        .title Категория ученика
+          .reset.js-category_of_student_reset
+            .icon
+            .title сбросить
+      .bottom
+        .left_block
+          .pre_school!=pre_school
+          .junior_school!=junior_school
+          .medium_school!=medium_school
+        .right_block
+          .high_school!=high_school
+          .student!=student_categories
+          .adult!=adult
 
+.right
+  .main
+    .price
+      .top
+        .title Цена
+          .reset.js-price_reset
+            .icon
+            .title сбросить
+      .bottom!=price
+  .js-extra
+    .section.place
+      .top
+        .title Место
+          .reset.js-place_reset
+            .icon
+            .title сбросить
+      .bottom
+        .left_block
+          .tutor!=place_tutor
+          .pupil!=place_pupil
+        .right_block
+          .remote!=place_remote
+          .cafe!=place_cafe
+    .section.area
+      .top
+        .title Ваш район
+          .reset.js-area_reset
+            .icon
+            .title сбросить
+      .bottom!=area
+    .section.road_time
+      .top
+        .title Ваш район
+          .reset.js-road_time_reset
+            .icon
+            .title сбросить
+      .bottom
+        .left_block
+          .road_time_15!=road_time_15
+          .road_time_30!=road_time_30
+          .road_time_45!=road_time_45
+        .right_block
+          .road_time_60!=road_time_60
+          .road_time_90!=road_time_90
+          .road_time_120!=road_time_120
+    .section.sex
+      .top
+        .title Пол
+          .reset.js-sex_reset
+            .icon
+            .title сбросить
+      .bottom!=choose_gender
+
+.js-extra_filters_button_wrap
+  .js-show_extra_filters
+    .icon_box
+      .icon
+    .text_box
+      .text РАСШИРЕННЫЕ ФИЛЬТРЫ
+  .js-cancel_button!=cancel_button
+  .js-apply_filters_button!=apply_filters_button
+.list_bids!=list_bids
