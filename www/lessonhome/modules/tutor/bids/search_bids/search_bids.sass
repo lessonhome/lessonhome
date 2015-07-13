@@ -1,115 +1,170 @@
 @import compass/css3
-$padding_field: 10px
-$width_fields: 339px
+
+$icon_reset_src: 'close_time.png'
+$icon_reset_height: image-height($icon_reset_src)
+$icon_reset_width: image-width($icon_reset_src)
+
+$icon_arrow_src: 'main/arrow_6x4_down.gif'
+$icon_arrow_height: image-height($icon_arrow_src)
+$icon_arrow_width: image-width($icon_arrow_src)
+
+$form_width: 360px
+$block_height: 144px
+
 main
-  padding-top: 46px
-  padding-bottom: 50px
-.center_block>.advanced_search
-  padding-left: 20px
-.filters
-  margin-left: 28px
-  margin-bottom: 32px
-  .left_block
-    margin-right: 18px
-    float: left
-    .list_block
-      padding-bottom: $padding_field
-      .value
-        width: $width_fields
-    .button_block
-      padding-top: $padding_field
-      .save_button
-        height: 33px
-        +inline-block
-  .right_block
+  padding: 24px 0 132px 24px
+.saved_filters
+  height: 72px
+  background-color: #f2f2f2
+  div
     +inline-block
-    .place
-      padding-bottom: $padding_field
-      .title
-        padding-bottom: $padding_field
-      $padding_button: 6.5px
-      .tutor, .student, .web
-        height: 37px
-        +inline-block
-      .tutor
-        padding-right: $padding_button
-      .web
-        padding-left: $padding_button
-      .student
-        padding: 0 $padding_button
-      .hint
-        +inline-block
-        margin-left: 7px
-        height: 18px
-        width: 18px
-    .list_block
-      padding-bottom: $padding_field
-      .value
-        width: $width_fields
-    .road_time
-      padding-top: $padding_field
-      .title
-        margin-bottom: 9px
-        font-size: 16px
-.separate_line
-  height: 2px
-
-/*-----------------------------------------*/
-
-.center_block
-  padding-top: 26px
-  .advanced_search, .list_bids
-    +inline-block
-    position: relative
-    cursor: pointer
-  $advanced_search_width: 41px
-  $advanced_search_height: 32px
-  .advanced_search
-    width: $advanced_search_width
-    height: $advanced_search_height
-    padding-right: 11px
-    float: left
-    .advanced_filter
-      box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.55)
-      position: absolute
-      top: 100%
-      z-index: 1
-      width: 300px
-      display: none
-    .button
-      width: $advanced_search_width
-      height: $advanced_search_height
-      background: url(F('arrow_right.png')) no-repeat
-      background-color: #e1e3e5
-      box-shadow: 0 1px 3px rgba(0,0,0, 0.65)
-      background-position: center center
+  .title_box
+    margin-left: 24px
     .title
-      padding: 7px 10px 7px 10px
-      background-color: #e1e3e5
-      text-align: center
-    .content
-      padding-left: 15px
-      .course
-        margin-top: 17px
-        .arrow, .text
+      height: .55em
+      line-height: .32em
+      font-size: 16px
+      color: #444444
+  .form
+    margin: 0 24px
+    width: 336px
+  .button
+    width: 133px
+    height: 36px
+
+.saved_filters:after
+  content: ""
+  +inline-block
+  height: 100%
+
+.left, .right
+  +inline-block
+  vertical-align: top
+  box-sizing: border-box
+  .extra
+.left
+  width: 408px
+  padding-left: 24px
+  border-right: 1px solid #d7d7d7
+  .main
+    .subject
+      height: $block_height
+      border-bottom: 1px solid #d7d7d7
+      div
+        width: $form_width
+
+  .extra
+    display: none
+    .section
+      height: $block_height
+      border-bottom: 1px solid #d7d7d7
+      div
+        width: $form_width
+    .calendar
+      height: initial
+      padding-bottom: 24px
+    .category_of_student
+      .bottom
+        text-align: left
+        .right_block
+          float: right
+        .left_block, .right_block
           +inline-block
-        .arrow
-          width: 4px
-          height: 6px
-          margin-right: 8px
-          background: url(F('triangle-small.png')) no-repeat
-      .courses_list
-        width: 170px
-        padding-left: 10px
-        margin-top: 8px
-      .selected_courses
-        margin-top: 8px
-        .course
+          div
+            padding: 3px 0
+.right
+  .main
+    .price
+      height: $block_height
+      border-bottom: 1px solid #d7d7d7
+      div
+        padding-left: 24px
+  .extra
+    display: none
+    .section
+      border-bottom: 1px dashed #d7d7d7
+      padding-bottom: 24px
+      div
+        padding-left: 24px
+    .place, .road_time
+      .bottom
+        +inline-block
+        text-align: left
+        .left_block, .right_block
           +inline-block
-          background-color: rgb( 226, 226, 226 )
-  .list_bids
-    width: 700px
+          div
+            padding: 3px 0
+        .right_block
+          margin-left: 25px
+    .sex
+      padding-bottom: 53px
+      border-bottom: 1px solid #d7d7d7
+      .bottom
+        height: 36px
+        padding: 0px 0 3px 23px
 
+.left>.main>.subject>.top>.title, .right>.main>.price>.top>.title, .left>.extra>.section>.top>.title, .right>.extra>.section>.top>.title
+  position: relative
+  line-height: 48px
+  .reset
+    +inline-block
+    position : absolute
+    float: right
+    right: 0
+    cursor: pointer
+    .icon, .title
+      +inline-block
+    .icon
+      margin-right: 7px
+      width:  $icon_reset_width
+      height: $icon_reset_height
+      background: url(F($icon_reset_src)) no-repeat
+    .title
+      font-size: 14px
+    color: #717171
+    &:hover
+      color : #606060
 
+.extra_filters_button_wrap
+  margin-top: 12px
+  margin-bottom: 36px
+  text-align: center
+  .show_extra_filters
+    +inline-block
+    padding: 12px 12px 12px 15px
+    background-color: #e5e5e5
+    cursor: pointer
+    .icon_box, .text_box
+      +inline-block
+      height: 24px
+    .icon_box
+      .icon
+        +inline-block
+        margin-right: 12px
+        height: $icon_arrow_height
+        width: $icon_arrow_width
+        background: url(F($icon_arrow_src)) no-repeat
+    .text_box
+      .text
+        +inline-block
+        margin-right: 12px
+    .text_box:after
+      content: ""
+      height: 100%
+      +inline-block
+  .cancel_button, .apply_filters_button
+    display: none
+    height: 48px
+  .cancel_button
+    width: 125px
+    margin-right: 24px
+  .apply_filters_button
+    width: 249px
+.extra_filters_button_wrap.show
+  padding: 12px 0
+  border-bottom: 1px solid #d7d7d7
+  .cancel_button, .apply_filters_button
+    +inline-block
 
-
+.list_bids
+  width: 700px

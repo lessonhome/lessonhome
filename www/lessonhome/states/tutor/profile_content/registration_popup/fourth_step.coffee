@@ -12,6 +12,7 @@ class @main extends @template '../registration_popup'
   forms : [{account:['registration_progress']}]
   tree : ->
     progress  : $form : account : 'registration_progress'
+    current_progress: 4
     close   : true
     content : @module '$' :
       form      : @state 'about_tutor'

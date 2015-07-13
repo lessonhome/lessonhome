@@ -10,6 +10,7 @@ class @main extends @template '../registration_popup'
   }
   tree : =>
     progress  : $form : account : 'registration_progress'
+    current_progress: 1
     close   : false
     content : @module '$' :
       understand_button : @module 'tutor/button' :
