@@ -40,8 +40,8 @@ class @main
       #start         : 'calendar'
       #start_text    : ''
       #end         : @module 'tutor/forms/input' :
-        #selector  : 'calendar'
-        #align     : 'center'
+      #selector  : 'calendar'
+      #align     : 'center'
       default :
         left : 400
         right : 5000
@@ -52,13 +52,31 @@ class @main
       #handle        : true
       min : 400
       max : 5000
+      # надо подключить к правильным полям
       left : $form : tutor : 'srange.left'
       right : $form : tutor : 'srange.right'
 
-    duration :   @module 'tutor/forms/input' :
-      text2      : 'Длительность занятия :'
-      selector  : 'first_reg'
-      $form : tutor : 'subject.price.duration' : (val)-> val || 90
+    duration    : @state 'main/slider_main' :
+      selector      : 'price_fast_reg'
+      #start         : 'calendar'
+      #start_text    : ''
+      #end         : @module 'tutor/forms/input' :
+      #selector  : 'calendar'
+      #align     : 'center'
+      default :
+        left : 400
+        right : 5000
+      dash          : '-'
+      measurement   : 'мин.'
+      division_value : 5
+      type : 'default'
+      #handle        : true
+      min : 14
+      max : 120
+      left : $form : tutor : 'srange.left'
+      right : $form : tutor : 'srange.right'
+
+
 
     place_tutor      : @module 'tutor/forms/checkbox' :
       text      : 'у себя'
