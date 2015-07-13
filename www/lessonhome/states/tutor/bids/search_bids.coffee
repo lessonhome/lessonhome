@@ -31,9 +31,8 @@ class @main extends @template '../../tutor'
     content : @module '$' :
       advanced_filter : @exports()
       min_height      : @exports()
-      subject_list : @module 'tutor/forms/drop_down_list' :
+      subject : @module 'tutor/forms/drop_down_list' :
         selector  : 'search_bids fast_bid'
-        text      : 'Предметы :'
         default_options     : {
           '0': {value: 'english', text: 'английский язык'},
           '1': {value: 'math', text: 'математика'},
@@ -111,44 +110,140 @@ class @main extends @template '../../tutor'
 
 
         }
+      course : @state '../forms/drop_down_list_with_tags' :
+        list: @module 'tutor/forms/drop_down_list:type1'  :
+          selector        : 'advanced_filter_form'
+          placeholder     : 'Например ЕГЭ'
+          value     : ''
+        tags: ''
+      price: @state '../../main/slider_main' :
+        selector      : 'advanced_filter_price'
+        default :
+          left : 500
+          right : 3500
+        min : 500
+        max : 3500
+        type : 'default'
+        dash          : '-'
+        measurement   : 'руб./60 мин.'
+        division_value : 250
       saved_filters : @module 'tutor/forms/drop_down_list' :
         selector  : 'search_bids fast_bid'
-        text      : 'Сохраненные фильтры :'
-      tutor : @module 'tutor/forms/location_button' :
-        selector : 'place_learn'
-        text   : 'у себя'
-      student  : @module 'tutor/forms/location_button' :
-        selector : 'place_learn'
-        text   : 'у ученика'
-      web : @module 'tutor/forms/location_button' :
-        selector : 'place_learn'
-        text   : 'удалённо'
-      #location_hint : @module 'tutor/hint' :
-      #  selector : 'small'
-      #  field_position : 'left'
-      #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
-      address_list : @module 'tutor/forms/drop_down_list' :
-        selector  : 'search_bids fast_bid'
-        text      : 'Ваш адрес :'
-      save_button  : @module 'tutor/button' :
-        text     : 'Сохранить'
-        selector : 'search_bids_save'
-      road_time_slider : @state 'main/slider_main' :
-        selector      : 'road_time_search_bids'
-        #start         : 'road_time_search_bids'
-        default :
-          left : 15
-          right : 120
-        dash          : 'до'
-        measurement   : 'мин.'
-        #handle        : false
-        min            : 15
-        max            : 120
-        left           : 30
-        right          : 120
-        division_value : 18
-      separate_line : @module 'tutor/separate_line' :
-        selector : 'horizon'
+      saved_filters_button: @module 'tutor/button' :
+        selector: 'saved_filters_button'
+        text: 'Сохранить'
+
+      cancel_button: @module 'tutor/button' :
+        selector: 'filters_cancel'
+        text: 'ОТМЕНА'
+      apply_filters_button: @module 'tutor/button' :
+        selector: 'apply_filters'
+        text: 'ПРИМЕНИТЬ ФИЛЬТРЫ'
+      calendar        : @module 'new_calendar' :
+        selector    : 'bids'
+
+      pre_school      : @module 'tutor/forms/checkbox' :
+        text      : 'Дошкольник'
+        selector  : 'small font_16'
+      junior_school   : @module 'tutor/forms/checkbox' :
+        selector  : 'small font_16'
+        text      : 'Младшая школа'
+      medium_school   : @module 'tutor/forms/checkbox' :
+        selector  : 'small font_16'
+        text      : 'Средняя школа'
+      high_school     : @module 'tutor/forms/checkbox' :
+        selector  : 'small font_16'
+        text      : 'Старшая школа'
+      student_categories: @module 'tutor/forms/checkbox' :
+        selector  : 'small font_16'
+        text      : 'Студент'
+      adult           : @module 'tutor/forms/checkbox' :
+        selector  : 'small font_16'
+        text      : 'Взрослый'
+
+
+      place_tutor      : @module 'tutor/forms/checkbox' :
+        text      : 'у себя'
+        selector  : 'small font_16'
+      place_pupil      : @module 'tutor/forms/checkbox' :
+        text      : 'у ученика'
+        selector  : 'small font_16'
+      place_remote      : @module 'tutor/forms/checkbox' :
+        text      : 'удалённо'
+        selector  : 'small font_16'
+      place_cafe      : @module 'tutor/forms/checkbox' :
+        text      : 'другое место'
+        selector  : 'small font_16'
+
+      area: @state '../forms/drop_down_list_with_tags' :
+        list: @module 'tutor/forms/drop_down_list:type1'  :
+          selector        : 'advanced_filter_form'
+          placeholder     : 'Например Выхино'
+          value     : ''
+        tags: ''
+
+      road_time_15  : @module 'tutor/forms/checkbox' :
+        text      : '~15 мин.'
+        selector  : 'small font_16'
+      road_time_30  : @module 'tutor/forms/checkbox' :
+        text      : 'до 30 мин.'
+        selector  : 'small font_16'
+      road_time_45  : @module 'tutor/forms/checkbox' :
+        text      : 'до 45 мин.'
+        selector  : 'small font_16'
+      road_time_60  : @module 'tutor/forms/checkbox' :
+        text      : 'до 60 мин.'
+        selector  : 'small font_16'
+      road_time_90  : @module 'tutor/forms/checkbox' :
+        text      : 'до 90 мин.'
+        selector  : 'small font_16'
+      road_time_120  : @module 'tutor/forms/checkbox' :
+        text      : 'до 120 мин.'
+        selector  : 'small font_16'
+
+      choose_gender   : @state 'gender_data':
+        selector        : 'advanced_filter'
+        selector_button : 'advance_filter'
+        default   : 'male'
+
+      ###
+        tutor : @module 'tutor/forms/location_button' :
+          selector : 'place_learn'
+          text   : 'у себя'
+        student  : @module 'tutor/forms/location_button' :
+          selector : 'place_learn'
+          text   : 'у ученика'
+        web : @module 'tutor/forms/location_button' :
+          selector : 'place_learn'
+          text   : 'удалённо'
+        #location_hint : @module 'tutor/hint' :
+        #  selector : 'small'
+        #  field_position : 'left'
+        #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+        address_list : @module 'tutor/forms/drop_down_list' :
+          selector  : 'search_bids fast_bid'
+          text      : 'Ваш адрес :'
+        save_button  : @module 'tutor/button' :
+          text     : 'Сохранить'
+          selector : 'search_bids_save'
+        road_time_slider : @state 'main/slider_main' :
+          selector      : 'road_time_search_bids'
+          #start         : 'road_time_search_bids'
+          default :
+            left : 15
+            right : 120
+          dash          : 'до'
+          measurement   : 'мин.'
+          #handle        : false
+          min            : 15
+          max            : 120
+          left           : 30
+          right          : 120
+          division_value : 18
+        separate_line : @module 'tutor/separate_line' :
+          selector : 'horizon'
+
+      ###
       list_bids : @module 'tutor/bids/list_bids' :
         titles_bid : @module '//titles_bid' :
           indent     : false

@@ -1,21 +1,37 @@
-mixin item (progress, content, href, selector)
+mixin item (progress, content, href, selector,isCurrent)
   - href = href || '';
   if href
     a(href=href class = selector)
       if progress
-        .progress.block
-          .value
+        if isCurrent
+          .progress.block.current
+            .value=content
+        else
+          .progress.block
+            .value=content
       else
-        .block
-          .value=content
+        if isCurrent
+          .block.current
+            .value=content
+        else
+          .block
+            .value=content
   else
     .panel(class = selector)
       if progress
-        .progress.block
-          .value=content
+        if isCurrent
+          .progress.block.current
+            .value=content
+        else
+          .progress.block
+            .value=content
       else
-        .block
-          .value=content
+        if isCurrent
+          .block.current
+           .value=content
+        else
+          .block
+            .value=content
             //- --------------------------------------------------------
 //width: 52px
 //padding: 25px
@@ -25,28 +41,28 @@ mixin item (progress, content, href, selector)
   .progress_box
     case progress
       when 1
-        +item(progress>1, 1, 'first_step', 'one')
-        +item(progress>2, 2, false)
-        +item(progress>3, 3, false)
-        +item(progress>4, 4, false, 'fourth')
+        +item(progress>1, 1, 'first_step', 'one',1==current_progress)
+        +item(progress>2, 2, false,"", 2==current_progress)
+        +item(progress>3, 3, false,"", 3==current_progress)
+        +item(progress>4, 4, false, 'fourth',4==current_progress)
         - widthBlue = widthBlue*(progress-1)
       when 2
-        +item(progress>1, 1, 'first_step', 'one')
-        +item(progress>2, 2, 'second_step')
-        +item(progress>3, 3, false)
-        +item(progress>4, 4, false, 'fourth')
+        +item(progress>1, 1, 'first_step', 'one', 1==current_progress)
+        +item(progress>2, 2, 'second_step',"", 2==current_progress)
+        +item(progress>3, 3, false,"", 3==current_progress)
+        +item(progress>4, 4, false, 'fourth', 4==current_progress)
         - widthBlue = widthBlue*(progress-1)
       when 3
-        +item(progress>1, 1, 'first_step', 'one')
-        +item(progress>2, 2, 'second_step')
-        +item(progress>3, 3, 'third_step')
-        +item(progress>4, 4, false, 'fourth')
+        +item(progress>1, 1, 'first_step', 'one', 1==current_progress)
+        +item(progress>2, 2, 'second_step',"",  2==current_progress)
+        +item(progress>3, 3, 'third_step',"",  3==current_progress)
+        +item(progress>4, 4, false, 'fourth', 4==current_progress)
         - widthBlue = widthBlue*(progress-1)
       default
-        +item(progress>1, 1, 'first_step', 'one')
-        +item(progress>2, 2, 'second_step')
-        +item(progress>3, 3, 'third_step')
-        +item(progress>4, 4, 'fourth_step', 'fourth')
+        +item(progress>1, 1, 'first_step', 'one', 1==current_progress)
+        +item(progress>2, 2, 'second_step',"", 1==current_progress)
+        +item(progress>3, 3, 'third_step',"", 1==current_progress)
+        +item(progress>4, 4, 'fourth_step', 'fourth', 1==current_progress)
           - widthBlue = widthBlue*(progress-1)
     .blue_line(style='width: #{widthBlue}px')
   .gray_line

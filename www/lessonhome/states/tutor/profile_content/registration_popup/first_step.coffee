@@ -10,6 +10,7 @@ class @main extends @template '../registration_popup'
   }
   tree : =>
     progress  : $form : account : 'registration_progress'
+    current_progress: 1
     selector_button_back  : 'fast_bid_nav inactive'
     href_button_back      : ''
     href_button_next      : 'second_step'

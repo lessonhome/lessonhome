@@ -12,6 +12,7 @@ class @main extends @template '../registration_popup'
   forms : [{account:['registration_progress']}]
   tree : ->
     progress  : $form : account : 'registration_progress'
+    current_progress: 4
     selector_button_back  : 'fast_bid_nav'
     href_button_back      : 'third_step'
     href_button_next      : '/tutor/profile'
