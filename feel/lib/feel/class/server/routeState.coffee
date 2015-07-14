@@ -417,14 +417,14 @@ class RouteState
     @res.setHeader 'Access-Control-Allow-Credentials', true
     @res.setHeader 'ETag',resHash
     @res.setHeader 'Cache-Control', 'public, max-age=1'
-    @res.setHeader 'content-encoding', 'deflate'
+    @res.setHeader 'content-encoding', 'gzip'
     #@res.statusCode = 200
     d = new Date()
     d.setTime d.getTime()+1
     @res.setHeader 'Expires',d.toGMTString()
     #@res.writeHead @res.statusCode||200
     zlib    = require 'zlib'
-    zlib.deflate end,{level:9},(err,resdata)=>
+    zlib.gzip end,{level:9},(err,resdata)=>
       return Feel.res500 @req,@res,err if err?
       @res.setHeader 'content-length',resdata.length
       @res.end resdata
