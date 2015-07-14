@@ -29,20 +29,23 @@ class @main extends @template '../main'
         text1       : 'Придумайте пароль'
       agree_checkbox        : @module 'tutor/forms/checkbox' :
         value : true
+        selector: 'small'
       create_account  : @module 'link_button' :
         href      : 'tutor/profile/first_step'
-        selector  : 'create_account'
-        text      : 'Создать аккаунт'
+        selector  : 'main_tutor_enter'
+        text      : 'СОЗДАТЬ АККАУНТ'
       check_in_first  : @module 'tutor/button' :
         selector  : 'check_in_first'
         text      : 'Зарегистрируйся прямо сейчас!'
       check_in_second : @module 'tutor/button' :
         selector  : 'check_in_second'
         text      : 'Прямо сейчас!'
-      callback    : @module 'link_button' :
-        selector  : 'order_call'
-        text      : 'Заказать звонок'
-        href      : '/main_tutor_callback'
+      create_profile: @module 'link_button' :
+        selector: 'main_page_motivation'
+        text: 'СОЗДАТЬ ПРОФИЛЬ'
+      callback: @module 'link_button' :
+        selector: 'main_page_motivation'
+        text: 'ОБРАТНЫЙ ЗВОНОК'
 
 
 
