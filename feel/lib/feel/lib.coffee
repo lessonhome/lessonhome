@@ -490,6 +490,7 @@ class Lib
     #
 _js_infinite_json = require 'js-infinite-json'
 global._deflate = Q.denode require('zlib').deflate
+global._gzip = Q.denode require('zlib').gzip
 global._qlimit  = require './lib/qlimit'
 global._crypto  = require 'crypto'
 global._        = require 'lodash'
