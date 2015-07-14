@@ -398,7 +398,7 @@ class RouteState
     end +=  '<script id="feel-js-startFeel">
       "use strict";
       Feel.init().done();</script>'+
-      '</body></html>'
+      '<noscript><div><img src="https://mc.yandex.ru/watch/30199739" style="position:absolute; left:-9999px;" alt="" /></div></noscript></body></html>'
     @time "end str finish"
     sha1 = require('crypto').createHash('sha1')
     sha1.update end
