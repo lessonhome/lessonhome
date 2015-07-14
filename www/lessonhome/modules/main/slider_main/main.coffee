@@ -66,6 +66,8 @@ class @main extends EE
     @setDivision()
 
   setValue : (v={})=>
+    @tree.value[key]=val for key,val of v
+    v = @tree.value
     v.max ?= @max
     v.min ?= @min
     v.left ?= @tree?.default?.left
@@ -83,12 +85,13 @@ class @main extends EE
     @start?.emit? 'end'
 
   getValue : =>
-    return {
-      left  : @start?.getValue?()
-      right : @end?.getValue?()
-      min   : @min
-      max   : @max
-    }
+    @tree.value.left = @start?.getValue?()
+    @tree.value.right = @end?.getValue?()
+    return @tree.value
+    #{
+    #    : @start?.getValue?()
+    #    right : @end?.getValue?()
+    #}
 
   setDivision : =>
     @division_value = @tree.division_value

@@ -81,14 +81,53 @@ class @activeState
             Feel[name] = obj
           if cl.tree.$urlforms && Object.keys?(cl?.tree?.$urlforms)?.length
             if cl.getValue?
-              cl?.on 'change', =>Q.spawn =>
+              cl?.on 'change', => Q.spawn funconchange = =>
+                cl.__w8change ?= 0
+                return if cl.__ulock
+                if cl.__ulock2
+                  if cl.__w8change < 2
+                    cl.__w8change = 2
+                    yield _waitFor cl,'w8change'
+                    cl.__w8change = 0
+                    return Q.spawn funconchange
+                  else return
+                cl.__w8change = 1
+                cl.__ulock2 = true
                 v = cl.getValue()
                 for part,form of cl.tree.$urlforms
                   nv = _setKey v,part
-                  #def = undefined
-                  #if cl?.tree.default?
-                  #  def = _setKey cl.tree.default,part
                   yield Feel.urlData.set form.form,form.key,nv
+                cl.__ulock2 = false
+                cl.__w8change = 0
+                cl.emit 'w8change'
+              if cl.setValue?
+                Feel.urlData.on 'change',=> Q.spawn funconchange2 = =>
+                  #return if cl.__ulock2
+                  #return if cl.__ulock
+                  cl.__w8change2 ?= 0
+                  if cl.__ulock2 || cl.__ulock
+                    if cl.__w8change2 < 2
+                      cl.__w8change2 = 2
+                      yield _waitFor cl,'w8change2'
+                      cl.__w8change2 = 0
+                      return Q.spawn funconchange2
+                    else return
+                  cl.__w8change2 = 1
+                  cl.__ulock = true
+                  v = {value:yield cl.getValue()}
+                  nv = {}
+                  v2 = {}
+                  for part,form of cl.tree.$urlforms
+                    _setKey nv,"value."+part,(yield Feel.urlData.get(form.form,form.key))
+                    _setKey v2,"value."+part,(_setKey(v,"value."+part))
+                  if JSON.stringify(v2) != JSON.stringify(nv)
+                    if nv.value && (typeof nv.value == 'object')
+                      for key,val of nv.value
+                        _setKey v.value,key, val
+                    cl.setValue _setKey(v,'value')
+                  cl.__w8change2 = 0
+                  cl.__ulock = false
+                  cl.emit 'w8change2'
           Wrap cl,null,false
           Wrap cl.js,null,false if cl?.js?
   parseTree : (node,statename)=>

@@ -14,7 +14,6 @@ ex = (v)=>
     continue unless p?.name?.first
     continue unless p.price_left <= mf?.price?.right
     continue unless p.price_right >= mf?.price?.left
-    console.log mf
     ss = Object.keys(p?.subjects ? {})
     min = -1
     exists = false
@@ -72,23 +71,23 @@ ex = (v)=>
     out.push p
   switch mf.sort
     when 'rating'
-      out.sort (a,b)=> (a.rating<=b.rating)
-      _out.sort (a,b)=> (a.rating<=b.rating)
+      out.sort (a,b)=> -(a.rating-b.rating)
+      _out.sort (a,b)=> -(a.rating-b.rating)
     when '-rating'
-      out.sort (a,b)=> (a.rating>b.rating)
-      _out.sort (a,b)=> (a.rating>b.rating)
+      out.sort (a,b)=> (a.rating-b.rating)
+      _out.sort (a,b)=> (a.rating-b.rating)
     when 'price'
-      out.sort (a,b)=> (a.price_left>=b.price_left)
-      _out.sort (a,b)=> (a.price_left>=b.price_left)
+      out.sort (a,b)=> (a.price_left-b.price_left)
+      _out.sort (a,b)=> (a.price_left-b.price_left)
     when '-price'
-      out.sort (a,b)=> (a.price_right<b.price_right)
-      _out.sort (a,b)=> (a.price_right<b.price_right)
+      out.sort (a,b)=> -(a.price_right-b.price_right)
+      _out.sort (a,b)=> -(a.price_right-b.price_right)
     when 'experience'
-      out.sort (a,b)=> (ex(a.experience)<=ex(b.experience))
-      _out.sort (a,b)=> (ex(a.experience)<=ex(b.experience))
+      out.sort (a,b)=> -(ex(a.experience)-ex(b.experience))
+      _out.sort (a,b)=> -(ex(a.experience)-ex(b.experience))
     when '-experience'
-      out.sort (a,b)=> (ex(a.experience)>ex(b.experience))
-      _out.sort (a,b)=> (ex(a.experience)>ex(b.experience))
+      out.sort (a,b)=> (ex(a.experience)-ex(b.experience))
+      _out.sort (a,b)=> (ex(a.experience)-ex(b.experience))
   return [out...,_out...]
 
 

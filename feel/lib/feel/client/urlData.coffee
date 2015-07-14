@@ -60,10 +60,14 @@ class @urlData
     return obj.url
   setUrl : =>
     url = yield @udata.d2u @data
+    @data = yield @udata.u2d url
     nurl = url
     nurl = '?'+nurl if nurl
-    History.pushState  @data,@state.title,@state.url.match(/^([^\?]*)/)[1]+"#{nurl}"
+    mnurl = @state.url.match(/^([^\?]*)/)[1]+"#{nurl}"
+    return if mnurl == @state.url
+    History.replaceState  @data,(@state.title || $('head>title').text()),mnurl
     @state = History.getState()
+    @emit 'change'
     #data = @state.url.match /\?(.*)$/
     #@data = yield @udata.u2d data
     #for key of @forms

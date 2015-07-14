@@ -347,7 +347,10 @@ class RouteState
     end += '<meta name="viewport" content="width=1014">'
     end += '<title>'+title+'</title>'
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
-    end += @css+'</head><body>'+@top._html
+    end += "<meta name='yandex-verification' content='614ca940d3db203d' />"
+    end += @css+'</head><body>'
+    end +='<!-- Yandex.Metrika counter --><script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter30199739 = new Ya.Metrika({ id:30199739, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/30199739" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->'
+    end += @top._html
     @removeHtml @top
     @time "remove html"
     json_tree = @getTree @top
@@ -398,7 +401,7 @@ class RouteState
     end +=  '<script id="feel-js-startFeel">
       "use strict";
       Feel.init().done();</script>'+
-      '</body></html>'
+     ' </body></html>'
     @time "end str finish"
     sha1 = require('crypto').createHash('sha1')
     sha1.update end
@@ -414,14 +417,14 @@ class RouteState
     @res.setHeader 'Access-Control-Allow-Credentials', true
     @res.setHeader 'ETag',resHash
     @res.setHeader 'Cache-Control', 'public, max-age=1'
-    @res.setHeader 'content-encoding', 'deflate'
+    @res.setHeader 'content-encoding', 'gzip'
     #@res.statusCode = 200
     d = new Date()
     d.setTime d.getTime()+1
     @res.setHeader 'Expires',d.toGMTString()
     #@res.writeHead @res.statusCode||200
     zlib    = require 'zlib'
-    zlib.deflate end,{level:9},(err,resdata)=>
+    zlib.gzip end,{level:9},(err,resdata)=>
       return Feel.res500 @req,@res,err if err?
       @res.setHeader 'content-length',resdata.length
       @res.end resdata
