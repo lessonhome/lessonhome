@@ -1,5 +1,10 @@
 
-
+tutor_status_text =
+  student : 'Cтудент'
+  school_teacher : 'Преподаватель школы'
+  university_teacher : 'Преподаватель ВУЗа'
+  private_teacher  :'Частный преподаватель'
+  native_speaker : 'Носитель языка'
 group_lessons = ['не проводятся','2-4 ученика','до 8 учеников','от 10 учеников']
 sort          = ['rating','price','experience','way_time','-price','-experience','-rating','-way_time']
 gender = ['','male','female','mf']
@@ -97,6 +102,18 @@ class @U2D
   $with_reviews : (obj)=> obj?.with_reviews
   $with_verification : (obj)=> obj?.with_verification
   $tutor_status : (obj)=> boolSetR obj?.tutor_status,tutor_status
+  $tutor_status_text : (obj)=>
+    arr = boolSetR obj?.tutor_status,tutor_status
+    arr2 = []
+    for key,val of arr
+      arr2.push tutor_status_text[key] if val
+    if arr2.length <= 0
+      return 'Статус репетитора'
+    arr2.sort (a,b)=>a.length>b.length
+    ret = arr2.join(', ')
+    if ret.length > 20
+      ret = ret.substr(0,20)+"..."
+    return ret
   $place : (obj)=>
     ret = boolSetR obj?.place,place
     ret.area = obj?.placeArea
@@ -108,6 +125,7 @@ class @U2D
   $sort : (obj)=> sort[obj?.sort ? 0]
   $showBy : (obj)=> if obj?.showBy==true then 'list' else 'grid'
   $course : (obj)=> obj?.course
+  
   
 
 

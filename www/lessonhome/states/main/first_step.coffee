@@ -18,82 +18,9 @@ class @main extends @template './motivation_content'
       list_subject    : @module 'tutor/forms/drop_down_list' :
         selector    : 'main_subject'
         placeholder : 'Предмет'
-        default_options     : {
-          '0': {value: 'english', text: 'английский язык'},
-          '1': {value: 'math', text: 'математика'},
-          '2': {value: 'russian_language', text: 'русский язык'},
-          '3': {value: 'music', text: 'музыка'},
-          '4': {value: 'physics', text: 'физика'},
-          '5': {value: 'chemistry', text: 'химия'},
-          '6': {value: 'german', text: 'немецкий язык'},
-          '7': {value: 'primary_school', text: 'начальная школа'}
-          '8': {value: 'french', text: 'франзузский язык'}
-          '9': {value: 'social_studies', text: 'обществознание'}
-          '10': {value: 'computer_science', text: 'информатика'}
-          '11': {value: 'programming', text: 'программирование'}
-          '12': {value: 'spanish', text: 'испанский язык'}
-          '13': {value: 'biology', text: 'биология'}
-          '14': {value: 'speech_therapists', text: 'логопеды'}
-          '15': {value: 'acting_skills', text: 'актёрское мастерство'}
-          '16': {value: 'algebra', text: 'алгебра'}
-          '17': {value: 'arabic', text: 'арабский язык'}
-          '18': {value: 'accounting', text: 'бухгалтерский учёт'}
-          '19': {value: 'hungarian', text: 'венгерский язык'}
-          '20': {value: 'vocals', text: 'вокал'}
-          '21': {value: 'higher_mathematics', text: 'высшая математика'}
-          '22': {value: 'geography', text: 'география'}
-          '23': {value: 'geometry', text: 'геометрия'}
-          '24': {value: 'guitar', text: 'гитара'}
-          '25': {value: 'dutch', text: 'голландский язык'}
-          '26': {value: 'greek', text: 'греческий язык'}
-          '27': {value: 'danish', text: 'датский язык'}
-          '28': {value: 'hebrew', text: 'иврит'}
-          '29': {value: 'history', text: 'история'}
-          '30': {value: 'italian', text: 'итальянский язык'}
-          '31': {value: 'chinese', text: 'китайския язык'}
-          '32': {value: 'computer_graphics', text: 'компьютерная графика'}
-          '33': {value: 'korean', text: 'корейский язык'}
-          '34': {value: 'latin', text: 'латынь'}
-          '35': {value: 'literature', text: 'литература'}
-          '36': {value: 'logic', text: 'логика'}
-          '37': {value: 'macroeconomics', text: 'макроэкономика'}
-          '38': {value: 'mathematical_analysis', text: 'математический анализ'}
-          '39': {value: 'management', text: 'менеджмент'}
-          '40': {value: 'microeconomics', text: 'микроэкономика'}
-          '41': {value: 'descriptive_geometry', text: 'начертательная геометрия'}
-          '42': {value: 'norwegian', text: 'норвежский язык'}
-          '43': {value: 'origami', text: 'оригами'}
-          '44': {value: 'preparing_for_school', text: 'подготовка к школе'}
-          '45': {value: 'polish', text: 'польский язык'}
-          '46': {value: 'portuguese', text: 'португальский язык'}
-          '47': {value: 'jurisprudence', text: 'правоведение'}
-          '48': {value: 'psychology', text: 'психология'}
-          '49': {value: 'drawing', text: 'рисование'}
-          '50': {value: 'rhetoric', text: 'риторика'}
-          '51': {value: 'rct', text: 'рки'}
-          '52': {value: 'serbian', text: 'сербский язык'}
-          '53': {value: 'violin', text: 'скрипка1'}
-          '54': {value: 'sol-fa', text: 'сольфеджио'}
-          '55': {value: 'strength_of_materials', text: 'сопротивление материалов'}
-          '56': {value: 'statistics', text: 'статистика'}
-          '57': {value: 'theoretical_mechanics', text: 'теоретическая механика'}
-          '58': {value: 'probability_theory', text: 'теория вероятностей'}
-          '59': {value: 'turkish', text: 'турецкий язык'}
-          '60': {value: 'philosophy', text: 'философия'}
-          '61': {value: 'finnish', text: 'финский язык'}
-          '62': {value: 'flute', text: 'флейта'}
-          '63': {value: 'piano', text: 'фортепиано'}
-          '64': {value: 'hindi', text: 'хинди'}
-          '65': {value: 'drawing', text: 'черчение'}
-          '66': {value: 'czech', text: 'чешский язык'}
-          '67': {value: 'chess', text: 'шахматы'}
-          '68': {value: 'swedish', text: 'шведский язык'}
-          '69': {value: 'econometrics', text: 'эконометрика'}
-          '70': {value: 'economy', text: 'экономика'}
-          '71': {value: 'electrical_engineering', text: 'электротехника'}
-          '72': {value: 'japanese', text: 'японский язык'}
-        }
-        value : $form : pupil : 'newBid.subjects.0.subject'
+        items : ["английский язык","математика","русский язык","музыка","физика","химия","немецкий язык","начальная школа","франзузский язык","обществознание","информатика","программирование","испанский язык","биология","логопеды","актёрское мастерство","алгебра","арабский язык","бухгалтерский учёт","венгерский язык","вокал","высшая математика","география","геометрия","гитара","голландский язык","греческий язык","датский язык","иврит","история","итальянский язык","китайския язык","компьютерная графика","корейский язык","латынь","литература","логика","макроэкономика","математический анализ","менеджмент","микроэкономика","начертательная геометрия","норвежский язык","оригами","подготовка к школе","польский язык","португальский язык","правоведение","психология","рисование","риторика","рки","сербский язык","скрипка1","сольфеджио","сопротивление материалов","статистика","теоретическая механика","теория вероятностей","турецкий язык","философия","финский язык","флейта","фортепиано","хинди","черчение","чешский язык","шахматы","шведский язык","эконометрика","экономика","электротехника","японский язык"]
+        #value : $form : pupil : 'newBid.subjects.0.subject'
+        value : $urlform : mainFilter : 'subject.0'
       ###choose_subject  : @module '../selected_tag'  :
         selector  : 'choose_subject'
         id        : '123'
@@ -101,33 +28,41 @@ class @main extends @template './motivation_content'
         close     : true
 
       ###
+      tutor_status_text : $urlform : mainFilter : 'tutor_status_text'
       tutor_status : [
         @module 'tutor/forms/checkbox'  :
           text      : 'Студент'
           selector  : 'small'
+          value : $urlform : mainFilter : 'tutor_status.student'
         @module 'tutor/forms/checkbox'  :
           text      : 'Частный преподаватель'
           selector  : 'small'
+          value : $urlform : mainFilter : 'tutor_status.private_teacher'
         @module 'tutor/forms/checkbox'  :
           text      : 'Преподаватель школы'
           selector  : 'small'
+          value : $urlform : mainFilter : 'tutor_status.school_teacher'
         @module 'tutor/forms/checkbox'  :
           text      : 'Преподаватель ВУЗа'
           selector  : 'small'
+          value : $urlform : mainFilter : 'tutor_status.university_teacher'
       ]
       place : [
         @module 'tutor/forms/checkbox'  :
           text      : 'У себя'
           selector  : 'small'
+          value : $urlform : mainFilter : 'place.pupil'
         @module 'tutor/forms/checkbox'  :
           text      : 'У репетитора'
           selector  : 'small'
+          value : $urlform : mainFilter : 'place.tutor'
         @module 'tutor/forms/checkbox'  :
           text      : 'Удалённо'
           selector  : 'small'
-        @module 'tutor/forms/checkbox'  :
-          text      : 'Другое'
-          selector  : 'small'
+          value : $urlform : mainFilter : 'place.remote'
+        #@module 'tutor/forms/checkbox'  :
+        #  text      : 'Другое'
+        #  selector  : 'small'
       ]
       price : [
         @module 'tutor/forms/checkbox'  :
@@ -154,56 +89,4 @@ class @main extends @template './motivation_content'
         text      : 'Оформить быструю заявку'
         href      : '/fast_bid/first_step'
 
-    info_panel  : @state './info_panel'  :
-      math : @module '//item' :
-        title: 'Математические +'
-        list : [
-          'Математика 1'
-          'Математика 2'
-          'Математика 3'
-          'Математика 4'
-          'Математика 5'
-          'Математика 6'
-        ]
-      natural_research  : @module '//item' :
-        title : 'Естественно-научные +'
-        list : [
-          'Предмет 1'
-          'Предмет 2'
-          'Предмет 3'
-          'Предмет 4'
-          'Предмет 5'
-          'Предмет 6'
-        ]
-      philology         : @module '//item' :
-        title : 'Филологичные +'
-        list : [
-          'Предмет 1'
-          'Предмет 2'
-          'Предмет 3'
-          'Предмет 4'
-          'Предмет 5'
-          'Предмет 6'
-        ]
-      foreign_languages : @module '//item' :
-        title : 'Иностранные языки +'
-        list : [
-          'Предмет 1'
-          'Предмет 2'
-          'Предмет 3'
-          'Предмет 4'
-          'Предмет 5'
-          'Предмет 6'
-        ]
-      others            : @module '//item' :
-        title :'Другие +'
-        list : [
-          'Предмет 1'
-          'Предмет 2'
-          'Предмет 3'
-          'Предмет 4'
-          'Предмет 5'
-          'Предмет 6'
-        ]
-      selector : 'first_step'
-
+    info_panel  : @state './info_panel'

@@ -46,7 +46,6 @@ class Tutors
       obj.rating = JSON.stringify(obj).length
       rmax = Math.max(rmax ? obj.rating,obj.rating)
       rmin = Math.min(rmin ? obj.rating,obj.rating)
-      console.log 'rating'.red,obj.rating,rmax,rmin
       continue if (t?.subjects?[0]?.name) && (p?.ava?[0]?) && (p?.first_name)
       delete persons[account]
     for account,o of persons
@@ -83,7 +82,6 @@ class Tutors
         obj.price_left  = Math.min(obj.price_left ? l,l)
         obj.price_right = Math.max(obj.price_right ? r, r)
         obj.price_per_hour ?= ns.price_per_hour
-        console.log ns.place
         for key,val of val?.place
           obj.place[val] = true
       obj.experience = t?.experience

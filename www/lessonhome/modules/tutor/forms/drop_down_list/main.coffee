@@ -66,12 +66,14 @@ class @main extends EE
       @isFocus = false
       if !@bodyListenMD
         @bodyListenMD = true
+        Feel.popupAdd @dom[0],@closeList
+        ###
         f = (t)=>
           return if $.contains @dom[0],t.target
           @closeList()
         $('body').on 'mousedown.drop_down_list', f
         $('body').on 'mouseleave.drop_down_list', @closeList
-
+        ###
 
     if @tree.default_options?
       do =>
@@ -90,24 +92,28 @@ class @main extends EE
 
         valuesGenerator = (sBegin)=>
           arr = []
+          arr2 = []
           leng = Object.keys(@tree?.default_options ? {}).length
           for key,opt of @tree.default_options
             if leng > 5
               d = @getDistance(opt.text, sBegin)
+              o = {d,opt}
               if 0<=d<=0.33
-                o = {d,opt}
                 arr.push o if o?
+              else
+                arr2.push o if o?
             else
               arr.push {0,opt}
-            #break if sBegin.length > 2 && arr.length > 5
-            #break if arr.length > 10
+          #if arr.length < 5
+          #  arr = [arr...,arr2.slice(0)]
+          #  #break if sBegin.length > 2 && arr.length > 5
+          #  #break if arr.length > 10
+          
+          arr = arr.sort (a,b)=> Math.abs(a.d)-Math.abs(b.d)
+          arr2 = arr2.sort (a,b)=> Math.abs(a.d)-Math.abs(b.d)
+          if arr.length < 5
+            arr = [arr...,arr2.slice(0,(5-arr.length))...]
           return [] unless arr.length
-          for i in [0...arr.length-1]
-            for j in [i+1...arr.length]
-              if arr[i].d > arr[j].d
-                k = arr[i]
-                arr[i] = arr[j]
-                arr[j] = k
           ret = []
           for it in arr
             ret.push it.opt
@@ -254,6 +260,7 @@ class @main extends EE
             h = @maxListHeight
             h = lh if lh < h
             @options.height h
+          else @select_sets.hide()
           return
 
         markBeginText = (str, startStr)=>
@@ -299,9 +306,14 @@ class @main extends EE
   ########
 
   setValue : (val)=>
-    val ?= @tree.default
+    unless typeof @tree.default == 'string'
+      @tree.default = ""
+    unless typeof val == 'string'
+      val = @tree.default
+    @tree.value =  val
+    @val = val
     @input.val val
-    @emit 'change'
+    @emitChange()
 
   getValue : => @input.val()
 

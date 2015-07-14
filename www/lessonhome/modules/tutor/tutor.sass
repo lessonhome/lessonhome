@@ -4,11 +4,14 @@ $width_container: 1014
 $width_left_menu: 236px
 $width_content: $width_container - $width_left_menu
 $background_white:  #ffffff
+$footer_height: 248px
 main
   height: 100%
   width: 1014px
   margin: auto
 .container
+  padding-bottom: $footer_height
+  box-sizing: border-box
   overflow: hidden
   position: relative
   width: 100%
@@ -73,9 +76,10 @@ main
     clear: both
     content: ""
     display: block
-  .footer
-    width: 100%
-    position: relative
-    bottom: 0
-    background: #E2E7EC
+.footer
+  width: 100%
+  position: relative
+  bottom: 0
+  background: #E2E7EC
+  margin-top: -$footer_height
 
