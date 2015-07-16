@@ -24,7 +24,10 @@ class @main
   show  : =>
     @callback_toggle = @tree.callback_toggle.class
     @callback_toggle.on 'sec_active', =>
-      @hint.show()
+      #setTimeout(=> $(@hint).hide('slow'); 2000)
+      #(function() { $("#elem").hide('slow'); }, 2000);
+      #@hint.show()
+    #setTimeout(function() { $("#elem").hide('slow'); }, 2000);
 
     @close_block.on 'click', =>
       @hint.hide()
