@@ -1,5 +1,6 @@
 class @main extends EE
   Dom : =>
+    @division_value = @tree.division_value
     if @tree.type == 'right'
       delete @tree.start
     @start  = @tree.start?.class
@@ -24,10 +25,15 @@ class @main extends EE
       $(@found.start).hide()
 
     setSliderPos = (sliderCorn, inputVal) =>
+      if @tree.division_value>0
+        inputVal = Math.round(inputVal/@tree.division_value)*@tree.division_value
       sliderCorn.set (inputVal-@min) / (@max-@min)
 
     setInputVal = (inputCmp, x) =>
-      inputCmp.setValue (Math.round (@max-@min)*x + @min)
+      inputVal = (Math.round (@max-@min)*x + @min)
+      if @tree.division_value>0
+        inputVal = Math.round(inputVal/@tree.division_value)*@tree.division_value
+      inputCmp.setValue inputVal
 
     @start?.on 'end', =>
       slider = @slider.left if @slider.left?
@@ -37,12 +43,14 @@ class @main extends EE
     @end?.on 'end', =>
       slider = @slider.right if @slider.right?
       slider ?= @slider.left if @slider.left?
-      setSliderPos(slider, +@end.getValue()) if slider
+      setSliderPos(slider, +@end.getValue()) if slider?
 
     @slider.on 'left_slider_move', (x) =>
       input = @start if @start?
       input ?= @end  if @end?
-      setInputVal input, x
+      setInputVal input,x # @parseVal(left:x).left
+      #slider = @slider.left ? @slider.right
+      #setSliderPos(slider,+input?.getValue()) if slider?
       #input.setValue (Math.round (@max-@min)*x + @min)
       @emit 'change'
       @emit 'end'
@@ -50,7 +58,7 @@ class @main extends EE
     @slider.on 'right_slider_move', (x) =>
       input = @end  if @end?
       input ?= @start if @start?
-      setInputVal input, x
+      setInputVal input, x #@parseVal(right:x).right
       @emit 'change'
       @emit 'end'
 
@@ -83,6 +91,24 @@ class @main extends EE
   recheck : =>
     @end?.emit? 'end'
     @start?.emit? 'end'
+  parseVal : ({left,right})=>
+    console.log left,right
+    if left?
+      left = +left
+      unless left>=0
+        left = @tree.value.min
+      if @tree.division_value>0
+        left = Math.round(left/@tree.division_value)*@tree.division_value
+    if right?
+      right = +right
+      unless right>=0
+        right = @tree.value.max
+      if @tree.division_value>0
+        right= Math.round(right/@tree.division_value)*@tree.division_value
+    console.log left,right
+    return {left,right}
+
+      
 
   getValue : =>
     @tree.value.left = @start?.getValue?()
@@ -94,7 +120,6 @@ class @main extends EE
     #}
 
   setDivision : =>
-    @division_value = @tree.division_value
     number = (@max - @min)/@division_value
     delta  = (@division_value/(@max - @min)) * 100
     i = 1

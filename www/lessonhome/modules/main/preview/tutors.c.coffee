@@ -69,8 +69,20 @@ class Tutors
         ns.price  = {left: +val.price?.range?[0]}
         ns.price.right = +(val.price?.range?[1] ? ns.price.left)
         ns.duration  = {}
-        ns.duration.right  = +val.price?.duration
-        ns.duration.left   = +val.price?.duration
+        d = val.price?.duration
+        if d?.left?
+          d = [d.left,d.right]
+          d[1] ?= d[0]
+        if (typeof d == 'string') && d
+          o = d.match(/^\D*(\d*)?\D*(\d*)?/)
+          d = []
+          d.push o[1] if o[1]?
+          d.push (o[2] ? o[1]) if (o[2] ? o[1])?
+        unless (+d?[0]) > 1
+          d = [60,120]
+        unless (+d?[1]) > 1
+          d[1] = d[0]+30
+        ns.duration = {left:d[0],right:d[1]}
         def = 800
         ns.price.right = 900*3  unless ns.price.right > 0
         ns.price.left  = 600    unless ns.price.left > 0
@@ -79,9 +91,11 @@ class Tutors
         l = ns.price.left*60/ns.duration.left
         r = ns.price.right*60/ns.duration.right
         ns.price_per_hour  = 0.5*(r+l)
-        obj.price_left  = Math.min(obj.price_left ? l,l)
-        obj.price_right = Math.max(obj.price_right ? r, r)
-        obj.price_per_hour ?= ns.price_per_hour
+        obj.price_left  = Math.round(Math.min(obj.price_left ? ns.price.left,ns.price.left)/50)*50
+        obj.price_right = Math.round(Math.max(obj.price_right ? ns.price.right, ns.price.right)/50)*50
+        obj.duration_left  = Math.round(Math.min(obj.duration_left ? ns.duration.left,ns.duration.left)/15)*15
+        obj.duration_right = Math.round(Math.max(obj.duration_right ? ns.duration.right, ns.duration.right)/15)*15
+        obj.price_per_hour = Math.round(ns.price_per_hour/50)*50
         for key,val of val?.place
           obj.place[val] = true
       obj.experience = t?.experience

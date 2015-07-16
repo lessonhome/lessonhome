@@ -25,7 +25,7 @@ check = require("./check")
     price_range.push subject.price_till
     subjects_db[i].price = {}
     subjects_db[i].price.range = price_range
-    subjects_db[i].price.duration = subject.duration
+    subjects_db[i].price.duration = {left:+subject?.duration?.left,right:+subject?.duration?.right}
     subjects_db[i].place ?= []
     if subject.place_tutor then subjects_db[i].place.push "tutor"
     if subject.place_pupil then subjects_db[i].place.push "pupil"

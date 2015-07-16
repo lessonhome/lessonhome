@@ -6,9 +6,7 @@ class @main
     country : @module 'tutor/forms/drop_down_list' :
       text        : 'Страна :'
       selector    : 'first_reg'
-      default_options     : {
-        '0': {value: 'russia', text: 'Россия'}
-      }
+      items : ['Россия','Белоруссия','Казахстан','Киргизия','Абхазия','Украина','Молдавия','Румыния','Норвегия','Латвия']
       value : $form : person : 'country'
     city    : @module 'tutor/forms/drop_down_list' :
       text        : 'Город :'

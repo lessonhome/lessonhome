@@ -18,10 +18,9 @@ class @main
     @flat       = @tree.flat.class
 
     # clear errors
-    @country.on     'focus',  => @hideError
-    @city.on        'focus',  => @hideError
-    @area.on        'focus',  => @hideError
-
+    @country.on     'focus',  => @country.hideError()
+    @city.on        'focus',  => @city.hideError()
+    @area.on        'focus',  => @area.hideError()
 
 
     @bSave = @tree.save_button.class

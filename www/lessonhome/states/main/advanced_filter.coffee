@@ -96,7 +96,7 @@ class @main
       type : 'default'
       dash          : '-'
       measurement   : 'руб.'
-      division_value : 250
+      division_value : 50
     time_spend_way   : @state './slider_main' :
       selector      : 'advanced_filter_price'
       right : $urlform : mainFilter : 'time_spend_way'
@@ -105,7 +105,7 @@ class @main
       type : 'right'
       dash          : 'до'
       measurement   : 'мин.'
-      division_value : 18
+      division_value : 10
     choose_gender   : @state 'gender_data':
       selector        : 'advanced_filter'
       selector_button : 'advance_filter'

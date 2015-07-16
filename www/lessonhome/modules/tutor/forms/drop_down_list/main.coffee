@@ -192,9 +192,10 @@ class @main extends EE
               @emit 'press_enter'
               selectedOptionToInput()
             when @unit.tabCode
-              event.preventDefault()
-              nextSelected @options if @exists()
-              selectedOptionToInput(false)
+              if @select_sets.is(':visible')
+                event.preventDefault()
+                nextSelected @options if @exists()
+                selectedOptionToInput(false)
               #if @select_sets.is(':visible')
               #  if event.shiftKey
               #    prevSelected @options
@@ -215,9 +216,11 @@ class @main extends EE
             makeSelected optionIndex $(this)
           that = this
           @items.on 'click', (event)->
+            event.preventDefault()
             makeSelected optionIndex $(this)
             that.select_sets.data 'was-click', true
             selectedOptionToInput()
+            return false
 
         @icon_box?.click? (event) =>
           if @select_sets.is(':visible')

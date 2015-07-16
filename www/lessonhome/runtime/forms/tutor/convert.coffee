@@ -1,14 +1,14 @@
 
 
 status =
-  schoolboy : 'школьник'
-  student   : 'студент'
-  graduate  : 'аспирант/выпускник'
-  phd       : 'кандидат наук'
-  phd2      : 'доктор наук'
+  student   : 'Студент'
+  school_teacher : 'Преподаватель школы'
+  university_teacher       : 'Преподаватель ВУЗа'
+  private_teacher      : 'Частный преподаватель'
+  native_speaker  : 'Носитель языка'
 
 class @F2V
-  $status       : (data)-> status[data?.status]
+  $status       : (data)-> status[data?.status] ? 'Репетитор'
   $status2       : (data)-> status[data?.status]
   $settings_new_orders : (data)-> data?.settings?.new_orders
   $settings_get_notifications_sms : (data)->
@@ -50,11 +50,20 @@ class @F2V
     return ret
   $sduration  : (data)->
     d = (yield @$subject(data))?.price?.duration
-    if d?
-      ret = d + " минут"
-    else
-      ret = ''
-    return ret
+    if d?.left?
+      d = [d.left,d.right]
+      d[1] ?= d[0]
+    if (typeof d == 'string') && d
+      o = d.match(/^\D*(\d*)?\D*(\d*)?/)
+      d = []
+      d.push o[1] if o[1]?
+      d.push (o[2] ? o[1]) if (o[2] ? o[1])?
+    unless (+d?[0]) > 1
+      d = [60,120]
+    unless (+d?[1]) > 1
+      d[1] = d[0]+30
+    d= {left:d[0],right:d[1]}
+    return d
   $splace : (data)->
     places = {'tutor':'у репетитора', 'pupil':'у ученика', 'remote':'удалённо', other:'другое место'}
     ret = ''

@@ -1,5 +1,5 @@
 class @main
-  forms : [{tutor:['subject','isTag','srange','isPlace']}]
+  forms : [{tutor:['subject','isTag','srange','isPlace','sduration']}]
   tree : => @module '$' :
     subject_name : $form : tutor : 'subject.name'
     course     : @module 'tutor/forms/drop_down_list' :
@@ -37,11 +37,6 @@ class @main
       $form : tutor : 'isTag.adult'
     price_slider   : @state 'main/slider_main' :
       selector      : 'price_fast_reg'
-      #start         : 'calendar'
-      #start_text    : ''
-      #end         : @module 'tutor/forms/input' :
-      #selector  : 'calendar'
-      #align     : 'center'
       default :
         left : 400
         right : 5000
@@ -58,23 +53,18 @@ class @main
 
     duration    : @state 'main/slider_main' :
       selector      : 'price_fast_reg'
-      #start         : 'calendar'
-      #start_text    : ''
-      #end         : @module 'tutor/forms/input' :
-      #selector  : 'calendar'
-      #align     : 'center'
       default :
-        left : 400
-        right : 5000
+        left : 60
+        right : 120
       dash          : '-'
       measurement   : 'мин.'
-      division_value : 5
+      division_value : 15
       type : 'default'
       #handle        : true
-      min : 14
-      max : 120
-      left : $form : tutor : 'srange.left'
-      right : $form : tutor : 'srange.right'
+      min : 30
+      max : 240
+      left : $form : tutor : 'sduration.left'
+      right : $form : tutor : 'sduration.right'
 
 
 

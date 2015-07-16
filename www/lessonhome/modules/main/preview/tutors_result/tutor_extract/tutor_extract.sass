@@ -31,11 +31,16 @@ $map_icon_width: image-width($map_icon_src)
 
 .tutor_price
   margin: 8px 0
+  .val .wide
+    width : 170px
   .icon , .val, .val div
     +inline-block
+  .val
+    padding-left : 30px 
   .val .price
     padding : 0 3px 
   .icon
+    position : absolute
     margin-right: 12px
     width: $price_icon_width
     height: $price_icon_height
@@ -110,8 +115,7 @@ $height_button: 36px
       font-size: 14px
       line-height: 24px
 
-//-
-
+//
   .button_prise_panel
     .add_button_bid
       height: $height_button
