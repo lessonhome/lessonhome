@@ -302,7 +302,7 @@ class module.exports
   dyjs    : (js)=>
     ycompress(js,{type:'js'}).then (yjs)=>
       yjs = yjs?[0] unless typeof yjs == 'string'
-      return _deflate yjs ? ""
+      return _gzip yjs ? ""
   ycss    : (css)=> do Q.async =>
     console.log 'ycss'
     ret = yield ycompress css, type:"css"
@@ -310,7 +310,7 @@ class module.exports
     return ret ? ""
   dycss   : (css)=> ycompress(css,{type:"css"}).then (ycss)=>
     ycss = ycss?[0] unless typeof ycss == 'string'
-    return _deflate ycss ? ""
+    return _gzip ycss ? ""
   res404  : (req,res,err)=>
     console.error err if err?
     req.url = '/404'
