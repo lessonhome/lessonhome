@@ -1,7 +1,8 @@
 .subject=subject
 .full_name=full_name
 .photo_wrap
-  .photo
+  .photo(style = 'width: #{img.w}px; height:#{img.h}px')
+    img(src=img.src)
 .price=price
 .about_text=about_text
 .open_button

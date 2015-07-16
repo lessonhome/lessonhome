@@ -1,13 +1,15 @@
 
 class @main extends EE
-  show : =>
+  Dom : =>
     @link         = @dom.find "a"
-
     @link.on     'mousedown', @mdown
     @link.click (e)=>
-      return unless e.button==0
+      return unless (e.button==0) && (!@tree.active)
       e.preventDefault()
       @emit 'submit'
+  show : =>
+
+
   mdown : =>
     if @link.hasClass 'active'
       @link.addClass('press')

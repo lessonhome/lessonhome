@@ -46,6 +46,8 @@ class @main extends @template '../main'
       callback: @module 'link_button' :
         selector: 'main_page_motivation'
         text: 'ОБРАТНЫЙ ЗВОНОК'
+        active: true
+        href: '/main_tutor_callback'
 
 
 
