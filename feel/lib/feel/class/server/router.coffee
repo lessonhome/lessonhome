@@ -61,7 +61,7 @@ class Router
       if uredirect
         _setKey req.udata,'accessRedirect.redirect',''
       else
-        uredirect = '/tutor/search_bids'
+        uredirect = '/tutor/profile'
       return @redirect req,res,uredirect
     if req.url.match /^\/form\/tutor\/register$/
       return @redirect req,res,'/tutor/profile/first_step'
