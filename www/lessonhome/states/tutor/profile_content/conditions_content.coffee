@@ -37,7 +37,7 @@ class @main
           'Комментарии :'                 : $form : tutor : 'subject.description'
           'Групповые занятия :'           : $form : tutor : 'subject.groups.0.description'
           'Место занятий :'               : $form : tutor : 'splace'
-          'Продолжительность :'           : $form : tutor : 'sduration'
+          'Продолжительность :'           : $form : tutor : 'sduration' : ({left,right})-> "#{left} - #{right} минут."
         selector : 'subject_class'
         line_horizon  :  @module 'tutor/separate_line' :
           selector  : 'horizon'

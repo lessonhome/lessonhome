@@ -59,7 +59,11 @@ class @main extends EE
     @found.location.text(value.location?.city ? "")
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     @tutor_text.    text(value.about ? "")
-    @found.price.text(Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
+    @found.price_left.text(value.price_left)
+    @found.price_right.text(value.price_right)
+    @found.duration_left.text(value.duration_left)
+    @found.duration_right.text(value.duration_right)
+    @found.price.text(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
     @hideExtraText()
 
   getValue : => @getData()

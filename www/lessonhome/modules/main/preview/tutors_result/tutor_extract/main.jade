@@ -8,9 +8,24 @@
 .js-tutor_price.select
   .icon
   .val
-    div='цена от '
+    div.wide='продолжительность:'
+    .price.js-duration_left=Math.floor(value.price_per_hour/10)*10
+    div=' - '
+    .price.js-duration_right=Math.floor(value.price_per_hour/10)*10
+    div=' минут'
+  br
+  .val
+    div.wide='стоимость:'
+    .price.js-price_left=Math.floor(value.price_per_hour/10)*10
+    div=' - '
+    .price.js-price_right=Math.floor(value.price_per_hour/10)*10
+    div=' рублей'
+  br
+  .val
+    .wide
+    div='('
     .js-price=Math.floor(value.price_per_hour/10)*10
-    div=' р/ч'
+    div=' р/ч)'
 .division_line
 .js-tutor_subject.select
   each val,key in value.subjects
