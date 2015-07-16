@@ -223,11 +223,11 @@ class module.exports
         res.setHeader 'Cache-Control', 'public, max-age=126144001'
         res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
       zlib = require 'zlib'
-      return zlib.deflate data,{level:9},(err,resdata)=>
+      return zlib.gzip data,{level:9},(err,resdata)=>
         return Feel.res500 req,res,err if err?
         res.statusCode = 200
         res.setHeader 'Content-Length', resdata.length
-        res.setHeader 'Content-Encoding', 'deflate'
+        res.setHeader 'Content-Encoding', 'gzip'
         return res.end resdata
     return Feel.res404 req,res
   moduleJsUrl : (name)=>

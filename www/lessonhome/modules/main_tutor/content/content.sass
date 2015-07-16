@@ -1,5 +1,66 @@
 @import compass/css3
 $advantages_photo_src: 'main_tutor/mainreg_team.png'
+
+$main_tutor_search_src: 'main_tutor/main_tutor_search.png'
+$main_tutor_search_height: image-height($main_tutor_search_src)
+$main_tutor_search_width: image-width($main_tutor_search_src)
+
+$main_pattern_src: 'main/main_pattern.png'
+$main_pattern_height: image-height($main_pattern_src)
+$main_pattern_width: image-width($main_pattern_src)
+
+$pattern_bottom_src: 'main/main_pattern_bottom.png'
+$pattern_bottom_height: image-height($pattern_bottom_src)
+$pattern_bottom_width: image-width($pattern_bottom_src)
+
+$main_pattern_noise_src: 'main/main_pattern_noise.png'
+$main_pattern_top_src: 'main/main_pattern_top.png'
+$main_pattern_top_height: image-height($main_pattern_top_src)
+
+$board_src: 'main_tutor/main_tutor_board.jpg'
+$board_height: image-height($board_src)
+$board_width: image-width($board_src)
+
+$quotes_src: 'main/quotes.png'
+$quotes_height: image-height($quotes_src)
+$quotes_width: image-width($quotes_src)
+
+$triangle_src: 'main/corner_review.jpg'
+$triangle_height: image-height($triangle_src)
+$triangle_width: image-width($triangle_src)
+
+$main_apple_src: 'main/main_apple.jpg'
+$main_apple_height: image-height($main_apple_src)
+$main_apple_width: image-width($main_apple_src)
+
+$photo1_src: 'main_tutor/photo1.jpg'
+$photo1_height: image-height($photo1_src)
+$photo1_width: image-width($photo1_src)
+
+$photo2_src: 'main_tutor/photo2.jpg'
+$photo2_height: image-height($photo2_src)
+$photo2_width: image-width($photo2_src)
+
+
+$earth_src              : 'filter_top/mainimage_earth.png'
+$note_src               : 'filter_top/mainimage_note.png'
+$pc_src                 : 'filter_top/mainimage_pc.png'
+$pencils_src            : 'filter_top/mainimage_pencils.png'
+$ruler_src              : 'filter_top/mainimage_ruler.png'
+$vial_src               : 'filter_top/mainimage_vial.png'
+$earth_height           : image-height($earth_src)
+$note_height            : image-height($note_src)
+$pc_height              : image-height($pc_src)
+$pencil_height          : image-height($pencils_src)
+$ruler_height           : image-height($ruler_src)
+$vial_height            : image-height($vial_src)
+$earth_width            : image-width($earth_src)
+$note_width             : image-width($note_src)
+$pc_width               : image-width($pc_src)
+$pencil_width           : image-width($pencils_src)
+$ruler_width            : image-width($ruler_src)
+$vial_width             : image-width($vial_src)
+
 .m-font
   color: #363636
 .m-landingBlockTitle
@@ -10,7 +71,7 @@ $advantages_photo_src: 'main_tutor/mainreg_team.png'
   color: rgb( 0, 0, 0 )
 .m-Link
   font-size: 16px
-  color: #f07b6f
+  color: #b1deda
   text-decoration: underline
 
 main
@@ -18,8 +79,69 @@ main
   padding: 44px 0 0 0
 // ------------------------- CHECK IN -------------------------------------------
 .check_in
+  position: relative
   padding-bottom: 35px
   text-align: center
+  .background_earth
+    height: $earth_height
+    width: $earth_width
+    background: url(F($earth_src))
+    position: absolute
+    right: 0
+    top: 20px
+  .background_note
+    height: $note_height
+    width: $note_width
+    background: url(F($note_src))
+    position: absolute
+    left: 19%
+    top: 25%
+  .background_pc
+    height: $pc_height
+    width: $pc_width
+    background: url(F($pc_src))
+    position: absolute
+    right: 19%
+    top: 5%
+  .background_pencils
+    height: $pencil_height
+    width: $pencil_width
+    background: url(F($pencils_src))
+    position: absolute
+    left: 0
+    top: 3%
+  .background_ruler
+    height: $ruler_height
+    width: $ruler_width
+    background: url(F($ruler_src))
+    position: absolute
+    right: 46%
+    top: 0
+  .background_vial
+    height: $vial_height
+    width: $vial_width
+    background: url(F($vial_src))
+    position: absolute
+    right: 34%
+    top: 2%
+  .top_text_wrap
+    text-align: center
+    .top_text
+      +inline-block
+      width: 456px
+      box-sizing: border-box
+      padding: 24px 48px 12px 24px
+      text-align: left
+      background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.2)
+      .t1, .t2, .t3
+        line-height: 24px
+        color: #202020
+      .t1, .t2
+        font-size: 16px
+      .t1
+        margin-bottom: 24px
+      .t3
+        font-size: 20px
   .title
     line-height: 32px
     margin-bottom: 6px
@@ -33,6 +155,8 @@ main
     color: #18293a
 
   .check_in_fields
+    padding: 12px 48px 18px 48px
+    background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.1)
     .submit
       position : fixed
       color : white
@@ -42,11 +166,11 @@ main
     +inline-block
     text-align: left
     .title
-      margin-bottom: 15px
       text-align: center
-      font-size: 30px
+      font-size: 20px
+      line-height: 24px
+      color: #202020
       font-weight: 600
-      color: #000000
     .login, .password
       position: relative
       margin-bottom: 10px
@@ -78,219 +202,174 @@ main
         .create_account
           +inline-block
           height: 48px
+          width: 360px
           vertical-align: baseline
 
-//- ------------------------ HOW IT WORKS -------------------------------------
-
-.how_it_works
+.simple_search
+  position: relative
+  text-align: left
   overflow: hidden
-  padding: 60px 0 75px 0
-  background: url(F('pattern_blue.png'))
-  //-box-shadow: 0px 3px 6px 0px rgba(9, 12, 18, 0.27)
-  .illustrations
-    width: 768px
-    height: 600px
+  height: 228px
+  background: url(F($main_pattern_src))
+  background-color: #efefef
+  .t1, .t2
+    z-index: 1
     position: relative
-    margin: 60px auto 70px auto
-    .text
-      position: absolute
+    +inline-block
+    margin-left: 139px
+  .t1
+    margin-top: 36px
+    font-size: 32px
+    line-height: 38px
+    font-weight: 600
+    color: #202020
+  .t2
+    font-size: 18px
+    line-height: 24px
+    color: #202020
+  .main_tutor_search
+    position: absolute
+    top: 16px
+    left: 0px
+    width: $main_tutor_search_width
+    height: $main_tutor_search_height
+    background: url(F($main_tutor_search_src)) no-repeat
+
+  .pattern_bottom
+    position: absolute
+    bottom: 0
+    width: 100%
+    height: $pattern_bottom_height
+    background: url(F($pattern_bottom_src))
+
+.board_wrap
+  padding-top: 60px
+  background: url(F($main_pattern_noise_src))
+  text-align: center
+  .board
+    +inline-block
+    width: $board_width
+    height: $board_height
+    background: url(F($board_src)) no-repeat
+.motivation
+  position: relative
+  padding-top: 12px
+  padding-bottom: 60px
+  background: url(F($main_pattern_noise_src))
+  .left, .center, .right
+    +inline-block
+    vertical-align: top
+    .title, .text
+      text-align: left
+    .title
       font-size: 20px
-      line-height: 28px
-      color: rgb(0, 0, 0)
-  .button
-    +inline-block
-    height: 64px
-
-//- ------------------------ ADVANTAGES ----------------------------------------
-
-.advantages
-  overflow: hidden
-  .photo
-    width: 249px
-    height: 245px
-    margin: 55px 0 40px 0
-    +inline-block
-    background: url(F($advantages_photo_src)) no-repeat
-
+      line-height: 24px
+      color: #3e9ee0
+    .text
+      font-size: 16px
+      line-height: 24px
+      color: #202020
+    .button
+      margin-top: 32px
+      height: 48px
+      width: 228px
+  .left, .center
+    .title
+      height: 72px
+  .left
+    margin-right: 39px
+    width: 298px
+    .button
+      width: 228px
+  .center
+    margin-right: 44px
+    width: 290px
+  .right
+    width: 308px
+    .title
+      margin-bottom: 24px
+  .bottom_pattern
+    position: absolute
+    z-index: 1
+    bottom: -$main_pattern_top_height + 1
+    height: $main_pattern_top_height
+    width: 100%
+    background: url(F($main_pattern_top_src))
+$main_pattern_top_src: 'main/main_pattern_top.jpg'
+.reviews_wrap
+  padding-top: 24px
+  padding-bottom: 112px
+  background: url(F($main_pattern_noise_src))
   .title
-    margin-bottom: 150px
-    .text
-      font-size: 30px
-      span
-        color: #f07b6f
-  .title:first-child
-    margin-bottom: 15px
-
-  .content
-    margin: 0 auto 50px auto
-    div
+    padding-left: 86px
+    margin-bottom: 48px
+    text-align: left
+    font-size: 20px
+    line-height: 24px
+    color: #202020
+  .reviews
+    text-align: left
+    .review
       +inline-block
-      vertical-align: top
-    .left
-      width: 289px
-      padding-top: 61px
-      .icon
-        width: 114px
-        height: 113px
-        margin-left: 61px
-        margin-bottom: 20px
-      .title
-        padding-right: 35px
-        margin-bottom: 35px
-        font-size: 22.13px
-        line-height: 30px
-        span.red
-          color: #f07b6f
-        span.blue
-          color: #4d96da
-      .button_block
-        text-align: left
-        padding-left: 21px
-        .button
-          +inline-block
-          height: 50px
-    .center
-      width: 341px
-      padding-top: 34px
-      .icon
-        width: 146px
-        height: 139px
-        margin-left: 106px
-        margin-bottom: 25px
-      .title
-        text-align: left
-        padding-left: 3px
-        margin-bottom: 40px
-        font-size: 26.67px
-        color: rgb(0, 0, 0)
-      .content
-        $font-size: 22.13px
-        .item
-          margin-bottom: 8px
-          div
-            +inline-block
-            vertical-align: top
-          .icon
-            width: 26px
-            height: $font-size
-            margin-bottom: 25px
-          .text
-            width: 315px
-            box-sizing: border-box
-            padding-left: 11px
-            text-align: left
-            font-size: $font-size
-            color: rgb(0, 0, 0)
-
-    .right
-      width: 384px
-      .icon
-        width:  146px
-        height: 175px
-        margin-left: 98px
-        margin-bottom: 25px
-
-      .title
-        text-align: left
-        margin-bottom: 40px
-        font-size: 25.67px
-        color: rgb(0, 0, 0)
-      .content
-        $font-size: 20.29px
-        .item
-          margin-bottom: 8px
-          div
-            +inline-block
-            vertical-align: top
-          .icon
-            width: 26px
-            height: 16px
-          .text
-            width: 315px
-            box-sizing: border-box
-            padding-left: 11px
-            margin-top: -8px
-            text-align: left
-            font-size: $font-size
-            line-height: 30px
-            color: rgb(0, 0, 0)
-
-
-//- --------------------- WAYS TO FIND ------------------------------------
-
-.ways_to_find
-  overflow: hidden
-  padding: 60px 0 75px 0
-  background: url(F('pattern_green.png'))
-  box-shadow: 0px 3px 6px 0px rgba(9, 12, 18, 0.27)
-  .illustrations
-    width: 770px
-    height: 500px
-    position: relative
-    margin: 60px auto 70px auto
-    .text
-      position: absolute
-      font-size: 20px
-      line-height: 28px
-      color: rgb(0, 0, 0)
-  .button
-    +inline-block
-    height: 54px
-
-  //-.content
-    $block_height: 525px
-    div
-      +inline-block
-
-    .left
-      width: 225px
-      height: $block_height
-      .icon
-        width: 115px
-        height: 115px
-        margin: 0 auto 20px auto
-        background-color: #94c9fe
-
-      .title
-        margin-bottom: 40px
-        font-size: 22.13px
-        span.red
-          color: #f07b6f
-        span.blue
-          color: #4d96da
-
-      .button
+      margin-left: 20px
+      width: 480px
+      .photo_wrap, .text_box
         +inline-block
-
-    .center
-      width: 332px
-      height: $block_height
-      .icon
-        width: 140px
-        height: 140px
-        margin: 0 auto 20px auto
-        background-color: #94c9fe
-
-      .title
-        font-size: 30px
-
-      .content>div
-        div
-        .icon
-          width: 27px
-          height: 27px
-          float: left
-          background-color: rgb( 209, 209, 209 )
+        vertical-align: top
+      .photo_wrap
+        padding-top: 102px
+        margin-right: 52px
+        .photo
+          background-color: #fff
+          +border-radius(50%)
+        .name
+          text-align: center
+          color: #202020
+          font-size: 14px
+          line-height: 24px
+      .text_box
+        position: relative
+        width: 312px
+        height: 240px
+        box-sizing: border-box
+        padding-top: 24px
+        background-color: #fff
+        box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.40)
+        .quotes_wrap, .text
+          +inline-block
+          vertical-align: top
+        .quotes_wrap
+          width: 72px
+          height: 100%
+          box-sizing: border-box
+          padding-left: 24px
+          .quotes
+            width: $quotes_width
+            height: $quotes_height
+            background: url(F($quotes_src)) no-repeat
         .text
-          font-size: 24px
-          margin-left: 40px
+          width: 240px
+          text-align: left
+          font-size: 16px
+          line-height: 24px
+          color: #202020
+        .triangle
+          position: absolute
+          bottom: 48px
+          left: -$triangle_width
+          width:  $triangle_width
+          height: $triangle_height
+          background: url(F($triangle_src)) no-repeat
 
-
-    .right
-      width: 386px
-      height: $block_height
-      .title
-        font-size: 29px
-      .content>.item>.text
-        font-size: 22px
-
+    .review.first
+      .photo_wrap
+        .photo
+          width:  $photo1_width
+          height: $photo1_height
+          background: url(F($photo1_src)) no-repeat
+    .review.second
+      .photo_wrap
+        .photo
+          width:  $photo2_width
+          height: $photo2_height
+          background: url(F($photo2_src)) no-repeat
