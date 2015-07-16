@@ -86,7 +86,8 @@ class @main extends @template './motivation_content'
       link_forward    :  '/second_step'
       issue_bid_button : @module 'link_button' :
         selector  : 'add_button_bid'
-        text      : 'Оформить быструю заявку'
-        href      : '/fast_bid/first_step'
+        text      : 'ЗАРЕГИСТРИРОВАТЬСЯ'
+        active    : true
+        href      : '/main_tutor'
 
     info_panel  : @state './info_panel'

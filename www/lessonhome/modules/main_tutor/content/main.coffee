@@ -1,4 +1,6 @@
 class @main extends EE
+  Dom: =>
+    @motivation_create_profile = @found.motivation_create_profile
   show : =>
     console.log @tree
     @password = @tree.password.class
@@ -20,6 +22,10 @@ class @main extends EE
         @password.setValue ''
         @hashedPassword = false
     @password.on 'submit',@tryRegister
+    $(@motivation_create_profile).on 'click', =>
+      $("body").animate({"scrollTop":0},"slow")
+      @login.onFocus()
+
   tryRegister : (e)=>
     return if @success
     #@$send( './loginExists',login).then (exists)=> console.log exists

@@ -67,4 +67,5 @@ class @main
         'Экономика'
         'Компьютерные курсы'
       ]
+      selector  : 'others'
     selector : 'first_step'

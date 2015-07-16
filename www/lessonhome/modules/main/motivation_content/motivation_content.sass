@@ -36,6 +36,15 @@ $main_apple_src: 'main/main_apple.jpg'
 $main_apple_height: image-height($main_apple_src)
 $main_apple_width: image-width($main_apple_src)
 
+
+$photo1_src: 'main_tutor/photo1.jpg'
+$photo1_height: image-height($photo1_src)
+$photo1_width: image-width($photo1_src)
+
+$photo2_src: 'main_tutor/photo2.jpg'
+$photo2_height: image-height($photo2_src)
+$photo2_width: image-width($photo2_src)
+
 .search_diagram, .choose_tutor_block, .choose_search_block
   padding: 45px 0 60px 0
 
@@ -245,3 +254,15 @@ $main_pattern_top_src: 'main/main_pattern_top.jpg'
           height: $triangle_height
           background: url(F($triangle_src)) no-repeat
 
+    .review.first
+      .photo_wrap
+        .photo
+          width:  $photo1_width
+          height: $photo1_height
+          background: url(F($photo1_src)) no-repeat
+    .review.second
+      .photo_wrap
+        .photo
+          width:  $photo2_width
+          height: $photo2_height
+          background: url(F($photo2_src)) no-repeat
