@@ -6,17 +6,40 @@ mixin item (text, icon_src)
     .icon(style="background: url(#{F(icon_src)}) no-repeat center")
     .text.m-font.select=text
 
+mixin review(selector, name, text)
+  .review(class=selector)
+    .photo_wrap
+      .photo
+      .name=name
+    .text_box
+      .quotes_wrap
+        .quotes
+      .text.select=text
+      .triangle
+
 
 //- ------------------ CHECK IN -------------------------
 
 .check_in
-  .title.m-font.select Lesson <span>Home</span> соединяет высоко-квалифицированных<br>репетиторов с учениками для занятий любым удобным способом.
-  .title_conditions.select!= 'Подробная информация об условиях сотрудничества изложена<br>в '
-    a.m-Link.select Условиях оказания информационных услуг
+  .background_earth
+  .background_note
+  .background_pc
+  .background_pencils
+  .background_ruler
+  .background_vial
+  .top_text_wrap
+    .top_text
+      .t1 Вы преподаёте или хотите начать преподавать - тогда Вы попали куда нужно!<br>Создайте свою анкету на LessonHome и ученики сами будут вас находить.
+      .t2 Уже очень скоро наш сервис будет полностью запущен.
+      .t3 Зарегистрируйтесь сейчас и получите бонус к рейтингу +1!
+  //-
+    .title.m-font.select Lesson <span>Home</span> соединяет высоко-квалифицированных<br>репетиторов с учениками для занятий любым удобным способом.
+    .title_conditions.select!= 'Подробная информация об условиях сотрудничества изложена<br>в '
+      a.m-Link.select Условиях оказания информационных услуг
 
   form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
     input.js-submit(type='submit')
-    .title.select Регистрация
+    .title.select Регистрация репетитора
     .login
       .input!= login
     .password
@@ -30,76 +53,29 @@ mixin item (text, icon_src)
       .buttons
         .create_account!=create_account
 
+.simple_search
+  .t1 Каждый день тысячи учеников ищут<br>репетиторов онлайн!
+  .t2 Площадка Lesson Home позволяет создать бесплатный онлайн профиль, в котором есть всё необходимое, чтобы продемонстрировать свою квалификацию и опыт.
+  .main_tutor_search
+  .pattern_bottom
 
-//- ------------- HOW IT WORKS --------------------
-
-//-F('main_tutor/mainreg_how.png')
-
-.how_it_works(scrolltop="how-it-works")
-  .title.m-landingBlockTitle.select Как это работает?
-  .illustrations
-    img(src=F('main_tutor/mainreg_how.png'))
-    +illustration_text ('Условия', 60, 159)
-    +illustration_text ('Регистрация', 321, 159)
-    +illustration_text ('Заполните<br>профиль', 619, 159)
-    +illustration_text ('Поиск<br>ученика', 64, 415)
-    +illustration_text ('Получите<br>контакты', 337, 415)
-    +illustration_text ('Начните<br>занятия', 630, 415)
-    +illustration_text ('Ваш<br>выбор', 20, 535)
-    +illustration_text ('Наш<br>выбор', 135, 535)
-    +illustration_text ('Договоритесь<br>о встрече', 320, 535)
-    +illustration_text ('Оплатите<br>услугу', 560, 534)
-    +illustration_text ('Получите<br>прибыль', 703, 535 )
-
-  .button!= check_in_first
-
-
-
-//- ---------- ADVANTAGES -------------------------
-
-.advantages(scrolltop="advantages")
-  .photo
-  .title
-    .text.m-font.select Тысячи учеников и их родителей ищут<br> репетиторов онлайн каждый день!
-    .text.m-font.select Площадка <span>LESSON HOME</span> позволяет создать бесплатны<br> онлайн профиль, в котором есть всё необходимое, чтобы<br> продемонстрировать свою квалификацию и опыт.
-  .content
-    .left
-      .icon
-        img(src=F('main_tutor/mainreg_go.png'))
-      .title.m-font.select Создать профиль<br> <span class="red">быстро</span> и <span class="blue">бесплатно</span>
-      .button_block
-        .button!= check_in_second
-    .center
-      .icon
-        img(src=F('main_tutor/mainreg_profile.png'))
-      .title.m-font.select Подробный профиль
-      .content
-        +item ('Удобный и приятный просмотр', 'like.png')
-        +item ('Фотографии и видео', 'photo.png')
-        +item ('Отзывы учеников', 'left_forum.png')
-        +item ('Рейтинг и статистика', 'review.png')
-    .right
-      .icon
-        img(src=F('main_tutor/mainreg_settings.png'))
-      .title.m-font.select Управляйте вашим бизнесом
-      .content
-        +item ('Расписание и синхронизация с личным календарём', 'date.png')
-        +item ('Просмотр текущих учеников и истории платежей', 'study.png')
-        +item ('Ищите учеников и откликайтесь на заявки', 'search.png')
-        +item ('Поддержка клиентов Lesson Home доступна 7 дней в неделю', 'left_help.png')
-
-
-
-//- -------- WAYS TO FIND -------------------------
-
-.ways_to_find(scrolltop="ways-to-find")
-  .title.m-landingBlockTitle.select 3 способа поиска
-  .illustrations
-    img(src=F('main_tutor/main_search.png'))
-    +illustration_text ('Подберите себе<br>ученика сами', 57, 159)
-    +illustration_text ('Заполните профиль<br>и наша команда<br>предложит вам<br>разные варианты', 533, 159)
-    +illustration_text ('Позвоните нам<br>и мы всё сделаем за вас', 262, 488)
-  .button!= callback
-
-.choose_tutor_block(style = "background: url(#{F('main/pattern_green2.jpg')})")!=choose_search
-
+.board_wrap
+  .board
+.motivation
+  .left
+    .title.select "LESSON HOME" -<br>СВОБОДА ВЫБОРА
+    .text.select Вы сами выбираете, с кем из потенциальных учеников Вы будете проводить частные занятия;<br>Вы устанавливаете справедливую на Ваш взгляд стоимость одного занятия с Вами;<br>Вы определяете продолжительность одного занятия и место его проведения.
+    .button!=create_profile
+  .center
+    .title.select ВАШ НАДЁЖНЫЙ БИЗНЕС<br>ПАРТНЁР
+    .text.select Когда есть надёжный партнёр, будет ожидаемый результат!<br>Наша команда поставила себе задачу по созданию эффективного и полезного сервиса для репетиторов и учеников. Мы выполнили свою задачу максимально качественно и проффесионально!<br>С "Lesson Home" Вы можете увеличить свой ежемесячный доход, нарастить клиентскую базу и начать частную репетиторскую деятельность уже сегодня!
+  .right
+    .title.select ПРОСТО КАК "РАЗ, ДВА, ТРИ"!
+    .text.select Найти новых учеников с "Lesson Home" очень просто:<br>- зарегистрируйтесь на нашем сайте<br>- заполните информацию о себе в профиле<br>- начните поиск учеников исходя из ваших пожеланий<br>Если вы не знаете с чего начать или просто не разобрались, свяжитесь с нами через форму обратной связи, либо по телефону, и наши специалисты помогут Вам!
+    .button!=callback
+  .bottom_pattern
+.reviews_wrap
+  .title ЧТО ГОВОРЯТ О НАС УЧЕНИКИ И РЕПЕТИТОРЫ
+  .reviews
+    +review('first', 'Игорь', 'Укажите диапазон цены, время и место планируемых занятий и умный поисковик мгновенно подберёт для Вас подходящие анкеты репетиторов из нашей огромной базы.')
+    +review('second','Татьяна', 'Укажите диапазон цены, время и место планируемых занятий и умный поисковик мгновенно подберёт для Вас подходящие анкеты репетиторов из нашей огромной базы.')

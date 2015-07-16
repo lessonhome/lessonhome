@@ -128,11 +128,11 @@ class Static
   write   : (file,req,res)=>
     res.setHeader 'Content-type', file.mime
     zlib = require 'zlib'
-    zlib.deflate file.data,{level:9},(err,resdata)=>
+    zlib.gzip file.data,{level:9},(err,resdata)=>
       return Feel.res500 req,res,err if err?
       res.statusCode = 200
       res.setHeader 'Content-Length', resdata.length
-      res.setHeader 'Content-Encoding', 'deflate'
+      res.setHeader 'Content-Encoding', 'gzip'
       console.log "file\t#{file.name}",resdata.length/1024,file.data.length/1024,Math.ceil((resdata.length/file.data.length)*100)+"%"
       return res.end resdata
   F       : (site,file)=>
