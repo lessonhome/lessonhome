@@ -22,7 +22,10 @@ if popup
     .photo!= photo
   .personal_data
     .name_verification_block
-      if last_name && first_name && middle_name
+      if last_name || first_name || middle_name
+        - if (!middle_name)middle_name="";
+        - if (!last_name)last_name="";
+        - if (!first_name)first_name="";
         .tutor_name.select!= last_name + ' ' + first_name + ' ' + middle_name
       else
         .tutor_name.select
