@@ -23,9 +23,15 @@ class @main extends EE
     @img.attr   'width' , "100%"
     @img.attr   'height', "100%"
     @photo.on 'mouseover', =>
-      @photo.off 'mouseover'
+      @photo.css 'z-index',101
+      #@photo.off 'mouseover'
       @loadHigh()
+    @photo.on 'mouseleave',=>
+      @photo.css 'z-index',100
+
   loadHigh : =>
+    return if @loadingHigh
+    @loadingHigh = true
     img = $('<img></img>')
     img.attr 'src',@first.hurl
     img.attr   'width' , "100%"
