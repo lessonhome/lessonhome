@@ -69,5 +69,3 @@ class @main
       #correct
       when "bad_experience"
         @experience.showError "Выберите корректный опыт"
-      else
-        alert 'die'

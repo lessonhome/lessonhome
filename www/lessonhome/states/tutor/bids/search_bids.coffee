@@ -126,7 +126,7 @@ class @main extends @template '../../tutor'
         type : 'default'
         dash          : '-'
         measurement   : 'руб./60 мин.'
-        division_value : 250
+        division_value : 50
       saved_filters : @module 'tutor/forms/drop_down_list' :
         selector  : 'search_bids fast_bid'
       saved_filters_button: @module 'tutor/button' :
@@ -231,15 +231,15 @@ class @main extends @template '../../tutor'
           #start         : 'road_time_search_bids'
           default :
             left : 15
-            right : 120
+            right : 180
           dash          : 'до'
           measurement   : 'мин.'
           #handle        : false
           min            : 15
-          max            : 120
+          max            : 180
           left           : 30
           right          : 120
-          division_value : 18
+          division_value : 10
         separate_line : @module 'tutor/separate_line' :
           selector : 'horizon'
 

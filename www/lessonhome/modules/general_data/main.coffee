@@ -115,8 +115,6 @@ class @main
         @status.showError "Выберите статус из списка"
       when "unselect_sex"
         @sex.showError "Выберите пол"
-      else
-        alert 'die'
 
 
 

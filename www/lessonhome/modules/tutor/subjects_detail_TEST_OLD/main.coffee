@@ -148,6 +148,3 @@ class @main
       when "bad_group_learning"
         @group_learning.setErrorDiv @out_err_course
         @group_learning.showError "Выберите корректный курс"
-      else
-        alert 'die'
-

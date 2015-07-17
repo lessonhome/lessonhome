@@ -42,7 +42,7 @@ class @main
         right : 5000
       dash          : '-'
       measurement   : 'руб.'
-      division_value : 200
+      division_value : 50
       type : 'default'
       #handle        : true
       min : 400
@@ -58,7 +58,7 @@ class @main
         right : 120
       dash          : '-'
       measurement   : 'мин.'
-      division_value : 15
+      division_value : 5
       type : 'default'
       #handle        : true
       min : 30

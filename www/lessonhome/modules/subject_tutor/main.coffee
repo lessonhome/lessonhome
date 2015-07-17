@@ -172,5 +172,3 @@ class @main
       when "bad_group_learning"
         @subjects[i].group_learning.setErrorDiv @out_err_course
         @subjects[i].group_learning.showError "Выберите корректный курс"
-      else
-        alert 'die'
