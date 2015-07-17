@@ -19,6 +19,10 @@ class @main extends EE
     w = W
     
     @photo.height h
+    if photo?.lurl?.match? /vk\.unknown\.man\.jpg/
+      @photo.addClass 'unknown'
+    else
+      @photo.removeClass 'unknown'
     @img.attr   'src'   , photo.lurl
     @img.attr   'width' , "100%"
     @img.attr   'height', "100%"
