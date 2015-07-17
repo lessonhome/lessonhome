@@ -6,7 +6,7 @@ $icon_width: image-width($close_src)
 .photo
   +transition( all 400ms 0.3s ease-out)
   //+transition-delay(0.5s)
-  +box-shadow(2px 2px 10px rgba(0, 0, 0, 0.6))
+  +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
   z-index : 100
   cursor : pointer
   position: relative
@@ -27,7 +27,7 @@ $icon_width: image-width($close_src)
       background: url(F($close_src)) no-repeat
 .photo:hover
   +transform(scale(2.2))
-  +box-shadow(5px 5px 15px rgba(0, 0, 0, 0.8))
+  +box-shadow(0px 5px 12px rgba(0, 0, 0, 0.4))
 .all_rating
   margin-top: 10px
 a
@@ -41,9 +41,9 @@ a
     font-size: 14px
     color: #000000
 .photo.unknown
-  +box-shadow(2px 2px 2px rgba(0, 0, 0, 0.6))
+  +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
   cursor : default
   opacity : 0.6
 .photo.unknown:hover
   +transform(scale(1))
-  +box-shadow(2px 2px 4px rgba(0, 0, 0, 0.6))
+  +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))

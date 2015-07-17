@@ -19,7 +19,7 @@ class @main extends EE
     w = W
     
     @photo.height h
-    if photo?.lurl?.match? /vk\.unknown\.man\.jpg/
+    if photo?.lurl?.match? /unknown\.photo\.gif/
       @photo.addClass 'unknown'
     else
       @photo.removeClass 'unknown'

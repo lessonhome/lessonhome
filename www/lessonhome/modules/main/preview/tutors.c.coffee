@@ -114,10 +114,10 @@ class Tutors
         obj.photos.push {
           lwidth  : 200
           lheight : 300
-          lurl    : "/file/ca188bc937/vk.unknown.man.jpg"
+          lurl    : "/file/f1468c11ce/unknown.photo.gif"
           hheight : 300
           hwidth : 200
-          hurl    : "/file/ca188bc937/vk.unknown.man.jpg"
+          hurl    : "/file/f1468c11ce/unknown.photo.gif"
         }
       obj.location = p.location
       persons[account] = obj
