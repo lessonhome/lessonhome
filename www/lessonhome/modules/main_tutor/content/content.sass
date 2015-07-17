@@ -77,46 +77,44 @@ $vial_width             : image-width($vial_src)
 main
   overflow: hidden
   position: relative
+.background_earth, .background_note, .background_pc, .background_pencils, .background_ruler, .background_vial
+  z-index: -1
+  position: absolute
+
 .background_earth
   height: $earth_height
   width: $earth_width
   background: url(F($earth_src))
-  position: absolute
   right: 1%
   top: 5%
 .background_note
   height: $note_height
   width: $note_width
   background: url(F($note_src))
-  position: absolute
   left: 6%
   top: 1%
 .background_pc
   height: $pc_height
   width: $pc_width
   background: url(F($pc_src))
-  position: absolute
   right: 17%
   top: 1%
 .background_pencils
   height: $pencil_height
   width: $pencil_width
   background: url(F($pencils_src))
-  position: absolute
   left: 1%
   top: 12%
 .background_ruler
   height: $ruler_height
   width: $ruler_width
   background: url(F($ruler_src))
-  position: absolute
   right: 18%
   top: 15%
 .background_vial
   height: $vial_height
   width: $vial_width
   background: url(F($vial_src))
-  position: absolute
   right: 71%
   top: 10%
 // ------------------------- CHECK IN -------------------------------------------
