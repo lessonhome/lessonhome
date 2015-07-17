@@ -1,5 +1,5 @@
 class @main
-  forms : [{person : ['eperiod','equalification','echair','efaculty','ename','ecity','workplace','avatar','first_name','middle_name','interests','last_name','birthdate','city']},{tutor:['status','experience']}]
+  forms : [{person : ['eperiod','equalification','echair','efaculty','ename','ecity','workplace','avatar','first_name','middle_name','interests','last_name','birthdate','city']},{tutor:['status','experience','about']}]
   tree : => @module '$'  :
     popup               : @exports()
     photo : @module 'add_photos' :
@@ -63,10 +63,11 @@ class @main
       edit      : @exports()
       selector  : 'horizon'
     about            : @module '$/info_block' :
+      selector : 'about'
       section :
         'Интересы :'       : $form : person : interests : (s)->
           s || '<a href="./edit/about">заполнить</a>'
-        'О себе :'       : $form : person : about : (s)->
+        'О себе :'       : $form : tutor : about : (s)->
           s || '<a href="./edit/about">заполнить</a>'
     line_med            : @module 'tutor/separate_line':
       title    : 'Медиа'

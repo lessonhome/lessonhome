@@ -46,7 +46,7 @@ class Tutors
       obj.rating = JSON.stringify(obj).length
       rmax = Math.max(rmax ? obj.rating,obj.rating)
       rmin = Math.min(rmin ? obj.rating,obj.rating)
-      continue if (t?.subjects?[0]?.name) && (p?.ava?[0]?) && (p?.first_name)
+      continue if (t?.subjects?[0]?.name) && (p?.first_name)
       delete persons[account]
     for account,o of persons
       t = o?.tutor
@@ -109,6 +109,15 @@ class Tutors
           hheight : ph.hheight
           hwidth : ph.hwidth
           hurl    : ph.hurl
+        }
+      unless obj.photos.length
+        obj.photos.push {
+          lwidth  : 200
+          lheight : 300
+          lurl    : "/file/ca188bc937/vk.unknown.man.jpg"
+          hheight : 300
+          hwidth : 200
+          hurl    : "/file/ca188bc937/vk.unknown.man.jpg"
         }
       obj.location = p.location
       persons[account] = obj
