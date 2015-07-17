@@ -30,7 +30,7 @@ class @main
         }
         @module 'tutor/header/button' : {
           title : 'О нас'
-          href  : '/about_us'
+          href  : '#'
         }
         @module 'tutor/header/list_button' : {
           tag   : 'pupil:main_tutor'
