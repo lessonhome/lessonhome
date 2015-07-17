@@ -19,39 +19,37 @@ mixin review(selector, name, text)
 
 
 //- ------------------ CHECK IN -------------------------
-
+.background_earth
+.background_note
+.background_pc
+.background_pencils
+.background_ruler
+.background_vial
 .check_in
-  .background_earth
-  .background_note
-  .background_pc
-  .background_pencils
-  .background_ruler
-  .background_vial
-  .top_text_wrap
+  .top_block
     .top_text
       .t1 Вы преподаёте или хотите начать преподавать - тогда Вы попали куда нужно!<br>Создайте свою анкету на LessonHome и ученики сами будут вас находить.
       .t2 Уже очень скоро наш сервис будет полностью запущен.
       .t3 Зарегистрируйтесь сейчас и получите бонус к рейтингу +1!
-  //-
-    .title.m-font.select Lesson <span>Home</span> соединяет высоко-квалифицированных<br>репетиторов с учениками для занятий любым удобным способом.
-    .title_conditions.select!= 'Подробная информация об условиях сотрудничества изложена<br>в '
+    //.title.m-font.select Lesson <span>Home</span> соединяет высоко-квалифицированных<br>репетиторов с учениками для занятий любым удобным способом.
+    //.title_conditions.select!= 'Подробная информация об условиях сотрудничества изложена<br>в '
       a.m-Link.select Условиях оказания информационных услуг
 
-  form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
-    input.js-submit(type='submit')
-    .title.select Регистрация репетитора
-    .login
-      .input!= login
-    .password
-      .input!= password
+    form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
+      input.js-submit(type='submit')
+      .title.select Регистрация репетитора
+      .login
+        .input!= login
+      .password
+        .input!= password
 
-    .checkbox
-      .field!= agree_checkbox
-      .text.select!= 'Я прочитал и согласен с '
-        a.m-Link.select Условиями оказания информационных услуг
-      .js-checkbox_error Пожалуйста, ознакомьтесь с условиями оказания услуг
-      .buttons
-        .create_account!=create_account
+      .checkbox
+        .field!= agree_checkbox
+        .text.select!= 'Я прочитал и согласен с '
+          a.m-Link.select Условиями оказания информационных услуг
+        .js-checkbox_error Пожалуйста, ознакомьтесь с условиями оказания услуг
+        .buttons
+          .create_account!=create_account
 
 .simple_search
   .t1 Каждый день тысячи учеников ищут<br>репетиторов онлайн!
@@ -77,5 +75,5 @@ mixin review(selector, name, text)
 .reviews_wrap
   .title ЧТО ГОВОРЯТ О НАС УЧЕНИКИ И РЕПЕТИТОРЫ
   .reviews
-    +review('first', 'Игорь', 'Укажите диапазон цены, время и место планируемых занятий и умный поисковик мгновенно подберёт для Вас подходящие анкеты репетиторов из нашей огромной базы.')
-    +review('second','Татьяна', 'Укажите диапазон цены, время и место планируемых занятий и умный поисковик мгновенно подберёт для Вас подходящие анкеты репетиторов из нашей огромной базы.')
+    +review('first', 'Игорь', 'Ребята молодцы, сделали очень удобный поиск! При изменении настроек сразу же обновляется список репетиторов - можно довольно быстро найти то, что тебе нужно. Буду рекомендовать этот сайт своим коллегам!')
+    +review('second','Татьяна', 'Мне очень понравился дизайн сайта, всё в тему и приятное. Зарегистрировалась лего и надеюсь на скорый запуск!')

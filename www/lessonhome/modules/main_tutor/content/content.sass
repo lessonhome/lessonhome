@@ -76,61 +76,57 @@ $vial_width             : image-width($vial_src)
 
 main
   overflow: hidden
-  padding: 44px 0 0 0
+  position: relative
+.background_earth
+  height: $earth_height
+  width: $earth_width
+  background: url(F($earth_src))
+  position: absolute
+  right: 1%
+  top: 5%
+.background_note
+  height: $note_height
+  width: $note_width
+  background: url(F($note_src))
+  position: absolute
+  left: 6%
+  top: 1%
+.background_pc
+  height: $pc_height
+  width: $pc_width
+  background: url(F($pc_src))
+  position: absolute
+  right: 17%
+  top: 1%
+.background_pencils
+  height: $pencil_height
+  width: $pencil_width
+  background: url(F($pencils_src))
+  position: absolute
+  left: 1%
+  top: 12%
+.background_ruler
+  height: $ruler_height
+  width: $ruler_width
+  background: url(F($ruler_src))
+  position: absolute
+  right: 18%
+  top: 15%
+.background_vial
+  height: $vial_height
+  width: $vial_width
+  background: url(F($vial_src))
+  position: absolute
+  right: 71%
+  top: 10%
 // ------------------------- CHECK IN -------------------------------------------
 .check_in
-  position: relative
-  padding-bottom: 35px
-  text-align: center
-  .background_earth
-    height: $earth_height
-    width: $earth_width
-    background: url(F($earth_src))
-    position: absolute
-    right: 0
-    top: 20px
-  .background_note
-    height: $note_height
-    width: $note_width
-    background: url(F($note_src))
-    position: absolute
-    left: 19%
-    top: 25%
-  .background_pc
-    height: $pc_height
-    width: $pc_width
-    background: url(F($pc_src))
-    position: absolute
-    right: 19%
-    top: 5%
-  .background_pencils
-    height: $pencil_height
-    width: $pencil_width
-    background: url(F($pencils_src))
-    position: absolute
-    left: 0
-    top: 3%
-  .background_ruler
-    height: $ruler_height
-    width: $ruler_width
-    background: url(F($ruler_src))
-    position: absolute
-    right: 46%
-    top: 0
-  .background_vial
-    height: $vial_height
-    width: $vial_width
-    background: url(F($vial_src))
-    position: absolute
-    right: 34%
-    top: 2%
-  .top_text_wrap
-    text-align: center
+  .top_block
+    +inline-block
+    width: 456px
     .top_text
-      +inline-block
-      width: 456px
       box-sizing: border-box
-      padding: 24px 48px 12px 24px
+      padding: 24px 24px 12px 24px
       text-align: left
       background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.2)
       .t1, .t2, .t3
@@ -142,69 +138,55 @@ main
         margin-bottom: 24px
       .t3
         font-size: 20px
-  .title
-    line-height: 32px
-    margin-bottom: 6px
-    font-size: 24px
-    span
-      color: #f07b6f
-  .title_conditions
-    margin-bottom: 35px
-    line-height: 19px
-    font-size: 16px
-    color: #18293a
-
-  .check_in_fields
-    padding: 12px 48px 18px 48px
-    background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.1)
-    .submit
-      position : fixed
-      color : white
-      top : -8000px
-      background : white
-    width: 358px
-    +inline-block
-    text-align: left
-    .title
-      text-align: center
-      font-size: 20px
-      line-height: 24px
-      color: #202020
-      font-weight: 600
-    .login, .password
-      position: relative
-      margin-bottom: 10px
-      +inline-block
-      .input
-        width: 100%
-        font-size : 37px
-    .checkbox
+    .check_in_fields
+      box-sizing: border-box
+      padding: 12px 48px 18px 48px
+      background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.1)
+      .submit
+        position : fixed
+        color : white
+        top : -8000px
+        background : white
       text-align: left
-      margin-bottom: 28px
-      .field, .text
+      .title
+        text-align: center
+        font-size: 20px
+        line-height: 24px
+        color: #202020
+        font-weight: 600
+      .login, .password
+        position: relative
+        margin-bottom: 10px
         +inline-block
-      .field
-        margin-right: 15px
-      .text
-        width: 319px
-        line-height: 17px
-        font-size: 14px
-        color: #444444
-        a
-          font-size: 14px
-      .checkbox_error
-        display: none
-        margin-top: 15px
-        color: red
-        font-size: 14px
-      .buttons
-        margin-top: 30px
-        .create_account
+        .input
+          width: 100%
+          font-size : 37px
+      .checkbox
+        text-align: left
+        margin-bottom: 28px
+        .field, .text
           +inline-block
-          height: 48px
-          width: 360px
-          vertical-align: baseline
-
+        .field
+          margin-right: 15px
+        .text
+          width: 319px
+          line-height: 17px
+          font-size: 14px
+          color: #444444
+          a
+            font-size: 14px
+        .checkbox_error
+          display: none
+          margin-top: 15px
+          color: red
+          font-size: 14px
+        .buttons
+          margin-top: 30px
+          .create_account
+            +inline-block
+            height: 48px
+            width: 360px
+            vertical-align: baseline
 .simple_search
   position: relative
   text-align: left
