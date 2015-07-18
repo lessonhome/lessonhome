@@ -55,7 +55,7 @@ class @main extends @template '../fast_bid'
         #  max : 5000
         #  left  : $form : pupil : 'lesson_price.left'
         #  right : $form : pupil : 'lesson_price.right'
-        #  division_value : 500
+        #  division_value : 50
         #price_hint : @module 'tutor/hint' :
         #  selector : 'small'
         #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -68,11 +68,11 @@ class @main extends @template '../fast_bid'
       #start         : 'calendar'
         dash          : '-'
         measurement   : 'мин.'
-        min : 45
-        max : 180
+        min : 30
+        max : 240
         left  : $form : pupil : 'newBid.subjects.0.lesson_duration.0'
         right : $form : pupil : 'newBid.subjects.0.lesson_duration.1'
-        division_value : 15
+        division_value : 5
         type : 'default'
 
 

@@ -185,8 +185,6 @@ class @main
     #switch err
     #empty
     #correct
-      #else
-       # alert 'die'
 
   printErrors : (err)=>
     switch err

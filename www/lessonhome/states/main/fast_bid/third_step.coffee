@@ -47,16 +47,16 @@ class @main extends @template '../fast_bid'
       age_slider   : @state '../slider_main' :
         selector      : 'time_fast_bids'
         default :
-          left : 18
-          right : 90
+          left : 15
+          right : 110
       #start         : 'calendar'
         dash          : '-'
         measurement   : 'лет'
-        min : 18
-        max : 90
+        min : 15
+        max : 110
         left  : $form : pupil : 'newBid.subjects.0.requirements_for_tutor.age.0'
         right : $form : pupil : 'newBid.subjects.0.requirements_for_tutor.age.1'
-        division_value : 8
+        division_value : 1
         type : 'default'
       gender_data   : @state 'gender_data':
         selector        : 'choose_gender'

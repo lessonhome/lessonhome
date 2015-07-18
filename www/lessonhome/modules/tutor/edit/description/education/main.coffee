@@ -123,5 +123,3 @@ class @main
         @chair.showError "Выберите кафедру из списка"
       when "bad_qualification"
         @qualification.showError "Выберите статус из списка"
-      else
-        alert 'die'
