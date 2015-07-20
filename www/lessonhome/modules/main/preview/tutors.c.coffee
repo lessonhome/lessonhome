@@ -112,11 +112,11 @@ class Tutors
         }
       unless obj.photos.length
         obj.photos.push {
-          lwidth  : 200
-          lheight : 300
+          lwidth  : 130
+          lheight : 163
           lurl    : "/file/f1468c11ce/unknown.photo.gif"
-          hheight : 300
-          hwidth : 200
+          hheight : 163
+          hwidth : 130
           hurl    : "/file/f1468c11ce/unknown.photo.gif"
         }
       obj.location = p.location
