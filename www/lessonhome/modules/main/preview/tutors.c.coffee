@@ -43,7 +43,7 @@ class Tutors
     for account,obj of persons
       t = obj.tutor
       p = obj.person
-      obj.rating = JSON.stringify(obj).length
+      obj.rating = JSON.stringify(obj).length*(obj?.person?.ratio ? 1.0)
       rmax = Math.max(rmax ? obj.rating,obj.rating)
       rmin = Math.min(rmin ? obj.rating,obj.rating)
       continue if (t?.subjects?[0]?.name) && (p?.first_name)
