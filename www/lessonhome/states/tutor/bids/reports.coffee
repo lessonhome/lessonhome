@@ -41,10 +41,13 @@ class @main extends @template '../../tutor'
       sort_list     : @module 'tutor/forms/drop_down_list':
         placeholder : 'Все заявки'
         selector    : 'in_bids'
+        smart : true
+        self : true
       subject : @module 'tutor/forms/drop_down_list':
         placeholder : 'Все предмет'
         selector    : 'in_bids'
-
+        smart : true
+        self : true
       list_bids : @module 'tutor/bids/list_bids' :
         titles_bid : @module '//titles_bid' :
           indent     : true

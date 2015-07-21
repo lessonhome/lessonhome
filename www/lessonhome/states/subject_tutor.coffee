@@ -5,6 +5,8 @@ class @main
     select_subject_field : @module 'tutor/forms/drop_down_list' :
       text      : 'Предмет :'
       selector  : 'first_reg'
+      smart : true
+      self : true
       default_options     : {
         '0': {value: 'english', text: 'английский язык'}
         '1': {value: 'math', text: 'математика'}

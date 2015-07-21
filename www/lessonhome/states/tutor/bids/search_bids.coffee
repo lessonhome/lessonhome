@@ -33,6 +33,8 @@ class @main extends @template '../../tutor'
       min_height      : @exports()
       subject : @module 'tutor/forms/drop_down_list' :
         selector  : 'search_bids fast_bid'
+        self  : true
+        smart : true
         default_options     : {
           '0': {value: 'english', text: 'английский язык'},
           '1': {value: 'math', text: 'математика'},
@@ -112,6 +114,8 @@ class @main extends @template '../../tutor'
         }
       course : @state '../forms/drop_down_list_with_tags' :
         list: @module 'tutor/forms/drop_down_list:type1'  :
+          smart : true
+          self  : true
           selector        : 'advanced_filter_form'
           placeholder     : 'Например ЕГЭ'
           value     : ''
@@ -128,6 +132,8 @@ class @main extends @template '../../tutor'
         measurement   : 'руб./60 мин.'
         division_value : 50
       saved_filters : @module 'tutor/forms/drop_down_list' :
+        smart : true
+        self : true
         selector  : 'search_bids fast_bid'
       saved_filters_button: @module 'tutor/button' :
         selector: 'saved_filters_button'
@@ -177,6 +183,8 @@ class @main extends @template '../../tutor'
 
       area: @state '../forms/drop_down_list_with_tags' :
         list: @module 'tutor/forms/drop_down_list:type1'  :
+          smart : true
+          self : true
           selector        : 'advanced_filter_form'
           placeholder     : 'Например Выхино'
           value     : ''
@@ -350,6 +358,8 @@ class @main extends @template '../../tutor'
             comments            : '-'
             lesson_goal         : 'Устранить пробелы в знаниях'
         ]
-      courses_list : @module 'tutor/forms/drop_down_list'
+      courses_list : @module 'tutor/forms/drop_down_list' :
+        smart : true
+        self : true
   init : ->
     @parent.tree.left_menu.setActive 'Заявки'

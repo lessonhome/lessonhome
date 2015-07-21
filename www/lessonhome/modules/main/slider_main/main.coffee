@@ -121,7 +121,12 @@ class @main extends EE
 
   setDivision : =>
     number = (@max - @min)/@division_value
-    delta  = (@division_value/(@max - @min)) * 100
+    dv = @division_value
+    while (number>30)
+      dv+= @division_value
+      number = (@max-@min)/dv
+    return if number < 3
+    delta  = 100/number
     i = 1
     while i <= number
       @move.setLine delta*i++

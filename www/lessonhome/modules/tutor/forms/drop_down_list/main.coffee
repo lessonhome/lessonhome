@@ -22,10 +22,20 @@ class @main extends EE
     @_list = {}
     for key,opt of @tree.default_options
       @_list[opt.text]= true
+    leng = Object.keys(@tree?.default_options ? {}).length
+    @list_length = leng
+    unless (@list_length > 0) && (!@tree.self)
+      @found.icon_box.hide()
+    else
+      @found.icon_box.show()
   Dom : =>
+    @tree.sorting = @tree.sort if @tree.sort?
+    @tree.smart     ?= false
+    if @tree.smart
+      @tree.filter ?= true
+      @tree.sorting ?= true
     @tree.sorting   ?= false
     @tree.filter    ?= false
-    @tree.smart     ?= false
     @tree.self      ?= false
     @closed = true
     if @tree.items?
@@ -39,6 +49,13 @@ class @main extends EE
     @tree.default_options ?= {}
     for key,opt of @tree.default_options
       @_list[opt.text]= true
+    leng = Object.keys(@tree?.default_options ? {}).length
+    @list_length = leng
+    unless (@list_length > 0) && (!@tree.self)
+      @found.icon_box.hide()
+    else
+      @found.icon_box.show()
+      
     @label        = @dom.find ">label"
     @list         = @found.drop_down_list
     @input        = @found.input
@@ -65,11 +82,11 @@ class @main extends EE
     val = @getValue()
     return if val == @lastChange
     @lastChange = val
-    unless @tree.self
+    if (!@tree.self) && (@list_length > 0)
       return unless @exists()
     @emit 'change',val
   onBlur : =>
-    unless @tree.self
+    if (!@tree.self) && (@list_length > 0)
       return unless @exists()
     @emit 'end', @getValue()
 
@@ -119,6 +136,7 @@ class @main extends EE
           arr = []
           arr2 = []
           leng = Object.keys(@tree?.default_options ? {}).length
+          @list_length = leng
           for key,opt of @tree.default_options
             if (leng > 5) && (@tree.filter) && (sBegin)
               if @tree.smart
@@ -318,7 +336,7 @@ class @main extends EE
         selectedOptionToInput = (hide=true,...,self=false)=>
           unless typeof hide == 'boolean'
             hide = true
-          unless self == 'self'
+          if (@list_length > 0) && (self != 'self')
             $option = @items.filter('.selected')
             @input.val $option.text()
           if hide

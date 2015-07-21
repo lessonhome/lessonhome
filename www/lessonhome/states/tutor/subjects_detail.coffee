@@ -5,11 +5,10 @@ class @main
     course     : @module 'tutor/forms/drop_down_list' :
       text      : 'Направление подготовки :'
       placeholder : 'Например ЕГЭ'
+      smart : true
+      self : true
       selector  : 'first_reg'
-      default_options     : {
-        '0': {value: 'ege', text: 'ЕГЭ'},
-        '1': {value: 'gia', text: 'ГИА'}
-      }
+      items : ['JLPT', 'JLPT N1', 'JLPT N2', 'JLPT N3', 'JLPT N4', 'JLPT N5', 'TOPIK', 'TOPIK I', 'TOPIK II', 'HSK', 'HSK Высший', 'HSK Начальный/средний', 'HSK Базовый', 'DELE', 'DELE A', 'DELE B', 'DELE C', 'TOEFL','IELTS', 'FCE', 'TOEIC', 'Business English', 'GMAT', 'GRE', 'SAT', 'DELF', 'DELF A', 'DELF B', 'DALF ', 'DSH', 'TestDaF', 'CILS', 'CILS B1', 'CILS B2', 'CILS C1', 'CILS C2', 'CEPRE-Bras', 'CEPRE-Bras Средний', 'CEPRE-Bras Выше среднейго', 'CEPRE-Bras Продвинутый', 'CEPRE-Bras Выше продвинутого', 'ЕГЭ', 'ОГЭ (ГИА)', 'Разговорный', 'Бизнес', 'С нуля']
       $form : tutor : 'subject.tags.0'
     pre_school      : @module 'tutor/forms/checkbox' :
       text      : 'дошкольники'
@@ -87,6 +86,7 @@ class @main
     group_learning         : @module 'tutor/forms/drop_down_list' :
       text      : 'Групповые занятия :'
       selector  : 'first_reg'
+      self      : true
       default_options     : {
         '0': {value: '0', text: 'не проводятся'},
         '1': {value: '1', text: '2-4 ученика'},

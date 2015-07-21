@@ -48,6 +48,8 @@ class @main
     area : @state '../tutor/forms/drop_down_list_with_tags' :
       list: @module 'tutor/forms/drop_down_list:type1'  :
         selector        : 'advanced_filter_form'
+        smart : true
+        self : true
         placeholder     : 'Выберите район'
         value     : ''
       tags: ''
@@ -73,6 +75,8 @@ class @main
       list: @module 'tutor/forms/drop_down_list:type1'  :
         selector        : 'advanced_filter_form'
         placeholder     : 'Например ЕГЭ'
+        smart : true
+        self : true
         value     : ''
       tags: ''
       value : $urlform : mainFilter : 'course'

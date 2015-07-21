@@ -16,6 +16,8 @@ class @main extends @template '../edit_conditions'
     tutor_edit  : @module '$':
       area : @module 'tutor/forms/drop_down_list'  :
         text      : 'Район :'
+        self      : true
+        smart     : true
         selector  : 'first_reg'
       ###
         metro : @module 'tutor/forms/drop_down_list'  :
