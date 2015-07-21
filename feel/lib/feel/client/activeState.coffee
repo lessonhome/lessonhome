@@ -105,11 +105,16 @@ class @activeState
                   #return if cl.__ulock2
                   #return if cl.__ulock
                   cl.__w8change2 ?= 0
-                  if cl.__ulock2 || cl.__ulock
+                  if cl.__ulock
                     if cl.__w8change2 < 2
                       cl.__w8change2 = 2
                       yield _waitFor cl,'w8change2'
-                      cl.__w8change2 = 0
+                      return Q.spawn funconchange2
+                    else return
+                  if cl.__ulock2
+                    if cl.__w8change2 < 2
+                      cl.__w8change2 = 2
+                      yield _waitFor cl,'w8change'
                       return Q.spawn funconchange2
                     else return
                   cl.__w8change2 = 1

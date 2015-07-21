@@ -43,7 +43,11 @@ class Tutors
     for account,obj of persons
       t = obj.tutor
       p = obj.person
-      obj.rating = JSON.stringify(obj).length
+      obj.rating = JSON.stringify(obj).length*(obj?.person?.ratio ? 1.0)
+      unless obj.person?.ava?[0]?
+        obj.rating *= 0.7
+      unless (obj.tutor?.about ? "")?.length>10
+        obj.rating *= 0.7
       rmax = Math.max(rmax ? obj.rating,obj.rating)
       rmin = Math.min(rmin ? obj.rating,obj.rating)
       continue if (t?.subjects?[0]?.name) && (p?.first_name)
@@ -112,11 +116,11 @@ class Tutors
         }
       unless obj.photos.length
         obj.photos.push {
-          lwidth  : 200
-          lheight : 300
+          lwidth  : 130
+          lheight : 163
           lurl    : "/file/f1468c11ce/unknown.photo.gif"
-          hheight : 300
-          hwidth : 200
+          hheight : 163
+          hwidth : 130
           hurl    : "/file/f1468c11ce/unknown.photo.gif"
         }
       obj.location = p.location

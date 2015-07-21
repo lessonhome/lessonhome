@@ -7,7 +7,7 @@ class @main extends EE
 
   show : =>
     @list.on 'end', => @addTag()
-    @list.on 'press_enter', => @addTag()
+    #@list.on 'press_enter', => @addTag()
     @closeHandler()
 
   ####### TAGS FUNCTIONS
@@ -21,7 +21,7 @@ class @main extends EE
         if tag_text == val then return 0
     new_tag = $(@tag).clone()
     new_tag.find(".text").text(tag_text)
-    new_tag.find(".close_box").click =>
+    new_tag.click => #find(".close_box").click =>
       new_tag.remove()
       @emit 'change'
       @emit 'end'
@@ -63,8 +63,8 @@ class @main extends EE
       do (child)=>
         child = $ child
         cb = child.find(".close_box")
-        cb.off()
-        cb.click =>
+        child.off()
+        child.click =>
           child.remove()
           @emit 'change'
           @emit 'end'
