@@ -9,7 +9,19 @@ class @main extends EE
     @_list = {}
 
 
-
+  setItems : (items)=>
+    return unless items?.length>=0
+    @tree.items = items
+    @tree.default_options = {}
+    i = 0
+    for key,item of @tree.items
+      @tree.default_options[i++] = {
+        value : ''+item
+        text  : ''+item
+      }
+    @_list = {}
+    for key,opt of @tree.default_options
+      @_list[opt.text]= true
   Dom : =>
     @tree.sorting   ?= false
     @tree.filter    ?= false
