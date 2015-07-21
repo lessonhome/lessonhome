@@ -1,0 +1,93 @@
+@import "compass/css3"
+
+$header_width: 624px
+$padding: 24px
+
+$logo_src: 'header/blue_logo.png'
+$logo_height: image-height($logo_src)
+$logo_width: image-width($logo_src)
+
+$illustration_src: 'main/email_hello.png'
+$illustration_height: image-height($illustration_src)
+$illustration_width: image-width($illustration_src)
+
+$main_pattern_src: 'main/main_pattern.png'
+
+.header
+  padding: 3*$padding $padding $padding $padding
+  width: $header_width
+  a, .nav
+    +inline-block
+  a
+    height: 100%
+    .logo
+      height: $logo_height
+      width:  $logo_width
+      background: url(F($logo_src))
+  .nav
+    padding-left: 2*$padding
+    box-sizing: border-box
+    width: $header_width - $logo_width
+    a, .tel
+      +inline-block
+      font-size: 14px
+      line-height: 24px
+      color: #3e9ee0
+      text-decoration: underline
+      cursor: pointer
+    a.profile, a.faq
+      width: 216px
+    .tel, a.email
+      width: 192px
+    .tel
+      color: #202020
+      text-decoration: none
+
+.content, .cancel_subscription_wrap
+  width: $header_width + 2*$padding
+.content
+  padding: $padding 0 2*$padding 0
+  background: url(F($main_pattern_src))
+  .left, .right
+    +inline-block
+    vertical-align: top
+  .left
+    width: 192px
+    text-align: left
+    padding: 2*$padding 0 0 $padding
+    .illustration
+      height: $illustration_height
+      width: $illustration_width
+      background: url(F($illustration_src)) no-repeat
+  .right
+    width: 432px
+    .title
+      margin-bottom: $padding
+      font-size: 24px
+      line-height: 24px
+      font-weight: 600
+      color: #000000
+    .t1, .t2, .t3, .t4, .t4 a, .t5
+      font-size: 18px
+      line-height: 24px
+      color: #202020
+    .t2, .t4
+      margin-bottom: $padding
+    .t3, .t4, .t4 a
+      font-size: 16px
+    .t4 a
+      color: #3e9ee0
+      cursor: pointer
+      text-decoration: underline
+.cancel_subscription_wrap
+  display: none
+  text-align: right
+  padding-right: 12px
+  box-sizing: border-box
+  a
+    +inline-block
+    color: #3e9ee0
+    font-size: 14px
+    line-height: 24px
+    text-decoration: underline
+    cursor: pointer

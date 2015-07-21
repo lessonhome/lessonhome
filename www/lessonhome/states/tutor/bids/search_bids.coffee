@@ -134,7 +134,7 @@ class @main extends @template '../../tutor'
         text: 'Сохранить'
 
       cancel_button: @module 'tutor/button' :
-        selector: 'filters_cancel'
+        selector: 'cancel'
         text: 'ОТМЕНА'
       apply_filters_button: @module 'tutor/button' :
         selector: 'apply_filters'
