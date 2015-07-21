@@ -11,13 +11,18 @@ class @main extends EE
 
 
   Dom : =>
+    @tree.sorting   ?= false
+    @tree.filter    ?= false
+    @tree.smart     ?= false
+    @tree.self      ?= false
+    @closed = true
     if @tree.items?
       @tree.default_options = {}
       i = 0
       for key,item of @tree.items
         @tree.default_options[i++] = {
-          value : item
-          text  : item
+          value : ''+item
+          text  : ''+item
         }
     @tree.default_options ?= {}
     for key,opt of @tree.default_options
@@ -29,6 +34,9 @@ class @main extends EE
     @select_sets  = @found.select_sets
     @options      = @found.options
     @items        = @options.find '>div'
+    @input.on 'click',=>
+      if @closed
+        @showSelectOptions()
   closeList : =>
     $('body').off 'mousedown.drop_down_list'
     $('body').off 'mouseleave.drop_down_list'
@@ -37,6 +45,7 @@ class @main extends EE
     @bodyListenMD = false
     @label.removeClass 'focus'
     @select_sets.hide()
+    @closed = true
     @emit 'blur'
     @emit 'focusout'
   emitChange : =>
@@ -44,8 +53,12 @@ class @main extends EE
     val = @getValue()
     return if val == @lastChange
     @lastChange = val
+    unless @tree.self
+      return unless @exists()
     @emit 'change',val
   onBlur : =>
+    unless @tree.self
+      return unless @exists()
     @emit 'end', @getValue()
 
   show : =>
@@ -95,22 +108,28 @@ class @main extends EE
           arr2 = []
           leng = Object.keys(@tree?.default_options ? {}).length
           for key,opt of @tree.default_options
-            if leng > 5
-              d = @getDistance(opt.text, sBegin)
-              o = {d,opt}
-              if 0<=d<=0.33
-                arr.push o if o?
+            if (leng > 5) && (@tree.filter) && (sBegin)
+              if @tree.smart
+                d = @getDistance(opt.text, sBegin)
+                o = {d,opt}
+                if 0<=d<=0.33
+                  arr.push o if o?
+                else
+                  arr2.push o if o?
               else
-                arr2.push o if o?
+                if opt.text?.indexOf?(sBegin) == 0
+                  arr.push {0,opt}
+                else
+                  arr2.push {0,opt}
             else
               arr.push {0,opt}
           #if arr.length < 5
           #  arr = [arr...,arr2.slice(0)]
           #  #break if sBegin.length > 2 && arr.length > 5
           #  #break if arr.length > 10
-          
-          arr = arr.sort (a,b)=> Math.abs(a.d)-Math.abs(b.d)
-          arr2 = arr2.sort (a,b)=> Math.abs(a.d)-Math.abs(b.d)
+          if @tree.sort
+            arr = arr.sort (a,b)=> Math.abs(a.d)-Math.abs(b.d)
+            arr2 = arr2.sort (a,b)=> Math.abs(a.d)-Math.abs(b.d)
           if arr.length < 5
             arr = [arr...,arr2.slice(0,(5-arr.length))...]
           return [] unless arr.length
@@ -165,7 +184,7 @@ class @main extends EE
         @input.keyup (event) =>
           if @select_sets.data 'was-enter'
             @select_sets.data 'was-enter', false
-            return
+          #  return
           switch event.keyCode
             when @unit.arrowDown
               event.preventDefault()
@@ -190,7 +209,7 @@ class @main extends EE
               selectedOptionToInput(false)
             when @unit.enterCode
               @emit 'press_enter'
-              selectedOptionToInput()
+              selectedOptionToInput(if @tree.self then 'self' else undefined)
             when @unit.tabCode
               if @select_sets.is(':visible')
                 event.preventDefault()
@@ -206,7 +225,7 @@ class @main extends EE
         @options.keydown (event) =>
           switch event.keyCode
             when @unit.enterCode
-              selectedOptionToInput()
+              selectedOptionToInput(if @tree.self then 'self' else undefined)
             when @unit.esc
               $(this).hide()
           return
@@ -236,6 +255,7 @@ class @main extends EE
         hideSelect = =>
           @select_sets.hide()
           @label.removeClass 'open_select'
+          @closed = true
         @showSelectOptions = showSelectOptions = =>
           @label.addClass 'open_select'
           strBegin = @input.val()
@@ -258,12 +278,13 @@ class @main extends EE
           if @items.size() > 0
             makeSelected 0
             @select_sets.show()
+            @closed = false
             lh = @list.height()*@items.size()
             @items.css 'line-height', @list.height()+"px"
             h = @maxListHeight
             h = lh if lh < h
             @options.height h
-          else @select_sets.hide()
+          else hideSelect()
           return
 
         markBeginText = (str, startStr)=>
@@ -282,9 +303,12 @@ class @main extends EE
           @items = $ html
           @options.append @items
           return
-        selectedOptionToInput = (hide=true)=>
-          $option = @items.filter('.selected')
-          @input.val $option.text()
+        selectedOptionToInput = (hide=true,...,self=false)=>
+          unless typeof hide == 'boolean'
+            hide = true
+          unless self == 'self'
+            $option = @items.filter('.selected')
+            @input.val $option.text()
           if hide
             @select_sets.hide()
             @select_sets.data 'was-enter', true
