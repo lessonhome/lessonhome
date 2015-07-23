@@ -346,6 +346,7 @@ class RouteState
     end += '<!DOCTYPE html><html><head><meta charset="utf-8">'
     end += '<meta name="viewport" content="width=1014">'
     end += '<title>'+title+'</title>'
+    end += "<link href='//fonts.googleapis.com/css?family=Open+Sans:600,400&subset=cyrillic,latin' rel='stylesheet' type='text/css'>"
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
     end += "<meta name='yandex-verification' content='614ca940d3db203d' />"
     end += '<meta name="google-site-verification" content="MkOpuToHjLvx2CL30wR1gZr_scgcMzSILFjO2pO0y_Q" />'
