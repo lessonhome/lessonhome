@@ -14,6 +14,8 @@ class @main extends EE
     W = 130 #@photo.width()
     value.photos ?= []
     photo = value.photos[value.photos.length-1]
+    unless value.photos.length>1
+      @photo.css 'cursor','default'
     @first = photo
     h = photo.lheight*W/photo.lwidth
     w = W
