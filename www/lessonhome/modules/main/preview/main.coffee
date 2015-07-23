@@ -28,9 +28,9 @@ class @main extends EE
       @fchange = 2
       return
     @fchange = 1
-    yield Q.wait 1
+    yield Q.delay 1
     yield @filter()
-    yield Q.wait 1
+    yield Q.delay 1
     yield @request()
     if @fchange == 2
       @fchange = 0
