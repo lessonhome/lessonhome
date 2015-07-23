@@ -20,6 +20,8 @@ label
   .text
     +inline-block
     color: rgba(75, 75, 75, 0.70)
+    float : left
+    line-height : inherit
   .drop_down_list
     +inline-block
     float : left
@@ -78,7 +80,7 @@ label>.drop_down_list>.select_sets
   border: $border_width $border_focus
   background-color: white
   z-index: 2
-  width: inherit
+  width: 100%
   left : -0.5px
   text-align: left
   //+border-bottom-right-radius($border_radius)
@@ -164,8 +166,10 @@ label>.drop_down_list>.select_sets>*>*>.custom-option>.begin
     border: none
 .main_subject.focus,.main_subject.focus:hover
   .drop_down_list
-    box-shadow: none
+    +box-shadow(none)
     border: none
+    .select_sets
+      +box-shadow(none)
 
 
 /////////////////--------list_course---------//////////////////////
@@ -242,8 +246,8 @@ label.focus,label.focus:hover
     .icon_box
       .icon
         background: url(F($icon_hover_src)) no-repeat
-    .select-sets
-      box-shadow: 3px 0px 3px -3px rgba(39, 255, 186, 0.8),-3px 0px 3px -3px rgba(39, 255, 186, 0.8),0px 3px 3px -3px rgba(39, 255, 186, 0.8)
+    .select_sets
+      +box-shadow(3px 0px 3px -3px rgba(39, 255, 186, 0.8),-3px 0px 3px -3px rgba(39, 255, 186, 0.8),0px 3px 3px -3px rgba(39, 255, 186, 0.8))
   // -- if &.filter_top
   $icon_hover_src: 'main/triangle-24x21_hover.png'
   &.filter_top

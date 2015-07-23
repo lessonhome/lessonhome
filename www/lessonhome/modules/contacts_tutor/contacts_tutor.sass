@@ -24,6 +24,7 @@ main
     $height: 50px
     .title_box
       height: $height
+      line-height : $height
       position: relative
       background: #e3e3e3
       text-align: left
@@ -55,11 +56,13 @@ main
 .value, .title_box
   +inline-block
   height: $height
+  line-height : $height
   padding: $padding 0
 .input
   +inline-block
   width : 341px
   font-size : $height
+  line-height : $height
   padding : $padding 0
 .title_box
   .title
