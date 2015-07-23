@@ -25,8 +25,6 @@ class @main extends EE
 
     @popup_wrap.on 'click',  @check_place_click
 
-
-
   check_place_click :(e) =>
     if (!@content.is(e.target) && @content.has(e.target).length == 0)
       Feel.go '/'

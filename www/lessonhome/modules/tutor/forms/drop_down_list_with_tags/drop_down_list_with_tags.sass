@@ -16,6 +16,7 @@ $icon_width: image-width($icon_src)
     overflow: hidden
     background-color: #dbdbdb
     border: 1px solid rgba(0,0,0,0.1)
+    cursor: pointer
     box-sizing: border-box
     +border-radius(4px)
     .text_box
@@ -31,7 +32,6 @@ $icon_width: image-width($icon_src)
       height: $icon_height
       padding: 3px
       margin-right: 6.5px
-      cursor: pointer
       +inline-block
       background: #ffffff
       opacity: 0.5
@@ -39,12 +39,12 @@ $icon_width: image-width($icon_src)
         height: 100%
         width: 100%
         background: url(F($icon_src)) no-repeat
-    .close_box:hover
+    &:hover .close_box
       opacity: 0.9
     .text_box:after
       content: ''
       height: 100%
       +inline-block
-    .tag:hover
+    &:hover
       background: #e0e0e0
       border: 1px solid rgba(0,0,0,0.3)

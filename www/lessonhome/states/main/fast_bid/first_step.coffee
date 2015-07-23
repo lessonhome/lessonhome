@@ -61,6 +61,8 @@ class @main extends @template '../fast_bid'
       subject :@module 'tutor/forms/drop_down_list':
         text: 'Предмет :'
         selector  : 'fast_bid'
+        smart : true
+        self : true
         default_options     : {
           '0': {value: 'english', text: 'английский язык'},
           '1': {value: 'math', text: 'математика'},

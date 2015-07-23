@@ -2,7 +2,7 @@
 mixin R(v)
   - if (typeof v =='string' )
   - v = v.replace(/\s/g, '&nbsp;')
-  .item!= v
+  .js-item!= v
 
 .title= title
   .hidden

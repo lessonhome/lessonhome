@@ -1,0 +1,22 @@
+.header
+  a(href="/")
+    .logo
+  .nav
+    a(href="/tutor/profile").profile Личный кабинет
+    .tel +7 (495) 940 93 39
+    a(href="/tutor/support").faq Часто задаваемые вопросы
+    a.email support@lessonhome.ru
+.content
+  .left
+    .illustration
+  .right
+    .title Благодарим Вас за регистрацию!
+      .test!=name
+    .t1!="Здравствуйте, #{name}!"
+    .t2 Мы рады, что вы выбрали сотрудничество с компанией Lesson Home! В ближайшее время сайт будет полностью завершён и начнёт подбор учеников для вас!
+    .t3!="Ваш логин : #{login}"
+    .t4!="Если вы забыли пароль - воспользуйтесь "
+      a(href="/forgot_password") формой восстановления пароля >>
+    .t5 с наилучшими пожеланиями,<br>команда LessonHome
+.cancel_subscription_wrap
+  a.cancel_subscription(href="/cancel_subscription") Отписаться от рассылки

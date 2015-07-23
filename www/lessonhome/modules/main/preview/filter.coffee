@@ -7,13 +7,23 @@ ex = (v)=>
   return 3 if v?.match? '4'
   return 0
 
-@filter = (input,mf)=>
+if window?.$Feel?.root?
+  _isNode = false
+else
+  _isNode = true
+cnum = 0
+@filter = (input,mf)=> do Q.async =>
   out = []
   _out = []
   for acc,p of input
     continue unless p?.name?.first
     continue unless p.price_left <= mf?.price?.right
     continue unless p.price_right >= mf?.price?.left
+    unless _isNode
+      if cnum > 30
+        yield Q()
+        cnum = 0
+    cnum++
     ss = Object.keys(p?.subjects ? {})
     min = -1
     exists = false

@@ -79,17 +79,25 @@ class @D2U
     value :  boolSet obj?.experience,experience
     default : 0
   $group_lessons : (obj)=>
-    type : 'int'
-    value : group_lessons.indexOf(obj?.group_lessons) ? 0
-    default : 0
+    v = group_lessons.indexOf(obj?.group_lessons)
+    v = 0 unless v>=0
+    return {
+      type : 'int'
+      value : v
+      default : 0
+    }
   $course : (obj)=>
     type : 'string[]'
     value : obj?.course
     default : ''
   $sort : (obj)=>
-    type : 'int'
-    value : sort.indexOf(obj?.sort) ? 0
-    default : 0
+    v = sort.indexOf(obj?.sort)
+    v = 0 unless v >= 0
+    return {
+      type : 'int'
+      value : v
+      default : 0
+    }
   $showBy : (obj)=>
     type : 'bool'
     value : obj?.showBy == 'list'

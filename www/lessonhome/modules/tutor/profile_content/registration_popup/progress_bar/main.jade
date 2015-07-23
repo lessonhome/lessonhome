@@ -60,9 +60,9 @@ mixin item (progress, content, href, selector,isCurrent)
         - widthBlue = widthBlue*(progress-1)
       default
         +item(progress>1, 1, 'first_step', 'one', 1==current_progress)
-        +item(progress>2, 2, 'second_step',"", 1==current_progress)
-        +item(progress>3, 3, 'third_step',"", 1==current_progress)
-        +item(progress>4, 4, 'fourth_step', 'fourth', 1==current_progress)
+        +item(progress>2, 2, 'second_step',"", 2==current_progress)
+        +item(progress>3, 3, 'third_step',"", 3==current_progress)
+        +item(progress>4, 4, 'fourth_step', 'fourth', 4==current_progress)
           - widthBlue = widthBlue*(progress-1)
     .blue_line(style='width: #{widthBlue}px')
   .gray_line

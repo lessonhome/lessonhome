@@ -38,6 +38,8 @@ class @main extends @template '../../tutor'
         text      : 'Выбрать все'
       subject : @module 'tutor/forms/drop_down_list':
         placeholder : 'Предмет'
+        smart : true
+        selft : true
         selector    : 'in_bids'
 
       list_bids : @module 'tutor/bids/list_bids' :
