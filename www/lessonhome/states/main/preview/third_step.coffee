@@ -26,8 +26,10 @@ class @main extends @template '../preview'
         text      : 'Удаленно'
         $form     : pupil : 'isPlace.other'
       address_input       : @module 'tutor/forms/drop_down_list'  :
-        placeholder : 'Даниловский'
+        placeholder : ''
         selector    : 'area'
         text        : 'Район :'
+        smart : true
+        self : true
       link_forward    :  '/fourth_step'
       link_back       :  '/second_step'

@@ -3,49 +3,51 @@
 $toggle_height: 22px
 $central_line_height: 12px
 
-div
-  +inline-block
+.toggle
 
-.first_value, .second_value
-  font-size: 18px
-  color: #757575
-  cursor: pointer
-
-.toggle_block
-  position: relative
-  width: 44px
-  height: $toggle_height
-  margin: 0 10px
-  cursor: pointer
   div
-    position: absolute
-  .central_line
-    z-index: 1
-    width: 100%
-    height: $central_line_height
-    top: 50%
-    margin-top: - $central_line_height/2
-    background-color: rgb( 230, 230, 230 )
-    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.50) inset
-    border-radius: 4px
-  .slider
-    z-index: 2
-    right: 0
-    width: 22px
+    +inline-block
+
+  .first_value, .second_value
+    font-size: 18px
+    color: #757575
+    cursor: pointer
+
+  .toggle_block
+    position: relative
+    width: 44px
     height: $toggle_height
-    border-radius: 3px
-    background-color: rgb( 191, 191, 191 )
-    box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.5), 0 -1px 0px 0px rgba(0,0,0,0.2) inset
-    //box-shadow: 0px 1px 1px 0px rgba(9, 12, 18, 0.32)
+    margin: 0 10px
+    cursor: pointer
+    div
+      position: absolute
+    .central_line
+      z-index: 1
+      width: 100%
+      height: $central_line_height
+      top: 50%
+      margin-top: - $central_line_height/2
+      background-color: rgb( 230, 230, 230 )
+      box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.50) inset
+      border-radius: 4px
+    .slider
+      z-index: 2
+      right: 0
+      width: 22px
+      height: $toggle_height
+      border-radius: 3px
+      background-color: rgb( 191, 191, 191 )
+      box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.5), 0 -1px 0px 0px rgba(0,0,0,0.2) inset
+      //box-shadow: 0px 1px 1px 0px rgba(9, 12, 18, 0.32)
 
-.toggle_block.active_toggle
-  .slider
-    right: initial
-    left: 0
-    background-color: rgb( 138, 210, 255 )
+  .toggle_block.active_toggle
+    .slider
+      right: initial
+      left: 0
+      background-color: rgb( 138, 210, 255 )
 
-.active_value
-  color: #f07b6f
+  .active_value
+    color: #000000
 
 
 

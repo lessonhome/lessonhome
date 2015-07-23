@@ -4,6 +4,8 @@ class @main
   forms : [{person:['country','city','phone','phone2','skype','email','site']}]
   tree : => @module '$' :
     country : @module 'tutor/forms/drop_down_list' :
+      smart : true
+      self : true
       text        : 'Страна :'
       selector    : 'first_reg'
       items : ['Россия','Белоруссия','Казахстан','Киргизия','Абхазия','Украина','Молдавия','Румыния','Норвегия','Латвия']
@@ -11,6 +13,8 @@ class @main
     city    : @module 'tutor/forms/drop_down_list' :
       text        : 'Город :'
       selector    : 'first_reg'
+      smart : true
+      self : true
       default_options     : {
         '0': {value: 'moscow', text: 'Москва'},
         '1': {value: 'saint_petersburg', text: 'Санкт-Петербург'},

@@ -31,8 +31,8 @@ class @Feel
     setTimeout @checkUnknown,200
 
     @_popupAdd = {}
-    $('body').on 'mousedown.popupAdd', @popupAddDown
-    $('body').on 'mouseleave.popupAdd', @popupAddLeave
+    $(document).on 'mousedown.popupAdd', @popupAddDown
+    $(document).on 'mouseleave.popupAdd', @popupAddLeave
 
 
   error : (e,args...)=>
