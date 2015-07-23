@@ -86,7 +86,7 @@ main
   width: $earth_width
   background: url(F($earth_src))
   right: 1%
-  top: 5%
+  top: 28%
 .background_note
   height: $note_height
   width: $note_width
@@ -97,49 +97,51 @@ main
   height: $pc_height
   width: $pc_width
   background: url(F($pc_src))
-  right: 17%
-  top: 1%
+  right: 3%
+  top: 8%
 .background_pencils
   height: $pencil_height
   width: $pencil_width
   background: url(F($pencils_src))
-  left: 1%
-  top: 12%
+  left: 5%
+  top: 35%
 .background_ruler
   height: $ruler_height
   width: $ruler_width
   background: url(F($ruler_src))
-  right: 18%
-  top: 15%
+  right: 5%
+  top: 72%
 .background_vial
   height: $vial_height
   width: $vial_width
   background: url(F($vial_src))
-  right: 71%
-  top: 10%
+  right: 84%
+  top: 66%
 // ------------------------- CHECK IN -------------------------------------------
 .check_in
+  padding: 40px 0 80px
   .top_block
     +inline-block
-    width: 456px
+    width: 600px
     .top_text
       box-sizing: border-box
-      padding: 24px 24px 12px 24px
+      padding: 30px 44px 12px
       text-align: left
-      background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.2)
+      background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.5)
       .t1, .t2, .t3
         line-height: 24px
         color: #202020
       .t1, .t2
         font-size: 16px
       .t1
-        margin-bottom: 24px
+        font-size: 16px
       .t3
-        font-size: 20px
+        font-size: inherit
+        margin-bottom: 16px
     .check_in_fields
       box-sizing: border-box
       padding: 12px 48px 18px 48px
-      background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.1)
+      background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.7)
       .submit
         position : fixed
         color : white
@@ -152,26 +154,34 @@ main
         line-height: 24px
         color: #202020
         font-weight: 600
+      .password
+        padding-bottom: 10px
+        +inline-block
+      .login
+        display: block
+        float: left
       .login, .password
         position: relative
-        margin-bottom: 10px
-        +inline-block
+        width: 100%
+        padding-top: 20px
         .input
           width: 100%
-          font-size : 37px
+          font-size: 37px
       .checkbox
         text-align: left
         margin-bottom: 28px
         .field, .text
           +inline-block
         .field
-          margin-right: 15px
+          margin: 4px 12px 0 0
         .text
-          width: 319px
-          line-height: 17px
-          font-size: 14px
           color: #444444
+          font-size: 14px
+          line-height: 17px
+          margin-top: 15px
+          width: 319px
           a
+            color: black
             font-size: 14px
         .checkbox_error
           display: none
@@ -183,173 +193,5 @@ main
         .create_account
           +inline-block
           height: 48px
-          width: 360px
+          width: 100%
           vertical-align: baseline
-.simple_search
-  position: relative
-  text-align: left
-  overflow: hidden
-  height: 228px
-  background: url(F($main_pattern_src))
-  background-color: #efefef
-  .t1, .t2
-    z-index: 1
-    position: relative
-    +inline-block
-    margin-left: 139px
-  .t1
-    margin-top: 36px
-    font-size: 32px
-    line-height: 38px
-    font-weight: 600
-    color: #202020
-  .t2
-    font-size: 18px
-    line-height: 24px
-    color: #202020
-  .main_tutor_search
-    position: absolute
-    top: 16px
-    left: 0px
-    width: $main_tutor_search_width
-    height: $main_tutor_search_height
-    background: url(F($main_tutor_search_src)) no-repeat
-
-  .pattern_bottom
-    position: absolute
-    bottom: 0
-    width: 100%
-    height: $pattern_bottom_height
-    background: url(F($pattern_bottom_src))
-
-.board_wrap
-  padding-top: 60px
-  background: url(F($main_pattern_noise_src))
-  text-align: center
-  .board
-    +inline-block
-    width: $board_width
-    height: $board_height
-    background: url(F($board_src)) no-repeat
-.motivation
-  position: relative
-  padding-top: 12px
-  padding-bottom: 60px
-  background: url(F($main_pattern_noise_src))
-  .left, .center, .right
-    +inline-block
-    vertical-align: top
-    .title, .text
-      text-align: left
-    .title
-      font-size: 20px
-      line-height: 24px
-      color: #3e9ee0
-    .text
-      font-size: 16px
-      line-height: 24px
-      color: #202020
-    .button
-      margin-top: 32px
-      height: 48px
-      width: 228px
-  .left, .center
-    .title
-      height: 72px
-  .left
-    margin-right: 39px
-    width: 298px
-    .button
-      width: 228px
-  .center
-    margin-right: 44px
-    width: 290px
-  .right
-    width: 308px
-    .title
-      margin-bottom: 24px
-  .bottom_pattern
-    position: absolute
-    z-index: 1
-    bottom: -$main_pattern_top_height + 1
-    height: $main_pattern_top_height
-    width: 100%
-    background: url(F($main_pattern_top_src))
-$main_pattern_top_src: 'main/main_pattern_top.jpg'
-.reviews_wrap
-  padding-top: 24px
-  padding-bottom: 112px
-  background: url(F($main_pattern_noise_src))
-  .title
-    padding-left: 86px
-    margin-bottom: 48px
-    text-align: left
-    font-size: 20px
-    line-height: 24px
-    color: #202020
-  .reviews
-    text-align: left
-    .review
-      +inline-block
-      margin-left: 20px
-      width: 480px
-      .photo_wrap, .text_box
-        +inline-block
-        vertical-align: top
-      .photo_wrap
-        padding-top: 102px
-        margin-right: 52px
-        .photo
-          background-color: #fff
-          +border-radius(50%)
-        .name
-          text-align: center
-          color: #202020
-          font-size: 14px
-          line-height: 24px
-      .text_box
-        position: relative
-        width: 312px
-        height: 240px
-        box-sizing: border-box
-        padding-top: 24px
-        background-color: #fff
-        box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.40)
-        .quotes_wrap, .text
-          +inline-block
-          vertical-align: top
-        .quotes_wrap
-          width: 72px
-          height: 100%
-          box-sizing: border-box
-          padding-left: 24px
-          .quotes
-            width: $quotes_width
-            height: $quotes_height
-            background: url(F($quotes_src)) no-repeat
-        .text
-          width: 240px
-          text-align: left
-          font-size: 16px
-          line-height: 24px
-          color: #202020
-        .triangle
-          position: absolute
-          bottom: 48px
-          left: -$triangle_width
-          width:  $triangle_width
-          height: $triangle_height
-          background: url(F($triangle_src)) no-repeat
-
-    .review.first
-      .photo_wrap
-        .photo
-          width:  $photo1_width
-          height: $photo1_height
-          background: url(F($photo1_src)) no-repeat
-    .review.second
-      .photo_wrap
-        .photo
-          width:  $photo2_width
-          height: $photo2_height
-          background: url(F($photo2_src)) no-repeat
