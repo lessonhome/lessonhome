@@ -23,7 +23,7 @@ class Tutors
     yield @init()
     url = $.req.url.match(/\?(.*)$/)?[1] ? ""
     mf = (yield @urldata.u2d url)?.mainFilter
-    return filter.filter @persons,mf
+    return yield filter.filter @persons,mf
   reload : =>
     t = new Date().getTime()
     return @persons unless (t-@timereload)>(1000*10)

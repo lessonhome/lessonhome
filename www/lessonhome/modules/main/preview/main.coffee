@@ -15,7 +15,7 @@ class @main extends EE
     @advanced_filter   = @tree.advanced_filter.class
     @tutors = $.localStorage.get 'tutors'
     @tutors ?= {}
-    @tnum = 1
+    @tnum = 4
     @now    = []
     @changed = true
     @sending = false
@@ -30,6 +30,7 @@ class @main extends EE
         @filter().done()
     @on 'change', =>
       @changed = true
+      @tnum = 4
       @filter().done()
       @request()
     ###
@@ -84,10 +85,15 @@ class @main extends EE
 
     $(@reset_all_filters).on 'click', => @advanced_filter.resetAllFilters()
   request : => Q.spawn =>
+    @tutorsCache ?= {}
     return unless @changed
     return if @sending
+    hash = Feel.urlData.state.url
+    if @tutorsCache?[hash]?
+      return yield @filter hash
     @sending = true
     @changed = false
+    console.log 'loading tutors'
     tutors = yield @$send './tutors','quiet'
     storage = $.localStorage.get 'tutors'
     storage ?= {}
@@ -102,13 +108,25 @@ class @main extends EE
         delete storage[key]
     $.localStorage.set 'tutors',storage
     @tutors = storage
+    @tutorsCache[hash] = true
     @sending = false
-    yield @filter()
+    yield @filter(hash)
     if @changed
       setTimeout @request,3000
     
-  filter : => do Q.async =>
-    tutors = @js.filter @tutors, (yield Feel.urlData.get())?.mainFilter
+  filter : (hash)=> do Q.async =>
+    @lastFilter ?= ""
+    if hash?
+      return if @lastFilter == hash
+    @lastFilter = hash
+    @filtering ?= 0
+    return if @filtering > 1
+    if @filtering == 1
+      @filtering = 2
+      return
+    @filtering = 1
+    console.log 'filtering'
+    tutors = yield @js.filter @tutors, (yield Feel.urlData.get())?.mainFilter
     #@tutors_result.empty()
     otutor = {}
     for tutor in tutors
@@ -144,21 +162,31 @@ class @main extends EE
         dom  : $('<div class="tutor_result"></div>').append nt.dom
         nt   : nt
       }
+    yield Q()
+    cnum = 0
     for t,i in nnow
       break if i>=(@tnum)
+      if cnum > 5
+        yield Q()
+        cnum = 0
       if i == 0
         unless @tutors_result.find(':first')[0]==t.dom[0]
+          cnum++
           @tutors_result.prepend t.dom
       else
         unless nnow[i-1].dom.next()[0]==t.dom[0]
+          cnum++
           nnow[i-1].dom.after t.dom
       if (i+1)>=(@tnum)
         ll = @tutors_result.find(':last')
         dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height())
         if dist >= 0
           @tnum++
-
     @now = nnow
+    if @filtering == 2
+      @filtering = 0
+      return yield @filter()
+    @filtering = 0
 
   check_place_click :(e) =>
     if (!@popup.is(e.target) && @popup.has(e.target).length == 0)
