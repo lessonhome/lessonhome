@@ -32,7 +32,7 @@ class @Feel
 
     @_popupAdd = {}
     $(document).on 'mousedown.popupAdd', @popupAddDown
-    $(document).on 'mouseleave.popupAdd', @popupAddLeave
+    #$(document).on 'mouseleave.popupAdd', @popupAddLeave
 
 
   error : (e,args...)=>
@@ -136,6 +136,8 @@ class @Feel
     $.cookie 'unknown', 'set'+@user.sessionpart if unknown == 'need'
     
   go : (href)=> Q.spawn =>
+    console.log yield @urlData.get()
+    console.log yield @urlData.getU()
     href = (yield @urlData.udataToUrl href)
     window.location.href = href if href
   formSubmit : (form)=> Q.spawn =>

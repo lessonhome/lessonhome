@@ -84,6 +84,7 @@ class @main extends EE
     @lastChange = val
     if (!@tree.self) && (@list_length > 0)
       return unless @exists()
+    console.log 'change'
     @emit 'change',val
   onBlur : =>
     if (!@tree.self) && (@list_length > 0)

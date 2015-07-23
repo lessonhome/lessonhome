@@ -34,7 +34,7 @@ $search_icon_src: 'main/search_icon.png'
 $search_pattern_src: 'main/search_pattern.png'
 $search_title_color: #b5b5b5
 $triangle_down_src: 'main/arrow_6x4_down.gif'
-$triangle_down_height: image-height($triangle_down_src)
+$triangle_down_height: image-height($triangle_down_src) - 1px
 $triangle_down_width: image-width($triangle_down_src)
 
 
@@ -119,23 +119,26 @@ main
   position: relative
   width: $search_width
   height: $search_height
+  +box-sizing(border-box)
   margin-left: 15px
   .filters, a>.button
     +inline-block
   .filters
+    +box-sizing(border-box)
     width: 911px
-    height: 100%
+    height: inherit
     margin-right: 12px
     background-color: #fff
     border: 1px solid #4c4c4c
-    box-shadow: inset   0px 1px 3px 0px rgba(0, 0, 0, 0.65)
+    box-shadow: inset   0px 1px 3px -1px rgba(0, 0, 0, 0.65)
     text-align: left
     div
       +inline-block
     .subject
-      height: 100%
+      height: $search_height - 6px
+      line-height: $search_height - 6px
       width: 256px
-      padding-top: 3px
+      margin-top: 2px
       box-sizing: border-box
     .place
       width: 256px
@@ -170,11 +173,12 @@ main
         display: none
         z-index: 2
         position: absolute
-        left: 0
-        top: $search_height
+        left: -1px
+        top: $search_height - 2px
         padding: 6px 0 13px 0
         width: 100%
-        border: 1px solid #808080
+        border: 1px solid #4c4c4c
+        border-top : none
         background-color: #fff
         .item
           line-height: 30px
@@ -182,17 +186,19 @@ main
     .price
       position: relative
       height: 100%
-      width: 145px
-      padding: 2px 0 0 12px
+      width: 140px
+      padding: 2px 0 2px 12px
       box-sizing: border-box
       .top
+        height : inherit
         position: relative
         cursor: pointer
         .from, .to
           width: 100%
-          line-height: 18px
+          line-height: 20px
           div
             +inline-block
+            float : left
           .t1, .t2
             font-size: 14px
             color: #717171
@@ -208,11 +214,12 @@ main
         display: none
         z-index: 2
         position: absolute
-        left: -17px
-        top: $search_height
+        left: -30px
+        top: $search_height - 2px
         padding: 6px 0 13px 0
         width: 172px
-        border: 1px solid #808080
+        border: 1px solid #4c4c4c
+        border-top : none
         background-color: #fff
         .item
           line-height: 30px
