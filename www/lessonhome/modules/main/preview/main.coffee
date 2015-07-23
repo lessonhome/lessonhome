@@ -21,6 +21,21 @@ class @main extends EE
     @sending = false
     yield @filter()
     @request()
+  filterChange : => do Q.async =>
+    @fchange ?= 0
+    return if @fchange > 1
+    if @fchange == 1
+      @fchange = 2
+      return
+    @fchange = 1
+    yield Q.wait 1
+    yield @filter()
+    yield Q.wait 1
+    yield @request()
+    if @fchange == 2
+      @fchange = 0
+      return @filterChange()
+    @fchange = 0
   show : =>
     @advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll',=>
@@ -28,11 +43,10 @@ class @main extends EE
       dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
       if dist >= 0
         @filter().done()
-    @on 'change', =>
+    @on 'change', => Q.spawn =>
       @changed = true
       @tnum = 4
-      @filter().done()
-      @request()
+      yield @filterChange()
     ###
     @tutors_result = @tree.tutors_result
     ###
@@ -181,7 +195,7 @@ class @main extends EE
         ll = @tutors_result.find(':last')
         dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height())
         if dist >= 0
-          @tnum++
+          @tnum+=5
     @now = nnow
     if @filtering == 2
       @filtering = 0
