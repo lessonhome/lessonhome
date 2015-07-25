@@ -34,8 +34,8 @@ class Register
     nids[row.id] = true for row in _ids
     nids = Object.keys nids
     console.log 'illegals: '.magenta,nids.length
-    yield _invoke @account,'update',{account:null},{$unset:{account:""}},{multi:true}
-    yield _invoke @account,'update',{account:null},{$unset:{acc:""}},{multi:true}
+    yield _invoke @account,'update',{account:{$exists:true}},{$unset:{account:""}},{multi:true}
+    yield _invoke @account,'update',{acc:{$exists:true}},{$unset:{acc:""}},{multi:true}
     yield _invoke @account, 'remove',{id:{$in:nids}}
     yield _invoke @session, 'remove',{account:{$in:nids}}
     yield _invoke @dbpersons, 'remove',{account:{$in:nids}}
@@ -52,6 +52,8 @@ class Register
     sess = yield _invoke @session.find(),'toArray'
     for a in acc
       @accounts[a.id]   = a
+      delete a.account
+      delete a.acc
       if a.login?
         @logins[a.login] = a
     for s in sess
