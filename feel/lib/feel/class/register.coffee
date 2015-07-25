@@ -19,21 +19,23 @@ class Register
     ids = {}
     _ids = (yield _invoke @dbpersons.find({},{account:1}),'toArray')
     ids[row.account] = true for row in _ids
-    console.log "persons: ".magenta, Object.keys(ids).length
+    console.log "persons: ".magenta, _ids?.length
     _ids = (yield _invoke @dbpupil.find({},{account:1}),'toArray')
     ids[row.account] = true for row in _ids
-    console.log 'pupils: '.magenta,Object.keys(ids).length
+    console.log 'pupils: '.magenta,_ids?.length
     _ids = (yield _invoke @dbtutor.find({},{account:1}),'toArray')
     ids[row.account] = true for row in _ids
-    console.log 'tutors: '.magenta, Object.keys(ids).length
+    console.log 'tutors: '.magenta, _ids?.length
     
     nids = {}
     d = new Date()
     d.setDate d.getDate()-1
-    _ids = (yield _invoke @account.find({id:{$nin:Object.keys(ids)},accessTime:{$lt:d}},{id:1}),'toArray')
+    _ids = (yield _invoke @account.find({$or:[ {accessTime:{$eq:null}},{id:{$nin:Object.keys(ids)},accessTime:{$lt:d}}]},{id:1}),'toArray')
     nids[row.id] = true for row in _ids
     nids = Object.keys nids
     console.log 'illegals: '.magenta,nids.length
+    yield _invoke @account,'update',{account:null},{$unset:{account:""}},{multi:true}
+    yield _invoke @account,'update',{account:null},{$unset:{acc:""}},{multi:true}
     yield _invoke @account, 'remove',{id:{$in:nids}}
     yield _invoke @session, 'remove',{account:{$in:nids}}
     yield _invoke @dbpersons, 'remove',{account:{$in:nids}}
@@ -54,7 +56,27 @@ class Register
         @logins[a.login] = a
     for s in sess
       @sessions[s.hash] = s
-
+    @aindex = 0
+    for id,a of @accounts
+      @aindex = a.index if a?.index? && (@aindex<a.index)
+    d.setDate d.getDate()-100000
+    for id,a of @accounts
+      unless a?.index?
+        a.index = ++@aindex
+        yield _invoke @account,'update',{id:id},{$set:{index:a.index}}
+      if (Object.keys(a.sessions ? {})?.length>5)
+        arr = []
+        for s of a.sessions
+          arr.push @sessions[s] ? {hash:s,accessTime:d}
+        arr.sort (a,b)=> b.accessTime?.getTime?()-a.accessTime?.getTime?()
+        arr = arr.splice 5
+        arr2 = []
+        arr2.push s.hash for s in arr
+        for s in arr2
+          delete a.sessions[s]
+          delete @sessions[s]
+        yield _invoke @session, 'remove',{hash:{$in:arr2}}
+        yield _invoke @account,'update',{id:id},{$set:{sessions:a.sessions}}
   register : (session,unknown)=>
     o = {}
     created = false
@@ -66,12 +88,18 @@ class Register
     if typeof unknown == 'string' && (m = unknown.match /^set(.*)$/)
       if m[1] == session.hash.substr 0,8
         delete account.unknown
-        yield _invoke(@account,'update',{id:account.id},{$set:{account}},{upsert:true})
+        acc = {}
+        acc[key] = val for key,val of account
+        delete acc.account
+        yield _invoke(@account,'update',{id:account.id},{$set:acc},{upsert:true})
         yield _invoke(@session,'update',{hash:session.hash},{$set:session},{upsert:true})
     if !created && !account.unknown
       session.accessTime = new Date()
       account.accessTime = new Date()
-      _invoke(@account,'update',{id:account.id},{$set:{account}},{upsert:true})
+      acc = {}
+      acc[key] = val for key,val of account
+      delete acc.account
+      _invoke(@account,'update',{id:account.id},{$set:acc},{upsert:true})
       .catch @onError
       _invoke(@session,'update',{hash:session.hash},{$set:session},{upsert:true})
       .catch @onError
@@ -109,6 +137,9 @@ class Register
     data.password = data.login+data.password
     user.hash       = yield @passwordCrypt _hash data.password
     user.accessTime = new Date()
+    acc = {}
+    acc[key] = val for key,val of user
+    delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
   login : (user,sessionhash,data)=>
@@ -133,6 +164,9 @@ class Register
     user = @accounts[tryto.id]
     user.accessTime = new Date()
     sessionhash = yield @newSession user.id
+    acc = {}
+    acc[key] = val for key,val of user
+    delete acc.account
     qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     yield Q.all qs
     return {session:@sessions[sessionhash],user:user}
@@ -154,6 +188,9 @@ class Register
     user.login = data.newlogin
     @logins[user.login] = user
     user.accessTime = new Date()
+    acc = {}
+    acc[key] = val for key,val of user
+    delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
   passwordUpdate : (user,sessionhash,data)=>
@@ -168,6 +205,9 @@ class Register
     ndata_password = data.login+data.newpassword
     user.hash       = yield @passwordCrypt _hash ndata_password
     user.accessTime = new Date()
+    acc = {}
+    acc[key] = val for key,val of user
+    delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
   passwordCrypt   : (pass)=> _invoke  bcrypt,'hash',pass,10
@@ -176,6 +216,7 @@ class Register
     try
       account =
         id            : _randomHash()
+        index         : ++@aindex
         registerTime  : new Date()
         accessTime    : new Date()
         other         : true

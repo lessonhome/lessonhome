@@ -12,6 +12,14 @@ tutor_status = 'student,school_teacher,university_teacher,private_teacher,native
 place = 'pupil,tutor,remote'.split ','
 experience = 'little_experience,big_experience,bigger_experience'.split ','
 
+numstr = {}
+_numstr = {}
+for c,i in 'opqmschjtui'
+  _numstr[c] = i
+_numstr['i'] = '.'
+for c,i in 'opqmschjtui'
+  numstr[i] = c
+numstr['.'] = numstr[10]
 boolSet = (obj,list)=>
   list.sort()
   v = 0
@@ -30,6 +38,20 @@ boolSetR = (obj,list)=>
   return ret
 
 class @D2U
+  $linked : (obj)=>
+    console.log 'linked1',obj?.linked
+    str = Object.keys(obj?.linked ? {})?.join?('.') ? ''
+    console.log 'linked0',str
+    str2 = ''
+    for c,i in str
+      str2 += numstr[c]
+    str = str2
+    console.log 'linked',str
+    return {
+      type : 'string'
+      value : str
+      default : ''
+    }
   $priceLeft : (obj)=>
     type  : 'int'
     value : obj?.price?.left
@@ -102,7 +124,22 @@ class @D2U
     type : 'bool'
     value : obj?.showBy == 'list'
     default : true
+  
 class @U2D
+  $linked : (obj)=>
+    console.log 'linked-1',obj?.linked
+    str = obj?.linked ? ''
+    str2 = ''
+    for c,i in str
+      str2 += _numstr[c]
+    str = str2
+    console.log 'linked-0',str
+    arr = {}
+    str = str.split '.'
+    for a in str
+      arr[+a]= true if (+a)>0
+    console.log 'linked-',arr
+    return arr
   $price : (obj)=>
     left  : obj?.priceLeft
     right : obj?.priceRight
