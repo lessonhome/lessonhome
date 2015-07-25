@@ -26,6 +26,9 @@ class @main extends EE
     @img.attr   'src'   , photo.lurl
     @img.attr   'width' , "100%"
     @img.attr   'height', "100%"
+    @photo.on 'click', =>
+      @photo.addClass 'hover'
+      Feel.popupAdd @photo,@photo,=>@photo.removeClass 'hover'
     @photo.on 'mouseover', =>
       @photo.css 'z-index',101
       #@photo.off 'mouseover'
