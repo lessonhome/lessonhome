@@ -1,6 +1,6 @@
 
 class @main extends @template '../main'
-  route : '/main_tutor_dir'
+  route : '/main_tutor_abTest_1'
   tags  : -> 'pupil:main_tutor'
   model : 'main/registration'
   title : "Регистрация"

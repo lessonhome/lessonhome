@@ -30,6 +30,10 @@ class @urlData
     for key of @forms
       @data[key] ?= {}
       @fdata[key] ?= {}
+    setTimeout =>
+      try
+        console.log 'abTest:',@udata.json?.forms?.abTest
+    ,1000
   set : (form,key,val)=>
     if val?
       _setKey @data[form],key,val

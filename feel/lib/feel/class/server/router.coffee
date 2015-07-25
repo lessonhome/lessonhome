@@ -68,6 +68,26 @@ class Router
     if req.url.match /^\/form\/tutor\/logout$/
       yield @setSession req,res,cookie,""
       return @redirect req,res,'/'
+    req.udata.abTest ?= {}
+    try
+      abcookie = JSON.parse decodeURIComponent cookie.get 'abTest'
+    abcookie ?= {}
+    abchanged = false
+    for key,val of req.udata.abTest
+      if val < 0
+        abchanged = true
+        delete abcookie[key]
+      else if val > 0
+        abchanged = true
+        abcookie[key] = val
+    if abchanged
+      try
+        cookie.set 'abTest', encodeURIComponent JSON.stringify abcookie
+    if (abTest = abcookie[req.url.replace(/\//,'')])?
+      if abTest>0
+        nurl = req.url + '_abTest_'+abTest
+        if @url.text[nurl]?
+          req.url = nurl
     statename = ""
     if @url.text[req.url]?
       statename = @url.text[req.url]
