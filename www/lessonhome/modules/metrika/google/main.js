@@ -7,7 +7,3 @@ ga('create', 'UA-62902537-1', 'auto');
 ga('set', '&uid', $Feel.user.id);
 ga('send', 'pageview');
 console.log ($Feel.user.id);
-
-
-
-
