@@ -2,7 +2,7 @@
   .title.select Рейтинг :
   .reviews_rating!=reviews_rating
   .number_pupils.select='( '+pupils_number+' учеников )'
-.reviews
+.reviews.select
   if list_reviews.length
     each value in list_reviews
       .review!= value
