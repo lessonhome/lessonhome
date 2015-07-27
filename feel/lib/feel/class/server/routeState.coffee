@@ -343,15 +343,12 @@ class RouteState
     title   = @state.title
     title  ?= @statename
     end  = ""
-    end += '<!DOCTYPE html><html><head><meta charset="utf-8">'
-    end += '<meta name="viewport" content="width=1014">'
+    end += '<!DOCTYPE html><html><head>'
+    end += @site.router.head
     end += '<title>'+title+'</title>'
-    end += "<link href='//fonts.googleapis.com/css?family=Open+Sans:600,400&subset=cyrillic,latin' rel='stylesheet' type='text/css'>"
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
-    end += "<meta name='yandex-verification' content='614ca940d3db203d' />"
-    end += '<meta name="google-site-verification" content="MkOpuToHjLvx2CL30wR1gZr_scgcMzSILFjO2pO0y_Q" />'
     end += @css+'</head><body>'
-    end +='<!-- Yandex.Metrika counter --><script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter30199739 = new Ya.Metrika({ id:30199739, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/30199739" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->'
+    end += @site.router.body
     end += @top._html
     @removeHtml @top
     @time "remove html"

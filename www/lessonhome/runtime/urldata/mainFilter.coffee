@@ -51,6 +51,7 @@ class @D2U
       type : 'string'
       value : str
       default : ''
+      cookie : true
     }
   $priceLeft : (obj)=>
     type  : 'int'
