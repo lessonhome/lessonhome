@@ -1,0 +1,3 @@
+
+class @main
+  setValue : (data)=>

@@ -1,0 +1,36 @@
+@import compass/css3
+
+$icon_src: 'arrow_back.png'
+$icon_height: image-height($icon_src)
+$icon_width: image-width($icon_src)
+main
+  width: 529px
+  padding: 24px
+  background-color: #ffffff
+  text-align: left
+
+.content
+  height: 408px
+  overflow: auto
+  margin-bottom: 24px
+  .block
+    margin-bottom: 24px
+    color: #000
+    font-size: 16px
+    line-height: 24px
+
+.nav
+  text-align: right
+  a
+    +inline-block
+    .text, .icon
+      +inline-block
+    .text
+      margin-right: 12px
+      color: #000
+      font-size: 16px
+      line-height: 24px
+    .icon
+      width:  $icon_width
+      height: $icon_height
+      background: url(F($icon_src)) no-repeat

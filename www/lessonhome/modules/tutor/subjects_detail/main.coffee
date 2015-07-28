@@ -15,7 +15,7 @@ class @main
 
     subject = @tree
     #@subject_tag = subject.subject_tag.class
-    @course = subject.course.class
+    @course = subject.course.list.class
     @group_learning = subject.group_learning.class
     @duration = subject.duration.class
     @price_from = subject.price_slider.start.class
@@ -33,7 +33,6 @@ class @main
     @place_remote = subject.place_remote.class
     @place_cafe = subject.place_cafe.class
  
-
 
   show: =>
     # hide and delete function subject details
@@ -58,7 +57,7 @@ class @main
 
 
     # clear error
-    @course.on            'focus',  => @course.hideError()
+    #@course.on            'focus',  => @course.hideError()
     @group_learning.on    'focus',  => @group_learning.hideError()
     @pre_school.on        'change', => @pre_school.hideError()
     @junior_school.on     'change', => @junior_school.hideError()
@@ -70,10 +69,11 @@ class @main
     @place_pupil.on       'change', => @place_pupil.hideError()
     @place_remote.on      'change', => @place_remote.hideError()
     @place_cafe.on        'change', => @place_cafe.hideError()
-  showName : (name)=>
+  showName : (name, items)=>
     return unless name
     @found.subject_tag.text(name)
     @found.bg_block.show()
     @tree.price_slider.class.recheck()
+    @course.setItems(items)
 
 
