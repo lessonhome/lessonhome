@@ -1,3 +1,4 @@
+-selector=selector||"";
 mixin info_block ( title, array )
   .info_block.select
       .title= title+': '
@@ -11,20 +12,26 @@ mixin assoc_info_block (title, array)
     .value
       each val, index in array
         =val+' '
-
-if send_bid_this_tutor
-  .send_bid_this_tutor!=send_bid_this_tutor
-.edit_block!=line_place
-.address_and_free_time
-  .address_block
-    .address_time!=address_time
-    .map!=map
-    //.show_calendar!=show_calendar
-  .free_time
-if outside_work_areas
-  +assoc_info_block('Выезд ', outside_work_areas)
-.edit_block.top_padding!=line_subject
-.subject_details_data
-  .js-subject!=subject
-  .js-details_data!=details_data
+.conditions_content(class=selector)
+  if send_bid_this_tutor
+    .send_bid_this_tutor!=send_bid_this_tutor
+  //-.edit_block!=line_place
+  .address_and_free_time
+    .address_block
+      .address_time!=address_time
+      .map!=map
+      //.show_calendar!=show_calendar
+    .free_time
+  if outside_work_areas
+    +assoc_info_block('Выезд в районы ', outside_work_areas)
+  .calendar_wrap
+    .title_wrap
+      .title Свободное время для занятий :
+    .calendar!=calendar
+  .subjects_title
+    .title Предметы :
+  .edit_block.top_padding!=line_subject
+  .subject_details_data
+    .js-subject!=subject
+    .js-details_data!=details_data
 

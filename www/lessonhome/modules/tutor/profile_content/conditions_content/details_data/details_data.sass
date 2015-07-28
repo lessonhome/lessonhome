@@ -1,3 +1,8 @@
+
+$triangle_subject_src: 'triangle_subject.png'
+$triangle_subject_height: image-height($triangle_subject_src)
+$triangle_subject_width: image-width($triangle_subject_src)
+
 $widthLeftBlock : 100px
 $paddingAll     : 20px
 $triangle_width : 21px
@@ -6,13 +11,15 @@ main
   padding: 25px 0 $paddingAll $paddingAll           //use padding in child module, because we need .line_vertical position left to padding+width, paddig-right : 0 because have separate line
 .triangle
   position: absolute
-  width: 0
-  height: 0
+  width: $triangle_subject_width
+  height: $triangle_subject_height
+  top: - $triangle_subject_height
   border-style: solid
   border-width: 0 $triangle_width/2 12px $triangle_width/2
   border-color: transparent transparent #f3f3f3 transparent
   bottom: 100%
   left: ($widthLeftBlock+$paddingAll)/2 - $triangle_width/2
+  background: url(F($triangle_subject_src)) no-repeat
 .line_vertical
   position: absolute
   width: 2px

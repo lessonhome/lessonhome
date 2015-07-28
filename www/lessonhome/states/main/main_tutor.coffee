@@ -10,6 +10,7 @@ class @main extends @template '../main'
   }
   tree : ->
     popup : @exports()
+    popup_close_href: @exports()
     content : @module 'main_tutor/content'  :
       depend : [
         @module 'lib/crypto'
