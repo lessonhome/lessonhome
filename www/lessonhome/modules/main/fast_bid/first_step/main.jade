@@ -12,5 +12,8 @@ mixin item (value, selector)
     +item(call_time, 'call_time')
     +item(email, 'email')
   .bg_box2
-    +item(subject, 'subject')
+    label
+      .text_box
+        .subject_text Предмет
+      +item(subject, 'subject')
     +item(comments, 'comments')

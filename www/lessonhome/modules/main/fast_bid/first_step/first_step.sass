@@ -3,20 +3,37 @@ $min_width_step: 6px
 .info
   .bg_box1
     margin-bottom: 10px
+  .bg_box2
+
   .bg_box1, .bg_box2
     padding: 12px
     background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.2)
-    .box
+    label
+      .text_box
+        cursor: pointer
+        height: 24px
+        text-align: left
+        .subject_text
+          +inline-block
+          vertical-align: baseline
+          font-size: 16px
+      .title_box:after
+        content: ''
+        +inline-block
+        height: 100%
+    .box, label .box
       padding: $min_width_step 0
-    .name, .subject
+    label .subject
+      height: 37px
+    .name, label .subject
       padding-top: 0
     .email, .comments
       padding-bottom: 0
     .name,.phone,.email
       +inline-block
-      width : 100%
-      box-sizing : border-box
-      font-size : 37px
+      width: 100%
+      box-sizing: border-box
+      font-size: 37px
     .err
       overflow: hidden
       div

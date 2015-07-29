@@ -1,5 +1,5 @@
 mixin item (href, selector, line_selector,active_selector)
-    a(href=href).icon(class=selector)
+    a.icon(class=selector href=href)
       .icon_active
       .icon_done
       div(class=active_selector)

@@ -16,43 +16,41 @@ label
   width: 100%
   height: inherit
   cursor: pointer
-  line-height : inherit
+  line-height: inherit
   .text
     +inline-block
     color: rgba(75, 75, 75, 0.70)
-    float : left
-    line-height : inherit
+    float: left
+    line-height: inherit
   .drop_down_list
     +inline-block
-    float : left
+    float: left
     position: relative
     height: inherit
-    line-height : inherit
+    line-height: inherit
     width: 100%
     box-sizing: border-box
     border: $border_width solid #b2b2b2
     //+border-radius($border_radius)
     background-color: rgb( 255, 255, 255 )
     input
-      float : left
-      margin-top : -1px
+      float: left
+      margin: -1px 0 0 0
       +inline-block
-      height : inherit
-      line-height : inherit
+      height: inherit
+      line-height: inherit
       width: 100%
       +box-sizing('border-box')
-      padding: 0
-      margin: 0
-      padding-left: $padding_left
+      padding: 0 0 0 $padding_left
       border: none
       background: none
       outline: none
       color: #000000
       cursor: text
       +input-placeholder
-        margin-top : 2px
-        height : inherit
-        line-height : inherit
+        margin-top: 2px
+        height: inherit
+        line-height: inherit
         color: #757575
         opacity: 1
     .icon_box
@@ -81,7 +79,7 @@ label>.drop_down_list>.select_sets
   background-color: white
   z-index: 2
   width: 100%
-  left : -0.5px
+  left: -0.5px
   text-align: left
   //+border-bottom-right-radius($border_radius)
   //+border-bottom-left-radius($border_radius)
@@ -120,14 +118,16 @@ label>.drop_down_list>.select_sets>*>*>.custom-option>.begin
   $icon_height: image-height($icon_src)
   $icon_width: image-width($icon_src)
   label.#{$selector}
+    height: $height
+    line-height: $height
     .text
       font-size: $_font_size
       padding-right: $padding_text_r
       padding-bottom: $padding_text_b
     .drop_down_list
       width: $width
-      height: $height
-      line-height : $height
+      //height: $height
+      //line-height : $height
       input
         padding-right: (2*$icon_padding+$icon_width)
         font-size: $font_size
@@ -173,19 +173,19 @@ label>.drop_down_list>.select_sets>*>*>.custom-option>.begin
 
 
 /////////////////--------list_course---------//////////////////////
-+selector('list_course',16px,18px,'main/arrow_6x4_down.gif',10px,none,none,none,none,none)
++selector('list_course',16px,18px,'main/arrow_6x4_down.gif',10px,none,none,none,33px,none)
 ////////////////--------advanced_filter_form---------//////////////////////
-+selector('advanced_filter_form',16px,18px,'main/arrow_6x4_down.gif',10px,none,none,none,none,none)
++selector('advanced_filter_form',16px,18px,'main/arrow_6x4_down.gif',10px,none,none,none,33px,none)
 //////////////---------fast_bid---------////////
-+selector('fast_bid',16px,18px,'main/arrow_6x4_down.gif',10px,none,10px,none,37px,left)
++selector('fast_bid',16px,18px,'main/arrow_6x4_down.gif',10px,none,10px,none,none,left)
 .fast_bid
   text-align: left
 
 //falldown_triangle3.png
 //////////////---------search_bids---------////////
-+selector('search_bids',18px,18px,'main/arrow_6x4_down.gif',6px,none,none,none,none,none)
++selector('search_bids',18px,18px,'main/arrow_6x4_down.gif',6px,none,none,none,33px,none)
 /////////////// first step registration /////////////
-+selector('first_reg',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,341px,none,none)
++selector('first_reg',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,341px,33px,none)
 ////
 +selector('first_reg_day',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,91px,none,none)
 ///
@@ -264,3 +264,6 @@ label.err_effect
     +box-shadow(0 0 14px rgba(255,61,61,0.8))
 
 
+//main
+  height : inherit
+  line-height : inherit
