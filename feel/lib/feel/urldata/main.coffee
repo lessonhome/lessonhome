@@ -41,6 +41,7 @@ class UrlData
       for key,foo of form.D2U
         continue unless m = key.match /^\$(.*)$/
         res = yield foo {}
+        res.cookie ?= false
         throw new Error "need type in field #{m[1]} in urlform #{fname}" unless res.type
         @json.forms[fname][m[1]] ?= yield @next()
         unless res.default?
@@ -57,6 +58,7 @@ class UrlData
           form  : fname
           field : m[1]
           type  : res.type
+          cookie : res.cookie
           default : res.default
         }
     yield _writeFile "#{@path}/static/urldata/#{@hostname}.json", JSON.stringify @json,4,4

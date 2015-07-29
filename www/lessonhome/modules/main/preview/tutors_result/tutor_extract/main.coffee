@@ -22,6 +22,22 @@ class @main extends EE
 
   show: =>
     @hideExtraText() # hide text that is larger than the maximum length and show full text by click
+    @found.add_button_bid.click @addTutor
+  addTutor : => Q.spawn =>
+    linked = yield Feel.urlData.get 'mainFilter','linked'
+    if linked[@tree.value.index]?
+      delete linked[@tree.value.index]
+    else
+      linked[@tree.value.index] = true
+    @setLinked linked
+    yield Feel.urlData.set 'mainFilter','linked',linked
+  setLinked : (linked)=> Q.spawn =>
+    linked ?= yield Feel.urlData.get 'mainFilter','linked'
+    if linked[@tree.value.index]?
+      @tree.add_button_bid?.class?.setValue {text:'Прикреплено к заявке',color:'#FF7F00',pressed:true}
+    else
+      @tree.add_button_bid?.class?.setValue {text:'Прикрепить к заявке'}
+
   hideExtraText: =>
     max_length = 147
     block = @tutor_text
@@ -37,6 +53,7 @@ class @main extends EE
 
   setValue : (value) =>
     @tree.value[key] = val for key,val of value
+    @setLinked()
     value = @tree.value
     #@with_verification.css 'background-color', value.with_verification if value?.with_verification?
     @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")

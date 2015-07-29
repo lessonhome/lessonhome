@@ -160,6 +160,20 @@ $icon_src: 'invite/mail_18x13.png'
 +selector_new('support', hsl(0,0%,90.2%), 16px)
 
 
+//- --------------- Profile on main page --------------------------------
+
+$search_pattern_src: 'main/search_pattern.png'
+.profile_contact>.button, .profile_add>.button
+  box-sizing: border-box
+  border: 1px solid rgba(0, 0, 0, 0.24)
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), inset 0px 2px 0px 0px rgba(255, 255, 255, 0.2)
+  background: url(F($search_pattern_src))
+.profile_contact>.button
+  background-color: #00bbd3
+.profile_add>.button
+  background-color: #009587
+
+
 ////////////////  actions  ////////////////
 
 .button_box:hover
@@ -168,6 +182,9 @@ $icon_src: 'invite/mail_18x13.png'
     box-sizing: border-box
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
 
+.button_box .button.pressed
+  box-sizing: border-box
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px 2px 0px 0px inset
 
 
 .press,.press:hover
@@ -180,6 +197,8 @@ $icon_src: 'invite/mail_18x13.png'
 
 
 
+
+  
 
 
 

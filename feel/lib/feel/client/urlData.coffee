@@ -25,8 +25,27 @@ class @urlData
     yield @udata.init @json,@forms
 
     @state  = History.getState()
-    @data   = yield @udata.u2d @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
-    @fdata  = yield @udata.u2d fstate?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
+    url = @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
+    url2 = url.split '&'
+    url = {}
+    cook = $.cookie('urldata') ? ''
+    cook = decodeURIComponent cook
+    cook = '{}' unless cook
+    cook = JSON.parse cook
+    cook ?= {}
+    for u in url2
+      continue unless u
+      u = u.split '='
+      url[u[0]] = u[1]
+    url[key] ?= val for key,val of cook
+    str = ''
+    for key,val of url
+      str += '&' if str
+      str += key if key
+      str += '='+val if val?
+    console.log {str}
+    @data   = yield @udata.u2d str ? ''
+    @fdata  = yield @udata.u2d str ? '' #fstate?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     for key of @forms
       @data[key] ?= {}
       @fdata[key] ?= {}
@@ -59,7 +78,7 @@ class @urlData
     #@state  = History.getState()
     #@data   = yield @udata.u2d @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     @udata.d2u yield @get()
-  udataToUrl : (url=window.location.href,...,skip='not')=>
+  udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
     console.log 'url',url
     params = {}
     unless typeof url == 'string'
@@ -83,6 +102,19 @@ class @urlData
     console.log params
     urldata = ""
     purl = []
+    if usecookie == 'true'
+      cook = $.cookie('urldata') ? ''
+      cook = decodeURIComponent cook
+      cook = '{}' unless cook
+      cook = JSON.parse cook
+      cook ?= {}
+      for key,val of @udata.json.shorts
+        if val?.cookie
+          unless params?[key]?
+            delete cook?[key]
+          else
+            cook[key] = params?[key]
+      $.cookie 'urldata', encodeURIComponent JSON.stringify cook
     for key,val of params
       purl.push [key,val]
     purl.sort (a,b)-> a[0]<b[0]
@@ -90,6 +122,9 @@ class @urlData
       urldata += '&' if urldata && p[0]
       urldata += p[0] if p[0]
       urldata += '='+p[1] if p[1]? && p[0]
+      #if p[0]? && @udata.json.shorts?[p?[0]]?.cookie
+      #  cook[p[0]] = p[1]
+      #else
     if urldata
       urldata = "?#{urldata}"
     else
@@ -98,7 +133,7 @@ class @urlData
     obj.url += urldata
     return obj.url
   setUrl : =>
-    url = yield @udataToUrl(undefined,'skip')
+    url = yield @udataToUrl(undefined,'true','skip')
     url = url.replace /^(.*\:\/\/[^\/]*)/, ''
     #url = yield @udata.d2u @data
     #@data = yield @udata.u2d url

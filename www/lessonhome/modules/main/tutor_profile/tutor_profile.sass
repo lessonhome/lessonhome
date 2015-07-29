@@ -1,0 +1,58 @@
+@import compass/css3
+
+$back_src: 'arrow_back.png'
+$back_height: image-height($back_src)
+$back_width: image-width($back_src)
+
+main
+  padding-top: 12px
+  background-color: #fff
+.navigation
+  padding: 6px 0px 6px 21px
+  background-color: #f9f9f9
+  text-align: left
+  div
+    +inline-block
+  .general, .subjects, .reviews
+    height: 36px
+  .general, .subjects
+    margin-right: 24px
+  .general
+    width: 102px
+  .subjects
+    width: 272px
+  .reviews
+    width: 116px
+  .back
+    margin-left: 324px
+    cursor: pointer
+    .text, .icon
+      +inline-block
+    .icon
+      margin-left: 10px
+      width: $back_width
+      height: $back_height
+      background: url(F($back_src)) no-repeat
+.center_block
+  padding-top: 12px
+  text-align: left
+  .content, .buttons
+    +inline-block
+    vertical-align: top
+  .content
+    padding-bottom: 24px
+    margin: 0 24px 0 15px
+    width: 816px
+    min-height: 696px
+  .buttons
+    padding-top: 24px
+    width: 144px
+    .contact, .add
+      width: 144px
+      height: 72px
+    .contact
+      margin-bottom: 24px
+
+.center_block.subjects, .center_block.reviews
+  .content
+    padding-top: 24px

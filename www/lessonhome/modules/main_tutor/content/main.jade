@@ -46,7 +46,7 @@ mixin review(selector, name, text)
       .checkbox
         .field!= agree_checkbox
         .text.select!= 'Я прочитал и согласен с '
-          a.m-Link.select Условиями оказания информационных услуг
+          a.m-Link.select(href="/terms_of_cooperation") Условиями оказания информационных услуг
         .js-checkbox_error Пожалуйста, ознакомьтесь с условиями оказания услуг
       .buttons
         .create_account!=create_account

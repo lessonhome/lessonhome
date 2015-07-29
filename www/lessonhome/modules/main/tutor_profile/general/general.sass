@@ -1,0 +1,108 @@
+@import compass/css3
+
+.left, .right
+  +inline-block
+  vertical-align: top
+.left
+  margin-right: 24px
+  width: 144px
+  text-align: left
+  div
+    +inline-block
+  .rating_wrap
+    height: 24px
+    width: 100%
+    padding-left: 6px
+    text-align: left
+    .rating
+      +inline-block
+  .rating_wrap:after
+    content: ""
+    height: 100%
+    +inline-block
+  .avatar_wrap
+    height: 192px
+    .avatar
+      background-color: #1b9d6b
+      width: 144px
+      height: 180px
+  .photo_wrap, .video_wrap
+    width: 100%
+    background-color: #f9f9f9
+    border: 1px solid #cccccc
+  .photo_wrap, .video_wrap
+    margin-top: 24px
+    .title_wrap
+      padding-left: 11px
+      height: 36px
+      font-size: 16px
+      .title
+        +inline-block
+    .title_wrap:after
+      content: ""
+      height: 100%
+      +inline-block
+  .photo_wrap
+    .val
+      padding-left: 11px
+      padding-bottom: 5px
+      .photo
+        +inline-block
+        width: 57px
+        height: 57px
+        margin: 0 6px 6px 0
+        background-color: rgba(186, 187, 189, 0.39)
+  .video_wrap
+    .val
+      text-align: center
+      .video
+        +inline-block
+        width: 120px
+        height: 120px
+        margin-bottom: 11px
+        background-color: rgba(186, 187, 189, 0.39)
+
+.right
+  padding-top: 24px
+  width: 648px
+  .description, .edu, .about
+    margin-bottom: 24px
+    padding: 0 0 12px 24px
+    background-color: #f3f3f3
+    border: 1px solid #cccccc
+  .description
+    .full_name_wrap
+      height: 48px
+      text-align: left
+      .full_name
+        +inline-block
+        text-align: left
+        font-size: 18px
+    .full_name_wrap:after
+      content: ""
+      height: 100%
+      +inline-block
+
+  .edu, .about
+    .title_wrap
+      height: 48px
+      text-align: left
+      .title
+        +inline-block
+        text-align: left
+        font-size: 18px
+    .title_wrap:after
+      content: ""
+      height: 100%
+      +inline-block
+
+  .about
+    .data
+      padding-right: 123px
+      text-align: left
+      div
+        font-size: 18px
+        line-height: 24px
+        color: #000
+      .sub_title
+        margin: 24px 0

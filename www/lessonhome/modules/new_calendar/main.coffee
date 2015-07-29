@@ -4,10 +4,11 @@ class @main extends EE
     @click_day  = @found.click_day
 
   show : =>
-    for val in @click_day
-      do (val)=>
-        val = $ val
-        val.on 'click', => @chose_day val
+    if @click_day?.length
+      for val in @click_day
+        do (val)=>
+          val = $ val
+          val.on 'click', => @chose_day val
 
 
   chose_day : (val)=>

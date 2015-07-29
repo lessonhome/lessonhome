@@ -9,6 +9,10 @@ class Router
       text  : {}
       reg   : []
   init : =>
+    try @head = _fs.readFileSync(process.cwd()+"/www/#{@site.name}/config/head/head.html").toString()
+    try @body = _fs.readFileSync(process.cwd()+"/www/#{@site.name}/config/body/body.html").toString()
+    @head ?= ''
+    @body ?= ''
     for statename,state of @site.state
       route = state.class::route
       if route

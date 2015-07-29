@@ -6,3 +6,4 @@ class @main extends @template '../main_tutor'
   tree : ->
     popup : @state '../call_back_popup' :
       href: '/main_tutor'
+    popup_close_href: '/main_tutor'

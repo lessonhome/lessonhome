@@ -12,49 +12,89 @@ $icon_height: image-height($button_wrap)
 $icon_width: image-width($button_wrap)
 main
   overflow: hidden
-  padding: 50px 20px
-.send_bid_this_tutor
-  position: absolute
-  right: -8px
-  top: 170px
-.edit_block
-  padding-bottom: 20px
-.address_and_free_time
-  height: $height_address_time
-  .address_block
+.conditions_content
+  padding: 0px 20px
+  .send_bid_this_tutor
+    position: absolute
+    right: -8px
+    top: 170px
+  .address_and_free_time
+    height: $height_address_time
+    margin-bottom: 24px
+    .address_block
+      height: 100%
+      overflow: hidden
+      .address_time
+        border: 1px solid #cbcbcb
+        height: $height_info_panel
+        line-height: $height_info_panel
+      .map
+        height: $height_address_time - $height_info_panel
+        width: 100%
+        float: left
+      //.show_calendar
+        margin-left: $map_width + $padding_calendar
+        background: #f3f3f3
+        height: $height_address_time - $height_info_panel
+  .info_block
+    height: 48px
+    padding-left: 20px
+    background-color: #f3f3f3
+    border: 1px solid #cecece
+    text-align: left
+    .title, .value
+      +inline-block
+    .title
+      font-size: 20px
+      color: rgba(0, 0, 0, 0.702)
+    .value
+      margin-left: 24px
+      font-size: 18px
+      color: rgb(0, 0, 0)
+  .info_block:after
+    content: ""
     height: 100%
-    overflow: hidden
-    .address_time
+    +inline-block
+  .calendar_wrap
+    margin-top: 24px
+    padding-bottom: 24px
+    background-color: #f3f3f3
+    border: 1px solid #cecece
+    box-sizing: border-box
+    .title_wrap
+      height: 48px
+      padding-left: 12px
+      .title
+        +inline-block
+        font-size: 20px
+    .title_wrap:after
+      +inline-block
+      content: ''
+      height: 100%
+    .calendar
+      padding-left: 30px
+  .subjects_title
+    margin: 24px 0 12px 0
+    height: 48px
+    box-sizing: border-box
+    padding-left: 14px
+    background-color: #f3f3f3
+    border: 1px solid #cdcdcd
+    .title
+      +inline-block
+      font-size: 20px
+  .subjects_title:after
+    +inline-block
+    content: ''
+    height: 100%
+  .subject_details_data
+    .subject
       height: $height_info_panel
       line-height: $height_info_panel
-    .map
-      height: $height_address_time - $height_info_panel
-      width: 100%
-      float: left
-    //.show_calendar
-      margin-left: $map_width + $padding_calendar
+      cursor: pointer
+      border: 1px solid #cbcbcb
+    .details_data
       background: #f3f3f3
-      height: $height_address_time - $height_info_panel
-.info_block
-  height: $height_line
-  line-height: $height_line
-  padding-left: 20px
-  .title
-    width: $width_title
-    float: left
-    font-size: 20px
-    color: rgba(0, 0, 0, 0.702)
-  .value
-    margin-left: $width_title
-    font-size: 18px
-    color: rgb(0, 0, 0)
-.edit_block.top_padding
-  padding-top: 50px
-.subject_details_data
-  .subject
-    height: $height_info_panel
-    line-height: $height_info_panel
-    cursor: pointer
-  .details_data
-    background: #f3f3f3
-    position: relative
+      position: relative
+.conditions_content.list_tutors
+  padding: initial
