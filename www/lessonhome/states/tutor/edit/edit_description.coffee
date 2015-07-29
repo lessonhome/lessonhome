@@ -7,6 +7,7 @@ class @main extends @template '../edit'
       'Карьера'     : 'career'
       'О себе'      : 'about'
       'Настройки'   : 'settings'
+    selector          : @exports()
     active_item       : @exports()
     menu_description  : @exports()
     tutor_edit        : @exports()

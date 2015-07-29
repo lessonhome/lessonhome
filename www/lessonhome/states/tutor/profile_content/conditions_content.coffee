@@ -18,6 +18,7 @@ class @main
     address : @exports()               # in pair with map
     calendar: @module 'new_calendar' :
       selector: 'tutor_profile'
+      click_ability: @exports()
     ###
       show_calendar      : @module '$/show_calendar' :
         day_time : @exports 'calendar'

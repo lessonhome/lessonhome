@@ -6,8 +6,10 @@ class @main
     @subject = @tree.subject.class
     @map     = @tree.map.class
     @address = @tree.address
+
   show : =>
     @subject_div.on 'click', => @subjectOnClick @subject, @details_data
+    console.log @address
     @map.go(@address).then (ret)->
       if !ret
         console.log ret
@@ -16,3 +18,6 @@ class @main
   subjectOnClick : (subject, details)=>
     subject.changeIcon()
     details.toggle()
+
+  setValue: (data)=>
+
