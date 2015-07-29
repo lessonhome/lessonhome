@@ -20,17 +20,17 @@ class @main extends @template './preview'
         ]
 
       button_back : @module 'link_button' :
-        selector: @exports()
+        selector: @exports 'style_button_back'
         text:     'Назад'
-        href     : @exports()
+        href     : @exports 'href_button_back'
       issue_bid : @module 'link_button' :
-        selector: @exports()
+        selector: @exports 'style_issue_bid'
         text: 'Отправить заявку'
-        href: @exports()
+        href: @exports 'href_issue_bid'
       button_next : @module 'link_button' :
-        selector:  @exports()
+        selector:  @exports 'style_button_next'
         text:     'Далее'
-        href:     @exports()
+        href:     @exports 'href_button_next'
 
 
 

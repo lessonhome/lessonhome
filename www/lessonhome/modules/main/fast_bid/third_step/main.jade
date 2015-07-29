@@ -1,17 +1,23 @@
 .info.unselect
   .bg_box
-    .title.select Статус :
+    .text_box
+      .title Статус :
     .student!= student
     .teacher!= teacher
     .professor!= professor
     .native!= native
     //.hint!= location_hint
   .bg_box
-    .experience!=experience
+    label
+      .text_box
+        .title Опыт
+      .experience!=experience
   .bg_box
-    .title Возраст :
+    .text_box
+      .title Возраст :
     .age_slider!=age_slider
   .bg_box1
-    .title Пол :
+    .text_box
+      .title Пол :
     .gender_data!=gender_data
     //.hint!=lesson_time_hint
