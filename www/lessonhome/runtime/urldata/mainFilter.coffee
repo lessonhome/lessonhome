@@ -38,6 +38,10 @@ boolSetR = (obj,list)=>
   return ret
 
 class @D2U
+  $test : (obj)=>
+    type  : 'int'
+    value : obj?.test
+    default : 0
   $linked : (obj)=>
     console.log 'linked1',obj?.linked
     str = Object.keys(obj?.linked ? {})?.join?('.') ? ''
@@ -127,6 +131,7 @@ class @D2U
     default : true
   
 class @U2D
+  $test : (obj)=> obj?.test
   $linked : (obj)=>
     console.log 'linked-1',obj?.linked
     str = obj?.linked ? ''

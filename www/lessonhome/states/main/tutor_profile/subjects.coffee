@@ -36,3 +36,4 @@ class @main extends @template '../tutor_profile'
             selector  : 'horizon'
         line_vertical : @module 'tutor/separate_line':
           selector  : 'vertical'
+      click_ability: false

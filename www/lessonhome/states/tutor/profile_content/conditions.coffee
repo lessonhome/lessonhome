@@ -51,6 +51,7 @@ class @main extends @template '../../tutor'
             selector  : 'horizon'
         line_vertical : @module 'tutor/separate_line':
           selector  : 'vertical'
+      click_ability: false
 #edit  : true
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'

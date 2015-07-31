@@ -1,8 +1,9 @@
+-selector=selector||"";
 //if title
   .title_block.select
     .title!=title
 .js-changes_field!=changes_field
-.block_edit
+.block_edit(class=selector)
   .tutor_edit!=tutor_edit
   if possibility_save_button
     .save_button!=save_button

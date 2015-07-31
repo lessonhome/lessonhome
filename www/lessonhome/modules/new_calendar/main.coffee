@@ -4,7 +4,7 @@ class @main extends EE
     @click_day  = @found.click_day
 
   show : =>
-    if @click_day?.length
+    if @tree.click_ability
       for val in @click_day
         do (val)=>
           val = $ val
