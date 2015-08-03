@@ -8,7 +8,7 @@ class @main extends @template '../main'
       reps : [
         @module '$/tutor_block' :
           img  :
-            src : @F('main/best_rep1.jpg')
+            src : @F('main/best_1.jpg')
             w   : 112
             h   : 112
           subject: 'Физика'
@@ -17,7 +17,7 @@ class @main extends @template '../main'
           about_text: 'Быстро подготовлю к любым экзаменам по физике. Индидуальный подход к ученику'
         @module '$/tutor_block' :
           img  :
-            src : @F('main/best_rep2.jpg')
+            src : @F('main/best_2.jpg')
             w   : 112
             h   : 112
           subject: 'Русский язык'
@@ -26,7 +26,7 @@ class @main extends @template '../main'
           about_text: 'Очень люблю и ценю свою работу, люблю преподавать материал порционно для облегчённого понимания'
         @module '$/tutor_block' :
           img  :
-            src : @F('main/best_rep3.jpg')
+            src : @F('main/best_3.jpg')
             w   : 112
             h   : 112
           subject: 'Английский язык'
@@ -35,7 +35,7 @@ class @main extends @template '../main'
           about_text: 'Английский язык - это просто! Быстро помогу освоить навыки говорения, чтения и беглой речи!'
         @module '$/tutor_block' :
           img  :
-            src : @F('main/best_rep4.jpg')
+            src : @F('main/best_4.jpg')
             w   : 112
             h   : 112
           subject: 'История'
