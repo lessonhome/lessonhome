@@ -14,7 +14,7 @@ $icon_width: image-width($icon_src)
     margin-right: 5px
     margin-bottom: 5px
     height: 25px
-    overflow: hidden
+    line-height : 25px
     background-color: #dbdbdb
     border: 1px solid rgba(0,0,0,0.1)
     cursor: pointer
@@ -22,16 +22,21 @@ $icon_width: image-width($icon_src)
     +border-radius(4px)
     .text_box
       padding: 0 10px 0 6px
-      height: 100%
+      height: inherit
       +inline-block
+      float : left
+      margin-top : -1px
       .text
         +inline-block
         font-size: 14px
+        float : left
         color: #717171
     .close_box
       width: $icon_width
       height: $icon_height
       padding: 3px
+      float : right
+      transform: translateY(50%)
       margin-right: 6.5px
       +inline-block
       background: #ffffff

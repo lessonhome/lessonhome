@@ -223,6 +223,8 @@ class @main extends EE
               event.preventDefault()
             when @unit.esc
               @select_sets.hide()
+            when @unit.enterCode
+              @select_sets.hide()
             else
               #if !(@select_sets.is(':visible'))
               showSelectOptions()
@@ -232,10 +234,14 @@ class @main extends EE
           switch event.keyCode
             when @unit.arrowDown
               event.preventDefault()
+              if @closed
+                @showSelectOptions()
               nextSelected @options
               selectedOptionToInput(false)
             when @unit.arrowUp
               event.preventDefault()
+              if @closed
+                @showSelectOptions()
               prevSelected @options
               selectedOptionToInput(false)
             when @unit.enterCode

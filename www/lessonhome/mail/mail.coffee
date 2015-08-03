@@ -27,7 +27,7 @@ attachments = [
 ]
 mailOptions =
   from : 'Лессон Хоум ✔ <support@lessonhome.ru>'
-  to   : 'tema.dudko@gmail.com'
+  to   : '123poipqewpoksdal2@zoho.com'
   subject : 'Тестовое письмо'
   html : fs.readFileSync('./main.html').toString()
   attachments : attachments

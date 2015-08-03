@@ -11,8 +11,6 @@
     # empty
     if subject.duration.length == 0
       errs.push "empty_duration":i
-    if subject.course.length == 0
-      errs.push "empty_course":i
     #if f.qualification.length == 0
     #  errs.push "empty_qualification"
     if subject.group_learning.length == 0

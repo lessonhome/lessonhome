@@ -166,9 +166,9 @@ class @main
       #empty
       when "empty_duration"
         @subjects[i].duration.showError ""
-      when "empty_course"
-        @subjects[i].course.setErrorDiv @out_err_course
-        @subjects[i].course.showError "Выберите курс"
+      #when "empty_course"
+      #  @subjects[i].course.setErrorDiv @out_err_course
+      #  @subjects[i].course.showError "Выберите курс"
       #when "empty_qualification"
       #  @qualification.setErrorDiv @out_err_qualification
       #  @qualification.showError "Выберите квалификацию"
@@ -183,9 +183,9 @@ class @main
         @subjects[i].place_tutor.showError "Выберите место занятий"
 
       #correct
-      when "bad_course"
-        @subjects[i].course.setErrorDiv @out_err_course
-        @subjects[i].course.showError "Выберите корректный курс"
+      #when "bad_course"
+      #  @subjects[i].course.setErrorDiv @out_err_course
+      #  @subjects[i].course.showError "Выберите корректный курс"
       #when "bad_qualification"
       #  @qualification.setErrorDiv @out_err_qualification
       #  @course.showError "Выберите корректную квалификацию"
