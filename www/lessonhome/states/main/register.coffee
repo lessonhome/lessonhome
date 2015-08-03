@@ -1,7 +1,7 @@
 
 class @main extends @template '../main'
-  route : '/main_tutor_abTest_1'
-  tags  : -> 'pupil:main_tutor'
+  route : '/tutor_registration'
+  tags  : -> ['registration']
   model : 'main/registration'
   title : "Регистрация"
   access : ['other','pupil']
@@ -10,7 +10,7 @@ class @main extends @template '../main'
   }
   tree : ->
     popup : @exports()
-    content : @module 'main_tutor_test/content'  :
+    content : @module 'register/content'  :
       depend : [
         @module 'lib/crypto'
         @module 'lib/lzstring'

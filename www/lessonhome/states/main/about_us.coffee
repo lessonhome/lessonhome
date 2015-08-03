@@ -6,14 +6,8 @@ class @main extends @template '../main'
   access : ['other','pupil','tutor']
   tree : =>
     content: @module '$' :
-      last_tutors: [
-        @module '$/last_tutor' :
-          subject: 'Английский язык'
-          full_name: 'Иванова Е.Ю.'
-        @module '$/last_tutor' :
-          subject: 'Английский язык'
-          full_name: 'Иванова Е.Ю.'
-        @module '$/last_tutor' :
-          subject: 'Английский язык'
-          full_name: 'Иванова Е.Ю.'
-      ]
+      reg_button: @module 'link_button' :
+        selector: 'about_us'
+        text: 'ЗАРЕГИСТРИРОВАТЬСЯ'
+        href: '/tutor_registration'
+        active: true
