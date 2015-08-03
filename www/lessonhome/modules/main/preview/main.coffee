@@ -45,7 +45,7 @@ class @main extends EE
         @filter().done()
     @on 'change', => Q.spawn =>
       @changed = true
-      @tnum = 4
+      #@tnum = 4
       yield @filterChange()
     ###
     @tutors_result = @tree.tutors_result
