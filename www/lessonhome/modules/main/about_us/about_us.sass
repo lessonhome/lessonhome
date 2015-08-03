@@ -1,0 +1,118 @@
+
+@import compass/css3
+
+$main_pattern_src: 'main/main_pattern.png'
+
+$illustration_1_src: 'main/about_1.png'
+$illustration_1_height: image-height($illustration_1_src)
+$illustration_1_width: image-width($illustration_1_src)
+
+$illustration_2_src: 'main/about_2.png'
+$illustration_2_height: image-height($illustration_2_src)
+$illustration_2_width: image-width($illustration_2_src)
+
+$illustration_3_src: 'main/about_3.png'
+$illustration_3_height: image-height($illustration_3_src)
+$illustration_3_width: image-width($illustration_3_src)
+
+$illustration_4_src: 'main/about_4.png'
+$illustration_4_height: image-height($illustration_4_src)
+$illustration_4_width: image-width($illustration_4_src)
+
+$illustration_5_src: 'main/about_5.png'
+$illustration_5_height: image-height($illustration_5_src)
+$illustration_5_width: image-width($illustration_5_src)
+
+div
+  text-align: left
+  .left, .right
+    +inline-block
+    vertical-align: top
+
+.about_us, .rating
+  background: url(F($main_pattern_src))
+.freedom_of_choice, .last_tutors
+  background-color: #fff
+
+.about_us
+  padding-top: 48px
+  .left
+    width: 183px
+    padding-left: 20px
+    padding-top: 60px
+    box-sizing: border-box
+    .illustration
+      width:  $illustration_1_width
+      height: $illustration_1_height
+      background: url(F($illustration_1_src)) no-repeat
+  .right
+    padding-left: 25px
+    .title, .text
+      color: #000
+      line-height: 24px
+    .title
+      margin-bottom: 24px
+      font-size: 24px
+      font-weight: 600
+    .text
+      font-size: 16px
+
+.freedom_of_choice
+  padding-top: 48px
+  padding-bottom: 72px
+  .left
+    width: 183px
+    padding-left: 20px
+    padding-top: 24px
+    .illustration
+      width:  $illustration_2_width
+      height: $illustration_2_height
+      background: url(F($illustration_2_src)) no-repeat
+  .right
+    padding-left: 25px
+    .title, .text
+      color: #000
+      line-height: 24px
+    .title
+      margin-bottom: 24px
+      font-size: 20px
+      font-weight: 600
+    .text
+      font-size: 16px
+    .items
+      margin-bottom: 24px
+      .item
+        padding-left: 9px
+        .icon, .text
+          +inline-block
+        .icon
+          margin-right: 9px
+          width: 6px
+          height: 6px
+          background-color: #000
+          border-radius: 50%
+        .text
+          color: #000
+          font-size: 16px
+          line-height: 24px
+
+.rating
+  position: relative
+  .left
+    .illustration_5
+      width:  $illustration_5_width
+      height: $illustration_5_height
+      background: url(F($illustration_5_src)) no-repeat
+    .illustration_4
+      width:  $illustration_4_width
+      height: $illustration_4_height
+      background: url(F($illustration_4_src)) no-repeat
+
+  .illustration_3
+    position: absolute
+    right: 81px
+    top: -48px 
+    width:  $illustration_3_width
+    height: $illustration_3_height
+    background: url(F($illustration_3_src)) no-repeat
+
