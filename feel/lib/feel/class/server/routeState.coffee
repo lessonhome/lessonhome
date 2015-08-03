@@ -114,7 +114,7 @@ class RouteState
         access = true
         break
 
-    unless access
+    unless access || @req.user.admin
       _setKey @req.udata,'accessRedirect.redirect',@req.url
       for key,val of sclass::redirect
         if @req.user?.type?[key]?
