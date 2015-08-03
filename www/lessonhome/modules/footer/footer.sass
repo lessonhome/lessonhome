@@ -20,13 +20,19 @@ $border_radius: 2px
 main
   position: relative
   height: 100%
-  background-color: #5B6D63
-  background-image: url(F('main/chalkboard_pattern.jpg'))
-  box-shadow: 0px 120px 60px -60px rgba(0, 0, 0, 0.05) inset
+  background: url(F('main/chalkboard_pattern.jpg')), #5B6D63
+  box-shadow: 0px 120px 60px -60px rgba(0, 0, 0, 0.05) inset, 0 11px 8px -8px rgba(0, 0, 0, 0.53) inset
   font-size: 16px
   color: #ffffff
   padding: 4*$min_width_step 15px 6*$min_width_step 15px
-
+.bg_block
+  position: absolute
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  background-color: rgba(255, 255, 255, 0.1)
+  z-index: 1
 .top_block
   padding-bottom: 24px
   box-sizing: border-box
