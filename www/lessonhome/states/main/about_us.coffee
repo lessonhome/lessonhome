@@ -9,4 +9,5 @@ class @main extends @template '../main'
       reg_button: @module 'link_button' :
         selector: 'about_us'
         text: 'ЗАРЕГИСТРИРОВАТЬСЯ'
-        
+        href: '/tutor_registration'
+        active: true
