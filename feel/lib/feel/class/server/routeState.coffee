@@ -381,6 +381,7 @@ class RouteState
           '};
           $Feel.user = {};
           $Feel.user.id = "'+(@req.user.id||666)+'";
+          $Feel.user.type = '+JSON.stringify(@req.user.type ? {})+';
           $Feel.user.sessionpart = "'+(@req.session.substr(0,8))+'";
           $Feel.modules = {};
           $Feel.urlforms = {};')+

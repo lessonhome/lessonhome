@@ -3,7 +3,13 @@
 class @Feel
   constructor : ->
     window.Feel  = @
+    @production = true if (window.location.hostname ? '').match /lessonhome\.ru/
+
   init : => do Q.async =>
+    for key,val of $Feel.user?.type
+      #if $Feel.user?.type?.admin
+      if val
+        $.cookie key,true,{path:'/'}
     for key,val of $Feel
       @[key] = val
 
@@ -33,7 +39,8 @@ class @Feel
     @_popupAdd = {}
     $(document).on 'mousedown.popupAdd', @popupAddDown
     #$(document).on 'mouseleave.popupAdd', @popupAddLeave
-
+    if $.cookie 'tutor'
+      @sendActionOnceIf 'reaccess',1000*60*30
 
   error : (e,args...)=>
     return unless e?
@@ -163,6 +170,30 @@ class @Feel
       continue if $.contains (v.main?[0] ? v.main),t.target
       v?.foo?()
       delete @_popupAdd[key]
+  sendAction : (action,params)=>
+    @yaC ?= yaCounter30199739
+    #return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
+    unless params?
+      @yaC?.reachGoal? action
+    else
+      @yaC?.reachGoal? action,params
+  sendActionOnce : (action,time)=>
+    cook = $.cookie('sendAction__'+action)
+      
+    t = new Date().getTime()
+    if time?
+      $.cookie('sendAction__'+action,t,{path:'/'})
+      return if cook? && ((t-cook)<time)
+    return if cook? && (!time?)
+    $.cookie('sendAction__'+action,t,{path:'/'})
+    @sendAction action
+  sendActionOnceIf : (action,time)=>
+    t = new Date().getTime()
+    cook = $.cookie('sendAction__'+action)
+    return $.cookie('sendAction__'+action,t,{path:'/'}) unless cook?
+    @sendActionOnce action,time
+
+    
 
 
 window.Feel = new @Feel()
