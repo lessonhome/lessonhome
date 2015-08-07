@@ -1,4 +1,5 @@
 - if (value && (typeof value == 'object'))tags = value;
+- if (typeof tags == 'string') tags = {"0":tags};
 .list!=list
 .js-tags
   if ((typeof tags !== "undefined" && tags !== null ? tags[0] : void 0) != null)

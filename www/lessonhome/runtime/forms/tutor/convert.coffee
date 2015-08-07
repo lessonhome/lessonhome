@@ -31,10 +31,25 @@ class @F2V
   $subject  : (data)-> data?.subjects?[0]
   $isTag    : (data)->
     ret = {}
-    tags = (yield @$subject(data))?.tags || []
-    for key,tag of tags
-      ret[tag] = true
+    tags = (yield @$subject(data))?.tags
+    nt = {}
+    if tags?[0]?
+      for key,val of tags
+        if typeof val == 'object'
+          for k,v of val
+            nt[v] = true
+        else
+          nt[val] = true
+      tags = nt
+    for key,val of tags
+      ret[key] = if val then true else false
+    console.log 'isTag',ret
     return ret
+    #ret = {}
+    #tags = (yield @$subject(data))?.tags || []
+    #for key,tag of tags
+    #  ret[tag] = true
+    #return ret
   $isPlace    : (data)->
     ret = {}
     tags = (yield @$subject(data))?.place || []
@@ -48,6 +63,27 @@ class @F2V
       right : r?.pop?() || 1500
     }
     return ret
+  $scourse : (data)->
+    course = (yield @$subject(data))?.course
+    tags   = (yield @$subject(data))?.tags
+    unless course && typeof course == 'object'
+      course = {}
+      if typeof tags == 'string'
+        o = {}
+        o[tags] = 1.0
+        tags = o
+      return {} unless tags && (typeof tags=='object')
+      set = 0
+      for key,val of tags
+        if (typeof val == 'number') && (+val > 0)
+          course[set++] = key
+      unless set>0
+        if typeof tags[0] == 'string'
+          course[set++] = tags[0]
+    return course
+      
+
+
   $sduration  : (data)->
     d = (yield @$subject(data))?.price?.duration
     if d?.left?

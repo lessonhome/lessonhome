@@ -1,18 +1,26 @@
 
 check = require("./check")
 
+
+
 @handler = ($,data)=>
   errs = check.check data
   return {status:"failed",errs:["access_failed"]} unless $.user.tutor
   if errs.length
     return {status:'failed',errs:errs}
+  data.course ?= {}
+  data.course = {0:data.course} if typeof data.course  == 'string'
+  data.course = {} unless typeof data.course == 'object' || (!data.course)
+  
+  tags = {}
+  for key,val of data.course
+    tags[data.course] = 1.0
 
-  tags = []
-  tags.push data.course
+  #tags.push data.course
+
   for val, key in data.categories_of_students
-    console.log 'AAron'
-    console.log val
-    if val
+    
+    #if val
       switch key
         when 0
           tags.push "school:0"

@@ -68,6 +68,7 @@ class @main extends EE
     }).then ({status,session,err})=>
       console.log 'login',status
       if status == 'success'
+        Feel.sendAction 'login'
         @success = true
         #@found.form.submit()
         Feel.formSubmit @found.form

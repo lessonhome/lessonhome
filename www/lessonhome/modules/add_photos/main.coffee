@@ -28,6 +28,7 @@ class AddPhotos
     @log e,data
     $.getJSON('/uploaded/image')
     .success (data)=>
+      Feel.sendActionOnce 'ava_upload'
       console.log data
       @setPhoto data.url,data.width,data.height
     .error (err)=>

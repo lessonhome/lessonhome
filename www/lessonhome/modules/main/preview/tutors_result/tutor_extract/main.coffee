@@ -19,7 +19,6 @@ class @main extends EE
     @tutor_text         = @found.tutor_text
     #@tutor_price        = @found.tutor_price
 
-
   show: =>
     #@hideExtraText() # hide text that is larger than the maximum length and show full text by click
     @found.choose_button.click @addTutor
