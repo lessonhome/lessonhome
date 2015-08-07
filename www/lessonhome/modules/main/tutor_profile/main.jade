@@ -1,13 +1,59 @@
--selector=selector||"";
-.navigation
-  .general!=general
-  .subjects!=subjects
-  .reviews!=reviews
-  .js-back
-    .text НАЗАД
+.js-back
+  .button
     .icon
-.center_block(class=selector)
-  .content!=content
-  .buttons
-    .contact!=contact_tutor_button
-    .add!=add_to_bid_button
+    .text Вернуться к списку
+.block
+  .left
+    .general
+      .photo_block
+        .avatar
+        .photos
+        .attach_button
+      .personal_data
+        .top
+          .rating
+          .location
+    .extra_info
+      .header
+        .about О себе
+        .subjects Обучение предметам
+        .reviews Отзывы
+      .value
+        .about
+          .about_text
+          .sub_title Награды, дипломы, сертификаты
+          .honors_text
+  .right
+    .content
+      .title!='Написать '+value.tutor_name
+      .calendar
+        .icon
+        a Посмотреть график работы
+      .msg!=msg
+      .name!=name
+      .login!=login
+      .subject!=subject
+      .terms_of_use
+        .agree_checkbox!=agree_checkbox
+        .text Я согласен с пользовательским<br>соглашением
+      .write_button!=write_button
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

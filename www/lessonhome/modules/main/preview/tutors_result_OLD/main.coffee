@@ -6,7 +6,7 @@ class @main extends EE
     #@set
   setValue : (data)=>
     @rating_photo.setValue {
-      #rating : data.rating
+      rating : data.rating
       photos : data.photos
       count_review : data.count_review
     }

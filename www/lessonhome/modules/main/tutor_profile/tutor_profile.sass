@@ -4,55 +4,68 @@ $back_src: 'arrow_back.png'
 $back_height: image-height($back_src)
 $back_width: image-width($back_src)
 
+$icon_calendar_src: 'main/icon_calendar.png'
+$icon_calendar_height: image-height($icon_calendar_src)
+$icon_calendar_width: image-width($icon_calendar_src)
+
 main
-  padding-top: 12px
+  padding-top: 24px
+  padding-left: 15px
   background-color: #fff
-.navigation
-  padding: 6px 0px 6px 21px
-  background-color: #f9f9f9
+
+.back
+  height: 24px
+  margin-bottom: 24px
   text-align: left
-  div
+  .button
     +inline-block
-  .general, .subjects, .reviews
-    height: 36px
-  .general, .subjects
-    margin-right: 24px
-  .general
-    width: 102px
-  .subjects
-    width: 272px
-  .reviews
-    width: 116px
-  .back
-    margin-left: 324px
     cursor: pointer
     .text, .icon
       +inline-block
     .icon
-      margin-left: 10px
+      margin-left: 3px
+      margin-right: 10px
       width: $back_width
       height: $back_height
       background: url(F($back_src)) no-repeat
-.center_block
-  padding-top: 12px
-  text-align: left
-  .content, .buttons
+.back:after
+  content: ''
+  +inline-block
+  height: 100%
+.block
+  .left, .right
     +inline-block
     vertical-align: top
-  .content
-    padding-bottom: 24px
-    margin: 0 24px 0 15px
-    width: 816px
-    min-height: 696px
-  .buttons
-    padding-top: 24px
-    width: 144px
-    .contact, .add
-      width: 144px
-      height: 72px
-    .contact
-      margin-bottom: 24px
+  .left
+    width: 672px
+  .right
+    width: 312px
+    text-align: center
+    background-color: #e5e5e5
+    .content
+      +inline-block
+      width: 263px
+      text-align: left
+      .title
+        font-size: 24px
+        line-height: 24px
+        color: #000
+      .calendar
+        .icon, a
+          +inline-block
+        .icon
+          margin-right: 12px
+          width: $icon_calendar_width
+          height: $icon_calendar_height
+          background: url(F($icon_calendar_src)) no-repeat
+        a
+          font-size: 14px
+          line-height: 18px
+          color: #0a79c0
+          text-decoration: underline
 
-.center_block.subjects, .center_block.reviews
-  .content
-    padding-top: 24px
+      .name, .subject
+        +inline-block
+        width: 100%
+        box-sizing: border-box
+        font-size: 37px

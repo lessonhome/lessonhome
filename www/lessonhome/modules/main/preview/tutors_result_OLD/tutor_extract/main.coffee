@@ -17,12 +17,12 @@ class @main extends EE
     @tutor_place        = @found.tutor_place
     @tutor_title        = @found.tutor_title
     @tutor_text         = @found.tutor_text
-    #@tutor_price        = @found.tutor_price
+    @tutor_price        = @found.tutor_price
 
 
   show: =>
-    #@hideExtraText() # hide text that is larger than the maximum length and show full text by click
-    @found.choose_button.click @addTutor
+    @hideExtraText() # hide text that is larger than the maximum length and show full text by click
+    @found.add_button_bid.click @addTutor
   addTutor : => Q.spawn =>
     linked = yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
@@ -34,10 +34,9 @@ class @main extends EE
   setLinked : (linked)=> Q.spawn =>
     linked ?= yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
-      @tree.choose_button?.class?.setValue {text:'убрать',color:'#FF7F00',pressed:true}
-      @tree.choose_button?.class?.setActiveCheckbox()
+      @tree.add_button_bid?.class?.setValue {text:'Прикреплено к заявке',color:'#FF7F00',pressed:true}
     else
-      @tree.choose_button?.class?.setValue {text:'выбрать'}
+      @tree.add_button_bid?.class?.setValue {text:'Прикрепить к заявке'}
 
   hideExtraText: =>
     max_length = 147
@@ -57,7 +56,6 @@ class @main extends EE
     @setLinked()
     value = @tree.value
     #@with_verification.css 'background-color', value.with_verification if value?.with_verification?
-    @tree.all_rating.class.setValue rating:value?.rating
     @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
     @tutor_subject.empty()
     for key,val of value.subjects
@@ -78,12 +76,12 @@ class @main extends EE
     @found.location.text(value.location?.city ? "")
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     @tutor_text.    text(value.about ? "")
-    #@found.price_left.text(value.price_left)
-    #@found.price_right.text(value.price_right)
-    #@found.duration_left.text(value.duration_left)
-    #@found.duration_right.text(value.duration_right)
+    @found.price_left.text(value.price_left)
+    @found.price_right.text(value.price_right)
+    @found.duration_left.text(value.duration_left)
+    @found.duration_right.text(value.duration_right)
     @found.price.text(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
-    #@hideExtraText()
+    @hideExtraText()
 
   getValue : => @getData()
 

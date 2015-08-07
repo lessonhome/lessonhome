@@ -6,10 +6,14 @@ class @main extends EE
     @popup_box = @click_box.next()
     @close_box = @popup_box.find ".close_box"
     @popupVisible = @popup_box.is ':visible'
+    ###
+      $(@telephone).on 'click', @goCallbackPage()
+      @click_box   .on 'click', @goCallbackPage()
+      @close_box   .on 'click', @goCallbackPage()
+    ###
     $(@telephone).on 'click', @togglePopup
     @click_box   .on 'click', @togglePopup
     @close_box   .on 'click', @hidePopup
-
   togglePopup : =>
     @popupVisible = !@popupVisible
     @popup_box.toggle @popupVisible
@@ -22,3 +26,6 @@ class @main extends EE
     @popupVisible = false
     @popup_box.hide()
     @emit 'hidePopup'
+
+  #goCallbackPage: => Q().then =>
+    #yield Feel.go '/main_tutor_callback'

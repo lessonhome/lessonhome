@@ -32,9 +32,12 @@ class @main extends EE
       if @popup_close_href?
         Feel.go @popup_close_href
       else
-        Feel.go '/'
+        @goBack()
+        #Feel.go '/'
       #console.log @tree.popup?._name
       #switch @tree.popup?._name
         #when 'main/call_back_popup' then  Feel.go '/'
         #when 'main/terms_of_cooperation' then Feel.go '/main_tutor'
 
+  goBack: =>
+    document.location.href = window.history.back()
