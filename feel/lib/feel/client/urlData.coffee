@@ -78,6 +78,38 @@ class @urlData
     #@state  = History.getState()
     #@data   = yield @udata.u2d @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     @udata.d2u yield @get()
+  toObject : (url)=>
+    url = '' unless typeof url == 'string'
+    url = url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
+    url = url.split '&'
+    ret = {}
+    for u in url
+      u = u?.split?['='] ? []
+      ret[u[0]]=ret[u[1]] if u[0]?
+    return ret
+  filter : (obj,field,value=true)=>
+    string = false
+    if typeof obj == 'string'
+      obj = yield @toObject obj
+      string = true
+    ret = {}
+    for key,val of obj
+      ret[key] = val if @udata.json?.shorts?[field]==value
+    return @objectTo ret if string
+    return ret
+  objectTo : (obj)=>
+    obj = {} unless obj && typeof obj=='object'
+    ret = []
+    ret.push [key,val] for key,val of obj
+    ret.sort (a,b)-> a?[0] < b?[0]
+    str = ''
+    for r in ret
+      continue unless r[0]
+      str += '&' if str
+      str += r[0]
+      str += "="+r[1] if r[1]?
+    return str
+    
   udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
     console.log 'url',url
     params = {}
@@ -149,5 +181,15 @@ class @urlData
     #data = @state.url.match /\?(.*)$/
     #for key of @forms
     #  @data[key] ?= {}
+  filterHash : (o={})=>
+    hash = ''
+    if o?.prep?
+      hash += o.prep
+    else
+      o.url ?= Feel.urlData.state.url
+      hash += "#{o?.count ? ''}::#{o?.from ? ''}::"
+      hash += (yield Feel.urlData.filter o.url,'filter')
+    console.log 'hash',o,hash
+    return hash
 
     

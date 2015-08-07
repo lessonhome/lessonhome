@@ -13,14 +13,51 @@ class @main extends EE
     @profiles_80       = @found.profiles_80
     @reset_all_filters = @found.reset_all_filters
     @advanced_filter   = @tree.advanced_filter.class
-    @tutors = $.localStorage.get 'tutors'
-    @tutors ?= {}
-    @tnum = 4
+    #@tutors = $.localStorage.get 'tutors'
+    #@tutors ?= {}
+    @loaded = {}
+    
+    @tnum   = 10
+    @tfrom  = 0
     @now    = []
     @changed = true
     @sending = false
     yield @filter()
-    @request()
+    yield Feel.urlData.request()
+    yield @filter()
+
+  reshow : => do Q.async =>
+    @_reshow ?= 0
+    @_reshow = 2 if @_reshow == 1
+    return _waitFor @,'reshow' if @_reshow > 1
+    @_reshow = 1
+
+    @domnowi = 0
+    @domnow  = null
+
+    hash = yield Feel.urlData.filterHash()
+    @loaded[hash] ?= {}
+    @loaded[hash].count ?= 0
+    @loaded[hash].from  ?= 0
+    @loaded[hash].tutors ?= []
+    @loaded[hash].reloaded ?= false
+    unless @loaded[hash].reloaded
+      @loaded[hash].reloading = Feel.BTutors.request {count:@tnum,from:@tfrom}
+    if (@loaded[hash].from > @tfrom) || ((@loaded[hash].from+@loaded[hash].count)<(@tfrom+@tnum))
+      @loaded[hash].tutors = yield @filter2()
+    yield @show2 @loaded[hash]
+    
+    unless @loaded[hash].reloaded
+      yield @loaded[hash].reloading
+      @loaded[hash].reloaded = true
+      @loaded[hash].tutors = yield @filter2()
+      yield @show2 @loaded[hash]
+
+    if @_reshow == 2
+      @_reshow = 0
+      return @reshow()
+    @_reshow = 0
+
   filterChange : => do Q.async =>
     @fchange ?= 0
     return if @fchange > 1

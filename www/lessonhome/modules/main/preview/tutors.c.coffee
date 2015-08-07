@@ -14,17 +14,30 @@ class Tutors
     @dbtutor = yield @$db.get 'tutor'
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
+    @hashed = {}
+    @index = {}
     yield @reload()
     @inited = 2
     @emit 'inited'
     setInterval =>
       @reload().done()
     , 30*1000
-  handler : ($,data)->
+  handler : ($,{prep,count,from,hash})->
+    return @hashed[hash] if @hashed[hash]
+    return {tutors:[@index[prep]]} if prep? && @index[prep]?
     yield @init()
-    url = $.req.url.match(/\?(.*)$/)?[1] ? ""
-    mf = (yield @urldata.u2d url)?.mainFilter
-    return yield filter.filter @persons,mf
+    unless prep?
+      url = $.req.url.match(/\?(.*)$/)?[1] ? ""
+      mf = (yield @urldata.u2d url)?.mainFilter
+      arr = yield filter.filter @persons,mf
+      arr = arr.splice from     if from?
+      arr = arr.splice 0,count  if count?
+      indexes = {}
+      indexes[hash] = []
+      indexes[hash].push p.index for p in arr
+      return @hashed[hash]={tutors:arr,indexes}
+    else
+      return {tutors:[@index[prep]]}
   reload : =>
     t = new Date().getTime()
     return @persons unless (t-@timereload)>(1000*10)
@@ -141,7 +154,11 @@ class Tutors
       p.rating = (p.rating-rmin)/(rmax-rmin)
       p.rating *= 3
       p.rating += 2
+    @hashed = {}
     @persons = persons
+    @index = {}
+    for key,val of @persons
+      @index[val.index] = val
     return @persons
 
 tutors = new Tutors

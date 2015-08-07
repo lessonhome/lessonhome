@@ -4,6 +4,7 @@ class @main extends EE
     @list = @tree.list.class
     @tags = @found.tags
     @tag  = @found.tag
+    @emitting = false
 
   show : =>
     @list.on 'end', => @addTag()
@@ -23,12 +24,18 @@ class @main extends EE
     new_tag.find(".text").text(tag_text)
     new_tag.click => #find(".close_box").click =>
       new_tag.remove()
-      @emit 'change'
-      @emit 'end'
+      unless @emitting
+        @emitting = true
+        @emit 'change'
+        @emit 'end'
+        @emitting = false
     $(@tags).append(new_tag)
     if update
-      @emit 'change'
-      @emit 'end'
+      unless @emitting
+        @emitting = true
+        @emit 'change'
+        @emit 'end'
+        @emitting = false
   getTags: =>
     data = []
     children = $(@tags).children()
@@ -46,9 +53,13 @@ class @main extends EE
       child.remove()
     for i,tag of list
       @addTag tag,false
-    @emit 'change'
-    @emit 'end'
-
+    ###
+    unless @emitting
+      @emitting = true
+      @emit 'change'
+      @emit 'end'
+      @emitting = false
+    ###
   reset : =>
     @list.setValue('')
     children = $(@tags).children()
@@ -66,8 +77,11 @@ class @main extends EE
         child.off()
         child.click =>
           child.remove()
-          @emit 'change'
-          @emit 'end'
+          unless @emitting
+            @emitting = true
+            @emit 'change'
+            @emit 'end'
+            @emitting = false
         
 
   getValue : => @getTags()
