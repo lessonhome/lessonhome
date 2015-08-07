@@ -1,4 +1,5 @@
 
+
 class @main
   Dom: =>
     # control elements
@@ -8,14 +9,14 @@ class @main
     @container    = @found.container
     @bg_block     = @found.bg_block
     # err div fined
-    @out_err_course                 = @found.out_err_course
+    #@out_err_course                 = @found.out_err_course
     @out_err_group_learning         = @found.out_err_group_learning
     @out_err_categories_of_students = @found.out_err_categories_of_students
     @out_err_place                  = @found.out_err_place
 
     subject = @tree
     #@subject_tag = subject.subject_tag.class
-    @course = subject.course.list.class
+    @course = subject.course.class
     @group_learning = subject.group_learning.class
     @duration = subject.duration.class
     @price_from = subject.price_slider.start.class
@@ -32,7 +33,17 @@ class @main
     @place_pupil = subject.place_pupil.class
     @place_remote = subject.place_remote.class
     @place_cafe = subject.place_cafe.class
- 
+    @course.on 'end',=>
+      arr = @course.getValue()
+      len = 0
+      narr = []
+      for key,val of arr
+        narr.push(val.split(',')...)
+        len++
+      arr = []
+      arr.push(val.split(';')...) for key,val of narr
+      if arr.length > len
+        @course.setValue arr
 
   show: =>
     # hide and delete function subject details
@@ -48,11 +59,11 @@ class @main
       @bg_block.remove()
 
     # fined div error
-    @course           .setErrorDiv @out_err_course
+    #@course           .setErrorDiv @out_err_course
     @group_learning   .setErrorDiv @out_err_group_learning
     @pre_school       .setErrorDiv @out_err_categories_of_students
     @place_tutor      .setErrorDiv @out_err_place
-    @course           .setErrorDiv @out_err_course
+    #@course           .setErrorDiv @out_err_course
     @group_learning   .setErrorDiv @out_err_group_learning
 
 

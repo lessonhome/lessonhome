@@ -172,6 +172,45 @@ class Register
     qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     yield Q.all qs
     return {session:@sessions[sessionhash],user:user}
+  relogin : (user,sessionhash,index)=>
+    console.log index
+    throw 'err access' unless user.admin
+    #throw err:'bad_query'            unless data?.login? && data?.password?
+    #throw err:'login_not_exists'      if !@logins[data.login]?
+    #throw err:'bad_session'           if !@accounts[user.id]?
+    #throw err:'bad_session'           unless @sessions[sessionhash]?
+    login = ''
+    for key,a of @accounts
+      if a.index == index
+        console.log a
+        login = a.login
+    console.log login
+    throw 'not found' unless login
+    user = @accounts[user.id]
+    #throw err:'already_logined'       if user.registered
+    tryto = @logins[login]
+    console.log tryto
+    #data.password = data.login+data.password
+    #throw err:'wrong_password'    unless yield @passwordCompare _hash(data.password), tryto.hash
+    olduser = user
+    hashs = []
+    for hash of olduser.sessions
+      hashs.push hash
+      delete @sessions[hash]
+    qs = []
+    qs.push _invoke @session,'remove',{hash:{$in:hashs}}
+    #qs.push _invoke @account,'remove',{id:olduser.id}
+    #delete @accounts[olduser.id]
+    user = @accounts[tryto.id]
+    user.accessTime = new Date()
+    sessionhash = yield @newSession user.id
+    acc = {}
+    acc[key] = val for key,val of user
+    console.log acc
+    delete acc.account
+    qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+    yield Q.all qs
+    return {session:@sessions[sessionhash],user:user}
   loginExists     : (name)=> @logins[name]?
   loginUpdate : (user,sessionhash,data)=>
     throw err:'bad_query'            unless data?.login? && data?.password? && data?.newlogin?

@@ -114,7 +114,7 @@ class @urlData
             delete cook?[key]
           else
             cook[key] = params?[key]
-      $.cookie 'urldata', encodeURIComponent JSON.stringify cook
+      $.cookie 'urldata', encodeURIComponent( JSON.stringify cook), {path:'/'}
     for key,val of params
       purl.push [key,val]
     purl.sort (a,b)-> a[0]<b[0]
