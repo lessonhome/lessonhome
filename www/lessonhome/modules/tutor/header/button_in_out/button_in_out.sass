@@ -22,6 +22,8 @@ main
   .title a, a
     text-decoration: none
     color: #ffffff
+    &.active
+      color : #27ffba
   .popup_box
     .submit
       position : fixed
@@ -103,6 +105,8 @@ main:before
   +inline-block
   height: 100%
   content: ""
+.button .title:hover a
+  color: #27ffba
 .button .title:hover
   color: #27ffba
 .button  a:hover

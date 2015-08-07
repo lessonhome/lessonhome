@@ -6,7 +6,7 @@ tutor_status_text =
   private_teacher  :'Частный преподаватель'
   native_speaker : 'Носитель языка'
 group_lessons = ['не проводятся','2-4 ученика','до 8 учеников','от 10 учеников']
-sort          = ['rating','price','experience','way_time','-price','-experience','-rating','-way_time']
+sort          = ['rating','price','experience','way_time','-price','-experience','-rating','-way_time','register','-register','access','-access']
 gender = ['','male','female','mf']
 tutor_status = 'student,school_teacher,university_teacher,private_teacher,native_speaker'.split ','
 place = 'pupil,tutor,remote'.split ','
@@ -38,6 +38,10 @@ boolSetR = (obj,list)=>
   return ret
 
 class @D2U
+  $test : (obj)=>
+    type  : 'int'
+    value : obj?.test
+    default : 0
   $linked : (obj)=>
     console.log 'linked1',obj?.linked
     str = Object.keys(obj?.linked ? {})?.join?('.') ? ''
@@ -141,6 +145,7 @@ class @D2U
     default : true
   
 class @U2D
+  $test : (obj)=> obj?.test
   $linked : (obj)=>
     console.log 'linked-1',obj?.linked
     str = obj?.linked ? ''

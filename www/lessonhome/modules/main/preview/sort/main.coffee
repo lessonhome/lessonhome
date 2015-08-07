@@ -2,6 +2,20 @@
 class @main extends EE
   Dom : =>
     @items = ['price', 'experience', 'rating'] # sort items
+    $(document).on 'keyup',(e)=>
+      return unless e.ctrlKey
+      switch e.keyCode
+        when 122,123
+          item = 'register'
+          item = 'access' if e.keyCode == 123
+          e.preventDefault()
+          unless @tree.value.sort == item
+            @tree.value.sort = item
+          else
+            @tree.value.sort = '-'+item
+          @setValue()
+          @emit 'change'
+
   show : =>
     $(window).on 'scroll', @scroll
     for item in @items

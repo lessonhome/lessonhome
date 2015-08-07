@@ -7,16 +7,46 @@ $padding_text: 10px
     text-align: left
     padding: 18px 24px
     background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.2)
+    .text_box
+      height: 24px
+      text-align: left
+      padding-bottom: 6px
+      .title
+        +inline-block
+        vertical-align: baseline
+        font-size: 16px
+    .text_box:after
+      content: ''
+      +inline-block
+      height: 100%
   .bg_box
     margin-bottom: 10px
+    label
+      .text_box
+        cursor: pointer
+        height: 24px
+        text-align: left
+        padding-bottom: 6px
+        .title
+          +inline-block
+          vertical-align: baseline
+          font-size: 16px
+      .text_box:after
+        content: ''
+        +inline-block
+        height: 100%
+      .experience
+        height: 36px
   .bg_box, .bg_box1
-    div
+    .student, .teacher, .professor, .native
       padding-bottom: 2*$min_width_step
-    .native, .experience, .age_slider, .gender_data
+    .native, label .experience, .age_slider, .gender_data
       padding-bottom: 0
   .bg_box1
     .gender_data
       height: 6*$min_width_step
+  .bg_box label .experience:after
+    clear: both
 
 
 

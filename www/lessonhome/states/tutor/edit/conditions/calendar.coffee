@@ -10,14 +10,16 @@ class @main extends @template '../edit_conditions'
     'pupil' : '/enter'
   }
   tree  : =>
+    selector : 'calendar'
     menu_condition  : 'edit: conditions'
     active_item : 'Календарь'
     tutor_edit  : @module '$'  :
-      calendar    : @state 'calendar'  :
-        selector  : 'advance_filter edit'
+      calendar    : @module 'new_calendar' :
+        selector  : 'tutor_profile'
+        click_ability: true
         value     : $form : tutor : 'calendar'
       #hint       : @module 'tutor/hint_dz' :
       #  selector  : 'small'
       #  text      : 'Поскольку'
   init  :=>
-    @parent.parent.tree.content.possibility_save_button = false         # exception property, not this save button in state
+    @parent.parent.tree.content.possibility_save_button = true         # exception property, not this save button in state

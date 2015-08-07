@@ -2,7 +2,7 @@ class @main extends @template '../main'
   route : '/enter'
   model : 'main/second_step'
   title : "вход"
-  tags  : -> 'enter'
+  tags  : -> ['enter']
   access : ['other']
   redirect : {
     'tutor' : 'tutor/search_bids'

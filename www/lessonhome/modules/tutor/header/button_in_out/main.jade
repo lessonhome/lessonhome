@@ -3,8 +3,14 @@
     .title Выход
   else
     .title
-      a(href = '/enter') Вход
-    a(href = '/main_tutor') регистрация
+      if $pageTag('enter')
+        a.active(href = '/enter') Вход
+      else
+        a(href = '/enter') Вход
+    if $pageTag('registration')
+      a.active(href = '/tutor_registration') регистрация
+    else
+      a(href = '/tutor_registration') регистрация
   //form.js-form.popup_box(action="/form/tutor/login" method="post" name="login")
     .triangle_box
       .triangle

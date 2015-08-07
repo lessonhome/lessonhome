@@ -1,6 +1,22 @@
 
 class @main
   show: =>
+    @training_direction = {
+      "английский язык":['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'TOEFL','IELTS', 'FCE', 'TOEIC', 'Business English', 'GMAT', 'GRE', 'SAT'],
+      "японский язык": ['JLPT', 'JLPT N1', 'JLPT N2', 'JLPT N3', 'JLPT N4', 'JLPT N5'],
+      "корейский язык": ['TOPIK', 'TOPIK I', 'TOPIK II'],
+      "китайския язык": ['HSK', 'HSK Высший', 'HSK Начальный/средний', 'HSK Базовый'],
+      "испанский язык": ['DELE', 'DELE A', 'DELE B', 'DELE C'],
+      "франзузский язык": ['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'DELF', 'DELF A', 'DELF B', 'DALF'],
+      "немецкий язык": ['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'DSH', 'TestDaF'],
+      "итальянский язык": ['CILS', 'CILS B1', 'CILS B2', 'CILS C1', 'CILS C2'],
+      "португальский язык": ['CEPRE-Bras', 'CEPRE-Bras Средний', 'CEPRE-Bras Выше среднейго', 'CEPRE-Bras Продвинутый', 'CEPRE-Bras Выше продвинутого'],
+      "программирование": ['школьный курс', '3dMAX', 'Access', 'Adobe Flash', 'ArchiCad', 'assembler', 'AutoCAD', 'bash', 'basic', 'Borland C', 'C', 'c#', 'c++', 'CorelDraw', 'css', 'Deform-3D', 'delphi', 'Excel', 'FireBird', 'fortran', 'HTML', 'Illustrator', 'InDesign', 'Internet', 'java', 'JavaScript', 'Joomla', 'linux', 'LISP', 'MacOS', 'Maple', 'MathCAD', 'Matlab', 'MS Office', 'MySQL', 'Object Pascal', 'Objective-C', 'Outlook', 'pascal', 'perl', 'Photoshop', 'php', 'PowerPoint', 'python', 'QBasic', 'ruby', 'SEO (search engine optimization)', 'SolidWorks', 'SQL', 't-sql', 'TurboPascal', 'Unix', 'VB Pro', 'VBA', 'visual basic', 'Windows', 'Word', 'Wordpress', 'xml', 'алгоритмы', 'анимация', 'выпуклое программирование', 'дизайн веб-сайтов', 'компьютерная грамотность', 'компьютерная графика', 'линейное программирование', 'объемное моделирование', 'операционные системы', 'программирование', 'разработка веб-сайтов', 'РЕФАЛ', 'системное администрирование', 'подготовка к олимпиадам'],
+      "музыка": [""],
+      "начальная школа": [""],
+      "логопеды": ["общий курс", "алалия", "аутизм", "афазия", "брадилалия", "все нарушения речи", "диагностика (обследование)", "дизартрия", "дизорфография", "дисграфия", "дислалия", "дислексия", "дисфония", "заикание", "ЗПРР", "ЗРР", "ЛГНР", "логоневроз", "логопедический массаж", "логоритмика", "ОНР", "ОНР при ЗПР", "постановка звуков", "ринолалия", "системное недоразвитие речи при ИН", "стертая дизартрия", "тахилалия", "ФД (фонетический дефект)", "ФНР (фонематическое недоразвитие речи)", "ФФН (фонетико-фонематическое недоразвитие)"],
+      "default" : ['ЕГЭ','ОГЭ(ГИА)', 'подготовка к олимпиадам', 'школьный курс', 'вузовский курс']
+    }
     @subjects = {}
   
     for i,subject of @tree.subjects
@@ -28,8 +44,12 @@ class @main
     @subject_list = @tree.select_subject_field.class
     @subject_list.on 'end',(name)=>
       console.log 'end',name
-      console.log @subjects
-      @subjects?[0]?.class?.showName? name
+      if @training_direction[name]?
+        direction = @training_direction[name]
+      else
+        direction = @training_direction['default']
+      console.log direction
+      @subjects?[0]?.class?.showName? name, direction
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
@@ -146,9 +166,9 @@ class @main
       #empty
       when "empty_duration"
         @subjects[i].duration.showError ""
-      when "empty_course"
-        @subjects[i].course.setErrorDiv @out_err_course
-        @subjects[i].course.showError "Выберите курс"
+      #when "empty_course"
+      #  @subjects[i].course.setErrorDiv @out_err_course
+      #  @subjects[i].course.showError "Выберите курс"
       #when "empty_qualification"
       #  @qualification.setErrorDiv @out_err_qualification
       #  @qualification.showError "Выберите квалификацию"
@@ -163,9 +183,9 @@ class @main
         @subjects[i].place_tutor.showError "Выберите место занятий"
 
       #correct
-      when "bad_course"
-        @subjects[i].course.setErrorDiv @out_err_course
-        @subjects[i].course.showError "Выберите корректный курс"
+      #when "bad_course"
+      #  @subjects[i].course.setErrorDiv @out_err_course
+      #  @subjects[i].course.showError "Выберите корректный курс"
       #when "bad_qualification"
       #  @qualification.setErrorDiv @out_err_qualification
       #  @course.showError "Выберите корректную квалификацию"

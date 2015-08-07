@@ -98,7 +98,19 @@ cnum = 0
     when '-experience'
       out.sort (a,b)=> (ex(a.experience)-ex(b.experience))
       _out.sort (a,b)=> (ex(a.experience)-ex(b.experience))
-  return [out...,_out...]
+    when 'register'
+      out.sort (a,b)=> -(a.registerTime-b.registerTime)
+      _out.sort (a,b)=> -(a.registerTime-b.registerTime)
+    when '-register'
+      out.sort (a,b)=> (a.registerTime-b.registerTime)
+      _out.sort (a,b)=> (a.registerTime-b.registerTime)
+    when 'access'
+      out.sort (a,b)=> -(a.accessTime-b.accessTime)
+      _out.sort (a,b)=> -(a.accessTime-b.accessTime)
+    when '-access'
+      out.sort (a,b)=> (a.accessTime-b.accessTime)
+      _out.sort (a,b)=> (a.accessTime-b.accessTime)
+  return [out...]#,_out...]
 
 
 

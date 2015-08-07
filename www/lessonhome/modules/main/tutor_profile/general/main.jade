@@ -1,0 +1,33 @@
+.left
+  .rating_wrap
+    .rating!=rating
+  .avatar_wrap
+    .avatar
+  .photo_wrap
+    .title_wrap
+      .title Фотографии
+    .val
+      each val, key in photo
+        .photo!=val
+  .video_wrap
+    .title_wrap
+      .title Видеозаписи
+    .val
+      each val, key in video
+        .video!=val
+.right
+  .description
+    .full_name_wrap
+      .js-full_name!=full_name
+    .personal_data!=personal_data
+  .edu
+    .title_wrap
+      .title Образование
+    .data!=edu
+  .about.select
+    .title_wrap
+      .title О себе
+    .data
+      .js-about_text!=about_text
+      .sub_title Награды, дипломы, сертификаты
+      .js-honors_text!=honors_text

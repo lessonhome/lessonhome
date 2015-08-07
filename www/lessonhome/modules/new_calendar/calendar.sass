@@ -8,6 +8,7 @@ $act_day_src: 'calendar/day-active.png'
 $act_evening_src: 'calendar/evening-active.png'
 $day_height: image-height($morning_src)
 $day_width: image-width($morning_src)
+$search_pattern_src: 'main/search_pattern.png'
 .calendar_box
   .choose_all
   .calendar_week
@@ -77,6 +78,35 @@ $day_width: image-width($morning_src)
       .active
         +inline-block
 
+.calendar_box.tutor_profile
+  .calendar_week, .morning_block, .day_block, .evening_block
+    div
+      width: 92px
+      height: 48px
+      background: #f3f3f3
+      font-size: 20px
+      box-sizing: border-box
+      border: 1px solid #7f7f7f
+    div.active_day
+      background: url(F($search_pattern_src))
+      background-color: #009587
+      border: 1px solid #355e54
+      .text
+        color: #000000
+  .morning_block, .day_block, .evening_block
+    div
+      background: #f3f3f3
+      cursor: pointer
+      .text
+        +inline-block
+        color: #8e8e8e
+    div:after
+      +inline-block
+      content: ''
+      height: 100%
+  .calendar_week
+    div
+      background: #b4b4b4
 
 
 

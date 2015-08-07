@@ -19,39 +19,9 @@ mixin review(selector, name, text)
 
 
 //- ------------------ CHECK IN -------------------------
-.background_earth
-.background_note
-.background_pc
-.background_pencils
-.background_ruler
-.background_vial
-.check_in
-  .top_block
-    .top_text
-      .t1 Вы преподаёте или хотите начать преподавать - тогда Вы попали куда нужно!<br>Создайте свою анкету на LessonHome и ученики сами будут вас находить.
-      .t2 Уже очень скоро наш сервис будет полностью запущен.
-      .t3 Зарегистрируйтесь сейчас и получите бонус к рейтингу +1!
-    //.title.m-font.select Lesson <span>Home</span> соединяет высоко-квалифицированных<br>репетиторов с учениками для занятий любым удобным способом.
-    //.title_conditions.select!= 'Подробная информация об условиях сотрудничества изложена<br>в '
-      a.m-Link.select Условиях оказания информационных услуг
 
-    form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
-      input.js-submit(type='submit')
-      .title.select Регистрация репетитора
-      .login
-        .input!= login
-      .password
-        .input!= password
 
-      .checkbox
-        .field!= agree_checkbox
-        .text.select!= 'Я прочитал и согласен с '
-          a.m-Link.select Условиями оказания информационных услуг
-        .js-checkbox_error Пожалуйста, ознакомьтесь с условиями оказания услуг
-      .buttons
-        .create_account!=create_account
-
-.simple_search
+.simple_search.select
   .t1 Каждый день тысячи учеников ищут<br>репетиторов онлайн!
   .t2 Площадка Lesson Home позволяет создать бесплатный онлайн профиль, в котором есть всё необходимое, чтобы продемонстрировать свою квалификацию и опыт.
   .main_tutor_search
@@ -64,16 +34,42 @@ mixin review(selector, name, text)
     .title.select "LESSON HOME" -<br>СВОБОДА ВЫБОРА
     .text.select Вы сами выбираете, с кем из потенциальных учеников Вы будете проводить частные занятия;<br>Вы устанавливаете справедливую на Ваш взгляд стоимость одного занятия с Вами;<br>Вы определяете продолжительность одного занятия и место его проведения.
     .button.js-motivation_create_profile!=create_profile
-  .center
-    .title.select ВАШ НАДЁЖНЫЙ БИЗНЕС<br>ПАРТНЁР
-    .text.select Когда есть надёжный партнёр, будет ожидаемый результат!<br>Наша команда поставила себе задачу по созданию эффективного и полезного сервиса для репетиторов и учеников. Мы выполнили свою задачу максимально качественно и проффесионально!<br>С "Lesson Home" Вы можете увеличить свой ежемесячный доход, нарастить клиентскую базу и начать частную репетиторскую деятельность уже сегодня!
+  .center.select
+    .title ВАШ НАДЁЖНЫЙ БИЗНЕС<br>ПАРТНЁР
+    .text Когда есть надёжный партнёр, будет ожидаемый результат!<br>Наша команда поставила себе задачу по созданию эффективного и полезного сервиса для репетиторов и учеников. Мы выполнили свою задачу максимально качественно и проффесионально!<br>С "Lesson Home" Вы можете увеличить свой ежемесячный доход, нарастить клиентскую базу и начать частную репетиторскую деятельность уже сегодня!
   .right
     .title.select ПРОСТО КАК "РАЗ, ДВА, ТРИ"!
     .text.select Найти новых учеников с "Lesson Home" очень просто:<br>- зарегистрируйтесь на нашем сайте<br>- заполните информацию о себе в профиле<br>- начните поиск учеников исходя из ваших пожеланий<br>Если вы не знаете с чего начать или просто не разобрались, свяжитесь с нами через форму обратной связи, либо по телефону, и наши специалисты помогут Вам!
     .button!=callback
   .bottom_pattern
-.reviews_wrap
+.reviews_wrap.select
   .title ЧТО ГОВОРЯТ О НАС УЧЕНИКИ И РЕПЕТИТОРЫ
   .reviews
     +review('first', 'Игорь', 'Ребята молодцы, сделали очень удобный поиск! При изменении настроек сразу же обновляется список репетиторов - можно довольно быстро найти то, что тебе нужно.')
     +review('second','Татьяна', 'Мне очень понравился дизайн сайта, всё в тему и приятное. Зарегистрировалась легко и надеюсь на скорый запуск!')
+
+.background_earth
+.background_note
+.background_pc
+.background_pencils
+.background_ruler
+.background_vial
+.check_in
+  .top_block.select
+    form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
+      input.js-submit(type='submit')
+      .title.select Регистрация репетитора
+      .top_text
+        .t2 Уже очень скоро наш сервис будет <br>полностью запущен.
+        .t3 Зарегистрируйтесь сейчас — <br>получите бонус к рейтингу +1!
+      .login
+        .input!= login
+      .password
+        .input!= password
+      .checkbox
+        .field!= agree_checkbox
+        .text.select!= 'Я прочитал и согласен с '
+          a.m-Link.select(href="/terms_of_cooperation") Условиями оказания информационных услуг
+        .js-checkbox_error Пожалуйста, ознакомьтесь с условиями оказания услуг
+      .buttons
+        .create_account!=create_account

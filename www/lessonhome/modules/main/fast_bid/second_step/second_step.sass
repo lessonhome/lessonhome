@@ -5,6 +5,19 @@ $min_width_step: 6px
     text-align: left
     padding: 18px 24px
     background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.2)
+    .text_box
+      cursor: pointer
+      height: 24px
+      text-align: left
+      padding-bottom: $min_width_step
+      .title
+        +inline-block
+        vertical-align: baseline
+        font-size: 16px
+    .text_box:after
+      content: ''
+      +inline-block
+      height: 100%
   .bg_box
     margin-bottom: 10px
   .bg_box, .bg_box1
@@ -17,6 +30,19 @@ $min_width_step: 6px
   .bg_box1
     .box_price
       padding-bottom: 0
+      .text_box
+        cursor: pointer
+        height: 24px
+        text-align: left
+        padding-bottom: $min_width_step
+        .title
+          +inline-block
+          vertical-align: baseline
+          font-size: 16px
+      .text_box:after
+        content: ''
+        +inline-block
+        height: 100%
       div
         padding-bottom: 2*$min_width_step
       .price_2000

@@ -1,0 +1,253 @@
+
+@import compass/css3
+
+$main_pattern_src: 'main/main_pattern.png'
+
+$illustration_1_src: 'main/about_1.png'
+$illustration_1_height: image-height($illustration_1_src)
+$illustration_1_width: image-width($illustration_1_src)
+
+$illustration_2_src: 'main/about_2.png'
+$illustration_2_height: image-height($illustration_2_src)
+$illustration_2_width: image-width($illustration_2_src)
+
+$illustration_3_src: 'main/about_3.png'
+$illustration_3_height: image-height($illustration_3_src)
+$illustration_3_width: image-width($illustration_3_src)
+
+$illustration_4_src: 'main/about_4.png'
+$illustration_4_height: image-height($illustration_4_src)
+$illustration_4_width: image-width($illustration_4_src)
+
+$illustration_5_src: 'main/about_5.png'
+$illustration_5_height: image-height($illustration_5_src)
+$illustration_5_width: image-width($illustration_5_src)
+
+$last1_src: 'main/last_1.jpg'
+$last1_height: image-height($last1_src)
+$last1_width: image-width($last1_src)
+
+$last2_src: 'main/last_2.jpg'
+$last2_height: image-height($last2_src)
+$last2_width: image-width($last2_src)
+
+$last3_src: 'main/last_3.jpg'
+$last3_height: image-height($last3_src)
+$last3_width: image-width($last3_src)
+
+$pattern_bottom_src: 'main/main_tutor_pattern_bottom.png'
+$pattern_bottom_height: image-height($pattern_bottom_src)
+
+$pattern_top_src: 'main/main_tutor_pattern_top.png'
+$pattern_top_height: image-height($pattern_top_src)
+
+div
+  text-align: left
+  .left, .right
+    +inline-block
+    vertical-align: top
+
+.about_us, .rating
+  position: relative
+  background: url(F($main_pattern_src))
+  .pattern_bottom
+    position: absolute
+    background: url(F($pattern_bottom_src))
+    width: 100%
+    height: $pattern_bottom_height
+    bottom: 0
+    left: 0
+.freedom_of_choice, .last_tutors
+  background-color: #fff
+
+.about_us
+  padding-top: 48px
+  .left
+    width: 183px
+    padding-left: 20px
+    padding-top: 60px
+    box-sizing: border-box
+    .illustration
+      width:  $illustration_1_width
+      height: $illustration_1_height
+      background: url(F($illustration_1_src)) no-repeat
+  .right
+    padding-left: 25px
+    .title, .text
+      color: #000
+      line-height: 24px
+    .title
+      margin-bottom: 24px
+      font-size: 24px
+      font-weight: 600
+    .text
+      font-size: 16px
+
+.freedom_of_choice
+  position: relative
+  padding-top: 48px
+  padding-bottom: 72px
+  .left
+    width: 183px
+    padding-left: 20px
+    padding-top: 24px
+    .illustration
+      width:  $illustration_2_width
+      height: $illustration_2_height
+      background: url(F($illustration_2_src)) no-repeat
+  .right
+    padding-left: 25px
+    .title, .text
+      color: #000
+      line-height: 24px
+    .title
+      margin-bottom: 24px
+      font-size: 20px
+      font-weight: 600
+    .text
+      font-size: 16px
+    .items
+      margin-bottom: 24px
+      .item
+        padding-left: 9px
+        .icon, .text
+          +inline-block
+        .icon
+          margin-right: 9px
+          width: 6px
+          height: 6px
+          background-color: #000
+          border-radius: 50%
+        .text
+          color: #000
+          font-size: 16px
+          line-height: 24px
+  .pattern_bottom
+    position: absolute
+    z-index: 1
+    background: url(F($pattern_top_src))
+    width: 100%
+    height: $pattern_top_height
+    bottom: - $pattern_top_height
+    left: 0
+.rating
+  position: relative
+  padding-bottom: 69px
+  .left
+    width: 183px
+    .illustration_5
+      width:  $illustration_5_width
+      height: $illustration_5_height
+      background: url(F($illustration_5_src)) no-repeat
+      margin-left: 22px
+    .illustration_4
+      width:  $illustration_4_width
+      height: $illustration_4_height
+      background: url(F($illustration_4_src)) no-repeat
+      margin: 24px 0 30px 35px
+
+  .illustration_3
+    position: absolute
+    z-index: 2
+    right: 81px
+    top: -48px 
+    width:  $illustration_3_width
+    height: $illustration_3_height
+    background: url(F($illustration_3_src)) no-repeat
+
+  .right
+    padding-left: 25px
+    padding-top: 48px
+    .title, .text, .t1, .items>.t1
+      color: #000
+      line-height: 24px
+    .title
+      margin-bottom: 24px
+      font-size: 20px
+      font-weight: 600
+    .text, .t1, .items>.t1
+      font-size: 16px
+    .items
+      margin-bottom: 24px
+      .item
+        height: 24px
+        padding-left: 9px
+        .icon, .text
+          +inline-block
+        .icon
+          margin-right: 9px
+          width: 6px
+          height: 6px
+          background-color: #000
+          border-radius: 50%
+        .text
+          color: #000
+          font-size: 16px
+      .t1
+        padding-left: 24px
+      .item:after
+        content: ''
+        +inline-block
+        height: 100%
+
+.last_tutors
+  padding-top: 48px
+  padding-bottom: 105px
+  background-color: #fff
+  .title
+    margin-bottom: 48px
+    font-size: 22px
+    line-height: 24px
+    color: #000
+    font-weight: 600
+    text-align: center
+  .content
+    padding-left: 93px
+    .tutor, .reg_block
+      +inline-block
+      vertical-align: top
+    .tutor
+      width: 170px
+      text-align: center
+      div
+        +inline-block
+      .photo
+        margin-bottom: 8px
+      .photo.first
+        width:  $last3_width
+        height: $last3_height
+        background: url(F($last3_src)) no-repeat
+      .photo.second
+        width:  $last2_width
+        height: $last2_height
+        background: url(F($last2_src)) no-repeat
+      .photo.third
+        width:  $last1_width
+        height: $last1_height
+        background: url(F($last1_src)) no-repeat
+      .subject_wrap,  .name_wrap
+        height: 24px
+      .subject_wrap>.subject, .name_wrap>.name
+        +inline-block
+        font-size: 16px
+        color: #202020
+      .subject_wrap:after, .name_wrap:after
+        content: ''
+        +inline-block
+        height: 100%
+    .reg_block
+      margin-left: 56px
+      text-align: left
+      .text
+        font-size: 16px
+        line-height: 24px
+        color: #000000
+      .button
+        width: 312px
+        height: 48px
+        margin-top: 12px
+
+
+
+
+

@@ -10,6 +10,12 @@ class @main extends @template '../fast_bid'
   tree : ->
     #progress : $form : account : 'fast_bid_progress'
     progress : 3
+    style_button_back   : 'fast_bid_nav'
+    href_button_back    : 'second_step'
+    style_issue_bid     : 'fast_bid_issue'
+    href_issue_bid      : 'fifth_step'
+    style_button_next   : 'fast_bid_nav'
+    href_button_next    : 'fourth_step'
     b_selector  : 'star'
     content : @module '$' :
       student : @module 'tutor/forms/checkbox'  :
@@ -32,7 +38,6 @@ class @main extends @template '../fast_bid'
 
 
       experience : @module 'tutor/forms/drop_down_list':
-        text      : 'Опыт:'
         selector  : 'fast_bid'
         default_options     : {
           '0': {value: '1-2years', text: '1-2 года'},
@@ -66,12 +71,3 @@ class @main extends @template '../fast_bid'
       #  selector : 'small'
       #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
     #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
-  init : ->
-    @parent.tree.filter_top.button_back.selector = 'fast_bid_nav'
-    @parent.tree.filter_top.button_back.href     = 'second_step'
-
-    @parent.tree.filter_top.issue_bid.selector   = 'fast_bid_issue'
-    @parent.tree.filter_top.issue_bid.href       = 'fifth_step'
-
-    @parent.tree.filter_top.button_next.selector = 'fast_bid_nav'
-    @parent.tree.filter_top.button_next.href     = 'fourth_step'

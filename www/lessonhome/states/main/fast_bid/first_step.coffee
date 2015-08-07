@@ -2,7 +2,7 @@ class @main extends @template '../fast_bid'
   route : '/fast_bid/first_step'
   model : 'main/application/1_step'
   title : "быстрое оформление заявки: первый шаг"
-  access : ['other', 'pupil']
+  access : ['other', 'pupil','admin']
   forms : ['pupil','person', {account:['fast_bid_progress']}]
   redirect : {
     tutor : 'tutor/profile'
@@ -10,6 +10,12 @@ class @main extends @template '../fast_bid'
   tree : ->
     #progress : $form : account : 'fast_bid_progress'
     progress : 1
+    style_button_back   : 'fast_bid_nav inactive'
+    href_button_back    : ''
+    style_issue_bid     : 'fast_bid_issue'
+    href_issue_bid      : 'fifth_step'
+    style_button_next   : 'fast_bid_nav'
+    href_button_next    : 'second_step'
     b_selector  : 'book'
     content : @module '$' :
       name : @module 'tutor/forms/input' :
@@ -59,7 +65,6 @@ class @main extends @template '../fast_bid'
         value : $form : person : 'email_first'
         
       subject :@module 'tutor/forms/drop_down_list':
-        text: 'Предмет :'
         selector  : 'fast_bid'
         smart : true
         self : true
@@ -145,16 +150,6 @@ class @main extends @template '../fast_bid'
         selector  : 'fast_bid'
         value : $form : pupil : 'newBid.subjects.0.comments'
     #hint : 'Вы можете<br>отправить заявку<br>в любой момент!<br>Но чем подробнее вы<br>её заполните, тем<br>лучше мы сможем<br>подобрать Вам<br>подходящего<br>репетитора :)'
-
-  init : ->
-    @parent.tree.filter_top.button_back.selector = 'fast_bid_nav inactive'
-    @parent.tree.filter_top.button_back.href     = ''
-
-    @parent.tree.filter_top.issue_bid.selector   = 'fast_bid_issue'
-    @parent.tree.filter_top.issue_bid.href       = 'fifth_step'
-
-    @parent.tree.filter_top.button_next.selector = 'fast_bid_nav'
-    @parent.tree.filter_top.button_next.href     = 'second_step'
 
 
 

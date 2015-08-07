@@ -2,6 +2,7 @@
 class @main extends EE
   constructor : ->
   Dom : => do Q.async =>
+    @loadedTime = new Date().getTime()
     @background_block  = $ @found.background_block
     @popup             = @found.popup
     @sort              = @tree.sort.class
@@ -81,8 +82,10 @@ class @main extends EE
       if dist >= 0
         @filter().done()
     @on 'change', => Q.spawn =>
+      if (new Date().getTime() - @loadedTime)>(1000*5)
+        Feel.sendActionOnce 'tutors_filter',1000*60*2
       @changed = true
-      @tnum = 4
+      #@tnum = 4
       yield @filterChange()
     ###
     @tutors_result = @tree.tutors_result

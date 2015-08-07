@@ -1,0 +1,52 @@
+@import compass/css3
+
+$icon_src: 'arrow_back.png'
+$icon_height: image-height($icon_src)
+$icon_width: image-width($icon_src)
+$pattern_src: 'main/pattern_dots.png'
+
+main
+  width: 529px
+  padding: 12px
+  background: url(F($pattern_src))
+  background-color: #e5e5e5
+  text-align: left
+.title
+  padding-left: 12px
+  margin-bottom: 12px
+  font-size: 18px
+  line-height: 24px
+  color: #000000
+  font-weight: 600
+.content
+  background-color: #fff
+  height: 408px
+  overflow: auto
+  padding: 18px 18px 24px 12px
+  box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.5)
+  .block
+    margin-bottom: 24px
+    color: #000
+    font-size: 16px
+    line-height: 24px
+
+.nav
+  text-align: right
+  a
+    +inline-block
+    height: 48px
+    .text, .icon
+      +inline-block
+    .text
+      margin-right: 12px
+      color: #000
+      font-size: 16px
+      //line-height: 24px
+    .icon
+      width:  $icon_width
+      height: $icon_height
+      background: url(F($icon_src)) no-repeat
+  a:after
+    content: ''
+    +inline-block
+    height: 100%

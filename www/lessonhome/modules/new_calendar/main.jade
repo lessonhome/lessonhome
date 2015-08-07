@@ -1,65 +1,128 @@
-
-.calendar_box(class = selector)
-  .js-calendar_week
-    .js-day.monday
-      .text пн
-    .js-day.tuesday
-      .text вт
-    .js-day.wednesday
-      .text ср
-    .js-day.thursday.hover
-      .text чт
-    .js-day.friday.hover
-      .text пт
-    .js-day.saturday.hover
-      .text сб
-    .js-day.sunday
-      .text вс
-  .morning_block
-    .m_monday.js-click_day
-      .active
-    .m_tuesday.js-click_day
-      .active
-    .m_wednesday.js-click_day
-      .active
-    .m_thursday.js-click_day
-      .active
-    .m_friday.js-click_day
-      .active
-    .m_saturday.js-click_day
-      .active
-    .m_sunday.js-click_day
-      .active
-  .day_block
-    .d_monday.js-click_day
-      .active
-    .d_tuesday.js-click_day
-      .active
-    .d_wednesday.js-click_day
-      .active
-    .d_thursday.js-click_day
-      .active
-    .d_friday.js-click_day
-      .active
-    .d_saturday.js-click_day
-      .active
-    .d_sunday.js-click_day
-      .active
-  .evening_block
-    .e_monday.js-click_day
-      .active
-    .e_tuesday.js-click_day
-      .active
-    .e_wednesday.js-click_day
-      .active
-    .e_thursday.js-click_day
-      .active
-    .e_friday.js-click_day
-      .active
-    .e_saturday.js-click_day
-      .active
-    .e_sunday.js-click_day
-      .active
+-selector=selector||"";
+if selector == 'tutor_profile'
+  .calendar_box(class = selector)
+    .js-calendar_week
+      .js-day.monday
+        .text пн
+      .js-day.tuesday
+        .text вт
+      .js-day.wednesday
+        .text ср
+      .js-day.thursday.hover
+        .text чт
+      .js-day.friday.hover
+        .text пт
+      .js-day.saturday.hover
+        .text сб
+      .js-day.sunday
+        .text вс
+    .morning_block
+      .m_monday.js-click_day
+        .text УТРО
+      .m_tuesday.js-click_day
+        .text УТРО
+      .m_wednesday.js-click_day
+        .text УТРО
+      .m_thursday.js-click_day
+        .text УТРО
+      .m_friday.js-click_day
+        .text УТРО
+      .m_saturday.js-click_day
+        .text УТРО
+      .m_sunday.js-click_day
+        .text УТРО
+    .day_block
+      .d_monday.js-click_day
+        .text ДЕНЬ
+      .d_tuesday.js-click_day
+        .text ДЕНЬ
+      .d_wednesday.js-click_day
+        .text ДЕНЬ
+      .d_thursday.js-click_day
+        .text ДЕНЬ
+      .d_friday.js-click_day
+        .text ДЕНЬ
+      .d_saturday.js-click_day
+        .text ДЕНЬ
+      .d_sunday.js-click_day
+        .text ДЕНЬ
+    .evening_block
+      .e_monday.js-click_day
+        .text ВЕЧЕР
+      .e_tuesday.js-click_day
+        .text ВЕЧЕР
+      .e_wednesday.js-click_day
+        .text ВЕЧЕР
+      .e_thursday.js-click_day
+        .text ВЕЧЕР
+      .e_friday.js-click_day
+        .text ВЕЧЕР
+      .e_saturday.js-click_day
+        .text ВЕЧЕР
+      .e_sunday.js-click_day
+        .text ВЕЧЕР
+else
+  .calendar_box(class = selector)
+    .js-calendar_week
+      .js-day.monday
+        .text пн
+      .js-day.tuesday
+        .text вт
+      .js-day.wednesday
+        .text ср
+      .js-day.thursday.hover
+        .text чт
+      .js-day.friday.hover
+        .text пт
+      .js-day.saturday.hover
+        .text сб
+      .js-day.sunday
+        .text вс
+    .morning_block
+      .m_monday.js-click_day
+        .active
+      .m_tuesday.js-click_day
+        .active
+      .m_wednesday.js-click_day
+        .active
+      .m_thursday.js-click_day
+        .active
+      .m_friday.js-click_day
+        .active
+      .m_saturday.js-click_day
+        .active
+      .m_sunday.js-click_day
+        .active
+    .day_block
+      .d_monday.js-click_day
+        .active
+      .d_tuesday.js-click_day
+        .active
+      .d_wednesday.js-click_day
+        .active
+      .d_thursday.js-click_day
+        .active
+      .d_friday.js-click_day
+        .active
+      .d_saturday.js-click_day
+        .active
+      .d_sunday.js-click_day
+        .active
+    .evening_block
+      .e_monday.js-click_day
+        .active
+      .e_tuesday.js-click_day
+        .active
+      .e_wednesday.js-click_day
+        .active
+      .e_thursday.js-click_day
+        .active
+      .e_friday.js-click_day
+        .active
+      .e_saturday.js-click_day
+        .active
+      .e_sunday.js-click_day
+        .active
 
 
 

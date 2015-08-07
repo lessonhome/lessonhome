@@ -1,4 +1,5 @@
 
+
 class @main
   Dom: =>
     # control elements
@@ -8,7 +9,7 @@ class @main
     @container    = @found.container
     @bg_block     = @found.bg_block
     # err div fined
-    @out_err_course                 = @found.out_err_course
+    #@out_err_course                 = @found.out_err_course
     @out_err_group_learning         = @found.out_err_group_learning
     @out_err_categories_of_students = @found.out_err_categories_of_students
     @out_err_place                  = @found.out_err_place
@@ -32,8 +33,17 @@ class @main
     @place_pupil = subject.place_pupil.class
     @place_remote = subject.place_remote.class
     @place_cafe = subject.place_cafe.class
- 
-
+    @course.on 'end',=>
+      arr = @course.getValue()
+      len = 0
+      narr = []
+      for key,val of arr
+        narr.push(val.split(',')...)
+        len++
+      arr = []
+      arr.push(val.split(';')...) for key,val of narr
+      if arr.length > len
+        @course.setValue arr
 
   show: =>
     # hide and delete function subject details
@@ -49,16 +59,16 @@ class @main
       @bg_block.remove()
 
     # fined div error
-    @course           .setErrorDiv @out_err_course
+    #@course           .setErrorDiv @out_err_course
     @group_learning   .setErrorDiv @out_err_group_learning
     @pre_school       .setErrorDiv @out_err_categories_of_students
     @place_tutor      .setErrorDiv @out_err_place
-    @course           .setErrorDiv @out_err_course
+    #@course           .setErrorDiv @out_err_course
     @group_learning   .setErrorDiv @out_err_group_learning
 
 
     # clear error
-    @course.on            'focus',  => @course.hideError()
+    #@course.on            'focus',  => @course.hideError()
     @group_learning.on    'focus',  => @group_learning.hideError()
     @pre_school.on        'change', => @pre_school.hideError()
     @junior_school.on     'change', => @junior_school.hideError()
@@ -70,10 +80,11 @@ class @main
     @place_pupil.on       'change', => @place_pupil.hideError()
     @place_remote.on      'change', => @place_remote.hideError()
     @place_cafe.on        'change', => @place_cafe.hideError()
-  showName : (name)=>
+  showName : (name, items)=>
     return unless name
     @found.subject_tag.text(name)
     @found.bg_block.show()
     @tree.price_slider.class.recheck()
+    @course.setItems(items)
 
 

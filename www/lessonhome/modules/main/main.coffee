@@ -1,6 +1,8 @@
 class @main extends EE
   Dom : =>
     @popup_wrap = $ @found.popup_wrap
+    if @tree.popup_close_href?
+      @popup_close_href = @tree.popup_close_href
     @content    = @found.content
 
   show: =>
@@ -27,5 +29,12 @@ class @main extends EE
 
   check_place_click :(e) =>
     if (!@content.is(e.target) && @content.has(e.target).length == 0)
-      Feel.go '/'
+      if @popup_close_href?
+        Feel.go @popup_close_href
+      else
+        Feel.go '/'
+      #console.log @tree.popup?._name
+      #switch @tree.popup?._name
+        #when 'main/call_back_popup' then  Feel.go '/'
+        #when 'main/terms_of_cooperation' then Feel.go '/main_tutor'
 
