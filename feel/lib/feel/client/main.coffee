@@ -27,9 +27,10 @@ class @Feel
     console.log 'Feel.init.modules'
     window.onerror = (e)=> @error e
     console.log 'Feel.init.onerror'
-    @urlData = new @urlData()
+    urlData = new @urlData()
+    @urlData = urlData
     console.log 'Feel.init new urlData'
-    yield @urlData.init()
+    yield urlData.init()
     console.log 'Feel.init urlData.init'
     
     @pbar = new @PBar()
