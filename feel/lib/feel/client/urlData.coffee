@@ -76,12 +76,16 @@ class @urlData
     return @fdata?[form] unless key?
     return _setKey @fdata?[form],key
   getU : =>
-    console.log 'getU',arguments
+    console.log "getU",arguments
     #@state  = History.getState()
     #@data   = yield @udata.u2d @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
-    return yield @udata.d2u yield @get()
+    get = yield @get()
+    console.log 'getU...get',get
+    d2u = yield @udata.d2u get
+    console.log 'getU...d2u',d2u
+    return d2u
   udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
-    console.log 'udataToUrl',arguments
+    console.log "udataToUrl",arguments
     console.log 'url',url
     params = {}
     unless typeof url == 'string'
