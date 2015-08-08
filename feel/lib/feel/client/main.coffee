@@ -142,13 +142,15 @@ class @Feel
     unknown = $.cookie('unknown')
     $.cookie 'unknown', 'set'+@user.sessionpart if unknown == 'need'
     
-  go : (href)=> Q.spawn =>
-    console.log 'urlData.get...',yield @urlData.get()
-    console.log 'urlData.getU...',yield @urlData.getU()
-    console.log 'before',href
-    href = (yield @urlData.udataToUrl href)
-    console.log 'after',href
-    window.location.href = href if href && (typeof href == 'string')
+  go : (href)=>
+    q = do Q.async =>
+      console.log 'urlData.get...',yield @urlData.get()
+      console.log 'urlData.getU...',yield @urlData.getU()
+      console.log 'before',href
+      href = (yield @urlData.udataToUrl href)
+      console.log 'after',href
+      window.location.href = href if href && (typeof href == 'string')
+    q.done()
   formSubmit : (form)=> Q.spawn =>
     form = $(form)
     url = form.attr 'action'
