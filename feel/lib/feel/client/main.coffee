@@ -148,7 +148,7 @@ class @Feel
     console.log 'before',href
     href = (yield @urlData.udataToUrl href)
     console.log 'after',href
-    window.location.href = href if href
+    window.location.href = href if href && (typeof href == 'string')
   formSubmit : (form)=> Q.spawn =>
     form = $(form)
     url = form.attr 'action'
