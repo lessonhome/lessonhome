@@ -145,7 +145,9 @@ class @Feel
   go : (href)=> Q.spawn =>
     console.log yield @urlData.get()
     console.log yield @urlData.getU()
+    console.log href
     href = (yield @urlData.udataToUrl href)
+    console.log href
     window.location.href = href if href
   formSubmit : (form)=> Q.spawn =>
     form = $(form)
