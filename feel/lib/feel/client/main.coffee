@@ -143,11 +143,11 @@ class @Feel
     $.cookie 'unknown', 'set'+@user.sessionpart if unknown == 'need'
     
   go : (href)=> Q.spawn =>
-    console.log yield @urlData.get()
-    console.log yield @urlData.getU()
-    console.log href
+    console.log 'urlData.get...',yield @urlData.get()
+    console.log 'urlData.getU...',yield @urlData.getU()
+    console.log 'before',href
     href = (yield @urlData.udataToUrl href)
-    console.log href
+    console.log 'after',href
     window.location.href = href if href
   formSubmit : (form)=> Q.spawn =>
     form = $(form)
