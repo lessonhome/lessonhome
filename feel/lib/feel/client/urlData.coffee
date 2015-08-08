@@ -77,7 +77,7 @@ class @urlData
   getU : =>
     #@state  = History.getState()
     #@data   = yield @udata.u2d @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
-    @udata.d2u yield @get()
+    return yield @udata.d2u yield @get()
   udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
     console.log 'url',url
     params = {}
