@@ -4,6 +4,7 @@ fstate = History.getState()
 
 class @urlData
   constructor : ->
+    console.log 'urlData.constructor()'
     Wrap @
     @_hash    = ""
     @_long    = {}
@@ -13,6 +14,7 @@ class @urlData
     @data     = {}
     @fdata    = {}
   init : =>
+    console.log 'urlData.init()'
     @json = Feel.urldataJson
     for fname,form of Feel.urlforms
       @forms[fname] = {}
