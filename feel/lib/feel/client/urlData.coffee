@@ -67,6 +67,7 @@ class @urlData
         #@data[key] = val
     yield @setUrl()
   get : (form,key)=>
+    console.log 'get',form,key
     return @data unless form?
     return @data[form] unless key?
     return _setKey @data[form],key
@@ -75,10 +76,12 @@ class @urlData
     return @fdata?[form] unless key?
     return _setKey @fdata?[form],key
   getU : =>
+    console.log 'getU',arguments
     #@state  = History.getState()
     #@data   = yield @udata.u2d @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     return yield @udata.d2u yield @get()
   udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
+    console.log 'udataToUrl',arguments
     console.log 'url',url
     params = {}
     unless typeof url == 'string'
