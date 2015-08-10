@@ -11,6 +11,7 @@ $icon_calendar_width: image-width($icon_calendar_src)
 main
   padding-top: 24px
   padding-left: 15px
+  padding-bottom: 432px
   background-color: #fff
 
 .back
@@ -38,8 +39,113 @@ main
     vertical-align: top
   .left
     width: 672px
+    .general
+      margin-bottom: 24px
+      .photo_block, .personal_data
+        +inline-block
+        vertical-align: top
+      .photo_block
+        .avatar
+          width: 210px
+          height: 264px
+        .attach_button
+          height: 48px
+          width: 210px
+      .personal_data
+        width: 462px
+        .top, .full_name, .description
+          text-align: left
+        .top
+          margin-bottom: 6px
+          .rating, .location
+            +inline-block
+          .rating
+            width: 126px
+          .location
+            width: 312px
+            text-align: right
+            font-size: 12px
+            line-height: 18px
+            color: #000000
+        .full_name
+          font-size: 24px
+          line-height: 24px
+          color: #000000
+        .description
+          margin: 12px 0 24px 0
+          font-size: 14px
+          line-height: 18px
+          color: #000000
+        .item
+          .title, .value
+            text-align: left
+            font-size: 16px
+            line-height: 24px
+            color: #000000
+          .title
+            margin-right: 5px
+            float: left
+            font-weight: 600
+        .experience, .work_place
+          padding: 12px 0
+    .extra_info
+      .header
+        text-align: left
+        border-bottom: 1px solid #cccccc
+        .about, .subjects, .reviews
+          position: relative
+          height: 39px
+          text-align: center
+          +inline-block
+          cursor: pointer
+          .text
+            +inline-block
+            font-size: 16px
+            color: #4c4c4c
+          .line
+            display: none
+            position: absolute
+            bottom: 0
+            height: 4px
+            background-color: #33cca6
+        .about.active, .subjects.active, .reviews.active
+          .line
+            display: block
+        .about:after, .subjects:after, .reviews:after
+          content: ''
+          +inline-block
+          height: 100%
+        .about, .reviews
+          width: 168px
+        .about
+          .line
+            width: 162px
+            margin-left: 1px
+        .subjects
+          width: 312px
+          .line
+            width: 277px
+            margin-left: 10px
+        .reviews
+          .line
+            right: 0
+            width: 181px
+      .value
+        .about_content
+          .about_text, .honors_text, .sub_title
+            text-align: left
+            font-size: 16px
+            line-height: 24px
+            color: #000
+          .about_text
+            margin-top: 21px
+            margin-bottom: 24px
+          .sub_title
+            margin-bottom: 3px
+            font-weight: 600
   .right
     width: 312px
+    padding-bottom: 24px
     text-align: center
     background-color: #e5e5e5
     .content
@@ -47,10 +153,12 @@ main
       width: 263px
       text-align: left
       .title
+        margin-top: 18px
         font-size: 24px
         line-height: 24px
         color: #000
       .calendar
+        margin: 12px 0
         .icon, a
           +inline-block
         .icon
@@ -64,8 +172,24 @@ main
           color: #0a79c0
           text-decoration: underline
 
-      .name, .subject
+      .name, .login, .subject
+        margin-top: 18px
         +inline-block
         width: 100%
         box-sizing: border-box
         font-size: 37px
+      .terms_of_use
+        margin-top: 12px
+        .agree_checkbox, .text
+          +inline-block
+          height: 48px
+        .agree_checkbox
+          margin-right: 12px
+        .text
+          line-height: 18px
+          font-size: 14px
+          color: #252525
+      .write_button
+        width: 265px
+        height: 48px
+

@@ -1,3 +1,9 @@
+
+mixin item(selector, title, value)
+  .item(class=selector)
+    .title!=title
+    .value!=value
+
 .js-back
   .button
     .icon
@@ -8,21 +14,39 @@
       .photo_block
         .avatar
         .photos
-        .attach_button
-      .personal_data
+        .attach_button!=attach_button
+      .personal_data.select
         .top
-          .rating
-          .location
+          .rating!=value.rating
+          .location!=value.location
+        .full_name!=value.full_name
+        .description!=value.description
+        +item('status', 'Статус :', value.status)
+        +item('experience', 'Опыт :', value.experience)
+        +item('age', 'Возраст :', value.age)
+        +item('work_place', 'Место работы :', value.work_place)
+        +item('education', 'Образование :', value.education)
+        +item('areas_departure', 'Районы выезда :', value.areas_departure)
+
     .extra_info
       .header
-        .about О себе
-        .subjects Обучение предметам
-        .reviews Отзывы
+        .js-about.active
+          .text О себе
+          .line
+        .js-subjects
+          .text Обучение предметам
+          .line
+        .js-reviews
+          .text Отзывы
+          .line
       .value
-        .about
-          .about_text
-          .sub_title Награды, дипломы, сертификаты
-          .honors_text
+        .js-about_content
+          .about_text!=value.about_text
+          .sub_title Награды, дипломы, сертификаты :
+          .honors_text!=value.honors_text
+        .js-subjects_content
+        .js-reviews_content
+
   .right
     .content
       .title!='Написать '+value.tutor_name

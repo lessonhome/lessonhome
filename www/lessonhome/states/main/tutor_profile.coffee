@@ -3,31 +3,44 @@ class @main extends @template '../main'
   route : '/tutor_profile'
   model : 'main/eyed_student_profile'
   title : "Профиль репетитора"
+  forms : [{person:['dativeName']}]
   access : ['other','pupil']
   tree : =>
     content : @module '$' :
       value: {
-        tutor_name: 'Иван'
+        tutor_name: $form : person : 'dativeName.first'
+        rating: @module 'rating_star'
+        location: 'г.Москва, р.Одинцово, м.Одинцово'
+        full_name: 'Иванов Иван Иванович'
+        description: 'Репетитор по англискому и испанскому, подготовлю к вступительным ИСАА'
+        status: 'Преподаватель школы'
+        experience: '3 года'
+        age: '45 лет'
+        work_place: 'ИСАА, ассистент'
+        education: 'МХАТ, ВГИК, Российская академия музыки им.Гнесиных'
+        areas_departure: 'р.Зеленоград, м.Беляево, р.Беляево, м.Сходненская, р.Солнцегорск'
+        about_text: 'Отбор будет очень быстрым и пройдет в ОЧНОМ режиме. Уже ЗАВТРА, 5 АВГУСТА, вы решите короткий, но довольно сложный кейс и, в случае успеха, получите приглашение на открытие второй волны. Времени на все осталось очень мало, а потому нужно успеть пройти регистрацию до 12:00 завтрашнего дня (5 августа). '
+        honors_text: 'Отбор будет очень быстрым и пройдет в ОЧНОМ режиме. Уже ЗАВТРА, 5 АВГУСТА, вы решите короткий, но довольно сложный кейс и, в случае успеха, получите приглашение на открытие второй волны. Времени на все осталось очень мало, а потому нужно успеть пройти регистрацию до 12:00 завтрашнего дня (5 августа). '
       }
       attach_button     : @module 'tutor/checkbox_button' :
         checkbox        : @module 'tutor/forms/checkbox' :
           value : false
           selector: 'small'
         selector  : 'attach'
-        text      : 'выбрать'
+        text      : 'прикрепить к заявке'
       msg: @module 'tutor/forms/textarea' :
         height    : '117px'
         text      : 'Сообщение :'
-        selector  : 'first_reg'
+        selector  : 'write_tutor'
       name: @module 'tutor/forms/input'  :
         text1        : 'Ваше имя :'
-        selector  : 'first_reg'
+        selector  : 'write_tutor'
       login: @module 'tutor/forms/input'  :
         text1        : 'Ваш телефон или email :'
-        selector  : 'first_reg'
-      subject:     select_subject_field : @module 'tutor/forms/drop_down_list' :
+        selector  : 'write_tutor'
+      subject: @module 'tutor/forms/drop_down_list' :
         text      : 'Выберите предмет :'
-        selector  : 'first_reg'
+        selector  : 'write_tutor'
         smart : true
         self : true
         default_options     : {
@@ -109,6 +122,6 @@ class @main extends @template '../main'
         value : true
         selector: 'small'
       write_button: @module 'link_button' :
-        selector: 'view'
+        selector: 'write_tutor'
         text: 'Написать Ивану' #TODO: insert a real name of tutor
 

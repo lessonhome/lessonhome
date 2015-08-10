@@ -15,12 +15,12 @@ main
   height: 100%
   width: 100%
   .button
+    height: 100%
+    width: 100%
     text-align: left
     padding-left: 18px
     padding-bottom: 1.5px
     box-sizing: border-box
-    width: 100%
-    height: 100%
     +inline-block
     //+border-radius(4px)
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
@@ -29,10 +29,10 @@ main
     .text
       margin-left: 12px
       color: #202020
-  .button:after
-    content: ''
-    +inline-block
-    height: 100%
+.button_box>.button:after
+  content: ''
+  +inline-block
+  height: 100%
 
 //////////////// function //////////////
 //new function for new design, after all element on new, delete old function
@@ -53,6 +53,14 @@ main
     background-color: rgba(60, 178, 125, 0.50)
     .text
       color: rgba(0, 0, 0, 0.50)
+
+//- --------------- attach button on tutor profile ---------------------------------
+
+.attach
+  .button
+    background-color: #3cb27d
+    .text
+      color: #000
 ////////////////  actions  ////////////////
 
 .button_box:hover
