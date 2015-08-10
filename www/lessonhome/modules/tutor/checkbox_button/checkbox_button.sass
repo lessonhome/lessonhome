@@ -50,9 +50,9 @@ main
 
 .choose
   .button
-    background-color: rgba(60, 178, 125, 0.50)
+    background-color: rgba(60, 178, 125, 1)
     .text
-      color: rgba(0, 0, 0, 0.50)
+      color: rgb(0, 0, 0)
 
 //- --------------- attach button on tutor profile ---------------------------------
 
@@ -69,16 +69,16 @@ main
     box-sizing: border-box
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
 
-.button_box .button.pressed
+.button_box .button.pressed,.button_box:hover .button.pressed
   box-sizing: border-box
-  box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px 2px 0px 0px inset
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 1px 0px, rgba(0, 0, 0, 0.2) 0px 3px 0px 0px inset
 
 
 .press,.press:hover
-  padding-top: 1px
+  +transform(scale(0.99) translateY(1px))
   box-sizing: border-box
   .button
-    padding-bottom: 1px
+    //padding-bottom: 1px
     box-sizing: border-box
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
 

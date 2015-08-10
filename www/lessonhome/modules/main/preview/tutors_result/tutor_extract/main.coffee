@@ -20,6 +20,7 @@ class @main extends EE
     #@tutor_price        = @found.tutor_price
 
   show: =>
+    @hopacity ?= @dom.find('.g-hopacity')
     #@hideExtraText() # hide text that is larger than the maximum length and show full text by click
     @found.choose_button.click @addTutor
   addTutor : => Q.spawn =>
@@ -35,8 +36,10 @@ class @main extends EE
     if linked[@tree.value.index]?
       @tree.choose_button?.class?.setValue {text:'убрать',color:'#FF7F00',pressed:true}
       @tree.choose_button?.class?.setActiveCheckbox()
+      @hopacity.removeClass 'g-hopacity'
     else
       @tree.choose_button?.class?.setValue {text:'выбрать'}
+      @hopacity.addClass 'g-hopacity'
 
   hideExtraText: =>
     max_length = 147

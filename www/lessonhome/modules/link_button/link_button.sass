@@ -185,9 +185,9 @@ $search_pattern_src: 'main/search_pattern.png'
 //- --------- view_button on fast_bid/first_step --------------------------------------------
 
 .view>.button
-  background-color: rgba(0, 187, 211, 0.50)
+  background-color: rgba(0, 187, 211, 1)
   .text
-    color: rgba(0, 0, 0, 0.50)
+    color: rgba(0, 0, 0, 1)
 
 .write_tutor>.button
   background-color: #3e9ee0
@@ -206,10 +206,11 @@ $search_pattern_src: 'main/search_pattern.png'
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 2px 0px, rgba(0, 0, 0, 0.1) 0px -3px 0px 0px inset
 
 .press,.press:hover
-  padding-top: 1px
+  +transform(scale(0.99) translateY(1px))
+  //padding-top: 1px
   box-sizing: border-box
   .button
-    padding-bottom: 1px
+    //padding-bottom: 1px
     box-sizing: border-box
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
 
