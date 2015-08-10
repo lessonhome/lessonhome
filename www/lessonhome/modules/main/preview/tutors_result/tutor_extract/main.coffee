@@ -62,12 +62,12 @@ class @main extends EE
     for key,val of value.subjects
       if key
         @tutor_subject.append s=$("<div class='tag'>#{key}</div>")
-        do (s,key,val)=>
-          s.on 'mouseenter',=>
-            @tutor_text.text val.description if val?.description
-            s.on 'mouseleave', =>
-              s.off 'mouseleave'
-              @tutor_text.text value.about ? ""
+        #do (s,key,val)=>
+          #s.on 'mouseenter',=>
+            #@tutor_text.text val.description if val?.description
+            #s.on 'mouseleave', =>
+              #s.off 'mouseleave'
+              #@tutor_text.text value.about ? ""
     #@tutor_subject. text(value.tutor_subject) if value?.tutor_subject?
     #@tutor_status.  text(value.status ? "")
     #@tutor_exp.     text(value.experience ? "")
