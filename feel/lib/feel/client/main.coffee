@@ -6,13 +6,15 @@ class @Feel
     @production = true if (window.location.hostname ? '').match /lessonhome\.ru/
 
   init : => do Q.async =>
+    console.log 'Feel.init'
     for key,val of $Feel.user?.type
       #if $Feel.user?.type?.admin
       if val
         $.cookie key,true,{path:'/'}
+    console.log 'Feel.init.user type'
     for key,val of $Feel
       @[key] = val
-
+    console.log 'Feel.init.$Feel'
     for key,mod of $Feel.modules
       if mod.main?.prototype?
         mod.main::class = {}
@@ -22,14 +24,19 @@ class @Feel
         for name,obj of mod
           window[name] = obj
           console.log "global class window['#{name}'];"
-    
+    console.log 'Feel.init.modules'
     window.onerror = (e)=> @error e
-    
-    @urlData = new @urlData()
-    yield @urlData.init()
+    console.log 'Feel.init.onerror'
+    urlData = new @urlData()
+    @urlData = urlData
+    console.log 'Feel.init new urlData'
+    yield urlData.init()
+    console.log 'Feel.init urlData.init'
     
     @pbar = new @PBar()
+    console.log 'Feel.init new PBar'
     yield @pbar.init()
+    console.log 'Feel.init pbar init'
     
     @active = new @activeState @root.tree
     yield @active.init()
@@ -142,11 +149,15 @@ class @Feel
     unknown = $.cookie('unknown')
     $.cookie 'unknown', 'set'+@user.sessionpart if unknown == 'need'
     
-  go : (href)=> Q.spawn =>
-    console.log yield @urlData.get()
-    console.log yield @urlData.getU()
-    href = (yield @urlData.udataToUrl href)
-    window.location.href = href if href
+  go : (href)=>
+    q = do Q.async =>
+      console.log 'urlData.get...',yield @urlData.get()
+      console.log 'urlData.getU...',yield @urlData.getU()
+      console.log 'before',href
+      href = (yield @urlData.udataToUrl href)
+      console.log 'after',href
+      window.location.href = href if href && (typeof href == 'string')
+    q.done()
   formSubmit : (form)=> Q.spawn =>
     form = $(form)
     url = form.attr 'action'
