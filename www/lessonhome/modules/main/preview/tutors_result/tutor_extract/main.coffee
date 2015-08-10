@@ -62,9 +62,12 @@ class @main extends EE
     @tree.all_rating.class.setValue rating:value?.rating
     @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
     @tutor_subject.empty()
+    i = 0
     for key,val of value.subjects
+      i++
       if key
-        @tutor_subject.append s=$("<div class='tag'>#{key}</div>")
+        key = key?.capitalizeFirstLetter?() ? key if i == 1
+        @tutor_subject.append s=$("<div class='tag'>#{key ? ""}</div>")
         #do (s,key,val)=>
           #s.on 'mouseenter',=>
             #@tutor_text.text val.description if val?.description
