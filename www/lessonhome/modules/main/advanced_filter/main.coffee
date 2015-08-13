@@ -39,7 +39,7 @@ class @main extends EE
         i.class = @tree?[input]?.class
         do (b)=> i?.class?.on? 'change', =>
           @emit 'change'
-          b.reset?.show?() if 
+          b.reset?.show()
 
     #@on 'change', => #Q.spawn =>
     #  v = @getValue()

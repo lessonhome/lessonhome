@@ -18,6 +18,8 @@ $map_icon_width: image-width($map_icon_src)
   .location
     width: 336px
     text-align: right
+    float: right
+    margin-right: 12px
 .top:after
   content: ''
   +inline-block
@@ -31,6 +33,8 @@ a.name
     font-size: 16px
     color: #00a3b8
     text-decoration: underline
+    &:hover
+      text-decoration: none
 .tutor_status_wrap
   height: 16px
   margin-bottom: 8px
@@ -65,7 +69,8 @@ a.name:after, .tutor_status_wrap:after
         cursor : pointer
         font-size: 12px
         color: #444444
-        font-family: cursive
+        margin-top: 10px
+        font-style: italic
       .more_subjects
         margin-left: 5px
     .tutor_subject:after
@@ -73,8 +78,9 @@ a.name:after, .tutor_status_wrap:after
       +inline-block
       height: 100%
   .right
-    margin-top: -12px
+    margin-top: -11px
     .price_wrap
+      text-align: right
       .text, .price
         +inline-block
         vertical-align: sub
