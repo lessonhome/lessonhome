@@ -24,6 +24,7 @@ class @main extends EE
         b.reset?.click? =>
           for n,i of b.inputs
             i?.class?.setValue?()
+          b.reset.hide()
         b.get = =>
           ret = {}
           for n,i of b.inputs
@@ -32,10 +33,13 @@ class @main extends EE
         b.set = (v)=>
           for n,i of b.inputs
             i?.class?.setValue? v?[n]
+          b.reset?.show?()
       for input in arr
         b.inputs[input] = i = {}
         i.class = @tree?[input]?.class
-        i?.class?.on? 'change', => @emit 'change'
+        do (b)=> i?.class?.on? 'change', =>
+          @emit 'change'
+          b.reset?.show?() if 
 
     #@on 'change', => #Q.spawn =>
     #  v = @getValue()
