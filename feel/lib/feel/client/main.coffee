@@ -191,7 +191,9 @@ class @Feel
     return $.cookie('sendAction__'+action,t,{path:'/'}) unless cook?
     @sendActionOnce action,time
 
-    
+  login : (id)=> do Q.async =>
+    yield @root.tree.class.$send('/relogin',id)
+    yield @go '/form/tutor/login'
 
 
 window.Feel = new @Feel()
