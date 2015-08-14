@@ -72,6 +72,8 @@ class @main extends EE
 
     #
     @setDivision()
+    #@start?.setValue @tree.value.left
+    #@end?.setValue @tree.value.right
 
   setValue : (v={})=>
     @tree.value[key]=val for key,val of v
@@ -83,6 +85,10 @@ class @main extends EE
     #throw new Error 'bad value' unless v.min? && v.max? && v.left? && v.right?
     @min = v.min
     @max = v.max
+    unless v.left >= 0
+      v.left = @tree?.default?.left ? @min
+    unless v.right >= 0
+      v.right = @tree?.default?.right ? @max
     @start?.setValue? v.left
     @end?.setValue? v.right
     @end?.emit? 'end'
@@ -109,8 +115,10 @@ class @main extends EE
       
 
   getValue : =>
-    @tree.value.left = @start?.getValue?()
-    @tree.value.right = @end?.getValue?()
+    s = @start?.getValue?()
+    @tree.value.left = s if s > 0 || s == 0
+    e = @end?.getValue?()
+    @tree.value.right = e if e > 0 || e == 0
     return @tree.value
     #{
     #    : @start?.getValue?()

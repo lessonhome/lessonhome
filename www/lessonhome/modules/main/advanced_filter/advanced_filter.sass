@@ -76,6 +76,7 @@ main
     +inline-block
     position : absolute
     display: block
+    display : none
     top: 2px
     float: right
     right: 25px
@@ -94,6 +95,8 @@ main
       color : #606060
 
   .show_hidden
+    width : 100%
+    +box-sizing(border-box)
     padding-bottom: 12px
     //overflow: hidden
     .subject, .area, .course, .group_lessons
@@ -112,6 +115,8 @@ main
       height: 36px
       padding: 0px 0 3px $form_left_margin
     .price, .time_to_way
+      width : 100%
+      +box-sizing(border-box)
       padding: 0px 23px 0 $form_left_margin
 
   .reviews_block, .verification_block

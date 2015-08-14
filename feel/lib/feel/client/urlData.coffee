@@ -142,10 +142,24 @@ class @urlData
     return if url == @state.url
     History.replaceState  @data,(@state.title || $('head>title').text()),url
     @state = History.getState()
-    @emit 'change'
+    @emitChange()
     #@data = yield @udata.u2d url?.match?(/^[^\?]*\??(.*)$/)?[1] ? ""
     #data = @state.url.match /\?(.*)$/
     #for key of @forms
     #  @data[key] ?= {}
+  emitChange : =>
+    @lastChange ?= 0
+    @waitingForChange ?= false
+    now = new Date().getTime()
+    unless @waitingForChange
+      @waitingForChange = true
+      time = 100
+      if (now-@lastChange)<1000
+        time = 1100-(now-@lastChange)
+      return setTimeout @_emitChange,time
+  _emitChange : =>
+    @lastChange = new Date().getTime()
+    @waitingForChange = false
+    @emit 'change'
 
-    
+
