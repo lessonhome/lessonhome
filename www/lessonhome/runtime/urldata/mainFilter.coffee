@@ -43,14 +43,11 @@ class @D2U
     value : obj?.test
     default : 0
   $linked : (obj)=>
-    console.log 'linked1',obj?.linked
     str = Object.keys(obj?.linked ? {})?.join?('.') ? ''
-    console.log 'linked0',str
     str2 = ''
     for c,i in str
       str2 += numstr[c]
     str = str2
-    console.log 'linked',str
     return {
       type : 'string'
       value : str
@@ -133,18 +130,15 @@ class @D2U
 class @U2D
   $test : (obj)=> obj?.test
   $linked : (obj)=>
-    console.log 'linked-1',obj?.linked
     str = obj?.linked ? ''
     str2 = ''
     for c,i in str
       str2 += _numstr[c]
     str = str2
-    console.log 'linked-0',str
     arr = {}
     str = str.split '.'
     for a in str
       arr[+a]= true if (+a)>0
-    console.log 'linked-',arr
     return arr
   $price : (obj)=>
     left  : obj?.priceLeft

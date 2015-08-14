@@ -45,7 +45,7 @@ class @main extends EE
       slider ?= @slider.left if @slider.left?
       setSliderPos(slider, +@end.getValue()) if slider?
 
-    @slider.on 'left_slider_move', (x) =>
+    @slider.on 'left_slider_move', (x)=>
       input = @start if @start?
       input ?= @end  if @end?
       setInputVal input,x # @parseVal(left:x).left
@@ -55,7 +55,7 @@ class @main extends EE
       @emit 'change'
       @emit 'end'
 
-    @slider.on 'right_slider_move', (x) =>
+    @slider.on 'right_slider_move', (x)=>
       input = @end  if @end?
       input ?= @start if @start?
       setInputVal input, x #@parseVal(right:x).right
@@ -92,7 +92,6 @@ class @main extends EE
     @end?.emit? 'end'
     @start?.emit? 'end'
   parseVal : ({left,right})=>
-    console.log left,right
     if left?
       left = +left
       unless left>=0
@@ -105,7 +104,6 @@ class @main extends EE
         right = @tree.value.max
       if @tree.division_value>0
         right= Math.round(right/@tree.division_value)*@tree.division_value
-    console.log left,right
     return {left,right}
 
       
