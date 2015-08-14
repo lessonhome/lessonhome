@@ -37,7 +37,6 @@
     "rimraf" : "*",
     "mongodb":"*",
     "colors" : "*",
-    "v8-profiler" : "*",
     "yuicompressor" : "*",
     "cookies" : "*",
     "bcryptjs": "*",

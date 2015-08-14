@@ -10,7 +10,7 @@ main
   +inline-block
   +transition( transform 400ms ease-out)
   //+transition-delay(0.5s)
-  +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
+  //+box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
   z-index : 100
   cursor : pointer
   position: relative
@@ -31,7 +31,7 @@ main
       background: url(F($close_src)) no-repeat
 .photo.hover
   +transform(scale(2.2))
-  +box-shadow(0px 5px 12px rgba(0, 0, 0, 0.4))
+  +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
 .all_rating
   margin-top: 10px
 a
@@ -46,6 +46,8 @@ a
     font-size: 14px
     color: #000000
     text-decoration: underline
+    &:hover
+      text-decoration: none
 .photo.unknown
   +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
   cursor : default
