@@ -121,11 +121,13 @@ class @D2U
       type : 'int'
       value : v
       default : 0
+      cookie : true
     }
   $showBy : (obj)=>
     type : 'bool'
     value : obj?.showBy == 'list'
     default : true
+    cookie : true
   
 class @U2D
   $test : (obj)=> obj?.test
