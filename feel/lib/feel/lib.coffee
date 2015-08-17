@@ -505,6 +505,7 @@ global._stat    = Q.denode _fs.stat
 global._unlink    = Q.denode _fs.unlink
 global._inspect = _util.inspect
 global._hash    = (f)-> _crypto.createHash('sha1').update(f).digest('hex')
+global._object_hash = require './lib/object_hash'
 global._toJson  = (o)-> _js_infinite_json.stringify o
 global._unJson  = (o)-> _js_infinite_json.parse     o
 global._mkdirp  = Q.denode require 'mkdirp'

@@ -1,7 +1,7 @@
 
 class @main extends EE
   constructor : ->
-  Dom : => do Q.async =>
+  Dom : => #do Q.async =>
     @loadedTime = new Date().getTime()
     @background_block  = $ @found.background_block
     @popup             = @found.popup
@@ -17,16 +17,59 @@ class @main extends EE
     #@tutors = $.localStorage.get 'tutors'
     #@tutors ?= {}
     @loaded = {}
-    
-    @tnum   = 10
-    @tfrom  = 0
-    @now    = []
+    @doms = {}
+    #@tnum   = 10
+    #@tfrom  = 0
+    #@now    = []
     @changed = true
     @sending = false
-    yield @filter()
-    yield Feel.urlData.request()
-    yield @filter()
-
+    #yield @filter()
+    #yield Feel.urlData.request()
+    #yield @filter()
+  reshow : => do Q.async =>
+    yield @_block 'reshow'
+    @tutors_result.css 'opacity',0
+    @from   ?= 0
+    @count  = 10
+    @now ?= []
+    indexes = yield Feel.dataM.getTutors @from,@count
+    indexes = indexes.slice @from,@from+@count
+    preps   = yield Feel.dataM.getTutor indexes
+    #return if objectHash(@now) == objectHash(indexes)
+    @now = indexes
+    @tutors_result.empty()
+    for i in indexes
+      p = preps[i]
+      d = @createDom p
+      d.dom.appendTo @tutors_result
+    @tutors_result.css 'opacity',1
+    return @_unblock 'reshow'
+  addTen : => do Q.async =>
+    yield @_block 'reshow'
+    @now ?= []
+    indexes = yield Feel.dataM.getTutors @from,@count+10
+    @count = Math.min(indexes.length-@from,@count+10)
+    indexes = indexes.slice @from,@from+@count
+    preps   = yield Feel.dataM.getTutor indexes
+    return yield @_unblock 'reshow' if objectHash(@now) == objectHash(indexes)
+    console.log @now,indexes,preps
+    for i in [@now.length...indexes.length]
+      p = preps[indexes[i]]
+      d = @createDom p
+      d.dom.appendTo @tutors_result
+    @now = indexes
+    yield @_unblock 'reshow'
+  createDom : (prep)=>
+    return @doms[prep.index] if @doms[prep.index]?
+    cl = @tree.tutor_test.class.$clone()
+    @doms[prep.index] =
+      class : cl
+      dom   : $('<div class="tutor_result"></div>').append cl.dom
+    @updateDom @doms[prep.index],prep
+    return @doms[prep.index]
+  updateDom : (dom,prep)=>
+    dom.class.setValue prep
+  ###
   reshow : => do Q.async =>
     @_reshow ?= 0
     @_reshow = 2 if @_reshow == 1
@@ -36,28 +79,28 @@ class @main extends EE
     @domnowi = 0
     @domnow  = null
 
-    hash = yield Feel.urlData.filterHash()
-    @loaded[hash] ?= {}
-    @loaded[hash].count ?= 0
-    @loaded[hash].from  ?= 0
-    @loaded[hash].tutors ?= []
-    @loaded[hash].reloaded ?= false
-    unless @loaded[hash].reloaded
-      @loaded[hash].reloading = Feel.BTutors.request {count:@tnum,from:@tfrom}
-    if (@loaded[hash].from > @tfrom) || ((@loaded[hash].from+@loaded[hash].count)<(@tfrom+@tnum))
-      @loaded[hash].tutors = yield @filter2()
-    yield @show2 @loaded[hash]
+    #hash = yield Feel.urlData.filterHash()
+    #@loaded[hash] ?= {}
+    #@loaded[hash].count ?= 0
+    #@loaded[hash].from  ?= 0
+    #@loaded[hash].tutors ?= []
+    #@loaded[hash].reloaded ?= false
+    #unless @loaded[hash].reloaded
+    #  @loaded[hash].reloading = Feel.BTutors.request {count:@tnum,from:@tfrom}
+    #if (@loaded[hash].from > @tfrom) || ((@loaded[hash].from+@loaded[hash].count)<(@tfrom+@tnum))
+    #  @loaded[hash].tutors = yield @filter2()
+    #yield @show2 @loaded[hash]
     
-    unless @loaded[hash].reloaded
-      yield @loaded[hash].reloading
-      @loaded[hash].reloaded = true
-      @loaded[hash].tutors = yield @filter2()
-      yield @show2 @loaded[hash]
+    #unless @loaded[hash].reloaded
+    #  yield @loaded[hash].reloading
+    #  @loaded[hash].reloaded = true
+    #  @loaded[hash].tutors = yield @filter2()
+    #  yield @show2 @loaded[hash]
 
-    if @_reshow == 2
-      @_reshow = 0
-      return @reshow()
-    @_reshow = 0
+    #if @_reshow == 2
+    #  @_reshow = 0
+    #  return @reshow()
+    #@_reshow = 0
 
   filterChange : => do Q.async =>
     @fchange ?= 0
@@ -74,19 +117,21 @@ class @main extends EE
       @fchange = 0
       return @filterChange()
     @fchange = 0
+  ###
   show : =>
+    @reshow().done()
     @advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll',=>
       ll = @tutors_result.find(':last')
       dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
       if dist >= 0
-        @filter().done()
-    @on 'change', => Q.spawn =>
+        @addTen().done()
+    @on 'change', =># Q.spawn =>
       if (new Date().getTime() - @loadedTime)>(1000*5)
         Feel.sendActionOnce 'tutors_filter',1000*60*2
       @changed = true
       #@tnum = 4
-      yield @filterChange()
+      @reshow().done()
     ###
     @tutors_result = @tree.tutors_result
     ###
@@ -138,6 +183,7 @@ class @main extends EE
       @setItemInactive @profiles_20
 
     $(@reset_all_filters).on 'click', => @advanced_filter.resetAllFilters()
+  ###
   request : => Q.spawn =>
     @tutorsCache ?= {}
     return unless @changed
@@ -167,7 +213,8 @@ class @main extends EE
     yield @filter(hash)
     if @changed
       setTimeout @request,3000
-    
+  ###
+  ###
   filter : (hash)=> do Q.async =>
     @lastFilter ?= ""
     if hash?
@@ -241,7 +288,7 @@ class @main extends EE
       @filtering = 0
       return yield @filter()
     @filtering = 0
-
+  ###
   check_place_click :(e) =>
     if (!@popup.is(e.target) && @popup.has(e.target).length == 0)
       Feel.go '/second_step'

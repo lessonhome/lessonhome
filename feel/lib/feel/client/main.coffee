@@ -28,6 +28,9 @@ class @Feel
     @urlData = new @urlData()
     yield @urlData.init()
     
+    @dataM = new @DataM()
+    yield @dataM.init()
+    
     @pbar = new @PBar()
     yield @pbar.init()
     

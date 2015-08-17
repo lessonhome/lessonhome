@@ -183,12 +183,8 @@ class @urlData
     #  @data[key] ?= {}
   filterHash : (o={})=>
     hash = ''
-    if o?.prep?
-      hash += o.prep
-    else
-      o.url ?= Feel.urlData.state.url
-      hash += "#{o?.count ? ''}::#{o?.from ? ''}::"
-      hash += (yield Feel.urlData.filter o.url,'filter')
+    o.url ?= Feel.urlData.state.url
+    hash += (yield Feel.urlData.filter o.url,'filter')
     console.log 'hash',o,hash
     return hash
 

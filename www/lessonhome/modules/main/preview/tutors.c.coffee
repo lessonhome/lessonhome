@@ -1,5 +1,5 @@
 
-filter = require './filter'
+_filter = require './filter'
 
 class Tutors
   constructor : ->
@@ -14,7 +14,10 @@ class Tutors
     @dbtutor = yield @$db.get 'tutor'
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
-    @hashed = {}
+    @preps    = {}
+    @indexes  = {}
+    @filters  = {}
+    #@hashed = {}
     @index = {}
     yield @reload()
     @inited = 2
@@ -22,22 +25,50 @@ class Tutors
     setInterval =>
       @reload().done()
     , 30*1000
-  handler : ($,{prep,count,from,hash})->
-    return @hashed[hash] if @hashed[hash]
-    return {tutors:[@index[prep]]} if prep? && @index[prep]?
-    yield @init()
+  handler : ($, {filter,preps,from,count,exists})->
+    yield @init() unless @inited == 2
+    ret = {}
+    ret.preps = {}
+    if preps?
+      for p in preps
+        ret.preps[p] = @index[p]
+      console.log ret.preps
+       
+    if filter?
+      ex = {}
+      ex[k] = true for k in exists
+      ret.filters = {}
+      f = ret.filters[filter.hash] = {}
+      yield @filter filter unless @filters?[filter.hash]?.indexes?
+      f.indexes = @filters?[filter.hash]?.indexes ? []
+      count ?= 10
+      if from?
+        inds = f?.indexes?.slice? from,from+count
+        for i in inds
+          ret.preps[i] = @index[i] unless ex[k]
+    return ret
+    ###
+    #return @hashed[hash] if @hashed[hash]
+    #return {tutors:[@index[prep]]} if prep? && @index[prep]?
+    #yield @init()
     unless prep?
       url = $.req.url.match(/\?(.*)$/)?[1] ? ""
       mf = (yield @urldata.u2d url)?.mainFilter
       arr = yield filter.filter @persons,mf
-      arr = arr.splice from     if from?
-      arr = arr.splice 0,count  if count?
+      arr = arr.slice from     if from?
+      arr = arr.slice 0,count  if count?
       indexes = {}
       indexes[hash] = []
       indexes[hash].push p.index for p in arr
       return @hashed[hash]={tutors:arr,indexes}
     else
       return {tutors:[@index[prep]]}
+    ###
+  filter : (filter)=>
+    f = @filters[filter.hash] = {}
+    f.indexes = yield _filter.filter @persons,filter.data
+    return f
+    
   reload : =>
     t = new Date().getTime()
     return @persons unless (t-@timereload)>(1000*10)

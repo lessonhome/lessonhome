@@ -110,7 +110,10 @@ cnum = 0
     when '-access'
       out.sort (a,b)=> (a.accessTime-b.accessTime)
       _out.sort (a,b)=> (a.accessTime-b.accessTime)
-  return [out...]#,_out...]
+  ret =  [out...]#,_out...]
+  ret2 = []
+  ret2.push p.index for p in ret
+  return ret2
 
 
 

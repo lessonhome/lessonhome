@@ -7,8 +7,6 @@ class @main
   goBack: =>
     document.location.href = window.history.back()
   setValue : (data)=>
-
-
     @rating_photo.setValue {
       rating : data.rating
       photos : data.photos
