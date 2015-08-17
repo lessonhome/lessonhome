@@ -34,6 +34,7 @@ main
   +inline-block
   height: 100%
 .block
+  text-align: left
   .left, .right
     +inline-block
     vertical-align: top
@@ -48,10 +49,14 @@ main
         .avatar
           width: 210px
           height: 264px
+        .photos
+          margin: 12px 0
         .attach_button
           height: 48px
           width: 210px
       .personal_data
+        padding: 0 24px
+        box-sizing: border-box
         width: 462px
         .top, .full_name, .description
           text-align: left
@@ -60,7 +65,7 @@ main
           .rating, .location
             +inline-block
           .rating
-            width: 126px
+            width: 96px
           .location
             width: 312px
             text-align: right
@@ -89,6 +94,8 @@ main
         .experience, .work_place
           padding: 12px 0
     .extra_info
+      padding-right: 24px
+      box-sizing: border-box
       .header
         text-align: left
         border-bottom: 1px solid #cccccc
@@ -143,6 +150,13 @@ main
           .sub_title
             margin-bottom: 3px
             font-weight: 600
+        .subjects_content, .reviews_content
+          display: none
+        .subjects_content
+          .subject
+            margin-top: 12px
+        .reviews_content
+          padding-top: 21px
   .right
     width: 312px
     padding-bottom: 24px

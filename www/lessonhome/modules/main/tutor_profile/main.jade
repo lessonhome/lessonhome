@@ -18,16 +18,27 @@ mixin item(selector, title, value)
       .personal_data.select
         .top
           .rating!=value.rating
-          .location!=value.location
-        .full_name!=value.full_name
-        .description!=value.description
-        +item('status', 'Статус :', value.status)
-        +item('experience', 'Опыт :', value.experience)
-        +item('age', 'Возраст :', value.age)
-        +item('work_place', 'Место работы :', value.work_place)
-        +item('education', 'Образование :', value.education)
-        +item('areas_departure', 'Районы выезда :', value.areas_departure)
-
+          .js-location!=value.location
+        .js-full_name!=value.full_name
+        .js-description!=value.description
+        .js-status.item
+          .title!='Статус :'
+          .value!=value.status
+        .js-experience.item
+          .title!='Опыт :'
+          .value!=value.experience
+        .js-age.item
+          .title!='Возраст :'
+          .value!=value.age
+        .js-work_place.item
+          .title!='Место работы :'
+          .value!=value.work_place
+        .js-education.item
+          .title!='Образование :'
+          .value!=value.education
+        .js-areas_departure.item
+          .title!='Районы выезда :'
+          .value!=value.areas_departure
     .extra_info
       .header
         .js-about.active
@@ -45,7 +56,9 @@ mixin item(selector, title, value)
           .sub_title Награды, дипломы, сертификаты :
           .honors_text!=value.honors_text
         .js-subjects_content
-        .js-reviews_content
+          each val in value.subjects
+            .subject!=val
+        .js-reviews_content Отзывов о данном репетиторе пока нет
 
   .right
     .content
