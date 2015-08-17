@@ -1,0 +1,89 @@
+@import compass/css3
+
+$triangle_subject_src: 'sort_up.png'
+$triangle_subject_height: image-height($triangle_subject_src)
+$triangle_subject_width: image-width($triangle_subject_src)
+
+$triangle_subject_down_src: 'sort_down.png'
+$triangle_subject_down_height: image-height($triangle_subject_down_src)
+$triangle_subject_down_width: image-width($triangle_subject_down_src)
+
+.header
+  background-color: #e5e5e5
+  height: 71px
+  cursor: pointer
+  .left, .right
+    +inline-block
+  .left
+    width: 554px
+    padding-left: 24px
+    box-sizing: border-box
+    .subject
+      font-size: 16px
+      font-weight: 600
+      color: #010101
+    .training_direction
+      font-size: 14px
+      color: #000000
+      line-height: 24px
+  .right
+    width: 94px
+    text-align: center
+    .icon_wrap
+      +inline-block
+      .icon
+        width: $triangle_subject_down_width
+        height: $triangle_subject_down_height
+        background: url(F($triangle_subject_down_src)) no-repeat
+    .icon_wrap.active
+      .icon
+        width: $triangle_subject_width
+        height: $triangle_subject_height
+        background: url(F($triangle_subject_src)) no-repeat
+.header:after
+  content: ""
+  +inline-block
+  height: 100%
+
+.content
+  padding-left: 24px
+  .comment
+    margin: 12px 0 24px 0
+    font-size: 14px
+    line-height: 18px
+    color: #000000
+  .price
+    .left, .right
+      +inline-block
+      vertical-align: top
+    .left
+      width: 280px
+    .right
+      width: 343px
+    .left>.tutor, .left>.remote, .right>.pupil, .right>.group
+      .title_wrap, .value
+        +inline-block
+        vertical-align: top
+      .title_wrap
+        width: 110px
+        height: 24px
+        text-align: left
+        .title
+          +inline-block
+          font-size: 16px
+          font-weight: 600
+          color: #010101
+      .title_wrap:after
+        content: ''
+        +inline-block
+        height: 100%
+      .value
+        padding-top: 3px
+        div
+          font-size: 14px
+          line-height: 18px
+          color: #010101
+    .left>.tutor, .right>.pupil
+      margin-bottom: 24px
+    .right>div>.value
+      width: 204px

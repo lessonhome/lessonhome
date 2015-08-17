@@ -41,6 +41,12 @@ class @main extends EE
   setErrorDiv : (div)=>
     @errorDiv = $ div
 
+  changeValue: =>
+    if @state
+      @setValue false
+    else
+      @setValue true
+
   # event:  end, focus, blur, change
 
 

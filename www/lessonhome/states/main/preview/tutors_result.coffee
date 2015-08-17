@@ -23,9 +23,22 @@ class @main
         tutor_text        - текст
         tutor_price       - стоимость
       ###
+      view_button       : @module 'link_button' :
+        selector: 'view'
+        text: 'Смотреть'
+      choose_button     : @module 'tutor/checkbox_button' :
+        checkbox        : @module 'tutor/forms/checkbox' :
+          value : false
+          selector: 'small'
+        selector  : 'choose'
+        text      : 'выбрать'
       add_button_bid    : @module 'tutor/button' :
         selector  : 'add_button_bid'
         text      : 'Прикрепить к заявке'
-
+      all_rating    : @module 'rating_star'  :
+        selector  : @exports()
+        value :
+          rating    : @exports()
+        filling   : @exports()
 
 

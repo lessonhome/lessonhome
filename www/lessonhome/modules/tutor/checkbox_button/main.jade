@@ -1,0 +1,14 @@
+// takes variables:
+  //{selector, text}
+// type variables
+  // selector, text  - string
+//respons
+  //text - content
+  // selector - style sass
+//style="background: url(#{F('main/pattern_dots_profilebutton.png')})"
+- selector = selector || '';
+.button_box.g-hopacity(class=selector)
+  .js-button
+    .js-checkbox!=checkbox
+    if text
+      .text!=text

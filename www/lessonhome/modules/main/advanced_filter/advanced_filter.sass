@@ -13,12 +13,12 @@ $icon_reset_width: image-width($icon_reset_src)
 
 $padding_section: 25px
 $padding_title: 20px
-$padding_icon: 8px
+$padding_icon: 0 7px 0 15px
 $padding_experience: 10px
 $padding_reviews: 15px
 
 $form_width: 264px
-$form_left_margin: 23px
+$form_left_margin: 30px
 
 
 
@@ -26,19 +26,17 @@ main
   //padding: 15px 0px 30px 35px
   //padding-top: 12px
   font-size: 18px
-  background-color: #ededed
   color: rgb(117, 117, 117)
-  border: #cccccc solid 1px
+  +box-shadow(0px 1px 10px 1px rgba(0,0,0,0.20))
 
 .separator_box
   padding: 0 1px
   .line
-    border-top: 1px solid #a0a0a0
-    border-bottom: 1px solid #fff
+    border-top: 1px solid #cccccc
 
 .section *
   .icon_box
-    padding: 0 $padding_icon
+    padding: $padding_icon
     //margin-left: - $padding_icon * 2
     +inline-block
     .icon_down, .icon_right
@@ -77,6 +75,9 @@ main
   .reset
     +inline-block
     position : absolute
+    display: block
+    display : none
+    top: 2px
     float: right
     right: 25px
     cursor: pointer
@@ -94,6 +95,8 @@ main
       color : #606060
 
   .show_hidden
+    width : 100%
+    +box-sizing(border-box)
     padding-bottom: 12px
     //overflow: hidden
     .subject, .area, .course, .group_lessons
@@ -104,18 +107,20 @@ main
     //.area
       padding-top: 18px
     .tutor_status, .place, .experience
-      padding-left: 26px
+      padding-left: $form_left_margin
       //padding-top: 14px
       div
         margin-bottom: 7px
     .choose_gender
       height: 36px
-      padding: 0px 0 3px 23px
+      padding: 0px 0 3px $form_left_margin
     .price, .time_to_way
-      padding: 0px 23px 0 23px
+      width : 100%
+      +box-sizing(border-box)
+      padding: 0px 23px 0 $form_left_margin
 
   .reviews_block, .verification_block
-    padding: $padding_reviews/2 0 $padding_reviews/2 26px
+    padding: $padding_reviews/2 0 $padding_reviews/2 $form_left_margin
   .verification_block
     padding-bottom: 12px
   .reviews_block

@@ -3,6 +3,7 @@ Math.sign = (n)->
     1
   else
     -1
+String::capitalizeFirstLetter = -> @charAt(0).toUpperCase() + @slice(1)
 
 
 

@@ -1,13 +1,96 @@
--selector=selector||"";
-.navigation
-  .general!=general
-  .subjects!=subjects
-  .reviews!=reviews
-  .js-back
-    .text НАЗАД
+
+mixin item(selector, title, value)
+  .item(class=selector)
+    .title!=title
+    .value!=value
+
+.js-back
+  .button
     .icon
-.center_block(class=selector)
-  .content!=content
-  .buttons
-    .contact!=contact_tutor_button
-    .add!=add_to_bid_button
+    .text Вернуться к списку
+.block
+  .left
+    .general
+      .photo_block
+        .avatar
+        .photos
+        .attach_button!=attach_button
+      .personal_data.select
+        .top
+          .rating!=value.rating
+          .js-location!=value.location
+        .js-full_name!=value.full_name
+        .js-description!=value.description
+        .js-status.item
+          .title!='Статус :'
+          .value!=value.status
+        .js-experience.item
+          .title!='Опыт :'
+          .value!=value.experience
+        .js-age.item
+          .title!='Возраст :'
+          .value!=value.age
+        .js-work_place.item
+          .title!='Место работы :'
+          .value!=value.work_place
+        .js-education.item
+          .title!='Образование :'
+          .value!=value.education
+        .js-areas_departure.item
+          .title!='Районы выезда :'
+          .value!=value.areas_departure
+    .extra_info
+      .header
+        .js-about.active
+          .text О себе
+          .line
+        .js-subjects
+          .text Обучение предметам
+          .line
+        .js-reviews
+          .text Отзывы
+          .line
+      .value
+        .js-about_content
+          .about_text!=value.about_text
+          .sub_title Награды, дипломы, сертификаты :
+          .honors_text!=value.honors_text
+        .js-subjects_content
+          each val in value.subjects
+            .subject!=val
+        .js-reviews_content Отзывов о данном репетиторе пока нет
+
+  .right
+    .content
+      .title!='Написать '+value.tutor_name
+      .calendar
+        .icon
+        a Посмотреть график работы
+      .msg!=msg
+      .name!=name
+      .login!=login
+      .subject!=subject
+      .terms_of_use
+        .agree_checkbox!=agree_checkbox
+        .text Я согласен с пользовательским<br>соглашением
+      .write_button!=write_button
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

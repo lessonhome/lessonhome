@@ -4,55 +4,206 @@ $back_src: 'arrow_back.png'
 $back_height: image-height($back_src)
 $back_width: image-width($back_src)
 
+$icon_calendar_src: 'main/icon_calendar.png'
+$icon_calendar_height: image-height($icon_calendar_src)
+$icon_calendar_width: image-width($icon_calendar_src)
+
 main
-  padding-top: 12px
+  padding-top: 24px
+  padding-left: 15px
+  padding-bottom: 432px
   background-color: #fff
-.navigation
-  padding: 6px 0px 6px 21px
-  background-color: #f9f9f9
+
+.back
+  height: 24px
+  margin-bottom: 24px
   text-align: left
-  div
+  .button
     +inline-block
-  .general, .subjects, .reviews
-    height: 36px
-  .general, .subjects
-    margin-right: 24px
-  .general
-    width: 102px
-  .subjects
-    width: 272px
-  .reviews
-    width: 116px
-  .back
-    margin-left: 324px
     cursor: pointer
     .text, .icon
       +inline-block
     .icon
-      margin-left: 10px
+      margin-left: 3px
+      margin-right: 10px
       width: $back_width
       height: $back_height
       background: url(F($back_src)) no-repeat
-.center_block
-  padding-top: 12px
+.back:after
+  content: ''
+  +inline-block
+  height: 100%
+.block
   text-align: left
-  .content, .buttons
+  .left, .right
     +inline-block
     vertical-align: top
-  .content
-    padding-bottom: 24px
-    margin: 0 24px 0 15px
-    width: 816px
-    min-height: 696px
-  .buttons
-    padding-top: 24px
-    width: 144px
-    .contact, .add
-      width: 144px
-      height: 72px
-    .contact
+  .left
+    width: 672px
+    .general
       margin-bottom: 24px
+      .photo_block, .personal_data
+        +inline-block
+        vertical-align: top
+      .photo_block
+        .avatar
+          width: 210px
+          height: 264px
+        .photos
+          margin: 12px 0
+        .attach_button
+          height: 48px
+          width: 210px
+      .personal_data
+        padding: 0 24px
+        box-sizing: border-box
+        width: 462px
+        .top, .full_name, .description
+          text-align: left
+        .top
+          margin-bottom: 6px
+          .rating, .location
+            +inline-block
+          .rating
+            width: 96px
+          .location
+            width: 312px
+            text-align: right
+            font-size: 12px
+            line-height: 18px
+            color: #000000
+        .full_name
+          font-size: 24px
+          line-height: 24px
+          color: #000000
+        .description
+          margin: 12px 0 24px 0
+          font-size: 14px
+          line-height: 18px
+          color: #000000
+        .item
+          .title, .value
+            text-align: left
+            font-size: 16px
+            line-height: 24px
+            color: #000000
+          .title
+            margin-right: 5px
+            float: left
+            font-weight: 600
+        .experience, .work_place
+          padding: 12px 0
+    .extra_info
+      padding-right: 24px
+      box-sizing: border-box
+      .header
+        text-align: left
+        border-bottom: 1px solid #cccccc
+        .about, .subjects, .reviews
+          position: relative
+          height: 39px
+          text-align: center
+          +inline-block
+          cursor: pointer
+          .text
+            +inline-block
+            font-size: 16px
+            color: #4c4c4c
+          .line
+            display: none
+            position: absolute
+            bottom: 0
+            height: 4px
+            background-color: #33cca6
+        .about.active, .subjects.active, .reviews.active
+          .line
+            display: block
+        .about:after, .subjects:after, .reviews:after
+          content: ''
+          +inline-block
+          height: 100%
+        .about, .reviews
+          width: 168px
+        .about
+          .line
+            width: 162px
+            margin-left: 1px
+        .subjects
+          width: 312px
+          .line
+            width: 277px
+            margin-left: 10px
+        .reviews
+          .line
+            right: 0
+            width: 181px
+      .value
+        .about_content
+          .about_text, .honors_text, .sub_title
+            text-align: left
+            font-size: 16px
+            line-height: 24px
+            color: #000
+          .about_text
+            margin-top: 21px
+            margin-bottom: 24px
+          .sub_title
+            margin-bottom: 3px
+            font-weight: 600
+        .subjects_content, .reviews_content
+          display: none
+        .subjects_content
+          .subject
+            margin-top: 12px
+        .reviews_content
+          padding-top: 21px
+  .right
+    width: 312px
+    padding-bottom: 24px
+    text-align: center
+    background-color: #e5e5e5
+    .content
+      +inline-block
+      width: 263px
+      text-align: left
+      .title
+        margin-top: 18px
+        font-size: 24px
+        line-height: 24px
+        color: #000
+      .calendar
+        margin: 12px 0
+        .icon, a
+          +inline-block
+        .icon
+          margin-right: 12px
+          width: $icon_calendar_width
+          height: $icon_calendar_height
+          background: url(F($icon_calendar_src)) no-repeat
+        a
+          font-size: 14px
+          line-height: 18px
+          color: #0a79c0
+          text-decoration: underline
 
-.center_block.subjects, .center_block.reviews
-  .content
-    padding-top: 24px
+      .name, .login, .subject
+        margin-top: 18px
+        +inline-block
+        width: 100%
+        box-sizing: border-box
+        font-size: 37px
+      .terms_of_use
+        margin-top: 12px
+        .agree_checkbox, .text
+          +inline-block
+          height: 48px
+        .agree_checkbox
+          margin-right: 12px
+        .text
+          line-height: 18px
+          font-size: 14px
+          color: #252525
+      .write_button
+        width: 265px
+        height: 48px
+

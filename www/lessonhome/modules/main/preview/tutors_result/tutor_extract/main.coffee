@@ -17,11 +17,12 @@ class @main extends EE
     @tutor_place        = @found.tutor_place
     @tutor_title        = @found.tutor_title
     @tutor_text         = @found.tutor_text
-    @tutor_price        = @found.tutor_price
+    #@tutor_price        = @found.tutor_price
 
   show: =>
-    @hideExtraText() # hide text that is larger than the maximum length and show full text by click
-    @found.add_button_bid.click @addTutor
+    @hopacity ?= @dom.find('.g-hopacity')
+    #@hideExtraText() # hide text that is larger than the maximum length and show full text by click
+    @found.choose_button.click @addTutor
   addTutor : => Q.spawn =>
     linked = yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
@@ -33,9 +34,12 @@ class @main extends EE
   setLinked : (linked)=> Q.spawn =>
     linked ?= yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
-      @tree.add_button_bid?.class?.setValue {text:'Прикреплено к заявке',color:'#FF7F00',pressed:true}
+      @tree.choose_button?.class?.setValue {text:'убрать',color:'#FF7F00',pressed:true}
+      @tree.choose_button?.class?.setActiveCheckbox()
+      @hopacity.removeClass 'g-hopacity'
     else
-      @tree.add_button_bid?.class?.setValue {text:'Прикрепить к заявке'}
+      @tree.choose_button?.class?.setValue {text:'выбрать'}
+      @hopacity.addClass 'g-hopacity'
 
   hideExtraText: =>
     max_length = 147
@@ -55,17 +59,21 @@ class @main extends EE
     @setLinked()
     value = @tree.value
     #@with_verification.css 'background-color', value.with_verification if value?.with_verification?
+    @tree.all_rating.class.setValue rating:value?.rating
     @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
     @tutor_subject.empty()
+    i = 0
     for key,val of value.subjects
+      i++
       if key
-        @tutor_subject.append s=$("<div class='tag'>#{key}</div>")
-        do (s,key,val)=>
-          s.on 'mouseenter',=>
-            @tutor_text.text val.description if val?.description
-            s.on 'mouseleave', =>
-              s.off 'mouseleave'
-              @tutor_text.text value.about ? ""
+        key = key?.capitalizeFirstLetter?() ? key if i == 1
+        @tutor_subject.append s=$("<div class='tag'>#{key ? ""}</div>")
+        #do (s,key,val)=>
+          #s.on 'mouseenter',=>
+            #@tutor_text.text val.description if val?.description
+            #s.on 'mouseleave', =>
+              #s.off 'mouseleave'
+              #@tutor_text.text value.about ? ""
     #@tutor_subject. text(value.tutor_subject) if value?.tutor_subject?
     #@tutor_status.  text(value.status ? "")
     #@tutor_exp.     text(value.experience ? "")
@@ -75,12 +83,12 @@ class @main extends EE
     @found.location.text(value.location?.city ? "")
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     @tutor_text.    text(value.about ? "")
-    @found.price_left.text(value.price_left)
-    @found.price_right.text(value.price_right)
-    @found.duration_left.text(value.duration_left)
-    @found.duration_right.text(value.duration_right)
+    #@found.price_left.text(value.price_left)
+    #@found.price_right.text(value.price_right)
+    #@found.duration_left.text(value.duration_left)
+    #@found.duration_right.text(value.duration_right)
     @found.price.text(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
-    @hideExtraText()
+    #@hideExtraText()
 
   getValue : => @getData()
 

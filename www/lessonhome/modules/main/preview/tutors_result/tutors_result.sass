@@ -1,0 +1,28 @@
+@import compass/css3
+$width_left_block:  144px
+main
+  +transition(background-color 200ms ease-out)
+  background-color: #fff
+  #border: 1px solid #cccccc
+  //box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 3px 0px
+  box-shadow: 0 6px 4px -6px rgba(0, 0, 0, 0.30)
+  padding: 20px 0 20px 0px
+
+.left_block, .right_block
+  +inline-block
+  vertical-align: top
+.left_block
+  width: $width_left_block
+  .rating_photo
+    //
+.right_block
+  width: 504px
+  text-align: left
+  //margin-left: $width_left_block
+  //padding-left: 22px
+  //-border-left: 1px solid #a0a0a0
+  .tutor_extract
+    //
+main:hover
+  background-color: #f2f2f2
+

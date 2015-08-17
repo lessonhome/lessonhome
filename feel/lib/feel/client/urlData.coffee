@@ -43,7 +43,6 @@ class @urlData
       str += '&' if str
       str += key if key
       str += '='+val if val?
-    console.log {str}
     @data   = yield @udata.u2d str ? ''
     @fdata  = yield @udata.u2d str ? '' #fstate?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     for key of @forms
@@ -77,7 +76,9 @@ class @urlData
   getU : =>
     #@state  = History.getState()
     #@data   = yield @udata.u2d @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
-    @udata.d2u yield @get()
+    get = yield @get()
+    d2u = yield @udata.d2u get
+    return d2u
   toObject : (url)=>
     url = '' unless typeof url == 'string'
     url = url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
@@ -111,7 +112,6 @@ class @urlData
     return str
     
   udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
-    console.log 'url',url
     params = {}
     unless typeof url == 'string'
       url = window.location.href
@@ -126,12 +126,10 @@ class @urlData
           delete params[np[0]]
     obj = {url}
     urldata = (yield @getU()) ? ""
-    console.log urldata
     purl = urldata.split '&'
     for p in purl
       np = p.split '='
       params[np[0]] = np[1]
-    console.log params
     urldata = ""
     purl = []
     if usecookie == 'true'
@@ -176,7 +174,7 @@ class @urlData
     return if url == @state.url
     History.replaceState  @data,(@state.title || $('head>title').text()),url
     @state = History.getState()
-    @emit 'change'
+    @emitChange()
     #@data = yield @udata.u2d url?.match?(/^[^\?]*\??(.*)$/)?[1] ? ""
     #data = @state.url.match /\?(.*)$/
     #for key of @forms
@@ -187,5 +185,19 @@ class @urlData
     hash += (yield Feel.urlData.filter o.url,'filter')
     console.log 'hash',o,hash
     return hash
+  emitChange : =>
+    @lastChange ?= 0
+    @waitingForChange ?= false
+    now = new Date().getTime()
+    unless @waitingForChange
+      @waitingForChange = true
+      time = 100
+      if (now-@lastChange)<1000
+        time = 1100-(now-@lastChange)
+      return setTimeout @_emitChange,time
+  _emitChange : =>
+    @lastChange = new Date().getTime()
+    @waitingForChange = false
+    @emit 'change'
 
-    
+

@@ -13,12 +13,13 @@ class @main extends EE
       @next() if @photo.hasClass('hover') || @small
       @photo.addClass 'hover'
       @photo.css 'z-index',101
-      Feel.popupAdd @photo,=>
-        @photo.removeClass 'hover'
-        @photo.css 'z-index',100
-
+      Feel.popupAdd @photo,@closePhoto
+  closePhoto : =>
+    @photo.removeClass 'hover'
+    @photo.css 'z-index',100
+    @small = true
   setValue : (value={})=>
-    @tree.all_rating.class.setValue rating:value?.rating
+    #@tree.all_rating.class.setValue rating:value?.rating
     @tree.value ?= {}
     @tree.value[key] = val for key,val of value
     @tree.value.photos ?= []
@@ -66,7 +67,7 @@ class @main extends EE
     unless @small
       @now--
       @now = @leng - 1 if @now < 0
-      return if @old == @now
+      return @closePhoto() if @old == @now
     @small = false
     photo = @tree.value.photos[@now]
     @changePhoto photo

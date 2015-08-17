@@ -12,7 +12,6 @@ class @Feel
         $.cookie key,true,{path:'/'}
     for key,val of $Feel
       @[key] = val
-
     for key,mod of $Feel.modules
       if mod.main?.prototype?
         mod.main::class = {}
@@ -22,11 +21,10 @@ class @Feel
         for name,obj of mod
           window[name] = obj
           console.log "global class window['#{name}'];"
-    
     window.onerror = (e)=> @error e
-    
-    @urlData = new @urlData()
-    yield @urlData.init()
+    urlData = new @urlData()
+    @urlData = urlData
+    yield urlData.init()
     
     @dataM = new @DataM()
     yield @dataM.init()
@@ -145,11 +143,11 @@ class @Feel
     unknown = $.cookie('unknown')
     $.cookie 'unknown', 'set'+@user.sessionpart if unknown == 'need'
     
-  go : (href)=> Q.spawn =>
-    console.log yield @urlData.get()
-    console.log yield @urlData.getU()
-    href = (yield @urlData.udataToUrl href)
-    window.location.href = href if href
+  go : (href)=>
+    q = do Q.async =>
+      href = (yield @urlData.udataToUrl href)
+      window.location.href = href if href && (typeof href == 'string')
+    q.done()
   formSubmit : (form)=> Q.spawn =>
     form = $(form)
     url = form.attr 'action'
@@ -196,7 +194,9 @@ class @Feel
     return $.cookie('sendAction__'+action,t,{path:'/'}) unless cook?
     @sendActionOnce action,time
 
-    
+  login : (id)=> do Q.async =>
+    yield @root.tree.class.$send('/relogin',id)
+    yield @go '/form/tutor/login'
 
 
 window.Feel = new @Feel()

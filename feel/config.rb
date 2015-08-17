@@ -11,7 +11,7 @@ sass_dir = "www"
 
 images_dir = "www/lessonhome/static/"
 fonts_dir = "www/lessonhome/static/fonts"
-
+additional_import_paths = "www/lessonhome/compass"
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed
 

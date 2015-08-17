@@ -39,13 +39,11 @@ main
   .reset_all_filters
     margin: 12px 0
     text-align: left
-    background-color: #ededed
-    border: 1px solid #d9d9d9
     .icon, .title
       +inline-block
       cursor: pointer
     .icon
-      margin: 0 7px
+      margin: 0 9px 0 15px
       width:  $icon_reset_width
       height: $icon_reset_height
       background: url(F($icon_reset_src)) no-repeat
@@ -53,6 +51,8 @@ main
       font-size: 14px
       line-height: 22px
       color: #717171
+      &:hover
+        color: #aa352a
 .result_filter
   margin-left: $width_filter
   padding-left: 18px
@@ -170,6 +170,13 @@ main
     .tutor_result
       margin-bottom: 18px
       background-color: #f3f3f3
+      .g-hopacity
+        opacity : 0
+        +transition(opacity 300ms ease-out)
+      &:hover .g-hopacity
+        opacity : 1 
     .tutor_result:hover
       background-color: #e5e5e5
+
+
 

@@ -3,10 +3,14 @@ $close_src: 'main/close_10x10.png'
 $icon_height: image-height($close_src)
 $icon_width: image-width($close_src)
 
+main
+  text-align: right
+
 .photo
+  +inline-block
   +transition( transform 400ms ease-out)
   //+transition-delay(0.5s)
-  +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
+  //+box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
   z-index : 100
   cursor : pointer
   position: relative
@@ -27,7 +31,7 @@ $icon_width: image-width($close_src)
       background: url(F($close_src)) no-repeat
 .photo.hover
   +transform(scale(2.2))
-  +box-shadow(0px 5px 12px rgba(0, 0, 0, 0.4))
+  +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
 .all_rating
   margin-top: 10px
 a
@@ -35,11 +39,15 @@ a
   text-decoration: none
   cursor: pointer
   .count_review
+    text-align: center
+    padding-left: 12px
     box-sizing: border-box
-    margin-top: 5px
-    text-align: left
+    margin-top: 18px
     font-size: 14px
     color: #000000
+    text-decoration: underline
+    &:hover
+      text-decoration: none
 .photo.unknown
   +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
   cursor : default

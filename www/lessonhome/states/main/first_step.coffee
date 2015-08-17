@@ -90,6 +90,6 @@ class @main extends @template './motivation_content'
         selector  : 'add_button_bid'
         text      : 'ЗАРЕГИСТРИРОВАТЬСЯ'
         active    : true
-        href      : '/main_tutor'
+        href      : '/tutor_registration'
 
     info_panel  : @state './info_panel'

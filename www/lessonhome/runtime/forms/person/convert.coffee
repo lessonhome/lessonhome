@@ -47,6 +47,13 @@ class @F2V
     e = data?.education?[0]
     if e?.period?.start && e?.period?.end
       "#{e.period.start} - #{e.period.end} гг."
+  $dativeName : (data)->
+    name = _nameLib.get((data?.last_name ? ''),(data?.first_name ? ''),(data?.middle_name ? ''))
+    return {
+      first : name.firstName('dative')
+      middle: name.middleName('dative')
+      last  : name.lastName('dative')
+    }
   $edu        : (data)-> data?.education?[0]
   $address    : (data)->
     location = data?.location

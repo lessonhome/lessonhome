@@ -3,11 +3,11 @@
 - selector = selector || "";
 - activities_str = selector.indexOf('inactive')
 if activities_str != -1
-  a(href=href class=selector)
+  a.g-hopacity(href=href class=selector)
     .button
       .text!=text
 else
-  a.active(href=href class=selector)
+  a.g-hopacity.active(href=href class=selector)
     .button
       .text!=text
 

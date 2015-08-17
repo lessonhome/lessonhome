@@ -1,0 +1,100 @@
+@import compass/css3
+$blue:  hsl(210,100%,69%)
+$red:   hsl(6,100%,69%)
+$gray:  hsl(0,0%,69%)
+$green: hsl(87,62%,69%)
+$light_green: hsl(78,70%,65%)
+// later doing hsl color
+$temporary_blue:  #00bbd3
+
+main
+  height: 100%
+  cursor: pointer
+  width: 100%
+.button_box
+  height: 100%
+  width: 100%
+  .button
+    height: 100%
+    width: 100%
+    text-align: left
+    padding-left: 18px
+    padding-bottom: 1.5px
+    box-sizing: border-box
+    +inline-block
+    //+border-radius(4px)
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    .checkbox, .text
+      +inline-block
+    .text
+      margin-left: 12px
+      color: #202020
+.button_box>.button:after
+  content: ''
+  +inline-block
+  height: 100%
+
+//////////////// function //////////////
+//new function for new design, after all element on new, delete old function
+=selector_new($selector,$b_color,$font_size)
+  .button_box.#{$selector}
+    .button
+      background: $b_color
+      .text
+        font-size: $font_size
+    &:hover .button
+      background: lighten($b_color, 5%)
+
+
+//- -------------- choose button on page fast_bid/first_step -------------------------
+
+.choose
+  .button
+    background-color: rgba(60, 178, 125, 1)
+    .text
+      color: rgb(0, 0, 0)
+
+//- --------------- attach button on tutor profile ---------------------------------
+
+.attach
+  .button
+    padding-left: 12px
+    background-color: #3cb27d
+    .text
+      margin-left: 6px
+      color: #000
+////////////////  actions  ////////////////
+
+.button_box:hover
+  .button
+    padding-bottom: 1.5px
+    box-sizing: border-box
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+
+.button_box .button.pressed,.button_box:hover .button.pressed
+  box-sizing: border-box
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 1px 0px, rgba(0, 0, 0, 0.2) 0px 3px 0px 0px inset
+
+
+.press,.press:hover
+  +transform(scale(0.99) translateY(1px))
+  box-sizing: border-box
+  .button
+    //padding-bottom: 1px
+    box-sizing: border-box
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
