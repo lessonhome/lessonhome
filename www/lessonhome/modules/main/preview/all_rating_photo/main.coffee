@@ -9,12 +9,14 @@ class @main extends EE
     
   show: =>
     @photo.on 'click', =>
-      console.log 'click'
+      @closing = false
       @next() if @photo.hasClass('hover') || @small
+      return if @closing
       @photo.addClass 'hover'
       @photo.css 'z-index',101
       Feel.popupAdd @photo,@closePhoto
   closePhoto : =>
+    @closing = true
     @photo.removeClass 'hover'
     @photo.css 'z-index',100
     @small = true
@@ -62,11 +64,12 @@ class @main extends EE
     img.on 'load',=>
       img.animate {opacity:1},1000
   next : =>
-    console.log @now
     @old = @now
     unless @small
       @now--
-      @now = @leng - 1 if @now < 0
+      if @now < 0
+        @now = @leng - 1
+        @closePhoto()
       return @closePhoto() if @old == @now
     @small = false
     photo = @tree.value.photos[@now]

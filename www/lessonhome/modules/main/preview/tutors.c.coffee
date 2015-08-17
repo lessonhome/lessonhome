@@ -24,7 +24,7 @@ class Tutors
     @emit 'inited'
     setInterval =>
       @reload().done()
-    , 30*1000
+    , 2*60*1000
   handler : ($, {filter,preps,from,count,exists})->
     yield @init() unless @inited == 2
     ret = {}
@@ -32,8 +32,6 @@ class Tutors
     if preps?
       for p in preps
         ret.preps[p] = @index[p]
-      console.log ret.preps
-       
     if filter?
       ex = {}
       ex[k] = true for k in exists
@@ -190,6 +188,7 @@ class Tutors
     @hashed = {}
     @persons = persons
     @index = {}
+    @filters = {}
     for key,val of @persons
       @index[val.index] = val
     return @persons

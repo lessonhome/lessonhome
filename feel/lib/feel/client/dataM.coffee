@@ -33,7 +33,7 @@ class @DataM
       req.push p
     return @tutors.preps unless req.length
 
-    ret = yield Feel.root.tree.class.$send 'm:/main/preview/tutors',{preps:req}
+    ret = yield Feel.root.tree.class.$send 'm:/main/preview/tutors',{preps:req},'quiet'
     for key,prep of (ret.preps ? {})
       @tutors.preps[key] = prep
     return @tutors.preps
@@ -42,9 +42,8 @@ class @DataM
     filter.hash = yield Feel.urlData.filterHash()
     return @tutors.filters[filter.hash].indexes if @tutors?.filters?[filter.hash]?.indexes?
     filter.data = yield Feel.urlData.get 'mainFilter'
-
     exists = Object.keys(@tutors?.preps ? {}) ? []
-    ret = yield Feel.root.tree.class.$send 'm:/main/preview/tutors',{filter,from,count,exists}
+    ret = yield Feel.root.tree.class.$send 'm:/main/preview/tutors',{filter,from,count,exists},'quiet'
     for key,indexes of (ret.filters ? {})
       @tutors.filters[key] = indexes ? []
     for key,prep of (ret.preps ? {})

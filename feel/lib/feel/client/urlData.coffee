@@ -85,8 +85,8 @@ class @urlData
     url = url.split '&'
     ret = {}
     for u in url
-      u = u?.split?['='] ? []
-      ret[u[0]]=ret[u[1]] if u[0]?
+      u = u?.split? '=' ? []
+      ret[u[0]]=u[1] if u[0]?
     return ret
   filter : (obj,field,value=true)=>
     string = false
@@ -95,7 +95,7 @@ class @urlData
       string = true
     ret = {}
     for key,val of obj
-      ret[key] = val if @udata.json?.shorts?[field]==value
+      ret[key] = val if @udata.json?.shorts?[key]?[field]==value
     return @objectTo ret if string
     return ret
   objectTo : (obj)=>
@@ -181,10 +181,10 @@ class @urlData
     #  @data[key] ?= {}
   filterHash : (o={})=>
     hash = ''
-    o.url ?= Feel.urlData.state.url
-    hash += (yield Feel.urlData.filter o.url,'filter')
-    console.log 'hash',o,hash
+    o.url ?= History.getState().url
+    hash += (yield @filter o.url,'filter')
     return hash
+  ###
   emitChange : =>
     @lastChange ?= 0
     @waitingForChange ?= false
@@ -199,5 +199,11 @@ class @urlData
     @lastChange = new Date().getTime()
     @waitingForChange = false
     @emit 'change'
-
-
+  ###
+  emitChange : =>
+    @lastChange = new Date().getTime()
+    setTimeout @_emitChange,200
+  _emitChange : =>
+    return if (!@lastChange) || (((new Date().getTime())-@lastChange)<200)
+    @lastChange = 0
+    @emit 'change'

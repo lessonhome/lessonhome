@@ -23,42 +23,60 @@ class @main extends EE
     #@now    = []
     @changed = true
     @sending = false
+    @busy = false
+    @busyNext = null
     #yield @filter()
     #yield Feel.urlData.request()
     #yield @filter()
   reshow : => do Q.async =>
-    yield @_block 'reshow'
+    end = =>
+      @tutors_result.css 'opacity',1
+    return (@busyNext = {f:@reshow}) if @busy
     @tutors_result.css 'opacity',0
+    @htime = new Date().getTime()
+    @busy = true
     @from   ?= 0
     @count  = 10
     @now ?= []
     indexes = yield Feel.dataM.getTutors @from,@count
     indexes = indexes.slice @from,@from+@count
     preps   = yield Feel.dataM.getTutor indexes
-    #return if objectHash(@now) == objectHash(indexes)
+    #return end() if objectHash(@now) == objectHash(indexes)
     @now = indexes
-    @tutors_result.empty()
-    for i in indexes
-      p = preps[i]
-      d = @createDom p
-      d.dom.appendTo @tutors_result
-    @tutors_result.css 'opacity',1
-    return @_unblock 'reshow'
+    htime = 400-((new Date().getTime())-@htime)
+    #htime = 0 if htime < 0
+    setTimeout (=> Q.spawn =>
+      @tutors_result.children().remove()
+      for key,val of @doms
+        delete @doms[key]
+      for i in indexes
+        p = preps[i]
+        d = @createDom p
+        d.dom.appendTo @tutors_result
+      @tutors_result.css 'opacity',1
+      yield @BusyNext()
+    ),htime
+  BusyNext : => do Q.async =>
+    @busy = false
+    if @busyNext?
+      bn = @busyNext
+      @busyNext = null
+      yield bn.f (bn.a ? [])...
   addTen : => do Q.async =>
-    yield @_block 'reshow'
+    return if @busy
+    @busy = true
     @now ?= []
     indexes = yield Feel.dataM.getTutors @from,@count+10
     @count = Math.min(indexes.length-@from,@count+10)
     indexes = indexes.slice @from,@from+@count
     preps   = yield Feel.dataM.getTutor indexes
-    return yield @_unblock 'reshow' if objectHash(@now) == objectHash(indexes)
-    console.log @now,indexes,preps
+    return yield @BusyNext() if objectHash(@now) == objectHash(indexes)
     for i in [@now.length...indexes.length]
       p = preps[indexes[i]]
       d = @createDom p
       d.dom.appendTo @tutors_result
     @now = indexes
-    yield @_unblock 'reshow'
+    yield @BusyNext()
   createDom : (prep)=>
     return @doms[prep.index] if @doms[prep.index]?
     cl = @tree.tutor_test.class.$clone()
@@ -119,7 +137,6 @@ class @main extends EE
     @fchange = 0
   ###
   show : =>
-    @reshow().done()
     @advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll',=>
       ll = @tutors_result.find(':last')
@@ -129,9 +146,17 @@ class @main extends EE
     @on 'change', =># Q.spawn =>
       if (new Date().getTime() - @loadedTime)>(1000*5)
         Feel.sendActionOnce 'tutors_filter',1000*60*2
-      @changed = true
+      #@changed = true
       #@tnum = 4
-      @reshow().done()
+      #@reshow().done()
+    Feel.urlData.on 'change',=> Q.spawn =>
+      @hashnow ?= 'null'
+      hashnow = yield Feel.urlData.filterHash()
+      return if @hashnow == hashnow
+      @hashnow = hashnow
+      @changed = true
+      yield @reshow()
+
     ###
     @tutors_result = @tree.tutors_result
     ###
@@ -193,7 +218,6 @@ class @main extends EE
       return yield @filter hash
     @sending = true
     @changed = false
-    console.log 'loading tutors'
     tutors = yield @$send './tutors','quiet'
     storage = $.localStorage.get 'tutors'
     storage ?= {}
@@ -226,7 +250,6 @@ class @main extends EE
       @filtering = 2
       return
     @filtering = 1
-    console.log 'filtering'
     tutors = yield @js.filter @tutors, (yield Feel.urlData.get())?.mainFilter
     #@tutors_result.empty()
     otutor = {}
