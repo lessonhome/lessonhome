@@ -4,7 +4,6 @@ fstate = History.getState()
 
 class @urlData
   constructor : ->
-    console.log 'urlData.constructor()'
     Wrap @
     @_hash    = ""
     @_long    = {}
@@ -14,7 +13,6 @@ class @urlData
     @data     = {}
     @fdata    = {}
   init : =>
-    console.log 'urlData.init()'
     @json = Feel.urldataJson
     for fname,form of Feel.urlforms
       @forms[fname] = {}
@@ -45,7 +43,6 @@ class @urlData
       str += '&' if str
       str += key if key
       str += '='+val if val?
-    console.log {str}
     @data   = yield @udata.u2d str ? ''
     @fdata  = yield @udata.u2d str ? '' #fstate?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     for key of @forms
@@ -69,7 +66,6 @@ class @urlData
         #@data[key] = val
     yield @setUrl()
   get : (form,key)=>
-    console.log 'get',form,key
     return @data unless form?
     return @data[form] unless key?
     return _setKey @data[form],key
@@ -78,17 +74,12 @@ class @urlData
     return @fdata?[form] unless key?
     return _setKey @fdata?[form],key
   getU : =>
-    console.log "getU",arguments
     #@state  = History.getState()
     #@data   = yield @udata.u2d @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     get = yield @get()
-    console.log 'getU...get',get
     d2u = yield @udata.d2u get
-    console.log 'getU...d2u',d2u
     return d2u
   udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
-    console.log "udataToUrl",arguments
-    console.log 'url',url
     params = {}
     unless typeof url == 'string'
       url = window.location.href
@@ -103,12 +94,10 @@ class @urlData
           delete params[np[0]]
     obj = {url}
     urldata = (yield @getU()) ? ""
-    console.log urldata
     purl = urldata.split '&'
     for p in purl
       np = p.split '='
       params[np[0]] = np[1]
-    console.log params
     urldata = ""
     purl = []
     if usecookie == 'true'
@@ -153,10 +142,24 @@ class @urlData
     return if url == @state.url
     History.replaceState  @data,(@state.title || $('head>title').text()),url
     @state = History.getState()
-    @emit 'change'
+    @emitChange()
     #@data = yield @udata.u2d url?.match?(/^[^\?]*\??(.*)$/)?[1] ? ""
     #data = @state.url.match /\?(.*)$/
     #for key of @forms
     #  @data[key] ?= {}
+  emitChange : =>
+    @lastChange ?= 0
+    @waitingForChange ?= false
+    now = new Date().getTime()
+    unless @waitingForChange
+      @waitingForChange = true
+      time = 100
+      if (now-@lastChange)<1000
+        time = 1100-(now-@lastChange)
+      return setTimeout @_emitChange,time
+  _emitChange : =>
+    @lastChange = new Date().getTime()
+    @waitingForChange = false
+    @emit 'change'
 
-    
+

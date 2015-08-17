@@ -22,20 +22,40 @@ class @main extends EE
       b.inputs  = {}
       do (b)=>
         b.reset?.click? =>
+          vals = {}
           for n,i of b.inputs
             i?.class?.setValue?()
+            vals[n] = i?.class?.getValue()
+          b.hash_default = objectHash.sha1 vals
+          b.reset.hide()
         b.get = =>
           ret = {}
           for n,i of b.inputs
             ret[n] = i?.class?.getValue?()
           return ret
         b.set = (v)=>
+          vals = {}
           for n,i of b.inputs
             i?.class?.setValue? v?[n]
+            vals[n] = i?.class?.getValue()
+          hash = objectHash.sha1 vals
+          unless b.hash_default? && b.hash_default==hash
+            b.reset?.show?()
       for input in arr
         b.inputs[input] = i = {}
         i.class = @tree?[input]?.class
-        i?.class?.on? 'change', => @emit 'change'
+        do (b)=> i?.class?.on? 'change', =>
+          vals = {}
+          for n_,i_ of b.inputs
+            vals[n_] = i_?.class?.getValue()
+          hash = objectHash.sha1 vals
+          unless b.hash_default? && b.hash_default==hash
+            b.reset?.show?()
+          @emit 'change'
+      vals = {}
+      for n,i of b.inputs
+        vals[n] = i?.class?.getValue()
+      b.hash_default = objectHash.sha1 vals
 
     #@on 'change', => #Q.spawn =>
     #  v = @getValue()

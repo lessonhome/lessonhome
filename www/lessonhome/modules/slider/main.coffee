@@ -60,6 +60,8 @@ class @main extends EE
       sw += r if r?
       sw = 0 unless l? && r?
       #2*@box_slider.width()-@box_slider.outerWidth()-sw
+      bsw = @box_slider.width() ? 259
+      bsw = 259 if bsw < 10
       w = @box_slider.width()-sw/2
       w = 1 unless w > 0
       return w

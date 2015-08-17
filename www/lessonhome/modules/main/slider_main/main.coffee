@@ -45,7 +45,7 @@ class @main extends EE
       slider ?= @slider.left if @slider.left?
       setSliderPos(slider, +@end.getValue()) if slider?
 
-    @slider.on 'left_slider_move', (x) =>
+    @slider.on 'left_slider_move', (x)=>
       input = @start if @start?
       input ?= @end  if @end?
       setInputVal input,x # @parseVal(left:x).left
@@ -55,7 +55,7 @@ class @main extends EE
       @emit 'change'
       @emit 'end'
 
-    @slider.on 'right_slider_move', (x) =>
+    @slider.on 'right_slider_move', (x)=>
       input = @end  if @end?
       input ?= @start if @start?
       setInputVal input, x #@parseVal(right:x).right
@@ -72,6 +72,8 @@ class @main extends EE
 
     #
     @setDivision()
+    #@start?.setValue @tree.value.left
+    #@end?.setValue @tree.value.right
 
   setValue : (v={})=>
     @tree.value[key]=val for key,val of v
@@ -83,6 +85,10 @@ class @main extends EE
     #throw new Error 'bad value' unless v.min? && v.max? && v.left? && v.right?
     @min = v.min
     @max = v.max
+    unless v.left >= 0
+      v.left = @tree?.default?.left ? @min
+    unless v.right >= 0
+      v.right = @tree?.default?.right ? @max
     @start?.setValue? v.left
     @end?.setValue? v.right
     @end?.emit? 'end'
@@ -92,7 +98,6 @@ class @main extends EE
     @end?.emit? 'end'
     @start?.emit? 'end'
   parseVal : ({left,right})=>
-    console.log left,right
     if left?
       left = +left
       unless left>=0
@@ -105,14 +110,15 @@ class @main extends EE
         right = @tree.value.max
       if @tree.division_value>0
         right= Math.round(right/@tree.division_value)*@tree.division_value
-    console.log left,right
     return {left,right}
 
       
 
   getValue : =>
-    @tree.value.left = @start?.getValue?()
-    @tree.value.right = @end?.getValue?()
+    s = @start?.getValue?()
+    @tree.value.left = s if s > 0 || s == 0
+    e = @end?.getValue?()
+    @tree.value.right = e if e > 0 || e == 0
     return @tree.value
     #{
     #    : @start?.getValue?()

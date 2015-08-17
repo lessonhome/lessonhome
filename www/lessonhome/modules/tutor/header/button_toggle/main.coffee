@@ -3,7 +3,6 @@ class @main extends EE
     @button_box   = @dom.find ".button_box"
   show : =>
     @dom.on 'click', @click
-    console.log @tree.value
     if @tree.value? && @tree.value == 'active'
       @active = true
       @button_box.addClass 'active'

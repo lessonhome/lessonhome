@@ -6,7 +6,6 @@ class @main
     @form = @tree.content?.form?.class
     @progress = @tree.progress_bar.progress
     @bNext.on 'submit', @next
-    console.log @progress
     @bBack.on 'submit', => @bBack.submit()
   next : =>
     @form?.save?().then (success)=>

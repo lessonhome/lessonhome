@@ -5,7 +5,6 @@ class @UrlDataFunctions
   constructor : ->
     Wrap @
   init : (@json,@forms)=>
-    #console.log @json,@forms
   d2o : (fname,data)=>
     form = @forms[fname]
     throw new Error "bad urlform #{fname}" unless form?.D2U?

@@ -1,5 +1,8 @@
 @import compass/css3
+main
+  width : 100%
 div
+  width : inherit
   .box_input
     +inline-block
     height : 37px
@@ -14,7 +17,7 @@ div
     .start, .end, .dash, .measurement
       +inline-block
   .move
-    width: 100%
+    width: inherit
     height: 30px
     font-size : 37px
     +inline-block
@@ -32,9 +35,6 @@ div
   .move
     width: 205px
 .time_fast_bids
-  .box_input
-    .start
-    .end
   .move
     width: 264px
     padding-top: 8px
