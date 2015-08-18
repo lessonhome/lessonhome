@@ -55,6 +55,10 @@ class @main extends EE
       @found.icon_box.hide()
     else
       @found.icon_box.show()
+    if (!@tree.self) && @list_length<15
+      @found.input.attr 'disabled','disabled'
+      @found.disabled.show()
+
       
     @label        = @dom.find ">label"
     @list         = @found.drop_down_list
@@ -69,6 +73,7 @@ class @main extends EE
   closeList : =>
     $('body').off 'mousedown.drop_down_list'
     $('body').off 'mouseleave.drop_down_list'
+    @isFocus = false
     @emitChange()
 
     @bodyListenMD = false
@@ -97,19 +102,23 @@ class @main extends EE
     @scroll = @tree.scroll?.class
     @isFocus = false
     @on 'blur',@onBlur
-    @input.on 'focus', =>
+    onfocus = =>
+      Feel.popupAdd @dom[0],@closeList
       return if @isFocus
       @isFocus = true
       @label.addClass 'focus'
       @showSelectOptions?()
       @emit 'focus'
+    @input.on 'focus', onfocus
+    @found.disabled.click onfocus
     @input.on 'focus', @hideError
+    @found.disabled.click @hideError
     @input.on 'focusout', =>
       return if !@isFocus
       @isFocus = false
       if !@bodyListenMD
         @bodyListenMD = true
-        Feel.popupAdd @dom[0],@closeList
+        #Feel.popupAdd @dom[0],@closeList
         ###
         f = (t)=>
           return if $.contains @dom[0],t.target
