@@ -16,7 +16,7 @@
 
 .js-header
   .left
-    .subject!=subject+" :"
+    .js-subject!=subject+" :"
     .training_direction
       each val, i in training_direction
         if i>0
@@ -28,7 +28,7 @@
     .js-icon_wrap.active
       .icon
 .js-content
-  .comment!=comment
+  .js-comment!=comment
   .price
     .left
       .tutor

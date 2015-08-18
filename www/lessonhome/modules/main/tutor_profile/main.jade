@@ -52,9 +52,9 @@ mixin item(selector, title, value)
           .line
       .value
         .js-about_content
-          .about_text!=value.about_text
+          .js-about_text!=value.about_text
           .sub_title Награды, дипломы, сертификаты :
-          .honors_text!=value.honors_text
+          .js-honors_text!=value.honors_text
         .js-subjects_content
           each val in value.subjects
             .subject!=val
