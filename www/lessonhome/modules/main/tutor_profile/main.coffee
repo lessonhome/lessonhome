@@ -21,8 +21,15 @@ class @main
     @education = @found.education
     @areas_departure = @found.areas_departure
     @about_text = @found.about_text
-    @honors_text = @found.honors_text
-  show: =>
+    #@honors_text = @found.honors_text
+    @rating_photo   = @tree.rating_photo.class
+    @hidden_subject = @tree.hidden_subject.class
+  show: => do Q.async =>
+    index = 80
+    preps=yield Feel.dataM.getTutor [index]
+    prep = preps[index]
+    console.log prep
+    @setValue prep
     $(@back).click => @goBack()
     $(@about).on 'click', => @setActiveItem @about, @about_content
     $(@subjects).on 'click', => @setActiveItem @subjects, @subjects_content
@@ -38,18 +45,25 @@ class @main
     for val in @contents
       val.hide()
     content.show()
-  setValue : (value)=>
-    # TODO: photo
-    # TODO: rating
-    @full_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
-    @location.text("#{value.location.country ? ""} #{value.location.city ? ""} #{value.location.area ? ""}")
-    @description.text("#{value.about ? ""}")
-    @status.text("#{value.status ? ""}")
-    @experience.text("#{value.experience ? ""}")
-    @age.text("#{value.age ? ""}")
-    @work.text("#{value.work.name ? ""}")
-    # TODO: education
+  setValue : (data={})=>
+    @rating_photo.setValue {
+      photos : data.photos
+    }
+    @tree.value.rating.class.setValue data.rating
+    @found.full_name.text("#{data.name.last ? ""} #{data.name.first ? ""} #{data.name.middle ? ""}")
+    @found.location.text("#{data.location?.country ? ""} #{data.location?.city ? ""} #{data.location?.area ? ""}")
+    @found.description.text("#{data.slogan ? ""}")
+    @found.status.text("#{data.status ? ""}")
+    @found.experience.text("#{data.experience ? ""}")
+    @found.age.text("#{data.age ? ""}")
+    @found.work_place.text("#{data.work?.name ? ""}")
+    @found.education.text("#{data.education?.name ? ""}")
     # TODO: areas
-    @about_text.text("#{value.about_text ? ""}")
-    @honors_text.text("#{value.honors_text ? ""}")
+    @found.about_text.text("#{data.about ? ""}")
+    #@honors_text.text("#{data.honors_text ? ""}")
+    for key,val of data.subjects
+      new_subject = @hidden_subject.$clone()
+      new_subject.setValue key, val
+      console.log new_subject.dom
+      $(@subjects_content).append(new_subject.dom)
 

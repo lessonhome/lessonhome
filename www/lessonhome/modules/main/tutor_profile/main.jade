@@ -12,7 +12,7 @@ mixin item(selector, title, value)
   .left
     .general
       .photo_block
-        .avatar
+        .avatar!=rating_photo
         .photos
         .attach_button!=attach_button
       .personal_data.select
@@ -53,11 +53,12 @@ mixin item(selector, title, value)
       .value
         .js-about_content
           .js-about_text!=value.about_text
-          .sub_title Награды, дипломы, сертификаты :
-          .js-honors_text!=value.honors_text
+          //-.sub_title Награды, дипломы, сертификаты :
+          //-.js-honors_text!=value.honors_text
         .js-subjects_content
-          each val in value.subjects
-            .subject!=val
+          .subject!=hidden_subject
+          //-each val in value.subjects
+            //-.subject!=val
         .js-reviews_content Отзывов о данном репетиторе пока нет
 
   .right
