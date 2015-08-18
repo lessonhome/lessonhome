@@ -1,11 +1,13 @@
 
 class Mail
   constructor : ->
+    Wrap @
+  init : =>
+  send : (template, email, subject, repls) ->
 
-  send : (template, email, subject, repls, images) ->
+    console.log 'sending mail to', email
 
-  #repls {key: value, ...}
-  #images [filepath, filepath1, ...]
+    d = Q.defer()
 
     nodemail = require 'nodemailer'
     fs = require 'fs'
@@ -19,60 +21,67 @@ class Mail
 
     attachments = []
 
-    for filepath in images
-      do (filepath) ->
-        attachments.push(
-          {
-            filename: filepath.replace(/(\/.+\/)*/, '')
-            path: '../../../../www/lessonhome/static' + filepath
-
-            cid: filepath.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome'
-          }
-        )
-
     mailOptions =
       from : 'Лессон Хоум ✔ <support@lessonhome.ru>'
       to   : email
       subject : subject
       attachments : attachments
 
+    data = yield _readFile(process.cwd()+'/www/lessonhome/mails/' + template)
 
-    fs.readFile(template, (err, data) ->
+    data = data.toString()
 
-      data = data.toString()
+    for key, value of repls
+      do (key, value) ->
+        data = data.replace(new RegExp('#{' + key + '}', 'g'), value)
 
-      for image in attachments
-        do (image) ->
-          data = data.replace(new RegExp('{{' + image.filename + '}}', 'g'), '\'cid:' + image.cid + '\'')
+    images = {}
 
-      request.post(
-        {
-          url:'http://premailer.dialect.ca/api/0.1/documents'
-          form:{html: data}
-        }
-        (error, response, body) ->
+    for image in data.match(/{{.+}}/g)
+      do (image) ->
 
-          request(
+        image = image.replace(/{|}/g, '')
+
+        if !images.hasOwnProperty(image)
+          images[image] = true
+
+          attachments.push(
             {
-              url: JSON.parse(body).documents.html
+              filename: image.replace(/(\/.+\/)*/, '')
+              path: process.cwd()+'/www/lessonhome/static' + image
+              cid: image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome'
             }
-            (error, response, body) ->
-
-              for key, value of repls
-                do (key, value) ->
-                  body = body.replace(new RegExp('#{' + key + '}', 'g'), value)
-
-              mailOptions.html = body
-
-              transporter.sendMail mailOptions,(err,info)->
-                console.error err if err?
-                console.log 'sent', info
           )
-      )
+
+          data = data.replace(new RegExp('{{' + image + '}}', 'g'), '\'cid:' + image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome\'')
+
+    request.post(
+      {
+        url:'http://premailer.dialect.ca/api/0.1/documents'
+        form:{html: data}
+      }
+      (error, response, body) ->
+
+        request(
+          {
+            url: JSON.parse(body).documents.html
+          }
+          (error, response, body) ->
+
+            mailOptions.html = body
+
+            transporter.sendMail mailOptions,(err,info)->
+              return d.reject err if err?
+
+              console.log 'sent', info
+              d.resolve() unless err
+        )
     )
 
-module.exports = Mail
+    return d.promise
 
+module.exports = Mail
+###
 
 mail = new Mail()
 
@@ -85,5 +94,5 @@ mail.send(
     surname: 'Иванов'
     login: 'Ivan'
   }
-  ['/header/blue_logo.png', '/main/main_pattern.png', '/main/email_hello.png']
 )
+###

@@ -3,9 +3,6 @@
 
 @handler = ($,data)->
 
-  mail = yield Main.service 'mail'
-  mail.send()
-
     try
     obj = yield $.register.login $.user,$.session,data
     $.cookie.set 'session'
