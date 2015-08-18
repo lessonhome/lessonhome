@@ -20,7 +20,8 @@ class @main
     @work_place = @found.work_place
     @education = @found.education
     @areas_departure = @found.areas_departure
-
+    @about_text = @found.about_text
+    @honors_text = @found.honors_text
   show: =>
     $(@back).click => @goBack()
     $(@about).on 'click', => @setActiveItem @about, @about_content
@@ -39,6 +40,7 @@ class @main
     content.show()
   setValue : (value)=>
     # TODO: photo
+    # TODO: rating
     @full_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
     @location.text("#{value.location.country ? ""} #{value.location.city ? ""} #{value.location.area ? ""}")
     @description.text("#{value.about ? ""}")
@@ -48,3 +50,6 @@ class @main
     @work.text("#{value.work.name ? ""}")
     # TODO: education
     # TODO: areas
+    @about_text.text("#{value.about_text ? ""}")
+    @honors_text.text("#{value.honors_text ? ""}")
+
