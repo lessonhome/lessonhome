@@ -10,6 +10,7 @@ class @Feel
       #if $Feel.user?.type?.admin
       if val
         $.cookie key,true,{path:'/'}
+    yield Q.delay 10
     for key,val of $Feel
       @[key] = val
     for key,mod of $Feel.modules
@@ -22,18 +23,23 @@ class @Feel
           window[name] = obj
           console.log "global class window['#{name}'];"
     window.onerror = (e)=> @error e
+    yield Q.delay 10
     urlData = new @urlData()
     @urlData = urlData
     yield urlData.init()
+    yield Q.delay 10
     
     @dataM = new @DataM()
     yield @dataM.init()
+    yield Q.delay 10
     
     @pbar = new @PBar()
     yield @pbar.init()
+    yield Q.delay 10
     
     @active = new @activeState @root.tree
     yield @active.init()
+    yield Q.delay 10
     
     setTimeout @checkUnknown,200
 
