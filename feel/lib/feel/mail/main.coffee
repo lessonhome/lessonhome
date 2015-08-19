@@ -2,7 +2,50 @@
 class Mail
   constructor : ->
     Wrap @
+    @templates = {}
   init : =>
+    fs = require 'fs'
+    request = require 'request'
+
+    _templates = @templates
+
+    fs.readdir(
+      process.cwd()+'/www/lessonhome/mails'
+      (err, files) ->
+
+        inline = (file) ->
+
+          console.log process.cwd()+'/www/lessonhome/mails/'+file
+
+          fs.readFile(
+            process.cwd()+'/www/lessonhome/mails/'+file
+            (err, data) ->
+
+              request.post(
+                {
+                  url:'http://premailer.dialect.ca/api/0.1/documents'
+                  form:{html: data}
+                }
+                (error, response, body) ->
+
+                  return inline file if body[0] is '<'
+
+                  request(
+                    {
+                      url: JSON.parse(body).documents.html
+                    }
+                    (error, response, body) ->
+
+                      _templates[file] = body
+
+                      console.log file+' was read from mails to Mail.templates'
+                  )
+              )
+          )
+
+        inline file for file in files
+    )
+
   prepare: (data, repls)->
 
     attachments = []
@@ -37,16 +80,18 @@ class Mail
       attachments : attachments
     }
 
-  sendMail : (template, email, subject, repls) ->
+  send : (template, email, subject, repls) ->
 
     console.log 'Sending mail to', email
 
     d = Q.defer()
 
     nodemail = require 'nodemailer'
-    request = require 'request'
 
-    mail = yield @prepare yield _readFile(process.cwd()+'/www/lessonhome/mails/' + template), repls
+    mail = yield @prepare @templates[template], repls
+
+    console.log mail.attachments
+    console.log mail.data
 
     transporter = nodemail.createTransport
       service : 'Gmail'
@@ -58,48 +103,16 @@ class Mail
       from : 'Лессон Хоум ✔ <support@lessonhome.ru>'
       to   : email
       subject : subject
+      html: mail.data
       attachments : mail.attachments
 
-    request.post(
-      {
-        url:'http://premailer.dialect.ca/api/0.1/documents'
-        form:{html: mail.data}
-      }
-      (error, response, body) ->
 
-        return d.reject 'Expected JSON, got HTML requesting Premailer API at Mail.sendMail' if body[0] is '<'
+    transporter.sendMail mailOptions,(err,info)->
+      return d.reject err if err?
 
-        request(
-          {
-            url: JSON.parse(body).documents.html
-          }
-          (error, response, body) ->
-
-            mailOptions.html = body
-
-            transporter.sendMail mailOptions,(err,info)->
-              return d.reject err if err?
-
-              console.log 'sent', info
-              d.resolve() unless err
-        )
-    )
+      console.log 'sent', info
+      d.resolve() unless err
 
     return d.promise
-
-  send: (template, email, subject, repls) ->
-
-    d = Q.defer()
-
-    _send =  @send
-
-    @sendMail.apply(null, arguments).catch((err) ->
-      console.log err
-      console.log 'Trying to send mail one more time...'
-
-      _send(template, email, subject, repls)
-    )
-
-    d.resolve()
 
 module.exports = Mail
