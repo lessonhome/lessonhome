@@ -107,7 +107,9 @@ class @main
     else
       @found.location.hide()
     @setLinked()
-    @found.description.text(data.slogan ? "")
+    if data.slogan? && data.slogan
+      @found.description.text(data.slogan)
+      @found.description.show()
     @setItem @found.status, @status_values[data.status], @found.status_value
     @setItem @found.experience, data.experience, @found.experience_value
     if data.age? && data.age
@@ -144,10 +146,21 @@ class @main
     else
       @areas_departure.hide()
     @found.about_text.text("#{data.about ? ""}")
+    if data.interests?
+      for key, val of data.interests
+        if key > 0
+          $(@found.interests_val).append(", #{val.description}")
+          @found.interests.show()
+        else
+          $(@found.interests_val).append(val.description)
+          @found.interests.show()
+    if data.reason? && data.reason
+      @found.reason_val.text(data.reason)
+      @found.reason.show()
     #@honors_text.text("#{data.honors_text ? ""}")
     for key,val of data.subjects
       new_subject = @hidden_subject.$clone()
-      new_subject.setValue key, val
+      new_subject.setValue key, val, data.place
       console.log new_subject.dom
       $(@subjects_content).append(new_subject.dom)
     @dom.find('>div').css 'opacity',1
