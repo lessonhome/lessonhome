@@ -7,12 +7,16 @@ class @main
     @subject = @found.subject
     @comment = @found.comment
     @training_direction = @found.training_direction
+    @category_of_student_val = @found.category_of_student_val
+    @category_of_student_to_rus = {"school:0":"дошкольники","school:1":"младшая школа", "school:2":"средняя школа", "school:3":"старшая школа", "student":"студент", "adult":"взрослый" }
+    @place_val = @found.place_val
+    @place_to_rus = {"other":"другое", "pupil":"у ученика", "remote":"удалённо", "tutor":"у себя"}
   show: =>
     $(@header).on 'click', =>
       @content.toggle()
       @icon_wrap.toggleClass('active')
 
-  setValue: (key, val)=>
+  setValue: (key, val, place)=>
     @subject.text("#{key ? ""} :")
     course = val.course
     if course?
@@ -44,7 +48,29 @@ class @main
     @found.v60_val.text(v60+" руб.")
     @found.v90_val.text(v90+" руб.")
     @found.v120_val.text(v120+" руб.")
-
+    i = 0
+    for k, v of val.tags
+      if v == true
+        if @category_of_student_to_rus[k]
+          if i > 0
+            $(@category_of_student_val).append(", "+@category_of_student_to_rus[k])
+            @found.category_of_student.show()
+          else
+            $(@category_of_student_val).append(@category_of_student_to_rus[k])
+            @found.category_of_student.show()
+          i++
+    i = 0
+    for k, v of place
+      if v == true
+        console.log k, v
+        if @place_to_rus[k]
+          if i > 0
+            $(@place_val).append(", "+@place_to_rus[k])
+            @found.place.show()
+          else
+            $(@place_val).append(@place_to_rus[k])
+            @found.place.show()
+          i++
   getPriceValue: (val)=>
     val /= 50
     val = Math.round(val)

@@ -56,16 +56,16 @@ $triangle_subject_down_width: image-width($triangle_subject_down_src)
     .left, .right
       +inline-block
       vertical-align: top
-    .left
+    //-.left
       width: 280px
-    .right
+    //-.right
       width: 343px
     .left>.default, .left>.tutor, .left>.remote, .right>.pupil, .right>.group
       .title_wrap, .value
         +inline-block
         vertical-align: top
       .title_wrap
-        width: 86px
+        width: 219px
         height: 24px
         text-align: left
         .title
@@ -97,3 +97,38 @@ $triangle_subject_down_width: image-width($triangle_subject_down_src)
       margin-bottom: 24px
     .right>div>.value
       width: 204px
+  .category_of_student, .place
+    display: none
+    margin: 12px 0
+    .title_wrap, .value
+      +inline-block
+      vertical-align: top
+    .title_wrap
+      width: 219px
+      height: 24px
+      text-align: left
+      .title
+        +inline-block
+        font-size: 16px
+        font-weight: 600
+        color: #010101
+    .title_wrap:after
+      content: ''
+      +inline-block
+      height: 100%
+    .value
+      padding-top: 3px
+      div
+        font-size: 14px
+        line-height: 18px
+        color: #010101
+      .v60, .v90, .v120
+        display: none
+        .title, .val
+          +inline-block
+          font-size: 14px
+          line-height: 18px
+          color: #010101
+        .title
+          text-align: left
+          width: 90px

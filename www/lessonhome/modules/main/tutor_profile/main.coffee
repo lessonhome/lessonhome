@@ -148,7 +148,7 @@ class @main
     #@honors_text.text("#{data.honors_text ? ""}")
     for key,val of data.subjects
       new_subject = @hidden_subject.$clone()
-      new_subject.setValue key, val
+      new_subject.setValue key, val, data.place
       console.log new_subject.dom
       $(@subjects_content).append(new_subject.dom)
   setItem: (item_block, item_value, value_block)=>
