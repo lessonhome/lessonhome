@@ -4,8 +4,8 @@ class @main extends EE
     @link         = @dom.find "a"
     @link.on     'mousedown', @mdown
     @link.click (e)=>
-      return unless (e.button==0) && (!@tree.active)
       e.preventDefault()
+      return @submit() unless (e.button==0) && (!@tree.active)
       @emit 'submit'
   show : =>
 
@@ -21,9 +21,12 @@ class @main extends EE
       $('body').off 'mouseup.link_button'
       $('body').off 'mouseleave.link_button'
       @link.removeClass 'press'
-  submit : =>
-    href = @link.attr 'href'
+  submit : (href)=>
+    href ?= @link.attr 'href'
     Feel.go href
+  activate : (href)=>
+    @tree.active = true
+    @link.attr 'href',href
 
   makeActive : =>
     return if @link.hasClass 'active'
