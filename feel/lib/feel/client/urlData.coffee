@@ -38,12 +38,12 @@ class @urlData
       continue unless u
       u = u.split '='
       url[u[0]] = u[1]
-    url[key] ?= val for key,val of cook
     str = ''
     for key,val of url
       str += '&' if str
       str += key if key
       str += '='+val if val?
+    url[key] ?= val for key,val of cook
     @data   = yield @udata.u2d str ? ''
     @fdata  = yield @udata.u2d str ? '' #fstate?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     for key of @forms

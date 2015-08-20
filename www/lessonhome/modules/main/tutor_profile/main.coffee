@@ -27,6 +27,9 @@ class @main
     @status_values = {"student":"Студент", "private_teacher":"Частный преподаватель", "university_teacher":"Преподаватель ВУЗа", "school_teacher":"Преподаватель школы"}
     @areas_departure_value = @found.areas_departure_value
     @write_button = @found.write_button
+    state = History.getState()
+    unless ((""+document.referrer).indexOf document.location.href.substr(0,15))== 0
+      $(@back).hide()
   show: => do Q.async =>
     inset = Feel.urlData.get('tutorProfile','inset')
     inset.then (data)=>
@@ -56,6 +59,7 @@ class @main
       Feel.urlData.set('tutorProfile',{'inset':2})
     $(@write_button).on 'click', =>
       @found.write_tutor_content.text("Ваше сообщение отправлено! Скоро с Вами свяжутся.")
+    @found.attach_button.click @addTutor
   goBack: =>
     document.location.href = window.history.back()
   setActiveItem: (item, content)=>
@@ -67,7 +71,25 @@ class @main
     for val in @contents
       val.hide()
     content.show()
+  addTutor : => Q.spawn =>
+    linked = yield Feel.urlData.get 'mainFilter','linked'
+    if linked[@tree.value.index]?
+      delete linked[@tree.value.index]
+    else
+      linked[@tree.value.index] = true
+    @setLinked linked
+    yield Feel.urlData.set 'mainFilter','linked',linked
+  setLinked : (linked)=> Q.spawn =>
+    linked ?= yield Feel.urlData.get 'mainFilter','linked'
+    if linked[@tree.value.index]?
+      @tree.attach_button?.class?.setValue {text:'убрать',color:'#FF7F00',pressed:true}
+      @tree.attach_button?.class?.setActiveCheckbox()
+      #@hopacity.removeClass 'g-hopacity'
+    else
+      @tree.attach_button?.class?.setValue {text:'выбрать'}
+      #@hopacity.addClass 'g-hopacity'
   setValue : (data={})=>
+    @tree.value[key] = val for key,val of data
     @rating_photo.setValue {
       photos : data.photos
     }
@@ -83,6 +105,7 @@ class @main
         @found.location.text(data.location?.country ? "")
     else
       @found.location.hide()
+    @setLinked()
     @found.description.text(data.slogan ? "")
     @setItem @found.status, @status_values[data.status], @found.status_value
     @setItem @found.experience, data.experience, @found.experience_value
@@ -100,10 +123,15 @@ class @main
           @found.work_place_value.text(last_work.place, last_work.post)
         else
           @found.work_place_value.text(last_work.place)
+      else
+        @found.work_place.hide()
     else
       @found.work_place.hide()
     if data.education?[0]?.name
-      @found.education_value.text("#{data.education?[0]?.name ? ""}, #{data.education?[0]?.faculty ? ""}")
+      if data.education?[0]?.faculty
+        @found.education_value.text("#{data.education?[0]?.name ? ""}, #{data.education?[0]?.faculty ? ""}")
+      else
+        @found.education_value.text("#{data.education?[0]?.name ? ""}")
     else
       @found.education.hide()
     if data.check_out_the_areas?
