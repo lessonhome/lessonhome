@@ -38,9 +38,12 @@ class @main
     v60 = @getPriceValue v60
     v90 = @getPriceValue v90
     v120 = @getPriceValue v120
-    @found.v60.text("60 минут : "+v60+" руб.")
-    @found.v90.text("90 минут : "+v90+" руб.")
-    @found.v120.text("120 минут : "+v120+" руб.")
+    @found.v60.show()
+    @found.v90.show()
+    @found.v120.show()
+    @found.v60_val.text(v60+" руб.")
+    @found.v90_val.text(v90+" руб.")
+    @found.v120_val.text(v120+" руб.")
 
   getPriceValue: (val)=>
     val /= 50

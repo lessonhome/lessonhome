@@ -65,7 +65,7 @@ $triangle_subject_down_width: image-width($triangle_subject_down_src)
         +inline-block
         vertical-align: top
       .title_wrap
-        width: 110px
+        width: 86px
         height: 24px
         text-align: left
         .title
@@ -83,6 +83,16 @@ $triangle_subject_down_width: image-width($triangle_subject_down_src)
           font-size: 14px
           line-height: 18px
           color: #010101
+        .v60, .v90, .v120
+          display: none
+          .title, .val
+            +inline-block
+            font-size: 14px
+            line-height: 18px
+            color: #010101
+          .title
+            text-align: left
+            width: 90px
     .left>.tutor, .right>.pupil
       margin-bottom: 24px
     .right>div>.value
