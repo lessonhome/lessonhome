@@ -8,7 +8,7 @@ status =
   native_speaker  : 'Носитель языка'
 
 class @F2V
-  $status       : (data)-> status[data?.status] ? 'Частный преподаватель'
+  $status       : (data)-> status[data?.status] ? ''
   $status2       : (data)-> status[data?.status]
   $settings_new_orders : (data)-> data?.settings?.new_orders
   $settings_get_notifications_sms : (data)->
