@@ -145,6 +145,17 @@ class @main
     else
       @areas_departure.hide()
     @found.about_text.text("#{data.about ? ""}")
+    if data.interests?
+      for key, val of data.interests
+        if key > 0
+          $(@found.interests_val).append(", #{val.description}")
+          @found.interests.show()
+        else
+          $(@found.interests_val).append(val.description)
+          @found.interests.show()
+    if data.reason? && data.reason
+      @found.reason_val.text(data.reason)
+      @found.reason.show()
     #@honors_text.text("#{data.honors_text ? ""}")
     for key,val of data.subjects
       new_subject = @hidden_subject.$clone()
