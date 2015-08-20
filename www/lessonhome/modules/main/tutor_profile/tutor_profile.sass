@@ -44,22 +44,43 @@ div
     width: 672px
     .general
       margin-bottom: 24px
+      position : relative
       .photo_block, .personal_data
+        position : relative
         +inline-block
         vertical-align: top
       .photo_block
+        position : relative
+        z-index : 1002
+        float : left
+        width : 200px
+        min-height : 320px
         text-align: center
         .avatar
+          position : relative
+          z-index : 1003
+          float : left
           +inline-block
+          +transform(scale(1.5) translateY(20%) translateX(15%))
           width: 130px
-          height: 264px
+          //height: 264px
         .photos
+          position : relative
+          z-index : 1001
           margin: 12px 0
-        .attach_button
+          float : left
+        .attach_button          
+          position : relative
+          z-index : 1000
           height: 48px
+          padding-top : 70%
           width: 210px
+          float : left
       .personal_data
-        padding: 0 24px
+        position : relative
+        z-index : 999
+        float : right
+        padding: 0 17px
         box-sizing: border-box
         width: 462px
         .top, .full_name, .description
@@ -99,6 +120,9 @@ div
         .experience, .work_place
           //-padding: 12px 0
     .extra_info
+      position : relative
+      padding-top : 20px
+      float : left
       padding-right: 24px
       box-sizing: border-box
       .header
