@@ -3,11 +3,13 @@ class Mail
   constructor : ->
     Wrap @
     @templates = {}
+    @attachments = {}
   init : =>
     fs = require 'fs'
     request = require 'request'
 
     _templates = @templates
+    _attachments = @attachments
 
     fs.readdir(
       process.cwd()+'/www/lessonhome/mails'
@@ -20,6 +22,29 @@ class Mail
           fs.readFile(
             process.cwd()+'/www/lessonhome/mails/'+file
             (err, data) ->
+
+              _attachments[file] = []
+              images = {}
+
+              data = data.toString()
+
+              for image in data.match(/{{.+}}/g)
+                do (image) ->
+
+                  image = image.replace(/{|}/g, '')
+
+                  if !images.hasOwnProperty(image)
+                    images[image] = true
+
+                    _attachments[file].push(
+                      {
+                        filename: image.replace(/(\/.+\/)*/, '')
+                        path: process.cwd()+'/www/lessonhome/static' + image
+                        cid: image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome'
+                      }
+                    )
+
+                    data = data.replace(new RegExp('{{' + image + '}}', 'g'), '\'cid:' + image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome\'')
 
               request.post(
                 {
@@ -48,37 +73,11 @@ class Mail
 
   prepare: (data, repls)->
 
-    attachments = []
-    images = {}
-
-    data = data.toString()
-
     for key, value of repls
       do (key, value) ->
         data = data.replace(new RegExp('#{' + key + '}', 'g'), value)
 
-    for image in data.match(/{{.+}}/g)
-      do (image) ->
-
-        image = image.replace(/{|}/g, '')
-
-        if !images.hasOwnProperty(image)
-          images[image] = true
-
-          attachments.push(
-            {
-              filename: image.replace(/(\/.+\/)*/, '')
-              path: process.cwd()+'/www/lessonhome/static' + image
-              cid: image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome'
-            }
-          )
-
-          data = data.replace(new RegExp('{{' + image + '}}', 'g'), '\'cid:' + image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome\'')
-
-    return {
-      data: data
-      attachments : attachments
-    }
+    return data
 
   send : (template, email, subject, repls) ->
 
@@ -87,11 +86,6 @@ class Mail
     d = Q.defer()
 
     nodemail = require 'nodemailer'
-
-    mail = yield @prepare @templates[template], repls
-
-    console.log mail.attachments
-    console.log mail.data
 
     transporter = nodemail.createTransport
       service : 'Gmail'
@@ -103,8 +97,8 @@ class Mail
       from : 'Лессон Хоум ✔ <support@lessonhome.ru>'
       to   : email
       subject : subject
-      html: mail.data
-      attachments : mail.attachments
+      html: yield @prepare @templates[template], repls
+      attachments : @attachments[template]
 
 
     transporter.sendMail mailOptions,(err,info)->
