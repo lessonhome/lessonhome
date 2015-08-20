@@ -4,71 +4,77 @@ class Mail
     Wrap @
     @templates = {}
     @attachments = {}
-  init : =>
-    fs = require 'fs'
-    request = require 'request'
+  init : ->
 
-    _templates = @templates
-    _attachments = @attachments
+    fs = require 'fs'
 
     fs.readdir(
       process.cwd()+'/www/lessonhome/mails'
-      (err, files) ->
+      (err, files) =>
 
-        inline = (file) ->
+        console.log err if err?
 
-          console.log process.cwd()+'/www/lessonhome/mails/'+file
+        @prepareCss file for file in files
+    )
 
-          fs.readFile(
-            process.cwd()+'/www/lessonhome/mails/'+file
-            (err, data) ->
+  prepareCss: (file) =>
 
-              _attachments[file] = []
-              images = {}
+    fs = require 'fs'
+    request = require 'request'
 
-              data = data.toString()
+    fs.readFile(
+      process.cwd()+'/www/lessonhome/mails/'+file
+      (err, data) =>
 
-              for image in data.match(/{{.+}}/g)
-                do (image) ->
+        console.log err if err?
 
-                  image = image.replace(/{|}/g, '')
+        @attachments[file] = []
+        images = {}
 
-                  if !images.hasOwnProperty(image)
-                    images[image] = true
+        data = data.toString()
 
-                    _attachments[file].push(
-                      {
-                        filename: image.replace(/(\/.+\/)*/, '')
-                        path: process.cwd()+'/www/lessonhome/static' + image
-                        cid: image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome'
-                      }
-                    )
+        for image in data.match(/{{.+}}/g)
+          do (image) =>
 
-                    data = data.replace(new RegExp('{{' + image + '}}', 'g'), '\'cid:' + image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome\'')
+            image = image.replace(/{|}/g, '')
 
-              request.post(
+            if !images.hasOwnProperty(image)
+              images[image] = true
+
+              @attachments[file].push(
                 {
-                  url:'http://premailer.dialect.ca/api/0.1/documents'
-                  form:{html: data}
+                  filename: image.replace(/(\/.+\/)*/, '')
+                  path: process.cwd()+'/www/lessonhome/static' + image
+                  cid: image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome'
                 }
-                (error, response, body) ->
-
-                  return inline file if body[0] is '<'
-
-                  request(
-                    {
-                      url: JSON.parse(body).documents.html
-                    }
-                    (error, response, body) ->
-
-                      _templates[file] = body
-
-                      console.log file+' was read from mails to Mail.templates'
-                  )
               )
-          )
 
-        inline file for file in files
+              data = data.replace(new RegExp('{{' + image + '}}', 'g'), '\'cid:' + image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome\'')
+
+        request.post(
+          {
+            url:'http://premailer.dialect.ca/api/0.1/documents'
+            form:{html: data}
+          }
+          (err, response, body) =>
+
+            console.log err if err?
+
+            return @prepareCss file if body[0] is '<'
+
+            request(
+              {
+                url: JSON.parse(body).documents.html
+              }
+              (err, response, body) =>
+
+                console.log err if err?
+
+                @templates[file] = body
+
+                console.log 'mail: '+file+' was read from mails to Mail.templates'
+            )
+        )
     )
 
   prepare: (data, repls)->
@@ -81,7 +87,7 @@ class Mail
 
   send : (template, email, subject, repls) ->
 
-    console.log 'Sending mail to', email
+    console.log 'mail: Sending mail to', email
 
     d = Q.defer()
 
@@ -104,7 +110,7 @@ class Mail
     transporter.sendMail mailOptions,(err,info)->
       return d.reject err if err?
 
-      console.log 'sent', info
+      console.log 'mail: Mail sent', info
       d.resolve() unless err
 
     return d.promise
