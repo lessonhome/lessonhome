@@ -149,6 +149,7 @@ class @main
       new_subject.setValue key, val
       console.log new_subject.dom
       $(@subjects_content).append(new_subject.dom)
+    @dom.find('>div').css 'opacity',1
   setItem: (item_block, item_value, value_block)=>
     if item_value
       value_block.text("#{item_value ? ""}")

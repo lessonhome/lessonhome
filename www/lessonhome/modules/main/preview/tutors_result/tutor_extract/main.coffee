@@ -78,7 +78,9 @@ class @main extends EE
     #@tutor_status.  text(value.status ? "")
     #@tutor_exp.     text(value.experience ? "")
     do => Q.spawn =>
-      @found.link_name.attr 'href','/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
+      link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
+      @found.link_name.attr 'href',link
+      @tree.view_button.class.activate link
     exp = value.experience ? ""
     exp += " года" if exp && !exp?.match? /\s/
     @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
