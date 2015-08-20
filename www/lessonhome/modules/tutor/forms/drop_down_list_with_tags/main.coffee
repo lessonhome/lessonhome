@@ -60,6 +60,7 @@ class @main extends EE
       @emit 'end'
       @emitting = false
     ###
+  setItems : => @list.setItems arguments...
   reset : =>
     @list.setValue('')
     children = $(@tags).children()
