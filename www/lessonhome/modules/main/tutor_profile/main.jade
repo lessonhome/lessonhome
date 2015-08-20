@@ -17,28 +17,28 @@ mixin item(selector, title, value)
         .attach_button!=attach_button
       .personal_data.select
         .top
-          .rating!=value.rating
-          .js-location!=value.location
-        .js-full_name!=value.full_name
-        .js-description!=value.description
+          .rating!=rating
+          .js-location
+        .js-full_name
+        .js-description
         .js-status.item
           .title!='Статус :'
-          .value!=value.status
+          .value.js-status_value
         .js-experience.item
           .title!='Опыт :'
-          .value!=value.experience
+          .value.js-experience_value
         .js-age.item
           .title!='Возраст :'
-          .value!=value.age
+          .value.js-age_value
         .js-work_place.item
           .title!='Место работы :'
-          .value!=value.work_place
+          .value.js-work_place_value
         .js-education.item
           .title!='Образование :'
-          .value!=value.education
+          .value.js-education_value
         .js-areas_departure.item
           .title!='Районы выезда :'
-          .value!=value.areas_departure
+          .value.js-areas_departure_value
     .extra_info
       .header
         .js-about.active
@@ -52,18 +52,18 @@ mixin item(selector, title, value)
           .line
       .value
         .js-about_content
-          .js-about_text!=value.about_text
+          .js-about_text
           //-.sub_title Награды, дипломы, сертификаты :
           //-.js-honors_text!=value.honors_text
         .js-subjects_content
-          .subject!=hidden_subject
+          .subject!=hidden_subject 
           //-each val in value.subjects
             //-.subject!=val
         .js-reviews_content Отзывов о данном репетиторе пока нет
 
   .right
     .content
-      .title!='Написать '+value.tutor_name
+      .title!='Написать '
       .calendar
         .icon
         a Посмотреть график работы

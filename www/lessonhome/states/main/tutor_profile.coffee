@@ -14,6 +14,7 @@ class @main extends @template '../main'
         extract       : 'extract'
         rating        : @exports()
       hidden_subject : @module '$/subject'
+      rating: @module 'rating_star'
       value: {
         tutor_name: $form : person : 'dativeName.first'
         rating: @module 'rating_star'

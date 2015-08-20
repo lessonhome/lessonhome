@@ -24,6 +24,7 @@ class @main
     #@honors_text = @found.honors_text
     @rating_photo   = @tree.rating_photo.class
     @hidden_subject = @tree.hidden_subject.class
+    @status_values = {"student":"Студент", "private_teacher":"Частный преподаватель", "university_teacher":"Преподаватель ВУЗа", "school_teacher":"Преподаватель школы"}
   show: => do Q.async =>
     index = 80
     preps=yield Feel.dataM.getTutor [index]
@@ -49,15 +50,16 @@ class @main
     @rating_photo.setValue {
       photos : data.photos
     }
-    @tree.value.rating.class.setValue data.rating
+    @tree.rating.class.setValue data.rating
     @found.full_name.text("#{data.name.last ? ""} #{data.name.first ? ""} #{data.name.middle ? ""}")
     @found.location.text("#{data.location?.country ? ""} #{data.location?.city ? ""} #{data.location?.area ? ""}")
     @found.description.text("#{data.slogan ? ""}")
-    @found.status.text("#{data.status ? ""}")
-    @found.experience.text("#{data.experience ? ""}")
-    @found.age.text("#{data.age ? ""}")
-    @found.work_place.text("#{data.work?.name ? ""}")
-    @found.education.text("#{data.education?.name ? ""}")
+    @setItem @found.status, @status_values[data.status], @found.status_value
+    @setItem @found.experience, data.experience, @found.experience_value
+    @setItem @found.age, data.age, @found.age_value
+    @setItem @found.work_place, data.work?.name, @found.work_place_value
+    @setItem @found.education, data.education?.name, @found.education_value
+    @setItem @found.areas_departure, data.areas, @found.areas_departure_value
     # TODO: areas
     @found.about_text.text("#{data.about ? ""}")
     #@honors_text.text("#{data.honors_text ? ""}")
@@ -66,4 +68,10 @@ class @main
       new_subject.setValue key, val
       console.log new_subject.dom
       $(@subjects_content).append(new_subject.dom)
+
+  setItem: (item_block, item_value, value_block)=>
+    if item_value
+      value_block.text("#{item_value ? ""}")
+    else
+      item_block.hide()
 
