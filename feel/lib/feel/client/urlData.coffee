@@ -2,6 +2,7 @@
 fstate = History.getState()
 
 
+
 class @urlData
   constructor : ->
     Wrap @
@@ -28,7 +29,7 @@ class @urlData
     url = @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     url2 = url.split '&'
     url = {}
-    cook = $.cookie('urldata') ? ''
+    cook = $.cookie()?.urldata ? ''
     cook = decodeURIComponent cook
     cook = '{}' unless cook
     cook = JSON.parse cook
@@ -133,7 +134,7 @@ class @urlData
     urldata = ""
     purl = []
     if usecookie == 'true'
-      cook = $.cookie('urldata') ? ''
+      cook = $.cookie()?.urldata ? ''
       cook = decodeURIComponent cook
       cook = '{}' unless cook
       cook = JSON.parse cook
@@ -144,7 +145,7 @@ class @urlData
             delete cook?[key]
           else
             cook[key] = params?[key]
-      $.cookie 'urldata', encodeURIComponent( JSON.stringify cook), {path:'/'}
+      $.cookie 'urldata', encodeURIComponent( JSON.stringify cook)
     for key,val of params
       purl.push [key,val]
     purl.sort (a,b)-> a[0]<b[0]
