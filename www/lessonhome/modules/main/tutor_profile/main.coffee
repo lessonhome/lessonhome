@@ -26,9 +26,11 @@ class @main
     @hidden_subject = @tree.hidden_subject.class
     @status_values = {"student":"Студент", "private_teacher":"Частный преподаватель", "university_teacher":"Преподаватель ВУЗа", "school_teacher":"Преподаватель школы"}
   show: => do Q.async =>
-    index = 80
+    index = yield Feel.urlData.get('tutorProfile','index') ? 77
+    console.log index
     preps=yield Feel.dataM.getTutor [index]
     prep = preps[index]
+    return unless prep?
     console.log prep
     @setValue prep
     $(@back).click => @goBack()
