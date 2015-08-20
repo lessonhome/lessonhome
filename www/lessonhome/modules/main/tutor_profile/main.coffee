@@ -83,7 +83,9 @@ class @main
         @found.location.text(data.location?.country ? "")
     else
       @found.location.hide()
-    @found.description.text(data.slogan ? "")
+    if data.slogan? && data.slogan
+      @found.description.text(data.slogan)
+      @found.description.show()
     @setItem @found.status, @status_values[data.status], @found.status_value
     @setItem @found.experience, data.experience, @found.experience_value
     if data.age? && data.age
