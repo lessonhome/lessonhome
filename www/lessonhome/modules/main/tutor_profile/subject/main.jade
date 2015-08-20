@@ -27,14 +27,7 @@
 .js-header
   .left
     .js-subject
-    .training_direction
-      if training_direction
-        each val, i in training_direction
-          if i>0
-            !=', '+val
-          else
-            !=val
-          -console.log(i);
+    .js-training_direction
   .right
     .js-icon_wrap.active
       .icon

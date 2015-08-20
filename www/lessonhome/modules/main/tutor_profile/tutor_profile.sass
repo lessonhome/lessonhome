@@ -46,8 +46,10 @@ main
         +inline-block
         vertical-align: top
       .photo_block
+        text-align: center
         .avatar
-          width: 210px
+          +inline-block
+          width: 130px
           height: 264px
         .photos
           margin: 12px 0
@@ -77,11 +79,12 @@ main
           line-height: 24px
           color: #000000
         .description
-          margin: 12px 0 24px 0
+          //-margin: 12px 0 24px 0
           font-size: 14px
           line-height: 18px
           color: #000000
         .item
+          margin: 12px 0
           .title, .value
             text-align: left
             font-size: 16px
@@ -92,7 +95,7 @@ main
             float: left
             font-weight: 600
         .experience, .work_place
-          padding: 12px 0
+          //-padding: 12px 0
     .extra_info
       padding-right: 24px
       box-sizing: border-box
@@ -160,15 +163,16 @@ main
           padding-top: 21px
   .right
     width: 312px
+    min-height: 575px
     padding-bottom: 24px
     text-align: center
     background-color: #e5e5e5
-    .content
+    .write_tutor_content
       +inline-block
       width: 263px
+      padding-top: 18px
       text-align: left
       .title
-        margin-top: 18px
         font-size: 24px
         line-height: 24px
         color: #000

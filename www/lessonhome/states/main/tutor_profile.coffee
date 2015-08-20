@@ -13,6 +13,7 @@ class @main extends @template '../main'
         close         : false
         extract       : 'extract'
         rating        : @exports()
+        rev_selector  : 'no_reviews'
       hidden_subject : @module '$/subject'
       rating: @module 'rating_star'
       value: {
@@ -154,5 +155,5 @@ class @main extends @template '../main'
         selector: 'small'
       write_button: @module 'link_button' :
         selector: 'write_tutor'
-        text: 'Написать Ивану' #TODO: insert a real name of tutor
+        text: 'Написать' #TODO: insert a real name of tutor
 

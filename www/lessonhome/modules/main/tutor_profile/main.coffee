@@ -25,7 +25,18 @@ class @main
     @rating_photo   = @tree.rating_photo.class
     @hidden_subject = @tree.hidden_subject.class
     @status_values = {"student":"Студент", "private_teacher":"Частный преподаватель", "university_teacher":"Преподаватель ВУЗа", "school_teacher":"Преподаватель школы"}
+    @areas_departure_value = @found.areas_departure_value
+    @write_button = @found.write_button
   show: => do Q.async =>
+    inset = Feel.urlData.get('tutorProfile','inset')
+    inset.then (data)=>
+      switch data
+        when 0
+          @setActiveItem @about, @about_content
+        when 1
+          @setActiveItem @subjects, @subjects_content
+        when 2
+          @setActiveItem @reviews, @reviews_content
     index = yield Feel.urlData.get('tutorProfile','index') ? 77
     console.log index
     preps=yield Feel.dataM.getTutor [index]
@@ -34,9 +45,17 @@ class @main
     console.log prep
     @setValue prep
     $(@back).click => @goBack()
-    $(@about).on 'click', => @setActiveItem @about, @about_content
-    $(@subjects).on 'click', => @setActiveItem @subjects, @subjects_content
-    $(@reviews).on 'click', => @setActiveItem @reviews, @reviews_content
+    $(@about).on 'click', =>
+      @setActiveItem @about, @about_content
+      Feel.urlData.set('tutorProfile',{'inset':0})
+    $(@subjects).on 'click', =>
+      @setActiveItem @subjects, @subjects_content
+      Feel.urlData.set('tutorProfile',{'inset':1})
+    $(@reviews).on 'click', =>
+      @setActiveItem @reviews, @reviews_content
+      Feel.urlData.set('tutorProfile',{'inset':2})
+    $(@write_button).on 'click', =>
+      @found.write_tutor_content.text("Ваше сообщение отправлено! Скоро с Вами свяжутся.")
   goBack: =>
     document.location.href = window.history.back()
   setActiveItem: (item, content)=>
@@ -54,15 +73,47 @@ class @main
     }
     @tree.rating.class.setValue data.rating
     @found.full_name.text("#{data.name.last ? ""} #{data.name.first ? ""} #{data.name.middle ? ""}")
-    @found.location.text("#{data.location?.country ? ""} #{data.location?.city ? ""} #{data.location?.area ? ""}")
-    @found.description.text("#{data.slogan ? ""}")
+    if data.location?.country
+      if data.location?.city
+        if data.location?.area
+          @found.location.text("#{data.location?.country ? ""}, г.#{data.location?.city ? ""} р.#{data.location?.area ? ""}")
+        else
+          @found.location.text("#{data.location?.country ? ""}, г.#{data.location?.city ? ""}")
+      else
+        @found.location.text(data.location?.country ? "")
+    else
+      @found.location.hide()
+    @found.description.text(data.slogan ? "")
     @setItem @found.status, @status_values[data.status], @found.status_value
     @setItem @found.experience, data.experience, @found.experience_value
-    @setItem @found.age, data.age, @found.age_value
-    @setItem @found.work_place, data.work?.name, @found.work_place_value
-    @setItem @found.education, data.education?.name, @found.education_value
-    @setItem @found.areas_departure, data.areas, @found.areas_departure_value
-    # TODO: areas
+    if data.age? && data.age
+      @found.age_value.text(data.age+" лет")
+    else
+      @found.age.hide()
+    #@setItem @found.age, data.age, @found.age_value
+    last_work = data.work?[Object.keys(data.work ? {})?.pop?()]
+    if last_work
+      if last_work.place? && last_work.place
+        #alert last_work.post?
+        #alert last_work.post
+        if last_work.post? && last_work.post
+          @found.work_place_value.text(last_work.place, last_work.post)
+        else
+          @found.work_place_value.text(last_work.place)
+    else
+      @found.work_place.hide()
+    if data.education?[0]?.name
+      @found.education_value.text("#{data.education?[0]?.name ? ""}, #{data.education?[0]?.faculty ? ""}")
+    else
+      @found.education.hide()
+    if data.check_out_the_areas?
+      for key, val of data.check_out_the_areas
+        if key > 0
+          $(@areas_departure_value).append(", #{val}")
+        else
+          $(@areas_departure_value).append(val)
+    else
+      @areas_departure.hide()
     @found.about_text.text("#{data.about ? ""}")
     #@honors_text.text("#{data.honors_text ? ""}")
     for key,val of data.subjects
@@ -70,7 +121,6 @@ class @main
       new_subject.setValue key, val
       console.log new_subject.dom
       $(@subjects_content).append(new_subject.dom)
-
   setItem: (item_block, item_value, value_block)=>
     if item_value
       value_block.text("#{item_value ? ""}")

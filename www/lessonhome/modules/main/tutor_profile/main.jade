@@ -41,7 +41,7 @@ mixin item(selector, title, value)
           .value.js-areas_departure_value
     .extra_info
       .header
-        .js-about.active
+        .js-about
           .text О себе
           .line
         .js-subjects
@@ -50,20 +50,20 @@ mixin item(selector, title, value)
         .js-reviews
           .text Отзывы
           .line
-      .value
+      .value.select
         .js-about_content
           .js-about_text
           //-.sub_title Награды, дипломы, сертификаты :
           //-.js-honors_text!=value.honors_text
         .js-subjects_content
-          .subject!=hidden_subject 
+          .subject!=hidden_subject
           //-each val in value.subjects
             //-.subject!=val
         .js-reviews_content Отзывов о данном репетиторе пока нет
 
   .right
-    .content
-      .title!='Написать '
+    .js-write_tutor_content
+      .title.js-write_tutor_title Написать
       .calendar
         .icon
         a Посмотреть график работы
@@ -74,7 +74,7 @@ mixin item(selector, title, value)
       .terms_of_use
         .agree_checkbox!=agree_checkbox
         .text Я согласен с пользовательским<br>соглашением
-      .write_button!=write_button
+      .js-write_button!=write_button
 
 
 
