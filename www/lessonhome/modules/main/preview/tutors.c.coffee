@@ -127,6 +127,7 @@ class Tutors
       obj.account = account
       obj.name = {}
       obj.name.first = p?.first_name
+      obj.slogan = t?.slogan
       obj.name.last  = p?.last_name
       obj.name.middle = p?.middle_name
       obj.work = p?.work

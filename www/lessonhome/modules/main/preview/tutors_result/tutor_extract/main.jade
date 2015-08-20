@@ -2,7 +2,7 @@
 .top
   .all_rating!=all_rating
   .js-location=value.location.city
-a.name
+a.name.js-link_name
   .js-tutor_name.select=value.name.last+' '+value.name.first+' '+value.name.middle
 .tutor_status_wrap
   .js-tutor_status.select=value.status + ', опыт ' + value.experience + ' года'
@@ -14,7 +14,7 @@ a.name
       each val,key in value.subjects
         if !subject_counter++
           .tag=key
-      if subject_counter-- > 1
+      if (subject_counter--)>1
         case subject_cointer
           when 1
             .more_subjects | и ещё 1 предмет

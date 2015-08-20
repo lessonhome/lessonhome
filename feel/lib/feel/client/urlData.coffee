@@ -2,6 +2,7 @@
 fstate = History.getState()
 
 
+
 class @urlData
   constructor : ->
     Wrap @
@@ -28,7 +29,7 @@ class @urlData
     url = @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     url2 = url.split '&'
     url = {}
-    cook = $.cookie('urldata') ? ''
+    cook = $.cookie()?.urldata ? ''
     cook = decodeURIComponent cook
     cook = '{}' unless cook
     cook = JSON.parse cook
@@ -37,12 +38,12 @@ class @urlData
       continue unless u
       u = u.split '='
       url[u[0]] = u[1]
-    url[key] ?= val for key,val of cook
     str = ''
     for key,val of url
       str += '&' if str
       str += key if key
       str += '='+val if val?
+    url[key] ?= val for key,val of cook
     @data   = yield @udata.u2d str ? ''
     @fdata  = yield @udata.u2d str ? '' #fstate?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     for key of @forms
@@ -110,7 +111,8 @@ class @urlData
       str += r[0]
       str += "="+r[1] if r[1]?
     return str
-    
+        
+
   udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
     params = {}
     unless typeof url == 'string'
@@ -133,7 +135,7 @@ class @urlData
     urldata = ""
     purl = []
     if usecookie == 'true'
-      cook = $.cookie('urldata') ? ''
+      cook = $.cookie()?.urldata ? ''
       cook = decodeURIComponent cook
       cook = '{}' unless cook
       cook = JSON.parse cook
@@ -144,7 +146,7 @@ class @urlData
             delete cook?[key]
           else
             cook[key] = params?[key]
-      $.cookie 'urldata', encodeURIComponent( JSON.stringify cook), {path:'/'}
+      $.cookie 'urldata', encodeURIComponent( JSON.stringify cook)
     for key,val of params
       purl.push [key,val]
     purl.sort (a,b)-> a[0]<b[0]
