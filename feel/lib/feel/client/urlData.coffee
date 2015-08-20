@@ -111,7 +111,8 @@ class @urlData
       str += r[0]
       str += "="+r[1] if r[1]?
     return str
-    
+        
+
   udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
     params = {}
     unless typeof url == 'string'
