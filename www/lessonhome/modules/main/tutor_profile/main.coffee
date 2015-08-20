@@ -44,7 +44,7 @@ class @main
     console.log index
     preps=yield Feel.dataM.getTutor [index]
     prep = preps[index]
-    return unless prep?
+    return Feel.go '/second_step' unless prep?
     console.log prep
     @setValue prep
     $(@back).click => @goBack()
@@ -58,6 +58,7 @@ class @main
       @setActiveItem @reviews, @reviews_content
       Feel.urlData.set('tutorProfile',{'inset':2})
     $(@write_button).on 'click', =>
+      @found.right.css 'min-height','inherit'
       @found.write_tutor_content.text("Ваше сообщение отправлено! Скоро с Вами свяжутся.")
     @found.attach_button.click @addTutor
   goBack: =>
@@ -82,11 +83,11 @@ class @main
   setLinked : (linked)=> Q.spawn =>
     linked ?= yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
-      @tree.attach_button?.class?.setValue {text:'убрать',color:'#FF7F00',pressed:true}
+      @tree.attach_button?.class?.setValue {text:'прикрепить к заявке',color:'#3ab27d',pressed:true}
       @tree.attach_button?.class?.setActiveCheckbox()
       #@hopacity.removeClass 'g-hopacity'
     else
-      @tree.attach_button?.class?.setValue {text:'выбрать'}
+      @tree.attach_button?.class?.setValue {text:'прикрепить к заявке'}
       #@hopacity.addClass 'g-hopacity'
   setValue : (data={})=>
     @tree.value[key] = val for key,val of data

@@ -140,6 +140,7 @@ class Tutors
       obj.education = p.education
       obj.gender  = p.sex
       obj.place = {}
+      obj.reason = t?.reason
       for ind,val of t?.subjects
         ns = obj.subjects[val.name] = {}
         ns.description = val.description
