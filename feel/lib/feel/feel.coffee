@@ -240,9 +240,10 @@ class module.exports
     @clientRegenerator = (yield _readFile 'feel/lib/feel/regenerator.runtime.js').toString()
     @clientRegeneratorHash = _shash @clientRegenerator
     yield @loadClientDir 'feel/lib/feel/client',''
+    console.log Object.keys @client
     for key,val of @client
       @clientJs += val unless key == 'main'
-      @clientJs += @client['main']
+    @clientJs += @client['main']
     @clientJs =  _regenerator @clientJs
     #@clientJs = yield @yjs _regenerator @clientJs
     @clientJsHash = _shash @clientJs

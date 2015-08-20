@@ -1,6 +1,21 @@
 
 _filter = require './filter'
 
+age = (date1,date2)=>
+  years = date2.getFullYear() - date1.getFullYear()
+  months = years * 12 + date2.getMonth() - date1.getMonth()
+  days = date2.getDate() - date1.getDate()
+  
+  years -= date2.getMonth() < date1.getMonth()
+  months -= date2.getDate() < date1.getDate()
+  days += if days < 0
+      new Date( date2.getFullYear(), date2.getMonth() - 1, 0 ).getDate() + 1
+    else 0
+  return {years, months, days}
+
+
+
+
 class Tutors
   constructor : ->
     Wrap @
@@ -114,14 +129,23 @@ class Tutors
       obj.name.first = p?.first_name
       obj.name.last  = p?.last_name
       obj.name.middle = p?.middle_name
+      obj.work = p?.work
       obj.about = t?.about
+      obj.check_out_the_areas = t?.check_out_the_areas
       obj.subjects = {}
+      if p.birthday
+        obj.age = age(p.birthday, new Date())?.years
+      obj.education = p.education
       obj.gender  = p.sex
       obj.place = {}
       for ind,val of t?.subjects
         ns = obj.subjects[val.name] = {}
         ns.description = val.description
         obj.about = ns.description unless obj.about
+        ns.reason = val.reason
+        ns.slogan = val.slogan
+        ns.tags = val.tags
+        ns.course = val.course
         ns.price  = {left: +val.price?.range?[0]}
         ns.price.right = +(val.price?.range?[1] ? ns.price.left)
         ns.duration  = {}

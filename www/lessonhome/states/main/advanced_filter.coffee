@@ -3,7 +3,7 @@ class @main
     subject : @state '../tutor/forms/drop_down_list_with_tags' :
       list: @module 'tutor/forms/drop_down_list:type1'  :
         selector        : 'list_course'
-        placeholder     : 'Например физика'
+        placeholder     : 'Например, физика'
         value     : ''
         smart : true
         filter : true

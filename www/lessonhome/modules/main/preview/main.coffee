@@ -39,20 +39,24 @@ class @main extends EE
     @count  = 10
     @now ?= []
     indexes = yield Feel.dataM.getTutors @from,@count
+    yield Q.delay(10)
     indexes = indexes.slice @from,@from+@count
     preps   = yield Feel.dataM.getTutor indexes
+    yield Q.delay(10)
     #return end() if objectHash(@now) == objectHash(indexes)
     @now = indexes
     htime = 400-((new Date().getTime())-@htime)
     #htime = 0 if htime < 0
     setTimeout (=> Q.spawn =>
       @tutors_result.children().remove()
+      yield Q.delay(10)
       for key,val of @doms
         delete @doms[key]
       for i in indexes
         p = preps[i]
         d = @createDom p
         d.dom.appendTo @tutors_result
+        yield Q.delay(10)
       @tutors_result.css 'opacity',1
       yield @BusyNext()
     ),htime
@@ -67,14 +71,20 @@ class @main extends EE
     @busy = true
     @now ?= []
     indexes = yield Feel.dataM.getTutors @from,@count+10
+    yield Q.delay(10)
     @count = Math.min(indexes.length-@from,@count+10)
     indexes = indexes.slice @from,@from+@count
     preps   = yield Feel.dataM.getTutor indexes
+    yield Q.delay(10)
     return yield @BusyNext() if objectHash(@now) == objectHash(indexes)
     for i in [@now.length...indexes.length]
       p = preps[indexes[i]]
       d = @createDom p
+      d.dom.css 'opacity' , 0
       d.dom.appendTo @tutors_result
+      d.dom.css 'transition','opacity 400ms ease-out'
+      yield Q.delay(10)
+      d.dom.css 'opacity',1
     @now = indexes
     yield @BusyNext()
   createDom : (prep)=>
@@ -141,7 +151,7 @@ class @main extends EE
     $(window).on 'scroll',=>
       ll = @tutors_result.find(':last')
       dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
-      if dist >= 0
+      if dist >= -400
         @addTen().done()
     @on 'change', =># Q.spawn =>
       if (new Date().getTime() - @loadedTime)>(1000*5)

@@ -108,6 +108,7 @@ class @main extends EE
       return if @isFocus
       @isFocus = true
       @label.addClass 'focus'
+      @input.attr('placeholder','')
       @showSelectOptions?()
       @emit 'focus'
     @input.on 'focus', onfocus
@@ -115,6 +116,8 @@ class @main extends EE
     @input.on 'focus', @hideError
     @found.disabled.click @hideError
     @input.on 'focusout', =>
+      #TODO restore placeholder value on subject input focusout
+      #@input.attr('placeholder', @item.)
       return if !@isFocus
       @isFocus = false
       if !@bodyListenMD

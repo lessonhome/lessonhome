@@ -1,5 +1,9 @@
 
 
+$.cookie.defaults.path = '/'
+$.cookie.defaults.expires = 365*2
+
+
 class @Feel
   constructor : ->
     window.Feel  = @
@@ -9,7 +13,8 @@ class @Feel
     for key,val of $Feel.user?.type
       #if $Feel.user?.type?.admin
       if val
-        $.cookie key,true,{path:'/'}
+        $.cookie key,true
+    yield Q.delay 10
     for key,val of $Feel
       @[key] = val
     for key,mod of $Feel.modules
@@ -22,25 +27,30 @@ class @Feel
           window[name] = obj
           console.log "global class window['#{name}'];"
     window.onerror = (e)=> @error e
+    yield Q.delay 10
     urlData = new @urlData()
     @urlData = urlData
     yield urlData.init()
+    yield Q.delay 10
     
     @dataM = new @DataM()
     yield @dataM.init()
+    yield Q.delay 10
     
     @pbar = new @PBar()
     yield @pbar.init()
+    yield Q.delay 10
     
     @active = new @activeState @root.tree
     yield @active.init()
+    yield Q.delay 10
     
     setTimeout @checkUnknown,200
 
     @_popupAdd = {}
     $(document).on 'mousedown.popupAdd', @popupAddDown
     #$(document).on 'mouseleave.popupAdd', @popupAddLeave
-    if $.cookie 'tutor'
+    if $.cookie()?.tutor
       @sendActionOnceIf 'reaccess',1000*60*30
 
   error : (e,args...)=>
@@ -140,8 +150,8 @@ class @Feel
     else
       $('body').removeClass 'unselect_all'
   checkUnknown : =>
-    unknown = $.cookie('unknown')
-    $.cookie 'unknown', 'set'+@user.sessionpart if unknown == 'need'
+    unknown = $.cookie()?.unknown
+    $.cookie('unknown', 'set'+@user.sessionpart) if unknown == 'need'
     
   go : (href)=>
     q = do Q.async =>
@@ -179,19 +189,19 @@ class @Feel
     else
       @yaC?.reachGoal? action,params
   sendActionOnce : (action,time)=>
-    cook = $.cookie('sendAction__'+action)
+    cook = $.cookie()?['sendAction__'+action]
       
     t = new Date().getTime()
     if time?
-      $.cookie('sendAction__'+action,t,{path:'/'})
+      $.cookie('sendAction__'+action,t)
       return if cook? && ((t-cook)<time)
     return if cook? && (!time?)
-    $.cookie('sendAction__'+action,t,{path:'/'})
+    $.cookie('sendAction__'+action,t)
     @sendAction action
   sendActionOnceIf : (action,time)=>
     t = new Date().getTime()
-    cook = $.cookie('sendAction__'+action)
-    return $.cookie('sendAction__'+action,t,{path:'/'}) unless cook?
+    cook = $.cookie()?['sendAction__'+action]
+    return $.cookie('sendAction__'+action,t) unless cook?
     @sendActionOnce action,time
 
   login : (id)=> do Q.async =>
