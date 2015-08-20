@@ -100,10 +100,15 @@ class @main
           @found.work_place_value.text(last_work.place, last_work.post)
         else
           @found.work_place_value.text(last_work.place)
+      else
+        @found.work_place.hide()
     else
       @found.work_place.hide()
     if data.education?[0]?.name
-      @found.education_value.text("#{data.education?[0]?.name ? ""}, #{data.education?[0]?.faculty ? ""}")
+      if data.education?[0]?.faculty
+        @found.education_value.text("#{data.education?[0]?.name ? ""}, #{data.education?[0]?.faculty ? ""}")
+      else
+        @found.education_value.text("#{data.education?[0]?.name ? ""}")
     else
       @found.education.hide()
     if data.check_out_the_areas?
