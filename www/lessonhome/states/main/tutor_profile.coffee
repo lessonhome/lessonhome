@@ -72,8 +72,9 @@ class @main extends @template '../main'
       subject: @module 'tutor/forms/drop_down_list' :
         text      : 'Выберите предмет :'
         selector  : 'write_tutor'
-        smart : true
-        self : true
+        smart : false
+        self : false
+        no_input : true
         default_options     : {
           '0': {value: 'english', text: 'английский язык'}
           '1': {value: 'math', text: 'математика'}

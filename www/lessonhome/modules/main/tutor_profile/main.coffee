@@ -174,12 +174,17 @@ class @main
     subjects_number = 0
     @tutor_subjects = []
     for key,val of data.subjects
+      ss = key.split /[\.,;]/
+      for s in ss
+        s = s.replace /^\s+/,''
+        s = s.replace /\s+$/,''
+        if s.length > 2
+          @tutor_subjects.push s
+          subjects_number++
       new_subject = @hidden_subject.$clone()
       new_subject.setValue key, val, data.place
       console.log new_subject.dom
       $(@subjects_content).append(new_subject.dom)
-      subjects_number++
-      @tutor_subjects.push key
     # right panel
     $(@found.write_tutor_msg).on 'click', =>
       @found.write_tutor_name.addClass 'shown'
