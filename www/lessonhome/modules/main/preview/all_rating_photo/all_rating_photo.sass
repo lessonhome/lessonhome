@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 $close_src: 'main/close_10x10.png'
 $icon_height: image-height($close_src)
 $icon_width: image-width($close_src)
@@ -31,7 +32,7 @@ main
       background: url(F($close_src)) no-repeat
 .photo.hover
   +transform(scale(2.2))
-  +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
+  +material_shadow(4)
 .all_rating
   margin-top: 10px
 a
@@ -44,7 +45,7 @@ a
     box-sizing: border-box
     margin-top: 18px
     font-size: 14px
-    color: #000000
+    color: $black
     text-decoration: underline
     &:hover
       text-decoration: none
@@ -54,6 +55,5 @@ a
   opacity : 0.6
 .photo.unknown.hover
   +transform(scale(1))
-  +box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
 .no_reviews
   display: none

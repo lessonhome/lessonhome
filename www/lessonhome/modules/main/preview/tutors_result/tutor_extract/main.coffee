@@ -68,6 +68,14 @@ class @main extends EE
       if key
         key = key?.capitalizeFirstLetter?() ? key if i == 1
         @tutor_subject.append s=$("<div class='tag'>#{key ? ""}</div>")
+        do (s,key,val)=>
+          s.click => Q.spawn =>
+            link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
+            #@found.link_name.attr 'href',link
+            #@tree.view_button.class.activate link
+            yield Feel.go link
+
+
         #do (s,key,val)=>
           #s.on 'mouseenter',=>
             #@tutor_text.text val.description if val?.description

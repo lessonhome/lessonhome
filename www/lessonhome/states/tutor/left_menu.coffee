@@ -14,7 +14,7 @@ class @main
       @module '//item' :
         title : 'Оплата'
         item_class : 'payment'
-        href : '#'
+        href : 'pay'
 
       @module '//item' :
         title : 'Документы'

@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 $height_big: 52px
 $height_small: 36px
 $height_line: 2px
@@ -31,7 +32,7 @@ $height_line: 2px
       .progress
         width: 100%
         height: 100%
-        background-color : #89d1ff
+        background-color : $blue
         .value
           line-height: $height_big
       .progress, .block
@@ -39,12 +40,14 @@ $height_line: 2px
         +border-radius(50%)
         .value
           font-size: 20px
-          color: #ffffff
+          color: $white
       .current
         //transform: scale(1.2)
         border: 1px solid #fff
-        box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.3)
+        box-shadow: 0 0px 3px 2px $blue
         font-weight: 600
+        .value
+          color: $gray_dark
     .one
       padding-left: 0
     .fourth
@@ -57,7 +60,7 @@ $height_line: 2px
     .blue_line
       position: absolute
       height: $height_line
-      background: #89d1ff
+      background: $blue
       top: 50%
       margin-top: -($height_line/2)
   /////////////////////////////

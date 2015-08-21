@@ -9,8 +9,13 @@ class @D2U
     type : 'int'
     default : 0
     value : obj?.inset
+  $subject : (obj)=>
+    type : 'string'
+    default : ''
+    value : obj?.subject
 
 class @U2D
   $index : (obj)=> obj?.index
   $inset : (obj)=> obj?.inset
+  $subject : (obj)=> obj?.subject
 

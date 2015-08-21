@@ -8,7 +8,6 @@ class @main extends @template '../../tutor'
     'other' : '/enter'
     'pupil' : '/enter'
   }
-
   tree : ->
     items : [
       @module 'tutor/header/button' :
