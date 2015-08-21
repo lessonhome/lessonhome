@@ -209,6 +209,8 @@ class Tutors
     if rmax <= rmin
       rmax = rmin + 1
     for acc,p of persons
+      p.ratingMax = rmax
+      p.ratingNow = p.rating
       p.rating = (p.rating-rmin)/(rmax-rmin)
       p.rating *= 3
       p.rating += 2
