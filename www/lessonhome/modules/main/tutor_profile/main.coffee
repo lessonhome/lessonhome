@@ -170,11 +170,14 @@ class @main
       @found.reason_val.text(data.reason)
       @found.reason.show()
     #@honors_text.text("#{data.honors_text ? ""}")
+    subjects_number = 0
     for key,val of data.subjects
       new_subject = @hidden_subject.$clone()
       new_subject.setValue key, val, data.place
       console.log new_subject.dom
       $(@subjects_content).append(new_subject.dom)
+      subjects_number++
+
     @dom.find('>div').css 'opacity',1
   setItem: (item_block, item_value, value_block)=>
     if item_value
