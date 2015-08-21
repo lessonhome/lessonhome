@@ -6,6 +6,7 @@ class @main
   show : =>
 
   setValue : (value={})=>
+    @tree.value ?= {}
     @tree.value[key] = val for key,val of value
     if @tree.value?.rating?
       @tree.value.rating = Math.ceil(@tree.value.rating*3)/3

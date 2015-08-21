@@ -18,7 +18,6 @@ class @main extends @template '../main'
       rating: @module 'rating_star'
       value: {
         tutor_name: $form : person : 'dativeName.first'
-        rating: @module 'rating_star'
         location: 'г.Москва, р.Одинцово, м.Одинцово'
         full_name: 'Иванов Иван Иванович'
         description: 'Репетитор по англискому и испанскому, подготовлю к вступительным ИСАА'
