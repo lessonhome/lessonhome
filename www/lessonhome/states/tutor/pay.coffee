@@ -36,6 +36,28 @@ class @main extends @template '../tutor'
         #pattern   : '^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,15}$'
         #errMessage: 'Введите корректное имя (имя может содержать только цифры, символы алфавита и _)'
         #value     : $form : person : 'first_name'
+      need_pay : [
+        @module '$/need_pay' : {
+          date  : '23.08.2015'
+          name  : 'Andrew'
+          many  : '1600'
+        }
+        @module '$/need_pay' : {
+          date  : '23.08.2015'
+          name  : 'Andrew'
+          many  : '1700'
+        }
+        @module '$/need_pay' : {
+          date  : '23.08.2015'
+          name  : 'Andrew'
+          many  : '1800'
+        }
+        @module '$/need_pay' : {
+          date  : '23.08.2015'
+          name  : 'Andrew'
+          many  : '1900'
+        }
+      ]
 
   init : ->
     @parent.tree.left_menu.setActive 'Оплата'
