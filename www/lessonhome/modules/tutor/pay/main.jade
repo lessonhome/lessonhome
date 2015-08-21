@@ -13,5 +13,12 @@
       .triangle
 .pay_bids_block
   .pay_bids Заявки к оплате :
+  .need_pay_block
+    each val, index in need_pay
+      if index % 2 !== 0
+        .need_pay!= val
+      else
+        .need_pay.background!= val
+
 
 
