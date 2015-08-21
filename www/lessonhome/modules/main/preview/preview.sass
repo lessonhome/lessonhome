@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 $plus_src: 'plus-rep.png'
 $font-size: 18px
 $width_filter: 312px
@@ -9,7 +10,7 @@ $icon_reset_width: image-width($icon_reset_src)
 
 main
   padding: 20px 18px 20px 16px
-  background-color: #fff
+  background-color: $white
   float : left
   width : 100%
   +box-sizing(border-box)
@@ -19,13 +20,13 @@ main
   top: 0
   width: 100%
   height: 100%
-  background: #ffffff
+  background: $white
   opacity: 0.70
   z-index: 1
 .popup
   position: absolute
   z-index: 1
-  background: #ffffff
+  background: $white
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.26)
   left: 0
   top: 0
@@ -52,7 +53,7 @@ main
       line-height: 22px
       color: #717171
       &:hover
-        color: #aa352a
+        color: $red_dark
 .result_filter
   margin-left: $width_filter
   padding-left: 18px
@@ -175,6 +176,7 @@ main
       .g-hopacity
         opacity : 0
         +transition(opacity 300ms ease-out)
+        //+transition-delay(700ms)
       &:hover .g-hopacity
         opacity : 1 
     .tutor_result:hover

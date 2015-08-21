@@ -75,13 +75,13 @@ class @main extends EE
     for it in @items
       @found[it].removeClass  'up'
       @found[it].removeClass  'active'
-    @found[item].addClass 'active'
+    @found[item].addClass? 'active'
     unless @tree.value.sort == item
       @found[item].addClass 'up'
     if @tree.value.show == 'list'
-      @found.show_list.addClass 'active'
-      @found.show_grid.removeClass 'active'
+      @found.show_list?.addClass? 'active'
+      @found.show_grid?.removeClass 'active'
     else
-      @found.show_grid.addClass 'active'
-      @found.show_list.removeClass 'active'
+      @found.show_grid?.addClass? 'active'
+      @found.show_list?.removeClass 'active'
 

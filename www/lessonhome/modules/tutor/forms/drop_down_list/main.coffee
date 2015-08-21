@@ -77,7 +77,7 @@ class @main extends EE
     $('body').off 'mouseleave.drop_down_list'
     @isFocus = false
     @emitChange()
-
+    @input.attr('placeholder', @tree.placeholder)
     @bodyListenMD = false
     @label.removeClass 'focus'
     @select_sets.hide()
@@ -116,8 +116,6 @@ class @main extends EE
     @input.on 'focus', @hideError
     @found.disabled.click @hideError
     @input.on 'focusout', =>
-      #TODO restore placeholder value on subject input focusout
-      #@input.attr('placeholder', @item.)
       return if !@isFocus
       @isFocus = false
       if !@bodyListenMD
