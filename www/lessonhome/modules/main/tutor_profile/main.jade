@@ -69,17 +69,17 @@ mixin item(selector, title, value)
 
   .js-right
     .js-write_tutor_content
-      .title.js-write_tutor_title Написать
-      .calendar
+      .title.js-write_tutor_title.select Написать
+      .calendar.select
         .icon
         a Посмотреть график работы
-      .msg!=msg
-      .name!=name
-      .login!=login
-      .subject!=subject
+      .js-write_tutor_msg!=msg
+      .js-write_tutor_name!=name
+      .js-write_tutor_login!=login
+      .js-write_tutor_subject!=subject
       .terms_of_use
         .agree_checkbox!=agree_checkbox
-        .text Я согласен с пользовательским<br>соглашением
+        .text.select Я согласен с пользовательским<br>соглашением
       .js-write_button!=write_button
 
 

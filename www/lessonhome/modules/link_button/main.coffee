@@ -37,3 +37,6 @@ class @main extends EE
     return if @link.hasClass 'inactive'
     @link.removeClass 'active'
     @link.addClass 'inactive'
+
+  setValue: (data)=>
+    @found.text.text(data)

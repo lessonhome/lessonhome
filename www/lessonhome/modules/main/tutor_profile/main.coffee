@@ -160,28 +160,50 @@ class @main
     @found.about_text.text("#{data.about ? ""}")
     if data.interests?
       for key, val of data.interests
-        if key > 0
-          $(@found.interests_val).append(", #{val.description}")
-          @found.interests.show()
-        else
-          $(@found.interests_val).append(val.description)
-          @found.interests.show()
+        if val.description
+          if key > 0
+            $(@found.interests_val).append(", #{val.description}")
+            @found.interests.show()
+          else
+            $(@found.interests_val).append(val.description)
+            @found.interests.show()
     if data.reason? && data.reason
       @found.reason_val.text(data.reason)
       @found.reason.show()
     #@honors_text.text("#{data.honors_text ? ""}")
     subjects_number = 0
+    @tutor_subjects = []
     for key,val of data.subjects
       new_subject = @hidden_subject.$clone()
       new_subject.setValue key, val, data.place
       console.log new_subject.dom
       $(@subjects_content).append(new_subject.dom)
       subjects_number++
-
+      @tutor_subjects.push key
+    # right panel
+    $(@found.write_tutor_msg).on 'click', =>
+      @found.write_tutor_name.addClass 'shown'
+      @found.write_tutor_login.addClass 'shown'
+      @found.write_tutor_subject.addClass 'shown'
+    dative_tutor_name = @dativeName data.name
+    @found.write_tutor_title.text("Написать "+dative_tutor_name.first)
+    @tree.write_button.class.setValue "Написать "+dative_tutor_name.first
+    if subjects_number > 1
+      @tree.subject.class.setItems @tutor_subjects
+    else
+      @found.write_tutor_subject.hide()
     @dom.find('>div').css 'opacity',1
   setItem: (item_block, item_value, value_block)=>
     if item_value
       value_block.text("#{item_value ? ""}")
     else
       item_block.hide()
+
+  dativeName : (data)->
+    name = _nameLib.get((data?.last ? ''),(data?.first ? ''),(data?.middle ? ''))
+    return {
+      first : name.firstName('dative')
+      middle: name.middleName('dative')
+      last  : name.lastName('dative')
+    }
 
