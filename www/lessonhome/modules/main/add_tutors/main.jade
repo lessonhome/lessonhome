@@ -1,7 +1,12 @@
 
 .title.select Прикрепленные репетиторы :
 - var ind = 0;
-while tutors[ind]
+.hidden
+  .tutors!=tutors[0]
+
+
+.js-list
+//while tutors[ind]
   .box_line
     .tutors!= tutors[ind++]
     if tutors[ind]
