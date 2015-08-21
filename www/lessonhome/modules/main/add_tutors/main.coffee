@@ -24,7 +24,10 @@ class @main
       o = yield @createDom p
       @push o
       @found.list.append o.dom
-    console.log arr
+    if arr.length
+      @dom.show()
+    else
+      @dom.hide()
   push : (p)=>
     left = 6
     top = @left+8

@@ -13,7 +13,12 @@ class @main
     im = @tree.value.photos[@tree.value.photos.length-1]
     image = im.lurl
     console.log link
+    n = @tree.value.name
     @found.img.attr 'src',image
-    @dom.click => Feel.go(link)
+    @found.img.attr 'alt',"#{n.last ? ''} #{n.first ? ''} #{n.middle ? ''}"
+    @found.img.attr 'title',"#{n.last ? ''} #{n.first ? ''} #{n.middle ? ''}"
+
+    #@dom.click => Feel.go(link)
+    @found.photo_box.attr 'href',link
     h = im.lheight * 76/im.lwidth
     return {h}
