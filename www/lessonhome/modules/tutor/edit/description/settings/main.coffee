@@ -37,6 +37,14 @@ class @main
 
     @change_button_login.on 'submit', @tryChangeLogin
 
+    console.log document.getElementsByClassName('text select')[0].innerHTML
+
+    document.getElementsByClassName('text select')[0].innerHTML = 'afafadf'
+
+    @$send( 'loginUpdate',{
+      getLogin : true
+    }).then (login)=>
+
 
   trySavePassword : =>
     pass    = @old_password.getValue()
@@ -45,7 +53,6 @@ class @main
 
     if newpass!=confirm_pass
       @confirm_password.showError("пароли не совпадают")
-      console.log @confirm_password
       return false
 
     unless pass.substr(0,1) == '`'
@@ -56,8 +63,16 @@ class @main
         str += pass[i]
       pass = str
       pass = '`'+pass
-      @new_password.setValue pass
+      #@old_password.setValue pass
       @hashedPassword = true
+    unless newpass.substr(0,1) == '`'
+      len = newpass.length
+      newpass = LZString.compress((CryptoJS.SHA1(newpass)).toString(CryptoJS.enc.Hex)).toString()
+      str = ""
+      for i in [0...len-1]
+        str += newpass[i]
+      newpass = str
+      newpass = '`'+newpass
     @$send( 'passwordUpdate',{
       password : pass
       newpassword : newpass
@@ -67,8 +82,13 @@ class @main
       if status == 'success'
         @success = true
         $('body,html').animate({scrollTop:0}, 500)
+
+        @old_password.setValue ''
+        @new_password.setValue ''
+        @confirm_password.setValue ''
       else
         #@printErrors err
+        console.log 'ERROR', err
 
 
 

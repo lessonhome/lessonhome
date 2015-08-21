@@ -17,6 +17,12 @@ class Mail
         @prepareCss file for file in files
     )
 
+  genResetToken: ->
+
+    bcrypt = require 'bcryptjs'
+
+    return bcrypt.genSaltSync(10);
+
   prepareCss: (file) =>
 
     fs = require 'fs'

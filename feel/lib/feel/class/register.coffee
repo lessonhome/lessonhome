@@ -153,6 +153,8 @@ class Register
     throw err:'already_logined'       if user.registered
     tryto = @logins[data.login]
     data.password = data.login+data.password
+    console.log data
+    console.log tryto.hash,yield @passwordCrypt _hash data.password
     throw err:'wrong_password'    unless yield @passwordCompare _hash(data.password), tryto.hash
     olduser = user
     hashs = []
@@ -171,6 +173,23 @@ class Register
     delete acc.account
     qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     yield Q.all qs
+    return {session:@sessions[sessionhash],user:user}
+  passwordUpdate : (user,sessionhash,data)=>
+    throw err:'bad_query'            unless data?.login? && data?.password? && data?.newpassword?
+    throw err:'login_not_exists'      if !@logins[data.login]?
+    throw err:'bad_session'           if !@accounts[user.id]?
+    throw err:'bad_session'           unless @sessions[sessionhash]?
+    user = @accounts[user.id]
+    throw err:'not_logined'       unless user.registered
+    data_password = data.login+data.password
+    throw err:'wrong_password'    unless yield @passwordCompare _hash(data_password), user.hash
+    ndata_password = data.login+data.newpassword
+    user.hash       = yield @passwordCrypt _hash ndata_password
+    user.accessTime = new Date()
+    acc = {}
+    acc[key] = val for key,val of user
+    delete acc.account
+    yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
   relogin : (user,sessionhash,index)=>
     console.log index
@@ -234,23 +253,7 @@ class Register
     delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
-  passwordUpdate : (user,sessionhash,data)=>
-    throw err:'bad_query'            unless data?.login? && data?.password? && data?.newpassword?
-    throw err:'login_not_exists'      if !@logins[data.login]?
-    throw err:'bad_session'           if !@accounts[user.id]?
-    throw err:'bad_session'           unless @sessions[sessionhash]?
-    user = @accounts[user.id]
-    throw err:'not_logined'       unless user.registered
-    data_password = data.login+data.password
-    throw err:'wrong_password'    unless yield @passwordCompare _hash(data_password), user.hash
-    ndata_password = data.login+data.newpassword
-    user.hash       = yield @passwordCrypt _hash ndata_password
-    user.accessTime = new Date()
-    acc = {}
-    acc[key] = val for key,val of user
-    delete acc.account
-    yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
-    return {session:@sessions[sessionhash],user:user}
+
   passwordCrypt   : (pass)=> _invoke  bcrypt,'hash',pass,10
   passwordCompare : (pass,hash)=> _invoke  bcrypt,'compare',pass,hash
   newAccount : =>

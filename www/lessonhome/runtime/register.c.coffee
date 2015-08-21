@@ -2,6 +2,7 @@
 
 
 @handler = ($,data)->
+  #$.req.udata.onceAuth.hash
   data.type = 'tutor'
   try
     yield $.register.newType $.user,$.session,data
