@@ -184,7 +184,7 @@ class @urlData
   filterHash : (o={})=>
     hash = ''
     o.url ?= History.getState().url
-    hash += (yield @filter o.url,'filter')
+    hash += (yield @filter o.url,'filter') ? ''
     return hash
   ###
   emitChange : =>
