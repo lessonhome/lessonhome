@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 $blue:  hsl(210,100%,69%)
 $red:   hsl(6,100%,69%)
 $gray:  hsl(0,0%,69%)
@@ -33,14 +34,14 @@ a
 
 .inactive
   .button
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px
+    +material_shadow(1)
 
 .active
   cursor: pointer
   .button
     padding-bottom: 1.5px
     box-sizing: border-box
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    //box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
 
 
 .hidden
@@ -127,7 +128,7 @@ $search_pattern_src: 'main/search_pattern.png'
 .add_button_bid>.button
   box-sizing: border-box
   border: 1px solid rgba(0, 0, 0, 0.24)
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), inset 0px 2px 0px 0px rgba(255, 255, 255, 0.2)
+  +material_shadow(1)
   background: url(F($search_pattern_src))
   background-color: #00bbd3
 
@@ -178,7 +179,7 @@ $search_pattern_src: 'main/search_pattern.png'
 .about_us>.button
   box-sizing: border-box
   border: 1px solid rgba(0, 0, 0, 0.24)
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), inset 0px 2px 0px 0px rgba(255, 255, 255, 0.2)
+  +material_shadow(1)
   background: url(F($search_pattern_src))
   background-color: #3dc975
 
@@ -198,7 +199,7 @@ $search_pattern_src: 'main/search_pattern.png'
   .button
     padding-bottom: 1.5px
     box-sizing: border-box
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    +material_shadow(1)
 
 
 //.inactive:hover
@@ -212,7 +213,7 @@ $search_pattern_src: 'main/search_pattern.png'
   .button
     //padding-bottom: 1px
     box-sizing: border-box
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+    +material_shadow(1)
 
 
 

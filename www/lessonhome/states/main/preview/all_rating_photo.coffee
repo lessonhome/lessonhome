@@ -7,6 +7,7 @@ class @main
     close         : @exports()
     count_review  : @exports()
     selector      : @exports 'extract'
+    rev_selector  : @exports()
     ###
       all_rating    : @module 'rating_star'  :
         selector  : @exports()

@@ -6,14 +6,17 @@ class @main
   show : =>
 
   setValue : (value={})=>
+    @tree.value ?= {}
     @tree.value[key] = val for key,val of value
     if @tree.value?.rating?
       @tree.value.rating = Math.ceil(@tree.value.rating*3)/3
       @tree.filling = @tree.value.rating*100/5
-    sf = @tree.filling*5/100
+    tf = @tree.filling*5
+    tf = Math.round(tf*2/100)*100/2
+    sf = tf/100
     np = Math.floor sf
-    p = 7
-    ws = 16
+    p = 4
+    ws = 18
     switch @tree.selector
       when 'padding_no'
         p = 0

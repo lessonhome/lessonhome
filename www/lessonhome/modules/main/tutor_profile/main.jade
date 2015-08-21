@@ -12,36 +12,36 @@ mixin item(selector, title, value)
   .left
     .general
       .photo_block
-        .avatar
+        .avatar!=rating_photo
         .photos
-        .attach_button!=attach_button
+        .js-attach_button!=attach_button
       .personal_data.select
         .top
-          .rating!=value.rating
-          .js-location!=value.location
-        .js-full_name!=value.full_name
-        .js-description!=value.description
+          .rating!=rating
+          .js-location
+        .js-full_name
+        .js-description
         .js-status.item
           .title!='Статус :'
-          .value!=value.status
+          .value.js-status_value
         .js-experience.item
           .title!='Опыт :'
-          .value!=value.experience
+          .value.js-experience_value
         .js-age.item
           .title!='Возраст :'
-          .value!=value.age
+          .value.js-age_value
         .js-work_place.item
           .title!='Место работы :'
-          .value!=value.work_place
+          .value.js-work_place_value
         .js-education.item
           .title!='Образование :'
-          .value!=value.education
+          .value.js-education_value
         .js-areas_departure.item
           .title!='Районы выезда :'
-          .value!=value.areas_departure
+          .value.js-areas_departure_value
     .extra_info
       .header
-        .js-about.active
+        .js-about
           .text О себе
           .line
         .js-subjects
@@ -50,30 +50,37 @@ mixin item(selector, title, value)
         .js-reviews
           .text Отзывы
           .line
-      .value
+      .value.select
         .js-about_content
-          .js-about_text!=value.about_text
-          .sub_title Награды, дипломы, сертификаты :
-          .js-honors_text!=value.honors_text
+          .js-about_text
+          .js-reason
+            .title Почему я репетитор?
+            .val.js-reason_val
+          .js-interests
+            .title Интересы
+            .val.js-interests_val
+          //-.sub_title Награды, дипломы, сертификаты :
+          //-.js-honors_text!=value.honors_text
         .js-subjects_content
-          each val in value.subjects
-            .subject!=val
+          .subject!=hidden_subject
+          //-each val in value.subjects
+            //-.subject!=val
         .js-reviews_content Отзывов о данном репетиторе пока нет
 
-  .right
-    .content
-      .title!='Написать '+value.tutor_name
-      .calendar
+  .js-right
+    .js-write_tutor_content
+      .title.js-write_tutor_title.select Написать
+      .calendar.select
         .icon
         a Посмотреть график работы
-      .msg!=msg
-      .name!=name
-      .login!=login
-      .subject!=subject
+      .js-write_tutor_msg!=msg
+      .js-write_tutor_name!=name
+      .js-write_tutor_login!=login
+      .js-write_tutor_subject!=subject
       .terms_of_use
         .agree_checkbox!=agree_checkbox
-        .text Я согласен с пользовательским<br>соглашением
-      .write_button!=write_button
+        .text.select Я согласен с пользовательским<br>соглашением
+      .js-write_button!=write_button
 
 
 

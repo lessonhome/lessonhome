@@ -127,6 +127,8 @@ class Tutors
       obj.account = account
       obj.name = {}
       obj.name.first = p?.first_name
+      obj.slogan = t?.slogan
+      obj.interests = p?.interests
       obj.name.last  = p?.last_name
       obj.name.middle = p?.middle_name
       obj.work = p?.work
@@ -138,6 +140,7 @@ class Tutors
       obj.education = p.education
       obj.gender  = p.sex
       obj.place = {}
+      obj.reason = t?.reason
       for ind,val of t?.subjects
         ns = obj.subjects[val.name] = {}
         ns.description = val.description
@@ -206,6 +209,8 @@ class Tutors
     if rmax <= rmin
       rmax = rmin + 1
     for acc,p of persons
+      p.ratingMax = rmax
+      p.ratingNow = p.rating
       p.rating = (p.rating-rmin)/(rmax-rmin)
       p.rating *= 3
       p.rating += 2

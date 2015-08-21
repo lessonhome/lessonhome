@@ -34,6 +34,23 @@ cnum = 0
         k = k.replace /\s+$/,''
         ss2.push k if k
     ss = ss2
+    ss.push p.name.first  if p?.name?.first
+    ss.push p.name.middle if p?.name?.middle
+    ss.push p.name.last   if p?.name?.last
+    words = {}
+
+    nwords = []
+    ###
+    nwords = p.about.split /[\s\.;,]/ if p?.about
+    for w in nwords
+      w = w.replace /^\s+/,''
+      w = w.replace /\s+$/,''
+      if w.length >= 4
+        words[w] = true
+    ###
+    for s in ss
+      words[s] = true
+    ss = Object.keys(words)
     min = -1
     exists = false
     for key,subject of mf.subject

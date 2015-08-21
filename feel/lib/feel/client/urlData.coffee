@@ -38,7 +38,7 @@ class @urlData
       continue unless u
       u = u.split '='
       url[u[0]] = u[1]
-    url[key] ?= val for key,val of cook
+    url[key] = val for key,val of cook
     str = ''
     for key,val of url
       str += '&' if str
@@ -111,7 +111,8 @@ class @urlData
       str += r[0]
       str += "="+r[1] if r[1]?
     return str
-    
+        
+
   udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
     params = {}
     unless typeof url == 'string'
@@ -183,7 +184,7 @@ class @urlData
   filterHash : (o={})=>
     hash = ''
     o.url ?= History.getState().url
-    hash += (yield @filter o.url,'filter')
+    hash += (yield @filter o.url,'filter') ? ''
     return hash
   ###
   emitChange : =>
