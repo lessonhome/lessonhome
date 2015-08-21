@@ -90,11 +90,12 @@ class @main
       @tree.attach_button?.class?.setValue {text:'прикрепить к заявке'}
       #@hopacity.addClass 'g-hopacity'
   setValue : (data={})=>
+    @tree.value ?= {}
     @tree.value[key] = val for key,val of data
     @rating_photo.setValue {
       photos : data.photos
     }
-    @tree.rating.class.setValue data.rating
+    @tree.rating.class.setValue rating:data.rating
     @found.full_name.text("#{data.name.last ? ""} #{data.name.first ? ""} #{data.name.middle ? ""}")
     if data.location?.country
       if data.location?.city
@@ -113,7 +114,18 @@ class @main
     @setItem @found.status, @status_values[data.status], @found.status_value
     @setItem @found.experience, data.experience, @found.experience_value
     if data.age? && data.age
-      @found.age_value.text(data.age+" лет")
+      age_end = data.age%10
+      switch age_end
+        when 1
+          @found.age_value.text(data.age+" год")
+        when 2
+          @found.age_value.text(data.age+" года")
+        when 3
+          @found.age_value.text(data.age+" года")
+        when 4
+          @found.age_value.text(data.age+" года")
+        else
+          @found.age_value.text(data.age+" лет")
     else
       @found.age.hide()
     #@setItem @found.age, data.age, @found.age_value
