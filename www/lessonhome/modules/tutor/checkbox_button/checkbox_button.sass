@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 $blue:  hsl(210,100%,69%)
 $red:   hsl(6,100%,69%)
 $gray:  hsl(0,0%,69%)
@@ -23,7 +24,6 @@ main
     box-sizing: border-box
     +inline-block
     //+border-radius(4px)
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
     .checkbox, .text
       +inline-block
     .text
@@ -69,11 +69,11 @@ main
   .button
     padding-bottom: 1.5px
     box-sizing: border-box
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
+    +material_shadow(1)
 
 .button_box .button.pressed,.button_box:hover .button.pressed
   box-sizing: border-box
-  box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 1px 0px, rgba(0, 0, 0, 0.2) 0px 3px 0px 0px inset
+  +material_shadow(1)
 
 
 .press,.press:hover
@@ -82,7 +82,7 @@ main
   .button
     //padding-bottom: 1px
     box-sizing: border-box
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset
+    +material_shadow(1)
 
 
 

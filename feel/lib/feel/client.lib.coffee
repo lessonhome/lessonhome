@@ -271,7 +271,7 @@ global.Wrap = (obj,prot,PR=true)->
       idsel=sel
     if lockid
       return obj._unblock(idsel)
-        .tick ->
+        .delay(0).then ->
           obj._lock(_sel,idin,id)
         .then (id)->
           return id
@@ -386,7 +386,7 @@ Q.Promise::tick = (fulfilled,rejected,ms)->
     ue()
   return deferred.promise
 ###
-Q.Promise::wait = (t,args...)->
+Q.wait = (t,args...)->
   unless typeof t == 'number'
     args = [arguments...]
     t = 0
@@ -429,9 +429,9 @@ Q.Promise::wait = (t,args...)->
   ,wait
   return deferred.promise
   ###
-Q.wait = -> Q().wait arguments...
-Q.tick = -> Q().wait arguments...
-Q.Promise::tick = Q.Promise::wait
+#Q.wait = -> Q().wait arguments...
+Q.tick = -> Q.wait arguments...
+#Q.Promise::tick = Q.Promise::wait
 
 class Wraper extends EE
   constructor : ->

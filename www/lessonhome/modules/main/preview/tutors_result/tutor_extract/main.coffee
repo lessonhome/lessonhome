@@ -34,11 +34,11 @@ class @main extends EE
   setLinked : (linked)=> Q.spawn =>
     linked ?= yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
-      @tree.choose_button?.class?.setValue {text:'убрать',color:'#FF7F00',pressed:true}
+      @tree.choose_button?.class?.setValue {text:'прикрепить',color:'#3ab27d',pressed:true}
       @tree.choose_button?.class?.setActiveCheckbox()
       @hopacity.removeClass 'g-hopacity'
     else
-      @tree.choose_button?.class?.setValue {text:'выбрать'}
+      @tree.choose_button?.class?.setValue {text:'прикрепить'}
       @hopacity.addClass 'g-hopacity'
 
   hideExtraText: =>
@@ -68,6 +68,14 @@ class @main extends EE
       if key
         key = key?.capitalizeFirstLetter?() ? key if i == 1
         @tutor_subject.append s=$("<div class='tag'>#{key ? ""}</div>")
+        do (s,key,val)=>
+          s.click => Q.spawn =>
+            link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
+            #@found.link_name.attr 'href',link
+            #@tree.view_button.class.activate link
+            yield Feel.go link
+
+
         #do (s,key,val)=>
           #s.on 'mouseenter',=>
             #@tutor_text.text val.description if val?.description
@@ -77,6 +85,10 @@ class @main extends EE
     #@tutor_subject. text(value.tutor_subject) if value?.tutor_subject?
     #@tutor_status.  text(value.status ? "")
     #@tutor_exp.     text(value.experience ? "")
+    do => Q.spawn =>
+      link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
+      @found.link_name.attr 'href',link
+      @tree.view_button.class.activate link
     exp = value.experience ? ""
     exp += " года" if exp && !exp?.match? /\s/
     @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"

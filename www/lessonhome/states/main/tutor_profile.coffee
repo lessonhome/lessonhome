@@ -7,9 +7,17 @@ class @main extends @template '../main'
   access : ['other','pupil']
   tree : =>
     content : @module '$' :
+      rating_photo  : @state './preview/all_rating_photo' :
+        image         : @exports()
+        count_review  : @exports()
+        close         : false
+        extract       : 'extract'
+        rating        : @exports()
+        rev_selector  : 'no_reviews'
+      hidden_subject : @module '$/subject'
+      rating: @module 'rating_star'
       value: {
         tutor_name: $form : person : 'dativeName.first'
-        rating: @module 'rating_star'
         location: 'г.Москва, р.Одинцово, м.Одинцово'
         full_name: 'Иванов Иван Иванович'
         description: 'Репетитор по англискому и испанскому, подготовлю к вступительным ИСАА'
@@ -20,26 +28,29 @@ class @main extends @template '../main'
         education: 'МХАТ, ВГИК, Российская академия музыки им.Гнесиных'
         areas_departure: 'р.Зеленоград, м.Беляево, р.Беляево, м.Сходненская, р.Солнцегорск'
         about_text: 'Отбор будет очень быстрым и пройдет в ОЧНОМ режиме. Уже ЗАВТРА, 5 АВГУСТА, вы решите короткий, но довольно сложный кейс и, в случае успеха, получите приглашение на открытие второй волны. Времени на все осталось очень мало, а потому нужно успеть пройти регистрацию до 12:00 завтрашнего дня (5 августа). '
-        honors_text: 'Отбор будет очень быстрым и пройдет в ОЧНОМ режиме. Уже ЗАВТРА, 5 АВГУСТА, вы решите короткий, но довольно сложный кейс и, в случае успеха, получите приглашение на открытие второй волны. Времени на все осталось очень мало, а потому нужно успеть пройти регистрацию до 12:00 завтрашнего дня (5 августа). '
+        #honors_text: 'Отбор будет очень быстрым и пройдет в ОЧНОМ режиме. Уже ЗАВТРА, 5 АВГУСТА, вы решите короткий, но довольно сложный кейс и, в случае успеха, получите приглашение на открытие второй волны. Времени на все осталось очень мало, а потому нужно успеть пройти регистрацию до 12:00 завтрашнего дня (5 августа). '
         subjects : [
           @module '$/subject' :
             subject: 'Английский язык'
             training_direction: ['ЕГЭ', 'ИСА', 'разговорный', 'грамматика']
             comment: 'очень важный комментарий'
-            tutor:
-              v60 : '500'
-              v90 : '900'
-              v120: '1200'
-            pupil:
-              v60 : '500'
-              v90 : '900'
-              v120: '1200'
-            remote:
-              v60 : '500'
-              v90 : '900'
-              v120: '1200'
-            group:
-              v60 : '250 руб. с человека 3-4 человека'
+            ###
+              tutor:
+                v60 : '500'
+                v90 : '900'
+                v120: '1200'
+              pupil:
+                v60 : '500'
+                v90 : '900'
+                v120: '1200'
+              remote:
+                v60 : '500'
+                v90 : '900'
+                v120: '1200'
+              group:
+                v60 : '250 руб. с человека 3-4 человека'
+
+            ###
         ]
       }
       attach_button     : @module 'tutor/checkbox_button' :
@@ -61,8 +72,9 @@ class @main extends @template '../main'
       subject: @module 'tutor/forms/drop_down_list' :
         text      : 'Выберите предмет :'
         selector  : 'write_tutor'
-        smart : true
-        self : true
+        smart : false
+        self : false
+        no_input : true
         default_options     : {
           '0': {value: 'english', text: 'английский язык'}
           '1': {value: 'math', text: 'математика'}
@@ -143,5 +155,5 @@ class @main extends @template '../main'
         selector: 'small'
       write_button: @module 'link_button' :
         selector: 'write_tutor'
-        text: 'Написать Ивану' #TODO: insert a real name of tutor
+        text: 'Написать' #TODO: insert a real name of tutor
 

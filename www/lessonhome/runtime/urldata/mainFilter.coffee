@@ -58,10 +58,12 @@ class @D2U
     type  : 'int'
     value : obj?.price?.left
     default : 500
+    filter : true
   $priceRight : (obj)=>
     type  : 'int'
     value : obj?.price?.right
     default : 3500
+    filter : true
   $gender : (obj)=>
     i = gender.indexOf(obj?.gender)
     i = undefined unless i >= 0
@@ -69,39 +71,48 @@ class @D2U
       type  : 'int'
       value : i
       default : 0
+      filter : true
     }
   $with_reviews : (obj)=>
     type  : 'bool'
     value : obj?.with_reviews
     default : true
+    filter : true
   $with_verification : (obj)=>
     type  : 'bool'
     value : obj?.with_verification
     default : false
+    filter : true
   $tutor_status : (obj)=>
     type : 'int'
     value : boolSet obj?.tutor_status,tutor_status
     default : 0
+    filter : true
   $place : (obj)=>
     type : 'int'
     value : boolSet obj?.place,place
     default : 0
+    filter : true
   $placeArea : (obj)=>
     type : 'string[]'
     value : obj?.place?.area
     default : ''
+    filter : true
   $subject : (obj)=>
     type : 'string[]'
     value : obj?.subject
     default : ''
+    filter : true
   $time_spend_way : (obj)=>
     type : 'int'
     value : obj?.time_spend_way
     default : 120
+    filter : true
   $experience : (obj)=>
     type : 'int'
     value :  boolSet obj?.experience,experience
     default : 0
+    filter : true
   $group_lessons : (obj)=>
     v = group_lessons.indexOf(obj?.group_lessons)
     v = 0 unless v>=0
@@ -109,11 +120,13 @@ class @D2U
       type : 'int'
       value : v
       default : 0
+      filter : true
     }
   $course : (obj)=>
     type : 'string[]'
     value : obj?.course
     default : ''
+    filter : true
   $sort : (obj)=>
     v = sort.indexOf(obj?.sort)
     v = 0 unless v >= 0
@@ -121,6 +134,7 @@ class @D2U
       type : 'int'
       value : v
       default : 0
+      filter : true
       cookie : true
     }
   $showBy : (obj)=>

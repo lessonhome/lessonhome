@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 $triangle_down_src: 'main/arrow_6x5_down.gif'
 $triangle_right_src: 'main/arrow_6x5_right.gif'
 $icon_right_height: image-height($triangle_right_src)
@@ -26,8 +27,10 @@ main
   //padding: 15px 0px 30px 35px
   //padding-top: 12px
   font-size: 18px
-  color: rgb(117, 117, 117)
-  +box-shadow(0px 1px 10px 1px rgba(0,0,0,0.20))
+  color: $gray_dark
+  background-color: $gray_verylight
+  border: 1px solid $border_gray
+  +material_shadow(2)
 
 .separator_box
   padding: 0 1px
