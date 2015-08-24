@@ -8,6 +8,7 @@ class @main
     Wrap @
     @now = []
   show : =>
+    @reshow.out()
     Feel.urlData.on 'change',@reshow.out
   reshow : =>
     linked  = yield Feel.urlData.get 'mainFilter','linked'

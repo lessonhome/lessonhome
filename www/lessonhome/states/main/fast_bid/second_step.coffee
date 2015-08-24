@@ -72,7 +72,6 @@ class @main extends @template '../fast_bid'
         default :
           left : 45
           right : 180
-      #start         : 'calendar'
         dash          : '-'
         measurement   : 'мин.'
         min : 30
@@ -81,8 +80,21 @@ class @main extends @template '../fast_bid'
         right : $urlform : pupil : 'duration.right'#'newBid.subjects.0.lesson_duration.1'
         division_value : 5
         type : 'default'
+      price   : @state '../slider_main' :
+        selector      : 'time_fast_bids'
+        default :
+          left : 400
+          right : 5000
+        dash          : '-'
+        measurement   : 'мин.'
+        min : 400
+        max : 5000
+        left  : $urlform : pupil : 'price.left'#'newBid.subjects.0.lesson_duration.0'
+        right : $urlform : pupil : 'price.right'#'newBid.subjects.0.lesson_duration.1'
+        division_value : 50
+        type : 'default'
 
-
+      ###
       price_500: @module 'tutor/forms/checkbox'  :
         text      : 'до 500'
         selector  : 'small'
@@ -99,6 +111,7 @@ class @main extends @template '../fast_bid'
         text      : 'от 2000'
         selector  : 'small'
         #value : $urlform : mainFilter : 'place.remote'
+      ###
       #lesson_time_hint : @module 'tutor/hint' :
       #  selector : 'small'
       #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

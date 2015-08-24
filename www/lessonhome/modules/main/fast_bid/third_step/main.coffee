@@ -1,6 +1,7 @@
 
 class @main
   Dom: =>
+    ###
     @tutor             = @tree.tutor.class
     @student           = @tree.student.class
     @web               = @tree.web.class
@@ -8,21 +9,19 @@ class @main
     @time_spend_way    = @tree.time_spend_way.class
     @calendar          = @tree.calendar.class
     @time_spend_lesson = @tree.time_spend_lesson.class
-
+    ###
   show : =>
 
-  save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          return true
-        if errs?.length
-          @parseError errs
-      return false
-    else
-      return false
-
+  save : => do Q.async =>
+    data = yield Feel.urlData.get 'pupil'
+    data.linked = yield Feel.urlData.get 'mainFilter','linked'
+    return @$send('./save',data)
+    .then ({status,errs})=>
+      if status=='success'
+        return true
+      if errs?.length
+        @parseError errs
+    return false
   check_form : =>
     errs = @js.check @getData()
     for e in errs
@@ -30,6 +29,7 @@ class @main
     return errs.length==0
 
   getData : =>
+    return
     place = []
     if @tutor.getValue()   then place.push 'tutor'
     if @student.getValue() then place.push 'pupil'
@@ -49,4 +49,4 @@ class @main
     }
 
   parseError : (errs)=>
-    return true
+    return console.error errs

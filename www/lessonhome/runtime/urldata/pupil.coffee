@@ -19,6 +19,8 @@ boolSetR = (obj,list)=>
     v //= 2
   return ret
 
+status = ['student','school_teacher','high_school_teacher','native_speaker']
+
 
 class @D2U
   $name : (obj)=>
@@ -66,7 +68,31 @@ class @D2U
     default : 240
     value : obj?.duration?.right
     cookie : true
-
+  $price_left : (obj)=>
+    type : 'int'
+    default : 400
+    value : obj?.price?.left
+    cookie : true
+  $price_right : (obj)=>
+    type : 'int'
+    default : 5000
+    value : obj?.price?.right
+    cookie : true
+  $status : (obj)=>
+    type : 'int'
+    default : 0
+    value : boolSet obj?.status,status
+    cookie : true
+  $experience : (obj)=>
+    type : 'string'
+    default : 'неважно'
+    value : obj?.experience
+    cookie : true
+  $gender : (obj)=>
+    type : 'string'
+    default : 'неважно'
+    value : obj?.gender
+    cookie : true
 class @U2D
   $name : (obj)=> obj?.name
   $phone : (obj)=> obj?.phone
@@ -78,4 +104,10 @@ class @U2D
   $duration : (obj)=>
     left : obj?.duration_left
     right : obj?.duration_right
+  $price : (obj)=>
+    left : obj?.price_left
+    right : obj?.price_right
+  $status : (obj)=> boolSetR obj?.status,status
+  $experience : (obj)=> obj?.experience
+  $gender : (obj)=> obj?.gender
 
