@@ -17,12 +17,6 @@ class Mail
         @prepareCss file for file in files
     )
 
-  genResetToken: ->
-
-    bcrypt = require 'bcryptjs'
-
-    return bcrypt.genSaltSync(10);
-
   prepareCss: (file) =>
 
     fs = require 'fs'
@@ -111,7 +105,6 @@ class Mail
       subject : subject
       html: yield @prepare @templates[template], repls
       attachments : @attachments[template]
-
 
     transporter.sendMail mailOptions,(err,info)->
       return d.reject err if err?

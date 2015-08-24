@@ -2,6 +2,7 @@
 # data:{login,password,newpassword}
 
 @handler = ($,data)->
+
   data.login ?= $.user.login
   try
     obj = yield $.register.passwordUpdate $.user,$.session,data

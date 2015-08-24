@@ -14,7 +14,7 @@ class Register
     @dbpersons = yield db.get 'persons'
     @dbpupil  = yield db.get 'pupil'
     @dbtutor  = yield db.get 'tutor'
-
+    @urldata = yield Main.service 'urldata'
 
     ids = {}
     _ids = (yield _invoke @dbpersons.find({},{account:1}),'toArray')
@@ -154,7 +154,6 @@ class Register
     tryto = @logins[data.login]
     data.password = data.login+data.password
     console.log data
-    console.log tryto.hash,yield @passwordCrypt _hash data.password
     throw err:'wrong_password'    unless yield @passwordCompare _hash(data.password), tryto.hash
     olduser = user
     hashs = []
@@ -191,6 +190,72 @@ class Register
     delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
+
+  passwordRestore: (data) =>
+    mail = yield Main.service 'mail'
+    db = yield Main.service 'db'
+
+    personsDb = yield db.get 'persons'
+    accountsDb = yield db.get 'accounts'
+
+    token = _randomHash(30)
+    utoken = yield @urldata.d2u 'authToken',{token:token}
+
+    accounts = yield _invoke accountsDb.find({login: data.login},{login:1}),'toArray'
+
+    validDate = new Date();
+    validDate.setHours(validDate.getHours()+1)
+
+    restorePassword = {
+      token: token
+      valid: validDate
+    }
+
+    yield _invoke(@account,'update', {login:data.login},{$set:{authToken: restorePassword}},{upsert:true})
+
+    console.log 'http://127.0.0.1:8081/new_password?'+utoken
+
+    if data.login.match '@'
+
+      mail.send(
+        'restore_password.html'
+        'arsereb@gmail.com'
+        'Восстановление пароля'
+        {
+          name: ', '+data.login
+          login: 'test_pass_restore'
+          onceAuth: 'http://127.0.0.1:8081/new_password?'+utoken
+        }
+      ).done()
+    else
+      console.log 'mail: Signed up with phone number, can\'t send mail'
+
+  newPassword: (data) =>
+    db = yield Main.service 'db'
+    accountsDb = yield db.get 'accounts'
+
+    qstring = data.ref.replace(/.*\?/, '')
+    token = yield @urldata.u2d qstring
+    token = token.authToken.token
+
+    accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
+
+    if accounts[0]?
+      if accounts[0].authToken.valid > Date.now()
+        user = {}
+        ndata_password = accounts[0].login+data.password
+        user.hash = yield @passwordCrypt _hash ndata_password
+        yield _invoke(@account,'update', {'authToken.token': token},{$set:user},{upsert:true})
+        console.log 'changed pass to '+data.password
+
+        accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
+
+        @logins[accounts[0].login] = accounts[0]
+
+
+      yield _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}},{upsert:true})
+    else
+      console.log 'failed to find acc with given auth token'
   relogin : (user,sessionhash,index)=>
     console.log index
     throw 'err access' unless user.admin

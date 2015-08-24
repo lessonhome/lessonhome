@@ -3,8 +3,10 @@
 
 @handler = ($, data)->
 
+  data.ref = $.req.headers.referer
+
   try
-    yield $.register.passwordRestore data
+    yield $.register.newPassword data
   catch err
     console.log 'err',err
     err.err ?= 'internal_error'
