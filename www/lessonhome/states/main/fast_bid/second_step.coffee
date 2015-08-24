@@ -42,6 +42,7 @@ class @main extends @template '../fast_bid'
 
       calendar        : @module 'new_calendar' :
         selector    : 'bids'
+        value : $urlform : pupil : 'calendar'
       #calendar_hint : @module 'tutor/hint' :
       #  selector : 'small'
       #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
@@ -76,8 +77,8 @@ class @main extends @template '../fast_bid'
         measurement   : 'мин.'
         min : 30
         max : 240
-        left  : $form : pupil : 'newBid.subjects.0.lesson_duration.0'
-        right : $form : pupil : 'newBid.subjects.0.lesson_duration.1'
+        left  : $urlform : pupil : 'duration.left'#'newBid.subjects.0.lesson_duration.0'
+        right : $urlform : pupil : 'duration.right'#'newBid.subjects.0.lesson_duration.1'
         division_value : 5
         type : 'default'
 

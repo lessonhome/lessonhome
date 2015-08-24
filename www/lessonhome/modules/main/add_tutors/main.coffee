@@ -51,6 +51,5 @@ class @main
     o.dom.append cl.dom
     ret = yield cl.setValue prep
     o.h = ret.h
-    console.log o
     @now.push o
     return o

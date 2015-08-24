@@ -10,10 +10,11 @@ class @main
     @comments  = @tree.comments.class
 
   show : =>
-    if @tree.name?.value?
-        @emit 'make_active_issue_bid_button'
+    #if @tree.name?.value?
+    @emit 'make_active_issue_bid_button'
 
     # change
+    ###
     @name.on 'blur', =>
       if @checkIssueBidActive()
         @emit 'make_active_issue_bid_button'
@@ -31,27 +32,28 @@ class @main
         @emit 'make_active_issue_bid_button'
       else
         @emit 'make_inactive_issue_bid_button'
-
+    ###
     # error div
     @subject.setErrorDiv @out_err_subject
 
   save : => Q().then =>
     if @check_form()
-      return @$send('./save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          return true
-        if errs?.length
-          @parseError errs
-        return false
+      return true
+      #return @$send('./save',@getData())
+      #.then ({status,errs})=>
+      #  if status=='success'
+      #    return true
+      #  if errs?.length
+      #    @parseError errs
+      #  return false
     else
       return false
 
   check_form : =>
     errs = @js.check @getData()
     if !@phone.doMatch() then errs.push "bad_phone"
-    if !@subject.exists()
-      errs.push 'bad_subject'
+    #if !@subject.exists()
+    #  errs.push 'bad_subject'
     for e in errs
       @parseError e
     return errs.length==0
@@ -59,8 +61,8 @@ class @main
   checkIssueBidActive : =>
     errs = @js.check @getData()
     if !@phone.doMatch() then errs.push "bad_phone"
-    if !@subject.exists()
-      errs.push 'bad_subject'
+    #if !@subject.exists()
+    #  errs.push 'bad_subject'
     return errs.length==0
 
 
@@ -78,20 +80,20 @@ class @main
   parseError : (err)=>
     switch err
     #short
-      when "short_name"
-        @name.showError "Слишком короткое имя "
+      #when "short_name"
+      #  @name.showError "Слишком короткое имя "
       when "short_phone"
         @phone.showError "Неккорректный телефон"
     #empty
-      when "empty_name"
-        @name.showError "Введите имя"
+      #when "empty_name"
+      #  @name.showError "Введите имя"
       when "empty_phone"
         @phone.showError "Введите телефон"
-      when "empty_subject"
-        @subject.showError "Выберите предмет"
+      #when "empty_subject"
+      #  @subject.showError "Выберите предмет"
     #correct
-      when "bad_subject"
-        @subject.showError "Некорректный предмет"
+      #when "bad_subject"
+      #  @subject.showError "Некорректный предмет"
 
 
 
