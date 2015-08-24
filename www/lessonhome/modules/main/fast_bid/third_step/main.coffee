@@ -15,9 +15,11 @@ class @main
   save : => do Q.async =>
     data = yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
+
     return @$send('./save',data)
     .then ({status,errs})=>
       if status=='success'
+        Feel.sendActionOnce 'fast_bids_third_step'
         return true
       if errs?.length
         @parseError errs

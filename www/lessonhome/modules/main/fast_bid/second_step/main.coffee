@@ -8,6 +8,7 @@ class @main
     #@goal = @tree.goal.class
 
   save : => Q().then =>
+    Feel.sendActionOnce 'fast_bids_second_step'
     return true
     #if @check_form()
     #  return true

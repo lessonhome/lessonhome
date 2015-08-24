@@ -38,6 +38,7 @@ class @main
 
   save : => Q().then =>
     if @check_form()
+      Feel.sendActionOnce 'fast_bids_first_step'
       return true
       #return @$send('./save',@getData())
       #.then ({status,errs})=>
