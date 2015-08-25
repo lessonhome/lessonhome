@@ -1,77 +1,105 @@
--tutor_v60 = tutor.v60 || ""
--tutor_v90 = tutor.v90 || ""
--tutor_v120 = tutor.v120 || ""
-
--remote_v60 = remote.v60 || ""
--remote_v90 = remote.v90 || ""
--remote_v120 = remote.v120 || ""
-
--pupil_v60 = pupil.v60 || ""
--pupil_v90 = pupil.v90 || ""
--pupil_v120 = pupil.v120 || ""
-
--group_v60 = group.v60 || ""
--group_v90 = group.v90 || ""
--group_v120 = group.v120 || ""
+//-
+  if tutor
+    -tutor_v60 = tutor.v60 || ""
+  if tutor
+    -tutor_v90 = tutor.v90 || ""
+  if tutor
+    -tutor_v120 = tutor.v120 || ""
+  if remote
+    -remote_v60 = remote.v60 || ""
+  if remote
+    -remote_v90 = remote.v90 || ""
+  if remote
+    -remote_v120 = remote.v120 || ""
+  if pupil
+    -pupil_v60 = pupil.v60 || ""
+  if pupil
+    -pupil_v90 = pupil.v90 || ""
+  if pupil
+    -pupil_v120 = pupil.v120 || ""
+  if group
+    -group_v60 = group.v60 || ""
+  if group
+    -group_v90 = group.v90 || ""
+  if group
+    -group_v120 = group.v120 || ""
 
 .js-header
   .left
-    .subject!=subject+" :"
-    .training_direction
-      each val, i in training_direction
-        if i>0
-          !=', '+val
-        else
-          !=val
-        -console.log(i);
+    .js-subject
+    .js-training_direction
   .right
     .js-icon_wrap.active
       .icon
 .js-content
-  .comment!=comment
+  .js-comment!=comment
   .price
     .left
-      .tutor
+      .default
         .title_wrap
-          .title У себя :
+          .title Цена :
         .value
-          if tutor_v60
-            .v60!="60 минут : "+tutor_v60+" руб."
-          if tutor_v90
-            .v90!="90 минут : "+tutor_v90+" руб."
-          if tutor_v120
-            .v120!="120 минут : "+tutor_v120+" руб."
-      .remote
-        .title_wrap
-          .title Удалённо :
-        .value
-          if remote_v60
-            .v60!="60 минут : "+remote_v60+" руб."
-          if remote_v90
-            .v90!="90 минут : "+remote_v90+" руб."
-          if remote_v120
-            .v120!="120 минут : "+remote_v120+" руб."
-    .right
-      .pupil
-        .title_wrap
-          .title У ученика :
-        .value
-          if pupil_v60
-            .v60!="60 минут : "+pupil_v60+" руб."
-          if pupil_v90
-            .v90!="90 минут : "+pupil_v90+" руб."
-          if pupil_v120
-            .v120!="120 минут : "+pupil_v120+" руб."
-      .group
-        .title_wrap
-          .title В группе :
-        .value
-          if group_v60
-            .v60!="60 минут : " + group_v60
-          if group_v90
-            .v90!="90 минут : " + group_v90
-          if group_v120
-            .v120!="120 минут : " + group_v120
+          .js-v
+          .js-v60
+            .title 60 минут :
+            .val.js-v60_val
+          .js-v90
+            .title 90 минут :
+            .val.js-v90_val
+          .js-v120
+            .title 120 минут :
+            .val.js-v120_val
+  .js-category_of_student
+    .title_wrap
+      .title Категории учеников :
+    .value.js-category_of_student_val
+  .js-place
+    .title_wrap
+      .title Место занятий :
+    .value.js-place_val
+    //-
+      .left
+        .tutor
+          .title_wrap
+            .title У себя :
+          .value
+            if tutor_v60
+              .v60!="60 минут : "+tutor_v60+" руб."
+            if tutor_v90
+              .v90!="90 минут : "+tutor_v90+" руб."
+            if tutor_v120
+              .v120!="120 минут : "+tutor_v120+" руб."
+        .remote
+          .title_wrap
+            .title Удалённо :
+          .value
+            if remote_v60
+              .v60!="60 минут : "+remote_v60+" руб."
+            if remote_v90
+              .v90!="90 минут : "+remote_v90+" руб."
+            if remote_v120
+              .v120!="120 минут : "+remote_v120+" руб."
+      .right
+        .pupil
+          .title_wrap
+            .title У ученика :
+          .value
+            if pupil_v60
+              .v60!="60 минут : "+pupil_v60+" руб."
+            if pupil_v90
+              .v90!="90 минут : "+pupil_v90+" руб."
+            if pupil_v120
+              .v120!="120 минут : "+pupil_v120+" руб."
+        .group
+          .title_wrap
+            .title В группе :
+          .value
+            if group_v60
+              .v60!="60 минут : " + group_v60
+            if group_v90
+              .v90!="90 минут : " + group_v90
+            if group_v120
+              .v120!="120 минут : " + group_v120
 
 
 

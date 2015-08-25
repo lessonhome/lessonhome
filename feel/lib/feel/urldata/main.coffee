@@ -61,6 +61,7 @@ class UrlData
           cookie : res.cookie
           default : res.default
         }
+        @json.shorts[@json.forms[fname][m[1]]][key] ?= val for key,val of res
     yield _writeFile "#{@path}/static/urldata/#{@hostname}.json", JSON.stringify @json,4,4
     @jsonstring = JSON.stringify @json
     yield @genFiles()

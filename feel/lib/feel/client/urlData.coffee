@@ -2,6 +2,7 @@
 fstate = History.getState()
 
 
+
 class @urlData
   constructor : ->
     Wrap @
@@ -28,7 +29,7 @@ class @urlData
     url = @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     url2 = url.split '&'
     url = {}
-    cook = $.cookie('urldata') ? ''
+    cook = $.cookie()?.urldata ? ''
     cook = decodeURIComponent cook
     cook = '{}' unless cook
     cook = JSON.parse cook
@@ -37,7 +38,7 @@ class @urlData
       continue unless u
       u = u.split '='
       url[u[0]] = u[1]
-    url[key] ?= val for key,val of cook
+    url[key] = val for key,val of cook
     str = ''
     for key,val of url
       str += '&' if str
@@ -79,6 +80,39 @@ class @urlData
     get = yield @get()
     d2u = yield @udata.d2u get
     return d2u
+  toObject : (url)=>
+    url = '' unless typeof url == 'string'
+    url = url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
+    url = url.split '&'
+    ret = {}
+    for u in url
+      u = u?.split? '=' ? []
+      ret[u[0]]=u[1] if u[0]?
+    return ret
+  filter : (obj,field,value=true)=>
+    string = false
+    if typeof obj == 'string'
+      obj = yield @toObject obj
+      string = true
+    ret = {}
+    for key,val of obj
+      ret[key] = val if @udata.json?.shorts?[key]?[field]==value
+    return @objectTo ret if string
+    return ret
+  objectTo : (obj)=>
+    obj = {} unless obj && typeof obj=='object'
+    ret = []
+    ret.push [key,val] for key,val of obj
+    ret.sort (a,b)-> a?[0] < b?[0]
+    str = ''
+    for r in ret
+      continue unless r[0]
+      str += '&' if str
+      str += r[0]
+      str += "="+r[1] if r[1]?
+    return str
+        
+
   udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
     params = {}
     unless typeof url == 'string'
@@ -101,7 +135,7 @@ class @urlData
     urldata = ""
     purl = []
     if usecookie == 'true'
-      cook = $.cookie('urldata') ? ''
+      cook = $.cookie()?.urldata ? ''
       cook = decodeURIComponent cook
       cook = '{}' unless cook
       cook = JSON.parse cook
@@ -112,7 +146,7 @@ class @urlData
             delete cook?[key]
           else
             cook[key] = params?[key]
-      $.cookie 'urldata', encodeURIComponent( JSON.stringify cook), {path:'/'}
+      $.cookie 'urldata', encodeURIComponent( JSON.stringify cook)
     for key,val of params
       purl.push [key,val]
     purl.sort (a,b)-> a[0]<b[0]
@@ -147,6 +181,12 @@ class @urlData
     #data = @state.url.match /\?(.*)$/
     #for key of @forms
     #  @data[key] ?= {}
+  filterHash : (o={})=>
+    hash = ''
+    o.url ?= History.getState().url
+    hash += (yield @filter o.url,'filter') ? ''
+    return hash
+  ###
   emitChange : =>
     @lastChange ?= 0
     @waitingForChange ?= false
@@ -161,5 +201,11 @@ class @urlData
     @lastChange = new Date().getTime()
     @waitingForChange = false
     @emit 'change'
-
-
+  ###
+  emitChange : =>
+    @lastChange = new Date().getTime()
+    setTimeout @_emitChange,200
+  _emitChange : =>
+    return if (!@lastChange) || (((new Date().getTime())-@lastChange)<200)
+    @lastChange = 0
+    @emit 'change'

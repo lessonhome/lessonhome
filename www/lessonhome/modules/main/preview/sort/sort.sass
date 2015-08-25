@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 //$padding_top_hover: 8px
 //$padding_left_hover: 5px
 $triangle_up_src: 'sort_up.png'
@@ -20,12 +21,16 @@ $icon_show_grid_width: image-width($icon_show_grid_src)
 
 main
   height: 100%
-  background-color: #ededed
-  border: 1px solid #d9d9d9
+  background-color: #ffffff
+  //#ededed
+  //border: 1px solid #d9d9d9
   box-sizing: border-box
   text-align: left
 main.fixed
-  +box-shadow(0 0 20px rgba(0,0,0,0.6))
+  border: 1px solid $border_gray
+  color: $gray_dark
+  background-color: $gray_verylight
+  +material_shadow(3)
 .sort_block
   height: 100%
   +inline-block

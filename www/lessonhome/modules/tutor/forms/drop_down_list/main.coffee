@@ -55,6 +55,12 @@ class @main extends EE
       @found.icon_box.hide()
     else
       @found.icon_box.show()
+    @tree.no_input ?= false
+    @tree.no_input = true if (!@tree.self) && @list_length<15
+    if @tree.no_input
+      @found.input.attr 'disabled','disabled'
+      @found.disabled.show()
+
       
     @label        = @dom.find ">label"
     @list         = @found.drop_down_list
@@ -69,8 +75,9 @@ class @main extends EE
   closeList : =>
     $('body').off 'mousedown.drop_down_list'
     $('body').off 'mouseleave.drop_down_list'
+    @isFocus = false
     @emitChange()
-
+    @input.attr('placeholder', @tree.placeholder)
     @bodyListenMD = false
     @label.removeClass 'focus'
     @select_sets.hide()
@@ -84,7 +91,6 @@ class @main extends EE
     @lastChange = val
     if (!@tree.self) && (@list_length > 0)
       return unless @exists()
-    console.log 'change'
     @emit 'change',val
   onBlur : =>
     if (!@tree.self) && (@list_length > 0)
@@ -97,19 +103,24 @@ class @main extends EE
     @scroll = @tree.scroll?.class
     @isFocus = false
     @on 'blur',@onBlur
-    @input.on 'focus', =>
+    onfocus = =>
+      Feel.popupAdd @dom[0],@closeList
       return if @isFocus
       @isFocus = true
       @label.addClass 'focus'
+      @input.attr('placeholder','')
       @showSelectOptions?()
       @emit 'focus'
+    @input.on 'focus', onfocus
+    @found.disabled.click onfocus
     @input.on 'focus', @hideError
+    @found.disabled.click @hideError
     @input.on 'focusout', =>
       return if !@isFocus
       @isFocus = false
       if !@bodyListenMD
         @bodyListenMD = true
-        Feel.popupAdd @dom[0],@closeList
+        #Feel.popupAdd @dom[0],@closeList
         ###
         f = (t)=>
           return if $.contains @dom[0],t.target
@@ -138,6 +149,10 @@ class @main extends EE
           arr2 = []
           leng = Object.keys(@tree?.default_options ? {}).length
           @list_length = leng
+          if @tree.no_input
+            for key,opt of @tree.default_options
+              arr.push opt
+            return arr ? []
           for key,opt of @tree.default_options
             if (leng > 5) && (@tree.filter) && (sBegin)
               if @tree.smart
@@ -149,11 +164,11 @@ class @main extends EE
                   arr2.push o if o?
               else
                 if opt.text?.indexOf?(sBegin) == 0
-                  arr.push {0,opt}
+                  arr.push {d:0,opt}
                 else
-                  arr2.push {0,opt}
+                  arr2.push {d:0,opt}
             else
-              arr.push {0,opt}
+              arr.push {d:0,opt}
           #if arr.length < 5
           #  arr = [arr...,arr2.slice(0)]
           #  #break if sBegin.length > 2 && arr.length > 5
@@ -161,8 +176,8 @@ class @main extends EE
           if @tree.sort
             arr = arr.sort (a,b)=> Math.abs(a.d)-Math.abs(b.d)
             arr2 = arr2.sort (a,b)=> Math.abs(a.d)-Math.abs(b.d)
-          if arr.length < 5
-            arr = [arr...,arr2.slice(0,(5-arr.length))...]
+          #if arr.length < 5
+          #  arr = [arr...,arr2.slice(0,(5-arr.length))...]
           return [] unless arr.length
           ret = []
           for it in arr

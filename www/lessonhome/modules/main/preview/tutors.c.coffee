@@ -1,5 +1,20 @@
 
-filter = require './filter'
+_filter = require './filter'
+
+age = (date1,date2)=>
+  years = date2.getFullYear() - date1.getFullYear()
+  months = years * 12 + date2.getMonth() - date1.getMonth()
+  days = date2.getDate() - date1.getDate()
+  
+  years -= date2.getMonth() < date1.getMonth()
+  months -= date2.getDate() < date1.getDate()
+  days += if days < 0
+      new Date( date2.getFullYear(), date2.getMonth() - 1, 0 ).getDate() + 1
+    else 0
+  return {years, months, days}
+
+
+
 
 class Tutors
   constructor : ->
@@ -14,17 +29,59 @@ class Tutors
     @dbtutor = yield @$db.get 'tutor'
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
+    @preps    = {}
+    @indexes  = {}
+    @filters  = {}
+    #@hashed = {}
+    @index = {}
     yield @reload()
     @inited = 2
     @emit 'inited'
     setInterval =>
       @reload().done()
-    , 30*1000
-  handler : ($,data)->
-    yield @init()
-    url = $.req.url.match(/\?(.*)$/)?[1] ? ""
-    mf = (yield @urldata.u2d url)?.mainFilter
-    return yield filter.filter @persons,mf
+    , 2*60*1000
+  handler : ($, {filter,preps,from,count,exists})->
+    yield @init() unless @inited == 2
+    ret = {}
+    ret.preps = {}
+    if preps?
+      for p in preps
+        ret.preps[p] = @index[p]
+    if filter?
+      ex = {}
+      ex[k] = true for k in exists
+      ret.filters = {}
+      f = ret.filters[filter.hash] = {}
+      yield @filter filter unless @filters?[filter.hash]?.indexes?
+      f.indexes = @filters?[filter.hash]?.indexes ? []
+      count ?= 10
+      if from?
+        inds = f?.indexes?.slice? from,from+count
+        for i in inds
+          ret.preps[i] = @index[i] unless ex[k]
+    return ret
+    ###
+    #return @hashed[hash] if @hashed[hash]
+    #return {tutors:[@index[prep]]} if prep? && @index[prep]?
+    #yield @init()
+    unless prep?
+      url = $.req.url.match(/\?(.*)$/)?[1] ? ""
+      mf = (yield @urldata.u2d url)?.mainFilter
+      arr = yield filter.filter @persons,mf
+      arr = arr.slice from     if from?
+      arr = arr.slice 0,count  if count?
+      indexes = {}
+      indexes[hash] = []
+      indexes[hash].push p.index for p in arr
+      return @hashed[hash]={tutors:arr,indexes}
+    else
+      return {tutors:[@index[prep]]}
+    ###
+  filter : (filter)=>
+    f = @filters[filter.hash] = {}
+    f.indexes = yield _filter.filter @persons,filter.data
+    return f
+    
   reload : =>
     t = new Date().getTime()
     return @persons unless (t-@timereload)>(1000*10)
@@ -70,16 +127,28 @@ class Tutors
       obj.account = account
       obj.name = {}
       obj.name.first = p?.first_name
+      obj.slogan = t?.slogan
+      obj.interests = p?.interests
       obj.name.last  = p?.last_name
       obj.name.middle = p?.middle_name
+      obj.work = p?.work
       obj.about = t?.about
+      obj.check_out_the_areas = t?.check_out_the_areas
       obj.subjects = {}
+      if p.birthday
+        obj.age = age(p.birthday, new Date())?.years
+      obj.education = p.education
       obj.gender  = p.sex
       obj.place = {}
+      obj.reason = t?.reason
       for ind,val of t?.subjects
         ns = obj.subjects[val.name] = {}
         ns.description = val.description
         obj.about = ns.description unless obj.about
+        ns.reason = val.reason
+        ns.slogan = val.slogan
+        ns.tags = val.tags
+        ns.course = val.course
         ns.price  = {left: +val.price?.range?[0]}
         ns.price.right = +(val.price?.range?[1] ? ns.price.left)
         ns.duration  = {}
@@ -140,10 +209,17 @@ class Tutors
     if rmax <= rmin
       rmax = rmin + 1
     for acc,p of persons
+      p.ratingMax = rmax
+      p.ratingNow = p.rating
       p.rating = (p.rating-rmin)/(rmax-rmin)
       p.rating *= 3
       p.rating += 2
+    @hashed = {}
     @persons = persons
+    @index = {}
+    @filters = {}
+    for key,val of @persons
+      @index[val.index] = val
     return @persons
 
 tutors = new Tutors

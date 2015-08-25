@@ -1,23 +1,21 @@
 .info.unselect
   .bg_box
     .text_box
-      .title Статус :
+      .title Статус репетитора :
     .student!= student
     .teacher!= teacher
     .professor!= professor
     .native!= native
     //.hint!= location_hint
-  .bg_box
     label
       .text_box
-        .title Опыт
+        .title Опыт репетитора
       .experience!=experience
-  .bg_box
-    .text_box
+    //.text_box
       .title Возраст :
-    .age_slider!=age_slider
-  .bg_box1
-    .text_box
-      .title Пол :
-    .gender_data!=gender_data
+    //.age_slider!=age_slider
+    label
+      .text_box
+        .title Пол репетиора:
+      .gender_data!=gender_data
     //.hint!=lesson_time_hint
