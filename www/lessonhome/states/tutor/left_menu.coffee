@@ -11,11 +11,11 @@ class @main
         item_class : 'bids'
         href : 'search_bids'
 
+      ###
       @module '//item' :
         title : 'Оплата'
         item_class : 'payment'
         href : 'pay'
-
       @module '//item' :
         title : 'Документы'
         item_class : 'documents'
@@ -30,7 +30,7 @@ class @main
         title : 'Статьи'
         item_class : 'articles'
         href : '#'
-
+      ###
       @module '//item' :
         title : 'Поддержка'
         item_class : 'support'
