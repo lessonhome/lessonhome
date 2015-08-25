@@ -25,6 +25,7 @@ class @main extends EE
     @sending = false
     @busy = false
     @busyNext = null
+    @tree.issue_bid_button.class.on 'submit',=> Feel.go '/fast_bid/first_step'
     #yield @filter()
     #yield Feel.urlData.request()
     #yield @filter()

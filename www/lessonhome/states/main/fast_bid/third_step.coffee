@@ -19,36 +19,37 @@ class @main extends @template '../fast_bid'
     b_selector  : 'star'
     content : @module '$' :
       student : @module 'tutor/forms/checkbox'  :
-          text      : 'Студент'
-          selector  : 'small'
-          $form : pupil : 'isStatus.student'
+        text      : 'Студент'
+        selector  : 'small'
+        value : $urlform : pupil : 'status.student'
       teacher : @module 'tutor/forms/checkbox'  :
         text      : 'Преподаватель школы'
         selector  : 'small'
-        $form : pupil : 'isStatus.school_teacher'
+        value : $urlform : pupil : 'status.school_teacher'
 
       professor : @module 'tutor/forms/checkbox'  :
         text      : 'Преподаватель ВУЗа'
         selector  : 'small'
-        $form : pupil : 'isStatus.high_school_teacher'
+        value : $urlform : pupil : 'status.high_school_teacher'
       native : @module 'tutor/forms/checkbox'  :
         text      : 'Носитель языка'
         selector  : 'small'
-        $form : pupil : 'isStatus.native_speaker'
-
-
+        value : $urlform : pupil : 'status.native_speaker'
       experience : @module 'tutor/forms/drop_down_list':
         selector  : 'fast_bid'
+        self : false
+        no_input : true
         default_options     : {
-          '0': {value: '1-2years', text: '1-2 года'},
-          '1': {value: '3-4years', text: '3-4 года'},
-          '2': {value: 'more_than_4_years', text: 'более 4 лет'},
-          '3': {value: 'no_matter', text: 'неважно'}
+          '0': {value: 'no_matter', text: 'неважно'}
+          '1': {value: '1-2years', text: '1-2 года'},
+          '2': {value: '3-4years', text: '3-4 года'},
+          '3': {value: 'more_than_4_years', text: 'более 4 лет'},
         }
-        $form : pupil : 'newBid.subjects.0.requirements_for_tutor.experience'
+        value : $urlform : pupil : 'experience' #newBid.subjects.0.requirements_for_tutor.experience'
       #status_hint : @module 'tutor/hint' :
       #  selector : 'small'
       #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'
+      ###
       age_slider   : @state '../slider_main' :
         selector      : 'time_fast_bids'
         default :
@@ -67,6 +68,13 @@ class @main extends @template '../fast_bid'
         selector        : 'choose_gender'
         selector_button : 'registration'
         value : $form : pupil : 'newBid.subjects.0.requirements_for_tutor.sex'
+      ###
+      gender_data : @module 'tutor/forms/drop_down_list':
+        selector  : 'fast_bid'
+        items : ['неважно','мужской','женский']
+        slef : false
+        no_input : true
+        value : $urlform : pupil : 'gender'
       #gender_hint : @module 'tutor/hint' :
       #  selector : 'small'
       #  text : 'Одно нажатие кнопки мыши для выбора дня, и двойное нажатие, чтобы ввести точное время для этого дня.'

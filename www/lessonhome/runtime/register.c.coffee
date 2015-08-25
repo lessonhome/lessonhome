@@ -10,7 +10,38 @@
     err.err ?= 'internal_error'
     return {status:'failed',err:err.err}
   yield $.form.flush '*',$.req,$.res
+
+  @delayRegisterMail($.user.id).done()
+
   return {status:'success'}
 
 
 
+
+@delayRegisterMail = (id)->
+
+  yield Q.delay 1000*60*2
+
+  db = yield Main.service 'db'
+  mail = yield Main.service 'mail'
+
+  personsDb = yield db.get 'persons'
+  accountsDb = yield db.get 'accounts'
+
+  persons = yield  _invoke personsDb.find({account: id}), 'toArray'
+  accounts = yield _invoke accountsDb.find({id:id},{login:1}),'toArray'
+  p = persons?[0] ? {}
+  name = "#{p?.last_name ? ''} #{p?.first_name ? ''} #{p?.middle_name ? ''}"
+  name = name.replace /^\s+/,''
+  name = name.replace /\s+$/,''
+
+  return unless accounts[0].login.match '@'
+  yield mail.send(
+    'register.html'
+    accounts[0].login
+    'Спасибо за регистрацию'
+    {
+      name: name
+      login: accounts[0].login
+    }
+  )
