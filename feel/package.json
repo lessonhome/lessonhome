@@ -51,7 +51,9 @@
     "express":"*",
     "body-parser":"*",
     "imagemagick": "*",
-    "lodash" : "*"
+    "lodash" : "*",
+    "request":"*",
+    "nodemailer":"*"
   }
 }
 

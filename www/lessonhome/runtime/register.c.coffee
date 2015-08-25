@@ -11,7 +11,7 @@
     return {status:'failed',err:err.err}
   yield $.form.flush '*',$.req,$.res
 
-  @delayRegisterMail($.user.id)
+  @delayRegisterMail($.user.id).done()
 
   return {status:'success'}
 
@@ -30,16 +30,18 @@
 
   persons = yield  _invoke personsDb.find({account: id}), 'toArray'
   accounts = yield _invoke accountsDb.find({id:id},{login:1}),'toArray'
+  p = persons?[0] ? {}
+  name = "#{p?.last_name ? ''} #{p?.first_name ? ''} #{p?.middle_name ? ''}"
+  name = name.replace /^\s+/,''
+  name = name.replace /\s+$/,''
 
-  if accounts[0].login.match '@'
-    mail.send(
-      'example.html'
-      'arsereb@gmail.com'
-      'Тест'
-      {
-        name: if persons[0]? then ', '+persons[0].first_name else ''
-        login: accounts[0].login
-      }
-    ).done()
-  else
-    console.log 'mail: Signed up with phone number, can\'t send mail'
+  return unless accounts[0].login.match '@'
+  yield mail.send(
+    'register.html'
+    accounts[0].login
+    'Спасибо за регистрацию'
+    {
+      name: name
+      login: accounts[0].login
+    }
+  )
