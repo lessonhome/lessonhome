@@ -66,8 +66,8 @@ class @main extends @template '../main'
       name: @module 'tutor/forms/input'  :
         text1        : 'Ваше имя :'
         selector  : 'write_tutor'
-      login: @module 'tutor/forms/input'  :
-        text1        : 'Ваш телефон или email :'
+      phone: @module 'tutor/forms/input'  :
+        text1        : 'Ваш телефон :'
         selector  : 'write_tutor'
       subject: @module 'tutor/forms/drop_down_list' :
         text      : 'Выберите предмет :'
