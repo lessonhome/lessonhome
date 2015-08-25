@@ -37,14 +37,10 @@ class @main
 
     @change_button_login.on 'submit', @tryChangeLogin
 
-    console.log document.getElementsByClassName('text select')[0].innerHTML
-
-    document.getElementsByClassName('text select')[0].innerHTML = 'afafadf'
-
     @$send( 'loginUpdate',{
       getLogin : true
     }).then (login)=>
-
+      document.getElementsByClassName('text select')[0].innerHTML = login
 
   trySavePassword : =>
     pass    = @old_password.getValue()

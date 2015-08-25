@@ -145,13 +145,28 @@ class Register
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
   login : (user,sessionhash,data)=>
+
+    console.log 'ACCS', @accounts
+    console.log 'LOGINS', @logins
+    console.log 'SESS', @sessions
+
+
     throw err:'bad_query'            unless data?.login? && data?.password?
     throw err:'login_not_exists'      if !@logins[data.login]?
     throw err:'bad_session'           if !@accounts[user.id]?
     throw err:'bad_session'           unless @sessions[sessionhash]?
+
+    console.log user
+
     user = @accounts[user.id]
+
+    console.log 'from accs', user
+
     throw err:'already_logined'       if user.registered
     tryto = @logins[data.login]
+
+    console.log 'tryto', tryto
+
     data.password = data.login+data.password
     console.log data
     throw err:'wrong_password'    unless yield @passwordCompare _hash(data.password), tryto.hash
@@ -251,7 +266,6 @@ class Register
         accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
 
         @logins[accounts[0].login] = accounts[0]
-
 
       yield _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}},{upsert:true})
     else
