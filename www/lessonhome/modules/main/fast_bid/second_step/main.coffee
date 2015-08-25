@@ -8,16 +8,19 @@ class @main
     #@goal = @tree.goal.class
 
   save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          return true
-        if errs?.length
-          @parseError errs
-        return false
-    else
-      return false
+    Feel.sendActionOnce 'fast_bids_second_step'
+    return true
+    #if @check_form()
+    #  return true
+      #return @$send('./save',@getData())
+      #.then ({status,errs})=>
+      #  if status=='success'
+      #    return true
+      #  if errs?.length
+      #    @parseError errs
+      #  return false
+    #else
+    #  return false
 
   check_form : =>
     errs = @js.check @getData()

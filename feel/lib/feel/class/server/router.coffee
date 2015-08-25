@@ -47,10 +47,23 @@ class Router
       return Q().then => Feel.static.handler req,res,@site.name
     cookie = new _cookies req,res
     req.cookie = cookie
+    ucook = cookie.get('urldata') ? '%257B%257D'
+    ucook = decodeURIComponent(decodeURIComponent(ucook)) ? '{}'
+    ucook = JSON.parse(ucook) ? {}
+    #ucook = yield @site.urldata.d2u ucook
+    ucookstr = ''
+    for key,val of ucook
+      continue unless key
+      ucookstr += '&' if ucookstr
+      ucookstr += key
+      ucookstr += '='+val if val?
+    if ucookstr
+      req.udata ?= ''
+      req.udata += "&" if req.udata
+      req.udata += ucookstr
     _session = cookie.get 'session'
     req.udata = @site.urldata.u2d req.udata
     req.udatadefault = @site.urldata.u2d ""
-    console.log  req.url.blue,(""+_session).yellow
     yield @setSession req,res,cookie,_session
     req.udata = yield req.udata
     req.udatadefault = yield req.udatadefault

@@ -12,7 +12,6 @@ class @main
     link = '/tutor_profile?'+(yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index}))
     im = @tree.value.photos[@tree.value.photos.length-1]
     image = im.lurl
-    console.log link
     n = @tree.value.name
     @found.img.attr 'src',image
     @found.img.attr 'alt',"#{n.last ? ''} #{n.first ? ''} #{n.middle ? ''}"
