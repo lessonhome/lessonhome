@@ -46,10 +46,10 @@ class @main extends EE
           @setActiveItem @subjects, @subjects_content
         when 2
           @setActiveItem @reviews, @reviews_content
-    index = yield Feel.urlData.get('tutorProfile','index') ? 77
-    console.log index
-    preps=yield Feel.dataM.getTutor [index]
-    prep = preps[index]
+    @index = yield Feel.urlData.get('tutorProfile','index') ? 77
+    console.log @index
+    preps=yield Feel.dataM.getTutor [@index]
+    prep = preps[@index]
     return Feel.go '/second_step' unless prep?
     console.log prep
     @setValue prep
@@ -258,17 +258,17 @@ class @main extends EE
         @phone.showError "Введите телефон"
       when "empty_subject"
         @subject.showError "Выберите предмет"
-      when "disagree_checkbox"
-        @write_tutor_error_field.text("Пожалуйста ознакомьтесь с пользовательским соглашением")
-        @write_tutor_error_field.show()
+      #when "disagree_checkbox"
+        #@write_tutor_error_field.text("Пожалуйста ознакомьтесь с пользовательским соглашением")
+        #@write_tutor_error_field.show()
 
   getData : =>
     return {
+      id:             @index
       comments:       @msg.getValue()
       name:           @name.getValue()
       phone:          @phone.getValue()
       subject:        @subject.getValue()
-      agree_checkbox: @agree_checkbox.getValue()
     }
 
 
