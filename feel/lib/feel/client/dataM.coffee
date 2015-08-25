@@ -37,9 +37,9 @@ class @DataM
     for key,prep of (ret.preps ? {})
       @tutors.preps[key] = prep
     return @tutors.preps
-  getTutors : (from=0,count=10)=>
+  getTutors : (from=0,count=10,hash_)=>
     filter = {}
-    filter.hash = yield Feel.urlData.filterHash()
+    filter.hash = hash_ ? yield Feel.urlData.filterHash()
     return @tutors.filters[filter.hash].indexes if @tutors?.filters?[filter.hash]?.indexes?
     filter.data = yield Feel.urlData.get 'mainFilter'
     exists = Object.keys(@tutors?.preps ? {}) ? []
@@ -49,6 +49,18 @@ class @DataM
     for key,prep of (ret.preps ? {})
       @tutors.preps[key] = prep
     return @tutors.filters?[filter?.hash]?.indexes ? []
- 
+  getBest : (count)=>
+    indexes = (yield @getTutors 0,count,'')?.slice?(0,count) ? []
+    arr = yield @getTutor indexes
+    preps = []
+    for i in indexes
+      preps.push arr[i]
+    return preps
+
+
     
+    
+
+
+
 

@@ -4,6 +4,8 @@ $icon_src_height: image-height($icon_src)
 $icon_src_width: image-width($icon_src)
 $button_color:  #3cb27d
 $triangle_width:  12px
+main
+  padding-top: 48px
 .clear_block
   padding: 0 48px
   .left_block
@@ -16,6 +18,7 @@ $triangle_width:  12px
     .history
       text-decoration: underline
       color: #1f86cd
+      cursor: pointer
   .right_block
     float: right
     .sum, .refill_many, .measurement
@@ -58,4 +61,15 @@ $triangle_width:  12px
   content: ''
   clear: both
   display: block
+.pay_bids_block
+  padding: 60px 48px
+  .pay_bids
+    padding-bottom: 24px
+    font-size: 18px
+  .need_pay_block
+    .need_pay
+      padding: 12px 24px
+    .need_pay.background
+      background-color: #f2f2f2
+
 
