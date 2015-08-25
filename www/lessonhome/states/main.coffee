@@ -25,7 +25,7 @@ class @main
               link : '/invite_student'
             @module '//item' :
               title : 'Помощь'
-              link : '#'
+              link : '/support'
           ]
         }
         @module 'tutor/header/button' : {

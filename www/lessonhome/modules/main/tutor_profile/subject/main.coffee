@@ -45,7 +45,8 @@ class @main
     @found.v60.show()
     @found.v90.show()
     @found.v120.show()
-    @found.v60_val.text(v60+" руб.")
+    if v60 > 400
+      @found.v60_val.text(v60+" руб.")
     @found.v90_val.text(v90+" руб.")
     @found.v120_val.text(v120+" руб.")
     i = 0
