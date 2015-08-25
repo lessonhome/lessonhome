@@ -8,6 +8,7 @@ class @main
     Wrap @
     @now = []
   show : =>
+    yield @reshow()
     Feel.urlData.on 'change',@reshow.out
   reshow : =>
     linked  = yield Feel.urlData.get 'mainFilter','linked'
@@ -24,7 +25,10 @@ class @main
       o = yield @createDom p
       @push o
       @found.list.append o.dom
-    console.log arr
+    if arr.length
+      @dom.show()
+    else
+      @dom.hide()
   push : (p)=>
     left = 6
     top = @left+8
@@ -48,6 +52,5 @@ class @main
     o.dom.append cl.dom
     ret = yield cl.setValue prep
     o.h = ret.h
-    console.log o
     @now.push o
     return o

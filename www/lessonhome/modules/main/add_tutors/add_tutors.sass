@@ -2,6 +2,9 @@
 
 @import compass/css3
 $min_width_step:  6px
+main
+  display : none
+  margin : 12px 0
 .hidden
   display : none
 .title
@@ -14,6 +17,10 @@ $min_width_step:  6px
   padding-bottom: 12px
   width: 100%
   .tutors
+    +transition(transform 400ms ease-out)
+    &:hover
+      +transform(scale(1.5))
+      z-index : 1000
     position : absolute
     left : 0
     top : 0
@@ -25,4 +32,6 @@ $min_width_step:  6px
     //margin-right: 6px
     border: 2px solid #ffffff
     box-sizing: border-box
-    border-radius: 4px
+    border-radius: 0px
+    +box-sizing(border-box)
+    float : left

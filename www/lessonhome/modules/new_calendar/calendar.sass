@@ -10,21 +10,26 @@ $day_height: image-height($morning_src)
 $day_width: image-width($morning_src)
 $search_pattern_src: 'main/search_pattern.png'
 .calendar_box
-  .choose_all
   .calendar_week
     padding-bottom: 6px
+    height: $min_width_step*6
     div
+      line-height : $min_width_step*6
       width: $min_width_step*6
       height: $min_width_step*6
       +inline-block
+      vertical-align : baseline
       text-align: center
-      background-color: #b5b5b5
+      background-color: #f6f6f6//#b5b5b5
       margin-right: 6px
     .sunday
       margin: 0
     div
       .text
         +inline-block
+        vertical-align : baseline
+        display : block
+        text-align: center
     div:after
       +inline-block
       content: ''
@@ -35,12 +40,17 @@ $search_pattern_src: 'main/search_pattern.png'
     padding: 0
   .morning_block, .day_block, .evening_block
     div
+      cursor : pointer
       width: $day_width
       height: $day_height
       +inline-block
       text-align: center
       margin-right: 6px
       background-color: #e6e6e6
+      +transition(transform 200ms ease-out)
+      &:hover
+        background-color: #fff
+        +transform(scale(1.1))
       .active
         width: 100%
         height: 100%
@@ -58,17 +68,14 @@ $search_pattern_src: 'main/search_pattern.png'
     div
       background: url(F($evening_src)) no-repeat, #e6e6e6
   .morning_block
-    div
-      .active
-        background: url(F($act_morning_src)) no-repeat, #009587
+    div.active
+      background: url(F($act_morning_src)) no-repeat, #009587
   .day_block
-    div
-      .active
-        background: url(F($act_day_src)) no-repeat, #009587
+    div.active
+      background: url(F($act_day_src)) no-repeat, #009587
   .evening_block
-    div
-      .active
-        background: url(F($act_evening_src)) no-repeat, #009587
+    div.active
+      background: url(F($act_evening_src)) no-repeat, #009587
 /////////////
 
 
@@ -87,7 +94,7 @@ $search_pattern_src: 'main/search_pattern.png'
       font-size: 20px
       box-sizing: border-box
       border: 1px solid #7f7f7f
-    div.active_day
+    div.active
       background: url(F($search_pattern_src))
       background-color: #009587
       border: 1px solid #355e54

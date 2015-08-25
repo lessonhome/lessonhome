@@ -18,7 +18,7 @@ class @main extends EE
     @button.addClass('press')
     $('body').on  'mouseup.tutor_button', @mup
     $('body').on  'mouseleave.tutor_button', @mup
-    
+    @emit 'submit'
   mup   : =>
     $('body').off  'mouseup.tutor_button'
     $('body').off  'mouseleave.tutor_button'
