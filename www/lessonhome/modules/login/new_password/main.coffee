@@ -3,6 +3,13 @@
 class @main extends EE
   Dom  : =>
   show : =>
+    @$send( 'newPassword',{
+      check: true
+    }).then (redirect)=>
+      if redirect
+        window.location.replace 'forgot_password'
+    .done()
+
     @save_button = @tree.save_button.class
     @password = @tree.password.class
     @confirm_password = @tree.password.class
@@ -10,6 +17,13 @@ class @main extends EE
     @save_button.on 'submit', @newPassword
 
   newPassword: =>
+
+    @$send( 'newPassword',{
+      check: true
+    }).then (redirect)=>
+      if redirect
+        window.location.replace 'forgot_password'
+    .done()
 
     pass    = @password.getValue()
     confirm_pass = @confirm_password.getValue()
@@ -30,7 +44,18 @@ class @main extends EE
 
     @$send( 'newPassword',{
       password: pass
-    })
+    }).then ({status,session,err})=>
+      console.log 'login',status
+      if status == 'success'
+        window.location.replace 'tutor/profile'
+      else if status == 'redirect'
+        window.location.replace 'forgot_password'
+      else if err?
+        @showError err
+    .done()
+
+
+  checkToken: =>
 
   showError : (err)=>
     switch err

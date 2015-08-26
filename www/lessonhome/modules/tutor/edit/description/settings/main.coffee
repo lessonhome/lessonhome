@@ -116,6 +116,7 @@ class @main
       console.log 'status : '+status
       if status == 'success'
         @success = true
+        document.getElementsByClassName('text select')[0].innerHTML = login
         $('body,html').animate({scrollTop:0}, 500)
       else
         @printErrors err

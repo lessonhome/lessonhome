@@ -145,28 +145,13 @@ class Register
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
   login : (user,sessionhash,data)=>
-
-    console.log 'ACCS', @accounts
-    console.log 'LOGINS', @logins
-    console.log 'SESS', @sessions
-
-
     throw err:'bad_query'            unless data?.login? && data?.password?
     throw err:'login_not_exists'      if !@logins[data.login]?
     throw err:'bad_session'           if !@accounts[user.id]?
     throw err:'bad_session'           unless @sessions[sessionhash]?
-
-    console.log user
-
     user = @accounts[user.id]
-
-    console.log 'from accs', user
-
     throw err:'already_logined'       if user.registered
     tryto = @logins[data.login]
-
-    console.log 'tryto', tryto
-
     data.password = data.login+data.password
     console.log data
     throw err:'wrong_password'    unless yield @passwordCompare _hash(data.password), tryto.hash
@@ -213,7 +198,7 @@ class Register
     personsDb = yield db.get 'persons'
     accountsDb = yield db.get 'accounts'
 
-    token = _randomHash(30)
+    token = _randomHash(10)
     utoken = yield @urldata.d2u 'authToken',{token:token}
 
     accounts = yield _invoke accountsDb.find({login: data.login},{login:1}),'toArray'
@@ -237,15 +222,14 @@ class Register
         'arsereb@gmail.com'
         'Восстановление пароля'
         {
-          name: ', '+data.login
-          login: 'test_pass_restore'
-          onceAuth: 'http://127.0.0.1:8081/new_password?'+utoken
+          name: data.login
+          link: 'http://127.0.0.1:8081/new_password?'+utoken
         }
       ).done()
     else
       console.log 'mail: Signed up with phone number, can\'t send mail'
 
-  newPassword: (data) =>
+  newPassword: (user, data) =>
     db = yield Main.service 'db'
     accountsDb = yield db.get 'accounts'
 
@@ -255,21 +239,41 @@ class Register
 
     accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
 
-    if accounts[0]?
-      if accounts[0].authToken.valid > Date.now()
-        user = {}
-        ndata_password = accounts[0].login+data.password
-        user.hash = yield @passwordCrypt _hash ndata_password
-        yield _invoke(@account,'update', {'authToken.token': token},{$set:user},{upsert:true})
-        console.log 'changed pass to '+data.password
+    user = {}
+    ndata_password = accounts[0].login+data.password
+    passhash = yield @passwordCrypt _hash ndata_password
+    user.hash = passhash
+    yield _invoke(@account,'update', {'authToken.token': token},{$set:user},{upsert:true})
+    console.log 'changed pass to '+data.password
+    console.log 'hash', hash
 
-        accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
+    accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
 
-        @logins[accounts[0].login] = accounts[0]
+    @logins[accounts[0].login] = accounts[0]
 
-      yield _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}},{upsert:true})
-    else
-      console.log 'failed to find acc with given auth token'
+    user = @accounts[user.id]
+    tryto = @logins[accounts[0].login]
+    olduser = tryto
+    hashs = []
+    for hash of olduser.sessions
+      hashs.push hash
+      delete @sessions[hash]
+    qs = []
+    qs.push _invoke @session,'remove',{hash:{$in:hashs}}
+    user = @accounts[tryto.id]
+    user.accessTime = new Date()
+    user.hash = passhash
+
+    console.log user
+    sessionhash = yield @newSession user.id
+    acc = {}
+    acc[key] = val for key,val of user
+    delete acc.account
+    qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+    qs.push _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}},{upsert:true})
+    yield Q.all qs
+
+    return {session:@sessions[sessionhash],user:user}
   relogin : (user,sessionhash,index)=>
     console.log index
     throw 'err access' unless user.admin
@@ -334,7 +338,15 @@ class Register
     return {session:@sessions[sessionhash],user:user}
 
   passwordCrypt   : (pass)=> _invoke  bcrypt,'hash',pass,10
-  passwordCompare : (pass,hash)=> _invoke  bcrypt,'compare',pass,hash
+  passwordCompare : (pass,hash)=>
+    console.log pass, hash
+    bcrypt.compare(pass, hash, (err, res)->
+      if err
+        throw err
+      else
+        console.log res
+    )
+    _invoke  bcrypt,'compare',pass,hash
   newAccount : =>
     try
       account =
