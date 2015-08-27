@@ -24,7 +24,7 @@ class @main
         ###
         console.log 'IS SEND!!!'
         $('body,html').animate({scrollTop:0}, 500)
-        @changes_field.fadeIn()
+        @changes_field.fadeIn(1000)
         return true
     .done()
 

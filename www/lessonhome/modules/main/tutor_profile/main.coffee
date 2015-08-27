@@ -72,7 +72,9 @@ class @main extends EE
           @found.write_tutor_content.text("Ваше сообщение отправлено! Скоро с Вами свяжутся.")
     @found.attach_button.click @addTutor
   goBack: =>
-    document.location.href = window.history.back()
+    #Feel.go '/second_step'
+    console.log document.referrer
+    document.location.href = document.referrer
   setActiveItem: (item, content)=>
     return if item.hasClass 'active'
     for val in @header_items
@@ -233,6 +235,7 @@ class @main extends EE
       return @$send('../fast_bid/third_step/save',@getData())
       .then ({status,errs})=>
         if status=='success'
+          Feel.sendActionOnce 'direct_bid'
           return true
         return false
     else
