@@ -11,6 +11,7 @@ class Register
     db = yield Main.service 'db'
     @account  = yield db.get 'accounts'
     @session = yield db.get 'sessions'
+    @bills = yield db.get 'bills'
     @dbpersons = yield db.get 'persons'
     @dbpupil  = yield db.get 'pupil'
     @dbtutor  = yield db.get 'tutor'
@@ -114,6 +115,7 @@ class Register
     idstr += ':'.grey+account.login.cyan if account.login?
     idstr += ':'.grey+account.id.substr(0,5).blue
     idstr += ':'.grey+session.hash.substr(0,5).blue
+
     return {
       session:session.hash
       account:account
@@ -143,6 +145,16 @@ class Register
     acc[key] = val for key,val of user
     delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+
+    #--------------
+    bill = {
+      id: user.id
+      value: 0
+    }
+
+    yield _invoke(@bills,'insert',bill)
+
+    #---------------
     return {session:@sessions[sessionhash],user:user}
   login : (user,sessionhash,data)=>
     throw err:'bad_query'            unless data?.login? && data?.password?
@@ -245,7 +257,7 @@ class Register
     user.hash = passhash
     yield _invoke(@account,'update', {'authToken.token': token},{$set:user},{upsert:true})
     console.log 'changed pass to '+data.password
-    console.log 'hash', hash
+    console.log 'hash', passhash
 
     accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
 

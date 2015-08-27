@@ -6,6 +6,8 @@ class @main extends EE
     @$send( 'newPassword',{
       check: true
     }).then (redirect)=>
+
+      console.log redirect
       if redirect
         window.location.replace 'forgot_password'
     .done()
@@ -27,6 +29,10 @@ class @main extends EE
 
     pass    = @password.getValue()
     confirm_pass = @confirm_password.getValue()
+
+    ret = @js.check pass
+    if ret?.err?
+      return @showError ret.err
 
     if pass!=confirm_pass
       @confirm_password.showError("пароли не совпадают")
@@ -53,10 +59,6 @@ class @main extends EE
       else if err?
         @showError err
     .done()
-
-
-  checkToken: =>
-
   showError : (err)=>
     switch err
       when 'already_logined'

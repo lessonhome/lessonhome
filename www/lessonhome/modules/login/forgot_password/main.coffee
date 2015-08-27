@@ -11,9 +11,20 @@ class @main extends EE
 
   sendAuthMail: =>
 
+    login = @login.getValue()
+
+    ret = @js.check login
+    if ret?.err?
+      return @showError ret.err
+    login = ret.login if ret?.login?
+
     @$send( 'passwordRestore',{
-      login: @login.getValue()
-    })
+      login: login
+    }).then ({status}) =>
+      console.log status
+      if status == 'failed'
+        @showError('login_not_exists')
+    .done()
 
   showError : (err)=>
     switch err

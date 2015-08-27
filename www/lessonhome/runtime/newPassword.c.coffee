@@ -17,7 +17,7 @@
 
     accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
 
-    return accounts[0]?.authToken.valid < Date.now()
+    return !accounts[0]? or accounts[0].valid < Date.now()
 
 
   try
@@ -33,11 +33,11 @@
     err.err ?= 'internal_error'
     return {status:'failed',err:err.err}
 
+  yield $.updateUser()
+  yield $.status 'tutor',true
+  yield $.form.flush '*',$.req,$.res
+
   if obj?.session?
-    yield $.updateUser()
-    yield $.status 'tutor',true
-    yield $.form.flush '*',$.req,$.res
     return {status:'success',session:obj.session.hash}
   else
-    yield $.form.flush '*',$.req,$.res
     return {status:'success'}
