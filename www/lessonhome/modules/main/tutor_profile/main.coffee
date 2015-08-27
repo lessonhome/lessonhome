@@ -235,6 +235,7 @@ class @main extends EE
       return @$send('../fast_bid/third_step/save',@getData())
       .then ({status,errs})=>
         if status=='success'
+          Feel.sendActionOnce 'direct_bid'
           return true
         return false
     else
