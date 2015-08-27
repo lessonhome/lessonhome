@@ -39,6 +39,7 @@ class @main extends EE
       errs?=[]
       errs.push err
     if status=='success'
+      Feel.sendAction 'back_call'
       return true
     if errs?.length
       for e in errs
