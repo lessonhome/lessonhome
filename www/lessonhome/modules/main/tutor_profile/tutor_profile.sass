@@ -11,7 +11,8 @@ $icon_calendar_width: image-width($icon_calendar_src)
 main
   padding-top: 24px
   padding-left: 15px
-  padding-bottom: 432px
+  padding-bottom: 96px
+  min-height: 800px
   background-color: #fff
 div
   opacity : 0
@@ -232,14 +233,20 @@ div
           color: #0a79c0
           text-decoration: underline
 
-      .write_tutor_name, .write_tutor_login, .write_tutor_subject
+      .write_tutor_name, .write_tutor_phone, .write_tutor_subject
         display: none
         margin-top: 18px
         //-+inline-block
         width: 100%
         box-sizing: border-box
         font-size: 37px
-      .write_tutor_name.shown, .write_tutor_login.shown, .write_tutor_subject.shown
+      //-.write_tutor_error_field
+        display: none
+        margin-bottom: 24px
+        color: red
+        font-size: 14px
+        line-height: 18px
+      .write_tutor_name.shown, .write_tutor_phone.shown, .write_tutor_subject.shown
         +inline-block
       .terms_of_use
         margin-top: 12px

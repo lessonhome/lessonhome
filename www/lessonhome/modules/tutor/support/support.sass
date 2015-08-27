@@ -6,8 +6,6 @@ $icon_right_src: 'main/arrow_6x5_right.gif'
 $icon_height: image-height($icon_right_src)
 $icon_width: image-width($icon_down_src)
 
-main
-  padding: 24px
 .title
   margin-bottom: 12px
   font-size: 20px
@@ -21,57 +19,73 @@ main
   .button
     width: 156px
     height: $ask_form_height
-.sections
-  div
+.support
+  padding: 48px 24px 24px 24px
+  .sections, .questions
     +inline-block
-    line-height: 48px
-    font-size: 16px
-    color: #717171
-    cursor: pointer
-  .general
-    padding: 0 20px 0 13px
-  .students
-    padding: 0 23px - 20px
-  .tutors
-    padding: 0 23px
-  div.active
-    color: #202020
-.questions
-  .item_wrap
-    .item
+    vertical-align: top
+  .sections
+    div
+      //-+inline-block
       line-height: 48px
-      border: 1px solid #cbcbcb
-      .show
-        background: url(F($question_pattern_src))
-        background-color: #f2f2f2
-        cursor: pointer
-        .icon, .title
-          +inline-block
-        .icon
-          width: $icon_width
-          height: $icon_height
-          margin: 0 9px 0 11px
-          background: url(F($icon_right_src)) no-repeat
-        .title
-          font-size: 18px
-          color: #202020
-          a
-            color: #00bbd3
-      .hidden
+      font-size: 16px
+      color: #717171
+      cursor: pointer
+      padding: 0 20px 0 0
+    .general
+      padding: 0 20px 0 0px
+    .students
+      padding: 0 23px 0 0px
+    .tutors
+      padding: 0 23px 0 0
+    div.active
+      color: #202020
+  .questions
+    width: 750px
+    .item_wrap
+      .item
+        line-height: 48px
+        border: 1px solid #cbcbcb
+        .show
+          background: url(F($question_pattern_src))
+          background-color: #f2f2f2
+          cursor: pointer
+          .icon, .title
+            +inline-block
+          .icon
+            width: $icon_width
+            height: $icon_height
+            margin: 0 9px 0 11px
+            background: url(F($icon_right_src)) no-repeat
+          .title
+            font-size: 18px
+            color: #202020
+            a
+              color: #00bbd3
+        .hidden
+          display: none
+          .answer
+            padding: 0 36px 24px 48px
+            line-height: 36px
+            font-size: 18px
+            color: #202020
+            a, div>a
+              color: #00bbd3
+      .item.showed
+        .show
+          background: none
+          .icon
+            background: url(F($icon_down_src)) no-repeat
+        .hidden
+          display: block
+      .item.registration, .item.profile, .item.find_tutor, .item.lessons
         display: none
-        .answer
-          padding: 0 36px 24px 48px
-          line-height: 36px
-          font-size: 18px
-          color: #202020
-          a, div>a
-            color: #00bbd3
-    .item.showed
-      .show
-        background: none
-        .icon
-          background: url(F($icon_down_src)) no-repeat
-      .hidden
-        display: block
-    .item.students, .item.tutors
-      display: none
+.support.tutor_profile
+  padding-top: 0
+  .sections, .questions
+    display: block
+  .sections
+    div
+      +inline-block
+  .questions
+    width: initial

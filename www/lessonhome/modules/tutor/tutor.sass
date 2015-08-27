@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 //width variables
 $width_container: 1014
 $width_left_menu: 236px
@@ -53,6 +54,8 @@ main
       width: $width_left_menu
       padding: 0 0 100px 0
     .content
+      //padding : 10px 0
+      +box-sizing(border-box)
       //padding: 50px 0
       width: $width_content
       //margin-left: $width_left_menu

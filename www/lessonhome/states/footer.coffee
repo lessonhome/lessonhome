@@ -2,17 +2,20 @@ class @main
   tree : => @module '$' :
     logo : @module 'tutor/header/logo'
     search  : @module 'link_button':
-      href      : '/first_step'
+      href      : '/second_step'
       text      : 'Поиск'
       selector  : 'footer_btn'
+      active    : true
     bids  : @module 'link_button':
       href      : '/fast_bid/first_step'
       text      : 'Оформить заявку'
       selector  : 'footer_btn'
+      active    : true
     help  : @module 'link_button':
-      href      : '#'
+      href      : '/support'
       text      : 'Помощь'
       selector  : 'footer_btn'
+      active    : true
     back_call : @module 'tutor/header/back_call'  :
       selector: 'footer'
       call_back_popup : @state 'main/call_back_popup' :

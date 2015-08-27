@@ -7,6 +7,7 @@ class @main extends @template '../main'
     content     : @module '$' :
       reps : [
         @module '$/tutor_block' :
+          href: '/tutor_profile?x=64'
           img  :
             src : @F('main/best_1.jpg')
             w   : 112
@@ -16,6 +17,7 @@ class @main extends @template '../main'
           price: 'от 1000 руб.за час'
           about_text: 'Подготовка к школе включает развивающие занятия, обучение чтению, счёту, подготовку руки к письму'
         @module '$/tutor_block' :
+          href: '/tutor_profile?x=7978'
           img  :
             src : @F('main/best_2.jpg')
             w   : 112
@@ -25,6 +27,7 @@ class @main extends @template '../main'
           price: 'от 1500 руб.за час'
           about_text: 'Обучаю разговорному английскому языку с 2004 на курсах, готовлю к международным экзаменам IELTS, TOEFL, ЕГЭ, ОГЭ'
         @module '$/tutor_block' :
+          href: '/tutor_profile?x=103'
           img  :
             src : @F('main/best_3.jpg')
             w   : 112
@@ -34,6 +37,7 @@ class @main extends @template '../main'
           price: 'от 1000 руб.за час'
           about_text: 'Мой опыт и моя квалификация позволяет мне с уверенностью говорить, что я смогу быть другом и наставником детям.'
         @module '$/tutor_block' :
+          href: '/tutor_profile?x=7040'
           img  :
             src : @F('main/best_4.jpg')
             w   : 112
