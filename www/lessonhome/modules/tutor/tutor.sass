@@ -18,6 +18,7 @@ main
   position: relative
   width: 100%
   min-height: 100%
+  float: left
   +box-shadow(3px 0 16px 0px rgba(0,0,0,0.17),-3px 0 16px 0px rgba(0,0,0,0.17), 37px 0 43px 0px rgba(0,0,0,0.07), -37px 0 43px 0px rgba(0,0,0,0.07))
   //-------------background rules------------////////////
   .background_all
@@ -83,9 +84,10 @@ main
     content: ""
     display: block
 .footer
+  float: left
   width: 100%
   position: relative
   bottom: 0
   background: #E2E7EC
   margin-top: -$footer_height
-
+  z-index: 1

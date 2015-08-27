@@ -1,7 +1,8 @@
-@import compass/css3
+@import base
+
 $background_white:  #ffffff
-$footer_height: 248px
-$height_line: 52px
+$footer_height: 274px
+$height_line: 240px
 main
   height: 100%
   width: 1014px
@@ -45,14 +46,13 @@ main
   .header
     height: 100px
     width: 100%
-    //background: $background_white
-    +box-shadow(0px 1px 5px 0px rgba(0,0,0,0.20))
   .filter_top
     background: url(F('filter_top/chalk.png')) no-repeat
     text-align: center
   .info_panel
     height: $height_line
     line-height: $height_line
+    background-color: white
   .content
     text-align: center
 .footer
@@ -60,5 +60,5 @@ main
   width: 100%
   position: relative
   bottom: 0
-  margin-top: -$footer_height
+  margin: -$footer_height auto 0
   z-index: 1

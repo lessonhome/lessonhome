@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 $advantages_photo_src: 'main_tutor/mainreg_team.png'
 
 $main_tutor_search_src: 'main_tutor/main_tutor_search.png'
@@ -186,23 +187,25 @@ main
   text-align: left
   overflow: hidden
   height: 228px
-  background: url(F($main_pattern_src))
+  //background: url(F($main_pattern_src))
   background-color: #efefef
   .t1, .t2
     z-index: 1
     position: relative
     +inline-block
-    margin-left: 139px
+    margin-left: 168px
   .t1
     margin-top: 36px
     font-size: 32px
     line-height: 38px
     font-weight: 600
     color: #202020
+    margin-bottom: 10px
   .t2
     font-size: 18px
     line-height: 24px
     color: #202020
+    padding-right: 24px
   .main_tutor_search
     position: absolute
     top: 16px
@@ -210,7 +213,7 @@ main
     width: $main_tutor_search_width
     height: $main_tutor_search_height
     background: url(F($main_tutor_search_src)) no-repeat
-
+    opacity: 0.5
   .pattern_bottom
     position: absolute
     bottom: 0
@@ -229,41 +232,31 @@ main
     background: url(F($board_src)) no-repeat
 .motivation
   position: relative
-  padding-top: 12px
+  padding-top: 18px
   padding-bottom: 60px
   background: url(F($main_pattern_noise_src))
   .left, .center, .right
     +inline-block
     vertical-align: top
+    width: 289px
+    padding: 0 24px
     .title, .text
       text-align: left
     .title
       font-size: 20px
       line-height: 24px
       color: #3e9ee0
+      height: 60px
+      text-align: center
     .text
       font-size: 16px
       line-height: 24px
       color: #202020
     .button
-      margin-top: 32px
+      margin: 24px auto 0
       height: 48px
       width: 228px
-  .left, .center
-    .title
-      height: 72px
-  .left
-    margin-right: 39px
-    width: 298px
-    .button
-      width: 228px
-  .center
-    margin-right: 44px
-    width: 290px
-  .right
-    width: 308px
-    .title
-      margin-bottom: 24px
+
   .bottom_pattern
     position: absolute
     z-index: 1
@@ -276,9 +269,11 @@ $main_pattern_top_src: 'main/main_pattern_top.jpg'
   padding-top: 24px
   padding-bottom: 112px
   background: url(F($main_pattern_noise_src))
+  float: left
+  width: 100%
   .title
-    padding-left: 86px
-    margin-bottom: 48px
+    padding-left: 24px
+    margin: 24px 0 48px 0
     text-align: left
     font-size: 20px
     line-height: 24px
@@ -287,13 +282,14 @@ $main_pattern_top_src: 'main/main_pattern_top.jpg'
     text-align: left
     .review
       +inline-block
-      margin-left: 20px
+      margin-left: 24px
       width: 480px
+      display: block
+      float: left
       .photo_wrap, .text_box
         +inline-block
         vertical-align: top
       .photo_wrap
-        padding-top: 102px
         margin-right: 52px
         .photo
           background-color: #fff
@@ -305,20 +301,18 @@ $main_pattern_top_src: 'main/main_pattern_top.jpg'
           line-height: 24px
       .text_box
         position: relative
-        width: 312px
-        height: 240px
         box-sizing: border-box
-        padding-top: 24px
+        padding: 18px 24px
         background-color: #fff
         box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.40)
         .quotes_wrap, .text
           +inline-block
           vertical-align: top
         .quotes_wrap
-          width: 72px
+          width: 48px
           height: 100%
           box-sizing: border-box
-          padding-left: 24px
+          display: none
           .quotes
             width: $quotes_width
             height: $quotes_height
@@ -331,7 +325,7 @@ $main_pattern_top_src: 'main/main_pattern_top.jpg'
           color: #202020
         .triangle
           position: absolute
-          bottom: 48px
+          top: 24px
           left: -$triangle_width
           width:  $triangle_width
           height: $triangle_height

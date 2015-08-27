@@ -1,5 +1,9 @@
 .logo
   !=logo
+.left_box.unselect
+  if icons
+    .icons!=icons
+  .top_menu!=top_menu
 .right_box
   .back_call!=back_call
   if $req.user.registered
@@ -14,7 +18,3 @@
               != val
   else
     .button_in_out!=button_in_out
-.left_box.unselect
-  if icons
-    .icons!=icons
-  .top_menu!=top_menu
