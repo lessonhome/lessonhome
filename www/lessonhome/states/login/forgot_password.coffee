@@ -21,6 +21,6 @@ class @main extends @template '../main'
         name        : 'email'
         selector    : 'registration'
       send_button    : @module 'link_button' :
-        href      : '/send_code'
         selector  : 'take_code'
-        text      : 'Отправить код'
+        text      : 'Отправить'
+        active : false

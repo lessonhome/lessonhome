@@ -9,8 +9,7 @@ class @main extends EE
 
     @send_button.on 'submit', @sendAuthMail
 
-  sendAuthMail: =>
-
+  sendAuthMail: => Q.spawn =>
     login = @login.getValue()
 
     ret = @js.check login
@@ -18,13 +17,18 @@ class @main extends EE
       return @showError ret.err
     login = ret.login if ret?.login?
 
-    @$send( 'passwordRestore',{
+    {status} = yield @$send('passwordRestore',{
       login: login
-    }).then ({status}) =>
-      console.log status
-      if status == 'failed'
-        @showError('login_not_exists')
-    .done()
+    })
+    console.log status
+    if status == 'success'
+      @dom.find('.title').text 'Спасибо!'
+      @dom.find('.text').text 'Мы выслали Вам email с сылкой для восстановления пароля.'
+      @dom.find('.login').hide()
+      @dom.find('.buttons').hide()
+      #return Feel.go '/send_code'
+    if status == 'failed'
+      @showError('login_not_exists')
 
   showError : (err)=>
     switch err

@@ -15,9 +15,11 @@ class @main extends @template '../main'
         @module 'lib/lzstring'
       ]
       password           : @module 'tutor/forms/input' :
+        ###
         replace : [
           "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
         ]
+        ###
         name        : 'email'
         type        : 'password'
         selector    : 'registration'
