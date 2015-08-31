@@ -2,6 +2,7 @@
 @check = (f)=>
   errs = []
   # short
+  ###
   if 0 < f.metro.length < 3
     errs.push "short_near_metro"
   if 0 < f.street.length < 3
@@ -44,6 +45,7 @@
     errs.push "empty_city"
   #if f.area.length == 0
   #  errs.push "empty_area"
+  ###
   return errs
 
 
