@@ -21,7 +21,7 @@
 
 @delayRegisterMail = (id)->
 
-  yield Q.delay 1000*6*2
+  yield Q.delay 1000*60*10
 
   db = yield Main.service 'db'
   mail = yield Main.service 'mail'
