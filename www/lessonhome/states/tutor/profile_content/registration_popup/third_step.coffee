@@ -7,8 +7,9 @@ class @main extends @template '../registration_popup'
     'other' : '/enter'
     'pupil' : '/enter'
   }
-  status :
+  status : {
     '!tutor_prereg_2':'/tutor/profile/second_step'
+  }
   forms : [{account:['registration_progress']}]
   tree : =>
     progress  : $form : account : 'registration_progress'
