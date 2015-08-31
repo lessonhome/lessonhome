@@ -65,6 +65,7 @@ class @main
       selector  : 'first_reg'
       placeholder: '+7 (xxx) xxx–xx–xx'
       $form : person :  'phone'
+      ###
       #  s || $form : accounts : 'login'
       #p[0] if p?[0]?
       replace     : [
@@ -83,6 +84,7 @@ class @main
       patterns : [
         "^\\+7 \\(\\d\\d\\d\\) \\d\\d\\d-\\d\\d-\\d\\d$" : "Введите телефон <br>в формате +7 (926) 123-45-45"
       ]
+      ###
 
 
     extra_phone   : @module 'tutor/forms/input' :

@@ -4,6 +4,7 @@
 @handler = ($,data)=>
   return {status:'success'} unless data.phone
   data.account = $.user.id
+  console.log 'save bid'
   db = yield $.db.get 'bids'
   yield _invoke db,'update',{account:$.user.id},{$set:data},{upsert:true}
   return {status:'success'}
