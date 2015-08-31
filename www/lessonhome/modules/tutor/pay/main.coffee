@@ -7,37 +7,59 @@ class @main
 
     @refill.on 'submit', @refillBill
 
-    console.log @bids
+    @refill_button = document.getElementsByClassName('button_balance')[0]
+    @refill_button.onclick = () =>
+      @refillBill()
 
-    #bid.on 'click', alert(111) for bid in document.getElementsByClassName('pay_link')
-    console.log bid for bid in document.getElementsByClassName('pay_link')
+    for link in document.getElementsByClassName('pay_link')
+      do (link) =>
+        link.onclick = () =>
+          @pay(link)
 
-    console.log bid
-
-    bid.on('click', console.log 'asfas')
-
+  updateBalance: (value) =>
+    bal = document.getElementsByClassName('balance')
+    bal[0].innerHTML = value + ' руб.'
   getBalance: =>
     @$send(
-      'getBill'
-      {
-        action: 'get_balance'
-      }
-    ).then (res) ->
+      'billActions'
+      {}
+    ).then (res) =>
       console.log res.status
       if res.status == 'success'
-        bal = document.getElementsByClassName('balance')
-        bal[0].innerHTML = res.balance + ' руб.'
+        @updateBalance(res.balance)
     .done()
 
   refillBill: =>
     @$send(
-      'getBill'
+      'billActions'
       {
         action: 'refill'
+        value: +@refill.input[0].value
       }
-    ).then (res) ->
+    ).then (res) =>
       console.log res.status
       if res.status == 'success'
-        bal = document.getElementsByClassName('balance')
-        bal[0].innerHTML = res.balance + ' руб.'
+        @updateBalance(res.balance)
+    .done()
+  pay: (link) =>
+    value = +link.previousSibling.innerHTML
+    console.log value
+    @$send(
+      'billActions'
+      {
+        action: 'pay'
+        value: value
+      }
+    ).then (res) =>
+      console.log res.status
+      if res.status == 'success'
+        @updateBalance(res.balance)
+      else
+        popup = link.lastChild
+        popup.style.display = 'block'
+        setTimeout(
+          ()->
+            popup.style.display = 'none'
+          1000
+        )
     .done()
