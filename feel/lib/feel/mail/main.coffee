@@ -65,7 +65,6 @@ class Mail
       html: yield @prepare @templates[template], repls
       attachments : @attachments[template]
 
-
     info = yield  _invoke transporter, 'sendMail', mailOptions
     
     console.log 'mail: Mail sent'.yellow, info
