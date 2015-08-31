@@ -2,6 +2,7 @@
 
 
 @handler = ($,data)->
+  #$.req.udata.onceAuth.hash
   data.type = 'tutor'
   try
     yield $.register.newType $.user,$.session,data
@@ -20,7 +21,7 @@
 
 @delayRegisterMail = (id)->
 
-  yield Q.delay 1000*60*2
+  yield Q.delay 1000*60*10
 
   db = yield Main.service 'db'
   mail = yield Main.service 'mail'
@@ -34,7 +35,7 @@
   name = "#{p?.last_name ? ''} #{p?.first_name ? ''} #{p?.middle_name ? ''}"
   name = name.replace /^\s+/,''
   name = name.replace /\s+$/,''
-
+  name = ', '+ name if name
   return unless accounts[0].login.match '@'
   yield mail.send(
     'register.html'

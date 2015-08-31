@@ -40,7 +40,7 @@ class @main
       Feel.go '/tutor/profile/second_step'
 
 
-  save :() => Q().then =>
+  save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())
       .then ({status,errs})=>
@@ -90,7 +90,6 @@ class @main
         @country.showError "Введите правильную страну"
       when "bad_city"
         @city.showError "Введите правильный город"
-      #empty
       when "empty_mobile"
         @mobile_phone.showError "Введите телефон"
       when "empty_extra_phone"

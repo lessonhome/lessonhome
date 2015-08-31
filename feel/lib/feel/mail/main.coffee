@@ -14,6 +14,7 @@ class Mail
     files = yield _readdir process.cwd()+'/www/lessonhome/mails'
     yield @prepareCss file for file in files
   prepareCss: (file) =>
+    console.log 'prepareCss'
     @attachments[file] = []
     images = {}
     
@@ -33,20 +34,19 @@ class Mail
         '\'cid:' + image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome\''
       )
     
-    response = yield _requestPost
+    [response,body] = yield _requestPost
       url : 'http://premailer.dialect.ca/api/0.1/documents'
       form: {html: data}
-    return @prepareCss file if response.body[0] is '<'
+    return @prepareCss file if (!body?[0]?) || (body[0] is '<')
     
-    url = JSON.parse(response.body)?.documents?.html
-    response = yield _request {url}
-    
-    @templates[file] = response.body
+    url = JSON.parse(body)?.documents?.html
+    [response,body] = yield _request {url}
+    @templates[file] = body
     console.log 'mail: '.magenta+file+' was read from mails to Mail.templates'
 
   prepare: (data, repls)->
     for key, value of repls
-      data = data.replace(new RegExp('#{' + key + '}', 'g'), value)
+      data = data?.replace?(new RegExp('#{' + key + '}', 'g'), value)
     return data
 
   send : (template, email, subject, repls) ->
@@ -59,12 +59,11 @@ class Mail
         pass : 'Jlth;bvjcnm'
 
     mailOptions =
-      from : 'Лессон Хоум ✔ <support@lessonhome.ru>'
+      from : 'Лессон Хоум <support@lessonhome.ru>'
       to   : email
       subject : subject
       html: yield @prepare @templates[template], repls
       attachments : @attachments[template]
-
 
     info = yield  _invoke transporter, 'sendMail', mailOptions
     

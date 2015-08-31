@@ -3,6 +3,9 @@
 
 
 @handler = ($,data)->
+
+  return $.user.login if data.getLogin
+
   data.login ?= $.user.login
   try
     obj = yield $.register.loginUpdate $.user,$.session,data
