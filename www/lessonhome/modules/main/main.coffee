@@ -6,7 +6,6 @@ class @main extends EE
     @content    = @found.content
 
   show: =>
-
     @startSearch    = @dom.find(".start_search").find(".button")
     @inOut          = @tree.header.button_in_out.class
     @headerBackCall = @tree.header.back_call.class

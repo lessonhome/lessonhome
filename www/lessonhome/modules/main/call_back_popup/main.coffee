@@ -24,6 +24,7 @@ class @main extends EE
     @save().then (success)=>
       if success
         $(@popup).html('Спасибо! Вам скоро перезвонят!')
+        @emit 'sent'
     .done()
 
 
