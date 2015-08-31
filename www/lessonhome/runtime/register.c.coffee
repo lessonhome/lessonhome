@@ -35,7 +35,7 @@
   name = "#{p?.last_name ? ''} #{p?.first_name ? ''} #{p?.middle_name ? ''}"
   name = name.replace /^\s+/,''
   name = name.replace /\s+$/,''
-
+  name = ', '+ name if name
   return unless accounts[0].login.match '@'
   yield mail.send(
     'register.html'
