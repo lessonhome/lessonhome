@@ -32,11 +32,14 @@ class @main
         s += "#{l.area ? ''}"
       n = (Object.keys(p.subjects ? {})?.join? ', ') ? ''
       n += "<br> #{p.name?.last ? ''} #{p.name?.first ? ''} #{p.name?.middle ? ''}<br>"
+      if p.photos?.length
+        url = p.photos[p.photos.length-1].lurl
+        n += "<img src='"+url+"' /><br>"
       link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:p.index})
       n += s+'<br>'
-      n += p.phone.join (', ')+'<br>'
-      n += p.email.join (', ')+'<br>'
-
+      n += "<a href='"+link+"'>"+link+"</a><br>"
+      n += p.phone.join('<br>')+'<br>'
+      n += p.email.join('<br>')+'<br>'
       do (s,n,link,p)=> @resolveAddress(s).then (obj)=>
         return unless obj
         myPlacemark = new ymaps.GeoObject({
@@ -47,14 +50,14 @@ class @main
           properties:{
             iconContent: (Object.keys(p.subjects ? {})?.join? ', ') ? ''
             #hintContent: (Object.keys(p.subjects ? {})?.join? ', ') ? ''
-            balloonContent: n+"<br>"+obj.bContent+"<br><a href='"+link+"'>"+link+"</a>"
+            balloonContent: n+"<br>"+obj.bContent
           }
         },{
           preset: 'islands#blueStretchyIcon',
           draggable: true
         })
-        #map.geoObjects.add myPlacemark
-        myClusterer.add myPlacemark
+        map.geoObjects.add myPlacemark
+        #myClusterer.add myPlacemark
     map.geoObjects.add myClusterer
   go : (search)=>
     d = Q.defer()
@@ -78,8 +81,6 @@ class @main
         pos[0] *= 1
         pos[1] *= 1
         pos2 = [pos[1],pos[0]]
-        console.log first,pos
-        console.log ymaps
         myPlacemark = new ymaps.Placemark(pos2, {
             content: first?.name
             balloonContent: first?.metaDataProperty?.GeocoderMetaData?.text
@@ -99,8 +100,10 @@ class @main
         return d.resolve false
 
   resolveAddress : (search)=>
+    ls = $.localStorage.get "geocode_"+search
     d = Q.defer()
-    ymaps.ready => $.ajax
+    if ls then ymaps.ready => d.resolve ls
+    else ymaps.ready => $.ajax
       url: "https://geocode-maps.yandex.ru/1.x/"
       data :
         geocode : search
@@ -114,8 +117,6 @@ class @main
         pos[0] *= 1
         pos[1] *= 1
         pos2 = [pos[1],pos[0]]
-        console.log first,pos
-        console.log ymaps
         #myPlacemark = new ymaps.Placemark(pos2, {
         #    content: first?.name
         #    balloonContent: first?.metaDataProperty?.GeocoderMetaData?.text
@@ -135,6 +136,7 @@ class @main
         ret.bContent = first?.metaDataProperty?.GeocoderMetaData?.text
         #map = new ymaps.Map @div[0],bounds
         #map.geoObjects.add myPlacemark
+        $.localStorage.set "geocode_"+search,ret
         d.resolve ret
       error : (err)=>
         console.error err
