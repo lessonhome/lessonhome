@@ -41,9 +41,9 @@ cnum = 0
 
     nwords = []
     #nwords = p.about.split /[\s\.;,]/ if p?.about
-    nwords.push p.location?.area ? ''
-    nwords.push p.location?.metro ? ''
-    nwords.push p.location?.street ? ''
+    #nwords.push p.location?.area ? ''
+    #nwords.push p.location?.metro ? ''
+    #nwords.push p.location?.street ? ''
     for w in nwords
       w = w.replace /^\s+/,''
       w = w.replace /\s+$/,''
