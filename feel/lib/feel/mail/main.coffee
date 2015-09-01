@@ -12,7 +12,14 @@ class Mail
     @reload().done()
   reload : =>
     files = yield _readdir process.cwd()+'/www/lessonhome/mails'
-    yield @prepareCss file for file in files
+    for file in files
+      failed = true
+      while failed
+        failed = yield @prepareCss file
+        if failed
+          yield Q.delay 100
+          console.error 'mail preloading failed'
+      
   prepareCss: (file) =>
     console.log 'prepareCss'
     @attachments[file] = []
@@ -37,7 +44,7 @@ class Mail
     [response,body] = yield _requestPost
       url : 'http://premailer.dialect.ca/api/0.1/documents'
       form: {html: data}
-    return @prepareCss file if (!body?[0]?) || (body[0] is '<')
+    return true if (!body?[0]?) || (body[0] is '<')
     
     url = JSON.parse(body)?.documents?.html
     [response,body] = yield _request {url}
