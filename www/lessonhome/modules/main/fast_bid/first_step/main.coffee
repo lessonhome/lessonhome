@@ -36,10 +36,17 @@ class @main
     # error div
     @subject.setErrorDiv @out_err_subject
 
-  save : => Q().then =>
+  save : => do Q.async =>
     if @check_form()
-      Feel.sendActionOnce 'fast_bids_first_step'
-      return true
+      data = yield Feel.urlData.get 'pupil'
+      data.linked = yield Feel.urlData.get 'mainFilter','linked'
+      {status,errs} = yield @$send('../third_step/save',data)
+      if status == 'success'
+        Feel.sendActionOnce 'fast_bids_first_step'
+        return true
+      if errs?.length
+        @parseError errs
+      return false
       #return @$send('./save',@getData())
       #.then ({status,errs})=>
       #  if status=='success'

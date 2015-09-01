@@ -15,6 +15,7 @@ class Register
     @dbpersons = yield db.get 'persons'
     @dbpupil  = yield db.get 'pupil'
     @dbtutor  = yield db.get 'tutor'
+    @mail = yield Main.service 'mail'
     @urldata = yield Main.service 'urldata'
 
     ids = {}
@@ -204,40 +205,49 @@ class Register
     return {session:@sessions[sessionhash],user:user}
 
   passwordRestore: (data) =>
-    mail = yield Main.service 'mail'
     db = yield Main.service 'db'
 
-    personsDb = yield db.get 'persons'
-    accountsDb = yield db.get 'accounts'
+    #personsDb = yield @dbpersons.get 'persons'
+    #accountsDb = yield @account.get 'accounts'
 
     token = _randomHash(10)
     utoken = yield @urldata.d2u 'authToken',{token:token}
 
-    accounts = yield _invoke accountsDb.find({login: data.login},{login:1}),'toArray'
+    #accounts = yield _invoke @account.find({login: data.login},{login:1}),'toArray'
 
-    validDate = new Date();
+    validDate = new Date()
     validDate.setHours(validDate.getHours()+1)
-
+    user = @logins[data.login]
+    throw err:'login_not_exists' unless user?
+    throw err:'login_not_exists' unless data.login.match '@'
     restorePassword = {
       token: token
       valid: validDate
     }
+    user.authToken = restorePassword
+    acc = {}
+    acc[key] = val for key,val of user
+    delete acc.account
+    yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
 
-    yield _invoke(@account,'update', {login:data.login},{$set:{authToken: restorePassword}},{upsert:true})
+    #console.log 'http://127.0.0.1:8081/new_password?'+utoken
 
-    console.log 'http://127.0.0.1:8081/new_password?'+utoken
-
+    persons = yield  _invoke @dbpersons.find({account: user.id}), 'toArray'
+    p = persons?[0] ? {}
+    name = "#{p?.last_name ? ''} #{p?.first_name ? ''} #{p?.middle_name ? ''}"
+    name = name.replace /^\s+/,''
+    name = name.replace /\s+$/,''
+    name = ', '+ name if name
     if data.login.match '@'
-
-      mail.send(
+      yield @mail.send(
         'restore_password.html'
-        'arsereb@gmail.com'
+        user.login
         'Восстановление пароля'
         {
-          name: data.login
-          link: 'http://127.0.0.1:8081/new_password?'+utoken
+          name: name
+          link: 'https://lessonhome.ru/new_password?'+utoken
         }
-      ).done()
+      )
     else
       console.log 'mail: Signed up with phone number, can\'t send mail'
 

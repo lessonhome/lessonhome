@@ -13,10 +13,10 @@ class @main
           title : 'Стать учеником'
           href  : '/fast_bid/first_step'
           list  : [
-            @module '//item' :
-              title : 'Как это работает'
-              link : '/first_step#how-it-works'
-              scrolltop : 'how-it-works'
+            #@module '//item' :
+              #title : 'Как это работает'
+              #link : '/first_step#how-it-works'
+              #scrolltop : 'how-it-works'
             @module '//item' :
               title : 'Оформить заявку'
               link : '/fast_bid/first_step'
@@ -37,10 +37,10 @@ class @main
           title : 'Репетиторам'
           href  : '/main_tutor'
           list  : [
-            @module '//item' :
-              title : 'Как это работает'
-              link  : '/main_tutor#how-it-works'
-              scrolltop : 'how-it-works'
+            #@module '//item' :
+              #title : 'Как это работает'
+              #link  : '/main_tutor#how-it-works'
+              #scrolltop : 'how-it-works'
 
             @module '//item' :
               title : 'Стать репетитором'
@@ -52,7 +52,7 @@ class @main
 
             @module '//item' :
               title : 'Помощь'
-              link : '#'
+              link : '/support'
           ]
         }
       ]
