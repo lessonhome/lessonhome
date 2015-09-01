@@ -1,5 +1,5 @@
 class @main extends @template '../main'
-  route : '/all'
+  route : '/map'
   model : 'main/second_step'
   title : "карта репетиторов"
   tags  : -> []
