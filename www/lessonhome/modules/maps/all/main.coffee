@@ -18,6 +18,7 @@ class @main
   init : =>
     obj = yield @resolveAddress 'Москва'
     map = new ymaps.Map @div[0],obj.bounds
+    myClusterer = new ymaps.Clusterer()
     preps = yield Feel.dataM.getBest 1000000
     for p in preps
       l = p.location
@@ -33,13 +34,28 @@ class @main
       n += "<br> #{p.name?.last ? ''} #{p.name?.first ? ''} #{p.name?.middle ? ''}<br>"
       link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:p.index})
       n += s+'<br>'
-      do (s,n,link)=> @resolveAddress(s).then (obj)=>
+      n += p.phone.join (', ')+'<br>'
+      n += p.email.join (', ')+'<br>'
+
+      do (s,n,link,p)=> @resolveAddress(s).then (obj)=>
         return unless obj
-        myPlacemark = new ymaps.Placemark(obj.pos, {
-          content: n#obj?.name
-          balloonContent: n+"<br>"+obj.bContent+"<br><a href='"+link+"'>"+link+"</a>"
+        myPlacemark = new ymaps.GeoObject({
+          geometry : {
+            type : "Point"
+            coordinates : obj.pos
+          },
+          properties:{
+            iconContent: (Object.keys(p.subjects ? {})?.join? ', ') ? ''
+            #hintContent: (Object.keys(p.subjects ? {})?.join? ', ') ? ''
+            balloonContent: n+"<br>"+obj.bContent+"<br><a href='"+link+"'>"+link+"</a>"
+          }
+        },{
+          preset: 'islands#blueStretchyIcon',
+          draggable: true
         })
-        map.geoObjects.add myPlacemark
+        #map.geoObjects.add myPlacemark
+        myClusterer.add myPlacemark
+    map.geoObjects.add myClusterer
   go : (search)=>
     d = Q.defer()
     @_go search,d
