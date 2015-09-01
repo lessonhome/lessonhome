@@ -148,7 +148,7 @@ class Register
 
     #--------------
     bill = {
-      id: user.id
+      account: user.id
       value: 0
     }
 

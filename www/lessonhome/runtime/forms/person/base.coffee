@@ -23,4 +23,3 @@
 @accounts = [
   'login'
 ]
-
