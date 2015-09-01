@@ -53,8 +53,7 @@ class @main
             balloonContent: n+"<br>"+obj.bContent
           }
         },{
-          preset: 'islands#blueStretchyIcon',
-          draggable: true
+          preset: 'islands#blueStretchyIcon'
         })
         map.geoObjects.add myPlacemark
         #myClusterer.add myPlacemark
