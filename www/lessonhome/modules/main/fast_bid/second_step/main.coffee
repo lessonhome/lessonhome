@@ -7,17 +7,28 @@ class @main
     #@price_slider_bids = @tree.price_slider_bids.class
     #@goal = @tree.goal.class
 
-  save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          return true
-        if errs?.length
-          @parseError errs
-        return false
-    else
-      return false
+  save : => do Q.async =>
+    
+    data = yield Feel.urlData.get 'pupil'
+    data.linked = yield Feel.urlData.get 'mainFilter','linked'
+    {status,errs} = yield @$send('../third_step/save',data)
+    if status == 'success'
+      Feel.sendActionOnce 'fast_bids_second_step'
+      return true
+    if errs?.length
+      @parseError errs
+    return false
+    #if @check_form()
+    #  return true
+      #return @$send('./save',@getData())
+      #.then ({status,errs})=>
+      #  if status=='success'
+      #    return true
+      #  if errs?.length
+      #    @parseError errs
+      #  return false
+    #else
+    #  return false
 
   check_form : =>
     errs = @js.check @getData()

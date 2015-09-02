@@ -2,6 +2,16 @@
 #check = require("./check")
 
 @handler = ($,data)=>
+  return {status:'success'} unless data.phone
+  data.account = $.user.id
+  console.log 'save bid'
+  db = yield $.db.get 'bids'
+  yield _invoke db,'update',{account:$.user.id},{$set:data},{upsert:true}
+  return {status:'success'}
+
+
+
+  ###
   errs = []
   #errs = check.check data
 
@@ -34,7 +44,7 @@
   yield $.status 'fast_bid',4
   yield $.form.flush ['person','pupil', 'account'],$.req,$.res
   return {status:'success'}
-
+  ###
 
 
 

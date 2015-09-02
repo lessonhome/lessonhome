@@ -28,6 +28,7 @@ class @main extends @template '../tutor'
       }
     ]
     content : @module '$' :
+      selector:   'tutor_profile'
       question   : @module 'tutor/forms/input'  :
         selector: 'support'
       ask_button : @module 'tutor/button' :

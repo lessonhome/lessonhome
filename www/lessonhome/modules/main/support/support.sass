@@ -1,0 +1,69 @@
+
+@import compass/css3
+
+$illustration_src: 'main/about_2.png'
+$illustration_height: image-height($illustration_src)
+$illustration_width: image-width($illustration_src)
+
+div
+  text-align: left
+  .left, .right
+    +inline-block
+    vertical-align: top
+main
+  min-height: 800px
+  background-color: #fff
+.start_block
+  position: relative
+  padding-top: 48px
+  padding-bottom: 72px
+  .left
+    width: 183px
+    padding-left: 20px
+    padding-top: 24px
+    .illustration
+      width:  $illustration_width
+      height: $illustration_height
+      background: url(F($illustration_src)) no-repeat
+  .right
+    width: 735px
+    padding-left: 25px
+    .title, .text
+      color: #000
+      line-height: 24px
+    .title
+      margin-bottom: 24px
+      font-size: 20px
+      font-weight: 600
+    .text
+      font-size: 16px
+    .items
+      margin-bottom: 24px
+      .item
+        padding-left: 9px
+        .icon, .text
+          +inline-block
+        .icon
+          margin-right: 9px
+          width: 6px
+          height: 6px
+          background-color: #000
+          border-radius: 50%
+        .text
+          color: #000
+          font-size: 16px
+          line-height: 24px
+  .start_block_buttons
+    margin-top: 48px
+    text-align: center
+    .user_tutor, .user_pupil
+      margin: 0 36px
+      +inline-block
+      height: 48px
+    .user_tutor
+      width: 180px
+    .user_pupil
+      width: 225px
+.support_block_tutor, .support_block_pupil
+  display: none
+  //-padding-left: 204px

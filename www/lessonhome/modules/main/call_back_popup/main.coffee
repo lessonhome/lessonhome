@@ -24,6 +24,7 @@ class @main extends EE
     @save().then (success)=>
       if success
         $(@popup).html('Спасибо! Вам скоро перезвонят!')
+        @emit 'sent'
     .done()
 
 
@@ -39,6 +40,7 @@ class @main extends EE
       errs?=[]
       errs.push err
     if status=='success'
+      Feel.sendAction 'back_call'
       return true
     if errs?.length
       for e in errs

@@ -3,12 +3,19 @@ check = require("./check")
 
 @handler = ($,data)=>
   errs = check.check data
-  return unless $.user.tutor
+  #return {status:'failed'} unless $.user.tutor
   if errs.length
     return {status:'failed',errs:errs}
 
   db= yield $.db.get 'backcall'
-  yield _invoke db, 'update',{account:$.user.id},{$set:{backcall:[{name:data.your_name, phone:data.tel_number, comment:data.comments, type:data.type, account:$.user.id}]}},{upsert:true}
+  yield _invoke db, 'update',{account:$.user.id},{$set:{
+    name    : data.your_name
+    phone   : data.tel_number
+    comment : data.comments
+    type    : data.type
+    account : $.user.id
+    time    : new Date()
+  }},{upsert:true}
   #yield $.status 'tutor_prereg_2',true
   #yield $.form.flush ['tutor','person','account'],$.req,$.res
   return {status:'success'}

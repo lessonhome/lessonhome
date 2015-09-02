@@ -11,10 +11,12 @@ class Register
     db = yield Main.service 'db'
     @account  = yield db.get 'accounts'
     @session = yield db.get 'sessions'
+    @bills = yield db.get 'bills'
     @dbpersons = yield db.get 'persons'
     @dbpupil  = yield db.get 'pupil'
     @dbtutor  = yield db.get 'tutor'
-
+    @mail = yield Main.service 'mail'
+    @urldata = yield Main.service 'urldata'
 
     ids = {}
     _ids = (yield _invoke @dbpersons.find({},{account:1}),'toArray')
@@ -114,6 +116,7 @@ class Register
     idstr += ':'.grey+account.login.cyan if account.login?
     idstr += ':'.grey+account.id.substr(0,5).blue
     idstr += ':'.grey+session.hash.substr(0,5).blue
+
     return {
       session:session.hash
       account:account
@@ -143,6 +146,16 @@ class Register
     acc[key] = val for key,val of user
     delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+
+    #--------------
+    bill = {
+      id: user.id
+      value: 0
+    }
+
+    yield _invoke(@bills,'insert',bill)
+
+    #---------------
     return {session:@sessions[sessionhash],user:user}
   login : (user,sessionhash,data)=>
     throw err:'bad_query'            unless data?.login? && data?.password?
@@ -153,6 +166,7 @@ class Register
     throw err:'already_logined'       if user.registered
     tryto = @logins[data.login]
     data.password = data.login+data.password
+    console.log data
     throw err:'wrong_password'    unless yield @passwordCompare _hash(data.password), tryto.hash
     olduser = user
     hashs = []
@@ -171,6 +185,116 @@ class Register
     delete acc.account
     qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     yield Q.all qs
+    return {session:@sessions[sessionhash],user:user}
+  passwordUpdate : (user,sessionhash,data)=>
+    throw err:'bad_query'            unless data?.login? && data?.password? && data?.newpassword?
+    throw err:'login_not_exists'      if !@logins[data.login]?
+    throw err:'bad_session'           if !@accounts[user.id]?
+    throw err:'bad_session'           unless @sessions[sessionhash]?
+    user = @accounts[user.id]
+    throw err:'not_logined'       unless user.registered
+    data_password = data.login+data.password
+    throw err:'wrong_password'    unless yield @passwordCompare _hash(data_password), user.hash
+    ndata_password = data.login+data.newpassword
+    user.hash       = yield @passwordCrypt _hash ndata_password
+    user.accessTime = new Date()
+    acc = {}
+    acc[key] = val for key,val of user
+    delete acc.account
+    yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+    return {session:@sessions[sessionhash],user:user}
+
+  passwordRestore: (data) =>
+    db = yield Main.service 'db'
+
+    #personsDb = yield @dbpersons.get 'persons'
+    #accountsDb = yield @account.get 'accounts'
+
+    token = _randomHash(10)
+    utoken = yield @urldata.d2u 'authToken',{token:token}
+
+    #accounts = yield _invoke @account.find({login: data.login},{login:1}),'toArray'
+
+    validDate = new Date()
+    validDate.setHours(validDate.getHours()+1)
+    user = @logins[data.login]
+    throw err:'login_not_exists' unless user?
+    throw err:'login_not_exists' unless data.login.match '@'
+    restorePassword = {
+      token: token
+      valid: validDate
+    }
+    user.authToken = restorePassword
+    acc = {}
+    acc[key] = val for key,val of user
+    delete acc.account
+    yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+
+    #console.log 'http://127.0.0.1:8081/new_password?'+utoken
+
+    persons = yield  _invoke @dbpersons.find({account: user.id}), 'toArray'
+    p = persons?[0] ? {}
+    name = "#{p?.last_name ? ''} #{p?.first_name ? ''} #{p?.middle_name ? ''}"
+    name = name.replace /^\s+/,''
+    name = name.replace /\s+$/,''
+    name = ', '+ name if name
+    if data.login.match '@'
+      yield @mail.send(
+        'restore_password.html'
+        user.login
+        'Восстановление пароля'
+        {
+          name: name
+          link: 'https://lessonhome.ru/new_password?'+utoken
+        }
+      )
+    else
+      console.log 'mail: Signed up with phone number, can\'t send mail'
+
+  newPassword: (user, data) =>
+    db = yield Main.service 'db'
+    accountsDb = yield db.get 'accounts'
+
+    qstring = data.ref.replace(/.*\?/, '')
+    token = yield @urldata.u2d qstring
+    token = token.authToken.token
+
+    accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
+
+    user = {}
+    ndata_password = accounts[0].login+data.password
+    passhash = yield @passwordCrypt _hash ndata_password
+    user.hash = passhash
+    yield _invoke(@account,'update', {'authToken.token': token},{$set:user},{upsert:true})
+    console.log 'changed pass to '+data.password
+    console.log 'hash', passhash
+
+    accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
+
+    @logins[accounts[0].login] = accounts[0]
+
+    user = @accounts[user.id]
+    tryto = @logins[accounts[0].login]
+    olduser = tryto
+    hashs = []
+    for hash of olduser.sessions
+      hashs.push hash
+      delete @sessions[hash]
+    qs = []
+    qs.push _invoke @session,'remove',{hash:{$in:hashs}}
+    user = @accounts[tryto.id]
+    user.accessTime = new Date()
+    user.hash = passhash
+
+    console.log user
+    sessionhash = yield @newSession user.id
+    acc = {}
+    acc[key] = val for key,val of user
+    delete acc.account
+    qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+    qs.push _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}},{upsert:true})
+    yield Q.all qs
+
     return {session:@sessions[sessionhash],user:user}
   relogin : (user,sessionhash,index)=>
     console.log index
@@ -234,25 +358,17 @@ class Register
     delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
-  passwordUpdate : (user,sessionhash,data)=>
-    throw err:'bad_query'            unless data?.login? && data?.password? && data?.newpassword?
-    throw err:'login_not_exists'      if !@logins[data.login]?
-    throw err:'bad_session'           if !@accounts[user.id]?
-    throw err:'bad_session'           unless @sessions[sessionhash]?
-    user = @accounts[user.id]
-    throw err:'not_logined'       unless user.registered
-    data_password = data.login+data.password
-    throw err:'wrong_password'    unless yield @passwordCompare _hash(data_password), user.hash
-    ndata_password = data.login+data.newpassword
-    user.hash       = yield @passwordCrypt _hash ndata_password
-    user.accessTime = new Date()
-    acc = {}
-    acc[key] = val for key,val of user
-    delete acc.account
-    yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
-    return {session:@sessions[sessionhash],user:user}
+
   passwordCrypt   : (pass)=> _invoke  bcrypt,'hash',pass,10
-  passwordCompare : (pass,hash)=> _invoke  bcrypt,'compare',pass,hash
+  passwordCompare : (pass,hash)=>
+    console.log pass, hash
+    bcrypt.compare(pass, hash, (err, res)->
+      if err
+        throw err
+      else
+        console.log res
+    )
+    _invoke  bcrypt,'compare',pass,hash
   newAccount : =>
     try
       account =

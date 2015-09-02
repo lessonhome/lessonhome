@@ -6,7 +6,7 @@ $padding_text: 10px
   .bg_box, .bg_box1
     text-align: left
     padding: 18px 24px
-    background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.2)
+    background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.5)
     .text_box
       height: 24px
       text-align: left
@@ -22,6 +22,7 @@ $padding_text: 10px
   .bg_box
     margin-bottom: 10px
     label
+      padding-bottom : 6px
       .text_box
         cursor: pointer
         height: 24px
@@ -35,13 +36,15 @@ $padding_text: 10px
         content: ''
         +inline-block
         height: 100%
-      .experience
+      .experience,.gender_data
+        padding-bottom : 6px
         height: 36px
+  
   .bg_box, .bg_box1
     .student, .teacher, .professor, .native
       padding-bottom: 2*$min_width_step
     .native, label .experience, .age_slider, .gender_data
-      padding-bottom: 0
+      padding-bottom: 26px
   .bg_box1
     .gender_data
       height: 6*$min_width_step

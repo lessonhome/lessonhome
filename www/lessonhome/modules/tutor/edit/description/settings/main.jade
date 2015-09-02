@@ -31,7 +31,7 @@ mixin field (selector, value)
 .enter_change_login
   .old_login
     .title.select Привязанный :
-    .text.select!= old_login
+    .text.select!= ''
   +field('new_login', new_login)
   .password!=password
   .change_block

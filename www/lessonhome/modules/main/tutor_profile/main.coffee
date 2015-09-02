@@ -1,5 +1,5 @@
 
-class @main
+class @main extends EE
   Dom: =>
     @back = @found.back
     @about_content = @found.about_content
@@ -27,6 +27,12 @@ class @main
     @status_values = {"student":"Студент", "private_teacher":"Частный преподаватель", "university_teacher":"Преподаватель ВУЗа", "school_teacher":"Преподаватель школы"}
     @areas_departure_value = @found.areas_departure_value
     @write_button = @found.write_button
+    @msg = @tree.msg.class
+    @name =  @tree.name.class
+    @phone = @tree.phone.class
+    @subject = @tree.subject.class
+    @agree_checkbox = @tree.agree_checkbox.class
+    @write_tutor_error_field = @found.write_tutor_error_field
     state = History.getState()
     unless ((""+document.referrer).indexOf document.location.href.substr(0,15))== 0
       $(@back).hide()
@@ -40,10 +46,10 @@ class @main
           @setActiveItem @subjects, @subjects_content
         when 2
           @setActiveItem @reviews, @reviews_content
-    index = yield Feel.urlData.get('tutorProfile','index') ? 77
-    console.log index
-    preps=yield Feel.dataM.getTutor [index]
-    prep = preps[index]
+    @index = yield Feel.urlData.get('tutorProfile','index') ? 77
+    console.log @index
+    preps=yield Feel.dataM.getTutor [@index]
+    prep = preps[@index]
     return Feel.go '/second_step' unless prep?
     console.log prep
     @setValue prep
@@ -57,12 +63,18 @@ class @main
     $(@reviews).on 'click', =>
       @setActiveItem @reviews, @reviews_content
       Feel.urlData.set('tutorProfile',{'inset':2})
+    @agree_checkbox.on 'change', => @write_tutor_error_field.hide()
     $(@write_button).on 'click', =>
       @found.right.css 'min-height','inherit'
-      @found.write_tutor_content.text("Ваше сообщение отправлено! Скоро с Вами свяжутся.")
+      save_result = @save()
+      save_result.then (result)=>
+        if result
+          @found.write_tutor_content.text("Ваше сообщение отправлено! Скоро с Вами свяжутся.")
     @found.attach_button.click @addTutor
   goBack: =>
-    document.location.href = window.history.back()
+    #Feel.go '/second_step'
+    console.log document.referrer
+    document.location.href = document.referrer
   setActiveItem: (item, content)=>
     return if item.hasClass 'active'
     for val in @header_items
@@ -188,7 +200,11 @@ class @main
     # right panel
     $(@found.write_tutor_msg).on 'click', =>
       @found.write_tutor_name.addClass 'shown'
-      @found.write_tutor_login.addClass 'shown'
+      @found.write_tutor_phone.addClass 'shown'
+      @found.write_tutor_subject.addClass 'shown'
+    $(@write_button).on 'click', =>
+      @found.write_tutor_name.addClass 'shown'
+      @found.write_tutor_phone.addClass 'shown'
       @found.write_tutor_subject.addClass 'shown'
     dative_tutor_name = @dativeName data.name
     @found.write_tutor_title.text("Написать "+dative_tutor_name.first)
@@ -196,8 +212,10 @@ class @main
     if subjects_number > 1
       @tree.subject.class.setItems @tutor_subjects
     else
+      @tree.subject.class.setValue @tutor_subjects[0]
       @found.write_tutor_subject.hide()
     @dom.find('>div').css 'opacity',1
+
   setItem: (item_block, item_value, value_block)=>
     if item_value
       value_block.text("#{item_value ? ""}")
@@ -211,4 +229,64 @@ class @main
       middle: name.middleName('dative')
       last  : name.lastName('dative')
     }
+
+  save : => Q().then =>
+    if @check_form()
+      return @$send('../fast_bid/third_step/save',@getData())
+      .then ({status,errs})=>
+        if status=='success'
+          Feel.sendActionOnce 'direct_bid'
+          return true
+        return false
+    else
+      return false
+
+  check_form : =>
+    errs = @js.check @getData()
+    for e in errs
+      @parseError e
+    return errs.length==0
+
+  parseError : (err)=>
+    switch err
+    #short
+      when "short_name"
+        @name.showError "Слишком короткое имя "
+      when "short_phone"
+        @phone.showError "Неккорректный телефон"
+    #empty
+      when "empty_name"
+        @name.showError "Введите имя"
+      when "empty_phone"
+        @phone.showError "Введите телефон"
+      when "empty_subject"
+        @subject.showError "Выберите предмет"
+      #when "disagree_checkbox"
+        #@write_tutor_error_field.text("Пожалуйста ознакомьтесь с пользовательским соглашением")
+        #@write_tutor_error_field.show()
+
+  getData : =>
+    return {
+      id:             @index
+      comments:       @msg.getValue()
+      name:           @name.getValue()
+      phone:          @phone.getValue()
+      subject:        @subject.getValue()
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
