@@ -371,7 +371,7 @@ class RouteState
       @site.moduleJsTag('lib/jade')+
       @site.moduleJsTag('lib/lodash')+
       @site.moduleJsTag('lib/object_hash')+
-      @site.moduleJsTag('lib/materialize')+
+      #@site.moduleJsTag('lib/materialize')+
       '
       <script id="feel-js-client">
       "use strict";
