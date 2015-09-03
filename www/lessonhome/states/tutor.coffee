@@ -8,6 +8,7 @@ class @main
         counter : '5'
       items     : @exports()
       line_menu : @exports()
+    admin_panel : @exports()
     left_menu     : @state 'tutor/left_menu'
     sub_top_menu  : @exports()   # define if exists
     content       : @exports()   # must be defined
