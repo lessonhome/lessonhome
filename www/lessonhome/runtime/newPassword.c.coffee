@@ -2,7 +2,7 @@
 
 
 @handler = ($, data)->
-
+  data.password = unescape data.password
   data.ref = $.req.headers.referer
 
   if data.check
