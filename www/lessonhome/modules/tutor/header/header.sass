@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 $font-size: 16px
 $triangle_src: 'main/triangle_33x18.png'
 $triangle_width: image-width($triangle_src)
@@ -11,7 +12,7 @@ main
   height : 100%
   text-align: center
 .logo
-  padding: 0 26.5px 0 20px
+  padding: 0 24px 0 24px
   height: 100%
   float: left
 .right_box
@@ -21,9 +22,9 @@ main
     height: 100%
     +inline-block
   .back_call
-    padding: 0 21px 0 0
+    padding: 0 60px 0 0
   .button_in_out
-    padding: 0 62px 0 21px
+    padding: 0 24px 0 24px
   .back_call:before, .button_in_out::before
     +inline-block
     height: 100%
@@ -90,6 +91,8 @@ main
     padding: 0 20px
 .left_box
   height: 100%
+  float: left
+  margin-left: 60px
   .top_menu, .icons
     height: 100%
     +inline-block

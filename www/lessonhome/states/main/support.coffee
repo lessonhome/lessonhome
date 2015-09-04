@@ -4,6 +4,7 @@ class @main extends @template '../main'
   model : 'main/registration'
   title : "Помощь"
   access : ['other','pupil','tutor']
+  tags: ['support']
   tree : =>
     content: @module '$' :
       user_tutor: @module 'link_button' :

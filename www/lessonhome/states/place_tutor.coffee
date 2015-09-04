@@ -83,5 +83,6 @@ class @main
     save_button : @module 'link_button' :
       text      : 'Сохранить'
       selector  :  'edit_save'
-      href      :  '/tutor/profile/second_step'
+      href      :  @exports 'href_back' #'/tutor/profile/second_step'
+
 

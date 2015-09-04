@@ -3,8 +3,8 @@
 
 
 @handler = ($,data)->
-
   return $.user.login if data.getLogin
+  data.password = unescape data.password
 
   data.login ?= $.user.login
   try
