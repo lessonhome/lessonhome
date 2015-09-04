@@ -3,9 +3,11 @@
 $.cookie.defaults.path = '/'
 $.cookie.defaults.expires = 365*2
 
+Feel = undefined
 
 class @Feel
   constructor : ->
+    Feel = @
     window.Feel  = @
     @production = true if (window.location.hostname ? '').match /lessonhome\.ru/
 
@@ -158,6 +160,16 @@ class @Feel
       href = (yield @urlData.udataToUrl href)
       window.location.href = href if href && (typeof href == 'string')
     q.done()
+  goBack : (def_url)=> Feel.go @getBack def_url
+  getBack : (def_url)=>
+    state = History.getState()
+    if ((typeof document.referrer == 'string') || (!((""+document.referrer).match(/undefined/)))) &&
+        (((""+document.referrer).indexOf document.location.href.substr(0,15))== 0)
+      return document.referrer
+    else if def_url && (typeof def_url == 'string') && (!def_url.match /undefined/)
+      return def_url
+    else return '#'
+
   formSubmit : (form)=> Q.spawn =>
     form = $(form)
     url = form.attr 'action'
@@ -209,5 +221,6 @@ class @Feel
     yield @go '/form/tutor/login'
 
 
-window.Feel = new @Feel()
+Feel = new @Feel()
+window.Feel = Feel
 

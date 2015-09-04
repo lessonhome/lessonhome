@@ -29,9 +29,11 @@ main
       background: #e3e3e3
       text-align: left
       .title
+        right : 100%
         line-height: $height
         font-size: 16px
         padding-left: 12px
+        
       a
         display: block
         width: $icon_width
@@ -64,17 +66,29 @@ main
   font-size : $height
   line-height : $height
   padding : $padding 0
+.title_box.address
+  height : auto
 .title_box
+  position : relative
+  width : 341px
   .title
+    width : 200px
+    position : absolute
+    right : 100%
     +inline-block
     line-height: 37px
     padding-right: 26px
     color: rgba(75, 75, 75, 0.70)
-  a
-    width: 341px
-    display: inline-block
+  a,.address
+    //width: 341px
+    +inline-block
+    float : left
+    line-height : 37px
     text-align: left
     font-size: 16px
+  .address
+    padding-right : 5px
+  a
     color: #349adb
     text-decoration: underline
   .title:hover
