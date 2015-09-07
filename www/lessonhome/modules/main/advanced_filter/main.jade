@@ -1,73 +1,53 @@
+.all_tags_block
 .js-section.showed
   .subject.js-title
+    .choose.active
     .icon_box
       .icon_right
       .icon_down
     .title Предмет
-  .reset.js-subject_reset
-    .icon
-    .title сбросить
   .show_hidden
     .js-subject!=subject
-
+    .sub_title Курс
+    .js-course!=course
 .separator_box
   .line
-
 .js-section.showed
   .price.js-title
+    .choose
     .icon_box
       .icon_right
       .icon_down
     .title Цена
-  .reset.js-price_reset
-    .icon
-    .title сбросить
   .show_hidden
     .js-price!=price
 .separator_box
   .line
-
 .js-section.showed
   .place.js-title
+    .choose
     .icon_box
       .icon_right
       .icon_down
     .title Место занятий
-  .reset.js-place_reset
-    .icon
-    .title сбросить
   .show_hidden
     .place
       .pupil!=pupil
+      .area.hidden!=area
       .tutor!=tutor
+      .area.hidden!=area
+      .way_time_box
+        .js-time_to_way!=time_spend_way
       .remote!=remote
-    .area!=area
 .separator_box
   .line
-
-.js-section
-  .time_to_way.js-title
-    .icon_box
-      .icon_right
-      .icon_down
-    .title Время на дорогу
-  .reset.js-time_to_way_reset
-    .icon
-    .title сбросить
-  .show_hidden
-    .js-time_to_way!=time_spend_way
-.separator_box
-  .line
-
 .js-section
   .tutor_status.js-title
+    .choose
     .icon_box
       .icon_right
       .icon_down
     .title Статус репетитора
-  .reset.js-tutor_status_reset
-    .icon
-    .title сбросить
   .show_hidden
     .tutor_status
       .student!=student
@@ -76,9 +56,9 @@
       .private_teacher!=private_teacher
       .native_speaker!=native_speaker
 
-.separator_box
-  .line
 
+//.separator_box
+  .line
 //- In latest versions
   .js-section
     .timetable.js-title
@@ -92,50 +72,36 @@
   .separator_box
     .line
 
-.js-section
-  .course.js-title
-    .icon_box
-      .icon_right
-      .icon_down
-    .title Курс
-  .reset.js-course_reset
-    .icon
-    .title сбросить
-  .show_hidden
-    .js-course!=course
-
 .separator_box
   .line
-
-.js-section
-  .group_lessons.js-title
-    .icon_box
-      .icon_right
-      .icon_down
-    .title Групповые занятия
-  .reset.js-group_lessons_reset
-    .icon
-    .title сбросить
-  .show_hidden
-    .js-group_lessons!=group_lessons
-
-.separator_box
-  .line
-
 .js-section
   .experience.js-title
+    .choose
     .icon_box
       .icon_right
       .icon_down
     .title Опыт
-  .reset.js-experience_reset
-    .icon
-    .title сбросить
   .show_hidden
     .js-experience
       .little!=little_experience
       .big!=big_experience
       .bigger!=bigger_experience
+
+.separator_box
+  .line
+.js-section
+  .group_lessons.js-title
+    .choose
+    .icon_box
+      .icon_right
+      .icon_down
+    .title Групповые занятия
+  //.reset.js-group_lessons_reset
+    .icon
+    .title сбросить
+  .show_hidden
+    .js-group_lessons!=group_lessons
+
 
 .separator_box
   .line
@@ -153,21 +119,18 @@
         .text не важно
 .js-section
   .sex.js-title
+    .choose
     .icon_box
       .icon_right
       .icon_down
     .title Пол
-  .reset.js-sex_reset
-    .icon
-    .title сбросить
   .show_hidden
     .choose_gender!=choose_gender
-
 .separator_box
   .line
-
 .section
   .reviews_block!=with_reviews
   .verification_block!=with_verification
+  .this_photo!=this_photo
 
 
