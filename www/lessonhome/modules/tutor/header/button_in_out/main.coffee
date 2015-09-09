@@ -64,7 +64,7 @@ class @main extends EE
       @password.setValue pass
       @password.setFlush?()
     @$send( 'login',{
-      password : pass
+      password : escape pass
       login    : login
     }).then ({status,session,err})=>
       console.log 'login',status

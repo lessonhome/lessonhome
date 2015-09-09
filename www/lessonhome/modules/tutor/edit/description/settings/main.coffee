@@ -70,8 +70,8 @@ class @main
       newpass = str
       newpass = '`'+newpass
     @$send( 'passwordUpdate',{
-      password : pass
-      newpassword : newpass
+      password : escape pass
+      newpassword : escape newpass
     }).then ({status,err})=>
       #console.log 'login Changed', arguments
       console.log 'status : '+status
@@ -109,7 +109,7 @@ class @main
       @password.setValue pass
       @hashedPassword = true
     @$send( 'loginUpdate',{
-      password : pass
+      password : escape pass
       newlogin    : login
     }).then ({status,err})=>
       #console.log 'login Changed', arguments

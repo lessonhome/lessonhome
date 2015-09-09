@@ -126,6 +126,8 @@ class Tutors
       obj.accessTime = o.account.accessTime?.getTime?() ? 0
       obj.rating = o.rating
       obj.account = account
+      obj.phone = p.phone
+      obj.email = p.email
       obj.name = {}
       obj.name.first = p?.first_name
       obj.slogan = t?.slogan

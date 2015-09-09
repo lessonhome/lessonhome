@@ -2,6 +2,13 @@
 month = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь']
 
 
+comma = (str,next)->
+  str = "" unless typeof str == 'string'
+  str = str.replace /\s+$/,''
+  str += "," if str && (!str.match(/\,$/))
+  str += ' '
+  str += next if next && (typeof next == 'string')
+  return str
 
 class @F2V
   $birthday     : (data)-> data?.birthday?.getDate?()
@@ -75,15 +82,35 @@ class @F2V
     house    = location?.house
     building = location?.building
     address = ''
-    address += "#{country} " if country?
-    address += "#{city} " if city?
+    address = comma(address,country)
+    address = comma(address,city)
+    address = comma(address,street)
+    address = comma(address,house)
+    address = comma(address,building)
+    ###
     if street?
-      address += "#{street} " if street?
       if house?
         address += "#{house} "
         if building?
           address += "#{building} "
+    ###
     return address
+  $addressNeed : (data)->
+    return "" unless data?.location?.street
+    location = data?.location
+    street   = location?.street
+    house    = location?.house
+    building = location?.building
+    address = ''
+    address = comma(address,street)
+    address = comma(address,house)
+    address = comma(address,building)
+    return address
+  $addressPost : (data)-> do Q.async =>
+    an = yield @$addressNeed data
+    return "редактировать" if an
+    return "Укажите подробный адрес"
+
   $area     : (data)->
     location = data?.location
     console.log location

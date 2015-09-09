@@ -12,7 +12,14 @@ class Mail
     @reload().done()
   reload : =>
     files = yield _readdir process.cwd()+'/www/lessonhome/mails'
-    yield @prepareCss file for file in files
+    for file in files
+      failed = true
+      while failed
+        failed = yield @prepareCss file
+        if failed
+          yield Q.delay 1000
+          console.error 'mail preloading failed'
+      
   prepareCss: (file) =>
     @attachments[file] = []
     images = {}
@@ -33,13 +40,17 @@ class Mail
         '\'cid:' + image.replace(/(\/.+\/)*/, '').replace(/\..+/, '') + '@lessonhome\''
       )
     
-    [response,body] = yield _requestPost
+    rb = yield _requestPost
       url : 'http://premailer.dialect.ca/api/0.1/documents'
       form: {html: data}
-    return @prepareCss file if (!body?[0]?) || (body[0] is '<')
+    if rb[1]? then body = rb[1]
+    else      body = rb.body
+    return true if (!body?[0]?) || (body[0] is '<')
     
     url = JSON.parse(body)?.documents?.html
-    [response,body] = yield _request {url}
+    rb = yield _request {url}
+    if rb[1]? then body = rb[1]
+    else      body = rb.body
     @templates[file] = body
     console.log 'mail: '.magenta+file+' was read from mails to Mail.templates'
 

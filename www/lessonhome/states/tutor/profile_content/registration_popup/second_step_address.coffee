@@ -8,7 +8,8 @@ class @main extends @template '../registration_popup/second_step'
     'pupil' : '/enter'
   }
   tree : =>
-    address_popup   : @state 'place_tutor'
+    address_popup   : @state 'place_tutor' :
+      href_back : '/tutor/profile/second_step'
 
       
 

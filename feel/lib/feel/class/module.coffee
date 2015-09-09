@@ -230,7 +230,7 @@ class module.exports
     @allCss = ""
     for name,src of @css
       @allCss += "/*#{name}*/#{src}"
-  parseCss : (css,filename,relative=@id)=>
+  parseCss : (css,filename,relative=@id,...,ifloop)=>
     ret = ''
     m = css.match /\$FILE--\"([^\$]*)\"--FILE\$/g
     if m then for f in m
@@ -292,7 +292,21 @@ class module.exports
             newpref += leftpref+sel
     else newpref = pref
     newpref=pref if filename.match /.*\.g\.sass$/
-    ret = newpref+body+@parseCss(post,filename,relative)
+    if ifloop == 'loop'
+      return {
+        begin : newpref+body
+        args  : [post,filename,relative,'loop']
+      }
+    ret = newpref+body
+    args = [post,filename,relative,'loop']
+    loop
+      ret2 = @parseCss args... #(post,filename,relative,'loop')
+      if ret2?.args?
+        ret+=ret2.begin
+        args = ret2.args
+      else
+        ret+= ret2
+      break unless ret2?.args?
     return ret
   makeCoffee  : => do Q.async =>
     @newCoffee = {}

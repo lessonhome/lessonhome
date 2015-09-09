@@ -1,4 +1,5 @@
-@import compass/css3
+@import base
+
 $min_width_step: 6px
 $icon_map: 'footer/map.png'
 $icon_map_width: image-width($icon_map)
@@ -21,10 +22,11 @@ main
   position: relative
   height: 100%
   background: url(F('main/chalkboard_pattern.jpg')), #5B6D63
-  box-shadow: 0px 120px 60px -60px rgba(0, 0, 0, 0.05) inset, 0 11px 8px -8px rgba(0, 0, 0, 0.53) inset
   font-size: 16px
   color: #ffffff
-  padding: 4*$min_width_step 15px 6*$min_width_step 15px
+  padding: 24px 24px 36px 24px
+  width: 966px
+  float: left
 .bg_block
   position: absolute
   left: 0
@@ -97,21 +99,35 @@ main
       .back_call
         font-size: 16px
         line-height: 24px
+.bottom_block
+  float: left
 .right_block
-  position: absolute
-  top: 42px
-  right: 15px
+  margin: 4px 0px 12px 0
+  float: right
+  width: 420px
   .logo_block
-    padding-bottom: 4*$min_width_step
+    padding-bottom: 24px
+    display: inline-block
+    float: left
+    width: 100%
     .logo
       padding-bottom: $min_width_step
   .address_block
+    display: inline-block
+    width: 100%
     div
       +inline-block
-    .icon
+    a.icon
       width: $icon_map_width
       height: $icon_map_height
       background: url(F($icon_map)) no-repeat
-      padding-right: $min_width_step
-      line-height: 4*$min_width_step
-    .address
+      margin: 5px 9px 0 0px
+      display: block
+      float: left
+    .address.select
+      font-size: 14px
+      line-height: 21px
+  .company_name
+    font-size: 14px
+    text-align: right
+    margin-top: 36px

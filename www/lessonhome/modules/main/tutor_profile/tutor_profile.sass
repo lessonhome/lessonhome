@@ -128,9 +128,11 @@ div
       float : left
       padding-right: 24px
       box-sizing: border-box
+      width: 672px
       .header
         text-align: left
         border-bottom: 1px solid #cccccc
+        //margin-right: 24px
         .about, .subjects, .reviews
           position: relative
           height: 39px
@@ -160,15 +162,27 @@ div
           .line
             width: 162px
             margin-left: 1px
+        .about:not(.active):hover
+          .line
+            display: block
+            opacity: 0.5
         .subjects
           width: 312px
           .line
             width: 277px
             margin-left: 10px
+        .subjects:not(.active):hover
+          .line
+            display: block
+            opacity: 0.5
         .reviews
           .line
             right: 0
             width: 181px
+        .reviews:not(.active):hover
+          .line
+            display: block
+            opacity: 0.5
       .value
         .about_content
           width: 672px
