@@ -14,7 +14,6 @@ class Mail
     files = yield _readdir process.cwd()+'/www/lessonhome/mails'
     yield @prepareCss file for file in files
   prepareCss: (file) =>
-    console.log 'prepareCss'
     @attachments[file] = []
     images = {}
     

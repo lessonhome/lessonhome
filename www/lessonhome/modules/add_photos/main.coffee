@@ -23,13 +23,11 @@ class AddPhotos
       @setPhoto data.url,data.width,data.height
     .error (err)=>
       console.error err
-    
   done : (e,data)=>
     @log e,data
-    $.getJSON('/uploaded/image')
+    $.getJSON('/uploaded/image', {avatar: 'true'})
     .success (data)=>
       Feel.sendActionOnce 'ava_upload'
-      console.log data
       @setPhoto data.url,data.width,data.height
     .error (err)=>
       console.error err

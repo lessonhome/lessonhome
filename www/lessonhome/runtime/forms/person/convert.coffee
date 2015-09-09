@@ -29,7 +29,19 @@ class @F2V
     return email
   $skype   : (data)-> data?.social_networks?.skype?[0]
   $site    : (data)-> data?.site?[0]
-  $avatar       : (data)-> data?.ava?[data?.ava?.length-1] if data?.ava?.length > 0
+  $avatar       : (data)->
+    if data.avatar? and data.avatar != ''
+      if data.uploaded[data.avatar]?
+        data.uploaded[data.avatar]
+      else
+        data.uploaded
+  $uploaded : (data) ->
+    photos = []
+    for hash, file of data.uploaded
+      if file.type == 'image'
+        if !hash.match(/low|high/)
+          photos.push file
+    photos.reverse()
   $avatars      : (data)-> data?.ava
   $email_first  : (data)-> data?.email?[0]
   $interests0_description : (data)-> data?.interests?[0]?.description
