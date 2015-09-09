@@ -11,6 +11,7 @@
   'birthday'
   'phone'
   'ava'
+  'avatar'
   'email'
   'interests'
   'location'
@@ -22,4 +23,13 @@
 ]
 @accounts = [
   'login'
+]
+
+@uploaded = [
+  'hash'
+  'type'
+  'name'
+  'width'
+  'height'
+  'url'
 ]
