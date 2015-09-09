@@ -99,6 +99,9 @@ class FileUpload
         hurl    : Feel.static.F @site.name,"user_data/images/"+o.high
         lurl    : Feel.static.F @site.name,"user_data/images/"+o.low
     yield _invoke db, 'update', {account:req.user.id},{$set:{ava:photos}},{upsert:true}
+    db = yield Main.service 'db'
+    db = yield db.get 'uploaded'
+    yield _invoke db, 'insert', photos
     yield @site.form.flush ['person'],req,res
     res.setHeader 'content-type','application/json'
     if photos.length
@@ -141,5 +144,36 @@ module.exports = FileUpload
 
 
 
+###
+  uploaded :
+    {
+      hash : 'hashxxx'
+      account : 'asd'
+      type : 'image'
+      path  : ''
+    }
+    {
+      hash : 'hashxxxlow'
+      account : 'asd'
+      type : 'image'
+      path  : ''
+    }
+  persons
+    {
+      avatar : 'hashxxx'
+      photos : ['hashxxx','hashxxx2']
+      uploaded : {
+        'hashxxx' : {
+          type : 'image'
+          original : 'hashxxx'
+          low : 'hashxxxlow'
+          high : 'hashxxxhigh'
+          original_url : '/file/hashxxx/hashxxx.jpg'
+        }
+      }
+    }
 
+
+
+###
 
