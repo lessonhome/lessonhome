@@ -49,7 +49,7 @@ class @main extends EE
       @hashedPassword = true
 
     @$send( 'newPassword',{
-      password: pass
+      password: escape pass
     }).then ({status,session,err})=>
       console.log 'login',status
       if status == 'success'

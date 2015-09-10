@@ -54,7 +54,7 @@ class @main extends EE
       @password.setValue pass
       @hashedPassword = true
     @$send( 'register',{
-      password : pass
+      password : escape pass
       login    : login
     }).then ({status,err})=>
       console.log 'register',arguments

@@ -2,6 +2,7 @@
 
 
 @handler = ($,data)->
+  data.password = unescape data.password
   try
     obj = yield $.register.login $.user,$.session,data
     $.cookie.set 'session'
