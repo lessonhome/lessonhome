@@ -8,11 +8,22 @@ class AddPhotos
   Dom : =>
     @input = @found.input
     @photo = @found.photo
+    @preloader = @found.preloader
   show : =>
+    once_click = true
+    @input.blur -> once_click = true
+    @input.click =>
+      if once_click and !@input.is ':disabled'
+        once_click = false
+        return true
+      return false
     @input.fileupload
       dataType : 'json'
       done : @done.out
       progressall : @progressall.out
+      change : (e) =>
+        @input = jQuery(e.target)
+        @disable_loader()
     @found.remove_photo.click @remove_photo.out
   remove_photo : =>
     return unless @found.photos.find('>.photo').length
@@ -23,6 +34,7 @@ class AddPhotos
       @setPhoto data.url,data.width,data.height
     .error (err)=>
       console.error err
+
   done : (e,data)=>
     @log e,data
     $.getJSON('/uploaded/image', {avatar: 'true'})
@@ -31,9 +43,16 @@ class AddPhotos
       @setPhoto data.url,data.width,data.height
     .error (err)=>
       console.error err
+      @enable_loader()
     #d = yield Feel.json '/uploaded', data
     #@log d
-    @resetInput()
+  #  @resetInput()
+  disable_loader : =>
+    @input.prop "disabled", true
+    @preloader.show()
+  enable_loader : =>
+    @preloader.hide()
+    @input.prop "disabled", false
   resetInput : =>
     @dom.find('input').remove()
     @found.input_wrap.append @input=$('<input accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="" class="input" />')
@@ -52,9 +71,10 @@ class AddPhotos
       #progress : @progressone.out
       #start : @start.out
       start: @start
-    @input.on 'change', @start
   start : (e,data)=>
-    console.log 'start'
+    @input.css {
+      opacity: 0.5
+    }
   progressall : (e,data)=>
     Feel.pbar.start()
     Feel.pbar.set data.loaded*0.5/data.total
@@ -85,15 +105,14 @@ class AddPhotos
         if url
           @found.photos.css {width : w,height:h}
           img.show()
-          img.animate({opacity:1},500)
+          img.animate {opacity:1}, 500, @enable_loader
         else
           @found.photos.css {width:w,height:@found.unknown.height()}
           @found.unknown.show()
-          @found.unknown.animate {opacity:1},500
+          @found.unknown.animate {opacity:1}, 500, @enable_loader
       ,500
     if url
       img = $ "<div class='block photo'><img src='#{url}' width='100%' /></div>"
-      img.hide()
       img.css 'opacity',0
       img.appendTo @found.photos
       img.find('img').on 'load',thenf

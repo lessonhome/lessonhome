@@ -6,7 +6,6 @@
 -   style = "";//"height:"+w*photo.hheight/photo.hwidth+"px"
 - }
 
-
 .js-container(min=min)
   .js-back
     .js-photos(style=style)
@@ -18,11 +17,19 @@
       else
         .block.js-unknown
           .img
-    
   .js-front
     .js-remove_photo
     .js-load_text Загрузить фотографию
     .js-input_wrap
       input.js-input(accept="image/*" type="file" name="files[]" data-url="/upload/image" title="загрузите фото" multiple="")
-
+  .js-preloader
+    .center_loader
+      .preloader-wrapper.active
+        .spinner-layer.spinner-green-only
+          .circle-clipper.left
+            .circle
+          .gap-patch
+            .circle
+          .circle-clipper.right
+            .circle
 
