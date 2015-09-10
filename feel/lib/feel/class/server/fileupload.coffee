@@ -14,13 +14,15 @@ class FileUpload
   init : =>
     @app = _express()
     _upload.configure
+      tmpDir: process.cwd()+"/.cache/"
       uploadDir: process.cwd()+"/#{@dir}/temp"
       uploadUrl: '/upload/image'
       maxPostSize: 1024*1024*200
       minFileSize: 1
       maxFileSize: 1024*1024*20
-      acceptFileTypes: /.+/i
-      imageTypes: /\.(gif|jpe?g|png)$/i
+      acceptFileTypes: /(gif|jpe?g|png|pdf|doc|docx|bmp)/i
+      imageArgs: ['-auto-orient']
+      imageTypes: /\.(gif|jpe?g|png|bmp)$/i
     _upload.on 'begin',@onBegin
     _upload.on 'abort',@onAbort
     _upload.on 'end',@onEnd
