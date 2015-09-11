@@ -54,6 +54,47 @@ main
       color: #717171
       &:hover
         color: $red_dark
+.advanced_filter
+  .tags
+    +inline-block
+    width : 100%
+    float : left
+    padding : 10px
+    +box-sizing(border-box)
+    .tag
+      opacity : 0.6
+      text-align : left
+      position : relative
+      float : left
+      +inline-block
+      display : none
+      line-height : 19px
+      font-size : 14px
+      margin : 3px
+      background-color: #dbdbdb
+      border: 1px solid rgba(0, 0, 0, 0.1)
+      cursor: pointer
+      padding : 2px 20px 3px 4px
+      +box-sizing(border-box)
+      border-radius : 4px
+      .close
+        position : absolute
+        right : 4px
+        top : 0
+        width : 12px
+        height : 12px
+        top : 12.8px
+        +transform(translateY(-50%))
+        background: 3px 3px url(F("close_time.png")) no-repeat
+        background-color: #EEE
+    .tag:hover
+      border: 1px solid rgba(0, 0, 0, 0.4)
+      background-color: #ebebeb
+      .close
+        background-color: #FFF
+        
+  .filter
+    +inline-block
 .result_filter
   margin-left: $width_filter
   padding-left: 18px

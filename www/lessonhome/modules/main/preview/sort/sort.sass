@@ -29,11 +29,12 @@ main
 main.fixed
   border: 1px solid $border_gray
   color: $gray_dark
-  background-color: $gray_verylight
-  +material_shadow(3)
+  //background-color: $gray_verylight
+  +material_shadow(2)
 .sort_block
   height: 100%
   +inline-block
+  width : 100%
   //margin-top: -$padding_top_hover
   text-align: left
   //font-size: $height_font
@@ -44,51 +45,70 @@ main.fixed
     font-size: 14px
     line-height: 24px
     color: #000000
+  .count
+    +inline-block
+    line-height : 48px
+    float : left
+    font-size : 12px
+    color: #797979
+    padding : 0 10px
   .section
-    padding: 0 18px 0 6px
+    float  : right
+    height : 100%
     +inline-block
     cursor: pointer
     .box
-      height: 36px
-      padding: 0 6px 0 12px
+      height: 48px
+      padding: 0 6px 0 10px
       box-sizing: border-box
       //padding: $padding_top_hover $padding_left_hover
-      .icon
-        width: $icon_width
-        height: $icon_height
-        margin: 0 0 0 7px
+      .icon,.title
+        color: #9bf
+        text-decoration: underline
+        font-size: 12px
+        line-height: 48px
+        //width: $icon_width
+        height: 100%
+        //margin: 0 0 0 7px
         //-margin-top: ($height_font - $icon_height)/2
         +inline-block
+        //opacity : 0
+        //background: url(F($triangle_src)) no-repeat
+      .icon
         opacity : 0
-        background: url(F($triangle_src)) no-repeat
-      .title
-        +inline-block
-        //vertical-align: top
-        color: #202020
-        font-size: 14px
-        line-height: 24px
+        padding : 0 4px
     .box:after
       content: ''
       +inline-block
       height: 100%
   .section.active
-    padding: 0 17px 0 5px
     .box
+      .icon,.title
+        color: #3399FF
+        text-decoration: none
       .icon
         opacity : 1
-      border: 1px solid #b7b7b7
-      +border-radius(4px)
   .section.hidden
     display : none
-  .section.up
-    .box
-      .icon
-        background: url(F($triangle_up_src)) no-repeat
+  .section .box
+    .icon.up
+      display : none
+    .icon.down
+      display : inline-block
+  .section.up .box
+    .icon.up
+      display : inline-block
+    .icon.down
+      display : none
+
   .section:hover
     .box
-      border-radius: 4px
-      background-color: rgb(235, 235, 235)
-      color:  #c4675e
+      .icon,.title
+        color: #3399FF
+        text-decoration: none
+      //border-radius: 4px
+      //background-color: rgb(235, 235, 235)
+      //color:  #c4675e
 
   .show_list, .show_grid
     +inline-block
