@@ -371,7 +371,7 @@ class RouteState
       @site.moduleJsTag('lib/jade')+
       @site.moduleJsTag('lib/lodash')+
       @site.moduleJsTag('lib/object_hash')+
-      @site.moduleJsTag('lib/materialize')+
+      #@site.moduleJsTag('lib/materialize')+
       '
       <script id="feel-js-client">
       "use strict";
@@ -516,7 +516,9 @@ class RouteState
         html = ""
         if ret[key]._html?
           idn = ret[key]._name.replace /\//g, '-'
-          ret[key] = ret[key]._html.replace "m-#{idn}", "m-#{idn}\" uniq=\"#{uniq}:#{ret[key]._uniq}\" class=\"m-#{uniq}-#{idn}"
+          save_ = ret[key]._html.replace "m-#{idn}", "m-#{idn}\" uniq=\"#{uniq}:#{ret[key]._uniq}\" class=\"m-#{uniq}-#{idn}"
+          save_[k_] = v_ for k_,v_ of ret[key]
+          ret[key] = save_
     return ret
   redirect : (req,res,val)=> do Q.async =>
     if @site.state[val]?

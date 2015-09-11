@@ -70,6 +70,12 @@ class @main extends EE
         title = section.find(">.title")
         title.click => @change_visibility section
 
+  activate : (section,state)=>
+    d = @dom.find '.section .'+section+' .choose'
+    if state
+      d.addClass 'active'
+    else
+      d.removeClass 'active'
 
   change_background : (element)=>
     if element.is '.background'

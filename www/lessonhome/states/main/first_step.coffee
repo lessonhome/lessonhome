@@ -5,7 +5,7 @@ class @main extends @template './motivation_content'
   model   : 'main/first_step'
   title : "Быстро подберем Вам лучшего репетитора"
   forms : ['pupil']
-  tags  : -> 'pupil:main_search'
+  #tags  : -> 'pupil:main_search'
   access : ['other','pupil']
   redirect : {
     tutor : 'tutor/profile'

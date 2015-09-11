@@ -46,9 +46,6 @@ class @main extends @template '../main'
       #    selector  : 'padding_1px_small'
       #    close     : true
 
-      issue_bid_button : @module 'tutor/button' :
-        selector  : 'add_button_bid'
-        text      : 'Оформить заявку'
 
       tutors : $form : tutors : 'tutor'
       tutor_test :

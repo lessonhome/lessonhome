@@ -40,14 +40,15 @@ cnum = 0
     words = {}
 
     nwords = []
-    ###
-    nwords = p.about.split /[\s\.;,]/ if p?.about
+    #nwords = p.about.split /[\s\.;,]/ if p?.about
+    #nwords.push p.location?.area ? ''
+    #nwords.push p.location?.metro ? ''
+    #nwords.push p.location?.street ? ''
     for w in nwords
       w = w.replace /^\s+/,''
       w = w.replace /\s+$/,''
       if w.length >= 4
         words[w] = true
-    ###
     for s in ss
       words[s] = true
     ss = Object.keys(words)
