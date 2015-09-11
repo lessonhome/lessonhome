@@ -178,6 +178,7 @@ class @main extends EE
       @advanced_filter.activate 'subject',true
     else
       @advanced_filter.activate 'subject',false
+     
   show : =>
     @advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll',=>

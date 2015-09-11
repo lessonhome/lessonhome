@@ -1,55 +1,36 @@
 @import compass/css3
-
-=block()
-  position : relative
-  +box-sizing(border-box)
-  +inline-block
-  vertical-align : baseline
-  float : left
-  width : 100%
-
 main
   position : relative
   +inline-block
   height: 100%
 .photo1
   float: left
-  margin-right: 15px
-  margin-bottom: 15px
+  margin : 5px 0
   div
-    padding-right: 5px
+    height : 100%
+    position : relative
+    margin : 0 5px
     display: inline-block
     img
+      height : 100%
       position: relative
-      z-index: 10000
     .remove
       +transition(all 200ms ease-out)
-      z-index : 10001
-      +block
-      overflow : hidden
+      z-index : 1
       position : absolute
       top : 0
-      left : 0
-      width : 100%
-      cursor : pointer
-      z-index : 10004
-      left : auto
-      right : 0
-      top : 0
+      right : 0px
+      width : 20px
+      height: 20px
+      cursor: pointer
       background : rgba(0,0,0,0.8)
       background-image : url("/file/e567ec3e40/calendar_delete_sign.png")
       background-size : 8px
       background-position : 6px
       background-repeat : no-repeat
       opacity : 0
-      width : 20px
-      height : 20px
       border-radius : 2px
 .photo1 div:hover
   +box-shadow(0px 5px 12px rgba(0,0,0,0.4))
-  //+transform(scale(0.999))// translate(1px,1px))
   .remove
-    background : rgba(0,0,0,0.01)
-    color : rgba(255,255,255,0.9)
-    bottom : 0px
     opacity : 0.7
