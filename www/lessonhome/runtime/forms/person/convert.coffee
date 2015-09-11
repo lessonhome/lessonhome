@@ -43,13 +43,39 @@ class @F2V
       else
         data.uploaded
   $uploaded : (data) ->
-    photos = []
-    if data.photos?
-      for photo in data.photos
-        photos.push data.uploaded[photo]
-      photos.reverse()
-    else
-      photos
+    W = 738
+    HMIN = 200
+    d = 5
+    layers = []
+    layer = undefined
+    a = 0
+    n = 0
+    for photo in data?.photos ? []
+      p = data.uploaded?[photo]
+      continue unless p
+      unless layer
+        a = 0
+        layer = {
+          photos : []
+        }
+      na = a + p.width/p.height
+      nn = n+1
+      nh = (W-nn*2*d)/na
+      if (nh>HMIN) || (nn<=1)
+        layer.photos.push p
+        layer.height = nh
+        n = nn
+        a = na
+      else
+        layers.push layer
+        a = (p.width/p.height)
+        n = 1
+        layer = {
+          height : (W-2*d)/a
+          photos : [p]
+        }
+    layers.push layer if layer
+    return layers
   $avatars      : (data)-> data?.ava
   $email_first  : (data)-> data?.email?[0]
   $interests0_description : (data)-> data?.interests?[0]?.description
