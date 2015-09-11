@@ -593,7 +593,9 @@ global._objRelativeKey = (obj,key,foo,part="")=>
       npart += '.' if npart
       npart += k
       _objRelativeKey v,key,foo,npart
-
+global._declOfNum = (number, titles)->
+  cases = [2, 0, 1, 1, 1, 2]
+  return titles[ if (number%100>4 && number%100<20) then 2 else cases[ if(number%10<5) then number%10 else 5 ]]
 
 
 

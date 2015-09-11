@@ -7,6 +7,7 @@ Feel = undefined
 
 class @Feel
   constructor : ->
+    @_popupAdd = {}
     Feel = @
     window.Feel  = @
     @production = true if (window.location.hostname ? '').match /lessonhome\.ru/
@@ -49,7 +50,6 @@ class @Feel
     
     setTimeout @checkUnknown,200
 
-    @_popupAdd = {}
     $(document).on 'mousedown.popupAdd', @popupAddDown
     #$(document).on 'mouseleave.popupAdd', @popupAddLeave
     if $.cookie()?.tutor
