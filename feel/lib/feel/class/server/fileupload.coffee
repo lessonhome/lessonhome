@@ -134,9 +134,10 @@ class FileUpload
           }
         )
         accountsDb = yield db.get 'accounts'
-        persons =  yield _invoke personsDb.find({account:req.user.id}), 'toArray'
-        user_photos = persons[0].photos
-        user_uploads = persons[0].uploaded
+        persons =  yield _invoke personsDb.find({account:req?.user?.id}), 'toArray'
+        person = persons[0] ? {}
+        user_photos = person.photos ? []
+        user_uploads = person.uploaded
 
         if !user_photos?
           user_photos = [o.hash]

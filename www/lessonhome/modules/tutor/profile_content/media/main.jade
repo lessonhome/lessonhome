@@ -1,18 +1,9 @@
-//
-  .photo1!=photo1
-  .photo2!=photo2
-  .video!=video
 
-.js-container(min=min)
-  .js-back
-    .js-photos(style=style)
-      .block.js-unknown
-        .img
-  .js-front
-    .js-input_wrap
-      input.js-input(accept="image/*" type="file" name="files[]" data-url="/upload/image" title="загрузите фото" multiple="")
-
-for photo in photos
-  .photo1
-    img(id=photo.hash src=photo.url width='100%' height='100%')
+each layer in photos
+  if layer && layer.height && layer.photos && layer.photos[0]
+    .photo1(style="height:#{layer.height}px;")
+      each photo in layer.photos
+        div(id='wrapper-#{photo.hash}')
+          .remove
+          img.big(id=photo.hash src=photo.url)
 

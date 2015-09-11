@@ -20,6 +20,7 @@
   'about'
   'site'
   'social_networks'
+  'photos'
 ]
 @accounts = [
   'login'

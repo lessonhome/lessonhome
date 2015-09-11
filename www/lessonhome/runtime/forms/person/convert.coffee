@@ -43,12 +43,47 @@ class @F2V
       else
         data.uploaded
   $uploaded : (data) ->
+    W = 738
+    HMIN = 150
+    HMAX = 350
+    d = 5
+    layers = []
+    layer = undefined
+    a = 0
+    n = 0
     photos = []
-    for hash, file of data.uploaded
-      if file.type == 'image'
-        if !hash.match(/low|high/)
-          photos.push file
+    for p in data?.photos ? []
+      photos.push data.uploaded?[p]
     photos.reverse()
+    for p in photos
+      continue unless p
+      unless layer
+        a = 0
+        layer = {
+          photos : []
+        }
+      na = a + p.width/p.height
+      nn = n+1
+      nh = (W-nn*2*d)/na
+      if (nh>HMIN) || (nn<=1)
+        layer.photos.push p
+        if nh > HMAX
+          nh = HMAX
+        layer.height = nh
+        n = nn
+        a = na
+      else
+        layers.push layer
+        a = (p.width/p.height)
+        n = 1
+        layer = {
+          height : (W-2*d)/a
+          photos : [p]
+        }
+        if layer.height > HMAX
+          layer.height = HMAX
+    layers.push layer if layer
+    return layers
   $avatars      : (data)-> data?.ava
   $email_first  : (data)-> data?.email?[0]
   $interests0_description : (data)-> data?.interests?[0]?.description
