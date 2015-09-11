@@ -6,9 +6,11 @@ class AddPhotos
   constructor : ->
     Wrap @
   Dom : =>
+    @front = @found.front
+    @preloader = @found.preloader
     @input = @found.input
     @photo = @found.photo
-    @preloader = @found.preloader
+    @photos = @found.photos
   show : =>
     once_click = true
     @input.blur -> once_click = true
@@ -27,6 +29,7 @@ class AddPhotos
     @found.remove_photo.click @remove_photo.out
   remove_photo : =>
     return unless @found.photos.find('>.photo').length
+    @disable_loader()
     yield @$send 'removeAva'
     $.getJSON('/uploaded/image')
     .success (data)=>
@@ -34,7 +37,6 @@ class AddPhotos
       @setPhoto data.url,data.width,data.height
     .error (err)=>
       console.error err
-
   done : (e,data)=>
     @log e,data
     $.getJSON('/uploaded/image', {avatar: 'true'})
@@ -50,8 +52,10 @@ class AddPhotos
   disable_loader : =>
     @input.prop "disabled", true
     @preloader.show()
+    @front.hide()
   enable_loader : =>
     @preloader.hide()
+    @front.show()
     @input.prop "disabled", false
   resetInput : =>
     @dom.find('input').remove()
@@ -88,11 +92,11 @@ class AddPhotos
     a = h/w
     w = @dom.width()
     h = w*a
-    dh = @dom.height()
+    #dh = @dom.height()
     #if h > dh
     #  h = dh
     #  w = dh/a
-    whide = @found.photos.find '.block'
+    whide = @photos.find '.block'
     Feel.pbar.set()
     thenf = =>
       Feel.pbar.set()
@@ -103,18 +107,19 @@ class AddPhotos
         whide.filter('.photo').remove()
         whide.filter('.unknown').hide()
         if url
-          @found.photos.css {width : w,height:h}
-          img.show()
-          img.animate {opacity:1}, 500, @enable_loader
+          @photos.css {width : w,height:h}
+          img.show 0, =>
+            img.animate {opacity:1}, 500, @enable_loader
         else
-          @found.photos.css {width:w,height:@found.unknown.height()}
-          @found.unknown.show()
-          @found.unknown.animate {opacity:1}, 500, @enable_loader
+          @photos.css {width:w,height:@found.unknown.height()}
+          @found.unknown.show 0, =>
+            @found.unknown.animate {opacity:1}, 500, @enable_loader
       ,500
     if url
       img = $ "<div class='block photo'><img src='#{url}' width='100%' /></div>"
+      .hide()
       img.css 'opacity',0
-      img.appendTo @found.photos
+      img.appendTo @photos
       img.find('img').on 'load',thenf
     else
       thenf()
