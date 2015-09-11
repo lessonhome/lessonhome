@@ -39,6 +39,15 @@ class @main extends EE
       @emit 'change'
     @setValue()
     @scroll()
+  setNumber : (num)=>
+    str = ''
+    unless num
+      str = 'Не найден ни один репетитор.'
+    else
+      str += _declOfNum num,["Найден #{num} репетитор:","Найдено #{num} репетитора:","Найдено #{num} репетиторов:"]
+    @found.count.text str
+    @found.count.show()
+
   scroll : =>
     unless @fixed
       l = @dom.offset().top-$(window).scrollTop()

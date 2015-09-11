@@ -32,12 +32,15 @@ class @main
         Feel.go @link_more.attr 'href' if ok
 
     # click outside popup element
-    @dom.find('>.background').on 'click',  @check_place_click
+    if @found.href_back?
+      @found.href_back?.attr? 'href', Feel.getBack @tree.href_back
+      console.log @found.href_back
+    @dom.find('>.background').on 'click', @check_place_click
 
 
   check_place_click :(e) =>
     if (!@address_box.is(e.target) && @address_box.has(e.target).length == 0)
-      Feel.go '/tutor/profile/second_step'
+      Feel.goBack  @tree.href_back
 
 
   save : => Q().then =>

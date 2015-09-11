@@ -1,8 +1,10 @@
 
 
 class @main
-  forms : [{person:['country','city','phone','phone2','skype','email','site']}]
+  forms : [{person:['country','city','phone','phone2','skype','email','site','addressPost','addressNeed']}]
   tree : => @module '$' :
+    addressNeed : $form : person : 'addressNeed'
+    addressPost : $form : person : 'addressPost'
     country : @module 'tutor/forms/drop_down_list' :
       smart : true
       self : true

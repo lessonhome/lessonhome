@@ -553,7 +553,10 @@ global._objToUrlString = (obj)=>
     ret2 += "&" if ret2
     ret2 += "#{a[0]}=#{a[1]}"
   return ret2
-  
+
+global._declOfNum = (number, titles)->
+  cases = [2, 0, 1, 1, 1, 2]
+  return titles[ if (number%100>4 && number%100<20) then 2 else cases[ if(number%10<5) then number%10 else 5 ]]
 
 global._setKey = (obj,key,val,force=false)=>
   key = key.split '.' if typeof key == 'string'
