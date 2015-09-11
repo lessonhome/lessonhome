@@ -40,6 +40,8 @@ class @main extends EE
     @count  = 10
     @now ?= []
     indexes = yield Feel.dataM.getTutors @from,@count
+    num = indexes.length
+    @sort.setNumber num
     yield Q.delay(10)
     indexes = indexes.slice @from,@from+@count
     preps   = yield Feel.dataM.getTutor indexes
@@ -147,6 +149,35 @@ class @main extends EE
       return @filterChange()
     @fchange = 0
   ###
+  setFiltered : => do Q.async =>
+    set_ = (n,t,name=n,val=[])=>
+      unless t
+        @found['t'+n].parent().off()
+        return @found['t'+n].parent().hide()
+      @found['t'+n].parent().click =>
+        o = {}
+        o[name]=val
+        Feel.urlData.set('mainFilter',o).done()
+      @found['t'+n].text(t)
+      @found['t'+n].parent().show()
+    mf = yield Feel.urlData.get 'mainFilter'
+    console.log mf
+    if mf.subject.length
+      set_ 'subject','Предмет: '+mf.subject.join ', '
+      subject = true
+    else
+      subject = false
+      set_ 'subject'
+    if mf.course.length
+      set_ 'course','Направление: '+mf.course.join ', '
+      course = true
+    else
+      course = false
+      set_ 'course'
+    if subject || course
+      @advanced_filter.activate 'subject',true
+    else
+      @advanced_filter.activate 'subject',false
   show : =>
     @advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll',=>
@@ -161,6 +192,7 @@ class @main extends EE
       #@tnum = 4
       #@reshow().done()
     Feel.urlData.on 'change',=> Q.spawn =>
+      @setFiltered().done()
       @hashnow ?= 'null'
       hashnow = yield Feel.urlData.filterHash()
       return if @hashnow == hashnow
