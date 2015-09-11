@@ -24,7 +24,7 @@ class MasterProcess extends EE
     @conf.processId  = @id
     @name = @conf.name
     Wrap @
-    setInterval @restart,(1000*60)*(60+Math.random()*20)
+    #setInterval @restart,(1000*60)*(60+Math.random()*20)
     @conf.exec  = "feel/lib/feel/process/slaveProcessFork.js"
     @runnig     = false
     @starting   = false

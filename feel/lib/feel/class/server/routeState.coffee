@@ -327,13 +327,14 @@ class RouteState
         _setKey uform.node,path,uform.fkf.default,true
     @time 'forms set'
     @parse @top,null,@top,@top,@,'top'
-    if @site.modules['default'].allCss && !@modules['default']?
+    if @site.modules['default'].allCss && !@modules['default']? && (!@state.page_tags['skip:default'])
       @cssModule 'default'
     for modname of @modules
-      if @site.modules[modname].allCss
+      if @site.modules[modname].allCss && (!@state.page_tags['skip:'+modname])
         @cssModule modname
     for modname,val of @modulesExt
-      @cssModuleExt modname,val
+      if @site.modules[modname].allCss && (!@state.page_tags['skip:'+modname])
+        @cssModuleExt modname,val
       for key of val
         @modules[key] = true
     #for modname of @modules
@@ -363,15 +364,17 @@ class RouteState
       "<script>
       'use strict';
       window.StopIteration = undefined;</script>
-      <script type='text/javascript' src='/jsclient/#{Feel.clientRegeneratorHash}/regenerator'></script>"+
-      @site.moduleJsTag('lib/jquery')+
-      @site.moduleJsTag('lib/jquery/plugins')+
-      @site.moduleJsTag('lib/q')+
-      @site.moduleJsTag('lib/event_emitter')+
-      @site.moduleJsTag('lib/jade')+
-      @site.moduleJsTag('lib/lodash')+
-      @site.moduleJsTag('lib/object_hash')+
+      <script type='text/javascript' src='/jsclient/#{Feel.clientRegeneratorHash}/regenerator'></script>"
+    end+=
+      @addModuleJs('lib/jquery')+
+      @addModuleJs('lib/jquery/plugins')+
+      @addModuleJs('lib/q')+
+      @addModuleJs('lib/event_emitter')+
+      @addModuleJs('lib/jade')+
+      @addModuleJs('lib/lodash')+
+      @addModuleJs('lib/object_hash')
       #@site.moduleJsTag('lib/materialize')+
+    end +=
       '
       <script id="feel-js-client">
       "use strict";
@@ -395,6 +398,7 @@ class RouteState
       '+@jsModules+'</script>'
     end += @site.urldataFilesStr
     for modname of @modules
+      continue if @state.page_tags['skip:'+modname]
       if @site.modules[modname]?.allCoffee
         end += "<script>window._FEEL_that = $Feel.modules['#{modname}'] = {};</script>"
         names =  @site.modules[modname].jsNames()
@@ -432,6 +436,11 @@ class RouteState
       @res.end resdata
       @time 'zlib'
       console.log process.pid+":state #{@statename}",@res.statusCode||200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
+  addModuleJs : (name)=>
+    unless @state.page_tags['skip:'+name]
+      return @site.moduleJsTag(name)
+    else
+      return ""
   removeHtml : (node)=>
     if node.req?
       delete node.req
