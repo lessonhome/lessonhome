@@ -44,14 +44,18 @@ class @F2V
         data.uploaded
   $uploaded : (data) ->
     W = 738
-    HMIN = 200
+    HMIN = 150
+    HMAX = 350
     d = 5
     layers = []
     layer = undefined
     a = 0
     n = 0
-    for photo in data?.photos ? []
-      p = data.uploaded?[photo]
+    photos = []
+    for p in data?.photos ? []
+      photos.push data.uploaded?[p]
+    photos.reverse()
+    for p in photos
       continue unless p
       unless layer
         a = 0
@@ -63,6 +67,8 @@ class @F2V
       nh = (W-nn*2*d)/na
       if (nh>HMIN) || (nn<=1)
         layer.photos.push p
+        if nh > HMAX
+          nh = HMAX
         layer.height = nh
         n = nn
         a = na
@@ -74,6 +80,8 @@ class @F2V
           height : (W-2*d)/a
           photos : [p]
         }
+        if layer.height > HMAX
+          layer.height = HMAX
     layers.push layer if layer
     return layers
   $avatars      : (data)-> data?.ava

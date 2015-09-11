@@ -1,13 +1,23 @@
-//
-  .photo1!=photo1
-  .photo2!=photo2
-  .video!=video
-
+- var style = "";
+- var w = 315;
+- if (min)w = 200;
+- if (photo)
+- {
+-   style = "";//"height:"+w*photo.hheight/photo.hwidth+"px"
+- }
 .js-container(min=min)
   .js-back
     .js-photos(style=style)
-      .block.js-unknown
-        .img
+      if photo
+        .block.photo
+          img(src=photo.url width="100%")
+        .block.js-unknown(style="display:none")
+          .img
+      else
+        .block.js-unknown
+          .img
   .js-front
+    .js-remove_photo
+    .js-load_text Загрузить фотографию
     .js-input_wrap
       input.js-input(accept="image/*" type="file" name="files[]" data-url="/upload/image" title="загрузите фото" multiple="")
