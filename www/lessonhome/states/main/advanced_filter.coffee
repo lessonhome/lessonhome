@@ -106,12 +106,12 @@ class @main
       measurement   : 'руб.'
       division_value : 50
     time_spend_way   : @state './slider_main' :
-      selector      : 'advanced_filter_price'
+      selector      : 'time_spend_way'
       right : $urlform : mainFilter : 'time_spend_way'
       min : 30
       max : 120
       type : 'right'
-      dash          : 'до'
+      dash          : 'Время на дорогу до'
       measurement   : 'мин.'
       division_value : 10
     choose_gender   : @state 'gender_data':
@@ -124,6 +124,10 @@ class @main
       selector  : 'small'
       value     : $urlform : mainFilter : 'with_reviews'
     with_verification : @module 'tutor/forms/checkbox'  :
-      text      : 'только проверенные<br/>профили'
+      text      : 'только проверенные'
       selector  : 'small'
       value     : $urlform : mainFilter : 'with_verification'
+    this_photo : @module 'tutor/forms/checkbox'  :
+      text      : 'только c фото'
+      selector  : 'small'
+      #value     : $urlform : mainFilter : 'with_verification'

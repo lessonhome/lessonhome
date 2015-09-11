@@ -8,7 +8,6 @@ class Data
     @flushs = {}
   init : =>
     @db = yield Main.service 'db'
-    
       
   get : (fname,find,fields)=>
     fhash= yield @findtohash find

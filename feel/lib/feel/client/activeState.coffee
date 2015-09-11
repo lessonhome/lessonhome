@@ -120,16 +120,22 @@ class @activeState
                   cl.__w8change2 = 1
                   cl.__ulock = true
                   v = {value:yield cl.getValue()}
+                  #unless v?.value? && (typeof v?.value == 'object') && !v.value?.length?
+                  #  v = {value:undefined}
                   nv = {}
                   v2 = {}
                   for part,form of cl.tree.$urlforms
-                    _setKey nv,"value."+part,(yield Feel.urlData.get(form.form,form.key))
-                    _setKey v2,"value."+part,(_setKey(v,"value."+part))
+                    kk = 'value'
+                    kk += '.'+part if part
+                    _setKey nv,kk,(yield Feel.urlData.get(form.form,form.key))
+                    _setKey v2,kk,(_setKey(v,"value."+part))
                   if JSON.stringify(v2) != JSON.stringify(nv)
                     if nv.value && (typeof nv.value == 'object')
-                      for key,val of nv.value
-                        _setKey v.value,key, val
-                    cl.setValue _setKey(v,'value')
+                      unless nv?.value? && (typeof nv?.value == 'object') && !nv.value?.length?
+                        v.value = nv.value
+                      else for key,val of nv.value
+                        _setKey v.value,key,val
+                    cl.setValue nv.value
                   cl.__w8change2 = 0
                   cl.__ulock = false
                   cl.emit 'w8change2'
