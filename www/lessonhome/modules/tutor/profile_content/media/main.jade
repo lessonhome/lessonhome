@@ -7,7 +7,7 @@ for layer in photos
   .photo1(style="height:#{layer.height}px;")
     for photo in layer.photos
       div(id='wrapper-#{photo.hash}' style="height:#{layer.height}px;")
-        img.remove(src=photo.url style='width:20px; height: 20px')
+        .remove(src=photo.url style='width:20px; height: 20px')
         img(id=photo.hash src=photo.url height='100%')
 
 //
