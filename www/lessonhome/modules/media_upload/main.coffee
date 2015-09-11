@@ -1,7 +1,7 @@
 
 
 
-###
+
 class AddPhotos
   constructor : ->
     Wrap @
@@ -34,4 +34,3 @@ class AddPhotos
     .error (err)=>
       console.error err
 @main = AddPhotos
-###

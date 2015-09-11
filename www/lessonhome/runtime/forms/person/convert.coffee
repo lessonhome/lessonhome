@@ -44,11 +44,12 @@ class @F2V
         data.uploaded
   $uploaded : (data) ->
     photos = []
-    for hash, file of data.uploaded
-      if file.type == 'image'
-        if !hash.match(/low|high/)
-          photos.push file
-    photos.reverse()
+    if data.photos?
+      for photo in data.photos
+        photos.push data.uploaded[photo]
+      photos.reverse()
+    else
+      photos
   $avatars      : (data)-> data?.ava
   $email_first  : (data)-> data?.email?[0]
   $interests0_description : (data)-> data?.interests?[0]?.description

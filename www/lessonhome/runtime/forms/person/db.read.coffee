@@ -23,6 +23,7 @@ class DbRead
     for db,o of obj
       if db == 'uploaded'
         data.uploaded = o
+        console.log o
       else
         for key,val of o
           fname = $.form.toFName(db,key)

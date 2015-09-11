@@ -80,6 +80,7 @@ class @main
     line_med            : @module 'tutor/separate_line':
       title    : 'Медиа'
       link      : '#'
+      upload_input : @module 'media_upload'
       add     : @exports()
       selector : 'horizon'
     #media               : @module '$/media' :

@@ -12,7 +12,11 @@ if title
 if edit
   .value
     a(href=link) ред.
-if add
+
+if upload_input
+  .value
+    !=upload_input
+else if add
   .value
     a(href=link) Добавить файл
 div(class=selector)
