@@ -48,6 +48,12 @@ class @F2V
       for photo in data.photos
         photos.push data.uploaded[photo]
       photos.reverse()
+      _photos = [
+        {
+          height: 100
+          photos: photos
+        }
+      ]
     else
       photos
   $avatars      : (data)-> data?.ava
