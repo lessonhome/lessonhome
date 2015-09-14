@@ -17,7 +17,7 @@ link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='styles
   .row
     .col.l5
       h5.header Модерация:
-        a.right#expand_moderation(href='#')
+        a.right.active#expand_moderation(href='#')
           i.small.material-icons.black-text.expand_more expand_more
       .row.teal.lighten-2#moderation_filter_block
         a.dropdown-button.btn-flat.col.l6.center.white-text(href='#', data-activates='dropdown1') Все
@@ -48,7 +48,7 @@ link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='styles
             a(href='#!') По дате (сначала новые)
       .row
         i.grey-text.right 127 в очереди
-      .row
+      .row.js-moderation_table
         table.striped
           //thead
             tr
@@ -73,7 +73,7 @@ link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='styles
               td Лиза
     .col.l5
       h5.header Просьбы клиентов:
-        a.right#expand_ask(href='#')
+        a.right.active#expand_ask(href='#')
           i.small.material-icons.black-text.expand_more expand_more
       .row.teal.lighten-2#ask_filter_block
         a.dropdown-button.btn-flat.col.l5.center.white-text(href='#', data-activates='dropdown3') Все
@@ -99,7 +99,7 @@ link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='styles
             a(href='#!') По дате (сначала новые)
       .row
         i.grey-text.right 17 в очереди
-      .row.ask_table
+      .row.js-ask_table
         table.striped
           //thead
             tr
