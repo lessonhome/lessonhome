@@ -5,7 +5,7 @@ class @PBar
   constructor : ->
     Wrap @
     @p = 0
-    @inc  = 0.1
+    @inc  = 0.05
     @tinc = 0.01
     @tt   = 500
     setInterval @timer,@tt
@@ -36,7 +36,9 @@ class @PBar
     ,400
   set  : (x=0.001)=>
     @start() if @p<=0
-    inc = Math.pow(1-@p,1/8)*@inc
+    if @p > 1
+      @p = 1
+    inc = Math.pow(1-@p,2)*@inc
     d = x - @p
     if x < @p
       @p += inc
