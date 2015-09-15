@@ -15,4 +15,4 @@ class @main extends @template '../registration_popup'
     href_button_next      : 'fourth_step'
     close   : true
     content : @module '$' :
-      form : @state 'subject_tutor_test'
+      form : @state 'add_tutor_test'

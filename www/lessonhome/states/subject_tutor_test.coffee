@@ -93,7 +93,6 @@ class @main
         selector  : 'first_reg'
         items : ['JLPT', 'JLPT N1', 'JLPT N2', 'JLPT N3', 'JLPT N4', 'JLPT N5', 'TOPIK', 'TOPIK I', 'TOPIK II', 'HSK', 'HSK Высший', 'HSK Начальный/средний', 'HSK Базовый', 'DELE', 'DELE A', 'DELE B', 'DELE C', 'TOEFL','IELTS', 'FCE', 'TOEIC', 'Business English', 'GMAT', 'GRE', 'SAT', 'DELF', 'DELF A', 'DELF B', 'DALF ', 'DSH', 'TestDaF', 'CILS', 'CILS B1', 'CILS B2', 'CILS C1', 'CILS C2', 'CEPRE-Bras', 'CEPRE-Bras Средний', 'CEPRE-Bras Выше среднейго', 'CEPRE-Bras Продвинутый', 'CEPRE-Bras Выше продвинутого', 'ЕГЭ', 'ОГЭ (ГИА)', 'Разговорный', 'Бизнес', 'С нуля']
         $form : tutor : 'subject.tags.0'
-      tags: ''
     pre_school      : @module 'tutor/forms/checkbox' :
       text      : 'дошкольники'
       selector  : 'small font_16'
@@ -120,6 +119,9 @@ class @main
       $form : tutor : 'isTag.adult'
     place_tutor           : @state 'tutor/full_price' :
       text  : 'у себя'
+      value : {
+        hour : 123
+      }
     place_pupil           : @state 'tutor/full_price' :
       text  : 'у ученика'
     place_remote          : @state 'tutor/full_price' :
