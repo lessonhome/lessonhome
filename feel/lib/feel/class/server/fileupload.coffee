@@ -45,6 +45,7 @@ class FileUpload
     res.statusCode = 404
     return res.end()
   handler : (req,res)=>
+    req.on 'aborted',=> console.log 'aborted'.red,arguments
     @app.handle req,res,@done
     console.log req.body
     #console.log req.set
