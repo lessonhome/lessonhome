@@ -1,5 +1,7 @@
 class @main
   tree : => @module './full_price/hour_price' :
+    hide_price : @exports()
+    is_fill : @exports 'value'
     hour      : @module 'tutor/forms/checkbox' :
       text      : @exports()
       selector  : 'small font_16'
