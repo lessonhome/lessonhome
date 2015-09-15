@@ -249,8 +249,25 @@ class module.exports
   bind_exports : (state,o)=>
     try
       if typeof o == 'object' || typeof o == 'function'
+        ###
         for key,val of o
           continue if key.match /^_/
+        ###
+        for field,arr of state.exports
+          value = _setKey o,field
+          for exp in arr
+            node = exp.node
+            k = exp.key
+            if typeof node[k] == 'object' || typeof node[k]=='function'
+              for a,b of value
+                node[k][a] = b
+            else node[k] = value
+            if node == state.tree
+              if state.parent?.exports?[k]?
+                newo = {}
+                newo[k] = node[k]
+                state.parent.__bind_exports state.parent,newo
+        ###
           if !state.exports[key]?
             console.error "can't find exports name '#{key}' in state #{@name}"
           else
@@ -266,6 +283,7 @@ class module.exports
                   newo = {}
                   newo[k] = node[k]
                   state.parent.__bind_exports state.parent, newo
+        ###
     catch e
       console.error "failed merge tree in state #{@name} with object", o,Exception e
       throw e
