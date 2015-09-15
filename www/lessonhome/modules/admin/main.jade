@@ -3,7 +3,7 @@ link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='styles
 .navbar-fixed
   nav
     .nav-wrapper.teal
-      a.brand-logo(href='/', target='_blank')
+      a.brand-logo.center(href='/', target='_blank')
         img(src='https://lessonhome.ru/file/de6fd69bf0/header/logo.png')
       ul.right.hide-on-med-and-down#nav-mobile
         li
@@ -20,7 +20,7 @@ link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='styles
         a.right#expand_moderation(href='#')
           i.small.material-icons.black-text.expand_more expand_more
       .row.teal.lighten-2#moderation_filter_block
-        a.dropdown-button.btn-flat.col.l6.center.white-text(href='#', data-activates='dropdown1') Все
+        a.dropdown-button.btn-flat.col.l7.center.white-text(href='#', data-activates='dropdown1', data-beloworigin='true') Все
         ul.dropdown-content(id='dropdown1')
           li
             a(href='#!') Все
@@ -32,12 +32,9 @@ link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='styles
             a(href='#!') Изменения профиля
               span.badge 123
           li
-            a(href='#!') Заявки
-              span.badge 8
-          li
             a(href='#!') Отзывы
               span.badge 1254
-        a.dropdown-button.btn-flat.col.l6.center.white-text(href='#', data-activates='dropdown2') По приоритету
+        a.dropdown-button.btn-flat.col.l5.center.white-text(href='#', data-activates='dropdown2', data-beloworigin='true') По приоритету
         ul.dropdown-content(id='dropdown2')
           li
             a(href='#!') По приоритету
@@ -76,7 +73,7 @@ link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='styles
         a.right#expand_ask(href='#')
           i.small.material-icons.black-text.expand_more expand_more
       .row.teal.lighten-2#ask_filter_block
-        a.dropdown-button.btn-flat.col.l5.center.white-text(href='#', data-activates='dropdown3') Все
+        a.dropdown-button.btn-flat.col.l7.center.white-text(href='#', data-activates='dropdown3', data-beloworigin='true') Все
         ul.dropdown-content(id='dropdown3')
           li
             a(href='#!') Все
@@ -84,11 +81,22 @@ link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='styles
           li.divider
           li
             a(href='#!') Вопросы
+              i.tiny.material-icons.black-text.left help
               span.badge 86
           li
             a(href='#!') Заказ звонка
+              i.tiny.material-icons.black-text.left phone
               span.badge 41
-        a.dropdown-button.btn-flat.col.l7.center.white-text(href='#', data-activates='dropdown4') По приоритету
+          li.divider
+          li
+            a(href='#!') Новые заявки
+              i.tiny.material-icons.black-text.left assignment_returned
+              span.badge 12
+          li
+            a(href='#!') Принятые заявки
+              i.tiny.material-icons.black-text.left assignment_turned_in
+              span.badge 72
+        a.dropdown-button.btn-flat.col.l5.center.white-text(href='#', data-activates='dropdown4', data-beloworigin='true') По приоритету
         ul.dropdown-content(id='dropdown4')
           li
             a(href='#!') По приоритету
@@ -167,5 +175,5 @@ link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='styles
                 i.tiny.material-icons insert_chart
               td 13.08.2015
               td Лиза
-    .col.l2.grey.lighten-3
+    .col.l2
       h6.header Ваша активность:
