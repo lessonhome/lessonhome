@@ -1,0 +1,156 @@
+.section#main_section
+  .row#main_row
+    .col.l5
+      h5.header Модерация:
+        a.right.active#expand_moderation(href='#')
+          i.small.material-icons.black-text.expand_more expand_more
+      .row.teal.lighten-2#moderation_filter_block
+        a.dropdown-button.btn-flat.col.l7.center.white-text(href='#', data-activates='dropdown1') Все
+          i.tiny.material-icons.white-text.right arrow_drop_down
+        ul.dropdown-content(id='dropdown1')
+          li
+            a(href='#!') Все
+          li.divider
+          li
+            a(href='#!') Новые регистрации
+              i.tiny.material-icons.green-text.left person_add
+              span.badge 12
+          li
+            a(href='#!') Изменения профиля
+              i.tiny.material-icons.blue-text.left edit
+              span.badge 123
+          li
+            a(href='#!') Отзывы
+              i.tiny.material-icons.yellow-text.left star_rate
+              span.badge 1254
+          li
+            a(href='#!') Вопросы
+              i.tiny.material-icons.amber-text.left help
+              span.badge 86
+        a.dropdown-button.btn-flat.col.l5.center.white-text(href='#', data-activates='dropdown2') По приоритету
+          i.tiny.material-icons.white-text.right arrow_drop_down
+        ul.dropdown-content(id='dropdown2')
+          li
+            a(href='#!') По приоритету
+          li.divider
+          li
+            a(href='#!') По дате (сначала старые)
+          li
+            a(href='#!') По дате (сначала новые)
+      .row
+        i.grey-text.right 127 в очереди
+      .row.js-moderation_table
+        table.striped
+          tbody
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 03.08.2015
+              td Галина Прохоровна
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 08.08.2015
+              td Андрей
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 13.08.2015
+              td Лиза
+    .col.l5
+      h5.header Заявки:
+        a.right.active#expand_ask(href='#')
+          i.small.material-icons.black-text.expand_more expand_more
+      .row.teal.lighten-2#ask_filter_block
+        a.dropdown-button.btn-flat.col.l6.center.white-text(href='#', data-activates='dropdown3') Все
+          i.tiny.material-icons.white-text.right arrow_drop_down
+        ul.dropdown-content(id='dropdown3')
+          li
+            a(href='#!') Все
+              span.badge 127
+          li.divider
+          li
+            a(href='#!') Новые
+              i.tiny.material-icons.black-text.left plus_one
+              span.badge 12
+          li
+            a(href='#!') Принятые
+              i.tiny.material-icons.black-text.left check
+              span.badge 72
+        a.dropdown-button.btn-flat.col.l6.center.white-text(href='#', data-activates='dropdown4') По приоритету
+          i.tiny.material-icons.white-text.right arrow_drop_down
+        ul.dropdown-content(id='dropdown4')
+          li
+            a(href='#!') По приоритету
+          li.divider
+          li
+            a(href='#!') По дате (сначала старые)
+          li
+            a(href='#!') По дате (сначала новые)
+      .row
+        i.grey-text.right 17 в очереди
+      .row.js-ask_table
+        table.striped
+          tbody
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 03.08.2015
+              td Галина Прохоровна
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 08.08.2015
+              td Андрей
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 13.08.2015
+              td Лиза
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 03.08.2015
+              td Галина Прохоровна
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 08.08.2015
+              td Андрей
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 13.08.2015
+              td Лиза
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 03.08.2015
+              td Галина Прохоровна
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 08.08.2015
+              td Андрей
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 13.08.2015
+              td Лиза
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 03.08.2015
+              td Галина Прохоровна
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 08.08.2015
+              td Андрей
+            tr
+              td
+                i.tiny.material-icons insert_chart
+              td 13.08.2015
+              td Лиза
+    .col.l2
+      h6.header Ваша активность:

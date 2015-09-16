@@ -1,6 +1,6 @@
 class @main
   route : '/admin'
-  model   : 'tutor/bids/reports'
+  model : 'tutor/profile_registration/fourth_step'
   title : "LessonHome - Администрирование"
   tags   : [ 'tutor:reports','skip:default']
   access : ['other']
@@ -8,4 +8,6 @@ class @main
   }
   tree : => @module '$' :
     materialize : @module 'lib/materialize'
+    header  : @module "$/header"
+    content : @exports()
 
