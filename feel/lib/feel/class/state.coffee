@@ -395,7 +395,7 @@ class module.exports
   function_data : (s,...,state)=>
     ha = _randomHash 5
     st = new Date().getTime()
-    console.log "data start #{ha}".red
+    ##console.log "data start #{ha}".red
     obj = @site.dataObject s,_path.relative "#{process.cwd()}/#{@site.path.states}/../",@path
     obj.$site   = @site
     obj.$req    = state.req
@@ -405,13 +405,13 @@ class module.exports
     obj.$register= state.req.register
     obj.$cookie = state.req.cookie
     obj.$status = state.req.status
-    console.log (""+((new Date().getTime())-st)).yellow
+    ##console.log (""+((new Date().getTime())-st)).yellow
     if (obj.get?) && (typeof obj.get == 'function')
-      console.log obj.get
+      ##console.log obj.get
       get_ = obj.get
       obj.get = (args...)=>
         get_.apply(obj,args).then (a)=>
-          console.log "data stop #{ha}".red+(""+((new Date().getTime())-st)).yellow
+          #console.log "data stop #{ha}".red+(""+((new Date().getTime())-st)).yellow
           return a
 
     return obj

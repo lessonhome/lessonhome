@@ -43,7 +43,6 @@ class @F2V
       tags = nt
     for key,val of tags
       ret[key] = if val then true else false
-    console.log 'isTag',ret
     return ret
     #ret = {}
     #tags = (yield @$subject(data))?.tags || []
