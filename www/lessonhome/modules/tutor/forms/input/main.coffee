@@ -148,6 +148,11 @@ class @main extends EE
     f()
   onEnd     : (val)=>
     #console.log 'end',val
+  saveValue : =>
+    if (value = @getValue()) isnt ''
+      @input.attr 'data-value', value
+  getSaved : =>
+    @input.attr 'data-value'
   onInput   : =>
     @replaceInput()
     setTimeout @checkChange,0

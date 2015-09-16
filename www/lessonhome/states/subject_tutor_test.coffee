@@ -120,16 +120,14 @@ class @main
     place_tutor           : @state 'tutor/full_price' :
       text  : 'у себя'
       value : {
-        one_hour : '0',
-        three_hour : 'three'
+        one_hour : '1000',
+        two_hour : '200'
+        three_hour : '80000'
       }
-      hide_price : true
     place_pupil           : @state 'tutor/full_price' :
       text  : 'у ученика'
-      hide_price : true
     place_remote          : @state 'tutor/full_price' :
       text  : 'удаленно'
-      hide_price : true
     group_learning         : @module 'tutor/full_price/group' :
       chose_group      : @module 'tutor/forms/checkbox' :
         text      : 'групповые'
