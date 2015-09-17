@@ -12,6 +12,7 @@ class @main
   onbackcall : =>
     data = yield @$send './load'
     for bc in data.backcall
+      console.log bc
 
 
 

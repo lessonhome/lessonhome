@@ -248,13 +248,15 @@ class module.exports
     return state
   bind_exports : (state,o)=>
     try
-      if typeof o == 'object' || typeof o == 'function'
+      if o && (typeof o == 'object' || typeof o == 'function')
         ###
         for key,val of o
           continue if key.match /^_/
         ###
+        #console.log state.exports
         for field,arr of state.exports
           value = _setKey o,field
+          #console.log field,o,value if field == 'selector'
           for exp in arr
             node = exp.node
             k = exp.key
@@ -262,11 +264,24 @@ class module.exports
               for a,b of value
                 node[k][a] = b
             else node[k] = value
+            ###
             if node == state.tree
               if state.parent?.exports?[k]?
                 newo = {}
                 newo[k] = node[k]
                 state.parent.__bind_exports state.parent,newo
+            ###
+        newo = null
+        if state.parent?.exports? then for key,val of o
+          continue if key.match /^_/
+          if state.exports[key]? then for exp in state.exports[key]
+            node = exp.node
+            k = exp.key
+            if node == state.tree
+              newo ?= {}
+              newo[k] = node[k]
+        if newo
+          state?.parent?.__bind_exports? state.parent,newo
         ###
           if !state.exports[key]?
             console.error "can't find exports name '#{key}' in state #{@name}"
