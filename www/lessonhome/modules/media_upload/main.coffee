@@ -9,7 +9,6 @@ class AddPhotos
     @input = @found.input
     @photos = document.getElementsByClassName('photo1')
   show : =>
-    console.log @input
     @input.fileupload
       dataType : 'json'
       done : @done.out
