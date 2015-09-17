@@ -17,7 +17,11 @@ class Register
     @dbtutor  = yield db.get 'tutor'
     @mail = yield Main.service 'mail'
     @urldata = yield Main.service 'urldata'
-
+    @adminHashs = yield db.get 'adminHashs'
+    arr = yield _invoke @adminHashs.find({}),'toArray'
+    @adminHashsArr = {}
+    for r in arr
+      @adminHashArr[r.hash] = true
     ids = {}
     _ids = (yield _invoke @dbpersons.find({},{account:1}),'toArray')
     ids[row.account] = true for row in _ids
@@ -81,7 +85,7 @@ class Register
           delete @sessions[s]
         yield _invoke @session, 'remove',{hash:{$in:arr2}}
         yield _invoke @account,'update',{id:id},{$set:{sessions:a.sessions}}
-  register : (session,unknown)=>
+  register : (session,unknown,adminHash)=>
     o = {}
     created = false
     unless session? && @sessions[session]?.account? && @accounts[@sessions[session].account]?
@@ -116,11 +120,34 @@ class Register
     idstr += ':'.grey+account.login.cyan if account.login?
     idstr += ':'.grey+account.id.substr(0,5).blue
     idstr += ':'.grey+session.hash.substr(0,5).blue
-
+    newAcc  = {}
+    for key,val of account
+      newAcc[key] = val
+    newAcc.type = {}
+    for key,val of account.type
+      newAcc.type[key] = val
+    if adminHash && @adminHashsArr[adminHash]
+      newAcc.admin = true
+      newAcc.type.admin = true
     return {
       session:session.hash
-      account:account
+      account:newAcc
     }
+  bindAdmin : (session)=>
+    return unless @sessions[session]
+    @sessions[session].admin = true
+    session = @sessions[session]
+    yield _invoke(@session,'update',{hash:session.hash},{$set:session},{upsert:true})
+    return
+  getAdminHash : =>
+    hash = _randomHash 30
+    yield _invoke @adminHashs,'insert',{hash}
+    @adminHashsArr[hash] = true
+    return hash
+  removeAdminHash : (hash)=>
+    delete @adminHashsArr[hash]
+    yield _invoke @adminHashs,'remove',{hash}
+    return
 
   newType : (user,sessionhash,data)=>
     throw err:'bad_query'     unless data?.login? && data?.password? && data?.type?
@@ -203,7 +230,6 @@ class Register
     delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
-
   passwordRestore: (data) =>
     db = yield Main.service 'db'
 
