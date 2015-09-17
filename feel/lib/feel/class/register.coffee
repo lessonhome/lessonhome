@@ -21,7 +21,7 @@ class Register
     arr = yield _invoke @adminHashs.find({}),'toArray'
     @adminHashsArr = {}
     for r in arr
-      @adminHashArr[r.hash] = true
+      @adminHashsArr[r.hash] = true
     ids = {}
     _ids = (yield _invoke @dbpersons.find({},{account:1}),'toArray')
     ids[row.account] = true for row in _ids
