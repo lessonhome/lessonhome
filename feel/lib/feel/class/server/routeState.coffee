@@ -27,7 +27,7 @@ class RouteState
       @_time = new Date().getTime()
     else
       t = new Date().getTime()
-      console.log "time: #{t-@_time}ms ".grey+str.red,(new Date().getTime()-@req.time)
+      #console.log "time: #{t-@_time}ms ".grey+str.red,(new Date().getTime()-@req.time)
       @_time = t
   getField : (obj,field)->
     a = field?.split? '.'
