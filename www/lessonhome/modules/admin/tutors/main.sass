@@ -1,0 +1,37 @@
+
+@import compass
+
+=block
+  margin : 0
+  padding : 0
+  +box-sizing(border-box)
+  +inline-block
+  float : left
+
+
+.container .header
+  +block
+  height : 50px
+  width : 100%
+  line-height : 50px
+  background : #FEE
+  .item
+    +block
+    padding : 0 20px
+    cursor : pointer
+    weight : bold
+    &:hover
+      background : #FDD
+.container .content
+  +block
+  width : 100%
+  display : none
+=add($name)
+  .#{$name} 
+    .header .#{$name}
+      background : #FCC
+    .#{$name}
+      display : inline-block
+
++add('time')
++add('backcall')
