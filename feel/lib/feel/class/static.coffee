@@ -133,7 +133,7 @@ class Static
       res.statusCode = 200
       res.setHeader 'Content-Length', resdata.length
       res.setHeader 'Content-Encoding', 'gzip'
-      console.log "file\t#{file.name}",resdata.length/1024,file.data.length/1024,Math.ceil((resdata.length/file.data.length)*100)+"%"
+      #console.log "file\t#{file.name}",resdata.length/1024,file.data.length/1024,Math.ceil((resdata.length/file.data.length)*100)+"%"
       return res.end resdata
   F       : (site,file)=>
     f = _path.resolve "www/#{site}/static/#{file}"
