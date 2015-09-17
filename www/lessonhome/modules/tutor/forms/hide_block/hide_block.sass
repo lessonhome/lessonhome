@@ -1,0 +1,20 @@
+@import base
+$width : 200px
+main
+  width: 100%
+.hide_block
+  .content
+    padding-top: 10px
+    display: none
+    opacity: 0
+  .trigger
+    text-align: left
+.hide_block.col2
+  .trigger
+    float: left
+    width: $width
+  .content
+    padding-top: 0
+    margin-left: $width
+.hide_block:after
+  +after_block

@@ -2,7 +2,7 @@
 class @main
   tree : => @module '$' :
     select_subject_field : @module 'tutor/forms/drop_down_list' :
-      text      : 'Предмет :'
+      placeholder : 'Выберите предмет'
       selector  : 'first_reg'
       smart : true
       self : true
@@ -86,7 +86,6 @@ class @main
         return a?=""
     course     : @module 'tutor/forms/drop_down_list_with_tags' :
       list     : @module 'tutor/forms/drop_down_list' :
-        text      : 'Направление подготовки :'
         placeholder : 'Например ЕГЭ'
         smart : true
         self : true
@@ -117,46 +116,63 @@ class @main
       selector  : 'small font_16'
       text      : 'взрослый'
       $form : tutor : 'isTag.adult'
-    place_tutor           : @state 'tutor/full_price' :
-      text  : 'у себя'
-      value : {
-        one_hour : '1000',
-        two_hour : '200'
-        three_hour : '80000'
-      }
-    place_pupil           : @state 'tutor/full_price' :
-      text  : 'у ученика'
-    place_remote          : @state 'tutor/full_price' :
-      text  : 'удаленно'
-    group_learning         : @module 'tutor/full_price/group' :
-      chose_group      : @module 'tutor/forms/checkbox' :
-        text      : 'групповые'
-        selector  : 'small font_16'
-      #$form : tutor : 'isPlace.tutor'
-      price : @module 'tutor/forms/input' :
-        selector  : 'fast_bid'
-      group_people         : @module 'tutor/forms/drop_down_list' :
-        selector  : 'first_reg1'
-        self      : true
-        default_options     : {
-          '0': {value: '0', text: 'не проводятся'},
-          '1': {value: '1', text: '2-4 ученика'},
-          '2': {value: '2', text: 'до 8 учеников'},
-          '3': {value: '3', text: 'от 10 учеников'}
-        }
-        $form : tutor : 'subject.groups.0.description' : (val)-> val || 'не проводятся'
-
-
-      selector  : 'first_reg'
-      self      : true
-      default_options     : {
-        '0': {value: '0', text: 'не проводятся'},
-        '1': {value: '1', text: '2-4 ученика'},
-        '2': {value: '2', text: 'до 8 учеников'},
-        '3': {value: '3', text: 'от 10 учеников'}
-      }
+    place_tutor    : @state 'tutor/forms/checkbox_hide_block' :
+      title : 'у себя'
+      selector: 'col2'
+      content : @state 'tutor/time_price' :
+        currency : 'руб.'
+    place_pupil    : @state 'tutor/forms/checkbox_hide_block' :
+      title : 'у ученика'
+      selector: 'col2'
+      content : @state 'tutor/time_price' :
+        currency : 'руб.'
+    place_remote   : @state 'tutor/forms/checkbox_hide_block' :
+      title : 'удаленно'
+      selector: 'col2'
+      content : @state 'tutor/time_price' :
+        currency : 'руб.'
+    group_learning : @state 'tutor/forms/checkbox_hide_block' :
+      title : 'групповые'
+      content : @state 'tutor/group_price'
+#    place_tutor           : @state 'tutor/full_price' :
+#      text  : 'у себя'
+#      value : {
+#        one_hour : '1000',
+#        two_hour : '200'
+#        three_hour : '80000'
+#      }
+#    place_pupil           : @state 'tutor/full_price' :
+#      text  : 'у ученика'
+#    place_remote          : @state 'tutor/full_price' :
+#      text  : 'удаленно'
+#    group_learning         : @module 'tutor/full_price/group' :
+#      chose_group      : @module 'tutor/forms/checkbox' :
+#        text      : 'групповые'
+#        selector  : 'small font_16'
+#      #$form : tutor : 'isPlace.tutor'
+#      price : @module 'tutor/forms/input' :
+#        selector  : 'fast_bid'
+#      group_people         : @module 'tutor/forms/drop_down_list' :
+#        selector  : 'first_reg1'
+#        self      : true
+#        default_options     : {
+#          '0': {value: '0', text: 'не проводятся'},
+#          '1': {value: '1', text: '2-4 ученика'},
+#          '2': {value: '2', text: 'до 8 учеников'},
+#          '3': {value: '3', text: 'от 10 учеников'}
+#        }
+#        $form : tutor : 'subject.groups.0.description' : (val)-> val || 'не проводятся'
+#
+#
+#      selector  : 'first_reg'
+#      self      : true
+#      default_options     : {
+#        '0': {value: '0', text: 'не проводятся'},
+#        '1': {value: '1', text: '2-4 ученика'},
+#        '2': {value: '2', text: 'до 8 учеников'},
+#        '3': {value: '3', text: 'от 10 учеников'}
+#      }
     comments        : @module 'tutor/forms/textarea' :
       height    : '80px'
-      text      : 'Комментарии :'
       selector  : 'first_reg'
       $form : tutor : 'subject.description'

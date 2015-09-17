@@ -1,28 +1,40 @@
-.subject!= select_subject_field
-.err
-  .js-out_err_subject
+
+.panel
+  .subject_block
+    .subject!= select_subject_field
+    .err
+      .js-out_err_subject
+  a.js-expand(href="#") Развернуть
+  a.js-remove(href="#") Удалить
 .js-container
-  .value.course!=course
-  .err
-    .js-out_err_course
-  .categories_of_students
-    .title Категории учеников :
-    .check_panel
-      .left_block
-        .pre_school!=pre_school
-        .junior_school!=junior_school
-        .medium_school!=medium_school
-      .right_block
-        .high_school!=high_school
-        .student!=student
-        .adult!=adult
-  .err
-    .js-out_err_categories_of_students
+  .course_block
+    .title Направление подготовки :
+    .value.course!=course
+    .err
+      .js-out_err_course
+
+  .category_block
+    .title Ученики :
+    .categories_of_students
+      .check_panel
+        .left_block
+          .pre_school!=pre_school
+          .junior_school!=junior_school
+          .medium_school!=medium_school
+        .right_block
+          .high_school!=high_school
+          .student!=student
+          .adult!=adult
+    .err
+      .js-out_err_categories_of_students
+
   .place_block
-    .price_title Цены :
-    .place_tutor!=place_tutor
-    .place_pupil!=place_pupil
-    .place_remote!=place_remote
-    .group_learning!=group_learning
-  .comments!=comments
+    .title Цены :
+    .prices.place_tutor!=place_tutor
+    .prices.place_pupil!=place_pupil
+    .prices.place_remote!=place_remote
+    .prices.group_learning!=group_learning
+  .comment_block
+    .title Коментарии :
+    .comments!=comments
 

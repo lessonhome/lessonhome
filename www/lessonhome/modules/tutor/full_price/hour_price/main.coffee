@@ -2,6 +2,8 @@ class @main
   Dom : =>
     @checkbox = @tree.hour.class
     @field = @tree.cost.class
+  show : =>
+    @checkbox.label.click @onCheck
   isEmpty : =>
     @field.getValue() is ''
   update : =>
@@ -19,6 +21,5 @@ class @main
         @field.setValue value
       else
         e.stopPropagation()
-        @field.focus()
-  init : =>
-    @checkbox.label.click @onCheck
+      @field.focus()
+
