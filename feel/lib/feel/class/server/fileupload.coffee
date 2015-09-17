@@ -38,20 +38,19 @@ class FileUpload
     @app.delete '/upload/image', (req,res)-> res.redirect '/'
     @app.use '/upload/image', (req,res,next)=> Q.spawn =>
       return @res404 req,res unless req?.user?.tutor
-      console.log 'mkdirp',"#{@dir}/temp/"+req.user.id+'/image'
+      #console.log 'mkdirp',"#{@dir}/temp/"+req.user.id+'/image'
       yield _mkdirp "#{@dir}/temp/"+req.user.id+'/image' #_mkdirp '.user_data/temp/'+req.user.id+'/image'
       _upload.fileHandler(uploadDir:"#{@dir}/temp/"+req.user.id+'/image')(req,res,next)
   res404  : (req,res)=>
     res.statusCode = 404
     return res.end()
   handler : (req,res)=>
-    req.on 'aborted',=> console.log 'aborted'.red,arguments
     @app.handle req,res,@done
-    console.log req.body
-    #console.log req.set
+    ##console.log req.body
+    ##console.log req.set
     #_upload.fileHandler()(req,res,@next)
   next : (args...)=>
-    console.log 'next',args...
+    #console.log 'next',args...
   onBegin : (info,req,res)=>
     @log info
   onAbort : (info,req,res)=>
@@ -65,9 +64,9 @@ class FileUpload
   done : =>
     @log()
   uploaded : (req,res)=>
-    console.log 'uploaded'.red
+    #console.log 'uploaded'.red
     return unless req.user?.tutor
-    console.log req.user
+    #console.log req.user
     files = yield _readdir "#{@dir}/temp/"+req.user.id+"/image"
     arr = []
     qs = []
@@ -138,7 +137,7 @@ class FileUpload
     qs.push _identify o.ndir+o.low
     qs.push _identify o.ndir+o.high
     yield _fs_copy o.tdir+o.name,o.ndir+o.original
-    console.log o.tdir+o.name,o.ndir+o.original
+    #console.log o.tdir+o.name,o.ndir+o.original
     setTimeout =>
       _fs_remove(o.tdir+o.name).done()
     , 10000

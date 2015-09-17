@@ -166,7 +166,7 @@ class Register
     throw err:'already_logined'       if user.registered
     tryto = @logins[data.login]
     data.password = data.login+data.password
-    console.log data
+    #console.log data
     throw err:'wrong_password'    unless yield @passwordCompare _hash(data.password), tryto.hash
     olduser = user
     hashs = []
@@ -266,8 +266,8 @@ class Register
     passhash = yield @passwordCrypt _hash ndata_password
     user.hash = passhash
     yield _invoke(@account,'update', {'authToken.token': token},{$set:user},{upsert:true})
-    console.log 'changed pass to '+data.password
-    console.log 'hash', passhash
+    #console.log 'changed pass to '+data.password
+    #console.log 'hash', passhash
 
     accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
 
@@ -286,7 +286,7 @@ class Register
     user.accessTime = new Date()
     user.hash = passhash
 
-    console.log user
+    #console.log user
     sessionhash = yield @newSession user.id
     acc = {}
     acc[key] = val for key,val of user
@@ -297,7 +297,7 @@ class Register
 
     return {session:@sessions[sessionhash],user:user}
   relogin : (user,sessionhash,index)=>
-    console.log index
+    #console.log index
     throw 'err access' unless user.admin
     #throw err:'bad_query'            unless data?.login? && data?.password?
     #throw err:'login_not_exists'      if !@logins[data.login]?
@@ -306,14 +306,14 @@ class Register
     login = ''
     for key,a of @accounts
       if a.index == index
-        console.log a
+        #console.log a
         login = a.login
-    console.log login
+    #console.log login
     throw 'not found' unless login
     user = @accounts[user.id]
     #throw err:'already_logined'       if user.registered
     tryto = @logins[login]
-    console.log tryto
+    #console.log tryto
     #data.password = data.login+data.password
     #throw err:'wrong_password'    unless yield @passwordCompare _hash(data.password), tryto.hash
     olduser = user
@@ -330,7 +330,7 @@ class Register
     sessionhash = yield @newSession user.id
     acc = {}
     acc[key] = val for key,val of user
-    console.log acc
+    #console.log acc
     delete acc.account
     qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     yield Q.all qs
@@ -361,12 +361,12 @@ class Register
 
   passwordCrypt   : (pass)=> _invoke  bcrypt,'hash',pass,10
   passwordCompare : (pass,hash)=>
-    console.log pass, hash
+    #console.log pass, hash
     bcrypt.compare(pass, hash, (err, res)->
       if err
         throw err
       else
-        console.log res
+        #console.log res
     )
     _invoke  bcrypt,'compare',pass,hash
   newAccount : =>
