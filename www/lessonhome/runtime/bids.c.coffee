@@ -28,7 +28,6 @@ class Bids
     bids = _invoke @bidsDb.find({}), 'toArray'
 
     [bids] = yield Q.all [bids]
-    console.log {bids}
 
 bids = new Bids
 
