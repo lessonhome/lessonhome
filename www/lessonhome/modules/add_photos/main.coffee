@@ -19,7 +19,6 @@ class AddPhotos
     yield @$send 'removeAva'
     $.getJSON('/uploaded/image')
     .success (data)=>
-      console.log data
       @setPhoto data.url,data.width,data.height
     .error (err)=>
       console.error err
@@ -27,8 +26,14 @@ class AddPhotos
     @log e,data
     $.getJSON('/uploaded/image', {avatar: 'true'})
     .success (data)=>
-      Feel.sendActionOnce 'ava_upload'
-      @setPhoto data.url,data.width,data.height
+      if data?.uploaded?
+        photos = []
+        for photo in data.uploaded
+          unless photo.hash.match(/low|high/)
+            photos.push photo
+            Feel.sendActionOnce 'ava_upload'
+            @setPhoto data.url,data.width,data.height
+        @emit 'uploaded', photos.reverse()
     .error (err)=>
       console.error err
     #d = yield Feel.json '/uploaded', data

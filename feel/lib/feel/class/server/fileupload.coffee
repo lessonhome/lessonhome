@@ -99,6 +99,7 @@ class FileUpload
       yield Q.all qs
       photos = []
       user_uploads = {}
+      avatars = []
 
       for o in arr
         photos.push(
@@ -138,6 +139,8 @@ class FileUpload
         person = persons[0] ? {}
         user_photos = person.photos ? []
         user_uploads = person.uploaded
+        avatars.push o.hash
+
 
         if !user_photos?
           user_photos = [o.hash]
@@ -160,14 +163,16 @@ class FileUpload
       if photos.length
         yield _invoke uploadedDb, 'insert',     photos
         yield _invoke personsDb, 'update', {account: req.user.id}, {$set:{uploaded : user_uploads} }, {upsert: true}
-        yield _invoke personsDb, 'update', {account: req.user.id}, {$set:{avatar : o.hash} }, {upsert: true} if params.avatar == 'true'
+        if params.avatar == 'true'
+          yield _invoke personsDb, 'update', {account: req.user.id}, {$push:{avatar : {$each: avatars}} }, {upsert: true}
 
     yield @site.form.flush ['person'],req,res
     res.setHeader 'content-type','application/json'
     avatar = yield _invoke personsDb.find({account: req.user.id}, {avatar:1}), 'toArray'
     avatar = avatar[0].avatar
 
-    if avatar? and avatar != ''
+    if avatar? and avatar.length
+      avatar = avatar[avatar.length-1]
       el = yield _invoke uploadedDb.find({hash:avatar+'high'}), 'toArray'
       el = el[0]
       res.end JSON.stringify {
