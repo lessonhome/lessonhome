@@ -19,7 +19,7 @@ class @main
     .done()
     return d.promise
   _go : (search,d)=> ymaps.ready =>
-    search = "Москва, "+search
+    search = search
     $.ajax
       url: "https://geocode-maps.yandex.ru/1.x/"
       data :

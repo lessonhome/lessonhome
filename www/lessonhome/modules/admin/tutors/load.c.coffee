@@ -16,13 +16,15 @@
       comment : b.comment
       type : b.type
       time : b.time
-    obj.account = yield _invoke dbAccounts.find({id:obj.id}),'toArray'
-    obj.person  = yield _invoke dbPersons.find({account:obj.id}),'toArray'
-    obj.tutor   = yield _invoke dbTutor.find({account:obj.id}),'toArray'
-    obj.account = obj.account?[0] ? {}
-    obj.person  = obj.person?[0] ? {}
-    obj.tutor   = obj.tutor?[0] ? {}
+    obj.account =  _invoke dbAccounts.find({id:obj.id}),'toArray'
+    obj.person  =  _invoke dbPersons.find({account:obj.id}),'toArray'
+    obj.tutor   =  _invoke dbTutor.find({account:obj.id}),'toArray'
     backcall.push obj
+
+  for obj in backcall
+    obj.account = (yield obj.account)?[0] ? {}
+    obj.person  = (yield obj.person)?[0] ? {}
+    obj.tutor   = (yield obj.tutor)?[0] ? {}
   return {backcall}
 
 
