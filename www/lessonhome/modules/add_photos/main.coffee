@@ -61,7 +61,7 @@ class AddPhotos
   start : (e,data)=>
     console.log 'start'
   progressall : (e,data)=>
-    Feel.pbar.start()
+    #Feel.pbar.start()
     Feel.pbar.set data.loaded*0.5/data.total
     @log 'pall',e,data
   progressdone : (e,data)=>
@@ -85,6 +85,7 @@ class AddPhotos
       whide.animate({'opacity':0},500)
       setTimeout =>
         Feel.pbar.stop()
+        console.log 'pbar.stop'
         whide.filter('.photo').remove()
         whide.filter('.unknown').hide()
         if url

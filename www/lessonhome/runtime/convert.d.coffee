@@ -45,8 +45,6 @@
 @convertToDate =(birthday)=>
   return if !birthday?
   day   = birthday.getDate?()
-  console.log 'day : '+day
-  console.log '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   month = birthday.getMonth?() + 1
   year  = birthday.getFullYear?()
   return day+'.'+month+'.'+year
@@ -68,9 +66,6 @@
 
 @getWork =(work)=>
   return work.pop().name if work?.pop().name?
-  console.log 'start'
-  console.log work
-  console.log 'end'
   return 'заполнить'
 
 

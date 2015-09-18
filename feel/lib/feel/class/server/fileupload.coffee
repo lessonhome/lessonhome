@@ -14,15 +14,18 @@ class FileUpload
   init : =>
     @app = _express()
     _upload.configure
-      tmpDir: process.cwd()+"/.cache/"
-      uploadDir: process.cwd()+"/#{@dir}/temp"
+      tmpDir: ".cache/"
+      uploadDir: "#{@dir}/temp"
       uploadUrl: '/upload/image'
       maxPostSize: 1024*1024*200
       minFileSize: 1
-      maxFileSize: 1024*1024*20
+      maxFileSize: 1024*1024*200
       acceptFileTypes: /(gif|jpe?g|png|pdf|doc|docx|bmp)/i
       imageArgs: ['-auto-orient']
       imageTypes: /\.(gif|jpe?g|png|bmp)$/i
+      accessControl:
+        allowOrigin: '*',
+        allowMethods: 'OPTIONS, HEAD, GET, POST, PUT'
     _upload.on 'begin',@onBegin
     _upload.on 'abort',@onAbort
     _upload.on 'end',@onEnd
@@ -30,20 +33,24 @@ class FileUpload
     _upload.on 'error',@onError
     #@app.use bodyParser.urlencoded({ extended: false })
     @app.use(bodyParser.json())
+    @app.get '/upload/image', (req,res)-> res.redirect '/'
+    @app.put '/upload/image', (req,res)-> res.redirect '/'
+    @app.delete '/upload/image', (req,res)-> res.redirect '/'
     @app.use '/upload/image', (req,res,next)=> Q.spawn =>
       return @res404 req,res unless req?.user?.tutor
-      yield #_mkdirp '.user_data/temp/'+req.user.id+'/image'
-      _upload.fileHandler(uploadDir:process.cwd()+"/#{@dir}/temp/"+req.user.id+'/image')(req,res,next)
+      #console.log 'mkdirp',"#{@dir}/temp/"+req.user.id+'/image'
+      yield _mkdirp "#{@dir}/temp/"+req.user.id+'/image' #_mkdirp '.user_data/temp/'+req.user.id+'/image'
+      _upload.fileHandler(uploadDir:"#{@dir}/temp/"+req.user.id+'/image')(req,res,next)
   res404  : (req,res)=>
     res.statusCode = 404
     return res.end()
   handler : (req,res)=>
     @app.handle req,res,@done
-    console.log req.body
-    #console.log req.set
+    ##console.log req.body
+    ##console.log req.set
     #_upload.fileHandler()(req,res,@next)
   next : (args...)=>
-    console.log 'next',args...
+    #console.log 'next',args...
   onBegin : (info,req,res)=>
     @log info
   onAbort : (info,req,res)=>
@@ -57,7 +64,7 @@ class FileUpload
   done : =>
     @log()
   uploaded : (req,res)=>
-    console.log 'uploaded'.red
+    #console.log 'uploaded'.red
     return unless req.user?.tutor
 
     db = yield Main.service 'db'
@@ -183,7 +190,7 @@ class FileUpload
       }
     else
       res.end JSON.stringify {uploaded: photos}
-    
+ 
   parseImage : (o)=>
     qs = []
     qs.push _resize
@@ -200,7 +207,12 @@ class FileUpload
     qs = []
     qs.push _identify o.ndir+o.low
     qs.push _identify o.ndir+o.high
-    yield _rename o.tdir+o.name,o.ndir+o.original
+    yield _fs_copy o.tdir+o.name,o.ndir+o.original
+    #console.log o.tdir+o.name,o.ndir+o.original
+    setTimeout =>
+      _fs_remove(o.tdir+o.name).done()
+    , 10000
+    #yield _rename o.tdir+o.name,o.ndir+o.original
     qs.push _identify o.ndir+o.original
     [sl,sh,so] = yield Q.all qs
     o.owidth  = so.width

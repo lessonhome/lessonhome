@@ -489,6 +489,7 @@ class Lib
     #Watcher.init()
     #
 _js_infinite_json = require 'js-infinite-json'
+global._fse     = require 'fs-extra'
 global._deflate = Q.denode require('zlib').deflate
 global._gzip = Q.denode require('zlib').gzip
 global._qlimit  = require './lib/qlimit'
@@ -512,6 +513,8 @@ global._mkdirp  = Q.denode require 'mkdirp'
 global._rename  = Q.denode _fs.rename
 global._requestPost = Q.denode require('request').post
 global._request = Q.denode require('request')
+global._fs_copy =   Q.denode _fse.copy
+global._fs_remove =   Q.denode _fse.remove
 regenerator = require("regenerator")
 global._regenerator = (source)-> regenerator.compile(source).code
 global._args    = (a)->

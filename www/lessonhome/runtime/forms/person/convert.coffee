@@ -152,7 +152,6 @@ class @F2V
 
   $area     : (data)->
     location = data?.location
-    console.log location
     city     = location?.city
     area     = location?.area
     ret = ''
