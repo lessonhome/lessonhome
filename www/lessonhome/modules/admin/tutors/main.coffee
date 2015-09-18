@@ -12,6 +12,7 @@ class @main
     @dom.find('.header .item').click (e)=> Q.spawn =>
       cl = ($(e.target).attr 'class').match(/\w+$/)[0]
       @dom.find('.container').attr 'class', 'container '+cl
+      yield @['on'+cl]()
       @data = yield @$send './load'
       yield @['on'+cl]()
     @data = yield @$send './load'
