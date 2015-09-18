@@ -11,5 +11,5 @@
 
   db= yield $.db.get 'tutor'
   yield _invoke db, 'update',{account:$.user.id},{$set:{phone_call:{description:data.callback_comment}, settings:{new_orders:data.new_orders, get_notifications:data.get_notifications, call_operator_possibility:data.call_operator_possibility }}},{upsert:true}
-  yield $.form.flush ['tutor'],$.req,$.res
+  yield $.form.flush '*',$.req,$.res
   return {status:'success'}

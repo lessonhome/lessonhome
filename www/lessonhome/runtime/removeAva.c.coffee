@@ -6,6 +6,6 @@
   if rows?[0]?.ava?[0]?
     rows[0].ava.pop()
     yield _invoke db,'update',{account:$.user.id},{$set:{ava:rows[0].ava}},{upsert:true}
-  yield $.form.flush ['person'],$.req,$.res
+  yield $.form.flush '*',$.req,$.res
   return {status:'success'}
   
