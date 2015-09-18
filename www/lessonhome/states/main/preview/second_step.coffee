@@ -13,7 +13,7 @@ class @main extends @template '../preview'
     tag         : 'pupil:main_search'
     bid_issue_button  : @module 'link_button' :
       href      : 'fast_bid/first_step'
-      selector  : 'main_page_motivation_test'
+      selector  : 'issue_bids'
       text      : 'Оформить заявку'
       active : true
     #advanced_filter : @state '../advanced_filter'
