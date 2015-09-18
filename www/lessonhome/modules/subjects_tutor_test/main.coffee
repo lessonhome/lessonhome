@@ -6,33 +6,39 @@ class @main
   Dom : ->
     @btn = @tree.btn_uploads.class
     @container = @found.container
+    @data = @tree.data
+    @subject = @tree.subject.class
   show : =>
+    @subjects = []
     @btn.dom.click =>
-      @container.append $('<div class="block"></div>').append @tree.subjects[0].class.$clone().dom
-    @subjects = {}
+      @addNewSubject()
 
-    for i,subject of @tree.subjects
-      @subjects[i] = {}
-      @subjects[i].class = subject.class
-      #@subjects[i].subject_tag = subject.subject_tag.class
-      @subjects[i].course = subject.course.class
-      @subjects[i].group_learning = subject.group_learning.class
-#      @subjects[i].duration = subject.duration.class
-#      @subjects[i].price_from = subject.price_slider.start.class
-#      @subjects[i].price_till = subject.price_slider.end.class
-      @subjects[i].comments = subject.comments.class
-
-      @subjects[i].pre_school = subject.pre_school.class
-      @subjects[i].junior_school = subject.junior_school.class
-      @subjects[i].medium_school = subject.medium_school.class
-      @subjects[i].high_school = subject.high_school.class
-      @subjects[i].student = subject.student.class
-      @subjects[i].adult = subject.adult.class
-      @subjects[i].place_tutor = subject.place_tutor.class
-      @subjects[i].place_pupil = subject.place_pupil.class
-      @subjects[i].place_remote = subject.place_remote.class
+#    for i,subject of @tree.subjects
+#      @subjects[i] = {}
+#      @subjects[i].class = subject.class
+#      #@subjects[i].subject_tag = subject.subject_tag.class
+#      @subjects[i].course = subject.course.class
+#      @subjects[i].group_learning = subject.group_learning.class
+##      @subjects[i].duration = subject.duration.class
+##      @subjects[i].price_from = subject.price_slider.start.class
+##      @subjects[i].price_till = subject.price_slider.end.class
+#      @subjects[i].comments = subject.comments.class
+#
+#      @subjects[i].pre_school = subject.pre_school.class
+#      @subjects[i].junior_school = subject.junior_school.class
+#      @subjects[i].medium_school = subject.medium_school.class
+#      @subjects[i].high_school = subject.high_school.class
+#      @subjects[i].student = subject.student.class
+#      @subjects[i].adult = subject.adult.class
+#      @subjects[i].place_tutor = subject.place_tutor.class
+#      @subjects[i].place_pupil = subject.place_pupil.class
+#      @subjects[i].place_remote = subject.place_remote.class
 #      @subjects[i].place_cafe = subject.place_cafe.class
 
+  addNewSubject : =>
+    obj = @subject.$clone()
+    @container.append $('<div class="block"></div>').append obj.dom
+    @subjects.push obj
   save : => Q().then =>
     if @check_form()
       return @$send('./save',@getData())

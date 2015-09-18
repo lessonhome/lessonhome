@@ -22,4 +22,7 @@ class @main
       else
         @field.setValue '0'
       @field.focus()
-
+  getValue : =>
+    @field.getValue()
+  setValue : (data) =>
+    @field.setValue(data)

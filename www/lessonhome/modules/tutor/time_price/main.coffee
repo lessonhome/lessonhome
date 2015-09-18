@@ -1,10 +1,9 @@
 class @main
-  Dom: =>
-    @classes = [
-      @tree.one_hour.class,
-      @tree.two_hour.class,
-      @tree.three_hour.class,
-    ]
+  Dom : =>
+    @classes =
+      one_hour : @tree.one_hour.class
+      two_hour : @tree.two_hour.class
+      tree_hour : @tree.three_hour.class
   show : =>
     timer = setInterval(
       =>
@@ -15,6 +14,14 @@ class @main
           throw error
     , 100)
   updateAll : =>
-    $.each @classes, (i, cl) =>
+    $.each @classes, (key, cl) =>
       cl.update()
+  getValue : =>
+    result = {}
+    $.each @classes, (key, cl) -> result[key] = cl.getValue?()
+    return result
+  setValue : (data) =>
+    if data isnt undefined
+      $.each @classes, (key, cl) =>
+        if data[key] isnt undefined then cl.setValue? data[key]
 

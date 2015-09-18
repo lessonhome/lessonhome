@@ -5,6 +5,7 @@ class @main
     @container = @found.container
     # div
     # err div fined
+    @subject_list = @tree.select_subject_field.class
     #@out_err_course                 = @found.out_err_course
     @out_err_group_learning         = @found.out_err_group_learning
     @out_err_categories_of_students = @found.out_err_categories_of_students
@@ -75,15 +76,13 @@ class @main
     @place_remote.on      'change', => @place_remote.hideError()
 #    @place_cafe.on        'change', => @place_cafe.hideError()
 
-    @subject_list = @tree.select_subject_field.class
-    @subject_list.on 'end',(name)=>
-      console.log 'end',name
+    @subject_list.on 'change',(name)=>
       if name isnt ''
         if @training_direction[name]?
           direction = @training_direction[name]
         else
           direction = @training_direction['default']
-        console.log direction
+        @course.reset()
         @course.setItems direction
         @showContainer()
 
@@ -110,3 +109,7 @@ class @main
 #      el.initAll?()
 #  updateAll : =>
 #    $.each @classes, (i, cl) => cl.updateAll?()
+  getVaiue : =>
+    return {
+      name : @subject_list.getValue()
+    }
