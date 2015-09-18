@@ -43,7 +43,7 @@
         p = nophotos[a.id]
         a[key] = val for key,val of p
     do Q.async =>
-      bytime = yield _invoke dbAccounts.find({},{id:1,accessTime:1,login:1,index:1}
+      bytime = yield _invoke dbAccounts.find({login:{$exists:true}},{id:1,accessTime:1,login:1,index:1}
       ).sort({accessTime:-1}).limit(100),'toArray'
       for a in bytime
         a.person = _invoke dbPersons.find({account:a.id}),'toArray'

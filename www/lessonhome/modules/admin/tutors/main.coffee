@@ -54,6 +54,7 @@ class @main
       @relogin row,bc.index
       dom.append row
   relogin : (dom,index)=> dom.dblclick => Q.spawn =>
+    return unless index
     yield Feel.root.tree.class.$send('/relogin',index)
     yield Feel.go '/form/tutor/login',true
 
