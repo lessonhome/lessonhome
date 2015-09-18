@@ -148,8 +148,8 @@ class @main extends EE
     f()
   onEnd     : (val)=>
     #console.log 'end',val
-  saveValue : =>
-    if (value = @getValue()) isnt ''
+  saveValue : (val) =>
+    if (value = if val then val else @getValue()) isnt ''
       @input.attr 'data-value', value
   getSaved : =>
     @input.attr 'data-value'
