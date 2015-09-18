@@ -20,6 +20,6 @@ class @main
       if (value = @field.getSaved()) isnt undefined
         @field.setValue value
       else
-        e.stopPropagation()
+        @field.setValue '0'
       @field.focus()
 

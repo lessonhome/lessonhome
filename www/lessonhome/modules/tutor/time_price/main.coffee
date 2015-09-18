@@ -15,5 +15,6 @@ class @main
           throw error
     , 100)
   updateAll : =>
-    $.each @classes, (i, cl) => cl.update()
+    $.each @classes, (i, cl) =>
+      cl.update()
 

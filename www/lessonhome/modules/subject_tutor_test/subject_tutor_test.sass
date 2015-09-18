@@ -1,21 +1,19 @@
 @import base
 $space : 15px
 $height : 37px
-$padding: 7px
 $price_block_padding: 6px
 $width_fields: 341px
 =title
   font-size: 18px
-  margin-bottom: 15px
+  font-weight: 600
 main
   height: 100%
   text-align: left
-.subject_block
-  .subject
+.panel
+  .subject_block
     +inline-block
-    padding-bottom: $padding
-    height: $height
-    line-height: $height
+    .subject
+      +inline-block
 .err
   +inline-block
   div
@@ -37,8 +35,6 @@ main
     font-size: $height
     line-height: $height
   .category_block
-    .title
-      +title
     .categories_of_students
       .check_panel
         +inline-block
@@ -57,6 +53,9 @@ main
     .prices + .prices
       border-top: 1px solid #c2c0c2
   .category_block, .course_block, .comment_block
+    .title
+      margin-bottom: 15px
+  .block
     .title
       +title
 
