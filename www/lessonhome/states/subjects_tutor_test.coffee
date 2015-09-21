@@ -1,7 +1,9 @@
 class @main
-  forms : [{'tutor':['subjects']}]
+  forms : [{'tutor':['all_subjects']}]
   tree : => @module '$' :
     btn_uploads : @module 'tutor/button' :
       text : "Добавить предмет"
-    data : $form : tutor : 'subjects'
+    btn_send : @module 'tutor/button' :
+      text : "Отправить"
+    data : $form : tutor : 'all_subjects'
     subject : @state './subject_tutor_test'

@@ -1,6 +1,6 @@
 class @main
   Dom : =>
-    @classes =
+    @children =
       one_hour : @tree.one_hour.class
       two_hour : @tree.two_hour.class
       tree_hour : @tree.three_hour.class
@@ -14,14 +14,14 @@ class @main
           throw error
     , 100)
   updateAll : =>
-    $.each @classes, (key, cl) =>
+    $.each @children, (key, cl) =>
       cl.update()
   getValue : =>
     result = {}
-    $.each @classes, (key, cl) -> result[key] = cl.getValue?()
+    $.each @children, (key, cl) -> result[key] = cl.getValue?()
     return result
   setValue : (data) =>
     if data isnt undefined
-      $.each @classes, (key, cl) =>
+      $.each @children, (key, cl) ->
         if data[key] isnt undefined then cl.setValue? data[key]
 

@@ -8,6 +8,40 @@ status =
   native_speaker  : 'Носитель языка'
 
 class @F2V
+  $all_subjects : (data) ->
+    result = {}
+    for key, subject of data.subjects
+      result[key] = {
+        name : subject.name
+        course : subject.course
+        pre_school : subject.tags["school:0"]
+        junior_school : subject.tags["school:1"]
+        medium_school : subject.tags["school:2"]
+        high_school : subject.tags["school:3"]
+        student : subject.tags.student
+        adult : subject.tags.adult
+        group_learning : {
+          selected : subject.groups[0].description isnt "не проводятся"
+          groups : subject.groups[0].description
+        }
+        comments : subject.description
+      }
+      for val in subject.place
+        switch val
+          when 'tutor' then result[key].place_tutor = {
+            selected: true
+          }
+          when 'remote' then result[key].place_remote = {
+            selected: true
+          }
+          when 'pupil' then result[key].place_pupil = {
+            selected: true
+          }
+
+
+
+      console.log subject
+    return result
   $status       : (data)-> status[data?.status] ? ''
   $status2       : (data)-> status[data?.status]
   $settings_new_orders : (data)-> data?.settings?.new_orders

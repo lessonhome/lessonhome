@@ -26,5 +26,5 @@ class @main
     @tree.content.class.setValue data
   getValue : =>
     data = @tree.content.class.getValue()
-    data.selected = @trigger.getValue()
+    data['selected'] = @trigger.getValue()
     return data

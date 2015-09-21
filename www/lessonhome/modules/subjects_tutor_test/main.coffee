@@ -1,15 +1,18 @@
 
-
 class @main
-  constructor : ->
-    Wrap @
   Dom : ->
     @btn = @tree.btn_uploads.class
     @container = @found.container
     @data = @tree.data
     @subject = @tree.subject.class
+    @low = @tree.btn_send.class
   show : =>
     @subjects = []
+
+    for key, values of @data
+      console.log values
+      @addNewSubject(values)
+
     @btn.dom.click =>
       @addNewSubject()
 
@@ -35,8 +38,9 @@ class @main
 #      @subjects[i].place_remote = subject.place_remote.class
 #      @subjects[i].place_cafe = subject.place_cafe.class
 
-  addNewSubject : =>
+  addNewSubject : (values) =>
     obj = @subject.$clone()
+    if values then obj.setValue values
     @container.append $('<div class="block"></div>').append obj.dom
     @subjects.push obj
   save : => Q().then =>
@@ -45,7 +49,6 @@ class @main
       .then @onReceive
     else
       return false
-
   onReceive : ({status,errs,err})=>
     if err?
       errs?=[]
@@ -95,32 +98,35 @@ class @main
       @parseError _e, i
     return errs.length==0
 
-  getData : =>
-    @subjects_val = {}
-    for i,subject of @subjects
-      @subjects_val[i] = {}
-      @subjects_val[i].name = subject.class.found.subject_tag.text()
-      #@subjects_val[i].subject_tag = subject.subject_tag.getValue()
-      @subjects_val[i].course = subject.course.getValue()
-      @subjects_val[i].group_learning = subject.group_learning.getValue()
-#      @subjects_val[i].duration = subject.duration.getValue()
-#      @subjects_val[i].price_from = subject.price_from.getValue()
-#      @subjects_val[i].price_till = subject.price_till.getValue()
-      @subjects_val[i].comments = subject.comments.getValue()
-
-      @subjects_val[i].pre_school = subject.pre_school.getValue()
-      @subjects_val[i].junior_school = subject.junior_school.getValue()
-      @subjects_val[i].medium_school = subject.medium_school.getValue()
-      @subjects_val[i].high_school = subject.high_school.getValue()
-      @subjects_val[i].student = subject.student.getValue()
-      @subjects_val[i].adult = subject.adult.getValue()
-      @subjects_val[i].place_tutor = subject.place_tutor.getValue()
-      @subjects_val[i].place_pupil = subject.place_pupil.getValue()
-      @subjects_val[i].place_remote = subject.place_remote.getValue()
-#      @subjects_val[i].place_cafe = subject.place_cafe.getValue()
+  foo : =>
     return {
-      subjects_val : @subjects_val
+      ger : 'it\'s work!'
     }
+#    @subjects_val = {}
+#    for i,subject of @subjects
+#      @subjects_val[i] = {}
+#      @subjects_val[i].name = subject.class.found.subject_tag.text()
+#      #@subjects_val[i].subject_tag = subject.subject_tag.getValue()
+#      @subjects_val[i].course = subject.course.getValue()
+#      @subjects_val[i].group_learning = subject.group_learning.getValue()
+##      @subjects_val[i].duration = subject.duration.getValue()
+##      @subjects_val[i].price_from = subject.price_from.getValue()
+##      @subjects_val[i].price_till = subject.price_till.getValue()
+#      @subjects_val[i].comments = subject.comments.getValue()
+#
+#      @subjects_val[i].pre_school = subject.pre_school.getValue()
+#      @subjects_val[i].junior_school = subject.junior_school.getValue()
+#      @subjects_val[i].medium_school = subject.medium_school.getValue()
+#      @subjects_val[i].high_school = subject.high_school.getValue()
+#      @subjects_val[i].student = subject.student.getValue()
+#      @subjects_val[i].adult = subject.adult.getValue()
+#      @subjects_val[i].place_tutor = subject.place_tutor.getValue()
+#      @subjects_val[i].place_pupil = subject.place_pupil.getValue()
+#      @subjects_val[i].place_remote = subject.place_remote.getValue()
+##      @subjects_val[i].place_cafe = subject.place_cafe.getValue()
+#    return {
+#      subjects_val : @subjects_val
+#    }
   ###
     @categories_of_students = [@pre_school.getValue(),@junior_school.getValue(), @medium_school.getValue(), @high_school.getValue(), @student.getValue(), @adult.getValue()]
     @place = [@place_tutor.getValue(),@place_pupil.getValue(), @place_remote.getValue(),@place_cafe.getValue()]

@@ -3,33 +3,50 @@ class @main
     @btn_expand = @found.expand
     @btn_remove = @found.remove
     @container = @found.container
+
+    @children = {
+      name : @tree.select_subject_field.class
+      course : @tree.course.class
+      pre_school : @tree.pre_school.class
+      junior_school : @tree.junior_school.class
+      medium_school : @tree.medium_school.class
+      high_school : @tree.high_school.class
+      student : @tree.student.class
+      adult : @tree.adult.class
+      place_tutor : @tree.place_tutor.class
+      place_pupil : @tree.place_pupil.class
+      place_remote : @tree.place_remote.class
+      group_learning : @tree.group_learning.class
+      comments : @tree.comments.class
+    }
     # div
     # err div fined
-    @subject_list = @tree.select_subject_field.class
     #@out_err_course                 = @found.out_err_course
-    @out_err_group_learning         = @found.out_err_group_learning
-    @out_err_categories_of_students = @found.out_err_categories_of_students
-    @out_err_place                  = @found.out_err_place
+#      @out_err_group_learning         = @found.out_err_group_learning
+#      @out_err_categories_of_students = @found.out_err_categories_of_students
+#      @out_err_place                  = @found.out_err_place
 
-    subject = @tree
+
+#      subject = @tree
+#      @subject_list = @tree.select_subject_field.class
     #@subject_tag = subject.subject_tag.class
-    @course = subject.course.class
-    @group_learning = subject.group_learning.content.group_people.class
+#      @course = subject.course.class
+#      @group_learning = subject.group_learning.content.group_people.class
 #    @duration = subject.duration.class
 #    @price_from = subject.price_slider.start.class
 #    @price_till = subject.price_slider.end.class
-    @comments = subject.comments.class
+#      @comments = subject.comments.class
 
-    @pre_school = subject.pre_school.class
-    @junior_school = subject.junior_school.class
-    @medium_school = subject.medium_school.class
-    @high_school = subject.high_school.class
-    @student = subject.student.class
-    @adult = subject.adult.class
-
-    @place_tutor = subject.place_tutor.trigger.class
-    @place_pupil = subject.place_pupil.trigger.class
-    @place_remote = subject.place_remote.trigger.class
+#      @pre_school = subject.pre_school.class
+#      @junior_school = subject.junior_school.class
+#      @medium_school = subject.medium_school.class
+#      @high_school = subject.high_school.class
+#      @student = subject.student.class
+#      @adult = subject.adult.class
+#
+#      @place_tutor = subject.place_tutor.trigger.class
+#      @place_pupil = subject.place_pupil.trigger.class
+#      @place_remote = subject.place_remote.trigger.class
 #    @place_cafe = subject.place_cafe.class
   show : =>
     @training_direction = {
@@ -48,68 +65,59 @@ class @main
       "логопеды": ["общий курс", "алалия", "аутизм", "афазия", "брадилалия", "все нарушения речи", "диагностика (обследование)", "дизартрия", "дизорфография", "дисграфия", "дислалия", "дислексия", "дисфония", "заикание", "ЗПРР", "ЗРР", "ЛГНР", "логоневроз", "логопедический массаж", "логоритмика", "ОНР", "ОНР при ЗПР", "постановка звуков", "ринолалия", "системное недоразвитие речи при ИН", "стертая дизартрия", "тахилалия", "ФД (фонетический дефект)", "ФНР (фонематическое недоразвитие речи)", "ФФН (фонетико-фонематическое недоразвитие)"],
       "default" : ['ЕГЭ','ОГЭ(ГИА)', 'подготовка к олимпиадам', 'школьный курс', 'вузовский курс']
     }
-    @btn_expand.click =>
+    @btn_expand.on 'click', (e) =>
       if @container.is ':visible'
-        @hideContainer()
+        @slideUp()
       else
-        @showContainer()
+        @slideDown()
+
+    @btn_remove.on 'click', (e) =>
+      console.log @getValue()
 
     #@course           .setErrorDiv @out_err_course
-    @group_learning   .setErrorDiv @out_err_group_learning
-    @pre_school       .setErrorDiv @out_err_categories_of_students
-    @place_tutor      .setErrorDiv @out_err_place
+#      @group_learning   .setErrorDiv @out_err_group_learning
+#      @pre_school       .setErrorDiv @out_err_categories_of_students
+#      @place_tutor      .setErrorDiv @out_err_place
     #@course           .setErrorDiv @out_err_course
 #    @group_learning   .setErrorDiv @out_err_group_learning
 
 
     # clear error
     #@course.on            'focus',  => @course.hideError()
-    @group_learning.on    'focus',  => @group_learning.hideError()
-    @pre_school.on        'change', => @pre_school.hideError()
-    @junior_school.on     'change', => @junior_school.hideError()
-    @medium_school.on     'change', => @medium_school.hideError()
-    @high_school.on       'change', => @high_school.hideError()
-    @student.on           'change', => @student.hideError()
-    @adult.on             'change', => @adult.hideError()
-    @place_tutor.on       'change', => @place_tutor.hideError()
-    @place_pupil.on       'change', => @place_pupil.hideError()
-    @place_remote.on      'change', => @place_remote.hideError()
+#      @group_learning.on    'focus',  => @group_learning.hideError()
+#      @pre_school.on        'change', => @pre_school.hideError()
+#      @junior_school.on     'change', => @junior_school.hideError()
+#      @medium_school.on     'change', => @medium_school.hideError()
+#      @high_school.on       'change', => @high_school.hideError()
+#      @student.on           'change', => @student.hideError()
+#      @adult.on             'change', => @adult.hideError()
+#      @place_tutor.on       'change', => @place_tutor.hideError()
+#      @place_pupil.on       'change', => @place_pupil.hideError()
+#      @place_remote.on      'change', => @place_remote.hideError()
 #    @place_cafe.on        'change', => @place_cafe.hideError()
 
-    @subject_list.on 'change',(name)=>
+    @children.name.on 'change',(name)=>
       if name isnt ''
         if @training_direction[name]?
           direction = @training_direction[name]
         else
           direction = @training_direction['default']
-        @course.reset()
-        @course.setItems direction
-        @showContainer()
+        @children.course.reset()
+        @children.course.setItems direction
+        @slideDown()
 
-  hideContainer : =>
-    @container.slideUp 300
-  showContainer : =>
-    @container.slideDown 300
-#    @classes = [
-#      @tree.place_tutor.class,
-#      @tree.place_pupil.class,
-#      @tree.place_remote.class,
-#      @tree.group_learning.class
-#    ]
-##    setInterval @updateAll, 100
-#    @initAll()
-#  initAll : =>
-#    $.each @classes, (i, el) =>
-#      el.block.hide()
-#      el.checkbox.dom.click ->
-#        if el.checkbox.getValue()
-#          el.block.slideUp 200
-#        else
-#          el.block.slideDown 200
-#      el.initAll?()
-#  updateAll : =>
-#    $.each @classes, (i, cl) => cl.updateAll?()
-  getVaiue : =>
-    return {
-      name : @subject_list.getValue()
-    }
+  slideUp :(callback) =>
+    @container.slideUp 300, callback
+  slideDown :(callback) =>
+    @container.slideDown 300, callback
+
+  getValue : =>
+    result = {}
+    $.each @children, (key, cl) ->
+      result[key] = cl.getValue?()
+      return true
+    return result
+  setValue : (data) =>
+    if data isnt undefined
+      $.each @children, (key, cl) ->
+        if data[key] isnt undefined then cl.setValue? data[key]
