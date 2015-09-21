@@ -73,17 +73,8 @@ class AddPhotos
     @input.fileupload
       dataType : 'json'
       done : @done.out
-      #maxChunkSize : 10
-      #multipart : true
-      #progressInterval : 10
-      #bitrateInterval : 100
-      #seqentialUploads : true
-      #singleFileUploads : false
-      #processData : true
       progressall : @progressall.out
       progress : @start
-      #progress : @progressone.out
-      #start : @start.out
       start: @start
   start : (e,data)=>
     @input.css {
