@@ -155,10 +155,14 @@ class @Feel
     unknown = $.cookie()?.unknown
     $.cookie('unknown', 'set'+@user.sessionpart) if unknown == 'need'
     
-  go : (href)=>
+  go : (href,newwindow=false)=>
     q = do Q.async =>
       href = (yield @urlData.udataToUrl href)
-      window.location.href = href if href && (typeof href == 'string')
+      if href && (typeof href == 'string')
+        unless newwindow
+          window.location.href = href
+        else
+          window.open href,'_newtab'#, '_blank'
     q.done()
   goBack : (def_url)=> Feel.go @getBack def_url
   getBack : (def_url)=>

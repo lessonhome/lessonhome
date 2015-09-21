@@ -15,9 +15,14 @@ class Register
     @dbpersons = yield db.get 'persons'
     @dbpupil  = yield db.get 'pupil'
     @dbtutor  = yield db.get 'tutor'
+    @dbuploaded = yield db.get 'uploaded'
     @mail = yield Main.service 'mail'
     @urldata = yield Main.service 'urldata'
-
+    @adminHashs = yield db.get 'adminHashs'
+    arr = yield _invoke @adminHashs.find({}),'toArray'
+    @adminHashsArr = {}
+    for r in arr
+      @adminHashsArr[r.hash] = true
     ids = {}
     _ids = (yield _invoke @dbpersons.find({},{account:1}),'toArray')
     ids[row.account] = true for row in _ids
@@ -81,19 +86,85 @@ class Register
           delete @sessions[s]
         yield _invoke @session, 'remove',{hash:{$in:arr2}}
         yield _invoke @account,'update',{id:id},{$set:{sessions:a.sessions}}
+    oldAvaAccs = yield _invoke @dbpersons.find({ava:{$exists:true}},{ava:1,account:1}), 'toArray'
+    ###
+    "ava" : [
+      {
+        "hash" : "4dd6d09ea6"
+        "oname" : "20131222-090309-pm.jpg"
+        "dir" : "www/lessonhome/static/user_data/images/"
+        "name" : "4dd6d09ea6"
+        "original" : "4dd6d09ea6.jpg"
+        "high" : "4dd6d09ea6h.jpg"
+        "low" : "4dd6d09ea6l.jpg"
+        "owidth" : 2304
+        "oheight" : 1536
+        "hwidth" : 640
+        "hheight" : 427
+        "lwidth" : 200
+        "lheight" : 133
+        "ourl" : "/file/fa31632fe1/user_data/images/4dd6d09ea6.jpg"
+        "hurl" : "/file/10282cf13d/user_data/images/4dd6d09ea6h.jpg"
+        "lurl" : "/file/ca770bc6a2/user_data/images/4dd6d09ea6l.jpg"
+      }
+    ]
+    ###
+    uploadedImages = []
 
-#    badtutors = yield _invoke @dbtutor.find,{'subjects.0':{$exists:true},'subjects.0.places':{$exists:false}},{account:1,subjects:1}
-#    q = []
-#    for tutor in badtutors
-#      for index,subject of tutor.subjects
-#        tutor.subjects.places = {
-#
-#        }
-#      q.push _invoke @dbtutor 'update',{account:tutor.account},{$set:{subjects:tutor.subjects}}
-#    yield Q.all q
+    for acc in oldAvaAccs
+      avatar = []
+      photos = []
+      uploaded = {}
+      for image in (acc.ava ? [])
+        avatar.push image.hash
+        photos.push image.hash
+        uploaded[image.hash] = {
+          type : 'image'
+          original : image.hash
+          low : image.hash+'low'
+          high : image.hash+'high'
+          original_url : image.ourl
+          low_url : image.lurl
+          high_url : image.hurl
+        }
+        yield _invoke @dbuploaded, 'update', {hash: image.hash}, {$set:{
+          hash: image.hash
+          account: acc.account
+          type: 'image'
+          name: image.oname
+          dir: image.dir
+          width: image.owidth
+          height: image.oheight
+          url: image.ourl
+        }},{upsert:true}
+        yield _invoke @dbuploaded, 'update', {hash: image.hash+'low'}, {$set: {
+          hash: image.hash + 'low'
+          account: acc.account
+          type: 'image'
+          name: image.oname
+          dir: image.dir
+          width: image.lwidth
+          height: image.lheight
+          url: image.lurl
+        }},{upsert:true}
+        yield _invoke @dbuploaded, 'update', {hash: image.hash+'high'}, {$set:{
+          hash: image.hash+'high'
+          account: acc.account
+          type: 'image'
+          name: image.oname
+          dir: image.dir
+          width: image.hwidth
+          height: image.hheight
+          url: image.hurl
+        }},{upsert:true}
 
+      yield _invoke(@dbpersons,'update', {account: acc.account},{
+        $set:{avatar: avatar, photos:photos, uploaded: uploaded}
+        $unset:{ava:''}
+      },{upsert:true})
 
-  register : (session,unknown)=>
+    #yield _invoke @dbuploaded, 'insert', uploadedImages if uploadedImages.length
+  register : (session,unknown,adminHash)=>
     o = {}
     created = false
     unless session? && @sessions[session]?.account? && @accounts[@sessions[session].account]?
@@ -128,11 +199,34 @@ class Register
     idstr += ':'.grey+account.login.cyan if account.login?
     idstr += ':'.grey+account.id.substr(0,5).blue
     idstr += ':'.grey+session.hash.substr(0,5).blue
-
+    newAcc  = {}
+    for key,val of account
+      newAcc[key] = val
+    newAcc.type = {}
+    for key,val of account.type
+      newAcc.type[key] = val
+    if adminHash && @adminHashsArr[adminHash]
+      newAcc.admin = true
+      newAcc.type.admin = true
     return {
       session:session.hash
-      account:account
+      account:newAcc
     }
+  bindAdmin : (session)=>
+    return unless @sessions[session]
+    @sessions[session].admin = true
+    session = @sessions[session]
+    yield _invoke(@session,'update',{hash:session.hash},{$set:session},{upsert:true})
+    return
+  getAdminHash : =>
+    hash = _randomHash 30
+    yield _invoke @adminHashs,'insert',{hash}
+    @adminHashsArr[hash] = true
+    return hash
+  removeAdminHash : (hash)=>
+    delete @adminHashsArr[hash]
+    yield _invoke @adminHashs,'remove',{hash}
+    return
 
   newType : (user,sessionhash,data)=>
     throw err:'bad_query'     unless data?.login? && data?.password? && data?.type?
@@ -215,7 +309,6 @@ class Register
     delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     return {session:@sessions[sessionhash],user:user}
-
   passwordRestore: (data) =>
     db = yield Main.service 'db'
 

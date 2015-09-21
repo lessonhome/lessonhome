@@ -12,6 +12,7 @@ class @main
       ]
     media : @module '$/media' :
       photos : $form : person : 'uploaded'
+      avatar : $form : person : 'avatar'
       min : true
       depend : [
         @module 'lib/jquery/ui_widget'
@@ -80,7 +81,8 @@ class @main
     line_med            : @module 'tutor/separate_line':
       title    : 'Медиа'
       link      : '#'
-      upload_input : @module 'media_upload'
+      upload_input : @module 'media_upload' :
+        photos : $form : person : 'uploaded'
       add     : @exports()
       selector : 'horizon'
     #media               : @module '$/media' :

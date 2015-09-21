@@ -52,6 +52,8 @@ class @main extends EE
     prep = preps[@index]
     return Feel.go '/second_step' unless prep?
     console.log prep
+    unless prep.reviews && prep.reviews.length
+      @reviews.hide()
     @setValue prep
     $(@back).click => @goBack()
     $(@about).on 'click', =>
