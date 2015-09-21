@@ -64,7 +64,7 @@ class FileUpload
   done : =>
     @log()
   uploaded : (req,res)=>
-    console.log 'uploaded'.red
+    #console.log 'uploaded'.red
     return unless req.user?.tutor
 
     db = yield Main.service 'db'
@@ -80,7 +80,7 @@ class FileUpload
       params = {}
 
     files = yield _readdir "#{@dir}/temp/"+req.user.id+"/image"
-    console.log {files}
+
     if files.length
 
       arr = []
@@ -90,7 +90,7 @@ class FileUpload
 
       for f in files
 
-        console.log 'fileupload.coffee EXTENSION', f.split('.').pop()
+        #console.log 'fileupload.coffee EXTENSION', f.split('.').pop()
         hash = _randomHash().substr 0,10
         o =
           hash      : hash

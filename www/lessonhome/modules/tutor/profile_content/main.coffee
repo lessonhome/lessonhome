@@ -10,3 +10,4 @@ class @main
 
     @input.on 'uploaded', (photo)=> @media.add photo
     @add_photos.on 'uploaded', (photo)=> @media.add photo
+    @media.on 'set_ava', (photo) => @add_photos.setPhoto(photo.url, photo.width, photo.height)
