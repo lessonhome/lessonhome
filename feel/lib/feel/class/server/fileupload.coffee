@@ -78,19 +78,17 @@ class FileUpload
       params = qs.parse url.parse(req.originalUrl).query
     else
       params = {}
-
+    yield _mkdirp "#{@dir}/temp/"+req.user.id+"/image"
     files = yield _readdir "#{@dir}/temp/"+req.user.id+"/image"
 
+    
     if files.length
-
       arr = []
       qs = []
-
       yield _mkdirp "#{@dir}/images"
 
       for f in files
-
-        console.log 'fileupload.coffee EXTENSION', f.split('.').pop()
+        #console.log 'fileupload.coffee EXTENSION', f.split('.').pop()
         hash = _randomHash().substr 0,10
         o =
           hash      : hash
@@ -106,6 +104,7 @@ class FileUpload
       yield Q.all qs
       photos = []
       user_uploads = {}
+      avatars = []
 
       for o in arr
         photos.push(
@@ -145,6 +144,8 @@ class FileUpload
         person = persons[0] ? {}
         user_photos = person.photos ? []
         user_uploads = person.uploaded
+        avatars.push o.hash
+
 
         if !user_photos?
           user_photos = [o.hash]
@@ -167,14 +168,16 @@ class FileUpload
       if photos.length
         yield _invoke uploadedDb, 'insert',     photos
         yield _invoke personsDb, 'update', {account: req.user.id}, {$set:{uploaded : user_uploads} }, {upsert: true}
-        yield _invoke personsDb, 'update', {account: req.user.id}, {$set:{avatar : o.hash} }, {upsert: true} if params.avatar == 'true'
+        if params.avatar == 'true'
+          yield _invoke personsDb, 'update', {account: req.user.id}, {$push:{avatar : {$each: avatars}} }, {upsert: true}
 
     yield @site.form.flush ['person'],req,res
     res.setHeader 'content-type','application/json'
     avatar = yield _invoke personsDb.find({account: req.user.id}, {avatar:1}), 'toArray'
     avatar = avatar[0].avatar
 
-    if avatar? and avatar != ''
+    if avatar? and avatar.length
+      avatar = avatar[avatar.length-1]
       el = yield _invoke uploadedDb.find({hash:avatar+'high'}), 'toArray'
       el = el[0]
       res.end JSON.stringify {
@@ -204,9 +207,7 @@ class FileUpload
     qs.push _identify o.ndir+o.high
     yield _fs_copy o.tdir+o.name,o.ndir+o.original
     #console.log o.tdir+o.name,o.ndir+o.original
-    setTimeout =>
-      _fs_remove(o.tdir+o.name).done()
-    , 10000
+    yield _fs_remove(o.tdir+o.name)
     #yield _rename o.tdir+o.name,o.ndir+o.original
     qs.push _identify o.ndir+o.original
     [sl,sh,so] = yield Q.all qs

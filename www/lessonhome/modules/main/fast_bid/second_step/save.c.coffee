@@ -38,5 +38,5 @@
 
 
   yield $.status 'fast_bid',3
-  yield $.form.flush ['pupil', 'account'],$.req,$.res
+  yield $.form.flush '*',$.req,$.res
   return {status:'success'}

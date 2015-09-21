@@ -36,12 +36,11 @@ class @F2V
     return email
   $skype   : (data)-> data?.social_networks?.skype?[0]
   $site    : (data)-> data?.site?[0]
-  $avatar       : (data)->
-    if data.avatar? and data.avatar != ''
-      if data.uploaded[data.avatar]?
-        data.uploaded[data.avatar]
-      else
-        data.uploaded
+  $avatar  : (data)->
+    if data.avatar? and data.avatar != []
+      ava = data.avatar[data.avatar.length-1]
+      if data.uploaded[ava+'high']?
+        data.uploaded[ava+'high']
   $uploaded : (data) ->
     W = 738
     HMIN = 150
@@ -83,6 +82,11 @@ class @F2V
         if layer.height > HMAX
           layer.height = HMAX
     layers.push layer if layer
+    for layer in layers
+      shift = 0
+      for p,i in layer.photos
+        p.left = shift + d
+        shift += p.width*layer.height/p.height+d*2
     return layers
   $avatars      : (data)-> data?.ava
   $email_first  : (data)-> data?.email?[0]

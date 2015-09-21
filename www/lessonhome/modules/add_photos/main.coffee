@@ -33,16 +33,26 @@ class AddPhotos
     yield @$send 'removeAva'
     $.getJSON('/uploaded/image')
     .success (data)=>
-      console.log data
       @setPhoto data.url,data.width,data.height
     .error (err)=>
       console.error err
   done : (e,data)=>
+    #@dom.find('input').remove()
+    nowFile   = data?.files[data?.files?.length-1]
+    lastFile  = data?.originalFiles?[data?.originalFiles?.length-1]
+    return unless nowFile==lastFile
     @log e,data
     $.getJSON('/uploaded/image', {avatar: 'true'})
     .success (data)=>
-      Feel.sendActionOnce 'ava_upload'
-      @setPhoto data.url,data.width,data.height
+      if data?.uploaded?
+        photos = []
+        for photo in data.uploaded
+          unless photo.hash.match(/low|high/)
+            photos.push photo
+            Feel.sendActionOnce 'ava_upload'
+            @setPhoto data.url,data.width,data.height
+        @emit 'uploaded', photos.reverse()
+        #@resetInput()
     .error (err)=>
       console.error err
       @enable_loader()
@@ -62,18 +72,9 @@ class AddPhotos
     @found.input_wrap.append @input=$('<input accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="" class="input" />')
     @input.fileupload
       dataType : 'json'
-      done : @done
-      #maxChunkSize : 10
-      #multipart : true
-      #progressInterval : 10
-      #bitrateInterval : 100
-      #seqentialUploads : true
-      #singleFileUploads : false
-      #processData : true
-      progressall : @progressall
+      done : @done.out
+      progressall : @progressall.out
       progress : @start
-      #progress : @progressone.out
-      #start : @start.out
       start: @start
   start : (e,data)=>
     @input.css {
@@ -89,6 +90,28 @@ class AddPhotos
     @log e,data
     return true
   setPhoto : (url,w,h)=>
+
+    miniature = document.getElementById('m-mime-photo').firstElementChild
+
+    max = 55
+    mw = w
+    mh = h
+    if mw >= mh
+      if mw>max
+        a = max/mw
+        mw *= a
+        mh *=a
+
+    else if mh > mw
+      if h>max
+        a=max/mh
+        mw*=a
+        mh*=a
+
+    miniature.src = url
+    miniature.style.height = "#{mh}px"
+    miniature.style.width = "#{mw}px"
+
     a = h/w
     w = @dom.width()
     h = w*a

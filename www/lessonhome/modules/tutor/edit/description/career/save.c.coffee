@@ -14,5 +14,5 @@
 
   db= yield $.db.get 'tutor'
   yield _invoke db, 'update',{account:$.user.id},{$set:{experience:data.experience, extra:[{type:'text',text:data.extra_info}]}},{upsert:true}
-  yield $.form.flush ['tutor','person'],$.req,$.res
+  yield $.form.flush '*',$.req,$.res
   return {status:'success'}
