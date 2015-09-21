@@ -14,6 +14,7 @@ class @main extends EE
     @profiles_80       = @found.profiles_80
     @reset_all_filters = @found.reset_all_filters
     @advanced_filter   = @tree.advanced_filter.class
+    @message_empty     = @sort.found.message_empty
     #@tutors = $.localStorage.get 'tutors'
     #@tutors ?= {}
     @loaded = {}
@@ -44,6 +45,13 @@ class @main extends EE
     @sort.setNumber num
     yield Q.delay(10)
     indexes = indexes.slice @from,@from+@count
+    @message_empty.css {
+      opacity:
+        if indexes.length
+          0
+        else
+          1
+    }
     preps   = yield Feel.dataM.getTutor indexes
     yield Q.delay(10)
     #return end() if objectHash(@now) == objectHash(indexes)
