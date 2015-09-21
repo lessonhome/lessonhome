@@ -107,11 +107,11 @@ class Register
     ###
     uploadedImages = []
 
-    for acc of oldAvaAccs
+    for acc in oldAvaAccs
       avatar = []
       photos = []
       uploaded = {}
-      for image of acc.ava
+      for image in acc.ava
         console.log 'image', image
         avatar.push image.hash
         photos.push image.hash

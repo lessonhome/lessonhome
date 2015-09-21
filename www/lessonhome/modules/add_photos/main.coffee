@@ -75,6 +75,28 @@ class AddPhotos
     @log e,data
     return true
   setPhoto : (url,w,h)=>
+
+    miniature = document.getElementById('m-mime-photo').firstElementChild
+
+    max = 55
+    mw = w
+    mh = h
+    if mw >= mh
+      if mw>max
+        a = max/mw
+        mw *= a
+        mh *=a
+
+    else if mh > mw
+      if h>max
+        a=max/mh
+        mw*=a
+        mh*=a
+
+    miniature.src = url
+    miniature.style.height = '#{mh}px'
+    miniature.style.width = '#{mw}px'
+
     a = h/w
     w = @dom.width()
     h = w*a
