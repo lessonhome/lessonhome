@@ -39,8 +39,8 @@ class @F2V
   $avatar  : (data)->
     if data.avatar? and data.avatar != []
       ava = data.avatar[data.avatar.length-1]
-      if data.uploaded[ava]?
-        data.uploaded[ava]
+      if data.uploaded[ava+'high']?
+        data.uploaded[ava+'high']
   $uploaded : (data) ->
     W = 738
     HMIN = 150

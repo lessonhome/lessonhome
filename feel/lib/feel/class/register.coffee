@@ -116,7 +116,6 @@ class Register
       photos = []
       uploaded = {}
       for image in (acc.ava ? [])
-        console.log 'image', image
         avatar.push image.hash
         photos.push image.hash
         uploaded[image.hash] = {
@@ -128,44 +127,43 @@ class Register
           low_url : image.lurl
           high_url : image.hurl
         }
-        uploadedImages.push(
-          {
-            hash: image.hash
-            account: acc.account
-            type: 'image'
-            name: image.oname
-            dir: image.dir
-            width: image.owidth
-            height: image.oheight
-            url: image.ourl
-          }
-          {
-            hash: image.hash+'low'
-            account: acc.account
-            type: 'image'
-            name: image.oname
-            dir: image.dir
-            width: image.lwidth
-            height: image.lheight
-            url: image.lurl
-          }
-          {
-            hash: image.hash+'high'
-            account: acc.account
-            type: 'image'
-            name: image.oname
-            dir: image.dir
-            width: image.hwidth
-            height: image.hheight
-            url: image.hurl
-          }
-        )
+        yield _invoke @dbuploaded, 'update', {hash: image.hash}, {$set:{
+          hash: image.hash
+          account: acc.account
+          type: 'image'
+          name: image.oname
+          dir: image.dir
+          width: image.owidth
+          height: image.oheight
+          url: image.ourl
+        }},{upsert:true}
+        yield _invoke @dbuploaded, 'update', {hash: image.hash}, {$set: {
+          hash: image.hash + 'low'
+          account: acc.account
+          type: 'image'
+          name: image.oname
+          dir: image.dir
+          width: image.lwidth
+          height: image.lheight
+          url: image.lurl
+        }},{upsert:true}
+        yield _invoke @dbuploaded, 'update', {hash: image.hash}, {$set:{
+          hash: image.hash+'high'
+          account: acc.account
+          type: 'image'
+          name: image.oname
+          dir: image.dir
+          width: image.hwidth
+          height: image.hheight
+          url: image.hurl
+        }},{upsert:true}
+
       yield _invoke(@dbpersons,'update', {account: acc.account},{
         $set:{avatar: avatar, photos:photos, uploaded: uploaded}
         $unset:{ava:''}
       },{upsert:true})
 
-    yield _invoke @dbuploaded, 'insert', uploadedImages if uploadedImages.length
+    #yield _invoke @dbuploaded, 'insert', uploadedImages if uploadedImages.length
   register : (session,unknown,adminHash)=>
     o = {}
     created = false

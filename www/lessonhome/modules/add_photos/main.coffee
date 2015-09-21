@@ -109,8 +109,8 @@ class AddPhotos
         mh*=a
 
     miniature.src = url
-    miniature.style.height = '#{mh}px'
-    miniature.style.width = '#{mw}px'
+    miniature.style.height = "#{mh}px"
+    miniature.style.width = "#{mw}px"
 
     a = h/w
     w = @dom.width()
