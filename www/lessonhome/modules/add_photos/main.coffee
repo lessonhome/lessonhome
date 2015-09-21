@@ -23,6 +23,10 @@ class AddPhotos
     .error (err)=>
       console.error err
   done : (e,data)=>
+    #@dom.find('input').remove()
+    nowFile   = data?.files[data?.files?.length-1]
+    lastFile  = data?.originalFiles?[data?.originalFiles?.length-1]
+    return unless nowFile==lastFile
     @log e,data
     $.getJSON('/uploaded/image', {avatar: 'true'})
     .success (data)=>
@@ -34,17 +38,18 @@ class AddPhotos
             Feel.sendActionOnce 'ava_upload'
             @setPhoto data.url,data.width,data.height
         @emit 'uploaded', photos.reverse()
+        #@resetInput()
     .error (err)=>
       console.error err
     #d = yield Feel.json '/uploaded', data
     #@log d
-    @resetInput()
+
   resetInput : =>
     @dom.find('input').remove()
     @found.input_wrap.append @input=$('<input accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="" class="input" />')
     @input.fileupload
       dataType : 'json'
-      done : @done
+      done : @done.out
       #maxChunkSize : 10
       #multipart : true
       #progressInterval : 10
@@ -52,7 +57,7 @@ class AddPhotos
       #seqentialUploads : true
       #singleFileUploads : false
       #processData : true
-      progressall : @progressall
+      progressall : @progressall.out
       progress : @start
       #progress : @progressone.out
       #start : @start.out

@@ -64,7 +64,7 @@ class FileUpload
   done : =>
     @log()
   uploaded : (req,res)=>
-    #console.log 'uploaded'.red
+    console.log 'uploaded'.red
     return unless req.user?.tutor
 
     db = yield Main.service 'db'
@@ -80,7 +80,7 @@ class FileUpload
       params = {}
 
     files = yield _readdir "#{@dir}/temp/"+req.user.id+"/image"
-
+    console.log {files}
     if files.length
 
       arr = []
@@ -209,9 +209,7 @@ class FileUpload
     qs.push _identify o.ndir+o.high
     yield _fs_copy o.tdir+o.name,o.ndir+o.original
     #console.log o.tdir+o.name,o.ndir+o.original
-    setTimeout =>
-      _fs_remove(o.tdir+o.name).done()
-    , 10000
+    yield _fs_remove(o.tdir+o.name)
     #yield _rename o.tdir+o.name,o.ndir+o.original
     qs.push _identify o.ndir+o.original
     [sl,sh,so] = yield Q.all qs
