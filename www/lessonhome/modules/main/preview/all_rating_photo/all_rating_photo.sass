@@ -15,7 +15,7 @@ main
   z-index : 100
   cursor : pointer
   position: relative
-  width: 130px
+  width: 132px
   img
     position : absolute
     left : 0
@@ -37,18 +37,27 @@ main
   margin-top: 10px
 a
   display: block
-  text-decoration: none
+  text-decoration: underline
   cursor: pointer
   .count_review
     text-align: center
-    padding-left: 12px
-    box-sizing: border-box
+    //padding-left: 12px
+    //box-sizing: border-box
     margin-top: 18px
     font-size: 14px
     color: $black
-    text-decoration: underline
     &:hover
       text-decoration: none
+.count_cost
+  text-align: center
+  .from, .cost, .measure
+    +inline-block
+    vertical-align: bottom
+    font-size: 14px
+  .cost
+    padding: 0 4px
+    font-size: 18px
+
 .photo.unknown
   //+box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
   cursor : default
