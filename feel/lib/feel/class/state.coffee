@@ -248,9 +248,41 @@ class module.exports
     return state
   bind_exports : (state,o)=>
     try
-      if typeof o == 'object' || typeof o == 'function'
+      if o && (typeof o == 'object' || typeof o == 'function')
+        ###
         for key,val of o
           continue if key.match /^_/
+        ###
+        #console.log state.exports
+        for field,arr of state.exports
+          value = _setKey o,field
+          #console.log field,o,value if field == 'selector'
+          for exp in arr
+            node = exp.node
+            k = exp.key
+            if typeof node[k] == 'object' || typeof node[k]=='function'
+              for a,b of value
+                node[k][a] = b
+            else node[k] = value
+            ###
+            if node == state.tree
+              if state.parent?.exports?[k]?
+                newo = {}
+                newo[k] = node[k]
+                state.parent.__bind_exports state.parent,newo
+            ###
+        newo = null
+        if state.parent?.exports? then for key,val of o
+          continue if key.match /^_/
+          if state.exports[key]? then for exp in state.exports[key]
+            node = exp.node
+            k = exp.key
+            if node == state.tree
+              newo ?= {}
+              newo[k] = node[k]
+        if newo
+          state?.parent?.__bind_exports? state.parent,newo
+        ###
           if !state.exports[key]?
             console.error "can't find exports name '#{key}' in state #{@name}"
           else
@@ -266,6 +298,7 @@ class module.exports
                   newo = {}
                   newo[k] = node[k]
                   state.parent.__bind_exports state.parent, newo
+        ###
     catch e
       console.error "failed merge tree in state #{@name} with object", o,Exception e
       throw e
@@ -377,7 +410,7 @@ class module.exports
   function_data : (s,...,state)=>
     ha = _randomHash 5
     st = new Date().getTime()
-    console.log "data start #{ha}".red
+    ##console.log "data start #{ha}".red
     obj = @site.dataObject s,_path.relative "#{process.cwd()}/#{@site.path.states}/../",@path
     obj.$site   = @site
     obj.$req    = state.req
@@ -387,13 +420,13 @@ class module.exports
     obj.$register= state.req.register
     obj.$cookie = state.req.cookie
     obj.$status = state.req.status
-    console.log (""+((new Date().getTime())-st)).yellow
+    ##console.log (""+((new Date().getTime())-st)).yellow
     if (obj.get?) && (typeof obj.get == 'function')
-      console.log obj.get
+      ##console.log obj.get
       get_ = obj.get
       obj.get = (args...)=>
         get_.apply(obj,args).then (a)=>
-          console.log "data stop #{ha}".red+(""+((new Date().getTime())-st)).yellow
+          #console.log "data stop #{ha}".red+(""+((new Date().getTime())-st)).yellow
           return a
 
     return obj

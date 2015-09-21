@@ -53,7 +53,8 @@
     "imagemagick": "*",
     "lodash" : "*",
     "request":"*",
-    "nodemailer":"*"
+    "nodemailer":"*",
+    "fs-extra" : "*"
   }
 }
 
