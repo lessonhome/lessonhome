@@ -6,9 +6,10 @@ class media
     Wrap @
   Dom : =>
     @setRemoveHandlers()
-    #@setViewHandlers()
+    @setAvaHandlers()
 
   show : =>
+
     @photos = {}
     for i, layer of @tree.photos
       for j, photo of layer.photos
@@ -44,10 +45,11 @@ class media
       media_content.appendChild(layerDOM)
 
     @setRemoveHandlers()
+    @setAvaHandlers()
 
   remove_photo: (id) =>
 
-    console.log yield @$send('removeMedia', {hash: id})
+    yield @$send('removeMedia', {hash: id})
     delete @photos[id]
 
     photos_left = []
@@ -63,8 +65,6 @@ class media
       photos = image
     else
       photos = [image]
-
-    console.log 'add to', @photos
 
     for hash, photo of @photos
       photos.push photo
@@ -85,25 +85,19 @@ class media
       button.onclick = () ->
         remove(this.nextSibling.id)
 
-  setViewHandlers: =>
+  setAvaHandlers: =>
     @images = document.getElementsByClassName('big')
     photos = @photos
-    showOriginal = @showOriginal
+    setAsAvatar = @setAsAvatar
 
     for image in @images
       image.onclick = () ->
-        showOriginal photos[this.id]
+        setAsAvatar(this.id)
 
-  showOriginal: (photo) =>
-    wrapper = document.createElement('div')
-    wrapper.className = 'original-wrapper'
-
-    image = document.createElement('img')
-    image.src = photo.url
-
-    wrapper.appendChild(image)
-    document.getElementById('m-tutor-profile_content-media').appendChild(wrapper)
-
+  setAsAvatar: (id)=>
+    @$send('setAvatar', {id: id})
+    .then (data)=>
+      @emit 'set_ava', data.newAva
   remakeLayers: (photos) =>
     W = 738
     HMIN = 150
