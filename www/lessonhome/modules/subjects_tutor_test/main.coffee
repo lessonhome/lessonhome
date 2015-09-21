@@ -1,20 +1,34 @@
 
 class @main
   Dom : ->
-    @btn = @tree.btn_uploads.class
+    @btn_add = @tree.btn_add.class
     @container = @found.container
     @data = @tree.data
     @subject = @tree.subject.class
-    @low = @tree.btn_send.class
+    @subjects = {}
   show : =>
-    @subjects = []
+
+    @addNewSubject = do =>
+      i = 0
+      return (key, values) =>
+        obj = @subject.$clone()
+        if key is undefined
+          key = ++i
+        else if key > i
+          i = key
+        if values then obj.setValue values
+        @subjects[key] = obj
+        @container.append $('<div class="block"></div>').append obj.dom
+
+
 
     for key, values of @data
-      console.log values
-      @addNewSubject(values)
+      @addNewSubject key, values
 
-    @btn.dom.click =>
+    @btn_add.dom.click =>
       @addNewSubject()
+
+
 
 #    for i,subject of @tree.subjects
 #      @subjects[i] = {}
@@ -39,16 +53,15 @@ class @main
 #      @subjects[i].place_cafe = subject.place_cafe.class
 
   addNewSubject : (values) =>
-    obj = @subject.$clone()
-    if values then obj.setValue values
-    @container.append $('<div class="block"></div>').append obj.dom
-    @subjects.push obj
+
   save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then @onReceive
-    else
-      return false
+    @$send './save', @getData()
+    return false
+#    if @check_form()
+#      return @$send('./save',@getData())
+#      .then @onReceive
+#    else
+#      return false
   onReceive : ({status,errs,err})=>
     if err?
       errs?=[]
@@ -98,10 +111,14 @@ class @main
       @parseError _e, i
     return errs.length==0
 
-  foo : =>
-    return {
-      ger : 'it\'s work!'
+  getData : =>
+    data = {
+      subjects_val : {}
     }
+    for key, sub of @subjects
+      data.subjects_val[key] = sub.getValue()
+    return data
+
 #    @subjects_val = {}
 #    for i,subject of @subjects
 #      @subjects_val[i] = {}

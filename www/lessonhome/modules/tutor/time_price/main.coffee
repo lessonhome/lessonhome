@@ -22,6 +22,6 @@ class @main
     return result
   setValue : (data) =>
     if data isnt undefined
-      $.each @children, (key, cl) ->
+      $.each @children, (key, cl) =>
         if data[key] isnt undefined then cl.setValue? data[key]
 

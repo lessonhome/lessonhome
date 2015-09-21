@@ -9,6 +9,9 @@ status =
 
 class @F2V
   $all_subjects : (data) ->
+    if not data.subjects? then return false
+    console.log data
+    console.log data.subjects[0].groups
     result = {}
     for key, subject of data.subjects
       result[key] = {
@@ -23,24 +26,29 @@ class @F2V
         group_learning : {
           selected : subject.groups[0].description isnt "не проводятся"
           groups : subject.groups[0].description
+          price : subject.groups[0].price if subject.groups[0].price?
         }
         comments : subject.description
       }
-      for val in subject.place
-        switch val
-          when 'tutor' then result[key].place_tutor = {
-            selected: true
-          }
-          when 'remote' then result[key].place_remote = {
-            selected: true
-          }
-          when 'pupil' then result[key].place_pupil = {
-            selected: true
-          }
-
-
-
       console.log subject
+      if subject.place?
+        if subject.place_prices?
+          for val in subject.place
+            result[key]['place_'+ val] = {
+              selected : true
+              one_hour : subject.place_prices[val]?[0]
+              two_hour : subject.place_prices[val]?[1]
+              tree_hour : subject.place_prices[val]?[2]
+            }
+        else
+          prices = yield @hour_prices_new(subject)
+          for val in subject.place
+            result[key]['place_'+ val] = {
+              selected : true
+              one_hour: prices.v60
+              two_hour: prices.v90
+              tree_hour: prices.v120
+            }
     return result
   $status       : (data)-> status[data?.status] ? ''
   $status2       : (data)-> status[data?.status]
@@ -168,6 +176,32 @@ class @F2V
         ret = ret.substring(0, ret.length - 2)
 
     return ret
+  hour_prices_new : (subject) ->
+    v60 = ''
+    v90 = ''
+    v120 = ''
+    p1 = +subject.price?.range?[0]
+    p2 = +subject.price?.range?[1]
+    t1 = +subject.price?.duration?.left
+    t2 = +subject.price?.duration?.right
+    if p1 isnt NaN and p2 isnt NaN and t1 isnt NaN and t2 isnt NaN
+
+      delta_t = t2 - t1
+      if delta_t == 0 or ( ( k = (p2 - p1)/delta_t ) > 200 or k < 4) then k = 14
+      v60  = k*(60 - t1)  + p1
+      v90  = k*(90 - t1)  + p1
+      v120 = k*(120 - t1) + p1
+
+      v60 = yield @getPriceValue v60
+      v90 = yield @getPriceValue v90
+      v120 = yield @getPriceValue v120
+
+    return {v60, v90, v120}
+  getPriceValue: (val)=>
+    val /= 50
+    val = Math.round(val)
+    val *= 50
+    return val
 
 
 

@@ -81,6 +81,18 @@ class Register
           delete @sessions[s]
         yield _invoke @session, 'remove',{hash:{$in:arr2}}
         yield _invoke @account,'update',{id:id},{$set:{sessions:a.sessions}}
+
+#    badtutors = yield _invoke @dbtutor.find,{'subjects.0':{$exists:true},'subjects.0.places':{$exists:false}},{account:1,subjects:1}
+#    q = []
+#    for tutor in badtutors
+#      for index,subject of tutor.subjects
+#        tutor.subjects.places = {
+#
+#        }
+#      q.push _invoke @dbtutor 'update',{account:tutor.account},{$set:{subjects:tutor.subjects}}
+#    yield Q.all q
+
+
   register : (session,unknown)=>
     o = {}
     created = false

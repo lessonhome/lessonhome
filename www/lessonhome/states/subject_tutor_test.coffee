@@ -6,7 +6,6 @@ class @main
       selector  : 'first_reg'
       smart : true
       self : true
-      value : @exports 'subject.name'
       default_options     : {
         '0': {value: 'english', text: 'английский язык'}
         '1': {value: 'math', text: 'математика'}
@@ -92,59 +91,44 @@ class @main
         self : true
         selector  : 'first_reg'
 #        items : ['JLPT', 'JLPT N1', 'JLPT N2', 'JLPT N3', 'JLPT N4', 'JLPT N5', 'TOPIK', 'TOPIK I', 'TOPIK II', 'HSK', 'HSK Высший', 'HSK Начальный/средний', 'HSK Базовый', 'DELE', 'DELE A', 'DELE B', 'DELE C', 'TOEFL','IELTS', 'FCE', 'TOEIC', 'Business English', 'GMAT', 'GRE', 'SAT', 'DELF', 'DELF A', 'DELF B', 'DALF ', 'DSH', 'TestDaF', 'CILS', 'CILS B1', 'CILS B2', 'CILS C1', 'CILS C2', 'CEPRE-Bras', 'CEPRE-Bras Средний', 'CEPRE-Bras Выше среднейго', 'CEPRE-Bras Продвинутый', 'CEPRE-Bras Выше продвинутого', 'ЕГЭ', 'ОГЭ (ГИА)', 'Разговорный', 'Бизнес', 'С нуля']
-      tags : @exports 'subject.tags'
     pre_school      : @module 'tutor/forms/checkbox' :
       text      : 'дошкольники'
       selector  : 'small font_16'
-      value : @exports 'subject.school:0'
     junior_school   : @module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'младшая школа'
-      value : @exports 'subject.school:1'
     medium_school   : @module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'средняя школа'
-      value : @exports 'subject.school:2'
     high_school     : @module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'старшая школа'
-      value : @exports 'subject.school:3'
     student         : @module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'студент'
-      value : @exports 'subject.student'
     adult           : @module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'взрослый'
-      value : @exports 'subject.adult'
     place_tutor    : @state 'tutor/forms/checkbox_hide_block' :
-      is_show : @exports 'subject.places.tutor.is'
       title : 'у себя'
       selector: 'col2'
       content : @state 'tutor/time_price' :
         currency : 'руб.'
-        value : @exports 'subject.places.tutor.price'
     place_pupil    : @state 'tutor/forms/checkbox_hide_block' :
-      is_show : @exports 'subject.places.pupil.is'
       title : 'у ученика'
       selector: 'col2'
       content : @state 'tutor/time_price' :
         currency : 'руб.'
-        value : @exports 'subject.places.pupil.price'
     place_remote   : @state 'tutor/forms/checkbox_hide_block' :
-      is_show : @exports 'subject.places.remote.is'
       title : 'удаленно'
       selector: 'col2'
       content : @state 'tutor/time_price' :
         currency : 'руб.'
-        value : @exports 'subject.places.remote.price'
     group_learning : @state 'tutor/forms/checkbox_hide_block' :
-      is_show : @exports 'subject.groups.is'
       title : 'групповые'
       content : @module 'tutor/group_price' :
         price : @module 'tutor/forms/input' :
           selector   : 'fast_bid'
-          value : @exports 'subject.groups.price'
         group_people : @module 'tutor/forms/drop_down_list' :
           selector  : 'first_reg'
           self      : true
