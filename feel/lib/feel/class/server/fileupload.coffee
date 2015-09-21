@@ -78,7 +78,7 @@ class FileUpload
       params = qs.parse url.parse(req.originalUrl).query
     else
       params = {}
-
+    yield _mkdirp "#{@dir}/temp/"+req.user.id+"/image"
     files = yield _readdir "#{@dir}/temp/"+req.user.id+"/image"
 
     
