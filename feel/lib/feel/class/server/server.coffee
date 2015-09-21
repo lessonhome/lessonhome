@@ -117,6 +117,7 @@ class Server
     m = req.url.match /^([^\?]*)\?(.*)$/
     if m
       req.udata = m[2]
+      req.originalUrl = req.url
       #data = m[2].split '&'
       req.url  = m[1]
       #req.data = {}

@@ -29,6 +29,7 @@ class Tutors
     @dbtutor = yield @$db.get 'tutor'
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
+    @dbuploaded = yield @$db.get 'uploaded'
     @preps    = {}
     @indexes  = {}
     @filters  = {}
@@ -108,7 +109,7 @@ class Tutors
       t = obj.tutor
       p = obj.person
       obj.rating = JSON.stringify(obj).length*(obj?.person?.ratio ? 1.0)
-      unless obj.person?.ava?[0]?
+      unless obj.person?.avatar?[0]?
         obj.rating *= 0.7
       unless (obj.tutor?.about ? "")?.length>10
         obj.rating *= 0.7
@@ -186,15 +187,18 @@ class Tutors
       obj.experience = t?.experience
       obj.status = t?.status
       obj.photos = []
-      if p?.ava?[0]? then for ind,ph of p?.ava
-        obj.photos.push {
-          lwidth  : ph.lwidth
-          lheight : ph.lheight
-          lurl    : ph.lurl
-          hheight : ph.hheight
-          hwidth : ph.hwidth
-          hurl    : ph.hurl
-        }
+      if p.avatar
+        for ava in p.avatar
+          avatar = yield _invoke @dbuploaded.find({hash : {$in : [ava+'low', ava+'high']}}),'toArray'
+          if avatar[0]? and avatar[1]?
+            obj.photos.push {
+              lwidth  : avatar[0].width
+              lheight : avatar[0].height
+              lurl    : avatar[0].url
+              hheight : avatar[1].height
+              hwidth : avatar[1].width
+              hurl    : avatar[1].url
+            }
       unless obj.photos.length
         obj.photos.push {
           lwidth  : 130

@@ -50,9 +50,13 @@ class Socket
     req.user = register.account
     cookie.set 'unknown',req.user.unknown,{httpOnly:false} unless req.user.unknown == unknown
     _ = url.parse(req.url,true)
-    data    = JSON.parse _.query.data
-    context = JSON.parse _.query.context
-    pref = JSON.parse _.query.pref
+    try
+      data    = JSON.parse _.query.data
+      context = JSON.parse _.query.context
+      pref = JSON.parse _.query.pref
+    catch e
+      console.error e
+      return res.end()
     cb   = _.query.callback
     path = _.pathname
     clientName = yield @resolve context,path,pref
