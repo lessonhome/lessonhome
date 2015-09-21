@@ -1,11 +1,12 @@
 if popup
   .js-background_block
   .js-popup!=popup
-.issue_bids_block
-  .text_block
-    .title Не можете выбрать репетитора?
-    .title_sub Оставте заявку и мы поможем!
-  .bid_issue_button!=bid_issue_button
+if bid_issue_button
+  .issue_bids_block
+    .text_block
+      .title Не можете выбрать репетитора?
+      .title_sub Оставте заявку и мы поможем!
+    .bid_issue_button!=bid_issue_button
 .advanced_filter
   .tags
     .tag
