@@ -66,59 +66,128 @@ class FileUpload
   uploaded : (req,res)=>
     #console.log 'uploaded'.red
     return unless req.user?.tutor
-    #console.log req.user
-    files = yield _readdir "#{@dir}/temp/"+req.user.id+"/image"
-    arr = []
-    qs = []
-    yield _mkdirp "#{@dir}/images"
-    hash = _randomHash().substr 0,10
-    for f in files
-      o =
-        hash      : hash
-        original  : hash+".jpg"
-        high      : hash+"h.jpg"
-        low       : hash+"l.jpg"
-        name      : f
-        tdir      : "#{@dir}/temp/"+req.user.id+'/image/'
-        ndir      : "#{@dir}/images/"
-      arr.push o
-      qs.push @parseImage o
-    yield Q.all qs
+
     db = yield Main.service 'db'
-    db = yield db.get 'persons'
-    photos = yield _invoke db.find({account:req.user.id},{ava:1}), 'toArray'
-    photos = photos?[0]?.ava
-    photos ?= []
-    for o in arr
-      photos.push
-        hash  : o.hash
-        oname : o.name
-        dir   : o.ndir
-        name  : o.hash
-        original : o.original
-        high  : o.high
-        low   : o.low
-        owidth  : o.owidth
-        oheight : o.oheight
-        hwidth  : o.hwidth
-        hheight : o.hheight
-        lwidth  : o.lwidth
-        lheight : o.lheight
-        ourl    : Feel.static.F @site.name,"user_data/images/"+o.original
-        hurl    : Feel.static.F @site.name,"user_data/images/"+o.high
-        lurl    : Feel.static.F @site.name,"user_data/images/"+o.low
-    yield _invoke db, 'update', {account:req.user.id},{$set:{ava:photos}},{upsert:true}
+    personsDb = yield db.get 'persons'
+    uploadedDb = yield db.get 'uploaded'
+
+    qs = require 'querystring'
+    url = require 'url'
+
+    if req.originalUrl?
+      params = qs.parse url.parse(req.originalUrl).query
+    else
+      params = {}
+    yield _mkdirp "#{@dir}/temp/"+req.user.id+"/image"
+    files = yield _readdir "#{@dir}/temp/"+req.user.id+"/image"
+
+    
+    if files.length
+      arr = []
+      qs = []
+      yield _mkdirp "#{@dir}/images"
+
+      for f in files
+        #console.log 'fileupload.coffee EXTENSION', f.split('.').pop()
+        hash = _randomHash().substr 0,10
+        o =
+          hash      : hash
+          original  : hash+".jpg"
+          high      : hash+"h.jpg"
+          low       : hash+"l.jpg"
+          name      : f
+          tdir      : "#{@dir}/temp/"+req.user.id+'/image/'
+          ndir      : "#{@dir}/images/"
+        arr.push o
+        qs.push @parseImage o
+
+      yield Q.all qs
+      photos = []
+      user_uploads = {}
+      avatars = []
+
+      for o in arr
+        photos.push(
+          {
+            hash: o.hash
+            account: req.user.id
+            type: 'image'
+            name: o.name
+            dir: o.ndir
+            width: o.owidth
+            height: o.oheight
+            url: Feel.static.F @site.name, "user_data/images/" + o.original
+          }
+          {
+            hash: o.hash+'low'
+            account: req.user.id
+            type: 'image'
+            name: o.name
+            dir: o.ndir
+            width: o.lwidth
+            height: o.lheight
+            url: Feel.static.F @site.name, "user_data/images/" + o.low
+          }
+          {
+            hash: o.hash+'high'
+            account: req.user.id
+            type: 'image'
+            name: o.name
+            dir: o.ndir
+            width: o.hwidth
+            height: o.hheight
+            url: Feel.static.F @site.name, "user_data/images/" + o.high
+          }
+        )
+        accountsDb = yield db.get 'accounts'
+        persons =  yield _invoke personsDb.find({account:req?.user?.id}), 'toArray'
+        person = persons[0] ? {}
+        user_photos = person.photos ? []
+        user_uploads = person.uploaded
+        avatars.push o.hash
+
+
+        if !user_photos?
+          user_photos = [o.hash]
+          yield _invoke personsDb, 'update', {account: req.user.id}, {$set:{photos : user_photos} }, {upsert: true}
+        else
+          yield _invoke personsDb, 'update', {account: req.user.id}, {$push:{photos : o.hash} }, {upsert: true}
+
+        if !user_uploads?
+          user_uploads = {}
+        user_uploads[o.hash] = {
+          type : 'image'
+          original : o.hash
+          low : o.hash+'low'
+          high : o.hash+'high'
+          original_url : Feel.static.F @site.name, "user_data/images/" + o.original
+          low_url : Feel.static.F @site.name, "user_data/images/" + o.low
+          high_url : Feel.static.F @site.name, "user_data/images/" + o.high
+        }
+
+      if photos.length
+        yield _invoke uploadedDb, 'insert',     photos
+        yield _invoke personsDb, 'update', {account: req.user.id}, {$set:{uploaded : user_uploads} }, {upsert: true}
+        if params.avatar == 'true'
+          yield _invoke personsDb, 'update', {account: req.user.id}, {$push:{avatar : {$each: avatars}} }, {upsert: true}
+
     yield @site.form.flush ['person'],req,res
     res.setHeader 'content-type','application/json'
-    if photos.length
-      el = photos.pop()
+    avatar = yield _invoke personsDb.find({account: req.user.id}, {avatar:1}), 'toArray'
+    avatar = avatar[0].avatar
+
+    if avatar? and avatar.length
+      avatar = avatar[avatar.length-1]
+      el = yield _invoke uploadedDb.find({hash:avatar+'high'}), 'toArray'
+      el = el[0]
       res.end JSON.stringify {
-        url : el.hurl
-        width : el.hwidth
-        height : el.hheight
+        url : el.url
+        width : el.width
+        height : el.height
+        uploaded : photos
       }
     else
-      res.end JSON.stringify {}
+      res.end JSON.stringify {uploaded: photos}
  
   parseImage : (o)=>
     qs = []
@@ -138,9 +207,7 @@ class FileUpload
     qs.push _identify o.ndir+o.high
     yield _fs_copy o.tdir+o.name,o.ndir+o.original
     #console.log o.tdir+o.name,o.ndir+o.original
-    setTimeout =>
-      _fs_remove(o.tdir+o.name).done()
-    , 10000
+    yield _fs_remove(o.tdir+o.name)
     #yield _rename o.tdir+o.name,o.ndir+o.original
     qs.push _identify o.ndir+o.original
     [sl,sh,so] = yield Q.all qs
