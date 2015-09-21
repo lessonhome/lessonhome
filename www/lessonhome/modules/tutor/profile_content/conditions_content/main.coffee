@@ -9,7 +9,6 @@ class @main
 
   show : =>
     @subject_div.on 'click', => @subjectOnClick @subject, @details_data
-    console.log @address
     @map.go(@address).then (ret)->
       if !ret
         console.log ret

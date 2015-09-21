@@ -31,7 +31,7 @@ check = require("./check")
   #{bids:[{phone_call:{phones:[data.phone], description:data.call_time}, 'subjects.0.subject':data.subject, 'subjects.0.comments':data.comments}]}},{upsert:true}
 
   yield $.status 'fast_bid',2
-  yield $.form.flush ['person','pupil', 'account'],$.req,$.res
+  yield $.form.flush '*',$.req,$.res
   return {status:'success'}
 
 

@@ -4,10 +4,14 @@ class @main extends EE
     @click_day  = @found.click_day
     @arr = {}
     @tree.value ?= {}
+    unless @tree.click_ability
+      @dom.find('.click_day').addClass 'noclick'
     for i in [1..7] then for j in [1..3]
       @tree.value[''+i+j] ?= false
       d = @arr[''+i+j] = $ @click_day[(j-1)*7+i-1]
-      do (d,i,j)=> d.click => @choose_day d,i,j
+      do (d,i,j)=> d.click =>
+        return if @tree.click_ability == false
+        @choose_day d,i,j
     console.log @arr
 
   show : =>

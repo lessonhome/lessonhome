@@ -25,7 +25,7 @@ class @main extends @template '../../tutor'
         href  : '/tutor/reviews'
     ]
     content : @state './conditions_content'  :
-      address_time_title : $form : person : 'area'
+      address_time_title : $form : person : 'address'
       address: $form : person : 'address'
       calendar:  $form : tutor : 'calendar'
       outside_work_areas: $form : tutor : 'check_out_the_areas'

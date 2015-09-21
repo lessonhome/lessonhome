@@ -84,6 +84,11 @@ class Router
       return @redirect req,res,'/tutor/profile/first_step'
     if req.url.match /^\/form\/tutor\/logout$/
       yield @setSession req,res,cookie,""
+      ahash = cookie.get 'adminHash'
+      if ahash
+        console.log {ahash}
+        cookie.set 'adminHash'
+        yield req.register.removeAdminHash ahash
       return @redirect req,res,'/'
     req.udata.abTest ?= {}
     try
@@ -123,7 +128,7 @@ class Router
   setSession : (req,res,cookie,session)=> do Q.async =>
     req.register = @site.register
     unknown = cookie.get 'unknown'
-    register = yield @site.register.register session,unknown
+    register = yield @site.register.register session,unknown,cookie.get('adminHash')
     req.session = register.session
     cookie.set 'session',null,{
       #maxAge : (60*60*24*365)
