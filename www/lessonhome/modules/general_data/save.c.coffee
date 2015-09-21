@@ -28,7 +28,7 @@ status =
   db= yield $.db.get 'tutor'
   yield _invoke db, 'update',{account:$.user.id},{$set:{status:(status[data?.status] ? "other")}},{upsert:true}
   yield $.status 'tutor_prereg_1',true
-  yield $.form.flush ['tutor','person','account'],$.req,$.res
+  yield $.form.flush '*',$.req,$.res
   return {status:'success'}
 
 @convertMonthToNumber= (month_str)=>
