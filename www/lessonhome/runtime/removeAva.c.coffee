@@ -9,7 +9,7 @@
   if avatars?
     ava = avatars.pop()
   yield _invoke db,'update',{account:$.user.id},{$set:{avatar: avatars}},{upsert:true}
-  yield $.form.flush ['person'],$.req,$.res
+  yield $.form.flush '*',$.req,$.res
   return {
     status: 'success'
     removed: ava

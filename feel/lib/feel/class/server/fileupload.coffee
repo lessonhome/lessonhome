@@ -81,15 +81,13 @@ class FileUpload
 
     files = yield _readdir "#{@dir}/temp/"+req.user.id+"/image"
 
+    
     if files.length
-
       arr = []
       qs = []
-
       yield _mkdirp "#{@dir}/images"
 
       for f in files
-
         #console.log 'fileupload.coffee EXTENSION', f.split('.').pop()
         hash = _randomHash().substr 0,10
         o =

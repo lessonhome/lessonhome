@@ -19,6 +19,7 @@ class @main
     calendar: @module 'new_calendar' :
       selector: 'tutor_profile'
       click_ability: @exports()
+      value     : $form : tutor : 'calendar'
     ###
       show_calendar      : @module '$/show_calendar' :
         day_time : @exports 'calendar'

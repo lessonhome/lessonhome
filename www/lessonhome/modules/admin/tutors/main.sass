@@ -26,6 +26,30 @@
   +block
   width : 100%
   display : none
+  .row
+    background : #EEE
+    +block
+    width : 100%
+    line-height : 30px
+    .item
+      +block
+      padding : 5px
+    .name
+      width : 15%
+    .phone
+      width : 20%
+    .type
+      width : 5%
+    .comment
+      line-height : 20px
+      width : 30%
+    .time
+      width : 30%
+    .contacts
+      width : 40%
+  .row:nth-child(2n)
+    background : #DDD
+      
 =add($name)
   .#{$name} 
     .header .#{$name}
@@ -35,3 +59,4 @@
 
 +add('time')
 +add('backcall')
++add('nophoto')

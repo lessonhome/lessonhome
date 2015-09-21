@@ -14,7 +14,7 @@
   yield _invoke db, 'update',{account:$.user.id},{$set:pupil},{upsert:true}
 
   yield $.status 'fast_bid',5
-  yield $.form.flush ['pupil', 'account'],$.req,$.res
+  yield $.form.flush '*',$.req,$.res
   return {status:'success'}
 
 
