@@ -107,11 +107,11 @@ class Register
     ###
     uploadedImages = []
 
-    for acc of oldAvaAccs
+    for acc in oldAvaAccs
       avatar = []
       photos = []
       uploaded = {}
-      for image of acc.ava
+      for image in (acc.ava ? [])
         console.log 'image', image
         avatar.push image.hash
         photos.push image.hash
@@ -120,9 +120,9 @@ class Register
           original : image.hash
           low : image.hash+'low'
           high : image.hash+'high'
-          original_url : ourl
-          low_url : lurl
-          high_url : hurl
+          original_url : image.ourl
+          low_url : image.lurl
+          high_url : image.hurl
         }
         uploadedImages.push(
           {
@@ -156,7 +156,10 @@ class Register
             url: image.hurl
           }
         )
-      yield _invoke(@dbpersons,'update', {id: acc.account},{$set:{avatar: avatar, photos:photos, uploaded: uploaded}, $unset:{ava:''}},{upsert:true})
+      yield _invoke(@dbpersons,'update', {account: acc.account},{
+        $set:{avatar: avatar, photos:photos, uploaded: uploaded}
+        $unset:{ava:''}
+      },{upsert:true})
 
     yield _invoke @dbuploaded, 'insert', uploadedImages if uploadedImages.length
 
