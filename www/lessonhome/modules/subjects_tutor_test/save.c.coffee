@@ -50,10 +50,11 @@ typetoteach = {"school:0":'pre_school','school:1':'junior_school','school:2':'me
         subject['place_' + place]?.tree_hour
       ]
 #    if subject.place_cafe.selected then subjects_db[i].place.push "other"
-    subjects_db[i].groups = [{
-      description: subject.group_learning.groups if subject.group_learning.groups isnt '' else 'не проводятся'
-      price: subject.group_learning.price
-    }]
+    if subject.group_learning.selected
+      subjects_db[i].groups = [{
+        description: subject.group_learning.groups
+        price: subject.group_learning.price
+      }]
     for key,val of subjects_db[i].tags
       tags[key] = val
   db= yield $.db.get 'tutor'
