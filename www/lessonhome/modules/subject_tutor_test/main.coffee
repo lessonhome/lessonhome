@@ -6,6 +6,7 @@ class @main
 
     @active_block = @found.active_block
     @restore_block = @found.restore_block
+    @restore_name = @found.name_subject
 
     @container = @found.container
     @is_removed = false
@@ -80,14 +81,15 @@ class @main
     @btn_restore.on 'click', (e) =>
       if @is_removed
         @is_removed = false
-        @restore_block.hide()
-        @active_block.show()
+        @restore_block.hide 0, => @active_block.show()
+
     @btn_remove.on 'click', (e) =>
       if not @is_removed
         @slideUp =>
+          name = @children.name.getValue()
           @is_removed = true
-          @active_block.hide()
-          @restore_block.show()
+          @restore_name.text if name isnt '' then "Предмет #{name.toUpperCase()} удален" else 'Предмет удален'
+          @active_block.hide 0, => @restore_block.show()
 
     #@course           .setErrorDiv @out_err_course
 #      @group_learning   .setErrorDiv @out_err_group_learning
@@ -122,10 +124,13 @@ class @main
         @slideDown()
 
   slideUp :(callback) =>
-    @container.slideUp 300, callback
+    @container.slideUp 300, (e) =>
+      @btn_expand.text 'развернуть'
+      callback? e
   slideDown :(callback) =>
-    @container.slideDown 300, callback
-
+    @container.slideDown 300, (e) =>
+      @btn_expand.text 'свернуть'
+      callback? e
   getValue : =>
     result = {}
     $.each @children, (key, cl) ->
