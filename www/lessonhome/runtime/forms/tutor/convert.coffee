@@ -10,8 +10,6 @@ status =
 class @F2V
   $all_subjects : (data) ->
     if not data.subjects? then return false
-    console.log data
-    console.log data.subjects[0].groups
     result = {}
     for key, subject of data.subjects
       result[key] = {
@@ -23,14 +21,14 @@ class @F2V
         high_school : subject.tags["school:3"]
         student : subject.tags.student
         adult : subject.tags.adult
-        group_learning : {
+        comments : subject.description
+      }
+      if subject.groups? and subject.groups[0].description isnt ''
+        result[key]['group_learning'] = {
           selected : subject.groups[0].description isnt "не проводятся"
           groups : subject.groups[0].description
           price : subject.groups[0].price if subject.groups[0].price?
         }
-        comments : subject.description
-      }
-      console.log subject
       if subject.place?
         if subject.place_prices?
           for val in subject.place
