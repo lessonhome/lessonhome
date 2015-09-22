@@ -1,8 +1,14 @@
 class @main
   Dom: =>
     @btn_expand = @found.expand
-    @btn_remove = @found.remove
+    @btn_remove = @found.rem
+    @btn_restore = @found.restore
+
+    @active_block = @found.active_block
+    @restore_block = @found.restore_block
+
     @container = @found.container
+    @is_removed = false
 
     @children = {
       name : @tree.select_subject_field.class
@@ -71,8 +77,17 @@ class @main
       else
         @slideDown()
 
+    @btn_restore.on 'click', (e) =>
+      if @is_removed
+        @is_removed = false
+        @restore_block.hide()
+        @active_block.show()
     @btn_remove.on 'click', (e) =>
-      console.log @getValue()
+      if not @is_removed
+        @slideUp =>
+          @is_removed = true
+          @active_block.hide()
+          @restore_block.show()
 
     #@course           .setErrorDiv @out_err_course
 #      @group_learning   .setErrorDiv @out_err_group_learning

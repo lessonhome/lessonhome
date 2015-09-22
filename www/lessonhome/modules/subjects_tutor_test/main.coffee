@@ -16,8 +16,9 @@ class @main
           key = ++i
         else if key > i
           i = key
+
         if values then obj.setValue values
-        @subjects[key] = obj
+        @subjects[key] =  obj
         @container.append $('<div class="block"></div>').append obj.dom
 
 
@@ -116,7 +117,7 @@ class @main
       subjects_val : {}
     }
     for key, sub of @subjects
-      data.subjects_val[key] = sub.getValue()
+      if not sub.is_removed then data.subjects_val[key] = sub.getValue()
     return data
 
 #    @subjects_val = {}

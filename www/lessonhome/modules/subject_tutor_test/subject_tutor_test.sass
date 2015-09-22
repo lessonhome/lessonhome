@@ -10,13 +10,16 @@ main
   height: 100%
   text-align: left
 .panel
-  .subject_block
-    +inline-block
-    .subject
+  .restore_block
+    display: none
+  .active_block
+    .subject_block
       +inline-block
-  .expand, .remove
-    +inline-block
-    margin-left : 10px
+      .subject
+        +inline-block
+    .expand, .rem
+      +inline-block
+      margin-left : 10px
 .err
   +inline-block
   div

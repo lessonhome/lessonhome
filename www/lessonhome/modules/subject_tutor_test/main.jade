@@ -1,11 +1,14 @@
 
 .panel
-  .subject_block
-    .subject!= select_subject_field
-    .err
-      .js-out_err_subject
-  .js-expand развернуть
-  .js-remove удалить
+  .js-active_block
+    .subject_block
+      .subject!= select_subject_field
+      .err
+        .js-out_err_subject
+    .js-expand развернуть
+    .js-rem удалить
+  .js-restore_block
+    .js-restore Восстановить
 .js-container
   .block.course_block
     .title Направление подготовки :
