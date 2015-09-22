@@ -137,7 +137,7 @@ class Register
           height: image.oheight
           url: image.ourl
         }},{upsert:true}
-        yield _invoke @dbuploaded, 'update', {hash: image.hash}, {$set: {
+        yield _invoke @dbuploaded, 'update', {hash: image.hash+'low'}, {$set: {
           hash: image.hash + 'low'
           account: acc.account
           type: 'image'
@@ -147,7 +147,7 @@ class Register
           height: image.lheight
           url: image.lurl
         }},{upsert:true}
-        yield _invoke @dbuploaded, 'update', {hash: image.hash}, {$set:{
+        yield _invoke @dbuploaded, 'update', {hash: image.hash+'high'}, {$set:{
           hash: image.hash+'high'
           account: acc.account
           type: 'image'
