@@ -129,7 +129,7 @@ class @main extends EE
     #if (@loaded[hash].from > @tfrom) || ((@loaded[hash].from+@loaded[hash].count)<(@tfrom+@tnum))
     #  @loaded[hash].tutors = yield @filter2()
     #yield @show2 @loaded[hash]
-    
+
     #unless @loaded[hash].reloaded
     #  yield @loaded[hash].reloading
     #  @loaded[hash].reloaded = true
@@ -159,17 +159,48 @@ class @main extends EE
   ###
   setFiltered : => do Q.async =>
     set_ = (n,t,name=n,val=[])=>
+
+      #console.log 'params', n, t, name, val
+
       unless t
         @found['t'+n].parent().off()
         return @found['t'+n].parent().hide()
       @found['t'+n].parent().click =>
         o = {}
-        o[name]=val
+        switch true
+          when /price/.test name
+            o[name] = {
+              left : 500
+              right : 3500
+            }
+          when /place/.test name
+            o.place = mf.place
+            key = name.replace 'place_', ''
+            o.place[key] = false
+          when /status/.test name
+            o.tutor_status = mf.tutor_status
+            key = name.replace 'status_', ''
+            o.tutor_status[key] = false
+          when /experience/.test name
+            o.experience = mf.experience
+            key = name.replace 'experience_', ''
+            o.experience[key] = false
+          when /group/.test name
+            o.group_lessons = 'не проводятся'
+          when /with/.test name
+            o[name] = false
+          else
+            o[name]=val
         Feel.urlData.set('mainFilter',o).done()
       @found['t'+n].text(t)
       @found['t'+n].parent().show()
+
     mf = yield Feel.urlData.get 'mainFilter'
+
     console.log mf
+
+    #========================= Subject, course
+
     if mf.subject.length
       set_ 'subject','Предмет: '+mf.subject.join ', '
       subject = true
@@ -182,11 +213,183 @@ class @main extends EE
     else
       course = false
       set_ 'course'
+
+    #========================= Price
+
+    if mf.price.left == mf.price.right
+      price = true
+      set_ 'price', "#{mf.price.left}р.  в час"
+    else if mf.price.left > 500 && mf.price.right < 3500
+      price = true
+      set_ 'price', "От #{mf.price.left}р. до #{mf.price.right}р. в час"
+    else if mf.price.left > 500
+      price = true
+      set_ 'price', "От #{mf.price.left}р. в час"
+    else if mf.price.right < 3500
+      price = true
+      set_ 'price', "До #{mf.price.right}р. в час"
+    else
+      price = false
+      set_ 'price'
+
+    #=========================== Place
+    areas = (@dom.find '.area')
+    pupil = areas[0]
+    tutor = areas[1]
+    timeBox = tutor.nextSibling
+
+    if mf.place.pupil
+      place = true
+      pupil.className = pupil.className.replace('hidden', '')
+      set_ 'place_pupil', 'У себя'
+    else
+      pupil.className += 'hidden' unless pupil.className.match 'hidden'
+      set_ 'place_pupil'
+    if mf.place.tutor
+      place = true
+      tutor.className = pupil.className.replace('hidden', '')
+      timeBox.style.display = 'inline-block'
+      set_ 'place_tutor', 'У репетитора'
+    else
+      tutor .className += 'hidden' unless tutor.className.match 'hidden'
+      timeBox.style.display = 'none'
+      set_ 'place_tutor'
+    if mf.place.remote
+      place = true
+      set_ 'place_remote', 'Удалённо'
+    else
+      set_ 'place_remote'
+
+    #============================= Status
+
+    tutor_status = false
+
+    if mf.tutor_status.student
+      tutor_status = true
+      set_ 'status_student', 'Студент'
+    else
+      set_ 'status_student'
+    if mf.tutor_status.school_teacher
+      tutor_status = true
+      set_ 'status_school_teacher', 'Преподаватель школы'
+    else
+      set_ 'status_school_teacher'
+    if mf.tutor_status.university_teacher
+      tutor_status = true
+      set_ 'status_university_teacher', 'Преподаватель ВУЗа'
+    else
+      set_ 'status_university_teacher'
+    if mf.tutor_status.private_teacher
+      tutor_status = true
+      set_ 'status_private_teacher', 'Частный преподаватель'
+    else
+      set_ 'status_private_teacher'
+    if mf.tutor_status.native_speaker
+      tutor_status = true
+      set_ 'status_native_speaker', 'Носитель языка'
+    else
+      set_ 'status_native_speaker'
+
+    #========================= Experience
+
+    exp = false
+
+    if mf.experience.little_experience
+      exp = true
+      set_ 'experience_little_experience', 'Опыт: 1-2 года'
+    else
+      set_ 'experience_little_experience'
+    if mf.experience.big_experience
+      exp = true
+      set_ 'experience_big_experience', 'Опыт: 3-4 года'
+    else
+      set_ 'experience_big_experience'
+    if mf.experience.bigger_experience
+      exp = true
+      set_ 'experience_bigger_experience', 'Опыт: более 4 лет'
+    else
+      set_ 'experience_bigger_experience'
+
+    #======================== Group lessons
+
+    group = true
+
+    if mf.group_lessons.match '2'
+      set_ 'group_lessons', 'Групповые занятия: 2-4 ученика'
+    else if mf.group_lessons.match '8'
+      set_ 'group_lessons', 'Групповые занятия: до 8 учеников'
+    else if mf.group_lessons.match '10'
+      set_ 'group_lessons', 'Групповые занятия: от 10 учеников'
+    else
+      set_ 'group_lessons'
+      group = false
+
+
+    #======================== Gender
+
+    gender = true
+
+    if mf.gender == 'male'
+      set_ 'gender', 'Пол: мужской'
+    else if mf.gender == 'female'
+      set_ 'gender', 'Пол: женский'
+    else
+      set_ 'gender'
+      gender = false
+
+    #======================= Reviews
+
+    if mf.with_reviews
+      set_ 'with_reviews', 'Только с отзывами'
+    else
+      set_ 'with_reviews'
+
+    #======================= Verification
+
+    if mf.with_verification
+      set_ 'with_verification', 'Только проверенные'
+    else
+      set_ 'with_verification'
+
+    #======================= Photos
+
+
+
     if subject || course
       @advanced_filter.activate 'subject',true
     else
       @advanced_filter.activate 'subject',false
-     
+
+    if price
+      @advanced_filter.activate 'price', true
+    else
+      @advanced_filter.activate 'price', false
+
+    if place
+      @advanced_filter.activate 'place', true
+    else
+      @advanced_filter.activate 'place', false
+
+    if tutor_status
+      @advanced_filter.activate 'tutor_status', true
+    else
+      @advanced_filter.activate 'tutor_status', false
+
+    if exp
+      @advanced_filter.activate 'experience', true
+    else
+      @advanced_filter.activate 'experience', false
+
+    if gender
+      @advanced_filter.activate 'gender', true
+    else
+      @advanced_filter.activate 'gender', false
+
+    if group
+      @advanced_filter.activate 'group_lessons', true
+    else
+     @advanced_filter.activate 'group_lessons', false
+
   show : =>
     @advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll',=>
