@@ -331,6 +331,7 @@ class @main extends EE
             @closed = false
             lh = @list.height()*@items.size()
             @items.css 'line-height', @list.height()+"px"
+            @items.css 'height', @list.height()+"px"
             h = @maxListHeight()
             h = lh if lh < h
             @options.height h
