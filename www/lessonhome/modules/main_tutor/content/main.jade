@@ -19,8 +19,8 @@ mixin review(selector, name, text)
 
 
 //- ------------------ CHECK IN -------------------------
-
-
+if popup
+  !=popup
 .simple_search.select
   .t1 Каждый день тысячи учеников ищут<br>репетиторов онлайн!
   .t2 Площадка Lesson Home позволяет создать бесплатный онлайн профиль, в котором есть всё необходимое, чтобы продемонстрировать свою квалификацию и опыт.
@@ -73,7 +73,7 @@ mixin review(selector, name, text)
       .checkbox
         .field!= agree_checkbox
         .text.select!= 'Я прочитал и согласен с '
-          a.m-Link.select(href="/terms_of_cooperation") Условиями оказания информационных услуг
+          a.js-terms_link.m-Link.select(href="") Условиями оказания информационных услуг
         .js-checkbox_error Пожалуйста, ознакомьтесь с условиями оказания услуг
       .buttons
         .create_account!=create_account

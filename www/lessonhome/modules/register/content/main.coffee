@@ -4,7 +4,9 @@ class @main extends EE
   show : =>
     console.log @tree
     @password = @tree.password.class
-
+    @found.terms_link.click =>
+      Feel.root.tree.popup?.class?.open?()
+      return false
     @hashedPassword = false
     @login    = @tree.login.class
     @submit   = @tree.create_account.class
