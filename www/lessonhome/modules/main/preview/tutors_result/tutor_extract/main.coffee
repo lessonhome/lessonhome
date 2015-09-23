@@ -61,13 +61,13 @@ class @main extends EE
     #@with_verification.css 'background-color', value.with_verification if value?.with_verification?
     @tree.all_rating.class.setValue rating:value?.rating
     @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
-    @tutor_subject.empty()
+    @tutor_subject?.empty?()
     i = 0
-    for key,val of value.subjects
+    if @tutor_subject?.append? then for key,val of value.subjects
       i++
       if key
         key = key?.capitalizeFirstLetter?() ? key if i == 1
-        @tutor_subject.append s=$("<div class='tag'>#{key ? ""}</div>")
+        @tutor_subject?.append? s=$("<div class='tag'>#{key ? ""}</div>")
         do (s,key,val)=>
           s.click => Q.spawn =>
             link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
@@ -124,7 +124,7 @@ class @main extends EE
     #@found.price_right.text(value.price_right)
     #@found.duration_left.text(value.duration_left)
     #@found.duration_right.text(value.duration_right)
-    @found.price.text(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
+    @found.price?.text?(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
     #@hideExtraText()
 
   getValue : => @getData()
