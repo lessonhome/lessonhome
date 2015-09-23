@@ -9,7 +9,7 @@ class @main extends @template '../main'
     'tutor' : 'tutor/search_bids'
   }
   tree : ->
-    popup : @exports()
+    popup : @module 'main/terms_of_cooperation'
     content : @module 'register/content'  :
       depend : [
         @module 'lib/crypto'

@@ -1,0 +1,17 @@
+@import base
+
+.group_price
+  .price_block
+    padding-bottom: 15px
+    .price
+      width: 100px
+      font-size: 36px
+      height: 36px
+    .price, .title_price
+      +inline-block
+    .title_price
+      padding-left: 20px
+  .price_block:after
+    content: ''
+    +inline-block
+    height: 100%
