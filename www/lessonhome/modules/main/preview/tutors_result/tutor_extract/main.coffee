@@ -92,7 +92,32 @@ class @main extends EE
     exp = value.experience ? ""
     exp += " года" if exp && !exp?.match? /\s/
     @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
-    @found.location.text(value.location?.city ? "")
+    l = value?.location ? {}
+    cA = (str="",val,rep=', ')->
+      return str unless val
+      val = ""+val
+      val = val.replace /^\s+/,''
+      val = val.replace /\s+$/,''
+      return str unless val
+      unless str
+        str += val
+      else
+        str += rep+val
+
+    ls1 = ""
+    ls1 = cA ls1,l.city
+    ls1 = cA ls1,l.area
+    ls2 = ""
+    ls2 = cA ls2,l.street
+    ls2 = cA ls2,l.house
+    ls2 = cA ls2,l.building
+    ls3 = ""
+    ls3 += "м. #{l.metro}" if l.metro
+    ls = ""
+    ls = cA ls,ls1,'<br>'
+    ls = cA ls,ls2,'<br>'
+    ls = cA ls,ls3,'<br>'
+    @found.location.html(ls)
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     @tutor_text.    text(value.about ? "")
     #@found.price_left.text(value.price_left)
