@@ -20,6 +20,7 @@ class @main extends EE
     #@tutor_price        = @found.tutor_price
 
   show: =>
+    console.log 'asfasf', @found
     @hopacity ?= @dom.find('.g-hopacity')
     #@hideExtraText() # hide text that is larger than the maximum length and show full text by click
     @found.choose_button.click @addTutor
