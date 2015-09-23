@@ -34,11 +34,11 @@ class @main extends EE
   setLinked : (linked)=> Q.spawn =>
     linked ?= yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
-      @tree.choose_button?.class?.setValue {text:'прикрепить',color:'#3ab27d',pressed:true}
+      @tree.choose_button?.class?.setValue {text:'Убрать',color:'#3ab27d',pressed:true}
       @tree.choose_button?.class?.setActiveCheckbox()
       @hopacity.removeClass 'g-hopacity'
     else
-      @tree.choose_button?.class?.setValue {text:'прикрепить'}
+      @tree.choose_button?.class?.setValue {text:'Выбрать'}
       @hopacity.addClass 'g-hopacity'
 
   hideExtraText: =>

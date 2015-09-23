@@ -6,19 +6,43 @@ $icon_width: image-width($icon_src)
 $pattern_src: 'main/pattern_dots.png'
 
 main
+  position : fixed
+  overflow : auto
+  text-align : center
+  background-color : rgba(0,0,0,0.7)
+  left : 0
+  top : 0
+  right : 0
+  bottom : 0
+  z-index : 100
+  display : none
+  padding : 20px 0
+main:after
+  content: ""
+  +inline-block
+  width : 0px
+  height : 100%
+.background
+  position : absolute
+  width : 100%
+  height : 100%
+
+.popup
+  +inline-block
+  position : relative
   width: 529px
   padding: 12px
   background: url(F($pattern_src))
   background-color: #e5e5e5
   text-align: left
-.title
+.popup .title
   padding-left: 12px
   margin-bottom: 12px
   font-size: 18px
   line-height: 24px
   color: #000000
   font-weight: 600
-.content
+.popup .content
   background-color: #fff
   height: 408px
   overflow: auto
@@ -30,7 +54,7 @@ main
     font-size: 16px
     line-height: 24px
 
-.nav
+.popup .nav
   text-align: right
   a
     +inline-block
