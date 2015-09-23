@@ -177,6 +177,9 @@ class @main extends EE
             o.place = mf.place
             key = name.replace 'place_', ''
             o.place[key] = false
+            o.place['area_'+key] = []
+            if key == 'tutor'
+              o.time_spend_way = 120
           when /status/.test name
             o.tutor_status = mf.tutor_status
             key = name.replace 'status_', ''
@@ -241,15 +244,28 @@ class @main extends EE
     if mf.place.pupil
       place = true
       pupil.className = pupil.className.replace('hidden', '')
-      set_ 'place_pupil', 'У себя'
+      places = ''
+      if mf.place.area_pupil?.length
+        places = ', районы: '
+        for place in mf.place.area_pupil
+          places += place+'; '
+      set_ 'place_pupil', 'У себя'+places
     else
       pupil.className += 'hidden' unless pupil.className.match 'hidden'
       set_ 'place_pupil'
     if mf.place.tutor
       place = true
       tutor.className = pupil.className.replace('hidden', '')
+      places = '; '
+      if mf.place.area_tutor?.length
+        places = ', районы: '
+        for place in mf.place.area_tutor
+          places += place+'; '
       timeBox.style.display = 'inline-block'
-      set_ 'place_tutor', 'У репетитора'
+      time = ''
+      if mf.time_spend_way? != 120
+        time = "время на дорогу до #{mf.time_spend_way} мин."
+      set_ 'place_tutor', 'У репетитора'+places+time
     else
       tutor .className += 'hidden' unless tutor.className.match 'hidden'
       timeBox.style.display = 'none'
