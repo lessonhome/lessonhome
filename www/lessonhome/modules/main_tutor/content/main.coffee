@@ -24,9 +24,9 @@ class @main extends EE
         @password.setValue ''
         @hashedPassword = false
     @password.on 'submit',@tryRegister
-    $(@motivation_create_profile).on 'click', =>
-      $("body").animate({"scrollTop":0},"slow")
-      @login.onFocus()
+    #$(@motivation_create_profile).on 'click', =>
+    #  $("body").animate({"scrollTop":0},"slow")
+    #  @login.onFocus()
 
   tryRegister : (e)=>
     return if @success
