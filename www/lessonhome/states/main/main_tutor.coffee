@@ -42,6 +42,8 @@ class @main extends @template '../main'
         selector  : 'check_in_second'
         text      : 'Прямо сейчас!'
       create_profile: @module 'link_button' :
+        href      : '/tutor_registration'
+        active: true
         selector: 'main_page_motivation'
         text: 'СОЗДАТЬ ПРОФИЛЬ'
       callback: @module 'link_button' :
