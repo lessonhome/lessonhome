@@ -32,7 +32,7 @@
         obj.person  = (yield obj.person)?[0] ? {}
         obj.tutor   = (yield obj.tutor)?[0] ? {}
     do Q.async =>
-      nophotos = yield _invoke dbPersons.find({hidden:{$ne:true},'ava.0':{$exists:false}},{ava:1,account:1,first_name:1,middle_name:1,last_name:1,email:1,phone:1}),'toArray'
+      nophotos = yield _invoke dbPersons.find({hidden:{$ne:true},'avatar.0':{$exists:false}},{avatar:1,account:1,first_name:1,middle_name:1,last_name:1,email:1,phone:1}),'toArray'
 
       accs = []
       for p in nophotos
