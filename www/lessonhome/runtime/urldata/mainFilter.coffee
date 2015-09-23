@@ -76,7 +76,7 @@ class @D2U
   $with_reviews : (obj)=>
     type  : 'bool'
     value : obj?.with_reviews
-    default : true
+    default : false
     filter : true
   $with_verification : (obj)=>
     type  : 'bool'
