@@ -24,6 +24,15 @@ class @main
           href  : '/main_tutor'
         }
       ]
+    attach_tutor : @module 'main/add_tutors'  :
+      tutors : [
+        @module 'main/add_tutors/tutor_small' :
+          src : '#'
+        @module 'main/add_tutors/tutor_small' :
+          src : '#'
+        @module 'main/add_tutors/tutor_small' :
+          src : '#'
+      ]
     popup            : @exports()              # show info about tutor in main page
     popup_close_href : @exports()              # in pair with popup
     filter_top       : @exports()              # top filter in main page
