@@ -1,0 +1,50 @@
+@import compass/css3
+$icon_src: 'main/suit_icon.png'
+$icon_height: image-height($icon_src)
+$icon_width: image-width($icon_src)
+main
+  background-color: #ffffff
+  padding: 24px
+  text-align: left
+.title_suit_tutors
+  padding: 36px 0 12px 0
+  font-size: 24px
+.suit_tutors
+  .suit_tutor
+    width: 480px
+  .suit_tutor.hidden
+    display : none
+.all_suit_bids
+  text-align: right
+  padding: 18px 0 54px 0
+  a
+    +inline-block
+    .text
+      +inline-block
+      color:  #006ab3
+      font-size:  14px
+      line-height:  24px
+    .icon
+      +inline-block
+      height: $icon_height
+      width: $icon_width
+      background: url(F($icon_src)) no-repeat
+.bids_block
+  text-align: center
+  line-height: 18px
+  .title
+    line-height: 18px
+    font-size: 15px
+  .button_bids
+    padding: 12px 0
+    height: 48px
+    width: 198px
+    +inline-block
+  .or_call
+    font-size: 12px
+    line-height: 18px
+    color: #707070
+main:after
+  content: ''
+  display: block
+  clear: both

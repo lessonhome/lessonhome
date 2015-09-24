@@ -4,7 +4,9 @@ class @main extends EE
   show : =>
     console.log @tree
     @password = @tree.password.class
-
+    @found.terms_link.click =>
+      Feel.root.tree.popup?.class?.open?()
+      return false
     @hashedPassword = false
     @login    = @tree.login.class
     @submit   = @tree.create_account.class
@@ -22,9 +24,9 @@ class @main extends EE
         @password.setValue ''
         @hashedPassword = false
     @password.on 'submit',@tryRegister
-    $(@motivation_create_profile).on 'click', =>
-      $("body").animate({"scrollTop":0},"slow")
-      @login.onFocus()
+    #$(@motivation_create_profile).on 'click', =>
+    #  $("body").animate({"scrollTop":0},"slow")
+    #  @login.onFocus()
 
   tryRegister : (e)=>
     return if @success
