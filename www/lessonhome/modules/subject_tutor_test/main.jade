@@ -3,13 +3,13 @@
   .js-active_block
     .subject_block
       .subject!= select_subject_field
-      .err
-        .js-out_err_subject
     .js-expand развернуть
     .js-rem удалить
+    .err.js-error_name
   .js-restore_block
     span.js-name_subject
     .js-restore Нажмите, чтобы восстановить
+    .js-delete !!Удалить окончательно!!
 .js-container
   .block.course_block
     .title Направление подготовки :
@@ -19,7 +19,7 @@
 
   .block.category_block
     .title Ученики :
-    .categories_of_students
+    .js-categories_of_students
       .check_panel
         .left_block
           .pre_school!=pre_school
@@ -29,20 +29,14 @@
           .high_school!=high_school
           .student!=student
           .adult!=adult
-    .err
-      .js-out_err_categories_of_students
 
   .block.place_block
     .title Цены :
-    .prices.place_tutor!=place_tutor
-    .prices.place_pupil!=place_pupil
-    .prices.place_remote!=place_remote
-      .err
-        .js-out_err_place
+    .js-prices_place
+      .prices.place_tutor!=place_tutor
+      .prices.place_pupil!=place_pupil
+      .prices.place_remote!=place_remote
     .prices.group_learning!=group_learning
-      .err
-        .js-out_err_group_learning
   .block.comment_block
     .title Комментарии :
     .comments!=comments
-

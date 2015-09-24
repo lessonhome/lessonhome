@@ -8,12 +8,25 @@ $width_fields: 341px
   font-weight: 600
 =button
   cursor : pointer
+=error_block
+  padding-left: 10px
+  padding-right: 10px
+  margin-left: -10px
+  margin-right: -10px
+  border: none
+  outline: 2px solid red
+=error_text
+  font-size: 0.8em
+  color: red
+  margin-top: 12px
+  margin-left: 20px
+  margin-bottom: 10px
 main
   height: 100%
   text-align: left
 .panel
   .restore_block
-    .restore
+    .restore, .delete
       +button
       margin-top: 10px
     display: none
@@ -26,18 +39,9 @@ main
       +button
       +inline-block
       margin-left : 10px
-.err
-  +inline-block
-  div
-    +inline-block
-    width: 341px
-    float: right
-    text-align: left
-    color: red
-    font-size: 16px
-    display: none
-    padding: 0.5em 28px
-    box-sizing: border-box
+    .err
+      +error_text
+      display: none
 
 .container
   padding-top: 25px
@@ -47,6 +51,8 @@ main
     font-size: $height
     line-height: $height
   .category_block
+    .categories_of_students.error
+      +error_block
     .categories_of_students
       .check_panel
         +inline-block
@@ -60,13 +66,29 @@ main
             padding: 3px 0
   .place_block, .category_block, .course_block
     margin-bottom: 20px
+    .prices_place
+      .prices
+        padding: $space 0
+        position: relative
+        border-bottom: 1px solid #c2c0c2
+      .prices.error
+        +error_block
+      .err
+        +error_text
+    .prices_place.error
+      +error_block
+      .prices
+        border-bottom: none
+      .prices + .prices
+        border-top: 1px solid #c2c0c2
     .prices
       padding: $space 0
-    .prices + .prices
-      border-top: 1px solid #c2c0c2
-  .category_block, .course_block, .comment_block
+      
+  .place_block, .category_block, .course_block, .comment_block
     .title
       margin-bottom: 15px
+    .err
+      +error_text
   .block
     .title
       +title

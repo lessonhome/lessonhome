@@ -8,24 +8,35 @@ class @main
     @restore_block = @found.restore_block
     @restore_name = @found.name_subject
 
+    @students = @found.categories_of_students
     @container = @found.container
+    @prices_place = @found.prices_place
     @is_removed = false
-
+    #####
+    @btn_delete = @found.delete
+    #####
     @children = {
       name : @tree.select_subject_field.class
+
       course : @tree.course.class
+
       pre_school : @tree.pre_school.class
       junior_school : @tree.junior_school.class
       medium_school : @tree.medium_school.class
       high_school : @tree.high_school.class
       student : @tree.student.class
       adult : @tree.adult.class
+
       place_tutor : @tree.place_tutor.class
       place_pupil : @tree.place_pupil.class
       place_remote : @tree.place_remote.class
       group_learning : @tree.group_learning.class
+
       comments : @tree.comments.class
     }
+
+
+
     # div
     # err div fined
     #@out_err_course                 = @found.out_err_course
@@ -91,13 +102,13 @@ class @main
           @restore_name.text if name isnt '' then "Предмет #{name.toUpperCase()} удален" else 'Предмет удален'
           @active_block.hide 0, => @restore_block.show()
 
+    @children.name.setErrorDiv @found.error_name
     #@course           .setErrorDiv @out_err_course
 #      @group_learning   .setErrorDiv @out_err_group_learning
 #      @pre_school       .setErrorDiv @out_err_categories_of_students
 #      @place_tutor      .setErrorDiv @out_err_place
     #@course           .setErrorDiv @out_err_course
 #    @group_learning   .setErrorDiv @out_err_group_learning
-
 
     # clear error
     #@course.on            'focus',  => @course.hideError()
@@ -123,6 +134,19 @@ class @main
         @children.course.setItems direction
         @slideDown()
 
+  showErrBlock : (block, text) =>
+    if not block.is '.error'
+      block.addClass 'error'
+      text = $("<div class='err'>" + text + "</div>").hide()
+      block.after text
+      text.slideDown 200
+
+
+  hideErrBlock : (block) =>
+    block.removeClass 'error'
+    block.next('.err').slideUp 200, ->
+      $(this).remove()
+
   slideUp :(callback) =>
     @container.slideUp 300, (e) =>
       @btn_expand.text 'развернуть'
@@ -141,3 +165,39 @@ class @main
     if data isnt undefined
       $.each @children, (key, cl) ->
         if data[key] isnt undefined then cl.setValue? data[key]
+  resetError : () =>
+    @children.name.hideError()
+    @hideErrBlock @students
+    @hideErrBlock @prices_place
+    for key in ["place_tutor", "place_pupil", "place_remote"]
+      @hideErrBlock @children[key]?.dom.parent()
+  parseError : (errors) =>
+    if @is_removed is true or errors.correct is true then return true
+    @slideDown =>
+      if errors['name']? then @children.name.showError 'Вы не выбрали предмет'
+
+      if errors['students']?
+        @showErrBlock @students, 'Выберите категории учеников'
+      else
+        @hideErrBlock @students
+
+      if errors['places']?
+        @showErrBlock @prices_place, 'Укажите хотябы одно место для занятий'
+      else
+        @hideErrBlock @prices_place
+      for key in ["place_tutor", "place_pupil", "place_remote"]
+
+        if errors[key]?['prices']?
+          @showErrBlock @children[key].dom.parent(), 'Укажите цену за занятие (минимум одну)'
+        else @hideErrBlock @children[key].dom.parent()
+
+#      for field, error of errors
+#        switch field
+#          when "name" then @children.name.showError 'Вы не выбрали предмет'
+#          when "students"
+#            @showErrBlock @students, 'Выберите учеников'
+#          when "places"
+#            @showErrBlock @prices_place, 'Укажите хотябы одно место для занятий'
+#          when "place_tutor", "place_pupil", "place_remote"
+#            if error['prices'] isnt undefined
+#              @showErrBlock @children[field].dom.parent(), 'Укажите цену за занятия (минимум одну)'

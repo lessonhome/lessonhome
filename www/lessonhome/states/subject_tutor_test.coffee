@@ -128,12 +128,15 @@ class @main
       title : 'групповые'
       content : @module 'tutor/group_price' :
         price : @module 'tutor/forms/input' :
+          replace : [
+            "[^\\d]"
+          ]
           selector   : 'fast_bid'
         group_people : @module 'tutor/forms/drop_down_list' :
           selector  : 'first_reg'
           self      : true
           default_options     : {
-            '0': {value: '0', text: 'не проводятся'},
+#            '0': {value: '0', text: 'не проводятся'},
             '1': {value: '1', text: '2-4 ученика'},
             '2': {value: '2', text: 'до 8 учеников'},
             '3': {value: '3', text: 'от 10 учеников'}
@@ -179,6 +182,6 @@ class @main
 #        '3': {value: '3', text: 'от 10 учеников'}
 #      }
     comments        : @module 'tutor/forms/textarea' :
-      height    : '80px'
+      height    : '100px'
       selector  : 'first_reg'
       value : @exports 'subject.description'
