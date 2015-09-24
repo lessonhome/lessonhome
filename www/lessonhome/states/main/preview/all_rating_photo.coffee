@@ -6,6 +6,7 @@ class @main
     image         : @exports()
     close         : @exports()
     count_review  : @exports()
+    cost          : @exports()
     selector      : @exports 'extract'
     rev_selector  : @exports()
     ###

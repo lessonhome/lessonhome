@@ -7,12 +7,12 @@ $map_icon_src: 'map.png'
 $map_icon_height: image-height($map_icon_src)
 $map_icon_width: image-width($map_icon_src)
 
-.top, a.name, .tutor_status_wrap
+//.top, a.name, .tutor_status_wrap
   padding-left: 12px
   box-sizing: border-box
 
 .top
-  height: 24px
+  line-height: 24px
   .all_rating, .location
     +inline-block
   .location
@@ -26,7 +26,7 @@ $map_icon_width: image-width($map_icon_src)
   height: 100%
 a.name
   display: block
-  height: 24px
+  line-height: 24px
   cursor: pointer
   .tutor_name
     +inline-block
@@ -36,8 +36,8 @@ a.name
     &:hover
       text-decoration: none
 .tutor_status_wrap
-  height: 16px
-  margin-bottom: 8px
+  line-height: 24px
+  padding-bottom: 6px
   .tutor_status
     +inline-block
     font-size: 12px
@@ -52,17 +52,19 @@ a.name:after, .tutor_status_wrap:after
     +inline-block
     vertical-align: top
   .left
-    margin-right: 24px
-    padding-left: 12px
+    width: 342px
+    padding-right: 24px
     box-sizing: border-box
-    width: 328px
+    //margin-right: 24px
+    //padding-left: 12px
+    //box-sizing: border-box
     .tutor_text
       min-height: 144px
       font-size: 14px
       line-height: 18px
       color: #000000
     .tutor_subject
-      height: 24px
+      line-height: 24px
       div
         +inline-block
       .tag, .more_subjects
@@ -78,30 +80,49 @@ a.name:after, .tutor_status_wrap:after
       +inline-block
       height: 100%
   .right
-    float : right
-    padding-right : 12px
-    margin-top: -11px
-    max-width : 132px
+    text-align: right
+    //position: relative
+    //float : right
+    //padding-right : 12px
+    //margin-top: -11px
+    //width: 135px
     .price_wrap
-      text-align: right
+      //+inline-block
+      margin-top: -6px
+      //text-align: right
       .text, .price
         +inline-block
-        vertical-align: sub
+        vertical-align: bottom
         color: #000000
       .text
         font-size: 14px
       .price
-        margin: 0 5px
+        padding: 0 4px
         font-size: 30px
     .view_button, .choose_button
-      float : right
+      //+inline-block
       width: 132px
       height: 48px
-    .choose_button
+    //.choose_button
       width: 164px
     .view_button
-      margin: 30px 0 12px 0
-
+      margin: 24px 0 12px 0
+  // jump_page
+  .tutor_text
+    //
+  .location
+    font-size: 14px
+    padding: 24px 0
+  .button_wrap
+    overflow: hidden
+    height: 48px
+    .view_button, .choose_button
+      height: 100%
+      width: 132px
+    .view_button
+      float: left
+    .choose_button
+      float: right
 .name_verification_block
   margin: 0 0 0 0px
   $height_font: 18px
