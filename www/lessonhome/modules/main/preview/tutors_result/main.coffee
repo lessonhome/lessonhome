@@ -2,8 +2,8 @@ class @main extends EE
   Dom:  =>
     @dom.click (e)=> Q.spawn =>
       if e.ctrlKey && e.altKey && @index > 0
-        yield @$send '/relogin',@index
-        Feel.go '/form/tutor/login'
+        yield Feel.root.tree.class.$send '/relogin',@index
+        yield Feel.go '/form/tutor/login',true
   show: =>
     @rating_photo   = @tree.rating_photo.class
     @tutor_extract  = @tree.tutor_extract.class

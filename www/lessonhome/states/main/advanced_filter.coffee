@@ -45,7 +45,7 @@ class @main
       text      : 'Удалённо'
       selector  : 'small'
       value : $urlform : mainFilter : 'place.remote'
-    area : @state '../tutor/forms/drop_down_list_with_tags' :
+    area_pupil : @state '../tutor/forms/drop_down_list_with_tags' :
       list: @module 'tutor/forms/drop_down_list:type1'  :
         selector        : 'advanced_filter_form'
         smart : true
@@ -53,8 +53,16 @@ class @main
         placeholder     : 'Выберите район'
         value     : ''
       tags: ''
-      value : $urlform : mainFilter : 'place.area'
-
+      value : $urlform : mainFilter : 'place.area_pupil'
+    area_tutor : @state '../tutor/forms/drop_down_list_with_tags' :
+      list: @module 'tutor/forms/drop_down_list:type1'  :
+        selector        : 'advanced_filter_form'
+        smart : true
+        self : true
+        placeholder     : 'Выберите район'
+        value     : ''
+      tags: ''
+      value : $urlform : mainFilter : 'place.area_tutor'
 
     little_experience: @module 'tutor/forms/checkbox'  :
       text      : '1-2 года'

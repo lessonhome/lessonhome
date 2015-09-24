@@ -6,8 +6,12 @@ class @main
     Wrap @
     window.popup = @
   show : =>
-    @found.link.click @hide
-    @found.background.click @hide
+    @found.link.click =>
+      @hide()
+      return false
+    @found.background.click =>
+      @hide()
+      return false
 
   open : =>
     b = $('body')

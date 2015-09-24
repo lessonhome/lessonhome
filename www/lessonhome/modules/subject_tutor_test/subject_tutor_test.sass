@@ -1,0 +1,73 @@
+@import base
+$space : 15px
+$height : 37px
+$price_block_padding: 6px
+$width_fields: 341px
+=title
+  font-size: 18px
+  font-weight: 600
+=button
+  cursor : pointer
+main
+  height: 100%
+  text-align: left
+.panel
+  .restore_block
+    .restore
+      +button
+      margin-top: 10px
+    display: none
+  .active_block
+    .subject_block
+      +inline-block
+      .subject
+        +inline-block
+    .expand, .rem
+      +button
+      +inline-block
+      margin-left : 10px
+.err
+  +inline-block
+  div
+    +inline-block
+    width: 341px
+    float: right
+    text-align: left
+    color: red
+    font-size: 16px
+    display: none
+    padding: 0.5em 28px
+    box-sizing: border-box
+
+.container
+  padding-top: 25px
+  display: none
+  .value
+    +inline-block
+    font-size: $height
+    line-height: $height
+  .category_block
+    .categories_of_students
+      .check_panel
+        +inline-block
+        text-align: left
+        width: $width_fields
+        .right_block
+          float: right
+        .left_block, .right_block
+          +inline-block
+          div
+            padding: 3px 0
+  .place_block, .category_block, .course_block
+    margin-bottom: 20px
+    .prices
+      padding: $space 0
+    .prices + .prices
+      border-top: 1px solid #c2c0c2
+  .category_block, .course_block, .comment_block
+    .title
+      margin-bottom: 15px
+  .block
+    .title
+      +title
+

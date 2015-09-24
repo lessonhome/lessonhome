@@ -96,10 +96,8 @@ class @main extends EE
     if (!@tree.self) && (@list_length > 0)
       return unless @exists()
     @emit 'end', @getValue()
-
+  maxListHeight : =>  @list.height()*5
   show : =>
-    @maxListHeight = @list.height()*5
-
     @scroll = @tree.scroll?.class
     @isFocus = false
     @on 'blur',@onBlur
@@ -333,7 +331,8 @@ class @main extends EE
             @closed = false
             lh = @list.height()*@items.size()
             @items.css 'line-height', @list.height()+"px"
-            h = @maxListHeight
+            @items.css 'height', @list.height()+"px"
+            h = @maxListHeight()
             h = lh if lh < h
             @options.height h
           else hideSelect()
