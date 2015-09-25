@@ -27,6 +27,7 @@ class @main extends EE
     linked = yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
       delete linked[@tree.value.index]
+#      feel.sendActionOnce('button')
     else
       linked[@tree.value.index] = true
     @setLinked linked
