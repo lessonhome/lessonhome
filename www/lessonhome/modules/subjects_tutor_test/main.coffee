@@ -106,6 +106,7 @@ class @main
     for cl, i in @subjects
       if not cl.is_removed
         if errors[i]?
+          if errors[i].correct isnt true then cl.slideDown()
           cl.parseError errors[i]
         else
           cl.resetError()
