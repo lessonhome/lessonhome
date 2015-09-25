@@ -1,10 +1,11 @@
 
 class @main
   Dom : ->
-    @btn_add = @tree.btn_add.class
+    @btn_add = @found.btn_add
     @container = @found.container
     @data = @tree.data
     @subject = @tree.subject.class
+    @default_subjects = @tree.default_subjects
   show : =>
     @subjects = []
 #    @addNewSubject = do =>
@@ -25,14 +26,17 @@ class @main
 #        return obj
 
 
-    console.log @data
     for key, values of @data
-      console.log values
       @addNewSubject values
 
 
-    @btn_add.dom.click =>
-      @addNewSubject().slideDown()
+    @btn_add.click =>
+      if @btn_add.is '.active'
+        @btn_add.removeClass 'active'
+        obj = @addNewSubject null, =>
+          obj.slideDown()
+          @btn_add.addClass 'active'
+
 
 
 
@@ -61,24 +65,27 @@ class @main
   save : => Q().then =>
     data = @getData()
     errors = @js.check data
-    console.log errors
     if errors.correct is true
       return @$send('./save', data).then @onReceive
     else
       @parseError errors
       return false
-  addNewSubject : (values) =>
+
+  addNewSubject : (values, callback) =>
     obj = @subject.$clone()
     if values then obj.setValue values
     do =>
       i = @subjects.length
       @subjects.push obj
-      console.log obj
       obj.btn_delete.on 'click', =>
         @subjects.splice i, 1
         obj.btn_delete.off 'click'
-        obj.dom.closest('.block').remove()
-    @container.append $('<div class="block"></div>').append obj.dom
+        obj.dom.closest('.block').slideUp 200, ->
+          obj.dom.remove()
+    block = $('<div class="block"></div>').append(obj.dom).hide()
+    obj.container.stop(true, true).show()
+    @container.append block
+    block.slideDown 300, callback
     return obj
 
   onReceive : ({status,errs,err})=>
@@ -89,7 +96,7 @@ class @main
     if status=='success'
       for cl in @subjects
         cl.resetError()
-      return false
+      return true
 
     if not errs.correct
       @parseError errs
@@ -102,6 +109,7 @@ class @main
           cl.parseError errors[i]
         else
           cl.resetError()
+          if errors.correct is false then cl.slideUp()
 
 
 #  check_form : =>

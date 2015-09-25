@@ -11,6 +11,7 @@ class @main
     @students = @found.categories_of_students
     @container = @found.container
     @prices_place = @found.prices_place
+    @price_group = @found.price_group
     @is_removed = false
     #####
     @btn_delete = @found.delete
@@ -92,6 +93,7 @@ class @main
     @btn_restore.on 'click', (e) =>
       if @is_removed
         @is_removed = false
+        @dom.removeClass 'restore'
         @restore_block.hide 0, => @active_block.show()
 
     @btn_remove.on 'click', (e) =>
@@ -99,8 +101,21 @@ class @main
         @slideUp =>
           name = @children.name.getValue()
           @is_removed = true
-          @restore_name.text if name isnt '' then "Предмет #{name.toUpperCase()} удален" else 'Предмет удален'
+          @dom.addClass 'restore'
+          @restore_name.text if name isnt '' then "Предмет #{name.toUpperCase()} будет удален" else "Предмет будет удален"
           @active_block.hide 0, => @restore_block.show()
+
+    @children.course.on 'end',=>
+      arr = @children.course.getValue()
+      len = 0
+      narr = []
+      for key,val of arr
+        narr.push(val.split(',')...)
+        len++
+      arr = []
+      arr.push(val.split(';')...) for key,val of narr
+      if arr.length > len
+        @children.course.setValue arr
 
     @children.name.setErrorDiv @found.error_name
     #@course           .setErrorDiv @out_err_course
@@ -148,13 +163,14 @@ class @main
       $(this).remove()
 
   slideUp :(callback) =>
-    @container.slideUp 300, (e) =>
-      @btn_expand.text 'развернуть'
+    @container.slideUp 500, (e) =>
+      @btn_expand.removeClass 'active'
       callback? e
   slideDown :(callback) =>
-    @container.slideDown 300, (e) =>
-      @btn_expand.text 'свернуть'
+    @container.slideDown 500, (e) =>
+      @btn_expand.addClass 'active'
       callback? e
+
   getValue : =>
     result = {}
     $.each @children, (key, cl) ->
@@ -166,38 +182,27 @@ class @main
       $.each @children, (key, cl) ->
         if data[key] isnt undefined then cl.setValue? data[key]
   resetError : () =>
-    @children.name.hideError()
-    @hideErrBlock @students
-    @hideErrBlock @prices_place
-    for key in ["place_tutor", "place_pupil", "place_remote"]
-      @hideErrBlock @children[key]?.dom.parent()
+    @parseError({correct: true})
   parseError : (errors) =>
-    if @is_removed is true or errors.correct is true then return true
-    @slideDown =>
-      if errors['name']? then @children.name.showError 'Вы не выбрали предмет'
+#    return if @is_removed is true
+#    if errors.correct isnt true then @slideDown() else @slideUp()
+    if errors['name']? then @children.name.showError 'Вы не выбрали предмет'
 
-      if errors['students']?
-        @showErrBlock @students, 'Выберите категории учеников'
-      else
-        @hideErrBlock @students
+    if errors['students']?
+      @showErrBlock @students, 'Выберите категории учеников'
+    else
+      @hideErrBlock @students
 
-      if errors['places']?
-        @showErrBlock @prices_place, 'Укажите хотябы одно место для занятий'
-      else
-        @hideErrBlock @prices_place
-      for key in ["place_tutor", "place_pupil", "place_remote"]
+    if errors['places']?
+      @showErrBlock @prices_place, 'Укажите хотябы одно место для занятий'
+    else
+      @hideErrBlock @prices_place
 
-        if errors[key]?['prices']?
-          @showErrBlock @children[key].dom.parent(), 'Укажите цену за занятие (минимум одну)'
-        else @hideErrBlock @children[key].dom.parent()
-
-#      for field, error of errors
-#        switch field
-#          when "name" then @children.name.showError 'Вы не выбрали предмет'
-#          when "students"
-#            @showErrBlock @students, 'Выберите учеников'
-#          when "places"
-#            @showErrBlock @prices_place, 'Укажите хотябы одно место для занятий'
-#          when "place_tutor", "place_pupil", "place_remote"
-#            if error['prices'] isnt undefined
-#              @showErrBlock @children[field].dom.parent(), 'Укажите цену за занятия (минимум одну)'
+    for key in ["place_tutor", "place_pupil", "place_remote"]
+      if errors[key]?['prices']?
+        @showErrBlock @children[key].dom.parent(), 'Укажите цену за занятие (минимум одну)'
+      else @hideErrBlock @children[key].dom.parent()
+    if errors['group_learning']?
+      @showErrBlock @price_group, 'Выберите численность группы'
+    else
+      @hideErrBlock @price_group

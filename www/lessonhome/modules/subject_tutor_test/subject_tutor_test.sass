@@ -3,48 +3,89 @@ $space : 15px
 $height : 37px
 $price_block_padding: 6px
 $width_fields: 341px
+$paddings: 25px
 =title
   font-size: 18px
   font-weight: 600
 =button
   cursor : pointer
+  text-align: center
+  +inline-block
+  height: 33px
+  line-height: 33px
+  width: 33px
+  background: #ddd
 =error_block
   padding-left: 10px
   padding-right: 10px
   margin-left: -10px
   margin-right: -10px
   border: none
-  outline: 2px solid red
+  outline: 2px solid #FF0000
 =error_text
   font-size: 0.8em
-  color: red
+  color: #FF0000
   margin-top: 12px
   margin-left: 20px
-  margin-bottom: 10px
 main
   height: 100%
   text-align: left
+  border: 1px solid #DDD
+  background-color: #E6E6E6
+main.restore
+  background: #EDF2C4
 .panel
+  padding: 15px $paddings
+  position: relative
   .restore_block
-    .restore, .delete
-      +button
-      margin-top: 10px
     display: none
+    .restore, .name_subject
+      color: #FF0000
+    .name_subject
+      margin-bottom: 10px
+    .btn_panel
+      top: 0
+      bottom: 0
+      right: 10px
+      margin: auto 0
+      position: absolute
+      height: 20px
+      width: 20px
+      background: #DDD
+      border: 1px solid grey
+      a
+        color: grey
+        text-align: center
+        display: inline-block
+        width: 100%
+        line-height: 20px
+        font-size: 20px
+    .btn_panel .delete
+      +inline-block
+      text-decoration: none
   .active_block
     .subject_block
       +inline-block
-      .subject
-        +inline-block
-    .expand, .rem
-      +button
-      +inline-block
-      margin-left : 10px
+    .btn_panel
+      float: right
+      .expand, .rem
+        +button
+      .rem
+        background: url(F('trash_inactive.png')) no-repeat 8px 8px
+      .expand
+        background: url(F('info_opened.png')) no-repeat 8px 10px
+        margin-left: 20px
+      //.expand.active
+        //background: url(F('info_closed.png')) no-repeat 4px 8px
     .err
       +error_text
       display: none
 
 .container
-  padding-top: 25px
+  padding-top: 5px
+  padding-left: $paddings
+  padding-right: $paddings
+  padding-bottom: 20px
   display: none
   .value
     +inline-block
@@ -67,27 +108,30 @@ main
   .place_block, .category_block, .course_block
     margin-bottom: 20px
     .prices_place
+      border-bottom: 1px solid #c2c0c2
+      .prices + .prices
+        border-top: 1px solid #c2c0c2
       .prices
         padding: $space 0
-        position: relative
-        border-bottom: 1px solid #c2c0c2
       .prices.error
         +error_block
       .err
         +error_text
-    .prices_place.error
-      +error_block
-      .prices
-        border-bottom: none
+        margin-bottom: 10px
+    .price_group
       .prices + .prices
         border-top: 1px solid #c2c0c2
-    .prices
-      padding: $space 0
-      
+      .prices
+        padding: $space 0
+
+    .prices_place.error, .price_group.error
+      +error_block
+
   .place_block, .category_block, .course_block, .comment_block
     .title
       margin-bottom: 15px
     .err
+      margin-bottom: 10px
       +error_text
   .block
     .title

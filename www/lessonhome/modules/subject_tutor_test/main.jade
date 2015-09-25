@@ -1,15 +1,16 @@
 
 .panel
   .js-active_block
-    .subject_block
-      .subject!= select_subject_field
-    .js-expand развернуть
-    .js-rem удалить
+    .subject_block!= select_subject_field
+    .btn_panel
+      .js-rem
+      .js-expand.active
     .err.js-error_name
   .js-restore_block
-    span.js-name_subject
-    .js-restore Нажмите, чтобы восстановить
-    .js-delete !!Удалить окончательно!!
+    .js-name_subject
+    a(href="#", title="Восстановить").js-restore Нажмите, чтобы восстановить.
+    .btn_panel
+      a(href="#", title="Закрыть").js-delete &times;
 .js-container
   .block.course_block
     .title Направление подготовки :
@@ -36,7 +37,8 @@
       .prices.place_tutor!=place_tutor
       .prices.place_pupil!=place_pupil
       .prices.place_remote!=place_remote
-    .prices.group_learning!=group_learning
+    .js-price_group
+      .prices.group_learning!=group_learning
   .block.comment_block
     .title Комментарии :
     .comments!=comments

@@ -3,7 +3,7 @@ class @main
   tree : => @module '$' :
     select_subject_field : @module 'tutor/forms/drop_down_list' :
       placeholder : 'Выберите предмет'
-      selector  : 'first_reg'
+      selector  : 'first_reg1'
       smart : true
       self : true
       default_options     : {
@@ -131,17 +131,18 @@ class @main
           replace : [
             "[^\\d]"
           ]
+          value : '0'
           selector   : 'fast_bid'
         group_people : @module 'tutor/forms/drop_down_list' :
-          selector  : 'first_reg'
-          self      : true
+          placeholder : 'Численность группы'
+          selector  : 'first_reg1'
+          self      : false
           default_options     : {
 #            '0': {value: '0', text: 'не проводятся'},
             '1': {value: '1', text: '2-4 ученика'},
             '2': {value: '2', text: 'до 8 учеников'},
             '3': {value: '3', text: 'от 10 учеников'}
           }
-          value : @exports 'subject.groups.how_much'
 
 #    place_tutor           : @state 'tutor/full_price' :
 #      text  : 'у себя'
@@ -183,5 +184,5 @@ class @main
 #      }
     comments        : @module 'tutor/forms/textarea' :
       height    : '100px'
-      selector  : 'first_reg'
+      selector  : 'first_reg1'
       value : @exports 'subject.description'

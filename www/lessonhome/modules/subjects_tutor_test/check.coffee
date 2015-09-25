@@ -63,6 +63,7 @@
 @price = (data) -> return if data > 9999 then 'so_expensive' else true
 @group_count = (data) -> return if data is '' then 'select_group' else true
 @isNormalTags = (data) =>
+
   return 'not_tags' if not data.length?
   if typeof(data) is 'object'
     return 'to_many_tags' if data.length > 50

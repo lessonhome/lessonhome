@@ -49,7 +49,7 @@ typetoteach = {"school:0":'pre_school','school:1':'junior_school','school:2':'me
         subject['place_' + place]?.tree_hour
       ]
 #    if subject.place_cafe.selected then subjects_db[i].place.push "other"
-    if subject.group_learning.selected
+    if subject.group_learning.selected and subject.group_learning.groups isnt ''
       subjects_db[i].groups = [{
         description: subject.group_learning.groups
         price: subject.group_learning.price
