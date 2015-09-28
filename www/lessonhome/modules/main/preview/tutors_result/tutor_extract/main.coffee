@@ -27,6 +27,7 @@ class @main extends EE
     linked = yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
       delete linked[@tree.value.index]
+#      feel.sendActionOnce('button')
     else
       linked[@tree.value.index] = true
     @setLinked linked
@@ -61,13 +62,16 @@ class @main extends EE
     #@with_verification.css 'background-color', value.with_verification if value?.with_verification?
     @tree.all_rating.class.setValue rating:value?.rating
     @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
-    @tutor_subject.empty()
+    @tutor_subject?.empty?()
     i = 0
-    for key,val of value.subjects
+    if @tutor_subject?.append? then for key,val of value.subjects
       i++
       if key
         key = key?.capitalizeFirstLetter?() ? key if i == 1
-        @tutor_subject.append s=$("<div class='tag'>#{key ? ""}</div>")
+        skey = key
+        if i > 1
+          skey += ','
+        @tutor_subject?.append? s=$("<div class='tag'>#{skey ? ""}</div>")
         do (s,key,val)=>
           s.click => Q.spawn =>
             link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
@@ -92,14 +96,39 @@ class @main extends EE
     exp = value.experience ? ""
     exp += " года" if exp && !exp?.match? /\s/
     @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
-    @found.location.text(value.location?.city ? "")
+    l = value?.location ? {}
+    cA = (str="",val,rep=', ')->
+      return str unless val
+      val = ""+val
+      val = val.replace /^\s+/,''
+      val = val.replace /\s+$/,''
+      return str unless val
+      unless str
+        str += val
+      else
+        str += rep+val
+
+    ls1 = ""
+    ls1 = cA ls1,l.city
+#    ls1 = cA ls1,l.area
+    ls2 = ""
+    ls2 = cA ls2,l.street
+    ls2 = cA ls2,l.house
+    ls2 = cA ls2,l.building
+    ls3 = ""
+    ls3 += "м. #{l.metro}" if l.metro
+    ls = ""
+#    ls = cA ls,ls2,'<br>'
+    ls = cA ls,ls3,'<br><br>'
+    ls = cA ls,ls1,'<br>'
+    @found.location.html(ls)
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     @tutor_text.    text(value.about ? "")
     #@found.price_left.text(value.price_left)
     #@found.price_right.text(value.price_right)
     #@found.duration_left.text(value.duration_left)
     #@found.duration_right.text(value.duration_right)
-    @found.price.text(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
+    @found.price?.text?(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
     #@hideExtraText()
 
   getValue : => @getData()

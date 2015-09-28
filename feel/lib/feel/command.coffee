@@ -44,5 +44,3 @@ class module.exports
       process.exit 1
   run : =>
     log "run()".blue
-
-

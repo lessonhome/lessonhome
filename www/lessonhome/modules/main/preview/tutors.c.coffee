@@ -185,6 +185,8 @@ class Tutors
         for key,val of val?.place
           obj.place[val] = true
       obj.experience = t?.experience
+      if !obj.experience || (obj.experience == 'неважно')
+        obj.experience = '1-2 года'
       obj.status = t?.status
       obj.photos = []
       if p.avatar

@@ -111,6 +111,34 @@ class @main extends EE
     }
     @tree.rating.class.setValue rating:data.rating
     @found.full_name.text("#{data.name.last ? ""} #{data.name.first ? ""} #{data.name.middle ? ""}")
+    l = data?.location ? {}
+    cA = (str="",val,rep=', ')->
+      return str unless val 
+      val = ""+val
+      val = val.replace /^\s+/,''
+      val = val.replace /\s+$/,''
+      return str unless val 
+      unless str 
+        str += val 
+      else
+        str += rep+val
+
+    ls1 = ""
+    ls1 = cA ls1,l.city
+    ls1 = cA ls1,l.area
+    ls2 = ""
+    ls2 = cA ls2,l.street
+    ls2 = cA ls2,l.house
+    ls2 = cA ls2,l.building
+    ls3 = ""
+    ls3 += "м. #{l.metro}" if l.metro
+    ls = ""
+    ls = cA ls,ls1,'<br>'
+    ls = cA ls,ls2,'<br>'
+    ls = cA ls,ls3,'<br>'
+
+    @found.location.html ls
+    ###
     if data.location?.country
       if data.location?.city
         if data.location?.area
@@ -121,6 +149,7 @@ class @main extends EE
         @found.location.text(data.location?.country ? "")
     else
       @found.location.hide()
+    ###
     @setLinked()
     if data.slogan? && data.slogan
       @found.description.text(data.slogan)
