@@ -35,7 +35,7 @@ class @main
       '28': {value: 'hebrew', text: 'иврит'}
       '29': {value: 'history', text: 'история'}
       '30': {value: 'italian', text: 'итальянский язык'}
-      '31': {value: 'chinese', text: 'китайския язык'}
+      '31': {value: 'chinese', text: 'китайский язык'}
       '32': {value: 'computer_graphics', text: 'компьютерная графика'}
       '33': {value: 'korean', text: 'корейский язык'}
       '34': {value: 'latin', text: 'латынь'}

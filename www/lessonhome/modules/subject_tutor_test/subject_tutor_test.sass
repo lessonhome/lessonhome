@@ -3,18 +3,39 @@ $space : 15px
 $height : 37px
 $price_block_padding: 6px
 $width_fields: 341px
-$paddings: 25px
+$paddings: 20px
+$icon_trash: 'trash_normal.png'
+$icon_trash_hover: 'trash_hover.png'
+$icon_arrow_down: 'arrow_down.png'
+$icon_arrow_up: 'arrow_up.png'
+$icon_copy: 'ic_content_copy_black_18dp_1x.png'
+$icon_cross: 'delete_cross.png'
+=icon($src)
+  +inline-block
+  height: image-height($src)
+  width: image-width($src)
+  background: url(F($src)) no-repeat
 =title
   font-size: 18px
   font-weight: 600
-=button
+=button($src, $src_hover)
   cursor : pointer
   text-align: center
   +inline-block
-  height: 33px
-  line-height: 33px
-  width: 33px
-  background: #ddd
+  height: 36px
+  line-height: 36px
+  width: 36px
+  //background: #ddd
+  @if $src_hover
+    &:hover
+      i.icon
+        +icon($src_hover)
+        vertical-align: top
+  i.icon
+    +icon($src)
+    vertical-align: top
+
+
 =error_block
   padding-left: 10px
   padding-right: 10px
@@ -39,42 +60,33 @@ main.restore
   position: relative
   .restore_block
     display: none
-    .restore, .name_subject
-      color: #FF0000
-    .name_subject
-      margin-bottom: 10px
+    .text
+      margin-right: 40px
+      .restore, .name_subject
+        color: #FF0000
+      .name_subject
+        line-height: 1.4
+        margin-bottom: 7px
     .btn_panel
-      top: 0
-      bottom: 0
-      right: 10px
-      margin: auto 0
-      position: absolute
-      height: 20px
-      width: 20px
-      background: #DDD
-      border: 1px solid grey
-      a
-        color: grey
-        text-align: center
-        display: inline-block
-        width: 100%
-        line-height: 20px
-        font-size: 20px
-    .btn_panel .delete
-      +inline-block
-      text-decoration: none
+      float: right
+      .delete
+        &:hover
+          background: #F6FAE3
+        +button($icon_cross, $icon_cross)
   .active_block
     .subject_block
       +inline-block
     .btn_panel
       float: right
-      .expand, .rem
-        +button
       .rem
-        background: url(F('trash_inactive.png')) no-repeat 8px 8px
+        +button($icon_trash, $icon_trash_hover)
       .expand
-        background: url(F('info_opened.png')) no-repeat 8px 10px
-        margin-left: 20px
+        +button($icon_arrow_down, $icon_arrow_down)
+        margin-left: 30px
+        &.active
+          +button($icon_arrow_up, $icon_arrow_up)
+        &:hover
+          background: #f3f3f3
       //.expand.active
         //background: url(F('info_closed.png')) no-repeat 4px 8px
     .err
@@ -82,11 +94,22 @@ main.restore
       display: none
 
 .container
-  padding-top: 5px
   padding-left: $paddings
   padding-right: $paddings
   padding-bottom: 20px
   display: none
+  a.copy_prev_settings
+    +inline-block
+    font-size: 12px
+    margin-bottom: 15px
+    color: #000
+    &:before
+      content: ''
+      margin-right: 10px
+      width: 18px
+      height: 18px
+      +icon($icon_copy)
+
   .value
     +inline-block
     font-size: $height
