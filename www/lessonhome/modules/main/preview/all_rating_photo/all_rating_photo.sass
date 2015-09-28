@@ -9,11 +9,7 @@ main
 
 .photo
   +inline-block
-  +transition( transform 400ms ease-out)
-  //+transition-delay(0.5s)
-  //+box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
   z-index : 100
-  cursor : pointer
   position: relative
   width: 132px
   img
@@ -32,8 +28,7 @@ main
       height: $icon_height
       background: url(F($close_src)) no-repeat
 .photo.hover
-  +transform(scale(2.2))
-  +material_shadow(4)
+
 .all_rating
   margin-top: 10px
 a
@@ -60,11 +55,10 @@ a
     font-size: 18px
 
 .photo.unknown
-  //+box-shadow(0px 1px 3px rgba(0, 0, 0, 0.6))
   cursor: default
   opacity: 0.6
 .photo.unknown.hover
-  +transform(scale(1))
+
 .no_reviews
   display: none
 
