@@ -10,7 +10,7 @@ class @main
       count_review  : @exports()
       cost          : @exports()
       close         : false
-      extract       : 'extract'
+      extract       : @exports()
       rating        : @exports()
     tutor_extract : @module '$/tutor_extract'  :
       value : @exports()

@@ -3,17 +3,16 @@ class @main
     @content = @found.content
     @trigger = @tree.trigger.class
   show:=>
-    @trigger.dom.on 'click', =>
-
+    @trigger.dom.on 'click', (e) =>
       if @trigger.getValue()
         @slideUp()
       else
         @slideDown()
   slideUp : =>
-    @content.animate {opacity: 0}, 200, =>
+    @content.stop().animate {opacity: 0}, 200, =>
       @content.slideUp 200
   slideDown : =>
-    @content.slideDown 200, =>
+    @content.stop().slideDown 200, =>
       @content.animate {opacity: 1}, 200
   openContent : =>
     @trigger.setValue true
