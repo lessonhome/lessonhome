@@ -93,10 +93,24 @@ class @main
       obj.children.name.on 'focus', (e) =>
         obj.setNames @getNames()
 
+      if i is 0
+        obj.btn_copy.hide()
+      else if i > 0
+        obj.btn_copy.on 'click', =>
+          settings = @subjects[i - 1].getValue()
+          delete settings['name']
+          delete settings['comments']
+          obj.setValue settings
+
+
+
       obj.btn_delete.on 'click', =>
         @subjects.splice i, 1
+
+        obj.btn_copy.off 'click'
         obj.btn_delete.off 'click'
         obj.children.name.off 'focus'
+
         obj.dom.closest('.block').slideUp 200, ->
           obj.readyToRemove()
           obj.dom.remove()
