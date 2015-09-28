@@ -115,7 +115,7 @@ class Tutors
         obj.rating *= 0.7
       rmax = Math.max(rmax ? obj.rating,obj.rating)
       rmin = Math.min(rmin ? obj.rating,obj.rating)
-      continue if (t?.subjects?[0]?.name) && (p?.first_name)
+      continue if (t?.subjects?[0]?.name || t?.subjects?[1]?.name) && (p?.first_name)
       delete persons[account]
     for account,o of persons
       t = o?.tutor
