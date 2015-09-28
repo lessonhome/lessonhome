@@ -39,3 +39,6 @@ class @main
     info_panel       : @exports()              # info panel in main page
     content          : @exports()              # after info panel block in main page
     footer           : @state 'footer'         # footer in main page
+    bottom_block_attached : @module 'main/attached' :
+      bottom_bar  : @module 'main/attached/bar'
+      popup       : @module 'main/attached/popup'
