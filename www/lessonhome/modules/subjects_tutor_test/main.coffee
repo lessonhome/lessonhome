@@ -122,7 +122,6 @@ class @main
     return obj
 
   onReceive : ({status,errs,err})=>
-    console.log status, errs, err
     if err?
       errs?={}
       errs['other'] = err

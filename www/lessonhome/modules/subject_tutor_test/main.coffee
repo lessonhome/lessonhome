@@ -160,7 +160,6 @@ class @main
         direction = @training_direction[name]
       else
         direction = @training_direction['default']
-      console.log name
       @children.course.setItems direction
       @slideDown()
 
