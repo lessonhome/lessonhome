@@ -121,7 +121,7 @@ class @main extends EE
     @found.location.html(ls)
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     tutor_text = value.about || ''
-    if tutor_text.length > 220
+    if (tutor_text.length > 220) && @tree.reclame
       tutor_text = tutor_text.substr 0,209
       tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
       tutor_text += '...'
