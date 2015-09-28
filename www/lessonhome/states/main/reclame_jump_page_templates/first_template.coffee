@@ -5,6 +5,7 @@ class @main extends @template '../../main'
   }
   tree : =>
     content : @module '$'  :
+      filter : @exports()
       relevant_info : @module '$/relevant_info'  :
         photo_src : @exports()
         title : @exports()

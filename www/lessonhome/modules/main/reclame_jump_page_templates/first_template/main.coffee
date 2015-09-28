@@ -5,7 +5,11 @@ class @main
   constructor : ->
     Wrap @
   show : =>
-    best = yield Feel.dataM.getBest 4
+    console.log @tree.filter
+    do => Q.spawn =>
+      @found.link.attr 'href','/second_step?'+yield Feel.udata.d2u('mainFilter',@tree.filter)
+    best = yield Feel.dataM.getByFilter 4, (@tree.filter ? {})
+    
     for b,i in best
       cl = @tree.suit_tutors.class.$clone()
       dom =$('<div class="suit_tutor"></div>')
