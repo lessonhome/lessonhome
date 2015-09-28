@@ -21,7 +21,10 @@ class @main
     @trigger.setValue false
     @content.hide().css 'opacity', 0
   setValue : (data) =>
-    if data.selected is true then @openContent()
+    if data.selected is true
+      @openContent()
+    else
+      @closeContent()
     @tree.content.class.setValue data
   getValue : =>
     data = @tree.content.class.getValue()
