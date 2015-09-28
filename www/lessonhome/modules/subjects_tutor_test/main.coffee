@@ -31,12 +31,14 @@ class @main
     for key, values of @data
       @addNewSubject values
 
+    if @subjects.length is 0 then @addNewSubject()
 
-    @btn_add.click =>
+    @btn_add.addClass('active').click =>
       if @btn_add.is '.active'
         @btn_add.removeClass 'active'
         obj = @addNewSubject null, =>
           obj.slideDown()
+          @emptyErrorHide()
           @btn_add.addClass 'active'
 
 
@@ -84,10 +86,7 @@ class @main
       return false
 
   addNewSubject : (values, callback) =>
-    console.time 'big'
-    console.time 'start'
     obj = @subject.$clone()
-    console.timeEnd 'start'
     obj.setDirection @training_direction
     if values
       obj.setValue values
@@ -118,7 +117,6 @@ class @main
         obj.dom.closest('.block').slideUp 200, ->
           obj.readyToRemove()
           obj.dom.remove()
-      console.timeEnd 'big'
     obj.container.stop(true, true).show()
     block = $('<div class="block"></div>').hide().append obj.dom
     @container.append block
@@ -138,10 +136,17 @@ class @main
       @parseError errs
     return false
 
+  emptyErrorShow : (text) =>
+    @error_empty.text(text).slideDown 200
+
+  emptyErrorHide : =>
+    @error_empty.slideUp 200
+
   parseError : (errors) =>
     if errors['empty']?
-      @error_empty.text "Это лессон-хом, Виктория"
+      @emptyErrorShow "Добавьте хотябы один предмет."
     else
+      @emptyErrorHide()
       for cl, i in @subjects
         if not cl.is_removed
           if errors[i]?
