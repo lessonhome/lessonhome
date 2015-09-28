@@ -4,6 +4,7 @@ class @main extends @template '../../main'
   redirect : {
   }
   tree : =>
+    #materialize : @module 'lib/materialize'
     content : @module '$'  :
       filter : @exports()
       relevant_info : @module '$/relevant_info'  :
