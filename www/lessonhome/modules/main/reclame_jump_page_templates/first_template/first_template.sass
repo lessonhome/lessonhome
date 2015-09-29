@@ -1,10 +1,11 @@
-@import compass/css3
+@import base
+
 $icon_src: 'main/suit_icon.png'
 $icon_height: image-height($icon_src)
 $icon_width: image-width($icon_src)
 main
   background-color: #ffffff
-  padding: 24px
+  padding: 15px
   text-align: left
 .title_suit_tutors
   padding: 36px 0 12px 0
@@ -12,8 +13,14 @@ main
 .suit_tutors
   .suit_tutor
     width: 480px
+    +inline-block
+    vertical-align: top
   .suit_tutor.hidden
-    display : none
+    display: none
+  .suit_tutor.first_card
+    padding: 0 0 24px 12px
+  .suit_tutor.second_card
+    padding: 0 12px 24px 0
 .all_suit_bids
   text-align: right
   padding: 18px 0 54px 0

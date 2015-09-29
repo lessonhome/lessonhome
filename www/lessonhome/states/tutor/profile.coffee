@@ -31,9 +31,9 @@ class @main extends @template '../tutor'
         section :
           'Телефон :'     : $form : person : phone : (s)->
             s || '<a href="./edit/contacts">заполнить</a>'
-          'Почта :'     : $form : person : email : (s)->
+          'E-Mail :'     : $form : person : email : (s)->
             s || '<a href="./edit/contacts">заполнить</a>'
-          'Скайп :'     : $form : person : skype : (s)->
+          'Skype :'     : $form : person : skype : (s)->
             s || '<a href="./edit/contacts">заполнить</a>'
           'Личный сайт :'     : $form : person : site : (s)->
             s || '<a href="./edit/contacts">заполнить</a>'

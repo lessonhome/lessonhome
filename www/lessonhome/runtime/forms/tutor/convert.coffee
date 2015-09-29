@@ -25,19 +25,20 @@ class @F2V
       }
       if subject.groups? and subject.groups[0].description isnt ''
         result[key]['group_learning'] = {
-          selected : subject.groups[0].description isnt "не проводятся"
+          selected : true
           groups : subject.groups[0].description
           price : subject.groups[0].price if subject.groups[0].price?
         }
       if subject.place?
         if subject.place_prices?
           for val in subject.place
-            result[key]['place_'+ val] = {
-              selected : true
-              one_hour : subject.place_prices[val]?[0]
-              two_hour : subject.place_prices[val]?[1]
-              tree_hour : subject.place_prices[val]?[2]
-            }
+            if (prices = subject.place_prices[val])?
+              result[key]['place_'+ val] = {
+                selected : true
+                one_hour : prices[0]
+                two_hour : prices[1]
+                tree_hour : prices[2]
+              }
         else
           prices = yield @hour_prices_new(subject)
           for val in subject.place
