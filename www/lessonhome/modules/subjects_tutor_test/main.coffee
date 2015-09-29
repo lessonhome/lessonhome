@@ -90,24 +90,20 @@ class @main
     obj.setDirection @training_direction
     if values
       obj.setValue values
-    do (i = @subjects.length) =>
-      @subjects.push obj
+    @subjects.push obj
 
-      obj.children.name.on 'focus', (e) =>
-        obj.setNames @getNames()
+    obj.children.name.on 'focus', (e) =>
+      obj.setNames @getNames()
 
-      if i is 0
-        obj.btn_copy.hide()
-      else if i > 0
-        obj.btn_copy.on 'click', =>
-          settings = @subjects[i - 1].getValue()
-          delete settings['name']
-          delete settings['comments']
-          obj.setValue settings
+    obj.btn_copy.on 'click', =>
+#      settings = @subjects[i - 1].getValue()
+#      delete settings['name']
+#      delete settings['comments']
+#      obj.setValue settings
 
 
-
-      obj.btn_delete.on 'click', =>
+    obj.btn_delete.on 'click', =>
+      if (i = @getIndex obj) >= 0
         @subjects.splice i, 1
 
         obj.btn_copy.off 'click'
@@ -117,12 +113,23 @@ class @main
         obj.dom.closest('.block').slideUp 200, ->
           obj.readyToRemove()
           obj.dom.remove()
+
     obj.container.stop(true, true).show()
     block = $('<div class="block"></div>').hide().append obj.dom
     @container.append block
     block.slideDown 300, callback
     return obj
 
+  getIndex : (sub) =>
+    sub.flag = true
+    for _sub, i in @subjects
+      if _sub.flag is true
+        _sub.flag = false
+        if sub.flag is false then break
+    if sub.flag is true
+      sub.flag = false
+      return -1
+    return i
   onReceive : ({status,errs,err})=>
     if err?
       errs?={}
@@ -147,7 +154,8 @@ class @main
       @emptyErrorShow "Добавьте хотябы один предмет."
     else
       @emptyErrorHide()
-      for cl, i in @subjects
+      i = 0
+      for cl in @subjects
         if not cl.is_removed
           if errors[i]?
             if errors[i].correct isnt true then cl.slideDown()
@@ -155,7 +163,7 @@ class @main
           else
             cl.resetError()
             if errors.correct is false then cl.slideUp()
-
+          i++
 
 #  check_form : =>
 #    errs = @js.check @getData()
@@ -184,8 +192,9 @@ class @main
     data = {
       subjects_val : {}
     }
-    for sub, i in @subjects
-      if not sub.is_removed then data.subjects_val[i] = sub.getValue()
+    i = 0
+    for sub in @subjects
+      if not sub.is_removed then data.subjects_val[i++] = sub.getValue()
     return data
 
 #    @subjects_val = {}

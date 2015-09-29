@@ -12,10 +12,11 @@ class @main
     @container = @found.container
     @prices_place = @found.prices_place
     @price_group = @found.price_group
+    #####
+    @flag = false
     @is_removed = false
     #####
     @btn_delete = @found.delete
-    #####
     @btn_copy = @found.copy_prev_settings
     ####
     @children = {
