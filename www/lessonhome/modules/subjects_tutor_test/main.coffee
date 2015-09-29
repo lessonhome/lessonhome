@@ -41,7 +41,10 @@ class @main
           @emptyErrorHide()
           @btn_add.addClass 'active'
 
-
+    $(document).on 'click', (e) =>
+      for sub in @subjects
+        if sub.is_removed is true
+          sub.onRestore()
 
 
 #    for i,subject of @tree.subjects
@@ -154,16 +157,18 @@ class @main
       @emptyErrorShow "Добавьте хотябы один предмет."
     else
       @emptyErrorHide()
-      i = 0
-      for cl in @subjects
-        if not cl.is_removed
-          if errors[i]?
-            if errors[i].correct isnt true then cl.slideDown()
-            cl.parseError errors[i]
-          else
-            cl.resetError()
-            if errors.correct is false then cl.slideUp()
-          i++
+#      i = 0
+      for cl, i in @subjects
+#        if not cl.is_removed
+        if errors[i]?
+          if errors[i].correct isnt true
+            cl.onRestore()
+            cl.slideDown()
+          cl.parseError errors[i]
+        else
+          cl.resetError()
+          if errors.correct is false then cl.slideUp()
+#          i++
 
 #  check_form : =>
 #    errs = @js.check @getData()
@@ -192,9 +197,10 @@ class @main
     data = {
       subjects_val : {}
     }
-    i = 0
-    for sub in @subjects
-      if not sub.is_removed then data.subjects_val[i++] = sub.getValue()
+#    i = 0
+    for sub, i in @subjects
+#      if not sub.is_removed then
+      data.subjects_val[i] = sub.getValue()
     return data
 
 #    @subjects_val = {}

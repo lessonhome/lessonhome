@@ -66,13 +66,20 @@ main.restore
         color: #FF0000
       .name_subject
         line-height: 1.4
-        margin-bottom: 7px
     .btn_panel
-      float: right
-      .delete
+      //float: right
+      text-align: right
+      a.delete, a.restore
+        //color: #FF0000
+        text-decoration: none
+        color: #000
+        +inline-block
+        padding: 10px 15px
         &:hover
           background: #F6FAE3
-        +button($icon_cross, $icon_cross)
+      .btn + .btn
+        margin-left: 20px
+        //+button($icon_cross, $icon_cross)
   .active_block
     .subject_block
       +inline-block

@@ -92,7 +92,7 @@ class @main
     @btn_remove.on 'click', @onRemove
     @children.course.on 'end', @onTags
     @children.name.on 'change', @onChangeName
-
+    @restore_block.on 'click', (e) => e.stopPropagation()
     @children.name.setErrorDiv @found.error_name
     #@course           .setErrorDiv @out_err_course
 #      @group_learning   .setErrorDiv @out_err_group_learning
@@ -124,6 +124,7 @@ class @main
     @children.name.off 'change', @onChangeName
 
   onExpand: (e) =>
+    e.stopPropagation()
     if @container.is ':visible'
       @slideUp()
     else
@@ -135,13 +136,15 @@ class @main
       @dom.removeClass 'restore'
       @restore_block.hide 0, => @active_block.show()
 
+
   onRemove: (e) =>
+    e.stopPropagation()
     if not @is_removed
       @slideUp =>
         name = @children.name.getValue()
         @is_removed = true
         @dom.addClass 'restore'
-        @restore_name.text if name isnt '' then "Предмет #{name.toUpperCase()} будет удален" else "Предмет будет удален"
+        @restore_name.text if name isnt '' then "Удалить предмет #{name.toUpperCase()}?" else "Удалить предмет?"
         @active_block.hide 0, => @restore_block.show()
   onTags: (e) =>
     arr = @children.course.getValue()
