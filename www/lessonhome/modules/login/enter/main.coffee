@@ -109,4 +109,3 @@ class @main extends EE
         @password.showError "что-то пошло не так"
 
 
-      
