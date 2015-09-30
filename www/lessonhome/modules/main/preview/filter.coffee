@@ -40,6 +40,77 @@ cnum = 0
     words = {}
 
     nwords = []
+    awords = ""
+    awords += ' '+(str ? '') for k,str of (p.location ? {})
+    for el in (p.interests ? []) then for k,str of el
+      awords += ' '+(str ? '') if typeof str == 'string'
+    #console.log awords
+    for el in (p.education ? []) then for k,str of el
+      awords += ' '+(str ? '') if typeof str == 'string'
+    #console.log awords
+    for el in (p.work ? []) then for k,str of el
+      awords += ' '+(str ? '') if typeof str == 'string'
+    #console.log awords
+    for k,str of p.name
+      awords += ' '+(str ? '') if typeof str == 'string'
+    #console.log awords
+    awords += " " + (p.reason ? '') if typeof p.reason == 'string'
+    #console.log awords
+    awords += " " + (p.slogan ? '') if typeof p.slogan == 'string'
+    #console.log awords
+    awords += " " + (p.about ? '') if typeof p.about == 'string'
+    #console.log awords
+    for sname,sbj of p.subjects
+      awords += ' '+sname
+      for el in (sbj.course ? [])
+        awords += ' '+(el ? '')
+        awords += ' '+(sbj.description ? '')
+        awords += ' '+tag for tag of sbj.tags
+    #console.log awords
+    #console.log "\n\n\n\n"
+    awords = awords.replace /[^\s\wа-яА-ЯёЁ]/gi, ' '
+    #console.log '1',awords
+    awords = awords.replace /\s+/gi,' '
+    #console.log '2',awords
+    awords = awords.replace /^\s+/gi,''
+    #console.log '3',awords
+    awords = awords.replace /\s+$/gi,''
+    #console.log '4',awords
+    awords = awords.split ' '
+    #console.log '5',awords
+    Awords = {}
+    Awords[_diff.prepare(word)] = true for word in awords
+    awords = Awords
+    p.points = 0
+    p.points2 = 0
+    p.pointsNeed = false
+    #console.log awords
+    for course in mf.course
+      course = _diff.prepare(course)
+      arr = course.split ' '
+      #course.replace(/[^\s\w]/g,' ').replace(/\s+/g,' ').replace(/^\s+/g,'').replace(/\s+$/g,'')
+      for c in arr
+        continue unless c
+        p.pointsNeed = true
+        for word of awords
+          if c == word
+            p.points += 10
+            continue
+          if c.length < word.length
+            l = c
+            r = word
+          else
+            l = word
+            r = c
+          r = r.substr 0,l.length
+          if (r.length > 2) && (r == l) && (Math.abs(c.length-word.length)<4)
+            p.points2 += 0.1
+    p.points += p.points2 unless p.points
+    #console.log mf.course,p.points,awords if p.points == 13
+
+    continue if p.pointsNeed && (p.points <= 0)
+    
+
     #nwords = p.about.split /[\s\.;,]/ if p?.about
     #nwords.push p.location?.area ? ''
     #nwords.push p.location?.metro ? ''
@@ -58,6 +129,8 @@ cnum = 0
       exists = true
       found = -1
       for s in ss
+        if (s.length < 10) || (subject.length < 10)
+          continue if Math.abs(s.length-subject.length)>2
         dif = _diff.match subject.replace(/язык/g,''),s.replace(/язык/g,'')
         continue if (dif< 0) || (dif>0.4)
         if (found < 0) || (dif<found)
@@ -105,7 +178,7 @@ cnum = 0
         continue
     if mf.gender
       continue unless mf.gender==p.gender
-    do (p)=> p.sortf = (byf)-> (p.sorts.subject*1000 ? 0)*100+(byf)
+    do (p)=> p.sortf = (byf)-> (((p.points ? 0)*100+(p.sorts.subject ? 0))*1000)*100+(byf)
     out.push p
   nd = new Date().getTime()
   switch mf.sort

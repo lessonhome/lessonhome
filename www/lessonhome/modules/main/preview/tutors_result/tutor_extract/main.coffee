@@ -27,6 +27,7 @@ class @main extends EE
     linked = yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
       delete linked[@tree.value.index]
+#      feel.sendActionOnce('button')
     else
       linked[@tree.value.index] = true
     @setLinked linked
@@ -67,7 +68,10 @@ class @main extends EE
       i++
       if key
         key = key?.capitalizeFirstLetter?() ? key if i == 1
-        @tutor_subject?.append? s=$("<div class='tag'>#{key ? ""}</div>")
+        skey = key
+        if i > 1
+          skey += ','
+        @tutor_subject?.append? s=$("<div class='tag'>#{skey ? ""}</div>")
         do (s,key,val)=>
           s.click => Q.spawn =>
             link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
@@ -106,7 +110,7 @@ class @main extends EE
 
     ls1 = ""
     ls1 = cA ls1,l.city
-    ls1 = cA ls1,l.area
+#    ls1 = cA ls1,l.area
     ls2 = ""
     ls2 = cA ls2,l.street
     ls2 = cA ls2,l.house
@@ -114,9 +118,9 @@ class @main extends EE
     ls3 = ""
     ls3 += "м. #{l.metro}" if l.metro
     ls = ""
+#    ls = cA ls,ls2,'<br>'
+    ls = cA ls,ls3,'<br><br>'
     ls = cA ls,ls1,'<br>'
-    ls = cA ls,ls2,'<br>'
-    ls = cA ls,ls3,'<br>'
     @found.location.html(ls)
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     @tutor_text.    text(value.about ? "")

@@ -6,6 +6,12 @@ class @main
     @js ?= {}
     @js.diff_match_patch = require('./diff_match_patch').diff_match_patch
     @js.toEn = require('./rusLat').toEn
+  prepare : (w)=>
+    @js.toEn(w.replace(/[^\s\wа-яА-ЯёЁ]/gi,' ')
+      .replace(/\s+/g,' ')
+      .replace(/^\s+/g,'')
+      .replace(/\s+$/g,''))
+      .toLowerCase()
   match : (text,word,from=0,to=0.45,count=30)=>#,t1=0.8,t2=t1,d1=1000,d2=0)=>
     ntext = @js.toEn text
     nword = @js.toEn word
