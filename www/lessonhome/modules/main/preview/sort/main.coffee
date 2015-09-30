@@ -55,13 +55,13 @@ class @main extends EE
       @dom.addClass 'fixed'
       @dot = @dom.offset().top
       unless @fixed?
-        @wi = @dom.width()
+#        @wi = @dom.width()
         @he = @dom.height()
       @fixed = true
       @dom.css {
         position : 'fixed'
         height   : @he
-        width    : @wi
+#        width    : @wi
         'z-index' : 1000
         top      : 4
       }
