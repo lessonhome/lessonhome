@@ -105,6 +105,7 @@ class @main
         delete settings['name']
         delete settings['comments']
         obj.setValue settings
+      return false
 
 
     obj.btn_delete.on 'click', =>
@@ -120,6 +121,7 @@ class @main
           obj.dom.remove()
           if @subjects.length > 0
             @subjects[0].btn_copy.hide()
+      return false
 
     if is_open then obj.showSettings()
     block = $('<div class="block"></div>').hide().append obj.dom

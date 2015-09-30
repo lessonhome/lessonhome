@@ -129,12 +129,14 @@ class @main
       @slideUp()
     else
       @slideDown()
+    return false
 
   onRestore: (e) =>
     if @is_removed
       @is_removed = false
       @dom.removeClass 'restore'
       @restore_block.hide 0, => @active_block.show()
+    return false
 
 
   onRemove: (e) =>
@@ -146,6 +148,7 @@ class @main
         @dom.addClass 'restore'
         @restore_name.text if name isnt '' then "Удалить предмет #{name.toUpperCase()}?" else "Удалить предмет?"
         @active_block.hide 0, => @restore_block.show()
+    return false
   onTags: (e) =>
     arr = @children.course.getValue()
     len = 0
