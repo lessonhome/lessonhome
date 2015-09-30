@@ -110,9 +110,9 @@ class Tutors
       p = obj.person
       obj.rating = JSON.stringify(obj).length*(obj?.person?.ratio ? 1.0)
       unless obj.person?.avatar?[0]?
-        obj.rating *= 0.7
+        obj.rating *= 0.5
       unless (obj.tutor?.about ? "")?.length>10
-        obj.rating *= 0.7
+        obj.rating *= 0.5
       rmax = Math.max(rmax ? obj.rating,obj.rating)
       rmin = Math.min(rmin ? obj.rating,obj.rating)
       continue if (t?.subjects?[0]?.name || t?.subjects?[1]?.name) && (p?.first_name)
