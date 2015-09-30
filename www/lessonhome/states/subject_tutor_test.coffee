@@ -130,6 +130,7 @@ class @main
         price : @module 'tutor/forms/input' :
           replace : [
             "[^\\d]"
+            "(\\d\\d\\d\\d)(.+)":"$1"
           ]
           value : '0'
           selector   : 'fast_bid'

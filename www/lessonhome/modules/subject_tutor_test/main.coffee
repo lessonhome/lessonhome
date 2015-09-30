@@ -16,6 +16,8 @@ class @main
     #####
     @btn_delete = @found.delete
     #####
+    @btn_copy = @found.copy_prev_settings
+    ####
     @children = {
       name : @tree.select_subject_field.class
 
@@ -152,13 +154,12 @@ class @main
     if arr.length > len
       @children.course.setValue arr
 
-  onChangeName: (e) =>
+  onChangeName: (name) =>
     if @training_direction? and name isnt ''
       if @training_direction[name]?
         direction = @training_direction[name]
       else
         direction = @training_direction['default']
-        console.log direction
       @children.course.setItems direction
       @slideDown()
 

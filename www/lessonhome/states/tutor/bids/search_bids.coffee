@@ -261,83 +261,9 @@ class @main extends @template '../../tutor'
           city_district : 'Город/Район'
           bet           : 'Ставка'
           price         : 'Цена'
-        all_bids : [
-          @module '//bid' :
-            selectable   : false
-            number    : 25723
-            date      : "10 ноября"
-            subject   : 'Физика'
-            level     : '6 класс'
-            place     : 'У ученика'
-            city      : 'Москва'
-            district  : 'Бирюлёво'
-            bet_price : '1000 руб.'
-            bet_time  : '90 мин.'
-            price     : '1500 руб.'
-            category_pupil      : 'школьники 6-8 классов'
-            training_direction  : 'ЕГЭ'
-            number_of_lessons   :  'Более 20'
-            wishes              : 'Утро выходных дней'
-            near_metro          : 'м.Крюково'
-            comments            : '-'
-            lesson_goal         : 'Устранить пробелы в знаниях'
-          @module '//bid' :
-            selectable   : false
-            number    : 15723
-            date      : "20 декабря"
-            subject   : 'Математика'
-            level     : '8 класс'
-            place     : 'У ученика'
-            city      : 'Москва'
-            district  : 'Выхино'
-            bet_price : '1000 руб.'
-            bet_time  : '90 мин.'
-            price     : '1500 руб.'
-            category_pupil      : 'школьники 6-8 классов'
-            training_direction  : 'ЕГЭ'
-            number_of_lessons   :  'Более 20'
-            wishes              : 'Утро выходных дней'
-            near_metro          : 'м.Крюково'
-            comments            : '-'
-            lesson_goal         : 'Устранить пробелы в знаниях'
-          @module '//bid' :
-            selectable   : false
-            number    : 25723
-            date      : "10 ноября"
-            subject   : 'Физика'
-            level     : '6 класс'
-            place     : 'У ученика'
-            city      : 'Москва'
-            district  : 'Бирюлёво'
-            bet_price : '1000 руб.'
-            bet_time  : '90 мин.'
-            price     : '1500 руб.'
-            category_pupil      : 'школьники 6-8 классов'
-            training_direction  : 'ЕГЭ'
-            number_of_lessons   :  'Более 20'
-            wishes              : 'Утро выходных дней'
-            near_metro          : 'м.Крюково'
-            comments            : '-'
-            lesson_goal         : 'Устранить пробелы в знаниях'
-          @module '//bid' :
-            selectable   : false
-            number    : 25723
-            date      : "10 ноября"
-            subject   : 'Физика'
-            level     : '6 класс'
-            place     : 'У ученика'
-            city      : 'Москва'
-            district  : 'Бирюлёво'
-            bet_price : '1000 руб.'
-            bet_time  : '90 мин.'
-            price     : '1500 руб.'
-            category_pupil      : 'школьники 6-8 классов'
-            training_direction  : 'ЕГЭ'
-            number_of_lessons   :  'Более 20'
-            wishes              : 'Утро выходных дней'
-            near_metro          : 'м.Крюково'
-            comments            : '-'
-            lesson_goal         : 'Устранить пробелы в знаниях'
+        all_bids : []
+        ###
+        [
           @module '//bid' :
             selectable   : false
             number    : 25723
@@ -358,6 +284,7 @@ class @main extends @template '../../tutor'
             comments            : '-'
             lesson_goal         : 'Устранить пробелы в знаниях'
         ]
+        ###
       courses_list : @module 'tutor/forms/drop_down_list' :
         smart : true
         self : true
