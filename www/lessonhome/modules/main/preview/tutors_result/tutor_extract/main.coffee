@@ -69,9 +69,9 @@ class @main extends EE
       if key
         key = key?.capitalizeFirstLetter?() ? key if i == 1
         skey = key
-        if i > 1
-          skey += ','
-        @tutor_subject?.append? s=$("<div class='tag'>#{skey ? ""}</div>")
+#        if i > 1
+#          skey += ','
+        @tutor_subject?.append? s=$("<div class='tag'></div>").text(skey ? "")
         do (s,key,val)=>
           s.click => Q.spawn =>
             link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
