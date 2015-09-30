@@ -141,7 +141,6 @@
     error = @check_data subject
     if subject.name isnt ''
       sub_name = subject.name.toLowerCase()
-      console.log names
       if names.length == 0
         names.push sub_name
       else

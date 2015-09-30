@@ -28,17 +28,16 @@ class @main
     @subjects = []
 
     for key, values of @data
-      @addNewSubject values
+      @addNewSubject(values).show()
 
-    if @subjects.length is 0 then @addNewSubject()
+    if @subjects.length is 0 then @addNewSubject(null, true).show()
 
     @btn_add.addClass('active').click =>
       if @btn_add.is '.active'
         @btn_add.removeClass 'active'
-        obj = @addNewSubject null, =>
-          obj.slideDown()
-          @emptyErrorHide()
-          @btn_add.addClass 'active'
+        obj = @addNewSubject(null, true).slideDown 500
+        @emptyErrorHide()
+        @btn_add.addClass 'active'
 
     $(document).on 'click', (e) =>
       for sub in @subjects
@@ -87,21 +86,25 @@ class @main
       @parseError errors
       return false
 
-  addNewSubject : (values, callback) =>
+  addNewSubject : (values, is_open = false) =>
     obj = @subject.$clone()
     obj.setDirection @training_direction
     if values
       obj.setValue values
+    if @subjects.length == 0
+      obj.btn_copy.hide()
     @subjects.push obj
 
     obj.children.name.on 'focus', (e) =>
       obj.setNames @getNames()
 
     obj.btn_copy.on 'click', =>
-#      settings = @subjects[i - 1].getValue()
-#      delete settings['name']
-#      delete settings['comments']
-#      obj.setValue settings
+      i = @getIndex obj
+      if i > 0
+        settings = @subjects[i - 1].getValue()
+        delete settings['name']
+        delete settings['comments']
+        obj.setValue settings
 
 
     obj.btn_delete.on 'click', =>
@@ -112,15 +115,16 @@ class @main
         obj.btn_delete.off 'click'
         obj.children.name.off 'focus'
 
-        obj.dom.closest('.block').slideUp 200, ->
+        obj.dom.closest('.block').slideUp 200, =>
           obj.readyToRemove()
           obj.dom.remove()
+          if @subjects.length > 0
+            @subjects[0].btn_copy.hide()
 
-    obj.container.stop(true, true).show()
+    if is_open then obj.showSettings()
     block = $('<div class="block"></div>').hide().append obj.dom
     @container.append block
-    block.slideDown 300, callback
-    return obj
+    return block
 
   getIndex : (sub) =>
     sub.flag = true

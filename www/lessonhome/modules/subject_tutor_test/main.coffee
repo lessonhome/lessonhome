@@ -165,7 +165,7 @@ class @main
       else
         direction = @training_direction['default']
       @children.course.setItems direction
-      @slideDown()
+#      @slideDown()
 
   setNames : (names) => @children.name.setItems names
   setDirection : (direct) => @training_direction = direct
@@ -192,6 +192,14 @@ class @main
       @btn_expand.addClass 'active'
       callback? e
 
+  showSettings : =>
+    @container.show()
+    @btn_expand.addClass 'active'
+
+  hideSettings : =>
+    @container.hide()
+    @btn_expand.removeClass 'active'
+
   getValue : =>
     result = {}
     $.each @children, (key, cl) ->
@@ -200,6 +208,7 @@ class @main
     return result
   setValue : (data) =>
     if data isnt undefined
+      @btn_copy.hide()
       $.each @children, (key, cl) ->
         if data[key] isnt undefined then cl.setValue? data[key]
   resetError : () =>
