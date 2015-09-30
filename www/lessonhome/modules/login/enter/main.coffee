@@ -90,7 +90,7 @@ class @main extends EE
     switch err
       when 'already_logined'
         return @redirect './'
-        @login.showError 'Кажется вы уже вошли. Сначала надо выйти!'
+        @login.showError 'Кажется, вы уже вошли. Сначала надо выйти.'
         @password.showError()
       when 'empty_login'
         @login.showError 'Введите логин'
@@ -103,9 +103,10 @@ class @main extends EE
       when 'short_password'
         @password.showError 'Слишком короткий пароль'
       when 'login_not_exists'
-        @login.showError 'Пользователь с таким логином не зарегестрирован'
+        @login.showError 'Пользователь с таким логином не зарегистрирован'
       else
         @login.showError()
         @password.showError "что-то пошло не так"
 
 
+      
