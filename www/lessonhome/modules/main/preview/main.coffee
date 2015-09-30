@@ -250,6 +250,7 @@ class @main extends EE
         for place in mf.place.area_pupil
           places += place+'; '
       set_ 'place_pupil', 'У себя'+places
+
     else
       pupil.className += 'hidden' unless pupil.className.match 'hidden'
       set_ 'place_pupil'
@@ -406,7 +407,24 @@ class @main extends EE
     else
      @advanced_filter.activate 'group_lessons', false
 
+  updateTutorPlace : () =>
+    mf = yield Feel.urlData.get 'mainFilter'
+
+    places = []
+
+    if mf.place.pupil
+      for place in mf.place.area_pupil
+        if mf.place.area_tutor.indexOf(place) == -1
+          places.push place
+
+    if places.length
+      o = {}
+      o.place = mf.place
+      o.place.area_tutor = o.place.area_tutor.concat places
+      Feel.urlData.set('mainFilter',o).done()
+
   show : =>
+    @tree.advanced_filter.tutor.class.on 'change', @updateTutorPlace
     @advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll',=>
       ll = @tutors_result.find(':last')
