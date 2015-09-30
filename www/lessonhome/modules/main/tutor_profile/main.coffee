@@ -126,16 +126,16 @@ class @main extends EE
     ls1 = ""
     ls1 = cA ls1,l.city
     ls1 = cA ls1,l.area
-    ls2 = ""
-    ls2 = cA ls2,l.street
-    ls2 = cA ls2,l.house
-    ls2 = cA ls2,l.building
+#    ls2 = ""
+#    ls2 = cA ls2,l.street
+#    ls2 = cA ls2,l.house
+#    ls2 = cA ls2,l.building
     ls3 = ""
     ls3 += "м. #{l.metro}" if l.metro
     ls = ""
-    ls = cA ls,ls1,'<br>'
-    ls = cA ls,ls2,'<br>'
+#    ls = cA ls,ls2,'<br>'
     ls = cA ls,ls3,'<br>'
+    ls = cA ls,ls1,'<br>'
 
     @found.location.html ls
     ###
