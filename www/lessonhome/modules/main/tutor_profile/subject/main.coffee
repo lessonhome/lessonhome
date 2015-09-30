@@ -34,8 +34,10 @@ class @main
         else
           $(@training_direction).append(v)
     @comment.text("#{val.description ? ""}")
+    old = true
     if val.place_prices?
       for place, prices of val.place_prices
+        old = false if old
         if (place_block = @places[place])?
           place_block.show()
           fields = {
@@ -48,7 +50,8 @@ class @main
               time_block.show()
               time_block.find('.cost:first').text cost + ' руб.'
 
-    else
+    if old
+      console.log '2'
       p1 = val.price.left
       p2 = val.price.right
       t1 = val.duration.left
