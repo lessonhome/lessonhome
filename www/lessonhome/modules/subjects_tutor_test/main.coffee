@@ -26,7 +26,6 @@ class @main
     }
 
     @subjects = []
-    @_exist = {}
 
     for key, values of @data
       @addNewSubject values
@@ -154,7 +153,7 @@ class @main
 
   parseError : (errors) =>
     if errors['empty']?
-      @emptyErrorShow "Добавьте хотябы один предмет."
+      @emptyErrorShow "Добавьте хотя бы один предмет."
     else
       @emptyErrorHide()
 #      i = 0

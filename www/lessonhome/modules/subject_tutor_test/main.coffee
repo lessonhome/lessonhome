@@ -207,21 +207,24 @@ class @main
   parseError : (errors) =>
 #    return if @is_removed is true
 #    if errors.correct isnt true then @slideDown() else @slideUp()
-    if errors['name']? then @children.name.showError 'Вы не выбрали предмет'
-
+    if errors['name']?
+      if errors['name'] is 'empty_field' then @children.name.showError 'Вы не выбрали предмет'
+      else if errors['name'] is 'match_name' then @children.name.showError 'Такой предмет уже существует'
+    else
+      @children.name.hideError()
     if errors['students']?
       @showErrBlock @students, 'Выберите категории учеников'
     else
       @hideErrBlock @students
 
     if errors['places']?
-      @showErrBlock @prices_place, 'Укажите хотябы одно место для занятий'
+      @showErrBlock @prices_place, 'Укажите хотя бы одно место для занятий'
     else
       @hideErrBlock @prices_place
 
     for key in ["place_tutor", "place_pupil", "place_remote"]
       if errors[key]?['prices']?
-        @showErrBlock @children[key].dom.parent(), 'Укажите цену за занятие (минимум одну)'
+        @showErrBlock @children[key].dom.parent(), 'Назначьте цену за занятие'
       else @hideErrBlock @children[key].dom.parent()
     if errors['group_learning']?
       @showErrBlock @price_group, 'Выберите численность группы'

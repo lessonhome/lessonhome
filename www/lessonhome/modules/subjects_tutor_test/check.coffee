@@ -134,10 +134,23 @@
   return errors
 
 @check = (data) =>
+  names = []
   errors = {correct: true, empty: "empty_subjects"}
   for key, subject of data.subjects_val
     delete errors['empty'] if errors['empty']?
     error = @check_data subject
+    if subject.name isnt ''
+      sub_name = subject.name.toLowerCase()
+      console.log names
+      if names.length == 0
+        names.push sub_name
+      else
+        for name in names
+          if name is sub_name
+            error.correct = false if error.correct
+            error.name = "match_name"
+            break
+          else names.push sub_name
     if not error.correct
       errors[key] = error
       errors.correct = false if errors.correct
