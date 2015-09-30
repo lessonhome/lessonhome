@@ -51,7 +51,6 @@ class @main
               time_block.find('.cost:first').text cost + ' руб.'
 
     if old
-      console.log '2'
       p1 = val.price.left
       p2 = val.price.right
       t1 = val.duration.left
