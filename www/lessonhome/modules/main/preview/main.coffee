@@ -45,13 +45,10 @@ class @main extends EE
     @sort.setNumber num
     yield Q.delay(10)
     indexes = indexes.slice @from,@from+@count
-    @message_empty.css {
-      opacity:
-        if indexes.length
-          0
-        else
-          1
-    }
+    if indexes.length is 0
+      @message_empty.fadeIn 400
+    else
+      @message_empty.fadeOut 400
     preps   = yield Feel.dataM.getTutor indexes
     yield Q.delay(10)
     #return end() if objectHash(@now) == objectHash(indexes)
