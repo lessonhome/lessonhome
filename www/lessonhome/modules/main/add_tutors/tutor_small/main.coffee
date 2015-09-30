@@ -5,6 +5,8 @@
 class @main
   constructor : ->
     Wrap @
+  Dom: =>
+    @btn_close = @found.btn_close
   show : =>
   setValue : (value={})=>
     @tree.value ?= {}

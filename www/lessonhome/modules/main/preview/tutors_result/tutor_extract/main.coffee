@@ -40,6 +40,7 @@ class @main extends EE
       @hopacity.removeClass 'g-hopacity'
     else
       @tree.choose_button?.class?.setValue {text:'Выбрать'}
+      @tree.choose_button?.class?.setDeactiveCheckbox()
       @hopacity.addClass 'g-hopacity'
 
   hideExtraText: =>
