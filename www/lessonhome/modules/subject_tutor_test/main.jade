@@ -5,19 +5,18 @@
     .btn_panel
       a(href="#", title="Удалить").js-rem
         i.icon
-      a(href="#", title="Свернуть/Развернуть").js-expand.active
+      a(href="#", title="Свернуть/Развернуть").js-expand
         i.icon
     .err.js-error_name
   .js-restore_block
-    .btn_panel
-      a(href="#", title="Удалить").js-delete
-        i.icon
     .text
       .js-name_subject
-      a(href="#", title="Восстановить").js-restore Нажмите, чтобы восстановить.
+    .btn_panel
+      a(href="#", title="Восстановить").btn.js-restore Нет
+      a(href="#", title="Удалить").btn.js-delete Да
 
 .js-container
-  a(href='#').js-copy_prev_settings cкопировать информацию с предыдущего предмета
+  a(href='#').js-copy_prev_settings cкопировать информацию из предыдущего предмета
   .block.course_block
     .title Направление подготовки :
     .value.course!=course

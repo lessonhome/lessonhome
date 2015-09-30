@@ -23,6 +23,9 @@ class @main extends EE
 
   setActiveCheckbox : =>
     @tree.checkbox.class.setValue true
+
+  setDeactiveCheckbox : =>
+    @tree.checkbox.class.setValue false
   mdown : =>
     @button.addClass('press')
     $('body').on  'mouseup.tutor_button', @mup

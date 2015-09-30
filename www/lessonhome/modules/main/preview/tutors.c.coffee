@@ -174,6 +174,14 @@ class Tutors
         ns.price.left  = 600    unless ns.price.left > 0
         ns.duration.right = 180 unless ns.duration.right > 0
         ns.duration.left  = 90  unless ns.duration.left > 0
+
+        ns.place_prices = {}
+        for place, prices of val.place_prices
+          ns.place_prices[place] = {}
+          ns.place_prices[place]['v60'] = prices[0] if prices[0] isnt ''
+          ns.place_prices[place]['v90'] = prices[1] if prices[1] isnt ''
+          ns.place_prices[place]['v120'] = prices[2] if prices[2] isnt ''
+
         l = ns.price.left*60/ns.duration.left
         r = ns.price.right*60/ns.duration.right
         ns.price_per_hour  = 0.5*(r+l)

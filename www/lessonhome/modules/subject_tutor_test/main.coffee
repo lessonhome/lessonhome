@@ -12,10 +12,11 @@ class @main
     @container = @found.container
     @prices_place = @found.prices_place
     @price_group = @found.price_group
+    #####
+    @flag = false
     @is_removed = false
     #####
     @btn_delete = @found.delete
-    #####
     @btn_copy = @found.copy_prev_settings
     ####
     @children = {
@@ -91,7 +92,7 @@ class @main
     @btn_remove.on 'click', @onRemove
     @children.course.on 'end', @onTags
     @children.name.on 'change', @onChangeName
-
+    @restore_block.on 'click', (e) => e.stopPropagation()
     @children.name.setErrorDiv @found.error_name
     #@course           .setErrorDiv @out_err_course
 #      @group_learning   .setErrorDiv @out_err_group_learning
@@ -123,25 +124,31 @@ class @main
     @children.name.off 'change', @onChangeName
 
   onExpand: (e) =>
+    e.stopPropagation()
     if @container.is ':visible'
       @slideUp()
     else
       @slideDown()
+    return false
 
   onRestore: (e) =>
     if @is_removed
       @is_removed = false
       @dom.removeClass 'restore'
       @restore_block.hide 0, => @active_block.show()
+    return false
+
 
   onRemove: (e) =>
+    e.stopPropagation()
     if not @is_removed
       @slideUp =>
         name = @children.name.getValue()
         @is_removed = true
         @dom.addClass 'restore'
-        @restore_name.text if name isnt '' then "Предмет #{name.toUpperCase()} будет удален" else "Предмет будет удален"
+        @restore_name.text if name isnt '' then "Удалить предмет #{name.toUpperCase()}?" else "Удалить предмет?"
         @active_block.hide 0, => @restore_block.show()
+    return false
   onTags: (e) =>
     arr = @children.course.getValue()
     len = 0
@@ -161,7 +168,7 @@ class @main
       else
         direction = @training_direction['default']
       @children.course.setItems direction
-      @slideDown()
+#      @slideDown()
 
   setNames : (names) => @children.name.setItems names
   setDirection : (direct) => @training_direction = direct
@@ -188,6 +195,14 @@ class @main
       @btn_expand.addClass 'active'
       callback? e
 
+  showSettings : =>
+    @container.show()
+    @btn_expand.addClass 'active'
+
+  hideSettings : =>
+    @container.hide()
+    @btn_expand.removeClass 'active'
+
   getValue : =>
     result = {}
     $.each @children, (key, cl) ->
@@ -196,6 +211,7 @@ class @main
     return result
   setValue : (data) =>
     if data isnt undefined
+      @btn_copy.hide()
       $.each @children, (key, cl) ->
         if data[key] isnt undefined then cl.setValue? data[key]
   resetError : () =>
@@ -203,21 +219,24 @@ class @main
   parseError : (errors) =>
 #    return if @is_removed is true
 #    if errors.correct isnt true then @slideDown() else @slideUp()
-    if errors['name']? then @children.name.showError 'Вы не выбрали предмет'
-
+    if errors['name']?
+      if errors['name'] is 'empty_field' then @children.name.showError 'Вы не выбрали предмет'
+      else if errors['name'] is 'match_name' then @children.name.showError 'Такой предмет уже существует'
+    else
+      @children.name.hideError()
     if errors['students']?
       @showErrBlock @students, 'Выберите категории учеников'
     else
       @hideErrBlock @students
 
     if errors['places']?
-      @showErrBlock @prices_place, 'Укажите хотябы одно место для занятий'
+      @showErrBlock @prices_place, 'Укажите хотя бы одно место для занятий'
     else
       @hideErrBlock @prices_place
 
     for key in ["place_tutor", "place_pupil", "place_remote"]
       if errors[key]?['prices']?
-        @showErrBlock @children[key].dom.parent(), 'Укажите цену за занятие (минимум одну)'
+        @showErrBlock @children[key].dom.parent(), 'Назначьте цену за занятие'
       else @hideErrBlock @children[key].dom.parent()
     if errors['group_learning']?
       @showErrBlock @price_group, 'Выберите численность группы'
