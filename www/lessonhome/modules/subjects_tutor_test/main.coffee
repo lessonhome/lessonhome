@@ -6,6 +6,7 @@ class @main
     @data = @tree.data
     @subject = @tree.subject.class
     @names_subjects = @tree.default_subjects
+    @error_empty = @found.error_empty
   show : =>
     @training_direction = {
       "английский язык":['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'TOEFL','IELTS', 'FCE', 'TOEIC', 'Business English', 'GMAT', 'GRE', 'SAT'],
@@ -83,7 +84,10 @@ class @main
       return false
 
   addNewSubject : (values, callback) =>
+    console.time 'big'
+    console.time 'start'
     obj = @subject.$clone()
+    console.timeEnd 'start'
     obj.setDirection @training_direction
     if values
       obj.setValue values
@@ -93,14 +97,28 @@ class @main
       obj.children.name.on 'focus', (e) =>
         obj.setNames @getNames()
 
+      if i is 0
+        obj.btn_copy.hide()
+      else if i > 0
+        obj.btn_copy.on 'click', =>
+          settings = @subjects[i - 1].getValue()
+          delete settings['name']
+          delete settings['comments']
+          obj.setValue settings
+
+
+
       obj.btn_delete.on 'click', =>
         @subjects.splice i, 1
+
+        obj.btn_copy.off 'click'
         obj.btn_delete.off 'click'
         obj.children.name.off 'focus'
+
         obj.dom.closest('.block').slideUp 200, ->
           obj.readyToRemove()
           obj.dom.remove()
-
+      console.timeEnd 'big'
     obj.container.stop(true, true).show()
     block = $('<div class="block"></div>').hide().append obj.dom
     @container.append block
@@ -108,7 +126,6 @@ class @main
     return obj
 
   onReceive : ({status,errs,err})=>
-    console.log status, errs, err
     if err?
       errs?={}
       errs['other'] = err
@@ -122,14 +139,17 @@ class @main
     return false
 
   parseError : (errors) =>
-    for cl, i in @subjects
-      if not cl.is_removed
-        if errors[i]?
-          if errors[i].correct isnt true then cl.slideDown()
-          cl.parseError errors[i]
-        else
-          cl.resetError()
-          if errors.correct is false then cl.slideUp()
+    if errors['empty']?
+      @error_empty.text "Это лессон-хом, Виктория"
+    else
+      for cl, i in @subjects
+        if not cl.is_removed
+          if errors[i]?
+            if errors[i].correct isnt true then cl.slideDown()
+            cl.parseError errors[i]
+          else
+            cl.resetError()
+            if errors.correct is false then cl.slideUp()
 
 
 #  check_form : =>

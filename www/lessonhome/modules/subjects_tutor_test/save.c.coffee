@@ -5,7 +5,6 @@ typetoteach = {"school:0":'pre_school','school:1':'junior_school','school:2':'me
 
 @handler = ($,data)=>
   errs = check.check data
-  console.log 'ERRORS', errs
   return {status:"failed",errs:["access_failed"]} unless $.user.tutor
   if not errs.correct
     return {status:'failed',errs:errs}

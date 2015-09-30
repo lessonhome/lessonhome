@@ -14,6 +14,7 @@ class @main extends EE
       #rating : data.rating
       index : data.index
       photos : data.photos
+      price_per_hour : data.price_per_hour
       count_review : data.count_review
     }
     @tutor_extract.setValue data
