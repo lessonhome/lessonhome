@@ -89,10 +89,7 @@ class @main extends EE
     #@tutor_subject. text(value.tutor_subject) if value?.tutor_subject?
     #@tutor_status.  text(value.status ? "")
     #@tutor_exp.     text(value.experience ? "")
-    do => Q.spawn =>
-      link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
-      @found.link_name.attr 'href',link
-      @tree.view_button.class.activate link
+
     exp = value.experience ? ""
     exp += " года" if exp && !exp?.match? /\s/
     @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
@@ -123,14 +120,26 @@ class @main extends EE
     ls = cA ls,ls1,'<br>'
     @found.location.html(ls)
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
-    @tutor_text.    text(value.about ? "")
+    tutor_text = value.about || ''
+    if (tutor_text.length > 220) && @tree.reclame
+      tutor_text = tutor_text.substr 0,209
+      tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
+      tutor_text += '...'
+      @tutor_text.text tutor_text
+      @tutor_text.append $("<a class='about_link'>подробнее</a>")
+    else
+      @tutor_text.text tutor_text
     #@found.price_left.text(value.price_left)
     #@found.price_right.text(value.price_right)
     #@found.duration_left.text(value.duration_left)
     #@found.duration_right.text(value.duration_right)
     @found.price?.text?(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
     #@hideExtraText()
-
+    do => Q.spawn =>
+      link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
+      @found.link_name.attr 'href',link
+      @tree.view_button.class.activate link
+      @dom.find('.about_link').attr 'href',link
   getValue : => @getData()
 
   getData : => @tree.value
