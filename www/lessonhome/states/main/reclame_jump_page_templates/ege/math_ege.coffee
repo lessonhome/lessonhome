@@ -1,9 +1,9 @@
 
-class @main extends @template './first_template'
-  route : '/math_ege_tutor'
+class @main extends @template '../first_template'
+  route : '/repetitory-matematika-ege'
   #tags  : -> ['registration']
   model : 'main/registration'
-  title : "Преподаватель по математике"
+  title : "Репетиторы по математике ЕГЭ"
   tree : =>
     photo_src         : 'reclame_jump_page/math.jpg'
     title             : 'Репетиторы по математике'
