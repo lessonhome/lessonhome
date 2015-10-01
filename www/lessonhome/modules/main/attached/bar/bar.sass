@@ -1,13 +1,30 @@
 @import base
-
+$btn_height: 50px
+$btn_width: 170px
 main
   position : fixed
   width : 1014px
   bottom : 0
-  height : 64px
+  //box-sizing: border-box
+  //height : 64px
   //background : #f5e79e
+  padding: 20px 0
   background-color: white
   border: 1px solid $border_gray
   z-index: 200
-  margin: 0 auto
+  //margin: 0 auto
   +material_shadow(4)
+
+.wrap
+  //min-height: $btn_height
+  //position: relative
+  margin: 0 auto
+  width: 700px
+  //.tutors
+  //  margin-right: $btn_width
+  //.btn_attach
+  //  width: $btn_width
+  //  height: $btn_height
+  //  position: absolute
+  //  bottom: 0
+  //  right: 0

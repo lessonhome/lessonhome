@@ -1,0 +1,22 @@
+@import base
+$btn_width: 180px
+main
+  width: 100%
+.title
+  font-size: 16px
+  margin-bottom: 10px
+  span.title, .count
+    font-weight: bold
+  a, .count
+    color: #00A993
+.content
+  .preps
+    margin-right: $btn_width
+  .btn_attach
+    float: right
+    width: $btn_width
+    height: 50px
+  &:after
+    content: ''
+    display: table
+    clear: both

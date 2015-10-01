@@ -1,0 +1,25 @@
+
+@import base
+
+.prep
+  margin-right: 50px
+  position: relative
+  +material_shadow(1)
+  +inline-block
+  a .avatar
+    width: 35px
+    height: 35px
+  .rem
+    opacity: 0
+    +material_shadow(1)
+    top: 0
+    left: 35px
+    position: absolute
+    background-color: #DDDDDD
+    width: 35px
+    height: 35px
+  &:hover .rem
+    opacity: 1
+
+
+
