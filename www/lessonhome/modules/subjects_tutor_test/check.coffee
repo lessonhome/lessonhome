@@ -59,7 +59,7 @@
 
 @required = (data) -> return if data is '' then 'empty_field' else true
 @tag = (data) -> return if (data.length > 50) then 'long_tag' else true
-@comments = (data) -> return if (data.length > 500) then 'long_comments' else true
+@comments = (data) -> return if (data.length > 302) then 'long_comments' else true
 @price = (data) -> return if data > 9999 then 'so_expensive' else true
 @group_count = (data) -> return if data is '' then 'select_group' else true
 @isNormalTags = (data) =>
@@ -134,10 +134,22 @@
   return errors
 
 @check = (data) =>
+  names = []
   errors = {correct: true, empty: "empty_subjects"}
   for key, subject of data.subjects_val
     delete errors['empty'] if errors['empty']?
     error = @check_data subject
+    if subject.name isnt ''
+      sub_name = subject.name.toLowerCase()
+      if names.length == 0
+        names.push sub_name
+      else
+        for name in names
+          if name is sub_name
+            error.correct = false if error.correct
+            error.name = "match_name"
+            break
+          else names.push sub_name
     if not error.correct
       errors[key] = error
       errors.correct = false if errors.correct
