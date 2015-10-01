@@ -11,7 +11,7 @@ class @main extends @template '../edit_conditions'
   tree : =>
     menu_condition  : 'edit: conditions'
     active_item : 'Предметы'
-    tutor_edit  : @state 'subject_tutor'
+    tutor_edit  : @state 'subjects_tutor_test'
 
 
 
