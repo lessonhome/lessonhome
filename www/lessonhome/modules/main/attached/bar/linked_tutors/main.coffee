@@ -18,10 +18,16 @@ class @main
     preps = for i in linked then preps[i]
     console.log preps
     @preps.empty()
-    for index, prep of preps
-      el = yield @tree.tutor.$clone()
-      el.setValue prep
+    for index of @linked
+      console.log index
+      el = yield @tree.tutor.class.$clone()
+      el.setValue preps[index]
       el.found.rem.on 'click', =>
-        el.found.rem.off 'click'
-        delete @linked[index]
-  createDom : (prep) =>
+        do Q.async =>
+          el.found.rem.off 'click'
+          delete @linked[index]
+          yield Feel.urlData.set 'mainFilter','linked', @linked
+        return false
+      console.log el
+      @preps.append el.dom
+#  createDom : (prep) =>
