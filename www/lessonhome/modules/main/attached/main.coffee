@@ -39,6 +39,7 @@ class @main
       if err.length
         for e in err then step.parseError e
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
+    @steps.third.save()
 
   showForm : =>
     @html.css {
