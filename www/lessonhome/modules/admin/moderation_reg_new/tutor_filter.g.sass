@@ -1,0 +1,21 @@
+ul#contacts li
+  color: gray
+ul#contacts li a
+  color: black
+  &:hover
+    color: gray
+
+
+ul#missing li:before, ul#filled li:before
+  content: "— "
+  color: #cccccc
+
+ul#missing li *
+  color: darkred
+  &:hover
+    color: red
+
+ul#filled li *
+  color: darkblue
+  &:hover
+    color: blue
