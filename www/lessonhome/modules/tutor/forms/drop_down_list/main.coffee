@@ -5,6 +5,7 @@ class @main extends EE
       tabCode   : 9
       arrowDown : 40
       arrowUp   : 38
+      arrowRight   : 39
       esc       : 27
     @_list = {}
 
@@ -78,6 +79,7 @@ class @main extends EE
     @isFocus = false
     @emitChange()
     @input.attr('placeholder', @tree.placeholder)
+    @found.sub_input.text ''
     @bodyListenMD = false
     @label.removeClass 'focus'
     @select_sets.hide()
@@ -213,26 +215,31 @@ class @main extends EE
           else -1
 
         prevSelected = =>
-          curIdx = selectedIndex @options
+          curIdx = selectedIndex(@options) ? -1
           @items.removeClass 'selected'
           makeSelected curIdx-1
 
         nextSelected = =>
-          curIdx = selectedIndex @options
+          curIdx = selectedIndex(@options) ? 0
           @items.removeClass 'selected'
           makeSelected curIdx+1
         #########################################
 
         ### Event handling #####################################
         @input.on 'input', @emitChange
+        @input.on 'input', =>
+          v1 = @input.val()
+          v2 = @found.sub_input.text().substr 0,v1.length
+          if v2 != v1
+            @found.sub_input.text ''
+          else
+            @input.attr 'placeholder',''
         @input.keyup (event) =>
           if @select_sets.data 'was-enter'
             @select_sets.data 'was-enter', false
           #  return
           switch event.keyCode
-            when @unit.arrowDown
-              event.preventDefault()
-            when @unit.arrowUp
+            when @unit.arrowDown,@unit.arrowUp,@unit.tabCode,@unit.arrowRight
               event.preventDefault()
             when @unit.esc
               @select_sets.hide()
@@ -260,10 +267,10 @@ class @main extends EE
             when @unit.enterCode
               @emit 'press_enter'
               selectedOptionToInput(if @tree.self then 'self' else undefined)
-            when @unit.tabCode
+            when @unit.tabCode,@unit.arrowRight
               if @select_sets.is(':visible')
                 event.preventDefault()
-                nextSelected @options if @exists()
+                nextSelected @options #if @exists()
                 selectedOptionToInput(false)
               #if @select_sets.is(':visible')
               #  if event.shiftKey
@@ -326,12 +333,12 @@ class @main extends EE
         correctSelectOptions = (strBegin, $selOpts, fnValuesGenerator) =>
           fillOptions $selOpts, (fnValuesGenerator strBegin), strBegin
           if @items.size() > 0
-            makeSelected 0
+            #makeSelected 0
             @select_sets.show()
             @closed = false
             lh = @list.height()*@items.size()
-#            @items.css 'line-height', @list.height()+"px"
-#            @items.css 'height', @list.height()+"px"
+            @items.css 'line-height', @list.height()+"px"
+            @items.css 'height', @list.height()+"px"
             h = @maxListHeight()
             h = lh if lh < h
             @options.height h
@@ -345,6 +352,12 @@ class @main extends EE
           "<span class='begin'>#{startStr}</span>#{endStr}"
 
         fillOptions = ($selOpts, options, sBegin) =>
+          if options.length > 0
+            if (options[0]?.text?.substr?(0,sBegin.length)) == sBegin
+              @found.sub_input.text options[0]?.text ? ''
+              @input.attr 'placeholder',''
+            else
+              @found.sub_input.text ''
           html = ''
           options.forEach (optVal) ->
             optValText = markBeginText(optVal.text, "")
@@ -360,6 +373,7 @@ class @main extends EE
           if (@list_length > 0) && (self != 'self')
             $option = @items.filter('.selected')
             @input.val $option.text()
+            @found.sub_input.text ''
           if hide
             @select_sets.hide()
             @select_sets.data 'was-enter', true
@@ -391,6 +405,7 @@ class @main extends EE
     @tree.value =  val
     @val = val
     @input.val val
+    @found.sub_input.text ''
     @emitChange()
 
   getValue : => @input.val()
