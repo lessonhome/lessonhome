@@ -12,7 +12,31 @@ class @main
         items : ["английский язык","математика","русский язык","музыка","физика","химия","немецкий язык","начальная школа","франзузский язык","обществознание","информатика","программирование","испанский язык","биология","логопеды","актёрское мастерство","алгебра","арабский язык","бухгалтерский учёт","венгерский язык","вокал","высшая математика","география","геометрия","гитара","голландский язык","греческий язык","датский язык","иврит","история","итальянский язык","китайския язык","компьютерная графика","корейский язык","латынь","литература","логика","макроэкономика","математический анализ","менеджмент","микроэкономика","начертательная геометрия","норвежский язык","оригами","подготовка к школе","польский язык","португальский язык","правоведение","психология","рисование","риторика","рки","сербский язык","скрипка","сольфеджио","сопротивление материалов","статистика","теоретическая механика","теория вероятностей","турецкий язык","философия","финский язык","флейта","фортепиано","хинди","черчение","чешский язык","шахматы","шведский язык","эконометрика","экономика","электротехника","японский язык"]
       tags: ''
       value : $urlform : mainFilter : 'subject'
-
+    course : @state '../tutor/forms/drop_down_list_with_tags' :
+      list: @module 'tutor/forms/drop_down_list:type1'  :
+        selector        : 'advanced_filter_form'
+        placeholder     : 'Например, ЕГЭ'
+        smart : true
+        self : true
+        value     : ''
+      tags: ''
+      value : $urlform : mainFilter : 'course'
+    pupil_status : @module 'tutor/forms/drop_down_list:type1'  :
+      selector        : 'advanced_filter_form'
+      placeholder     : 'Категория ученика'
+      smart : false
+      self : false
+      noinput : true
+      value : $urlform : mainFilter : 'pupil_status'
+      items : [
+        'не важно'
+        'дошкольники'
+        'начальная школа'
+        'средняя школа'
+        'старшая школа'
+        'студенты'
+        'взрослые'
+      ]
     student : @module 'tutor/forms/checkbox'  :
       text      : 'Студент'
       selector  : 'small'
@@ -79,19 +103,10 @@ class @main
     no_experience: @module 'tutor/forms/checkbox'  :
       text      : 'нет опыта'
       selector  : 'small'
-    course : @state '../tutor/forms/drop_down_list_with_tags' :
-      list: @module 'tutor/forms/drop_down_list:type1'  :
-        selector        : 'advanced_filter_form'
-        placeholder     : 'Например, ЕГЭ'
-        smart : true
-        self : true
-        value     : ''
-      tags: ''
-      value : $urlform : mainFilter : 'course'
     group_lessons : @module 'tutor/forms/drop_down_list'  :
       selector        : 'advanced_filter_form'
       default_options     : {
-        '0': {value: 'no', text: 'не проводятся'}
+        '0': {value: 'no', text: 'не важно'}
         '1': {value: '2-4', text: '2-4 ученика'}
         '2': {value: 'to8', text: 'до 8 учеников'}
         '3': {value: 'from10', text: 'от 10 учеников'}

@@ -54,7 +54,10 @@
     "lodash" : "*",
     "request":"*",
     "nodemailer":"*",
-    "fs-extra" : "*"
+    "fs-extra" : "*",
+    "redis" : "*",
+    "memcached" : "*",
+    "readdirp" : "*"
   }
 }
 
