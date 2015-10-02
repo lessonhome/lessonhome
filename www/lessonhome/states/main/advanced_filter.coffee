@@ -15,7 +15,7 @@ class @main
     course : @state '../tutor/forms/drop_down_list_with_tags' :
       list: @module 'tutor/forms/drop_down_list:type1'  :
         selector        : 'advanced_filter_form'
-        placeholder     : 'Например ЕГЭ'
+        placeholder     : 'Например, ЕГЭ'
         smart : true
         self : true
         value     : ''
@@ -106,7 +106,7 @@ class @main
     group_lessons : @module 'tutor/forms/drop_down_list'  :
       selector        : 'advanced_filter_form'
       default_options     : {
-        '0': {value: 'no', text: 'не проводятся'}
+        '0': {value: 'no', text: 'не важно'}
         '1': {value: '2-4', text: '2-4 ученика'}
         '2': {value: 'to8', text: 'до 8 учеников'}
         '3': {value: 'from10', text: 'от 10 учеников'}

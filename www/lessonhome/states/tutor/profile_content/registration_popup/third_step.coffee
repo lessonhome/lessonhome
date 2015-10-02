@@ -1,5 +1,5 @@
 class @main extends @template '../registration_popup'
-  route : '/tutor/profile/third_step'
+  route : '/tutor/profile/third_step_test'
   model : 'tutor/profile_registration/third_step'
   title : "Регистрация : шаг3"
   access : ['tutor']
