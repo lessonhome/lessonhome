@@ -2,16 +2,15 @@
 mixin item (value, selector)
   .box(class=selector)!=value
 
-
 ////////////////////////////
 .info
   .book
-  .bg_box1
+  .bg_box1(class=type_form)
     +item(name, 'name')
     +item(phone, 'phone' )
     +item(call_time, 'call_time')
     +item(email, 'email')
-  .bg_box2
+  .bg_box2(class=type_form)
     label
       .text_box
         .subject_text Предмет

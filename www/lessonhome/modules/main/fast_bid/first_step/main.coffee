@@ -3,11 +3,12 @@ class @main
   Dom : =>
     @name      = @tree.name.class
     @phone     = @tree.phone.class
-    @call_time = @tree.call_time.class
     @email     = @tree.email.class
+    @call_time = @tree.call_time.class
     @subject   = @tree.subject.class
-    @out_err_subject = @found.out_err_subject
     @comments  = @tree.comments.class
+    @out_err_subject = @found.out_err_subject
+
 
   show : =>
     #if @tree.name?.value?

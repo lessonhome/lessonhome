@@ -41,4 +41,4 @@ class @main
     footer           : @state 'footer'         # footer in main page
     bottom_block_attached : @module 'main/attached' :
       bottom_bar  : @state 'main/attached/bar'
-#      popup       : @state 'main/attached/popup'
+      popup       : @state 'main/attached/popup'

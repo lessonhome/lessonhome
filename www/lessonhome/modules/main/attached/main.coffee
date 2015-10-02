@@ -20,7 +20,9 @@ class @main
         overflowY : 'hidden'
         marginRight: @scrollWidth
     }
-    @popup_block.addClass 'fixed'
+    @popup_block.addClass('fixed').animate {
+      scrollTop : 0
+    }, 300
     return false
   hideForm : =>
     @html.css {
