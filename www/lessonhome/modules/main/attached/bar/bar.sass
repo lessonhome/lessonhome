@@ -1,45 +1,27 @@
 @import base
 $btn_width: 180px
-main
-  position : fixed
-  width : 1014px
-  bottom : 0
-  //box-sizing: border-box
-  //height : 64px
-  //background : #f5e79e
-  padding: 20px 0
-  background-color: white
-  border: 1px solid $border_gray
-  z-index: 200
-  //margin: 0 auto
-  +material_shadow(4)
-
-
-.wrap
-  width: 700px
-  margin: 0 auto
-  .title
-    font-size: 16px
-    margin-bottom: 10px
-    span.title, .count
-      font-weight: bold
-    a, .count
-      color: #00A993
-  .content
-    .preps
-      margin-right: $btn_width
-      .block
-        float: left
-        margin-right: 20px
-        margin-bottom: 10px
-    .btn_attach
-      float: right
-      width: $btn_width
-      height: 50px
-    &:after
-      content: ''
-      display: table
-      clear: both
+.title
+  font-size: 16px
+  margin-bottom: 10px
+  span.title, .count
+    font-weight: bold
+  a, .count
+    color: #00A993
+.content
+  .preps
+    margin-right: $btn_width
+    .block
+      float: left
+      margin-right: 20px
+      margin-bottom: 10px
+  .btn_attach
+    float: right
+    width: $btn_width
+    height: 50px
+  &:after
+    content: ''
+    display: table
+    clear: both
 .hidden
   position: fixed
   display: none

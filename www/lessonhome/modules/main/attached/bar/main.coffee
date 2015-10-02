@@ -5,16 +5,18 @@ class @main
     @count = @found.count
     @btn_clean = @found.clean
     @preps = @found.preps
+    @panel = @found.bottom_panel
     @linked = {}
   show : =>
-    yield @reshow()
-    Feel.urlData.on 'change', @reshow.out
+#    yield @reshow()
+#    Feel.urlData.on 'change', @reshow.out
     @btn_clean.on 'click', =>
       do Q.async =>
         yield Feel.urlData.set 'mainFilter','linked', {}
       return false
-  reshow : =>
-    @linked = yield Feel.urlData.get 'mainFilter','linked'
+  reshow : (linked) =>
+    linked ?= yield Feel.urlData.get 'mainFilter','linked'
+    @linked = linked
     linked = for index of @linked then index
     @preps.empty()
     if linked.length isnt 0
@@ -23,6 +25,7 @@ class @main
       for prep in preps
         @preps.append yield @createDom prep
     @count.text "(#{linked.length})"
+    return linked.length
 
   createDom : (prep) =>
     el = yield @tree.tutor.class.$clone()
