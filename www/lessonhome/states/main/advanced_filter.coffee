@@ -82,7 +82,7 @@ class @main
     course : @state '../tutor/forms/drop_down_list_with_tags' :
       list: @module 'tutor/forms/drop_down_list:type1'  :
         selector        : 'advanced_filter_form'
-        placeholder     : 'Например ЕГЭ'
+        placeholder     : 'Например, ЕГЭ'
         smart : true
         self : true
         value     : ''

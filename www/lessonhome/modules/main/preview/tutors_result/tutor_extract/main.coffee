@@ -69,8 +69,8 @@ class @main extends EE
       if key
         key = key?.capitalizeFirstLetter?() ? key if i == 1
         skey = key
-        if i > 1
-          skey += ','
+#        if i > 1
+#          skey += ','
         @tutor_subject?.append? s=$("<div class='tag'>#{skey ? ""}</div>")
         do (s,key,val)=>
           s.click => Q.spawn =>
