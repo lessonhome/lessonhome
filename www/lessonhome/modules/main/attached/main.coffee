@@ -41,6 +41,7 @@ class @main
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
 
   showForm : =>
+    @popup_block.show('slow')
     @html.css {
         overflowY : 'hidden'
         marginRight: @scrollWidth
