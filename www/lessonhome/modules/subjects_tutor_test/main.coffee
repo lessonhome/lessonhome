@@ -1,34 +1,48 @@
 
 class @main
   Dom : ->
-    @btn_add = @tree.btn_add.class
+    @btn_add = @found.btn_add
     @container = @found.container
     @data = @tree.data
     @subject = @tree.subject.class
-    @subjects = {}
+    @names_subjects = @tree.default_subjects
+    @error_empty = @found.error_empty
   show : =>
+    @training_direction = {
+      "английский язык":['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'TOEFL','IELTS', 'FCE', 'TOEIC', 'Business English', 'GMAT', 'GRE', 'SAT'],
+      "японский язык": ['JLPT', 'JLPT N1', 'JLPT N2', 'JLPT N3', 'JLPT N4', 'JLPT N5'],
+      "корейский язык": ['TOPIK', 'TOPIK I', 'TOPIK II'],
+      "китайския язык": ['HSK', 'HSK Высший', 'HSK Начальный/средний', 'HSK Базовый'],
+      "испанский язык": ['DELE', 'DELE A', 'DELE B', 'DELE C'],
+      "франзузский язык": ['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'DELF', 'DELF A', 'DELF B', 'DALF'],
+      "немецкий язык": ['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'DSH', 'TestDaF'],
+      "итальянский язык": ['CILS', 'CILS B1', 'CILS B2', 'CILS C1', 'CILS C2'],
+      "португальский язык": ['CEPRE-Bras', 'CEPRE-Bras Средний', 'CEPRE-Bras Выше среднейго', 'CEPRE-Bras Продвинутый', 'CEPRE-Bras Выше продвинутого'],
+      "программирование": ['школьный курс', '3dMAX', 'Access', 'Adobe Flash', 'ArchiCad', 'assembler', 'AutoCAD', 'bash', 'basic', 'Borland C', 'C', 'c#', 'c++', 'CorelDraw', 'css', 'Deform-3D', 'delphi', 'Excel', 'FireBird', 'fortran', 'HTML', 'Illustrator', 'InDesign', 'Internet', 'java', 'JavaScript', 'Joomla', 'linux', 'LISP', 'MacOS', 'Maple', 'MathCAD', 'Matlab', 'MS Office', 'MySQL', 'Object Pascal', 'Objective-C', 'Outlook', 'pascal', 'perl', 'Photoshop', 'php', 'PowerPoint', 'python', 'QBasic', 'ruby', 'SEO (search engine optimization)', 'SolidWorks', 'SQL', 't-sql', 'TurboPascal', 'Unix', 'VB Pro', 'VBA', 'visual basic', 'Windows', 'Word', 'Wordpress', 'xml', 'алгоритмы', 'анимация', 'выпуклое программирование', 'дизайн веб-сайтов', 'компьютерная грамотность', 'компьютерная графика', 'линейное программирование', 'объемное моделирование', 'операционные системы', 'программирование', 'разработка веб-сайтов', 'РЕФАЛ', 'системное администрирование', 'подготовка к олимпиадам'],
+      "музыка": [""],
+      "начальная школа": [""],
+      "логопеды": ["общий курс", "алалия", "аутизм", "афазия", "брадилалия", "все нарушения речи", "диагностика (обследование)", "дизартрия", "дизорфография", "дисграфия", "дислалия", "дислексия", "дисфония", "заикание", "ЗПРР", "ЗРР", "ЛГНР", "логоневроз", "логопедический массаж", "логоритмика", "ОНР", "ОНР при ЗПР", "постановка звуков", "ринолалия", "системное недоразвитие речи при ИН", "стертая дизартрия", "тахилалия", "ФД (фонетический дефект)", "ФНР (фонематическое недоразвитие речи)", "ФФН (фонетико-фонематическое недоразвитие)"],
+      "default" : ['ЕГЭ','ОГЭ(ГИА)', 'подготовка к олимпиадам', 'школьный курс', 'вузовский курс']
+    }
 
-    @addNewSubject = do =>
-      i = 0
-      return (key, values) =>
-        obj = @subject.$clone()
-        if key is undefined
-          key = ++i
-        else if key > i
-          i = key
-
-        if values then obj.setValue values
-        @subjects[key] =  obj
-        @container.append $('<div class="block"></div>').append obj.dom
-
-
+    @subjects = []
 
     for key, values of @data
-      @addNewSubject key, values
+      @addNewSubject(values).show()
 
-    @btn_add.dom.click =>
-      @addNewSubject()
+    if @subjects.length is 0 then @addNewSubject(null, true).show()
 
+    @btn_add.addClass('active').click =>
+      if @btn_add.is '.active'
+        @btn_add.removeClass 'active'
+        obj = @addNewSubject(null, true).slideDown 500
+        @emptyErrorHide()
+        @btn_add.addClass 'active'
+
+    $(document).on 'click', (e) =>
+      for sub in @subjects
+        if sub.is_removed is true
+          sub.onRestore()
 
 
 #    for i,subject of @tree.subjects
@@ -51,73 +65,147 @@ class @main
 #      @subjects[i].place_tutor = subject.place_tutor.class
 #      @subjects[i].place_pupil = subject.place_pupil.class
 #      @subjects[i].place_remote = subject.place_remote.class
-#      @subjects[i].place_cafe = subject.place_cafe.class
+#      @subjects[i].place_cafe = subject.place_cafes : =>
 
-  addNewSubject : (values) =>
+  getNames : =>
+    exist = {}
+    names = []
+    for subject in @subjects
+      if (value = subject.children.name.getValue()) isnt ''
+        exist[value.toLowerCase()] = true
+    for i, name of @names_subjects
+      names.push(name.text) if exist[name.text.toLowerCase()] isnt true
+    return names
 
   save : => Q().then =>
-    @$send './save', @getData()
-    return false
-#    if @check_form()
-#      return @$send('./save',@getData())
-#      .then @onReceive
-#    else
-#      return false
+    data = @getData()
+    errors = @js.check data
+    if errors.correct is true
+      return @$send('./save', data).then @onReceive
+    else
+      @parseError errors
+      return false
+
+  addNewSubject : (values, is_open = false) =>
+    obj = @subject.$clone()
+    obj.setDirection @training_direction
+    if values
+      obj.setValue values
+    if @subjects.length == 0
+      obj.btn_copy.hide()
+    @subjects.push obj
+
+    obj.children.name.on 'focus', (e) =>
+      obj.setNames @getNames()
+
+    obj.btn_copy.on 'click', =>
+      i = @getIndex obj
+      if i > 0
+        settings = @subjects[i - 1].getValue()
+        delete settings['name']
+        delete settings['comments']
+        obj.setValue settings
+      return false
+
+
+    obj.btn_delete.on 'click', =>
+      if (i = @getIndex obj) >= 0
+        @subjects.splice i, 1
+
+        obj.btn_copy.off 'click'
+        obj.btn_delete.off 'click'
+        obj.children.name.off 'focus'
+
+        obj.dom.closest('.block').slideUp 200, =>
+          obj.readyToRemove()
+          obj.dom.remove()
+          if @subjects.length > 0
+            @subjects[0].btn_copy.hide()
+      return false
+
+    if is_open then obj.showSettings()
+    block = $('<div class="block"></div>').hide().append obj.dom
+    @container.append block
+    return block
+
+  getIndex : (sub) =>
+    sub.flag = true
+    for _sub, i in @subjects
+      if _sub.flag is true
+        _sub.flag = false
+        if sub.flag is false then break
+    if sub.flag is true
+      sub.flag = false
+      return -1
+    return i
   onReceive : ({status,errs,err})=>
     if err?
-      errs?=[]
-      errs.push err
+      errs?={}
+      errs['other'] = err
     if status=='success'
+      for cl in @subjects
+        cl.resetError()
       return true
-    ###
-      i = 0
 
-      for e in errs
-        for e_ in e
-          @parseError e_, i
-        i++
-    ###
-    if errs?.length
-      for e in errs
-        if typeof e == 'object'
-          _e = Object.keys(e)[0]
-          i = e[_e]
-        else
-          _e = e
-          i = null
-        @parseError _e, i
+    if not errs.correct
+      @parseError errs
     return false
 
+  emptyErrorShow : (text) =>
+    @error_empty.text(text).slideDown 200
 
-  check_form : =>
-    errs = @js.check @getData()
-    for i,subject_val of @subjects
-      console.log 'omg',subject_val.class.found.subject_tag.text()
-      unless subject_val.class.found.subject_tag.text()
-        errs.push 'empty_subject':i
-      #if !subject_val.course.exists() && subject_val.course.getValue() != 0
-      #  errs.push 'bad_course':i
-      #if !@qualification.exists() && @qualification.getValue() != 0
-      #  errs.push 'bad_qualification'
-      if !subject_val.group_learning.exists() && subject_val.group_learning.getValue() != 0
-        errs.push 'bad_group_learning':i
+  emptyErrorHide : =>
+    @error_empty.slideUp 200
 
-    for e in errs
-      if typeof e == 'object'
-        _e = Object.keys(e)[0]
-        i = e[_e]
-      else
-        _e = e
-        i = null
-      @parseError _e, i
-    return errs.length==0
+  parseError : (errors) =>
+    if errors['empty']?
+      @emptyErrorShow "Добавьте хотя бы один предмет."
+    else
+      @emptyErrorHide()
+#      i = 0
+      for cl, i in @subjects
+#        if not cl.is_removed
+        if errors[i]?
+          if errors[i].correct isnt true
+            cl.onRestore()
+            cl.slideDown()
+          cl.parseError errors[i]
+        else
+          cl.resetError()
+          if errors.correct is false then cl.slideUp()
+#          i++
+
+#  check_form : =>
+#    errs = @js.check @getData()
+#    for i,subject_val of @subjects
+#      console.log 'omg',subject_val.class.found.subject_tag.text()
+#      unless subject_val.class.found.subject_tag.text()
+#        errs.push 'empty_subject':i
+#      #if !subject_val.course.exists() && subject_val.course.getValue() != 0
+#      #  errs.push 'bad_course':i
+#      #if !@qualification.exists() && @qualification.getValue() != 0
+#      #  errs.push 'bad_qualification'
+#      if !subject_val.group_learning.exists() && subject_val.group_learning.getValue() != 0
+#        errs.push 'bad_group_learning':i
+#
+#    for e in errs
+#      if typeof e == 'object'
+#        _e = Object.keys(e)[0]
+#        i = e[_e]
+#      else
+#        _e = e
+#        i = null
+#      @parseError _e, i
+#    return errs.length==0
 
   getData : =>
     data = {
       subjects_val : {}
     }
-    for key, sub of @subjects
-      if not sub.is_removed then data.subjects_val[key] = sub.getValue()
+#    i = 0
+    for sub, i in @subjects
+#      if not sub.is_removed then
+      data.subjects_val[i] = sub.getValue()
     return data
 
 #    @subjects_val = {}
@@ -162,46 +250,48 @@ class @main
     }
   ###
 
+#  parseError : (err) =>
+#    for index, subject of @subjects
 
-  parseError : (err, i)=>
-    switch err
-# short
-      when "short_duration"
-        @subjects[i].duration.showError "Введите время занятия"
-      when 'empty_subject'
-        console.log 'empty'
-        @tree.select_subject_field.class.setErrorDiv @dom.find '>.err>div'
-        @tree.select_subject_field.class.showError "Выберите предмет"
-# long
-      when "long_duration"
-        @subjects[i].duration.showError ""
-
-#empty
-      when "empty_duration"
-        @subjects[i].duration.showError ""
-#when "empty_course"
-#  @subjects[i].course.setErrorDiv @out_err_course
-#  @subjects[i].course.showError "Выберите курс"
-#when "empty_qualification"
-#  @qualification.setErrorDiv @out_err_qualification
-#  @qualification.showError "Выберите квалификацию"
-      when "empty_group_learning"
-        @subjects[i].group_learning.setErrorDiv @out_err_group_learning
-        @subjects[i].group_learning.showError "Выберите групповые занятия"
-      when "empty_categories_of_students"
-        @subjects[i].pre_school.setErrorDiv @out_err_categories_of_students
-        @subjects[i].pre_school.showError "Выберите категории учеников"
-      when "empty_place"
-        @subjects[i].place_tutor.setErrorDiv @out_err_place
-        @subjects[i].place_tutor.showError "Выберите место занятий"
-
-#correct
-#when "bad_course"
-#  @subjects[i].course.setErrorDiv @out_err_course
-#  @subjects[i].course.showError "Выберите корректный курс"
-#when "bad_qualification"
-#  @qualification.setErrorDiv @out_err_qualification
-#  @course.showError "Выберите корректную квалификацию"
-      when "bad_group_learning"
-        @subjects[i].group_learning.setErrorDiv @out_err_course
-        @subjects[i].group_learning.showError "Выберите корректный курс"
+#  parseError : (err, i)=>
+#    switch err
+## short
+#      when "short_duration"
+#        @subjects[i].duration.showError "Введите время занятия"
+#      when 'empty_subject'
+#        console.log 'empty'
+#        @tree.select_subject_field.class.setErrorDiv @dom.find '>.err>div'
+#        @tree.select_subject_field.class.showError "Выберите предмет"
+## long
+#      when "long_duration"
+#        @subjects[i].duration.showError ""
+#
+##empty
+#      when "empty_duration"
+#        @subjects[i].duration.showError ""
+##when "empty_course"
+##  @subjects[i].course.setErrorDiv @out_err_course
+##  @subjects[i].course.showError "Выберите курс"
+##when "empty_qualification"
+##  @qualification.setErrorDiv @out_err_qualification
+##  @qualification.showError "Выберите квалификацию"
+#      when "empty_group_learning"
+#        @subjects[i].group_learning.setErrorDiv @out_err_group_learning
+#        @subjects[i].group_learning.showError "Выберите групповые занятия"
+#      when "empty_categories_of_students"
+#        @subjects[i].pre_school.setErrorDiv @out_err_categories_of_students
+#        @subjects[i].pre_school.showError "Выберите категории учеников"
+#      when "empty_place"
+#        @subjects[i].place_tutor.setErrorDiv @out_err_place
+#        @subjects[i].place_tutor.showError "Выберите место занятий"
+#
+##correct
+##when "bad_course"
+##  @subjects[i].course.setErrorDiv @out_err_course
+##  @subjects[i].course.showError "Выберите корректный курс"
+##when "bad_qualification"
+##  @qualification.setErrorDiv @out_err_qualification
+##  @course.showError "Выберите корректную квалификацию"
+#      when "bad_group_learning"
+#        @subjects[i].group_learning.setErrorDiv @out_err_course
+#        @subjects[i].group_learning.showError "Выберите корректный курс"

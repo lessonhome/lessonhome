@@ -66,16 +66,26 @@ a.name:after, .tutor_status_wrap:after
       font-size: 14px
       line-height: 18px
       color: #000000
+      a
+        padding : 0px 5px
+        color : #777
+        &:hover
+          text-decoration : none
     .tutor_subject
-      line-height: 24px
+      margin: 18px 0 3px
       div
         +inline-block
       .tag, .more_subjects
         cursor : pointer
         font-size: 12px
         color: #444444
-        margin-top: 10px
         font-style: italic
+        //padding-right : 5px
+      .tag + .tag
+        &:before
+          content : ','
+          +inline-block
+          margin-right: 5px
       .more_subjects
         margin-left: 5px
     .tutor_subject:after
@@ -112,10 +122,22 @@ a.name:after, .tutor_status_wrap:after
       margin: 24px 0 12px 0
   // jump_page
   .tutor_text
-    height: 144px
+    height: 139px
+    line-height : 21px
+    font-size : 14px
+    a
+      padding : 0px 5px
+      color : #777
+      &:hover
+        text-decoration : none
+
   .location
-    font-size: 14px
-    padding: 24px 0
+    height: 50px
+    font-size: 12px
+    line-height: 16px
+    font-style: italic
+    color : #777
+    padding: 5px 0
   .button_wrap
     overflow: hidden
     height: 48px

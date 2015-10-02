@@ -313,6 +313,31 @@ global.Wrap = (obj,prot)->
         ret = foo args...
         ret.done() if Q.isPromise ret
   return obj
+
+global.$W = (obj)->
+  proto = obj?.__proto__
+  proto ?= obj
+  return Q.async obj if (typeof obj == 'function') && (obj?.constructor?.name == 'GeneratorFunction')
+  return obj if obj.__wraped
+  obj.__wraped = true
+  for fname,func of proto
+    continue unless typeof func == 'function'
+    newfunc = func
+    if func?.constructor?.name == 'GeneratorFunction'
+      newfunc = Q.async func
+    obj[fname] = newfunc
+  unless obj.emit?
+    ee = new EE
+    obj.emit = -> ee.emit arguments...
+    obj.on = (action,foo)->
+      foo = Q.async foo if foo?.constructor?.name == 'GeneratorFunction'
+      ee.on action,(args...)-> Q.spawn -> yield foo args...
+    obj.once = (action,foo)->
+      foo = Q.async foo if foo?.constructor?.name == 'GeneratorFunction'
+      ee.once action,(args...)-> Q.spawn -> yield foo args...
+  return obj
+
+
 global.lrequire = (name)-> require './lib/'+name
 
 global.Path     = new (require('./service/path'))()
@@ -515,6 +540,7 @@ global._requestPost = Q.denode require('request').post
 global._request = Q.denode require('request')
 global._fs_copy =   Q.denode _fse.copy
 global._fs_remove =   Q.denode _fse.remove
+global._readdirp = Q.denode require 'readdirp'
 regenerator = require("regenerator")
 global._regenerator = (source)-> regenerator.compile(source).code
 global._args    = (a)->

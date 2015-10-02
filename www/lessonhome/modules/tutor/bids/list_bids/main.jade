@@ -1,10 +1,14 @@
 //- 2 var of bid_type : delete, search
-
+- var num = false;
 
 .titles_bid.select!= titles_bid
-.content
+.content.select
   each value in all_bids
     .bid!= value
+    - num = true;
+  if !num
+    .text К сожалению заявок пока нет.
+
 
 
 
