@@ -12,10 +12,10 @@ class @main
         text1: 'Телефон :'
         selector  : 'fast_bid'
         value     : $urlform : pupil : 'phone'
-      call_time : @module 'tutor/forms/textarea' :
-        text: 'В какое время Вам звонить :'
-        selector  : 'fast_bid'
-        value     : $urlform : pupil : 'phone_comment'
+#      call_time : @module 'tutor/forms/textarea' :
+#        text: 'В какое время Вам звонить :'
+#        selector  : 'fast_bid'
+#        value     : $urlform : pupil : 'phone_comment'
       email : @module 'tutor/forms/input':
         text1: 'E-mail :'
         selector  : 'fast_bid'
@@ -32,21 +32,22 @@ class @main
         errMessage  : 'Пожалуйста введите корректный email'
         value     : $urlform : pupil : 'email'
 
-      subject :@module 'tutor/forms/drop_down_list':
-        selector  : 'fast_bid'
-        smart : true
-        self : true
-        sort : true
-        filter : true
-        items : ["английский язык","математика","русский язык","музыка","физика","химия","немецкий язык","начальная школа","франзузский язык","обществознание","информатика","программирование","испанский язык","биология","логопеды","актёрское мастерство","алгебра","арабский язык","бухгалтерский учёт","венгерский язык","вокал","высшая математика","география","геометрия","гитара","голландский язык","греческий язык","датский язык","иврит","история","итальянский язык","китайския язык","компьютерная графика","корейский язык","латынь","литература","логика","макроэкономика","математический анализ","менеджмент","микроэкономика","начертательная геометрия","норвежский язык","оригами","подготовка к школе","польский язык","португальский язык","правоведение","психология","рисование","риторика","рки","сербский язык","скрипка1","сольфеджио","сопротивление материалов","статистика","теоретическая механика","теория вероятностей","турецкий язык","философия","финский язык","флейта","фортепиано","хинди","черчение","чешский язык","шахматы","шведский язык","эконометрика","экономика","электротехника","японский язык"]
-        value     : $urlform : pupil : 'subject'
+#      subject :@module 'tutor/forms/drop_down_list':
+#        selector  : 'fast_bid'
+#        smart : true
+#        self : true
+#        sort : true
+#        filter : true
+#        items : ["английский язык","математика","русский язык","музыка","физика","химия","немецкий язык","начальная школа","франзузский язык","обществознание","информатика","программирование","испанский язык","биология","логопеды","актёрское мастерство","алгебра","арабский язык","бухгалтерский учёт","венгерский язык","вокал","высшая математика","география","геометрия","гитара","голландский язык","греческий язык","датский язык","иврит","история","итальянский язык","китайския язык","компьютерная графика","корейский язык","латынь","литература","логика","макроэкономика","математический анализ","менеджмент","микроэкономика","начертательная геометрия","норвежский язык","оригами","подготовка к школе","польский язык","португальский язык","правоведение","психология","рисование","риторика","рки","сербский язык","скрипка1","сольфеджио","сопротивление материалов","статистика","теоретическая механика","теория вероятностей","турецкий язык","философия","финский язык","флейта","фортепиано","хинди","черчение","чешский язык","шахматы","шведский язык","эконометрика","экономика","электротехника","японский язык"]
+#        value     : $urlform : pupil : 'subject'
+#
+#      comments : @module 'tutor/forms/textarea':
+#        text: 'Комментарии :'
+#        selector  : 'fast_bid'
+#        value : $urlform : pupil : 'subject_comment'
 
-      comments : @module 'tutor/forms/textarea':
-        text: 'Комментарии :'
-        selector  : 'fast_bid'
-        value : $urlform : pupil : 'subject_comment'
     subject :@module 'tutor/forms/drop_down_list':
-      selector  : 'fast_bid'
+      selector  : 'write_tutor'
       smart : true
       self : true
       sort : true
@@ -59,15 +60,15 @@ class @main
       pupil: @module 'tutor/forms/checkbox' :
         text      : 'У себя'
         selector  : 'small'
-        value : $urlform : mainFilter : 'place.pupil'
+        value : $urlform : mainFilter : 'place_attach.pupil'
       tutor: @module 'tutor/forms/checkbox' :
         text      : 'У репетитора'
         selector  : 'small'
-        value : $urlform : mainFilter : 'place.tutor'
+        value : $urlform : mainFilter : 'place_attach.tutor'
       remote: @module 'tutor/forms/checkbox'  :
         text      : 'Удалённо'
         selector  : 'small'
-        value : $urlform : mainFilter : 'place.remote'
+        value : $urlform : mainFilter : 'place_attach.remote'
 
       calendar        : @module 'new_calendar' :
         selector    : 'bids'

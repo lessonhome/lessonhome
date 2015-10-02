@@ -8,11 +8,14 @@ mixin item (value, selector)
   .bg_box1(class=type_form)
     +item(name, 'name')
     +item(phone, 'phone' )
-    +item(call_time, 'call_time')
+    if call_time != null
+      +item(call_time, 'call_time')
     +item(email, 'email')
   .bg_box2(class=type_form)
     label
-      .text_box
-        .subject_text Предмет
-      +item(subject, 'subject')
-    +item(comments, 'comments')
+      if subject != null
+        .text_box
+          .subject_text Предмет
+        +item(subject, 'subject')
+    if comments!=null
+      +item(comments, 'comments')

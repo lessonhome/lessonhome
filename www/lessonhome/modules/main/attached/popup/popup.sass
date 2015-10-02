@@ -1,28 +1,47 @@
 @import base
-
+$icon_tutor : 'main/icon_tutor.png'
+$icon_mail : 'main/icon_mail.png'
+$icon_info : 'main/icon_info.png'
+$icon_book : 'main/icon_book.png'
+$width : image-width($icon_tutor)
+$height : image-height($icon_tutor)
 .content
   padding: 24px 36px
   position: relative
-  h1
-    font-size: 24px
-    margin-bottom: 24px
+  //h1
+  //  font-size: 24px
+  //  margin-bottom: 24px
   .step
-    margin-bottom: 25px
+    margin-bottom: 35px
     &:after
       content: ''
       display: table
       clear: both
     .contents
-      margin-left: 110px
-      padding-left: 15px
+      margin-left: $width
+      padding-left: 20px
       h2.title
-        font-size: 19px
+        font-size: 20px
         padding: 10px 0
+        margin-bottom: 5px
+      //.form .subject
+      //  height: 37px
+      //  line-height: 37px
+
     .icon
-      width: 110px
-      height: 110px
+      width: $width
+      height: $height
       float: left
       background: #DDD
+      &.tutor
+        background: url(F($icon_tutor)) no-repeat
+      &.subject
+        background: url(F($icon_book)) no-repeat
+      &.info
+        background: url(F($icon_info)) no-repeat
+      &.contacts
+        background: url(F($icon_mail)) no-repeat
+
   .btn_send
     width: 250px
     margin: 20px auto 0
