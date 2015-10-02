@@ -62,8 +62,10 @@ class @main extends @template '../main'
         text: 'ОФОРМИТЬ ЗАЯВКУ'
         active: true
         href: '/fast_bid/first_step'
-      callback: @module 'link_button' :
-        selector: 'main_page_motivation'
-        text: 'ОБРАТНЫЙ ЗВОНОК'
-        active: true
-        href: '/main_callback'
+      callback: @module 'tutor/header/elem_back_call' :
+        trigger : @module 'link_button' :
+          selector: 'main_page_motivation'
+          text: 'ОБРАТНЫЙ ЗВОНОК'
+          active: true
+          href: '#'
+        content : @state 'main/call_back_popup'
