@@ -188,7 +188,7 @@ class @main extends EE
             key = name.replace 'experience_', ''
             o.experience[key] = false
           when /group/.test name
-            o.group_lessons = 'не проводятся'
+            o.group_lessons = 'не важно'
           when /pupil_status/.test name
             o.pupil_status = 'не важно'
           when /with/.test name

@@ -5,7 +5,7 @@ tutor_status_text =
   university_teacher : 'Преподаватель ВУЗа'
   private_teacher  :'Частный преподаватель'
   native_speaker : 'Носитель языка'
-group_lessons = ['не проводятся','2-4 ученика','до 8 учеников','от 10 учеников']
+group_lessons = ['не важно','2-4 ученика','до 8 учеников','от 10 учеников']
 pupil_status = ['не важно','дошкольники','начальная школа','средняя школа','старшая школа','студенты','взрослые']
 sort          = ['rating','price','experience','way_time','-price','-experience','-rating','-way_time','register','-register','access','-access']
 gender = ['','male','female','mf']
