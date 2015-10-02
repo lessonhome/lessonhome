@@ -1,38 +1,47 @@
 - subject_counter = 0;
-.top
-  .all_rating!=all_rating
-  .js-location=value.location.city
+
+if stars
+  .top
+    .all_rating!=all_rating
+    .js-location=value.location.city
 a.name.js-link_name
   .js-tutor_name.select=value.name.last+' '+value.name.first+' '+value.name.middle
 .tutor_status_wrap
   .js-tutor_status.select=value.status + ', опыт ' + value.experience + ' года'
 .center
-  .left
+  if !reclame
+    .left
+      .js-tutor_text.select=value.about
+      .js-tutor_subject.select
+        each val,key in value.subjects
+          if !subject_counter++
+            .tag=key
+        if (subject_counter--)>1
+          case subject_cointer
+            when 1
+              .more_subjects | и ещё 1 предмет
+            when 2
+              .more_subjects | и ещё 2 предмета
+            when 3
+              .more_subjects | и ещё 1 предмета
+            when 4
+              .more_subjects | и ещё 1 предмета
+            default
+              .more_subjects | и ещё #{subject_cointer} предметов
+    .right
+      .price_wrap
+        .text от
+        .js-price=Math.floor(value.price_per_hour/10)*10
+        .text р./час
+      .js-view_button!=view_button
+      .js-choose_button!=choose_button
+  else
     .js-tutor_text.select=value.about
-    .subjects
-    .js-tutor_subject.select
-      each val,key in value.subjects
-        if !subject_counter++
-          .tag=key
-      if (subject_counter--)>1
-        case subject_cointer
-          when 1
-            .more_subjects | и ещё 1 предмет
-          when 2
-            .more_subjects | и ещё 2 предмета
-          when 3
-            .more_subjects | и ещё 1 предмета
-          when 4
-            .more_subjects | и ещё 1 предмета
-          default
-            .more_subjects | и ещё #{subject_cointer} предметов
-  .right
-    .price_wrap
-      .text от
-      .js-price=Math.floor(value.price_per_hour/10)*10
-      .text р./час
-    .js-view_button!=view_button
-    .js-choose_button!=choose_button
+    .js-location=value.location.city
+    .button_wrap
+      .js-view_button!=view_button
+      .js-choose_button!=choose_button
+
 
 - var max_text_length = 113;
 //-.name_verification_block

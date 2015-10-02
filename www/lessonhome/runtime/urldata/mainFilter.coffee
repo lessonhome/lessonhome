@@ -76,7 +76,7 @@ class @D2U
   $with_reviews : (obj)=>
     type  : 'bool'
     value : obj?.with_reviews
-    default : true
+    default : false
     filter : true
   $with_verification : (obj)=>
     type  : 'bool'
@@ -93,9 +93,14 @@ class @D2U
     value : boolSet obj?.place,place
     default : 0
     filter : true
-  $placeArea : (obj)=>
+  $placeAreaPupil : (obj)=>
     type : 'string[]'
-    value : obj?.place?.area
+    value : obj?.place?.area_pupil
+    default : ''
+    filter : true
+  $placeAreaTutor : (obj)=>
+    type : 'string[]'
+    value : obj?.place?.area_tutor
     default : ''
     filter : true
   $subject : (obj)=>
@@ -177,7 +182,8 @@ class @U2D
     return ret
   $place : (obj)=>
     ret = boolSetR obj?.place,place
-    ret.area = obj?.placeArea
+    ret.area_pupil = obj?.placeAreaPupil
+    ret.area_tutor = obj?.placeAreaTutor
     return ret
   $subject : (obj)=> obj?.subject
   $time_spend_way : (obj)=> obj?.time_spend_way

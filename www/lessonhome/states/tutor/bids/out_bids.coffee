@@ -55,8 +55,9 @@ class @main extends @template '../../tutor'
           bet           : 'Ставка'
           price         : 'Цена'
           status        : 'Статус'
-
-        all_bids : [
+        
+        all_bids : []
+        ###
           @module '//bid' :
             selectable   : true
             checkbox  : @module 'tutor/forms/checkbox' :
@@ -107,5 +108,6 @@ class @main extends @template '../../tutor'
             comments            : '-'
             lesson_goal         : 'Устранить пробелы в знаниях'
         ]
+        ###
   init : ->
     @parent.tree.left_menu.setActive 'Заявки'

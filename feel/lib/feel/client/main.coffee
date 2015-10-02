@@ -155,10 +155,14 @@ class @Feel
     unknown = $.cookie()?.unknown
     $.cookie('unknown', 'set'+@user.sessionpart) if unknown == 'need'
     
-  go : (href)=>
+  go : (href,newwindow=false)=>
     q = do Q.async =>
       href = (yield @urlData.udataToUrl href)
-      window.location.href = href if href && (typeof href == 'string')
+      if href && (typeof href == 'string')
+        unless newwindow
+          window.location.href = href
+        else
+          window.open href,'_newtab'#, '_blank'
     q.done()
   goBack : (def_url)=> Feel.go @getBack def_url
   getBack : (def_url)=>
@@ -215,6 +219,29 @@ class @Feel
     cook = $.cookie()?['sendAction__'+action]
     return $.cookie('sendAction__'+action,t) unless cook?
     @sendActionOnce action,time
+    
+  ## args... :: label,data object
+  sendGAction : (category,action,args...)=>
+    @ga ?= ga ? undefined
+    return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
+    @ga 'send','event',category,action,args...
+
+  sendGActionOnce : (time,category,action,args...)=>
+    key = "sendGAction__#{category}_#{action}"
+    cook = $.cookie()?[key]
+    t = new Date().getTime()
+    if time?
+      $.cookie(key,t)
+      return if cook? && ((t-cook)<time)
+    return if cook? && (!time?)
+    $.cookie(key,t)
+    @sendGAction category,action,args...
+  sendGActionOnceIf : (time,category,action,args...)=>
+    key = "sendGAction__#{category}_#{action}"
+    t = new Date().getTime()
+    cook = $.cookie()?[key]
+    return $.cookie(key,t) unless cook?
+    @sendGActionOnce arguments...
 
   login : (id)=> do Q.async =>
     yield @root.tree.class.$send('/relogin',id)

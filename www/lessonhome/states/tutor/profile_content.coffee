@@ -10,6 +10,15 @@ class @main
         @module 'lib/jquery/iframe_transport_plugin'
         @module 'lib/jquery/fileupload'
       ]
+    media : @module '$/media' :
+      photos : $form : person : 'uploaded'
+      avatar : $form : person : 'avatar'
+      min : true
+      depend : [
+        @module 'lib/jquery/ui_widget'
+        @module 'lib/jquery/iframe_transport_plugin'
+        @module 'lib/jquery/fileupload'
+      ]
     #all_rating          : @module '../rating_star':
     #  filling  : 40
     #progress            : @exports()
@@ -72,6 +81,8 @@ class @main
     line_med            : @module 'tutor/separate_line':
       title    : 'Медиа'
       link      : '#'
+      upload_input : @module 'media_upload' :
+        photos : $form : person : 'uploaded'
       add     : @exports()
       selector : 'horizon'
     #media               : @module '$/media' :

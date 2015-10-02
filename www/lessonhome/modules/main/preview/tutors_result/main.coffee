@@ -2,8 +2,13 @@ class @main extends EE
   Dom:  =>
     @dom.click (e)=> Q.spawn =>
       if e.ctrlKey && e.altKey && @index > 0
-        yield @$send '/relogin',@index
-        Feel.go '/form/tutor/login'
+        yield Feel.root.tree.class.$send '/relogin',@index
+        yield Feel.go '/form/tutor/login',true
+      if !e.ctrlKey && !e.altKey && e.shiftKey
+        yield @$send './ratingAva','up',@index
+      else if (!e.ctrlKey) && e.altKey && e.shiftKey
+        yield @$send './ratingAva','down',@index
+
   show: =>
     @rating_photo   = @tree.rating_photo.class
     @tutor_extract  = @tree.tutor_extract.class
@@ -14,6 +19,7 @@ class @main extends EE
       #rating : data.rating
       index : data.index
       photos : data.photos
+      price_per_hour : data.price_per_hour
       count_review : data.count_review
     }
     @tutor_extract.setValue data

@@ -7,12 +7,13 @@ class @main
   constructor : ->
     Wrap @
     @now = []
+    @linked = {}
   show : =>
     yield @reshow()
     Feel.urlData.on 'change',@reshow.out
   reshow : =>
-    linked  = yield Feel.urlData.get 'mainFilter','linked'
-    linked  = Object.keys(linked ? {}) ? []
+    @linked  = yield Feel.urlData.get 'mainFilter','linked'
+    linked  = Object.keys(@linked ? {}) ? []
     preps   = yield Feel.dataM.getTutor linked
     arr = for i in linked then preps[i]
     @found.list.empty()
@@ -53,4 +54,12 @@ class @main
     ret = yield cl.setValue prep
     o.h = ret.h
     @now.push o
+
+    cl.btn_close.on 'click', (e) =>
+      cl.btn_close.off 'click'
+      o.dom.fadeOut 100, => do Q.async =>
+        delete @linked[prep.index]
+        yield Feel.urlData.set 'mainFilter','linked', @linked
+      return false
+
     return o

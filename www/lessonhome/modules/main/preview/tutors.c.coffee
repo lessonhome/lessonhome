@@ -29,6 +29,7 @@ class Tutors
     @dbtutor = yield @$db.get 'tutor'
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
+    @dbuploaded = yield @$db.get 'uploaded'
     @preps    = {}
     @indexes  = {}
     @filters  = {}
@@ -108,13 +109,13 @@ class Tutors
       t = obj.tutor
       p = obj.person
       obj.rating = JSON.stringify(obj).length*(obj?.person?.ratio ? 1.0)
-      unless obj.person?.ava?[0]?
-        obj.rating *= 0.7
+      unless obj.person?.avatar?[0]?
+        obj.rating *= 0.5
       unless (obj.tutor?.about ? "")?.length>10
-        obj.rating *= 0.7
+        obj.rating *= 0.5
       rmax = Math.max(rmax ? obj.rating,obj.rating)
       rmin = Math.min(rmin ? obj.rating,obj.rating)
-      continue if (t?.subjects?[0]?.name) && (p?.first_name)
+      continue if (t?.subjects?[0]?.name || t?.subjects?[1]?.name) && (p?.first_name)
       delete persons[account]
     for account,o of persons
       t = o?.tutor
@@ -173,6 +174,14 @@ class Tutors
         ns.price.left  = 600    unless ns.price.left > 0
         ns.duration.right = 180 unless ns.duration.right > 0
         ns.duration.left  = 90  unless ns.duration.left > 0
+
+        ns.place_prices = {}
+        for place, prices of val.place_prices
+          ns.place_prices[place] = {}
+          ns.place_prices[place]['v60'] = prices[0] if prices[0] isnt ''
+          ns.place_prices[place]['v90'] = prices[1] if prices[1] isnt ''
+          ns.place_prices[place]['v120'] = prices[2] if prices[2] isnt ''
+
         l = ns.price.left*60/ns.duration.left
         r = ns.price.right*60/ns.duration.right
         ns.price_per_hour  = 0.5*(r+l)
@@ -184,17 +193,22 @@ class Tutors
         for key,val of val?.place
           obj.place[val] = true
       obj.experience = t?.experience
+      if !obj.experience || (obj.experience == 'неважно')
+        obj.experience = '1-2 года'
       obj.status = t?.status
       obj.photos = []
-      if p?.ava?[0]? then for ind,ph of p?.ava
-        obj.photos.push {
-          lwidth  : ph.lwidth
-          lheight : ph.lheight
-          lurl    : ph.lurl
-          hheight : ph.hheight
-          hwidth : ph.hwidth
-          hurl    : ph.hurl
-        }
+      if p.avatar
+        for ava in p.avatar
+          avatar = yield _invoke @dbuploaded.find({hash : {$in : [ava+'low', ava+'high']}}),'toArray'
+          if avatar[0]? and avatar[1]?
+            obj.photos.push {
+              lwidth  : avatar[0].width
+              lheight : avatar[0].height
+              lurl    : avatar[0].url
+              hheight : avatar[1].height
+              hwidth : avatar[1].width
+              hurl    : avatar[1].url
+            }
       unless obj.photos.length
         obj.photos.push {
           lwidth  : 130

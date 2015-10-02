@@ -33,7 +33,7 @@ main
     border-top: 1px solid #cccccc
 
 .section
-  .subject,.price, .place, .tutor_status, .experience, .group_lessons, .sex
+  .subject,.price, .place, .tutor_status, .experience, .group_lessons, .gender
     height: 48px
     position: relative
     .choose
@@ -62,21 +62,21 @@ main
       //padding : 12px 0
     .title:hover
       color : #000000
-  .subject:after,.price:after, .place:after, .tutor_status:after, .experience:after, .group_lessons:after, .sex:after
+  .subject:after,.price:after, .place:after, .tutor_status:after, .experience:after, .group_lessons:after, .gender:after
     +inline-block
     height: 100%
     content: ''
 .section
   position : relative
   text-align: left
-  .subject, .tutor_status, .place, .timetable, .course, .group_lessons, .price, .time_to_way, .experience, .sex
+  .subject, .tutor_status, .place, .timetable, .course, .group_lessons, .price, .time_to_way, .experience, .gender
     +inline-block
     width : 100%
     cursor: pointer
   .show_hidden
     width : 100%
     +box-sizing(border-box)
-    padding: 0 24px 12px 24px
+    padding: 0 24px 12px 29px
     .sub_title
       font-size: 16px
       padding-bottom: 12px
@@ -84,6 +84,8 @@ main
     .subject, .course, .group_lessons
       width: 100%
     .tutor_status, .place, .experience
+      .hidden, .way_time_box
+        display: none
       div
         margin-bottom: 7px
       .way_time_box, .area

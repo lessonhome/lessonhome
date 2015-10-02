@@ -27,6 +27,7 @@ class @main extends EE
     linked = yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
       delete linked[@tree.value.index]
+#      feel.sendActionOnce('button')
     else
       linked[@tree.value.index] = true
     @setLinked linked
@@ -34,11 +35,12 @@ class @main extends EE
   setLinked : (linked)=> Q.spawn =>
     linked ?= yield Feel.urlData.get 'mainFilter','linked'
     if linked[@tree.value.index]?
-      @tree.choose_button?.class?.setValue {text:'прикрепить',color:'#3ab27d',pressed:true}
+      @tree.choose_button?.class?.setValue {text:'Убрать',color:'#3ab27d',pressed:true}
       @tree.choose_button?.class?.setActiveCheckbox()
       @hopacity.removeClass 'g-hopacity'
     else
-      @tree.choose_button?.class?.setValue {text:'прикрепить'}
+      @tree.choose_button?.class?.setValue {text:'Выбрать'}
+      @tree.choose_button?.class?.setDeactiveCheckbox()
       @hopacity.addClass 'g-hopacity'
 
   hideExtraText: =>
@@ -61,13 +63,16 @@ class @main extends EE
     #@with_verification.css 'background-color', value.with_verification if value?.with_verification?
     @tree.all_rating.class.setValue rating:value?.rating
     @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
-    @tutor_subject.empty()
+    @tutor_subject?.empty?()
     i = 0
-    for key,val of value.subjects
+    if @tutor_subject?.append? then for key,val of value.subjects
       i++
       if key
         key = key?.capitalizeFirstLetter?() ? key if i == 1
-        @tutor_subject.append s=$("<div class='tag'>#{key ? ""}</div>")
+        skey = key
+#        if i > 1
+#          skey += ','
+        @tutor_subject?.append? s=$("<div class='tag'></div>").text(skey ? "")
         do (s,key,val)=>
           s.click => Q.spawn =>
             link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
@@ -85,23 +90,57 @@ class @main extends EE
     #@tutor_subject. text(value.tutor_subject) if value?.tutor_subject?
     #@tutor_status.  text(value.status ? "")
     #@tutor_exp.     text(value.experience ? "")
-    do => Q.spawn =>
-      link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
-      @found.link_name.attr 'href',link
-      @tree.view_button.class.activate link
+
     exp = value.experience ? ""
     exp += " года" if exp && !exp?.match? /\s/
     @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
-    @found.location.text(value.location?.city ? "")
+    l = value?.location ? {}
+    cA = (str="",val,rep=', ')->
+      return str unless val
+      val = ""+val
+      val = val.replace /^\s+/,''
+      val = val.replace /\s+$/,''
+      return str unless val
+      unless str
+        str += val
+      else
+        str += rep+val
+
+    ls1 = ""
+    ls1 = cA ls1,l.city
+#    ls1 = cA ls1,l.area
+    ls2 = ""
+    ls2 = cA ls2,l.street
+    ls2 = cA ls2,l.house
+    ls2 = cA ls2,l.building
+    ls3 = ""
+    ls3 += "м. #{l.metro}" if l.metro
+    ls = ""
+#    ls = cA ls,ls2,'<br>'
+    ls = cA ls,ls3,'<br><br>'
+    ls = cA ls,ls1,'<br>'
+    @found.location.html(ls)
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
-    @tutor_text.    text(value.about ? "")
+    tutor_text = value.about || ''
+    if (tutor_text.length > 220) && @tree.reclame
+      tutor_text = tutor_text.substr 0,209
+      tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
+      tutor_text += '...'
+      @tutor_text.text tutor_text
+      @tutor_text.append $("<a class='about_link'>подробнее</a>")
+    else
+      @tutor_text.text tutor_text
     #@found.price_left.text(value.price_left)
     #@found.price_right.text(value.price_right)
     #@found.duration_left.text(value.duration_left)
     #@found.duration_right.text(value.duration_right)
-    @found.price.text(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
+    @found.price?.text?(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
     #@hideExtraText()
-
+    do => Q.spawn =>
+      link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
+      @found.link_name.attr 'href',link
+      @tree.view_button.class.activate link
+      @dom.find('.about_link').attr 'href',link
   getValue : => @getData()
 
   getData : => @tree.value

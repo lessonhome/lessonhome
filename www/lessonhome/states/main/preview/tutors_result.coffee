@@ -4,11 +4,13 @@
 #selector      : 'padding_1px_rating'
 class @main
   tree : => @module '$' :
+    selector  : @exports()
     rating_photo  : @state './all_rating_photo' :
       image         : @exports()
       count_review  : @exports()
+      cost          : @exports()
       close         : false
-      extract       : 'extract'
+      extract       : @exports()
       rating        : @exports()
     tutor_extract : @module '$/tutor_extract'  :
       value : @exports()
@@ -35,6 +37,8 @@ class @main
       add_button_bid    : @module 'tutor/button' :
         selector  : 'add_button_bid'
         text      : 'Прикрепить к заявке'
+      stars       : @exports() # it's mean have rating start in visit card
+      reclame     : @exports() # It's mean visit card in jump page
       all_rating    : @module 'rating_star'  :
         selector  : @exports()
         value :

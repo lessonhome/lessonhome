@@ -1,15 +1,24 @@
-@import compass/css3
+@import base
+
 main
   height: 100%
+main:after
+  +after_block
+.hour
   text-align: left
+  width: 110px
 .hour, .cost
   +inline-block
 .cost
+  +inline-block
   font-size: 37px
-  float: right
   width: 72px
   height: 100%
-main:after
-  content: ''
-  height: 100%
+.curr
   +inline-block
+  vertical-align: middle
+  margin-left: 10px
+//main:after
+//  content: ''
+//  height: 100%
+//  +inline-block

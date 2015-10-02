@@ -54,9 +54,11 @@ class @main extends EE
       @tree.match = 0:@tree.match
     for key,val of @tree.match
       @tree.match[key] = new RegExp val
-    @tree.replace = @parseRegexpObj @tree.replace
-    @tree.patterns = @parseRegexpObj @tree.patterns
-    @tree.replaceCursor = @parseRegexpObj @tree.replaceCursor,''
+#    @tree.saveReplace ?= @tree.replace
+#    @tree.replace = @tree.saveReplace
+    @replace = @parseRegexpObj @tree.replace
+    @patterns = @parseRegexpObj @tree.patterns
+    @replaceCursor = @parseRegexpObj @tree.replaceCursor,''
     @tree.selectOnFocus ?= true
     @hint         = @found.hint
     @hintMessage  = @found.hint_message
@@ -148,6 +150,11 @@ class @main extends EE
     f()
   onEnd     : (val)=>
     #console.log 'end',val
+  saveValue : (val) =>
+    if (value = if val then val else @getValue()) isnt ''
+      @input.attr 'data-value', value
+  getSaved : =>
+    @input.attr 'data-value'
   onInput   : =>
     @replaceInput()
     setTimeout @checkChange,0
@@ -202,7 +209,7 @@ class @main extends EE
       e.preventDefault()
       @replaceInput val,rstr,position,true
   doMatch : =>
-    for key,val of @tree.patterns
+    for key,val of @patterns
       unless @val.match val[0]
         return @showError val[1]
     return true
@@ -210,13 +217,13 @@ class @main extends EE
   addPattern : (str,error="")=>
     if typeof str == 'string'
       str = new RegExp str,'mg'
-    i = Object.keys(@tree.patterns).length
-    @tree.patterns[i] = [str,error]
+    i = Object.keys(@patterns).length
+    @patterns[i] = [str,error]
   addReplace : (reg,replace="")=>
     if typeof reg == 'string'
       reg = new RegExp reg,'mg'
-    i = Object.keys(@tree.replace).length
-    @tree.replace[i] = [reg,replace]
+    i = Object.keys(@replace).length
+    @replace[i] = [reg,replace]
   addError : (name,text="")=>
     @tree.errors?= {}
     @tree.errors[name] = text
@@ -235,7 +242,7 @@ class @main extends EE
     @label.removeClass 'error'
     @found.level3.attr 'hide','hide'
   matchReplace : (rstr)=>
-    for key,v of @tree.replace
+    for key,v of @replace
       nv = rstr?.replace? v[0],v[1]
       rstr = nv
     return rstr
@@ -246,7 +253,7 @@ class @main extends EE
     return if @input.val()==rstr
     @input.val rstr
     rc = false
-    if forceCursor then for key,v of @tree.replaceCursor
+    if forceCursor then for key,v of @replaceCursor
       if m = rstr.substr(position).match v[0]
         rc = true
         position += m.index

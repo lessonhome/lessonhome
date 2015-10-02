@@ -1,28 +1,49 @@
-.subject!= select_subject_field
-.err
-  .js-out_err_subject
-.js-container
-  .value.course!=course
-  .err
-    .js-out_err_course
-  .categories_of_students
-    .title Категории учеников :
-    .check_panel
-      .left_block
-        .pre_school!=pre_school
-        .junior_school!=junior_school
-        .medium_school!=medium_school
-      .right_block
-        .high_school!=high_school
-        .student!=student
-        .adult!=adult
-  .err
-    .js-out_err_categories_of_students
-  .place_block
-    .price_title Цены :
-    .place_tutor!=place_tutor
-    .place_pupil!=place_pupil
-    .place_remote!=place_remote
-    .group_learning!=group_learning
-  .comments!=comments
 
+.panel
+  .js-active_block
+    .subject_block!= select_subject_field
+    .btn_panel
+      a(href="#", title="Удалить").js-rem
+        i.icon
+      a(href="#", title="Свернуть/Развернуть").js-expand
+        i.icon
+    .err.js-error_name
+  .js-restore_block
+    .text
+      .js-name_subject
+    .btn_panel
+      a(href="#", title="Восстановить").btn.js-restore Нет
+      a(href="#", title="Удалить").btn.js-delete Да
+
+.js-container
+  a(href='#').js-copy_prev_settings cкопировать информацию из предыдущего предмета
+  .block.course_block
+    .title Направление подготовки :
+    .value.course!=course
+    .err
+      .js-out_err_course
+
+  .block.category_block
+    .title Ученики :
+    .js-categories_of_students
+      .check_panel
+        .left_block
+          .pre_school!=pre_school
+          .junior_school!=junior_school
+          .medium_school!=medium_school
+        .right_block
+          .high_school!=high_school
+          .student!=student
+          .adult!=adult
+
+  .block.place_block
+    .title Цены :
+    .js-prices_place
+      .prices.place_tutor!=place_tutor
+      .prices.place_pupil!=place_pupil
+      .prices.place_remote!=place_remote
+    .js-price_group
+      .prices.group_learning!=group_learning
+  .block.comment_block
+    .title Комментарии :
+    .comments!=comments

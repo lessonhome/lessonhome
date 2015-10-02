@@ -1,5 +1,6 @@
 if popup
-  .js-popup_wrap
+  !=popup
+  //.js-popup_wrap
     .js-content!= popup
 .container
   .header!= header
@@ -7,5 +8,6 @@ if popup
   if info_panel
     .info_panel!=info_panel
   .content!= content
+//.attach_tutor!=attach_tutor
 .footer!= footer
 

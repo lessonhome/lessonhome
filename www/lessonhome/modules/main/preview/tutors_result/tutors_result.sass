@@ -1,28 +1,46 @@
 @import base
 
-$width_left_block:  144px
 main
   background-color: $white
   border: 1px solid $border_gray
   +material_shadow(1)
   +transition(box-shadow 200ms ease-in-out)
-  padding: 20px 0 20px 0px
+  text-align: left
   &:hover
     +material_shadow(2)
+.result_block
+  .left_block, .right_block
+    +inline-block
+    vertical-align: top
 
-.left_block, .right_block
-  +inline-block
-  vertical-align: top
-.left_block
-  width: $width_left_block
-  .rating_photo
-    //
-.right_block
-  width: 504px
-  text-align: left
-  //margin-left: $width_left_block
-  //padding-left: 22px
-  //-border-left: 1px solid #a0a0a0
-  .tutor_extract
-    //
+
+.main_visit_card
+  padding: 12px 12px 18px 12px
+  .left_block
+    width: 132px
+
+  .right_block
+    width: 490px
+    text-align: left
+    padding-left: 12px
+    box-sizing: border-box
+    //margin-left: $width_left_block
+    //padding-left: 22px
+    //-border-left: 1px solid #a0a0a0
+
+.jump_visit_card
+  padding: 24px
+  .left_block
+    width: 108px
+
+  .right_block
+    width: 322px
+    text-align: left
+    padding-left: 24px
+    box-sizing: border-box
+    //margin-left: $width_left_block
+    //padding-left: 22px
+    //-border-left: 1px solid #a0a0a0
+
+
 

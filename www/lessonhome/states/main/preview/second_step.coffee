@@ -11,7 +11,12 @@ class @main extends @template '../preview'
   tree : ->
     popup       : @exports()
     tag         : 'pupil:main_search'
-    advanced_filter : @state '../advanced_filter'
+    bid_issue_button  : @module 'link_button' :
+      href      : 'fast_bid/first_step'
+      selector  : 'issue_bids'
+      text      : 'Оформить заявку'
+      active : true
+    #advanced_filter : @state '../advanced_filter'
     ###
       filter_top  : @state '../filter_top':
         title : 'Выберите статус преподавателя :'

@@ -45,14 +45,18 @@ class Socket
     req.cookie = cookie = new _cookies req,res
     session = cookie.get 'session'
     unknown = cookie.get 'unknown'
-    register = yield @register.register session,unknown
+    register = yield @register.register session,unknown,cookie.get('adminHash')
     session = register.session
     req.user = register.account
     cookie.set 'unknown',req.user.unknown,{httpOnly:false} unless req.user.unknown == unknown
     _ = url.parse(req.url,true)
-    data    = JSON.parse _.query.data
-    context = JSON.parse _.query.context
-    pref = JSON.parse _.query.pref
+    try
+      data    = JSON.parse _.query.data
+      context = JSON.parse _.query.context
+      pref = JSON.parse _.query.pref
+    catch e
+      console.error e
+      return res.end()
     cb   = _.query.callback
     path = _.pathname
     clientName = yield @resolve context,path,pref
@@ -86,7 +90,7 @@ class Socket
     $.session = session
     $.cookie = cookie
     $.form = @form
-    $.updateUser = => @updateUser req,res,$
+    $.updateUser = (session)=> @updateUser req,res,$,session
     try
       ret = yield @handlers[clientName].handler $,data...
     catch e
@@ -116,13 +120,15 @@ class Socket
       status[name] = value
       yield _invoke db,'update', {id:req.user.id},{$set:{status:status}},{upsert:true}
     return status[name]
-  updateUser : (req,res,$)=>
+  updateUser : (req,res,$,session)=>
     cookie = req.cookie
-    session = cookie.get 'session'
+    session ?= cookie.get 'session'
     unknown = cookie.get 'unknown'
-    register = yield @register.register session, cookie.get('unknown')
+    console.log session
+    register = yield @register.register session, cookie.get('unknown'),cookie.get('adminHash')
     session = register.session
     req.user = register.account
+    $.user = req.user
     cookie.set 'unknown',register.account.unknown,{httpOnly:false} if unknown != register.account.unknown
 
     $.user = req.user

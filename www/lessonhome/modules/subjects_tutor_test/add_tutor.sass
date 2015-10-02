@@ -1,0 +1,54 @@
+@import base
+main
+  margin-left: 135px
+=title
+  font-size: 21px
+  text-align: left
+=opacity($level)
+  @if $level == 0
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"
+    -moz-opacity: 0.6
+    -khtml-opacity: 0.6
+    opacity: 0.6
+  @else if $level == 1
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"
+    -moz-opacity: 1
+    -khtml-opacity: 1
+    opacity: 1
+=elements
+  padding: 0 30px
+.template
+  position: absolute
+  display: none
+  overflow: hidden
+  width: 0
+  height: 0
+.container
+  .block
+    +material_shadow(1)
+    //+elements
+    //border: 1px solid #DDD
+    //background-color: #E6E6E6
+    margin-bottom: 20px
+.title
+  +title
+  +elements
+  padding-bottom: 20px
+.btn_add
+  +opacity(0)
+  +material_shadow(1)
+  font-size: 1.2em
+  text-align: center
+  line-height: 63px
+  height: 63px
+  cursor: default
+  background: #FFF171
+.btn_add.active
+  +opacity(1)
+  cursor: pointer
+.err
+  .error_empty
+    display: none
+    color: #FF0000
+    margin-top: 20px
+    text-align: center

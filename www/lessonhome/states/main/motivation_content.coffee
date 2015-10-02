@@ -6,46 +6,39 @@ class @main extends @template '../main'
     tag         : @exports()
     content     : @module '$' :
       reps : [
-        @module '$/tutor_block' :
-          href: '/tutor_profile?x=64'
-          img  :
-            src : @F('main/best_1.jpg')
-            w   : 112
-            h   : 112
-          subject: 'Начальная школа'
-          full_name: 'Прохненко Н.В.'
-          price: 'от 1000 руб.за час'
-          about_text: 'Подготовка к школе включает развивающие занятия, обучение чтению, счёту, подготовку руки к письму'
-        @module '$/tutor_block' :
-          href: '/tutor_profile?x=7978'
-          img  :
-            src : @F('main/best_2.jpg')
-            w   : 112
-            h   : 112
-          subject: 'Английский язык'
-          full_name: 'Боронкинова Н.Т.'
-          price: 'от 1500 руб.за час'
-          about_text: 'Обучаю разговорному английскому языку с 2004 на курсах, готовлю к международным экзаменам IELTS, TOEFL, ЕГЭ, ОГЭ'
-        @module '$/tutor_block' :
-          href: '/tutor_profile?x=103'
-          img  :
-            src : @F('main/best_3.jpg')
-            w   : 112
-            h   : 112
-          subject: 'Английский язык'
-          full_name: 'Озерова И.И.'
-          price: 'от 1000 руб.за час'
-          about_text: 'Мой опыт и моя квалификация позволяет мне с уверенностью говорить, что я смогу быть другом и наставником детям.'
-        @module '$/tutor_block' :
-          href: '/tutor_profile?x=7040'
-          img  :
-            src : @F('main/best_4.jpg')
-            w   : 112
-            h   : 112
-          subject: 'Французский язык'
-          full_name: 'Магомедова Л.С.'
-          price: 'от 1000 руб.за час'
-          about_text: 'Изучала язык в школе, в институте, в Нормандском университете во Франции, преподавала в школе, на курсах, в институте.'
+        @state 'main/preview/tutors_result' :
+          image : {
+              src: ''
+              w: 1000
+              h: 800
+            }
+          rating : 3.5
+          reclame : true
+          selector  : 'jump_visit_card'
+        # вытянуть значение
+        #filling           : 100 # вытянуть значение
+          cost      : 1000 # вытянуть значение
+          value :
+            name :
+              first   : 'Андрей'
+              middle  : 'Юрьевич'
+              last    : 'Чехов'
+            price_per_hour : 913.123
+            subjects :
+              'математика' :
+                price :
+                  left : 900
+            location :
+              city : 'Москва'
+          #tutor_name        : 'Чехов Андрей Юрьевич' # вытянуть значение
+            with_verification : 'rgb(183, 210, 120)' # вытянуть значение
+            tutor_subject     : 'Математика' # вытянуть значение
+            status      : 'cтудент' # вытянуть значение
+            experience         : 3 # вытянуть значение
+            tutor_place       : 'МО Зеленоград' # вытянуть значение
+            tutor_title       : 'Быстро устраню пробелы в школьной программе' # вытянуть значение
+            about        : 'Коллектив выступает с несколькими программами. В танцевальной программе выступают 2 пары, исполняющие мексиканские танцы (харибе тапатио), возможен мастер-класс по латиноамериканским танцам' # вытянуть значение
+            tutor_price       : 1500 # вытянуть значение
       ]
       ways_block_start: @module 'link_button' :
         selector: 'ways_block_start'
@@ -62,8 +55,10 @@ class @main extends @template '../main'
         text: 'ОФОРМИТЬ ЗАЯВКУ'
         active: true
         href: '/fast_bid/first_step'
-      callback: @module 'link_button' :
-        selector: 'main_page_motivation'
-        text: 'ОБРАТНЫЙ ЗВОНОК'
-        active: true
-        href: '/main_callback'
+      callback: @module 'tutor/header/elem_back_call' :
+        trigger : @module 'link_button' :
+          selector: 'main_page_motivation'
+          text: 'ОБРАТНЫЙ ЗВОНОК'
+          active: true
+          href: '#'
+        content : @state 'main/call_back_popup'

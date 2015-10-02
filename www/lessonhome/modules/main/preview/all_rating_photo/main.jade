@@ -1,19 +1,26 @@
--  width_photo = 96;
--  height_photo = 96;
+//-  width_photo = 96;
+//-  height_photo = 96;
 -  rev_selector = rev_selector || "";
 //-// height_photo = image.h*width_photo/image.w;
 .photo(class = selector)
-  img(width=width_photo, height=height_photo)
+  //img(width=width_photo, height=height_photo)
+  img
   if close
     .close_box
       .close_icon
 //-.all_rating!=all_rating
 if count_review
   a(href='#')
-    .js-count_review.select!='отзывы ('+count_review+')'
+    .js-count_review.select!='отзывы (' + count_review + ')'
+else if cost
+  .count_cost.select
+    .from от
+    .js-cost!=cost
+    .measure р/ч
 else
-  a(class=rev_selector)
-    .js-count_review.select!='отзывы (0)'
+  //a(class=rev_selector)
+    //.js-count_review.select!='отзывы (0)'
+
 //-
   else
     a(href='#')
