@@ -3,50 +3,125 @@ $space : 15px
 $height : 37px
 $price_block_padding: 6px
 $width_fields: 341px
+$paddings: 20px
+$icon_trash: 'trash_normal.png'
+$icon_trash_hover: 'trash_hover.png'
+$icon_arrow_down: 'arrow_down.png'
+$icon_arrow_up: 'arrow_up.png'
+$icon_copy: 'ic_content_copy_black_18dp_1x.png'
+$icon_cross: 'delete_cross.png'
+=icon($src)
+  +inline-block
+  height: image-height($src)
+  width: image-width($src)
+  background: url(F($src)) no-repeat
 =title
   font-size: 18px
   font-weight: 600
-=button
+=button($src, $src_hover)
   cursor : pointer
+  text-align: center
+  +inline-block
+  height: 36px
+  line-height: 36px
+  width: 36px
+  //background: #ddd
+  @if $src_hover
+    &:hover
+      i.icon
+        +icon($src_hover)
+        vertical-align: top
+  i.icon
+    +icon($src)
+    vertical-align: top
+
+
+=error_block
+  padding-left: 10px
+  padding-right: 10px
+  margin-left: -10px
+  margin-right: -10px
+  border: none
+  outline: 2px solid #FF0000
+=error_text
+  font-size: 0.8em
+  color: #FF0000
+  margin-top: 12px
+  margin-left: 20px
 main
   height: 100%
   text-align: left
+  border: 1px solid #DDD
+  background-color: #E6E6E6
+main.restore
+  background: #EDF2C4
 .panel
+  padding: 15px $paddings
+  position: relative
   .restore_block
-    .restore
-      +button
-      margin-top: 10px
     display: none
+    .text
+      margin-right: 40px
+      .restore, .name_subject
+        color: #FF0000
+      .name_subject
+        line-height: 1.4
+    .btn_panel
+      //float: right
+      text-align: right
+      a.delete, a.restore
+        //color: #FF0000
+        text-decoration: none
+        color: #000
+        +inline-block
+        padding: 10px 15px
+        &:hover
+          background: #F6FAE3
+      .btn + .btn
+        margin-left: 20px
+        //+button($icon_cross, $icon_cross)
   .active_block
     .subject_block
       +inline-block
-      .subject
-        +inline-block
-    .expand, .rem
-      +button
-      +inline-block
-      margin-left : 10px
-.err
-  +inline-block
-  div
-    +inline-block
-    width: 341px
-    float: right
-    text-align: left
-    color: red
-    font-size: 16px
-    display: none
-    padding: 0.5em 28px
-    box-sizing: border-box
+    .btn_panel
+      float: right
+      .rem
+        +button($icon_trash, $icon_trash_hover)
+      .expand
+        +button($icon_arrow_down, $icon_arrow_down)
+        margin-left: 30px
+        &.active
+          +button($icon_arrow_up, $icon_arrow_up)
+        &:hover
+          background: #f3f3f3
+      //.expand.active
+        //background: url(F('info_closed.png')) no-repeat 4px 8px
+    .err
+      +error_text
+      display: none
 
 .container
-  padding-top: 25px
+  padding-left: $paddings
+  padding-right: $paddings
+  padding-bottom: 20px
   display: none
+  a.copy_prev_settings
+    +inline-block
+    font-size: 12px
+    margin-bottom: 15px
+    color: #000
+    &:before
+      content: ''
+      margin-right: 10px
+      +icon($icon_copy)
+
   .value
     +inline-block
     font-size: $height
     line-height: $height
   .category_block
+    .categories_of_students.error
+      +error_block
     .categories_of_students
       .check_panel
         +inline-block
@@ -60,13 +135,32 @@ main
             padding: 3px 0
   .place_block, .category_block, .course_block
     margin-bottom: 20px
-    .prices
-      padding: $space 0
-    .prices + .prices
-      border-top: 1px solid #c2c0c2
-  .category_block, .course_block, .comment_block
+    .prices_place
+      border-bottom: 1px solid #c2c0c2
+      .prices + .prices
+        border-top: 1px solid #c2c0c2
+      .prices
+        padding: $space 0
+      .prices.error
+        +error_block
+      .err
+        +error_text
+        margin-bottom: 10px
+    .price_group
+      .prices + .prices
+        border-top: 1px solid #c2c0c2
+      .prices
+        padding: $space 0
+
+    .prices_place.error, .price_group.error
+      +error_block
+
+  .place_block, .category_block, .course_block, .comment_block
     .title
       margin-bottom: 15px
+    .err
+      margin-bottom: 10px
+      +error_text
   .block
     .title
       +title

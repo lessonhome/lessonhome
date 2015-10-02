@@ -78,6 +78,25 @@ $triangle_subject_down_width: image-width($triangle_subject_down_src)
         +inline-block
         height: 100%
       .value
+        .place
+          display: none
+          margin-bottom: 10px
+          .title
+            float: left
+            font-weight: bold
+          .prices
+            margin-left: 120px
+            .price
+              display: none
+              .time, .cost
+                +inline-block
+              .time
+                width: 120px
+              
+          &:after
+            content: ''
+            display: table
+            clear: both
         padding-top: 3px
         div
           font-size: 14px

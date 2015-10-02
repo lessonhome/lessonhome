@@ -337,6 +337,29 @@ global.Wrap = (obj,prot,PR=true)->
 
 
 
+global.$W = (obj)->
+  proto = obj?.__proto__
+  proto ?= obj
+  return Q.async obj if (typeof obj == 'function') && (obj?.constructor?.name == 'GeneratorFunction')
+  return obj if obj.__wraped
+  obj.__wraped = true
+  for fname,func of proto
+    continue unless typeof func == 'function'
+    newfunc = func
+    if func?.constructor?.name == 'GeneratorFunction'
+      newfunc = Q.async func
+    obj[fname] = newfunc
+  unless obj.emit?
+    ee = new EE
+    obj.emit = -> ee.emit arguments...
+    obj.on = (action,foo)->
+      foo = Q.async foo if foo?.constructor?.name == 'GeneratorFunction'
+      ee.on action,(args...)-> Q.spawn -> yield foo args...
+    obj.once = (action,foo)->
+      foo = Q.async foo if foo?.constructor?.name == 'GeneratorFunction'
+      ee.once action,(args...)-> Q.spawn -> yield foo args...
+  return obj
+
 Q.rdenodeify = (f)-> Q.denodeify (as...,cb)-> f? as..., (a,b)->cb? b,a
 Q.denode  = -> Q.denodeify  arguments...
 Q.rdenode = -> Q.rdenodeify arguments...

@@ -4,9 +4,9 @@ check = require("./check")
 typetoteach = {"school:0":'pre_school','school:1':'junior_school','school:2':'medium_school','school:3':'high_school','student':'student','adult':'adult'}
 
 @handler = ($,data)=>
-#  errs = check.check data
+  errs = check.check data
   return {status:"failed",errs:["access_failed"]} unless $.user.tutor
-  if errs?.length
+  if not errs.correct
     return {status:'failed',errs:errs}
   subjects_db = {}
   tags = {}
@@ -48,7 +48,7 @@ typetoteach = {"school:0":'pre_school','school:1':'junior_school','school:2':'me
         subject['place_' + place]?.tree_hour
       ]
 #    if subject.place_cafe.selected then subjects_db[i].place.push "other"
-    if subject.group_learning.selected
+    if subject.group_learning.selected and subject.group_learning.groups isnt ''
       subjects_db[i].groups = [{
         description: subject.group_learning.groups
         price: subject.group_learning.price
