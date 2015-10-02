@@ -3,7 +3,7 @@ class @main extends @template '../first_template'
   route : '/repetitory-matematika-ege'
   #tags  : -> ['registration']
   model : 'main/registration'
-  title : "Репетиторы по математике ЕГЭ 10-11 классы"
+  title : "Репетиторы по математике ЕГЭ"
   tree : =>
     photo_src         : 'reclame_jump_page/land_math_ege.jpg'
     alt               : 'Репетиторы по математике ЕГЭ'
