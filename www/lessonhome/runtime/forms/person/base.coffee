@@ -21,6 +21,7 @@
   'site'
   'social_networks'
   'photos'
+  'reviews'
 ]
 @accounts = [
   'login'
