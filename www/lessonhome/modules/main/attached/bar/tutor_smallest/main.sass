@@ -1,0 +1,27 @@
+@import base
+$height: 36px
+.prep
+  margin-right: $height
+  +material_shadow(1)
+  &:hover
+    margin-right: 0
+    padding-right: $height
+    .block_prep .rem
+      opacity: 1
+  .block_prep
+    +inline-block
+    a.photo_box
+      font-size: 0
+      +inline-block
+      img
+        height: $height
+    position: relative
+    .rem
+      opacity: 0
+      position: absolute
+      right: -$height
+      top: 0
+      width: $height
+      height: $height
+      background: #E7E7E7
+      cursor: pointer

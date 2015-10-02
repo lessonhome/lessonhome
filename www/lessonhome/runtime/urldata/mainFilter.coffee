@@ -104,6 +104,11 @@ class @D2U
     value : obj?.place?.area_tutor
     default : ''
     filter : true
+  $place_attach : (obj)=>
+    type : 'int'
+    value : boolSet obj?.place_attach,place
+    default : 0
+    cookie: true
   $subject : (obj)=>
     type : 'string[]'
     value : obj?.subject
@@ -195,6 +200,7 @@ class @U2D
     ret.area_pupil = obj?.placeAreaPupil
     ret.area_tutor = obj?.placeAreaTutor
     return ret
+  $place_attach : (obj)=> boolSetR obj?.place_attach,place
   $subject : (obj)=> obj?.subject
   $time_spend_way : (obj)=> obj?.time_spend_way
   $experience : (obj)=> boolSetR obj?.experience,experience
