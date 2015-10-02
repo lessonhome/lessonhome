@@ -61,7 +61,8 @@ class @main extends EE
       @dom.css {
         position : 'fixed'
         height   : @he
-        width    : @wi
+#        width    : @wi
+        width     : '648px'
         'z-index' : 1000
         top      : 4
       }
