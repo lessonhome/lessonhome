@@ -53,6 +53,7 @@ class @main
     @hideForm()
 
   showForm : =>
+    @popup_block.show('slow')
     @html.css {
         overflowY : 'hidden'
         marginRight: @scrollWidth
