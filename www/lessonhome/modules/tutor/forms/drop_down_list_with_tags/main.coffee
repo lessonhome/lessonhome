@@ -87,4 +87,9 @@ class @main extends EE
 
   getValue : => @getTags()
 
-
+  showError : (error)=>
+    @list.showError error
+  hideError : =>
+    @list.hideError()
+  setErrorDiv : (div)=>
+    @list.setErrorDiv div
