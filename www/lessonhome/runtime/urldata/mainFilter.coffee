@@ -5,7 +5,8 @@ tutor_status_text =
   university_teacher : 'Преподаватель ВУЗа'
   private_teacher  :'Частный преподаватель'
   native_speaker : 'Носитель языка'
-group_lessons = ['не проводятся','2-4 ученика','до 8 учеников','от 10 учеников']
+group_lessons = ['не важно','2-4 ученика','до 8 учеников','от 10 учеников']
+pupil_status = ['не важно','дошкольники','начальная школа','средняя школа','старшая школа','студенты','взрослые']
 sort          = ['rating','price','experience','way_time','-price','-experience','-rating','-way_time','register','-register','access','-access']
 gender = ['','male','female','mf']
 tutor_status = 'student,school_teacher,university_teacher,private_teacher,native_speaker'.split ','
@@ -127,6 +128,15 @@ class @D2U
       default : 0
       filter : true
     }
+  $pupil_status : (obj)=>
+    v = pupil_status.indexOf(obj?.pupil_status)
+    v = 0 unless v>=0
+    return {
+    type : 'int'
+    value : v
+    default : 0
+    filter : true
+    }
   $course : (obj)=>
     type : 'string[]'
     value : obj?.course
@@ -189,6 +199,7 @@ class @U2D
   $time_spend_way : (obj)=> obj?.time_spend_way
   $experience : (obj)=> boolSetR obj?.experience,experience
   $group_lessons : (obj)=> group_lessons[obj?.group_lessons ? 0]
+  $pupil_status : (obj)=> pupil_status[obj?.pupil_status ? 0]
   $sort : (obj)=> sort[obj?.sort ? 0]
   $showBy : (obj)=> if obj?.showBy==true then 'list' else 'grid'
   $course : (obj)=> obj?.course

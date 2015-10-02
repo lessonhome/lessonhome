@@ -62,6 +62,7 @@ class @main extends EE
         position : 'fixed'
         height   : @he
 #        width    : @wi
+        width     : '648px'
         'z-index' : 1000
         top      : 4
       }

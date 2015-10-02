@@ -15,6 +15,7 @@ class @main extends EE
     @reset_all_filters = @found.reset_all_filters
     @advanced_filter   = @tree.advanced_filter.class
     @message_empty     = @sort.found.message_empty
+    @linked = {}
     #@tutors = $.localStorage.get 'tutors'
     #@tutors ?= {}
     @loaded = {}
@@ -45,13 +46,10 @@ class @main extends EE
     @sort.setNumber num
     yield Q.delay(10)
     indexes = indexes.slice @from,@from+@count
-    @message_empty.css {
-      opacity:
-        if indexes.length
-          0
-        else
-          1
-    }
+    if indexes.length is 0
+      @message_empty.fadeIn 400
+    else
+      @message_empty.fadeOut 400
     preps   = yield Feel.dataM.getTutor indexes
     yield Q.delay(10)
     #return end() if objectHash(@now) == objectHash(indexes)
@@ -101,6 +99,7 @@ class @main extends EE
   createDom : (prep)=>
     return @doms[prep.index] if @doms[prep.index]?
     cl = @tree.tutor_test.class.$clone()
+    @relinkedOne cl
     @doms[prep.index] =
       class : cl
       dom   : $('<div class="tutor_result"></div>').append cl.dom
@@ -180,7 +179,7 @@ class @main extends EE
             o.place['area_'+key] = []
             if key == 'tutor'
               o.time_spend_way = 120
-          when /status/.test name
+          when /tutor_status/.test name
             o.tutor_status = mf.tutor_status
             key = name.replace 'status_', ''
             o.tutor_status[key] = false
@@ -189,7 +188,9 @@ class @main extends EE
             key = name.replace 'experience_', ''
             o.experience[key] = false
           when /group/.test name
-            o.group_lessons = 'не проводятся'
+            o.group_lessons = 'не важно'
+          when /pupil_status/.test name
+            o.pupil_status = 'не важно'
           when /with/.test name
             o[name] = false
           else
@@ -216,6 +217,12 @@ class @main extends EE
     else
       course = false
       set_ 'course'
+    if mf.pupil_status &&  (mf.pupil_status!='не важно')
+      set_ 'pupil_status',mf.pupil_status,'pupil_status','не важно'
+      pupil_status = true
+    else
+      pupil_status = false
+      set_ 'pupil_status'
 
     #========================= Price
 
@@ -371,7 +378,7 @@ class @main extends EE
 
 
 
-    if subject || course
+    if subject || course || pupil_status
       @advanced_filter.activate 'subject',true
     else
       @advanced_filter.activate 'subject',false
@@ -420,6 +427,8 @@ class @main extends EE
       #@tnum = 4
       #@reshow().done()
     Feel.urlData.on 'change',=> Q.spawn =>
+      @linked = yield Feel.urlData.get 'mainFilter','linked'
+      @relinkedAll()
       @setFiltered().done()
       @hashnow ?= 'null'
       hashnow = yield Feel.urlData.filterHash()
@@ -603,4 +612,6 @@ class @main extends EE
     div.removeClass 'active'
     return 0
 
+  relinkedOne: (cl) => cl.tree?.tutor_extract?.class?.setLinked @linked
+  relinkedAll: => for index, el of @doms then @relinkedOne el.class
 

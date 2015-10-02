@@ -10,7 +10,7 @@ class @main
         try
           @updateAll()
         catch error
-          clearInterval(timer)
+          clearInterval timer
           throw error
     , 100)
   updateAll : =>

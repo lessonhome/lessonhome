@@ -44,7 +44,7 @@ class @main extends @template '../../tutor'
         smart : true
         self : true
       subject : @module 'tutor/forms/drop_down_list':
-        placeholder : 'Все предмет'
+        placeholder : 'Все предметы'
         selector    : 'in_bids'
         smart : true
         self : true
@@ -60,7 +60,8 @@ class @main extends @template '../../tutor'
           price         : 'Цена'
           status        : 'Статус'
 
-        all_bids : [
+        all_bids : []
+        ###
           @module '//report_bid' :
             selectable     : true
             checkbox       : @module 'tutor/forms/checkbox' :
@@ -180,5 +181,6 @@ class @main extends @template '../../tutor'
               value: false
               fill_button_href: 'payment'
         ]
+        ###
   init : ->
     @parent.tree.left_menu.setActive 'Заявки'
