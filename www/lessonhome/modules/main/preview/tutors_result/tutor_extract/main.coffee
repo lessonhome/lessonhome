@@ -40,6 +40,7 @@ class @main extends EE
       @hopacity.removeClass 'g-hopacity'
     else
       @tree.choose_button?.class?.setValue {text:'Выбрать'}
+      @tree.choose_button?.class?.setDeactiveCheckbox()
       @hopacity.addClass 'g-hopacity'
 
   hideExtraText: =>
@@ -71,7 +72,7 @@ class @main extends EE
         skey = key
 #        if i > 1
 #          skey += ','
-        @tutor_subject?.append? s=$("<div class='tag'>#{skey ? ""}</div>")
+        @tutor_subject?.append? s=$("<div class='tag'></div>").text(skey ? "")
         do (s,key,val)=>
           s.click => Q.spawn =>
             link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
