@@ -1,23 +1,24 @@
 .content
-  //h1.header Оформление заявки
-  .step
+  h1.header Оформление заявки
+  .step.contacts
     .icon.contacts
     .contents
       h2.title Контактная информация
       .form!=first
-  .step
+  .step.subject
     .icon.subject
     .contents
-      h2.title Какой предмет вас интересует
+      h2.title Какой предмет вас интересует?
       .form!=subject
-  .step
-    .icon.info
-    .contents
-      h2.title Информация о занятиях
-      .form!=second
-  .step
-    .icon.tutor
-    .contents
-      h2.title Пожелания к репетитору
-      .form!=third
-  .btn_send!=btn_send
+  .second_block.js-second_block
+    .step.info
+      .icon.info
+      .contents
+        h2.title Информация о занятиях
+        .form!=second
+    .step.wishes
+      .icon.tutor
+      .contents
+        h2.title Пожелания к репетитору
+        .form!=third
+    .btn_send!=btn_send

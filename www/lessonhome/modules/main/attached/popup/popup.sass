@@ -8,10 +8,16 @@ $height : image-height($icon_tutor)
 .content
   padding: 24px 36px
   position: relative
-  //h1
-  //  font-size: 24px
-  //  margin-bottom: 24px
-  .step
+  h1
+    font-size: 24px
+    margin-bottom: 24px
+  .second_block
+    display: none
+    .btn_send
+      width: 250px
+      margin: 20px auto 24px
+      height: 50px
+  .second_block .step, .step
     margin-bottom: 35px
     &:after
       content: ''
@@ -42,7 +48,5 @@ $height : image-height($icon_tutor)
       &.contacts
         background: url(F($icon_mail)) no-repeat
 
-  .btn_send
-    width: 250px
-    margin: 20px auto 0
-    height: 50px
+  .step.subject
+    margin-bottom: 76px
