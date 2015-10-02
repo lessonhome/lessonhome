@@ -1,6 +1,6 @@
 
 class @main extends @template '../first_template'
-  route : '/repetitory-ximiya-ege'
+  route : '/repetitory-himiya-ege'
   #tags  : -> ['registration']
   model : 'main/registration'
   title : "Репетиторы по химии ЕГЭ"

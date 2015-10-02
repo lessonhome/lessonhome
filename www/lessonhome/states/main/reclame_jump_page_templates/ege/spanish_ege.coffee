@@ -1,7 +1,7 @@
 
 class @main extends @template '../first_template'
   route : '/repetitory-ispanskij-ege'
-#tags  : -> ['registration']
+  #tags  : -> ['registration']
   model : 'main/registration'
   title : "Репетиторы по испанскому ЕГЭ"
   tree : =>
