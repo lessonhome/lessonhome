@@ -4,6 +4,11 @@ class @main extends EE
       if e.ctrlKey && e.altKey && @index > 0
         yield Feel.root.tree.class.$send '/relogin',@index
         yield Feel.go '/form/tutor/login',true
+      if !e.ctrlKey && !e.altKey && e.shiftKey
+        yield @$send './ratingAva','up',@index
+      else if (!e.ctrlKey) && e.altKey && e.shiftKey
+        yield @$send './ratingAva','down',@index
+
   show: =>
     @rating_photo   = @tree.rating_photo.class
     @tutor_extract  = @tree.tutor_extract.class

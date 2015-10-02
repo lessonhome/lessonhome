@@ -137,20 +137,41 @@ $photo2_width: image-width($photo2_src)
       font-size: 16px
       line-height: 24px
       color: #202020
-    .button
-      margin-top: 32px
-      height: 48px
-      width: 228px
   .left
     margin-right: 39px
     width: 298px
-    .button
-      width: 180px
   .center
     margin-right: 44px
     width: 290px
   .right
     width: 308px
+  .buttons_block
+    padding-top: 32px
+    height: 48px
+    text-align: left
+    div
+      +inline-block
+      vertical-align: top
+      height: 100%
+      text-align: center
+      .button
+        height: 100%
+        +inline-block
+    .button_wrap_motivation
+      margin-right: 39px
+      width: 298px
+      .button
+        width: 180px
+    .button_wrap_issue_bid
+      margin-right: 44px
+      width: 290px
+      .button
+        width: 228px
+    .button_wrap_callback
+      width: 308px
+      .button
+        width: 228px
+
   .bottom_pattern
     position: absolute
     z-index: 1
