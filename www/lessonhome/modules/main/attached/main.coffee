@@ -4,10 +4,6 @@
 class @main
   Dom : =>
     @html = $('html')
-    @steps = {
-      first: @tree.first
-
-    }
     @bar = @tree.bottom_bar.class
     @bar_block = @found.bottom_bar
 
@@ -31,24 +27,38 @@ class @main
     @popup_block.on 'click', @hideForm
     @btn_send.dom.on 'click', @sendForm
 
+  scrollToTop : =>
+    @popup_block.addClass('fixed').animate {
+      scrollTop : 0
+    }, 300
   sendForm : => do Q.async =>
     data = yield Feel.urlData.get 'pupil'
-    for k, step  of @steps
-      err = step.js.check data
-      console.log err
-      if err.length
-        for e in err then step.parseError e
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
-    @steps.third.save()
+    error = @js.check data
+
+    if error.correct is false
+      @scrollToTop()
+      @popup.parseError error
+    if !error['phone']?
+      {status,errs} = yield @$send('./save', data)
+      if status is 'failed'
+        @popup.parseError errs
+        return false
+      else if error.correct is true
+        @endAttach()
+        return true
+
+  endAttach : => do Q.async =>
+    yield Feel.urlData.set 'mainFilter','linked', {}
+    @hideForm()
 
   showForm : =>
     @html.css {
         overflowY : 'hidden'
         marginRight: @scrollWidth
     }
-    @popup_block.addClass('fixed').animate {
-      scrollTop : 0
-    }, 300
+    @popup_block.addClass('fixed')
+    @scrollToTop()
     return false
   hideForm : =>
     @html.css {

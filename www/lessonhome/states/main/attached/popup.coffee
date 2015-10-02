@@ -5,8 +5,6 @@ class @main
       name : @module 'tutor/forms/input' :
         text1      : 'Имя :'
         selector  : 'fast_bid'
-        pattern   : '^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,15}$'
-        errMessage: 'Введите корректное имя (имя может содержать только цифры, символы алфавита и _)'
         value     : $urlform : pupil : 'name'  #$form : person : 'first_name'
       phone : @module 'tutor/forms/input':
         text1: 'Телефон :'
@@ -19,17 +17,6 @@ class @main
       email : @module 'tutor/forms/input':
         text1: 'E-mail :'
         selector  : 'fast_bid'
-        replace   : [
-          { "(^[^\\w])" : ""}
-          { "(\\@[^\\w])" : "@"}
-          { "([^\\w\\d-\\.@])" : ""}
-        ]
-        errors :
-          bad : "Введите корректный email"
-        patterns  : [
-          "\\w.*@\\w+\\.\\w+" : "bad"
-        ]
-        errMessage  : 'Пожалуйста введите корректный email'
         value     : $urlform : pupil : 'email'
 
 #      subject :@module 'tutor/forms/drop_down_list':
