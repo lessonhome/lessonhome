@@ -9,6 +9,7 @@ class @main extends @template '../../main'
       filter : @exports()
       relevant_info : @module '$/relevant_info'  :
         photo_src : @exports()
+        alt       : @exports()
         title : @exports()
         sub_title : @exports()
         text  : @exports()

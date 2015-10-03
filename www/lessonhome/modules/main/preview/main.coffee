@@ -179,7 +179,7 @@ class @main extends EE
             o.place['area_'+key] = []
             if key == 'tutor'
               o.time_spend_way = 120
-          when /status/.test name
+          when /tutor_status/.test name
             o.tutor_status = mf.tutor_status
             key = name.replace 'status_', ''
             o.tutor_status[key] = false
@@ -188,7 +188,9 @@ class @main extends EE
             key = name.replace 'experience_', ''
             o.experience[key] = false
           when /group/.test name
-            o.group_lessons = 'не проводятся'
+            o.group_lessons = 'не важно'
+          when /pupil_status/.test name
+            o.pupil_status = 'не важно'
           when /with/.test name
             o[name] = false
           else
@@ -215,6 +217,12 @@ class @main extends EE
     else
       course = false
       set_ 'course'
+    if mf.pupil_status &&  (mf.pupil_status!='не важно')
+      set_ 'pupil_status',mf.pupil_status,'pupil_status','не важно'
+      pupil_status = true
+    else
+      pupil_status = false
+      set_ 'pupil_status'
 
     #========================= Price
 
@@ -370,7 +378,7 @@ class @main extends EE
 
 
 
-    if subject || course
+    if subject || course || pupil_status
       @advanced_filter.activate 'subject',true
     else
       @advanced_filter.activate 'subject',false

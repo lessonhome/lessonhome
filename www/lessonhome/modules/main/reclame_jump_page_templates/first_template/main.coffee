@@ -4,6 +4,8 @@
 class @main
   constructor : ->
     Wrap @
+  init : =>
+    Feel.sendActionOnce 'target_page'
   show : =>
     console.log @tree.filter
     do => Q.spawn =>
