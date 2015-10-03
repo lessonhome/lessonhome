@@ -330,8 +330,8 @@ class @main extends EE
             @select_sets.show()
             @closed = false
             lh = @list.height()*@items.size()
-#            @items.css 'line-height', @list.height()+"px"
-#            @items.css 'height', @list.height()+"px"
+            @items.css 'line-height', @list.height()+"px"
+            @items.css 'height', @list.height()+"px"
             h = @maxListHeight()
             h = lh if lh < h
             @options.height h
