@@ -1,2 +1,28 @@
 #character
   position: fixed
+
+.dialog_block
+  background-color: #e1edf7
+  text-align: center
+  padding: 48px 36px
+  border: 6px solid #666
+  p
+    font-size: 128%
+  .triangle
+    content: ' '
+    float: left
+    position: relative
+    top: 20px
+    left: -96px
+    width: 0
+    height: 0
+    border: 30px solid
+    border-color: transparent #666 transparent transparent
+
+  .triangle:before
+    content: " "
+    position: relative
+    width: 0
+    height: 0
+    border: 28px solid
+    border-color: transparent #e1edf7 transparent transparent
