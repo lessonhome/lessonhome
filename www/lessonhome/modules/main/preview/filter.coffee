@@ -182,6 +182,10 @@ cnum = 0
     if mf.gender
       continue unless mf.gender==p.gender
     do (p)=> p.sortf = (byf)-> (((p.points ? 0)*100+(p.sorts.subject ? 0))*1000)*100+(byf)
+    if mf.with_photo
+      continue if p.nophoto
+    if mf.with_verification
+      continue if p.nophoto || (p.about.length < 200)
     if !p.nophoto
       if p.about.length > 50
         out.push p
