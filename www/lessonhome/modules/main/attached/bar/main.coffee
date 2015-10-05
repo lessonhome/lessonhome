@@ -6,10 +6,12 @@ class @main
     @btn_clean = @found.clean
     @preps = @found.preps
     @panel = @found.bottom_panel
+    @carousel = @found.jcarousel
     @linked = {}
   show : =>
 #    yield @reshow()
 #    Feel.urlData.on 'change', @reshow.out
+    @carousel.jcarousel()
     @btn_clean.on 'click', =>
       do Q.async =>
         yield Feel.urlData.set 'mainFilter','linked', {}
@@ -24,6 +26,7 @@ class @main
       preps = for i in linked then preps[i]
       for prep in preps
         @preps.append yield @createDom prep
+    @carousel.jcarousel 'reload'
     @count.text "(#{linked.length})"
     return linked.length
 
@@ -36,4 +39,4 @@ class @main
         delete @linked[prep.index]
         yield Feel.urlData.set 'mainFilter','linked', @linked
       return false
-    return $('<div class="block"></div>').append el.dom
+    return $('<li class="block">').append el.dom

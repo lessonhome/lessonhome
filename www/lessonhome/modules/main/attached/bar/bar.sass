@@ -8,12 +8,21 @@ $btn_width: 180px
   a, .count
     color: #00A993
 .content
-  .preps
-    margin-right: $btn_width
-    .block
-      float: left
-      margin-right: 20px
-      margin-bottom: 10px
+  .jcarousel
+    position: relative
+    overflow: hidden
+    margin-right: 200px
+    .preps
+      width: 20000em
+      position: relative
+      /* Optional, required in this case since it's a <ul> element */
+      list-style: none
+      margin: 0
+      padding: 0
+      //margin-right: $btn_width
+      li
+        float: left
+        margin: 5px 20px 5px 5px
   .btn_attach
     float: right
     width: $btn_width
@@ -25,4 +34,3 @@ $btn_width: 180px
 .hidden
   position: fixed
   display: none
-

@@ -39,6 +39,7 @@ class @main
     if error.correct is false
       @scrollToTop()
       @popup.parseError error
+
     if !error['phone']?
       {status,errs} = yield @$send('./save', data)
       if status is 'failed'
@@ -61,6 +62,7 @@ class @main
     @popup_block.addClass('fixed')
     @scrollToTop()
     return false
+
   hideForm : =>
     @html.css {
       overflowY : 'visible'
