@@ -18,11 +18,11 @@
 @isString = (data) -> return if typeof(data) isnt 'string' then 'not_string' else true
 #@isInt = (data) -> return if data isnt '' and isNaN(parseInt data) then 'not_int' else true
 @required = (data) -> return if data is '' then 'empty_field' else true
-@isLinked = (data) ->
-  i = 0
-  for a, value of data then i++
-  if i is 0 then return 'empty'
-  return true
+#@isLinked = (data) ->
+#  i = 0
+#  for a, value of data then i++
+#  if i is 0 then return 'empty'
+#  return true
 @correctName = (data) ->
   if data is '' then return true
   reg = /^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,15}$/
@@ -65,7 +65,7 @@
 #  phone_comment: [@isString]
   phone: [@required, @isString, @isPhone]
   name: [@isString, @correctName]
-  linked: [@required, @isLinked]
+#  linked: [@required, @isLinked]
 }
 
 @check = (data, rules = @rules) =>

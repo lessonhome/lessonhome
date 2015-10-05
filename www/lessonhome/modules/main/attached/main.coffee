@@ -22,6 +22,7 @@ class @main
     @btn_send = @tree.popup.class.tree.btn_send.class
     @scrollWidth = @getScrollWidth()
   show : =>
+    @register 'bid_attached'
     @updatePanel()
     Feel.urlData.on 'change', @updatePanel
     @open_form.on 'click', => if @form_block.is ':visible' then @sendForm() else @showForm()
@@ -75,7 +76,7 @@ class @main
     if length != 0
       @bar_block.fadeIn()
     else
-      @hideForm()
+#      @hideForm()
       @bar_block.fadeOut()
   getScrollWidth : =>
     div = $('<div>').css {
