@@ -9,7 +9,10 @@ class @main
 
     for key, value of @tree.education
       unless key == '0'
+        console.log value
         @addEducation(value)
+
+    @setRemoveHandlers()
 
     @save_button = @tree.save_button?.class
     @add_button = @tree.add_button?.class
@@ -57,4 +60,27 @@ class @main
       cloned.learn_till.setValue()
     cloned.dom.appendTo('div.tutor_edit')
     @educations.push cloned
+    @setRemoveHandlers()
 
+  removeEducation : (index) =>
+    @$send('./description/education/remove', index)
+    .then ({status,errs,err})=>
+      if err?
+        errs?=[]
+        errs.push err
+      if status=='success'
+        console.log 'success'
+        @educations.splice(index,1)
+        @setRemoveHandlers()
+        console.log @educations
+      if errs?.length
+        console.log errs
+
+
+  setRemoveHandlers: () =>
+    return unless @educations?
+    i = 0
+    for form in @educations
+      ((i) =>
+        form.tree.remove_button.class.on 'submit', () => @removeEducation(i))(i)
+      i++
