@@ -42,9 +42,11 @@ class @main
 
 
 
-  save : => Q().then =>
+  save : (num)=> Q().then =>
+    data = {}
+    data[num] = @getData()
     if @check_form()
-      return @$send('./save',@getData())
+      return @$send('./save', data)
       .then @onReceive
     else
       return false

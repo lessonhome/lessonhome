@@ -113,6 +113,7 @@ class @F2V
       last  : name.lastName('dative')
     }
   $edu        : (data)-> data?.education?[0]
+  $education  : (data)-> data?.education
   $address    : (data)->
     location = data?.location
     country  = location?.country

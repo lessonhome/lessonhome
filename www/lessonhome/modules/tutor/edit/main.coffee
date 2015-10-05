@@ -2,41 +2,59 @@
 class @main
   Dom : =>
     @changes_field = @found.changes_field
+    @educations = []
   show : =>
+
+    @educations.push @tree.tutor_edit.class
+
+    for key, value of @tree.education
+      unless key == '0'
+        @addEducation(value)
+
     @save_button = @tree.save_button?.class
     @add_button = @tree.add_button?.class
 
-    #if @tree.tutor_edit?.calendar?.save_button?
-      #@save_button = @tree.tutor_edit.calendar.save_button.class
-    @tutor_edit = @tree.tutor_edit.class
-    #if @tree.tutor_edit?.calendar?
-      #@tutor_edit = @tree.tutor_edit.calendar.class
-    console.log "tutor_edit : "
-    console.log @tree.tutor_edit
-
     @save_button?.on 'submit', @b_save
-    @add_button?.on 'submit', @b_add
+    @add_button?.on 'submit', @addEducation
 
   b_save : =>
-    console.log 'tree', @tree
-    console.log 'found', @tree
-    @tutor_edit?.save?().then (success)=>
-      console.log 'tutor/edit'
-      if success
-        ###
-        @$send('./save',@progress).then ({status})=>
-          if status=='success'
+
+    i = 0
+
+    console.log @educations
+
+    for edu in @educations
+      console.log 'edu', i, edu.getData()
+      if i == @educations.length
+        edu?.save?(i).then (success)=>
+          if success
+            console.log 'All sent'
+            $('body,html').animate({scrollTop:0}, 500)
+            @changes_field.fadeIn(1000)
             return true
-        ###
-        console.log 'IS SEND!!!'
-        $('body,html').animate({scrollTop:0}, 500)
-        @changes_field.fadeIn(1000)
-        return true
-    .done()
-  b_add : =>
-    console.log 'tree',   @tree
+        .done()
+      else
+        edu?.save?(i).then (success)=>
+          if success
+            return true
+        .done()
+      i++
+
+  addEducation : (data)=>
     cloned = @tree.tutor_edit.class.$clone()
-    rep = cloned.dom
-    rep.appendTo('div.tutor_edit')
-    rep.css('visibility', 'visible')
+
+    if data?
+      for key, value of data
+        cloned[key].setValue(value)
+    else
+      cloned.country.setValue()
+      cloned.city.setValue()
+      cloned.university.setValue()
+      cloned.faculty.setValue()
+      cloned.chair.setValue()
+      cloned.qualification.setValue()
+      cloned.learn_from.setValue()
+      cloned.learn_till.setValue()
+    cloned.dom.appendTo('div.tutor_edit')
+    @educations.push cloned
 

@@ -26,6 +26,7 @@ class @main extends @template '../tutor'
         text      : 'Добавить образование'
         selector  : 'edit_add'
       possibility_save_button :  true               # this property responds for save button
+      education : $form : person : 'education'
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
     @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']

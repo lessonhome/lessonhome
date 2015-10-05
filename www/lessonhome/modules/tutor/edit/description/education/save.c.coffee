@@ -2,15 +2,21 @@
 #check = require("./check")
 
 @handler = ($,data)=>
-  console.log data
-  errs = []
-  #errs = check.check errs,data
+
+  qObj = {}
+
+  for key, value of data
+    qObj["education.#{key}"] = value
+
   return unless $.user.tutor
-  if errs.length
-    return {status:'failed',errs:errs}
 
   db= yield $.db.get 'persons'
-  yield _invoke db, 'update',{account:$.user.id},{$set:{education:[{country:data.country, city:data.city, name:data.university, faculty:data.faculty, chair:data.chair, qualification:data.qualification, period:{start:data.learn_from, end:data.learn_till} }]}},{upsert:true}
+  persons = yield _invoke db.find({account:$.user.id},{education:1}), 'toArray'
+  education = persons?[0]?.education?
+  if education?.push?
+    yield _invoke db, 'update',{account:$.user.id},{$unset: {education: {}}},{upsert:true}
+
+  yield _invoke db, 'update',{account:$.user.id},{$set: qObj},{upsert:true}
   yield $.form.flush '*',$.req,$.res
 
   return {status:'success'}
