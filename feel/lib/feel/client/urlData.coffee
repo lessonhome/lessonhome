@@ -185,6 +185,7 @@ class @urlData
     hash = ''
     o.url ?= History.getState().url
     hash += (yield @filter o.url,'filter') ? ''
+    console.log 'urlData.filterHash', hash
     return hash
   ###
   emitChange : =>

@@ -22,6 +22,9 @@ class @main extends @template '../tutor'
       save_button       : @module 'tutor/button' :
         text      : 'Сохранить'
         selector  : 'edit_save'
+      add_button       : @module 'tutor/button' :
+        text      : 'Добавить образование'
+        selector  : 'edit_add'
       possibility_save_button :  true               # this property responds for save button
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'

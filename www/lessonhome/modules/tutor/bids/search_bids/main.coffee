@@ -24,7 +24,7 @@ class @main extends EE
       @show_extra_filters.show()
 
 
-    console.log @tree
+    console.log Feel
 
     @tree.subject.class.on 'change', => @emit 'change', {subject: @tree.subject.class.getValue()}
 
@@ -71,6 +71,8 @@ class @main extends EE
         @updateFilter key, val
 
   updateFilter: (prop, data) =>
+    console.log yield Feel.dataM.getBids 0, 10
+    ###
     console.log 'upd', @filter, prop, data
 
     switch true
@@ -82,15 +84,11 @@ class @main extends EE
             @filter.time_spend_way = prop.replace 'road_time_', ''
 
             console.log @tree[prop].class.getValue()
-            #console.log @tree.road_time_30.class.getValue()
-            #console.log @tree.road_time_45.class.getValue()
-            #console.log @tree.road_time_60.class.getValue()
-            #console.log @tree.road_time_90.class.getValue()
-            #console.log @tree.road_time_120.class.getValue()
-
 
 
       else
         @filter[prop] = data
 
     console.log 'updated', @filter
+
+    ###
