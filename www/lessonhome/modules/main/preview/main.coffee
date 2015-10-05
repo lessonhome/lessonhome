@@ -179,7 +179,7 @@ class @main extends EE
             o.place['area_'+key] = []
             if key == 'tutor'
               o.time_spend_way = 120
-          when /tutor_status/.test name
+          when /^status/.test name
             o.tutor_status = mf.tutor_status
             key = name.replace 'status_', ''
             o.tutor_status[key] = false
@@ -377,6 +377,10 @@ class @main extends EE
 
     #======================= Photos
 
+    if mf.with_photo
+      set_ 'with_photo', 'Только с фото'
+    else
+      set_ 'with_photo'
 
 
     if subject || course || pupil_status
