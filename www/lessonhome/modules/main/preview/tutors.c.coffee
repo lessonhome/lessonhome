@@ -109,8 +109,10 @@ class Tutors
       t = obj.tutor
       p = obj.person
       obj.rating = JSON.stringify(obj).length*(obj?.person?.ratio ? 1.0)
+      obj.nophoto = false
       unless obj.person?.avatar?[0]?
         obj.rating *= 0.5
+        obj.nophoto = true
       unless (obj.tutor?.about ? "")?.length>10
         obj.rating *= 0.5
       rmax = Math.max(rmax ? obj.rating,obj.rating)
@@ -125,6 +127,7 @@ class Tutors
       obj.registerTime = o.account.registerTime?.getTime?() ? 0
       obj.accessTime = o.account.accessTime?.getTime?() ? 0
       obj.rating = o.rating
+      obj.nophoto = o.nophoto
       obj.account = account
       obj.phone = p.phone
       obj.email = p.email
@@ -144,6 +147,14 @@ class Tutors
       obj.gender  = p.sex
       obj.place = {}
       obj.reason = t?.reason
+      obj.left_price = null
+      cLeft = (p,time=60,exists=true)->
+        return unless p && (p > 0)
+        return if obj.left_price && (!exists)
+        p *= 60/time
+        obj.left_price = p if (obj.left_price > p) || (!obj.left_price)
+      obj.newl = null
+
       for ind,val of t?.subjects
         ns = obj.subjects[val.name] = {}
         ns.description = val.description
@@ -174,16 +185,19 @@ class Tutors
         ns.price.left  = 600    unless ns.price.left > 0
         ns.duration.right = 180 unless ns.duration.right > 0
         ns.duration.left  = 90  unless ns.duration.left > 0
-
+        
         ns.place_prices = {}
         for place, prices of val.place_prices
           ns.place_prices[place] = {}
           ns.place_prices[place]['v60'] = prices[0] if prices[0] isnt ''
           ns.place_prices[place]['v90'] = prices[1] if prices[1] isnt ''
           ns.place_prices[place]['v120'] = prices[2] if prices[2] isnt ''
-
+          cLeft prices[0]
+          cLeft prices[1],90,false
+          cLeft prices[2],120,false
         l = ns.price.left*60/ns.duration.left
         r = ns.price.right*60/ns.duration.right
+        obj.newl = l if (!obj.newl) || (obj.newl > l)
         ns.price_per_hour  = 0.5*(r+l)
         obj.price_left  = Math.round(Math.min(obj.price_left ? ns.price.left,ns.price.left)/50)*50
         obj.price_right = Math.round(Math.max(obj.price_right ? ns.price.right, ns.price.right)/50)*50
@@ -192,6 +206,9 @@ class Tutors
         obj.price_per_hour = Math.round(ns.price_per_hour/50)*50
         for key,val of val?.place
           obj.place[val] = true
+
+      cLeft obj.newl,60,false
+      obj.left_price = Math.round(obj.left_price/50)*50
       obj.experience = t?.experience
       if !obj.experience || (obj.experience == 'неважно')
         obj.experience = '1-2 года'

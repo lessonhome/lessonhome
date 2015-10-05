@@ -115,6 +115,8 @@ class @main extends EE
     @found.disabled.click onfocus
     @input.on 'focus', @hideError
     @found.disabled.click @hideError
+    if @input.height()>1
+      @found.sub_input.css 'line-height',@input.height()+'px'
     @input.on 'focusout', =>
       return if !@isFocus
       @isFocus = false
