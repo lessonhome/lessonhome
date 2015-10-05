@@ -34,8 +34,9 @@ main
   margin: 150px 60px 0 60px
 .issue_bids_block
   padding: 24px 0
-  background-color: #E0E0E0
+  background-color: #EFEFEF
   text-align: center
+  margin-bottom: 24px
   .text_block
     padding-right: 24px
     +inline-block
@@ -72,44 +73,6 @@ main
       &:hover
         color: $red_dark
 .advanced_filter
-  .tags
-    +inline-block
-    width : 100%
-    float : left
-    padding : 10px
-    +box-sizing(border-box)
-    .tag
-      opacity : 0.6
-      text-align : left
-      position : relative
-      float : left
-      +inline-block
-      display : none
-      line-height : 19px
-      font-size : 14px
-      margin : 3px
-      background-color: #dbdbdb
-      border: 1px solid rgba(0, 0, 0, 0.1)
-      cursor: pointer
-      padding : 2px 20px 3px 4px
-      +box-sizing(border-box)
-      border-radius : 4px
-      .close
-        position : absolute
-        right : 4px
-        top : 0
-        width : 12px
-        height : 12px
-        top : 12.8px
-        +transform(translateY(-50%))
-        background: 3px 3px url(F("close_time.png")) no-repeat
-        background-color: #EEE
-    .tag:hover
-      border: 1px solid rgba(0, 0, 0, 0.4)
-      background-color: #ebebeb
-      .close
-        background-color: #FFF
-        
   .filter
     width: 100%
     +inline-block
@@ -121,6 +84,8 @@ main
   .sort
     height: 48px
     margin-bottom: 12px
+    float: left
+    width: 648px
 
   .choose_tutors_block
     padding-bottom: 10px
@@ -228,6 +193,7 @@ main
         margin-right: 18px
   .tutors_result
     opacity : 0
+    float: left
     +transition(opacity 400ms ease-out)
     .tutor_result
       margin-bottom: 18px
@@ -240,6 +206,41 @@ main
         opacity : 1 
     .tutor_result:hover
       background-color: #e5e5e5
-
+  .tags
+    +inline-block
+    width : 100%
+    padding: 10px 0
+    color: rgb(0, 56, 64)
+    +box-sizing(border-box)
+    .tag
+      opacity : 0.6
+      text-align : left
+      position : relative
+      float : left
+      +inline-block
+      display : none
+      line-height : 19px
+      font-size : 14px
+      margin : 3px
+      background-color: rgba(0, 187, 211, 0.51)
+      border: 1px solid rgba(0, 0, 0, 0.1)
+      cursor: pointer
+      padding : 2px 20px 3px 4px
+      +box-sizing(border-box)
+      border-radius : 4px
+      .close
+        position : absolute
+        right : 4px
+        top : 0
+        width : 12px
+        height : 12px
+        top : 12.8px
+        +transform(translateY(-50%))
+        background: 3px 3px url(F("close_time.png")) no-repeat
+    .tag:hover
+      background: rgb(0, 187, 211)
+      border: 1px solid rgba(0,0,0,0.1)
+      .close
+        color: rgba(255,255,255,0.35)
 
 

@@ -8,12 +8,21 @@ if bid_issue_button
       .title_sub Оставьте заявку и мы Вам поможем!
     .bid_issue_button!=bid_issue_button
 .advanced_filter
+
+  //.js-reset_all_filters
+    .icon
+    .title сбросить все фильтры
+  .filter!=advanced_filter
+.result_filter
   .tags
     .tag
       .js-tsubject
       .close
     .tag
       .js-tcourse
+      .close
+    .tag
+      .js-tpupil_status
       .close
     .tag
       .js-tprice
@@ -60,19 +69,12 @@ if bid_issue_button
     .tag
       .js-twith_reviews
       .close
-    .tag 
+    .tag
       .js-twith_verification
       .close
     .tag
       .js-twith_photo
       .close
-
-
-  //.js-reset_all_filters
-    .icon
-    .title сбросить все фильтры
-  .filter!=advanced_filter
-.result_filter
   .sort!=sort
   //.js-profiles_on_page
     .title Анкет на странице :

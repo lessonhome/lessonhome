@@ -96,13 +96,13 @@ $photo2_width: image-width($photo2_src)
   .title
     text-align: left
     padding-left: 85px
-    margin: 24px 0 42px 0
-    font-size: 20px
+    margin: 24px 0 31px 0
+    font-size: 24px
     line-height: 24px
     color: #202020
   .reps
-    margin-bottom: 60px
-    height: 836px
+    //margin-bottom: 60px
+    //height: 836px
     .rep
       width: 480px //228px
       margin: 0 12px
@@ -137,20 +137,41 @@ $photo2_width: image-width($photo2_src)
       font-size: 16px
       line-height: 24px
       color: #202020
-    .button
-      margin-top: 32px
-      height: 48px
-      width: 228px
   .left
     margin-right: 39px
     width: 298px
-    .button
-      width: 180px
   .center
     margin-right: 44px
     width: 290px
   .right
     width: 308px
+  .buttons_block
+    padding-top: 32px
+    height: 48px
+    text-align: left
+    div
+      +inline-block
+      vertical-align: top
+      height: 100%
+      text-align: center
+      .button
+        height: 100%
+        +inline-block
+    .button_wrap_motivation
+      margin-right: 39px
+      width: 298px
+      .button
+        width: 180px
+    .button_wrap_issue_bid
+      margin-right: 44px
+      width: 290px
+      .button
+        width: 228px
+    .button_wrap_callback
+      width: 308px
+      .button
+        width: 228px
+
   .bottom_pattern
     position: absolute
     z-index: 1
@@ -213,7 +234,7 @@ $main_pattern_top_src: 'main/main_pattern_top.jpg'
         +inline-block
         vertical-align: top
       .photo_wrap
-        padding-top: 102px
+        padding-top: 80px
         margin-right: 52px
         .photo
           width: 114px
@@ -228,29 +249,28 @@ $main_pattern_top_src: 'main/main_pattern_top.jpg'
       .text_box
         position: relative
         width: 312px
-        height: 240px
+        height: 210px
         box-sizing: border-box
-        padding-top: 24px
         background-color: #fff
         box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.40)
         .quotes_wrap, .text
           +inline-block
           vertical-align: top
         .quotes_wrap
-          width: 72px
-          height: 100%
-          box-sizing: border-box
-          padding-left: 24px
+          position : absolute
+          padding-left: 9px
+          padding-top : 14px
           .quotes
             width: $quotes_width
             height: $quotes_height
             background: url(F($quotes_src)) no-repeat
         .text
-          width: 240px
+          width: 238px
           text-align: left
-          font-size: 16px
-          line-height: 24px
+          font-size: 15px
+          line-height: 22px
           color: #202020
+          padding : 42px 48px
         .triangle
           position: absolute
           bottom: 48px
@@ -258,7 +278,8 @@ $main_pattern_top_src: 'main/main_pattern_top.jpg'
           width:  $triangle_width
           height: $triangle_height
           background: url(F($triangle_src)) no-repeat
-
+        
+        
     .review.first
       .photo_wrap
         .photo

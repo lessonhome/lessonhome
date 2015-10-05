@@ -26,20 +26,23 @@ class @main
     }
 
     @subjects = []
-    @_exist = {}
 
     for key, values of @data
-      @addNewSubject values
+      @addNewSubject(values).show()
 
+    if @subjects.length is 0 then @addNewSubject(null, true).show()
 
-    @btn_add.click =>
+    @btn_add.addClass('active').click =>
       if @btn_add.is '.active'
         @btn_add.removeClass 'active'
-        obj = @addNewSubject null, =>
-          obj.slideDown()
-          @btn_add.addClass 'active'
+        obj = @addNewSubject(null, true).slideDown 500
+        @emptyErrorHide()
+        @btn_add.addClass 'active'
 
-
+    $(document).on 'click', (e) =>
+      for sub in @subjects
+        if sub.is_removed is true
+          sub.onRestore()
 
 
 #    for i,subject of @tree.subjects
@@ -83,48 +86,58 @@ class @main
       @parseError errors
       return false
 
-  addNewSubject : (values, callback) =>
-    console.time 'big'
-    console.time 'start'
+  addNewSubject : (values, is_open = false) =>
     obj = @subject.$clone()
-    console.timeEnd 'start'
     obj.setDirection @training_direction
     if values
       obj.setValue values
-    do (i = @subjects.length) =>
-      @subjects.push obj
+    if @subjects.length == 0
+      obj.btn_copy.hide()
+    @subjects.push obj
 
-      obj.children.name.on 'focus', (e) =>
-        obj.setNames @getNames()
+    obj.children.name.on 'focus', (e) =>
+      obj.setNames @getNames()
 
-      if i is 0
-        obj.btn_copy.hide()
-      else if i > 0
-        obj.btn_copy.on 'click', =>
-          settings = @subjects[i - 1].getValue()
-          delete settings['name']
-          delete settings['comments']
-          obj.setValue settings
+    obj.btn_copy.on 'click', =>
+      i = @getIndex obj
+      if i > 0
+        settings = @subjects[i - 1].getValue()
+        delete settings['name']
+        delete settings['comments']
+        obj.setValue settings
+      return false
 
 
-
-      obj.btn_delete.on 'click', =>
+    obj.btn_delete.on 'click', =>
+      if (i = @getIndex obj) >= 0
         @subjects.splice i, 1
 
         obj.btn_copy.off 'click'
         obj.btn_delete.off 'click'
         obj.children.name.off 'focus'
 
-        obj.dom.closest('.block').slideUp 200, ->
+        obj.dom.closest('.block').slideUp 200, =>
           obj.readyToRemove()
           obj.dom.remove()
-      console.timeEnd 'big'
-    obj.container.stop(true, true).show()
+          if @subjects.length > 0
+            @subjects[0].btn_copy.hide()
+      return false
+
+    if is_open then obj.showSettings()
     block = $('<div class="block"></div>').hide().append obj.dom
     @container.append block
-    block.slideDown 300, callback
-    return obj
+    return block
 
+  getIndex : (sub) =>
+    sub.flag = true
+    for _sub, i in @subjects
+      if _sub.flag is true
+        _sub.flag = false
+        if sub.flag is false then break
+    if sub.flag is true
+      sub.flag = false
+      return -1
+    return i
   onReceive : ({status,errs,err})=>
     if err?
       errs?={}
@@ -138,19 +151,29 @@ class @main
       @parseError errs
     return false
 
+  emptyErrorShow : (text) =>
+    @error_empty.text(text).slideDown 200
+
+  emptyErrorHide : =>
+    @error_empty.slideUp 200
+
   parseError : (errors) =>
     if errors['empty']?
-      @error_empty.text "Это лессон-хом, Виктория"
+      @emptyErrorShow "Добавьте хотя бы один предмет."
     else
+      @emptyErrorHide()
+#      i = 0
       for cl, i in @subjects
-        if not cl.is_removed
-          if errors[i]?
-            if errors[i].correct isnt true then cl.slideDown()
-            cl.parseError errors[i]
-          else
-            cl.resetError()
-            if errors.correct is false then cl.slideUp()
-
+#        if not cl.is_removed
+        if errors[i]?
+          if errors[i].correct isnt true
+            cl.onRestore()
+            cl.slideDown()
+          cl.parseError errors[i]
+        else
+          cl.resetError()
+          if errors.correct is false then cl.slideUp()
+#          i++
 
 #  check_form : =>
 #    errs = @js.check @getData()
@@ -179,8 +202,10 @@ class @main
     data = {
       subjects_val : {}
     }
+#    i = 0
     for sub, i in @subjects
-      if not sub.is_removed then data.subjects_val[i] = sub.getValue()
+#      if not sub.is_removed then
+      data.subjects_val[i] = sub.getValue()
     return data
 
 #    @subjects_val = {}
