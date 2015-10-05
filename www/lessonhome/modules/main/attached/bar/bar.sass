@@ -1,5 +1,18 @@
 @import base
 $btn_width: 180px
+$left : 'ic_keyboard_arrow_left_black_36dp_1x.png'
+$right : 'ic_keyboard_arrow_right_black_36dp_1x.png'
+=nav($ico)
+  cursor: pointer
+  position: absolute
+  top: 0
+  bottom: 0
+  margin: auto 0
+  background: url(F($ico))
+  width: image-width($ico)
+  height : image-height($ico)
+  &.inactive
+    opacity: 0.1
 .title
   font-size: 16px
   margin-bottom: 10px
@@ -8,21 +21,26 @@ $btn_width: 180px
   a, .count
     color: #00A993
 .content
-  .jcarousel
+  .carousel
     position: relative
-    overflow: hidden
-    margin-right: 200px
-    .preps
-      width: 20000em
+    margin-right: $btn_width
+    //padding: 0 50px
+    .left
+      left: 0
+      +nav($left)
+    .right
+      right: 0
+      +nav($right)
+
+    .jcarousel
       position: relative
-      /* Optional, required in this case since it's a <ul> element */
-      list-style: none
-      margin: 0
-      padding: 0
-      //margin-right: $btn_width
-      li
-        float: left
-        margin: 5px 20px 5px 5px
+      overflow: auto
+      margin-right: 20px
+      .preps
+        white-space: nowrap
+        li.block
+          +inline-block()
+          padding: 5px 10px 10px
   .btn_attach
     float: right
     width: $btn_width

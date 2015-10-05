@@ -46,12 +46,9 @@ class @main
         @popup.parseError errs
         return false
       else if error.correct is true
-        @endAttach()
+        yield Feel.urlData.set 'mainFilter','linked', {}
+        @hideForm()
         return true
-
-  endAttach : => do Q.async =>
-    yield Feel.urlData.set 'mainFilter','linked', {}
-    @hideForm()
 
   showForm : =>
     @popup_block.show('slow')
@@ -75,6 +72,7 @@ class @main
     if length != 0
       @bar_block.fadeIn()
     else
+      @hideForm()
       @bar_block.fadeOut()
   getScrollWidth : =>
     div = $('<div>').css {
