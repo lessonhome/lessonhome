@@ -12,6 +12,7 @@ class @main
     @container = @found.container
     @prices_place = @found.prices_place
     @price_group = @found.price_group
+    @out_err_course = @found.out_err_course
     #####
     @flag = false
     @is_removed = false
@@ -94,7 +95,7 @@ class @main
     @children.name.on 'change', @onChangeName
     @restore_block.on 'click', (e) => e.stopPropagation()
     @children.name.setErrorDiv @found.error_name
-    #@course           .setErrorDiv @out_err_course
+    @children.course.setErrorDiv @out_err_course
 #      @group_learning   .setErrorDiv @out_err_group_learning
 #      @pre_school       .setErrorDiv @out_err_categories_of_students
 #      @place_tutor      .setErrorDiv @out_err_place
@@ -102,7 +103,7 @@ class @main
 #    @group_learning   .setErrorDiv @out_err_group_learning
 
     # clear error
-    #@course.on            'focus',  => @course.hideError()
+#    course.on            'focus',  => @course.hideError()
 #      @group_learning.on    'focus',  => @group_learning.hideError()
 #      @pre_school.on        'change', => @pre_school.hideError()
 #      @junior_school.on     'change', => @junior_school.hideError()
@@ -224,6 +225,10 @@ class @main
       else if errors['name'] is 'match_name' then @children.name.showError 'Такой предмет уже существует'
     else
       @children.name.hideError()
+    if errors['course']?
+      if errors['course'] is 'long_tag' then @children.course.showError 'Максимальная длинна одного тега - 80 символов'
+      else if errors['course'] is 'to_many_tags' then @children.course.showError 'Пожалуйста, уменьшите количество тегов'
+    else @children.course.hideError()
     if errors['students']?
       @showErrBlock @students, 'Выберите категории учеников'
     else

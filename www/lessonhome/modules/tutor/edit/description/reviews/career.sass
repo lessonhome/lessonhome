@@ -1,0 +1,24 @@
+@import base
+
+
+.content
+  +inline-block
+  width : 100%
+  .reviews
+    +inline-block
+    width : 100%
+
+    .review_block
+      margin-bottom : 10px
+      +inline-block
+      padding : 5px
+      +box-sizing(border-box)
+      width : 100%
+      +box-shadow( 0 0 10px rgba(0,0,0,0.4))
+    .hidden
+      display : none
+.content .reviews .review_block
+  position : relative
+.content .add_button
+  height : 40px
+  width : 100%
