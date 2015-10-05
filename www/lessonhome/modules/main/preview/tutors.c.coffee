@@ -148,12 +148,19 @@ class Tutors
       obj.place = {}
       obj.reason = t?.reason
       obj.left_price = null
+      obj.right_price = null
       cLeft = (p,time=60,exists=true)->
         return unless p && (p > 0)
         return if obj.left_price && (!exists)
         p *= 60/time
         obj.left_price = p if (obj.left_price > p) || (!obj.left_price)
+      cRight = (p,time=60,exists=true)->
+        return unless p && (p > 0)
+        return if obj.right_price && (!exists)
+        p *= 60/time
+        obj.right_price = p if (obj.right_price < p) || (!obj.right_price)
       obj.newl = null
+      obj.newr = null
 
       for ind,val of t?.subjects
         ns = obj.subjects[val.name] = {}
@@ -195,9 +202,13 @@ class Tutors
           cLeft prices[0]
           cLeft prices[1],90,false
           cLeft prices[2],120,false
+          cRight prices[0]
+          cRight prices[1],90,false
+          cRight prices[2],120,false
         l = ns.price.left*60/ns.duration.left
         r = ns.price.right*60/ns.duration.right
         obj.newl = l if (!obj.newl) || (obj.newl > l)
+        obj.newr = r if (!obj.newr) || (obj.newr > r)
         ns.price_per_hour  = 0.5*(r+l)
         obj.price_left  = Math.round(Math.min(obj.price_left ? ns.price.left,ns.price.left)/50)*50
         obj.price_right = Math.round(Math.max(obj.price_right ? ns.price.right, ns.price.right)/50)*50
@@ -208,7 +219,9 @@ class Tutors
           obj.place[val] = true
 
       cLeft obj.newl,60,false
+      cRight obj.newr,60,false
       obj.left_price = Math.round(obj.left_price/50)*50
+      obj.right_price = Math.round(obj.right_price/50)*50
       obj.experience = t?.experience
       if !obj.experience || (obj.experience == 'неважно')
         obj.experience = '1-2 года'
