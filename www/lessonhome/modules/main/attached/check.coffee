@@ -13,10 +13,10 @@
 #      errs.push 'wrong_phone'
 #  return errs
 
-@isBool = (data) -> return if typeof(data) isnt 'boolean' then "not_bool" else true
-@isFill = (data) -> return if data isnt '' then true else false
+#@isBool = (data) -> return if typeof(data) isnt 'boolean' then "not_bool" else true
+#@isFill = (data) -> return if data isnt '' then true else false
 @isString = (data) -> return if typeof(data) isnt 'string' then 'not_string' else true
-@isInt = (data) -> return if data isnt '' and isNaN(parseInt data) then 'not_int' else true
+#@isInt = (data) -> return if data isnt '' and isNaN(parseInt data) then 'not_int' else true
 @required = (data) -> return if data is '' then 'empty_field' else true
 @isLinked = (data) ->
   i = 0
@@ -36,33 +36,33 @@
   reg = /^\w+@\w+\.\w+$/
   return if reg.test(data) then true else 'wrong_email'
 
-@status = {
-  high_school_teacher:[@isBool]
-  native_speaker:[@isBool]
-  school_teacher:[@isBool]
-  student:[@isBool]
-}
+#@status = {
+#  high_school_teacher:[@isBool]
+#  native_speaker:[@isBool]
+#  school_teacher:[@isBool]
+#  student:[@isBool]
+#}
 
-@price = {
-  left : [@isInt]
-  right : [@isInt]
-}
+#@price = {
+#  left : [@isInt]
+#  right : [@isInt]
+#}
 
-@duration = {
-  left : [@isInt]
-  right : [@isInt]
-}
+#@duration = {
+#  left : [@isInt]
+#  right : [@isInt]
+#}
 
 @rules = {
   gender: [@isString]
   experience: [@isString]
-  status: [@status]
-  price: [@price]
-  duration: [@duration]
-  subject_comment: [@isString]
+#  status: [@status]
+#  price: [@price]
+#  duration: [@duration]
+#  subject_comment: [@isString]
   subject: [@isString]
   email: [@isString, @isEmail]
-  phone_comment: [@isString]
+#  phone_comment: [@isString]
   phone: [@required, @isString, @isPhone]
   name: [@isString, @correctName]
   linked: [@required, @isLinked]

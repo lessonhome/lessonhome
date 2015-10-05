@@ -16,13 +16,15 @@ class @main
       third : @popup.tree.third.class
     }
 
+    @open_form = @bar.tree.button_attach.class.dom
+
     @form_block = @found.popup
     @btn_send = @tree.popup.class.tree.btn_send.class
     @scrollWidth = @getScrollWidth()
   show : =>
     @updatePanel()
     Feel.urlData.on 'change', @updatePanel
-    @bar.tree.button_attach.class.dom.on 'click', @showForm
+    @open_form.on 'click', => if @form_block.is ':visible' then @sendForm() else @showForm()
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
     @btn_send.dom.on 'click', @sendForm
@@ -48,6 +50,7 @@ class @main
       else if error.correct is true
         yield Feel.urlData.set 'mainFilter','linked', {}
         @hideForm()
+        Feel.go '/fast_bid/fourth_step'
         return true
 
   showForm : =>
