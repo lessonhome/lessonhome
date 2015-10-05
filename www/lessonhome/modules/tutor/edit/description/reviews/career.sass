@@ -9,41 +9,16 @@
     width : 100%
 
     .review_block
+      margin-bottom : 10px
       +inline-block
+      padding : 5px
+      +box-sizing(border-box)
       width : 100%
-      padding : 40px
-      margin : 30px 30px
       +box-shadow( 0 0 10px rgba(0,0,0,0.4))
     .hidden
       display : none
 .content .reviews .review_block
   position : relative
-  *
-    +inline-block
-    text-align : left
-    float : left
-    width : 100%
-    line-height : 30px
-    font-size : 17px
-    margin-bottom : 10px
-  .title
-    +inline-block
-    line-height : 30px
-    line-height : 30px
-    font-size : 18px
-    float : left
-  .subject,.course
-    width : 80%
-  .name,.date,.comment,.review
-    width : 80%
-    font-size : 30px
-  .remove_button
-    height : 30px
-    width : 20%
-    position : absolute
-    top : 20px
-    right : 20px
 .content .add_button
-  height : 30px
-  padding : 20px
-  width : 50%
+  height : 40px
+  width : 100%

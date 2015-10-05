@@ -19,6 +19,7 @@ class @main
         smart : true
         self : true
         value     : ''
+        items : ['ЕГЭ','ОГЭ','ГИА','ДВИ','олимпиады','IELTS','TOEFL','ESOL']
       tags: ''
       value : $urlform : mainFilter : 'course'
     pupil_status : @module 'tutor/forms/drop_down_list:type1'  :

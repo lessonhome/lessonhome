@@ -4,9 +4,9 @@ label(class=selector)
   if text
     .text.select!=text
   if height
-    textarea(style="height : #{height}", placeholder=placeholder maxlength="300")!=value
+    textarea.js-input(style="height : #{height}", placeholder=placeholder)!=value
   else
-    textarea(style="height : 100%", placeholder=placeholder maxlength="300")!=value
+    textarea.js-input(style="height : 100%", placeholder=placeholder)!=value
 
 
 
