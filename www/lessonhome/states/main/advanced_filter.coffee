@@ -153,4 +153,4 @@ class @main
     this_photo : @module 'tutor/forms/checkbox'  :
       text      : 'только c фото'
       selector  : 'small'
-      #value     : $urlform : mainFilter : 'with_verification'
+      value     : $urlform : mainFilter : 'with_photo'

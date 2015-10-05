@@ -14,10 +14,13 @@ else
 cnum = 0
 @filter = (input,mf)=> do Q.async =>
   out = []
+  out2 = []
+  out3 = []
+  out4 = []
   _out = []
   for acc,p of input
     continue unless p?.name?.first
-    continue unless p.price_left <= mf?.price?.right
+    continue unless p.left_price <= mf?.price?.right
     continue unless p.price_right >= mf?.price?.left
     p.sorts = {}
     unless _isNode
@@ -179,40 +182,85 @@ cnum = 0
     if mf.gender
       continue unless mf.gender==p.gender
     do (p)=> p.sortf = (byf)-> (((p.points ? 0)*100+(p.sorts.subject ? 0))*1000)*100+(byf)
-    out.push p
+    if mf.with_photo
+      continue if p.nophoto
+    if mf.with_verification
+      continue if p.nophoto || (p.about.length < 200)
+    if !p.nophoto
+      if p.about.length > 50
+        out.push p
+      else
+        out2.push p
+    else
+      if p.about.length > 50
+        out3.push p
+      else
+        out4.push p
+
   nd = new Date().getTime()
   switch mf.sort
     when 'rating'
       out.sort (a,b)=> -(a.sortf(a.rating/5)-b.sortf(b.rating/5))
+      out2.sort (a,b)=> -(a.sortf(a.rating/5)-b.sortf(b.rating/5))
+      out3.sort (a,b)=> -(a.sortf(a.rating/5)-b.sortf(b.rating/5))
+      out4.sort (a,b)=> -(a.sortf(a.rating/5)-b.sortf(b.rating/5))
       _out.sort (a,b)=> -(a.sortf(a.rating/5)-b.sortf(b.rating/5))
     when '-rating'
       out.sort (a,b)=> -(a.sortf(5/a.rating)-b.sortf(5/b.rating))
+      out2.sort (a,b)=> -(a.sortf(5/a.rating)-b.sortf(5/b.rating))
+      out3.sort (a,b)=> -(a.sortf(5/a.rating)-b.sortf(5/b.rating))
+      out4.sort (a,b)=> -(a.sortf(5/a.rating)-b.sortf(5/b.rating))
       _out.sort (a,b)=> -(a.sortf(5/a.rating)-b.sortf(5/b.rating))
     when 'price'
-      out.sort (a,b)=>-(a.sortf(5000/a.price_left)-b.sortf(5000/b.price_left))
-      _out.sort (a,b)=>-(a.sortf(5000/a.price_left)-b.sortf(5000/b.price_left))
+      out.sort (a,b)=>-(a.sortf(5000/a.left_price)-b.sortf(5000/b.left_price))
+      out2.sort (a,b)=>-(a.sortf(5000/a.left_price)-b.sortf(5000/b.left_price))
+      out3.sort (a,b)=>-(a.sortf(5000/a.left_price)-b.sortf(5000/b.left_price))
+      out4.sort (a,b)=>-(a.sortf(5000/a.left_price)-b.sortf(5000/b.left_price))
+      _out.sort (a,b)=>-(a.sortf(5000/a.left_price)-b.sortf(5000/b.left_price))
     when '-price'
-      out.sort (a,b)=> -(a.sortf(a.price_left/5000)-b.sortf(b.price_left/5000))
-      _out.sort (a,b)=> -(a.sortf(a.price_left/5000)-b.sortf(b.price_left/5000))
+      out.sort (a,b)=> -(a.sortf(a.left_price/5000)-b.sortf(b.left_price/5000))
+      out2.sort (a,b)=> -(a.sortf(a.left_price/5000)-b.sortf(b.left_price/5000))
+      out3.sort (a,b)=> -(a.sortf(a.left_price/5000)-b.sortf(b.left_price/5000))
+      out4.sort (a,b)=> -(a.sortf(a.left_price/5000)-b.sortf(b.left_price/5000))
+      _out.sort (a,b)=> -(a.sortf(a.left_price/5000)-b.sortf(b.left_price/5000))
     when 'experience'
       out.sort (a,b)=> -(a.sortf(ex(a.experience)/10)-b.sortf(ex(b.experience)/10))
+      out2.sort (a,b)=> -(a.sortf(ex(a.experience)/10)-b.sortf(ex(b.experience)/10))
+      out3.sort (a,b)=> -(a.sortf(ex(a.experience)/10)-b.sortf(ex(b.experience)/10))
+      out4.sort (a,b)=> -(a.sortf(ex(a.experience)/10)-b.sortf(ex(b.experience)/10))
       _out.sort (a,b)=> -(a.sortf(ex(a.experience)/10)-b.sortf(ex(b.experience)/10))
     when '-experience'
       out.sort (a,b)=> -(a.sortf(10/ex(a.experience))-b.sortf(10/ex(b.experience)))
+      out2.sort (a,b)=> -(a.sortf(10/ex(a.experience))-b.sortf(10/ex(b.experience)))
+      out3.sort (a,b)=> -(a.sortf(10/ex(a.experience))-b.sortf(10/ex(b.experience)))
+      out4.sort (a,b)=> -(a.sortf(10/ex(a.experience))-b.sortf(10/ex(b.experience)))
       _out.sort (a,b)=> -(a.sortf(10/ex(a.experience))-b.sortf(10/ex(b.experience)))
     when 'register'
       out.sort (a,b)=> -(a.sortf(a.registerTime/nd)-b.sortf(b.registerTime/nd))
+      out2.sort (a,b)=> -(a.sortf(a.registerTime/nd)-b.sortf(b.registerTime/nd))
+      out3.sort (a,b)=> -(a.sortf(a.registerTime/nd)-b.sortf(b.registerTime/nd))
+      out4.sort (a,b)=> -(a.sortf(a.registerTime/nd)-b.sortf(b.registerTime/nd))
       _out.sort (a,b)=> -(a.sortf(a.registerTime/nd)-b.sortf(b.registerTime/nd))
     when '-register'
       out.sort (a,b)=> -(a.sortf(nd/a.registerTime)-b.sortf(nd/b.registerTime))
+      out2.sort (a,b)=> -(a.sortf(nd/a.registerTime)-b.sortf(nd/b.registerTime))
+      out3.sort (a,b)=> -(a.sortf(nd/a.registerTime)-b.sortf(nd/b.registerTime))
+      out4.sort (a,b)=> -(a.sortf(nd/a.registerTime)-b.sortf(nd/b.registerTime))
       _out.sort (a,b)=> -(a.sortf(nd/a.registerTime)-b.sortf(nd/b.registerTime))
     when 'access'
       out.sort (a,b)=> -(a.sortf(a.accessTime/nd)-b.sortf(b.accessTime/nd))
+      out2.sort (a,b)=> -(a.sortf(a.accessTime/nd)-b.sortf(b.accessTime/nd))
+      out3.sort (a,b)=> -(a.sortf(a.accessTime/nd)-b.sortf(b.accessTime/nd))
+      out4.sort (a,b)=> -(a.sortf(a.accessTime/nd)-b.sortf(b.accessTime/nd))
       _out.sort (a,b)=> -(a.sortf(a.accessTime/nd)-b.sortf(b.accessTime/nd))
     when '-access'
       out.sort (a,b)=> -(a.sortf(nd/a.accessTime)-b.sortf(nd/b.accessTime))
+      out2.sort (a,b)=> -(a.sortf(nd/a.accessTime)-b.sortf(nd/b.accessTime))
+      out3.sort (a,b)=> -(a.sortf(nd/a.accessTime)-b.sortf(nd/b.accessTime))
+      out4.sort (a,b)=> -(a.sortf(nd/a.accessTime)-b.sortf(nd/b.accessTime))
       _out.sort (a,b)=> -(a.sortf(nd/a.accessTime)-b.sortf(nd/b.accessTime))
-  ret =  [out...]#,_out...]
+
+  ret =  [out...,out2...,out3...,out4...]#,_out...]
   ret2 = []
   ret2.push p.index for p in ret
   return ret2

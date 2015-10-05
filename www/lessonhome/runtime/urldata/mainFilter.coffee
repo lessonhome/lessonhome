@@ -79,6 +79,11 @@ class @D2U
     value : obj?.with_reviews
     default : false
     filter : true
+  $with_photo : (obj)=>
+    type  : 'bool'
+    value : obj?.with_photo
+    default : false
+    filter : true
   $with_verification : (obj)=>
     type  : 'bool'
     value : obj?.with_verification
@@ -155,13 +160,13 @@ class @D2U
       value : v
       default : 0
       filter : true
-      cookie : true
+      cookie : false
     }
   $showBy : (obj)=>
     type : 'bool'
     value : obj?.showBy == 'list'
     default : true
-    cookie : true
+    cookie : false
   
 class @U2D
   $test : (obj)=> obj?.test
@@ -181,6 +186,7 @@ class @U2D
     right : obj?.priceRight
   $gender : (obj)=> gender[obj?.gender ? 0]
   $with_reviews : (obj)=> obj?.with_reviews
+  $with_photo : (obj)=> obj?.with_photo
   $with_verification : (obj)=> obj?.with_verification
   $tutor_status : (obj)=> boolSetR obj?.tutor_status,tutor_status
   $tutor_status_text : (obj)=>
