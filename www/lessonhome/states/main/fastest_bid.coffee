@@ -8,5 +8,5 @@ class @main
       selector: 'phone issue'
     btn_send : @module 'link_button' :
       text : 'Подобрать!'
-      selector: 'arrow fastest_bid'
+      selector: 'arrow fast_bid'
 
