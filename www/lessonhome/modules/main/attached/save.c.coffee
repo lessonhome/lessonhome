@@ -8,7 +8,7 @@ check = require("./check")
 #  return {status:'success'} unless data.phone
   errs = check.check data
   if errs['phone']? then return {status:'failed', errs}
-#  if errs.correct is false then data = {phone: data['phone'], linked: data['linked']}
+  if errs.correct is false then data = {phone: data['phone']}
   data.account = $.user.id
   data['phone'] = data['phone'].replace /^\+7/, '8'
   data['phone'] = data['phone'].replace /[^\d]/g, ''
