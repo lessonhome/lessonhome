@@ -29,21 +29,31 @@ class @main
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
     @btn_send.on 'submit', @sendForm
+    @tree.popup.first.phone.class.on 'end', =>
+      setTimeout =>
+        @sendForm true
+      , 500
 
   scrollToTop : =>
     @popup_block.addClass('fixed').animate {
       scrollTop : 0
     }, 300
-  sendForm : => do Q.async =>
+  sendForm : (quiet=false)=> Q.spawn =>
     data = yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     data = @js.takeData data
     error = @js.check data
+    if quiet
+      if !error['phone']
+        {status,errs} = yield @$send('./save', data,'quiet')
+      else if error.correct is false
+        @popup.parseError error
+      return false
     if error.correct is false
       @scrollToTop()
       @popup.parseError error
-
+    
     if !error['phone']?
       {status,errs} = yield @$send('./save', data,'quiet')
       if status is 'failed'
