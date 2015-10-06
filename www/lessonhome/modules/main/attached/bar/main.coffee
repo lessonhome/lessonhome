@@ -2,13 +2,12 @@ class @main
   constructor: ->
     Wrap @
   Dom : =>
-    @count = @found.count
-    @btn_clean = @found.clean
-    @carousel = @found.jcarousel
+#    @carousel = @found.jcarousel
     @preps = @found.preps
     @panel = @found.bottom_panel
-    @left = @found.left
-    @right = @found.right
+#    @left = @found.left
+#    @right = @found.right
+    @btn_attach = @found.btn_attach
     @linked = {}
   show : =>
 
@@ -18,7 +17,7 @@ class @main
 #        itams : 'li.block'
 #      }
 
-    @btn_clean.on 'click', =>
+    @found.clean.on 'click', =>
       do Q.async =>
         yield Feel.urlData.set 'mainFilter','linked', {}
       return false
@@ -40,7 +39,7 @@ class @main
       preps = for i in linked then preps[i]
       for prep in preps
         @preps.append yield @createDom prep
-    @count.text "(#{linked.length})"
+    @found.count.text "(#{linked.length})"
     return linked.length
 
   createDom : (prep) =>
