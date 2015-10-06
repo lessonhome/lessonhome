@@ -10,11 +10,7 @@ class @main
     @popup = @tree.popup.class
     @popup_block = @found.content
 
-    @steps = {
-      first : @popup.tree.first.class
-      second : @popup.tree.second.class
-      third : @popup.tree.third.class
-    }
+    @phone = @popup.tree.first.class.tree.phone.class
 
     @open_form = @bar.tree.button_attach.class
 
@@ -29,6 +25,13 @@ class @main
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
     @btn_send.on 'submit', @sendForm
+    @phone.on 'end', @sendPhone
+
+  sendPhone : =>
+    data = phone : @phone.getValue()
+    err = @js.check data, phone : @js.rules.phone
+    if err.correct is true
+      yield @$send('./save', data)
 
   scrollToTop : =>
     @popup_block.addClass('fixed').animate {

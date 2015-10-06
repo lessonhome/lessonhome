@@ -38,7 +38,7 @@
   result = {}
   for key in form
     if typeof key is 'string' and data[key]? then result[key] = data[key]
-    else if typeof key is 'object'then result[key[0]] = @takeData data[key[0]], key[1]
+    else if typeof key is 'object' and data[key[0]]? then result[key[0]] = @takeData data[key[0]], key[1]
   return result
 
 @isBool = (data) -> return if typeof(data) isnt 'boolean' then "not_bool" else true
