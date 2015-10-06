@@ -10,3 +10,4 @@ class @main
       @trigger.on 'click', @callback
   callback : =>
     Feel.bid_attached.showForm()
+    return false
