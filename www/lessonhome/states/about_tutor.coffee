@@ -2,12 +2,12 @@ class @main
   forms : [{tutor:['reason','slogan','about']},{person :['interests0_description']}]
   tree : => @module '$' :
     reason     : @module 'tutor/forms/textarea' :
-      height    : '87px'
+      height    : '123px'
       text      : 'Почему я репетитор?'
       selector  : 'first_reg'
       value     : $form : tutor : 'reason'
     interests  : @module 'tutor/forms/textarea' :
-      height    : '87px'
+      height    : '127px'
       text      : 'Интересы :'
       selector  : 'first_reg'
       value     : $form : person : 'interests0_description'
@@ -16,7 +16,7 @@ class @main
       selector  : 'first_reg'
       value     : $form : tutor : 'slogan'
     about      : @module 'tutor/forms/textarea' :
-      height    : '117px'
+      height    : '215px'
       text      : 'О себе :'
       selector  : 'first_reg'
       value     : $form : tutor : 'about'
