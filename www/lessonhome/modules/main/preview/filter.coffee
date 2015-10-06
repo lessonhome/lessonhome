@@ -13,6 +13,8 @@ else
   _isNode = true
 cnum = 0
 @filter = (input,mf)=> do Q.async =>
+  if mf.price.right == 3500
+    mf.price.right = 6000
   out = []
   out2 = []
   out3 = []
@@ -21,7 +23,7 @@ cnum = 0
   for acc,p of input
     continue unless p?.name?.first
     continue unless p.left_price <= mf?.price?.right
-    continue unless p.price_right >= mf?.price?.left
+    continue unless p.right_price >= mf?.price?.left
     p.sorts = {}
     unless _isNode
       if cnum > 30
