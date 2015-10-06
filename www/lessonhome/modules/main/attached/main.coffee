@@ -56,6 +56,7 @@ class @main
     
     if !error['phone']?
       {status,errs} = yield @$send('./save', data,'quiet')
+      Feel.sendActionOnce 'bid_popup'
       if status is 'failed'
         @popup.parseError errs
         return false
