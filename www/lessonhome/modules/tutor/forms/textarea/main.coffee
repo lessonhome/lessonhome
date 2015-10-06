@@ -1,23 +1,18 @@
 class @main extends EE
   Dom : =>
-    @label = @dom.find "label"
-    @textarea = @label.children 'textarea'
-    @textarea_tag = @textarea[0]
-    @val    = $(@textarea_tag).val()
+    @label = @dom.find('>label')
+    @input = @found.input
+    @val    = @found.input.val()
   show : =>
-    @textarea.on 'input',=> @emit 'change'
-    @textarea.on 'focus', => @label.addClass 'focus'
-    @textarea.on 'focusout', =>
+    @input.on 'input',=> @emit 'change'
+    @input.on 'focus', => @label.addClass 'focus'
+    @input.on 'focusout', =>
       @label.removeClass 'focus'
       @emit 'change'
       @emit 'end'
 
-  getValue : =>
-    return $(@textarea[0]).val()
-  setValue : (text)=>
-    text = '' unless text
-    @tree.value = text
-    $(@textarea[0]).val text
+  getValue : => @input.val()
+  setValue : (text)=> @input.val text || ''
   
 
 

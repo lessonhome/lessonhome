@@ -2,6 +2,20 @@
 #check = require("./check")
 
 @handler = ($,data)=>
+  db = yield $.db.get 'persons'
+  unless data?.reviews?
+    p = yield _invoke db.find({account:$.user.id},{reviews:1}),'toArray'
+    return p?[0]?.reviews ? []
+  yield _invoke db, 'update',{account:$.user.id},{$set:reviews:data.reviews},{upsert:true}
+  return {status:'success'}
+
+
+
+
+
+
+
+
   console.log data
   errs = []
   #errs = check.check errs,data
