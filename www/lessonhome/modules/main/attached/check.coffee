@@ -1,31 +1,58 @@
+@form = [
+  'name'
+  'phone'
+  'linked'
+  'gender'
+  'experience'
+  'place'
+  [
+    'calendar'
+    ['11','12','13','21','22','23','31','32','33','41','42','43','51','52', '53','61','62','63', '71', '72', '73']
+  ]
+  [
+    'status'
+    [
+      'high_school_teacher'
+      'native_speaker'
+      'school_teacher'
+      'student'
+    ]
+  ]
+  [
+    'price'
+    ['left','right']
+  ]
+  [
+    'duration'
+    ['left','right']
+  ]
+#  'subject_comment'
+  'subject'
+  'email'
+#  'phone_comment'
+#  'comments'
 
-#@check = (data)=>
-#  errs = []
-#
-#  if JSON.stringify(data).length > 32000
-#    errs.push 'long_data'
-#  else
-#    if typeof(data.phone) is 'string'
-#      phone = data.phone.replace(/[^\d]/g, '')
-#      if 0 < phone.length < 10
-#        errs.push 'wrong_phone'
-#    else
-#      errs.push 'wrong_phone'
-#  return errs
+]
 
-#@isBool = (data) -> return if typeof(data) isnt 'boolean' then "not_bool" else true
-#@isFill = (data) -> return if data isnt '' then true else false
+@takeData = (data, form = @form) =>
+  result = {}
+  for key in form
+    if typeof key is 'string' and data[key]? then result[key] = data[key]
+    else if typeof key is 'object'then result[key[0]] = @takeData data[key[0]], key[1]
+  return result
+
+@isBool = (data) -> return if typeof(data) isnt 'boolean' then "not_bool" else true
+@boolAll = (data) =>
+  for key, value of data
+    return 'wrong_type' if @isBool(value) isnt true
+  return true
+
 @isString = (data) -> return if typeof(data) isnt 'string' then 'not_string' else true
-#@isInt = (data) -> return if data isnt '' and isNaN(parseInt data) then 'not_int' else true
+@isInt = (data) -> return if data isnt '' and isNaN(parseInt data) then 'not_int' else true
 @required = (data) -> return if data is '' then 'empty_field' else true
-#@isLinked = (data) ->
-#  i = 0
-#  for a, value of data then i++
-#  if i is 0 then return 'empty'
-#  return true
 @correctName = (data) ->
   if data is '' then return true
-  reg = /^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,15}$/
+  reg = /^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,35}$/
   return if reg.test(data) then true else 'wrong_name'
 @isPhone = (data) ->
   if data is '' then return true
@@ -36,36 +63,29 @@
   reg = /^\w+@\w+\.\w+$/
   return if reg.test(data) then true else 'wrong_email'
 
-#@status = {
-#  high_school_teacher:[@isBool]
-#  native_speaker:[@isBool]
-#  school_teacher:[@isBool]
-#  student:[@isBool]
-#}
 
-#@price = {
-#  left : [@isInt]
-#  right : [@isInt]
-#}
+@left_right = {
+  left : [@isInt]
+  right : [@isInt]
+}
 
-#@duration = {
-#  left : [@isInt]
-#  right : [@isInt]
-#}
+
 
 @rules = {
+#  subject_comment: [@isString]
+#  phone_comment: [@isString]
   gender: [@isString]
   experience: [@isString]
-#  status: [@status]
-#  price: [@price]
-#  duration: [@duration]
-#  subject_comment: [@isString]
+  price: [@left_right]
+  duration: [@left_right]
   subject: [@isString]
   email: [@isString, @isEmail]
-#  phone_comment: [@isString]
   phone: [@required, @isString, @isPhone]
   name: [@isString, @correctName]
-#  linked: [@required, @isLinked]
+  status: [@boolAll]
+  linked: [@boolAll]
+  calendar: [@boolAll]
+  place: [@boolAll]
 }
 
 @check = (data, rules = @rules) =>

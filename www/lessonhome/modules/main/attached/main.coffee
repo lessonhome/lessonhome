@@ -16,7 +16,7 @@ class @main
       third : @popup.tree.third.class
     }
 
-    @open_form = @bar.tree.button_attach.class.dom
+    @open_form = @bar.tree.button_attach.class
 
     @form_block = @found.popup
     @btn_send = @tree.popup.class.tree.btn_send.class
@@ -25,10 +25,10 @@ class @main
     @register 'bid_attached'
     @updatePanel()
     Feel.urlData.on 'change', @updatePanel
-    @open_form.on 'click', => if @form_block.is ':visible' then @sendForm() else @showForm()
+    @open_form.on 'submit', => @showForm()
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
-    @btn_send.dom.on 'click', @sendForm
+    @btn_send.on 'submit', @sendForm
 
   scrollToTop : =>
     @popup_block.addClass('fixed').animate {
@@ -37,8 +37,9 @@ class @main
   sendForm : => do Q.async =>
     data = yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
+    data.place = yield Feel.urlData.get 'mainFilter','place_attach'
+    data = @js.takeData data
     error = @js.check data
-
     if error.correct is false
       @scrollToTop()
       @popup.parseError error
@@ -61,6 +62,7 @@ class @main
         marginRight: @scrollWidth
     }
     @popup_block.addClass('fixed')
+    @bar.btn_attach.fadeOut 300
     @scrollToTop()
     return false
 
@@ -69,6 +71,7 @@ class @main
       overflowY : 'visible'
       marginRight: 0
     }
+    @bar.btn_attach.fadeIn 200
     @popup_block.removeClass 'fixed'
 
   updatePanel : => do Q.async =>

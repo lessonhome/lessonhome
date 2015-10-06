@@ -5,7 +5,7 @@ class @main
     @trigger = @trigger.class if @trigger._isModule
   show: =>
     if @trigger.__isClass
-      @trigger.dom.on 'click', @callback
+      @trigger.on 'submit', @callback
     else
       @trigger.on 'click', @callback
   callback : =>
