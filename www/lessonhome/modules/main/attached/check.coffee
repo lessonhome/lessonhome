@@ -49,14 +49,14 @@
 
 @isString = (data) -> return if typeof(data) isnt 'string' then 'not_string' else true
 @isInt = (data) -> return if data isnt '' and isNaN(parseInt data) then 'not_int' else true
-@required = (data) -> return if data is '' then 'empty_field' else true
+@required = (data) -> return if !data then 'empty_field' else true
 @correctName = (data) ->
   if data is '' then return true
   reg = /^[_a-zA-Z0-9а-яА-ЯёЁ ]{1,35}$/
   return if reg.test(data) then true else 'wrong_name'
 @isPhone = (data) ->
   if data is '' then return true
-  if 0 < data.replace(/[^\d]/g, '').length <= 11 then return true
+  if 6 < data.replace(/\D/g, '').length <= 11 then return true
   return 'wrong_phone'
 @isEmail = (data) ->
   if data is '' then return true

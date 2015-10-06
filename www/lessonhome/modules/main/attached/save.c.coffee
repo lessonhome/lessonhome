@@ -12,6 +12,7 @@ check = require("./check")
   data.account = $.user.id
   data['phone'] = data['phone'].replace /^\+7/, '8'
   data['phone'] = data['phone'].replace /[^\d]/g, ''
+  data['time'] = new Date()
   console.log 'save bid'
   db = yield $.db.get 'bids'
   yield _invoke db,'update',{account:$.user.id},{$set:data},{upsert:true}

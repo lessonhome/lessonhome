@@ -10,7 +10,7 @@ class @main
     @popup = @tree.popup.class
     @popup_block = @found.content
 
-    @phone = @popup.tree.first.class.tree.phone.class
+    
 
     @open_form = @bar.tree.button_attach.class
 
@@ -25,30 +25,34 @@ class @main
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
     @btn_send.on 'submit', @sendForm
-    @phone.on 'end', @sendPhone
-
-  sendPhone : =>
-    data = phone : @phone.getValue()
-    err = @js.check data, phone : @js.rules.phone
-    if err.correct is true
-      yield @$send('./save', data)
+    @tree.popup.first.phone.class.on 'end', =>
+      setTimeout =>
+        @sendForm true
+      , 500
 
   scrollToTop : =>
     @popup_block.addClass('fixed').animate {
       scrollTop : 0
     }, 300
-  sendForm : => do Q.async =>
+  sendForm : (quiet=false)=> Q.spawn =>
     data = yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     data = @js.takeData data
     error = @js.check data
+    if quiet
+      if !error['phone']
+        {status,errs} = yield @$send('./save', data,'quiet')
+      else if error.correct is false
+        @popup.parseError error
+      return false
     if error.correct is false
       @scrollToTop()
       @popup.parseError error
 
     if !error['phone']?
-      {status,errs} = yield @$send('./save', data)
+      {status,errs} = yield @$send('./save', data,'quiet')
+      Feel.sendActionOnce 'bid_popup'
       if status is 'failed'
         @popup.parseError errs
         return false

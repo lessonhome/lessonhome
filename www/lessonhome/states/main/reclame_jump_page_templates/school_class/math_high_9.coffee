@@ -2,7 +2,7 @@ class @main extends @template '../first_template'
   route : '/repetitory-matematika-starshie-klassy-9'
   #tags  : -> ['registration']
   model : 'main/registration'
-  title : "Репетиторы по математике старшие классы."
+  title : "Репетиторы по математике 9 классы."
   tree : =>
     photo_src         : 'reclame_jump_page/math.jpg'
     alt               : 'Репетиторы по математике 9 классы.'
@@ -15,6 +15,6 @@ class @main extends @template '../first_template'
         'математика'
       ]
       course : [
-        'егэ'
+        'гиа'
       ]
       pupil_status  :'старшая школа'
