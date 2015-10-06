@@ -1,6 +1,18 @@
 @import compass/css3
 $min_width_step: 6px
+
+=boxes($selector, $padding, $margin, $background)
+  .bg_box.#{$selector}
+    margin: $margin
+  .bg_box1.#{$selector}, .bg_box.#{$selector}
+    padding: $padding
+    @if $background == null
+      background:  none
+    @else
+      background: $background
+
 .info
+  +boxes(boring, 0px, 12px 0 24px, null)
   .bg_box, .bg_box1
     text-align: left
     padding: 18px 24px
@@ -10,6 +22,7 @@ $min_width_step: 6px
       height: 24px
       text-align: left
       padding-bottom: $min_width_step
+      margin-left: 0
       .title
         +inline-block
         vertical-align: baseline
@@ -23,6 +36,7 @@ $min_width_step: 6px
   .bg_box, .bg_box1
     div
       padding-bottom: 2*$min_width_step
+      margin-left: 24px
     .remote, .calendar
       padding-bottom: 0
     .time_spend_lesson,.price

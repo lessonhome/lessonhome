@@ -50,15 +50,16 @@ class @main extends @template '../main'
         text: 'НАЧАТЬ ПОИСК'
         active : true
         href: '/second_step'
-      issue_bid: @module 'link_button' :
-        selector: 'main_page_motivation'
-        text: 'ОФОРМИТЬ ЗАЯВКУ'
-        active: true
-        href: '/fast_bid/first_step'
+
+      issue_bid: @module 'tutor/header/elem_attach' :
+        trigger: @module 'link_button' :
+          selector: 'main_page_motivation'
+          text: 'ОФОРМИТЬ ЗАЯВКУ'
+          active: false
+
       callback: @module 'tutor/header/elem_back_call' :
         trigger : @module 'link_button' :
           selector: 'main_page_motivation'
           text: 'ОБРАТНЫЙ ЗВОНОК'
-          active: true
-          href: '#'
+          active: false
         content : @state 'main/call_back_popup'
