@@ -40,11 +40,12 @@ class @main
     data = @js.takeData data
     error = @js.check data
 
-    if quiet
-      @popup.parseError(phone: error['phone'])
-    else
-      @popup.parseError(error)
-      @scrollToTop()
+    if error.correct is false
+      if quiet
+        @popup.parseError(phone: error['phone'])
+      else
+        @popup.parseError(error)
+        @scrollToTop()
 
     if !error['phone']?
       {status,errs} = yield @$send('./save', data,'quiet')
