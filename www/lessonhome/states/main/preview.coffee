@@ -16,7 +16,7 @@ class @main extends @template '../main'
     content : @module '$' :
       popup                     : @exports()
       bid_issue_button           : @exports()
-      issue_bids : @state './issue_bids'
+      fastest_bid : @state './fastest_bid'
       advanced_filter : @state './advanced_filter' :
         val_list_course       : '' # вытянуть значение
         val_list_calendar     : 11 # вытянуть значение
