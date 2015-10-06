@@ -1,28 +1,43 @@
+$dialog_bg: #e5e5e5
+
+.lp_custom
+  padding-top: 120px
+  padding-bottom: 240px
+  h4
+    font-size: 1.6rem
+    margin: 2.667rem 0
+
 #character
   position: fixed
+  width: 240px
+  height: 414px
+  background: url(F('/lp/lesson-character.jpg'))
 
 .dialog_block
-  background-color: #e1edf7
+  background-color: $dialog_bg
   text-align: center
-  padding: 48px 36px
-  border: 6px solid #666
+  padding: 45px
+  position: relative
+  border-radius: 3px
   p
-    font-size: 128%
-  .triangle
-    content: ' '
-    float: left
-    position: relative
-    top: 20px
-    left: -96px
-    width: 0
-    height: 0
-    border: 30px solid
-    border-color: transparent #666 transparent transparent
+    font-size: 20px
+    margin: 0
+  &:before
+    display: block
+    content: ''
+    border: solid
+    border-width: 10px 20px 10px 20px
+    border-color: transparent $dialog_bg transparent transparent
+    position: absolute
+    top: 20%
+    right: 100%
 
-  .triangle:before
-    content: " "
-    position: relative
-    width: 0
-    height: 0
-    border: 28px solid
-    border-color: transparent #e1edf7 transparent transparent
+.container-fish
+  min-height: 150px
+  background-color: #eeeeff
+  margin-bottom: 1.5rem
+  box-sizing: border-box
+  padding: 1rem
+  border-radius: 3px
+  &:last-child
+    margin-bottom: 0

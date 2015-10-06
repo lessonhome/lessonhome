@@ -7,6 +7,6 @@ class @main
   redirect : {
   }
   tree : => @module '$' :
-    materialize : @module 'lib/materialize'
+    materialize : @module 'lib/materialize_two'
     header  : @module "$/header"
     content : @exports()
