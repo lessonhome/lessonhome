@@ -1,0 +1,42 @@
+@import base
+$icon_clear : 'delete_cross.png'
+$height: image-height($icon_clear)
+$width: image-width($icon_clear)
+
+$height_image : 48px
+
+.prep
+  margin-right: $height_image
+  +material_shadow(1)
+  &:hover
+    margin-right: 0
+    padding-right: $height_image
+    .block_prep .rem
+      opacity: 1
+  .block_prep
+    +inline-block
+    a.photo_box
+      font-size: 0
+      +inline-block
+      img
+        height: $height_image
+    position: relative
+    .rem
+      opacity: 0
+      position: absolute
+      right: -$height_image
+      top: 0
+      width: $height_image
+      height: $height_image
+      background: #E7E7E7
+      cursor: pointer
+      i.cross
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        margin: auto
+        background: url(F($icon_clear)) no-repeat
+        width: $width
+        height: $height

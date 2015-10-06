@@ -1,0 +1,43 @@
+@import base
+
+.content.fixed
+  position : fixed
+  display: block
+  top : 0
+  left : 0
+  height : 100%
+  overflow : auto
+  z-index : 100
+  background-color : rgba(255,255,255,0.9)
+  margin : 0 auto
+  width : 100%
+  .popup
+    display: block
+    background-color: white
+    width: 529px
+    margin: 32px auto 150px
+    //height: 100%
+    +material_shadow(1)
+    border: 1px solid $border_gray
+
+.bottom_bar
+  display: none
+  position : fixed
+  width : 1014px
+  bottom : 0
+  //box-sizing: border-box
+  //height : 64px
+  //background : #f5e79e
+  padding: 12px 0 0
+  background-color: #EAEAEA
+  border: 1px solid #DCDCDC
+  z-index: 200
+  //margin: 0 auto
+  +material_shadow(4)
+  .wrap
+    width: auto
+    padding: 0 14px
+
+.content .popup
+  display : none
+
