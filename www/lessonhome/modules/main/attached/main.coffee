@@ -45,7 +45,7 @@ class @main
       @popup.parseError error
 
     if !error['phone']?
-      {status,errs} = yield @$send('./save', data)
+      {status,errs} = yield @$send('./save', data,'quiet')
       if status is 'failed'
         @popup.parseError errs
         return false
