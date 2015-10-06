@@ -25,7 +25,7 @@ class @main
     @register 'bid_attached'
     @updatePanel()
     Feel.urlData.on 'change', @updatePanel
-    @open_form.on 'submit', => if @form_block.is ':visible' then @sendForm() else @showForm()
+    @open_form.on 'submit', => @showForm()
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
     @btn_send.on 'submit', @sendForm
@@ -62,6 +62,7 @@ class @main
         marginRight: @scrollWidth
     }
     @popup_block.addClass('fixed')
+    @bar.btn_attach.fadeOut 300
     @scrollToTop()
     return false
 
@@ -70,6 +71,7 @@ class @main
       overflowY : 'visible'
       marginRight: 0
     }
+    @bar.btn_attach.fadeIn 200
     @popup_block.removeClass 'fixed'
 
   updatePanel : => do Q.async =>
