@@ -240,10 +240,14 @@ class module.exports
     if m then for f in m
       fname = f.match(/\$FILE--([^\$]*)--FILE\$/)[1]
       css = replaceAll css,f,"\"#{Feel.static.F(@site.name,fname)}\""
-      
+    css = css.replace /\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\//gmi,''
+    css = css.replace /\n/gmi,' '
+    css = css.replace /\r/gmi,' '
+    css = css.replace /\s+/gmi,' '
     #css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
     #css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
     m = css.match /([^{]*)([^}]*})(.*)/
+    return css if filename.match(/.*\.g\.(sass|scss|css)$/)
     return css unless m
     pref = m[1]
     body = m[2]
