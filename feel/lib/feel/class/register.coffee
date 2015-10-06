@@ -164,6 +164,10 @@ class Register
       },{upsert:true})
 
     #yield _invoke @dbuploaded, 'insert', uploadedImages if uploadedImages.length
+  delete_tutor : (id)=>
+    for session of @accounts[id].sessions
+      delete @sessions[session]
+    delete @accounts[id]
   register : (session,unknown,adminHash)=>
     o = {}
     created = false
