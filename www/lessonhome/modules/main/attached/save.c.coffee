@@ -2,7 +2,9 @@
 check = require("./check")
 
 
+
 @handler = ($,data)=>
+  data = check.takeData data
 #  return {status:'success'} unless data.phone
   errs = check.check data
   if errs['phone']? then return {status:'failed', errs}

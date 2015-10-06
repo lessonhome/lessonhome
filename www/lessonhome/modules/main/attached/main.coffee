@@ -37,8 +37,9 @@ class @main
   sendForm : => do Q.async =>
     data = yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
+    data.place = yield Feel.urlData.get 'mainFilter','place_attach'
+    data = @js.takeData data
     error = @js.check data
-
     if error.correct is false
       @scrollToTop()
       @popup.parseError error
