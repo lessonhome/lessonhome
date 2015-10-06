@@ -9,7 +9,7 @@ class @main extends @template '../edit_description'
     'pupil' : '/enter'
     'tutor' : '/enter'
   }
-  forms : [{person:['reviews']}]
+  forms : [{person:['reviews','comment']}]
   tree : => tutor_edit : @module '$':
     review : @module '$/review' :
       subject : @state 'tutor/forms/drop_down_list_with_tags' :
@@ -52,5 +52,15 @@ class @main extends @template '../edit_description'
         text : 'удалить'
         selector : 'edit_save'
     add_button : @module 'tutor/button' :
-      text : 'Добавить комментарий'
+      text : 'Добавить отзыв'
+      selector : 'edit_save'
+    delete_tutor_button : @module 'tutor/button' :
+      text : 'Удалить репетитора'
+      selector : 'edit_save'
+    comment : @module 'tutor/forms/textarea':
+      selector : 'first_reg'
+      value : $form : person : 'comment'
+      height : '200px'
+    save_comment : @module 'tutor/button' :
+      text : 'Сохранить коментарий'
       selector : 'edit_save'

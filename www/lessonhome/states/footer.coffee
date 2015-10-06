@@ -6,11 +6,12 @@ class @main
       text      : 'Поиск'
       selector  : 'footer_btn'
       active    : true
-    bids  : @module 'link_button':
-      href      : '/fast_bid/first_step'
-      text      : 'Оформить заявку'
-      selector  : 'footer_btn'
-      active    : true
+    bids  : @module 'tutor/header/elem_attach' :
+      trigger: @module 'link_button':
+#        href      : '/fast_bid/first_step'
+        text      : 'Оформить заявку'
+        selector  : 'footer_btn'
+        active    : false
     help  : @module 'link_button':
       href      : '/support'
       text      : 'Помощь'

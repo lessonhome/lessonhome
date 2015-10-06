@@ -10,6 +10,11 @@ class @main
     reviews = (yield @$send './save') ? []
     console.log reviews
     @add r for r in reviews
+    @found.delete_tutor_button.click => Q.spawn =>
+      return unless confirm 'Действительно удалить?'
+      yield @$send './delete_tutor'
+    @found.save_comment.click => Q.spawn =>
+      yield @$send './save_comment',@tree.comment.class.getValue()
   add : (data)=>
     c = @clone.$clone()
     c.setValue()
