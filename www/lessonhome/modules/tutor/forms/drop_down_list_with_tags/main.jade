@@ -4,11 +4,12 @@
 .js-tags
   if ((typeof tags !== "undefined" && tags !== null ? tags[0] : void 0) != null)
     for key,val in tags
-      .tag
-        .text_box
-          .text!=key
-        .js-close_box
-          .close
+      if key
+        .tag
+          .text_box
+            .text!=key
+          .js-close_box
+            .close
 .js-tag
   .text_box
     .text

@@ -134,7 +134,7 @@ class @main extends EE
     #@found.price_right.text(value.price_right)
     #@found.duration_left.text(value.duration_left)
     #@found.duration_right.text(value.duration_right)
-    @found.price?.text?(value.price_per_hour)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
+    @found.price?.text?(value.left_price)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
     #@hideExtraText()
     do => Q.spawn =>
       link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})

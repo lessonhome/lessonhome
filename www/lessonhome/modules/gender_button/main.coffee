@@ -17,14 +17,18 @@ class @main extends EE
   disable : =>
     return unless @active
     @active = false
-    @button.toggleClass 'active inactive'
+    @button.addClass 'inactive'
+    @button.removeClass 'active'
   click : =>
     @active = !@active
-    @button.toggleClass 'active inactive'
     if @active
       @emit 'active'
+      @button.addClass 'active'
+      #@button.removeClass 'inactive'
     else
       @emit 'inactive'
+      @button.addClass 'inactive'
+      @button.removeClass 'active'
   setActive : =>
     @active = !@active
     @button.addClass 'active'

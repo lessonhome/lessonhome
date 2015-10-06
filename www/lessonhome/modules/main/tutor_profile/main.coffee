@@ -50,7 +50,7 @@ class @main extends EE
     console.log @index
     preps=yield Feel.dataM.getTutor [@index]
     prep = preps[@index]
-    return Feel.go '/second_step' unless prep?
+    #return Feel.go '/second_step' unless prep?
     console.log prep
     unless prep.reviews && prep.reviews.length
       @reviews.hide()

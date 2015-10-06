@@ -17,7 +17,7 @@ class @main extends @template '../main'
       ]
       login           : @module 'tutor/forms/input' :
         replace : [
-          "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
+          "[^\\d-\\(\\)\\@\\w\\+А-Яа-яёЁ\\s\\.]"
         ]
         name        : 'email'
         selector    : 'registration'

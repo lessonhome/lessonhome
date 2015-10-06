@@ -33,8 +33,8 @@ class @main extends EE
     @tree.value[key] = val for key,val of value
     @tree.value.photos ?= []
     value = @tree.value
-    if @tree.cost && @tree.value.price_per_hour
-      @found.cost.text Math.floor(@tree.value.price_per_hour/10)*10
+    if @tree.cost && @tree.value.left_price
+      @found.cost.text @tree.value.left_price
     @leng = value.photos.length
     @now  = @leng-1
     @small = true
