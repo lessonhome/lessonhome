@@ -8,7 +8,11 @@
   if close
     .close_box
       .close_icon
-//-.all_rating!=all_rating
+if showsubject
+  .subject
+    .js-subject!=subject
+if showrating
+  .all_rating!=all_rating
 if count_review
   a(href='#')
     .js-count_review.select!='отзывы (' + count_review + ')'
@@ -18,6 +22,7 @@ else if cost
     .js-cost!=cost
     .measure р/ч
 else
+
   //a(class=rev_selector)
     //.js-count_review.select!='отзывы (0)'
 

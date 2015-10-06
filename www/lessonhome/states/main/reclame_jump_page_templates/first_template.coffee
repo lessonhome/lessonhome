@@ -25,6 +25,8 @@ class @main extends @template '../../main'
         reclame : true
         selector  : 'jump_visit_card'
         extract : 'jump_visit_card'
+        showrating : true
+        showsubject : true
       # вытянуть значение
       #filling           : 100 # вытянуть значение
         cost      : 1000 # вытянуть значение
