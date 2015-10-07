@@ -8,15 +8,23 @@ class @main
     @phone = @tree.field_phone.class
   show : =>
     @attach = Feel.bid_attached
-    @phone.on 'end', @sendForm
-    @btn.on 'submit', @sendForm
-  sendForm: => Q.spawn =>
-    errors = yield @attach.sendForm()
-    @showComplete()
+    @phone.on 'end', => console.log 'end'
 
+    @btn.on 'submit', => console.log 'submit'
+
+#    errors = yield @attach.sendForm()
+#    if errors['phone']?
+#      @phone.showError()
+#      return false
+#    else
+#      return true
+
+  sendForm : =>
+    error = yield @attach.sendForm()
   showComplete: =>
-    @dom.css height: @dom.height()
+    @dom.css height: @dom.outerHeight()
     @panel_form.fadeOut 200, =>
-      @dom.animate {height :@panel_complate.height()}, 200, =>
-        @panel_complate.fadeIn 200
-#        @dom.css {height: 'auto'}
+#      @dom.animate {height :@panel_complate.outerHeight(true)}, 200, =>
+#        @panel_complate.fadeIn 100, =>
+#          @dom.css {height: 'auto'}
+      @panel_complate.fadeIn 100
