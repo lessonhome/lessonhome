@@ -9,7 +9,7 @@ class @main
     if !@subject.getValue()
       @subject.on 'focus', =>
         @second_block.show('slow')
-    else  @second_block.show('slow')  
+    else  @second_block.show('slow')
   parseError: (err) =>
     if err['name']? then @name.showError 'Введите более короткое имя'
     if err['phone']?

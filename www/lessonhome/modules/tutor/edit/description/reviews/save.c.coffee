@@ -2,6 +2,7 @@
 #check = require("./check")
 
 @handler = ($,data)=>
+  return unless $.user.admin
   db = yield $.db.get 'persons'
   unless data?.reviews?
     p = yield _invoke db.find({account:$.user.id},{reviews:1}),'toArray'
