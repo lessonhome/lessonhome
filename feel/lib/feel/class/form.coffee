@@ -11,6 +11,7 @@ class Form
     for f in formnames
       @formnames.push f unless f.match /\./
     @service = yield Main.service 'data'
+    @register = yield Main.service 'register'
   get : (fname,req,res,fields)=>
     yield @loadForm fname unless @form[fname]
     find = yield @form[fname].find.get req,res
@@ -27,6 +28,7 @@ class Form
     form.find = Wrap new form.find
     @form[fname] = form
   flush : (data,req,res)=>
+    yield @register.reload req.user.id
     if data == '*'
       data = @formnames
     if (typeof data == 'string') || (!data?.length>0)
