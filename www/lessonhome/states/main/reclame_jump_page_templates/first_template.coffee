@@ -51,11 +51,12 @@ class @main extends @template '../../main'
           tutor_title       : 'Быстро устраню пробелы в школьной программе' # вытянуть значение
           about        : 'Коллектив выступает с несколькими программами. В танцевальной программе выступают 2 пары, исполняющие мексиканские танцы (харибе тапатио), возможен мастер-класс по латиноамериканским танцам' # вытянуть значение
           tutor_price       : 1500 # вытянуть значение
-      button_bids : @module 'link_button' :
-        href  : 'fast_bid/first_step'
-        selector  : 'invite'
-        text  : 'Оставить заявку'
-        active  : true
+      button_bids : @module 'tutor/header/elem_attach' :
+        trigger : @module 'link_button' :
+          href  : 'fast_bid/first_step'
+          selector  : 'invite'
+          text  : 'Оставить заявку'
+          active  : false
 
 
 

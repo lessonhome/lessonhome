@@ -3,11 +3,13 @@ class @main
   Dom : =>
     @name      = @tree.name.class
     @phone     = @tree.phone.class
-    @call_time = @tree.call_time.class
     @email     = @tree.email.class
-    @subject   = @tree.subject.class
+
+    @call_time = @tree.call_time?.class
+    @subject   = @tree.subject?.class
+    @comments  = @tree.comments?.class
     @out_err_subject = @found.out_err_subject
-    @comments  = @tree.comments.class
+
 
   show : =>
     #if @tree.name?.value?
@@ -34,7 +36,7 @@ class @main
         @emit 'make_inactive_issue_bid_button'
     ###
     # error div
-    @subject.setErrorDiv @out_err_subject
+#    @subject.setErrorDiv @out_err_subject
 
   save : => do Q.async =>
     if @check_form()

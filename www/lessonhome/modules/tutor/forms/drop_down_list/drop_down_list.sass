@@ -39,11 +39,15 @@ label
       width : 100%
       height : inherit
       position : absolute
-      z-index : 3
+      z-index : 1
     .sub_input
       position : absolute
       padding: 0 0 0 $padding_left
       left : 0
+      height : inherit
+      line-height : inherit
+      width : 100%
+      +box-sizing('border-box')
       top : 0
       margin : -1px 0 0 0
       z-index : 0
@@ -160,6 +164,7 @@ label>.drop_down_list>.select_sets>*>*>.custom-option>.begin
     .drop_down_list>.select_sets>.options_container>.options>.custom-option
       padding-left: $padding_left
       font-size: $font_size
+      height: auto
 
 
 /////////////////--------Main page ----------////////////////////////////
@@ -234,8 +239,9 @@ label>.drop_down_list>.select_sets>*>*>.custom-option>.begin
 
 ////////// WRite tutor panel in profile ////////////////////////////////
 +selector('write_tutor', 14px, 18px,'main/arrow_6x4_down.gif',6px,26px,none,none,37px,none)
+
 label.write_tutor
-  line-height: 18px
+  //line-height: 18px
   .text
     margin-bottom: 7px
     color: #000

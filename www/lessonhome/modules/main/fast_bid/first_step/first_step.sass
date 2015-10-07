@@ -1,6 +1,18 @@
 @import compass/css3
 $min_width_step: 6px
+
+=boxes($selector, $padding, $margin, $background)
+  .bg_box1.#{$selector}
+    margin: $margin
+  .bg_box1.#{$selector}, .bg_box2.#{$selector}
+    padding: $padding
+    @if $background == null
+      background:  none
+    @else
+      background: $background
+
 .info
+  +boxes(boring, 0px, 0 0 22px, null)
   .bg_box1
     margin-bottom: 10px
   .bg_box1, .bg_box2
@@ -23,6 +35,7 @@ $min_width_step: 6px
       padding: $min_width_step 0
     label .subject
       height: 37px
+      line-height: 37px
     .name, label .subject
       padding-top: 0
     .email, .comments

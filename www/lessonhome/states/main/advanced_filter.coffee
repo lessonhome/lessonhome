@@ -19,6 +19,7 @@ class @main
         smart : true
         self : true
         value     : ''
+        items : ['ЕГЭ','ОГЭ','ГИА','ДВИ','олимпиады','IELTS','TOEFL','ESOL']
       tags: ''
       value : $urlform : mainFilter : 'course'
     pupil_status : @module 'tutor/forms/drop_down_list:type1'  :
@@ -153,4 +154,4 @@ class @main
     this_photo : @module 'tutor/forms/checkbox'  :
       text      : 'только c фото'
       selector  : 'small'
-      #value     : $urlform : mainFilter : 'with_verification'
+      value     : $urlform : mainFilter : 'with_photo'

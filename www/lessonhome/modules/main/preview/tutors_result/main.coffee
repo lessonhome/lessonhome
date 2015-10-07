@@ -20,6 +20,7 @@ class @main extends EE
       index : data.index
       photos : data.photos
       price_per_hour : data.price_per_hour
+      left_price : data.left_price
       count_review : data.count_review
     }
     @tutor_extract.setValue data
