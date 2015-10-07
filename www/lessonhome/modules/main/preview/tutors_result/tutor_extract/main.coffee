@@ -62,7 +62,7 @@ class @main extends EE
     value = @tree.value
     #@with_verification.css 'background-color', value.with_verification if value?.with_verification?
     @tree.all_rating.class.setValue rating:value?.rating
-    @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
+    @tutor_name.text("#{value.name.first ? ""} #{value.name.middle ? ""}")
     @tutor_subject?.empty?()
     i = 0
     if @tutor_subject?.append? then for key,val of value.subjects
