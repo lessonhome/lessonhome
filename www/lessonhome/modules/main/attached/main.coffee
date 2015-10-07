@@ -2,6 +2,8 @@
 
 
 class @main
+  constructor: ->
+    Wrap @
   Dom : =>
     @html = $('html')
     @bar = @tree.bottom_bar.class
@@ -17,12 +19,11 @@ class @main
     @scrollWidth = @getScrollWidth()
   show : =>
     @register 'bid_attached'
-    yield @updatePanel()
     Feel.urlData.on 'change', @updatePanel.out
-    @open_form.on 'submit', => @showForm()
+    @open_form.on 'submit', @showForm.out
     @form_block.on 'click', (e) => e.stopPropagation()
-    @popup_block.on 'click', @hideForm
-    @btn_send.on 'submit', @sendForm
+    @popup_block.on 'click', @hideForm.out
+    @btn_send.on 'submit', @sendForm.out
     @tree.popup.first.phone.class.on 'end', =>
       setTimeout =>
         @sendForm true
@@ -33,7 +34,7 @@ class @main
       scrollTop : 0
     }, 300
 
-  sendForm : (quiet=false) => Q.spawn =>
+  sendForm : (quiet=false) =>
     data = yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
