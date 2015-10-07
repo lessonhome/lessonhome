@@ -7,8 +7,13 @@ class @main
     @out_err_chair          = @found.out_err_chair
     @out_err_qualification  = @found.out_err_qualification
     @out_err_period         = @found.out_err_period
+  remove : =>
+    @dom.parent().remove()
+    @removed = true
 
   show : =>
+    @found.remove_button.click @remove
+
     # drop_down_list
     @country        = @tree.country.class
     @city           = @tree.city.class
@@ -18,6 +23,7 @@ class @main
     @qualification  = @tree.qualification.class
     @learn_from     = @tree.learn_from.class
     @learn_till     = @tree.learn_till.class
+    @comment        = @tree.comment.class
 
 
     # clear error
@@ -40,52 +46,23 @@ class @main
     @learn_from.setErrorDiv     @out_err_period
     @learn_till.setErrorDiv     @out_err_period
 
-
-
-  save : (num)=> Q().then =>
-    data = {}
-    data[num] = @getData()
-    if @check_form()
-      return @$send('./save', data)
-      .then @onReceive
-    else
-      return false
-  onReceive : ({status,errs,err})=>
-    if err?
-      errs?=[]
-      errs.push err
-    if status=='success'
-      return true
-    if errs?.length
-      for e in errs
-        @parseError e
-    return false
   check_form : =>
     errs = @js.check @getData()
-    ###
-    if !@country.exists() && @country.getValue().length!=0
-      errs.push 'bad_country'
-    if !@city.exists() && @city.getValue().length!=0
-      errs.push 'bad_city'
-    if !@university.exists() && @university.getValue().length!=0
-      errs.push 'bad_university'
-    if !@faculty.exists() && @faculty.getValue().length!=0
-      errs.push 'bad_faculty'
-    if !@chair.exists() && @chair.getValue().length!=0
-      errs.push 'bad_chair'
-    if !@qualification.exists() && @qualification.getValue().length!=0
-      errs.push 'bad_qualification'
-    if !@learn_from.exists() && @learn_from.getValue().length!=0
-      errs.push 'bad_learn_from'
-    if !@learn_till.exists() && @learn_till.getValue().length!=0
-      errs.push 'bad_learn_till'
-    ###
     for e in errs
       @parseError e
     return errs.length==0
-
+  getValue : => @getData()
+  setValue : (data={})=>
+    @country.setValue       data.country || ""
+    @city.setValue          data.city || ""
+    @university.setValue    data.university || ""
+    @faculty.setValue       data.faculty || ""
+    @chair.setValue         data.chair || ""
+    @qualification.setValue data.qualification || ""
+    @learn_from.setValue    data.learn_from || ""
+    @learn_till.setValue    data.learn_till || ""
+    @comment.setValue       data.comment || ""
   getData : =>
-    return {
     country         : @country.getValue()
     city            : @city.getValue()
     university      : @university.getValue()
@@ -94,11 +71,10 @@ class @main
     qualification   : @qualification.getValue()
     learn_from      : @learn_from.getValue()
     learn_till      : @learn_till.getValue()
-    }
+    comment         : @comment.getValue()
 
   parseError : (err)=>
     switch err
-    #empty
       when "empty_country"
         @country.showError "Заполните страну"
       when "empty_city"
@@ -109,12 +85,10 @@ class @main
         showError "Заполните факультет"
       when "empty_chair"
         showError "Заполните кафедру"
-
       when "empty_qualification"
         showError "Выберите статус"
-      #correct
       when "bad_country"
-        @country.showError "Выберите страну из списка"
+         @country.showError "Выберите страну из списка"
       when "bad_city"
         @city.showError "Выберите город из списка"
       when "bad_university"

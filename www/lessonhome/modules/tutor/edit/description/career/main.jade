@@ -1,10 +1,8 @@
 
 
-.block_work
-  each val in work
-    .js-clone_el
-      .js-place_of_work!=val.place_of_work
-      .js-post!=val.post
+.js-block_work
+  .js-item!=work
+.js-add_button Добавить место работы
 //.button_block
   .js-add_button!= add_button
 .line_box

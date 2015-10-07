@@ -1,86 +1,24 @@
 
+
 class @main
   Dom : =>
     @changes_field = @found.changes_field
-    @educations = []
   show : =>
-
-    @educations.push @tree.tutor_edit.class
-
-    for key, value of @tree.education
-      unless key == '0'
-        console.log value
-        @addEducation(value)
-
-    @setRemoveHandlers()
-
     @save_button = @tree.save_button?.class
-    @add_button = @tree.add_button?.class
-
+    #if @tree.tutor_edit?.calendar?.save_button?
+      #@save_button = @tree.tutor_edit.calendar.save_button.class
+    @tutor_edit = @tree.tutor_edit.class
+    #if @tree.tutor_edit?.calendar?
+      #@tutor_edit = @tree.tutor_edit.calendar.class
+    console.log "tutor_edit : "
+    console.log @tree.tutor_edit
     @save_button?.on 'submit', @b_save
-    @add_button?.on 'submit', @addEducation
 
   b_save : =>
-
-    i = 0
-
-    console.log @educations
-
-    for edu in @educations
-      console.log 'edu', i, edu.getData()
-      if i == @educations.length
-        edu?.save?(i).then (success)=>
-          if success
-            console.log 'All sent'
-            $('body,html').animate({scrollTop:0}, 500)
-            @changes_field.fadeIn(1000)
-            return true
-        .done()
-      else
-        edu?.save?(i).then (success)=>
-          if success
-            return true
-        .done()
-      i++
-
-  addEducation : (data)=>
-    cloned = @tree.tutor_edit.class.$clone()
-
-    if data?
-      for key, value of data
-        cloned[key].setValue(value)
-    else
-      cloned.country.setValue()
-      cloned.city.setValue()
-      cloned.university.setValue()
-      cloned.faculty.setValue()
-      cloned.chair.setValue()
-      cloned.qualification.setValue()
-      cloned.learn_from.setValue()
-      cloned.learn_till.setValue()
-    cloned.dom.appendTo('div.tutor_edit')
-    @educations.push cloned
-    @setRemoveHandlers()
-
-  removeEducation : (index) =>
-    @$send('./description/education/remove', index)
-    .then ({status,errs,err})=>
-      if err?
-        errs?=[]
-        errs.push err
-      if status=='success'
-        console.log 'success'
-        @educations.splice(index,1)
-        @setRemoveHandlers()
-        console.log @educations
-      if errs?.length
-        console.log errs
-
-
-  setRemoveHandlers: () =>
-    return unless @educations?
-    i = 0
-    for form in @educations
-      ((i) =>
-        form.tree.remove_button.class.on 'submit', () => @removeEducation(i))(i)
-      i++
+    @tutor_edit?.save?().then (success)=>
+      console.log 'tutor/edit'
+      if success
+        $('body,html').animate({scrollTop:0}, 500)
+        @changes_field.fadeIn(1000)
+        return true
+    .done()

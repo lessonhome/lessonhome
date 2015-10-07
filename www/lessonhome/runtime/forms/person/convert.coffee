@@ -95,6 +95,7 @@ class @F2V
   $city       : (data)-> data?.location?.city
   $country    : (data)-> data?.location?.country
   $work       : (data)-> data?.work?[0]
+  $works      : (data)-> data?.work
   $workplace  : (data)-> data?.work?[0]?.place
   $ecity      : (data)-> data?.education?[0]?.city
   $ename      : (data)-> data?.education?[0]?.name

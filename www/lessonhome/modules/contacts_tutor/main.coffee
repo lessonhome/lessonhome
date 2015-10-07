@@ -28,7 +28,7 @@ class @main
     # link more address
     @link_more.on 'click', (e)=>
       e.preventDefault()
-      @save().then (ok)=>
+      @save(true).then (ok)=>
         Feel.go @link_more.attr 'href' if ok
 
     # click outside popup element
@@ -43,9 +43,9 @@ class @main
       Feel.goBack  @tree.href_back
 
 
-  save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
+  save : (quiet=false)=> Q().then =>
+    if quiet || @check_form()
+      return @$send('./save',@getData(),quiet)
       .then ({status,errs})=>
         if status=='success'
           return true

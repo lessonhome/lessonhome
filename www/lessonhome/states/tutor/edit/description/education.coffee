@@ -12,7 +12,8 @@ class @main extends @template '../edit_description'
   tree : =>
     menu_description  : 'edit: description'
     active_item : 'Образование'
-    tutor_edit  : @module '$' :
+    tutor_edit  : @state './education_item'
+    ###
       add_button     : @module 'tutor/button' :
         text      : 'Добавить образование'
         selector  : 'edit_save'
@@ -24,7 +25,7 @@ class @main extends @template '../edit_description'
           text      : 'Страна :'
           items : ['Россия','Белоруссия','Казахстан','Киргизия','Абхазия','Украина','Молдавия','Румыния','Норвегия','Латвия']
           selector  : 'first_reg'
-          value : $form : person : 'education.0..country'
+          value : $form : person : 'education.0.country'
           self  : true
           smart : true
         city          : @module 'tutor/forms/drop_down_list' :
@@ -74,3 +75,9 @@ class @main extends @template '../edit_description'
           $form : person : 'education.0.period.end'
           self  : true
           smart : true
+        comment : @module 'tutor/forms/textarea' :
+          text      : 'Коментарий'
+          selector  : 'first_reg lk'
+          height : '117px'
+          $form : person : 'education.0.comment'
+###
