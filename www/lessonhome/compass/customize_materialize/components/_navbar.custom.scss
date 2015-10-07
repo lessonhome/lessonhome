@@ -2,6 +2,18 @@ nav {
   background: $navbar-background-color $navbar-background-img;
   img {
     margin-top: 16px;
+    @media #{$small-and-down} {
+      margin-top: 4px;
+    }
+  }
+
+  // Logo
+  .brand-logo {
+    @media #{$medium-and-down} {
+      right: 0;
+      left: auto;
+      transform: translateX(-20%);
+    }
   }
 }
 
