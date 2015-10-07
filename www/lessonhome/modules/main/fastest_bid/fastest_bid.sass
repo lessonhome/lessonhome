@@ -1,6 +1,7 @@
 @import base
 $timer : 'timer.png'
-main
+$arrow : 'main/suit_icon.png'
+.wrap
   position: relative
   width: 100%
   background: #f2f2f2
@@ -9,53 +10,58 @@ main
     content: ''
     display: table
     clear: both
-.form
-  .timer
-    position: absolute
-    width: image-width($timer)
-    height: image-height($timer)
-    background: url(F($timer))
-    bottom: 0
-    left: 46px
-  .pull_right
-    text-align: left
-    float: right
-    padding: 15px 23px 23px 0
-    .title
-      font-size: 24px
-      font-weight: bold
-    .title_sub
-      color: rgb(117, 117, 117)
-      margin-top: 2px
-      margin-bottom: 12px
-    .field
-      font-size: 35px
-      margin-right: 13px
-      width: 210px
-    .btn
-      width: 220px
-    .field, .btn
-      +inline-block
-      height: 35px
-.complate
-  display: none
-  padding: 25px 0
-  .attach a
-    font-size: 1.1em
-    +inline-block
-    color: #00a3b8
-    border-bottom: 1px solid
-    position: relative
-    &:after
-      content: ''
+  .form
+    //+opacity(0)
+    .timer
       position: absolute
-      background: red
-
+      width: image-width($timer)
+      height: image-height($timer)
+      background: url(F($timer))
       bottom: 0
-  .title
-    font-size: 18px
-    font-weight: bold
-    text-align: center
-    margin-bottom: 9px
-  .title_sub
-    margin-bottom: 12px
+      left: 46px
+    .pull_right
+      text-align: left
+      float: right
+      padding: 15px 23px 23px 0
+      .title
+        font-size: 24px
+        font-weight: bold
+      .title_sub
+        color: rgb(117, 117, 117)
+        margin-top: 2px
+        margin-bottom: 12px
+      .field
+        font-size: 35px
+        margin-right: 13px
+        width: 210px
+      .btn
+        width: 220px
+      .field, .btn
+        +inline-block
+        height: 35px
+  .complate
+    display: none
+    padding: 25px 0
+    .attach
+      position: relative
+      a
+        margin-right: 10px
+        font-size: 1.1em
+        +inline-block
+        color: #00a3b8
+        border-bottom: 1px solid
+      &:after
+        +opacity(0.4)
+        content: ''
+        top: 0
+        position: absolute
+        width: image-width($arrow)
+        height: image-height($arrow)
+        background: url(F($arrow))
+    .title
+      font-size: 18px
+      font-weight: bold
+      text-align: center
+      margin-bottom: 9px
+    .title_sub
+      margin-bottom: 12px
