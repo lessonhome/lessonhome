@@ -91,7 +91,11 @@ class module.exports
   checkCacheFile : (file)=>
     if file.match /.*(\.css)$/
       sass = file.match /^.cache\/(.*)\.css$/
-      if sass[1] && !fs.existsSync "www/#{sass[1]}.sass"
+      if sass[1] &&
+      ((!fs.existsSync("www/#{sass[1]}.sass")) &&
+       (!fs.existsSync("www/#{sass[1]}.scss")) &&
+       (!fs.existsSync("www/#{sass[1]}.css"))
+      )
         fs.unlinkSync file
   cacheFile : (path,data,sfx="")=>
     path = _path.normalize path
@@ -154,7 +158,7 @@ class module.exports
       if data.toString().substr(9,5).match /write/
         m = data.toString().substr(14).match /.*(modules\/.*)\.css/
         if m
-          console.log "sass\t\t".cyan,"#{m[1]}.sass".grey
+          console.log "css\t\t".cyan,"#{m[1]}".grey
       else
         process.stdout.write data
     compass.stderr.on 'data', (data)=> process.stderr.write 'compass: '+data
@@ -163,7 +167,14 @@ class module.exports
         defer.reject new Error 'compass failed'
       else
         defer.resolve()
-    return defer.promise
+    return defer.promise.then Q.async =>
+      readed = yield _readdirp({
+        root : 'www/lessonhome/modules'
+        fileFilter : '*.css'
+      })
+      qs = for file in readed.files
+        _fs_copy "www/lessonhome/modules/"+file.path,".cache/lessonhome/modules/"+file.path,{clobber:true}
+      yield Q.all qs
   npm : =>
     defer = Q.defer()
     process.chdir 'feel'
@@ -190,16 +201,17 @@ class module.exports
       name  : m[4]
       ext   : m[5]
     if o.type == 'modules'
-      if o.ext == 'sass'
-        @rebuildSass o.site,o.dir,o.name
-      if o.ext == 'jade'
-        @site[o.site].modules[o.dir]?.rebuildJade()
-      if o.ext == 'coffee'
-        @site[o.site].modules[o.dir]?.rebuildCoffee()
+      switch o.ext
+        when 'sass','scss','css'
+          @rebuildSass o.site,o.dir,o.name
+        when 'jade'
+          @site[o.site].modules[o.dir]?.rebuildJade()
+        when 'coffee'
+          @site[o.site].modules[o.dir]?.rebuildCoffee()
     if o.type == 'states'
       @site[o.site].loadStates()
   rebuildSass : (site,module,name)=>
-    console.log "rebuild sass for #{site}/#{module}:#{name}.sass".yellow
+    console.log "rebuild css for #{site}/#{module}:#{name}".yellow
     cache = "#{@path.cache}/#{site}/modules/#{module}/#{name}.css"
     @sassChanged["#{site}/#{module}"] = {
       site

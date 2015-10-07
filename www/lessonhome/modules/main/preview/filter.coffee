@@ -13,8 +13,10 @@ else
   _isNode = true
 cnum = 0
 @filter = (input,mf)=> do Q.async =>
-  if mf.price.right == 3500
-    mf.price.right = 6000
+  if mf.price.right > 3000
+    mf.price.right = 300000
+  if mf.price.left < 600
+    mf.price.left = 0
   out = []
   out2 = []
   out3 = []

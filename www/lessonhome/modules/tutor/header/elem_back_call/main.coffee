@@ -1,11 +1,10 @@
 class @main
   Dom : =>
-    @trigger = @tree.trigger.class.dom
     @block = @found.block
-    @btn_close = @block.find '.close_box:first'
   show : =>
-    @btn_close.on 'click', => @block.hide()
-    @trigger.on 'click', (e) =>
+    @block.find '.close_box:first'
+    .on 'click', => @block.hide()
+    @tree.trigger.class.dom.on 'click', (e) =>
       @toggle()
       return false
 

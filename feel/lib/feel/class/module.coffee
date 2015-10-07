@@ -153,7 +153,7 @@ class module.exports
     @css            = {}
     qs = []
     for filename, file of @files
-      if file.ext == 'sass'
+      if (file.ext == 'sass') || (file.ext == 'scss') || (file.ext == 'css')
         qs.push do (filename,file)=> do Q.async =>
           path = "#{@site.path.sass}/#{@name}/#{file.name}.css"
           data = Feel.qCacheFile path,null,'css'
@@ -185,7 +185,7 @@ class module.exports
     @css    = {}
     qs = []
     for filename,file of @files
-      continue unless file.ext == 'sass'
+      continue unless (file.ext == 'sass') || (file.ext=='scss') || (file.ext=='css')
       qs.push do (filename,file)=> do Q.async =>
         path = "#{@site.path.sass}/#{@name}/#{file.name}.css"
         data = Feel.qCacheFile path,null,'css'
@@ -240,10 +240,14 @@ class module.exports
     if m then for f in m
       fname = f.match(/\$FILE--([^\$]*)--FILE\$/)[1]
       css = replaceAll css,f,"\"#{Feel.static.F(@site.name,fname)}\""
-      
+    css = css.replace /\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\//gmi,''
+    css = css.replace /\n/gmi,' '
+    css = css.replace /\r/gmi,' '
+    css = css.replace /\s+/gmi,' '
     #css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
     #css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
     m = css.match /([^{]*)([^}]*})(.*)/
+    return css if filename.match(/.*\.g\.(sass|scss|css)$/)
     return css unless m
     pref = m[1]
     body = m[2]
@@ -291,7 +295,7 @@ class module.exports
             leftpref = ">" unless replaced
             newpref += leftpref+sel
     else newpref = pref
-    newpref=pref if filename.match /.*\.g\.sass$/
+    newpref=pref if filename.match(/.*\.g\.(sass|scss|css)$/)
     if ifloop == 'loop'
       return {
         begin : newpref+body

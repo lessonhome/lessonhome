@@ -1,16 +1,31 @@
 @import compass/css3
 $min_width_step: 6px
 $padding_text: 10px
+
+=boxes($selector, $padding, $margin, $background)
+  .bg_box.#{$selector}
+    margin: $margin
+  .bg_box1.#{$selector}, .bg_box.#{$selector}
+    padding: $padding
+    @if $background == null
+      background:  none
+    @else
+      background: $background
+
 .info
+  +boxes(boring, 12px, 0 0 24px, null)
   text-align: left
   .bg_box, .bg_box1
     text-align: left
     padding: 18px 24px
     background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.5)
+    div
+      margin-left: 24px
     .text_box
       height: 24px
       text-align: left
       padding-bottom: 6px
+      margin-left: 0
       .title
         +inline-block
         vertical-align: baseline

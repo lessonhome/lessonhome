@@ -15,6 +15,8 @@ class @main extends @template '../main'
         text: 'ИЩУ РЕПЕТИТОРА'
       support_block_pupil: @module '../tutor/support' :
         selector   : 'pupil'
+        btn_attach : @module 'tutor/header/elem_attach' :
+          trigger : 'Отсавить заявку'
         question   : @module 'tutor/forms/input'  :
           selector: 'support'
         ask_button : @module 'tutor/button' :
