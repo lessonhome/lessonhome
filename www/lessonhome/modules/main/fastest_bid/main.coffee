@@ -28,5 +28,3 @@ class @main
 #        @panel_complate.fadeIn 100, =>
 #          @dom.css {height: 'auto'}
       @panel_complate.fadeIn 100
-
-  showPanel: =>
