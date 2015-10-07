@@ -257,6 +257,7 @@ class @main extends EE
         for place in mf.place.area_pupil
           places += place+'; '
       set_ 'place_pupil', 'У себя'+places
+
     else
       pupil.className += 'hidden' unless pupil.className.match 'hidden'
       set_ 'place_pupil'
@@ -417,7 +418,25 @@ class @main extends EE
     else
      @advanced_filter.activate 'group_lessons', false
 
+  updatePlaces : (from ,to) =>
+    mf = yield Feel.urlData.get 'mainFilter'
+
+    places = []
+
+    if mf.place[from]
+      for place in mf.place['area_'+from]
+        if mf.place['area_'+to].indexOf(place) == -1
+          places.push place
+
+    if places.length
+      o = {}
+      o.place = mf.place
+      o.place['area_'+to] = o.place['area_'+to].concat places
+      Feel.urlData.set('mainFilter',o).done()
+
   show : =>
+    @tree.advanced_filter.tutor.class.on 'change', => @updatePlaces('pupil', 'tutor')
+    @tree.advanced_filter.pupil.class.on 'change', => @updatePlaces('tutor', 'pupil')
     @advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll',=>
       ll = @tutors_result.find(':last')
@@ -467,7 +486,7 @@ class @main extends EE
 
     @background_block.on 'click',  @check_place_click
 
-    $(@profiles_20).on 'click', =>
+    $(@profiles_20).on 'click',   =>
       @setItemActive   @profiles_20
       @setItemInactive @profiles_40
       @setItemInactive @profiles_60

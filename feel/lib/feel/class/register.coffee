@@ -168,6 +168,20 @@ class Register
     for session of @accounts[id].sessions
       delete @sessions[session]
     delete @accounts[id]
+  reload : (id)=>
+    acc  = yield _invoke @account.find(id:id),'toArray'
+    sess = yield _invoke @session.find(account:id),'toArray'
+    for session of @accounts[id].sessions
+      delete @sessions[session]
+    for a in acc
+      @accounts[a.id]   = a
+      delete a.account
+      delete a.acc
+      if a.login?
+        @logins[a.login] = a
+    for s in sess
+      @sessions[s.hash] = s
+    
   register : (session,unknown,adminHash)=>
     o = {}
     created = false

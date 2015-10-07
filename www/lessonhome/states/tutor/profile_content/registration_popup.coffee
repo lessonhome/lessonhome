@@ -1,6 +1,7 @@
 class @main extends @template '../profile'
   tree : =>
     popup : @module '$' :
+      selector : @exports()
       header       : @module '//header'
       progress_bar : @module '//progress_bar' :
         progress : @exports()
