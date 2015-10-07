@@ -2,6 +2,8 @@
 
 
 class @main
+  constructor: ->
+    Wrap @
   Dom : =>
     @html = $('html')
     @bar = @tree.bottom_bar.class
@@ -18,10 +20,10 @@ class @main
   show : =>
     @register 'bid_attached'
     @updatePanel()
-    Feel.urlData.on 'change', @updatePanel
-    @open_form.on 'submit', => @showForm()
+    Feel.urlData.on 'change', @updatePanel.out
+    @open_form.on 'submit', @showForm.out
     @form_block.on 'click', (e) => e.stopPropagation()
-    @popup_block.on 'click', @hideForm
+    @popup_block.on 'click', @hideForm.out
     @btn_send.on 'submit', => Q.spawn =>
       errors = yield @sendForm()
       if errors.correct is true
@@ -109,7 +111,7 @@ class @main
     @bar.btn_attach.fadeIn 200
     @popup_block.removeClass 'fixed'
 
-  updatePanel : => do Q.async =>
+  updatePanel : =>
     length = yield @bar.reshow()
     if length != 0
       @bar_block.fadeIn()
