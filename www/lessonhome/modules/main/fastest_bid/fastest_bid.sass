@@ -44,19 +44,10 @@ $arrow : 'main/suit_icon.png'
     .attach
       position: relative
       a
-        margin-right: 10px
         font-size: 1.1em
         +inline-block
         color: #00a3b8
         border-bottom: 1px solid
-      &:after
-        +opacity(0.4)
-        content: ''
-        top: 0
-        position: absolute
-        width: image-width($arrow)
-        height: image-height($arrow)
-        background: url(F($arrow))
     .title
       font-size: 18px
       font-weight: bold
