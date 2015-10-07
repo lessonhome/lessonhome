@@ -16,7 +16,7 @@ class @main
 
     @form_block = @found.popup
     @btn_send = @tree.popup.class.tree.btn_send.class
-    @scrollWidth = @getScrollWidth()
+    @scrollWidth = yield @getScrollWidth()
   show : =>
     @register 'bid_attached'
     @updatePanel()
