@@ -1,26 +1,26 @@
 class @main
+  constructor: ->
+    Wrap @
   Dom : =>
     @panel_form = @found.form
     @panel_complate = @found.complate
-
-    @btn = @tree.btn_send.class
-    @name = @tree.field_name.class
     @phone = @tree.field_phone.class
+
   show : =>
     @attach = Feel.bid_attached
-    @phone.on 'end', => console.log 'end'
+    @phone.on 'end', @sendForm.out
 
-    @btn.on 'submit', => console.log 'submit'
-
-#    errors = yield @attach.sendForm()
-#    if errors['phone']?
-#      @phone.showError()
-#      return false
-#    else
-#      return true
+    @tree.btn_send.class.on 'submit', => Q.spawn =>
+      correct = yield @sendForm()
+      if correct then @showComplete()
 
   sendForm : =>
     error = yield @attach.sendForm()
+    if error['phone']?
+      @tree.field_phone.class.showError()
+      return false
+    else
+      return true
   showComplete: =>
     @dom.css height: @dom.outerHeight()
     @panel_form.fadeOut 200, =>
