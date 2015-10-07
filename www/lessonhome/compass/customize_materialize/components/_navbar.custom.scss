@@ -1,0 +1,16 @@
+nav {
+  background: $navbar-background-color $navbar-background-img;
+  img {
+    margin-top: 16px;
+  }
+}
+
+@media #{$medium-and-up} {
+  nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+    height: $navbar-height-custom;
+    line-height: $navbar-height-custom;
+  }
+  .navbar-fixed {
+    height: $navbar-height-custom;
+  }
+}

@@ -1,12 +1,10 @@
 nav {
   color: $navbar-font-color;
   @extend .z-depth-1;
-  //background-color: $primary-color;
+  background-color: $primary-color;
   width: 100%;
   height: $navbar-height-mobile;
   line-height: $navbar-height-mobile;
-  background-color: #5B6D63;
-  background-image: url(F('main/chalkboard_pattern.jpg'));
 
   a { color: $navbar-font-color; }
 
@@ -48,7 +46,6 @@ nav {
     font-size: $navbar-brand-font-size;
     padding: 0;
     white-space: nowrap;
-    //top: 12rem;
 
     &.center {
       left: 50%;
@@ -63,10 +60,6 @@ nav {
     &.right {
       right: 0.5rem;
       padding: 0;
-    }
-
-    img {
-      margin-top: 16px;
     }
   }
 
