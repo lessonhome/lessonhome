@@ -17,8 +17,8 @@ class @main
     @scrollWidth = @getScrollWidth()
   show : =>
     @register 'bid_attached'
-    @updatePanel()
-    Feel.urlData.on 'change', @updatePanel
+    yield @updatePanel()
+    Feel.urlData.on 'change', @updatePanel.out
     @open_form.on 'submit', => @showForm()
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
@@ -99,7 +99,7 @@ class @main
     @bar.btn_attach.fadeIn 200
     @popup_block.removeClass 'fixed'
 
-  updatePanel : => do Q.async =>
+  updatePanel : =>
     length = yield @bar.reshow()
     if length != 0
       @bar_block.fadeIn()
