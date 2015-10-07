@@ -4,8 +4,9 @@ class @main
   Dom : =>
     @panel_form = @found.form
     @panel_complate = @found.complate
+    @panel_wrap = @found.wrap
+    @name = @tree.field_name.class
     @phone = @tree.field_phone.class
-
   show : =>
     @attach = Feel.bid_attached
     @phone.on 'end', @sendForm.out
@@ -19,10 +20,12 @@ class @main
     if error['phone']?
       @tree.field_phone.class.showError()
       return false
-    else
-      return true
+    if error['name']?
+      @tree.field_name.class.showError()
+      return false
+    return true
   showComplete: =>
-    @dom.css height: @dom.outerHeight()
+    @panel_wrap.css height: @panel_wrap.outerHeight()
     @panel_form.fadeOut 200, =>
 #      @dom.animate {height :@panel_complate.outerHeight(true)}, 200, =>
 #        @panel_complate.fadeIn 100, =>
