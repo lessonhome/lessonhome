@@ -1,8 +1,9 @@
 .container.lp_custom
-  #character.hide-on-small-only
-
   .row
-    .col.l8.offset-l4
+    .col.l2.m2.pinned
+      #character.hide-on-small-only
+        img(src=F('lp/charset-opacity.gif')).responsive-img
+    .col.l9.m9.offset-l3.offset-m3
       .dialog_block
         p Здравствуйте! Меня зовут Василий.
         p Я помогу Вам выбрать подходящего репетитора.
@@ -12,28 +13,28 @@
         .container-fish='it is a good day to die ' + x
       .dialog_block
         .row
-          .col.l8
+          .col.l8.m12.s12
             p Вы знали, что у нас есть ещё  666 репетиторов по высшей математике?
-          .col.l4
-            a.waves-effect.waves-light.btn(href='#') Перейти
-      h4 Подготовка по олимпиаде Ломоносова
-      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostruSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neququi dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+          .col.l4.m12.s12
+            a.waves-effect.waves-light.btn-large(href='#') Перейти
+      .row
+        .col.l12.m12.s12
+          h4 Подготовка по олимпиаде Ломоносова
+          p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostruSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neququi dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
       .dialog_block
         h3 Помочь Вам?
         p Заполните эти поля и в течении 5 минут Вам позвонит наш специалист и поможет Вам с подбором репетитора.
         .row
-          .col.l12
-            .row
-              .input-field.col.l12
-                i.material-icons.prefix account_circle
-                input(type='text')#icon_prefix.validate
-                label(for='icon_prefix') Имя
-            .row
-              .input-field.col.l12
-                i.material-icons.prefix phone
-                input(type='text')#icon_telephone.validate
-                label(for='icon_telephone') Телефон
-            .row
-              .col.l12
-                button(type='submit', name='submit_form').btn-large.waves-effect.waves-light Отправить
-                  i.material-icons.right send
+          .input-field.col.l12.m12.s12
+            i.material-icons.prefix account_circle
+            input(type='text')#icon_prefix.validate
+            label(for='icon_prefix') Имя
+        .row
+          .input-field.col.l12.m12.s12
+            i.material-icons.prefix phone
+            input(type='text')#icon_telephone.validate
+            label(for='icon_telephone') Телефон
+        .row
+          .col.l12.m12.s12
+            button(type='submit', name='submit_form').btn-large.waves-effect.waves-light Отправить
+              i.material-icons.right send

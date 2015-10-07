@@ -1,17 +1,39 @@
+@import variables
+
 $dialog_bg: #e5e5e5
 
 .lp_custom
   padding-top: 120px
-  padding-bottom: 240px
+  padding-bottom: 140px
+  @media #{$medium-and-down}
+    padding-top: 60px
+    padding-bottom: 60px
+  @media #{$small-and-down}
+    padding-top: 40px
+    padding-bottom: 40px
   h4
     font-size: 1.6rem
     margin: 2.667rem 0
+  h3
+    font-size: 2.4rem
+    margin: 0 0 1.8rem 0
+  .pinned
+    top: 45%
+    @media #{$large-and-up}
+      top: 25%
+    @media #{$medium-and-down}
+      top: 35%
 
 #character
-  position: fixed
-  width: 240px
-  height: 414px
-  background: url(F('/lp/lesson-character.jpg'))
+  background: url(F('/lp/lesson-character.jpg')) no-repeat center
+  background-size: cover
+  font-size: 0
+  line-height: 0
+  img
+    @media #{$large-and-up}
+      max-width: auto
+      width: 100%
+
 
 .dialog_block
   background-color: $dialog_bg
@@ -19,9 +41,14 @@ $dialog_bg: #e5e5e5
   padding: 45px
   position: relative
   border-radius: 3px
+  @media #{$medium-and-down}
+    padding: 25px
+    padding-bottom: 10px
   p
     font-size: 20px
     margin: 0
+    margin-bottom: 1rem
+
   &:before
     display: block
     content: ''

@@ -3,16 +3,24 @@ nav {
   img {
     margin-top: 16px;
     @media #{$small-and-down} {
-      margin-top: 4px;
+      margin-top: 0;
+      width: 75%;
+      height: auto;
     }
   }
 
   // Logo
   .brand-logo {
+    font-size: 0;
+    line-height: 0;
     @media #{$medium-and-down} {
       right: 0;
       left: auto;
       transform: translateX(-20%);
+    }
+    @media #{$small-and-down} {
+      top: 9px;
+      transform: translateX(0%);
     }
   }
 }
