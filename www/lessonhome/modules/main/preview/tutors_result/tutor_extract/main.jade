@@ -6,8 +6,13 @@ if stars
     .js-location=value.location.city
 a.name.js-link_name
   .js-tutor_name.select=value.name.last+' '+value.name.first+' '+value.name.middle
-.tutor_status_wrap
-  .js-tutor_status.select=value.status + ', опыт ' + value.experience + ' года'
+if !reclame
+  .tutor_status_wrap
+    .js-tutor_status.select=value.status + ', опыт ' + value.experience + ' года'
+else
+  .tutor_status_wrap
+    .js-tutor_status
+  .sbj 123
 .center
   if !reclame
     .left
@@ -38,6 +43,22 @@ a.name.js-link_name
   else
     .js-tutor_text.select=value.about
     .js-location=value.location.city
+    .js-tutor_subject.select
+      each val,key in value.subjects
+        if !subject_counter++
+          .tag=key
+      if (subject_counter--) > 1
+        case subject_cointer
+          when 1
+            .more_subjects | и ещё 1 предмет
+          when 2
+            .more_subjects | и ещё 2 предмета
+          when 3
+            .more_subjects | и ещё 1 предмета
+          when 4
+            .more_subjects | и ещё 1 предмета
+          default
+            .more_subjects | и ещё #{subject_cointer} предметов
     .button_wrap
       .js-view_button!=view_button
       .js-choose_button!=choose_button
