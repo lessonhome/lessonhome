@@ -6,13 +6,8 @@ if stars
     .js-location=value.location.city
 a.name.js-link_name
   .js-tutor_name.select=value.name.last+' '+value.name.first+' '+value.name.middle
-if !reclame
-  .tutor_status_wrap
-    .js-tutor_status.select=value.status + ', опыт ' + value.experience + ' года'
-else
-  .tutor_status_wrap
-    .js-tutor_status
-  .sbj 123
+.tutor_status_wrap
+  .js-tutor_status.select=value.status + ', опыт ' + value.experience + ' года'
 .center
   if !reclame
     .left
