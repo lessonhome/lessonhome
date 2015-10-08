@@ -4,24 +4,24 @@
       #character.hide-on-small-only
         img(src=F('lp/charset-opacity.gif')).responsive-img
     .col.l9.m9.offset-l3.offset-m3
-      .dialog_block
+      .dialog_block.js-step_one
         p Здравствуйте! Меня зовут Василий.
         p Я помогу Вам выбрать подходящего репетитора.
-
-      h4 Репетиторы по математике:
-      - for (var x = 0; x < 5; x++)
-        .container-fish='it is a good day to die ' + x
-      .dialog_block
+      .js-tutors_list
+        h4 Репетиторы по математике:
+        - for (var x = 0; x < 5; x++)
+          .container-fish='it is a good day to die ' + x
+      .dialog_block.js-step_two
         .row
           .col.l8.m12.s12
             p Вы знали, что у нас есть ещё  666 репетиторов по высшей математике?
           .col.l4.m12.s12
             a.waves-effect.waves-light.btn-large(href='#') Перейти
       .row
-        .col.l12.m12.s12
+        .col.l12.m12.s12.js-seo_text
           h4 Подготовка по олимпиаде Ломоносова
           p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostruSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neququi dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-      .dialog_block
+      .dialog_block.js-step_three
         h3 Помочь Вам?
         p Заполните эти поля и в течении 5 минут Вам позвонит наш специалист и поможет Вам с подбором репетитора.
         .row
