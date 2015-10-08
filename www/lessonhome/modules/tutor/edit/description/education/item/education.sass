@@ -1,0 +1,41 @@
+@import compass/css3
+$padding: 7px
+$height: 37px
+.value, .release_date, .add_button
+  +inline-block
+  padding: $padding 0
+  height: $height
+  line-height: $height
+.comment
+  height : auto
+  padding-top : 19px
+.country
+  padding-top: 0
+.period
+  padding-bottom: 0
+  div
+    +inline-block
+    height: 100%
+  .learn_from
+    padding-right: 3px
+  .learn_till
+    padding: 0 111px 0 3px
+.remove_button
+  +inline-block
+  height: 37px
+  line-height: 37px
+  padding-bottom: 0
+  float : right
+  margin-left : 100px
+  margin-bottom : 20px
+.err
+  overflow: hidden
+  div
+    float: right
+    width: 341px
+    text-align: left
+    color: red
+    font-size: 16px
+    display: none
+    padding: 0.3em
+    box-sizing: border-box

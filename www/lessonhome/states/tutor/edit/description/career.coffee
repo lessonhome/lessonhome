@@ -8,23 +8,24 @@ class @main extends @template '../edit_description'
     'other' : '/enter'
     'pupil' : '/enter'
   }
-  forms : [{person:['work']},{tutor:['experience','extra']}]
+  forms : [{person:['works']},{tutor:['experience','extra']}]
   tree : =>
     menu_description  : 'edit: description'
     active_item : 'Карьера'
     tutor_edit  : @module '$' :
-      work  : [
-        {
-          place_of_work: @module 'tutor/forms/input':
-            selector: 'first_reg'
-            text2: 'Место работы :'
-            $form : person : 'work.place'
-          post: @module 'tutor/forms/input':
-            selector: 'first_reg'
-            text2: 'Должность :'
-            $form : person : 'work.post'
-        }
-      ]
+      work  : @module '$/work' :
+        place_of_work: @module 'tutor/forms/input':
+          selector: 'first_reg'
+          text2: 'Место работы :'
+          $form : person : 'works.0.place'
+        post: @module 'tutor/forms/input':
+          selector: 'first_reg'
+          text2: 'Должность :'
+          $form : person : 'works.0.post'
+        remove_button : @module 'tutor/button' :
+          text : 'Удалить'
+          selector : 'edit_save'
+
       #add_button    : @module 'button_add' :
       #  text     : '+Добавить'
       #  selector : 'edit_add'
@@ -47,7 +48,7 @@ class @main extends @template '../edit_description'
         $form : tutor : 'experience'
       extra_info : @module 'tutor/forms/textarea' :
         text      : 'Доп. информация/<br>награды'
-        selector  : 'first_reg'
+        selector  : 'first_reg lk'
         height : '117px'
         $form : tutor : 'extra.0.text'
     #hint        : @module 'tutor/hint' :
