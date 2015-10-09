@@ -1,13 +1,15 @@
 @import variables
 
 $dialog_bg: #e5e5e5
-$animation-happy-01:  0 0
-$animation-happy-02:  10% 0
-$animation-sad-01:    20% 0
-$animation-sad-02:    30% 0
-$animation-hello-01:  40% 0
-$animation-hello-02:  50% 0
-$animation-hello-03:  60% 0
+$animation-happy-01:    0 0
+$animation-happy-02:    10% 0
+$animation-sad-01:      20% 0
+$animation-sad-02:      30% 0
+$animation-hello-01:    40% 0
+$animation-hello-02:    50% 0
+$animation-hello-03:    60% 0
+$animation-good-01:  70% 0
+$animation-default-01:  80% 0
 
 .lp_custom
   padding-top: 120px
@@ -32,16 +34,14 @@ $animation-hello-03:  60% 0
       top: 35%
 
 #character
-  background: url(F('/lp/char-sprite-four.png')) no-repeat $animation-hello-01
+  background: url(F('/lp/char-sprite-six.png')) no-repeat $animation-default-01
   background-size: cover
   font-size: 0
   line-height: 0
   animation-name: char-animation
-  animation-duration: .5s
+  animation-duration: 2s
   animation-timing-function: steps(1)
-  animation-iteration-count: infinite
-  //animation-iteration-count: 5
-  //animation-fill-mode: forwards
+  animation-iteration-count: 2
 
   img
     @media #{$large-and-up}
@@ -51,14 +51,46 @@ $animation-hello-03:  60% 0
 @keyframes char-animation
   0%
     background-position: $animation-hello-01
+  5%
+    background-position: $animation-hello-02
+  10%
+    background-position: $animation-hello-03
+  15%
+    background-position: $animation-hello-02
+  20%
+    background-position: $animation-hello-01
   25%
+    background-position: $animation-hello-02
+  30%
+    background-position: $animation-hello-03
+  35%
+    background-position: $animation-hello-02
+  40%
+    background-position: $animation-hello-01
+  45%
     background-position: $animation-hello-02
   50%
     background-position: $animation-hello-03
+  55%
+    background-position: $animation-hello-02
+  60%
+    background-position: $animation-hello-01
+  65%
+    background-position: $animation-hello-02
+  70%
+    background-position: $animation-hello-03
   75%
     background-position: $animation-hello-02
-  100%
+  80%
     background-position: $animation-hello-01
+  85%
+    background-position: $animation-hello-02
+  90%
+    background-position: $animation-hello-03
+  95%
+    background-position: $animation-hello-02
+  100%
+    background-position: $animation-default-01
 
 
 .dialog_block
