@@ -14,7 +14,10 @@ class @main extends @template '../main'
             }
           rating : 3.5
           reclame : true
+          showrating : true
+          showsubject : true
           selector  : 'jump_visit_card'
+
         # вытянуть значение
         #filling           : 100 # вытянуть значение
           cost      : 1000 # вытянуть значение

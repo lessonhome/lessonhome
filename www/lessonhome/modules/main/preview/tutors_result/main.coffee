@@ -16,7 +16,7 @@ class @main extends EE
   setValue : (data)=>
     @index = data?.index ? 0
     @rating_photo.setValue {
-      #rating : data.rating
+      rating : data.rating
       index : data.index
       photos : data.photos
       price_per_hour : data.price_per_hour
