@@ -18,7 +18,7 @@ class @main
 
   onScroll : (e) =>
     e = e || window.event
-    thisScroll = e.currentTarget.documentElement.scrollTop
+    thisScroll = $(e.currentTarget).scrollTop()
 
     if thisScroll > @stepOffset.one
       @firstStep.animate
