@@ -246,7 +246,7 @@ class @Feel
   login : (id)=> do Q.async =>
     yield @root.tree.class.$send('/relogin',id)
     yield @go '/form/tutor/login'
-
+  sms : (args...)=> @root.tree.class.$send '/sms', args...
 
 Feel = new @Feel()
 window.Feel = Feel

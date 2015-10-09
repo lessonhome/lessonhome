@@ -263,7 +263,7 @@ class @main extends EE
 
   save : => Q().then =>
     if @check_form()
-      return @$send('../fast_bid/third_step/save',@getData())
+      return @$send('../attached/save',@getData())
       .then ({status,errs})=>
         if status=='success'
           Feel.sendActionOnce 'direct_bid'

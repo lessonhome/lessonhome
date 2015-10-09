@@ -60,12 +60,19 @@ cnum = 0
     #console.log awords
     for k,str of p.name
       awords += ' '+(str ? '') if typeof str == 'string'
+    for k,str of p.phone
+      awords += ' '+(str.replace?(/\D/gmi,'').substr(-10) ? '') if typeof str == 'string'
+    for k,str of p.email
+      awords += ' '+(str ? '') if typeof str == 'string'
     #console.log awords
     awords += " " + (p.reason ? '') if typeof p.reason == 'string'
     #console.log awords
     awords += " " + (p.slogan ? '') if typeof p.slogan == 'string'
     #console.log awords
     awords += " " + (p.about ? '') if typeof p.about == 'string'
+    awords += " " + (p.login ? '') if typeof p.login == 'string'
+    awords += " " + (p.login?.replace?(/\D/gmi,'').substr(-10) ? '') if typeof p.login == 'string'
+    
     #console.log awords
     for sname,sbj of p.subjects
       awords += ' '+sname
