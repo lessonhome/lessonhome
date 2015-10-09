@@ -1,6 +1,13 @@
 @import variables
 
 $dialog_bg: #e5e5e5
+$animation-happy-01:  0 0
+$animation-happy-02:  16.6666% 0
+$animation-sad-01:    33.3333% 0
+$animation-sad-02:    50.0000% 0
+$animation-hello-01:  66.6666% 0
+$animation-hello-02:  83.3333% 0
+$animation-hello-03:  100%
 
 .lp_custom
   padding-top: 120px
@@ -25,14 +32,33 @@ $dialog_bg: #e5e5e5
       top: 35%
 
 #character
-  background: url(F('/lp/lesson-character.jpg')) no-repeat center
+  background: url(F('/lp/char-sprite.png')) no-repeat $animation-hello-01
   background-size: cover
   font-size: 0
   line-height: 0
+  animation-name: char-animation
+  animation-duration: .5s
+  animation-timing-function: steps(1)
+  animation-iteration-count: infinite
+  //animation-iteration-count: 5
+  //animation-fill-mode: forwards
+
   img
     @media #{$large-and-up}
       max-width: auto
       width: 100%
+
+@keyframes char-animation
+  0%
+    background-position: $animation-hello-01
+  25%
+    background-position: $animation-hello-02
+  50%
+    background-position: $animation-hello-03
+  75%
+    background-position: $animation-hello-02
+  100%
+    background-position: $animation-hello-01
 
 
 .dialog_block

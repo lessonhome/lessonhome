@@ -17,14 +17,17 @@ class @main
     $(document).off 'scroll.lp'
 
   onScroll : (e) =>
-    thisScroll = $(document).scrollTop()
+    e = e || window.event
+    thisScroll = e.currentTarget.documentElement.scrollTop
+
     if thisScroll > @stepOffset.one
       @firstStep.animate
         top: 0
         500
-      @tutorsList.animate
-        opacity: 1
-        1000
+        =>
+          @tutorsList.animate
+            opacity: 1
+            1000
     if thisScroll > @stepOffset.two
       @twoStep.animate
         opacity: 1
