@@ -110,7 +110,10 @@ class @main extends EE
       photos : data.photos
     }
     @tree.rating.class.setValue rating:data.rating
-    @found.full_name.text("#{data.name.last ? ""} #{data.name.first ? ""} #{data.name.middle ? ""}")
+    if Feel.user?.type?.admin
+      @found.full_name.text("#{data.name.last ? ""} #{data.name.first ? ""} #{data.name.middle ? ""}")
+    else
+      @found.full_name.text("#{data.name.first ? ""} #{data.name.middle ? ""}")
     l = data?.location ? {}
     cA = (str="",val,rep=', ')->
       return str unless val 
@@ -126,6 +129,10 @@ class @main extends EE
     ls1 = ""
     ls1 = cA ls1,l.city
     ls1 = cA ls1,l.area
+    if Feel.user?.type?.admin
+      ls1 = cA ls1,data.login,'<br>'
+      ls1 = cA ls1,data.phone?.join('; '),'<br>'
+      ls1 = cA ls1,data.email?.join('; '),'<br>'
 #    ls2 = ""
 #    ls2 = cA ls2,l.street
 #    ls2 = cA ls2,l.house
@@ -136,7 +143,7 @@ class @main extends EE
 #    ls = cA ls,ls2,'<br>'
     ls = cA ls,ls3,'<br>'
     ls = cA ls,ls1,'<br>'
-
+    
     @found.location.html ls
     ###
     if data.location?.country

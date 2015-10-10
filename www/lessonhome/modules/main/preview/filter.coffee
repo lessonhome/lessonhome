@@ -82,7 +82,7 @@ cnum = 0
         awords += ' '+tag for tag of sbj.tags
     #console.log awords
     #console.log "\n\n\n\n"
-    awords = awords.replace /[^\s\wа-яА-ЯёЁ]/gi, ' '
+    awords = awords.replace /[^\s\w\@а-яА-ЯёЁ]/gim, ' '
     #console.log '1',awords
     awords = awords.replace /\s+/gi,' '
     #console.log '2',awords
@@ -101,9 +101,10 @@ cnum = 0
     #console.log awords
     for course in mf.course
       course = _diff.prepare(course)
+      course2 = _diff.prepare(course.replace(/[^\w\@а-яА-ЯёЁ]/gmi,''))
       arr = course.split ' '
       #course.replace(/[^\s\w]/g,' ').replace(/\s+/g,' ').replace(/^\s+/g,'').replace(/\s+$/g,'')
-      for c in arr
+      for c in [arr...,course2,course2.substr(1),course2.substr(0,course2.length-2)]
         continue unless c
         p.pointsNeed = true
         for word of awords
@@ -120,7 +121,6 @@ cnum = 0
           if (r.length > 2) && (r == l) && (Math.abs(c.length-word.length)<4)
             p.points2 += 0.1
     p.points += p.points2 unless p.points
-    #console.log mf.course,p.points,awords if p.points == 13
 
     continue if p.pointsNeed && (p.points <= 0)
     
