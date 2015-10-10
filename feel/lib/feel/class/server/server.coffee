@@ -28,7 +28,7 @@ class Server
       @server = http.createServer @handler
     else
       @server = http.createServer @handlerHttpRedirect
-    @server.listen @port #,@ip
+    @server.listen @port,@ip
     @runSsh() if @ssh
     console.log "listen port #{@ip}:#{@port}"
     @domains =
