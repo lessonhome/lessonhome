@@ -8,13 +8,18 @@ class @main
     @name = @tree.field_name.class
     @phone = @tree.field_phone.class
   show : =>
+    @name.on "focus", => @sendTouch.out 'Взаимодействие с формой','Имя'
+    @phone.on "focus", => @sendTouch.out 'Взаимодействие с формой','Телефон'
+    @tree.btn_send.class.on 'submit', => @sendTouch.out 'Взаимодействие с формой','Нажатие кнопки'
+    @tree.btn_more.class.on 'click', => @sendTouch.out 'Переход к полной форме'
     @attach = Feel.bid_attached
     @phone.on 'end', @sendForm.out
 
     @tree.btn_send.class.on 'submit', => Q.spawn =>
       correct = yield @sendForm()
       if correct then @showComplete()
-
+  sendTouch : (action, label)=>
+    Feel.sendGActionOnceIf(6000,'Короткая заявка',action,label)
   sendForm : =>
     error = yield @attach.sendForm()
     if error['phone']?
@@ -23,6 +28,7 @@ class @main
     if error['name']?
       @tree.field_name.class.showError()
       return false
+    Feel.sendGActionOnceIf(6000,'Короткая заявка','Отправка формы')
     return true
   showComplete: =>
     @panel_wrap.css height: @panel_wrap.outerHeight()
