@@ -31,7 +31,7 @@ $color_text: #757575
       .menu
         line-height: initial
         text-align: center
-        padding: 5px 15px 5px 15px
+        padding: 6px 0px 6px 0px
         margin-top: -$border_width
         border: $border_width solid #cccccc
         background: white
@@ -42,11 +42,15 @@ $color_text: #757575
           display: block
           height: 100%
           width: 100%
+          text-align : left
           color: $color_text
-
+          text-align : left
           line-height: 32px
           font-size: 16px
+          padding : 0 12px
+          +box-sizing(border-box)
         .item:hover
+          text-decoration : underline
           color: #000000
 
 

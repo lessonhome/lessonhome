@@ -84,7 +84,7 @@ class @main extends @template '../main'
           '5': {value: 'chemistry', text: 'химия'}
           '6': {value: 'german', text: 'немецкий язык'}
           '7': {value: 'primary_school', text: 'начальная школа'}
-          '8': {value: 'french', text: 'франзузский язык'}
+          '8': {value: 'french', text: 'французский язык'}
           '9': {value: 'social_studies', text: 'обществознание'}
           '10': {value: 'computer_science', text: 'информатика'}
           '11': {value: 'programming', text: 'программирование'}

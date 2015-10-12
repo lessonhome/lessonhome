@@ -99,9 +99,19 @@ class @main extends EE
     unless Feel?.user?.type?.admin
       @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
     else
-      @tutor_status.html "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"+
-        "<br>"+value.login+"; "+(value.phone?.join?('; ') ? '')+
-        "<br>"+(value.email?.join?('; ') ? '')
+      texts = {}
+      if value.login.match(/\@/)
+        texts[value.login.replace(/\s/gmi,'')] = true
+      else
+        texts[value.login.replace(/\D/gmi,'').substr(-10)] = true
+      for i,p of value.phone ? []
+        continue unless p = p?.replace?(/\D/gmi,'').substr(-10)
+        texts[p] = true
+      for i,p of value.email ? []
+        continue unless p = p?.replace?(/\s/gmi,'')
+        texts[p] = true
+      texts = for k of texts then k
+      @tutor_status.html "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"+"<br>"+texts.join('; ')
     l = value?.location ? {}
     cA = (str="",val,rep=', ')->
       return str unless val
