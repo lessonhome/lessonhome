@@ -53,19 +53,19 @@ class @main
     return errs.length==0
   getValue : => @getData()
   setValue : (data={})=>
-    @country.setValue       data.country || ""
-    @city.setValue          data.city || ""
-    @university.setValue    data.university || ""
-    @faculty.setValue       data.faculty || ""
-    @chair.setValue         data.chair || ""
+    @country.setValue       data.country  || ""
+    @city.setValue          data.city     || ""
+    @university.setValue    data.name     || ""
+    @faculty.setValue       data.faculty  || ""
+    @chair.setValue         data.chair    || ""
     @qualification.setValue data.qualification || ""
     @learn_from.setValue    data.learn_from || ""
     @learn_till.setValue    data.learn_till || ""
-    @comment.setValue       data.comment || ""
+    @comment.setValue       data.comment    || ""
   getData : =>
     country         : @country.getValue()
     city            : @city.getValue()
-    university      : @university.getValue()
+    name            : @university.getValue()
     faculty         : @faculty.getValue()
     chair           : @chair.getValue()
     qualification   : @qualification.getValue()
