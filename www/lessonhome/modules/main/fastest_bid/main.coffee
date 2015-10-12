@@ -11,6 +11,7 @@ class @main
     @name.on "focus", => @sendTouch.out 'Имя'
     @phone.on "focus", => @sendTouch.out 'Телефон'
     @tree.btn_send.class.on 'submit', => @sendTouch.out 'Нажатие кнопки'
+    @tree.btn_more.class.on 'click', => @sendTouch.out 'Переход к полной форме'
     @attach = Feel.bid_attached
     @phone.on 'end', @sendForm.out
 
@@ -18,7 +19,7 @@ class @main
       correct = yield @sendForm()
       if correct then @showComplete()
   sendTouch : (field)=>
-    Feel.sendGActionOnceIf('Короткая заявка','Взаимодействие с формой',field)
+    Feel.sendGActionOnceIf('6000','Короткая заявка','Взаимодействие с формой',field)
   sendForm : =>
     error = yield @attach.sendForm()
     if error['phone']?
