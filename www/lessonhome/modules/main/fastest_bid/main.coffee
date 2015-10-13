@@ -8,10 +8,10 @@ class @main
     @name = @tree.field_name.class
     @phone = @tree.field_phone.class
   show : =>
-    @name.on "focus", => @sendTouch.out 'Взаимодействие с формой','Имя'
-    @phone.on "focus", => @sendTouch.out 'Взаимодействие с формой','Телефон'
-    @tree.btn_send.class.on 'submit', => @sendTouch.out 'Взаимодействие с формой','Нажатие кнопки'
-    @tree.btn_more.class.on 'click', => @sendTouch.out 'Переход к полной форме'
+    @name.on "focus", => @sendTouch.out 'Form_interaction','Name'
+    @phone.on "focus", => @sendTouch.out 'Form_interaction','Telephone'
+    @tree.btn_send.class.on 'submit', => @sendTouch.out 'Form_interaction','Button_press'
+    @tree.btn_more.class.on 'click', => @sendTouch.out 'Goto_full'
     @attach = Feel.bid_attached
     @phone.on 'end', @sendForm.out
 
@@ -19,7 +19,7 @@ class @main
       correct = yield @sendForm()
       if correct then @showComplete()
   sendTouch : (action, label)=>
-    Feel.sendGActionOnceIf(6000,'Короткая заявка',action,label)
+    Feel.sendGActionOnceIf(6000,'Bid_short',action,label)
   sendForm : =>
     error = yield @attach.sendForm()
     if error['phone']?
@@ -28,7 +28,7 @@ class @main
     if error['name']?
       @tree.field_name.class.showError()
       return false
-    Feel.sendGActionOnceIf(6000,'Короткая заявка','Отправка формы')
+    Feel.sendGActionOnceIf(6000,'Bid_short','Form_send')
     return true
   showComplete: =>
     @panel_wrap.css height: @panel_wrap.outerHeight()
