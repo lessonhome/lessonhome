@@ -1,10 +1,21 @@
 class @main
   Dom: =>
-    @tutorMore      = @found.tutor_more
+    @chooseTutor      = @found.tutor_trigger
   show: =>
-    @tutorMore.on 'click.tutor', @moreTutor
+    @chooseTutor.on 'click.tutor', @tutorChoose
   hide: =>
-    @tutorMore.off 'click.tutor', @moreTutor
+    @chooseTutor.off 'click.tutor', @tutorChoose
 
-  moreTutor : (e) =>
-    console.log('tro lo lo')
+  tutorChoose : (e) =>
+    e = e || window.event
+    thisElement = $(e.currentTarget)
+    thisSelect  = thisElement.hasClass('selected')
+
+    if thisSelect == false
+      thisElement.addClass('waves-light teal lighten-2 selected white-text').removeClass('btn-trigger waves-teal')
+      thisElement.find('.tutor_button_text').html('Убрать')
+      thisElement.find('.material-icons').html('remove')
+    else
+      thisElement.removeClass('waves-light teal lighten-2 selected white-text').addClass('btn-trigger waves-teal')
+      thisElement.find('.tutor_button_text').html('Выбрать')
+      thisElement.find('.material-icons').html('add')
