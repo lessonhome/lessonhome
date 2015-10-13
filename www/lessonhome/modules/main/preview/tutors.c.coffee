@@ -123,6 +123,7 @@ class Tutors
       t = o?.tutor
       p = o?.person
       obj = {}
+      obj.login = o?.account?.login
       obj.index = o.account.index
       obj.registerTime = o.account.registerTime?.getTime?() ? 0
       obj.accessTime = o.account.accessTime?.getTime?() ? 0
@@ -138,7 +139,7 @@ class Tutors
       obj.name.last  = p?.last_name
       obj.name.middle = p?.middle_name
       obj.work = p?.work
-      obj.about = t?.about
+      obj.about = t?.about || ""
       obj.check_out_the_areas = t?.check_out_the_areas
       obj.subjects = {}
       if p.birthday
@@ -165,7 +166,7 @@ class Tutors
       for ind,val of t?.subjects
         ns = obj.subjects[val.name] = {}
         ns.description = val.description
-        obj.about = ns.description unless obj.about
+        #obj.about = ns.description unless obj.about
         ns.reason = val.reason
         ns.slogan = val.slogan
         ns.tags = val.tags

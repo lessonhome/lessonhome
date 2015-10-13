@@ -13,8 +13,10 @@ else
   _isNode = true
 cnum = 0
 @filter = (input,mf)=> do Q.async =>
-  if mf.price.right == 3500
-    mf.price.right = 6000
+  if mf.price.right > 3000
+    mf.price.right = 300000
+  if mf.price.left < 600
+    mf.price.left = 0
   out = []
   out2 = []
   out3 = []
@@ -58,12 +60,19 @@ cnum = 0
     #console.log awords
     for k,str of p.name
       awords += ' '+(str ? '') if typeof str == 'string'
+    for k,str of p.phone
+      awords += ' '+(str.replace?(/\D/gmi,'').substr(-10) ? '') if typeof str == 'string'
+    for k,str of p.email
+      awords += ' '+(str ? '') if typeof str == 'string'
     #console.log awords
     awords += " " + (p.reason ? '') if typeof p.reason == 'string'
     #console.log awords
     awords += " " + (p.slogan ? '') if typeof p.slogan == 'string'
     #console.log awords
     awords += " " + (p.about ? '') if typeof p.about == 'string'
+    awords += " " + (p.login ? '') if typeof p.login == 'string'
+    awords += " " + (p.login?.replace?(/\D/gmi,'').substr(-10) ? '') if typeof p.login == 'string'
+    
     #console.log awords
     for sname,sbj of p.subjects
       awords += ' '+sname
@@ -73,7 +82,7 @@ cnum = 0
         awords += ' '+tag for tag of sbj.tags
     #console.log awords
     #console.log "\n\n\n\n"
-    awords = awords.replace /[^\s\wа-яА-ЯёЁ]/gi, ' '
+    awords = awords.replace /[^\s\w\@а-яА-ЯёЁ]/gim, ' '
     #console.log '1',awords
     awords = awords.replace /\s+/gi,' '
     #console.log '2',awords
@@ -92,9 +101,10 @@ cnum = 0
     #console.log awords
     for course in mf.course
       course = _diff.prepare(course)
+      course2 = _diff.prepare(course.replace(/[^\w\@а-яА-ЯёЁ]/gmi,''))
       arr = course.split ' '
       #course.replace(/[^\s\w]/g,' ').replace(/\s+/g,' ').replace(/^\s+/g,'').replace(/\s+$/g,'')
-      for c in arr
+      for c in [arr...,course2,course2.substr(1),course2.substr(0,course2.length-2)]
         continue unless c
         p.pointsNeed = true
         for word of awords
@@ -111,7 +121,6 @@ cnum = 0
           if (r.length > 2) && (r == l) && (Math.abs(c.length-word.length)<4)
             p.points2 += 0.1
     p.points += p.points2 unless p.points
-    #console.log mf.course,p.points,awords if p.points == 13
 
     continue if p.pointsNeed && (p.points <= 0)
     

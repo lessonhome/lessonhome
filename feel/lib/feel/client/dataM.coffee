@@ -26,6 +26,19 @@ class @DataM
             continue
   request : (file,type,params)=>
     hash = objectHash.sha1 {type,params}
+  getBids: (from=0,count=10,hash_)=>
+    filter = {}
+    filter.hash = hash_ ? yield Feel.urlData.filterHash()
+    return @tutors.filters[filter.hash].indexes if @tutors?.filters?[filter.hash]?.indexes?
+    filter.data = yield Feel.udata.u2d(filter.hash) #yield Feel.urlData.get 'mainFilter'
+    filter.data = filter.data?.mainFilter
+    exists = Object.keys(@tutors?.preps ? {}) ? []
+    ret = yield Feel.root.tree.class.$send 'm:/main/preview/tutors',{filter,from,count,exists},'quiet'
+    for key,indexes of (ret.filters ? {})
+      @tutors.filters[key] = indexes ? []
+    for key,prep of (ret.preps ? {})
+      @tutors.preps[key] = prep
+    return @tutors.filters?[filter?.hash]?.indexes ? []
   getTutor : (preps)=>
     req = []
     for p in preps

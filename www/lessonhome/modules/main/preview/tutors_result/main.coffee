@@ -1,5 +1,9 @@
 class @main extends EE
   Dom:  =>
+    @dom.dblclick => Q.spawn =>
+      yield Feel.root.tree.class.$send '/relogin',@index
+      yield Feel.go '/form/tutor/login',true
+
     @dom.click (e)=> Q.spawn =>
       if e.ctrlKey && e.altKey && @index > 0
         yield Feel.root.tree.class.$send '/relogin',@index
@@ -16,7 +20,7 @@ class @main extends EE
   setValue : (data)=>
     @index = data?.index ? 0
     @rating_photo.setValue {
-      #rating : data.rating
+      rating : data.rating
       index : data.index
       photos : data.photos
       price_per_hour : data.price_per_hour

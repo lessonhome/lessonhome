@@ -1,13 +1,25 @@
 
 #check = require("./check")
 
+phones = 
+
+other = ($,data)-> do Q.async =>
+  sms = yield Main.service 'sms'
+  sms.send ''
+  
+
+
 @handler = ($,data)=>
   return {status:'success'} unless data.phone
   data.account = $.user.id
   console.log 'save bid'
+  data.time = new Date()
   db = yield $.db.get 'bids'
   yield _invoke db,'update',{account:$.user.id},{$set:data},{upsert:true}
+  other.call(@,$,data).done()
   return {status:'success'}
+
+
 
 
 

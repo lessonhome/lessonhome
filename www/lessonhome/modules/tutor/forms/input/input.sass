@@ -2,10 +2,11 @@
 
 $bg_color: #b2b2b2
 $bg_color_w: #ffffff
-$text_color: black///rgba(75, 75, 75, 0.70)
+$text_color: black //rgba(75, 75, 75, 0.70)
 //$border_color: #d6d6d6
 $border_color: #a0a0a0
-
+$icon_person: 'ic_person_black_24dp_1x.png'
+$icon_phone: 'ic_phone_black_24dp_1x.png'
 
 =block()
   +inline-block
@@ -15,6 +16,25 @@ $border_color: #a0a0a0
   +box-sizing('border-box')
   width: 100%
   position: relative
+=add-icon($src)
+  $width: image-width($src)
+  $height: image-height($src)
+  padding-left: $width + 20px
+  position: relative
+  &:after
+    content: ''
+    -moz-opacity: 0.6
+    -khtml-opacity: 0.6
+    opacity: 0.6
+    position: absolute
+    display: block
+    width: $width
+    height: $height
+    left: 10px
+    top: 0
+    bottom: 0
+    margin: auto 0
+    background: url(F($src))
 main
   +block
 label
@@ -142,6 +162,10 @@ label .hint
     +box-sizing(content-box)
 
 
+label.phone .level2 .input_box
+  +add-icon($icon_phone)
+label.person .level2 .input_box
+  +add-icon($icon_person)
 
 
 

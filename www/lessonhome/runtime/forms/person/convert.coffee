@@ -95,6 +95,7 @@ class @F2V
   $city       : (data)-> data?.location?.city
   $country    : (data)-> data?.location?.country
   $work       : (data)-> data?.work?[0]
+  $works      : (data)-> data?.work
   $workplace  : (data)-> data?.work?[0]?.place
   $ecity      : (data)-> data?.education?[0]?.city
   $ename      : (data)-> data?.education?[0]?.name
@@ -113,6 +114,7 @@ class @F2V
       last  : name.lastName('dative')
     }
   $edu        : (data)-> data?.education?[0]
+  $education  : (data)-> data?.education
   $address    : (data)->
     location = data?.location
     country  = location?.country

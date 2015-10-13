@@ -6,6 +6,7 @@ $gray:  hsl(0,0%,69%)
 $green: hsl(87,62%,69%)
 $light_green: hsl(78,70%,65%)
 // later doing hsl color
+$arrow : 'main/suit_icon.png'
 $temporary_green: #009587
 $active_gray: #d9d9d9
 main
@@ -50,6 +51,10 @@ a
 .visibility
   visibility: hidden
 
+
+
+    
+
 //////////////// function //////////////
 =selector($selector,$b_color,$padding_text,$font_size)
   a.#{$selector}
@@ -91,7 +96,6 @@ a
     //&.inactive:hover
       .button
         background: lighten($gray, 5%)
-
 
 //- ----------------------- CREATE ACCOUNT -----------------
 
@@ -170,7 +174,7 @@ $padding_text: 15px
 //+selector('invite', $red, 10px, 18px)
 +selector_new('invite', $temporary_green, 18px, 0)
 
-
++selector_new('fast_bid', #49CCC4, 16px, 0)
 // save button in popup address
 +selector_new('edit_save', $red, 20px, 0)
 //+selector('edit_save', $red, 11.5px, 20px)
@@ -201,6 +205,28 @@ $search_pattern_src: 'main/search_pattern.png'
 .write_tutor>.button
   background-color: #3e9ee0
   color: #000
+
+
+//-----------------icon----------------
+
+a.arrow
+  position: relative
+  $height: image-height($arrow)
+  $width: image-width($arrow)
+  &:after
+    content: ''
+    height: $height
+    width: $width
+    background: url(F($arrow))
+    position: absolute
+    bottom: 0
+    top: 0
+    right: 25px
+    margin: auto 0
+  .button
+    padding-right: $width + 25px
+
+
 ////////////////-------actions--------////////////////
 
 .active:hover

@@ -9,11 +9,14 @@ $icon_reset_height: image-height($icon_reset_src)
 $icon_reset_width: image-width($icon_reset_src)
 
 main
-  padding: 20px 0px 20px 0px
+  padding: 16px 0px 20px 0px
   background-color: $white
   float : left
   width : 100%
   +box-sizing(border-box)
+
+.fastest_bid
+  margin-bottom: 20px
 .background_block
   position: fixed
   left: 0
@@ -36,7 +39,7 @@ main
   padding: 24px 0
   background-color: #EFEFEF
   text-align: center
-  margin-bottom: 24px
+  margin-bottom: 16px
   .text_block
     padding-right: 24px
     +inline-block
@@ -83,7 +86,7 @@ main
     display : none
   .sort
     height: 48px
-    margin-bottom: 12px
+    margin-bottom: 6px
     float: left
     width: 648px
 
@@ -209,7 +212,7 @@ main
   .tags
     +inline-block
     width : 100%
-    padding: 10px 0
+    padding: 0
     color: rgb(0, 56, 64)
     +box-sizing(border-box)
     .tag
@@ -221,7 +224,7 @@ main
       display : none
       line-height : 19px
       font-size : 14px
-      margin : 3px
+      margin : 3px 3px 3px 0
       background-color: rgba(0, 187, 211, 0.51)
       border: 1px solid rgba(0, 0, 0, 0.1)
       cursor: pointer

@@ -12,6 +12,8 @@ class @main
       close         : false
       extract       : @exports()
       rating        : @exports()
+      showrating    : @exports()
+      showsubject   : @exports()
     tutor_extract : @module '$/tutor_extract'  :
       value : @exports()
       ### value have variables

@@ -62,7 +62,10 @@ class @main extends EE
     value = @tree.value
     #@with_verification.css 'background-color', value.with_verification if value?.with_verification?
     @tree.all_rating.class.setValue rating:value?.rating
-    @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
+    unless Feel?.user?.type?.admin
+      @tutor_name.text("#{value.name.first ? ""} #{value.name.middle ? ""}")
+    else
+      @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
     @tutor_subject?.empty?()
     i = 0
     if @tutor_subject?.append? then for key,val of value.subjects
@@ -93,7 +96,22 @@ class @main extends EE
 
     exp = value.experience ? ""
     exp += " года" if exp && !exp?.match? /\s/
-    @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
+    unless Feel?.user?.type?.admin
+      @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
+    else
+      texts = {}
+      if value.login.match(/\@/)
+        texts[value.login.replace(/\s/gmi,'')] = true
+      else
+        texts[value.login.replace(/\D/gmi,'').substr(-10)] = true
+      for i,p of value.phone ? []
+        continue unless p = p?.replace?(/\D/gmi,'').substr(-10)
+        texts[p] = true
+      for i,p of value.email ? []
+        continue unless p = p?.replace?(/\s/gmi,'')
+        texts[p] = true
+      texts = for k of texts then k
+      @tutor_status.html "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"+"<br>"+texts.join('; ')
     l = value?.location ? {}
     cA = (str="",val,rep=', ')->
       return str unless val
@@ -122,8 +140,11 @@ class @main extends EE
     @found.location.html(ls)
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     tutor_text = value.about || ''
-    if (tutor_text.length > 210) && @tree.reclame
-      tutor_text = tutor_text.substr 0,199
+    maxl = 500
+    maxl = 210 if @tree.reclame
+
+    if (tutor_text.length > maxl)
+      tutor_text = tutor_text.substr 0,maxl-11
       tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
       tutor_text += '...'
       @tutor_text.text tutor_text

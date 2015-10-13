@@ -8,22 +8,27 @@ $light_green: hsl(78,70%,65%)
 $temporary_blue:  #00bbd3
 
 main
-  height: 100%
+  height: inherit
+  line-height : inherit
   cursor: pointer
   width: 100%
 .button_box
-  height: 100%
+  height: inherit
+  line-height : inherit
   width: 100%
   .button
+    height: inherit
+    line-height : inherit
     padding-bottom: 1.5px
     box-sizing: border-box
     width: 100%
-    height: 100%
     +inline-block
     //+border-radius(4px)
     box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 3px 0px, rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset
     text-align: center
     .text
+      height: inherit
+      line-height : inherit
       //margin-top: -3px
       +inline-block
       color: #202020
@@ -33,18 +38,20 @@ main
     height: 100%
 
 //////////////// function //////////////
-=selector($selector,$b_color,$padding_text,$font_size)
+=selector($selector,$b_color,$padding_text,$font_size,$mtop)
   .button_box.#{$selector}
     .button
       background: $b_color
       .text
         padding: 0 $padding_text
         font-size: $font_size
+        margin-top : $mtop
     &:hover .button
       background: lighten($b_color, 5%)
 
 //new function for new design, after all element on new, delete old function
 =selector_new($selector,$b_color,$font_size)
+
   .button_box.#{$selector}
     .button
       background: $b_color
@@ -57,7 +64,7 @@ main
 ////------------- motivation button ----------------////
 $font_size: 26px
 $padding_text: 28px
-+selector('start_search',$red,26px,25px)
++selector('start_search',$red,26px,25px,0)
 
 
 
@@ -73,10 +80,10 @@ $padding_text: 28px
 ///////////-----------button in header popup element -----------//////////
 $font_size: 20px
 $padding_text: 12px
-+selector('call_back',$gray,62px,20px)
++selector('call_back',$gray,62px,20px,0)
 .call_back .button .text
   color: #000000
-+selector('in_out',$red,12px,20px)
++selector('in_out',$red,12px,20px,0)
 
 //////////////-------------add button bid this tutor in preview----------/////////////
 $font_size: 18px
@@ -99,33 +106,33 @@ $search_pattern_src: 'main/search_pattern.png'
 //////////////--------- fill button in report bid --------///////////////
 $font-size: 16px
 $padding_text: 13px
-+selector('fill', $blue, $padding_text, $font-size)
++selector('fill', $blue, $padding_text, $font-size,0)
 
 
 // ------------------------- CHECK IN -----------------------
 
-+selector('check_in_first', $red, 53.5px, 25px)
-+selector('check_in_second', $red, 19px, 24px)
-+selector('callback', $red, 28.5px, 26px)
++selector('check_in_first', $red, 53.5px, 25px,0)
++selector('check_in_second', $red, 19px, 24px,0)
++selector('callback', $red, 28.5px, 26px,0)
 
 
 //- ---------------- EDIT: SAVE, ADD BUTTONS; REGISTRATION POPUP: REG_ADD; SEARCH_BIDS: SAVE BUTTON --------------------------
 
 
-+selector('edit_save', $red, 11.5px, 20px)
++selector('edit_save', $red, 11.5px, 20px,-9px)
 
-+selector('reg_add', $red, 11.5px, 20px)
-+selector('search_bids_save', $red, 11.5px, 18px)
++selector('reg_add', $red, 11.5px, 20px,0)
++selector('search_bids_save', $red, 11.5px, 18px,0)
 
 
 //- ----------- EDIT PLUS BUTTON (ADD SMTH) ---------------------
 
-+selector('add_smth', $red, 9.5px, 34px)
++selector('add_smth', $red, 9.5px, 34px,0)
 
 
 //- ----------- Registration popup, first_step : understand button ----------------------
 
-+selector('understand', $light_green, 31.5px, 23px)
++selector('understand', $light_green, 31.5px, 23px,0)
 
 .button_box.understand
   .button
@@ -135,7 +142,7 @@ $padding_text: 13px
 
 //- --------- Advanced filter; calendar : add time button ------------------------------------
 
-+selector('filter_add_time', $red, 4px, 12px)
++selector('filter_add_time', $red, 4px, 12px,0)
 
 .button_box.filter_add_time
   .button
@@ -152,7 +159,7 @@ $icon_src: 'invite/mail_18x13.png'
 
 
 // send new code
-+selector('new_code', $gray, 12px, 20px)
++selector('new_code', $gray, 12px, 20px,0)
 
 
 //- ---------------- Support Page ---------------------------------------

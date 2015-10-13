@@ -53,11 +53,13 @@
     "imagemagick": "*",
     "lodash" : "*",
     "request":"*",
+    "request-promise":"*",
     "nodemailer":"*",
     "fs-extra" : "*",
     "redis" : "*",
     "memcached" : "*",
-    "readdirp" : "*"
+    "readdirp" : "*",
+    "request-json":"*"
   }
 }
 

@@ -1,0 +1,48 @@
+@import base
+
+
+.content
+  .text
+    width : 100%
+    padding-top: 10px
+    float : left
+    text-align : left
+  .text
+    float : left
+    padding : 10px 0
+  .phone
+    font-size : 40px
+  .send_message
+    height : 35px
+    line-height : 35px
+    float : left
+    padding-bottom : 30px
+    width : 300px
+  .status
+    width : 100%
+    height : auto
+    padding : 5px
+    line-height : 18px
+    font-size : 12px
+    text-align : left
+    float : left
+  +inline-block
+  width : 100%
+  .reviews
+    +inline-block
+    width : 100%
+
+    .review_block
+      margin-bottom : 10px
+      +inline-block
+      padding : 5px
+      +box-sizing(border-box)
+      width : 100%
+      +box-shadow( 0 0 10px rgba(0,0,0,0.4))
+    .hidden
+      display : none
+.content .reviews .review_block
+  position : relative
+.content .add_button
+  height : 40px
+  width : 100%

@@ -15,13 +15,14 @@ class Static
     @watch()
   watch : =>
     watch.createMonitor './',(@monitor)=>
-      @monitor.on 'created', @mcreated
-      @monitor.on 'changed', @mchanged
-      @monitor.on 'removed', @mremoved
       for file,stat of @monitor.files
         if file.match /^www\/\w+\/static\/.*\.\w+$/
           if stat.isFile()
             @createHash file,stat
+      @monitor.on 'created', @mcreated
+      @monitor.on 'changed', @mchanged
+      @monitor.on 'removed', @mremoved
+    
   mcreated : (f,stat)=>
     @checkHash f,stat
   mchanged : (f,stat,pstat)=>
