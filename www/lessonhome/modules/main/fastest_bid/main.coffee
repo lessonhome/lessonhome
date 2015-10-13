@@ -8,10 +8,10 @@ class @main
     @name = @tree.field_name.class
     @phone = @tree.field_phone.class
   show : =>
-    @name.on "focus", => @sendTouch.out 'Form_interaction','Name'
-    @phone.on "focus", => @sendTouch.out 'Form_interaction','Telephone'
-    @tree.btn_send.class.on 'submit', => @sendTouch.out 'Form_interaction','Button_press'
-    @tree.btn_more.class.on 'click', => @sendTouch.out 'Goto_full'
+    @name.on "focus", => @sendTouch.out 'form interaction','name'
+    @phone.on "focus", => @sendTouch.out 'form interaction','telephone'
+    @tree.btn_send.class.on 'submit', => @sendTouch.out 'form interaction','button press'
+    @tree.btn_more.class.on 'click', => @sendTouch.out 'goto full'
     @attach = Feel.bid_attached
     @phone.on 'end', @sendForm.out
 
@@ -19,7 +19,7 @@ class @main
       correct = yield @sendForm()
       if correct then @showComplete()
   sendTouch : (action, label)=>
-    Feel.sendGActionOnceIf(6000,'Bid_short',action,label)
+    Feel.sendGActionOnceIf(6000,'bid short',action,label)
   sendForm : =>
     error = yield @attach.sendForm()
     if error['phone']?
@@ -28,7 +28,7 @@ class @main
     if error['name']?
       @tree.field_name.class.showError()
       return false
-    Feel.sendGActionOnceIf(6000,'Bid_short','Form_send')
+    Feel.sendGActionOnceIf(6000,'bid short','form send')
     return true
   showComplete: =>
     @panel_wrap.css height: @panel_wrap.outerHeight()
