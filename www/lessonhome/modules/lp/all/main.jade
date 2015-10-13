@@ -9,8 +9,13 @@
         p Я помогу Вам выбрать подходящего репетитора.
       .js-tutors_list
         h4 Репетиторы по математике:
-        - for (var x = 0; x < 5; x++)
-          .container-fish='it is a good day to die ' + x
+        //tutor list
+        each tutor in tutors
+          !=tutor
+        each tutor in tutors
+          !=tutor
+        //- for (var x = 0; x < 5; x++)
+        //  .container-fish='it is a good day to die ' + x
       .dialog_block.js-step_two
         .row
           .col.l8.m12.s12

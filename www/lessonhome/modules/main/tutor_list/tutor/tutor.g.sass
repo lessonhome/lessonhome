@@ -1,0 +1,28 @@
+@import variables
+
+//tutors card
+.tutor-block
+  //box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12)
+  transition: box-shadow 0.25s ease 0s
+  overflow: hidden
+  padding: 1rem 0
+  .tutor-title
+    font-size: 1.6rem
+    line-height: 130%
+    margin: 0 0 0.5rem
+    color: #039BE5
+    @media #{$medium-and-down}
+      font-size: 1.5rem
+    @media #{$small-and-down}
+      font-size: 1.4rem
+  .description
+    @media #{$medium-and-down}
+      max-height: 100px
+      overflow: hidden
+  .price
+    font-size: 1.6rem
+  .tutor-action
+    margin-top: 1rem
+
+  &.tutor_more
+    cursor: pointer
