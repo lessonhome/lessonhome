@@ -12,26 +12,32 @@ $animation-good-01:  70% 0
 $animation-default-01:  80% 0
 
 .lp_custom
-  padding-top: 120px
+  //padding-top: 120px
   padding-bottom: 140px
   @media #{$medium-and-down}
-    padding-top: 60px
+    //padding-top: 60px
     padding-bottom: 60px
   @media #{$small-and-down}
-    padding-top: 40px
+    //padding-top: 40px
     padding-bottom: 40px
   h4
     font-size: 1.6rem
     margin: 2.667rem 0
+    @media #{$small-and-down}
+      margin: 2rem 0 1rem
   h3
     font-size: 2.4rem
     margin: 0 0 1.8rem 0
+    @media #{$small-and-down}
+      font-size: 1.8rem
+      margin: 0 0 1rem 0
+      font-weight: 700
   .pinned
     top: 45%
     @media #{$large-and-up}
-      top: 25%
+      top: 45%
     @media #{$medium-and-down}
-      top: 35%
+      top: 45%
 
 #character
   background: url(F('/lp/char-sprite-six.png')) no-repeat $animation-default-01
@@ -100,12 +106,15 @@ $animation-default-01:  80% 0
   position: relative
   border-radius: 3px
   @media #{$medium-and-down}
-    padding: 25px
+    padding: 15px
     padding-bottom: 10px
   p
     font-size: 20px
     margin: 0
     margin-bottom: 1rem
+    //&.form_p
+    @media #{$small-and-down}
+      font-size: 16px
 
   &:before
     display: block
@@ -130,9 +139,17 @@ $animation-default-01:  80% 0
 .tutors_list
   opacity: 0
   margin-bottom: 2rem
+  @media #{$small-and-down}
+    opacity: 1
 .step_two
   opacity: 0
+  @media #{$small-and-down}
+    opacity: 1
 .seo_text
   opacity: 0
+  @media #{$small-and-down}
+    opacity: 1
 .step_three
   opacity: 0
+  @media #{$small-and-down}
+    opacity: 1

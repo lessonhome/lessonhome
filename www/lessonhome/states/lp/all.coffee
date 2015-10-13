@@ -26,3 +26,4 @@ class @main  extends @template '../lp'
           price : 1500
           photo : 'https://lessonhome.ru/file/f46da49a1e/user_data/images/7c68d58025l.jpg'
       ]
+      top_form  : @module 'main/fastest_top'
