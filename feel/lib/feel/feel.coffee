@@ -45,7 +45,7 @@ class module.exports
     .then => @version()
     .then =>
       return if @version == @oversion
-      _rmrf('.cache').then -> _rmrf 'feel/.sass-cache'
+      _rmrf('.cache').then -> _rmrf('feel/.sass-cache')
     .then => mkdirp '.cache'
     .then =>
       _writeFile '.cache/version',@sVersion
@@ -190,6 +190,7 @@ class module.exports
         defer.resolve()
     return defer.promise
   watch : =>
+    return if _production
     watch  @path.www, {recursive:true}, @watchHandler
   watchHandler : (file)=>
     m = file.match /^[^\/]+\/([^\/]+)\/([^\/]+)\/?(.*)\/([^\.][^\/]+)\.(\w+)$/
