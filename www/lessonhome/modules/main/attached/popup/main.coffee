@@ -6,12 +6,18 @@ class @main
     @subject=@tree.subject.class
     @second_block=@found.second_block
   show : =>
+    @name.on "focus", => @sendTouch.out 'form_interaction','name'
+    @phone.on "focus", => @sendTouch.out 'form_interaction','phone'
+    @email.on "focus", => @sendTouch.out 'form_interaction','email'
+    @subject.on "focus", => @sendTouch.out 'form_interaction','subject'
+#    @second_block "focus", => @sendTouch.out 'form_interaction','second_block'
+
     if !@subject.getValue()
       @subject.on 'focus', =>
         @second_block.show('slow')
     else  @second_block.show('slow')
   sendTouch : (action, label)=>
-    Feel.sendGActionOnceIf(18000,'Короткая заявка',action,label)
+    Feel.sendGActionOnceIf(18000,'bid_full',action,label)
   parseError: (err) =>
     if err['name']? then @name.showError 'Введите более короткое имя'
     if err['phone']?
