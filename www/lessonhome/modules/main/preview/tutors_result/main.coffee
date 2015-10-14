@@ -16,6 +16,12 @@ class @main extends EE
   show: =>
     @rating_photo   = @tree.rating_photo.class
     @tutor_extract  = @tree.tutor_extract.class
+    if @tree.onepage
+      do (that=this)=> @dom.find('a').click (e)->
+        e.preventDefault()
+        Feel.root.tree.class.showTutor that.index,$(this).attr('href')
+        return false
+
     #@set
   setValue : (data)=>
     @index = data?.index ? 0

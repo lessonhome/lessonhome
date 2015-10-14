@@ -40,3 +40,26 @@ class @main extends EE
 
   goBack: =>
     document.location.href = window.history.back()
+  showTutor : (index,href)=> Q.spawn =>
+    @saveUrl = History.getState().url
+    @saveScroll = $(window).scrollTop()
+    yield Feel.gor(href)
+    @saveTutor = @tree.tutor_profile.class.$clone()
+    @found.tutor_profile.empty()
+    @found.tutor_profile.append @saveTutor.dom
+    yield @saveTutor.open(index)
+    @found.tutor_profile.show()
+    $(window).scrollTop(0)
+    @found.content.hide()
+    $(window).off 'scroll.tutors'
+  hideTutor : => Q.spawn =>
+    #yield Feel.urlData.set 'tutorProfile',{index:undefined}
+    yield Feel.gor @saveUrl.replace /(\?.*)/gmi,''
+    @found.tutor_profile.hide()
+    @found.content.show()
+    $(window).scrollTop(@saveScroll)
+    yield Feel.urlData.set 'tutorProfule',{index:0}
+    if @tree.content?.class?.onscroll?
+      $(window).on 'scroll.tutors',@tree.content?.class?.onscroll
+
+

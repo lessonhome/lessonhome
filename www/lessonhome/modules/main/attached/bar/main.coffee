@@ -29,8 +29,11 @@ class @main
 #    .on 'jcarouselcontrol:inactive', => @right.addClass 'inactive'
 #    .on 'jcarouselcontrol:active', => @right.removeClass 'inactive'
   reshow : (linked) =>
-
-    linked ?= yield Feel.urlData.get 'mainFilter','linked'
+    linked = yield Feel.urlData.get 'mainFilter','linked','reload'
+    if @reshowing > 0
+      @reshowing = 2
+      return linked.length
+    @reshowing = 1
     @linked = linked
     linked = for index of @linked then index
     @preps.empty()
@@ -40,6 +43,10 @@ class @main
       for prep in preps
         @preps.append yield @createDom prep
     @found.count.text "(#{linked.length})"
+    if @reshowing == 2
+      @reshowing = 0
+      return @reshow()
+    @reshowing = 0
     return linked.length
 
   createDom : (prep) =>

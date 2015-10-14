@@ -59,7 +59,9 @@
     "redis" : "*",
     "memcached" : "*",
     "readdirp" : "*",
-    "request-json":"*"
+    "request-json":"*",
+    "yandex-direct" : "*",
+    "yandex-direct-api": "*"
   }
 }
 
