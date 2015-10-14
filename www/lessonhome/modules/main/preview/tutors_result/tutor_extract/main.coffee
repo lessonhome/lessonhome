@@ -23,8 +23,10 @@ class @main extends EE
     @hopacity ?= @dom.find('.g-hopacity')
     #@hideExtraText() # hide text that is larger than the maximum length and show full text by click
     @found.choose_button.click @addTutor
+    Feel.urlData.on 'change',@setLinked
   addTutor : => Q.spawn =>
-    linked = yield Feel.urlData.get 'mainFilter','linked'
+    console.log 'addTutor'
+    linked = yield Feel.urlData.get 'mainFilter','linked','reload'
     if linked[@tree.value.index]?
       delete linked[@tree.value.index]
 #      feel.sendActionOnce('button')
@@ -33,7 +35,8 @@ class @main extends EE
     @setLinked linked
     yield Feel.urlData.set 'mainFilter','linked',linked
   setLinked : (linked)=> Q.spawn =>
-    linked ?= yield Feel.urlData.get 'mainFilter','linked'
+    console.log 'setLinked'
+    linked ?= yield Feel.urlData.get 'mainFilter','linked','reload'
     if linked[@tree.value.index]?
       @tree.choose_button?.class?.setValue {text:'Убрать',color:'#3ab27d',pressed:true}
       @tree.choose_button?.class?.setActiveCheckbox()
@@ -76,12 +79,14 @@ class @main extends EE
 #        if i > 1
 #          skey += ','
         @tutor_subject?.append? s=$("<div class='tag'></div>").text(skey ? "")
+        ###
         do (s,key,val)=>
           s.click => Q.spawn =>
             link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
             #@found.link_name.attr 'href',link
             #@tree.view_button.class.activate link
             yield Feel.go link
+        ###
 
 
         #do (s,key,val)=>
@@ -160,7 +165,8 @@ class @main extends EE
     do => Q.spawn =>
       link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
       @found.link_name.attr 'href',link
-      @tree.view_button.class.activate link
+      unless @tree.onepage
+        @tree.view_button.class.activate link
       @dom.find('.about_link').attr 'href',link
   getValue : => @getData()
 
