@@ -12,13 +12,13 @@ $animation-good-01:  70% 0
 $animation-default-01:  80% 0
 
 .lp_custom
-  //padding-top: 120px
+  padding-top: 40px
   padding-bottom: 140px
   @media #{$medium-and-down}
     //padding-top: 60px
     padding-bottom: 60px
   @media #{$small-and-down}
-    //padding-top: 40px
+    padding-top: 20px
     padding-bottom: 40px
   h4
     font-size: 1.6rem
@@ -33,11 +33,11 @@ $animation-default-01:  80% 0
       margin: 0 0 1rem 0
       font-weight: 700
   .pinned
-    top: 45%
+    top: 20%
     @media #{$large-and-up}
-      top: 45%
+      top: 20%
     @media #{$medium-and-down}
-      top: 45%
+      top: 20%
 
 #character
   background: url(F('/lp/char-sprite-six.png')) no-repeat $animation-default-01
@@ -135,7 +135,15 @@ $animation-default-01:  80% 0
   border-radius: 3px
 
 .step_one
-  top: 100px
+  padding-bottom: 15px
+  @media #{$medium-and-down}
+    padding: 25px
+    padding-bottom: 15px
+  h3
+    font-size: 2rem
+    margin-bottom: 0
+    @media #{$medium-and-down}
+      font-size: 1.6rem
 .tutors_list
   opacity: 0
   margin-bottom: 2rem

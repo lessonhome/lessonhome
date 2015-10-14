@@ -1,13 +1,25 @@
 .container.lp_custom
-  .top-form!=top_form
+  //.top-form!=top_form
   .row
-    .col.l2.m2.pinned
+    .col.l2.m2.pinned.js-charset
       #character.hide-on-small-only
         img(src=F('lp/charset-opacity.gif')).responsive-img
     .col.l9.m9.offset-l3.offset-m3
-      .dialog_block.js-step_one.hide-on-small-only
-        p Здравствуйте! Меня зовут Василий.
-        p Я помогу Вам выбрать подходящего репетитора.
+      .dialog_block.js-step_one
+        p.left-align Здравствуйте! Меня зовут Василий. Я помогу Вам выбрать подходящего репетитора.
+        h3.left-align Оставьте заявку:
+        .row
+          .input-field.col.l12.m12.s12
+            input(type='text')#name.validate
+            label(for='name', data-error="wrong", data-success="right") Имя
+        .row
+          .input-field.col.l12.m12.s12
+            input(type='tel')#phone.validate
+            label(for='phone', data-error="wrong", data-success="right") Телефон
+        .row
+          .col.l12.m12.s12
+            button(type='submit', name='form_submit').btn-large.waves-effect.waves-light Отправить
+              i.material-icons.right send
       .js-tutors_list
         h4 Репетиторы:
         each tutor in tutors
