@@ -54,15 +54,29 @@
               i.material-icons.right send
 .selected-teachers.z-depth-4
   .container
-    .st-title Выбранные репетиторы
-      span.blue-text (2)
-      a(href='#') Очистить
-      .row
-        .col.l10.m10.s10
-          .chip
-            img(src='https://lessonhome.ru/file/5453ab9948/user_data/images/323e35c6f4l.jpg')
-            span Конон Екатерина Владимировна
-            i.material-icons close
-        .col.s2.m2.l2
-          button(type='submit', name='submit_form').btn.waves-effect.waves-light Отправить
-            i.material-icons.right send
+    .row
+      .col.s12.l7.m6.tutors-overflow
+        .chip
+          img(src='https://lessonhome.ru/file/5453ab9948/user_data/images/323e35c6f4l.jpg')
+          i.material-icons close
+        .chip
+          img(src='https://lessonhome.ru/file/f46da49a1e/user_data/images/7c68d58025l.jpg')
+          i.material-icons close
+        .chip
+          img(src='https://lessonhome.ru/file/5453ab9948/user_data/images/323e35c6f4l.jpg')
+          i.material-icons close
+        .chip
+          img(src='https://lessonhome.ru/file/f46da49a1e/user_data/images/7c68d58025l.jpg')
+          i.material-icons close
+        .chip
+          img(src='https://lessonhome.ru/file/5453ab9948/user_data/images/323e35c6f4l.jpg')
+          i.material-icons close
+      .col.s4.m6.l5.right-align.hide-on-small-only
+        ul
+          li
+            span.btn-floating.blue.center-align 5
+          li
+            a.btn-floating.waves-effect.waves-light.red
+              i.material-icons delete
+          li
+            button(type='submit', name='submit_form').btn.waves-effect.waves-light Оформить
