@@ -36,7 +36,8 @@ class MasterServiceManager
     for name,conf of @config
       if conf.autostart && conf.single
         num = 1
-        num = os.cpus().length if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
+        num = 3 if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
+        #num = os.cpus().length if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
         _q = Q()
 
         if num != 1

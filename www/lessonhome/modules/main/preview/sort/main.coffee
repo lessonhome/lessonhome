@@ -17,7 +17,7 @@ class @main extends EE
           @emit 'change'
 
   show : =>
-    $(window).on 'scroll', @scroll
+    #$(window).on 'scroll', @scroll
     for item in @items
       do (item)=>
         @found[item].on 'click',=>
@@ -38,7 +38,7 @@ class @main extends EE
       @setValue()
       @emit 'change'
     @setValue()
-    @scroll()
+    #@scroll()
   setNumber : (num)=>
     str = ''
     unless num

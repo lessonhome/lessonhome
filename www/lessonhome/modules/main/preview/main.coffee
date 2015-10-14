@@ -80,6 +80,7 @@ class @main extends EE
     @busy = true
     @now ?= []
     indexes = yield Feel.dataM.getTutors @from,@count+10
+    return if indexes.length<=@count
     yield Q.delay(10)
     @count = Math.min(indexes.length-@from,@count+10)
     indexes = indexes.slice @from,@from+@count
@@ -158,9 +159,6 @@ class @main extends EE
   ###
   setFiltered : => do Q.async =>
     set_ = (n,t,name=n,val=[])=>
-
-      #console.log 'params', n, t, name, val
-
       unless t
         @found['t'+n].parent().off()
         return @found['t'+n].parent().hide()
@@ -201,18 +199,17 @@ class @main extends EE
 
     mf = yield Feel.urlData.get 'mainFilter'
 
-    console.log mf
 
     #========================= Subject, course
 
     if mf.subject.length
-      set_ 'subject','Предмет: '+mf.subject.join ', '
+      set_ 'subject',mf.subject.join ', '
       subject = true
     else
       subject = false
       set_ 'subject'
     if mf.course.length
-      set_ 'course','Направление: '+mf.course.join ', '
+      set_ 'course',mf.course.join ', '
       course = true
     else
       course = false
@@ -253,7 +250,7 @@ class @main extends EE
       pupil.className = pupil.className.replace('hidden', '')
       places = ''
       if mf.place.area_pupil?.length
-        places = ', районы: '
+        places = ': '
         for place in mf.place.area_pupil
           places += place+'; '
       set_ 'place_pupil', 'У себя'+places
@@ -266,13 +263,13 @@ class @main extends EE
       tutor.className = pupil.className.replace('hidden', '')
       places = '; '
       if mf.place.area_tutor?.length
-        places = ', районы: '
+        places = ': '
         for place in mf.place.area_tutor
           places += place+'; '
       timeBox.style.display = 'inline-block'
       time = ''
       if mf.time_spend_way? != 120
-        time = "время на дорогу до #{mf.time_spend_way} мин."
+        time = "до #{mf.time_spend_way} мин."
       set_ 'place_tutor', 'У репетитора'+places+time
     else
       tutor .className += 'hidden' unless tutor.className.match 'hidden'
@@ -433,16 +430,16 @@ class @main extends EE
       o.place = mf.place
       o.place['area_'+to] = o.place['area_'+to].concat places
       Feel.urlData.set('mainFilter',o).done()
-
+  onscroll : =>
+    ll = @tutors_result.find(':last')
+    dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
+    if dist >= -400
+      @addTen().done()
   show : =>
     @tree.advanced_filter.tutor.class.on 'change', => @updatePlaces('pupil', 'tutor')
     @tree.advanced_filter.pupil.class.on 'change', => @updatePlaces('tutor', 'pupil')
     @advanced_filter.on 'change',=> @emit 'change'
-    $(window).on 'scroll',=>
-      ll = @tutors_result.find(':last')
-      dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
-      if dist >= -400
-        @addTen().done()
+    $(window).on 'scroll.tutors',@onscroll
     @on 'change', =># Q.spawn =>
       if (new Date().getTime() - @loadedTime)>(1000*5)
         Feel.sendActionOnce 'tutors_filter',1000*60*2
@@ -451,7 +448,7 @@ class @main extends EE
       #@reshow().done()
     Feel.urlData.on 'change',=> Q.spawn =>
       @linked = yield Feel.urlData.get 'mainFilter','linked'
-      @relinkedAll()
+      #@relinkedAll()
       @setFiltered().done()
       @hashnow ?= 'null'
       hashnow = yield Feel.urlData.filterHash()
