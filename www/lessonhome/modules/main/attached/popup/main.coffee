@@ -10,6 +10,8 @@ class @main
       @subject.on 'focus', =>
         @second_block.show('slow')
     else  @second_block.show('slow')
+  sendTouch : (action, label)=>
+    Feel.sendGActionOnceIf(18000,'Короткая заявка',action,label)
   parseError: (err) =>
     if err['name']? then @name.showError 'Введите более короткое имя'
     if err['phone']?
