@@ -67,3 +67,5 @@ cd ~/lessonhome/
 можно заюзать скрипт  sudo ~/lessonhome/iptables.sh
 и добавить его в /etc/rc.local перед exit
 sudo /home/**USER**/lessonhome/iptables.sh
+тогда должен быть доступен по 127.0.0.1/
+
