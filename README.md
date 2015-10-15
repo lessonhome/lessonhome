@@ -34,6 +34,8 @@ cd ~/lessonhome/install/ubuntu
 ```Shell
 cd ~/lessonhome/install/ubuntu
 ./2mongo.sh # настройка mongodb
+cd ~/lessonhome/
+./mongo.sh ./dbindexing.js
 ```
 
 **Запуск проекта:**
@@ -42,6 +44,8 @@ cd ~/lessonhome/install/ubuntu
 ```Shell
 cd ~/lessonhome/
 ./run.sh
+# чтобы остановить скрипт ./kill.sh
+# чтобы запустить в phpstorm надо сначала остановить в консоле
 ```
 
 если из phpstorm
@@ -55,3 +59,9 @@ cd ~/lessonhome/
 
 Чтобы отчистить кеш надо удалить папки ~/lessonhome/feel/.sass-cahce и ~/lessonhome/.cache
 
+**В браузере**
+
+по умолчанию доступно по ссылке 127.0.0.1:8081/
+можно заюзать скрипт  sudo ~/lessonhome/iptables.sh
+и добавить его в /etc/rc.local перед exit
+sudo /home/**USER**/lessonhome/iptables.sh
