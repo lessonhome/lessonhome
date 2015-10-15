@@ -4,7 +4,7 @@
 
 class AddPhotos
   constructor : ->
-    Wrap @
+    $W @
   Dom : =>
     @input = @found.input
     @photos = document.getElementsByClassName('photo1')
@@ -12,8 +12,8 @@ class AddPhotos
   show : =>
     @input.fileupload
       dataType : 'json'
-      progressall : @progressall.out
-      done : @done.out
+      progressall : @progressall
+      done : @done
       change : (e)=>
         @input = $(e.target)
         @input.prop 'disabled',true

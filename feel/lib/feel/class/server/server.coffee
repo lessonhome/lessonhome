@@ -28,7 +28,10 @@ class Server
       @server = http.createServer @handler
     else
       @server = http.createServer @handlerHttpRedirect
-    @server.listen @port,@ip
+    if _production
+      @server.listen @port,@ip
+    else
+      @server.listen @port
     @runSsh() if @ssh
     console.log "listen port #{@ip}:#{@port}"
     @domains =
@@ -61,7 +64,10 @@ class Server
       #ca : _fs.readFileSync '/key/ca.pem'
     }
     @sshServer = spdy.createServer options,@handler
-    @sshServer.listen 8083,@ip
+    if _production
+      @sshServer.listen 8083,@ip
+    else
+      @sshServer.listen 8083
   google : (req,res,params)=>
     hash = _crypto.createHash('sha1').update(params).digest('hex')
     if @_google[hash]?
@@ -164,6 +170,8 @@ class Server
           @domains.text[host] = reg[1]
           site = reg[1]
           break
+    if !_production && !Feel.site[site]?
+      site = 'lessonhome'
     if Feel.site[site]?
       Q().then => Feel.site[site].router.handler req,res
       .catch (e)=>

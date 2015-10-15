@@ -11,6 +11,7 @@ setInterval ->
 , 5000
 ###
 
+
 global._production = false
 if require('os').hostname() == 'pi0h.org'
   global._production = true
@@ -342,6 +343,17 @@ global.lrequire = (name)-> require './lib/'+name
 
 global.Path     = new (require('./service/path'))()
 global.Q        = require 'q'
+
+_oldQAsync = Q.async
+global.Q.async = (f)=>
+  if f?.constructor?.name == 'GeneratorFunction'
+    return _oldQAsync.call Q,f
+  return f
+_oldQSpawn = Q.spawn
+global.Q.spawn = (f)=>
+  if f?.constructor?.name == 'GeneratorFunction'
+    return _oldQSpawn.call Q,f
+  return f?()?.done?()
 
 #Q.longStackSupport  = true
 

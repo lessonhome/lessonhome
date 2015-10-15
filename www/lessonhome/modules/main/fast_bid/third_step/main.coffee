@@ -16,13 +16,12 @@ class @main
     data = yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
 
-    return @$send('./save',data)
-    .then ({status,errs})=>
-      if status=='success'
-        Feel.sendActionOnce 'fast_bids_third_step'
-        return true
-      if errs?.length
-        @parseError errs
+    {status,errs} = yield @$send('./save',data)
+    if status=='success'
+      Feel.sendActionOnce 'fast_bids_third_step'
+      return true
+    if errs?.length
+      @parseError errs
     return false
   check_form : =>
     errs = @js.check @getData()

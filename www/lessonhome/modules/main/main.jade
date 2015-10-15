@@ -7,7 +7,9 @@ if popup
   .filter_top!=filter_top
   if info_panel
     .info_panel!=info_panel
-  .content!= content
+  .js-content!= content
+  if tutor_profile
+    .js-tutor_profile!= tutor_profile
 //.attach_tutor!=attach_tutor
 .footer!= footer
 .attached!=bottom_block_attached

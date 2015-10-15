@@ -3,7 +3,7 @@
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   init : =>
     Feel.sendActionOnce 'target_page'
   show : =>

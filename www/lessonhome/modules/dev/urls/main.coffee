@@ -2,7 +2,7 @@
 
 class Viewer
   constructor : (@state,@parent)->
-    Wrap @
+    $W @
     @dom = $('<div class="viewer"><div class="left"><div class="in"></div><iframe></iframe></div><div class="right"><div class="in"></div><div class="img"><img /></div></div></div>')
     @frame = @dom.find 'iframe'
     @img   = @dom.find '.img'
@@ -23,13 +23,13 @@ class Viewer
     @nsc = 0.6
     @mx = $(window).width()/2
     @my = 80
-    @onmm().done()
+    @onmm()
     @x = @nx
     @y = @ny
     @ix = @inx
     @iy = @iny
     @timer()
-    @dom.find('.in').click @parent.remove.out
+    @dom.find('.in').click @parent.remove
   remove : =>
     $('body').removeClass 'g-fixed'
     $(window).scrollTop @scroll
@@ -110,18 +110,18 @@ class Viewer
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   show : =>
     @models = @dom.find 'a.model'
-    @models.click @open.out
+    @models.click @open
     @node = {}
     for name,state of @tree.states
       if state.model
         @node["#{state.model}"] = state
-    $(window).mousemove (e)=> @viewer?.mousemove?.out e
-    $(window).mousewheel (e)=> @viewer?.mousewheel?.out e
-    $(window).keydown @remove.out
-    setInterval @timer.out, 1000/60
+    $(window).mousemove (e)=> @viewer?.mousemove? e
+    $(window).mousewheel (e)=> @viewer?.mousewheel? e
+    $(window).keydown @remove
+    setInterval @timer, 1000/60
     yield @setSort()
     @fixeddiv = @dom.find '.fixed *'
 
@@ -186,7 +186,7 @@ class @main
       cl = d.attr 'class'
       do (d,cl)=>
         d.click =>
-          @sort.out cl
+          @sort cl
     divs = @dom.find '.state'
     arr = []
     for d,i in divs

@@ -5,7 +5,7 @@ fstate = History.getState()
 
 class @urlData
   constructor : ->
-    Wrap @
+    $W @
     @_hash    = ""
     @_long    = {}
     @_short   = {}
@@ -17,14 +17,18 @@ class @urlData
     @json = Feel.urldataJson
     for fname,form of Feel.urlforms
       @forms[fname] = {}
-      @forms[fname].U2D = Wrap (new form.U2D) if form.U2D?
-      @forms[fname].D2U = Wrap (new form.D2U) if form.D2U?
+      @forms[fname].U2D = $W (new form.U2D) if form.U2D?
+      @forms[fname].D2U = $W (new form.D2U) if form.D2U?
     for key of @forms
       @data[key] ?= {}
     Feel.udata = new Feel.UrlDataFunctions
     @udata = Feel.udata
     yield @udata.init @json,@forms
-
+    yield @initFromUrl(true)
+    setTimeout =>
+      try console.log 'abTest:',@udata.json?.forms?.abTest
+    ,1000
+  initFromUrl : (first=false)=>
     @state  = History.getState()
     url = @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     url2 = url.split '&'
@@ -38,22 +42,35 @@ class @urlData
       continue unless u
       u = u.split '='
       url[u[0]] = u[1]
-    url[key] = val for key,val of cook
+    for key,val of cook
+      url[key] = val
     str = ''
     for key,val of url
       str += '&' if str
       str += key if key
       str += '='+val if val?
     @data   = yield @udata.u2d str ? ''
-    @fdata  = yield @udata.u2d str ? '' #fstate?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
+    if first
+      @fdata  = yield @udata.u2d str ? '' #fstate?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     for key of @forms
       @data[key] ?= {}
-      @fdata[key] ?= {}
-    setTimeout =>
-      try
-        console.log 'abTest:',@udata.json?.forms?.abTest
-    ,1000
+      @fdata[key] ?= {} if first
+  loadCookie : =>
+    cook = $.cookie()?.urldata ? ''
+    cook = decodeURIComponent cook
+    cook = '{}' unless cook
+    cook = JSON.parse cook
+    cook ?= {}
+    url = {}
+    for key,val of cook
+      url[key] = val
+    str = (yield @getU()) || ""
+    for key,val of url
+      str += '&' if str
+      str += key if key
+    @data = yield @udata.u2d str || ''
   set : (form,key,val)=>
+    #yield @initFromUrl()
     if val?
       _setKey @data[form],key,val
     else if key?
@@ -66,7 +83,8 @@ class @urlData
           _setKey @data[k],a,b
         #@data[key] = val
     yield @setUrl()
-  get : (form,key)=>
+  get : (form,key,...,reload)=>
+    #yield @loadCookie() if reload == 'reload'
     return @data unless form?
     return @data[form] unless key?
     return _setKey @data[form],key
@@ -111,27 +129,34 @@ class @urlData
       str += r[0]
       str += "="+r[1] if r[1]?
     return str
-        
-
-  udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
+  udataToUrl : (url,...,usecookie='true',skip='not')=>
     params = {}
-    unless typeof url == 'string'
+    firstu  = (window.location.href || "").match?(/^[^\?]*\??(.*)$/)?[1] ? ""
+    secondu = yield @getU()
+    thirdu  = (url || "").match?(/^[^\?]*\??(.*)$/)?[1] ? ""
+    if false
+      purl = firstu.split '&'
+      for p in purl
+        np = p.split '='
+        params[np[0]] = np[1]
+    purl = secondu.split '&'
+    for p in purl
+      np = p.split '='
+      params[np[0]] = np[1]
+    
+    if url
+      purl = thirdu.split '&'
+      for p in purl
+        np = p.split '='
+        params[np[0]] = np[1]
+        if skip=='skip'
+          if @udata.json.shorts[np[0]]?
+            delete params[np[0]]
+    unless url?
       url = window.location.href
       url ?= ""
-    purl = url?.match?(/^[^\?]*\??(.*)$/)?[1] ? ""
-    purl = purl.split '&'
-    for p in purl
-      np = p.split '='
-      params[np[0]] = np[1]
-      if skip=='skip'
-        if @udata.json.shorts[np[0]]?
-          delete params[np[0]]
+
     obj = {url}
-    urldata = (yield @getU()) ? ""
-    purl = urldata.split '&'
-    for p in purl
-      np = p.split '='
-      params[np[0]] = np[1]
     urldata = ""
     purl = []
     if usecookie == 'true'

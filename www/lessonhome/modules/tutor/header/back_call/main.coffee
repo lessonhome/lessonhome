@@ -27,6 +27,3 @@ class @main extends EE
       @popup_box.hide()
   hidePopup : =>
     @popup_box.hide()
-
-  #goCallbackPage: => Q().then =>
-    #yield Feel.go '/main_tutor_callback'

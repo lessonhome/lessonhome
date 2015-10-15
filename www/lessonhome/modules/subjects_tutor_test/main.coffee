@@ -77,11 +77,11 @@ class @main
       names.push(name.text) if exist[name.text.toLowerCase()] isnt true
     return names
 
-  save : => Q().then =>
+  save : => do Q.async =>
     data = @getData()
     errors = @js.check data
     if errors.correct is true
-      return @$send('./save', data).then @onReceive
+      return @onReceive yield @$send './save',data
     else
       @parseError errors
       return false

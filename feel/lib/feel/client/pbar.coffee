@@ -3,7 +3,7 @@
 
 class @PBar
   constructor : ->
-    Wrap @
+    $W @
     @p = 0
     @inc  = 0.05
     @tinc = 0.01

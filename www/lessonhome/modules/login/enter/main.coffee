@@ -62,16 +62,17 @@ class @main extends EE
       pass = '`'+pass
       @password.setValue pass
       @password.setFlush?()
-    @$send( 'login',{
-      password : escape pass
-      login    : login
-    }).then ({status,session,err})=>
+    Q.spawn =>
+      {status,session,err} = yield @$send( 'login',{
+        password : escape pass
+        login    : login
+      })
       console.log 'login',status
       if status == 'success'
-        Feel.sendAction 'login'
+        yield Feel.sendAction 'login'
         @success = true
         #@found.form.submit()
-        Feel.formSubmit @found.form
+        yield Feel.formSubmit @found.form
       else if err?
         @showError err
       ###
@@ -85,7 +86,6 @@ class @main extends EE
           when 'bad_password'
           else
       ###
-    .done()
   showError : (err)=>
     switch err
       when 'already_logined'

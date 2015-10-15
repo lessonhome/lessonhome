@@ -1,7 +1,7 @@
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   show : =>
   setValue : (value={})=>
     @tree.value ?= {}

@@ -4,7 +4,7 @@
 
 class @DataM
   constructor : ->
-    Wrap @
+    $W @
     @conf = {}
     @data = {}
     @tutors =
