@@ -47,6 +47,8 @@ class Http
           @domains.text[host] = reg[1]
           site = reg[1]
           break
+    if !_production && !Feel.site[site]
+      site = 'lessonhome'
     if Feel.site[site]?
       Q().then => Feel.site[site].router.handler req,res
       .catch (e)=>
@@ -56,7 +58,7 @@ class Http
         throw e
       .done()
     else
-      res.writeHead 404 
+      res.writeHead 404
       res.end('Unknown host')
 
     
