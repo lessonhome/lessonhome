@@ -23,8 +23,7 @@ class @main
 
     # error div
     @experience.setErrorDiv @out_err_experience
-    @on 'wchange',=>
-      @save(true).done()
+    @on 'wchange',=> Q.spawn => @save true
   add : (data={})=>
     cl = @clone.$clone()
     dom = $('<div class="item"></div>')

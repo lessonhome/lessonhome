@@ -5,7 +5,7 @@ fstate = History.getState()
 
 class @urlData
   constructor : ->
-    Wrap @
+    $W @
     @_hash    = ""
     @_long    = {}
     @_short   = {}
@@ -17,8 +17,8 @@ class @urlData
     @json = Feel.urldataJson
     for fname,form of Feel.urlforms
       @forms[fname] = {}
-      @forms[fname].U2D = Wrap (new form.U2D) if form.U2D?
-      @forms[fname].D2U = Wrap (new form.D2U) if form.D2U?
+      @forms[fname].U2D = $W (new form.U2D) if form.U2D?
+      @forms[fname].D2U = $W (new form.D2U) if form.D2U?
     for key of @forms
       @data[key] ?= {}
     Feel.udata = new Feel.UrlDataFunctions

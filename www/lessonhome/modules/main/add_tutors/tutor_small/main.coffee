@@ -4,7 +4,7 @@
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   Dom: =>
     @btn_close = @found.btn_close
   show : =>

@@ -7,7 +7,7 @@
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   Dom: =>
     @items = @found.item
   show : =>

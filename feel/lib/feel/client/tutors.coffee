@@ -2,7 +2,7 @@
 
 class @Tutors
   constructor : ->
-    Wrap @
+    $W @
     @sending = 0
     @tutors = $.localStorage.get 'tutors'
     @tutors ?= {}

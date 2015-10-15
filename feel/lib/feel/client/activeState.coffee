@@ -139,8 +139,8 @@ class @activeState
                   cl.__w8change2 = 0
                   cl.__ulock = false
                   cl.emit 'w8change2'
-          Wrap cl,null,false
-          Wrap cl.js,null,false if cl?.js?
+          $W cl,null,false
+          $W cl.js,null,false if cl?.js?
   parseTree : (node,statename)=>
     return if node._parseIn
     if node._statename?
@@ -291,8 +291,8 @@ class @activeState
                 for part,form of cl.tree.$urlforms
                   nv = _setKey v,part
                   yield Feel.urlData.set form.form,form.key,nv
-          Wrap cl,null,false
-          Wrap cl.js,null,false if cl?.js?
+          $W cl,null,false
+          $W cl.js,null,false if cl?.js?
           ###
     @watchDown obj,'tree',nobj,foo
     @initClasses ntree

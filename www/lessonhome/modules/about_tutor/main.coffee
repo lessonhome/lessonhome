@@ -14,17 +14,11 @@ class @main
       about:     @about.getValue()
     }
 
-  save : => Q().then =>
+  save : => do Q.async =>
     if @check_form()
-      console.log @getData()
-      return @$send('./save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          console.log true
-          return true
-        #if errs?.length
-          #@parseError errs
-        return false
+      {status,errs} = yield @$send('./save',@getData())
+      return true if status=='success'
+      return false
     else
       return false
 

@@ -91,14 +91,6 @@ class @main extends EE
     @on 'change',         @onChange
     @on 'paste',          @onPaste
     @on 'end',            @onEnd
-    #try
-    #  @replaceInput()
-    #  @val = @input.val()
-    #  @hideError()
-    #  setTimeout =>
-    #    @input.blur()
-    #    @hideError()
-    #  ,10
     return
   focus : =>
     @input.focus()
@@ -156,7 +148,7 @@ class @main extends EE
   getSaved : =>
     @input.attr 'data-value'
   onInput   : =>
-    @replaceInput()
+    @replaceInput?()
     setTimeout @checkChange,0
   onKeyDown : (e)=>
     @hideError()

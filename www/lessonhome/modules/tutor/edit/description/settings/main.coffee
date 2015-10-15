@@ -21,13 +21,9 @@ class @main
     @confirm_password = @tree.confirm_password.class
     @save_button_password = @tree.save_button_password.class
 
-  show  : =>
+  show  : => do Q.async =>
     @callback_toggle = @tree.callback_toggle.class
     @callback_toggle.on 'sec_active', =>
-      #setTimeout(=> $(@hint).hide('slow'); 2000)
-      #(function() { $("#elem").hide('slow'); }, 2000);
-      #@hint.show()
-    #setTimeout(function() { $("#elem").hide('slow'); }, 2000);
 
     @close_block.on 'click', =>
       @hint.hide()
@@ -37,12 +33,10 @@ class @main
 
     @change_button_login.on 'submit', @tryChangeLogin
 
-    @$send( 'loginUpdate',{
-      getLogin : true
-    }).then (login)=>
-      document.getElementsByClassName('text select')[0].innerHTML = login
+    login = yield @$send( 'loginUpdate',{getLogin : true})
+    document.getElementsByClassName('text select')[0].innerHTML = login
 
-  trySavePassword : =>
+  trySavePassword : => Q.spawn =>
     pass    = @old_password.getValue()
     newpass = @new_password.getValue()
     confirm_pass = @confirm_password.getValue()
@@ -69,26 +63,22 @@ class @main
         str += newpass[i]
       newpass = str
       newpass = '`'+newpass
-    @$send( 'passwordUpdate',{
+    {status,err} = yield @$send( 'passwordUpdate',{
       password : escape pass
       newpassword : escape newpass
-    }).then ({status,err})=>
-      #console.log 'login Changed', arguments
-      console.log 'status : '+status
-      if status == 'success'
-        @success = true
-        $('body,html').animate({scrollTop:0}, 500)
-
-        @old_password.setValue ''
-        @new_password.setValue ''
-        @confirm_password.setValue ''
-      else
-        #@printErrors err
-        console.log 'ERROR', err
+    })
+    if status == 'success'
+      @success = true
+      $('body,html').animate({scrollTop:0}, 500)
+      @old_password.setValue ''
+      @new_password.setValue ''
+      @confirm_password.setValue ''
+    else
+      console.error 'ERROR', err
 
 
 
-  tryChangeLogin : =>
+  tryChangeLogin : => Q.spawn =>
     pass  = @password.getValue()
     login = @new_login.getValue()
 
@@ -108,55 +98,34 @@ class @main
       pass = '`'+pass
       @password.setValue pass
       @hashedPassword = true
-    @$send( 'loginUpdate',{
+    {status,err} = yield @$send( 'loginUpdate',{
       password : escape pass
-      newlogin    : login
-    }).then ({status,err})=>
-      #console.log 'login Changed', arguments
-      console.log 'status : '+status
-      if status == 'success'
-        @success = true
-        document.getElementsByClassName('text select')[0].innerHTML = login
-        $('body,html').animate({scrollTop:0}, 500)
-      else
-        @printErrors err
-
-  b_save_notice : =>
-    @save_notice().then (success)=>
-      if success
-        ###
-        @$send('./save',@progress).then ({status})=>
-          if status=='success'
-            return true
-        ###
-        console.log 'IS SEND!!!'
-        $('body,html').animate({scrollTop:0}, 500)
-        #@changes_field.fadeIn()
-        return true
-    .done()
-
-  save_notice : => Q().then =>
-    if @check_form()
-      return @$send('./save_notice',@getDataNotice())
-      .then @onReceive
+      newlogin : login
+    })
+    if status == 'success'
+      @success = true
+      document.getElementsByClassName('text select')[0].innerHTML = login
+      $('body,html').animate({scrollTop:0}, 500)
     else
-      return false
+      @printErrors err
 
-  b_save_password : =>
-    @save_password().then (success)=>
-      if success
-        console.log 'IS SEND!!!'
-        $('body,html').animate({scrollTop:0}, 500)
-        #@changes_field.fadeIn()
-        return true
-    .done()
+  b_save_notice : => Q.spawn =>
+    success = yield @save_notice()
+    return unless success
+    $('body,html').animate({scrollTop:0}, 500)
 
-  save_password : => Q().then =>
-    if @check_password()
-      return @$send('./save_password',@getDataPassword())
-      .then @onReceive
-    else
-      return false
+  save_notice : => do Q.async =>
+    return false unless @check_form()
+    return @onReceive yield @$send('./save_notice',@getDataNotice())
+
+  b_save_password : => Q.spawn =>
+    success = yield @save_password()
+    if success
+      $('body,html').animate({scrollTop:0}, 500)
+
+  save_password : => do Q.async =>
+    return unless @check_password()
+    return @onReceive yield @$send('./save_password',@getDataPassword())
 
   onReceive : ({status,errs,err})=>
     if err?

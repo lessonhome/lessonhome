@@ -3,15 +3,13 @@
 class @main extends EE
   Dom  : =>
   show : =>
-    @$send( 'newPassword',{
-      check: true
-    }).then (redirect)=>
-
+    Q.spawn =>
+      redirect = yield @$send( 'newPassword',{
+        check: true
+      })
       console.log redirect
       if redirect
         window.location.replace 'forgot_password'
-    .done()
-
     @save_button = @tree.save_button.class
     @password = @tree.password.class
     @confirm_password = @tree.password.class
@@ -19,13 +17,11 @@ class @main extends EE
     @save_button.on 'submit', @newPassword
 
   newPassword: =>
-
-    @$send( 'newPassword',{
-      check: true
-    }).then (redirect)=>
-      if redirect
-        window.location.replace 'forgot_password'
-    .done()
+    Q.spawn =>
+      redirect = yield @$send( 'newPassword',{
+        check: true
+      })
+      window.location.replace 'forgot_password' if redirect
 
     pass    = @password.getValue()
     confirm_pass = @confirm_password.getValue()
@@ -47,10 +43,10 @@ class @main extends EE
       pass = str
       pass = '`'+pass
       @hashedPassword = true
-
-    @$send( 'newPassword',{
-      password: escape pass
-    }).then ({status,session,err})=>
+    Q.spawn =>
+      {status,session,err} = yield @$send( 'newPassword',{
+        password: escape pass
+      })
       console.log 'login',status
       if status == 'success'
         window.location.replace 'tutor/profile'
@@ -58,7 +54,6 @@ class @main extends EE
         window.location.replace 'forgot_password'
       else if err?
         @showError err
-    .done()
   showError : (err)=>
     switch err
       when 'already_logined'

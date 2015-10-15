@@ -26,18 +26,12 @@ class @main
     @bSave = @tree.save_button.class
     @bSave.on 'submit', @next
 
-  next : =>
-    @save().then (success)=>
-      if success
-        @bSave.submit()
-    .done()
-
-  save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then @onReceive
-    else
-      return false
+  next : => Q.spawn =>
+    success = yield @save()
+    @bSave.submit() if success
+  save : => do Q.async =>
+    return false unless @check_form()
+    return @onReceive yield @$send('./save',@getData())
 
   onReceive : ({status,errs,err})=>
     if err?

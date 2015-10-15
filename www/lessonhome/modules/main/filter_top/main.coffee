@@ -55,17 +55,14 @@ class @main extends EE
       if bottom.is ':visible'
         Feel.popupAdd main,bottom
 
-  save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          return true
-        if errs?.length
-          @parseError errs
-        return false
-    else
-      return false
+  save : => do Q.async =>
+    return false unless @check_form()
+    {status,errs} =yield @$send('./save',@getData())
+    if status=='success'
+      return true
+    if errs?.length
+      @parseError errs
+    return false
 
   getData : =>
     ret = {}

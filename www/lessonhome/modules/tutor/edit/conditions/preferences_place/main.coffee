@@ -8,18 +8,12 @@ class @main extends EE
     @area.on 'end', => @addTag @getTags(), @area_tags_div, @area.getValue()
     @area.on 'press_enter', => @addTag @getTags(), @area_tags_div, @area.getValue()
     @closeHandler()
-  save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          return true
-        #if errs?.length
-        #@parseError errs
-        return false
-    else
-      return false
-
+  save : => do Q.async =>
+    return false unless @check_form()
+    {status,errs} = yield @$send('./save',@getData())
+    if status=='success'
+      return true
+    return false
   addTag: (tags_arr, tags_div, tag_text)=>
     return if !tag_text
     @area.setValue('')

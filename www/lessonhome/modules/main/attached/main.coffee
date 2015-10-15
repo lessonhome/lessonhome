@@ -1,6 +1,6 @@
 class @main
   constructor: ->
-    Wrap @
+    $W @
   Dom : =>
     @html = $('html')
     @bar = @tree.bottom_bar.class
@@ -17,10 +17,10 @@ class @main
   show : =>
     @register 'bid_attached'
     @updatePanel()
-    Feel.urlData.on 'change', @updatePanel.out
-    @open_form.on 'submit', @showForm.out
+    Feel.urlData.on 'change', @updatePanel
+    @open_form.on 'submit', @showForm
     @form_block.on 'click', (e) => e.stopPropagation()
-    @popup_block.on 'click', @hideForm.out
+    @popup_block.on 'click', @hideForm
     @btn_send.on 'submit', => Q.spawn =>
       errors = yield @sendForm()
       if errors.correct is true
@@ -45,14 +45,6 @@ class @main
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     data = @js.takeData data
     error = @js.check data
-
-#    if error.correct is false
-#      if quiet
-#        @popup.parseError(phone: error['phone'])
-#      else
-#        @popup.parseError(error)
-#        @scrollToTop()
-
     if !error['phone']?
       {status,errs_server} = yield @$send('./save', data,'quiet')
       if status is 'success'
@@ -60,35 +52,6 @@ class @main
       else
         error = errs_server
     return error
-#        if error.correct is true and !quiet
-#          yield Feel.urlData.set 'mainFilter','linked', {}
-#          Feel.go '/fast_bid/fourth_step'
-
-
-
-
-#    if quiet
-#      if !error['phone']
-#        {status,errs} = yield @$send('./save', data,'quiet')
-#      else if error.correct is false
-#        @popup.parseError error
-#      return false
-#    if error.correct is false
-#      @scrollToTop()
-#      @popup.parseError error
-#
-#    if !error['phone']?
-#      {status,errs} = yield @$send('./save', data,'quiet')
-#      Feel.sendActionOnce 'bid_popup'
-#      if status is 'failed'
-#        @popup.parseError errs
-#        return false
-#      else if error.correct is true
-#        yield Feel.urlData.set 'mainFilter','linked', {}
-#        @hideForm()
-#
-#        return true
-
   showForm : =>
     @popup_block.show('slow')
     @html.css {
@@ -113,7 +76,6 @@ class @main
     if length != 0
       @bar_block.fadeIn()
     else
-#      @hideForm()
       @bar_block.fadeOut()
   getScrollWidth : =>
     div = $('<div>').css {

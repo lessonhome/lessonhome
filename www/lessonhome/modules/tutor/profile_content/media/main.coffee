@@ -3,7 +3,7 @@
 
 class media
   constructor : ->
-    Wrap @
+    $W @
   Dom : =>
     @setRemoveHandlers()
     @setAvaHandlers()
@@ -94,10 +94,9 @@ class media
       image.onclick = () ->
         setAsAvatar(this.id)
 
-  setAsAvatar: (id)=>
-    @$send('setAvatar', {id: id})
-    .then (data)=>
-      @emit 'set_ava', data.newAva
+  setAsAvatar: (id)=> do Q.async =>
+    data = yield @$send('setAvatar', {id: id})
+    @emit 'set_ava', data.newAva
   remakeLayers: (photos) =>
     W = 738
     HMIN = 150

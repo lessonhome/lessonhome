@@ -1,33 +1,16 @@
 class @main
   constructor: ->
-    Wrap @
+    $W @
   Dom : =>
-#    @carousel = @found.jcarousel
     @preps = @found.preps
     @panel = @found.bottom_panel
-#    @left = @found.left
-#    @right = @found.right
     @btn_attach = @found.btn_attach
     @linked = {}
   show : =>
-
-#    yield @reshow()
-#    Feel.urlData.on 'change', @reshow.out
-#    @carousel.jcarousel {
-#        itams : 'li.block'
-#      }
-
     @found.clean.on 'click', =>
       do Q.async =>
         yield Feel.urlData.set 'mainFilter','linked', {}
       return false
-
-#    @left.jcarouselControl {carousel: @carousel, target : '-=2'}
-#    .on 'jcarouselcontrol:inactive', => @left.addClass 'inactive'
-#    .on 'jcarouselcontrol:active', => @left.removeClass 'inactive'
-#    @right.jcarouselControl {carousel: @carousel, target : '+=2'}
-#    .on 'jcarouselcontrol:inactive', => @right.addClass 'inactive'
-#    .on 'jcarouselcontrol:active', => @right.removeClass 'inactive'
   reshow : (linked) =>
     linked = yield Feel.urlData.get 'mainFilter','linked','reload'
     if @reshowing > 0
