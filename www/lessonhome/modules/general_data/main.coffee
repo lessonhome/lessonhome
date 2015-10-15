@@ -32,10 +32,9 @@ class @main
     @status.setErrorDiv @out_err_status
 
 
-  save : => Q().then =>
+  save : => do Q.async =>
     if @check_form()
-      return @$send('./save',@getData())
-      .then @onReceive
+      return @onReceive yield  @$send('./save',@getData())
     else
       return false
   onReceive : ({status,errs,err})=>

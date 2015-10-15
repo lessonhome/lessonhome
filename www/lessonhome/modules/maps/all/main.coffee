@@ -6,7 +6,7 @@ getPoint = (str)->
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   Dom : =>
     @div = @found.map
     #@go 'Ивантеевская, дом 4, 1 56'#@tree.value if @tree.value?
@@ -60,8 +60,7 @@ class @main
     map.geoObjects.add myClusterer
   go : (search)=>
     d = Q.defer()
-    @_go search,d
-    .done()
+    yield @_go search,d
     return d.promise
   _go : (search,d)=> ymaps.ready =>
     search = "Москва, "+search

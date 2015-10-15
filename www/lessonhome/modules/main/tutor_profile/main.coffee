@@ -46,12 +46,11 @@ class @main extends EE
       @setActiveItem @reviews, @reviews_content
       Feel.urlData.set('tutorProfile',{'inset':2})
     @agree_checkbox.on 'change', => @write_tutor_error_field.hide()
-    $(@write_button).on 'click', =>
+    $(@write_button).on 'click', => Q.spawn =>
       @found.right.css 'min-height','inherit'
-      save_result = @save()
-      save_result.then (result)=>
-        if result
-          @found.write_tutor_content.text("Ваше сообщение отправлено! Скоро с Вами свяжутся.")
+      result = yield @save()
+      if result
+        @found.write_tutor_content.text("Ваше сообщение отправлено! Скоро с Вами свяжутся.")
     @found.attach_button.click @addTutor
     Feel.urlData.on 'change',=> @setLinked()
   open : (prep)=> do Q.async =>
@@ -61,15 +60,14 @@ class @main extends EE
     else
       $(@back).show()
     unless prep?
-      inset = Feel.urlData.get('tutorProfile','inset')
-      inset.then (data)=>
-        switch data
-          when 0
-            @setActiveItem @about, @about_content
-          when 1
-            @setActiveItem @subjects, @subjects_content
-          when 2
-            @setActiveItem @reviews, @reviews_content
+      data = yield Feel.urlData.get('tutorProfile','inset')
+      switch data
+        when 0
+          @setActiveItem @about, @about_content
+        when 1
+          @setActiveItem @subjects, @subjects_content
+        when 2
+          @setActiveItem @reviews, @reviews_content
       @index = yield Feel.urlData.get('tutorProfile','index') ? 77
       preps=yield Feel.dataM.getTutor [@index]
       prep = preps[@index]
@@ -279,16 +277,13 @@ class @main extends EE
       last  : name.lastName('dative')
     }
 
-  save : => Q().then =>
-    if @check_form()
-      return @$send('../attached/save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          Feel.sendActionOnce 'direct_bid'
-          return true
-        return false
-    else
-      return false
+  save : => do Q.async =>
+    return false unless @check_form()
+    {status,errs} = yield @$send('../attached/save',@getData())
+    if status=='success'
+      Feel.sendActionOnce 'direct_bid'
+      return true
+    return false
 
   check_form : =>
     errs = @js.check @getData()

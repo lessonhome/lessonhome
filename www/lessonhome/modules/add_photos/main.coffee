@@ -4,7 +4,7 @@
 
 class AddPhotos
   constructor : ->
-    Wrap @
+    $W @
   Dom : =>
     @front = @found.front
     @preloader = @found.preloader
@@ -21,12 +21,12 @@ class AddPhotos
       return false
     @input.fileupload
       dataType : 'json'
-      done : @done.out
-      progressall : @progressall.out
+      done : @done
+      progressall : @progressall
       change : (e) =>
         @input = jQuery(e.target)
         @disable_loader()
-    @found.remove_photo.click @remove_photo.out
+    @found.remove_photo.click => Q.spawn => yield @remove_photo()
   remove_photo : =>
     return unless @found.photos.find('>.photo').length
     @disable_loader()
@@ -37,7 +37,6 @@ class AddPhotos
     .error (err)=>
       console.error err
   done : (e,data)=>
-    #@dom.find('input').remove()
     nowFile   = data?.files[data?.files?.length-1]
     lastFile  = data?.originalFiles?[data?.originalFiles?.length-1]
     return unless nowFile==lastFile
@@ -52,13 +51,9 @@ class AddPhotos
             Feel.sendActionOnce 'ava_upload'
             @setPhoto data.url,data.width,data.height
         @emit 'uploaded', photos.reverse()
-        #@resetInput()
     .error (err)=>
       console.error err
       @enable_loader()
-    #d = yield Feel.json '/uploaded', data
-    #@log d
-  #  @resetInput()
   disable_loader : =>
     @input.prop "disabled", true
     @preloader.show()
@@ -72,8 +67,8 @@ class AddPhotos
     @found.input_wrap.append @input=$('<input accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="" class="input" />')
     @input.fileupload
       dataType : 'json'
-      done : @done.out
-      progressall : @progressall.out
+      done : @done
+      progressall : @progressall
       progress : @start
       start: @start
   start : (e,data)=>

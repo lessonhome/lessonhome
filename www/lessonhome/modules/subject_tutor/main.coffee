@@ -50,10 +50,9 @@ class @main
         direction = @training_direction['default']
       console.log direction
       @subjects?[0]?.class?.showName? name, direction
-  save : => Q().then =>
+  save : => do Q.async =>
     if @check_form()
-      return @$send('./save',@getData())
-      .then @onReceive
+      return @onReceive yield @$send('./save',@getData())
     else
       return false
 

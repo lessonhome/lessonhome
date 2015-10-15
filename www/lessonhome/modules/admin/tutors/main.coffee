@@ -2,7 +2,7 @@
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   Dom : =>
     @template =
       backcall : @dom.find('.container .content.backcall .template')

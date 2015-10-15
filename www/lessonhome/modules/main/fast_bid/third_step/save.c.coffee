@@ -1,13 +1,4 @@
 
-#check = require("./check")
-
-phones = 
-
-other = ($,data)-> do Q.async =>
-  sms = yield Main.service 'sms'
-  sms.send ''
-  
-
 
 @handler = ($,data)=>
   return {status:'success'} unless data.phone

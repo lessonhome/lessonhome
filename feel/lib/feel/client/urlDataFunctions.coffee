@@ -3,7 +3,7 @@
 
 class @UrlDataFunctions
   constructor : ->
-    Wrap @
+    $W @
   init : (@json,@forms)=>
   d2o : (fname,data)=>
     form = @forms[fname]

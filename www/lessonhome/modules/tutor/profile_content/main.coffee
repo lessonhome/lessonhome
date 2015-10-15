@@ -2,7 +2,7 @@
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   show : =>
     @input = @tree.line_med.upload_input.class
     @add_photos = @tree.photo.class
