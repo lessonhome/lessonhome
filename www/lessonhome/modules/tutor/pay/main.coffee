@@ -19,47 +19,37 @@ class @main
   updateBalance: (value) =>
     bal = document.getElementsByClassName('balance')
     bal[0].innerHTML = value + ' руб.'
-  getBalance: =>
-    @$send(
+  getBalance: => Q.spawn =>
+    res = yield @$send(
       'billActions'
       {}
-    ).then (res) =>
-      console.log res.status
-      if res.status == 'success'
-        @updateBalance(res.balance)
-    .done()
-
-  refillBill: =>
-    @$send(
+    )
+    if res.status == 'success'
+      @updateBalance(res.balance)
+  refillBill: => Q.spawn =>
+    res = yield @$send(
       'billActions'
       {
         action: 'refill'
         value: +@refill.input[0].value
       }
-    ).then (res) =>
-      console.log res.status
-      if res.status == 'success'
-        @updateBalance(res.balance)
-    .done()
-  pay: (link) =>
+    )
+    if res.status == 'success'
+      @updateBalance(res.balance)
+  pay: (link) => Q.spawn =>
     value = +link.previousSibling.innerHTML
-    console.log value
-    @$send(
+    res = yield @$send(
       'billActions'
       {
         action: 'pay'
         value: value
       }
-    ).then (res) =>
-      console.log res.status
-      if res.status == 'success'
-        @updateBalance(res.balance)
-      else
-        popup = link.lastChild
-        popup.style.display = 'block'
-        setTimeout(
-          ()->
-            popup.style.display = 'none'
-          1000
-        )
-    .done()
+    )
+    if res.status == 'success'
+      @updateBalance(res.balance)
+    else
+      popup = link.lastChild
+      popup.style.display = 'block'
+      setTimeout ->
+        popup.style.display = 'none'
+      , 1000

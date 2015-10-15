@@ -5,12 +5,12 @@
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
     @now = []
     @linked = {}
   show : =>
     yield @reshow()
-    Feel.urlData.on 'change',@reshow.out
+    Feel.urlData.on 'change',=> Q.spawn => yield @reshow()
   reshow : =>
     @linked  = yield Feel.urlData.get 'mainFilter','linked'
     linked  = Object.keys(@linked ? {}) ? []

@@ -11,14 +11,10 @@ class @main
 
     @content?.on 'make_active_issue_bid_button', => @button_issue_bid?.makeActive()
     @content?.on 'make_inactive_issue_bid_button', => @button_issue_bid?.makeInactive()
-  b_next : =>
-    @content?.save?().then (success)=>
-      @button_next.submit() if success
-      return true
-    .done()
+  b_next : => Q.spawn =>
+    success = yield @content?.save?()
+    @button_next.submit() if success
 
-  b_issue_bid : =>
-    @content?.save?().then (success)=>
-      @button_issue_bid.submit() if success
-      return true
-    .done()
+  b_issue_bid : => Q.spawn =>
+    success = yield @content?.save?()
+    @button_issue_bid.submit() if success

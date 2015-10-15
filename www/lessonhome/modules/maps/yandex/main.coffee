@@ -6,7 +6,7 @@ getPoint = (str)->
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   Dom : =>
     @div = @found.map
     @go @tree.value if @tree.value?
@@ -15,8 +15,7 @@ class @main
 
   go : (search)=>
     d = Q.defer()
-    @_go search,d
-    .done()
+    yield @_go search,d
     return d.promise
   _go : (search,d)=> ymaps.ready =>
     search = search

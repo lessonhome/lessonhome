@@ -18,7 +18,7 @@ age = (date1,date2)=>
 
 class Tutors
   constructor : ->
-    Wrap @
+    $W @
     @timereload = 0
     @inited = 0
   init : =>
@@ -39,7 +39,7 @@ class Tutors
     @inited = 2
     @emit 'inited'
     setInterval =>
-      @reload().done()
+      Q.spawn => yield @reload()
     , 2*60*1000
   handler : ($, {filter,preps,from,count,exists})->
     yield @init() unless @inited == 2

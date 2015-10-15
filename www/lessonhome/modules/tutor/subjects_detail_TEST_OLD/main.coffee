@@ -56,12 +56,9 @@ class @main
     @place_cafe   = @tree.place_cafe.class
 
 
-  save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then @onReceive
-    else
-      return false
+  save : => do Q.async =>
+    return false unless @check_form()
+    return @onReceive yield @$send('./save',@getData())
 
   onReceive : ({status,errs,err})=>
     if err?

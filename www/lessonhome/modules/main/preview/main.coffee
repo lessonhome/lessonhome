@@ -162,7 +162,7 @@ class @main extends EE
       unless t
         @found['t'+n].parent().off()
         return @found['t'+n].parent().hide()
-      @found['t'+n].parent().click =>
+      @found['t'+n].parent().click => Q.spawn =>
         o = {}
         switch true
           when /price/.test name
@@ -193,7 +193,7 @@ class @main extends EE
             o[name] = false
           else
             o[name]=val
-        Feel.urlData.set('mainFilter',o).done()
+        yield Feel.urlData.set('mainFilter',o)
       @found['t'+n].text(t)
       @found['t'+n].parent().show()
 
@@ -415,7 +415,7 @@ class @main extends EE
     else
      @advanced_filter.activate 'group_lessons', false
 
-  updatePlaces : (from ,to) =>
+  updatePlaces : (from ,to) => Q.spawn =>
     mf = yield Feel.urlData.get 'mainFilter'
 
     places = []
@@ -429,27 +429,23 @@ class @main extends EE
       o = {}
       o.place = mf.place
       o.place['area_'+to] = o.place['area_'+to].concat places
-      Feel.urlData.set('mainFilter',o).done()
-  onscroll : =>
+      yield Feel.urlData.set('mainFilter',o)
+  onscroll : => Q.spawn =>
     ll = @tutors_result.find(':last')
     dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
     if dist >= -400
-      @addTen().done()
+      yield @addTen()
   show : =>
     @tree.advanced_filter.tutor.class.on 'change', => @updatePlaces('pupil', 'tutor')
     @tree.advanced_filter.pupil.class.on 'change', => @updatePlaces('tutor', 'pupil')
     @advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll.tutors',@onscroll
-    @on 'change', =># Q.spawn =>
+    @on 'change', =>
       if (new Date().getTime() - @loadedTime)>(1000*5)
         Feel.sendActionOnce 'tutors_filter',1000*60*2
-      #@changed = true
-      #@tnum = 4
-      #@reshow().done()
     Feel.urlData.on 'change',=> Q.spawn =>
       @linked = yield Feel.urlData.get 'mainFilter','linked'
-      #@relinkedAll()
-      @setFiltered().done()
+      yield @setFiltered()
       @hashnow ?= 'null'
       hashnow = yield Feel.urlData.filterHash()
       return if @hashnow == hashnow
@@ -457,27 +453,7 @@ class @main extends EE
       @changed = true
       yield @reshow()
 
-    ###
-    @tutors_result = @tree.tutors_result
-    ###
     @choose_tutors_num = @found.choose_tutors_num
-    ###
-    @tutors_result[1].tutor_extract.class.found.add_button_bid.on 'click', =>
-      @imgtodrag = $($('.photo')[1]).eq(0)
-      if @imgtodrag
-        @imgclone = @imgtodrag.clone()
-        @imgclone.offset({
-          top:  @imgtodrag.offset().top
-          left: @imgtodrag.offset().left
-        })
-        @imgclone.css({
-            'opacity': '0.5',
-            'position': 'absolute',
-            'height': '150px',
-            'width': '150px',
-            'z-index': '100'
-          })
-    ###
     @sort.on 'change',  => @emit 'change'
 
 
@@ -508,110 +484,6 @@ class @main extends EE
       @setItemInactive @profiles_20
 
     $(@reset_all_filters).on 'click', => @advanced_filter.resetAllFilters()
-  ###
-  request : => Q.spawn =>
-    @tutorsCache ?= {}
-    return unless @changed
-    return if @sending
-    hash = Feel.urlData.state.url
-    if @tutorsCache?[hash]?
-      return yield @filter hash
-    @sending = true
-    @changed = false
-    tutors = yield @$send './tutors','quiet'
-    storage = $.localStorage.get 'tutors'
-    storage ?= {}
-    tutors  ?= []
-    for val in tutors
-      val.receive = new Date().getTime()
-      storage[val.account] = val
-    for key,val of storage
-      unless val.receive
-        delete storage[key]
-      if (new Date().getTime()-val.receive)>1000*60*5
-        delete storage[key]
-    $.localStorage.set 'tutors',storage
-    @tutors = storage
-    @tutorsCache[hash] = true
-    @sending = false
-    yield @filter(hash)
-    if @changed
-      setTimeout @request,3000
-  ###
-  ###
-  filter : (hash)=> do Q.async =>
-    @lastFilter ?= ""
-    if hash?
-      return if @lastFilter == hash
-    @lastFilter = hash
-    @filtering ?= 0
-    return if @filtering > 1
-    if @filtering == 1
-      @filtering = 2
-      return
-    @filtering = 1
-    tutors = yield @js.filter @tutors, (yield Feel.urlData.get())?.mainFilter
-    #@tutors_result.empty()
-    otutor = {}
-    for tutor in tutors
-      otutor[tutor.account] = tutor
-    onow = {}
-    for tutor in @now
-      onow[tutor.data.account] = tutor
-    spl = []
-    for i in [0...@now.length]
-      tutor = @now[i]
-      unless otutor[tutor.data.account]?
-        tutor.dom.remove()
-        spl.push i
-        delete onow[tutor.data.account]
-        i--
-    min = 0
-    for s in spl
-      @now.splice s-min,1
-      min++
-
-    nnow = []
-    for tutor,i in tutors
-      if onow[tutor.account]?
-        nnow.push onow[tutor.account]
-        if JSON.stringify(onow[tutor.account].data)!=JSON.stringify(tutor)
-          onow[tutor.account].data = tutor
-          onow[tutor.account].nt.setValue tutor
-        continue
-      nt = @tree.tutor_test.class.$clone()
-      nt.setValue tutor
-      nnow.push {
-        data : tutor
-        dom  : $('<div class="tutor_result"></div>').append nt.dom
-        nt   : nt
-      }
-    yield Q()
-    cnum = 0
-    for t,i in nnow
-      break if i>=(@tnum)
-      if cnum > 5
-        yield Q()
-        cnum = 0
-      if i == 0
-        unless @tutors_result.find(':first')[0]==t.dom[0]
-          cnum++
-          @tutors_result.prepend t.dom
-      else
-        unless nnow[i-1].dom.next()[0]==t.dom[0]
-          cnum++
-          nnow[i-1].dom.after t.dom
-      if (i+1)>=(@tnum)
-        ll = @tutors_result.find(':last')
-        dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height())
-        if dist >= 0
-          @tnum+=5
-    @now = nnow
-    if @filtering == 2
-      @filtering = 0
-      return yield @filter()
-    @filtering = 0
-  ###
   check_place_click :(e) =>
     if (!@popup.is(e.target) && @popup.has(e.target).length == 0)
       Feel.go '/second_step'

@@ -28,9 +28,8 @@ class @main extends EE
       $("body").animate({"scrollTop":0},"slow")
       @login.onFocus()
 
-  tryRegister : (e)=>
+  tryRegister : (e)=> Q.spawn =>
     return if @success
-    #@$send( './loginExists',login).then (exists)=> console.log exists
     e?.preventDefault?()
     pass = @password.getValue()
     login = @login.getValue()
@@ -55,21 +54,16 @@ class @main extends EE
       pass = '`'+pass
       @password.setValue pass
       @hashedPassword = true
-    @$send( 'register',{
+    {status,err} = yield @$send( 'register',{
       password : escape pass
       login : login
-    }).then ({status,err})=>
-      console.log 'register',arguments
-      if status == 'success'
-        Feel.sendAction 'register'
-        @success = true
-        Feel.formSubmit @found.form
-        #@found.form.submit()
-      else
-        @printErrors err
-
-
-    .done()
+    })
+    if status == 'success'
+      Feel.sendAction 'register'
+      @success = true
+      Feel.formSubmit @found.form
+    else
+      @printErrors err
   checkEmail : (login)=>
     re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
     re.test login

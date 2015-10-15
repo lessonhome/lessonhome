@@ -7,13 +7,10 @@ class @main
     @map     = @tree.map.class
     @address = @tree.address
 
-  show : =>
+  show : => do Q.async =>
     @subject_div.on 'click', => @subjectOnClick @subject, @details_data
-    @map.go(@address).then (ret)->
-      if !ret
-        console.log ret
-
-
+    ret = yield @map.go(@address)
+  
   subjectOnClick : (subject, details)=>
     subject.changeIcon()
     details.toggle()

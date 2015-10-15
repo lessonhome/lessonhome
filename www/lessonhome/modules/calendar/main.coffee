@@ -21,17 +21,12 @@ class @main extends EE
     #@till_time.on 'focus', => @hideError()
 
 
-  save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          return true
-        #if errs?.length
-          #@parseError errs
-        return false
-    else
-      return false
+  save : => do Q.async =>
+    return false unless @check_form()
+    {status,errs} = yield @$send('./save',@getData())
+    if status=='success'
+      return true
+    return false
 
   dayClick: (day)=>
     if day.hasClass 'active'
@@ -48,66 +43,6 @@ class @main extends EE
       for day in @days
         day = $ day
         if day.hasClass 'active' then day.removeClass 'active'
-  ###
-    addTime: =>
-      return false if !@timeCheck()
-      @from = @from_time.getValue()
-      @till = @till_time.getValue()
-      @from_time.setValue('')
-      @till_time.setValue('')
-      add_tag = false
-      for day in @select_days
-        do (day)=>
-          new_tag = @newTag(day)
-          # insertTag
-          day_number = @convertDay day
-          tags_div = $(@tags).children()
-          for tag_div in tags_div
-            tag_div = $ tag_div
-            tag_div_day_number = @convertDay tag_div.find(".day").text()
-            if day_number < tag_div_day_number
-              new_tag.insertBefore(tag_div)
-              add_tag = true
-              return true
-            else
-              if day_number == tag_div_day_number
-                console.log "current : "+@from+" div : "+tag_div.find(".time_from").text()+" compare_result : "+@compareTime(@from, tag_div.find(".time_from").text())
-                console.log 'compare time : '+@compareTime(@from, tag_div.find(".time_from").text())
-                switch @compareTime(@from, tag_div.find(".time_from").text())
-                  when 1
-                    new_tag.insertBefore(tag_div)
-                    add_tag = true
-                    return true
-                  when 0
-                    return false
-          @tags.append(new_tag)
-          add_tag = true
-          return true
-      if add_tag
-        @emit 'change'
-        @emit 'end'
-    newTag: (day)=>
-      new_tag = @tag.clone()
-      new_tag.show()
-      new_tag.find(".day").text(day)
-      new_tag.find(".time_from").text(@from)
-      new_tag.find(".time_till").text(@till)
-      tag_box = new_tag.find(".tag_box")
-      close_box = new_tag.find(".close_box")
-      close_box.click =>
-        tag_box.parent().remove()
-        @emit 'change'
-        @emit 'end'
-      return new_tag
-      @on 'change'
-      @on 'end'
-
-  ###
-  # compare two time format "9:05"
-  # return 1 if second bigger
-  # return -1 if other
-  # return 0 if equal
-
   compareTime: (first_time, second_time)=>
     first = {}
     first.separator_pos = first_time.indexOf(':', 0)
@@ -133,9 +68,6 @@ class @main extends EE
             return 0
       else
         return -1
-
-  # handlers
-
   assignDaysClicksHandlers: =>
     for day in @days
       day = $ day

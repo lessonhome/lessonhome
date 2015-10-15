@@ -1,6 +1,6 @@
 class @main
   constructor: ->
-    Wrap @
+    $W @
   Dom : =>
     @panel_form = @found.form
     @panel_complate = @found.complate
@@ -8,12 +8,12 @@ class @main
     @name = @tree.field_name.class
     @phone = @tree.field_phone.class
   show : =>
-    @name.on "focus", => @sendTouch.out 'form_interaction','name'
-    @phone.on "focus", => @sendTouch.out 'form_interaction','telephone'
-    @tree.btn_send.class.on 'submit', => @sendTouch.out 'form_interaction','button_click'
-    @tree.btn_more.class.on 'click', => @sendTouch.out 'goto_full'
+    @name.on "focus", => @sendTouch 'form_interaction','name'
+    @phone.on "focus", => @sendTouch 'form_interaction','telephone'
+    @tree.btn_send.class.on 'submit', => @sendTouch 'form_interaction','button_click'
+    @tree.btn_more.class.on 'click', => @sendTouch 'goto_full'
     @attach = Feel.bid_attached
-    @phone.on 'end', @sendForm.out
+    @phone.on 'end', @sendForm
 
     @tree.btn_send.class.on 'submit', => Q.spawn =>
       correct = yield @sendForm()
@@ -33,7 +33,4 @@ class @main
   showComplete: =>
     @panel_wrap.css height: @panel_wrap.outerHeight()
     @panel_form.fadeOut 200, =>
-#      @dom.animate {height :@panel_complate.outerHeight(true)}, 200, =>
-#        @panel_complate.fadeIn 100, =>
-#          @dom.css {height: 'auto'}
       @panel_complate.fadeIn 100

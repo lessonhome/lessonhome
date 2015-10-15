@@ -1,3 +1,5 @@
+
+
 class @main extends EE
   Dom: =>
     @popup = @found.popup
@@ -20,18 +22,14 @@ class @main extends EE
     @order_call.on 'submit', @b_call
 
 
-  b_call : =>
-    @save().then (success)=>
-      if success
-        $(@popup).html('Спасибо! Вам скоро перезвонят!')
-        @emit 'sent'
-    .done()
-
-
-  save : => Q().then =>
+  b_call : => do Q.async =>
+    success = yield @save()
+    if success
+      $(@popup).html('Спасибо! Вам скоро перезвонят!')
+      @emit 'sent'
+  save : => do Q.async =>
     if @check_form()
-      return @$send('./save',@getData())
-      .then @onReceive
+      return @onReceive yield @$send('./save',@getData())
     else
       return false
 
