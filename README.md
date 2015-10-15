@@ -8,7 +8,9 @@ sudo sh -c 'echo "deb http://ppa.launchpad.net/chris-lea/redis-server/ubuntu viv
 
 sudo apt-get update
 
+## **ТОЛЬКО ДЛЯ ubuntu vivid**
 sudo apt-get install upstart-sysv # нужно для работы mongodb под upstart (требует перезагрузки)
+## 
 
 sudo apt-get install git git-core ruby2.1 ruby2.1-dev ruby2.1-tcltk imagemagick redis memcached default-jre
 sudo gem update
