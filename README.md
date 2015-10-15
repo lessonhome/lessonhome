@@ -35,3 +35,23 @@ cd ~/lessonhome/install/ubuntu
 cd ~/lessonhome/install/ubuntu
 ./2mongo.sh # настройка mongodb
 ```
+
+**Запуск проекта:**
+
+если из консоли:
+```Shell
+cd ~/lessonhome/
+./run.sh
+```
+
+если из phpstorm
+создавать новый проект, указывать папку ~/lessonhome, подтверждать создание проекта из существующих файлов
+надо поставить плагин для node.js и jade
+добавить конфигурацию запуска node.js 
+прогу указывать /usr/bin/iojs
+путь к скрипту feel/bin/feel
+так же в настройках для редакторов указывать дефолтные отступы на таб 2 пробела, а не 4 или 8
+когда он говорит откомпилить sass/jade/coffeescipt или нет, жмем dissmiss(вроде так)
+
+Чтобы отчистить кеш надо удалить папки ~/lessonhome/feel/.sass-cahce и ~/lessonhome/.cache
+
