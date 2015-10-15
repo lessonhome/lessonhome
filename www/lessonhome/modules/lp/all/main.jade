@@ -79,4 +79,24 @@
             a.btn-floating.waves-effect.waves-light.red
               i.material-icons delete
           li
-            button(type='submit', name='submit_form').btn.waves-effect.waves-light Оформить
+            a(href='#modal1').btn.waves-effect.waves-light.js-modal_trigger Оформить
+#modal1.modal.modal-fixed-footer
+  .modal-content
+    h4 Оформление заявки
+    h5 Контактная информация
+    .row
+      .input-field.col.s12
+        i.material-icons.prefix account_circle
+        input(type='text')#modal_name.validate
+        label(for='modal_name', data-error="wrong", data-success="right") Имя
+      .input-field.col.s12
+        i.material-icons.prefix phone
+        input(type='text')#modal_phone.validate
+        label(for='modal_phone', data-error="wrong", data-success="right") Телефон
+      .input-field.col.s12
+        i.material-icons.prefix email
+        input(type='text')#modal_mail.validate
+        label(for='modal_mail', data-error="wrong", data-success="right") e-mail
+    .row
+      .col.s12!=subject_list
+

@@ -1,0 +1,27 @@
+- if (value && (typeof value == 'object'))tags = value;
+- if (typeof tags == 'string') tags = {"0":tags};
+.list!=list
+.js-tags
+  if ((typeof tags !== "undefined" && tags !== null ? tags[0] : void 0) != null)
+    for key,val in tags
+      if key
+        .chip.tag.waves-effect.waves-light
+          span.text!=key
+          i.material-icons close
+          .js-close_box
+            .close
+
+.tag-pattern
+  .chip.js-tag.waves-effect.waves-light
+    span.text
+    i.material-icons close
+    .js-close_box
+      .close
+
+
+//old
+//.js-tag
+//  .text_box
+//    .text
+//  .js-close_box
+//    .close

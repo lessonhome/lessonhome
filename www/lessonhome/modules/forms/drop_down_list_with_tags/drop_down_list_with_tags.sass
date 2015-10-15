@@ -1,0 +1,70 @@
+//@import compass/css3
+//
+//$icon_src: 'close_time.png'
+//$icon_height: image-height($icon_src)
+//$icon_width: image-width($icon_src)
+//
+//.list
+//  margin-bottom: 12px
+//  height: inherit
+//
+//.tags
+//  .tag
+//    +inline-block
+//    margin-right: 5px
+//    margin-bottom: 5px
+//    height: 25px
+//    line-height : 25px
+//    background-color: rgba(0,187,211,0.3)
+//    border: 1px solid rgba(0, 0, 0, 0.1)
+//    cursor: pointer
+//    box-sizing: border-box
+//    +border-radius(4px)
+//    .text_box
+//      padding: 0 10px 0 6px
+//      height: inherit
+//      +inline-block
+//      float : left
+//      margin-top : -1px
+//      .text
+//        +inline-block
+//        font-size: 14px
+//        float : left
+//        color: rgba(0,56,64,0.5)
+//    .close_box
+//      width: $icon_width
+//      height: $icon_height
+//      padding: 3px
+//      float : right
+//      transform: translateY(50%)
+//      margin-right: 6.5px
+//      +inline-block
+//      opacity: 0.5
+//      .close
+//        height: 100%
+//        width: 100%
+//        background: url(F($icon_src)) no-repeat
+//    &:hover .close_box
+//      opacity: 0.9
+//    .text_box:after
+//      content: ''
+//      height: 100%
+//      +inline-block
+//    &:hover
+//      background: rgba(0,187,211,0.51)
+//      border: 1px solid rgba(0,0,0,0.1)
+
+
+.tag-pattern
+  display: none
+.tags
+  margin-top: 1rem
+  .chip
+    margin-right: 0.5rem
+    margin-bottom: 0.5rem
+    cursor: pointer
+    transition: all 0.3s ease-out 0s
+    &:hover
+      background-color: #ededed
+    &:last-of-type
+      margin-right: 0
