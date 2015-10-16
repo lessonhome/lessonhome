@@ -40,7 +40,6 @@ class @main extends EE
     @small = true
     photo = value.photos[@now]
     @first = photo
-    console.log @W()
     h = photo.lheight*@W()/photo.lwidth
     w = @W()
     @photo.height h
