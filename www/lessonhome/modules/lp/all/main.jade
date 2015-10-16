@@ -78,8 +78,7 @@
           li
             a.btn-floating.waves-effect.waves-light.red
               i.material-icons delete
-          li
-            a(href='#modal1').btn.waves-effect.waves-light.js-modal_trigger Оформить
+          li!=button_attach
 #modal1.modal.modal-fixed-footer
   .modal-content
     h4 Оформление заявки
@@ -97,6 +96,6 @@
         i.material-icons.prefix email
         input(type='text')#modal_mail.validate
         label(for='modal_mail', data-error="wrong", data-success="right") e-mail
-    .row
-      .col.s12!=subject_list
+
+.attached!=bottom_block_attached
 

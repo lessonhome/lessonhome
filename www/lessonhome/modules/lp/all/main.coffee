@@ -7,7 +7,7 @@ class @main
     @seoText        = @found.seo_text
     @threeStep      = @found.step_three
     @charset_boy    = @found.charset
-    @modalShow      = @found.modal_trigger
+#    @modalShow      = @found.modal_trigger
     @stepOffset     =
       one   : 100
 
@@ -20,17 +20,17 @@ class @main
     @charset_boy.css('top', '20%')
 
     #init modals
-    @modalShow.leanModal
-      dismissible: false,
-      opacity: .5,
-      in_duration: 300,
-      out_duration: 200
-      ready: =>
-        console.log 'open modal'
-      complete: =>
-        console.log 'complete modal work'
-  hide : =>
-    $(document).off 'scroll.lp'
+#    @modalShow.leanModal
+#      dismissible: true,
+#      opacity: .5,
+#      in_duration: 300,
+#      out_duration: 200
+#      ready: =>
+#        console.log 'open modal'
+#      complete: =>
+#        console.log 'complete modal work'
+#  hide : =>
+#    $(document).off 'scroll.lp'
 
   onScroll : (e) =>
 

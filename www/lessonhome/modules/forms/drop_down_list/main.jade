@@ -1,17 +1,17 @@
-- placeholder = placeholder || "";
+//- placeholder = placeholder || "";
 - selector = selector || "";
 - id = id || "";
 - value = value || "";
 
 span(class=selector)
-  if text
-    .text.select!=text
+  //if text
+  //  .text.select!=text
+  .input-field.col.s12
+    i.material-icons.prefix account_circle
+    input.js-input(id="#{id}", value=value type='text').validate
+    //input.js-input(placeholder="#{placeholder}", id="#{id}", value=value type='text').validate
   .js-drop_down_list
     .js-sub_input
-    .row
-      .input-field.col.s12
-        i.material-icons.prefix account_circle
-        input.js-input(placeholder="#{placeholder}", id="#{id}", value=value type='text').validate
     .js-icon_box
       .icon
     .js-select_sets
