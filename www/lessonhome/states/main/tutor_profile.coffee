@@ -6,8 +6,9 @@ class @main extends @template '../main'
   forms : [{person:['dativeName']}]
   access : ['other','pupil']
   tree : =>
+    clear_profile : true
     content : @module '$' :
-      rating_photo  : @state './preview/all_rating_photo' :
+      rating_photo  : @state './preview/all_rating_photo':
         image         : @exports()
         count_review  : @exports()
         close         : false

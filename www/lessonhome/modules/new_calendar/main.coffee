@@ -12,7 +12,6 @@ class @main extends EE
       do (d,i,j)=> d.click =>
         return if @tree.click_ability == false
         @choose_day d,i,j
-    console.log @arr
 
   show : =>
     @setValue()
