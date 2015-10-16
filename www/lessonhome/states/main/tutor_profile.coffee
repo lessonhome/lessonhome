@@ -3,10 +3,11 @@ class @main extends @template '../main'
   route : '/tutor_profile'
   model : 'main/eyed_student_profile'
   title : "Профиль репетитора"
-  forms : [{person:['dativeName']}]
   access : ['other','pupil']
   tree : =>
     clear_profile : true
+
+###    
     content : @module '$' :
       rating_photo  : @state './preview/all_rating_photo':
         image         : @exports()
@@ -35,23 +36,6 @@ class @main extends @template '../main'
             subject: 'Английский язык'
             training_direction: ['ЕГЭ', 'ИСА', 'разговорный', 'грамматика']
             comment: 'очень важный комментарий'
-            ###
-              tutor:
-                v60 : '500'
-                v90 : '900'
-                v120: '1200'
-              pupil:
-                v60 : '500'
-                v90 : '900'
-                v120: '1200'
-              remote:
-                v60 : '500'
-                v90 : '900'
-                v120: '1200'
-              group:
-                v60 : '250 руб. с человека 3-4 человека'
-
-            ###
         ]
       }
       attach_button     : @module 'tutor/checkbox_button' :
@@ -157,4 +141,4 @@ class @main extends @template '../main'
       write_button: @module 'link_button' :
         selector: 'write_tutor'
         text: 'Написать' #TODO: insert a real name of tutor
-
+###
