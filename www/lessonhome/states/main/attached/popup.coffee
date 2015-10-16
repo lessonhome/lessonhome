@@ -80,7 +80,7 @@ class @main
           left : 400
           right : 5000
         dash          : '-'
-        measurement   : 'мин.'
+        measurement   : 'руб.'
         min : 400
         max : 5000
         left  : $urlform : pupil : 'price.left'#'newBid.subjects.0.lesson_duration.0'
