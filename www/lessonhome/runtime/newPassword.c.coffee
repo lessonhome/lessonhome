@@ -2,7 +2,11 @@
 
 
 @handler = ($, data)->
-  data.password = unescape data.password
+  if data.password.match /\%/
+    data.password = unescape data.password
+  else
+    data.password = _LZString.decompressFromBase64 data.password
+
   data.ref = $.req.headers.referer
 
   if data.check

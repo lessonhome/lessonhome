@@ -2,8 +2,13 @@
 # data:{login,password,newpassword}
 
 @handler = ($,data)->
-  data.password = unescape data.password
-  data.newpassword = unescape data.newpassword
+  if data.password.match /\%/
+    data.password = unescape data.password
+    data.newpassword = unescape data.newpassword
+  else
+    data.password = _LZString.decompressFromBase64 data.password
+    data.newpassword = _LZString.decompressFromBase64 data.newpassword
+ 
   data.login ?= $.user.login
   try
     obj = yield $.register.passwordUpdate $.user,$.session,data

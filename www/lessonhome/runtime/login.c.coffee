@@ -2,7 +2,10 @@
 
 
 @handler = ($,data)->
-  data.password = unescape data.password
+  if data.password.match /\%/
+    data.password = unescape data.password
+  else
+    data.password = _LZString.decompressFromBase64 data.password
   try
     obj = yield $.register.login $.user,$.session,data
     $.cookie.set 'session'
