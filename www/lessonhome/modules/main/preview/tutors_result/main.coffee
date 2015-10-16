@@ -1,10 +1,12 @@
 class @main extends EE
   Dom:  =>
     @dom.dblclick => Q.spawn =>
+      return unless Feel.user?.type?.admin
       yield Feel.root.tree.class.$send '/relogin',@index
       yield Feel.go '/form/tutor/login',true
 
     @dom.click (e)=> Q.spawn =>
+      return unless Feel.user?.type?.admin
       if e.ctrlKey && e.altKey && @index > 0
         yield Feel.root.tree.class.$send '/relogin',@index
         yield Feel.go '/form/tutor/login',true
