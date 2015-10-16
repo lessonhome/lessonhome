@@ -18,11 +18,10 @@ class @main extends EE
     @tutor_extract  = @tree.tutor_extract.class
     if @tree.onepage
       do (that=this)=> @dom.find('a').click (e)->
+        return unless e.button == 0
         e.preventDefault()
         Feel.root.tree.class.showTutor that.index,$(this).attr('href')
         return false
-
-    #@set
   setValue : (data)=>
     @index = data?.index ? 0
     @rating_photo.setValue {

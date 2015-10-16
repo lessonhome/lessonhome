@@ -11,6 +11,21 @@ class @DataM
       filters  : {}
       preps    : {}
   init : =>
+    keys = $.localStorage.keys()
+    for key in keys
+      continue unless m = key.match /tutorInfo_(.*)/
+      prep = $.localStorage.get key
+      console.log m[1]
+      prep.__storage = true
+      @tutors.preps[m[1]] = prep if prep?
+    for key in keys
+      continue unless m = key.match /tutorsFilter_(.*)/
+      indexes = $.localStorage.get key
+      console.log m[1]
+      indexes.__storage = true
+      @tutors.filters[m[1]] = indexes if indexes?
+      
+      
   loadConf : =>
     @conf = $.localStorage.get 'dataM' ? {}
     @conf.fields  ?= {}
@@ -40,29 +55,45 @@ class @DataM
       @tutors.preps[key] = prep
     return @tutors.filters?[filter?.hash]?.indexes ? []
   getTutor : (preps)=>
+    return {} if preps?[0] == 0
+    console.log {preps}
     req = []
+    req2 = []
     for p in preps
-      continue if @tutors.preps[p]?
+      if @tutors.preps[p]?
+        req2.push p if @tutors.preps[p].__storage
+        continue
       req.push p
-    return @tutors.preps unless req.length
 
+    if req.length
+      yield @getTutor_(req)
+    if req2.length
+      @getTutor_(req2).done()
+    return @tutors.preps
+  getTutor_ : (req)=>
     ret = yield Feel.root.tree.class.$send 'm:/main/preview/tutors',{preps:req},'quiet'
     for key,prep of (ret.preps ? {})
       @tutors.preps[key] = prep
-    return @tutors.preps
+      $.localStorage.set 'tutorInfo_'+key,prep if prep?
   getTutors : (from=0,count=10,hash_)=>
     filter = {}
     filter.hash = hash_ ? yield Feel.urlData.filterHash()
-    return @tutors.filters[filter.hash].indexes if @tutors?.filters?[filter.hash]?.indexes?
+    unless @tutors?.filters?[filter.hash]?.indexes?
+      yield @getTutors_ filter,from,count
+    else if @tutors?.filters?[filter.hash]?.__storage
+      @getTutors_(filter,from,count).done()
+    return @tutors.filters?[filter?.hash]?.indexes ? []
+  getTutors_ : (filter,from,count)=>
     filter.data = yield Feel.udata.u2d(filter.hash) #yield Feel.urlData.get 'mainFilter'
     filter.data = filter.data?.mainFilter
     exists = Object.keys(@tutors?.preps ? {}) ? []
     ret = yield Feel.root.tree.class.$send 'm:/main/preview/tutors',{filter,from,count,exists},'quiet'
     for key,indexes of (ret.filters ? {})
       @tutors.filters[key] = indexes ? []
+      $.localStorage.set 'tutorsFilter_'+key,indexes if indexes?
     for key,prep of (ret.preps ? {})
       @tutors.preps[key] = prep
-    return @tutors.filters?[filter?.hash]?.indexes ? []
+      $.localStorage.set 'tutorInfo_'+key,prep if prep?
   getBest : (count)=>
     indexes = (yield @getTutors 0,count,'')?.slice?(0,count) ? []
     arr = yield @getTutor indexes

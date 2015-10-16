@@ -25,7 +25,6 @@ class @main extends EE
     @found.choose_button.click @addTutor
     Feel.urlData.on 'change',@setLinked
   addTutor : => Q.spawn =>
-    console.log 'addTutor'
     linked = yield Feel.urlData.get 'mainFilter','linked','reload'
     if linked[@tree.value.index]?
       delete linked[@tree.value.index]
@@ -35,7 +34,6 @@ class @main extends EE
     @setLinked linked
     yield Feel.urlData.set 'mainFilter','linked',linked
   setLinked : (linked)=> Q.spawn =>
-    console.log 'setLinked'
     linked ?= yield Feel.urlData.get 'mainFilter','linked','reload'
     if linked[@tree.value.index]?
       @tree.choose_button?.class?.setValue {text:'Убрать',color:'#3ab27d',pressed:true}
@@ -164,10 +162,12 @@ class @main extends EE
     #@hideExtraText()
     do => Q.spawn =>
       link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
-      @found.link_name.attr 'href',link
-      unless @tree.onepage
-        @tree.view_button.class.activate link
-      @dom.find('.about_link').attr 'href',link
+
+      @dom.find('a').attr 'href',link
+
+      #unless @tree.onepage
+      #  @tree.view_button.class.activate link
+      #@dom.find('.about_link').attr 'href',link
   getValue : => @getData()
 
   getData : => @tree.value

@@ -84,8 +84,15 @@ class @main extends EE
     if @tree.onepage
       return Feel.root.tree.class.hideTutor()
     #Feel.go '/second_step'
-    Feel.go '/second_step'
-    #document.location.href = document.referrer
+    if History.back()
+      setInterval @goHitoryUrl,100
+      @goHistoryUrl()
+      return
+    document.location.href = document.referrer
+  goHistoryUrl : =>
+    setTimeout ->
+      document.location.href = History.getState().url
+    ,0
   setActiveItem: (item, content)=>
     return if item.hasClass 'active'
     for val in @header_items
