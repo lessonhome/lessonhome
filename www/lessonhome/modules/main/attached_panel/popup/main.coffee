@@ -1,4 +1,6 @@
 class @main
+  constructor: ->
+    $W @
   Dom: =>
     @name = @tree.first.class.tree.name.class
     @phone = @tree.first.class.tree.phone.class
@@ -6,6 +8,7 @@ class @main
     @subject=@tree.subject.class
     @second_block=@found.second_block
   show : =>
+    @found.close_button.on 'click',=> @emit 'close'
     @name   .on "focus", => @sendTouch 'form_interaction','name'
     @phone  .on "focus", => @sendTouch 'form_interaction','phone'
     @email  .on "focus", => @sendTouch 'form_interaction','email'
