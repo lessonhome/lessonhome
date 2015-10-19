@@ -1,12 +1,16 @@
-class @main  extends @template '../lp'
-  route : '/lp_all'
-  model   : 'tutor/bids/reports'
-  title : "LessonHome - Администрирование"
-  access : ['other']
-  redirect : {
-
-  }
+class @main  extends @template '../all'
+  route     : '/english'
+  model     : 'tutor/bids/reports'
+  title     : "Репетитор по английскому"
+  access    : ['other']
+  redirect  : {}
   tree : =>
+    filters :
+      subjects : 'английский язык'
+    ###
+
+
+
     content : @module '$':
       lib_diff  : @module 'lib/diff'
       tutors :[
@@ -34,3 +38,5 @@ class @main  extends @template '../lp'
       button_attach : @module 'link_button' :
         text : 'Оформить заявку'
         selector : 'view'
+
+    ###

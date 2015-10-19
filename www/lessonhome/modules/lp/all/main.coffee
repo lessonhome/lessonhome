@@ -1,4 +1,6 @@
 class @main
+  constructor : ->
+    $W @
   Dom : =>
     @firstStep      = @found.step_one
     @firstHeight    = @found.step_one.height()
@@ -13,6 +15,14 @@ class @main
 
     @oldScroll      = $(document).scrollTop()
   show: =>
+    @found.tutors_list.find('>div').remove()
+    tutors = yield Feel.dataM.getByFilter 5, (@tree.filter ? {})
+    for tutor,i in tutors
+      clone = @tree.tutor.class.$clone()
+      @found.tutors_list.append clone.dom
+      yield clone.setValue tutor
+      clone.dom.show()
+
     $(document).on 'scroll.lp', @onScroll
     @tutorListShow() #timer to tutors show
 
