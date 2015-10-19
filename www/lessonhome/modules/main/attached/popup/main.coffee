@@ -6,11 +6,11 @@ class @main
     @subject=@tree.subject.class
     @second_block=@found.second_block
   show : =>
-    @name.on "focus", => @sendTouch.out 'form_interaction','name'
-    @phone.on "focus", => @sendTouch.out 'form_interaction','phone'
-    @email.on "focus", => @sendTouch.out 'form_interaction','email'
-    @subject.on "focus", => @sendTouch.out 'form_interaction','subject'
-#    @second_block "focus", => @sendTouch.out 'form_interaction','second_block'
+    @name.on "focus", => @sendTouch 'form_interaction','name'
+    @phone.on "focus", => @sendTouch 'form_interaction','phone'
+    @email.on "focus", => @sendTouch 'form_interaction','email'
+    @subject.on "focus", => @sendTouch 'form_interaction','subject'
+#    @second_block "focus", => @sendTouch 'form_interaction','second_block'
 
     if !@subject.getValue()
       @subject.on 'focus', =>

@@ -40,7 +40,6 @@ class AddPhotos
     nowFile   = data?.files[data?.files?.length-1]
     lastFile  = data?.originalFiles?[data?.originalFiles?.length-1]
     return unless nowFile==lastFile
-    @log e,data
     $.getJSON('/uploaded/image', {avatar: 'true'})
     .success (data)=>
       if data?.uploaded?
@@ -78,11 +77,8 @@ class AddPhotos
   progressall : (e,data)=>
     #Feel.pbar.start()
     Feel.pbar.set data.loaded*0.5/data.total
-    @log 'pall',e,data
   progressdone : (e,data)=>
-    @log 'done',e,data
   add : (e,data)=>
-    @log e,data
     return true
   setPhoto : (url,w,h)=>
 
@@ -118,11 +114,9 @@ class AddPhotos
     Feel.pbar.set()
     thenf = =>
       Feel.pbar.set()
-      console.log 'load'
       whide.animate({'opacity':0},500)
       setTimeout =>
         Feel.pbar.stop()
-        console.log 'pbar.stop'
         whide.filter('.photo').remove()
         whide.filter('.unknown').hide()
         if url

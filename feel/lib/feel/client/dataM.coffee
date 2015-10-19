@@ -9,19 +9,18 @@ class @DataM
     @data = {}
     @tutors =
       filters  : {}
-      preps    : {}
+      preps    : {0:{}}
+
   init : =>
     keys = $.localStorage.keys()
     for key in keys
       continue unless m = key.match /tutorInfo_(.*)/
       prep = $.localStorage.get key
-      console.log m[1]
       prep.__storage = true
       @tutors.preps[m[1]] = prep if prep?
     for key in keys
       continue unless m = key.match /tutorsFilter_(.*)/
       indexes = $.localStorage.get key
-      console.log m[1]
       indexes.__storage = true
       @tutors.filters[m[1]] = indexes if indexes?
       
@@ -56,15 +55,15 @@ class @DataM
     return @tutors.filters?[filter?.hash]?.indexes ? []
   getTutor : (preps)=>
     return {} if preps?[0] == 0
-    console.log {preps}
     req = []
     req2 = []
     for p in preps
       if @tutors.preps[p]?
-        req2.push p if @tutors.preps[p].__storage
+        if @tutors.preps[p].__storage
+          req2.push p
+          delete @tutors.preps[p].__storage
         continue
       req.push p
-
     if req.length
       yield @getTutor_(req)
     if req2.length
@@ -81,6 +80,7 @@ class @DataM
     unless @tutors?.filters?[filter.hash]?.indexes?
       yield @getTutors_ filter,from,count
     else if @tutors?.filters?[filter.hash]?.__storage
+      delete @tutors?.filters?[filter.hash]?.__storage
       @getTutors_(filter,from,count).done()
     return @tutors.filters?[filter?.hash]?.indexes ? []
   getTutors_ : (filter,from,count)=>

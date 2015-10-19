@@ -554,6 +554,7 @@ global._fs_copy =   Q.denode _fse.copy
 global._fs_remove =   Q.denode _fse.remove
 global._readdirp = Q.denode require 'readdirp'
 regenerator = require("regenerator")
+global._LZString = require './lib/lz-string.min.js'
 global._regenerator = (source)-> regenerator.compile(source).code
 global._args    = (a)->
   for ar,i in a

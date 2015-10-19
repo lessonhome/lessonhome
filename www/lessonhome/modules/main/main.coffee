@@ -9,18 +9,19 @@ class @main extends EE
     @initListenStateChange().done()
     
   initListenStateChange : => do Q.async =>
-    yield @checkStateChange()
+    yield @checkStateChange true
     window.onstatechange = =>
       @savedScroll = $(window).scrollTop()
       @onstatechange()
       return
-  checkStateChange : =>
+  checkStateChange : (first=false)=>
     @oldurl = @nowurl
     @olddata = @nowdata
     url = History.getState().url
     if url.match /\/tutor_profile/
       @nowurl = 'tutor_profile'
-      yield Feel.urlData.initFromUrl()
+      unless first
+        yield Feel.urlData.initFromUrl()
       @nowdata = yield Feel.urlData.get 'tutorProfile','index'
     else if url.match /\/second_step/
       @nowurl  = 'second_step'
@@ -31,6 +32,9 @@ class @main extends EE
     else
       @nowurl = 'other'
       @nowdata = 'other'
+    if first
+      @oldurl = @nowurl
+      @olddata = @nowdata
     return false unless @oldurl?
     return true if @nowurl != @oldurl
     switch @nowurl
@@ -70,6 +74,10 @@ class @main extends EE
     document.location.href = window.history.back()
   onstatechange : => Q.spawn =>
     return unless yield @checkStateChange()
+    if @tree.clear_profile && (@nowurl != 'tutor_profile')
+      setInterval @goHitoryUrl,100
+      @goHistoryUrl()
+      return
     yield @preShow()
     yield @hidePage()
     yield @showPage()
@@ -77,12 +85,14 @@ class @main extends EE
     switch @nowurl
       when 'tutor_profile'
         @saveTutor = @tree.tutor_profile.class.$clone()
+        @found.tutor_profile.find('>').off true,true
         @found.tutor_profile.empty()
         @found.tutor_profile.append @saveTutor.dom
         yield @saveTutor.open @urldata
   hidePage : => do Q.async =>
     switch @oldurl
       when 'tutor_profile'
+        break if @nowurl == 'tutor_profile'
         @found?.tutor_profile?.hide?()
         yield Feel.urlData.set 'tutorProfile',{index:0}
       when 'main','second_step','other'
@@ -97,10 +107,6 @@ class @main extends EE
         $(window).scrollTop 0
         @found.tutor_profile.show()
       when 'main','second_step','other'
-        if @tree.clear_profile
-          setInterval @goHitoryUrl,100
-          @goHistoryUrl()
-          return
         @found.filter_top?.show?()
         @found.info_panel?.show?()
         @found.content?.show?()

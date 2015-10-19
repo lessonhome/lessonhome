@@ -24,7 +24,7 @@ class @main
     @btn_send.on 'submit', => Q.spawn =>
       errors = yield @sendForm()
       if errors.correct is true
-        yield Feel.urlData.set 'mainFilter','linked', {}
+        yield Feel.urlData.set 'mainFilter','linked':{}
         Feel.sendGActionOnceIf(18000,'bid_full','form_submit')
         Feel.go '/fast_bid/fourth_step'
       else
@@ -74,6 +74,7 @@ class @main
 
   updatePanel : =>
     length = yield @bar.reshow()
+    return unless length?
     if length != 0
       @bar_block.fadeIn()
     else

@@ -233,4 +233,7 @@ class @urlData
   _emitChange : =>
     return if (!@lastChange) || (((new Date().getTime())-@lastChange)<200)
     @lastChange = 0
+    url = History.getState().url
+    return if url == @lastEmitUrl
+    @lastEmitUrl = url
     @emit 'change'

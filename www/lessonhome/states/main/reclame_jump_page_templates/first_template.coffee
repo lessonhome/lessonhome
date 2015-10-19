@@ -16,6 +16,7 @@ class @main extends @template '../../main'
       tutors : $form : tutors : 'tutor'
       title_suit_tutors : @exports()
       suit_tutors : @state 'main/preview/tutors_result' :
+        onepage : true
         image : {
           src: ''
           w: 1000

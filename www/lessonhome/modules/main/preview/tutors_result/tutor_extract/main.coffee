@@ -74,9 +74,10 @@ class @main extends EE
       if key
         key = key?.capitalizeFirstLetter?() ? key if i == 1
         skey = key
-#        if i > 1
-#          skey += ','
-        @tutor_subject?.append? s=$("<div class='tag'></div>").text(skey ? "")
+        if i > 2
+          break
+        else
+          @tutor_subject?.append? s=$("<div class='tag'></div>").text(skey ? "")
         ###
         do (s,key,val)=>
           s.click => Q.spawn =>
@@ -164,6 +165,13 @@ class @main extends EE
       link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
 
       @dom.find('a').attr 'href',link
+      if @tree.onepage
+        do (that=this)=> @dom.find('a').click (e)->
+          return unless e.button == 0
+          e.preventDefault()
+          Feel.root.tree.class.showTutor that.tree.value.index,$(this).attr('href')
+          return false
+
 
       #unless @tree.onepage
       #  @tree.view_button.class.activate link
