@@ -1,20 +1,26 @@
 //
    Created by lh on 01.10.15.
-
-.title
-  span.title Выбранные репетиторы
-  &nbsp;
-  span.js-count
-  &nbsp;&nbsp;
-  a.js-clean(href='#') очистить
-.content
-  .js-btn_attach!=button_attach
-  .carousel
-    //.js-left.inactive
-    .js-jcarousel
-      .js-preps
-
-    //.js-right.inactive
 .hidden
   !=tutor
 
+.selected-teachers.z-depth-4
+  .container
+    .row.valign-wrapper
+      .col.s12.l7.m6.tutors-overflow
+        .hide-on-med-and-up
+          .blue-text.js-show_select_rep
+            span Выбранные репетиторы:&nbsp;
+            span.js-count
+        ul.js-preps.hidden_rep_list
+      .col.s4.m6.l5.right-align.valign.mobile-top
+        ul
+          li.hide-on-small-only
+            span.btn-floating.blue.center-align.js-count
+          li.hide-on-small-only
+            a.btn-floating.waves-effect.waves-light.red.js-clean
+              i.material-icons delete
+          li
+            .js-btn_attach!=button_attach
+            //Нужная кнопка
+            //.js-btn_attach
+            //  a.btn.waves-effect.waves-light Оформить

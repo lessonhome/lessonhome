@@ -54,14 +54,17 @@ class @main
 
       #first step
       if thisScroll > @stepOffset.one
-        @firstStep.slideUp 700, =>
-          _tutorOffset = @found.tutors_list.offset()
-          #update stepOffset
-          @stepOffset     =
-            one   : 100
-            two   : _tutorOffset.top + @found.tutors_list.height() - 400
-            three : _tutorOffset.top + @found.tutors_list.height() - 150
-            four  : _tutorOffset.top + @found.tutors_list.height() + 50
+#        @firstStep.animate
+#          opacity: 0
+#          700
+#          =>
+        _tutorOffset = @found.tutors_list.offset()
+        #update stepOffset
+        @stepOffset     =
+          one   : 100
+          two   : _tutorOffset.top + @found.tutors_list.height() - 400
+          three : _tutorOffset.top + @found.tutors_list.height() - 150
+          four  : _tutorOffset.top + @found.tutors_list.height() + 50
 
         @tutorsList.animate
           opacity: 1
@@ -95,7 +98,9 @@ class @main
 
       #first step
       if thisScroll < @stepOffset.one || thisScroll == @stepOffset.one
-        @firstStep.slideDown(700)
+#        @firstStep.animate
+#          opacity: 1
+#          700
 
         if charsetPosition == '45%'
           @charset_boy.animate

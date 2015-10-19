@@ -14,6 +14,7 @@ class @main
     @form_block = @found.popup
     @btn_send = @tree.popup.class.tree.btn_send.class
     @scrollWidth = yield @getScrollWidth()
+
   show : =>
     @register 'bid_attached'
     @updatePanel()
@@ -21,6 +22,7 @@ class @main
     @open_form.on 'submit', @showForm
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
+    @tree.popup.class.on 'close', @hideForm
     @btn_send.on 'submit', => Q.spawn =>
       errors = yield @sendForm()
       if errors.correct is true
@@ -34,7 +36,6 @@ class @main
     @tree.popup.first.phone.class.on 'end', => Q.spawn =>
       errors = yield @sendForm()
       if errors.correct is false then @popup.parseError phone : errors['phone']
-
   scrollToTop : =>
     @popup_block.addClass('fixed').animate {
       scrollTop : 0

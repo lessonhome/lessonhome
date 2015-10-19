@@ -3,7 +3,7 @@ class @main
 #    carousel : @module 'lib/jquery/plugins/slick'
     tutor : @module 'main/attached_panel/bar/tutor_smallest'
     button_attach : @module 'link_button' :
-      text : 'Оформить заявку'
+      text : 'Оформить'
       selector : 'view'
     value: $urlform: mainFilter: 'linked'
 

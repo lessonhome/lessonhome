@@ -7,11 +7,20 @@ class @main
     @panel = @found.bottom_panel
     @btn_attach = @found.btn_attach
     @linked = {}
+    @show_tutors = @found.show_select_rep
+    @show_tutors_count = 0
   show : =>
     @found.clean.on 'click', =>
       do Q.async =>
         yield Feel.urlData.set 'mainFilter','linked', {}
       return false
+    @show_tutors.on 'click', =>
+      if @show_tutors_count == 0
+        $(@preps).slideDown(300)
+        @show_tutors_count = 1
+      else
+        $(@preps).slideUp(300)
+        @show_tutors_count = 0
   reshow : (linked) =>
     linked = yield Feel.urlData.get 'mainFilter','linked','reload'
     return if @saveLinked == JSON.stringify linked
@@ -28,7 +37,7 @@ class @main
       preps = for i in linked then preps[i]
       for prep in preps
         @preps.append yield @createDom prep
-    @found.count.text "(#{linked.length})"
+    @found.count.text "#{linked.length}"
     if @reshowing == 2
       @reshowing = 0
       return @reshow()

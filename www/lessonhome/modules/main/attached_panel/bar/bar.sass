@@ -1,54 +1,11 @@
-@import base
-$btn_width: 180px
-$left : 'ic_keyboard_arrow_left_black_36dp_1x.png'
-$right : 'ic_keyboard_arrow_right_black_36dp_1x.png'
-=nav($ico)
-  cursor: pointer
-  position: absolute
-  top: 0
-  bottom: 0
-  margin: auto 0
-  background: url(F($ico))
-  width: image-width($ico)
-  height : image-height($ico)
-  &.inactive
-    opacity: 0.1
-.title
-  font-size: 16px
-  margin-bottom: 10px
-  span.title, .count
-    font-weight: bold
-  a, .count
-    color: #00A993
-.content
-  .carousel
-    position: relative
-    margin-right: $btn_width
-    //padding: 0 50px
-    .left
-      left: 0
-      +nav($left)
-    .right
-      right: 0
-      +nav($right)
-
-    .jcarousel
-      position: relative
-      overflow: auto
-      margin-right: 20px
-      .preps
-        white-space: nowrap
-        li.block
-          +inline-block()
-          padding: 5px 10px 10px
-  .btn_attach
-    float: right
-    width: $btn_width
-    height: 50px
-  &:after
-    content: ''
-    display: table
-    clear: both
-.hidden
-  position: fixed
-  display: none
+.selected-teachers
+  .container
+    .row
+      .col
+        ul
+          li
+            .btn_attach
+              #m-link_button
+                .view
+                  .button
+                    padding: 0.5rem 1rem
