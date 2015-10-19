@@ -11,10 +11,12 @@ class @main
     image = im.lurl
     n = @tree.value.name
     @found.avatar.attr 'src',image
-    @found.avatar.attr 'alt',"#{n.last ? ''} #{n.first ? ''} #{n.middle ? ''}"
-    @found.avatar.attr 'title',"#{n.last ? ''} #{n.first ? ''} #{n.middle ? ''}"
+    @found.avatar.attr 'alt',"#{n.first ? ''} #{n.middle ? ''}"
+    @found.avatar.attr 'title',"#{n.first ? ''} #{n.middle ? ''}"
 
-    #@dom.click => Feel.go(link)
     @found.photo_box.attr 'href',link
-#    h = im.lheight * 76/im.lwidth
-#    return {h}
+    index = @tree.value.index
+    @dom.find('a').click (e)->
+      return unless e.button = 0
+      e.preventDefault()
+      Feel.root.tree.class.showTutor index,$(this).attr 'href'
