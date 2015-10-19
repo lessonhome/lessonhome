@@ -28,7 +28,7 @@ class @main
       preps = for i in linked then preps[i]
       for prep in preps
         @preps.append yield @createDom prep
-    @found.count.text "(#{linked.length})"
+    @found.count.text "#{linked.length}"
     if @reshowing == 2
       @reshowing = 0
       return @reshow()

@@ -21,8 +21,9 @@
           .col.l12.m12.s12
             button(type='submit', name='form_submit').btn-large.waves-effect.waves-light Отправить
               i.material-icons.right send
+      h1 Репетиторы по математике:
+      h2.grey-text Построй свою финансовую пирамиду
       .js-tutors_list
-        h4 Репетиторы:
         each tutor in tutors
           !=tutor
       .dialog_block.js-step_two
@@ -52,50 +53,5 @@
           .col.l12.m12.s12
             button(type='submit', name='submit_form').btn-large.waves-effect.waves-light Отправить
               i.material-icons.right send
-.selected-teachers.z-depth-4
-  .container
-    .row
-      .col.s12.l7.m6.tutors-overflow
-        .chip
-          img(src='https://lessonhome.ru/file/5453ab9948/user_data/images/323e35c6f4l.jpg')
-          i.material-icons close
-        .chip
-          img(src='https://lessonhome.ru/file/f46da49a1e/user_data/images/7c68d58025l.jpg')
-          i.material-icons close
-        .chip
-          img(src='https://lessonhome.ru/file/5453ab9948/user_data/images/323e35c6f4l.jpg')
-          i.material-icons close
-        .chip
-          img(src='https://lessonhome.ru/file/f46da49a1e/user_data/images/7c68d58025l.jpg')
-          i.material-icons close
-        .chip
-          img(src='https://lessonhome.ru/file/5453ab9948/user_data/images/323e35c6f4l.jpg')
-          i.material-icons close
-      .col.s4.m6.l5.right-align.hide-on-small-only
-        ul
-          li
-            span.btn-floating.blue.center-align 5
-          li
-            a.btn-floating.waves-effect.waves-light.red
-              i.material-icons delete
-          li!=button_attach
-#modal1.modal.modal-fixed-footer
-  .modal-content
-    h4 Оформление заявки
-    h5 Контактная информация
-    .row
-      .input-field.col.s12
-        i.material-icons.prefix account_circle
-        input(type='text')#modal_name.validate
-        label(for='modal_name', data-error="wrong", data-success="right") Имя
-      .input-field.col.s12
-        i.material-icons.prefix phone
-        input(type='text')#modal_phone.validate
-        label(for='modal_phone', data-error="wrong", data-success="right") Телефон
-      .input-field.col.s12
-        i.material-icons.prefix email
-        input(type='text')#modal_mail.validate
-        label(for='modal_mail', data-error="wrong", data-success="right") e-mail
-
 .attached!=bottom_block_attached
 
