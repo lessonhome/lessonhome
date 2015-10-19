@@ -1,6 +1,7 @@
 class @main
   constructor: ->
     $W @
+    @saveLinked = undefined
   Dom : =>
     @preps = @found.preps
     @panel = @found.bottom_panel
@@ -13,14 +14,14 @@ class @main
       return false
   reshow : (linked) =>
     linked = yield Feel.urlData.get 'mainFilter','linked','reload'
-    linked = for index of linked then index
-    console.log linked
+    return if @saveLinked == JSON.stringify linked
+    @saveLinked = JSON.stringify linked
     if @reshowing > 0
       @reshowing = 2
-      return linked.length
+      return Object.keys(linked ? {}).length
     @reshowing = 1
     @linked = linked
-
+    linked = for index of linked then index
     @preps.empty()
     if linked.length isnt 0
       preps = yield Feel.dataM.getTutor linked
