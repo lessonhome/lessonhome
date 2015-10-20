@@ -218,11 +218,11 @@ $animation-default-01:  80% 0
   left: 0
   right: 0
   box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12)
-  padding: 1rem 0 0 0
+  padding: 0.5rem 0 0 0
   @media #{$small-and-down}
     padding: 0
   .row
-    margin-bottom: 1rem
+    margin-bottom: 0.4rem
     @media #{$small-and-down}
       margin-bottom: 0
       position: relative
@@ -244,8 +244,10 @@ $animation-default-01:  80% 0
 .tutors-overflow
   white-space: nowrap
   overflow: auto
+  height: 50px
   @media #{$small-and-down}
     white-space: normal
+    height: auto
 
 .mobile-top
   @media #{$small-and-down}
@@ -276,12 +278,12 @@ $animation-default-01:  80% 0
   .prep
     .block_prep
       a.photo_box
-        @media #{$small-and-down}
+        @media #{$medium-and-down}
           width: 40px
           height: 40px
           overflow: hidden
       .rem
-        @media #{$small-and-down}
+        @media #{$medium-and-down}
           opacity: 1 !important
           right: -40px
           top: 0
