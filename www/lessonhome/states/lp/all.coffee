@@ -17,7 +17,6 @@ class @main  extends @template '../lp'
         location  : 'Москва м. Перово'
         price : 500
         photo : 'https://lessonhome.ru/file/5453ab9948/user_data/images/323e35c6f4l.jpg'
-      filters : @exports()
       top_form  : @module 'main/fastest_top'
       bottom_block_attached : @module 'main/attached_panel' :
         bottom_bar  : @state 'main/attached_panel/bar'
@@ -25,3 +24,11 @@ class @main  extends @template '../lp'
       button_attach : @module 'link_button' :
         text : 'Оформить заявку'
         selector : 'view'
+      
+      filter : @exports()
+      photo_src : @exports()
+      title : @exports()
+      sub_title : @exports()
+      text : @exports()
+      title_suit_tutors : @exports()
+
