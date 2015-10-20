@@ -53,7 +53,7 @@ class @main
       yield clone.setValue tutor
       clone.dom.show()
       clone.dom.animate (opacity:1),1400
-      
+
     if !isMobile.any()
       $(document).on 'scroll.lp', @onScroll
       @tutorListShow()
