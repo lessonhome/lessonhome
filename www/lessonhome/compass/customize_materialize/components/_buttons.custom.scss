@@ -11,3 +11,10 @@
     }
   }
 }
+.btn_attach {
+  .btn {
+    @media #{$small-and-down} {
+      font-size: 0.8rem;
+    }
+  }
+}
