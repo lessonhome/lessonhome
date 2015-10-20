@@ -63,9 +63,11 @@ ex = (v)=>
       exists = true
       found = -1
       for s in p.words
-        if (s.length < 10) || (subject.length < 10)
-          continue if Math.abs(s.length-subject.length)>2
-        dif = _diff.match subject.replace(/язык/g,''),s.replace(/язык/g,'')
+        nw1 = subject.replace(/язык$/g,'')
+        nw2 = s.replace(/язык$/g,'')
+        if (nw1.length < 10) || (nw2.length < 10)
+          continue if Math.abs(nw2.length-nw1.length)>2
+        dif = _diff.match nw1,nw2
         continue if (dif< 0) || (dif>0.4)
         if (found < 0) || (dif<found)
           found = dif

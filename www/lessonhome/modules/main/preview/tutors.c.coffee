@@ -313,6 +313,14 @@ class Tutors
       for s in ss
         words[s] = true
       p.words = Object.keys words
+      lang = false
+      for w,i in p.words
+        if w.match /язык$/g
+          lang = true
+          p.words[i] = w.replace /язык$/g,''
+      if lang
+        p.words.push 'языки'
+        p.words.push 'иностранный'
       awords = ""
       awords += ' '+(str ? '') for k,str of (p.location ? {})
       for el in (p.interests ? []) then for k,str of el
