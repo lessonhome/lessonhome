@@ -355,14 +355,6 @@ class Tutors
       Awords[_diff.prepare(word)] = true for word in awords
       awords = Awords
       p.awords = awords
-    for sname,sbj of p.subjects
-      awords += ' '+sname
-      for el in (sbj.course ? [])
-        awords += ' '+(el ? '')
-        awords += ' '+(sbj.description ? '')
-        awords += ' '+tag for tag of sbj.tags
-
-
 
     @persons = persons
     @index = {}
