@@ -261,6 +261,84 @@ class Tutors
       p.rating = (p.rating-rmin)/(rmax-rmin)
       p.rating *= 3
       p.rating += 2
+
+      
+      p.sorts = {}
+      ss = Object.keys p.subjects ? {}
+      ss2 = []
+      for s in ss
+        s = s.split /[,;\.]/
+        for k in s
+          k = k.replace /^\s+/,''
+          k = k.replace /\s+$/,''
+          ss2.push k if k
+      ss = ss2
+      ss.push p.name.first if p?.name?.first
+      ss.push p.name.middle if p?.name?.middle
+      ss.push p.name.last if p?.name?.last
+      words = {}
+      for s in ss
+        words[s] = true
+      p.words = Object.keys words
+      p.words = words
+      awords = ""
+      awords += ' '+(str ? '') for k,str of (p.location ? {})
+      for el in (p.interests ? []) then for k,str of el
+        awords += ' '+(str ? '') if typeof str == 'string'
+      #console.log awords
+      for el in (p.education ? []) then for k,str of el
+        awords += ' '+(str ? '') if typeof str == 'string'
+      #console.log awords
+      for el in (p.work ? []) then for k,str of el
+        awords += ' '+(str ? '') if typeof str == 'string'
+      #console.log awords
+      for k,str of p.name
+        awords += ' '+(str ? '') if typeof str == 'string'
+      for k,str of p.phone
+        awords += ' '+(str.replace?(/\D/gmi,'').substr(-10) ? '') if typeof str == 'string'
+      for k,str of p.email
+        awords += ' '+(str ? '') if typeof str == 'string'
+      #console.log awords
+      awords += " " + (p.reason ? '') if typeof p.reason == 'string'
+      #console.log awords
+      awords += " " + (p.slogan ? '') if typeof p.slogan == 'string'
+      #console.log awords
+      awords += " " + (p.about ? '') if typeof p.about == 'string'
+      awords += " " + (p.login ? '') if typeof p.login == 'string'
+      awords += " " + (p.login?.replace?(/\D/gmi,'').substr(-10) ? '') if typeof p.login == 'string'
+      #console.log awords
+      for sname,sbj of p.subjects
+        awords += ' '+sname
+        for el in (sbj.course ? [])
+          awords += ' '+(el ? '')
+          awords += ' '+(sbj.description ? '')
+          awords += ' '+tag for tag of sbj.tags
+      #console.log awords
+      #console.log "\n\n\n\n"
+      awords = awords.replace /[^\s\w\@а-яА-ЯёЁ]/gim, ' '
+      #console.log '1',awords 
+      awords = awords.replace /\s+/gi,' '
+      #console.log '2',awords 
+      awords = awords.replace /^\s+/gi,''
+      #console.log '3',awords 
+      awords = awords.replace /\s+$/gi,''
+      #console.log '4',awords 
+      awords = awords.split ' '
+      #console.log '5',awords
+      Awords = {}
+      Awords[_diff.prepare(word)] = true for word in awords
+      awords = Awords
+      p.awords = awords
+    #console.log awords
+    for sname,sbj of p.subjects
+      awords += ' '+sname
+      for el in (sbj.course ? [])
+        awords += ' '+(el ? '')
+        awords += ' '+(sbj.description ? '')
+        awords += ' '+tag for tag of sbj.tags
+
+
+
     @hashed = {}
     @persons = persons
     @index = {}
