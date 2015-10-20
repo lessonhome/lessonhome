@@ -5,9 +5,6 @@ status =
   private_teacher  :'Частный преподаватель'
   native_speaker : 'Носитель языка'
 
-
-
-
 class @main
   constructor : -> $W @
   Dom: =>
@@ -58,14 +55,33 @@ class @main
     exp = value.experience ? ""
     exp += " года" if exp && !exp?.match? /\s/
     @found.experience.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
-    
+
+    isMobile =
+      Android:    ->
+        return navigator.userAgent.match(/Android/i)
+      BlackBerry: ->
+        return navigator.userAgent.match(/BlackBerry/i)
+      iOS:        ->
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i)
+      Opera:      ->
+        return navigator.userAgent.match(/Opera Mini/i)
+      Windows:    ->
+        return navigator.userAgent.match(/IEMobile/i)
+      any:        ->
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
+
     tutor_text = value.about || ''
-    maxl = 500
+#    maxl = 500
+
+    if !isMobile.any()
+      maxl = 500
+    else
+      maxl = 145
 
     if (tutor_text.length > maxl)
       tutor_text = tutor_text.substr 0,maxl-11
       tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
-      tutor_text += '...'
+      tutor_text += '... '
       @found.about.text tutor_text
       @found.about.append $("<a class='about_link'>подробнее</a>")
     else
@@ -129,7 +145,3 @@ class @main
     @dom.find('a').attr('href',link).attr('title',name).attr('alt',name)
     
     yield @setLinked()
-
-   
-    
-

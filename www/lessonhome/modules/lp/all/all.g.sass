@@ -21,15 +21,16 @@ $animation-default-01:  80% 0
     padding-top: 20px
     padding-bottom: 60px
   h1
-    font-size: 3.2rem
-    margin: 2.6rem 0 1.4rem
-    @media #{$small-and-down}
-      font-size: 2.6rem
-  h2
     font-size: 2.8rem
-    margin: 0 0 1.8rem
+    margin: 2.6rem 0 0.5rem
     @media #{$small-and-down}
-      font-size: 2rem
+      font-size: 2.4rem
+      margin-top: 0
+  h2
+    font-size: 2.4rem
+    margin: 0 0 2.2rem
+    @media #{$small-and-down}
+      font-size: 1.8rem
   h3
     font-size: 2.4rem
     margin: 0 0 1.8rem 0
@@ -41,7 +42,11 @@ $animation-default-01:  80% 0
     font-size: 1.6rem
     margin: 2.667rem 0
     @media #{$small-and-down}
-      margin: 2rem 0 2rem
+      margin: 2rem 0 0
+  p
+    @media #{$small-and-down}
+      margin-top: 0.7rem
+      padding-right: 0.1rem
   .pinned
     top: 20%
     @media #{$large-and-up}
@@ -115,6 +120,23 @@ $animation-default-01:  80% 0
   padding: 45px
   position: relative
   border-radius: 3px
+  @media #{$small-and-down}
+    position: relative
+    &:after
+      content: ''
+      display: block
+      width: 35px
+      height: 35px
+      background: url(F('/lp/lesson-character-avatar.png')) no-repeat 0 0
+      background-size: cover
+      top: 15px
+      left: 15px
+      position: absolute
+    &.text-dialog
+      &:after
+        top: 18px
+    .left-padding
+      padding-left: 50px
   @media #{$medium-and-down}
     padding: 15px
     padding-bottom: 10px
@@ -177,7 +199,15 @@ $animation-default-01:  80% 0
   opacity: 0
   @media #{$small-and-down}
     opacity: 1
-
+.any_devices
+  .tutors_list
+    opacity: 1 !important
+  .step_two
+    opacity: 1 !important
+  .seo_text
+    opacity: 1 !important
+  .step_three
+    opacity: 1 !important
 
 //selected teachers
 .selected-teachers

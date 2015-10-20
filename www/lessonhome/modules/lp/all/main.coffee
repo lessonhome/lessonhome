@@ -2,6 +2,7 @@ class @main
   constructor : ->
     $W @
   Dom : =>
+    @commonBlock    = @found.lp_custom
     @firstStep      = @found.step_one
     @firstHeight    = @found.step_one.height()
     @tutorsList     = @found.tutors_list
@@ -9,11 +10,27 @@ class @main
     @seoText        = @found.seo_text
     @threeStep      = @found.step_three
     @charset_boy    = @found.charset
+#    @modalShow      = @found.modal_trigger
     @stepOffset     =
       one   : 100
 
     @oldScroll      = $(document).scrollTop()
   show: =>
+
+    isMobile =
+      Android:    ->
+        return navigator.userAgent.match(/Android/i)
+      BlackBerry: ->
+        return navigator.userAgent.match(/BlackBerry/i)
+      iOS:        ->
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i)
+      Opera:      ->
+        return navigator.userAgent.match(/Opera Mini/i)
+      Windows:    ->
+        return navigator.userAgent.match(/IEMobile/i)
+      any:        ->
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
+
     @found.tutors_list.find('>div').remove()
     numTutors = 5
     tutors = yield Feel.dataM.getByFilter numTutors, (@tree.filter ? {})
@@ -37,23 +54,14 @@ class @main
       clone.dom.show()
       clone.dom.animate (opacity:1),1400
 
-    $(document).on 'scroll.lp', @onScroll
+    if !isMobile.any()
+      $(document).on 'scroll.lp', @onScroll
+      @tutorListShow()
+    else
+      @commonBlock.addClass 'any_devices'
 
     #fuckid crutch
     @charset_boy.css('top', '20%')
-
-    #init modals
-#    @modalShow.leanModal
-#      dismissible: true,
-#      opacity: .5,
-#      in_duration: 300,
-#      out_duration: 200
-#      ready: =>
-#        console.log 'open modal'
-#      complete: =>
-#        console.log 'complete modal work'
-#  hide : =>
-#    $(document).off 'scroll.lp'
 
   onScroll : (e) =>
 

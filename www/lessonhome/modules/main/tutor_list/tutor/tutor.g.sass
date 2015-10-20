@@ -6,8 +6,8 @@
   transition: box-shadow 0.25s ease 0s
   overflow: hidden
   padding: 1rem 0
-  @media #{$medium-and-down}
-    padding: 0 0 1rem
+  //@media #{$medium-and-down}
+  //  padding: 1 0 1rem
   .tutor-title
     font-size: 1.6rem
     line-height: 130%
@@ -23,10 +23,11 @@
     @media #{$small-and-down}
       font-size: 1.4rem
   .description
-    @media #{$medium-and-down}
-      max-height: 100px
-      overflow: hidden
-      margin-bottom: 1rem
+    a
+      text-decoration: underline
+      transition: all 0.3s ease-out
+      &:hover
+        color: #F44336
   .price
     font-size: 1.6rem
   .tutor-action
