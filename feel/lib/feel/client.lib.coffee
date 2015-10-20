@@ -1,6 +1,14 @@
 
 window?.global ?= window
 
+Math.sign = (n)->
+  if n >= 0
+    1
+  else
+    -1
+String::capitalizeFirstLetter = -> @charAt(0).toUpperCase() + @slice(1)
+
+
 last = ""
 log =
   s1 : ""

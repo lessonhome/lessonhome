@@ -2,31 +2,31 @@
   .col.s12.m12.l12
     .tutor-block
       .col.s3.left
-        a(href='#')
-          img(src!= photo).responsive-img
-      .col.s9.m9.l7.left
-        i.material-icons.tiny.orange-text grade
-        i.material-icons.tiny.orange-text grade
-        i.material-icons.tiny.orange-text grade
-        i.material-icons.tiny.orange-text grade
+        a.js-image_a
+          img.js-image(src!= photo).responsive-img
+      .col.s9.m9.l7.left.js-stars
+        i.material-icons.tiny grade
+        i.material-icons.tiny grade
+        i.material-icons.tiny grade
+        i.material-icons.tiny grade
         i.material-icons.tiny grade
       .col.s9.m9.l7.left
         .tutor-title
-          a(href='#')!=name
+          a.js-name!=name
       .col.s9.m9.l9.right.hide-on-small-only
-        .grey-text.text-darken-1!=experience
+        .grey-text.text-darken-1.js-experience!=experience
       .col.s12.m9.l9.right
-        .grey-text.text-darken-1!= subject
+        .grey-text.text-darken-1.js-subject!= subject
       .col.s12.m9.l9.right.description
-        p!=description
+        p.js-about!=description
       .col.s12.m9.l9.right.valign-wrapper
         .col.s12.m9.l6.valign
-          .grey-text.text-darken-1!=location
+          .grey-text.text-darken-1.js-location!=location
         .col.s12.m9.l6.valign
           .small.gray-text.right-align от&nbsp;
-            span.price!=price
+            span.js-price!=price
             span р./час
       .col.s12.m12.l12.right-align.tutor-action
-        a.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
+        button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
           span.tutor_button_text Выбрать
           i.material-icons.right add
