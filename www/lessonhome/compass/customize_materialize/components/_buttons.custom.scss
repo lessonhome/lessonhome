@@ -1,7 +1,13 @@
 //button trigger
 
-.btn-trigger {
-  color: #26A69A !important;
-  background-color: #ffffff !important;
-  border: 1px solid #26A69A;
+.tutor-action {
+  .btn-flat {
+    border: 1px solid transparent;
+    width: 155px;
+    &.btn-trigger {
+      color: #26A69A !important;
+      background-color: #ffffff !important;
+      border: 1px solid #26A69A !important;
+    }
+  }
 }
