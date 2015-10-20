@@ -56,7 +56,6 @@ class @main
 
     if !isMobile.any()
       $(document).on 'scroll.lp', @onScroll
-      @tutorListShow()
     else
       @commonBlock.addClass 'any_devices'
 

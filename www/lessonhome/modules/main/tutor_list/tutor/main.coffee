@@ -117,13 +117,16 @@ class @main
     @found.price?.text?(value.left_price)
      
     @found.name.text name
-    rating = Math.ceil(value.rating*10)/10
+    rating = (value.rating-3)*3/2+4
+    rating = Math.ceil(rating*10)/10
     stars = @found.stars.find('i')
     i = 0
-    while i<=(rating-1)
-      unless stars[i]?
+    while i<=(rating)
+      console.log i
+      unless stars[i]
         star = $(stars[0]).clone(true,true)
         @found.stars.append star
+
       else
         star = $ stars[i]
       star.addClass 'orange-text'
@@ -134,7 +137,8 @@ class @main
       rtext = "Рейтинг: 5+"
     else
       rtext = "Рейтинг: 5++"
-    
+    if rating > 5
+      @found.stars.find('i').css 'font-size':'1.2rem'
         
 
     @found.stars.attr('title',rtext).attr('alt',rtext)
