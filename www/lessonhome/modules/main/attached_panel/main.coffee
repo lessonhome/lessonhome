@@ -9,8 +9,6 @@ class @main
     @popup = @tree.popup.class
     @popup_block = @found.content
 
-    @open_form = @bar.tree.button_attach.class
-
     @form_block = @found.popup
     @btn_send = @tree.popup.class.tree.btn_send.class
     @scrollWidth = yield @getScrollWidth()
@@ -19,7 +17,7 @@ class @main
     @register 'bid_attached'
     @updatePanel()
     Feel.urlData.on 'change', @updatePanel
-    @open_form.on 'submit', @showForm
+    @tree.bottom_bar.class.found.btn_attach.click @showForm
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
     @tree.popup.class.on 'close', @hideForm
