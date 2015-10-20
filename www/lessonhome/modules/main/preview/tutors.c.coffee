@@ -24,23 +24,63 @@ class Tutors
   init : =>
     return _waitFor @,'inited' if @inited == 1
     return if @inited > 1
+    @redis = yield Main.service('redis')
+    @redis = yield @redis.get()
     @inited = 1
     @urldata = yield Main.service 'urldata'
     @dbtutor = yield @$db.get 'tutor'
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
     @dbuploaded = yield @$db.get 'uploaded'
-    @preps    = {}
-    @indexes  = {}
-    @filters  = {}
-    #@hashed = {}
-    @index = {}
-    yield @reload()
-    @inited = 2
-    @emit 'inited'
+    console.log 'read redis'
+    try
+      @persons = JSON.parse yield _invoke @redis, 'get', 'persons'
+      for key,val of (@persons ? {})
+        @index?= {}
+        @index[val.index] = val
+      @filters = JSON.parse yield _invoke @redis, 'get', 'filters'
+    catch e
+      console.error e
+    finally
+      unless @persons? && @index? && @filters?
+        @persons ?= {}
+        @index   ?= {}
+        @filters ?= {}
+        yield @reload()
+        @inited = 2
+        @emit 'inited'
+      else
+        @inited = 2
+        @emit 'inited'
+        Q.spawn =>
+          yield @reload()
     setInterval =>
       Q.spawn => yield @reload()
-    , 2*60*1000
+    , 5*60*1000
+    setInterval =>
+      Q.spawn => yield @writeFilters()
+    , 60*1000
+  writeFilters  : =>
+    return unless @filterChange
+    @filterChange = false
+    yield _invoke @redis, 'set','filters',JSON.stringify @filters
+    console.log 'writedFilters'
+
+  refilterRedis : =>
+    console.log 'new refilter'
+    time = @refilterTime = new Date().getTime()
+    filters = for f,o of (@filters ? {}) then [f,(o.num ? 0)]
+    filters = filters.sort (a,b)-> b[1]-a[1]
+    for f,i in filters
+      f = f[0]
+      o = @filters[f]
+      continue unless o.redis
+      break unless (o.num > 1) || (i<100)
+      break unless (o.num > 2) || (i<500)
+      continue unless o?.data?
+      yield @filter {hash:f,data:o.data}
+      return if time < @refilterTime
+      yield Q.delay 1
   handler : ($, {filter,preps,from,count,exists})->
     yield @init() unless @inited == 2
     ret = {}
@@ -53,7 +93,10 @@ class Tutors
       ex[k] = true for k in exists
       ret.filters = {}
       f = ret.filters[filter.hash] = {}
-      yield @filter filter unless @filters?[filter.hash]?.indexes?
+      unless @filters?[filter.hash]?.indexes?
+        yield @filter filter,true
+      else
+        @filters?[filter.hash]?.num++
       f.indexes = @filters?[filter.hash]?.indexes ? []
       count ?= 10
       if from?
@@ -61,26 +104,16 @@ class Tutors
         for i in inds
           ret.preps[i] = @index[i] unless ex[k]
     return ret
-    ###
-    #return @hashed[hash] if @hashed[hash]
-    #return {tutors:[@index[prep]]} if prep? && @index[prep]?
-    #yield @init()
-    unless prep?
-      url = $.req.url.match(/\?(.*)$/)?[1] ? ""
-      mf = (yield @urldata.u2d url)?.mainFilter
-      arr = yield filter.filter @persons,mf
-      arr = arr.slice from     if from?
-      arr = arr.slice 0,count  if count?
-      indexes = {}
-      indexes[hash] = []
-      indexes[hash].push p.index for p in arr
-      return @hashed[hash]={tutors:arr,indexes}
-    else
-      return {tutors:[@index[prep]]}
-    ###
-  filter : (filter)=>
-    f = @filters[filter.hash] = {}
+  filter : (filter,inc = false)=>
+    f = @filters[filter.hash] ? {}
+    f.data  = filter.data
+    f.num   ?= 0
+    f.num++ if inc
+    delete f.redis
+
     f.indexes = yield _filter.filter @persons,filter.data
+    @filters[filter.hash] = f
+    @filterChange = true
     return f
     
   reload : =>
@@ -261,12 +294,79 @@ class Tutors
       p.rating = (p.rating-rmin)/(rmax-rmin)
       p.rating *= 3
       p.rating += 2
-    @hashed = {}
+
+      
+      p.sorts = {}
+      ss = Object.keys p.subjects ? {}
+      ss2 = []
+      for s in ss
+        s = s.split /[,;\.]/
+        for k in s
+          k = k.replace /^\s+/,''
+          k = k.replace /\s+$/,''
+          ss2.push k if k
+      ss = ss2
+      ss.push p.name.first if p?.name?.first
+      ss.push p.name.middle if p?.name?.middle
+      ss.push p.name.last if p?.name?.last
+      words = {}
+      for s in ss
+        words[s] = true
+      p.words = Object.keys words
+      awords = ""
+      awords += ' '+(str ? '') for k,str of (p.location ? {})
+      for el in (p.interests ? []) then for k,str of el
+        awords += ' '+(str ? '') if typeof str == 'string'
+      for el in (p.education ? []) then for k,str of el
+        awords += ' '+(str ? '') if typeof str == 'string'
+      for el in (p.work ? []) then for k,str of el
+        awords += ' '+(str ? '') if typeof str == 'string'
+      for k,str of p.name
+        awords += ' '+(str ? '') if typeof str == 'string'
+      for k,str of p.phone
+        awords += ' '+(str.replace?(/\D/gmi,'').substr(-10) ? '') if typeof str == 'string'
+      for k,str of p.email
+        awords += ' '+(str ? '') if typeof str == 'string'
+      awords += " " + (p.reason ? '') if typeof p.reason == 'string'
+      awords += " " + (p.slogan ? '') if typeof p.slogan == 'string'
+      awords += " " + (p.about ? '') if typeof p.about == 'string'
+      awords += " " + (p.login ? '') if typeof p.login == 'string'
+      awords += " " + (p.login?.replace?(/\D/gmi,'').substr(-10) ? '') if typeof p.login == 'string'
+      for sname,sbj of p.subjects
+        awords += ' '+sname
+        for el in (sbj.course ? [])
+          awords += ' '+(el ? '')
+          awords += ' '+(sbj.description ? '')
+          awords += ' '+tag for tag of sbj.tags
+      awords = awords.replace /[^\s\w\@а-яА-ЯёЁ]/gim, ' '
+      awords = awords.replace /\s+/gi,' '
+      awords = awords.replace /^\s+/gi,''
+      awords = awords.replace /\s+$/gi,''
+      awords = awords.split ' '
+      Awords = {}
+      Awords[_diff.prepare(word)] = true for word in awords
+      awords = Awords
+      p.awords = awords
+    for sname,sbj of p.subjects
+      awords += ' '+sname
+      for el in (sbj.course ? [])
+        awords += ' '+(el ? '')
+        awords += ' '+(sbj.description ? '')
+        awords += ' '+tag for tag of sbj.tags
+
+
+
     @persons = persons
     @index = {}
-    @filters = {}
+    @filters ?= {}
+    for key,f of @filters
+      f.redis = true
+    Q.spawn => yield @refilterRedis()
     for key,val of @persons
       @index[val.index] = val
+    Q.spawn =>
+      yield _invoke(@redis,'set','persons',JSON.stringify(@persons))
+      console.log 'writed redis persons'
     return @persons
 
 tutors = new Tutors

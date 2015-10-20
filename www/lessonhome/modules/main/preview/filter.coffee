@@ -7,11 +7,6 @@ ex = (v)=>
   return 3 if v?.match? '4'
   return 0
 
-if window?.$Feel?.root?
-  _isNode = false
-else
-  _isNode = true
-cnum = 0
 @filter = (input,mf)=> do Q.async =>
   if mf.price.right > 3000
     mf.price.right = 300000
@@ -22,127 +17,52 @@ cnum = 0
   out3 = []
   out4 = []
   _out = []
+  coursearr = []
+  for course in mf.course
+    course = _diff.prepare(course)
+    course2 = _diff.prepare(course.replace(/[^\w\@а-яА-ЯёЁ]/gmi,''))
+    arr = course.split ' '
+    coursearr = [coursearr...,arr...,course2,course2.substr(1),course2.substr(0,course2.length-2)]
+  arr = {}
+  for c in coursearr
+    continue unless c
+    arr[c] = true
+  coursearr = Object.keys arr
+
   for acc,p of input
     continue unless p?.name?.first
     continue unless p.left_price <= mf?.price?.right
     continue unless p.right_price >= mf?.price?.left
-    p.sorts = {}
-    unless _isNode
-      if cnum > 30
-        yield Q()
-        cnum = 0
-    cnum++
-    ss = Object.keys(p?.subjects ? {})
-    ss2 = []
-    for s in ss
-      s = s.split /[,;\.]/
-      for k in s
-        k = k.replace /^\s+/,''
-        k = k.replace /\s+$/,''
-        ss2.push k if k
-    ss = ss2
-    ss.push p.name.first  if p?.name?.first
-    ss.push p.name.middle if p?.name?.middle
-    ss.push p.name.last   if p?.name?.last
-    words = {}
-
-    nwords = []
-    awords = ""
-    awords += ' '+(str ? '') for k,str of (p.location ? {})
-    for el in (p.interests ? []) then for k,str of el
-      awords += ' '+(str ? '') if typeof str == 'string'
-    #console.log awords
-    for el in (p.education ? []) then for k,str of el
-      awords += ' '+(str ? '') if typeof str == 'string'
-    #console.log awords
-    for el in (p.work ? []) then for k,str of el
-      awords += ' '+(str ? '') if typeof str == 'string'
-    #console.log awords
-    for k,str of p.name
-      awords += ' '+(str ? '') if typeof str == 'string'
-    for k,str of p.phone
-      awords += ' '+(str.replace?(/\D/gmi,'').substr(-10) ? '') if typeof str == 'string'
-    for k,str of p.email
-      awords += ' '+(str ? '') if typeof str == 'string'
-    #console.log awords
-    awords += " " + (p.reason ? '') if typeof p.reason == 'string'
-    #console.log awords
-    awords += " " + (p.slogan ? '') if typeof p.slogan == 'string'
-    #console.log awords
-    awords += " " + (p.about ? '') if typeof p.about == 'string'
-    awords += " " + (p.login ? '') if typeof p.login == 'string'
-    awords += " " + (p.login?.replace?(/\D/gmi,'').substr(-10) ? '') if typeof p.login == 'string'
     
-    #console.log awords
-    for sname,sbj of p.subjects
-      awords += ' '+sname
-      for el in (sbj.course ? [])
-        awords += ' '+(el ? '')
-        awords += ' '+(sbj.description ? '')
-        awords += ' '+tag for tag of sbj.tags
-    #console.log awords
-    #console.log "\n\n\n\n"
-    awords = awords.replace /[^\s\w\@а-яА-ЯёЁ]/gim, ' '
-    #console.log '1',awords
-    awords = awords.replace /\s+/gi,' '
-    #console.log '2',awords
-    awords = awords.replace /^\s+/gi,''
-    #console.log '3',awords
-    awords = awords.replace /\s+$/gi,''
-    #console.log '4',awords
-    awords = awords.split ' '
-    #console.log '5',awords
-    Awords = {}
-    Awords[_diff.prepare(word)] = true for word in awords
-    awords = Awords
     p.points = 0
     p.points2 = 0
     p.pointsNeed = false
-    #console.log awords
-    for course in mf.course
-      course = _diff.prepare(course)
-      course2 = _diff.prepare(course.replace(/[^\w\@а-яА-ЯёЁ]/gmi,''))
-      arr = course.split ' '
-      #course.replace(/[^\s\w]/g,' ').replace(/\s+/g,' ').replace(/^\s+/g,'').replace(/\s+$/g,'')
-      for c in [arr...,course2,course2.substr(1),course2.substr(0,course2.length-2)]
-        continue unless c
-        p.pointsNeed = true
-        for word of awords
-          if c == word
-            p.points += 10
-            continue
-          if c.length < word.length
-            l = c
-            r = word
-          else
-            l = word
-            r = c
-          r = r.substr 0,l.length
-          if (r.length > 2) && (r == l) && (Math.abs(c.length-word.length)<4)
-            p.points2 += 0.1
+    for c in coursearr
+      continue unless c
+      p.pointsNeed = true
+      for word of p.awords
+        if c == word
+          p.points += 10
+          continue
+        if c.length < word.length
+          l = c
+          r = word
+        else
+          l = word
+          r = c
+        r = r.substr 0,l.length
+        if (r.length > 2) && (r == l) && (Math.abs(c.length-word.length)<4)
+          p.points2 += 0.1
     p.points += p.points2 unless p.points
 
     continue if p.pointsNeed && (p.points <= 0)
     
-
-    #nwords = p.about.split /[\s\.;,]/ if p?.about
-    #nwords.push p.location?.area ? ''
-    #nwords.push p.location?.metro ? ''
-    #nwords.push p.location?.street ? ''
-    for w in nwords
-      w = w.replace /^\s+/,''
-      w = w.replace /\s+$/,''
-      if w.length >= 4
-        words[w] = true
-    for s in ss
-      words[s] = true
-    ss = Object.keys(words)
     min = -1
     exists = false
     for key,subject of mf.subject
       exists = true
       found = -1
-      for s in ss
+      for s in p.words
         if (s.length < 10) || (subject.length < 10)
           continue if Math.abs(s.length-subject.length)>2
         dif = _diff.match subject.replace(/язык/g,''),s.replace(/язык/g,'')
