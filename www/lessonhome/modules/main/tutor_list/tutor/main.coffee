@@ -5,6 +5,8 @@ status =
   private_teacher  :'Частный преподаватель'
   native_speaker : 'Носитель языка'
 
+
+
 class @main
   constructor : -> $W @
   Dom: =>

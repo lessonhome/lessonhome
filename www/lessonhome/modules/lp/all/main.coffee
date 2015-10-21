@@ -10,13 +10,11 @@ class @main
     @seoText        = @found.seo_text
     @threeStep      = @found.step_three
     @charset_boy    = @found.charset
-#    @modalShow      = @found.modal_trigger
     @stepOffset     =
       one   : 100
 
     @oldScroll      = $(document).scrollTop()
   show: =>
-
     isMobile =
       Android:    ->
         return navigator.userAgent.match(/Android/i)
@@ -74,10 +72,6 @@ class @main
 
       #first step
       if thisScroll > @stepOffset.one
-#        @firstStep.animate
-#          opacity: 0
-#          700
-#          =>
         _tutorOffset = @found.tutors_list.offset()
         #update stepOffset
         @stepOffset     =
@@ -118,10 +112,6 @@ class @main
 
       #first step
       if thisScroll < @stepOffset.one || thisScroll == @stepOffset.one
-#        @firstStep.animate
-#          opacity: 1
-#          700
-
         if charsetPosition == '45%'
           @charset_boy.animate
             top: '20%'
