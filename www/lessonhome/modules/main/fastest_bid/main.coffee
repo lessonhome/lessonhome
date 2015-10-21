@@ -28,16 +28,14 @@ class @main
     Feel.sendGActionOnceIf(6000,'bid_quick',action,label)
   sendForm : =>
     error = yield @attach.sendForm()
-    ###
     if error['phone']?
       @tree.field_phone.class.showError()
       return false
     if error['name']?
       @tree.field_name.class.showError()
       return false
-    ###
     if error['phone']?
-      Feel.bid_attached.showForm()
+      #Feel.bid_attached.showForm()
       return false
     Feel.sendGActionOnceIf(6000,'bid_quick','form_submit')
     return true
