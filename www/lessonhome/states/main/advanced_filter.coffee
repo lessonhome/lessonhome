@@ -155,3 +155,7 @@ class @main
       text      : 'только c фото'
       selector  : 'small'
       value     : $urlform : mainFilter : 'with_photo'
+    apply : @module 'link_button' :
+      text : 'Применить'
+      selector : 'view'
+

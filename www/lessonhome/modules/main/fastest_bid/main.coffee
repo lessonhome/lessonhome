@@ -8,8 +8,14 @@ class @main
     @name = @tree.field_name.class
     @phone = @tree.field_phone.class
   show : =>
-    @name.on "focus", => @sendTouch 'form_interaction','name'
-    @phone.on "focus", => @sendTouch 'form_interaction','telephone'
+    @name.on "focus", =>
+      @sendTouch 'form_interaction','name'
+    @phone.on "focus", =>
+      @sendTouch 'form_interaction','telephone'
+    @name.on "change", =>
+      @found.btn.find('>div').fadeIn()
+    @phone.on "change", =>
+      @found.btn.find('>div').fadeIn()
     @tree.btn_send.class.on 'submit', => @sendTouch 'form_interaction','button_click'
     @tree.btn_more.class.on 'click', => @sendTouch 'goto_full'
     @attach = Feel.bid_attached
