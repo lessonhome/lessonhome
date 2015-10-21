@@ -262,6 +262,7 @@ $animation-default-01:  80% 0
 
 .slider
   width: auto
+  height: auto
 
 .show_select_rep
   white-space: nowrap
@@ -294,11 +295,14 @@ $animation-default-01:  80% 0
 
 //popup
 .popup
+  box-sizing: content-box !important
+  label
+    color: #000000 !important
   .text_box
     @media #{$small-and-down}
       height: auto !important
       padding-bottom: 0 !important
-      margin-bottom: 2rem
+      margin-bottom: 1rem
   .close_button
     display: none
     @media #{$small-and-down}
@@ -335,3 +339,6 @@ $animation-default-01:  80% 0
     @media #{$small-and-down}
       margin: 0 !important
       padding: 0 !important
+
+#m-tutor-forms-drop_down_list>label>.drop_down_list>.select_sets
+  box-sizing: content-box !important
