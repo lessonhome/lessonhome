@@ -11,15 +11,26 @@ $animation-hello-03:    60% 0
 $animation-good-01:  70% 0
 $animation-default-01:  80% 0
 
+.first-step-bg
+  background: url(F('/lp/white-bg.jpg'))
+.two-step-bg
+  background: url(F('/lp/white-bg.jpg'))
+.three-step-bg
+  background: url(F('/lp/white-bg.jpg'))
+  margin-bottom: 60px
+  @media #{$medium-and-down}
+    margin-bottom: 60px
+  @media #{$small-and-down}
+    margin-bottom: 60px
 .lp_custom
-  padding-top: 40px
-  padding-bottom: 140px
+  //padding-top: 40px
+  //padding-bottom: 140px
   @media #{$medium-and-down}
     //padding-top: 60px
-    padding-bottom: 60px
+    //padding-bottom: 60px
   @media #{$small-and-down}
-    padding-top: 20px
-    padding-bottom: 60px
+    //padding-top: 20px
+    //padding-bottom: 60px
   h1
     font-size: 2.8rem
     margin: 2.6rem 0 2.5rem
@@ -116,7 +127,7 @@ $animation-default-01:  80% 0
 
 
 .dialog_block
-  background-color: $dialog_bg
+  //background-color: $dialog_bg
   text-align: center
   padding: 45px
   position: relative
@@ -125,7 +136,7 @@ $animation-default-01:  80% 0
     position: relative
     &:after
       content: ''
-      display: block
+      display: none
       width: 35px
       height: 35px
       background: url(F('/lp/lesson-character-avatar.png')) no-repeat 0 0
@@ -150,7 +161,7 @@ $animation-default-01:  80% 0
       font-size: 16px
 
   &:before
-    display: block
+    display: none
     content: ''
     border: solid
     border-width: 10px 20px 10px 20px
@@ -342,3 +353,7 @@ $animation-default-01:  80% 0
 
 #m-tutor-forms-drop_down_list>label>.drop_down_list>.select_sets
   box-sizing: content-box !important
+
+.centered-block
+  margin: 0 auto !important
+  float: none !important
