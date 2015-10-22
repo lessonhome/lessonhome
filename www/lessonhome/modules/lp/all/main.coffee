@@ -105,8 +105,8 @@ class @main
         @stepOffset     =
           one   : 100
           two   : _tutorOffset.top + @found.tutors_list.height() - 400
-          three : _tutorOffset.top + @found.tutors_list.height() - 150
-          four  : _tutorOffset.top + @found.tutors_list.height() + 50
+          three : _tutorOffset.top + @found.tutors_list.height() - 350
+          four  : _tutorOffset.top + @found.tutors_list.height() - 250
 
         @tutorsList.animate
           opacity: 1

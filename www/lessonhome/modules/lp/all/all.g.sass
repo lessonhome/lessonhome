@@ -11,17 +11,6 @@ $animation-hello-03:    60% 0
 $animation-good-01:  70% 0
 $animation-default-01:  80% 0
 
-.first-step-bg
-  background: url(F('/lp/white-bg.jpg'))
-.two-step-bg
-  background: url(F('/lp/white-bg.jpg'))
-.three-step-bg
-  background: url(F('/lp/white-bg.jpg'))
-  margin-bottom: 60px
-  @media #{$medium-and-down}
-    margin-bottom: 60px
-  @media #{$small-and-down}
-    margin-bottom: 60px
 .lp_custom
   //padding-top: 40px
   //padding-bottom: 140px
@@ -39,10 +28,10 @@ $animation-default-01:  80% 0
       margin-top: 0
   h2
     font-size: 2.4rem
-    margin: 2.2rem 0 1rem
+    margin: 0 0 1rem
     @media #{$small-and-down}
       font-size: 1.8rem
-      margin: 2rem 0 1rem
+      margin: 0 0 1rem
   h3
     font-size: 2.4rem
     margin: 0 0 1.8rem 0
@@ -199,17 +188,17 @@ $animation-default-01:  80% 0
     margin-bottom: 2.3rem
     opacity: 1
 .step_two
-  opacity: 0
+  opacity: 1
   .row
     margin-bottom: 0
   @media #{$small-and-down}
     opacity: 1
 .seo_text
-  opacity: 0
+  opacity: 1
   @media #{$small-and-down}
     opacity: 1
 .step_three
-  opacity: 0
+  opacity: 1
   @media #{$small-and-down}
     opacity: 1
 .any_devices
@@ -357,3 +346,28 @@ $animation-default-01:  80% 0
 .centered-block
   margin: 0 auto !important
   float: none !important
+
+.tutors_list
+  margin-bottom: 0
+.first-step-bg
+  background: url(F('/lp/white-bg.jpg'))
+.two-step-bg
+  //background: url(F('/lp/white-bg.jpg'))
+
+  .dialog_block
+    padding: 0
+
+.three-step-bg
+  background: url(F('/lp/white-bg.jpg'))
+  margin-bottom: 60px
+  @media #{$medium-and-down}
+    margin-bottom: 60px
+  @media #{$small-and-down}
+    margin-bottom: 60px
+
+.no-vertical-space
+  .col
+    &:first-of-type
+      padding-left: 0
+    &:last-of-type
+      padding-right: 0
