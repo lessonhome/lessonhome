@@ -1,5 +1,5 @@
-class @main extends @template 'lib'
-  tree : =>
-    content  : @module 'dmaterialize':
-      materialize : @module 'lib/materialize'
+class @main
+  tree : => @module 'default/materialize':
+    lib  : @state 'lib'
+    materialize : @module 'lib/materialize'
 

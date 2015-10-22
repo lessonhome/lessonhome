@@ -1,4 +1,4 @@
-class @main extends @template 'lib'
-  tree : =>
-    content  : @module 'dnotmaterialize'
+class @main
+  tree : => @module 'default/notmaterialize':
+    lib : @state 'lib'
 
