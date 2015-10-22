@@ -1,5 +1,5 @@
 
-class @main extends @template '../first_template'
+class @main extends @template 'lp/all'
   route : '/repetitory-francuzskij-ege'
   #tags  : -> ['registration']
   model : 'main/registration'
