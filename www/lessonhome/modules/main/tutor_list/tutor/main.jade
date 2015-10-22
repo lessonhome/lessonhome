@@ -1,5 +1,5 @@
 .row.hoverable
-  .col.s12.m12.l12.z-depth-1
+  .col.s12.m12.l12
     .tutor-block
       .col.s3.left
         a.js-image_a
@@ -19,7 +19,7 @@
         .grey-text.text-darken-1.js-subject!= subject
       .col.s12.m9.l9.right.description
         p.js-about!=description
-      .col.s12.m9.l9.right.valign-wrapper
+      .col.s12.m9.l9.right.valign-wrapper.no-vertical-space
         .col.s12.m9.l6.valign
           .grey-text.text-darken-1.js-location!=location
         .col.s12.m9.l6.valign
@@ -30,3 +30,4 @@
         button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
           span.tutor_button_text Выбрать
           i.material-icons.right add
+    .divider

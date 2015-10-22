@@ -41,7 +41,6 @@ class @main
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
       @found.tutor_trigger.find('.material-icons').html('add')
   setValue : (value={})=>
-    console.log value
     @tree.value ?= {}
     @tree.value[key] = val for key,val of value
     value = @tree.value
@@ -49,7 +48,6 @@ class @main
     name = "#{value?.name?.first ? ""} #{value?.name?.middle ? ""}"
     subject = ""
     for key of value.subjects
-      console.log key
       subject += ', ' if subject
       subject += key?.capitalizeFirstLetter?()
     @found.subject.text subject
@@ -124,7 +122,6 @@ class @main
     stars = @found.stars.find('i')
     i = 0
     while i<=(rating)
-      console.log i
       unless stars[i]
         star = $(stars[0]).clone(true,true)
         @found.stars.append star

@@ -9,11 +9,15 @@ class @main
     @twoStep        = @found.step_two
     @seoText        = @found.seo_text
     @threeStep      = @found.step_three
-    @charset_boy    = @found.charset
+#    @charset_boy    = @found.charset
     @stepOffset     =
       one   : 100
     @oldScroll      = $(document).scrollTop()
+    @attached = @tree.bottom_block_attached.class
+    @fastest = @dom.find '.fastest'
   show: =>
+    Q.spawn =>
+      @found.go_find.attr 'href','/second_step?'+yield Feel.udata.d2u('mainFilter',@tree.filter)
     isMobile =
       Android:    ->
         return navigator.userAgent.match(/Android/i)
@@ -57,15 +61,50 @@ class @main
       @commonBlock.addClass 'any_devices'
 
     #fuckid crutch
-    @charset_boy.css('top', '20%')
-  setValue : =>
-
+#    @charset_boy.css('top', '20%')
+    @found.input_phone.on 'input',(e)=>
+      val = $(e.target).val()
+      @tree.value ?= {}
+      @tree.value.phone = val
+      @found.input_phone.filter(':not(:focus)').val val
+      @found.input_phone.removeClass 'invalid'
+      if val
+        @found.input_phone.filter(':not(:focus)').parent().find('>i,>label').addClass 'active'
+      else
+        @found.input_phone.filter(':not(:focus)').parent().find('>i,>label').removeClass 'active'
+      @emit 'change'
+    @found.input_name.on 'input',(e)=>
+      val = $(e.target).val()
+      @tree.value ?= {}
+      @tree.value.name = val
+      @found.input_name.filter(':not(:focus)').val val
+      if val
+        @found.input_name.filter(':not(:focus)').parent().find('>i,>label').addClass 'active'
+      else
+        @found.input_name.filter(':not(:focus)').parent().find('>i,>label').removeClass 'active'
+      @found.input_name.val val
+      @emit 'change'
+    @found.btn_send.on 'click',=> Q.spawn => yield @sendForm()
+  sendForm : =>
+    error = yield @attached.sendForm('')
+    return @found.input_phone.addClass 'invalid' if error['phone']?
+    @fastest.find('>:not(.on_send)').remove()
+    @fastest.find('.on_send').show()
+    Feel.sendGActionOnceIf 6000,'bid_quick','form_submit'
+  setValue : (value={})=>
+    @tree.value ?= {}
+    @tree.value[key] = val for key,val of value
+    value = @tree.value
+    @found.input_phone.val value.phone || ''
+    @found.input_name.val  value.name || ''
   getValue : =>
+    phone : @tree.value.phone
+    name  : @tree.value.name
   onScroll : (e) =>
 
     e = e || window.event
     thisScroll = $(e.currentTarget).scrollTop()
-    charsetPosition = @charset_boy[0].style.top
+#    charsetPosition = @charset_boy[0].style.top
 
     if(thisScroll > @oldScroll)
       #SCROLL DOWN
@@ -78,17 +117,17 @@ class @main
         @stepOffset     =
           one   : 100
           two   : _tutorOffset.top + @found.tutors_list.height() - 400
-          three : _tutorOffset.top + @found.tutors_list.height() - 150
-          four  : _tutorOffset.top + @found.tutors_list.height() + 50
+          three : _tutorOffset.top + @found.tutors_list.height() - 350
+          four  : _tutorOffset.top + @found.tutors_list.height() - 250
 
         @tutorsList.animate
           opacity: 1
           1000
 
-        if charsetPosition == '20%'
-          @charset_boy.animate
-            top: '45%'
-            700
+#        if charsetPosition == '20%'
+#          @charset_boy.animate
+#            top: '45%'
+#            700
 
       #two step
       if thisScroll > @stepOffset.two
@@ -112,8 +151,8 @@ class @main
       @oldScroll = thisScroll
 
       #first step
-      if thisScroll < @stepOffset.one || thisScroll == @stepOffset.one
-        if charsetPosition == '45%'
-          @charset_boy.animate
-            top: '20%'
-            700
+#      if thisScroll < @stepOffset.one || thisScroll == @stepOffset.one
+#        if charsetPosition == '45%'
+#          @charset_boy.animate
+#            top: '20%'
+#            700

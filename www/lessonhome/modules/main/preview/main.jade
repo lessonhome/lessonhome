@@ -76,6 +76,16 @@ if bid_issue_button
     .tag
       .js-twith_photo
       .close
+  .js-preloader
+    .center_loader
+      .preloader-wrapper.active
+        .spinner-layer.spinner-green-only
+          .circle-clipper.left
+            .circle
+          .gap-patch
+            .circle
+          .circle-clipper.right
+            .circle
   .sort!=sort
   //.js-profiles_on_page
     .title Анкет на странице :
@@ -106,6 +116,7 @@ if bid_issue_button
         .issue_bid_button!= issue_bid_button
         .text!= 'с прикреплёнными<br>репетиторами'
   .js-tutors_result
+
   //  each value in tutors_result
       .js-tutor_result!= value
   .js-tutor_test!=tutor_test

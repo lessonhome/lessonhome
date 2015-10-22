@@ -80,6 +80,7 @@ main
     width: 100%
     +inline-block
 .result_filter
+  position : relative
   margin-left: $width_filter
   padding-left: 24px
   .tutor_test
@@ -89,7 +90,7 @@ main
     margin-bottom: 6px
     float: left
     width: 648px
-
+    position : relative
   .choose_tutors_block
     padding-bottom: 10px
     text-align: center
@@ -195,6 +196,7 @@ main
       .issue_bid
         margin-right: 18px
   .tutors_result
+    position : relative
     opacity : 0
     float: left
     +transition(opacity 400ms ease-out)
@@ -245,5 +247,24 @@ main
       border: 1px solid rgba(0,0,0,0.1)
       .close
         color: rgba(255,255,255,0.35)
+  .preloader
+    background: rgba(255, 255, 255, 0.7)
+    position: relative
+    top : 100px
+    z-index: 0
+    width: 100%
+    height: 100%
+    .center_loader
+      padding-top: 7px 
+      padding-left: 3px 
+      position: absolute
+      margin: auto 0
+      width: 100%
+      text-align: center
+      top: 0
+      bottom: 0
+      height: 50px
+      *, * *, * * *, * * * * 
+        +box-sizing(border-box)
 
 

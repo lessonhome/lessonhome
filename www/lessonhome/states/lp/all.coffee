@@ -24,7 +24,9 @@ class @main  extends @template '../lp'
       button_attach : @module 'link_button' :
         text : 'Оформить заявку'
         selector : 'view'
-      
+      value :
+        phone : $urlform : pupil : 'phone'
+        name : $urlform : pupil : 'name'
       filter : @exports()
       photo_src : @exports()
       title : @exports()

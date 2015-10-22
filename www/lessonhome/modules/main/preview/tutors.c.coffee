@@ -56,7 +56,7 @@ class Tutors
           yield @reload()
     setInterval =>
       Q.spawn => yield @reload()
-    , 5*60*1000
+    , 15*60*1000
     setInterval =>
       Q.spawn => yield @writeFilters()
     , 60*1000
@@ -75,12 +75,18 @@ class Tutors
       f = f[0]
       o = @filters[f]
       continue unless o.redis
-      break unless (o.num > 1) || (i<100)
-      break unless (o.num > 2) || (i<500)
+      unless (o.num > 1) || (i<50)
+        break
+      unless (o.num > 2) || (i<120)
+        break
       continue unless o?.data?
       yield @filter {hash:f,data:o.data}
       return if time < @refilterTime
-      yield Q.delay 1
+      yield Q.delay 200
+    filters = filters.slice i
+    for f,i in filters
+      f = f[0]
+      delete @filters[f]
   handler : ($, {filter,preps,from,count,exists})->
     yield @init() unless @inited == 2
     ret = {}

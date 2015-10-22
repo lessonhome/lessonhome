@@ -8,6 +8,7 @@ class @main
       backcall : @dom.find('.container .content.backcall .template')
       nophoto :  @dom.find('.container .content.nophoto .template')
       time :  @dom.find('.container .content.time .template')
+      nosubject :  @dom.find('.container .content.nosubject .template')
 
     @dom.find('.header .item').click (e)=> Q.spawn =>
       cl = ($(e.target).attr 'class').match(/\w+$/)[0]
@@ -48,6 +49,17 @@ class @main
     dom.empty()
     for bc in @data.nophotos
       row = @template.nophoto.clone()
+      row.find('.name').text [bc.last_name ? '',bc.first_name ? '',bc.middle_name ? ''].join ' '
+      arr =  [(bc.email ? [])...,(bc.phone ? [])...,bc.login].filter (a)-> a
+      row.find('.contacts').html arr.join '<br>'
+      @relogin row,bc.index
+      dom.append row
+  onnosubject : =>
+    dom  = @dom.find '.container .content.nosubject'
+    dom.empty()
+    console.log @data.nosubject
+    for id,bc of @data.nosubject
+      row = @template.nosubject.clone()
       row.find('.name').text [bc.last_name ? '',bc.first_name ? '',bc.middle_name ? ''].join ' '
       arr =  [(bc.email ? [])...,(bc.phone ? [])...,bc.login].filter (a)-> a
       row.find('.contacts').html arr.join '<br>'
