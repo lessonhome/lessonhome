@@ -1,58 +1,75 @@
+.first-step-bg
+  .container
+    .row
+      .col.l9.m9.centered-block
+        .dialog_block.js-step_one.hide-on-small-only.fastest
+          p.left-align Здравствуйте! Меня зовут Василий.
+          p.left-align Я помогу Вам выбрать подходящего репетитора.
+          h3.left-align Оставьте заявку:
+          .row
+            .input-field.col.l12.m12.s12
+              input.js-input_name(type='text' value=value.name)#name.validate
+              label(for='name') Имя
+          .row
+            .input-field.col.l12.m12.s12
+              input.js-input_phone(type='tel' value=value.phone)#phone.validate
+              label(for='phone', data-error="Введите корректный телефон") Телефон
+          .row
+            .col.l12.m12.s12
+              button.js-btn_send(type='submit', name='form_submit').btn-large.waves-effect.waves-light Отправить
+                i.material-icons.right send
+          .p.left-align.js-on_send Заявка отправлена!
+          .p.left-align.js-on_send С Вами скоро свяжется наш специалист.
 .container.js-lp_custom
   //.top-form!=top_form
   .row
-    .col.l2.m2.pinned.js-charset
-      #character.hide-on-small-only
-        img(src=F('lp/charset-opacity.gif')).responsive-img
-    .col.l9.m9.offset-l3.offset-m3
-      .dialog_block.js-step_one.hide-on-small-only.fastest
-        p.left-align Здравствуйте! Меня зовут Василий.
-        p.left-align Я помогу Вам выбрать подходящего репетитора.
-        h3.left-align Оставьте заявку:
-        .row
-          .input-field.col.l12.m12.s12
-            input.js-input_name(type='text' value=value.name)#name.validate
-            label(for='name') Имя
-        .row
-          .input-field.col.l12.m12.s12
-            input.js-input_phone(type='tel' value=value.phone)#phone.validate
-            label(for='phone', data-error="Введите корректный телефон") Телефон
-        .row
-          .col.l12.m12.s12
-            button.js-btn_send(type='submit', name='form_submit').btn-large.waves-effect.waves-light Отправить
-              i.material-icons.right send
-        .p.left-align.js-on_send Спасибо! С Вами скоро свяжется наш специалист.
+    //.col.l2.m2.pinned.js-charset
+    //  #character.hide-on-small-only
+    //    img(src=F('lp/charset-opacity.gif')).responsive-img
+    .col.l9.m9.centered-block
       h1=title_suit_tutors
       .js-tutors_list
         !=tutor
-      .dialog_block.js-step_two.text-dialog
-        .row
-          .col.s12.left-padding
-            p Или Вы можете сами подобрать себе преподавателя
-          .col.s12
-            a.js-go_find.waves-effect.waves-light.btn-large Перейти к поиску
+.two-step-bg.js-step_two
+  .container
+    .row
+      .col.l9.m9.centered-block
+        .dialog_block.text-dialog
+          .row
+            .col.s12.left-padding
+              p Или Вы можете сами подобрать себе преподавателя
+            .col.s12
+              a.js-go_find.waves-effect.waves-light.btn-large Перейти к поиску
+.container.js-lp_custom
+  .row
+    .col.l9.m9.centered-block
       .row
         .col.l12.m12.s12.js-seo_text
           h2.grey-text=title
           h4=sub_title
-          p=text 
-      .dialog_block.js-step_three.fastest
-        h3 Помочь Вам?
-        p.form_p Заполните эти поля и в течении 5 минут Вам позвонит наш специалист и поможет Вам с подбором репетитора.
-        .row
-          .input-field.col.l12.m12.s12
-            i.material-icons.prefix account_circle
-            input.js-input_name(type='text' value=value.name)#icon_prefix.validate
-            label(for='icon_prefix') Имя
-        .row
-          .input-field.col.l12.m12.s12
-            i.material-icons.prefix phone
-            input.js-input_phone(type='tel' value=value.phone)#icon_telephone.validate
-            label(for='icon_telephone', data-error="Введите корректный телефон") Телефон
-        .row
-          .col.l12.m12.s12
-            button.js-btn_send(type='submit', name='submit_form').btn-large.waves-effect.waves-light Отправить
-              i.material-icons.right send
-        .p.left-align.js-on_send Спасибо! С Вами скоро свяжется наш специалист.
+          p=text
+.three-step-bg.js-step_three
+  .container
+    .row
+      .col.l9.m9.centered-block
+        .dialog_block.fastest
+          h3 Помочь Вам?
+          p.form_p Заполните эти поля и в течении 5 минут Вам позвонит наш специалист и поможет Вам с подбором репетитора.
+          .row
+            .input-field.col.l12.m12.s12
+              i.material-icons.prefix account_circle
+              input.js-input_name(type='text' value=value.name)#icon_prefix.validate
+              label(for='icon_prefix') Имя
+          .row
+            .input-field.col.l12.m12.s12
+              i.material-icons.prefix phone
+              input.js-input_phone(type='tel' value=value.phone)#icon_telephone.validate
+              label(for='icon_telephone', data-error="Введите корректный телефон") Телефон
+          .row
+            .col.l12.m12.s12
+              button.js-btn_send(type='submit', name='submit_form').btn-large.waves-effect.waves-light Отправить
+                i.material-icons.right send
+          .p.left-align.js-on_send Заявка отправлена!
+          .p.left-align.js-on_send С Вами скоро свяжется наш специалист.
 .attached!=bottom_block_attached
 

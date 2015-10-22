@@ -9,7 +9,7 @@ class @main
     @twoStep        = @found.step_two
     @seoText        = @found.seo_text
     @threeStep      = @found.step_three
-    @charset_boy    = @found.charset
+#    @charset_boy    = @found.charset
     @stepOffset     =
       one   : 100
     @oldScroll      = $(document).scrollTop()
@@ -61,7 +61,7 @@ class @main
       @commonBlock.addClass 'any_devices'
 
     #fuckid crutch
-    @charset_boy.css('top', '20%')
+#    @charset_boy.css('top', '20%')
     @found.input_phone.on 'input',(e)=>
       val = $(e.target).val()
       @tree.value ?= {}
@@ -86,7 +86,7 @@ class @main
       @emit 'change'
     @found.btn_send.on 'click',=> Q.spawn => yield @sendForm()
   sendForm : =>
-    error = yield @attached.sendForm()
+    error = yield @attached.sendForm('')
     return @found.input_phone.addClass 'invalid' if error['phone']?
     @fastest.find(':not(.on_send)').remove()
     @fastest.find('.on_send').show()
@@ -104,7 +104,7 @@ class @main
 
     e = e || window.event
     thisScroll = $(e.currentTarget).scrollTop()
-    charsetPosition = @charset_boy[0].style.top
+#    charsetPosition = @charset_boy[0].style.top
 
     if(thisScroll > @oldScroll)
       #SCROLL DOWN
@@ -124,10 +124,10 @@ class @main
           opacity: 1
           1000
 
-        if charsetPosition == '20%'
-          @charset_boy.animate
-            top: '45%'
-            700
+#        if charsetPosition == '20%'
+#          @charset_boy.animate
+#            top: '45%'
+#            700
 
       #two step
       if thisScroll > @stepOffset.two
@@ -151,8 +151,8 @@ class @main
       @oldScroll = thisScroll
 
       #first step
-      if thisScroll < @stepOffset.one || thisScroll == @stepOffset.one
-        if charsetPosition == '45%'
-          @charset_boy.animate
-            top: '20%'
-            700
+#      if thisScroll < @stepOffset.one || thisScroll == @stepOffset.one
+#        if charsetPosition == '45%'
+#          @charset_boy.animate
+#            top: '20%'
+#            700

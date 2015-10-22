@@ -39,14 +39,14 @@ class @main
       scrollTop : 0
     }, 300
 
-  sendForm : =>
+  sendForm : (quiet='quiet')=>
     data = yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     data = @js.takeData data
     error = @js.check data
     if !error['phone']?
-      {status,errs_server} = yield @$send('./save', data,'quiet')
+      {status,errs_server} = yield @$send('./save', data,quiet)
       if status is 'success'
         Feel.sendActionOnce 'bid_popup'
       else
