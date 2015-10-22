@@ -1,7 +1,9 @@
 
 
 module.exports = {
-  repetitory : 'Репетитор по'
+  repetitory        : 'Репетиторы'
+  prepodavately     : 'Преподаватели'
+  uchitel           : 'Учителя'
 }
 
 
