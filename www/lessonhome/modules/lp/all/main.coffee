@@ -58,9 +58,36 @@ class @main
 
     #fuckid crutch
     @charset_boy.css('top', '20%')
-  setValue : =>
-
+    @found.input_phone.on 'input',(e)=>
+      val = $(e.target).val()
+      @tree.value ?= {}
+      @tree.value.phone = val
+      @found.input_phone.filter(':not(:focus)').val val
+      if val
+        @found.input_phone.filter(':not(:focus)').parent().find('>i,>label').addClass 'active'
+      else
+        @found.input_phone.filter(':not(:focus)').parent().find('>i,>label').removeClass 'active'
+      @emit 'change'
+    @found.input_name.on 'input',(e)=>
+      val = $(e.target).val()
+      @tree.value ?= {}
+      @tree.value.name = val
+      @found.input_name.filter(':not(:focus)').val val
+      if val
+        @found.input_name.filter(':not(:focus)').parent().find('>i,>label').addClass 'active'
+      else
+        @found.input_name.filter(':not(:focus)').parent().find('>i,>label').removeClass 'active'
+      @found.input_name.val val
+      @emit 'change'
+  setValue : (value={})=>
+    @tree.value ?= {}
+    @tree.value[key] = val for key,val of value
+    value = @tree.value
+    @found.input_phone.val value.phone || ''
+    @found.input_name.val  value.name || ''
   getValue : =>
+    phone : @tree.value.phone
+    name  : @tree.value.name
   onScroll : (e) =>
 
     e = e || window.event

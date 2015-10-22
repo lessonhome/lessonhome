@@ -11,15 +11,15 @@
         h3.left-align Оставьте заявку:
         .row
           .input-field.col.l12.m12.s12
-            input.js-input_name(type='text')#name.validate
-            label(for='name', data-error="wrong", data-success="right") Имя
+            input.js-input_name(type='text' value=value.name)#name.validate
+            label(for='name') Имя
         .row
           .input-field.col.l12.m12.s12
-            input.js-input_phone(type='tel')#phone.validate
-            label(for='phone', data-error="wrong", data-success="right") Телефон
+            input.js-input_phone(type='tel' value=value.phone)#phone.validate
+            label(for='phone', data-error="Введите корректный телефон") Телефон
         .row
           .col.l12.m12.s12
-            button(type='submit', name='form_submit').btn-large.waves-effect.waves-light Отправить
+            button.js-btn_send(type='submit', name='form_submit').btn-large.waves-effect.waves-light Отправить
               i.material-icons.right send
       h1=title_suit_tutors
       .js-tutors_list
@@ -41,16 +41,16 @@
         .row
           .input-field.col.l12.m12.s12
             i.material-icons.prefix account_circle
-            input(type='text')#icon_prefix.validate
-            label(for='icon_prefix', data-error="wrong", data-success="right") Имя
+            input.js-input_name(type='text' value=value.name)#icon_prefix.validate
+            label(for='icon_prefix') Имя
         .row
           .input-field.col.l12.m12.s12
             i.material-icons.prefix phone
-            input(type='tel')#icon_telephone.validate
-            label(for='icon_telephone', data-error="wrong", data-success="right") Телефон
+            input.js-input_phone(type='tel' value=value.phone)#icon_telephone.validate
+            label(for='icon_telephone', data-error="Введите корректный телефон") Телефон
         .row
           .col.l12.m12.s12
-            button(type='submit', name='submit_form').btn-large.waves-effect.waves-light Отправить
+            button.js-btn_send(type='submit', name='submit_form').btn-large.waves-effect.waves-light Отправить
               i.material-icons.right send
 .attached!=bottom_block_attached
 
