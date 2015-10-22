@@ -1,3 +1,12 @@
+-text = text || '';
+-title = title || '';
+-alt = alt || '';
+-title_suit_tutors = title_suit_tutors || '';
+-text = text.replace(/\s+/gmi,' ');
+-title = title.replace(/\s+/gmi,' ');
+-alt = alt.replace(/\s+/gmi,' ');
+-title_suit_tutors = title_suit_tutors.replace(/\s+/gmi,' ');
+
 .first-step-bg
   .container
     .row
@@ -33,7 +42,7 @@
     //  #character.hide-on-small-only
     //    img(src=F('lp/charset-opacity.gif')).responsive-img
     .col.l9.m9.centered-block
-      h1=title_suit_tutors
+      h1!=title_suit_tutors
       .js-tutors_list
         !=tutor
   .two-step-bg
@@ -52,9 +61,9 @@
     .col.l9.m9.centered-block
       .row
         .col.l12.m12.s12.js-seo_text
-          h2=title
-          h4.grey-text.text-darken-1=sub_title
-          p=text
+          h2!=title
+          h4.grey-text.text-darken-1!=sub_title
+          p!=text
 .three-step-bg.js-step_three
   .container
     .row
