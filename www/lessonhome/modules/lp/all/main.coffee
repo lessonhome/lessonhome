@@ -13,7 +13,11 @@ class @main
     @stepOffset     =
       one   : 100
     @oldScroll      = $(document).scrollTop()
+    @attached = @tree.bottom_block_attached.class
+    @fastest = @dom.find '.fastest'
   show: =>
+    Q.spawn =>
+      @found.go_find.attr 'href','/second_step?'+yield Feel.udata.d2u('mainFilter',@tree.filter)
     isMobile =
       Android:    ->
         return navigator.userAgent.match(/Android/i)
@@ -63,6 +67,7 @@ class @main
       @tree.value ?= {}
       @tree.value.phone = val
       @found.input_phone.filter(':not(:focus)').val val
+      @found.input_phone.removeClass 'invalid'
       if val
         @found.input_phone.filter(':not(:focus)').parent().find('>i,>label').addClass 'active'
       else
@@ -79,6 +84,13 @@ class @main
         @found.input_name.filter(':not(:focus)').parent().find('>i,>label').removeClass 'active'
       @found.input_name.val val
       @emit 'change'
+    @found.btn_send.on 'click',=> Q.spawn => yield @sendForm()
+  sendForm : =>
+    error = yield @attached.sendForm()
+    return @found.input_phone.addClass 'invalid' if error['phone']?
+    @fastest.find(':not(.on_send)').remove()
+    @fastest.find('.on_send').show()
+    Feel.sendGActionOnceIf 6000,'bid_quick','form_submit'
   setValue : (value={})=>
     @tree.value ?= {}
     @tree.value[key] = val for key,val of value
