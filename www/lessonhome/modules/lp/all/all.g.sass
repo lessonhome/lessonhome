@@ -21,17 +21,17 @@ $animation-default-01:  80% 0
     //padding-top: 20px
     //padding-bottom: 60px
   h1
-    font-size: 2.8rem
+    font-size: 2rem
     margin: 2.6rem 0 2.5rem
     @media #{$small-and-down}
-      font-size: 2.4rem
+      font-size: 2rem
       margin-top: 0
   h2
-    font-size: 2.4rem
-    margin: 0 0 1rem
+    font-size: 1.9rem
+    margin: 0 0 0.7rem
     @media #{$small-and-down}
       font-size: 1.8rem
-      margin: 0 0 1rem
+      margin: 0 0 0.7rem
   h3
     font-size: 2.4rem
     margin: 0 0 1.8rem 0
@@ -179,7 +179,7 @@ $animation-default-01:  80% 0
     padding-bottom: 15px
   h3
     font-size: 1.4rem
-    margin-bottom: 0
+    margin-bottom: 1rem
     color: #757575
     @media #{$medium-and-down}
       font-size: 1.6rem
@@ -353,7 +353,7 @@ $animation-default-01:  80% 0
 .tutors_list
   margin-bottom: 0
 .first-step-bg
-  background: url(F('/lp/white-bg.jpg'))
+  background: url(F('/lp/green-bg_02.jpg'))
 .two-step-bg
   //background: url(F('/lp/white-bg.jpg'))
 
@@ -361,12 +361,12 @@ $animation-default-01:  80% 0
     padding: 0
 
 .three-step-bg
-  background: url(F('/lp/white-bg.jpg'))
-  margin-bottom: 60px
+  background: url(F('/lp/green-bg_02.jpg'))
+  padding-bottom: 60px
   @media #{$medium-and-down}
-    margin-bottom: 60px
+    padding-bottom: 60px
   @media #{$small-and-down}
-    margin-bottom: 60px
+    padding-bottom: 60px
 
 .no-vertical-space
   .col
@@ -374,3 +374,26 @@ $animation-default-01:  80% 0
       padding-left: 0
     &:last-of-type
       padding-right: 0
+
+//form hover
+.input-field
+  &:hover
+    label
+      color: #000000
+    input[type=text],input[type=tel]
+      border-bottom: 1px solid #000000
+    input[type=text],input[type=tel]
+      &:focus
+        border-bottom: 1px solid #26a69a
+.on_send
+  h4
+    font-size: 2rem
+    margin-top: 0
+  a
+    text-decoration: underline
+    transition: all 0.3s ease-out
+    &:hover
+      color: #F44336
+  p
+    &:first-of-type
+      margin-bottom: 1.5rem !important

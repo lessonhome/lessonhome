@@ -88,7 +88,7 @@ class @main
   sendForm : =>
     error = yield @attached.sendForm('')
     return @found.input_phone.addClass 'invalid' if error['phone']?
-    @fastest.find(':not(.on_send)').remove()
+    @fastest.find('>:not(.on_send)').remove()
     @fastest.find('.on_send').show()
     Feel.sendGActionOnceIf 6000,'bid_quick','form_submit'
   setValue : (value={})=>
