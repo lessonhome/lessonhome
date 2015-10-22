@@ -12,7 +12,6 @@ class @main
     @charset_boy    = @found.charset
     @stepOffset     =
       one   : 100
-
     @oldScroll      = $(document).scrollTop()
   show: =>
     isMobile =
@@ -59,7 +58,9 @@ class @main
 
     #fuckid crutch
     @charset_boy.css('top', '20%')
+  setValue : =>
 
+  getValue : =>
   onScroll : (e) =>
 
     e = e || window.event

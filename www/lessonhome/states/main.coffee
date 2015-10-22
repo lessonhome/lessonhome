@@ -3,7 +3,7 @@ class @main
     bottom_block_attached : @module 'main/attached' :
       bottom_bar  : @state 'main/attached/bar'
       popup       : @state 'main/attached/popup'
-    lib      : @state 'lib'
+    lib      : @state 'libnm'
     header      : @state './tutor/header' :
       items : [
         @module 'tutor/header/button' : {
