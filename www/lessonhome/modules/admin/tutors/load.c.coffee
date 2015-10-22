@@ -10,6 +10,7 @@
   backcall = null
   accounts = null
   bytime   = null
+  nosubject = null
   yield Q.all [
     do Q.async =>
       bc = yield _invoke dbBackcall.find({time:{$exists:true}}).sort({time:-1}),'toArray'
@@ -49,8 +50,17 @@
         a.person = _invoke dbPersons.find({account:a.id}),'toArray'
       for a in bytime
         a.person = (yield a.person)?[0] ? {}
+    do Q.async =>
+      accs = yield _invoke dbAccounts.find({login:{$exists:true}},{id:1,login:1,index:1}).sort({registerTime:-1}),'toArray'
+      newaccs = {}
+      for a in accs
+        newaccs[a.id] = a
+      nosubject = yield _invoke dbTutor.find({'subjects.0.name':{$exists:true}},{account:1}),'toArray'
+      for a in nosubject
+        delete newaccs[a.account]
+      nosubject = newaccs
   ]
-  return {backcall,nophotos:accounts,time:bytime}
+  return {backcall,nophotos:accounts,time:bytime,nosubject:nosubject}
 
 
 
