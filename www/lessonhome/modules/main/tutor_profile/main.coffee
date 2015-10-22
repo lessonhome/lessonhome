@@ -268,7 +268,7 @@ class @main extends EE
     else
       @tree.subject.class.setValue @tutor_subjects[0]
       @found.write_tutor_subject.hide()
-    @dom.find('>div').css 'opacity',1
+    @dom.css 'opacity',1
 
   setItem: (item_block, item_value, value_block)=>
     if item_value
