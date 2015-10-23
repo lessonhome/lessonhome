@@ -16,4 +16,3 @@ class @main extends @template 'lp/all'
       ]
       course : [
       ]
-      pupil_status  : 'начальная школа'
