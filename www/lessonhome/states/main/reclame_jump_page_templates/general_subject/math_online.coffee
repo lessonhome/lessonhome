@@ -14,4 +14,3 @@ class @main extends @template 'lp/all'
       subject : [
         'математика'
       ]
-      place : remote : true

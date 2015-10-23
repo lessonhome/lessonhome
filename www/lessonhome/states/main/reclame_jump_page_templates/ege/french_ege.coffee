@@ -16,5 +16,4 @@ class @main extends @template 'lp/all'
         'французский язык'
       ]
       course : [
-        'егэ'
       ]

@@ -17,4 +17,3 @@ class @main extends @template 'lp/all'
       course : [
         'егэ'
       ]
-      pupil_status  : 'старшая школа'
