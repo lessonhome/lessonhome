@@ -150,14 +150,9 @@ class @main extends EE
       ls1 = cA ls1,data.login,'<br>'
       ls1 = cA ls1,data.phone?.join('; '),'<br>'
       ls1 = cA ls1,data.email?.join('; '),'<br>'
-#    ls2 = ""
-#    ls2 = cA ls2,l.street
-#    ls2 = cA ls2,l.house
-#    ls2 = cA ls2,l.building
     ls3 = ""
     ls3 += "м. #{l.metro}" if l.metro
     ls = ""
-#    ls = cA ls,ls2,'<br>'
     ls = cA ls,ls3,'<br>'
     ls = cA ls,ls1,'<br>'
     
@@ -240,17 +235,24 @@ class @main extends EE
     #@honors_text.text("#{data.honors_text ? ""}")
     subjects_number = 0
     @tutor_subjects = []
+    @subjects_content.empty()
+    console.log data.subjects
     for key,val of data.subjects
       ss = key.split /[\.,;]/
       for s in ss
         s = s.replace /^\s+/,''
         s = s.replace /\s+$/,''
         if s.length > 2
-          @tutor_subjects.push s
+          @tutor_subjects.push [s,val]
           subjects_number++
+    newarr = []
+    for s in @tutor_subjects
       new_subject = @hidden_subject.$clone()
-      new_subject.setValue key, val, data.place
-      $(@subjects_content).append(new_subject.dom)
+      new_subject.setValue s[0], s[1], data.place
+      newarr.push s[0]
+      @subjects_content.append(new_subject.dom)
+    @tutor_subjects = newarr
+    console.log @tutor_subjects
     # right panel
     $(@found.write_tutor_msg).on 'click', =>
       @found.write_tutor_name.addClass 'shown'
@@ -324,20 +326,3 @@ class @main extends EE
       phone:          @phone.getValue()
       subject:        @subject.getValue()
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

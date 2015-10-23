@@ -377,9 +377,21 @@ $animation-default-01:  80% 0
 
 //form hover
 .input-field
+  label
+    &:after
+      top: 40px !important
+      white-space: nowrap
+    &.active
+      &:after
+        top: 65px !important
+  &.error-text
+    input[type=text],input[type=tel]
+      margin-bottom: 25px !important
   &:hover
     label
       color: #000000
+      &:after
+        white-space: nowrap
     input[type=text],input[type=tel]
       border-bottom: 1px solid #000000
     input[type=text],input[type=tel]

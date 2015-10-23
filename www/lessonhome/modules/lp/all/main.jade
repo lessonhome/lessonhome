@@ -1,3 +1,12 @@
+-text = text || '';
+-title = title || '';
+-alt = alt || '';
+-title_suit_tutors = title_suit_tutors || '';
+-text = text.replace(/\s+/gmi,' ');
+-title = title.replace(/\s+/gmi,' ');
+-alt = alt.replace(/\s+/gmi,' ');
+-title_suit_tutors = title_suit_tutors.replace(/\s+/gmi,' ');
+
 .first-step-bg
   .container
     .row
@@ -12,7 +21,7 @@
               input.js-input_name(type='text' value=value.name)#name.validate
               label(for='name') Имя
           .row
-            .input-field.col.l12.m12.s12
+            .input-field.col.l12.m12.s12.error-text
               i.material-icons.prefix phone
               input.js-input_phone(type='tel' value=value.phone)#phone.validate
               label(for='phone', data-error="Введите корректный телефон") Телефон
@@ -33,7 +42,7 @@
     //  #character.hide-on-small-only
     //    img(src=F('lp/charset-opacity.gif')).responsive-img
     .col.l9.m9.centered-block
-      h1=title_suit_tutors
+      h1!=title_suit_tutors
       .js-tutors_list
         !=tutor
   .two-step-bg
@@ -52,9 +61,9 @@
     .col.l9.m9.centered-block
       .row
         .col.l12.m12.s12.js-seo_text
-          h2=title
-          h4.grey-text.text-darken-1=sub_title
-          p=text
+          h2!=title
+          h4.grey-text.text-darken-1!=sub_title
+          p!=text
 .three-step-bg.js-step_three
   .container
     .row
@@ -68,7 +77,7 @@
               input.js-input_name(type='text' value=value.name)#icon_prefix.validate
               label(for='icon_prefix') Имя
           .row
-            .input-field.col.l12.m12.s12
+            .input-field.col.l12.m12.s12.error-text
               i.material-icons.prefix phone
               input.js-input_phone(type='tel' value=value.phone)#icon_telephone.validate
               label(for='icon_telephone', data-error="Введите корректный телефон") Телефон
