@@ -1,7 +1,7 @@
 
 
 
-@bin        = "socket/main"
+@bin        = "socket/socket"
 @autostart  = false
 @single     = false
 

@@ -57,6 +57,9 @@ class MasterServiceManager
             services  : [name]
           }
     yield Q.all qs
+  runService : (name,args)=>
+    process = yield Main.processManager.runProcess {name:'service-'+name,services:[name],args}
+    yield _waitFor process,'run',3*60*1000
   connectService : (processId,serviceId)=>
     process = yield Main.processManager.getProcess processId
     service = new MasterProcessConnect {

@@ -80,9 +80,10 @@ class Tutors
       unless (o.num > 2) || (i<120)
         break
       continue unless o?.data?
+      console.log 'refilter',o.num,f
       yield @filter {hash:f,data:o.data}
       return if time < @refilterTime
-      yield Q.delay 200
+      yield Q.delay 10
     filters = filters.slice i
     for f,i in filters
       f = f[0]
