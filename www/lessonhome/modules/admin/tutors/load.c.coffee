@@ -4,6 +4,7 @@ class Admin
   constructor : ->
     $W @
   init : =>
+    @ltime = 0
     @redis = yield Main.service 'redis'
     @redis = yield @redis.get()
     try
@@ -11,17 +12,22 @@ class Admin
     catch e
       @obj = undefined
       console.error e
+    Q.spawn => yield @reload()
+    setInterval =>
+      Q.spawn => yield @reload()
+    ,15*60*1000
   handler : ($,data)=>
     if data?.fast
       return @obj if @obj
+    return @obj if @obj && (new Date().getTime()-@ltime)<15*1000
     yield @reload $,data
     return @obj
-  reload : ($,data)=>
+  reload : =>
     [dbBackcall,dbPersons,dbAccounts,dbTutor] = yield Q.all [
-      $.db.get 'backcall'
-      $.db.get 'persons'
-      $.db.get 'accounts'
-      $.db.get 'tutor'
+      @$db.get 'backcall'
+      @$db.get 'persons'
+      @$db.get 'accounts'
+      @$db.get 'tutor'
     ]
     backcall = null
     accounts = null
@@ -79,6 +85,7 @@ class Admin
     @obj = {backcall,nophotos:accounts,time:bytime,nosubject:nosubject}
     Q.spawn =>
       yield _invoke @redis,'set','adminTutors',JSON.stringify @obj
+    @ltime = new Date().getTime()
     return @obj
 
 module.exports = new Admin
