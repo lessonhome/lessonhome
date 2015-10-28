@@ -339,7 +339,7 @@ class Register
     #accounts = yield _invoke @account.find({login: data.login},{login:1}),'toArray'
 
     validDate = new Date()
-    validDate.setHours(validDate.getHours()+1)
+    validDate.setHours(validDate.getHours()+24)
     user = @logins[data.login]
     throw err:'login_not_exists' unless user?
     throw err:'login_not_exists' unless data.login.match '@'
