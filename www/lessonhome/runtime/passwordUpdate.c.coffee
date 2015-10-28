@@ -2,7 +2,7 @@
 # data:{login,password,newpassword}
 
 @handler = ($,data)->
-  if data.password.match /\%/
+  if data?.password?.match? /\%/
     data.password = unescape data.password
     data.newpassword = unescape data.newpassword
   else
