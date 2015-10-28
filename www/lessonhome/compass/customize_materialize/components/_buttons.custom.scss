@@ -10,6 +10,13 @@
       border: 1px solid #26A69A !important;
     }
   }
+  &.profile-button {
+    .btn-flat {
+      width: 80%;
+      height: 44px;
+      line-height: 45px;
+    }
+  }
 }
 .btn_attach {
   .btn {

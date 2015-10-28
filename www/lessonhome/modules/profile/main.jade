@@ -1,3 +1,128 @@
-.container
-  h1 Profile
-  p it is a good day to die
+.container.profile-bottom-padding
+  .row.nav_panel
+    .col.s12
+      a(href="#").btn-flat.waves-effect.waves-teal Назад
+        i.material-icons.left replay
+  .row.profile-info
+    .col.l8
+      .row
+        .col.l4.center-align
+          .row
+            .col.s12
+              img.js-view_photo(src='https://lessonhome.ru/file/89c82d6b46/user_data/images/31c96a744f.jpg', width='250' data-caption='Екатерина Владимировна').responsive-img.materialboxed
+          .row
+            .input-field.col.s12.tutor-action.profile-button
+              button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
+                span.tutor_button_text Выбрать
+                i.material-icons.right add
+        .col.l8
+          .row.valign-wrapper
+            .col.s6.valign
+              i.material-icons.small.orange-text grade
+              i.material-icons.small.orange-text grade
+              i.material-icons.small.orange-text grade
+              i.material-icons.small.orange-text grade
+              i.material-icons.small grade
+            .col.s6.valign.grey-text.text-darken-1 м. Шаболовская, Третьяковская Москва, Замоскворечье
+          .row.info-row
+            .col.s12
+              h1 Екатерина Владимировна
+              i Учи английский быстро и с удовольствием!
+          .row.info-row
+            .col.s12
+              span.param-name Статус :
+              span.param-value Частный преподаватель
+          .row.info-row
+            .col.s12
+              span.param-name Опыт :
+              span.param-value более 4 лет
+          .row.info-row
+            .col.s12
+              span.param-name Возраст :
+              span.param-value 27 лет
+          .row.info-row
+            .col.s12
+              span.param-name Образование :
+              span.param-value Институт восточных языков, историко-филологический
+          .row.info-row
+            .col.s12
+              span.param-name Районы выезда :
+              span.param-value вся москва
+      .row
+        .col.s12
+          ul.tabs.js-profile_tabs
+            li.tab.col.s6
+              a(href='#test1').active Обучение предметам
+            li.tab.col.s6
+              a(href='#test2') О себе
+      #test1.col.s12
+        h4.red-text.text-darken-3 Цена
+        .row
+          table.highlight
+            thead
+              tr
+                th Продолжительность
+                th Цена
+            tbody
+              tr
+                td 60 минут
+                td 1000 руб.
+              tr
+                td 90 минут
+                td 1500 руб.
+              tr
+                td 120 минут
+                td 2000 руб.
+          h5.red-text.text-darken-4 Выезд к ученику
+          table.highlight
+            thead
+              tr
+                th Продолжительность
+                th Цена
+            tbody
+              tr
+                td 120 минут
+                td 2500 руб.
+        .row
+          .col.s12
+            ul.collection
+              li.collection-item
+                h5.title.teal-text.darken-1 Английский язык
+                p
+                  i ЕГЭ, Разговорный, с нуля, TOEFL, SAT, GRE, GMAT, Business English, FCE
+                p.grey-text.text-darken-2 Разработаны программы (на 100% American English) экспресс-обучения по Скайпу - за 28 дней интенсивного обучение по Скайпу движение от начального до продвинутого уровня (за 3-4 месяца). Для детей и молодежи - активные игры и песни на английском без зубрежки.
+              li.collection-item
+                h5.title.teal-text.darken-1 История
+                p
+                 i ЕГЭ, ОГЭ(ГИА), школьный курс, вузовский курс
+      #test2.col.s12
+        p Опыт репетиторства в России с 1999 года. Собран большой аудио/видео материал для детей и взрослых для обучения английскому и Истории России. Разработал программу обучения по Скайпу для взрослых и даже школьников. Хорошие результаты на ГИА, ЕГЭ и при поступлении в вуз.
+        p
+          b Почему я репетитор?
+        p Прививаю интерес к внешнему миру на основе англ. яз. (США) и даю инструментарий для общения и делового сотрудничества с англоязычными знакомыми и партнерами.
+        p
+          b Интересы
+        p Есть курс Истории России на русском и английском. На новейших данных и по международным стандартам. Уже опробован на тестах IB моих учеников за рубежом и в РФ.
+
+    .col.l4.grey.lighten-4.center-align.profile-send-form
+      .row
+        .col.s12.title Написать Екатерине
+      .row
+        .input-field.col.s12
+          //i.material-icons.prefix mode_edit
+          textarea.materialize-textarea#textarea1
+          label(for='textarea1') Введите Ваше сообщение
+      .row
+        .input-field.col.s12
+          //i.material-icons.prefix account_circle
+          input(type='text')#name.validate
+          label(for='name') Имя
+      .row
+        .input-field.col.s12
+          //i.material-icons.prefix phone
+          input(type='tel')#phone.validate
+          label(for='phone', data-error="Введите корректный телефон") Телефон
+      .row
+        .input-field.col.s12
+          button(type='submit').btn-large.waves-effect.waves-light Отправить
+            i.material-icons.right send
