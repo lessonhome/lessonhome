@@ -1,0 +1,164 @@
+@import variables
+
+//selected teachers
+.selected-teachers
+  background-color: #ffffff
+  position: fixed
+  z-index: 30
+  bottom: 0
+  left: 0
+  right: 0
+  box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12)
+  padding: 0.5rem 0 0 0
+  @media #{$small-and-down}
+    padding: 0
+  .row
+    margin-bottom: 0.4rem
+    @media #{$small-and-down}
+      margin-bottom: 0
+      position: relative
+  .chip
+    margin-right: 0.5rem
+  ul
+    margin: 0
+    padding: 0
+    @media #{$small-and-down}
+      padding: 1rem 0
+    li
+      list-style: none
+      margin-right: 0.5rem
+      @media #{$small-and-down}
+        margin-bottom: 0.5rem
+      display: inline-block
+      &:last-of-type
+        margin-right: 0
+
+.tutors-overflow
+  white-space: nowrap
+  overflow: auto
+  height: 50px
+  @media #{$small-and-down}
+    white-space: normal
+    height: auto
+
+.mobile-top
+  @media #{$small-and-down}
+    position: absolute
+    top: -1rem
+    right: 0
+
+#m-tutor-forms-input > label > div.level2
+  font-size: 37px !important
+
+.slider
+  width: auto
+  height: auto
+
+.show_select_rep
+  white-space: nowrap
+  span
+    border-bottom: 1px dashed #2196F3
+  cursor: pointer
+  padding: 0.5rem 0
+
+.hidden_rep_list
+  @media #{$small-and-down}
+    display: none
+
+.hidden
+  display: none
+#m-main-attached_panel-bar-tutor_smallest
+  .prep
+    .block_prep
+      a.photo_box
+        @media #{$medium-and-down}
+          //width: 40px
+          height: 40px
+          overflow: hidden
+      .rem
+        @media #{$medium-and-down}
+          opacity: 1 !important
+          right: -40px
+          top: 0
+          width: 40px
+          height: 40px
+
+//popup
+.popup
+  box-sizing: content-box !important
+  label
+    color: #000000 !important
+  .text_box
+    @media #{$small-and-down}
+      height: auto !important
+      padding-bottom: 0 !important
+      margin-bottom: 1rem
+  .close_button
+    display: none
+    @media #{$small-and-down}
+      display: block
+      position: fixed
+      top: 1rem
+      right: 1rem
+      z-index: 20
+      cursor: pointer
+  @media #{$small-and-down}
+    width: auto !important
+    margin-top: 0 !important
+    margin-bottom: 2rem !important
+  .step
+    @media #{$small-and-down}
+      margin-bottom: 0 !important
+      &.subject
+        margin-bottom: 1rem !important
+  h1
+    @media #{$small-and-down}
+      font-weight: 700
+      margin-top: 1rem !important
+      margin-bottom: 0.5rem !important
+  h2
+    @media #{$small-and-down}
+      margin-top: 0 !important
+  .content
+    @media #{$small-and-down}
+      padding: 0.5rem 1rem  3rem !important
+  .icon
+    @media #{$small-and-down}
+      display: none
+  .contents
+    @media #{$small-and-down}
+      margin: 0 !important
+      padding: 0 !important
+
+#m-tutor-forms-drop_down_list>label>.drop_down_list>.select_sets
+  box-sizing: content-box !important
+
+.no-vertical-space
+  .col
+    &:first-of-type
+      padding-left: 0
+    &:last-of-type
+      padding-right: 0
+
+//form hover
+.input-field
+  label
+    &:after
+      top: 40px !important
+      white-space: nowrap
+    &.active
+      &:after
+        top: 65px !important
+  &.error-text
+    input[type=text],input[type=tel]
+      margin-bottom: 25px !important
+  &:hover
+    label
+      color: #000000
+      &:after
+        white-space: nowrap
+    input[type=text],input[type=tel]
+      border-bottom: 1px solid #000000
+    input[type=text],input[type=tel]
+      &:focus
+        border-bottom: 1px solid #26a69a

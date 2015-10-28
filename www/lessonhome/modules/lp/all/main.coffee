@@ -9,14 +9,16 @@ class @main
     @twoStep        = @found.step_two
     @seoText        = @found.seo_text
     @threeStep      = @found.step_three
+#    @paralax        = @found.paralax_obj
 #    @charset_boy    = @found.charset
     @stepOffset     =
       one   : 100
     @oldScroll      = $(document).scrollTop()
-    @attached = @tree.bottom_block_attached.class
+
     @fastest = @dom.find '.fastest'
   show: =>
-    @found.open_form.click => Q.spawn => yield @attached.showForm()
+#    $(@paralax).parallax()
+    @found.open_form.click => Q.spawn => yield Feel.root.tree.class.attached.showForm()
     Q.spawn =>
       @found.go_find.attr 'href','/second_step?'+yield Feel.udata.d2u('mainFilter',@tree.filter)
     isMobile =
@@ -87,7 +89,7 @@ class @main
       @emit 'change'
     @found.btn_send.on 'click',(e)=> Q.spawn => yield @sendForm($(e.target).attr('footer')=='footer')
   sendForm : (footer=false)=>
-    error = yield @attached.sendForm('')
+    error = yield Feel.root.tree.class.attached.sendForm('')
     return @found.input_phone.addClass 'invalid' if error['phone']?
     @fastest.find('>:not(.on_send)').remove()
     @fastest.find('.on_send').show()

@@ -1,4 +1,4 @@
-class @main
+class @main extends @template 'lp'
   route : '/profile'
   model : 'tutor/profile_registration/fourth_step'
   title : "LessonHome - Профиль репетитора"
@@ -6,7 +6,5 @@ class @main
   access : ['other']
   redirect : {
   }
-  tree : => @module '$' :
-    lib : @state 'libm'
-    header  : @module "$/header"
-    content : @exports()
+  tree : =>
+    content : @module '$'
