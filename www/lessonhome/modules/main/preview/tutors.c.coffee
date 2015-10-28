@@ -349,7 +349,7 @@ class Tutors
           awords += ' '+(el ? '')
           awords += ' '+(sbj.description ? '')
           awords += ' '+tag for tag of sbj.tags
-      awords = awords.replace /[^\s\w\@а-яА-ЯёЁ]/gim, ' '
+      awords = awords.replace /[^\s\w\@\-а-яА-ЯёЁ]/gim, ' '
       awords = awords.replace /\s+/gi,' '
       awords = awords.replace /^\s+/gi,''
       awords = awords.replace /\s+$/gi,''
