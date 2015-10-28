@@ -37,7 +37,6 @@ class MasterProcess extends EE
       exit    : @fExit
     @receive 'query',@onQuery
   init    : =>
-    @log @name
     yield @start true
     return @
   start   : (isFirst=false)=>
@@ -100,11 +99,11 @@ class MasterProcess extends EE
       arr = [arr] unless util.isArray arr
       @fork.receive msg,l for l in arr
   fReady    : =>
-    @log @name+":"+@id
+    #@log @name+":"+@id
     @running = true
     @emit 'running'
   fRun    : =>
-    @log @name+":"+@id
+    #@log @name+":"+@id
     @emit 'run'
   fRestart  : =>
     @log @name+":"+@id

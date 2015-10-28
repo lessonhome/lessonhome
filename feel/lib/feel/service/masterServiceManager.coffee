@@ -70,7 +70,7 @@ class MasterServiceManager
     wrapper = service
     masterId  = MASTERSERVICEMANAGERSERVICEID++
     name      = yield service.__serviceName
-    @log "#{process.name}:#{processId}:#{name}"
+    #@log "#{process.name}:#{processId}:#{name}"
     @services.byProcess[processId] ?= {}
     @services.byProcess[processId][serviceId] = wrapper
     @services.byId[masterId] = wrapper
@@ -79,7 +79,6 @@ class MasterServiceManager
     @emit 'connected:'+name,wrapper
 
   get : (name)=>
-    @log name
     arr = @services.byName[name]
     unless _util.isArray(arr)&&arr.length
       unless @waitFor[name]
