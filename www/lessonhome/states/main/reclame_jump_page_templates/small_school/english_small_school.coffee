@@ -1,6 +1,6 @@
 
 class @main extends @template 'lp/all'
-  route : '/repetitory-anglijskij-small-school'
+  route : '/repetitory-anglijskij-nachalnye-klassy'
   #tags  : -> ['registration']
   model : 'main/registration'
   title : "Репетиторы по английскому языку начальная школа"
