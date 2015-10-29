@@ -1,6 +1,6 @@
 
 class @main extends @template 'lp/all'
-  route : '/repetitory-francuzskij-starshie-klassy'
+  route : '/repetitory-francuzskij-srednie-klassy'
   #tags  : -> ['registration']
   model : 'main/registration'
   title : "Репетиторы по французскому языку средние классы"

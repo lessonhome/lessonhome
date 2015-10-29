@@ -1,6 +1,6 @@
 
 class @main extends @template 'lp/all'
-  route : '/repetitory-biologiya-gia'
+  route : '/repetitory-biologiya'
   #tags  : -> ['registration']
   model : 'main/registration'
   title : "Репетиторы по биологии"

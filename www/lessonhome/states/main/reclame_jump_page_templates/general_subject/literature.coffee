@@ -1,6 +1,6 @@
 
 class @main extends @template 'lp/all'
-  route : '/repetitory-literatura-ege'
+  route : '/repetitory-literatura'
   #tags  : -> ['registration']
   model : 'main/registration'
   title : "Репетиторы по литературе"
