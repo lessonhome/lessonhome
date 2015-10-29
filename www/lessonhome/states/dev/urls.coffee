@@ -9,7 +9,6 @@ class @main
       @state 'libnm'
       @module 'lib/mousewheel'
     ]
-
   init : =>
     arr = []
     o = {}
@@ -29,5 +28,4 @@ class @main
           k       = arr[i]
           arr[i]  = arr[j]
           arr[j]  = k
-
     @tree.states = arr

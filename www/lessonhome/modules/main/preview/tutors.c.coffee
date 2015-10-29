@@ -32,7 +32,6 @@ class Tutors
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
     @dbuploaded = yield @$db.get 'uploaded'
-    console.log 'read redis'
     try
       @persons = JSON.parse yield _invoke @redis, 'get', 'persons'
       for key,val of (@persons ? {})
@@ -64,10 +63,8 @@ class Tutors
     return unless @filterChange
     @filterChange = false
     yield _invoke @redis, 'set','filters',JSON.stringify @filters
-    console.log 'writedFilters'
 
   refilterRedis : =>
-    console.log 'new refilter'
     time = @refilterTime = new Date().getTime()
     filters = for f,o of (@filters ? {}) then [f,(o.num ? 0)]
     filters = filters.sort (a,b)-> b[1]-a[1]
@@ -82,7 +79,7 @@ class Tutors
       continue unless o?.data?
       yield @filter {hash:f,data:o.data}
       return if time < @refilterTime
-      yield Q.delay 200
+      yield Q.delay 10
     filters = filters.slice i
     for f,i in filters
       f = f[0]
@@ -352,7 +349,7 @@ class Tutors
           awords += ' '+(el ? '')
           awords += ' '+(sbj.description ? '')
           awords += ' '+tag for tag of sbj.tags
-      awords = awords.replace /[^\s\w\@а-яА-ЯёЁ]/gim, ' '
+      awords = awords.replace /[^\s\w\@\-а-яА-ЯёЁ]/gim, ' '
       awords = awords.replace /\s+/gi,' '
       awords = awords.replace /^\s+/gi,''
       awords = awords.replace /\s+$/gi,''
@@ -372,7 +369,6 @@ class Tutors
       @index[val.index] = val
     Q.spawn =>
       yield _invoke(@redis,'set','persons',JSON.stringify(@persons))
-      console.log 'writed redis persons'
     return @persons
 
 tutors = new Tutors

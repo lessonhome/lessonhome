@@ -20,7 +20,7 @@ ex = (v)=>
   coursearr = []
   for course in mf.course
     course = _diff.prepare(course)
-    course2 = _diff.prepare(course.replace(/[^\w\@а-яА-ЯёЁ]/gmi,''))
+    course2 = _diff.prepare(course.replace(/[^\w\@\-а-яА-ЯёЁ]/gmi,''))
     arr = course.split ' '
     coursearr = [coursearr...,arr...,course2,course2.substr(1),course2.substr(0,course2.length-2)]
   arr = {}

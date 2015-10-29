@@ -54,8 +54,9 @@ class @main extends EE
     @found.attach_button.click @addTutor
     Feel.urlData.on 'change',=> @setLinked()
   open : (prep)=> do Q.async =>
+    window.history.length ?= 0
     state = History.getState()
-    unless ((""+document.referrer).indexOf document.location.href.substr(0,15))== 0
+    if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
       $(@back).hide()
     else
       $(@back).show()
@@ -81,14 +82,14 @@ class @main extends EE
       @reviews.hide()
     @setValue prep
   goBack: =>
-    if @tree.onepage
+    if @tree.onepage!='tutor_profile'
       return Feel.root.tree.class.hideTutor()
     #Feel.go '/second_step'
-    if History.back()
+    if (window.history.length>1) && History.back()
       setInterval @goHitoryUrl,100
       @goHistoryUrl()
       return
-    document.location.href = document.referrer
+    document.location.href=document.referrer
   goHistoryUrl : =>
     setTimeout ->
       document.location.href = History.getState().url

@@ -16,8 +16,10 @@ class @main
       yield @['on'+cl]()
       #@data = yield @$send './load'
       #yield @['on'+cl]()
+    @data = yield @$send './load',{fast:true}
+    yield @['on'+key]() for key of @template
     @data = yield @$send './load'
-    yield @ontime()
+    yield @['on'+key]() for key of @template
 
   onbackcall : =>
     dom  = @dom.find '.container .content.backcall'
