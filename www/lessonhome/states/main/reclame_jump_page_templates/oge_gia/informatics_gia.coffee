@@ -3,7 +3,7 @@ class @main extends @template 'lp/all'
   route : '/repetitory-informatika-gia'
   #tags  : -> ['registration']
   model : 'main/registration'
-  title : "Репетиторы по информатике старшие классы"
+  title : "Репетиторы по информатике ГИА"
   tree : =>
     photo_src         : 'reclame_jump_page/land_informatics.jpg'
     alt               : 'Репетиторы по информатике старшие классы'
