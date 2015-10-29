@@ -337,7 +337,7 @@ class Register
     validDate.setHours(validDate.getHours()+24)
     user = @logins[data.login]
     throw err:'login_not_exists' unless user?
-    throw err:'login_not_exists' unless data.login.match '@'
+    throw err:'email_not_exists' unless data.email?.length
     restorePassword = {
       token: token
       valid: validDate
@@ -354,18 +354,17 @@ class Register
     name = name.replace /^\s+/,''
     name = name.replace /\s+$/,''
     name = ', '+ name if name
-    if data.login.match '@'
+    for email in data.email ? []
       yield @mail.send(
         'restore_password.html'
-        user.login
+        email
         'Восстановление пароля'
         {
           name: name
+          login: user.login
           link: 'https://lessonhome.ru/new_password?'+utoken
         }
       )
-    else
-      console.log 'mail: Signed up with phone number, can\'t send mail'
 
   newPassword: (user, data) =>
     db = yield Main.service 'db'
