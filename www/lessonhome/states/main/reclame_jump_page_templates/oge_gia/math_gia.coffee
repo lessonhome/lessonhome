@@ -1,5 +1,5 @@
 class @main extends @template 'lp/all'
-  route : '/repetitory-matematika-starshie-klassy-9'
+  route : '/repetitory-matematika-gia'
   #tags  : -> ['registration']
   model : 'main/registration'
   title : "Репетиторы по математике 9 классы."
