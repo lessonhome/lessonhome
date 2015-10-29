@@ -14,7 +14,7 @@ class SlaveServiceManager
     @waitFor = {}
     @serviceById = {}
   init : =>
-    @log()
+    #@log()
     @master = new SlaveProcessConnect 'masterServiceManager'
     yield @master.__init()
     @config = yield @master.config
@@ -61,7 +61,7 @@ class SlaveServiceManager
     return service
   start   : (name)=>
     @waitFor[name] = true
-    @log name
+    #@log name
     conf    = @config[name]
     #try return @nearest name if conf.single
     service = new Service conf

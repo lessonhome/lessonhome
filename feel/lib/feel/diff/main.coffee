@@ -7,7 +7,7 @@ class @main
     @js.diff_match_patch = require('./diff_match_patch').diff_match_patch
     @js.toEn = require('./rusLat').toEn
   prepare : (w)=>
-    @js.toEn(w.replace(/[^\s\w\@а-яА-ЯёЁ]/gim,' ')
+    @js.toEn(w.replace(/[^\s\w\@\-а-яА-ЯёЁ]/gim,' ')
       .replace(/\s+/g,' ')
       .replace(/^\s+/g,'')
       .replace(/\s+$/g,''))

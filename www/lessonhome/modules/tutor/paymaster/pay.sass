@@ -4,30 +4,21 @@ $icon_src_height: image-height($icon_src)
 $icon_src_width: image-width($icon_src)
 $button_color:  #3cb27d
 $triangle_width:  12px
-
-
 main
   padding-top: 48px
 .clear_block
   padding: 0 48px
   .left_block
-    line-height : 20px
-    font-size : 18px
+    float: left
     .title_balance
-      +inline-block
-      font-weight: bold
-    .title_balance, .balance,a
-      padding : 0 5px
-      +inline-block
-    a
-      font-size : 17px
-      line-height : 18px
-      text-decoration: none
+      font-size: 20px
+      font-weight: 600
+    .title_balance, .balance
+      padding-bottom: 12px
+    .history
+      text-decoration: underline
       color: #1f86cd
-      cursor : pointer
-      &:hover
-        text-decoration : underline
-
+      cursor: pointer
   .right_block
     float: right
     .sum, .refill_many, .measurement
@@ -36,6 +27,7 @@ main
       width: 144px
       font-size: 36px
       padding: 0 12px
+    .measurement
     .button_balance
       cursor: pointer
       position: relative

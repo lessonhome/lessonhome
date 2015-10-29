@@ -33,7 +33,6 @@ class @main extends EE
     #yield @filter()
   reshow : => do Q.async =>
     end = =>
-
       @tutors_result.css 'opacity',1
     return (@busyNext = {f:@reshow}) if @busy
     @tutors_result.css 'opacity',0
