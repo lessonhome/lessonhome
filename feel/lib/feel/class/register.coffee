@@ -310,7 +310,7 @@ class Register
     qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     yield Q.all qs
     return {session:@sessions[sessionhash],user:user}
-  passwordUpdate : (user,sessionhash,data)=>
+  passwordUpdate : (user,sessionhash,data,admin=false)=>
     throw err:'bad_query'            unless data?.login? && data?.password? && data?.newpassword?
     throw err:'login_not_exists'      if !@logins[data.login]?
     throw err:'bad_session'           if !@accounts[user.id]?
@@ -318,7 +318,7 @@ class Register
     user = @accounts[user.id]
     throw err:'not_logined'       unless user.registered
     data_password = data.login+data.password
-    throw err:'wrong_password'    unless yield @passwordCompare _hash(data_password), user.hash
+    throw err:'wrong_password'    unless admin || yield @passwordCompare _hash(data_password), user.hash
     ndata_password = data.login+data.newpassword
     user.hash       = yield @passwordCrypt _hash ndata_password
     user.accessTime = new Date()
@@ -330,13 +330,8 @@ class Register
   passwordRestore: (data) =>
     db = yield Main.service 'db'
 
-    #personsDb = yield @dbpersons.get 'persons'
-    #accountsDb = yield @account.get 'accounts'
-
     token = _randomHash(10)
     utoken = yield @urldata.d2u 'authToken',{token:token}
-
-    #accounts = yield _invoke @account.find({login: data.login},{login:1}),'toArray'
 
     validDate = new Date()
     validDate.setHours(validDate.getHours()+24)
@@ -352,8 +347,6 @@ class Register
     acc[key] = val for key,val of user
     delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
-
-    #console.log 'http://127.0.0.1:8081/new_password?'+utoken
 
     persons = yield  _invoke @dbpersons.find({account: user.id}), 'toArray'
     p = persons?[0] ? {}
@@ -459,7 +452,7 @@ class Register
     yield Q.all qs
     return {session:@sessions[sessionhash],user:user}
   loginExists     : (name)=> @logins[name]?
-  loginUpdate : (user,sessionhash,data)=>
+  loginUpdate : (user,sessionhash,data,admin=false)=>
     throw err:'bad_query'            unless data?.login? && data?.password? && data?.newlogin?
     throw err:'login_not_exists'      if !@logins[data.login]?
     throw err:'login_exists'  if @logins[data.newlogin]?
@@ -468,7 +461,7 @@ class Register
     user = @accounts[user.id]
     throw err:'not_logined'       unless user.registered
     data_password = data.login+data.password
-    throw err:'wrong_password'    unless yield @passwordCompare _hash(data_password), user.hash
+    throw err:'wrong_password'    unless admin || yield @passwordCompare _hash(data_password), user.hash
     ndata_password = data.newlogin+data.password
 
     user.hash       = yield @passwordCrypt _hash ndata_password

@@ -11,7 +11,7 @@
 
   data.login ?= $.user.login
   try
-    obj = yield $.register.loginUpdate $.user,$.session,data
+    obj = yield $.register.loginUpdate $.user,$.session,data,($.user.admin==true)
   catch err
     err.err     ?= 'internal_error'
     return {status:'failed',err:err.err}
