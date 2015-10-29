@@ -166,6 +166,7 @@
 //profile style
 .nav_panel
   margin-top: 1rem
+  margin-bottom: 1rem
 
 .profile-send-form
   padding: 0 2rem !important
@@ -175,18 +176,74 @@
 .profile-info
   .materialboxed
     margin: 0 auto
+  .upper-line
+    line-height: 130%
+    padding: 1rem 0 1.5rem
+    font-size: 1.2rem
+  .tutorials-list
+    h5
+      margin-top: 0.2rem
+      margin-bottom: 0
+    i
+      display: inline-block
+      margin-top: 0.7rem
+    p
+      margin-bottom: 0
   h1
     font-size: 2rem
     margin: 0 0 1rem
+  h4
+    margin-top: 0
+  h5
+    margin-top: 0
+    padding-top: 0.82rem
   .row
+    &.profile-card
+      margin-bottom: 1rem
     &.info-row
       margin-bottom: 1.5rem
       font-size: 1.1rem
+      ul.tags-list
+        margin: 0
+        li
+          &:after
+            content: ','
+            display: inline
+          &:last-of-type
+            &:after
+              display: none
+          display: inline-block
+          vertical-align: middle
+          margin-right: 0.8rem
+          white-space: nowrap
+          span
+            display: inline-block
+            vertical-align: middle
+          i.material-icons
+            vertical-align: middle
+            display: inline-block
+            margin-right: 0.5rem
+            font-size: 10px
+
+    &.info-row-small
+      margin-bottom: 0.7rem
+      .chip
+        margin-right: 0.5rem
+    &.bottom-info
+      h5
+        margin-bottom: 0.5rem
+        padding: 0
+      p
+        margin-bottom: 0
+        margin-top: 0.7rem
+
   .info-row
     .param-name
       font-weight: 700
       margin-right: 0.5rem
       font-size: 1.1rem
-
+.inst-ya
+  padding-left: 1rem
+  font-size: 1.2rem
 .profile-bottom-padding
   padding-bottom: 120px
