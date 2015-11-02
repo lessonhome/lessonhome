@@ -9,10 +9,6 @@ class @main
     $W @
   Dom : =>
     @div = @found.map
-    #@go 'Ивантеевская, дом 4, 1 56'#@tree.value if @tree.value?
-    #@go 'береговой проезд дом 2 строение 3'#@tree.value if @tree.value?
-    #ymaps.ready =>
-    #  @go 'береговой проезд 2 3'
   show : =>
     yield @init()
   init : =>
@@ -98,7 +94,8 @@ class @main
         return d.resolve false
 
   resolveAddress : (search)=>
-    ls = $.localStorage.get "geocode_"+search
+    
+    ls = $.localStorage.get CryptoJS.SHA1("geocode_"+escape(search)).toString()
     d = Q.defer()
     if ls then ymaps.ready => d.resolve ls
     else ymaps.ready => $.ajax
@@ -134,7 +131,7 @@ class @main
         ret.bContent = first?.metaDataProperty?.GeocoderMetaData?.text
         #map = new ymaps.Map @div[0],bounds
         #map.geoObjects.add myPlacemark
-        $.localStorage.set "geocode_"+search,ret
+        $.localStorage.set CryptoJS.SHA1("geocode_"+(search)).toString(),ret
         d.resolve ret
       error : (err)=>
         console.error err

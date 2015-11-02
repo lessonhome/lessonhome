@@ -17,7 +17,7 @@ class @main extends EE
       return @showError ret.err
     login = ret.login if ret?.login?
 
-    {status} = yield @$send('passwordRestore',{
+    {status,err} = yield @$send('passwordRestore',{
       login: login
     })
     console.log status
@@ -28,7 +28,10 @@ class @main extends EE
       @dom.find('.buttons').hide()
       #return Feel.go '/send_code'
     if status == 'failed'
-      @showError('login_not_exists')
+      if err
+        @showError err
+      else
+        @showError('login_not_exists')
 
   showError : (err)=>
     switch err
@@ -47,7 +50,9 @@ class @main extends EE
       when 'short_password'
         @password.showError 'Слишком короткий пароль'
       when 'login_not_exists'
-        @login.showError 'Пользователь с таким логином не зарегестрирован'
+        @login.showError 'К сожалению мы не смогли Вас найти'
+      when 'email_not_exists'
+        @login.showError 'К сожалению вы не привязали к анкете свой email. Для восстановления доступа позвоните нам по телефону +7 (495) 181-03-73'
       else
         @login.showError()
         @password.showError "что-то пошло не так"

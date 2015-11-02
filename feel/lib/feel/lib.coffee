@@ -488,6 +488,7 @@ Q.wait = -> Q().wait arguments...
 Q.tick = -> Q().wait arguments...
 Q.Promise::tick = Q.Promise::wait
 global.EE           = require('events').EventEmitter
+EE.defaultMaxListeners = 100
 
 class Wraper extends EE
   constructor : ->

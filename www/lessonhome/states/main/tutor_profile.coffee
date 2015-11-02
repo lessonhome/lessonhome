@@ -5,6 +5,7 @@ class @main extends @template '../main'
   title : "Профиль репетитора"
   access : ['other','pupil']
   tree : =>
+    onepage : 'tutor_profile'
     clear_profile : true
 
 ###    

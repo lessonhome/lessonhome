@@ -9,7 +9,7 @@ class MasterProcessFork extends EE
     Wrap @
     @ee = new EE
   init : =>
-    @log @conf.name,@conf.services
+    #@log @conf.name,@conf.services
     _cluster = require 'cluster'
     _cluster.setupMaster {
       exec : @conf.exec
