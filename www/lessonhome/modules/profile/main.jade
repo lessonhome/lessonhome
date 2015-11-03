@@ -1,20 +1,24 @@
 .container.profile-bottom-padding
   .row.nav_panel.valign-wrapper
-    .col.s12.left-align.valign
+    .col.s6.left-align.valign
       a.js-back.btn-flat.waves-effect.waves-teal Назад
         i.material-icons.left arrow_back
+    .col.s6.right-align.tutor-action.valign.hide-on-large-only
+      button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
+        span.tutor_button_text Выбрать
+        i.material-icons.right add
   .row.profile-info
-    .col.l8
+    .col.l8.m8.s12
       .row.profile-card
-        .col.l4.center-align
+        .col.l4.m4.s12.center-align
           .row
             .col.s12
               img.js-view_photo(width='250').responsive-img
-            .input-field.col.s12.center-align.tutor-action.profile-button.valign
+            .input-field.col.s12.center-align.tutor-action.profile-button.valign.hide-on-med-and-down
               button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
                 span.tutor_button_text Выбрать
                 i.material-icons.right add
-        .col.l8
+        .col.l8.m8.s12
           .row.info-row
             .col.s12
               h1
@@ -22,7 +26,7 @@
                 span.js-age_value
               i Учи английский быстро и с удовольствием!
           .row.valign-wrapper
-            .col.s6.valign
+            .col.s12.valign
               i.material-icons.small.orange-text grade
               i.material-icons.small.orange-text grade
               i.material-icons.small.orange-text grade
@@ -41,19 +45,14 @@
             .col.s12
               ul.tags-list
                 li
-                  i.material-icons.tiny.grey-text.text-lighten-1 lens
+                  i.material-icons.tiny.teal-text.text-lighten-1 lens
                   span У себя
                 li
-                  i.material-icons.tiny.grey-text.text-lighten-1 lens
+                  i.material-icons.tiny.teal-text.text-lighten-1 lens
                   span Выезд
                 li
-                  i.material-icons.tiny.grey-text.text-lighten-1 lens
+                  i.material-icons.tiny.teal-text.text-lighten-1 lens
                   span Skype
-          .row.info-row.info-row-small
-            .col.s12
-              b Образование
-              div Институт восточных языков,
-              div историко-филологический
       .row
         .col.s12
           h4.red-text.text-darken-3 Цены
@@ -150,7 +149,7 @@
           p Есть курс Истории России на русском и английском. На новейших данных и по международным стандартам. Уже опробован на тестах IB моих учеников за рубежом и в РФ.
 
 
-    .col.l4.grey.lighten-4.center-align.profile-send-form
+    .col.l4.m4.s12.grey.lighten-4.center-align.profile-send-form.hide-on-small-and-down
       .row
         .col.s12.title Написать Екатерине
       .row
