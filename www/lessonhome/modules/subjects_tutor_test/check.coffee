@@ -57,10 +57,10 @@
 @place = @atLeastAll @isSelected
 @pr = @atLeastAll @isFill
 
-@required = (data) -> return if data is '' then 'empty_field' else true
-@tag = (data) -> return if (data.length > 85) then 'long_tag' else true
-@comments = (data) -> return if (data.length > 302) then 'long_comments' else true
-@price = (data) -> return if data > 9999 then 'so_expensive' else true
+@required = (data) -> return unless data then 'empty_field' else true
+@tag = (data) -> return if (data.length > 285) then 'long_tag' else true
+@comments = (data) -> return if (data.length > 30200) then 'long_comments' else true
+@price = (data) -> return if data > 99999 then 'so_expensive' else true
 @group_count = (data) -> return if data is '' then 'select_group' else true
 @isNormalTags = (data) =>
 

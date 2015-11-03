@@ -164,8 +164,12 @@ class Tutors
       obj.registerTime = o.account.registerTime?.getTime?() ? 0
       obj.accessTime = o.account.accessTime?.getTime?() ? 0
       obj.rating = o.rating
+      obj.ratio  = p.ratio ? 1.0
       obj.nophoto = o.nophoto
       obj.account = account
+      obj.landing = p.landing ? false
+      obj.mcomment = p.mcomment || ''
+      obj.filtration = p.filtration ? false
       obj.phone = p.phone
       obj.email = p.email
       obj.name = {}
@@ -297,6 +301,8 @@ class Tutors
       p.rating = (p.rating-rmin)/(rmax-rmin)
       p.rating *= 3
       p.rating += 2
+      p.rmin = rmin
+      p.rmax = rmax
 
       
       p.sorts = {}
