@@ -42,4 +42,29 @@ main
     //-border-left: 1px solid #a0a0a0
 
 
-
+.result_block .left_block .ads
+  padding-top : 15px
+  width : 100%
+  *
+    +inline-block
+    width : 100%
+    font-size : 13px
+    line-height : 18px
+  .ad
+    cursor : pointer
+    color : #0645AD
+    &:hover
+      text-decoration : underline
+    &:active
+      +transform(scale(0.99))
+  .adt
+    font-size : 12px
+  .ad.red
+    color : #CC2200
+  textarea
+    font-size : 11px
+    line-height : 13px
+    padding : 2px
+    margin-top : 5px
+    border : none
+    resize : none
