@@ -1,6 +1,6 @@
 class @main extends EE
   Dom:  =>
-    @dom.dblclick => Q.spawn =>
+    @found.right_block.dblclick => Q.spawn =>
       return unless Feel.user?.type?.admin
       yield Feel.root.tree.class.$send '/relogin',@index
       yield Feel.go '/form/tutor/login',true
@@ -24,6 +24,7 @@ class @main extends EE
         e.preventDefault()
         Feel.root.tree.class.showTutor that.index,$(this).attr('href')
         return false
+
   setValue : (data)=>
     @index = data?.index ? 0
     @rating_photo.setValue {
@@ -35,6 +36,33 @@ class @main extends EE
       count_review : data.count_review
     }
     @tutor_extract.setValue data
+    if Feel.user.type.admin
+      console.log data
+      @found.mcomment.val data.mcomment
+      @found.ratio.text "#{data.rating?.toFixed?(2)} - #{data.ratio?.toFixed?(2)} - #{data.ratingNow?.toFixed?(0)}"
+      if data.landing
+        @found.lp.addClass 'red'
+      if data.filtration
+        @found.filter.addClass 'red'
+
+      @found.rdown.click =>
+        data.ratingNow /= 1.1
+        data.ratio /= 1.1
+        @found.ratio.text "#{data.rating?.toFixed?(2)} - #{data.ratio?.toFixed?(2)} - #{data.ratingNow?.toFixed?(0)}"
+        @$send './ratingAva','ratio',@index,data.ratio
+      @found.rup.click =>
+        data.ratingNow *= 1.1
+        data.ratio *= 1.1
+        @found.ratio.text "#{data.rating?.toFixed?(2)} - #{data.ratio?.toFixed?(2)} - #{data.ratingNow?.toFixed?(0)}"
+        @$send './ratingAva','ratio',@index,data.ratio
+      @found.lp.click =>
+        @found.lp.toggleClass 'red'
+        @$send './ratingAva','landing',   @index,@found.lp.hasClass('red')
+      @found.filter.click =>
+        @found.filter.toggleClass 'red'
+        @$send './ratingAva','filtration',@index,@found.filter.hasClass('red')
+      @found.mcomment.focusout =>
+        @$send './ratingAva','mcomment',@index,@found.mcomment.val()
   getData : =>
     rpv = @rating_photo.getValue()
     texv = @tutor_extract.getValue()
