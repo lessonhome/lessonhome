@@ -1,7 +1,7 @@
 .container.profile-bottom-padding
   .row.nav_panel.valign-wrapper
     .col.s12.left-align.valign
-      a(href="#").btn-flat.waves-effect.waves-teal Назад
+      a.js-back.btn-flat.waves-effect.waves-teal Назад
         i.material-icons.left arrow_back
   .row.profile-info
     .col.l8
@@ -9,7 +9,7 @@
         .col.l4.center-align
           .row
             .col.s12
-              img.js-view_photo(src='http://127.0.0.1/file/5742e6be42/user_data/images/ea3ec4d86dl.jpg', width='250' data-caption='Екатерина Владимировна').responsive-img.materialboxed
+              img.js-view_photo(width='250').responsive-img
             .input-field.col.s12.center-align.tutor-action.profile-button.valign
               button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
                 span.tutor_button_text Выбрать
@@ -17,8 +17,9 @@
         .col.l8
           .row.info-row
             .col.s12
-              h1 Екатерина Владимировна, &nbsp;
-                span 27 лет
+              h1
+                span.js-full_name
+                span.js-age_value
               i Учи английский быстро и с удовольствием!
           .row.valign-wrapper
             .col.s6.valign

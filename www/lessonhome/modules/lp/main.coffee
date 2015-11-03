@@ -4,6 +4,7 @@ class @main extends EE
   constructor : ->
     $W @
   Dom : =>
+    @register 'main'
     @attached = @tree.bottom_block_attached.class
     @content    = @found.content
     Q.spawn => yield @initListenStateChange()
@@ -52,32 +53,32 @@ class @main extends EE
   preShow : =>
     switch @nowurl
       when 'tutor_profile'
-        @saveTutor = @tree.tutor_profile.class.$clone()
-        @found.tutor_profile.find('>').off true,true
-        @found.tutor_profile.empty()
-        @found.tutor_profile.append @saveTutor.dom
+        @saveTutor = @tree.profile.class.$clone()
+        @found.profile.find('>').off true,true
+        @found.profile.empty()
+        @found.profile.append @saveTutor.dom
         yield @saveTutor.open @urldata
   hidePage : =>
     switch @oldurl
       when 'tutor_profile'
         break if @nowurl == 'tutor_profile'
-        @found?.tutor_profile?.hide?()
+        @found?.profile?.addClass? 'hidden'
         yield Feel.urlData.set 'tutorProfile',{index:0}
       when 'other'
         @saveScroll = @savedScroll
         $(window).off 'scroll.tutors'
-        @found.filter_top?.hide?()
-        @found.info_panel?.hide?()
-        @found.content?.hide?()
+        #@found.filter_top?.hide?()
+        #@found.info_panel?.hide?()
+        @found.content?.addClass? 'hidden'
   showPage : =>
     switch @nowurl
       when 'tutor_profile'
         $(window).scrollTop 0
-        @found.tutor_profile.show()
+        @found.profile?.removeClass? 'hidden'
       when 'other'
-        @found.filter_top?.show?()
-        @found.info_panel?.show?()
-        @found.content?.show?()
+        #@found.filter_top?.show?()
+        #@found.info_panel?.show?()
+        @found.content?.removeClass? 'hidden'
         $(window).scrollTop(@saveScroll)
         if @tree.content?.class?.onscroll?
           $(window).on 'scroll.tutors',@tree.content?.class?.onscroll
