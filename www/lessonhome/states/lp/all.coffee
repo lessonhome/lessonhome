@@ -33,4 +33,10 @@ class @main  extends @template '../lp'
       sub_title : @exports()
       text : @exports()
       title_suit_tutors : @exports()
+      #ssd : do Q.async =>
+      #  console.log @req.urlData.filterHash()
+      #  yield console.log @req.udata
+        
+
+
 
