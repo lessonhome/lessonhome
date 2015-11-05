@@ -1,4 +1,10 @@
+- content = content || "";
 header!=header
-content.js-content!=content
+if single_profile
+  content.js-content.hidden!=content
+  content.js-profile!=profile
+else
+  content.js-content!=content
+  content.js-profile.hidden!=profile
 footer!=footer
 .attached!=bottom_block_attached

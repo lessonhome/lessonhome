@@ -146,5 +146,13 @@ class @main
       .attr('alt',name).attr('title',name)
     link = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
     @dom.find('a').attr('href',link).attr('title',name).attr('alt',name)
+    @dom.find('a').click (e)=>
+      return unless e.button == 0
+      e.preventDefault()
+      Q.spawn =>
+        Feel.main.showTutor @tree.value.index,link
+      return false
+      
+
     
     yield @setLinked()

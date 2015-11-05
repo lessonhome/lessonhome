@@ -1,5 +1,5 @@
 class @main extends @template 'lp'
-  route : '/profile'
+  route : '/tutor_profile'
   model : 'tutor/profile_registration/fourth_step'
   title : "LessonHome - Профиль репетитора"
   tags   : [ 'tutor:reports']
@@ -7,4 +7,5 @@ class @main extends @template 'lp'
   redirect : {
   }
   tree : =>
-    content : @module '$'
+    #content : @module '$'
+    single_profile : 'tutor_profile'

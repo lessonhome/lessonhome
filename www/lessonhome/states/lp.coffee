@@ -13,3 +13,6 @@ class @main
     bottom_block_attached : @module 'main/attached_panel' :
       bottom_bar  : @state 'main/attached_panel/bar'
       popup       : @state 'main/attached_panel/popup'
+    profile         : @module 'profile':
+      single_profile : @exports()
+    single_profile  : @exports()
