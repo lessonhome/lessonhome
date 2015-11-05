@@ -2,13 +2,16 @@ class @main
   Dom : =>
     @viewPhoto    = @found.view_photo
     @chooseTutor  = @found.tutor_trigger
-    @tabsList     = @found.profile_tabs
     @triggerCount = 0
+
+    #scroll spy
+    @reviewMark   = @found.review_mark
   show: =>
     $(@viewPhoto).materialbox()
-    $(@tabsList).tabs()
-    console.log @tabsList
     @chooseTutor.on 'click', @showTrigger
+
+    #scroll spy
+    @reviewMark.scrollSpy()
   showTrigger : =>
     if @triggerCount == 0
       @chooseTutor.addClass('waves-light teal lighten-2 selected white-text').removeClass('btn-trigger waves-teal')

@@ -242,5 +242,72 @@
 .inst-ya
   padding-left: 1rem
   font-size: 1.2rem
-.profile-bottom-padding
-  //padding-bottom: 120px
+.rating-block
+  margin-bottom: .8rem
+  .row
+    &:last-of-type
+      margin-bottom: 0
+.rating-line
+  display: inline-block
+  position: relative
+  .base-stars
+    white-space: nowrap
+    position: absolute
+    z-index: 1
+    top: 0
+    left: 0
+  .this-rating
+    overflow: hidden
+    white-space: nowrap
+    position: relative
+    z-index: 2
+  i
+    vertical-align: middle
+.rating-text
+  font-size: 1.1rem
+  margin-bottom: .2rem
+  .rating-text_label
+    margin-right: .5rem
+  .rating-text_index
+    font-size: 1.5rem
+.review-block
+  font-size: 1.4rem
+  a
+    border-bottom: 1px dashed #039be5
+    transition: all 0.3s ease-out
+    &:hover
+      color: #C62828
+      border-color: #C62828
+.row
+  .col
+    &.top-padding-tabs
+      padding-top: 0.5rem
+  .col
+    &.review-rating-block
+      padding-top: 1rem
+.reviews-date_name
+  font-weight: 700
+  //font-size: 1.2rem
+  margin-right: 0.7rem
+.reviews-date_date
+  font-style: italic
+  margin-right: 0.7rem
+.reviews-date_comment
+  font-style: italic
+.reviews-rating_index
+  font-size: 2.4rem
+.reviews-rating_subject
+  font-weight: 700
+.profile-documents
+  margin: 2rem 0 0 0
+  padding: 0
+  @media #{$small-and-down}
+    text-align: center
+  li
+    display: inline-block
+    width: 200px
+    vertical-align: top
+    padding: 0 1rem 2rem
+    img
+      width: 100%
+      height: auto
