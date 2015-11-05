@@ -1,5 +1,5 @@
 .container.profile-bottom-padding
-  .row.nav_panel.valign-wrapper
+  .row.js-nav_panel.valign-wrapper.profile-nav
     .col.s6.left-align.valign
       a.js-back.btn-flat.waves-effect.waves-teal Назад
         i.material-icons.left arrow_back
@@ -23,7 +23,7 @@
             .col.s12
               h1
                 span.js-full_name
-                span.js-age_value
+                span.profile-age.js-age_value
               i Учи английский быстро и с удовольствием!
           .row.rating-block
             .col.s5
@@ -165,7 +165,7 @@
           p Есть курс Истории России на русском и английском. На новейших данных и по международным стандартам. Уже опробован на тестах IB моих учеников за рубежом и в РФ.
       .row.js-review_mark#reviews
         .col.s12
-          ul.tabs
+          ul.tabs.js-profile_tab
             li.tab.col.s6
               a(href="#tab1").active Отзывы (3)
             li.tab.col.s6
