@@ -33,6 +33,7 @@ class @main  extends @template '../lp'
       sub_title : @exports()
       text : @exports()
       title_suit_tutors : @exports()
+      ###
       tutors : do Q.async =>
         #console.log @req.urlData.filterHash()
         yield console.log @req.udata
@@ -45,7 +46,6 @@ class @main  extends @template '../lp'
             subject : 'Ритульаные жертвоприношения, Окультизм, Латынь'
             location  : 'Москва м. Перово'
         return m
-        
-
+      ###
 
 
