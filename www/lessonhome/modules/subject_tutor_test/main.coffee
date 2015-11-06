@@ -1,5 +1,7 @@
 class @main
   Dom: =>
+    @panel = @found.panel
+
     @btn_expand = @found.expand
     @btn_remove = @found.rem
     @btn_restore = @found.restore
@@ -14,7 +16,7 @@ class @main
     @price_group = @found.price_group
     @out_err_course = @found.out_err_course
     #####
-    @flag = false
+#    @flag = false
     @is_removed = false
     #####
     @btn_delete = @found.delete
@@ -39,6 +41,8 @@ class @main
 
       comments : @tree.comments.class
     }
+
+    @strategy = {}
 
 
 
@@ -91,11 +95,19 @@ class @main
     @btn_expand.on 'click', @onExpand
     @btn_restore.on 'click', @onRestore
     @btn_remove.on 'click', @onRemove
+    @btn_delete.on 'click', @onDelete
     @children.course.on 'end', @onTags
+    @children.name.on 'focus', @onFocusName
     @children.name.on 'change', @onChangeName
-    @restore_block.on 'click', (e) => e.stopPropagation()
+    @btn_copy.on 'click', @onCopy
+    @restore_block.on 'click', (e) -> e.stopPropagation()
+
     @children.name.setErrorDiv @found.error_name
     @children.course.setErrorDiv @out_err_course
+
+
+
+
 #      @group_learning   .setErrorDiv @out_err_group_learning
 #      @pre_school       .setErrorDiv @out_err_categories_of_students
 #      @place_tutor      .setErrorDiv @out_err_place
@@ -116,13 +128,8 @@ class @main
 #      @place_remote.on      'change', => @place_remote.hideError()
 #    @place_cafe.on        'change', => @place_cafe.hideError()
 
-
-  readyToRemove: =>
-    @btn_expand.off 'click', @onExpand
-    @btn_restore.off 'click', @onRestore
-    @btn_remove.off 'click', @onRemove
-    @children.course.off 'end', @onTags
-    @children.name.off 'change', @onChangeName
+  onCopy : =>
+    @strategy.copy?()
 
   onExpand: (e) =>
     e.stopPropagation()
@@ -135,10 +142,8 @@ class @main
   onRestore: (e) =>
     if @is_removed
       @is_removed = false
-      @dom.removeClass 'restore'
-      @restore_block.hide 0, => @active_block.show()
+      @panel.removeClass 'restore'
     return false
-
 
   onRemove: (e) =>
     e.stopPropagation()
@@ -146,10 +151,23 @@ class @main
       @slideUp =>
         name = @children.name.getValue()
         @is_removed = true
-        @dom.addClass 'restore'
+        @panel.addClass 'restore'
         @restore_name.text if name isnt '' then "Удалить предмет #{name.toUpperCase()}?" else "Удалить предмет?"
-        @active_block.hide 0, => @restore_block.show()
     return false
+
+  onDelete : (e) =>
+    @btn_copy.off 'click', @onCopy
+    @btn_delete.off 'click', @onDelete
+    @children.name.off 'focus', @onFocusName
+    @btn_expand.off 'click', @onExpand
+    @btn_restore.off 'click', @onRestore
+    @btn_remove.off 'click', @onRemove
+    @children.course.off 'end', @onTags
+    @children.name.off 'change', @onChangeName
+    @strategy.delete?()
+    @dom.closest('.block').slideUp 200, -> $(@).remove()
+    return false
+
   onTags: (e) =>
     arr = @children.course.getValue()
     len = 0
@@ -162,6 +180,8 @@ class @main
     if arr.length > len
       @children.course.setValue arr
 
+  onFocusName : =>
+    @strategy.focusName?()
   onChangeName: (name) =>
     if @training_direction? and name isnt ''
       if @training_direction[name]?
@@ -180,7 +200,6 @@ class @main
       text = $("<div class='err'>" + text + "</div>").hide()
       block.after text
       text.slideDown 200
-
 
   hideErrBlock : (block) =>
     block.removeClass 'error'
@@ -211,6 +230,7 @@ class @main
       return true
     return result
   setValue : (data) =>
+    @panel.removeClass 'restore'
     if data isnt undefined
       @btn_copy.hide()
       $.each @children, (key, cl) ->

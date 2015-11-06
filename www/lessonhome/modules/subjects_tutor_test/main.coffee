@@ -24,8 +24,64 @@ class @main
       "логопеды": ["общий курс", "алалия", "аутизм", "афазия", "брадилалия", "все нарушения речи", "диагностика (обследование)", "дизартрия", "дизорфография", "дисграфия", "дислалия", "дислексия", "дисфония", "заикание", "ЗПРР", "ЗРР", "ЛГНР", "логоневроз", "логопедический массаж", "логоритмика", "ОНР", "ОНР при ЗПР", "постановка звуков", "ринолалия", "системное недоразвитие речи при ИН", "стертая дизартрия", "тахилалия", "ФД (фонетический дефект)", "ФНР (фонематическое недоразвитие речи)", "ФФН (фонетико-фонематическое недоразвитие)"],
       "default" : ['ЕГЭ','ОГЭ(ГИА)', 'подготовка к олимпиадам', 'школьный курс', 'вузовский курс']
     }
+#
+#    class @Strategy
+#      constructor : (parent) ->
+#        @flag = false
+#        @subjects = parent.subjects
+#      getIndex : ->
+#        @flag = true
+#        for _sub, i in @subjects
+#          if _sub.strategy.flag is true
+#            _sub.strategy.flag = false
+#            if @flag is false then break
+#        if @flag is true
+#          @flag = false
+#          return -1
+#        return i
+#      copy : ->
+#        i = @getIndex()
+#        if i > 0
+#          settings = @subjects[i - 1].getValue()
+#          delete settings['name']
+#          delete settings['comments']
+#          @subjects[i].setValue settings
+#        return false
+#      delete : ->
+#        if ( i = @getIndex() ) >= 0
+#          @subjects.splice i, 1
 
-    @subjects = []
+    @subjects = [@subject]
+#    @subject.strategy = new @Strategy @
+
+
+
+#    @stategy = {
+#      that : @
+#      flag : false
+#      getIndex : ->
+#        @flag = true
+#        for _sub, i in @that.subjects
+#          if _sub.stategy.flag is true
+#            _sub.stategy.flag = false
+#            if @flag is false then break
+#        if @flag is true
+#          @flag = false
+#          return -1
+#        return i
+#      copy : ->
+#        i = @getIndex()
+#        if i > 0
+#          settings = @that.subjects[i - 1].getValue()
+#          delete settings['name']
+#          delete settings['comments']
+#          @self.setValue settings
+#        return false
+#      delete : ->
+#        if ( i = @getIndex() ) >= 0
+#          @subjects.splice i, 1
+#
+#    }
 
     for key, values of @data
       @addNewSubject(values).show()
@@ -89,55 +145,46 @@ class @main
   addNewSubject : (values, is_open = false) =>
     obj = @subject.$clone()
     obj.setDirection @training_direction
+    obj.strategy = new @Strategy @
     if values
       obj.setValue values
     if @subjects.length == 0
       obj.btn_copy.hide()
     @subjects.push obj
 
-    obj.children.name.on 'focus', (e) =>
-      obj.setNames @getNames()
-
-    obj.btn_copy.on 'click', =>
-      i = @getIndex obj
-      if i > 0
-        settings = @subjects[i - 1].getValue()
-        delete settings['name']
-        delete settings['comments']
-        obj.setValue settings
-      return false
-
-
-    obj.btn_delete.on 'click', =>
-      if (i = @getIndex obj) >= 0
-        @subjects.splice i, 1
-
-        obj.btn_copy.off 'click'
-        obj.btn_delete.off 'click'
-        obj.children.name.off 'focus'
-
-        obj.dom.closest('.block').slideUp 200, =>
-          obj.readyToRemove()
-          obj.dom.remove()
-          if @subjects.length > 0
-            @subjects[0].btn_copy.hide()
-      return false
+#    obj.children.name.on 'focus', (e) =>
+#      obj.setNames @getNames()
+#
+#    obj.btn_copy.on 'click', =>
+#      i = @getIndex obj
+#      if i > 0
+#        settings = @subjects[i - 1].getValue()
+#        delete settings['name']
+#        delete settings['comments']
+#        obj.setValue settings
+#      return false
+#
+#
+#    obj.btn_delete.on 'click', =>
+#      if (i = @getIndex obj) >= 0
+#        @subjects.splice i, 1
+#
+#        obj.btn_copy.off 'click'
+#        obj.btn_delete.off 'click'
+#        obj.children.name.off 'focus'
+#
+#        obj.dom.closest('.block').slideUp 200, =>
+#          obj.readyToRemove()
+#          obj.dom.remove()
+#          if @subjects.length > 0
+#            @subjects[0].btn_copy.hide()
+#      return false
 
     if is_open then obj.showSettings()
     block = $('<div class="block"></div>').hide().append obj.dom
     @container.append block
     return block
 
-  getIndex : (sub) =>
-    sub.flag = true
-    for _sub, i in @subjects
-      if _sub.flag is true
-        _sub.flag = false
-        if sub.flag is false then break
-    if sub.flag is true
-      sub.flag = false
-      return -1
-    return i
   onReceive : ({status,errs,err})=>
     if err?
       errs?={}

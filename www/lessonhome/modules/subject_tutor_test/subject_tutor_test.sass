@@ -53,9 +53,14 @@ main
   text-align: left
   border: 1px solid #DDD
   background-color: #E6E6E6
-main.restore
-  background: #EDF2C4
 .panel
+  &.restore
+    background: #EDF2C4
+    .restore_block
+      display: block
+    .active_block
+      display: none
+
   padding: 15px $paddings
   position: relative
   .restore_block
