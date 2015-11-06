@@ -8,13 +8,11 @@ class @main
     #scroll spy
     @reviewMark   = @found.review_mark
     @profileTab   = @found.profile_tab
-    @navPanel     = @found.nav_panel
   show: =>
     #scroll spy
     @reviewMark.scrollSpy()
     #tabs
     @profileTab.tabs()
-    $(@navPanel).pushpin({ top: $(@navPanel).offset().top })
     
     #@found.profile_tabs.tabs()
     @chooseTutor.on 'click', => Q.spawn => yield @onTutorChoose()
