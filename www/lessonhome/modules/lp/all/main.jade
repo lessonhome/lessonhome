@@ -14,7 +14,7 @@
     .row
       .col.l9.m9.centered-block
         .dialog_block.js-step_one.hide-on-small-only.fastest
-          h4 Мы подберем Вам репетитора.
+          h5 Мы подберем Вам репетитора.
           h3 Для этого заполните простую форму:
           //h3.left-align Оставьте заявку:
           .row
@@ -29,7 +29,7 @@
               label(for='phone', data-error="Введите корректный телефон") Телефон
           .row
             .col.l12.m12.s12
-              button.js-btn_send(type='submit', name='form_submit').btn-large.waves-effect.waves-light Отправить
+              button.js-btn_send(type='submit', name='form_submit').btn.waves-effect.waves-light Отправить
                 i.material-icons.right send
           .js-on_send
             .row
@@ -47,6 +47,8 @@
       h1!=title_suit_tutors
       .js-tutors_list
         !=tutor
+      //.tutors_list
+        !=tutors
   .two-step-bg
     .row
       .col.l9.m9.centered-block

@@ -44,6 +44,9 @@ class @main extends @template '../edit_description'
       date : @module 'tutor/forms/input':
         selector : 'fast_bid'
         value : $form : person : 'reviews.0.date'
+      mark : @module 'tutor/forms/input':
+        selector : 'fast_bid'
+        value : $form : person : 'reviews.0.mark'
       comment : @module 'tutor/forms/textarea':
         selector : 'fast_bid'
         value : $form : person : 'reviews.0.comment'

@@ -1,5 +1,5 @@
 - balance = balance || 0;
-.clear_block
+//.clear_block
   .left_block
     .title_balance Ваш баланс:
     .js-balance #{balance} руб.
@@ -12,5 +12,4 @@ if need_pay && need_pay[0]
       each val, index in need_pay
         .need_pay!= val
 
-
-
+iframe.js-pay(class="iframe" src="https://money.yandex.ru/fastpay/form/adf0a0eb052645fc9aae1ce1d3c87457" width="500" height="417" style="border: 1px solid #e8e8e8;")
