@@ -2,8 +2,24 @@ class @main
   constructor : ->
     $W @
   Dom : =>
-
+    @rangeEl = @found.range_ui
+    slider = document.getElementById('slider')
   show: =>
+    console.log $(@rangeEl)
+    ##range element init
+    noUiSlider.create(slider, {
+      start: [500, 3500],
+      connect: true,
+      step: 100,
+      range: {
+        'min': 500,
+        'max': 3500
+      },
+      format: wNumb({
+        decimals: 0
+      })
+    })
+
     @found.tutors_list.find('>div').remove()
     numTutors = 5
     tutors = yield Feel.dataM.getByFilter numTutors, (@tree.filter ? {})

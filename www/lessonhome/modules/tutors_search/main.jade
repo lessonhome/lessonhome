@@ -1,8 +1,99 @@
+link(href=F("nouislider/nouislider.css"), rel="stylesheet")
 .container
   .row
-    .col.l4.m4.s12.grey.lighten-2
-      h4 it is filter panel
+    .col.l4.m4.s12
+      ul.collapsible(data-collapsible='expandable').search-filter
+        li
+          .collapsible-header.active Предмет
+          .collapsible-body
+            .row
+              .input-field.col.s12
+                select(multiple)
+                  option(value='', disabled, selected) Выбирете предмет
+                  option(value='2') Английский язык
+                  option(value='3') Математика
+                  option(value='4') Физика
+                  option(value='5') Русский язык
+                  option(value='6') Информатика
+                  option(value='7') Биология
+                label Выберете предмет
+        li
+          .collapsible-header.active Направление подготовки
+          .collapsible-body
+            .row
+              .input-field.col.s12
+                input(type='text')
+        li
+          .collapsible-header.active Категория ученика
+          .collapsible-body
+            .row
+              .input-field.col.s12
+                input(type='text')
+        li
+          .collapsible-header.active Цена
+          .collapsible-body
+            .row
+              .col.s12
+                .js-range_ui#slider
+        li
+          .collapsible-header.active.selected Место Занятий
+          .collapsible-body
+            .row
+              .col.s12
+                input(type='checkbox')#loc1
+                label(for='loc1') У себя
+            .row
+              .col.s12
+                input(type='checkbox')#loc2
+                label(for='loc2') У репетитора
+            .row
+              .col.s12
+                input(type='checkbox')#loc3
+                label(for='loc3') Удалённо
+        li
+          .collapsible-header.active Статус репетитора
+          .collapsible-body
+            .row
+              .col.s12
+                input(type='checkbox')#status1
+                label(for='status1') Студент
+            .row
+              .col.s12
+                input(type='checkbox')#status2
+                label(for='status2') Преподаватель школы
+            .row
+              .col.s12
+                input(type='checkbox')#status3
+                label(for='status3') Преподаватель ВУЗа
+            .row
+              .col.s12
+                input(type='checkbox')#status4
+                label(for='status4') Частный преподаватель
+            .row
+              .col.s12
+                input(type='checkbox')#status5
+                label(for='status5') Носитель языка
+        li
+          .collapsible-header.active.selected Опыт
+          .collapsible-body
+            .row
+              .col.s12
+                input(type='checkbox')#exp1
+                label(for='exp1') 1-2 года
+            .row
+              .col.s12
+                input(type='checkbox')#exp2
+                label(for='exp2') 3-4 года
+            .row
+              .col.s12
+                input(type='checkbox')#exp3
+                label(for='exp3') более 4 лет
+      .row
+        .input-field.col.s12.center-align
+          button.btn Применить
+
 
     .col.l8.m8.s12
       .js-tutors_list
         !=tutor
+script(src=F("nouislider/nouislider.js"))
