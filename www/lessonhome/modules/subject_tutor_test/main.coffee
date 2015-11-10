@@ -42,7 +42,7 @@ class @main
       comments : @tree.comments.class
     }
 
-    @strategy = {}
+    @observer = null
 
 
 
@@ -129,7 +129,7 @@ class @main
 #    @place_cafe.on        'change', => @place_cafe.hideError()
 
   onCopy : =>
-    @strategy.copy?()
+    @notifyObserver 'copy'
 
   onExpand: (e) =>
     e.stopPropagation()
@@ -164,8 +164,7 @@ class @main
     @btn_remove.off 'click', @onRemove
     @children.course.off 'end', @onTags
     @children.name.off 'change', @onChangeName
-    @strategy.delete?()
-    @dom.closest('.block').slideUp 200, -> $(@).remove()
+    @notifyObserver 'del'
     return false
 
   onTags: (e) =>
@@ -181,7 +180,7 @@ class @main
       @children.course.setValue arr
 
   onFocusName : =>
-    @strategy.focusName?()
+    @notifyObserver 'focus'
   onChangeName: (name) =>
     if @training_direction? and name isnt ''
       if @training_direction[name]?
@@ -223,18 +222,30 @@ class @main
     @container.hide()
     @btn_expand.removeClass 'active'
 
+  notifyObserver : (message) => @observer?.handleEvent? @, message
+  setObserver : (observer) => @observer = observer
+
   getValue : =>
     result = {}
     $.each @children, (key, cl) ->
       result[key] = cl.getValue?()
       return true
     return result
-  setValue : (data) =>
+  setValue : (data={}) =>
     @panel.removeClass 'restore'
-    if data isnt undefined
-      @btn_copy.hide()
-      $.each @children, (key, cl) ->
-        if data[key] isnt undefined then cl.setValue? data[key]
+    $.each @children, (key, cl) ->
+      cl.setValue? data[key]
+
+  copySettings : (elem, copied = []) =>
+    settings = elem.getValue()
+
+    if copied.length == 0
+      @setValue settings
+    else
+      current_settings = @getValue()
+      for key in copied
+        current_settings[key] = settings[key]
+      @setValue current_settings
   resetError : () =>
     @parseError({correct: true})
   parseError : (errors) =>

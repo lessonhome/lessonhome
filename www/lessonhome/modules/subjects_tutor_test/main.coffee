@@ -24,69 +24,37 @@ class @main
       "логопеды": ["общий курс", "алалия", "аутизм", "афазия", "брадилалия", "все нарушения речи", "диагностика (обследование)", "дизартрия", "дизорфография", "дисграфия", "дислалия", "дислексия", "дисфония", "заикание", "ЗПРР", "ЗРР", "ЛГНР", "логоневроз", "логопедический массаж", "логоритмика", "ОНР", "ОНР при ЗПР", "постановка звуков", "ринолалия", "системное недоразвитие речи при ИН", "стертая дизартрия", "тахилалия", "ФД (фонетический дефект)", "ФНР (фонематическое недоразвитие речи)", "ФФН (фонетико-фонематическое недоразвитие)"],
       "default" : ['ЕГЭ','ОГЭ(ГИА)', 'подготовка к олимпиадам', 'школьный курс', 'вузовский курс']
     }
-#
-#    class @Strategy
-#      constructor : (parent) ->
-#        @flag = false
-#        @subjects = parent.subjects
-#      getIndex : ->
-#        @flag = true
-#        for _sub, i in @subjects
-#          if _sub.strategy.flag is true
-#            _sub.strategy.flag = false
-#            if @flag is false then break
-#        if @flag is true
-#          @flag = false
-#          return -1
-#        return i
-#      copy : ->
-#        i = @getIndex()
-#        if i > 0
-#          settings = @subjects[i - 1].getValue()
-#          delete settings['name']
-#          delete settings['comments']
-#          @subjects[i].setValue settings
-#        return false
-#      delete : ->
-#        if ( i = @getIndex() ) >= 0
-#          @subjects.splice i, 1
+
+    @copied_settings = [
+      'pre_school'
+      'junior_school'
+      'medium_school'
+      'high_school'
+      'student'
+      'adult'
+      'place_tutor'
+      'place_pupil'
+      'place_remote'
+      'group_learning'
+    ]
 
     @subjects = [@subject]
-#    @subject.strategy = new @Strategy @
-
-
-
-#    @stategy = {
-#      that : @
-#      flag : false
-#      getIndex : ->
-#        @flag = true
-#        for _sub, i in @that.subjects
-#          if _sub.stategy.flag is true
-#            _sub.stategy.flag = false
-#            if @flag is false then break
-#        if @flag is true
-#          @flag = false
-#          return -1
-#        return i
-#      copy : ->
-#        i = @getIndex()
-#        if i > 0
-#          settings = @that.subjects[i - 1].getValue()
-#          delete settings['name']
-#          delete settings['comments']
-#          @self.setValue settings
-#        return false
-#      delete : ->
-#        if ( i = @getIndex() ) >= 0
-#          @subjects.splice i, 1
-#
-#    }
-
+    console.log @data
     for key, values of @data
-      @addNewSubject(values).show()
+      if key == '0'
+        sub = @subject
+      else
+        sub = @subject.$clone()
+        @subjects.push sub
+        sub.setValue values
+        @container.append $('<div class="block">').append(sub.dom)
+      sub.setDirection @training_direction
+      sub.flag = false
+      sub.setObserver @
+#      @addNewSubject(values).show()
 
-    if @subjects.length is 0 then @addNewSubject(null, true).show()
+
+#    if @subjects.length is 0 then @addNewSubject(null, true).show()
 
     @btn_add.addClass('active').click =>
       if @btn_add.is '.active'
@@ -123,6 +91,27 @@ class @main
 #      @subjects[i].place_remote = subject.place_remote.class
 #      @subjects[i].place_cafe = subject.place_cafes : =>
 
+  handleEvent : (observable, message) =>
+    switch message
+      when 'copy'
+        i = @getIndex observable
+        if i > 0 then observable.copySettings @subjects[i - 1], @copied_settings
+      when 'del'
+        @subjects.splice @getIndex(observable), 1
+        observable.dom.closest('.block').slideUp 200, -> $(@).remove()
+      when 'focus'
+        observable.setNames @getNames()
+
+  getIndex : (sub)  =>
+    sub.flag = true
+    for _sub, i in @subjects
+      if _sub.flag is true
+        _sub.flag = false
+        if sub.flag is false then break
+    if sub.flag is true
+      sub.flag = false
+      return -1
+    return i
   getNames : =>
     exist = {}
     names = []
@@ -144,8 +133,10 @@ class @main
 
   addNewSubject : (values, is_open = false) =>
     obj = @subject.$clone()
+    obj.setValue()
     obj.setDirection @training_direction
-    obj.strategy = new @Strategy @
+    obj.flag = false
+    obj.setObserver @
     if values
       obj.setValue values
     if @subjects.length == 0
