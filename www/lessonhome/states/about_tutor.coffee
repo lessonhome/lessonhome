@@ -20,3 +20,4 @@ class @main
       text      : 'О себе :'
       selector  : 'first_reg'
       value     : $form : tutor : 'about'
+      placeholder : 'Информация, которая будет интересна ученику о Вас как о репетиторе.'
