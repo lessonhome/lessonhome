@@ -33,10 +33,19 @@ class @main  extends @template '../lp'
       sub_title : @exports()
       text : @exports()
       title_suit_tutors : @exports()
-      #ssd : do Q.async =>
-      #  console.log @req.urlData.filterHash()
-      #  yield console.log @req.udata
-        
-
+      ###
+      tutors : do Q.async =>
+        #console.log @req.urlData.filterHash()
+        yield console.log @req.udata
+        m = []
+        for i in [0...5]
+          m.push @module 'main/tutor_list/tutor':
+            name : 'Конон Екатерина Владимировна'
+            description : 'Индивидуальное обучение на гитаре — акустической, классической и электрогитаре в Одинцово и Одинцовском районе. Игорь Хотинский — профессиональный гитарист, работавший с Игорем Ивановым в группе «Кинематограф», с Юрием Лозой, с Женей Белоусовым, с Александром Малининым и другими составами.'
+            experience  : 'Преподаватель ВУЗа, опыт более 4 лет'
+            subject : 'Ритульаные жертвоприношения, Окультизм, Латынь'
+            location  : 'Москва м. Перово'
+        return m
+      ###
 
 
