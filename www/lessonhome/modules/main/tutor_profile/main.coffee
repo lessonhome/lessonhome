@@ -122,6 +122,7 @@ class @main extends EE
       @tree.attach_button?.class?.setDeactiveCheckbox()
       #@hopacity.addClass 'g-hopacity'
   setValue : (data={})=>
+    console.log data
     @tree.value ?= {}
     @tree.value[key] = val for key,val of data
     @rating_photo.setValue {
@@ -212,6 +213,7 @@ class @main extends EE
         @found.education_value.text("#{data.education?[0]?.name ? ""}")
     else
       @found.education.hide()
+    $(@areas_departure_value).empty()
     if data.check_out_the_areas?
       for key, val of data.check_out_the_areas
         if key > 0
@@ -221,6 +223,8 @@ class @main extends EE
     else
       @areas_departure.hide()
     @found.about_text.text("#{data.about ? ""}")
+    @found.interests.hide()
+    @found.interests_val.empty()
     if data.interests?
       for key, val of data.interests
         if val.description

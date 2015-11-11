@@ -2,11 +2,9 @@ class @main extends @template '../tutor'
   route : '/tutor/pay'
   model   : 'tutor/pay'
   title : "оплата"
-  access : ['tutor']
+  access : ['other']
   forms : [{person:['balance']}]
   redirect : {
-    'other' : '/enter'
-    'pupil' : '/enter'
   }
   tree : =>
     items : [

@@ -80,7 +80,7 @@ class @main extends EE
     @busy = true
     @now ?= []
     indexes = yield Feel.dataM.getTutors @from,@count+10
-    return if indexes.length<=@count
+    return yield @BusyNext() if indexes.length<=@count
     yield Q.delay(10)
     @count = Math.min(indexes.length-@from,@count+10)
     indexes = indexes.slice @from,@from+@count

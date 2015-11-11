@@ -27,6 +27,7 @@ class @main
   setValue: (key, val, place)=>
     @subject.text("#{key ? ""} :")
     course = val.course
+    $(@training_direction).empty()
     if course?
       for k, v of course
         if k > 0
