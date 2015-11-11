@@ -8,6 +8,9 @@ class @main extends @template 'lp'
   }
   tree : =>
     content : @module '$':
+      value :
+        filter  : $urlform : mainFilter : ''
+#        price_right : $urlform : mainFilter : 'price.right'
       tutor : @module 'main/tutor_list/tutor':
         name : 'Конон Екатерина Владимировна'
         description : 'Индивидуальное обучение на гитаре — акустической, классической и электрогитаре в Одинцово и Одинцовском районе. Игорь Хотинский — профессиональный гитарист, работавший с Игорем Ивановым в группе «Кинематограф», с Юрием Лозой, с Женей Белоусовым, с Александром Малининым и другими составами.'

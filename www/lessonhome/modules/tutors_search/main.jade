@@ -6,35 +6,59 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
         li
           .collapsible-header.active Предмет
           .collapsible-body
-            .row
+            .row.no-bottom-margin
               .input-field.col.s12
-                select(multiple)
-                  option(value='', disabled, selected) Выбирете предмет
+                select(multiple).megaselect
+                  option(value='', selected, disabled) Выберете предмет
                   option(value='2') Английский язык
                   option(value='3') Математика
                   option(value='4') Физика
                   option(value='5') Русский язык
                   option(value='6') Информатика
                   option(value='7') Биология
-                label Выберете предмет
-        li
-          .collapsible-header.active Направление подготовки
-          .collapsible-body
-            .row
+                  option(value='2') Английский язык
+                  option(value='3') Математика
+                  option(value='4') Физика
+                  option(value='5') Русский язык
+                  option(value='6') Информатика
+                  option(value='7') Биология
+                  option(value='2') Английский язык
+                  option(value='3') Математика
+                  option(value='4') Физика
+                  option(value='5') Русский язык
+                  option(value='6') Информатика
+                  option(value='7') Биология
+
+            .row.no-bottom-margin
               .input-field.col.s12
-                input(type='text')
-        li
-          .collapsible-header.active Категория ученика
-          .collapsible-body
-            .row
+                select(multiple).megaselect
+                  option(value='', disabled, selected) Направление подготовкм
+                  option(value='2') ЕГЭ
+                  option(value='3') ОГЭ
+                  option(value='4') ГИА
+                  option(value='4') олимпиада
+            .row.no-bottom-margin
               .input-field.col.s12
-                input(type='text')
+                select(multiple).megaselect
+                  option(value='', disabled, selected) Категория ученика
+                  option(value='2') Дошкольники
+                  option(value='3') Школьники
+                  option(value='4') Начальная школа
+                  option(value='5') Средняя школа
+                  option(value='5') Старшая школа
+                  option(value='5') Студенты
+                  option(value='5') Взрослые
         li
           .collapsible-header.active Цена
           .collapsible-body
             .row
               .col.s12
                 .js-range_ui#slider
+            .row
+              .input-field.col.s6
+                input(type='text', value!=value.filter.price.left)#pricemin
+              .input-field.col.s6
+                input(type='text', value!=value.filter.price.right)#pricemax
         li
           .collapsible-header.active.selected Место Занятий
           .collapsible-body

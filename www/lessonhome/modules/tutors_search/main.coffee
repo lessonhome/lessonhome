@@ -2,25 +2,43 @@ class @main
   constructor : ->
     $W @
   Dom : =>
-    @rangeEl = @found.range_ui
-    slider = document.getElementById('slider')
+    @rangeEl  = @found.range_ui
+    slider    = document.getElementById('slider')
+    priceMin  = document.getElementById('pricemin')
+#    Feel.urlData.on 'change', @refilter
   show: =>
-    console.log $(@rangeEl)
+#    @tree.value.price_left
+    urlPriceMin = yield Feel.urlData.get 'mainFilter','price.left'
+    priceMinDefault = yield Feel.urlData.getF 'mainFilter','price.left'
+    urlPriceMax = yield Feel.urlData.get 'mainFilter','price.right'
+
+    console.log priceMinDefault
+
+    priceMin  = document.getElementById('pricemin')
+    priceMax  = document.getElementById('pricemax')
+    $('.megaselect').material_select()
     ##range element init
     noUiSlider.create(slider, {
-      start: [500, 3500],
+      start: [urlPriceMin, urlPriceMax],
       connect: true,
-      step: 100,
+      step: 50,
       range: {
-        'min': 500,
-        'max': 3500
-      },
-      format: wNumb({
-        decimals: 0
-      })
+        'min': 0,
+        'max': 6000
+      }
     })
+    ##range element min price
+    slider.noUiSlider.on 'update', (values, handle)=>
+      priceMin.value = values[0] + ' руб.'
+      priceMax.value = values[1] + ' руб.'
+    priceMin.addEventListener 'change', =>
+      slider.noUiSlider.set([parseInt(priceMin.value), null])
+    priceMax.addEventListener 'change', =>
+      slider.noUiSlider.set([null, parseInt(priceMax.value)])
 
     @found.tutors_list.find('>div').remove()
+#    console.log yield Feel.urlData.set 'mainFilter','price.left',500
+
     numTutors = 5
     tutors = yield Feel.dataM.getByFilter numTutors, (@tree.filter ? {})
     tutors ?= []
@@ -42,3 +60,4 @@ class @main
       yield clone.setValue tutor
       clone.dom.show()
       clone.dom.animate (opacity:1),1400
+#  refilter : =>
