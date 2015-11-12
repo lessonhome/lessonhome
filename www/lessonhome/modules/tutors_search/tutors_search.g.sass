@@ -29,3 +29,10 @@
     display: none
   li.optgroup ~ li.subgroup_1
     display: block
+  li.optgroup ~ li:not(.optgroup).disabled
+    display: none !important
+
+.search-filter
+  .select-dropdown
+    li.disabled
+      display: none !important

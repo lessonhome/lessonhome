@@ -9,73 +9,24 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
             .row.no-bottom-margin
               .input-field.col.s12
                 select(multiple).megaselect
-                  optgroup(label='Популярные предметы')
-                    option(value='', selected, disabled) Выберете предмет
-                    option(value='2') Английский язык
-                    option(value='3') Математика
-                    option(value='4') Физика
-                    option(value='5') Русский язык
-                    option(value='6') Информатика
-                    option(value='7') Биология
-                  optgroup(label='Остальные')
-                    option(value='2') Английский язык
-                    option(value='3') Математика
-                    option(value='4') Физика
-                    option(value='5') Русский язык
-                    option(value='6') Информатика
-                    option(value='7') Биология
-                    option(value='2') Английский язык
-                    option(value='3') Математика
-                    option(value='4') Физика
-                    option(value='5') Русский язык
-                    option(value='6') Информатика
-                    option(value='7') Биология
-                  optgroup(label='Тематические')
-                    option(value='2') Английский язык
-                    option(value='3') Математика
-                    option(value='4') Физика
-                    option(value='5') Русский язык
-                    option(value='6') Информатика
-                    option(value='7') Биология
-                    option(value='2') Английский язык
-                    option(value='3') Математика
-                    option(value='4') Физика
-                    option(value='5') Русский язык
-                    option(value='6') Информатика
-                    option(value='7') Биология
-                  optgroup(label='Необычные')
-                    option(value='2') Английский язык
-                    option(value='3') Математика
-                    option(value='4') Физика
-                    option(value='5') Русский язык
-                    option(value='6') Информатика
-                    option(value='7') Биология
-                    option(value='2') Английский язык
-                    option(value='3') Математика
-                    option(value='4') Физика
-                    option(value='5') Русский язык
-                    option(value='6') Информатика
-                    option(value='7') Биология
+                  each groups in subject_list
+                    optgroup(label!=groups.group)
+                      option(value='', selected, disabled) Выберете предмет
+                      each val, index in groups.items
+                        option(value!=index)!=val
 
             .row.no-bottom-margin
               .input-field.col.s12
                 select(multiple).megaselect
-                  option(value='', disabled, selected) Направление подготовкм
-                  option(value='2') ЕГЭ
-                  option(value='3') ОГЭ
-                  option(value='4') ГИА
-                  option(value='4') олимпиада
+                  option(value='', disabled, selected) Направление подготовки
+                  each val, index in training_direction.items
+                    option(value=!index)!=val
             .row.no-bottom-margin
               .input-field.col.s12
                 select(multiple).megaselect
                   option(value='', disabled, selected) Категория ученика
-                  option(value='2') Дошкольники
-                  option(value='3') Школьники
-                  option(value='4') Начальная школа
-                  option(value='5') Средняя школа
-                  option(value='5') Старшая школа
-                  option(value='5') Студенты
-                  option(value='5') Взрослые
+                  each val, index in category_of_student.items
+                    option(value=!index)!=val
         li
           .collapsible-header.active Цена
           .collapsible-body
@@ -91,7 +42,7 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
           .collapsible-header.active.selected Место Занятий
           .collapsible-body
             .row
-              .col.s12
+              .col.s12category_of_student
                 input(type='checkbox')#loc1
                 label(for='loc1') У себя
             .row
