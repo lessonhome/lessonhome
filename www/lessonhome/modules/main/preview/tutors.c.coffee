@@ -164,6 +164,7 @@ class Tutors
       obj.registerTime = o.account.registerTime?.getTime?() ? 0
       obj.accessTime = o.account.accessTime?.getTime?() ? 0
       obj.rating = o.rating
+      obj.check_out_the_areas = t?.check_out_the_areas ? []
       obj.ratio  = p.ratio ? 1.0
       obj.nophoto = o.nophoto
       obj.account = account
