@@ -15,11 +15,17 @@ class Static
     @watch()
   watch : =>
     return if _production
+    q = Q()
     watch.createMonitor './',(@monitor)=>
+      ###
       for file,stat of @monitor.files
         if file.match /^www\/\w+\/static\/.*\.\w+$/
           if stat.isFile()
-            @createHash file,stat
+            do (file,stat)=> q = q.then =>
+              process.stdout.write '.'
+              Q.rdenode(@createHash) file,stat
+      q.done()
+      ###
       if _production
         @monitor.stop()
       else
