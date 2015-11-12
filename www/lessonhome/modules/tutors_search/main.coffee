@@ -27,6 +27,22 @@ class @main
         'max': 6000
       }
     })
+
+    $('.optgroup').on 'click', (e)=>
+      thisGroup = e.currentTarget
+      thisGroupNumber = $(thisGroup).attr('data-group')
+      thisOpen = $(thisGroup).attr('data-open')
+      console.log thisOpen
+      if thisOpen == '0'
+        $('li[class*="subgroup"]').slideUp(400)
+        $('.optgroup').attr('data-open', 0)
+        $('.subgroup_' + thisGroupNumber).slideDown(400)
+        $(thisGroup).attr('data-open', 1)
+      else
+        $('.subgroup_' + thisGroupNumber).slideUp(400)
+        $(thisGroup).attr('data-open', 0)
+
+
     ##range element min price
     slider.noUiSlider.on 'update', (values, handle)=>
       priceMin.value = values[0] + ' руб.'

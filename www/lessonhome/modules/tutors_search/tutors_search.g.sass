@@ -1,3 +1,6 @@
+.search-filter
+  label
+    color: rgba(0, 0, 0, 0.87)
 .collapsible-header
   border-left: 4px solid #ddd
   &.selected
@@ -9,3 +12,20 @@
     margin-bottom: 1rem
     .input-field
       margin-top: 0
+
+.dropdown-content
+  li
+    &>span
+      font-size: 1rem
+      color: #26a69a
+      display: block
+      padding: 0.5rem 0.5rem
+
+.select-wrapper
+  input.select-dropdown
+    font-size: 0.9rem
+.select-dropdown
+  li.optgroup ~ li:not(.optgroup)
+    display: none
+  li.optgroup ~ li.subgroup_1
+    display: block

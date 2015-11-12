@@ -1,7 +1,7 @@
 link(href=F("nouislider/nouislider.css"), rel="stylesheet")
 .container
   .row
-    .col.l4.m4.s12
+    .col.l4.m4.s12.search-filter
       ul.collapsible(data-collapsible='expandable').search-filter
         li
           .collapsible-header.active Предмет
@@ -9,25 +9,53 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
             .row.no-bottom-margin
               .input-field.col.s12
                 select(multiple).megaselect
-                  option(value='', selected, disabled) Выберете предмет
-                  option(value='2') Английский язык
-                  option(value='3') Математика
-                  option(value='4') Физика
-                  option(value='5') Русский язык
-                  option(value='6') Информатика
-                  option(value='7') Биология
-                  option(value='2') Английский язык
-                  option(value='3') Математика
-                  option(value='4') Физика
-                  option(value='5') Русский язык
-                  option(value='6') Информатика
-                  option(value='7') Биология
-                  option(value='2') Английский язык
-                  option(value='3') Математика
-                  option(value='4') Физика
-                  option(value='5') Русский язык
-                  option(value='6') Информатика
-                  option(value='7') Биология
+                  optgroup(label='Популярные предметы')
+                    option(value='', selected, disabled) Выберете предмет
+                    option(value='2') Английский язык
+                    option(value='3') Математика
+                    option(value='4') Физика
+                    option(value='5') Русский язык
+                    option(value='6') Информатика
+                    option(value='7') Биология
+                  optgroup(label='Остальные')
+                    option(value='2') Английский язык
+                    option(value='3') Математика
+                    option(value='4') Физика
+                    option(value='5') Русский язык
+                    option(value='6') Информатика
+                    option(value='7') Биология
+                    option(value='2') Английский язык
+                    option(value='3') Математика
+                    option(value='4') Физика
+                    option(value='5') Русский язык
+                    option(value='6') Информатика
+                    option(value='7') Биология
+                  optgroup(label='Тематические')
+                    option(value='2') Английский язык
+                    option(value='3') Математика
+                    option(value='4') Физика
+                    option(value='5') Русский язык
+                    option(value='6') Информатика
+                    option(value='7') Биология
+                    option(value='2') Английский язык
+                    option(value='3') Математика
+                    option(value='4') Физика
+                    option(value='5') Русский язык
+                    option(value='6') Информатика
+                    option(value='7') Биология
+                  optgroup(label='Необычные')
+                    option(value='2') Английский язык
+                    option(value='3') Математика
+                    option(value='4') Физика
+                    option(value='5') Русский язык
+                    option(value='6') Информатика
+                    option(value='7') Биология
+                    option(value='2') Английский язык
+                    option(value='3') Математика
+                    option(value='4') Физика
+                    option(value='5') Русский язык
+                    option(value='6') Информатика
+                    option(value='7') Биология
 
             .row.no-bottom-margin
               .input-field.col.s12
@@ -58,7 +86,7 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
               .input-field.col.s6
                 input(type='text', value!=value.filter.price.left)#pricemin
               .input-field.col.s6
-                input(type='text', value!=value.filter.price.right)#pricemax
+                input(type='text', data-value!=value.default_filter.price.right, value!=value.filter.price.right)#pricemax
         li
           .collapsible-header.active.selected Место Занятий
           .collapsible-body
@@ -75,7 +103,7 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
                 input(type='checkbox')#loc3
                 label(for='loc3') Удалённо
         li
-          .collapsible-header.active Статус репетитора
+          .collapsible-header Статус репетитора
           .collapsible-body
             .row
               .col.s12
@@ -98,7 +126,7 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
                 input(type='checkbox')#status5
                 label(for='status5') Носитель языка
         li
-          .collapsible-header.active.selected Опыт
+          .collapsible-header.selected Опыт
           .collapsible-body
             .row
               .col.s12
@@ -112,6 +140,33 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
               .col.s12
                 input(type='checkbox')#exp3
                 label(for='exp3') более 4 лет
+        li
+          .collapsible-header Груповые занятия
+          .collapsible-body
+            .row.no-bottom-margin
+              .input-field.col.s12
+                select(multiple).megaselect
+                  option(value='', disabled, selected) Не важно
+                  option(value='1') Не важно
+                  option(value='2') 2-4 ученика
+                  option(value='3') до 8 учеников
+                  option(value='4') от 10 учеников
+        li
+          .collapsible-header Пол
+          .collapsible-body
+            .row.no-bottom-margin
+              .col.s12
+                input(name='sex', type='radio', id='sex_radio_1', checked='checked').with-gap
+                label(for='sex_radio_1') Не выжно
+            .row.no-bottom-margin
+              .col.s12
+                input(name='sex', type='radio', id='sex_radio_2').with-gap
+                label(for='sex_radio_2') Мужской
+            .row.no-bottom-margin
+              .col.s12
+                input(name='sex', type='radio', id='sex_radio_3').with-gap
+                label(for='sex_radio_3') Женский
+
       .row
         .input-field.col.s12.center-align
           button.btn Применить
