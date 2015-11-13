@@ -53,7 +53,7 @@
 
                     selectOptions = $(this).children('option');
                     if(outGroup == 1) {
-                        options.append($('<li class="optgroup" data-open="1" data-group="' + outGroup + '"><span>' + $(this).attr('label') + '</span></li>'));
+                        options.append($('<li class="optgroup js-head_group" data-open="1" data-group="' + outGroup + '"><span>' + $(this).attr('label') + '</span></li>'));
                     } else {
                         options.append($('<li class="optgroup" data-open="0" data-group="' + outGroup + '"><span>' + $(this).attr('label') + '</span></li>'));
                     }
@@ -107,7 +107,6 @@
                             $('input[type="checkbox"]', this).prop('checked', function(i, v) { return !v; });
                             toggleEntryFromArray(valuesSelected, $(this).index(), $curr_select);
                             $newSelect.trigger('focus');
-
                         } else {
                             options.find('li').removeClass('active');
                             $(this).toggleClass('active');

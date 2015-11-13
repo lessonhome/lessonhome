@@ -1,0 +1,85 @@
+.search-filter
+  ul.collapsible(data-collapsible='expandable').search-filter
+    li
+      .collapsible-header.active Предмет
+      .collapsible-body
+        .row.no-bottom-margin
+          .input-field.col.s12
+            select(multiple).js-megaselect
+              each groups in subject_list
+                optgroup(label!=groups.group)
+                  option(value='', selected, disabled) Выберете предмет
+                  each val, index in groups.items
+                    option(value!=index)!=val
+
+        .row.no-bottom-margin
+          .input-field.col.s12
+            select(multiple).js-megaselect
+              option(value='', disabled, selected) Направление подготовки
+                each val, index in training_direction.items
+                  option(value=!index)!=val
+        .row.no-bottom-margin
+          .input-field.col.s12
+            select(multiple).js-megaselect
+              option(value='', disabled, selected) Категория ученика
+                each val, index in category_of_student.items
+                  option(value=!index)!=val
+    li
+      .collapsible-header.active Цена
+      .collapsible-body.slider-block
+        .row.no-bottom-margin
+          .col.s12
+            .js-range_ui#slider
+        .row.no-bottom-margin.valign-wrapper
+          .input-field.col.s4
+            input(type='text')#pricemin.js-pricemin
+          .col.s2.valign
+            label &mdash;
+          .input-field.col.s4
+            input(type='text')#pricemax.js-pricemax
+          .col.s2.valign
+            label руб.
+    li
+      .collapsible-header.active.selected Место Занятий
+      .collapsible-body
+        each val, index in location_occupation.items
+          .row
+            .col.s12
+              input(type='checkbox', id='loc' + index)
+              label(for='loc' + index)!=val
+    li
+      .collapsible-header Статус репетитора
+      .collapsible-body
+        each val, index in status_tutor.items
+          .row
+            .col.s12
+              input(type='checkbox', id='status' + index)
+              label(for='status' + index)!=val
+    li
+      .collapsible-header.selected Опыт
+      .collapsible-body
+        each val, index in experience.items
+          .row
+            .col.s12
+              input(type='checkbox', id='exp' + index)
+              label(for='exp' + index)!=val
+    li
+      .collapsible-header Груповые занятия
+      .collapsible-body
+        .row.no-bottom-margin
+          .input-field.col.s12
+            select(multiple).js-megaselect
+              option(value='', disabled, selected) Не важно
+              each val, index in groups_classes.items
+                option(value=!index)!=val
+    li
+      .collapsible-header Пол
+      .collapsible-body
+        each val, index in sex.items
+          .row.no-bottom-margin
+            .col.s12
+              input(name='sex', type='radio', id='sex_radio_' + index).with-gap
+              label(for='sex_radio_' + index)!=val
+  .row
+    .input-field.col.s12.center-align
+      button.btn Применить
