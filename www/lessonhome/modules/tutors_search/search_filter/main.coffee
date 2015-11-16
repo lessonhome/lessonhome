@@ -4,7 +4,6 @@ class @main
   Dom : =>
     @rangeEl  = @found.range_ui
     @filterSelectors = @found.megaselect
-    @selectorHeaders = @fou
     slider    = document.getElementById('slider')
   show: =>
     $(@filterSelectors).material_select()

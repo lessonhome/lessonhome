@@ -1,9 +1,11 @@
 link(href=F("nouislider/nouislider.css"), rel="stylesheet")
 .container
   .row
-    .col.l4.m4.s12
+    .col.l4.m4.s12.content-block
       !=search_filter
-    .col.l8.m8.s12
+    .col.l8.m8.s12.content-block
+      .js-filter_tags_block
+        !=filter_tags
       .js-tutors_list
         !=tutor
 script(src=F("nouislider/nouislider.js"))
