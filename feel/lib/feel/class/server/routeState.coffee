@@ -224,6 +224,7 @@ class RouteState
     yield Q.all qforms
     @time 'forms get'
     @$urlforms = []
+    @$durlforms = []
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       do =>
         return unless node?._isModule
@@ -239,6 +240,23 @@ class RouteState
           vv ?= vd
           uform.node.$urlforms ?= {}
           uform.node.$urlforms[uform.part] = uform.fkf
+          path = 'value'
+          path += "."+uform.part if uform.part
+          _setKey uform.node,path,vv,true
+          if vd?
+            path = 'default'
+            path += "."+uform.part if uform.part
+            _setKey uform.node,path,vd,true
+        _objRelativeKey node?.value,'$durlform',(obj,part,fkf)=>
+          uform = {node,part,fkf}
+          vv = _setKey @req?.udata?[uform?.fkf?.form],uform?.fkf?.key
+          vv = uform.fkf.foo vv if typeof uform.fkf.foo == 'function'
+          vd = _setKey @req?.udatadefault?[uform?.fkf?.form],uform?.fkf?.key
+          vd = uform.fkf.foo vd if typeof uform.fkf.foo == 'function'
+          vd ?= vv
+          vv = vd
+          uform.node.$durlforms ?= {}
+          uform.node.$durlforms[uform.part] = uform.fkf
           path = 'value'
           path += "."+uform.part if uform.part
           _setKey uform.node,path,vv,true
@@ -325,6 +343,18 @@ class RouteState
         path = 'default'
         path += "."+uform.part if uform.part
         _setKey uform.node,path,uform.fkf.default,true
+    for uform in @$durlforms
+      vv = _setKey @req?.udata?[uform?.fkf?.form],uform?.fkf?.key
+      uform.node.$urlforms ?= {}
+      uform.node.$urlforms[uform.part] = uform.fkf
+      vv = uform.fkf.foo vv if typeof uform.fkf.foo == 'function'
+      path = 'value'
+      path += "."+uform.part if uform.part
+      if uform.fkf.default?
+        _setKey uform.node,path,uform.fkf.default,true
+        path = 'default'
+        path += "."+uform.part if uform.part
+        _setKey uform.node,path,uform.fkf.default,true
     @time 'forms set'
     @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']? && (!@state.page_tags['skip:default'])
@@ -385,6 +415,7 @@ class RouteState
               "tree" : '+json_tree+ #InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
           '};
           $Feel.user = {};
+          $Feel.servicesIp = '+@site.servicesIp+';
           $Feel.user.id = "'+(@req.user.id||666)+'";
           $Feel.user.type = '+JSON.stringify(@req.user.type ? {})+';
           $Feel.user.sessionpart = "'+(@req.session.substr(0,8))+'";

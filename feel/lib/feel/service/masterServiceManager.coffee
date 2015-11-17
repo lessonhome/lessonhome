@@ -36,8 +36,8 @@ class MasterServiceManager
     for name,conf of @config
       if conf.autostart && conf.single
         num = 1
-        num = 3 if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
-        #num = os.cpus().length if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
+        #num = 3 if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
+        num = os.cpus().length if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
         _q = Q()
 
         if num != 1
@@ -57,6 +57,9 @@ class MasterServiceManager
             services  : [name]
           }
     yield Q.all qs
+  runService : (name,args)=>
+    process = yield Main.processManager.runProcess {name:'service-'+name,services:[name],args}
+    yield _waitFor process,'run',3*60*1000
   connectService : (processId,serviceId)=>
     process = yield Main.processManager.getProcess processId
     service = new MasterProcessConnect {
@@ -67,7 +70,7 @@ class MasterServiceManager
     wrapper = service
     masterId  = MASTERSERVICEMANAGERSERVICEID++
     name      = yield service.__serviceName
-    @log "#{process.name}:#{processId}:#{name}"
+    #@log "#{process.name}:#{processId}:#{name}"
     @services.byProcess[processId] ?= {}
     @services.byProcess[processId][serviceId] = wrapper
     @services.byId[masterId] = wrapper
@@ -76,7 +79,6 @@ class MasterServiceManager
     @emit 'connected:'+name,wrapper
 
   get : (name)=>
-    @log name
     arr = @services.byName[name]
     unless _util.isArray(arr)&&arr.length
       unless @waitFor[name]

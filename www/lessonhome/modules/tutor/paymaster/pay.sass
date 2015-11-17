@@ -1,0 +1,75 @@
+@import compass/css3
+$icon_src: 'tutor/icon_pay.png'
+$icon_src_height: image-height($icon_src)
+$icon_src_width: image-width($icon_src)
+$button_color:  #3cb27d
+$triangle_width:  12px
+main
+  padding-top: 48px
+.clear_block
+  padding: 0 48px
+  .left_block
+    float: left
+    .title_balance
+      font-size: 20px
+      font-weight: 600
+    .title_balance, .balance
+      padding-bottom: 12px
+    .history
+      text-decoration: underline
+      color: #1f86cd
+      cursor: pointer
+  .right_block
+    float: right
+    .sum, .refill_many, .measurement
+      +inline-block
+    .refill_many
+      width: 144px
+      font-size: 36px
+      padding: 0 12px
+    .measurement
+    .button_balance
+      cursor: pointer
+      position: relative
+      margin-top: 12px
+      background-color: $button_color
+      height: 36px
+      .icon
+        height: $icon_src_height
+        width: $icon_src_width
+        background: url(F($icon_src))
+        margin: 0 25px
+        +inline-block
+      .text
+        +inline-block
+        font-size: 18px
+        padding-right: 50-$triangle_width
+      .triangle
+        width: 0
+        height: 0
+        border-style: solid
+        border-width: 18px 0 18px $triangle_width
+        border-color: transparent transparent transparent $button_color
+        position: absolute
+        top: 0
+        left: 100%
+    .button_balance:after
+      content: ''
+      height: 100%
+      +inline-block
+.clear_block:after
+  content: ''
+  clear: both
+  display: block
+.pay_bids_block
+  padding: 60px 48px
+  .pay_bids
+    padding-bottom: 24px
+    font-size: 18px
+  .need_pay_block
+    .need_pay
+      padding: 12px 24px
+    .need_pay.background
+      background-color: #f2f2f2
+
+

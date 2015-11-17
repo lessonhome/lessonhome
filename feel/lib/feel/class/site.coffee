@@ -29,6 +29,7 @@ class module.exports
   init : => do Q.async =>
     @db = yield Main.service('db')
     @register = yield Main.service 'register'
+    @servicesIp = JSON.stringify yield (yield Main.service('services')).get()
     @form = new Form
     @urldata = yield Main.service 'urldata'
     @urldataFiles = yield @urldata.getFFiles()

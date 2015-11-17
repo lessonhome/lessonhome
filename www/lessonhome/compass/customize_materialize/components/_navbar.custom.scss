@@ -1,0 +1,36 @@
+nav {
+  background: $navbar-background-color $navbar-background-img;
+  img {
+    margin-top: 16px;
+    @media #{$small-and-down} {
+      margin-top: 0;
+      width: 75%;
+      height: auto;
+    }
+  }
+
+  // Logo
+  .brand-logo {
+    font-size: 0;
+    line-height: 0;
+    @media #{$medium-and-down} {
+      right: 0;
+      left: auto;
+      transform: translateX(-20%);
+    }
+    @media #{$small-and-down} {
+      top: 9px;
+      transform: translateX(0%);
+    }
+  }
+}
+
+@media #{$medium-and-up} {
+  nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+    height: $navbar-height-custom;
+    line-height: $navbar-height-custom;
+  }
+  .navbar-fixed {
+    height: $navbar-height-custom;
+  }
+}

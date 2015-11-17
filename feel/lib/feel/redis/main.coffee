@@ -5,9 +5,10 @@ class Redis
   constructor : ->
     $W @
   init : =>
-    @redis = _Redis.createClient()
   close : =>
-  get : => @redis
+  get : =>
+    @redis ?= _Redis.createClient()
+    return @redis
 
 
 

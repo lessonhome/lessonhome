@@ -9,11 +9,12 @@ class @main
     $W @
   Dom : =>
     @div = @found.map
-    #@go 'Ивантеевская, дом 4, 1 56'#@tree.value if @tree.value?
-    #@go 'береговой проезд дом 2 строение 3'#@tree.value if @tree.value?
-    #ymaps.ready =>
-    #  @go 'береговой проезд 2 3'
   show : =>
+    @geocode = $.localStorage.get('geocode') ? {}
+    @nresolve   = 0
+    @nresolved  = 0
+    @ntutors    = 0
+    @npoints    = 0
     yield @init()
   init : =>
     obj = yield @resolveAddress 'Москва'
@@ -24,12 +25,31 @@ class @main
       l = p.location
       s = ""
       s += (l.city ? 'Москва')+", "
+      address = {}
       if l.street
-        s += "#{l.street ? ''}, #{l.house ? ''}, #{l.building ? ''}"
-      else if l.metro
-        s += "#{l.metro ? ''}"
-      else if l.area
-        s += "#{l.area ? ''}"
+        q = s+"#{l.street ? ''}, #{l.house ? ''}, #{l.building ? ''}"
+        q = q.replace /^\s+/gmi,''
+        q = q.replace /\s+$/gmi,''
+        address[q] = true if q
+      if l.metro
+        q = l.metro.split /[\,\;\.]/
+        for qq in q
+          qq = qq.replace /^\s+/,''
+          qq = qq.replace /\s+$/,''
+          address[qq] = true if qq
+      if l.area
+        q =s+ "#{l.area ? ''}"
+        q = q.replace /^\s+/gmi,''
+        q = q.replace /\s+$/gmi,''
+        address[q] = true if q
+      if p.check_out_the_areas
+        for a in (p.check_out_the_areas ? [])
+          q = a.split /[\,\;\.]/
+          for qq in q
+            qq = qq.replace /^\s+/,''
+            qq = qq.replace /\s+$/,''
+            address[qq] = true if qq
+      address = Object.keys(address)
       n = (Object.keys(p.subjects ? {})?.join? ', ') ? ''
       n += "<br> #{p.name?.last ? ''} #{p.name?.first ? ''} #{p.name?.middle ? ''}<br>"
       if p.photos?.length
@@ -40,8 +60,10 @@ class @main
       n += "<a href='"+link+"'>"+link+"</a><br>"
       n += p.phone.join('<br>')+'<br>'
       n += p.email.join('<br>')+'<br>'
-      do (s,n,link,p)=> @resolveAddress(s).then (obj)=>
+      @ntutors++
+      for s in address then do (s,n,link,p)=> @resolveAddress(s).then (obj)=>
         return unless obj
+        @npoints++
         myPlacemark = new ymaps.GeoObject({
           geometry : {
             type : "Point"
@@ -56,6 +78,7 @@ class @main
           preset: 'islands#blueStretchyIcon'
         })
         map.geoObjects.add myPlacemark
+        console.log @ntutors,@npoints,@nresolve,@nresolved
         #myClusterer.add myPlacemark
     map.geoObjects.add myClusterer
   go : (search)=>
@@ -98,7 +121,8 @@ class @main
         return d.resolve false
 
   resolveAddress : (search)=>
-    ls = $.localStorage.get "geocode_"+search
+    hash = CryptoJS.SHA1(escape(search)).toString().substr(0,10)
+    ls = @geocode[hash]
     d = Q.defer()
     if ls then ymaps.ready => d.resolve ls
     else ymaps.ready => $.ajax
@@ -109,6 +133,7 @@ class @main
       jsonp: "callback"
       dataType : "jsonp"
       success: (res)=>
+        @nresolved++
         first = res?.response?.GeoObjectCollection?.featureMember?[0]?.GeoObject
         return d.resolve null unless first?
         pos = first.Point.pos.split " "
@@ -134,11 +159,21 @@ class @main
         ret.bContent = first?.metaDataProperty?.GeocoderMetaData?.text
         #map = new ymaps.Map @div[0],bounds
         #map.geoObjects.add myPlacemark
-        $.localStorage.set "geocode_"+search,ret
+        @geocodeSet hash,ret
         d.resolve ret
       error : (err)=>
         console.error err
         return d.resolve null
+    @nresolve++
     return d.promise
-
-
+  geocodeSet : (hash,val)=>
+    @geocode[hash]=val
+    @writeGeocode()
+  writeGeocode : (t=(new Date().getTime()))=>
+    l = @lw || 0
+    return if l > t
+    if (t-l)<1000
+      return setTimeout (=> @writeGeocode(t)),(1000-(t-l))
+    @lw = new Date().getTime()
+    console.log 'writeGeocode'
+    $.localStorage.set('geocode',@geocode)

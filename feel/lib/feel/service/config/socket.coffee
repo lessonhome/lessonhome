@@ -2,7 +2,7 @@
 
 
 @bin        = "socket/main"
-@autostart  = true
-@single     = true
+@autostart  = false
+@single     = false
 
 

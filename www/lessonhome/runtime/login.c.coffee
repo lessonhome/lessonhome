@@ -2,7 +2,7 @@
 
 
 @handler = ($,data)->
-  if data.password.match /\%/
+  if data?.password?.match? /\%/
     data.password = unescape data.password
   else
     data.password = _LZString.decompressFromBase64 data.password

@@ -1,0 +1,19 @@
+.row.top_form.grey.lighten-4
+  .timer-block.hide-on-small-only
+  .col.m9.l9.s12.offset-l3.offset-m3
+    .row.no-margin
+      .col.s12
+        .title Хотите быстро найти репетитора?
+        .title_sub Оставьте заявку и мы поможем!
+    .row
+      .input-field.col.l4.m6.s12
+        i.material-icons.prefix account_circle
+        input(type='text')#icon_prefix.validate
+        label(for='icon_prefix', data-error="wrong", data-success="right") Имя
+      .input-field.col.l4.m6.s12
+        i.material-icons.prefix phone
+        input(type='tel')#icon_telephone.validate
+        label(for='icon_telephone', data-error="wrong", data-success="right") Телефон
+      .input-field.col.l4.m12.s12.center-align
+        button(type='submit', name='submit_form').btn.waves-effect.waves-light Отправить
+          i.material-icons.right send

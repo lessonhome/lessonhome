@@ -9,22 +9,20 @@ $icon_calendar_height: image-height($icon_calendar_src)
 $icon_calendar_width: image-width($icon_calendar_src)
 
 main
-  padding-top: 24px
-  padding-left: 15px
   padding-bottom: 96px
   min-height: 800px
   background-color: #fff
-div
   opacity : 0
-  //+transition(opacity 400ms ease-out)
 .back
+  padding-top : 25px
   height: 24px
-  margin-bottom: 24px
   text-align: left
+  opacity : 0.8
   .button
     +inline-block
     cursor: pointer
     .text, .icon
+      font-size : 21px
       +inline-block
     .icon
       margin-left: 3px
@@ -32,17 +30,21 @@ div
       width: $back_width
       height: $back_height
       background: url(F($back_src)) no-repeat
+  cursor : pointer
+  &:hover
+    opacity : 1
 .back:after
   content: ''
   +inline-block
   height: 100%
 .block
+  padding-top : 25px
   text-align: left
   .left, .right
     +inline-block
     vertical-align: top
   .left
-    width: 672px
+    width: 700px
     .general
       margin-bottom: 24px
       position : relative
@@ -232,11 +234,13 @@ div
       width: 263px
       padding-top: 18px
       text-align: left
+      line-height : 24px
       .title
         font-size: 24px
         line-height: 24px
         color: #000
       .calendar
+        display : none
         margin: 12px 0
         .icon, a
           +inline-block
@@ -250,7 +254,8 @@ div
           line-height: 18px
           color: #0a79c0
           text-decoration: underline
-
+      .write_tutor_msg
+        padding-top : 10px
       .write_tutor_name, .write_tutor_phone, .write_tutor_subject
         display: none
         margin-top: 18px

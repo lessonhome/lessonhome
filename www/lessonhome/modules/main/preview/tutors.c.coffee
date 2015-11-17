@@ -32,7 +32,6 @@ class Tutors
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
     @dbuploaded = yield @$db.get 'uploaded'
-    console.log 'read redis'
     try
       @persons = JSON.parse yield _invoke @redis, 'get', 'persons'
       for key,val of (@persons ? {})
@@ -56,7 +55,7 @@ class Tutors
           yield @reload()
     setInterval =>
       Q.spawn => yield @reload()
-    , 5*60*1000
+    , 15*60*1000
     setInterval =>
       Q.spawn => yield @writeFilters()
     , 60*1000
@@ -64,10 +63,8 @@ class Tutors
     return unless @filterChange
     @filterChange = false
     yield _invoke @redis, 'set','filters',JSON.stringify @filters
-    console.log 'writedFilters'
 
   refilterRedis : =>
-    console.log 'new refilter'
     time = @refilterTime = new Date().getTime()
     filters = for f,o of (@filters ? {}) then [f,(o.num ? 0)]
     filters = filters.sort (a,b)-> b[1]-a[1]
@@ -75,12 +72,18 @@ class Tutors
       f = f[0]
       o = @filters[f]
       continue unless o.redis
-      break unless (o.num > 1) || (i<100)
-      break unless (o.num > 2) || (i<500)
+      unless (o.num > 1) || (i<50)
+        break
+      unless (o.num > 2) || (i<120)
+        break
       continue unless o?.data?
       yield @filter {hash:f,data:o.data}
       return if time < @refilterTime
-      yield Q.delay 1
+      yield Q.delay 10
+    filters = filters.slice i
+    for f,i in filters
+      f = f[0]
+      delete @filters[f]
   handler : ($, {filter,preps,from,count,exists})->
     yield @init() unless @inited == 2
     ret = {}
@@ -161,8 +164,13 @@ class Tutors
       obj.registerTime = o.account.registerTime?.getTime?() ? 0
       obj.accessTime = o.account.accessTime?.getTime?() ? 0
       obj.rating = o.rating
+      obj.check_out_the_areas = t?.check_out_the_areas ? []
+      obj.ratio  = p.ratio ? 1.0
       obj.nophoto = o.nophoto
       obj.account = account
+      obj.landing = p.landing ? false
+      obj.mcomment = p.mcomment || ''
+      obj.filtration = p.filtration ? false
       obj.phone = p.phone
       obj.email = p.email
       obj.name = {}
@@ -294,6 +302,8 @@ class Tutors
       p.rating = (p.rating-rmin)/(rmax-rmin)
       p.rating *= 3
       p.rating += 2
+      p.rmin = rmin
+      p.rmax = rmax
 
       
       p.sorts = {}
@@ -346,7 +356,7 @@ class Tutors
           awords += ' '+(el ? '')
           awords += ' '+(sbj.description ? '')
           awords += ' '+tag for tag of sbj.tags
-      awords = awords.replace /[^\s\w\@а-яА-ЯёЁ]/gim, ' '
+      awords = awords.replace /[^\s\w\@\-а-яА-ЯёЁ]/gim, ' '
       awords = awords.replace /\s+/gi,' '
       awords = awords.replace /^\s+/gi,''
       awords = awords.replace /\s+$/gi,''
@@ -366,7 +376,6 @@ class Tutors
       @index[val.index] = val
     Q.spawn =>
       yield _invoke(@redis,'set','persons',JSON.stringify(@persons))
-      console.log 'writed redis persons'
     return @persons
 
 tutors = new Tutors

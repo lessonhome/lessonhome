@@ -80,7 +80,7 @@ class @main extends EE
     @busy = true
     @now ?= []
     indexes = yield Feel.dataM.getTutors @from,@count+10
-    return if indexes.length<=@count
+    return yield @BusyNext() if indexes.length<=@count
     yield Q.delay(10)
     @count = Math.min(indexes.length-@from,@count+10)
     indexes = indexes.slice @from,@from+@count
@@ -443,15 +443,14 @@ class @main extends EE
     @on 'change', =>
       if (new Date().getTime() - @loadedTime)>(1000*5)
         Feel.sendActionOnce 'tutors_filter',1000*60*2
-    Feel.urlData.on 'change',=> Q.spawn =>
-      @linked = yield Feel.urlData.get 'mainFilter','linked'
-      yield @setFiltered()
-      @hashnow ?= 'null'
-      hashnow = yield Feel.urlData.filterHash()
-      return if @hashnow == hashnow
-      @hashnow = hashnow
-      @changed = true
-      yield @reshow()
+    Feel.urlData.on 'change', => Q.spawn =>
+      console.log 'change'
+      yield @apply_filter()
+    @tree.advanced_filter.apply.class.on 'submit',=> Q.spawn =>
+      top = $('#m-main-advanced_filter').offset?()?.top
+      $(window).scrollTop top-10 if top >= 0
+      yield @apply_filter true
+      
 
     @choose_tutors_num = @found.choose_tutors_num
     @sort.on 'change',  => @emit 'change'
@@ -487,6 +486,15 @@ class @main extends EE
   check_place_click :(e) =>
     if (!@popup.is(e.target) && @popup.has(e.target).length == 0)
       Feel.go '/second_step'
+  apply_filter : (force=false)=> do Q.async =>
+    @linked = yield Feel.urlData.get 'mainFilter','linked'
+    yield @setFiltered()
+    @hashnow ?= 'null'
+    hashnow = yield Feel.urlData.filterHash()
+    return if (@hashnow == hashnow) && !force
+    @hashnow = hashnow
+    @changed = true
+    yield @reshow()
 
   getValue : =>
     return {

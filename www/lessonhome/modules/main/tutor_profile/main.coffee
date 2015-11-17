@@ -54,8 +54,9 @@ class @main extends EE
     @found.attach_button.click @addTutor
     Feel.urlData.on 'change',=> @setLinked()
   open : (prep)=> do Q.async =>
+    window.history.length ?= 0
     state = History.getState()
-    unless ((""+document.referrer).indexOf document.location.href.substr(0,15))== 0
+    if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
       $(@back).hide()
     else
       $(@back).show()
@@ -81,14 +82,14 @@ class @main extends EE
       @reviews.hide()
     @setValue prep
   goBack: =>
-    if @tree.onepage
+    if @tree.onepage!='tutor_profile'
       return Feel.root.tree.class.hideTutor()
     #Feel.go '/second_step'
-    if History.back()
+    if (window.history.length>1) && History.back()
       setInterval @goHitoryUrl,100
       @goHistoryUrl()
       return
-    document.location.href = document.referrer
+    document.location.href=document.referrer
   goHistoryUrl : =>
     setTimeout ->
       document.location.href = History.getState().url
@@ -121,6 +122,7 @@ class @main extends EE
       @tree.attach_button?.class?.setDeactiveCheckbox()
       #@hopacity.addClass 'g-hopacity'
   setValue : (data={})=>
+    console.log data
     @tree.value ?= {}
     @tree.value[key] = val for key,val of data
     @rating_photo.setValue {
@@ -150,14 +152,9 @@ class @main extends EE
       ls1 = cA ls1,data.login,'<br>'
       ls1 = cA ls1,data.phone?.join('; '),'<br>'
       ls1 = cA ls1,data.email?.join('; '),'<br>'
-#    ls2 = ""
-#    ls2 = cA ls2,l.street
-#    ls2 = cA ls2,l.house
-#    ls2 = cA ls2,l.building
     ls3 = ""
     ls3 += "м. #{l.metro}" if l.metro
     ls = ""
-#    ls = cA ls,ls2,'<br>'
     ls = cA ls,ls3,'<br>'
     ls = cA ls,ls1,'<br>'
     
@@ -216,6 +213,7 @@ class @main extends EE
         @found.education_value.text("#{data.education?[0]?.name ? ""}")
     else
       @found.education.hide()
+    $(@areas_departure_value).empty()
     if data.check_out_the_areas?
       for key, val of data.check_out_the_areas
         if key > 0
@@ -225,6 +223,8 @@ class @main extends EE
     else
       @areas_departure.hide()
     @found.about_text.text("#{data.about ? ""}")
+    @found.interests.hide()
+    @found.interests_val.empty()
     if data.interests?
       for key, val of data.interests
         if val.description
@@ -240,17 +240,24 @@ class @main extends EE
     #@honors_text.text("#{data.honors_text ? ""}")
     subjects_number = 0
     @tutor_subjects = []
+    @subjects_content.empty()
+    console.log data.subjects
     for key,val of data.subjects
       ss = key.split /[\.,;]/
       for s in ss
         s = s.replace /^\s+/,''
         s = s.replace /\s+$/,''
         if s.length > 2
-          @tutor_subjects.push s
+          @tutor_subjects.push [s,val]
           subjects_number++
+    newarr = []
+    for s in @tutor_subjects
       new_subject = @hidden_subject.$clone()
-      new_subject.setValue key, val, data.place
-      $(@subjects_content).append(new_subject.dom)
+      new_subject.setValue s[0], s[1], data.place
+      newarr.push s[0]
+      @subjects_content.append(new_subject.dom)
+    @tutor_subjects = newarr
+    console.log @tutor_subjects
     # right panel
     $(@found.write_tutor_msg).on 'click', =>
       @found.write_tutor_name.addClass 'shown'
@@ -268,7 +275,7 @@ class @main extends EE
     else
       @tree.subject.class.setValue @tutor_subjects[0]
       @found.write_tutor_subject.hide()
-    @dom.find('>div').css 'opacity',1
+    @dom.css 'opacity',1
 
   setItem: (item_block, item_value, value_block)=>
     if item_value
@@ -324,20 +331,3 @@ class @main extends EE
       phone:          @phone.getValue()
       subject:        @subject.getValue()
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

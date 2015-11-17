@@ -3,7 +3,7 @@ class @main
     bottom_block_attached : @module 'main/attached' :
       bottom_bar  : @state 'main/attached/bar'
       popup       : @state 'main/attached/popup'
-    lib      : @state 'lib'
+    lib      : @state 'libnm'
     header      : @state './tutor/header' :
       items : [
         @module 'tutor/header/button' : {
@@ -44,7 +44,7 @@ class @main
     footer           : @state 'footer'         # footer in main page
     clear_profile : @exports()
     tutor_profile : @module 'main/tutor_profile' :
-      onepage : true
+      onepage : @exports()
       rating_photo  : @state 'main/preview/all_rating_photo' :
         image         : @exports()
         count_review  : @exports()
