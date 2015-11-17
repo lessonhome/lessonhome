@@ -1,0 +1,19 @@
+@import 'base'
+
+p
+  span
+    color: #555
+    vertical-align: bottom
+    display: inline-block
+    font-size: 19px
+    line-height: 36px
+  .university, .faculty
+    &:hover
+      color: #333
+    cursor: pointer
+    max-width: 130px
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+  .empty
+    color: #999

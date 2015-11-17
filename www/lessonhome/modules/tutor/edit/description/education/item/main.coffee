@@ -7,12 +7,17 @@ class @main
     @out_err_chair          = @found.out_err_chair
     @out_err_qualification  = @found.out_err_qualification
     @out_err_period         = @found.out_err_period
+    ##
+    @restore = @found.restore_block
+    @active = @found.active_block
+    @container = @found.container
+
   remove : =>
     @dom.parent().remove()
     @removed = true
 
   show : =>
-    @found.remove_button.click @remove
+#    @found.remove_button.click @remove
 
     # drop_down_list
     @country        = @tree.country.class
@@ -25,6 +30,10 @@ class @main
     @learn_till     = @tree.learn_till.class
     @comment        = @tree.comment.class
 
+    # btns
+    @found.delete.on 'click', @remove
+    @found.rem.on    'click', @onRemove
+    @found.expand.on 'click', @onExpand
 
     # clear error
     @country.on       'focus',  => @country.hideError()
@@ -45,6 +54,52 @@ class @main
     @qualification.setErrorDiv  @out_err_qualification
     @learn_from.setErrorDiv     @out_err_period
     @learn_till.setErrorDiv     @out_err_period
+
+
+  onExpand: (e) =>
+    e.stopPropagation()
+    if @container.is ':visible'
+      @slideUp()
+    else
+      @slideDown()
+    return false
+
+  onRestore: =>
+    if @is_removed
+      @is_removed = false
+      @dom.removeClass 'restore'
+      @restore_block.hide 0, => @active_block.show()
+    return false
+
+
+  onRemove: (e) =>
+    e.stopPropagation()
+    if not @is_removed
+      @slideUp =>
+        name = @children.name.getValue()
+        @is_removed = true
+        @dom.addClass 'restore'
+        @restore_name.text if name isnt '' then "Удалить предмет #{name.toUpperCase()}?" else "Удалить предмет?"
+        @active_block.hide 0, => @restore_block.show()
+    return false
+
+  onRestore: =>
+    if @is_removed
+      @is_removed = false
+      @dom.removeClass 'restore'
+      @restore.hide 0, => @active.show()
+    return false
+
+  onRemove: (e) =>
+    e.stopPropagation()
+    if not @is_removed
+      @slideUp =>
+#        name = @children.name.getValue()
+        @is_removed = true
+        @dom.addClass 'restore'
+#        @restore_name.text if name isnt '' then "Удалить предмет #{name.toUpperCase()}?" else "Удалить предмет?"
+        @active.hide 0, => @restore.show()
+    return false
 
   check_form : =>
     errs = @js.check @getData()

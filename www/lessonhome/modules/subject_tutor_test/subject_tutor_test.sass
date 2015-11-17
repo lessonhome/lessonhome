@@ -16,9 +16,18 @@ $icon_cross: 'delete_cross.png'
   height: image-height($src)
   width: image-width($src)
   background: url(F($src)) no-repeat
-=title
-  font-size: 18px
-  font-weight: 600
+=error_block
+  padding-left: 10px
+  padding-right: 10px
+  margin-left: -10px
+  margin-right: -10px
+  border: none
+  outline: 2px solid #FF0000
+=error_text
+  font-size: 0.8em
+  color: #FF0000
+  margin-top: 12px
+  margin-left: 20px
 =button($src, $src_hover)
   cursor : pointer
   text-align: center
@@ -35,20 +44,6 @@ $icon_cross: 'delete_cross.png'
   i.icon
     +icon($src)
     vertical-align: top
-
-
-=error_block
-  padding-left: 10px
-  padding-right: 10px
-  margin-left: -10px
-  margin-right: -10px
-  border: none
-  outline: 2px solid #FF0000
-=error_text
-  font-size: 0.8em
-  color: #FF0000
-  margin-top: 12px
-  margin-left: 20px
 main
   height: 100%
   text-align: left
@@ -82,11 +77,13 @@ main
         +inline-block
         padding: 10px 15px
         &:hover
-          background: #F6FAE3
+          background: rgba(255,255,255,0.5)
       .btn + .btn
         margin-left: 20px
         //+button($icon_cross, $icon_cross)
   .active_block
+    &:after
+      +after_block
     .subject_block
       +inline-block
     .btn_panel
@@ -168,5 +165,6 @@ main
       +error_text
   .block
     .title
-      +title
+      font-size: 18px
+      font-weight: 600
 

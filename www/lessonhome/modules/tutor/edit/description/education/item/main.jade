@@ -1,29 +1,69 @@
-.js-remove_button!=remove_button
-.value.js-country!=country
-.err
-  .js-out_err_country
-.value.js-city!=city
-.err
-  .js-out_err_city
-.value.js-university!=university
-.err
-  .js-out_err_university
-.value.js-faculty!=faculty
-.err
-  .js-out_err_faculty
-.value.js-chair!=chair
-.err
-  .js-out_err_chair
-.value.js-qualification!=qualification
-.err
-  .js-out_err_status
-.period.value
-  .js-learn_from!=learn_from
-  .js-learn_till!=learn_till
-.value.js-comment!=comment
-.err
-  .js-out_err_period
-//.add_button!= add_button
+.panel
+  .js-active_block
+    .education_block
+      span.js-institution.empty Вуз
+      span ,&nbsp;
+      span.js-faculty.empty Факультет
+    .btn_panel
+      a(href="#", title="Удалить").js-rem
+        i.icon
+      a(href="#", title="Свернуть/Развернуть").js-expand
+        i.icon
+    .err.js-error_name
+  .js-restore_block
+    .text
+      .js-name_subject
+    .btn_panel
+      a(href="#", title="Восстановить").btn.js-restore Нет
+      a(href="#", title="Удалить").btn.js-delete Да
+.js-container
+  //.js-remove_button!=remove_button
+  .block
+    .title Страна:
+    .value.js-country!=country
+    .err
+      .js-out_err_country
+
+  .block
+    .title Город:
+    .value.js-city!=city
+    .err
+      .js-out_err_city
+
+  .block
+    .title Вуз:
+    .value.js-university!=university
+    .err
+      .js-out_err_university
+
+  .block
+    .title Факультет:
+    .value.js-faculty!=faculty
+    .err
+      .js-out_err_faculty
+
+  .block
+    .title Кафедра:
+    .value.js-chair!=chair
+    .err
+      .js-out_err_chair
+
+  .block
+    .title Статус:
+    .value.js-qualification!=qualification
+    .err
+      .js-out_err_status
+
+  .block
+    .title Период:
+    .period!=period_education
+    .err
+      .js-out_err_period
+  .block
+    .title Комментарий:
+    .value.js-comment!=comment
+
+  //.add_button!= add_button
 
 
 
