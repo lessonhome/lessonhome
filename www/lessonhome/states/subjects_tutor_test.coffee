@@ -45,7 +45,7 @@ class @main
       '38': {value: 'mathematical_analysis', text: 'математический анализ'}
       '39': {value: 'management', text: 'менеджмент'}
       '40': {value: 'microeconomics', text: 'микроэкономика'}
-      '41': {value: 'descriptive_geometry', text: 'начертательная геометрия'}
+#      '41': {value: 'descriptive_geometry', text: 'начертательная геометрия'}
       '42': {value: 'norwegian', text: 'норвежский язык'}
       '43': {value: 'origami', text: 'оригами'}
       '44': {value: 'preparing_for_school', text: 'подготовка к школе'}
@@ -57,9 +57,9 @@ class @main
       '50': {value: 'rhetoric', text: 'риторика'}
       '51': {value: 'rct', text: 'рки'}
       '52': {value: 'serbian', text: 'сербский язык'}
-      '53': {value: 'violin', text: 'скрипка1'}
+      '53': {value: 'violin', text: 'скрипка'}
       '54': {value: 'sol-fa', text: 'сольфеджио'}
-      '55': {value: 'strength_of_materials', text: 'сопротивление материалов'}
+#      '55': {value: 'strength_of_materials', text: 'сопротивление материалов'}
       '56': {value: 'statistics', text: 'статистика'}
       '57': {value: 'theoretical_mechanics', text: 'теоретическая механика'}
       '58': {value: 'probability_theory', text: 'теория вероятностей'}

@@ -31,14 +31,14 @@ typetoteach = {"school:0":'pre_school','school:1':'junior_school','school:2':'me
     subjects_db[i].place_prices = {}
     for place in subjects_db[i].place
       subjects_db[i].place_prices[place] = [
-        subject['place_' + place]?.one_hour
-        subject['place_' + place]?.two_hour
-        subject['place_' + place]?.tree_hour
+        parseFloat subject['place_' + place]?.one_hour
+        parseFloat subject['place_' + place]?.two_hour
+        parseFloat subject['place_' + place]?.tree_hour
       ]
     if subject.group_learning.selected and subject.group_learning.groups isnt ''
       subjects_db[i].groups = [{
         description: subject.group_learning.groups
-        price: subject.group_learning.price
+        price: parseFloat subject.group_learning.price
       }]
     for key,val of subjects_db[i].tags
       tags[key] = val

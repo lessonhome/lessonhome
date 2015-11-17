@@ -5,6 +5,8 @@ class @main
     @btn_expand = @found.expand
     @btn_remove = @found.rem
     @btn_restore = @found.restore
+    @btn_delete = @found.delete
+    @btn_copy = @found.copy_prev_settings
 
     @active_block = @found.active_block
     @restore_block = @found.restore_block
@@ -15,13 +17,9 @@ class @main
     @prices_place = @found.prices_place
     @price_group = @found.price_group
     @out_err_course = @found.out_err_course
-    #####
-#    @flag = false
+
     @is_removed = false
-    #####
-    @btn_delete = @found.delete
-    @btn_copy = @found.copy_prev_settings
-    ####
+
     @children = {
       name : @tree.select_subject_field.class
 
@@ -44,54 +42,7 @@ class @main
 
     @observer = null
 
-
-
-    # div
-    # err div fined
-    #@out_err_course                 = @found.out_err_course
-#      @out_err_group_learning         = @found.out_err_group_learning
-#      @out_err_categories_of_students = @found.out_err_categories_of_students
-#      @out_err_place                  = @found.out_err_place
-
-
-#      subject = @tree
-#      @subject_list = @tree.select_subject_field.class
-    #@subject_tag = subject.subject_tag.class
-#      @course = subject.course.class
-#      @group_learning = subject.group_learning.content.group_people.class
-#    @duration = subject.duration.class
-#    @price_from = subject.price_slider.start.class
-#    @price_till = subject.price_slider.end.class
-#      @comments = subject.comments.class
-
-#      @pre_school = subject.pre_school.class
-#      @junior_school = subject.junior_school.class
-#      @medium_school = subject.medium_school.class
-#      @high_school = subject.high_school.class
-#      @student = subject.student.class
-#      @adult = subject.adult.class
-#
-#      @place_tutor = subject.place_tutor.trigger.class
-#      @place_pupil = subject.place_pupil.trigger.class
-#      @place_remote = subject.place_remote.trigger.class
-#    @place_cafe = subject.place_cafe.class
   show : =>
-#    @training_direction = {
-#      "английский язык":['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'TOEFL','IELTS', 'FCE', 'TOEIC', 'Business English', 'GMAT', 'GRE', 'SAT'],
-#      "японский язык": ['JLPT', 'JLPT N1', 'JLPT N2', 'JLPT N3', 'JLPT N4', 'JLPT N5'],
-#      "корейский язык": ['TOPIK', 'TOPIK I', 'TOPIK II'],
-#      "китайский язык": ['HSK', 'HSK Высший', 'HSK Начальный/средний', 'HSK Базовый'],
-#      "испанский язык": ['DELE', 'DELE A', 'DELE B', 'DELE C'],
-#      "французский язык": ['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'DELF', 'DELF A', 'DELF B', 'DALF'],
-#      "немецкий язык": ['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'DSH', 'TestDaF'],
-#      "итальянский язык": ['CILS', 'CILS B1', 'CILS B2', 'CILS C1', 'CILS C2'],
-#      "португальский язык": ['CEPRE-Bras', 'CEPRE-Bras Средний', 'CEPRE-Bras Выше среднейго', 'CEPRE-Bras Продвинутый', 'CEPRE-Bras Выше продвинутого'],
-#      "программирование": ['школьный курс', '3dMAX', 'Access', 'Adobe Flash', 'ArchiCad', 'assembler', 'AutoCAD', 'bash', 'basic', 'Borland C', 'C', 'c#', 'c++', 'CorelDraw', 'css', 'Deform-3D', 'delphi', 'Excel', 'FireBird', 'fortran', 'HTML', 'Illustrator', 'InDesign', 'Internet', 'java', 'JavaScript', 'Joomla', 'linux', 'LISP', 'MacOS', 'Maple', 'MathCAD', 'Matlab', 'MS Office', 'MySQL', 'Object Pascal', 'Objective-C', 'Outlook', 'pascal', 'perl', 'Photoshop', 'php', 'PowerPoint', 'python', 'QBasic', 'ruby', 'SEO (search engine optimization)', 'SolidWorks', 'SQL', 't-sql', 'TurboPascal', 'Unix', 'VB Pro', 'VBA', 'visual basic', 'Windows', 'Word', 'Wordpress', 'xml', 'алгоритмы', 'анимация', 'выпуклое программирование', 'дизайн веб-сайтов', 'компьютерная грамотность', 'компьютерная графика', 'линейное программирование', 'объемное моделирование', 'операционные системы', 'программирование', 'разработка веб-сайтов', 'РЕФАЛ', 'системное администрирование', 'подготовка к олимпиадам'],
-#      "музыка": [""],
-#      "начальная школа": [""],
-#      "логопеды": ["общий курс", "алалия", "аутизм", "афазия", "брадилалия", "все нарушения речи", "диагностика (обследование)", "дизартрия", "дизорфография", "дисграфия", "дислалия", "дислексия", "дисфония", "заикание", "ЗПРР", "ЗРР", "ЛГНР", "логоневроз", "логопедический массаж", "логоритмика", "ОНР", "ОНР при ЗПР", "постановка звуков", "ринолалия", "системное недоразвитие речи при ИН", "стертая дизартрия", "тахилалия", "ФД (фонетический дефект)", "ФНР (фонематическое недоразвитие речи)", "ФФН (фонетико-фонематическое недоразвитие)"],
-#      "default" : ['ЕГЭ','ОГЭ(ГИА)', 'подготовка к олимпиадам', 'школьный курс', 'вузовский курс']
-#    }
     @btn_expand.on 'click', @onExpand
     @btn_restore.on 'click', @onRestore
     @btn_remove.on 'click', @onRemove
@@ -105,31 +56,8 @@ class @main
     @children.name.setErrorDiv @found.error_name
     @children.course.setErrorDiv @out_err_course
 
-
-
-
-#      @group_learning   .setErrorDiv @out_err_group_learning
-#      @pre_school       .setErrorDiv @out_err_categories_of_students
-#      @place_tutor      .setErrorDiv @out_err_place
-    #@course           .setErrorDiv @out_err_course
-#    @group_learning   .setErrorDiv @out_err_group_learning
-
-    # clear error
-#    course.on            'focus',  => @course.hideError()
-#      @group_learning.on    'focus',  => @group_learning.hideError()
-#      @pre_school.on        'change', => @pre_school.hideError()
-#      @junior_school.on     'change', => @junior_school.hideError()
-#      @medium_school.on     'change', => @medium_school.hideError()
-#      @high_school.on       'change', => @high_school.hideError()
-#      @student.on           'change', => @student.hideError()
-#      @adult.on             'change', => @adult.hideError()
-#      @place_tutor.on       'change', => @place_tutor.hideError()
-#      @place_pupil.on       'change', => @place_pupil.hideError()
-#      @place_remote.on      'change', => @place_remote.hideError()
-#    @place_cafe.on        'change', => @place_cafe.hideError()
-
-  onCopy : =>
-    @notifyObserver 'copy'
+  onCopy : => @notifyObserver 'copy'
+  onFocusName : => @notifyObserver 'focus'
 
   onExpand: (e) =>
     e.stopPropagation()
@@ -139,7 +67,7 @@ class @main
       @slideDown()
     return false
 
-  onRestore: (e) =>
+  onRestore: =>
     if @is_removed
       @is_removed = false
       @panel.removeClass 'restore'
@@ -155,7 +83,7 @@ class @main
         @restore_name.text if name isnt '' then "Удалить предмет #{name.toUpperCase()}?" else "Удалить предмет?"
     return false
 
-  onDelete : (e) =>
+  onDelete : =>
     @btn_copy.off 'click', @onCopy
     @btn_delete.off 'click', @onDelete
     @children.name.off 'focus', @onFocusName
@@ -167,7 +95,7 @@ class @main
     @notifyObserver 'del'
     return false
 
-  onTags: (e) =>
+  onTags: =>
     arr = @children.course.getValue()
     len = 0
     narr = []
@@ -179,8 +107,6 @@ class @main
     if arr.length > len
       @children.course.setValue arr
 
-  onFocusName : =>
-    @notifyObserver 'focus'
   onChangeName: (name) =>
     if @training_direction? and name isnt ''
       if @training_direction[name]?
@@ -188,7 +114,6 @@ class @main
       else
         direction = @training_direction['default']
       @children.course.setItems direction
-#      @slideDown()
 
   setNames : (names) => @children.name.setItems names
   setDirection : (direct) => @training_direction = direct
@@ -231,6 +156,7 @@ class @main
       result[key] = cl.getValue?()
       return true
     return result
+
   setValue : (data={}) =>
     @panel.removeClass 'restore'
     $.each @children, (key, cl) ->
@@ -246,8 +172,10 @@ class @main
       for key in copied
         current_settings[key] = settings[key]
       @setValue current_settings
+
   resetError : () =>
     @parseError({correct: true})
+
   parseError : (errors) =>
 #    return if @is_removed is true
 #    if errors.correct isnt true then @slideDown() else @slideUp()
@@ -259,7 +187,8 @@ class @main
     if errors['course']?
       if errors['course'] is 'long_tag' then @children.course.showError 'Максимальная длинна одного тега - 80 символов'
       else if errors['course'] is 'to_many_tags' then @children.course.showError 'Пожалуйста, уменьшите количество тегов'
-    else @children.course.hideError()
+    else
+      @children.course.hideError()
     if errors['students']?
       @showErrBlock @students, 'Выберите категории учеников'
     else
