@@ -77,9 +77,12 @@ class Tutors
       unless (o.num > 2) || (i<120)
         break
       continue unless o?.data?
+      t_ = new Date().getTime()
       yield @filter {hash:f,data:o.data}
+      nt_ = new Date().getTime()
+      console.log 'refilter',"#{i}/#{filters.length}",nt_-t_,o.num
       return if time < @refilterTime
-      yield Q.delay 10
+      yield Q.delay (nt_-t_)
     filters = filters.slice i
     for f,i in filters
       f = f[0]
@@ -307,7 +310,6 @@ class Tutors
       plast = p.rating
       p.rating = (p.rating-rmin)/(rmax-rmin)
       p.rating = -1/(p.rating*rgs-rgleft)+rgtop
-      console.log plast,p.rating
       #p.rating *= 3
       #p.rating += 2
       p.rmin = rmin
