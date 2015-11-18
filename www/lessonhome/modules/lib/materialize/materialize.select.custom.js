@@ -48,7 +48,7 @@
             /* Create dropdown structure. */
             if (selectOptGroups.length) {
                 // Check for optgroup
-                var outGroup = 1
+                var outGroup = 1;
                 selectOptGroups.each(function() {
 
                     selectOptions = $(this).children('option');
