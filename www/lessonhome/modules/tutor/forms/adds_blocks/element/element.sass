@@ -26,6 +26,11 @@ $icon_arrow_up: 'arrow_up.png'
   i.icon
     +icon($src)
     vertical-align: top
+=error_text
+  font-size: 0.8em
+  color: #FF0000
+  margin-top: 12px
+  margin-left: 20px
 main
   height: 100%
   text-align: left
@@ -80,6 +85,9 @@ main
           background: #f3f3f3
     //.expand.active
       //background: url(F('info_closed.png')) no-repeat 4px 8px
+    .err
+      +error_text
+      display: none
 
 .container
   padding: 0 $padding 20px

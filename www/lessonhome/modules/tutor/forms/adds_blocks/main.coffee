@@ -4,12 +4,17 @@ class @main
 
     @element = @tree.element.class
     @elements = []
-    @push @element
-  show : =>
-    @on 'remove', (elem) => @elements.splice @getIndex(elem), 1
 
+  show : =>
+    @push @element
+    @on 'remove', (elem) => @elements.splice @getIndex(elem), 1
     @tree.add_button.class.on 'submit', @onAdd
-    $('html').on 'click', => e.onRestore() for e in @elements
+
+  push : (element) =>
+    element.on 'event', (message) => @emit message, element
+    @emit 'add', element
+    element.flag = false
+    @elements.push element
 
   getIndex : (elem)  =>
     elem.flag = true
@@ -22,20 +27,21 @@ class @main
       return -1
     return i
 
-  push : (element) =>
-#    element.setObserver @
-    element.on 'event', (message) => @emit message, element
-    element.flag = false
-    @elements.push element
-
   onAdd : =>
-    elem = @element.$clone()
-    @push elem
-    @add(elem, true).slideDown 400
+    @add().slideDown 500
+    return false
 
-  add : (element, is_open = false) =>
+  add : (data) =>
+    element = @element.$clone()
     element.reset()
-    if is_open then element.showForm() else element.hideForm()
+
+    if not data?
+      element.showForm()
+    else
+      element.setValue data
+      element.hideForm()
+
+    @push element
     block = $('<div class="block" style="display: none">').append element.dom
     @container.append block
     return block

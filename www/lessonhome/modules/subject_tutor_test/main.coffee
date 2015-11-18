@@ -115,8 +115,9 @@ class @main
         direction = @training_direction['default']
       @children.course.setItems direction
 
-  setNames : (names) => @children.name.setItems names
   setDirection : (direct) => @training_direction = direct
+  setNames : (names) => @children.name.setItems names
+
 
   showErrBlock : (block, text) =>
     if not block.is '.error'

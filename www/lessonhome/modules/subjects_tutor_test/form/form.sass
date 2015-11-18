@@ -1,0 +1,88 @@
+@import base
+
+$space : 15px
+$height : 37px
+$price_block_padding: 6px
+$width_fields: 341px
+$paddings: 20px
+
+$icon_copy: 'ic_content_copy_black_18dp_1x.png'
+
+=icon($src)
+  +inline-block
+  height: image-height($src)
+  width: image-width($src)
+  background: url(F($src)) no-repeat
+=error_block
+  padding-left: 10px
+  padding-right: 10px
+  margin-left: -10px
+  margin-right: -10px
+  border: none
+  outline: 2px solid #FF0000
+=error_text
+  font-size: 0.8em
+  color: #FF0000
+  margin-top: 12px
+  margin-left: 20px
+
+a.copy_prev_settings
+  +inline-block
+  font-size: 12px
+  margin-bottom: 15px
+  color: #000
+  &:before
+    content: ''
+    margin-right: 10px
+    +icon($icon_copy)
+
+.value
+  +inline-block
+  font-size: $height
+  line-height: $height
+.category_block
+  .categories_of_students.error
+    +error_block
+  .categories_of_students
+    .check_panel
+      +inline-block
+      text-align: left
+      width: $width_fields
+      .right_block
+        float: right
+      .left_block, .right_block
+        +inline-block
+        div
+          padding: 3px 0
+.place_block, .category_block, .course_block
+  margin-bottom: 20px
+  .prices_place
+    border-bottom: 1px solid #c2c0c2
+    .prices + .prices
+      border-top: 1px solid #c2c0c2
+    .prices
+      padding: $space 0
+    .prices.error
+      +error_block
+    .err
+      +error_text
+      margin-bottom: 10px
+  .price_group
+    .prices + .prices
+      border-top: 1px solid #c2c0c2
+    .prices
+      padding: $space 0
+
+  .prices_place.error, .price_group.error
+    +error_block
+
+.place_block, .category_block, .course_block, .comment_block
+  .title
+    margin-bottom: 15px
+  .err
+    margin-bottom: 10px
+    +error_text
+.block
+  .title
+    font-size: 18px
+    font-weight: 600

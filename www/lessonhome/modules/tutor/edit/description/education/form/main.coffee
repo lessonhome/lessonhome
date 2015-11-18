@@ -8,8 +8,6 @@ class @main
     @comment = @tree.comment.class
     @period_education = @tree.period_education.class
 
-    @observer = null
-
   getValue : =>
     period = @period_education.getValue()
 
@@ -18,8 +16,9 @@ class @main
     faculty : @faculty.getValue()
     chair : @chair.getValue()
     qualification : @qualification.getValue()
-    learn_from : period[0]
-    learn_till : period[1]
+    period :
+      start : period[0]
+      end : period[1]
     comment : @comment.getValue()
 
   setValue : (data = {}) =>
@@ -29,7 +28,4 @@ class @main
     @chair.setValue data.chair 
     @qualification.setValue data.qualification 
     @comment.setValue data.comment 
-    @period_education.setValue [data.learn_from, data.learn_till]
-
-  setObserver : (observer) => @observer = observer
-  notifyObserver : (message) => @observer?.handleEvent? @, message
+    @period_education.setValue [data.period?.start, data.period?.end]
