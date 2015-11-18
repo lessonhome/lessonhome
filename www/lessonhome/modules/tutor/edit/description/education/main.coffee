@@ -2,20 +2,19 @@ class @main
   Dom : =>
     @test = @tree.test.class
   show : =>
-    @test.setObserver @
-
-  handleEvent: (elem, message) =>
-    switch message
-      when 'pre'
-        univ = elem.title.getValue()
-        elem.text_restore.text 'Удалить образование ' + univ + ' ?'
-
+    @test.on 'preremove', (elem) =>
+      univ = elem.title.getValue()
+      elem.text_restore.text 'Удалить образование ' + univ + ' ?'
 
   getValue : =>
-    @test.getForEach ->
-      result = @form.getValue()
-      result['university'] = @title.getValue()
-      return result
+    result = {}
+
+    @test.eachElem (i) ->
+      result[i] = @form.getValue()
+      result[i]['university'] = @title.getValue()
+
+    return result
+
 #  constructor : ->
 #    $W @
 #  show : =>

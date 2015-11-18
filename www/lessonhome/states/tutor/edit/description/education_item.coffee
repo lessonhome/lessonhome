@@ -6,8 +6,8 @@ class @main
     test : @module 'tutor/forms/adds_blocks' :
       element : @module 'tutor/forms/adds_blocks/element' :
         title_element : @module 'tutor/forms/drop_down_list' :
-          placeholder: 'Выберите вуз'
-          selector  : 'first_reg1'
+          placeholder: 'Введите название ВУЗа'
+          selector  : 'third_reg'
           $form : person : 'education.0.name'
           self  : true
           smart : true

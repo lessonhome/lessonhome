@@ -9,23 +9,22 @@ class @main
     @container = @found.container
     @text_restore = @found.text_restore
 
-    @observer = null
-  show : =>
-    @title?.setObserver? @
-    @form?.setObserver? @
 
+  show : =>
+
+#    @title.on? 'blur', @onBlurTitle
     @found.preremove.on 'click', @onPreremove
     @found.rem.on       'click', @onRemove
     @found.restore.on   'click', @onRestore
     @btn_expand.on      'click', @onExpand
 
+
+#  onBlurTitle : => @slideDown()
+
   onPreremove : (e) =>
     e.stopPropagation()
-    @slideUp =>
-      @notifyObserver 'pre'
-      @panel.addClass 'restore'
-
-  handleEvent : (observable, message) => @observer?.handleEvent? @, message
+    @event 'preremove'
+    @slideUp => @panel.addClass 'restore'
 
   onRemove : (e) =>
     e.stopPropagation()
@@ -33,10 +32,12 @@ class @main
     @found.rem.off       'click', @onRemove
     @found.restore.off   'click', @onRestore
     @btn_expand.off      'click', @onExpand
-    @notifyObserver 'rem'
+    @event 'remove'
     @dom.parent().slideUp 300, -> $(@).remove()
 
   onRestore : => @panel.removeClass 'restore'
+
+  event : (message) => @emit 'event', message
 
   onExpand: (e) =>
     e.stopPropagation()
@@ -46,8 +47,6 @@ class @main
       @slideDown()
     return false
 
-  notifyObserver : (message) => @observer?.handleEvent? @, message
-  setObserver : (observer) => @observer = observer
 
   slideUp :(callback) =>
     @container.slideUp 500, (e) =>
@@ -65,8 +64,6 @@ class @main
   hideForm : =>
     @container.hide()
     @btn_expand.removeClass 'active'
-
-  copyValue: =>
 
   reset : =>
     @onRestore()
