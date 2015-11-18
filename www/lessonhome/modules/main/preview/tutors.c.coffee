@@ -296,12 +296,20 @@ class Tutors
     rmax ?= 1
     if rmax <= rmin
       rmax = rmin + 1
+    rgtop = 5.5
+    rgs   = 3
+    rgmin = 4
+    rgleft = 1/(rgmin-rgtop)
+
     for acc,p of persons
       p.ratingMax = rmax
       p.ratingNow = p.rating
+      plast = p.rating
       p.rating = (p.rating-rmin)/(rmax-rmin)
-      p.rating *= 3
-      p.rating += 2
+      p.rating = -1/(p.rating*rgs-rgleft)+rgtop
+      console.log plast,p.rating
+      #p.rating *= 3
+      #p.rating += 2
       p.rmin = rmin
       p.rmax = rmax
 
@@ -334,6 +342,8 @@ class Tutors
       awords = ""
       awords += ' '+(str ? '') for k,str of (p.location ? {})
       for el in (p.interests ? []) then for k,str of el
+        awords += ' '+(str ? '') if typeof str == 'string'
+      for el in (p.check_out_the_areas ? []) then for k,str of el
         awords += ' '+(str ? '') if typeof str == 'string'
       for el in (p.education ? []) then for k,str of el
         awords += ' '+(str ? '') if typeof str == 'string'
