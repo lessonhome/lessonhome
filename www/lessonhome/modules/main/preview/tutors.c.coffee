@@ -111,7 +111,7 @@ class Tutors
       if from?
         inds = f?.indexes?.slice? from,from+count
         for i in inds
-          ret.preps[i] = @index[i] unless ex[k]
+          ret.preps[i] = @index[i] unless ex[i]
     return ret
   filter : (filter,inc = false)=>
     f = @filters[filter.hash] ? {}
