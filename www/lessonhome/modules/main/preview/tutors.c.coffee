@@ -58,13 +58,15 @@ class Tutors
     , 15*60*1000
     setInterval =>
       Q.spawn => yield @writeFilters()
-    , 60*1000
+    , 2*60*1000
   writeFilters  : =>
     return unless @filterChange
     @filterChange = false
     yield _invoke @redis, 'set','filters',JSON.stringify @filters
 
   refilterRedis : =>
+    return if @refiltering
+    @refiltering = true
     time = @refilterTime = new Date().getTime()
     filters = for f,o of (@filters ? {}) then [f,(o.num ? 0)]
     filters = filters.sort (a,b)-> b[1]-a[1]
@@ -81,12 +83,13 @@ class Tutors
       yield @filter {hash:f,data:o.data}
       nt_ = new Date().getTime()
       console.log 'refilter',"#{i}/#{filters.length}",nt_-t_,o.num
-      return if time < @refilterTime
+      return @refiltering = false if time < @refilterTime
       yield Q.delay (nt_-t_)
     filters = filters.slice i
     for f,i in filters
       f = f[0]
       delete @filters[f]
+    return @refiltering = false
   handler : ($, {filter,preps,from,count,exists})->
     yield @init() unless @inited == 2
     ret = {}
