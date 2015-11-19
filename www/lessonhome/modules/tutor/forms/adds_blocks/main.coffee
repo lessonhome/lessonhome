@@ -2,19 +2,23 @@ class @main
   Dom : =>
     @container = @found.container
 
+    @err_empty = @found.error_empty
+
     @element = @tree.element.class
     @elements = []
-
   show : =>
     @push @element
-    @on 'remove', (elem) => @elements.splice @getIndex(elem), 1
+
+    @on 'remove', (elem) =>
+      @elements.splice( i = @getIndex(elem), 1)
+      @emit('rem_first') if i == 0
     @tree.add_button.class.on 'submit', @onAdd
 
   push : (element) =>
     element.on 'event', (message) => @emit message, element
-    @emit 'add', element
     element.flag = false
     @elements.push element
+    @emit 'pushed', element
 
   getIndex : (elem)  =>
     elem.flag = true
@@ -28,6 +32,7 @@ class @main
     return i
 
   onAdd : =>
+    @eachElem -> @slideUp?()
     @add().slideDown 500
     return false
 
@@ -36,10 +41,10 @@ class @main
     element.reset()
 
     if not data?
-      element.showForm()
+      element.showForm?()
     else
       element.setValue data
-      element.hideForm()
+      element.hideForm?()
 
     @push element
     block = $('<div class="block" style="display: none">').append element.dom
@@ -47,4 +52,7 @@ class @main
     return block
 
   eachElem : (func) => func.call(e, i) for e, i in @elements
+
+  showErrEmpty : (error_text) => @err_empty.text(error_text).show()
+  hideErrEmpty : => @err_empty.hide()
 

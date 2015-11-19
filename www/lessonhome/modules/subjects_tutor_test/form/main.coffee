@@ -19,9 +19,10 @@ class @main
 
   show : =>
     @course.setErrorDiv @found.out_err_course
-
     @course.on 'end', @onTags
-    @found.copy_prev_settings.on 'click',  => @event 'copy'
+    @found.copy.on 'click',  =>
+      @event 'copy'
+      return false
 
   onTags: =>
     arr = @course.getValue()
@@ -34,6 +35,8 @@ class @main
     arr.push(val.split(';')...) for key,val of narr
     if arr.length > len
       @course.setValue arr
+
+
 
   event : (message) => @emit 'event', message
 
@@ -65,6 +68,9 @@ class @main
     @group_learning.setValue data.group_learning
     @comments.setValue data.comments
 
+  showCopy : => @found.copy_prev_settings.show()
+  hideCopy : => @found.copy_prev_settings.hide()
+
   showErrBlock : (block, text) =>
     if not block.is '.error'
       block.addClass 'error'
@@ -79,6 +85,7 @@ class @main
 
   setCourse : (items) => @course.setItems items
 
+  hideError : () => @showErrors {}
 
   showErrors : (errors) =>
     if errors['course']? then @course.showError errors['course'] else @course.hideError()

@@ -1,13 +1,35 @@
 @import "base"
 
+$width: 90px
+
+=error_text
+  font-size: 0.8em
+  color: #FF0000
+  margin-top: 10px
+  margin-left: 20px
+
 .block
   text-align: left
   margin-bottom: 20px
   &:after
     +after_block
+  .form
+    & + .form
+      margin-top: 10px
+    .field
+      margin-left: $width
+    .name
+      font-size: 14px
+      line-height: 36px
+      float: left
+      text-align: right
+      width: $width - 10px
   .title
     margin-bottom: 15px
     font-size: 18px
     font-weight: 600
   &:last-of-type
     margin-bottom: 0
+  .form .field .err *, .err *
+    +error_text
+    display: none

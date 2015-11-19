@@ -2,22 +2,10 @@
    Created by lh on 17.11.15.
 
 .block
-   .title Страна :
-   .value.js-country!=country
-   .err
-      .js-out_err_country
-
-.block
-   .title Город :
-   .value.js-city!=city
-   .err
-      .js-out_err_city
-
-//.block
-//   .title Вуз :
-//   .value.js-university!=university
-//   .err
-//      .js-out_err_university
+  .title Кафедра :
+  .value.js-chair!=chair
+  .err
+    .js-out_err_chair
 
 .block
    .title Факультет :
@@ -26,16 +14,28 @@
       .js-out_err_faculty
 
 .block
-   .title Кафедра :
-   .value.js-chair!=chair
-   .err
-      .js-out_err_chair
+  .title Квалификация :
+  .value.js-qualification!=qualification
+  .err
+    .js-out_err_status
 
 .block
-   .title Статус :
-   .value.js-qualification!=qualification
-   .err
-      .js-out_err_status
+   .title Расположение :
+
+   .form
+      .name Страна
+      .field
+         .value.js-country!=country
+         .err
+            .js-out_err_country
+   .form
+      .name Город
+      .field
+         .value.js-city!=city
+         .err
+            .js-out_err_city
+
+
 
 .block
    .title Период :

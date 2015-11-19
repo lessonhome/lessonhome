@@ -26,15 +26,17 @@ $icon_copy: 'ic_content_copy_black_18dp_1x.png'
   margin-top: 12px
   margin-left: 20px
 
-a.copy_prev_settings
-  +inline-block
-  font-size: 12px
-  margin-bottom: 15px
-  color: #000
-  &:before
-    content: ''
-    margin-right: 10px
-    +icon($icon_copy)
+.copy_prev_settings
+  a
+    +inline-block
+    font-size: 12px
+    margin-bottom: 15px
+    color: #000
+    &:before
+      content: ''
+      margin-right: 10px
+      +icon($icon_copy)
+
 
 .value
   +inline-block

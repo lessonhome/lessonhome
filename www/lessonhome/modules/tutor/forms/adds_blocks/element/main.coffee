@@ -12,7 +12,7 @@ class @main
     @text_restore = @found.text_restore
 
   show : =>
-    @form.on 'event', (message) => @emit message, @
+    @form.on 'event', (message) => @event message
 #    @title.on? 'blur', @onBlurTitle
     @found.preremove.on 'click', @onPreremove
     @found.rem.on       'click', @onRemove
@@ -20,7 +20,9 @@ class @main
     @btn_expand.on      'click', @onExpand
 
     @title.setErrorDiv? @found.error_title
-    @title.on? 'blur', => @event 'bl_title'
+#    @title.on? 'blur', => @event 'br_title'
+    @title.on? 'focus', => @event 'fs_title'
+    @title.on? 'change', => @event 'ch_title'
 #  onBlurTitle : => @slideDown()
 
   onPreremove : (e) =>
@@ -72,11 +74,13 @@ class @main
     @btn_expand.removeClass 'active'
 
   reset : =>
+    @container.attr 'style', ''
     @onRestore()
 #    @hideForm()
     @title?.setValue?()
+    @title?.hideError?()
     @form?.setValue?()
-
+    @form?.hideError?()
   getValue : =>
     data_title = @title.getValue()
     data_form = @form.getValue()
@@ -91,4 +95,4 @@ class @main
   showErrors : (errors) =>
     if errors[@keyTitle]? then @title.showError?(errors[@keyTitle]) else @title.hideError?()
 
-    @form.showErrors errors
+    @form?.showErrors? errors

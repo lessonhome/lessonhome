@@ -22,8 +22,36 @@ class @main
     @test.eachElem (i) -> result[i] = @getValue()
     return result
 
+  interpretError : (errors = {}) =>
+    result = {}
+    #    return result if errors.correct is true
+    if errors['name'] is 'empty_field' then result['name'] = 'Введите название вуза'
+    if errors['faculty'] is 'empty_field' then result['faculty'] = 'Введите название факультета'
+
+    switch 'not_string'
+      when errors['country'], errors['city'], errors['chair'], errors['qualification'], errors['comment'], errors['period']
+        result['other'] = 'Некорректные типы данных'
+
+    return result
+
+  showErrors : (errors) =>
+    that = @
+    @test.eachElem (i) ->
+#      if errors[i]? then @slideDown() else @slideUp()
+      if not errors[i]? then @slideUp()
+      @showErrors that.interpretError(errors[i])
+
   save : (data)=>
     items = []
     @test.eachElem -> items.push @getValue()
-    yield @$send './save', items
+    errors = @js.check items
+    if errors.correct is true
+      data = yield @$send './save', items
+      if data.status is 'success'
+        return true
+      else if data.status is 'failed'
+        @showErrors data.errs
+    else
+      @showErrors errors
+    return false
 

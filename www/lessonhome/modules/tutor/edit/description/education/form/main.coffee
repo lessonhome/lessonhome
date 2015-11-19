@@ -1,5 +1,6 @@
 class @main
   Dom : =>
+
     @country  = @tree.country.class
     @city = @tree.city.class
     @faculty = @tree.faculty.class
@@ -7,6 +8,13 @@ class @main
     @qualification = @tree.qualification.class
     @comment = @tree.comment.class
     @period_education = @tree.period_education.class
+
+  show : =>
+    @country.setErrorDiv        @found.out_err_country
+    @city.setErrorDiv           @found.out_err_city
+    @faculty.setErrorDiv        @found.out_err_faculty
+    @chair.setErrorDiv          @found.out_err_chair
+    @qualification.setErrorDiv  @found.out_err_qualification
 
   getValue : =>
     period = @period_education.getValue()
@@ -29,3 +37,8 @@ class @main
     @qualification.setValue data.qualification 
     @comment.setValue data.comment 
     @period_education.setValue [data.period?.start, data.period?.end]
+
+  hideErrors : => @showErrors {}
+
+#  showErrors : (errors) =>
+#    if errors['faculty']? then @faculty.showError errors['faculty'] else @faculty.hideError()
