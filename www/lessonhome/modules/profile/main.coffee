@@ -2,6 +2,12 @@ class @main
   constructor : ->
     $W @
   Dom : =>
+    @status_values =
+      student:"Студент"
+      private_teacher:"Частный преподаватель"
+      university_teacher:"Преподаватель ВУЗа"
+      school_teacher:"Преподаватель школы"
+
     @chooseTutor  = @found.tutor_trigger
     @triggerCount = 0
 
@@ -83,18 +89,25 @@ class @main
     @found.view_photo.materialbox()
     @found.view_photo.addClass 'materialboxed'
   
+
+  getTemplate : (name, keys = []) =>
+    return unless @found[name] or keys.length
+    o = {dom : @found[name].clone()}
+    c = (keys.map (key) => ".#{key}:first").join ','
+    elms = o.dom.find c
+    o[key] = elms.filter('.' + key) for key in keys
+    return o
+
   setRating : (rating)=>
 
   setValue : (data={})=>
     @tree.value ?= {}
     @tree.value[key] = val for key,val of data
     data = @tree.value
-
     @name = "#{data.name.first || ""} #{data.name.middle || ''}"
 
     yield @setPhotos data.photos
     yield @setRating data.rating
-
     @found.full_name.text("#{@name}")
     if data.age? && data.age
       age_end = data.age%10
@@ -111,13 +124,17 @@ class @main
           @found.age_value.text(", "+data.age+" лет")
     else
       @found.age_value.text("")
-    
+
     l = data?.location ? {}
+
+    trim = (val) ->
+      val = val.replace /^\s+/,''
+      val = val.replace /\s+$/,''
+
     cA = (str="",val,rep=', ')->
       return str unless val
       val = ""+val
-      val = val.replace /^\s+/,''
-      val = val.replace /\s+$/,''
+      trim val
       return str unless val
       unless str
         str += val
@@ -127,17 +144,20 @@ class @main
     ls1 = ""
     ls1 = cA ls1,l.city
     ls1 = cA ls1,l.area
-    if Feel.user?.type?.admin
-      ls1 = cA ls1,data.login,'<br>'
-      ls1 = cA ls1,data.phone?.join('; '),'<br>'
-      ls1 = cA ls1,data.email?.join('; '),'<br>'
+#    if Feel.user?.type?.admin
+#      ls1 = cA ls1,data.login,'<br>'
+#      ls1 = cA ls1,data.phone?.join('; '),'<br>'
+#      ls1 = cA ls1,data.email?.join('; '),'<br>'
     ls3 = ""
-    ls3 += "м. #{l.metro}" if l.metro
+    if l.metro
+      stations = l.metro.split(',').map (station) -> "м. #{trim station}"
+      ls3 += stations.join(', ')
     ls = ""
-    ls = cA ls,ls3,'<br>'
-    ls = cA ls,ls1,'<br>'
-    
-    @found.location.html ls
+    ls = cA ls,ls1
+    ls = cA ls,ls3
+
+    @found.location.text ls
+
     ###
     if data.location?.country
       if data.location?.city
@@ -151,12 +171,20 @@ class @main
       @found.location.hide()
     ###
     @setLinked()
+
     if data.slogan? && data.slogan
-      @found.description.text(data.slogan)
-      @found.description.show()
-    @setItem @found.status, @status_values[data.status], @found.status_value
-    @setItem @found.experience, data.experience, @found.experience_value
-    #@setItem @found.age, data.age, @found.age_value
+      @found.slogan.text data.slogan
+      @found.slogan.show()
+
+    if data.place? && data.place
+      @found[place]?.show()? for place of data.place
+
+    if data.status? && data.status then @found.status.text @status_values[data.status]
+    if data.experience? && data.experience then @found.experience.text data.experience
+
+    education = @getTemplate 'template_education', ['title', 'city', 'period', 'info', 'about']
+    
+
     last_work = data.work?[Object.keys(data.work ? {})?.pop?()]
     if last_work
       if last_work.place? && last_work.place
@@ -170,6 +198,7 @@ class @main
         @found.work_place.hide()
     else
       @found.work_place.hide()
+
     if data.education?[0]?.name
       if data.education?[0]?.faculty
         @found.education_value.text("#{data.education?[0]?.name ? ""}, #{data.education?[0]?.faculty ? ""}")
