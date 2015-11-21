@@ -130,7 +130,7 @@ class @main extends EE
 
     ls1 = ""
     ls1 = cA ls1,l.city
-#    ls1 = cA ls1,l.area
+    ls1 = cA ls1,l.area if Feel?.user?.type?.admin
     ls2 = ""
     ls2 = cA ls2,l.street
     ls2 = cA ls2,l.house
@@ -138,9 +138,16 @@ class @main extends EE
     ls3 = ""
     ls3 += "м. #{l.metro}" if l.metro
     ls = ""
-#    ls = cA ls,ls2,'<br>'
-    ls = cA ls,ls3,'<br><br>'
+    ls = cA ls,ls2,'<br>' if Feel?.user?.type?.admin
+    ls = cA ls,ls3,'<br>'
     ls = cA ls,ls1,'<br>'
+    if Feel?.user?.type?.admin
+      @found.location.css 'height','auto'
+      ls4 = ""
+      for key,val of (value?.check_out_the_areas ? {})
+        ls4 = cA ls4,val
+      ls = cA ls,ls4,'<br>'
+    
     @found.location.html(ls)
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     tutor_text = value.about || ''

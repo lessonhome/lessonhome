@@ -58,13 +58,15 @@ class Tutors
     , 15*60*1000
     setInterval =>
       Q.spawn => yield @writeFilters()
-    , 60*1000
+    , 2*60*1000
   writeFilters  : =>
     return unless @filterChange
     @filterChange = false
     yield _invoke @redis, 'set','filters',JSON.stringify @filters
 
   refilterRedis : =>
+    return if @refiltering
+    @refiltering = true
     time = @refilterTime = new Date().getTime()
     filters = for f,o of (@filters ? {}) then [f,(o.num ? 0)]
     filters = filters.sort (a,b)-> b[1]-a[1]
@@ -77,13 +79,17 @@ class Tutors
       unless (o.num > 2) || (i<120)
         break
       continue unless o?.data?
+      t_ = new Date().getTime()
       yield @filter {hash:f,data:o.data}
-      return if time < @refilterTime
-      yield Q.delay 10
+      nt_ = new Date().getTime()
+      console.log 'refilter',"#{i}/#{filters.length}",nt_-t_,o.num
+      return @refiltering = false if time < @refilterTime
+      yield Q.delay (nt_-t_)
     filters = filters.slice i
     for f,i in filters
       f = f[0]
       delete @filters[f]
+    return @refiltering = false
   handler : ($, {filter,preps,from,count,exists})->
     yield @init() unless @inited == 2
     ret = {}
@@ -105,7 +111,7 @@ class Tutors
       if from?
         inds = f?.indexes?.slice? from,from+count
         for i in inds
-          ret.preps[i] = @index[i] unless ex[k]
+          ret.preps[i] = @index[i] unless ex[i]
     return ret
   filter : (filter,inc = false)=>
     f = @filters[filter.hash] ? {}
@@ -296,12 +302,19 @@ class Tutors
     rmax ?= 1
     if rmax <= rmin
       rmax = rmin + 1
+    rgtop = 5.5
+    rgs   = 3
+    rgmin = 4
+    rgleft = 1/(rgmin-rgtop)
+
     for acc,p of persons
       p.ratingMax = rmax
       p.ratingNow = p.rating
+      plast = p.rating
       p.rating = (p.rating-rmin)/(rmax-rmin)
-      p.rating *= 3
-      p.rating += 2
+      p.rating = -1/(p.rating*rgs-rgleft)+rgtop
+      #p.rating *= 3
+      #p.rating += 2
       p.rmin = rmin
       p.rmax = rmax
 
@@ -334,6 +347,8 @@ class Tutors
       awords = ""
       awords += ' '+(str ? '') for k,str of (p.location ? {})
       for el in (p.interests ? []) then for k,str of el
+        awords += ' '+(str ? '') if typeof str == 'string'
+      for el in (p.check_out_the_areas ? []) then for k,str of el
         awords += ' '+(str ? '') if typeof str == 'string'
       for el in (p.education ? []) then for k,str of el
         awords += ' '+(str ? '') if typeof str == 'string'
