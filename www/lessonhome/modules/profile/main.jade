@@ -70,37 +70,41 @@
                 li.js-remote(style="display:none")
                   i.material-icons.tiny.teal-text.text-lighten-1 lens
                   span Skype
-      //.row
-      //  .col.s12.js-prices
-      //    h4.red-text.text-darken-3 Цены
-          //table.highlight
-          //  thead
-          //    tr
-          //      th Продолжительность
-          //      th Цена
-          //  tbody
-          //    tr
-          //      td 60 минут
-          //      td 1000 руб.
-          //    tr
-          //      td 90 минут
-          //      td 1500 руб.
-          //    tr
-          //      td 120 минут
-          //      td 2000 руб.
-
-          //.js-teplate_prices(style="display:none")
-          //  h5.grey-text.text-darken-4.title
-          //  table.highlight.price_list
+      .row
+        .col.s12.js-prices
+          h4.red-text.text-darken-3 Цены
+          .row!=price_subject
+          //.row
+          //  table.highlight
           //    thead
           //      tr
           //        th Продолжительность
           //        th Цена
-          //    tbody.price
-          //    span.plus-price(style="display:none")
+          //    tbody
+          //      tr
+          //        td 60 минут
+          //        td 1000 руб.
+          //      tr
+          //        td 90 минут
+          //        td 1500 руб.
+          //      tr
+          //        td 120 минут
+          //        td 2000 руб.
+          //
+          //  h5.grey-text.text-darken-4 Выезд к ученику
+          //  table.highlight
+          //    thead
+          //      tr
+          //        th Продолжительность
+          //        th Цена
+          //    tbody
+          //      tr
+          //        td 120 минут
+          //        td 2500 руб.
+          //  h5.grey-text.text-darken-4 Удаленно по скайпу
+          //    span.plus-price +300 руб.
 
-          //h5.grey-text.text-darken-4 Удаленно по скайпу
-          //  span.plus-price +300 руб.
+
       .row.tutorials-list
         .col.s12.js-subjects
           h4.red-text.text-darken-4 Предметы
@@ -113,16 +117,14 @@
           .js-template_subjects(style="display:none")
             .row
               .col.s12
-                h5.grey-text.text-darken-4.name
+                h5.grey-text.text-darken-4
+                  span.name
                 i.training_direction
                 p.grey-text.text-darken-2.description
                 table.highlight.price_list
-                  thead
-                    tr
-                      th Продолжительность
-                      th Цена
-                  tbody.price
-                  span.plus-price(style="display:none")
+                h5.h5.grey-text.text-darken-4(style="display:none")
+                  span.plus-title
+                  span.plus-price
 
           //.row
           //  .col.s12
@@ -149,21 +151,21 @@
             .divider
 
       .row.tutorials-list
-        .col.s12
+        .col.s12.js-education
           h4.red-text.text-darken-4 Образование
           .js-template_education(style="display:none")
             .row
               .col.s12
-                h5.grey-text.text-darken-4.title
+                h5.grey-text.text-darken-4
+                  span.title
                   span.inst-ya.grey-text.text-darken-3.city
                   span.inst-ya.grey-text.text-darken-3.period
                 i.info
-                //i Международного бизнеса и делового администрирования, Выпускник
                 p.grey-text.text-darken-2.about
             .divider
           //.row
           //  .col.s12
-          //    h5.grey-text.text-darken-4 Институт восточных языков,
+          //    h5.grey-text.text-darken-4 Институт восточных языков
           //      span.inst-ya.grey-text.text-darken-3 г. Москва
           //      span.inst-ya.grey-text.text-darken-3 2004-2008
           //    i историко-филологический

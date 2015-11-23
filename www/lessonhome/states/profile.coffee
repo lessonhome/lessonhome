@@ -9,3 +9,4 @@ class @main extends @template 'lp'
   tree : =>
     #content : @module '$'
     single_profile : 'tutor_profile'
+

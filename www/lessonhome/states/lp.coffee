@@ -14,5 +14,6 @@ class @main
       bottom_bar  : @state 'main/attached_panel/bar'
       popup       : @state 'main/attached_panel/popup'
     profile         : @module 'profile':
+      price_subject : @module 'profile/price_subject'
       single_profile : @exports()
     single_profile  : @exports()

@@ -14,7 +14,28 @@ class @main
     #scroll spy
     @reviewMark   = @found.review_mark
     @profileTab   = @found.profile_tab
+
   show: =>
+
+    class @template
+      constructor : (name, keys = []) ->
+        @name = name
+        @keys = keys
+        @parent = $(".#{@name}:first")
+
+        @clone = @parent.find(".#{'template_' + @name}:first").clone()
+        @clone = $(".#{'template_' + @name}:first").clone() unless @clone.length
+        classes = ''
+        classes += "#{if i > 0 then ',' else ''}.#{key}:first" for key, i in @keys
+        fields = @clone.find classes
+        @fields = {}
+        @fields[key] = fields.filter(".#{key}") for key in @keys
+      set : (name, value = "") ->
+        @fields[name].text(value) if @fields[name]? and @fields[name].length
+      past : ->
+        @parent.append @clone.clone().children()
+        @set(key) for key in @keys
+
     #scroll spy
     @reviewMark.scrollSpy()
     #tabs
@@ -28,6 +49,7 @@ class @main
       e.preventDefault()
       Q.spawn => yield @goBack()
     yield @open()
+
   open : (index)=>
     state = History.getState()
     if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
@@ -88,15 +110,6 @@ class @main
     console.log 'materialbox'
     @found.view_photo.materialbox()
     @found.view_photo.addClass 'materialboxed'
-  
-
-  getTemplate : (name, keys = []) =>
-    return unless @found[name] or keys.length
-    o = {dom : @found[name].clone()}
-    c = (keys.map (key) => ".#{key}:first").join ','
-    elms = o.dom.find c
-    o[key] = elms.filter('.' + key) for key in keys
-    return o
 
   setRating : (rating)=>
 
@@ -182,30 +195,48 @@ class @main
     if data.status? && data.status then @found.status.text @status_values[data.status]
     if data.experience? && data.experience then @found.experience.text data.experience
 
-    education = @getTemplate 'template_education', ['title', 'city', 'period', 'info', 'about']
-    
+    if data.education? && data.education.length
+      educations = new @template 'education', ['title', 'city', 'period', 'info']
+      for val in data.education
+        educations.set 'title', val.name
+        educations.set 'city', "г. #{val.city}"
+        educations.set 'period', "#{val.period.start} - #{val.period.end} гг."
+        educations.set 'info', "#{val.faculty}#{if val.qualification then ', ' + val.qualification else ''}"
+        educations.past()
 
-    last_work = data.work?[Object.keys(data.work ? {})?.pop?()]
-    if last_work
-      if last_work.place? && last_work.place
-        #alert last_work.post?
-        #alert last_work.post
-        if last_work.post? && last_work.post
-          @found.work_place_value.text(last_work.place, last_work.post)
-        else
-          @found.work_place_value.text(last_work.place)
-      else
-        @found.work_place.hide()
-    else
-      @found.work_place.hide()
 
-    if data.education?[0]?.name
-      if data.education?[0]?.faculty
-        @found.education_value.text("#{data.education?[0]?.name ? ""}, #{data.education?[0]?.faculty ? ""}")
-      else
-        @found.education_value.text("#{data.education?[0]?.name ? ""}")
-    else
-      @found.education.hide()
+#    if data.subjects?
+#      for name, val of data.subjects
+#        console.log @tree.price_subject.class.$clone().dom
+#      subjects = new @template 'subjects', ['name', 'training_direction', 'description', 'prices', 'plus-price']
+#      for name, val of data.subjects
+#        subjects.set 'name', name
+#        subjects.set('training_direction', val.course.join(', ') ) if val.course? and val.course.length
+#        subjects.set 'description', val.description
+#        subjects.past()
+
+#    last_work = data.work?[Object.keys(data.work ? {})?.pop?()]
+#    if last_work
+#      if last_work.place? && last_work.place
+#        #alert last_work.post?
+#        #alert last_work.post
+#        if last_work.post? && last_work.post
+#          @found.work_place_value.text(last_work.place, last_work.post)
+#        else
+#          @found.work_place_value.text(last_work.place)
+#      else
+#        @found.work_place.hide()
+#    else
+#      @found.work_place.hide()
+
+#    if data.education?[0]?.name
+#      if data.education?[0]?.faculty
+#        @found.education_value.text("#{data.education?[0]?.name ? ""}, #{data.education?[0]?.faculty ? ""}")
+#      else
+#        @found.education_value.text("#{data.education?[0]?.name ? ""}")
+#    else
+#      @found.education.hide()
+
     if data.check_out_the_areas?
       for key, val of data.check_out_the_areas
         if key > 0
