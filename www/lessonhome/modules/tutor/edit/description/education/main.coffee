@@ -27,17 +27,19 @@ class @main
     #    return result if errors.correct is true
     if errors['name'] is 'empty_field' then result['name'] = 'Введите название вуза'
     if errors['faculty'] is 'empty_field' then result['faculty'] = 'Введите название факультета'
+    console.log errors
+    if errors['period']? then result['period'] = 'Введите корректные даты'
 
-    switch 'not_string'
-      when errors['country'], errors['city'], errors['chair'], errors['qualification'], errors['comment'], errors['period']
-        result['other'] = 'Некорректные типы данных'
+#    switch 'not_string'
+#      when errors['country'], errors['city'], errors['chair'], errors['qualification'], errors['comment'], errors['period']
+#        result['other'] = 'Некорректные типы данных'
 
     return result
 
   showErrors : (errors) =>
     that = @
     @test.eachElem (i) ->
-#      if errors[i]? then @slideDown() else @slideUp()
+      if errors[i]? then @slideDown() else @slideUp()
       if not errors[i]? then @slideUp()
       @showErrors that.interpretError(errors[i])
 

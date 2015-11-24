@@ -15,6 +15,7 @@ class @main
     @faculty.setErrorDiv        @found.out_err_faculty
     @chair.setErrorDiv          @found.out_err_chair
     @qualification.setErrorDiv  @found.out_err_qualification
+    @period_education.setErrorDiv @found.out_err_period
 
   getValue : =>
     period = @period_education.getValue()
@@ -35,10 +36,13 @@ class @main
     @faculty.setValue data.faculty 
     @chair.setValue data.chair 
     @qualification.setValue data.qualification 
-    @comment.setValue data.comment 
+    @comment.setValue data.comment
     @period_education.setValue [data.period?.start, data.period?.end]
 
-  hideErrors : => @showErrors {}
+  hideError : => @showErrors {}
 
-#  showErrors : (errors) =>
-#    if errors['faculty']? then @faculty.showError errors['faculty'] else @faculty.hideError()
+  showErrors : (errors) =>
+    if errors['period']?
+      @period_education.showError(errors['period'])
+    else
+      @period_education.hideError()
