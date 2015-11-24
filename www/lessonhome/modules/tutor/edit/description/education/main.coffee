@@ -27,7 +27,6 @@ class @main
     #    return result if errors.correct is true
     if errors['name'] is 'empty_field' then result['name'] = 'Введите название вуза'
     if errors['faculty'] is 'empty_field' then result['faculty'] = 'Введите название факультета'
-    console.log errors
     if errors['period']? then result['period'] = 'Введите корректные даты'
 
 #    switch 'not_string'
