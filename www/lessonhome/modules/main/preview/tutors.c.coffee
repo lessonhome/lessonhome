@@ -202,8 +202,9 @@ class Tutors
         obj.right_price = p if (obj.right_price < p) || (!obj.right_price)
       obj.newl = null
       obj.newr = null
-
+      obj.ordered_subj = []
       for ind,val of t?.subjects
+        obj.ordered_subj.push val.name
         ns = obj.subjects[val.name] = {}
         ns.description = val.description
         #obj.about = ns.description unless obj.about

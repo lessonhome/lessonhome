@@ -113,7 +113,42 @@ class @main
 
   setRating : (rating)=>
 
+  setNewFormatPrice : (data) ->
+    places = []
+    subject = data.subjects[ Object.keys(data.subjects)[0] ]
+
+    for k in ['tutor', 'pupil', 'remote']
+      return if subject.place_prices[k]?
+      places.push(k) if data.place?[k]
+
+    return unless places.length
+
+    roundFifty = (val) ->
+      val /= 50
+      val = Math.round(val)
+      val *= 50
+      return val
+
+    p1 = subject.price.left
+    p2 = subject.price.right
+    t1 = subject.duration.left
+    t2 = subject.duration.right
+    delta_t = t2 - t1
+
+    if delta_t != 0 then k = (p2 - p1)/delta_t else k = 14
+    if (k > 200 || k < 4) then k = 14
+
+    new_price =
+      v60 : roundFifty( k*(60 - t1)  + p1 )
+      v90 : roundFifty( k*(90 - t1)  + p1 )
+      v120 : roundFifty( k*(120 - t1) + p1 )
+
+    subject.place_prices[k] = new_price for k in places
+
   setValue : (data={})=>
+
+    @setNewFormatPrice data
+
     @tree.value ?= {}
     @tree.value[key] = val for key,val of data
     data = @tree.value
@@ -195,14 +230,25 @@ class @main
     if data.status? && data.status then @found.status.text @status_values[data.status]
     if data.experience? && data.experience then @found.experience.text data.experience
 
-    if data.education? && data.education.length
-      educations = new @template 'education', ['title', 'city', 'period', 'info']
-      for val in data.education
-        educations.set 'title', val.name
-        educations.set 'city', "г. #{val.city}"
-        educations.set 'period', "#{val.period.start} - #{val.period.end} гг."
-        educations.set 'info', "#{val.faculty}#{if val.qualification then ', ' + val.qualification else ''}"
-        educations.past()
+    if data.subjects?
+      for name in data.ordered_subj
+        clone = @tree.price_subject.class.$clone()
+        clone.setTitle name
+        clone.setValue(data.subjects[name].place_prices)
+        @found.prices.append($('<div class="row">').append(clone.dom))
+#      keys = Object.keys data.subjects
+#      first_subject = data.subjects[ keys[0] ]
+#      @tree.price_subject.setValue
+
+
+#    if data.education? && data.education.length
+#      educations = new @template 'education', ['title', 'city', 'period', 'info']
+#      for val in data.education
+#        educations.set 'title', val.name
+#        educations.set 'city', "г. #{val.city}"
+#        educations.set 'period', "#{val.period.start} - #{val.period.end} гг."
+#        educations.set 'info', "#{val.faculty}#{if val.qualification then ', ' + val.qualification else ''}"
+#        educations.past()
 
 
 #    if data.subjects?
