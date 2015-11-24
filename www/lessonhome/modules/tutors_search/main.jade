@@ -1,9 +1,11 @@
 link(href=F("nouislider/nouislider.css"), rel="stylesheet")
 .container
   .row
-    .col.l4.m4.s12.content-block
+    .input-field.col.s12.center-align.hide-on-large-only
+      a.waves-effect.waves-light.btn.js-show_filter Подобрать по параметрам
+    .col.l4.m4.s12.content-block.js-filter_block
       !=search_filter
-    .col.l8.m8.s12.content-block
+    .col.l8.m8.s12.content-block.js-list_tutors
       .js-filter_tags_block
         !=filter_tags
       .js-tutors_list

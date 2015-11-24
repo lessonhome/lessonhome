@@ -1,3 +1,5 @@
+@import variables
+
 .row
   .col
     &.content-block
@@ -48,3 +50,10 @@
       .input-field
         input[type='text']
           margin-bottom: 0
+
+//js style
+.filter_block
+  @media #{$medium-and-down}
+    display: none
+.show_filter
+  width: 100%
