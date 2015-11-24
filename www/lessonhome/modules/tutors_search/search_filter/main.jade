@@ -25,20 +25,13 @@
                 each val, index in category_of_student.items
                   option(value=!index)!=val
     li
-      .collapsible-header.active Цена
-      .collapsible-body.slider-block
-        .row.no-bottom-margin
-          .col.s12
-            .js-range_ui#slider
-        .row.no-bottom-margin.valign-wrapper
-          .input-field.col.s4
-            input(type='text')#pricemin.js-pricemin
-          .col.s2.valign
-            label &mdash;
-          .input-field.col.s4
-            input(type='text')#pricemax.js-pricemax
-          .col.s2.valign
-            label руб.
+      .collapsible-header.active Цена за 60 минут
+      .collapsible-body
+        each val, index in price_select.items
+          .row
+            .col.s12
+              input(type='checkbox', id='price' + index)
+              label(for='price' + index)!=val
     li
       .collapsible-header.active.selected Место Занятий
       .collapsible-body

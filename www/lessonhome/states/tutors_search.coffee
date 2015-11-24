@@ -35,6 +35,8 @@ class @main extends @template 'lp'
           max: 6000
         location_occupation:
           items: ['У себя', 'У репетитора', 'Удаленно']
+        price_select:
+          items: ['до 700 руб.', 'от 700 руб. до 1500 руб.', 'от 1500 руб.']
         status_tutor:
           items: ['Студент','Преподаватель школы','Преподаватель ВУЗа','Частный преподаватель','Носитель языка']
         experience:
