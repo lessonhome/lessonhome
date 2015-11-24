@@ -17,11 +17,6 @@ class @main
 
     $('html').on 'click', => @test.eachElem -> @onRestore()
 
-  getValue : =>
-    result = {}
-    @test.eachElem (i) -> result[i] = @getValue()
-    return result
-
   interpretError : (errors = {}) =>
     result = {}
     #    return result if errors.correct is true
@@ -44,7 +39,9 @@ class @main
 
   save : (data)=>
     items = []
-    @test.eachElem -> items.push @getValue()
+    @test.eachElem ->
+      val = @getValue()
+      items.push(val) if @form.fill or val.name isnt ''
     errors = @js.check items
     if errors.correct is true
       data = yield @$send './save', items

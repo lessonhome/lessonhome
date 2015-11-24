@@ -9,6 +9,8 @@ class @main
     @comment = @tree.comment.class
     @period_education = @tree.period_education.class
 
+    @fill = false
+
   show : =>
     @country.setErrorDiv        @found.out_err_country
     @city.setErrorDiv           @found.out_err_city
@@ -19,16 +21,20 @@ class @main
 
   getValue : =>
     period = @period_education.getValue()
-
-    country : @country.getValue()
-    city : @city.getValue()
-    faculty : @faculty.getValue()
-    chair : @chair.getValue()
-    qualification : @qualification.getValue()
+    @fill = false
+    country : @inspect @country.getValue()
+    city : @inspect @city.getValue()
+    faculty : @inspect @faculty.getValue()
+    chair : @inspect @chair.getValue()
+    qualification : @inspect @qualification.getValue()
     period :
-      start : period[0]
-      end : period[1]
-    comment : @comment.getValue()
+      start : @inspect period[0]
+      end : @inspect period[1]
+    comment : @inspect @comment.getValue()
+
+  inspect : (val) =>
+    if not @fill and val isnt '' then @fill = true
+    return val
 
   setValue : (data = {}) =>
     @country.setValue data.country 
