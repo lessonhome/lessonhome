@@ -15,26 +15,36 @@ class @main
     @reviewMark   = @found.review_mark
     @profileTab   = @found.profile_tab
 
+    @template_subject = @tree.template_subject.class
+
+
   show: =>
 
-    class @template
-      constructor : (name, keys = []) ->
-        @name = name
-        @keys = keys
-        @parent = $(".#{@name}:first")
-
-        @clone = @parent.find(".#{'template_' + @name}:first").clone()
-        @clone = $(".#{'template_' + @name}:first").clone() unless @clone.length
-        classes = ''
-        classes += "#{if i > 0 then ',' else ''}.#{key}:first" for key, i in @keys
-        fields = @clone.find classes
+    class @templ
+      constructor : (jQ) ->
+        that = @
+        @dom = jQ.clone()
         @fields = {}
-        @fields[key] = fields.filter(".#{key}") for key in @keys
-      set : (name, value = "") ->
-        @fields[name].text(value) if @fields[name]? and @fields[name].length
-      past : ->
-        @parent.append @clone.clone().children()
-        @set(key) for key in @keys
+
+        @elems = @dom.find('[data-val]').each ->
+          el = $(@)
+          that.fields[el.data('val')] = el
+
+      add : (where) ->
+        where.append @dom.clone().children()
+        @elems.html ''
+
+      use : (key, h) ->
+        if @fields[key]?
+          return @fields[key] unless h
+          @fields[key].html(h)
+
+      useh : (key, h) ->
+        if @fields[key]?
+          unless h
+            @fields[key].hide()
+          else @fields[key].show().html(h)
+
 
     #scroll spy
     @reviewMark.scrollSpy()
@@ -113,6 +123,14 @@ class @main
 
   setRating : (rating)=>
 
+  dativeName : (data)->
+    name = _nameLib.get((data?.last ? ''),(data?.first ? ''),(data?.middle ? ''))
+    return {
+      first : name.firstName('dative')
+      middle: name.middleName('dative')
+      last  : name.lastName('dative')
+    }
+
   setNewFormatPrice : (data) ->
     places = []
     subject = data.subjects[ Object.keys(data.subjects)[0] ]
@@ -142,6 +160,8 @@ class @main
       v60 : roundFifty( k*(60 - t1)  + p1 )
       v90 : roundFifty( k*(90 - t1)  + p1 )
       v120 : roundFifty( k*(120 - t1) + p1 )
+
+    delete new_price['v60'] if new_price['v60'] < 400
 
     subject.place_prices[k] = new_price for k in places
 
@@ -230,26 +250,50 @@ class @main
     if data.status? && data.status then @found.status.text @status_values[data.status]
     if data.experience? && data.experience then @found.experience.text data.experience
 
-    if data.subjects?
-      for name in data.ordered_subj
-        clone = @tree.price_subject.class.$clone()
-        clone.setTitle name
-        clone.setValue(data.subjects[name].place_prices)
-        @found.prices.append($('<div class="row">').append(clone.dom))
-#      keys = Object.keys data.subjects
-#      first_subject = data.subjects[ keys[0] ]
-#      @tree.price_subject.setValue
+    if data.subjects? and data.ordered_subj?
+      subArr = []
+      subArr.push(data.subjects[name].place_prices) for name in data.ordered_subj
+
+      @found.short_prices.append @template_subject.getShort(subArr)
+      @found.detail_prices.append @template_subject.getDetail(subArr, data.ordered_subj)
+
+      subj = new @templ @found.template_subjects
+
+      for name, value of data.subjects
+        subj.use 'name', name
+        subj.useh 'direct', value.course?.join(', ')
+        subj.useh 'descr', value.description
+        subj.add @found.subjects
 
 
-#    if data.education? && data.education.length
-#      educations = new @template 'education', ['title', 'city', 'period', 'info']
-#      for val in data.education
-#        educations.set 'title', val.name
-#        educations.set 'city', "г. #{val.city}"
-#        educations.set 'period', "#{val.period.start} - #{val.period.end} гг."
-#        educations.set 'info', "#{val.faculty}#{if val.qualification then ', ' + val.qualification else ''}"
-#        educations.past()
 
+    if data.education? && data.education.length
+      ed = new @templ @found.template_education
+      for val in data.education
+        ed.use 'title', val.name
+        ed.useh 'city', if val.city then "г. #{val.city}"
+
+        start = val.period?.start
+        end = val.period?.end
+
+        start = /\d{4}/.exec(start)[0] if start
+        end = /\d{4}/.exec(end)[0] if end
+
+        start = (unless end then 'c ' else '') + start if start
+        end = (if start then ' - ' else 'до ') + end if end
+
+        ed.useh 'period', "#{start} #{end} г." if start or end
+        ed.useh 'info', "#{val.faculty}#{if val.qualification then ', ' + val.qualification}"
+        ed.useh 'about', val.comment
+        ed.add @found.education
+
+    if data.about then @found.about_me.text(data.about)
+    if data.reason then @found.why.show().find('.text').text(data.reason)
+    if data.interests? and data.interests.length and data.interests[0].description
+      @found.interests.show().find('.text').text(data.interests[0].description)
+
+    dative_tutor_name = @dativeName data.name
+    @found.dative_name.text(dative_tutor_name.first)
 
 #    if data.subjects?
 #      for name, val of data.subjects
@@ -334,6 +378,7 @@ class @main
       @found.write_tutor_name.addClass 'shown'
       @found.write_tutor_phone.addClass 'shown'
       @found.write_tutor_subject.addClass 'shown'
+
     dative_tutor_name = @dativeName data.name
     @found.write_tutor_title.text("Написать "+dative_tutor_name.first)
     @tree.write_button.class.setValue "Написать "+dative_tutor_name.first
