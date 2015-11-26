@@ -48,7 +48,6 @@ typetoteach = {"school:0":'pre_school','school:1':'junior_school','school:2':'me
     dataToSet['tags.'+key] = val if key
   dataToSet.subjects = subjects_db
   yield _invoke db, 'update',{account:$.user.id},{$set:dataToSet},{upsert:true}
-  console.log dataToSet
   yield $.status 'tutor_prereg_3', true
   yield $.form.flush '*',$.req,$.res
   return {status:'success'}
