@@ -1,0 +1,47 @@
+//
+   Created by lh on 17.11.15.
+
+.block
+  .title Кафедра :
+  .value.js-chair!=chair
+  .err
+    .js-out_err_chair
+
+.block
+   .title Факультет :
+   .value.js-faculty!=faculty
+   .err
+      .js-out_err_faculty
+
+.block
+  .title Квалификация :
+  .value.js-qualification!=qualification
+  .err
+    .js-out_err_status
+
+.block
+   .title Расположение :
+
+   .form
+      .name Страна
+      .field
+         .value.js-country!=country
+         .err
+            .js-out_err_country
+   .form
+      .name Город
+      .field
+         .value.js-city!=city
+         .err
+            .js-out_err_city
+
+
+
+.block
+   .title Период :
+   .period!=period_education
+   .err
+      .js-out_err_period
+.block
+   .title Комментарий :
+   .value.js-comment!=comment

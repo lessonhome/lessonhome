@@ -152,11 +152,23 @@ class @main extends EE
       ls1 = cA ls1,data.login,'<br>'
       ls1 = cA ls1,data.phone?.join('; '),'<br>'
       ls1 = cA ls1,data.email?.join('; '),'<br>'
+      ls2 = ""
+      ls2 = cA ls2,l.street
+      ls2 = cA ls2,l.house
+      ls2 = cA ls2,l.building
+    if Feel?.user?.type?.admin
+      @found.location.css 'height','auto'
+      ls4 = ""
+      for key,val of (data?.check_out_the_areas ? {})
+        ls4 = cA ls4,val
+      ls = cA ls,ls4,'<br>'
     ls3 = ""
     ls3 += "м. #{l.metro}" if l.metro
     ls = ""
     ls = cA ls,ls3,'<br>'
+    ls = cA ls,ls2,'<br>' if Feel?.user?.type?.admin
     ls = cA ls,ls1,'<br>'
+    ls = cA ls,ls4,'<br>' if Feel?.user?.type?.admin
     
     @found.location.html ls
     ###

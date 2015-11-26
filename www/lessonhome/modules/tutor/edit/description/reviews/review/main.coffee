@@ -16,6 +16,7 @@ class @main
     @tree.course  .class.setValue data.course   ? []
     @tree.review  .class.setValue data.review   ? ''
     @tree.name    .class.setValue data.name     ? ''
+    @tree.date    .class.setValue data.date     ? ''
     @tree.mark    .class.setValue data.mark     ? ''
     @tree.comment .class.setValue data.comment  ? ''
 

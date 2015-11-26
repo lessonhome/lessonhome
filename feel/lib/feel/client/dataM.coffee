@@ -13,12 +13,12 @@ class @DataM
 
   init : =>
     keys = $.localStorage.keys()
-    for key in keys
+    unless Feel.user?.type?.admin then for key in keys
       continue unless m = key.match /tutorInfo_(.*)/
       prep = $.localStorage.get key
       prep.__storage = true
       @tutors.preps[m[1]] = prep if prep?
-    for key in keys
+    unless Feel.user?.type?.admin then for key in keys
       continue unless m = key.match /tutorsFilter_(.*)/
       indexes = $.localStorage.get key
       indexes.__storage = true
@@ -73,6 +73,7 @@ class @DataM
     ret = yield Feel.root.tree.class.$send 'm:/main/preview/tutors',{preps:req},'quiet'
     for key,prep of (ret.preps ? {})
       @tutors.preps[key] = prep
+      continue if Feel.user?.type?.admin
       $.localStorage.set 'tutorInfo_'+key,prep if prep?
   getTutors : (from=0,count=10,hash_)=>
     filter = {}
@@ -93,6 +94,7 @@ class @DataM
       $.localStorage.set 'tutorsFilter_'+key,indexes if indexes?
     for key,prep of (ret.preps ? {})
       @tutors.preps[key] = prep
+      continue if Feel.user?.type?.admin
       $.localStorage.set 'tutorInfo_'+key,prep if prep?
   getBest : (count)=>
     indexes = (yield @getTutors 0,count,'')?.slice?(0,count) ? []
