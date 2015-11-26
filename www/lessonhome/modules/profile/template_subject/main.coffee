@@ -1,7 +1,7 @@
 class @main
   TITLES = [
     ['tutor', "У репетитора"],
-    ['pupil',  "У ученика"],
+    ['pupil',  "Выезд"],
     ['remote' , "Skype"]
   ]
 
@@ -63,7 +63,7 @@ class @main
           if (diff = @getDiff main, price)?
 
             if diff > 0
-              @addPrices diff, title[1]
+              @addPrices diff + ' руб.', title[1]
             else
               unless short
                 @addPrices price, title[1]
@@ -74,7 +74,7 @@ class @main
         else
           main = price
           @addPrices main, (unless short then title[1] else '')
-
+    return @dom.clone().children()
 
 
   getPriceAtHour : (time_prices) =>
@@ -120,17 +120,11 @@ class @main
     result = '+' + result if result > 0
     return result
 
-  getDetail : (priceArr, titles) =>
-    result = $('<div>')
-    @title.show()
-    for p, i in priceArr
-      @title.text titles[i]
-      @initDom p
-      result.append @dom.clone().children()
-    return result
 
   getShort : (priceArr) =>
     @title.hide()
-    @initDom @getGeneral(priceArr), true
-    return @dom.clone().children()
+    return @initDom @getGeneral(priceArr), true
 
+  getOne : (price, title) =>
+    @title.show().text title
+    return @initDom price

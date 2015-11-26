@@ -20,7 +20,7 @@ class @main
 
   show: =>
 
-    class @templ
+    class templ
       constructor : (jQ) ->
         that = @
         @dom = jQ.clone()
@@ -46,12 +46,19 @@ class @main
           else @fields[key].show().html(h)
 
 
+    @templ_sub = new templ @found.template_subjects
+    @templ_educ = new templ @found.template_education
+    @templ_short_place = new templ @found.template_short_places
+    @templ_place = new templ @found.template_places
+
+
     #scroll spy
     @reviewMark.scrollSpy()
     #tabs
     @profileTab.tabs()
     
     #@found.profile_tabs.tabs()
+    @found.show_detail.on 'click', @onShowDetail
     @chooseTutor.on 'click', => Q.spawn => yield @onTutorChoose()
     Feel.urlData.on 'change',=> Q.spawn => yield @setLinked()
     @found.back.click (e)=>
@@ -87,7 +94,19 @@ class @main
   goHistoryUrl : => setTimeout (-> document.location.href = History.getState().url),100
 
 
-   
+  onShowDetail : (e) =>
+    btn = $(e.currentTarget).find('span')
+    if @found.short_prices.is ':visible'
+      @found.short_prices.fadeOut 200,
+        =>
+          @found.detail_prices.fadeIn(200)
+          btn.text('Скрыть')
+    else
+      @found.detail_prices.fadeOut 200,
+        =>
+          @found.short_prices.fadeIn(200)
+          btn.text('Подробнее')
+    return true
 
   onTutorChoose : =>
     active  = !@found.tutor_trigger.hasClass('selected')
@@ -132,6 +151,8 @@ class @main
     }
 
   setNewFormatPrice : (data) ->
+    return unless data.subjects?
+
     places = []
     subject = data.subjects[ Object.keys(data.subjects)[0] ]
 
@@ -166,9 +187,9 @@ class @main
     subject.place_prices[k] = new_price for k in places
 
   setValue : (data={})=>
+    console.time 'main'
 
     @setNewFormatPrice data
-
     @tree.value ?= {}
     @tree.value[key] = val for key,val of data
     data = @tree.value
@@ -176,6 +197,7 @@ class @main
 
     yield @setPhotos data.photos
     yield @setRating data.rating
+
     @found.full_name.text("#{@name}")
     if data.age? && data.age
       age_end = data.age%10
@@ -212,10 +234,10 @@ class @main
     ls1 = ""
     ls1 = cA ls1,l.city
     ls1 = cA ls1,l.area
-#    if Feel.user?.type?.admin
-#      ls1 = cA ls1,data.login,'<br>'
-#      ls1 = cA ls1,data.phone?.join('; '),'<br>'
-#      ls1 = cA ls1,data.email?.join('; '),'<br>'
+    if Feel.user?.type?.admin
+      ls1 = cA ls1,data.login,'<br>'
+      ls1 = cA ls1,data.phone?.join('; '),', '
+      ls1 = cA ls1,data.email?.join('; '),', '
     ls3 = ""
     if l.metro
       stations = l.metro.split(',').map (station) -> "м. #{trim station}"
@@ -241,37 +263,74 @@ class @main
     @setLinked()
 
     if data.slogan? && data.slogan
-      @found.slogan.text data.slogan
-      @found.slogan.show()
+      @found.slogan.show().text data.slogan
+    else
+      @found.slogan.hide()
 
-    if data.place? && data.place
-      @found[place]?.show()? for place of data.place
+    @found.location_places.html ''
+    @found.short_places.html ''
+    @found.block_places.hide()
 
-    if data.status? && data.status then @found.status.text @status_values[data.status]
-    if data.experience? && data.experience then @found.experience.text data.experience
+    if data.place?
+      for place, title of {tutor: 'У себя', pupil : 'Выезд', remote : 'Skype'}
+        if data.place[place]?
+          @templ_short_place.use 'place', title
+          @templ_short_place.add @found.short_places
+
+          location = ''
+
+          switch place
+            when 'tutor' then location = ls
+            when 'pupil' then location =  data.check_out_the_areas?.join(', ')
+
+
+          if location
+            @found.block_places.show()
+            @templ_place.use 'place', title
+            @templ_place.use 'location', location
+            @templ_place.add @found.location_places
+
+
+    if data.status? and @status_values[data.status]?
+      @found.status.show().text @status_values[data.status]
+    else
+      @found.status.hide()
+
+#    if data.experience? && data.experience
+#      @found.experience.show().text data.experience
+#    else
+#      @found.experience.hide()
+
+    @found.short_prices.html ''
+    @found.detail_prices.hide().html ''
+    @found.subjects.html ''
 
     if data.subjects? and data.ordered_subj?
+      @found.block_prices.show()
       subArr = []
       subArr.push(data.subjects[name].place_prices) for name in data.ordered_subj
-
       @found.short_prices.append @template_subject.getShort(subArr)
-      @found.detail_prices.append @template_subject.getDetail(subArr, data.ordered_subj)
 
-      subj = new @templ @found.template_subjects
+      for title, i in data.ordered_subj
+        @found.detail_prices.append $('<li>').append(@template_subject.getOne(subArr[i], title))
 
       for name, value of data.subjects
-        subj.use 'name', name
-        subj.useh 'direct', value.course?.join(', ')
-        subj.useh 'descr', value.description
-        subj.add @found.subjects
+        @templ_sub.use 'name', name
+        @templ_sub.useh 'direct', value.course?.join(', ')
+        @templ_sub.useh 'descr', value.description
+        @templ_sub.add @found.subjects
+    else
+      @found.block_prices.hide()
 
 
 
+    console.time 'newprice'
     if data.education? && data.education.length
-      ed = new @templ @found.template_education
+      @found.block_education.show()
+
       for val in data.education
-        ed.use 'title', val.name
-        ed.useh 'city', if val.city then "г. #{val.city}"
+        @templ_educ.use 'title', val.name
+        @templ_educ.useh 'city', if val.city then "г. #{val.city}"
 
         start = val.period?.start
         end = val.period?.end
@@ -282,29 +341,25 @@ class @main
         start = (unless end then 'c ' else '') + start if start
         end = (if start then ' - ' else 'до ') + end if end
 
-        ed.useh 'period', "#{start} #{end} г." if start or end
-        ed.useh 'info', "#{val.faculty}#{if val.qualification then ', ' + val.qualification}"
-        ed.useh 'about', val.comment
-        ed.add @found.education
+        @templ_educ.useh 'period', "#{start} #{end} г." if start or end
+        @templ_educ.useh 'info', "#{val.faculty}#{if val.qualification then ', ' + val.qualification}"
+        @templ_educ.useh 'about', val.comment
+        @templ_educ.add @found.education
+    else
+      @found.block_education.hide()
 
-    if data.about then @found.about_me.text(data.about)
-    if data.reason then @found.why.show().find('.text').text(data.reason)
+    if data.about then @found.about_me.show().text(data.about) else @found.about_me.hide()
+    if data.reason then @found.why.show().find('.text').text(data.reason) else @found.why.hide()
     if data.interests? and data.interests.length and data.interests[0].description
       @found.interests.show().find('.text').text(data.interests[0].description)
+
+
+
 
     dative_tutor_name = @dativeName data.name
     @found.dative_name.text(dative_tutor_name.first)
 
-#    if data.subjects?
-#      for name, val of data.subjects
-#        console.log @tree.price_subject.class.$clone().dom
-#      subjects = new @template 'subjects', ['name', 'training_direction', 'description', 'prices', 'plus-price']
-#      for name, val of data.subjects
-#        subjects.set 'name', name
-#        subjects.set('training_direction', val.course.join(', ') ) if val.course? and val.course.length
-#        subjects.set 'description', val.description
-#        subjects.past()
-
+    console.timeEnd 'newprice'
 #    last_work = data.work?[Object.keys(data.work ? {})?.pop?()]
 #    if last_work
 #      if last_work.place? && last_work.place
@@ -327,65 +382,67 @@ class @main
 #    else
 #      @found.education.hide()
 
-    if data.check_out_the_areas?
-      for key, val of data.check_out_the_areas
-        if key > 0
-          $(@areas_departure_value).append(", #{val}")
-        else
-          $(@areas_departure_value).append(val)
-    else
-      @areas_departure.hide()
-    @found.about_text.text("#{data.about ? ""}")
-    if data.interests?
-      for key, val of data.interests
-        if val.description
-          if key > 0
-            $(@found.interests_val).append(", #{val.description}")
-            @found.interests.show()
-          else
-            $(@found.interests_val).append(val.description)
-            @found.interests.show()
-    if data.reason? && data.reason
-      @found.reason_val.text(data.reason)
-      @found.reason.show()
+#    if data.check_out_the_areas?
+#      for key, val of data.check_out_the_areas
+#        if key > 0
+#          $(@areas_departure_value).append(", #{val}")
+#        else
+#          $(@areas_departure_value).append(val)
+#    else
+#      @areas_departure.hide()
+#    @found.about_text.text("#{data.about ? ""}")
+#    if data.interests?
+#      for key, val of data.interests
+#        if val.description
+#          if key > 0
+#            $(@found.interests_val).append(", #{val.description}")
+#            @found.interests.show()
+#          else
+#            $(@found.interests_val).append(val.description)
+#            @found.interests.show()
+#    if data.reason? && data.reason
+#      @found.reason_val.text(data.reason)
+#      @found.reason.show()
     #@honors_text.text("#{data.honors_text ? ""}")
-    subjects_number = 0
-    @tutor_subjects = []
-    @subjects_content.empty()
-    console.log data.subjects
-    for key,val of data.subjects
-      ss = key.split /[\.,;]/
-      for s in ss
-        s = s.replace /^\s+/,''
-        s = s.replace /\s+$/,''
-        if s.length > 2
-          @tutor_subjects.push [s,val]
-          subjects_number++
-    newarr = []
-    for s in @tutor_subjects
-      new_subject = @hidden_subject.$clone()
-      new_subject.setValue s[0], s[1], data.place
-      newarr.push s[0]
-      @subjects_content.append(new_subject.dom)
-    @tutor_subjects = newarr
-    console.log @tutor_subjects
-    # right panel
-    $(@found.write_tutor_msg).on 'click', =>
-      @found.write_tutor_name.addClass 'shown'
-      @found.write_tutor_phone.addClass 'shown'
-      @found.write_tutor_subject.addClass 'shown'
-    $(@write_button).on 'click', =>
-      @found.write_tutor_name.addClass 'shown'
-      @found.write_tutor_phone.addClass 'shown'
-      @found.write_tutor_subject.addClass 'shown'
 
-    dative_tutor_name = @dativeName data.name
-    @found.write_tutor_title.text("Написать "+dative_tutor_name.first)
-    @tree.write_button.class.setValue "Написать "+dative_tutor_name.first
-    if subjects_number > 1
-      @tree.subject.class.setItems @tutor_subjects
-    else
-      @tree.subject.class.setValue @tutor_subjects[0]
-      @found.write_tutor_subject.hide()
-    @dom.css 'opacity',1
+#    subjects_number = 0
+#    @tutor_subjects = []
+#    @subjects_content.empty()
+#    console.log data.subjects
+#    for key,val of data.subjects
+#      ss = key.split /[\.,;]/
+#      for s in ss
+#        s = s.replace /^\s+/,''
+#        s = s.replace /\s+$/,''
+#        if s.length > 2
+#          @tutor_subjects.push [s,val]
+#          subjects_number++
+#    newarr = []
+#    for s in @tutor_subjects
+#      new_subject = @hidden_subject.$clone()
+#      new_subject.setValue s[0], s[1], data.place
+#      newarr.push s[0]
+#      @subjects_content.append(new_subject.dom)
+#    @tutor_subjects = newarr
+#    console.log @tutor_subjects
+#    # right panel
+#    $(@found.write_tutor_msg).on 'click', =>
+#      @found.write_tutor_name.addClass 'shown'
+#      @found.write_tutor_phone.addClass 'shown'
+#      @found.write_tutor_subject.addClass 'shown'
+#    $(@write_button).on 'click', =>
+#      @found.write_tutor_name.addClass 'shown'
+#      @found.write_tutor_phone.addClass 'shown'
+#      @found.write_tutor_subject.addClass 'shown'
+#
+#    dative_tutor_name = @dativeName data.name
+#    @found.write_tutor_title.text("Написать "+dative_tutor_name.first)
+#    @tree.write_button.class.setValue "Написать "+dative_tutor_name.first
+#    if subjects_number > 1
+#      @tree.subject.class.setItems @tutor_subjects
+#    else
+#      @tree.subject.class.setValue @tutor_subjects[0]
+#      @found.write_tutor_subject.hide()
+#    @dom.css 'opacity',1
+    console.timeEnd 'main'
 

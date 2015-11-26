@@ -57,33 +57,36 @@
             .col.s12
               ul.tags-list
                 li.js-status
-                li.js-experience
+                //li.js-experience
           .row.info-row.info-row-small
             .col.s12
-              ul.tags-list
-                li.js-tutor(style="display:none")
-                  i.material-icons.tiny.teal-text.text-lighten-1 lens
-                  span У себя
-                li.js-pupil(style="display:none")
-                  i.material-icons.tiny.teal-text.text-lighten-1 lens
-                  span Выезд
-                li.js-remote(style="display:none")
-                  i.material-icons.tiny.teal-text.text-lighten-1 lens
-                  span Skype
-      .row
+              ul.tags-list.js-short_places
+                li(style="display:none")
+                  ul.js-template_short_places
+                    li
+                      i.material-icons.tiny.teal-text.text-lighten-1 lens
+                      span(data-val='place')
+
+      .row.tutorials-list.js-block_prices
         .col.s12
           h4.red-text.text-darken-3 Цены
           div(style='display:none')!=template_subject
-          .row.js-short_prices
-          .row.js-detail_prices(style="display:none")
+        .col.s12
+          .js-short_prices
+        .col.s12
+          ul.js-detail_prices
+      .row
+        .col.s12
+          button.btn.waves-effect.waves-light.js-show_detail
+            span.tutor_button_text Подробнее
 
-          button.btn
-            span.tutor_button_text Подробно
-      .row.tutorials-list
-        .col.s12.js-subjects
 
+
+
+      .row.tutorials-list.js-block_subjects
+        .col.s12
           h4.red-text.text-darken-4 Предметы
-
+          .js-subjects
           .js-template_subjects(style="display:none")
             .row
               .col.s12
@@ -92,24 +95,23 @@
                 p.grey-text.text-darken-2(data-val='descr')
             .divider
 
-      .row.tutorials-list
+
+
+      .row.tutorials-list.js-block_places
         .col.s12
           h4.red-text.text-darken-4 Место занятий
-          .row
-            .col.s12
-              h5.grey-text.text-darken-4 У себя
-              p г. Москва м. Тверска Черезчемоданноколенный пер. д. 4
-          .divider
+          .js-location_places
           .js-template_places(style="display:none")
             .row
               .col.s12
-                h5.grey-text.text-darken-4.place
-                p.location
+                h5.grey-text.text-darken-4(data-val ='place')
+                p(data-val ='location')
             .divider
 
-      .row.tutorials-list
-        .col.s12.js-education
+      .row.tutorials-list.js-block_education
+        .col.s12
           h4.red-text.text-darken-4 Образование
+          .js-education
           .js-template_education(style="display:none")
             .row
               .col.s12
@@ -120,71 +122,60 @@
                 i(data-val="info")
                 p.grey-text.text-darken-2(data-val="about")
             .divider
-      .row.bottom-info
+
+      .row.bottom-info.js-block_about
         .col.s12
           h4.red-text.text-darken-4 О себе
           p.js-about_me
-          .js-why(style="display:none")
+          .js-why
             p
               b Почему я репетитор?
             p.text
-          .js-interests(style="display:none")
+          .js-interests
             p
               b Интересы
             p.text
+
       .row.js-review_mark#reviews
         .col.s12
           ul.tabs.js-profile_tab
+            //li.tab.col.s6
+            //  a(href="#tab1").active Отзывы&nbsp;
+            //    span.js-rew_count
             li.tab.col.s6
-              a(href="#tab1").active Отзывы&nbsp;
-                span.js-rew_count
-            li.tab.col.s6
-              a(href="#tab2") Документы
-          .col.s12.top-padding-tabs#tab1
-            .row
-              .col.s12
-                .js-template_reviews(style="display:none")
-                  .row
-                    .col.s12.m12.l4.review-rating-block
-                      .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4.assessment
-                      .col.s9.m9.l12.reviews-rating_subject.subject
-                      .col.s9.m9.l12.reviews-rating_direction.direction
-                    .col.s12.m12.l8
-                      p.review
-                      .reviews-date
-                        span.reviews-date_name.name
-                        span.reviews-date_date.grey-text.text-darken-3.data
-                  .divider
-                .row
-                  .col.s12.m12.l4.review-rating-block
-                    .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4 4.2
-                    .col.s9.m9.l12.reviews-rating_subject Химия
-                    .col.s9.m9.l12.reviews-rating_direction Подготовка к ЕГЭ
-                  .col.s12.m12.l8
-                    p Ольга Андреевна, интересный человек и хороший репетитор. Продолжаем заниматься с ней, если Вы хотите научить своего ребенка мыслить самостоятельно, писать сочинения, интересоваться и изучать художественные произведения, то рекомендую выбрать для занятий со своими детьми,Ольгу Андреевну! На мой взгляд, занятия с ней способствуют гармоничному развитию личности в целом.Она девушка современная и умная использует в своей работе компьютерные технологии (электронную доску и т.д.), такие методы обучения, лично мне и моей дочери очень нравятся! Продолжаем заниматься подготовкой к ЕГЭ. Спасибо! Оценка 5+.
-                    .reviews-date
-                      span.reviews-date_name Антонина
-                      span.reviews-date_date.grey-text.text-darken-3 10 октября 2015
-                .divider
-                .row
-                  .col.s12.m12.l4.review-rating-block
-                    .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4 3.8
-                    .col.s9.m9.l12.reviews-rating_subject Английский язык
-                  .col.s12.m12.l8
-                    p Мы с Ольгой Андреевной занимаемся недолго, поэтому говорить о глобальных результатах рано. Но могу сказать, у них с ученицей полный контакт. Я знаю, что к каждому ребёнку нужен свой индивидуальный подход, например, Елене понравилось, что Ольга Андреевна молодой специалист. Она - пунктуальная и внимательная.
-                    .reviews-date
-                      span.reviews-date_name Евлампия
-                      span.reviews-date_date.grey-text.text-darken-3 10 октября 2015
-                      span.reviews-date_comment.grey-text.text-darken-3 Отзыв зафиксирован со слов клиента по телефону
-                //.divider
+              a(href="#tab2") Фотографии
+          //.col.s12.top-padding-tabs#tab1
+          //  .row
+          //    .col.s12
+          //        .col.s12.m12.l4.review-rating-block
+          //          .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4 4.2
+          //          .col.s9.m9.l12.reviews-rating_subject Химия
+          //          .col.s9.m9.l12.reviews-rating_direction Подготовка к ЕГЭ
+          //        .col.s12.m12.l8
+          //          p Ольга Андреевна, интересный человек и хороший репетитор. Продолжаем заниматься с ней, если Вы хотите научить своего ребенка мыслить самостоятельно, писать сочинения, интересоваться и изучать художественные произведения, то рекомендую выбрать для занятий со своими детьми,Ольгу Андреевну! На мой взгляд, занятия с ней способствуют гармоничному развитию личности в целом.Она девушка современная и умная использует в своей работе компьютерные технологии (электронную доску и т.д.), такие методы обучения, лично мне и моей дочери очень нравятся! Продолжаем заниматься подготовкой к ЕГЭ. Спасибо! Оценка 5+.
+          //          .reviews-date
+          //            span.reviews-date_name Антонина
+          //            span.reviews-date_date.grey-text.text-darken-3 10 октября 2015
+          //      .divider
+          //      .row
+          //        .col.s12.m12.l4.review-rating-block
+          //          .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4 3.8
+          //          .col.s9.m9.l12.reviews-rating_subject Английский язык
+          //        .col.s12.m12.l8
+          //          p Мы с Ольгой Андреевной занимаемся недолго, поэтому говорить о глобальных результатах рано. Но могу сказать, у них с ученицей полный контакт. Я знаю, что к каждому ребёнку нужен свой индивидуальный подход, например, Елене понравилось, что Ольга Андреевна молодой специалист. Она - пунктуальная и внимательная.
+          //          .reviews-date
+          //            span.reviews-date_name Евлампия
+          //            span.reviews-date_date.grey-text.text-darken-3 10 октября 2015
+          //            span.reviews-date_comment.grey-text.text-darken-3 Отзыв зафиксирован со слов клиента по телефону
+          //      //.divider
           .col.s12.top-padding-tabs#tab2
             .row
               .col.s12
                 ul.profile-documents.js-documents
-                  //li
-                  //  img(src='http://spbdiplom.com/images/stories/39.jpg').materialboxed
-                  //li
-                  //  img(src='http://www.toefl-ielts.kiev.ua/files/other_pictures/certificate-toeic.jpg').materialboxed
+                  li
+                    img(src='http://spbdiplom.com/images/stories/39.jpg').materialboxed
+                  li
+                    img(src='http://www.toefl-ielts.kiev.ua/files/other_pictures/certificate-toeic.jpg').materialboxed
 
     .col.l4.m4.s12.grey.lighten-4.center-align.profile-send-form.hide-on-small-and-down
       .row
