@@ -183,6 +183,7 @@ class Tutors
       obj.name.first = p?.first_name
       obj.slogan = t?.slogan
       obj.interests = p?.interests
+      obj.reviews = p?.reviews
       obj.name.last  = p?.last_name
       obj.name.middle = p?.middle_name
       obj.work = p?.work
