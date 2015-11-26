@@ -8,7 +8,7 @@
         select(multiple).js-megaselect
           each groups in subject_list
             optgroup(label!=groups.group)
-              option(value='', selected, disabled) Выберете предмет
+              option(value='', selected, disabled) Предмет
               each val, index in groups.items
                 option(value!=index)!=val
     .row.no-bottom-margin
