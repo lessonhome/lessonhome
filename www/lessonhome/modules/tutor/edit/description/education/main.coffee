@@ -1,41 +1,57 @@
 class @main
   constructor : ->
     $W @
+
+  Dom : =>
+    @test = @tree.test.class
+
   show : =>
-    @items = []
-    @clone = @tree.item.class
-    @items.push @tree.item.class
-    @found.add_button.click => @add()
     items = yield @$send './save','quiet'
     for item,i in items
       continue if i == 0
-      @add item
-  add : (data={})=>
-    cl = @clone.$clone()
-    dom = $('<div class="item"></div>')
-    dom.append cl.dom
-    data.learn_from = data?.period?.start || ""
-    data.learn_till = data?.period?.end || ""
-    delete data.period
-    cl.setValue data
-    @found.items.append dom
-    @items.push cl
+      @test.add(item).show()
+
+    @test.on 'preremove', (elem) =>
+      univ = elem.title.getValue()
+      elem.text_restore.text 'Удалить образование ' + univ + '?'
+
+    $('html').on 'click', => @test.eachElem -> @onRestore()
+
+  getValue : =>
+    result = {}
+    @test.eachElem (i) -> result[i] = @getValue()
+    return result
+
+  interpretError : (errors = {}) =>
+    result = {}
+    #    return result if errors.correct is true
+    if errors['name'] is 'empty_field' then result['name'] = 'Введите название вуза'
+    if errors['faculty'] is 'empty_field' then result['faculty'] = 'Введите название факультета'
+
+    switch 'not_string'
+      when errors['country'], errors['city'], errors['chair'], errors['qualification'], errors['comment'], errors['period']
+        result['other'] = 'Некорректные типы данных'
+
+    return result
+
+  showErrors : (errors) =>
+    that = @
+    @test.eachElem (i) ->
+#      if errors[i]? then @slideDown() else @slideUp()
+      if not errors[i]? then @slideUp()
+      @showErrors that.interpretError(errors[i])
+
   save : (data)=>
     items = []
-    for item in @items
-      continue if item.removed
-      obj = item.getValue()
-      str = ""
-      for key,val of obj
-        str += val
-      unless str.length > 10
-        item.remove()
-        continue
-      obj.period =
-        start : obj.learn_from
-        end   : obj.learn_till
-      delete obj.learn_from
-      delete obj.learn_till
-      items.push obj
-    yield @$send './save',items
+    @test.eachElem -> items.push @getValue()
+    errors = @js.check items
+    if errors.correct is true
+      data = yield @$send './save', items
+      if data.status is 'success'
+        return true
+      else if data.status is 'failed'
+        @showErrors data.errs
+    else
+      @showErrors errors
+    return false
 

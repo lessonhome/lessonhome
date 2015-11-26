@@ -1,9 +1,6 @@
 @import base
 main
   margin-left: 135px
-=title
-  font-size: 21px
-  text-align: left
 =opacity($level)
   @if $level == 0
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"
@@ -15,8 +12,6 @@ main
     -moz-opacity: 1
     -khtml-opacity: 1
     opacity: 1
-=elements
-  padding: 0 30px
 .template
   position: absolute
   display: none
@@ -31,9 +26,9 @@ main
     //background-color: #E6E6E6
     margin-bottom: 20px
 .title
-  +title
-  +elements
-  padding-bottom: 20px
+  font-size: 21px
+  text-align: left
+  padding: 0 30px 20px
 .btn_add
   +opacity(0)
   +material_shadow(1)

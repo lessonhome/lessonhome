@@ -2,7 +2,7 @@ class @main extends @template '../tutor'
   route : '/tutor/pay'
   model   : 'tutor/pay'
   title : "оплата"
-  access : ['other']
+  access : ['other','pupil','admin','tutor']
   forms : [{person:['balance']}]
   redirect : {
   }
