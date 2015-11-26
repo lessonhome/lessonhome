@@ -13,12 +13,12 @@ class @DataM
 
   init : =>
     keys = $.localStorage.keys()
-    for key in keys
+    unless Feel.user?.type?.admin then for key in keys
       continue unless m = key.match /tutorInfo_(.*)/
       prep = $.localStorage.get key
       prep.__storage = true
       @tutors.preps[m[1]] = prep if prep?
-    for key in keys
+    unless Feel.user?.type?.admin then for key in keys
       continue unless m = key.match /tutorsFilter_(.*)/
       indexes = $.localStorage.get key
       indexes.__storage = true

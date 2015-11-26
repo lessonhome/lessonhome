@@ -1,0 +1,19 @@
+//
+   Created by lh on 17.11.15.
+
+.js-panel
+   .js-active_block
+      .title_block!= title_element
+      .btn_panel
+         a(href="#", title="Удалить").js-preremove
+            i.icon
+         a(href="#", title="Свернуть/Развернуть").js-expand.active
+            i.icon
+      .err.js-error_title
+   .js-restore_block
+      .text
+         .js-text_restore
+      .btn_panel
+         a(href="#", title="Восстановить").btn.js-restore Нет
+         a(href="#", title="Удалить").btn.js-rem Да
+.js-container!=content_form

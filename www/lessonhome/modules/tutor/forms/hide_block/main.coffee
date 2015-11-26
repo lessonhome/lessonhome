@@ -20,12 +20,13 @@ class @main
   closeContent : =>
     @trigger.setValue false
     @content.hide().css 'opacity', 0
-  setValue : (data) =>
+  setValue : (data = {}) =>
     if data.selected is true
       @openContent()
+      @tree.content.class.setValue data
     else
       @closeContent()
-    @tree.content.class.setValue data
+      @tree.content.class.setValue()
   getValue : =>
     data = @tree.content.class.getValue()
     data['selected'] = @trigger.getValue()
