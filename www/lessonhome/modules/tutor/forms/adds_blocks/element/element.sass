@@ -1,0 +1,93 @@
+@import base
+
+$padding: 20px
+$icon_trash: 'trash_normal.png'
+$icon_trash_hover: 'trash_hover.png'
+$icon_arrow_down: 'arrow_down.png'
+$icon_arrow_up: 'arrow_up.png'
+=icon($src)
+  +inline-block
+  height: image-height($src)
+  width: image-width($src)
+  background: url(F($src)) no-repeat
+=button($src, $src_hover)
+  cursor : pointer
+  text-align: center
+  +inline-block
+  height: 36px
+  line-height: 36px
+  width: 36px
+  //background: #ddd
+  @if $src_hover
+    &:hover
+      i.icon
+        +icon($src_hover)
+        vertical-align: top
+  i.icon
+    +icon($src)
+    vertical-align: top
+=error_text
+  font-size: 0.8em
+  color: #FF0000
+  margin-top: 10px
+  margin-left: 20px
+main
+  height: 100%
+  text-align: left
+  border: 1px solid #DDD
+  background-color: #E6E6E6
+.panel
+  &.restore
+    background: #EDF2C4
+    .restore_block
+      display: block
+    .active_block
+      display: none
+
+  padding: 15px $padding
+  position: relative
+  .restore_block
+    display: none
+    .text
+      margin-right: 40px
+      .text_restore
+        line-height: 1.4
+        color: #FF0000
+    .btn_panel
+      //float: right
+      text-align: right
+      a.rem, a.restore
+        //color: #FF0000
+        text-decoration: none
+        color: #000
+        +inline-block
+        padding: 10px 15px
+        &:hover
+          background: rgba(255,255,255,0.5)
+      .btn + .btn
+        margin-left: 20px
+  //+button($icon_cross, $icon_cross)
+  .active_block
+    &:after
+      +after_block
+    .title_block
+      +inline-block
+    .btn_panel
+      float: right
+      .preremove
+        +button($icon_trash, $icon_trash_hover)
+      .expand
+        +button($icon_arrow_down, $icon_arrow_down)
+        margin-left: 30px
+        &.active
+          +button($icon_arrow_up, $icon_arrow_up)
+        &:hover
+          background: #f3f3f3
+    //.expand.active
+      //background: url(F('info_closed.png')) no-repeat 4px 8px
+    .err
+      +error_text
+      display: none
+
+.container
+  padding: 0 $padding 20px
