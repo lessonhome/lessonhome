@@ -78,7 +78,6 @@
       .row
         .col.s12
           button.btn.waves-effect.waves-light.js-show_detail
-            span.tutor_button_text Подробнее
 
 
 
@@ -139,43 +138,31 @@
       .row.js-review_mark#reviews
         .col.s12
           ul.tabs.js-profile_tab
-            //li.tab.col.s6
-            //  a(href="#tab1").active Отзывы&nbsp;
-            //    span.js-rew_count
+            li.tab.col.s6
+              a(href="#tab1").active Отзывы&nbsp;
+                span.js-rew_count
             li.tab.col.s6
               a(href="#tab2") Фотографии
-          //.col.s12.top-padding-tabs#tab1
-          //  .row
-          //    .col.s12
-          //        .col.s12.m12.l4.review-rating-block
-          //          .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4 4.2
-          //          .col.s9.m9.l12.reviews-rating_subject Химия
-          //          .col.s9.m9.l12.reviews-rating_direction Подготовка к ЕГЭ
-          //        .col.s12.m12.l8
-          //          p Ольга Андреевна, интересный человек и хороший репетитор. Продолжаем заниматься с ней, если Вы хотите научить своего ребенка мыслить самостоятельно, писать сочинения, интересоваться и изучать художественные произведения, то рекомендую выбрать для занятий со своими детьми,Ольгу Андреевну! На мой взгляд, занятия с ней способствуют гармоничному развитию личности в целом.Она девушка современная и умная использует в своей работе компьютерные технологии (электронную доску и т.д.), такие методы обучения, лично мне и моей дочери очень нравятся! Продолжаем заниматься подготовкой к ЕГЭ. Спасибо! Оценка 5+.
-          //          .reviews-date
-          //            span.reviews-date_name Антонина
-          //            span.reviews-date_date.grey-text.text-darken-3 10 октября 2015
-          //      .divider
-          //      .row
-          //        .col.s12.m12.l4.review-rating-block
-          //          .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4 3.8
-          //          .col.s9.m9.l12.reviews-rating_subject Английский язык
-          //        .col.s12.m12.l8
-          //          p Мы с Ольгой Андреевной занимаемся недолго, поэтому говорить о глобальных результатах рано. Но могу сказать, у них с ученицей полный контакт. Я знаю, что к каждому ребёнку нужен свой индивидуальный подход, например, Елене понравилось, что Ольга Андреевна молодой специалист. Она - пунктуальная и внимательная.
-          //          .reviews-date
-          //            span.reviews-date_name Евлампия
-          //            span.reviews-date_date.grey-text.text-darken-3 10 октября 2015
-          //            span.reviews-date_comment.grey-text.text-darken-3 Отзыв зафиксирован со слов клиента по телефону
-          //      //.divider
+          .col.s12.top-padding-tabs#tab1
+            .row
+              .col.s12.js-reviews
+              .js-template_reviews(style="display: none")
+                .row
+                  .col.s12.m12.l4.review-rating-block
+                    .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4(data-val='mark')
+                    .col.s9.m9.l12.reviews-rating_subject(data-val='subject')
+                    .col.s9.m9.l12.reviews-rating_direction(data-val ='course')
+                  .col.s12.m12.l8
+                    p(data-val = 'review')
+                    .reviews-date
+                      span.reviews-date_name(data-val = 'name')
+                      span.reviews-date_date.grey-text.text-darken-3(data-val = 'date')
+                .divider
+
           .col.s12.top-padding-tabs#tab2
             .row
               .col.s12
                 ul.profile-documents.js-documents
-                  li
-                    img(src='http://spbdiplom.com/images/stories/39.jpg').materialboxed
-                  li
-                    img(src='http://www.toefl-ielts.kiev.ua/files/other_pictures/certificate-toeic.jpg').materialboxed
 
     .col.l4.m4.s12.grey.lighten-4.center-align.profile-send-form.hide-on-small-and-down
       .row

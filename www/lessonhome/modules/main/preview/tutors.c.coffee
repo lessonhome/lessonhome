@@ -276,6 +276,21 @@ class Tutors
       if !obj.experience || (obj.experience == 'неважно')
         obj.experience = '1-2 года'
       obj.status = t?.status
+
+      obj.media = []
+      if p.photos
+        for photo in p.photos
+          media = yield _invoke @dbuploaded.find({hash : {$in : [photo+'low', photo+'high']}}),'toArray'
+          if media[0]? and media[1]?
+            obj.media.push {
+              lwidth  : media[0].width
+              lheight : media[0].height
+              lurl    : media[0].url
+              hheight : media[1].height
+              hwidth : media[1].width
+              hurl    : media[1].url
+            }
+
       obj.photos = []
       if p.avatar
         for ava in p.avatar

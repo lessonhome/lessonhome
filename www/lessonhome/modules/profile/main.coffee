@@ -50,6 +50,7 @@ class @main
     @templ_educ = new templ @found.template_education
     @templ_short_place = new templ @found.template_short_places
     @templ_place = new templ @found.template_places
+    @templ_review = new templ @found.template_reviews
 
 
     #scroll spy
@@ -95,7 +96,7 @@ class @main
 
 
   onShowDetail : (e) =>
-    btn = $(e.currentTarget).find('span')
+    btn = $(e.currentTarget)
     if @found.short_prices.is ':visible'
       @found.short_prices.fadeOut 200,
         =>
@@ -234,19 +235,19 @@ class @main
     ls1 = ""
     ls1 = cA ls1,l.city
     ls1 = cA ls1,l.area
-    if Feel.user?.type?.admin
-      ls1 = cA ls1,data.login,'<br>'
-      ls1 = cA ls1,data.phone?.join('; '),', '
-      ls1 = cA ls1,data.email?.join('; '),', '
-    ls3 = ""
     if l.metro
       stations = l.metro.split(',').map (station) -> "м. #{trim station}"
-      ls3 += stations.join(', ')
+      ls1 = cA ls1, stations.join(', ')
+
     ls = ""
     ls = cA ls,ls1
-    ls = cA ls,ls3
 
     @found.location.text ls
+
+    if Feel.user?.type?.admin
+      @found.location.prepend('<br>').prepend $('<b>').text('login : ' +  data.login)
+      @found.location.prepend('<br>').prepend $('<b>').text('phone : ' +  data.phone)
+      @found.location.prepend('<br>').prepend $('<b>').text('email : ' + data.email)
 
     ###
     if data.location?.country
@@ -304,6 +305,7 @@ class @main
     @found.short_prices.html ''
     @found.detail_prices.hide().html ''
     @found.subjects.html ''
+    @found.show_detail.text('Подробнее')
 
     if data.subjects? and data.ordered_subj?
       @found.block_prices.show()
@@ -354,10 +356,36 @@ class @main
       @found.interests.show().find('.text').text(data.interests[0].description)
 
 
+    @found.reviews.html ''
 
+    if data.reviews?.length
+      for review in data.reviews
+        @templ_review.use 'mark', review.mark
+        @templ_review.useh 'course', review.course?.join(', ')
+        @templ_review.useh 'subject', review.subject?.join(', ')
+        @templ_review.use 'name', review.name
+        @templ_review.use 'review', review.review
+        @templ_review.use 'date', review.date
+        @templ_review.add @found.reviews
+    else
+      @found.reviews.html '<p>Отзывов о данном репетиторе пока нет.</p>'
+
+
+    @found.documents.html ''
+
+    if data.media?.length
+      for photo in data.media
+        img = $('<img>').attr 'src', photo.hurl
+        img.addClass 'materialboxed'
+        @found.documents.append $('<li>').append(img)
+        img.materialbox()
+    else
+      @found.documents.html '<p>Данный репетитор пока не выкладывал фотографий.</p>'
 
     dative_tutor_name = @dativeName data.name
     @found.dative_name.text(dative_tutor_name.first)
+
+
 
     console.timeEnd 'newprice'
 #    last_work = data.work?[Object.keys(data.work ? {})?.pop?()]
