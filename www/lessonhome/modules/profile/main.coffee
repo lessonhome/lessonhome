@@ -69,6 +69,7 @@ class @main
     yield @open()
 
   open : (index)=>
+    console.log 'open',index
     state = History.getState()
     if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
       @found.back.addClass 'hidden'
@@ -188,6 +189,7 @@ class @main
     subject.place_prices[k] = new_price for k in places
 
   setValue : (data={})=>
+    console.log 'setvalue',data
     console.time 'main'
 
     @setNewFormatPrice data

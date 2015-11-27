@@ -51,13 +51,14 @@ class @main extends EE
     yield @hidePage()
     yield @showPage()
   preShow : =>
+    console.log 'preshow'
     switch @nowurl
       when 'tutor_profile'
         @saveTutor = @tree.profile.class.$clone()
         @found.profile.find('>').off true,true
         @found.profile.empty()
         @found.profile.append @saveTutor.dom
-        yield @saveTutor.open @urldata
+        #yield @saveTutor.open @urldata
   hidePage : =>
     switch @oldurl
       when 'tutor_profile'
