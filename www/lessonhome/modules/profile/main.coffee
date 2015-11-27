@@ -69,7 +69,6 @@ class @main
     yield @open()
 
   open : (index)=>
-    console.log 'open',index
     state = History.getState()
     if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
       @found.back.addClass 'hidden'
@@ -126,7 +125,6 @@ class @main
       yield Feel.urlData.set 'mainFilter','linked',linked
     @tutorChoose state==true if choose
   tutorChoose : (active)=>
-    console.log 'tutorchoose',active
     if active
       @found.tutor_trigger.addClass('waves-light teal lighten-2 selected white-text').removeClass('btn-trigger waves-teal')
       @found.tutor_trigger.find('.tutor_button_text').html('Убрать')
@@ -138,7 +136,6 @@ class @main
   setPhotos : (photos)=>
     @found.view_photo.attr 'src',photos[Object.keys(photos).length-1].hurl
     @found.view_photo.attr 'data-caption',@name
-    console.log 'materialbox'
     @found.view_photo.materialbox()
     @found.view_photo.addClass 'materialboxed'
 
@@ -189,7 +186,6 @@ class @main
     subject.place_prices[k] = new_price for k in places
 
   setValue : (data={})=>
-    console.log 'setvalue',data
     console.time 'main'
 
     @setNewFormatPrice data

@@ -51,7 +51,6 @@ class @main extends EE
     yield @hidePage()
     yield @showPage()
   preShow : =>
-    console.log 'preshow'
     switch @nowurl
       when 'tutor_profile'
         @saveTutor = @tree.profile.class.$clone()
