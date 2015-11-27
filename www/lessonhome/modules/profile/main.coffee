@@ -1,3 +1,30 @@
+
+class templ
+  constructor : (jQ) ->
+    that = @
+    @template = jQ.clone()
+    @fields = {}
+
+    @elems = @template.find('[data-val]').each ->
+      el = $(@)
+      that.fields[el.data('val')] = el
+
+  add : (where) ->
+    where.append @template.clone().children()
+    @elems.html ''
+
+  use : (key, h) ->
+    if @fields[key]?
+      return @fields[key] unless h
+      @fields[key].html(h)
+
+  useh : (key, h) ->
+    if @fields[key]?
+      unless h
+        @fields[key].hide()
+      else @fields[key].show().html(h)
+
+
 class @main
   constructor : ->
     $W @
@@ -17,52 +44,32 @@ class @main
 
     @template_subject = @tree.template_subject.class
 
-
-  show: =>
-
-    class templ
-      constructor : (jQ) ->
-        that = @
-        @dom = jQ.clone()
-        @fields = {}
-
-        @elems = @dom.find('[data-val]').each ->
-          el = $(@)
-          that.fields[el.data('val')] = el
-
-      add : (where) ->
-        where.append @dom.clone().children()
-        @elems.html ''
-
-      use : (key, h) ->
-        if @fields[key]?
-          return @fields[key] unless h
-          @fields[key].html(h)
-
-      useh : (key, h) ->
-        if @fields[key]?
-          unless h
-            @fields[key].hide()
-          else @fields[key].show().html(h)
-
+    @message_text = @found.message_text
+    @message_phone = @found.message_phone
+    @message_name = @found.message_name
+    @message_send = @found.message_send
+    @message_sub = @found.message_subject
 
     @templ_sub = new templ @found.template_subjects
     @templ_educ = new templ @found.template_education
     @templ_short_place = new templ @found.template_short_places
     @templ_place = new templ @found.template_places
     @templ_review = new templ @found.template_reviews
-
-
+  show: =>
     #scroll spy
     @reviewMark.scrollSpy()
     #tabs
-    @profileTab.tabs()
+
+
+#    @profileTab.tabs()
+
+    @message_send.on 'click', @onSendMessage
     
     #@found.profile_tabs.tabs()
     @found.show_detail.on 'click', @onShowDetail
     @chooseTutor.on 'click', => Q.spawn => yield @onTutorChoose()
     Feel.urlData.on 'change',=> Q.spawn => yield @setLinked()
-    @found.back.click (e)=>
+    @found.back.on 'click', (e)=>
       return unless e.button == 0
       e.preventDefault()
       Q.spawn => yield @goBack()
@@ -93,6 +100,11 @@ class @main
       return yield @goHistoryUrl()
     document.location.href = document.referrer
   goHistoryUrl : => setTimeout (-> document.location.href = History.getState().url),100
+
+  onSendMessage : =>
+    console.log data = @getData()
+    console.log @save(data)
+
 
 
   onShowDetail : (e) =>
@@ -134,12 +146,32 @@ class @main
       @found.tutor_trigger.removeClass('waves-light teal lighten-2 selected white-text').addClass('btn-trigger waves-teal')
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
       @found.tutor_trigger.find('.material-icons').html('add')
+
+  loadedImage : (photo_parent, litle, hight) =>
+    photo_parent.addClass 'loaded-image materialboxed'
+    photo_parent.materialbox()
+    l_img = photo_parent.find('img:first').attr('src', litle)
+    if hight
+      h_img = l_img.clone().css({
+        display: 'none'
+        opacity: 0
+        position: 'absolute'
+        left: 0
+        top: 0
+      }).appendTo(photo_parent)
+
+      photo_parent.one 'click', ->
+        h_img.attr('src', hight).load ->
+          h_img.css('display', '').animate {opacity: 1}, ->
+            l_img.remove()
+            h_img.css({position: 'static'})
+
   setPhotos : (photos)=>
-    @found.view_photo.attr 'src',photos[Object.keys(photos).length-1].hurl
-    @found.view_photo.attr 'data-caption',@name
-    console.log 'materialbox'
-    @found.view_photo.materialbox()
-    @found.view_photo.addClass 'materialboxed'
+    avatar = photos[photos.length-1]
+    @loadedImage @found.view_photo.html('<img>'), avatar.lurl, avatar.hurl
+
+
+
 
   setRating : (rating)=>
 
@@ -188,16 +220,17 @@ class @main
     subject.place_prices[k] = new_price for k in places
 
   setValue : (data={})=>
-    console.time 'main'
 
-    @setNewFormatPrice data
+    @profileTab.find('.indicator')
+
+    yield @setNewFormatPrice data
     @tree.value ?= {}
     @tree.value[key] = val for key,val of data
     data = @tree.value
     @name = "#{data.name.first || ""} #{data.name.middle || ''}"
 
-    yield @setPhotos data.photos
-    yield @setRating data.rating
+    @setPhotos data.photos
+#    yield @setRating data.rating
 
     @found.full_name.text("#{@name}")
     if data.age? && data.age
@@ -218,9 +251,7 @@ class @main
 
     l = data?.location ? {}
 
-    trim = (val) ->
-      val = val.replace /^\s+/,''
-      val = val.replace /\s+$/,''
+    trim = (val) -> val.replace(/^\s+/,'').replace(/\s+$/,'')
 
     cA = (str="",val,rep=', ')->
       return str unless val
@@ -262,11 +293,10 @@ class @main
       @found.location.hide()
     ###
     @setLinked()
-
+    @found.slogan.hide()
     if data.slogan? && data.slogan
       @found.slogan.show().text data.slogan
-    else
-      @found.slogan.hide()
+
 
     @found.location_places.html ''
     @found.short_places.html ''
@@ -292,10 +322,10 @@ class @main
             @templ_place.add @found.location_places
 
 
+    @found.status.hide()
     if data.status? and @status_values[data.status]?
       @found.status.show().text @status_values[data.status]
-    else
-      @found.status.hide()
+
 
 #    if data.experience? && data.experience
 #      @found.experience.show().text data.experience
@@ -307,8 +337,29 @@ class @main
     @found.subjects.html ''
     @found.show_detail.text('Подробнее')
 
-    if data.subjects? and data.ordered_subj?
+    @found.select_subject.hide()
+    dative_tutor_name = @dativeName data.name
+    @found.dative_name.text(dative_tutor_name.first)
+
+    @found.block_prices.hide()
+    @found.block_subjects.hide()
+
+
+    if data.subjects? and data.ordered_subj?.length
+
+      subjects = data.ordered_subj
+      if subjects.length == 1 and (enumer = subjects[0].split(',')).length > 1
+        subjects = enumer.map trim
+
+      for sub, i in subjects then @message_sub.append $("<option>").text(sub).attr('value', sub)
+
+      if i > 1
+        @message_sub.material_select()
+        @found.select_subject.show()
+
+
       @found.block_prices.show()
+
       subArr = []
       subArr.push(data.subjects[name].place_prices) for name in data.ordered_subj
       @found.short_prices.append @template_subject.getShort(subArr)
@@ -316,20 +367,23 @@ class @main
       for title, i in data.ordered_subj
         @found.detail_prices.append $('<li>').append(@template_subject.getOne(subArr[i], title))
 
+
+      @found.block_subjects.show()
+
       for name, value of data.subjects
+
         @templ_sub.use 'name', name
         @templ_sub.useh 'direct', value.course?.join(', ')
         @templ_sub.useh 'descr', value.description
         @templ_sub.add @found.subjects
-    else
-      @found.block_prices.hide()
 
 
+    @found.education.html('')
+    @found.block_education.hide()
 
-    console.time 'newprice'
+
     if data.education? && data.education.length
       @found.block_education.show()
-
       for val in data.education
         @templ_educ.use 'title', val.name
         @templ_educ.useh 'city', if val.city then "г. #{val.city}"
@@ -347,130 +401,84 @@ class @main
         @templ_educ.useh 'info', "#{val.faculty}#{if val.qualification then ', ' + val.qualification}"
         @templ_educ.useh 'about', val.comment
         @templ_educ.add @found.education
-    else
-      @found.block_education.hide()
 
-    if data.about then @found.about_me.show().text(data.about) else @found.about_me.hide()
-    if data.reason then @found.why.show().find('.text').text(data.reason) else @found.why.hide()
+    @found.about_me.hide()
+    @found.why.hide()
+    @found.interests.hide()
+
+    if data.about then @found.about_me.show().text(data.about)
+    if data.reason then @found.why.show().find('.text').text(data.reason)
     if data.interests? and data.interests.length and data.interests[0].description
       @found.interests.show().find('.text').text(data.interests[0].description)
 
 
     @found.reviews.html ''
-
-    if data.reviews?.length
-      for review in data.reviews
-        @templ_review.use 'mark', review.mark
-        @templ_review.useh 'course', review.course?.join(', ')
-        @templ_review.useh 'subject', review.subject?.join(', ')
-        @templ_review.use 'name', review.name
-        @templ_review.use 'review', review.review
-        @templ_review.use 'date', review.date
-        @templ_review.add @found.reviews
-    else
-      @found.reviews.html '<p>Отзывов о данном репетиторе пока нет.</p>'
-
-
     @found.documents.html ''
+    @found.review_mark.hide()
 
-    if data.media?.length
-      for photo in data.media
-        img = $('<img>').attr 'src', photo.hurl
-        img.addClass 'materialboxed'
-        @found.documents.append $('<li>').append(img)
-        img.materialbox()
-    else
-      @found.documents.html '<p>Данный репетитор пока не выкладывал фотографий.</p>'
+    if data.reviews?.length or data.media?.length
+      @found.review_mark.show()
+      if data.reviews?.length
+        for review in data.reviews
+          @templ_review.use 'mark', review.mark
+          @templ_review.useh 'course', review.course?.join(', ')
+          @templ_review.useh 'subject', review.subject?.join(', ')
+          @templ_review.use 'name', review.name
+          @templ_review.use 'review', review.review
+          @templ_review.use 'date', review.date
+          @templ_review.add @found.reviews
+      else
+        @found.reviews.html '<p>Отзывов о данном репетиторе пока нет.</p>'
+        @found.tab_doc.trigger('click')
 
-    dative_tutor_name = @dativeName data.name
-    @found.dative_name.text(dative_tutor_name.first)
+      if data.media?.length
+        exist = {}
+        regexp = /^\/file\/(\w+)\//
+        for photo in data.media
+          hash = regexp.exec(photo.lurl, true)[1]
+          unless exist[hash]
+            exist[hash] = true
+            wrap = $('<div><img></div>')
+            @found.documents.append $('<div class="list">').append(wrap)
+            @loadedImage wrap, photo.lurl, photo.hurl
+      else
+        @found.documents.html '<p>Данный репетитор пока не выкладывал фотографий.</p>'
+        @found.tab_review.trigger('click')
 
+  save : (data) => do Q.async =>
+    return false unless @check_form(data)
+    {status,errs} = yield @$send('../main/attached/save', data)
+    if status=='success'
+      Feel.sendActionOnce 'direct_bid'
+      return true
+    return false
 
+  check_form : (data) =>
+    errs = @js.check data
+    for e in errs
+      @parseError e
+    return errs.length==0
 
-    console.timeEnd 'newprice'
-#    last_work = data.work?[Object.keys(data.work ? {})?.pop?()]
-#    if last_work
-#      if last_work.place? && last_work.place
-#        #alert last_work.post?
-#        #alert last_work.post
-#        if last_work.post? && last_work.post
-#          @found.work_place_value.text(last_work.place, last_work.post)
-#        else
-#          @found.work_place_value.text(last_work.place)
-#      else
-#        @found.work_place.hide()
-#    else
-#      @found.work_place.hide()
+  parseError : (err)=>
+    switch err
+#      when "short_name"
+#        @message_name.showError "Слишком короткое имя "
+      when "short_phone", "empty_phone"
+        @message_phone.removeClass('valid').addClass 'invalid'
+#      when "empty_name"
+#        @message_name.showError "Введите имя"
+#      when "empty_subject"
+#        @message_sub.showError "Выберите предмет"
 
-#    if data.education?[0]?.name
-#      if data.education?[0]?.faculty
-#        @found.education_value.text("#{data.education?[0]?.name ? ""}, #{data.education?[0]?.faculty ? ""}")
-#      else
-#        @found.education_value.text("#{data.education?[0]?.name ? ""}")
-#    else
-#      @found.education.hide()
+  hide : =>
+    @chooseTutor.off 'click'
+    @found.back.off 'click'
 
-#    if data.check_out_the_areas?
-#      for key, val of data.check_out_the_areas
-#        if key > 0
-#          $(@areas_departure_value).append(", #{val}")
-#        else
-#          $(@areas_departure_value).append(val)
-#    else
-#      @areas_departure.hide()
-#    @found.about_text.text("#{data.about ? ""}")
-#    if data.interests?
-#      for key, val of data.interests
-#        if val.description
-#          if key > 0
-#            $(@found.interests_val).append(", #{val.description}")
-#            @found.interests.show()
-#          else
-#            $(@found.interests_val).append(val.description)
-#            @found.interests.show()
-#    if data.reason? && data.reason
-#      @found.reason_val.text(data.reason)
-#      @found.reason.show()
-    #@honors_text.text("#{data.honors_text ? ""}")
-
-#    subjects_number = 0
-#    @tutor_subjects = []
-#    @subjects_content.empty()
-#    console.log data.subjects
-#    for key,val of data.subjects
-#      ss = key.split /[\.,;]/
-#      for s in ss
-#        s = s.replace /^\s+/,''
-#        s = s.replace /\s+$/,''
-#        if s.length > 2
-#          @tutor_subjects.push [s,val]
-#          subjects_number++
-#    newarr = []
-#    for s in @tutor_subjects
-#      new_subject = @hidden_subject.$clone()
-#      new_subject.setValue s[0], s[1], data.place
-#      newarr.push s[0]
-#      @subjects_content.append(new_subject.dom)
-#    @tutor_subjects = newarr
-#    console.log @tutor_subjects
-#    # right panel
-#    $(@found.write_tutor_msg).on 'click', =>
-#      @found.write_tutor_name.addClass 'shown'
-#      @found.write_tutor_phone.addClass 'shown'
-#      @found.write_tutor_subject.addClass 'shown'
-#    $(@write_button).on 'click', =>
-#      @found.write_tutor_name.addClass 'shown'
-#      @found.write_tutor_phone.addClass 'shown'
-#      @found.write_tutor_subject.addClass 'shown'
-#
-#    dative_tutor_name = @dativeName data.name
-#    @found.write_tutor_title.text("Написать "+dative_tutor_name.first)
-#    @tree.write_button.class.setValue "Написать "+dative_tutor_name.first
-#    if subjects_number > 1
-#      @tree.subject.class.setItems @tutor_subjects
-#    else
-#      @tree.subject.class.setValue @tutor_subjects[0]
-#      @found.write_tutor_subject.hide()
-#    @dom.css 'opacity',1
-    console.timeEnd 'main'
-
+  getData : =>
+    return {
+      id:             @index
+      comments:       @message_text.val()
+      name:           @message_name.val()
+      phone:          @message_phone.val()
+      subject:        @message_sub.val()
+    }

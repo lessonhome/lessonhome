@@ -13,7 +13,8 @@
         .col.l4.m4.s12.center-align
           .row
             .col.s12
-              img.js-view_photo(width='250').responsive-img
+              div(width='250').js-view_photo
+                img.responsive-img
             .input-field.col.s12.center-align.tutor-action.profile-button.valign.hide-on-med-and-down
               button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
                 span.tutor_button_text Выбрать
@@ -139,10 +140,10 @@
         .col.s12
           ul.tabs.js-profile_tab
             li.tab.col.s6
-              a(href="#tab1").active Отзывы&nbsp;
+              a(href="#tab1").js-tab_review Отзывы
                 span.js-rew_count
             li.tab.col.s6
-              a(href="#tab2") Фотографии
+              a(href="#tab2").js-tab_doc Фотографии
           .col.s12.top-padding-tabs#tab1
             .row
               .col.s12.js-reviews
@@ -162,7 +163,7 @@
           .col.s12.top-padding-tabs#tab2
             .row
               .col.s12
-                ul.profile-documents.js-documents
+                .profile-documents.js-documents
 
     .col.l4.m4.s12.grey.lighten-4.center-align.profile-send-form.hide-on-small-and-down
       .row
@@ -171,19 +172,25 @@
       .row
         .input-field.col.s12
           //i.material-icons.prefix mode_edit
-          textarea.materialize-textarea#textarea1
+          textarea.materialize-textarea#textarea1.js-message_text
           label(for='textarea1') Введите Ваше сообщение
       .row
         .input-field.col.s12
           //i.material-icons.prefix account_circle
-          input(type='text')#name.validate
-          label(for='name') Имя
+          input(type='text')#name.validate.js-message_name
+          label(for='name') Ваше имя
       .row
         .input-field.col.s12
           //i.material-icons.prefix phone
-          input(type='tel')#phone.validate
-          label(for='phone', data-error="Введите корректный телефон") Телефон
+          input(type='tel')#phone.validate.js-message_phone
+          label(for='phone', data-error="Введите корректный телефон") Ваш телефон
+      .row.js-select_subject
+        .input-field.col.s12
+          select#sub.js-message_subject
+          label(for='sub') Выберите предмет
+
       .row
         .input-field.col.s12
-          button(type='submit').btn.waves-effect.waves-light Отправить
+          button(type='submit').btn.waves-effect.waves-light.js-message_send Отправить
             i.material-icons.right send
+
