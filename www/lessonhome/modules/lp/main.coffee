@@ -57,7 +57,7 @@ class @main extends EE
         @found.profile.find('>').off true,true
         @found.profile.empty()
         @found.profile.append @saveTutor.dom
-        yield @saveTutor.open @urldata
+        #yield @saveTutor.open @urldata
   hidePage : =>
     switch @oldurl
       when 'tutor_profile'
