@@ -24,5 +24,5 @@ class @main
       @field.focus()
   getValue : =>
     @field.getValue()
-  setValue : (data) =>
+  setValue : (data = '') =>
     @field.setValue(data)
