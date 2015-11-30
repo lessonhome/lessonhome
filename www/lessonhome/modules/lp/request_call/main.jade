@@ -1,0 +1,36 @@
+//
+   Created by lh on 30.11.15.
+
+.modal.request-call-modal#modal1.js-req_call_modal
+   .modal-header.request-call-background
+      .row
+         h4.modal-title.col.s12.center-align.white-text Заказать Звонок
+   .js-wrap
+      .js-form
+         .modal-content
+            .row
+               .input-field.col.s12
+                  i.material-icons.prefix account_circle
+                  input(type='text')#name1.validate.js-your_name
+                  label(for='name1') Имя
+            .row
+               .input-field.col.s12
+                  i.material-icons.prefix phone
+                  input(type='text')#phone1.validate.js-tel_number
+                  label(for='phone1', data-error="Введите корректный телефон") Телефон
+            .row
+               .input-field.col.s12
+                  i.material-icons.prefix mode_edit
+                  textarea.materialize-textarea.js-comments#textarea2
+                  label(for='textarea2') Введите Ваше сообщение
+         .row.modal-footer
+            .col.s6.offset-s6
+               button(type='submit').btn.waves-effect.waves-teal.teal.darken-2.white-text.js-order_call Отправить
+                  i.material-icons.right send
+      .js-success
+         .modal-content
+            h5 Заявка отправлена
+            p В скором времени мы свяжимся с Вами.
+         .row.modal-footer
+            .col.s6.offset-s6
+               button.btn.waves-effect.waves-teal.teal.darken-2.white-text.js-order_call Закрыть

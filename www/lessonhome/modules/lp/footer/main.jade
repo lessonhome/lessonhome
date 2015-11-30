@@ -68,27 +68,3 @@
             .col.s12
               a(href='#modal1').btn.waves-effect.waves-teal.blue.lighten-5.grey-text.text-darken-3.modal-trigger.js-request_a_call Заказать звонок
 
-#modal1.modal.request-call-modal
-  .modal-header.request-call-background
-    .row
-      h4.modal-title.col.s12.center-align.white-text Заказать Звонок
-  .modal-content
-    .row
-      .input-field.col.s12
-        i.material-icons.prefix account_circle
-        input(type='text')#name1.validate
-        label(for='name1') Имя
-    .row
-      .input-field.col.s12
-        i.material-icons.prefix phone
-        input(type='tel')#phone1.validate
-        label(for='phone1', data-error="Введите корректный телефон") Телефон
-    .row
-      .input-field.col.s12
-        i.material-icons.prefix mode_edit
-        textarea.materialize-textarea#textarea2
-        label(for='textarea2') Введите Ваше сообщение
-  .row.modal-footer
-    .col.s6.offset-s6
-      button(type='submit').btn.waves-effect.waves-teal.teal.darken-2.white-text Отправить
-        i.material-icons.right send

@@ -17,3 +17,4 @@ class @main
       template_subject : @module 'profile/template_subject'
       single_profile : @exports()
     single_profile  : @exports()
+    req_call : @module 'lp/request_call'
