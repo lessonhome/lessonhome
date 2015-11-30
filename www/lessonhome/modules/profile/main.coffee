@@ -373,9 +373,11 @@ class @main
       subArr.push(data.subjects[name].place_prices) for name in data.ordered_subj
       @found.short_prices.append @template_subject.getShort(subArr)
 
+      frag = $(document.createDocumentFragment())
       for title, i in data.ordered_subj
-        @found.detail_prices.append $('<li>').append(@template_subject.getOne(subArr[i], title))
-
+        frag.append $('<li>').append(@template_subject.getOne(subArr[i], title))
+      console.log 'frag', frag
+      @found.detail_prices.append frag
 
       @found.block_subjects.show()
 
