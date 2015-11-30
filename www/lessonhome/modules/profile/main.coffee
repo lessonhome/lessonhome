@@ -16,13 +16,13 @@ class templ
   use : (key, h) ->
     if @fields[key]?
       return @fields[key] unless h
-      @fields[key].html(h)
+      @fields[key].text(h)
 
   useh : (key, h) ->
     if @fields[key]?
       unless h
         @fields[key].hide()
-      else @fields[key].show().html(h)
+      else @fields[key].show().text(h)
 
 
 class @main
@@ -103,9 +103,21 @@ class @main
 
   onSendMessage : =>
     console.log data = @getData()
-    console.log @save(data)
+    if yield @save(data)
+      @showSuccess()
+#      setTimeout @showForm, 1100
 
+  showSuccess : =>
+    @found.success.parent().css 'min-height', @found.success.outerHeight(true)
+    @found.send_form.animate({opacity: '0'}, 150)
+    @found.send_form.slideUp 200, => @found.success.fadeIn()
 
+  showForm : =>
+    @message_text.val('')
+    @found.success.fadeOut(200, =>
+      @found.send_form.slideDown()
+      @found.send_form.animate({opacity: '1'})
+    )
 
   onShowDetail : (e) =>
     btn = $(e.currentTarget)
@@ -221,7 +233,7 @@ class @main
 
   setValue : (data={})=>
 
-    @profileTab.find('.indicator')
+    console.log @profileTab.find('.indicator')
 
     yield @setNewFormatPrice data
     @tree.value ?= {}
@@ -398,7 +410,7 @@ class @main
         end = (if start then ' - ' else 'до ') + end if end
 
         @templ_educ.useh 'period', "#{start} #{end} г." if start or end
-        @templ_educ.useh 'info', "#{val.faculty}#{if val.qualification then ', ' + val.qualification}"
+        @templ_educ.useh 'info', "#{val.faculty}#{if val.qualification then ', ' + val.qualification else ''}"
         @templ_educ.useh 'about', val.comment
         @templ_educ.add @found.education
 
@@ -447,6 +459,7 @@ class @main
 
   save : (data) => do Q.async =>
     return false unless @check_form(data)
+    data.phone = data.phone.replace(/^\+7/, '8').replace(/[^\d]/g, '')
     {status,errs} = yield @$send('../main/attached/save', data)
     if status=='success'
       Feel.sendActionOnce 'direct_bid'
@@ -455,20 +468,30 @@ class @main
 
   check_form : (data) =>
     errs = @js.check data
+    @resetError()
     for e in errs
       @parseError e
     return errs.length==0
 
   parseError : (err)=>
+    console.log err
     switch err
 #      when "short_name"
 #        @message_name.showError "Слишком короткое имя "
-      when "short_phone", "empty_phone"
-        @message_phone.removeClass('valid').addClass 'invalid'
+      when "short_phone"
+        @message_phone.addClass('invalid')
+          .siblings('label:first').attr('data-error', 'Введите корректный телефон')
+      when "empty_phone"
+        @message_phone.addClass('invalid')
+          .siblings('label:first').attr('data-error', 'Введите телефон')
 #      when "empty_name"
 #        @message_name.showError "Введите имя"
 #      when "empty_subject"
 #        @message_sub.showError "Выберите предмет"
+
+  resetError : =>
+    @message_phone.removeClass('invalid')
+
 
   hide : =>
     @chooseTutor.off 'click'

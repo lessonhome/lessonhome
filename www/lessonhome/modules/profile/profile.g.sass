@@ -157,11 +157,14 @@
       color: #000000
       &:after
         white-space: nowrap
-    input[type=text],input[type=tel]
-      border-bottom: 1px solid #000000
-    input[type=text],input[type=tel]
-      &:focus
-        border-bottom: 1px solid #26a69a
+    //input[type=text],input[type=tel]
+    //  border-bottom: 1px solid #000000
+    //input[type=text],input[type=tel]
+    //  border-color: #26a69a
+    //  &.invalid
+    //    border-color: #C62828
+      //&:focus
+        //border-bottom: 1px solid
 
 //profile style
 .nav_panel
@@ -170,6 +173,12 @@
 
 .profile-send-form
   padding: 0 2rem !important
+  position: relative
+  .success
+    position: absolute
+    left: 0
+    top: 0
+    display: none
   .title
     padding-top: 2rem
     font-size: 1.4rem

@@ -166,31 +166,34 @@
                 .profile-documents.js-documents
 
     .col.l4.m4.s12.grey.lighten-4.center-align.profile-send-form.hide-on-small-and-down
-      .row
-        .col.s12.title Написать&nbsp;
-          span.js-dative_name
-      .row
-        .input-field.col.s12
-          //i.material-icons.prefix mode_edit
-          textarea.materialize-textarea#textarea1.js-message_text
-          label(for='textarea1') Введите Ваше сообщение
-      .row
-        .input-field.col.s12
-          //i.material-icons.prefix account_circle
-          input(type='text')#name.validate.js-message_name
-          label(for='name') Ваше имя
-      .row
-        .input-field.col.s12
-          //i.material-icons.prefix phone
-          input(type='tel')#phone.validate.js-message_phone
-          label(for='phone', data-error="Введите корректный телефон") Ваш телефон
-      .row.js-select_subject
-        .input-field.col.s12
-          select#sub.js-message_subject
-          label(for='sub') Выберите предмет
+      .js-send_form
+        .row
+          .col.s12.title Написать&nbsp;
+            span.js-dative_name
+        .row
+          .input-field.col.s12
+            //i.material-icons.prefix mode_edit
+            textarea.materialize-textarea#textarea1.js-message_text
+            label(for='textarea1') Введите Ваше сообщение
+        .row
+          .input-field.col.s12
+            //i.material-icons.prefix account_circle
+            input(type='text')#name.js-message_name
+            label(for='name') Ваше имя
+        .row
+          .input-field.col.s12
+            //i.material-icons.prefix phone
+            input(type='text')#phone.js-message_phone
+            label(for='phone', data-error="Введите корректный телефон") Ваш телефон
+        .row.js-select_subject
+          .input-field.col.s12
+            select#sub.js-message_subject
+            label(for='sub') Выберите предмет
 
-      .row
-        .input-field.col.s12
-          button(type='submit').btn.waves-effect.waves-light.js-message_send Отправить
-            i.material-icons.right send
+        .row
+          .input-field.col.s12
+            button(type='submit').btn.waves-effect.waves-light.js-message_send Отправить
+              i.material-icons.right send
+      .js-success
+        h5 Сообщение успешно отправлено
 
