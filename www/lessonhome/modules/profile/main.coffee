@@ -60,8 +60,8 @@ class @main
     @reviewMark.scrollSpy()
     #tabs
 
-
-#    @profileTab.tabs()
+    @profileTab.find('.indicator').remove()
+    @profileTab.tabs()
 
     @message_send.on 'click', @onSendMessage
     
@@ -232,9 +232,6 @@ class @main
     subject.place_prices[k] = new_price for k in places
 
   setValue : (data={})=>
-
-    console.log @profileTab.find('.indicator')
-
     yield @setNewFormatPrice data
     @tree.value ?= {}
     @tree.value[key] = val for key,val of data
@@ -430,6 +427,9 @@ class @main
 
     if data.reviews?.length or data.media?.length
       @found.review_mark.show()
+
+      if data.reviews?.length and data.media?.length then @found.tab_review.trigger('click')
+
       if data.reviews?.length
         for review in data.reviews
           @templ_review.use 'mark', review.mark
@@ -442,6 +442,7 @@ class @main
       else
         @found.reviews.html '<p>Отзывов о данном репетиторе пока нет.</p>'
         @found.tab_doc.trigger('click')
+        console.log '1'
 
       if data.media?.length
         exist = {}
