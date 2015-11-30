@@ -169,18 +169,14 @@ $animation-default-01:  80% 0
   border-radius: 3px
 
 .step_one
-  padding-bottom: 15px
+  padding: 0
   p
     font-size: 1.6rem
     &:first-of-type
       margin-bottom: 0
-  @media #{$medium-and-down}
-    padding: 25px
-    padding-bottom: 15px
   h3
     font-size: 1rem
     margin-bottom: 1rem
-    color: #757575
     @media #{$medium-and-down}
       font-size: 1.6rem
 .tutors_list
@@ -421,5 +417,76 @@ $animation-default-01:  80% 0
   min-height: 329px
   padding: 5rem 0
   color: #ffffff !important
+  position: relative
 .opacity-bg
   background-color: rgba(0,0,0,0.7)
+.row
+  .col
+    &.opacity-bg
+      padding-top: 1.5rem
+      padding-bottom: 1.75rem
+      padding-right: 4rem
+      padding-left: 3rem
+
+.tf-title
+  font-size: 1.64rem
+  line-height: 110%
+  margin-bottom: 0.5rem
+.tf-sub_title
+  font-size: 1.2rem
+  line-height: 110%
+.top-landing-form
+  .dialog_block
+    .row
+      margin-bottom: 0.5rem
+      &.no-margin
+        margin-bottom: 0
+      &.phone-margin
+        margin-bottom: 1rem
+.opacity-text-block
+  background-color: rgba(0,0,0,0.7)
+  line-height: 130%
+  color: #ffffff
+  font-size: 1.6rem
+  display: inline-block
+  padding: 1rem 1.4rem
+.top_form_bg
+  .container
+    .row
+      .col
+        display: inline-block
+        float: none
+        vertical-align: bottom
+        .input-field
+          label
+            color: #ffffff
+          .prefix
+            top: 14px
+          input[type=text]
+            margin-bottom: 0
+            border-bottom-color: #ffffff
+            &.invalid
+              border-bottom-color: transparent
+            &:focus
+              border-bottom-color: transparent
+          input[type=tel]
+            border-bottom-color: #ffffff
+            &.invalid
+              border-bottom-color: transparent
+            &:focus
+              border-bottom-color: transparent
+.tree-icons-block
+  h2
+    font-size: 2.4rem
+    margin-bottom: 0.5rem
+  h4
+    font-size: 1.4rem
+    margin-top: 0.5rem
+  .row.vertical-top-row
+    .col
+      display: inline-block
+      float: none
+      vertical-align: top
+      p
+        font-size: 1.067rem
+        color: #424242

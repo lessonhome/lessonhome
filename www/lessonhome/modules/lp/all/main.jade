@@ -9,21 +9,23 @@
 .top_form_bg
   .container
     .row
-      .col.l9.m9.centered-block.opacity-bg
-        .dialog_block.js-step_one.hide-on-small-only.fastest
-          h5 Мы подберем Вам репетитора.
-          h3 Для этого заполните простую форму:
+      .col.l7.m7.s12
+        .opacity-text-block Подберем Вам репетитора бесплатно!
+      .col.l5.m5.s12.opacity-bg.top-landing-form.hide-on-small-only
+        .dialog_block.js-step_one.fastest
+          .tf-title Заполните форму
+          .tf-sub_title и мы Вам позвоним:
           .row
             .input-field.col.l12.m12.s12
               i.material-icons.prefix account_circle
               input.js-input_name(type='text' value=value.name)#name.validate
               label(for='name') Имя
-          .row
+          .row.phone-margin
             .input-field.col.l12.m12.s12.error-text
               i.material-icons.prefix phone
               input.js-input_phone(type='tel' value=value.phone)#phone.validate
               label(for='phone', data-error="Введите корректный телефон") Телефон
-          .row
+          .row.no-margin
             .col.l12.m12.s12
               button.js-btn_send(type='submit', name='form_submit').btn.waves-effect.waves-light Отправить
                 i.material-icons.right send
@@ -33,6 +35,25 @@
                 h4 Заявка отправлена!
                 p С Вами скоро свяжется наш специалист.
                 button.js-open_form.btn.waves-effect.waves-light Дополнить заявку
+.container.tree-icons-block
+  .row
+    .col.l9.m9.centered-block
+      .row
+        .col.l12.m12.s12
+          h2!=title
+          h4!=sub_title
+      .row.center-align.vertical-top-row
+        .col.l4.m4.s12
+          img(src=F('lp/icon1v.png')).responsive-img
+          p.left-align Мы работаем только с проверенными репетиторами. Каждый кандидат щпроходит строгий отбор
+        .col.l4.m4.s12
+          img(src=F('lp/icon2v.png')).responsive-img
+          p.left-align Для вашего удобства занятия могут проходить как у Вас так и у преподавателя
+        .col.l4.m4.s12
+          img(src=F('lp/icon3v.png')).responsive-img
+          p.left-align Все это позволяет Вам сэкономить  свое время на поиски репетитора и достичь поставленной цели
+
+
 .container.js-lp_custom
   .row
     .col.l9.m9.centered-block
