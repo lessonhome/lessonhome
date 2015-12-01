@@ -11,18 +11,6 @@ class @main extends EE
     @comments   = @found.comments
 #    @err_type = @found.out_err_type
 
-    @show_error = {
-      reset : =>
-        @tel_number.removeClass('invalid')
-        @your_name.removeClass('invalid')
-      wrong_phone : ->  this.show_err(@tel_number, 'Введите корректный телефон')
-      empty_phone : -> this.show_err(@tel_number, 'Введите телефон')
-      empty_name : ->
-
-      show_err : (fld, message) ->
-        fld.addClass('invalid').siblings('label').attr('data-error', message)
-    }
-
   show: =>
 #    @pupil.on 'active', =>
 #      @tutor.disable()
@@ -32,11 +20,11 @@ class @main extends EE
 #      $(@err_type).hide()
 
     @order_call.on 'click', => Q.spawn => @b_call()
-    @found.req_call_modal.on 'ready', -> console.log 'hello'
 
   b_call : =>
-    if yield @save()
-      @showSuccess()
+    @showSuccess()
+#    if yield @save()
+#      @showSuccess()
 #    if success
 #      $(@popup).html('Спасибо! Вам скоро перезвонят!')
 #      @emit 'sent'
@@ -45,7 +33,8 @@ class @main extends EE
     @found.wrap.css {
       minHeight: @found.success.outerHeight(true)
     }
-    @found.form.animate({opacity: '0'}).slideUp 100, => @found.success.fadeIn()
+    @found.form.animate({opacity: '0'}, 150, => @found.success.fadeIn())
+    @found.form.slideUp(150)
   save : => do Q.async =>
     data = @getData()
     return false unless @check_form(data)
@@ -63,7 +52,6 @@ class @main extends EE
     @your_name.removeClass('invalid')
 
   onReceive : ({status,errs,err})=>
-    console.log 'status', status
     if err?
       errs?=[]
       errs.push err
