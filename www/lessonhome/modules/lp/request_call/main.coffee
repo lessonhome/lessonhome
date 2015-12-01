@@ -22,19 +22,25 @@ class @main extends EE
     @order_call.on 'click', => Q.spawn => @b_call()
 
   b_call : =>
-    @showSuccess()
-#    if yield @save()
-#      @showSuccess()
-#    if success
-#      $(@popup).html('Спасибо! Вам скоро перезвонят!')
-#      @emit 'sent'
+    if yield @save()
+      @showSuccess()
+#      setTimeout @showForm, 3000
 
   showSuccess : =>
-    @found.wrap.css {
-      minHeight: @found.success.outerHeight(true)
-    }
-    @found.form.animate({opacity: '0'}, 150, => @found.success.fadeIn())
-    @found.form.slideUp(150)
+    @found.wrap.css 'min-height',  @found.success.css('opacity', '1').outerHeight(true)
+    @found.form.animate {opacity: '0'}, 150, => @found.success.fadeIn()
+    @found.form.slideUp 150
+
+  showForm : =>
+    @comments.val('')
+    @found.success.animate {opacity: '0'}, 150
+    @found.form.animate {opacity: '1'}, 150
+    @found.form.slideDown(150, =>
+      @found.success.hide()
+      @found.wrap.css 'min-height', ''
+    )
+
+
   save : => do Q.async =>
     data = @getData()
     return false unless @check_form(data)
@@ -42,6 +48,7 @@ class @main extends EE
 
   check_form : (data) =>
     err = @js.check(data)
+    console.log err
     @resetError()
     for e in err
       @parseError(e)

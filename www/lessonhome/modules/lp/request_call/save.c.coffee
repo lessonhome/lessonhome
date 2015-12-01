@@ -7,7 +7,6 @@ check = require("./check")
   #return {status:'failed'} unless $.user.tutor
   if errs.length
     return {status:'failed',errs:errs}
-  console.log 'SEND INT!!', data
   db= yield $.db.get 'backcall'
   yield _invoke db, 'update',{account:$.user.id},{$set:{
     name    : check.getText(data.your_name)
