@@ -36,6 +36,7 @@ class @main  extends @template '../lp'
       landing_img: @exports()
       title_position: @exports()
       button_color: @exports()
+      bg_position : @exports()
       ###
       tutors : do Q.async =>
         #console.log @req.urlData.filterHash()
