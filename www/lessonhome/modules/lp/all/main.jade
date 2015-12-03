@@ -6,12 +6,14 @@
 -title = title.replace(/\s+/gmi,' ');
 -alt = alt.replace(/\s+/gmi,' ');
 -title_suit_tutors = title_suit_tutors.replace(/\s+/gmi,' ');
+-bg_position = bg_position || '';
+-opacity_form = opacity_form || '';
 .top_form_bg(style='background-image: url(' + F(landing_img) + '); background-position: ' + bg_position + ';')
   .container
     .row
       .col.l7.m7.s12(class=title_position)
-        .opacity-text-block Подберем Вам репетитора бесплатно!
-      .col.l5.m5.s12.opacity-bg.top-landing-form.hide-on-small-only
+        .opacity-text-block(style='background-color: ' + opacity_form + ';') Подберем Вам репетитора бесплатно!
+      .col.l5.m5.s12.opacity-bg.top-landing-form.hide-on-small-only(style='background-color: ' + opacity_form + ';')
         .dialog_block.js-step_one.fastest
           .tf-title Заполните форму
           .tf-sub_title и мы Вам позвоним:

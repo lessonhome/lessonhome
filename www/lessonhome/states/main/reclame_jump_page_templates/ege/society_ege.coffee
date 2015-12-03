@@ -14,6 +14,10 @@ class @main extends @template 'lp/all'
 <p><b>Наша база профессиональных педагогов — лучший вариант для поиска наставника, организующего должный уровень подготовки.</b></p>
 <p>Подбор репетитора абсолютно бесплатно!</p>'
     title_suit_tutors : 'Репетиторы для подготовки к ЕГЭ по обществознанию'
+    landing_img       : 'reclame_background/social.png'
+    title_position    : 'bottom'
+    button_color      : 'social_color'
+    opacity_form      : 'rgba(0,0,0,0.5)'
     filter :
       subject : [
         'обществознание'
