@@ -12,7 +12,9 @@
   .container
     .row
       .col.l7.m7.s12(class=title_position)
-        .opacity-text-block(style='background-color: ' + opacity_form + ';') Подберем Вам репетитора бесплатно!
+        .opacity-text-block(style='background-color: ' + opacity_form + ';')
+          .hide-on-small-only Подберем Вам репетитора бесплатно!
+          h1.hide-on-med-and-up!=title_suit_tutors
       .col.l5.m5.s12.opacity-bg.top-landing-form.hide-on-small-only(style='background-color: ' + opacity_form + ';')
         .dialog_block.js-step_one.fastest
           .tf-title Заполните форму
@@ -44,7 +46,7 @@
       .col.l12.m12
         .row.small-bottom-margin
           .col.l12.m12.s12
-            h1!=title_suit_tutors
+            h1.hide-on-small-only!=title_suit_tutors
             //h2!=title
             //h4!=sub_title
         .row.center-align.vertical-top-row
