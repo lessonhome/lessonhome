@@ -23,28 +23,43 @@
 
   @setNewFormatPrice data
 
-  value = {}
-
-  value['full_name'] = "#{data.name.first || ''} #{data.name.middle || ''}"
-  value['slogan'] = data.slogan if data.slogan?
+  value = {
+    full_name : "#{data.name.first || ''} #{data.name.middle || ''}"
+    dative_name : @dativeName(data.name).first || ''
+    slogan : data.slogan if data.slogan?
+    src_avatar : null
+    age : null
+    location : null
+    status : null
+    places : []
+    sub : null
+    short_price : []
+    subjects : []
+    education : []
+    about : data['about']
+    why : data['reason']
+    interests : @join data['interests'], 'description'
+    reviews : []
+    documents : []
+  }
 
   if data.photos?
     continue for key, photo of data.photos
-    value['src_avatar'] = {
+    value.src_avatar = {
       lurl : photo.lurl
       hurl : photo.hurl
     }
 
   if data.age? && data.age
-    value['age'] = data.age
+    value.age = data.age
     age_end = data.age%10
     switch age_end
       when 1
-       value['age'] += " год"
+       value.age += " год"
       when 2,3,4
-        value['age'] += " года"
+        value.age += " года"
       else
-        value['age'] += " лет"
+        value.age += " лет"
 
   if data.location?
     l = []
@@ -57,13 +72,12 @@
       for m in metro when m = @trim m
         l.push('м. ' + m)
 
-    value['location'] = l.join(', ') if l.length
+    value.location = l.join(', ') if l.length
 
-  if data.status? and @STATUS_VALUES[data.status]? then value['status'] = @STATUS_VALUES[data.status]
+  if data.status? and @STATUS_VALUES[data.status]? then value.status = @STATUS_VALUES[data.status]
 
 
   if data.place?
-    value['places'] = []
     for place in @PLACE_TITLES
 
       if data.place[place[0]]?
@@ -71,27 +85,28 @@
         l = ''
 
         switch place[0]
-          when 'tutor' then l = value['location']
+          when 'tutor' then l = value.location
           when 'pupil'
             if data.check_out_the_areas?
-              for index, val of data.check_out_the_areas
-                l += ((if index == '0' then '' else ', ') + val)
+              l = @join data.check_out_the_areas
 
         p['location'] = l
-        value['places'].push p
+        value.places.push p
 
   if data.subjects? and data.ordered_subj?
+
     subjects  = (name for index, name of data.ordered_subj)
-    value['sub'] = null
-    if subjects.length == 1 and (e = subjects[0].split(',')).length > 1 then value.sub = e.map(@trim)
+
+    if subjects.length == 1 and (e = subjects[0].split(',')).length > 1
+      value.sub = e.map(@trim)
+    else
+      value.sub = subjects
 
     subArr = []
     for name in subjects when data.subjects[name]?.place_prices?
       subArr.push(data.subjects[name].place_prices)
 
     general = @getGeneral subArr
-
-    value['short_price'] = []
 
     main = null
     for place in @PLACE_TITLES when (price = general[place[0]])?
@@ -106,30 +121,25 @@
             main = price
           else
             _r.name = place[1]
-            if diff = @getDiff(price, main)
+            if (diff = @getDiff(price, main))?
               continue unless diff > 0
               _r.prices = diff + ' руб.'
-
 
       _r.prices = @parsePrices(price) unless _r.prices
       value.short_price.push _r
 
-    value['subjects'] = []
+    
 
     for sub, i in subjects
       _sub = data.subjects[sub]
-      course = ''
-      for index, c of _sub.course then course += (if index == '0' then c else ', ' + c)
-      _r = {name: sub, prices: [], description: _sub.description, course : course}
+      _r = {name: sub, prices: [], description: _sub.description, course : @join _sub.course}
       for place in @PLACE_TITLES when (price = subArr[i][place[0]])?
         _r.prices.push {name: place[1], prices: @parsePrices(price)}
       value.subjects.push _r
 
-    value['education'] = []
-
     for index, e of data.education
-      start = val.period?.start
-      end = val.period?.end
+      start = e.period?.start
+      end = e.period?.end
 
       start = /\d{4}/.exec(start)[0] if start
       end = /\d{4}/.exec(end)[0] if end
@@ -142,17 +152,46 @@
       info = "#{e.faculty}#{if e.qualification then ', ' + e.qualification else ''}"
       _r = {name: e.name, city, period, info, about: e.comment}
       value.education.push _r
+    
+    if data.reviews?
+      for index, r of data.reviews
+        value.reviews.push {
+          mark : r.mark
+          subject : @join r.subject
+          course : @join r.course
+          review : r.review
+          name : r.name
+          date : r.date
+        }
 
-    value['review'] = []
-
-    for index, r of data.reviews
-
-
-
+    if data.media?
+      exist = {}
+      regexp = /^\/file\/(\w+)\//
+      for index, m of data.media
+        hash = regexp.exec(m.lurl, true)[1]
+        unless exist[hash]
+          exist[hash] = true
+          value.documents.push {
+            lurl : m.lurl
+            hurl : m.hurl
+          }
 
   return value
 
 @trim = (str) -> str.replace(/^\s+/g, '').replace(/\s+$/g, '')
+@join = (obj,key,prep = ', ') ->
+  l = ''
+  for i, val of obj
+    l += (if i == '0' then '' else prep) + (if key and val[key]? then val[key] else val)
+  return l
+
+@dativeName = (data)->
+  name = _nameLib.get((data?.last ? ''),(data?.first ? ''),(data?.middle ? ''))
+  return {
+    first : name.firstName('dative')
+    middle: name.middleName('dative')
+    last  : name.lastName('dative')
+  }
 
 @setNewFormatPrice = (data) ->
     return unless data.subjects?

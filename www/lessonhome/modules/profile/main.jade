@@ -1,6 +1,9 @@
 - value = require(process.cwd()+'/www/lessonhome/modules/profile/parse').parse(value);
-//- value  = value || {}
-//- prices = {}
+//- value = {}
+
+
+- var exist = false
+
 .container.profile-bottom-padding
   .row.js-nav_panel.valign-wrapper
     .col.s6.left-align.valign
@@ -8,14 +11,9 @@
         i.material-icons.left arrow_back
     .col.s6.right-align.tutor-action.valign.hide-on-large-only
 
-      if value.is_linked
-        button.waves-effect.btn-flat.waves-light.teal.lighten-2.selected.white-text.js-tutor_trigger
-          span.tutor_button_text Убрать
-          i.material-icons.right remove
-      else
-        button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
-          span.tutor_button_text Выбрать
-          i.material-icons.right add
+      button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
+        span.tutor_button_text Выбрать
+        i.material-icons.right add
 
   .row.profile-info
     .col.l8.m8.s12
@@ -23,21 +21,17 @@
         .col.l4.m4.s12.center-align
           .row
             .col.s12
-              div(width='250').js-view_photo
+              div(width='250').js-view_photo.loaded
                 if value.src_avatar
-                  img.responsive-img(src = value.src_avatar.lurl data-src = value.src_avatar.hurl)
+                  img.responsive-img.js-avatar(src = value.src_avatar.lurl data-src = value.src_avatar.hurl)
+                else
+                  img.responsive-img.js-avatar
 
 
             .input-field.col.s12.center-align.tutor-action.profile-button.valign.hide-on-med-and-down
-
-              if value.is_linked
-                button.waves-effect.btn-flat.waves-light.teal.lighten-2.selected.white-text.js-tutor_trigger
-                  span.tutor_button_text Убрать
-                  i.material-icons.right remove
-              else
-                button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
-                  span.tutor_button_text Выбрать
-                  i.material-icons.right add
+              button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
+                span.tutor_button_text Выбрать
+                i.material-icons.right add
 
         .col.l8.m8.s12
           .row.info-row
@@ -82,7 +76,10 @@
               ul.tags-list
                 li.js-status!=value.status
                 //li.js-experience
-          .row.info-row.info-row-small
+
+
+          - exist = value.places && value.places.length
+          .row.info-row.info-row-small(style= exist ? '' : 'display: none')
             .col.s12
 
               mixin list(place)
@@ -91,19 +88,19 @@
                   span(data-val='place')!=place
 
               ul.tags-list.js-short_places
-                each p in value.places
-                  +list(p.place)
+                if exist
+                  each p in value.places
+                    +list(p.place)
 
-                li(style="display:none")
-                  ul.js-template_short_places
-                    +list()
+              ul.js-template_short_places(style='display: none')
+                +list()
 
-      .row.tutorials-list.js-block_prices
+      - exist = value.subjects && value.subjects.length
+      .row.tutorials-list.js-block_prices(style= exist ? '' : 'display: none')
         .col.s12
 
           mixin templ_price(title, price_list)
             - var plus = typeof(price_list) == 'string' ? price_list  : ''
-            - console.log('plus', typeof price_list)
             h5.grey-text.text-darken-4(style= title ? '' : 'display: none')
               span.js-table_title(data-val='title')!=title
               span.plus-price.js-table_plus(data-val='plus')!=plus
@@ -131,8 +128,9 @@
           div(style='display: none')
             .js-template_price
               +templ_price('&nbsp;')
-            .js-template_subject
-              +templ_subject('&nbsp;', [])
+            ul.js-template_subject
+              li
+                +templ_subject('&nbsp;', [])
 
         .col.s12
           if value.short_price
@@ -141,19 +139,17 @@
           else
             .js-short_prices(style='display: none')
         .col.s12
-          ul.js-detail_prices
+          ul.js-detail_prices(style='display: none')
             if value.subjects && value.subjects.length
               each sub in value.subjects
                 li
                   +templ_subject(sub.name, sub.prices)
       .row
         .col.s12
-          button.btn.waves-effect.waves-light.js-show_detail
+          button.btn.waves-effect.waves-light.js-show_detail Подробнее
 
 
-
-
-      .row.tutorials-list.js-block_subjects
+      .row.tutorials-list.js-block_subjects(style= exist ? '' : 'display: none')
         .col.s12
 
           mixin sub(name, direct, description)
@@ -169,12 +165,12 @@
             if value.subjects && value.subjects.length
               each sub in value.subjects
                 +sub(sub.name, sub.course, sub.description)
-          .js-template_subjects(style="display:none")
+          .js-template_sub(style="display:none")
             +sub('', '&nbsp;', '&nbsp;')
 
 
-
-      .row.tutorials-list.js-block_places
+      -exist = value.places && value.places.length
+      .row.tutorials-list.js-block_places(style= exist ? '' : 'display: none')
         .col.s12
 
           mixin location(place, location)
@@ -192,7 +188,8 @@
           .js-template_places(style="display:none")
             +location()
 
-      .row.tutorials-list.js-block_education
+      -exist = value.education && value.education.length
+      .row.tutorials-list.js-block_education(style= exist ? '' : 'display: none')
         .col.s12
 
           mixin education(title, city, period, info, about)
@@ -215,11 +212,11 @@
           .js-template_education(style="display:none")
             +education('', '&nbsp;','&nbsp;','&nbsp;','&nbsp;')
 
-      .row.bottom-info.js-block_about
-        if value.info
-          - var about = value.info.about
-          - var why = value.info.why
-          - var int = value.info.interests
+      - var about = value.about
+      - var why = value.why
+      - var int = value.interests
+      - exist = about || why || int
+      .row.bottom-info.js-block_about(style= exist ? '' : 'display: none')
         .col.s12
           h4.red-text.text-darken-4 О себе
           p.js-about_me(style= about?'':'display:none')!=about
@@ -232,48 +229,58 @@
               b Интересы
             p.text!=int
 
-      .row.js-review_mark#reviews
+
+      -var exist_rev = value.reviews && value.reviews.length
+      -var exist_doc = value.documents && value.documents.length
+      mixin review(mark, subject, course, review, name, date)
+        .row
+          .col.s12.m12.l4.review-rating-block
+            .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4(data-val='mark')!=mark
+            .col.s9.m9.l12.reviews-rating_subject(data-val='subject' style= subject?'':'display:none')!=subject
+            .col.s9.m9.l12.reviews-rating_direction(data-val ='course' style= course?'':'display:none')!=course
+          .col.s12.m12.l8
+            p(data-val = 'review')!=review
+            .reviews-date
+              span.reviews-date_name(data-val = 'name')!=name
+              span.reviews-date_date.grey-text.text-darken-3(data-val = 'date')!=date
+        .divider
+
+      -exist = exist_rev || exist_doc
+      .row.js-review_mark#reviews(style= exist ? '' : 'display: none')
         .col.s12
-          ul.tabs.js-profile_tab
+          ul.js-profile_tab
             li.tab.col.s6
               a(href="#tab1").js-tab_review Отзывы
-                span.js-rew_count
+                span.js-rew_count!= exist_rev ? ' ' + value.reviews.length : ''
             li.tab.col.s6
               a(href="#tab2").js-tab_doc Фотографии
           .col.s12.top-padding-tabs#tab1
-
-            mixin review(mark, subject, course, review, name, date)
-              .row
-                .col.s12.m12.l4.review-rating-block
-                  .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4(data-val='mark')!=mark
-                  .col.s9.m9.l12.reviews-rating_subject(data-val='subject' style= subject?'':'display:none')!=subject
-                  .col.s9.m9.l12.reviews-rating_direction(data-val ='course' style= course?'':'display:none')!=course
-                .col.s12.m12.l8
-                  p(data-val = 'review')!=review
-                  .reviews-date
-                    span.reviews-date_name(data-val = 'name')!=name
-                    span.reviews-date_date.grey-text.text-darken-3(data-val = 'date')!=date
-              .divider
-
             .row
               .col.s12.js-reviews
-                if value.review && value.review.length
-                  each r in value.review
+                if value.reviews && value.reviews.length
+                  each r in value.reviews
                     +review(r.mark, r.subject, r.course, r.review, r.name, r.date)
+                else
+                  p Отзывов пока нет.
               .js-template_reviews(style="display: none")
                 +review('', '&nbsp;', '&nbsp;', '', '', '')
-
-
           .col.s12.top-padding-tabs#tab2
             .row
               .col.s12
-                .profile-documents.js-documents
+                .profile-documents.js-documents.loaded-image
+                  if value.documents && value.documents.length
+                    each doc in value.documents
+                      .list
+                        div.loaded
+                          img(src = doc.lurl data-src=doc.hurl)
+                  else
+                    p Нет загруженных фотографий.
 
     .col.l4.m4.s12.grey.lighten-4.center-align.profile-send-form.hide-on-small-and-down
       .js-send_form
         .row
           .col.s12.title Написать&nbsp;
-            span.js-dative_name
+            span.js-dative_name!=value.dative_name
         .row
           .input-field.col.s12
             //i.material-icons.prefix mode_edit
@@ -289,9 +296,14 @@
             //i.material-icons.prefix phone
             input(type='text')#phone.js-message_phone
             label(for='phone', data-error="Введите корректный телефон") Ваш телефон
-        .row.js-select_subject
+
+        -exist = value.sub && value.sub.length
+        .row.js-select_subject(style = (exist && exist > 1) ? '' : 'display: none')
           .input-field.col.s12
             select#sub.js-message_subject
+              if exist
+                each sub in value.sub
+                  option(value = sub )!= sub
             label(for='sub') Выберите предмет
 
         .row
