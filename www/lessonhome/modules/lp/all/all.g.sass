@@ -487,6 +487,11 @@ $animation-default-01:  80% 0
 .top-shadow
   box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12)
 .tree-icons-block
+  .row.small-bottom-margin
+    margin-bottom: 30px
+  h1
+    font-size: 2.4rem
+    margin-bottom: 0rem
   h2
     font-size: 2.4rem
     margin-bottom: 0.5rem
@@ -495,13 +500,26 @@ $animation-default-01:  80% 0
     margin-top: 0.5rem
     margin-bottom: 0
   .row.vertical-top-row
+    .divider
+      margin-bottom: 0.5rem
     .col
       display: inline-block
       float: none
       vertical-align: top
+      &.s-left
+        @media #{$small-and-down}
+          text-align: left
+      img
+        max-width: 60%
+        height: auto
+        @media #{$small-and-down}
+          max-width: 100%
+          margin-top: 15px
+          margin-bottom: 15px
       p
-        font-size: 1.067rem
+        font-size: 1rem
         color: #424242
+        margin-top: 5px
 .top-form
   h4
     font-size: 1.6rem
@@ -543,7 +561,7 @@ $animation-default-01:  80% 0
     color: #010000
 .georgaph_color
   .btn
-    background-color: #ffc928
+    background-color: #00d240
     color: #010000
 .german_color
   .btn
@@ -565,4 +583,234 @@ $animation-default-01:  80% 0
   .btn
     background-color: #ffd741
     color: #010000
-
+  .input-field
+    input[type=text]:focus
+      border-bottom-color: #ffd741
+//color form
+.top_form_bg
+  .container
+    .row
+      //1
+      &.english_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #7bd14c
+              box-shadow: 0 1px 0 0 #7bd14c
+          .prefix
+            &.active
+              color: #7bd14c
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #7bd14c
+              box-shadow: 0 1px 0 0 #7bd14c
+            .prefix
+              color: #7bd14c
+      //2
+      &.biology_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #64dd16
+              box-shadow: 0 1px 0 0 #64dd16
+          .prefix
+            &.active
+              color: #64dd16
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #64dd16
+              box-shadow: 0 1px 0 0 #64dd16
+            .prefix
+              color: #64dd16
+      //3
+      &.history_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffb74e
+              box-shadow: 0 1px 0 0 #ffb74e
+          .prefix
+            &.active
+              color: #ffb74e
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffb74e
+              box-shadow: 0 1px 0 0 #ffb74e
+            .prefix
+              color: #ffb74e
+      //4
+      &.literat_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffcd46
+              box-shadow: 0 1px 0 0 #ffcd46
+          .prefix
+            &.active
+              color: #ffcd46
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffcd46
+              box-shadow: 0 1px 0 0 #ffcd46
+            .prefix
+              color: #ffcd46
+      //5
+      &.mat_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #7cd061
+              box-shadow: 0 1px 0 0 #7cd061
+          .prefix
+            &.active
+              color: #7cd061
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #7cd061
+              box-shadow: 0 1px 0 0 #7cd061
+            .prefix
+              color: #7cd061
+      //6
+      &.physics_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #fa8c00
+              box-shadow: 0 1px 0 0 #fa8c00
+          .prefix
+            &.active
+              color: #fa8c00
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #fa8c00
+              box-shadow: 0 1px 0 0 #fa8c00
+            .prefix
+              color: #fa8c00
+      //7
+      &.chemis_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #00f063
+              box-shadow: 0 1px 0 0 #00f063
+          .prefix
+            &.active
+              color: #00f063
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #00f063
+              box-shadow: 0 1px 0 0 #00f063
+            .prefix
+              color: #00f063
+      //8
+      &.russian_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #1de9b6
+              box-shadow: 0 1px 0 0 #1de9b6
+          .prefix
+            &.active
+              color: #1de9b6
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #1de9b6
+              box-shadow: 0 1px 0 0 #1de9b6
+            .prefix
+              color: #1de9b6
+      //9
+      &.georgaph_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #00d240
+              box-shadow: 0 1px 0 0 #00d240
+          .prefix
+            &.active
+              color: #00d240
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #00d240
+              box-shadow: 0 1px 0 0 #00d240
+            .prefix
+              color: #00d240
+      //10
+      &.german_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffc928
+              box-shadow: 0 1px 0 0 #ffc928
+          .prefix
+            &.active
+              color: #ffc928
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffc928
+              box-shadow: 0 1px 0 0 #ffc928
+            .prefix
+              color: #ffc928
+      //11
+      &.inform_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffec3a
+              box-shadow: 0 1px 0 0 #ffec3a
+          .prefix
+            &.active
+              color: #ffec3a
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffec3a
+              box-shadow: 0 1px 0 0 #ffec3a
+            .prefix
+              color: #ffec3a
+      //12
+      &.french_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #fec107
+              box-shadow: 0 1px 0 0 #fec107
+          .prefix
+            &.active
+              color: #fec107
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #fec107
+              box-shadow: 0 1px 0 0 #fec107
+            .prefix
+              color: #fec107
+      //13
+      &.spanish_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffd741
+              box-shadow: 0 1px 0 0 #ffd741
+          .prefix
+            &.active
+              color: #ffd741
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffd741
+              box-shadow: 0 1px 0 0 #ffd741
+            .prefix
+              color: #ffd741
+      //14
+      &.social_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffd741
+              box-shadow: 0 1px 0 0 #ffd741
+          .prefix
+            &.active
+              color: #ffd741
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffd741
+              box-shadow: 0 1px 0 0 #ffd741
+            .prefix
+              color: #ffd741

@@ -7,7 +7,7 @@
 -alt = alt.replace(/\s+/gmi,' ');
 -title_suit_tutors = title_suit_tutors.replace(/\s+/gmi,' ');
 -bg_position = bg_position || '';
--opacity_form = opacity_form || '';
+-bg_position = bg_position || '';
 .top_form_bg(style='background-image: url(' + F(landing_img) + '); background-position: ' + bg_position + ';')
   .container
     .row
@@ -17,12 +17,12 @@
         .dialog_block.js-step_one.fastest
           .tf-title Заполните форму
           .tf-sub_title и мы Вам позвоним:
-          .row
+          .row(class=button_color)
             .input-field.col.l12.m12.s12
               i.material-icons.prefix account_circle
               input.js-input_name(type='text' value=value.name)#name.validate
               label(for='name') Имя
-          .row.phone-margin
+          .row.phone-margin(class=button_color)
             .input-field.col.l12.m12.s12.error-text
               i.material-icons.prefix phone
               input.js-input_phone(type='tel' value=value.phone)#phone.validate
@@ -41,26 +41,35 @@
 .top-shadow
   .container.tree-icons-block
     .row
-      .col.l9.m9.centered-block
-        .row
+      .col.l12.m12
+        .row.small-bottom-margin
           .col.l12.m12.s12
-            h2!=title
-            h4!=sub_title
+            h1!=title_suit_tutors
+            //h2!=title
+            //h4!=sub_title
         .row.center-align.vertical-top-row
           .col.l4.m4.s12
-            img(src=F('lp/icon1v.png')).responsive-img
-            p.left-align Мы работаем только с проверенными репетиторами. Каждый кандидат щпроходит строгий отбор
+            .col.l12.m12.s3.s-left
+              img(src=F('lp/icon1v.png'))
+            .col.l12.m12.s9
+              p.left-align Мы работаем только с проверенными репетиторами. Каждый кандидат щпроходит строгий отбор
+          .divider.hide-on-med-and-up
           .col.l4.m4.s12
-            img(src=F('lp/icon2v.png')).responsive-img
-            p.left-align Для вашего удобства занятия могут проходить как у Вас так и у преподавателя
+            .col.l12.m12.s3.s-left
+              img(src=F('lp/icon2v.png'))
+            .col.l12.m12.s9
+              p.left-align Для вашего удобства занятия могут проходить как у Вас так и у преподавателя
+          .divider.hide-on-med-and-up
           .col.l4.m4.s12
-            img(src=F('lp/icon3v.png')).responsive-img
-            p.left-align Все это позволяет Вам сэкономить  свое время на поиски репетитора и достичь поставленной цели
+            .col.l12.m12.s3
+              img(src=F('lp/icon3v.png'))
+            .col.l12.m12.s9
+              p.left-align Все это позволяет Вам сэкономить  свое время на поиски репетитора и достичь поставленной цели
 
 .container.js-lp_custom
   .row
     .col.l9.m9.centered-block
-      h1!=title_suit_tutors
+      //h1!=title_suit_tutors
       .js-tutors_list
         !=tutor
   .two-step-bg
