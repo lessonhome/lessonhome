@@ -394,6 +394,7 @@ $animation-default-01:  80% 0
       &:focus
         border-bottom: 1px solid #26a69a
 .on_send
+  transition: all 0.3s ease-out
   h4
     font-size: 2rem
     margin-top: 0
@@ -412,14 +413,16 @@ $animation-default-01:  80% 0
       .divider
         display: none
 .top_form_bg
-  background: url(F('lp/english_new.png')) no-repeat center
   background-size: cover
+  background-position: center
+  background-repeat: no-repeat
   min-height: 329px
   padding: 5rem 0
   color: #ffffff !important
   position: relative
 .opacity-bg
   background-color: rgba(0,0,0,0.7)
+  transition: all 0.3s ease-out
 .row
   .col
     &.opacity-bg
@@ -437,6 +440,7 @@ $animation-default-01:  80% 0
   line-height: 110%
 .top-landing-form
   .dialog_block
+    transition: all 0.3s ease-out
     .row
       margin-bottom: 0.5rem
       &.no-margin
@@ -456,7 +460,9 @@ $animation-default-01:  80% 0
       .col
         display: inline-block
         float: none
-        vertical-align: bottom
+        vertical-align: top
+        &.bottom
+          vertical-align: bottom
         .input-field
           label
             color: #ffffff
@@ -467,11 +473,15 @@ $animation-default-01:  80% 0
             border-bottom-color: #ffffff
             &.invalid
               border-bottom-color: transparent
+            &.valid
+              border-bottom-color: transparent
             &:focus
               border-bottom-color: transparent
           input[type=tel]
             border-bottom-color: #ffffff
             &.invalid
+              border-bottom-color: transparent
+            &.valid
               border-bottom-color: transparent
             &:focus
               border-bottom-color: transparent
@@ -482,6 +492,7 @@ $animation-default-01:  80% 0
   h4
     font-size: 1.4rem
     margin-top: 0.5rem
+    margin-bottom: 0
   .row.vertical-top-row
     .col
       display: inline-block
@@ -490,3 +501,8 @@ $animation-default-01:  80% 0
       p
         font-size: 1.067rem
         color: #424242
+.top-form
+  h4
+    font-size: 1.6rem
+  p
+    font-size: 1.2rem

@@ -33,6 +33,8 @@ class @main  extends @template '../lp'
       sub_title : @exports()
       text : @exports()
       title_suit_tutors : @exports()
+      landing_img: @exports()
+      title_position: @exports()
       ###
       tutors : do Q.async =>
         #console.log @req.urlData.filterHash()
