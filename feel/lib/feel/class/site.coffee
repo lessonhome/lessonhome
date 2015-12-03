@@ -16,6 +16,7 @@ class module.exports
     @path.root    = "#{Feel.path.www}/#{@name}"
     @path.src     = "#{@path.root}/"
     @path.states  = "#{@path.src}/states"
+    @path.const  = "#{@path.src}/const"
     @path.modules = "#{@path.src}/modules"
     @path.config  = "#{@path.root}/config"
     @path.cache   = "#{Feel.path.cache}/#{@name}"
@@ -257,3 +258,5 @@ class module.exports
       status[name] = value
       yield _invoke db,'update', {id:req.user.id},{$set:{status:status}},{upsert:true}
     return status[name]
+
+

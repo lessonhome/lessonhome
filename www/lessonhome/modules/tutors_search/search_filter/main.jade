@@ -6,10 +6,10 @@
     .row.no-bottom-margin
       .input-field.col.s12
         select(multiple).js-megaselect
-          each groups in subject_list
-            optgroup(label!=groups.group)
+          each groups,gname in subject_list
+            optgroup(label!=gname)
               option(value='', selected, disabled) Предмет
-              each val, index in groups.items
+              each val,index in groups
                 option(value!=index)!=val
     .row.no-bottom-margin
       .input-field.col.s12

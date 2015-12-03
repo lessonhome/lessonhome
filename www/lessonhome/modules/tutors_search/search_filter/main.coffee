@@ -1,14 +1,12 @@
+
+
 class @main
   constructor : ->
     $W @
   Dom : =>
-    @rangeEl  = @found.range_ui
-    @filterSelectors = @found.megaselect
-    slider    = document.getElementById('slider')
-  show: =>
-    $(@filterSelectors).material_select()
+    @found.megaselect.material_select()
 
-    $('.optgroup').on 'click', (e)=>
+    @dom.find('.optgroup').on 'click', (e)=>
       thisGroup = e.currentTarget
       thisGroupNumber = $(thisGroup).attr('data-group')
       thisOpen = $(thisGroup).attr('data-open')
@@ -20,3 +18,5 @@ class @main
       else
         $('.subgroup_' + thisGroupNumber).slideUp(400)
         $(thisGroup).attr('data-open', 0)
+
+  show: =>
