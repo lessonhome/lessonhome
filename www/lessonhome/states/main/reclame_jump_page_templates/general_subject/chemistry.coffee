@@ -13,6 +13,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы по химии:<br><small>подготовка к экзаменам и олимпиадам.</small>'
     landing_img       : 'reclame_background/chemis.png'
     title_position    : 'top'
+    button_color      : 'chemis_color'
     filter :
       subject : [
         'химия'

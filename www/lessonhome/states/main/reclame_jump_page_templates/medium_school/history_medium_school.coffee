@@ -13,6 +13,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы по истории:<br><small>подготовка к ОГЭ (ГИА), экзаменам, олимпиадам</small>'
     landing_img       : 'reclame_background/history.png'
     title_position    : 'top'
+    button_color      : 'history_color'
     filter :
       subject : [
         'история'

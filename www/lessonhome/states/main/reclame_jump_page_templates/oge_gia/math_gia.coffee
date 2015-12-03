@@ -12,6 +12,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы по математике:<br><small>подготовка к ОГЭ (ГИА)</small>'
     landing_img       : 'reclame_background/mat.png'
     title_position    : 'top'
+    button_color      : 'mat_color'
     filter :
       subject : [
         'математика'

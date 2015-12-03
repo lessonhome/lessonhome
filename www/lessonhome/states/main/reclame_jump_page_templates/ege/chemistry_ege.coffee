@@ -14,6 +14,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы для подготовки к ЕГЭ по химии'
     landing_img       : 'reclame_background/chemis.png'
     title_position    : 'top'
+    button_color      : 'chemis_color'
     filter :
       subject : [
         'химия'

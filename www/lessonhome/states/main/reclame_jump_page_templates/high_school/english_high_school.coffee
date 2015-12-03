@@ -13,6 +13,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы по английскому языку:<br><small>подготовка к ЕГЭ, экзаменам и олимпиадам</small>'
     landing_img       : 'reclame_background/english.png'
     title_position    : 'bottom'
+    button_color      : 'english_color'
     filter :
       subject : [
         'английский язык'

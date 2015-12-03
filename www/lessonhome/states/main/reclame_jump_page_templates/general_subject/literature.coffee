@@ -13,6 +13,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы по литературе:<br><small>подготовка к экзаменам и олимпиадам</small>'
     landing_img       : 'reclame_background/literat.png'
     title_position    : 'top'
+    button_color      : 'literat_color'
     filter :
       subject : [
         'литература'

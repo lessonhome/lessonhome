@@ -13,6 +13,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы по физике:<br><small>подготовка к ОГЭ (ГИА)</small>'
     landing_img       : 'reclame_background/physics.png'
     title_position    : 'bottom'
+    button_color      : 'physics_color'
     filter :
       subject : [
         'физика'

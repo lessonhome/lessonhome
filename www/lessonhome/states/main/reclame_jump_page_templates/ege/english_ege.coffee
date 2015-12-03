@@ -14,6 +14,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы для подготовки к ЕГЭ по английскому языку'
     landing_img       : 'reclame_background/english.png'
     title_position    : 'bottom'
+    button_color      : 'english_color'
     filter :
       subject : [
         'английский'

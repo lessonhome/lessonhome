@@ -34,6 +34,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы для подготовки к ЕГЭ по математике'
     landing_img       : 'reclame_background/mat.png'
     title_position    : 'top'
+    button_color      : 'mat_color'
     filter :
       subject : [
         'математика'

@@ -15,6 +15,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы для подготовки к ЕГЭ по литературе'
     landing_img       : 'reclame_background/literat.png'
     title_position    : 'top'
+    button_color      : 'literat_color'
     filter :
       subject : [
         'литература'

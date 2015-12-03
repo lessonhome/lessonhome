@@ -13,6 +13,8 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы для подготовки к ЕГЭ по биологии.'
     landing_img       : 'reclame_background/biolog.png'
     title_position    : 'top'
+    button_color      : 'biology_color'
+
     filter :
       subject : [
         'биология'

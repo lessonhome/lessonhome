@@ -14,6 +14,7 @@ class @main extends @template 'lp/all'
     title_suit_tutors : 'Репетиторы для подготовки к ЕГЭ по физике'
     landing_img       : 'reclame_background/physics.png'
     title_position    : 'bottom'
+    button_color      : 'physics_color'
     filter :
       subject : [
         'физика'
