@@ -82,12 +82,14 @@ class @main
       Q.spawn => yield @goBack()
 
     @message_sub.material_select()
-    @profileTab.find('a.exist:first').trigger('click')
+#    @profileTab.find('a.exist:first').trigger('click')
 
     yield @open()
 
-    $('.loaded').each @loadImage
     @profileTab.addClass('tabs').tabs()
+    if exist = @profileTab.data('exist') then @profileTab.tabs('select_tab', exist)
+    $('.loaded').each @loadImage
+
 
   open : (index)=>
     state = History.getState()
@@ -251,15 +253,17 @@ class @main
         @templ_short_place.use 'place', place.place
         @templ_short_place.add()
         ######
-        @templ_place.use 'place', place.place
-        @templ_place.useh 'location', place.location
-        @templ_place.add()
+        if value.show_places and place.location
+          @templ_place.use 'place', place.place
+          @templ_place.useh 'location', place.location
+          @templ_place.add()
 
       @templ_short_place.push @found.short_places.html('')
-      @templ_place.push @found.location_places.html('')
-
-      @found.block_places.show()
       @found.short_places.closest('.row').show()
+
+      if value.show_places
+        @templ_place.push @found.location_places.html('')
+        @found.block_places.show()
 
     if value.short_price?.length and value.subjects?.length
 
@@ -309,7 +313,7 @@ class @main
     exist_doc = value.documents?.length
 
     if exist_rev or exist_doc
-      @found.review_mark.show()
+
       if exist_rev
         for r in value.reviews
           @templ_review.use 'mark', r.mark
@@ -319,17 +323,20 @@ class @main
           @templ_review.use 'review', r.review
           @templ_review.use 'date', r.date
           @templ_review.add()
-        @found.reviews.html('')
         @templ_review.push @found.reviews.html('')
-        @found.tab_review.trigger('click')
 
       if exist_doc
         @found.documents.html('')
         for d in value.documents
           @found.documents.append("<div class='list'><div class='loaded'><img src='#{d.lurl}' data-src='#{d.hurl}'></div></div>")
-        unless exist_rev
-          @found.tab_doc.trigger('click')
 
+      @found.review_mark.show(
+        0, =>
+          if exist_rev
+            @profileTab.attr('data-exist', 'tab1')
+          else if exist_doc
+            @profileTab.attr('data-exist', 'tab2')
+      )
 
 
   save : (data) => do Q.async =>

@@ -32,6 +32,7 @@
     location : null
     status : null
     places : []
+    show_places : false
     sub : null
     short_price : []
     subjects : []
@@ -91,6 +92,7 @@
               l = @join data.check_out_the_areas
 
         p['location'] = l
+        if l then value.show_places = true
         value.places.push p
 
   if data.subjects? and data.ordered_subj?
