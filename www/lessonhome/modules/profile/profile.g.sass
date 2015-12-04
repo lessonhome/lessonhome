@@ -170,15 +170,22 @@
 .nav_panel
   margin-top: 1rem
   margin-bottom: 1rem
-
+.row
+  .col
+    &.profile-send-form
+      padding: 0 2rem
 .profile-send-form
-  padding: 0 2rem !important
   position: relative
   .success
     padding: 1rem 0
     display: none
     h5
-      line-height: 130%
+      line-height: 140%
+      font-size: 1.3rem
+    .col
+      float: none
+      display: inline-block
+      vertical-align: middle
   .title
     padding-top: 2rem
     font-size: 1.4rem
@@ -343,7 +350,12 @@
     margin-bottom: 0
 .request-call-modal
   .modal-content
+    .row
+      margin-bottom: 0
     h5
       line-height: 140%
     p
       font-size: 1.2rem
+  .row
+    &.modal-footer
+      margin-bottom: 0.5rem

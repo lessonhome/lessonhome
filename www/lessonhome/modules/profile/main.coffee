@@ -337,6 +337,7 @@ class @main
   showSuccess : =>
     @resetError()
     @found.success.parent().css 'min-height', @found.success.outerHeight(true)
+    @found.success.parent().css 'padding', '0 0 0 1rem'
     @found.send_form.animate({opacity: '0'}, 150)
     @found.send_form.slideUp 200, => @found.success.fadeIn()
 
