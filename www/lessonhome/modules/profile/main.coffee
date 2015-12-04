@@ -43,6 +43,8 @@ class @main
 
     @chooseTutor  = @found.tutor_trigger
     @triggerCount = 0
+    @resolution = true
+
 
     #scroll spy
     @reviewMark   = @found.review_mark
@@ -81,10 +83,9 @@ class @main
       e.preventDefault()
       Q.spawn => yield @goBack()
 
-    @message_sub.material_select()
-#    @profileTab.find('a.exist:first').trigger('click')
-
     yield @open()
+
+    @message_sub.find('select').material_select()
 
     @profileTab.addClass('tabs').tabs()
     if exist = @profileTab.data('exist') then @profileTab.tabs('select_tab', exist)
@@ -116,24 +117,6 @@ class @main
       return yield @goHistoryUrl()
     document.location.href = document.referrer
   goHistoryUrl : => setTimeout (-> document.location.href = History.getState().url),100
-
-  onSendMessage : =>
-    console.log data = @getData()
-    if yield @save(data)
-      @showSuccess()
-#      setTimeout @showForm, 1100
-
-  showSuccess : =>
-    @found.success.parent().css 'min-height', @found.success.outerHeight(true)
-    @found.send_form.animate({opacity: '0'}, 150)
-    @found.send_form.slideUp 200, => @found.success.fadeIn()
-
-  showForm : =>
-    @message_text.val('')
-    @found.success.fadeOut(200, =>
-      @found.send_form.slideDown()
-      @found.send_form.animate({opacity: '1'})
-    )
 
   onShowDetail : (e) =>
     btn = $(e.currentTarget)
@@ -220,7 +203,7 @@ class @main
           body.append "<tr><td>#{_p[0]}</td><td>#{_p[1]}</td></tr>"
       @templ_pr.add()
     @templ_pr.push parent.html('')
-
+#  setValue : =>
   setValue : (data={})=>
     value = @js.parse data
 
@@ -242,9 +225,13 @@ class @main
     @found.review_mark.hide()
 
     if value.dative_name? then @found.dative_name.text(value.dative_name)
+    @message_sub.html('')
     if value.sub?
-      for s in value.sub then @found.message_subject.append "<option value='#{s}'>#{s}</option>"
-      if value.sub.length > 1 then @found.select_subject.show()
+      select = $('<select>')
+      for s in value.sub
+        select.append "<option value='#{s}'>#{s}</option>"
+      @message_sub.append select
+    if value.sub.length > 1 then @found.select_subject.show()
 
     if value.places?.length
 
@@ -339,32 +326,63 @@ class @main
       )
 
 
-  save : (data) => do Q.async =>
-    return false unless @check_form(data)
-    {status,errs} = yield @$send('../main/attached/save', data)
-    if status=='success'
-      Feel.sendActionOnce 'direct_bid'
-      return true
-    return false
+  onSendMessage : =>
+    result =  yield @save(true)
+    if result.status == 'success'
+      @showSuccess()
+#      setTimeout @showForm, 1100
+    else
+      @showError result.errs
 
-  check_form : (data) =>
+  showSuccess : =>
+    @resetError()
+    @found.success.parent().css 'min-height', @found.success.outerHeight(true)
+    @found.send_form.animate({opacity: '0'}, 150)
+    @found.send_form.slideUp 200, => @found.success.fadeIn()
+
+  showForm : =>
+    @message_text.val('')
+    @found.success.fadeOut(200, =>
+      @found.send_form.slideDown()
+      @found.send_form.animate({opacity: '1'})
+    )
+
+  save : (show_er = false) => do Q.async =>
+    data = @getData()
+    errs = @js.check(data)
+
+    if errs.length
+      return show_er && {status: 'failed', errs}
+
+    r = yield @$send('../main/attached/save', data)
+
+    if r.status == 'success'
+      Feel.sendActionOnce 'direct_bid'
+    else
+      return show_er && r
+
+    return r
+
+
+  check_form : () =>
+    data = getData()
     errs = @js.check data
+    @showError errs
+    return errs.length==0
+
+  showError : (errs) =>
     @resetError()
     for e in errs
       @parseError e
-    return errs.length==0
 
   parseError : (err)=>
-    console.log err
     switch err
 #      when "short_name"
 #        @message_name.showError "Слишком короткое имя "
       when "short_phone"
-        @message_phone.addClass('invalid')
-          .siblings('label:first').attr('data-error', 'Введите корректный телефон')
+        @errField @message_phone, 'Введите корректный телефон'
       when "empty_phone"
-        @message_phone.addClass('invalid')
-          .siblings('label:first').attr('data-error', 'Введите телефон')
+        @errField @message_phone, 'Введите телефон'
 #      when "empty_name"
 #        @message_name.showError "Введите имя"
 #      when "empty_subject"
@@ -373,6 +391,8 @@ class @main
   resetError : =>
     @message_phone.removeClass('invalid')
 
+  errField : (field, err) =>
+    field.addClass('invalid').siblings('label').attr('data-error', err)
 
   hide : =>
     @chooseTutor.off 'click'
@@ -384,5 +404,5 @@ class @main
       comments:       @message_text.val()
       name:           @message_name.val()
       phone:          @message_phone.val()
-      subject:        @message_sub.val()
+      subject:        @message_sub.find('select').val()
     }

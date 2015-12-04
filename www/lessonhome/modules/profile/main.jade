@@ -1,5 +1,5 @@
 - value = require(process.cwd()+'/www/lessonhome/modules/profile/parse').parse(value) || {};
-
+  -value = value || {}
 - var exist = false
 
 .container.profile-bottom-padding
@@ -298,9 +298,9 @@
 
         -exist = value.sub && value.sub.length
         .row.js-select_subject(style = (exist && exist > 1) ? '' : 'display: none')
-          .input-field.col.s12
-            select#sub.js-message_subject
-              if exist
+          .input-field.col.s12.js-message_subject
+            if exist
+              select#sub
                 each sub in value.sub
                   option(value = sub )!= sub
             label(for='sub') Выберите предмет
