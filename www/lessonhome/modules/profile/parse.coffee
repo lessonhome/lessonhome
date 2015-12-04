@@ -21,6 +21,8 @@
 
 @parse = (data) =>
 
+  return unless data?
+
   @setNewFormatPrice data
 
   value = {

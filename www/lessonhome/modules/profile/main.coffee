@@ -83,10 +83,9 @@ class @main
       e.preventDefault()
       Q.spawn => yield @goBack()
 
-    @message_sub.material_select()
-#    @profileTab.find('a.exist:first').trigger('click')
-
     yield @open()
+
+    @message_sub.find('select').material_select()
 
     @profileTab.addClass('tabs').tabs()
     if exist = @profileTab.data('exist') then @profileTab.tabs('select_tab', exist)
@@ -204,7 +203,7 @@ class @main
           body.append "<tr><td>#{_p[0]}</td><td>#{_p[1]}</td></tr>"
       @templ_pr.add()
     @templ_pr.push parent.html('')
-
+#  setValue : =>
   setValue : (data={})=>
     value = @js.parse data
 
@@ -226,9 +225,13 @@ class @main
     @found.review_mark.hide()
 
     if value.dative_name? then @found.dative_name.text(value.dative_name)
+    @message_sub.html('')
     if value.sub?
-      for s in value.sub then @found.message_subject.append "<option value='#{s}'>#{s}</option>"
-      if value.sub.length > 1 then @found.select_subject.show()
+      select = $('<select>')
+      for s in value.sub
+        select.append "<option value='#{s}'>#{s}</option>"
+      @message_sub.append select
+    if value.sub.length > 1 then @found.select_subject.show()
 
     if value.places?.length
 
@@ -401,5 +404,5 @@ class @main
       comments:       @message_text.val()
       name:           @message_name.val()
       phone:          @message_phone.val()
-      subject:        @message_sub.val()
+      subject:        @message_sub.find('select').val()
     }
