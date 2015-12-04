@@ -5,6 +5,7 @@ class @main extends EE
 #    @popup = @found.popup
 #    @pupil = @tree.pupil.class
 #    @tutor = @tree.tutor.class
+
     @order_call = @found.order_call
     @your_name  = @found.your_name
     @tel_number = @found.tel_number
@@ -22,11 +23,17 @@ class @main extends EE
     @order_call.on 'click', => Q.spawn => @b_call()
 
   b_call : =>
-    if yield @save()
+    result = yield @save(true)
+
+    if result.status == 'success'
       @showSuccess()
 #      setTimeout @showForm, 3000
+    else
+      @showError result.errs
+
 
   showSuccess : =>
+    @resetError()
     @found.wrap.css 'min-height',  @found.success.css('opacity', '1').outerHeight(true)
     @found.form.animate {opacity: '0'}, 150, => @found.success.fadeIn()
     @found.form.slideUp 150
@@ -40,35 +47,36 @@ class @main extends EE
       @found.wrap.css 'min-height', ''
     )
 
-
-  save : => do Q.async =>
+  check_form : () =>
     data = @getData()
-    return false unless @check_form(data)
-    return @onReceive yield @$send('./save', data)
-
-  check_form : (data) =>
     err = @js.check(data)
-    console.log err
-    @resetError()
-    for e in err
-      @parseError(e)
+    @showError(err)
     return err.length == 0
+
+  save : (show_er = false) => do Q.async =>
+    data = @getData()
+    errs = @js.check(data)
+
+    if errs.length
+      return show_er && {status: 'failed', errs}
+
+    r = yield @$send('./save', data)
+
+    if r.status == 'success'
+      Feel.sendAction 'back_call'
+    else
+      return show_er && r
+
+    return r
 
   resetError : =>
     @tel_number.removeClass('invalid')
     @your_name.removeClass('invalid')
 
-  onReceive : ({status,errs,err})=>
-    if err?
-      errs?=[]
-      errs.push err
-    if status=='success'
-      Feel.sendAction 'back_call'
-      return true
-    if errs?.length
-      for e in errs
-        @parseError e
-    return false
+  showError : (errs) =>
+    @resetError()
+    for e in errs
+      @parseError(e)
 
   getData : =>
     @type = 'unselect'
