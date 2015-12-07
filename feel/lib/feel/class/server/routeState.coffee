@@ -414,6 +414,7 @@ class RouteState
           $Feel.root = {
               "tree" : '+json_tree+ #InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
           '};
+          $Feel.constJson = '+@site.constJson+';
           $Feel.user = {};
           $Feel.servicesIp = '+@site.servicesIp+';
           $Feel.user.id = "'+(@req.user.id||666)+'";

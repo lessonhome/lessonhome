@@ -1,9 +1,13 @@
 
 
-_subjects = @const('../../const/subjects').subjects
+_subjects = Feel.const('filter').subjects
+_course   = Feel.const('filter').course
+_price    = Feel.const('filter').price
+_status   = Feel.const('filter').status
+_sex      = Feel.const('filter').sex
 
 
-aToI = (obj,arr)->
+aToS = (obj={},arr)->
   arr ?= {}
   if arr.length then for a in arr
     arr[a] = true
@@ -17,7 +21,7 @@ aToI = (obj,arr)->
       i++
   return s
 
-iToA = (obj,str)->
+sToA = (obj={},str='')->
   str = str || ''
   str = str.split ','
   for s in str
@@ -31,8 +35,32 @@ iToA = (obj,str)->
       i++
   return arr
 
-  
-  
+
+oToB = (all=[],selected={})->
+  ret = 0
+  i = 1
+  for it in all
+    if selected[it]
+      ret += i
+    i*=2
+  return ret
+
+bToO = (all=[],bool=0)->
+  selected = {}
+  i = 0
+  while bool
+    c = bool%2
+    bool = bool//2
+    selected[all[i]] = c==1
+    i++
+  return selected
+
+
+
+aToI = (all=[],selected)=>
+  console.log all,all.indexOf
+  all.indexOf(selected)
+iToA = (all=[],i=0)=> all[i]
 
 
 
@@ -41,10 +69,32 @@ iToA = (obj,str)->
 class @D2U
   $subjects : (obj)=>
     type : 'string'
-    value : aToI _subjects,obj?.subjects
+    value : aToS _subjects,obj?.subjects
     default : ''
+  $course : (obj)=>
+    type : 'string'
+    value : aToS {obj:_course},obj?.course
+    default : ''
+  $price : (obj)=>
+    type : 'int'
+    value : oToB _price,obj?.price
+    default : 0
+  $status : (obj)=>
+    type : 'int'
+    value : oToB _status,obj?.status
+    default : 0
+  $sex    : (obj)=>
+    type : 'int'
+    value : aToI _sex, obj?.sex
+    default : 0
+
 
 class @U2D
-  $subjects : (obj)=> iToA _subjects,obj?.subjects
+  $subjects : (obj)=> sToA _subjects,obj?.subjects
+  $course   : (obj)=> sToA {obj:_course},obj?.course
+  $price    : (obj)=> bToO _price,obj?.price
+  $status   : (obj)=> bToO _status,obj?.status
+  $sex      : (obj)=> iToA _sex,obj?.sex
+
 
 

@@ -55,6 +55,8 @@ class @Feel
     if $.cookie()?.tutor
       @sendActionOnceIf 'reaccess',1000*60*30
 
+  const : (name)=> $Feel.constJson[name]
+
   error : (e,args...)=>
     return unless e?
     e = new Error e unless e?.stack? || e?.name?
