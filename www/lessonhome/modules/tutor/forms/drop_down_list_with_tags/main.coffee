@@ -3,7 +3,7 @@ class @main extends EE
   Dom : =>
     @list = @tree.list.class
     @tags = @found.tags
-    @tag  = @found.tag
+    @tag  = @found.tag.first()
     @emitting = false
 
   show : =>
