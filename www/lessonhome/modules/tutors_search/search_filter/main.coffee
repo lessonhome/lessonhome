@@ -1,21 +1,69 @@
 
+class _material_select extends EE
+  constructor : (jQelem) ->
+    this._values = {}
+    this.elem = jQelem
+    this.elem.material_select()
+    this.input = @elem.siblings('input')
+    this._default = this.input.val()
+    this.li = @elem.siblings('ul')
+    .on('mouseup touchend', 'li', this._change)
+    .find('li').each (i, e) =>
+      return if $(e).is('.optgroup')
+      val = $(e).find('span').text().trim()
+      this._values[val]?= $()
+      this._values[val].add e
+  _change : =>
+    setTimeout =>
+      value = this._getSelVal()
+      this.elem.val value
+      this.input.val(value.join(', ') || this._default)
+      this.emit 'change'
+    ,0
+
+  _getSelVal : ->
+    exist = {}
+    $.map this.li, (el) ->
+      value = $(el).find('span').text().trim()
+      return if exist[l = value.toLowerCase()] or not $(el).is('.active')
+      exist[l] = true
+      return value
+
+  _setSelVal : (value) ->
+    this.elem.val value
+    this.input.val(value.join(', ') || this._default)
+
+    for v in value
+      this._values[v]?.addClass 'active'
+      .find('input[type="checkbox"]').prop('checked', true)
+
+  val : (value) ->
+    if value?.length
+      this._setSelVal(value)
+      return this.elem
+    else
+      return this.elem.val()
+
 
 class @main
   constructor : ->
     $W @
   Dom : =>
-    elems = @dom.find "[name='subject'],[name='course'],[name='price'],[name='status'],[name='sex']"
+    @elems = @dom.find "[name='subject'],[name='course'],[name='price'],[name='status'],[name='sex']"
 
-    @subjects = elems.filter "[name='subject']"
-    @course = elems.filter "[name='course']"
-    @prices = elems.filter "[name='price']"
-    @status = elems.filter "[name='status']"
-    @sex = elems.filter "[name='sex']"
+    @subjects = @elems.filter "[name='subject']"
+    @course = @elems.filter "[name='course']"
+    @prices = @elems.filter "[name='price']"
+    @status = @elems.filter "[name='status']"
+    @sex = @elems.filter "[name='sex']"
 
     @indicate = @found.indicate
 
-    @subjects.material_select()
-    @course.material_select()
+    @subjects = new _material_select @subjects
+    @course = new _material_select @course
+
+    @subjects.on 'change', => console.log 'subj'
+    @course.on 'change', => console.log 'cour'
 
     @dom.find('.optgroup').on 'click', (e)=>
       thisGroup = e.currentTarget
@@ -29,16 +77,11 @@ class @main
       else
         $('.subgroup_' + thisGroupNumber).slideUp(400)
         $(thisGroup).attr('data-open', 0)
-    ############
-    @_sub = null
-    @_input_sub = @subjects.siblings('input')
-    @_li_sub = @subjects.siblings('ul').on('mouseup touchend', 'li', @changeSub).find('li')
-  #######################
-    @_course = null
-    @_li_course = @course.siblings('ul').on('mouseup touchend', 'li', @changeCourse).find('li')
-  ########################
+
+
 
   show: =>
+
     @found.use_settings.on 'click', =>
       console.log @getValue()
 
@@ -54,7 +97,6 @@ class @main
             indicate.addClass('selected')
         else
           count = indicate.data 'check'
-
           if inp.is(':checked') then count += 1 else count -= 1
           indicate.data('check', count)
 
@@ -65,40 +107,21 @@ class @main
 
       @emit 'change'
 
+  getValue : =>
+    subjects : @subjects.val()
+    course : @course.val()
+    price : @getCheck @prices
+    status : @getCheck @status
+    sex : @getCheck(@sex)[0] || ''
+
+  setValue : (value) =>
+    @subjects.val(value.subjects || [])
 
 
-  changeSub : =>
-    setTimeout =>
-      @_sub = @_getSel @_li_sub
-      @_input_sub.val(if @_sub?.length then @_sub.join(', ') else 'Предмет')
-      @emit 'change'
-    ,0
-  changeCourse : =>
-    setTimeout =>
-      @_course = @_getSel @_li_course
-      @emit 'change'
-    ,0
-  #######################
-  _getSel : (li) =>
-    $.map li, (el) ->
-      return unless $(el).is('.active')
-      return $(el).find('span').text().trim()
-  #######################
   getCheck : (sel) =>
     $.map sel, (el) ->
       return unless $(el).is(':checked')
       return el.value
 
-  getValue : =>
-    subjects : @getSub()
-    course : @getCourse()
-    price : @getPrice()
-    status : @getStatus()
-    sex : @getSex()
-
-  getSub : => @_sub || []
-  getCourse : => @_course || []
-  getPrice : => @getCheck @prices
-  getStatus : => @getCheck @status
-  getSex : => @getCheck(@sex)[0] || ''
-
+  setChek : (sel, val) =>
+    sel.filter(("[value=\"#{s}\"]" for s in val).join(',')).prop('checked', true)

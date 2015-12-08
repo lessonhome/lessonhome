@@ -6,17 +6,17 @@
     .row.no-bottom-margin
       .input-field.col.s12
         select(name='subject', multiple)
+          option(value='', selected, disabled) Предмет
           each groups,gname in subject_list
             optgroup(label!=gname)
-              option(value='', selected, disabled) Предмет
               each val,index in groups
-                option(value!=index)!=val
+                option(value!=val)!=val
     .row.no-bottom-margin
       .input-field.col.s12
         select(name='course', multiple)
           option(value='', disabled, selected) Направление подготовки
             each val, index in training_direction.items
-              option(value=!index)!=val
+              option(value=!val)!=val
 
   ul.collapsible(data-collapsible='expandable').search-filter.js-indicate
 

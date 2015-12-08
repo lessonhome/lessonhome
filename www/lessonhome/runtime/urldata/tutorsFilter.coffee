@@ -58,7 +58,6 @@ bToO = (all=[],bool=0)->
 
 
 aToI = (all=[],selected)=>
-  console.log all,all.indexOf
   all.indexOf(selected)
 iToA = (all=[],i=0)=> all[i]
 
