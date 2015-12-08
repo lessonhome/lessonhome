@@ -18,26 +18,26 @@
             each val, index in training_direction.items
               option(value=!index)!=val
 
-  ul.collapsible(data-collapsible='expandable').search-filter
+  ul.collapsible(data-collapsible='expandable').search-filter.js-indicate
 
-    li
-      .collapsible-header Цена за 60 минут
+    li.i-block
+      .collapsible-header.i-header(data-check='0', data-type='price') Цена за 60 минут
       .collapsible-body
         each val, index in price_select.items
           .row
             .col.s12
-              input(name='price', type='checkbox', id='price-' + index)
+              input(name='price', type='checkbox', id='price-' + index, value!=val)
               label(for='price-' + index)!=val
-    li
-      .collapsible-header.selected Статус репетитора
+    li.i-block
+      .collapsible-header.i-header(data-check='0', data-type='status') Статус репетитора
       .collapsible-body
         each val, index in status_tutor.items
           .row
             .col.s12
-              input(name='status', type='checkbox', id='status-' + index)
+              input(name='status', type='checkbox', id='status-' + index, value!=val)
               label(for='status-' + index)!=val
-    li
-      .collapsible-header Пол
+    li.i-block
+      .collapsible-header.i-header(data-type='sex') Пол
       .collapsible-body
         each val, index in sex.items
           .row.no-bottom-margin
@@ -46,4 +46,4 @@
               label(for='sex-' + index)!=val
   .row
     .input-field.col.s12.center-align
-      button.btn Подобрать
+      button.btn.js-use_settings Подобрать
