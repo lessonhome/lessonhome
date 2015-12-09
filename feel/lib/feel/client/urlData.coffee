@@ -258,6 +258,11 @@ class @urlData
     o.url ?= History.getState().url
     hash += (yield @filter o.url,'filter') ? ''
     return hash
+  tutorsFilterHash : (o={})=>
+    hash = ''
+    o.url ?= History.getState().url
+    hash += (yield @filter o.url,'tutorsFilter') ? ''
+    return hash
   ###
   emitChange : =>
     @lastChange ?= 0
