@@ -49,7 +49,21 @@
       width : 40%
   .row:nth-child(2n)
     background : #DDD
-      
+.container .content.bids .row
+  .title
+    width : 10%
+  .name
+    width : 15%
+  .phone
+    width : 15%
+  .comment
+    width : 25%
+  .linked
+    width : 10%
+  .time
+    width : 25%
+
+
 =add($name)
   .#{$name} 
     .header .#{$name}
@@ -57,6 +71,7 @@
     .#{$name}
       display : inline-block
 
++add('bids')
 +add('time')
 +add('backcall')
 +add('nophoto')
