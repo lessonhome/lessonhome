@@ -1,49 +1,67 @@
 
 class _material_select extends EE
+  LI = 'li:not(.optgroup)'
   constructor : (jQelem) ->
-    this._values = {}
+    this._sort = {}
+    this.value = null
     this.elem = jQelem
     this.elem.material_select()
     this.input = @elem.siblings('input')
     this._default = this.input.val()
-    this.li = @elem.siblings('ul')
-    .on('mouseup touchend', 'li', this._change)
-    .find('li').each (i, e) =>
-      return if $(e).is('.optgroup')
-      val = $(e).find('span').text().trim()
-      this._values[val]?= $()
-      this._values[val].add e
-  _change : =>
+
+    this.lis = @elem.siblings('ul')
+    .on('mouseup touchend', LI, this._change)
+    .find(LI).each (i, li) =>
+      li = $(li)
+      name = this._ejectLiName(li)
+      this._sort[name]?= []
+      this._sort[name].push li
+  _change : (e) =>
+    li = $(e.currentTarget)
+    name = this._ejectLiName(li)
     setTimeout =>
-      value = this._getSelVal()
-      this.elem.val value
-      this.input.val(value.join(', ') || this._default)
+      if this._sort[name]?.length > 1
+        this._setLi(l, li.is '.active') for l in this._sort[name]
+      this.value = this._getSelVal()
+      this._updateInput()
       this.emit 'change'
     ,0
 
+  _ejectLiName : (li) -> li.find('span').text().trim()
+
+  _setLi : (li, check = true) ->
+    return if check == li.is '.active'
+    if check then li.addClass('active') else li.removeClass('active')
+    li.find('input[type="checkbox"]:first').prop('checked', check)
+
   _getSelVal : ->
     exist = {}
-    $.map this.li, (el) ->
-      value = $(el).find('span').text().trim()
-      return if exist[l = value.toLowerCase()] or not $(el).is('.active')
-      exist[l] = true
-      return value
+    $.map this.lis, (li) =>
+      li = $(li)
+      name = this._ejectLiName li
+      return if exist[name] or not li.is('.active')
+      exist[name] = true
+      return name
 
-  _setSelVal : (value) ->
-    this.elem.val value
-    this.input.val(value.join(', ') || this._default)
 
-    for v in value
-      this._values[v]?.addClass 'active'
-      .find('input[type="checkbox"]').prop('checked', true)
+  _updateInput : -> this.input.val(this.value.join(', ') || this._default)
+  _resetSelVal : -> this.lis.each (i, e) => this._setLi $(e), false
 
   val : (value) ->
-    if value?.length
-      this._setSelVal(value)
-      return this.elem
-    else
-      return this.elem.val()
+    return this.value unless value?
+    this._setSelVal(value)
+    return this.elem
 
+  _setSelVal : (value) ->
+    this._resetSelVal()
+    this.setActive(v) for v in value
+    this.elem.val value
+    this.value = value
+    this._updateInput()
+
+  setActive : (name, check = true) ->
+    if this._sort[name]?
+      this._setLi(li, check) for li in this._sort[name]
 
 class @main
   constructor : ->
@@ -83,7 +101,7 @@ class @main
   show: =>
 
     @found.use_settings.on 'click', =>
-      console.log @getValue()
+      Feel.urlData.set('tutorsFilter', @getValue())
 
     @indicate.on 'click', 'input', (e) =>
       inp = $(e.currentTarget)
