@@ -16,6 +16,7 @@ aToS = (obj={},arr)->
   for key,o of obj
     for val in o
       if arr[val]
+        delete arr[val]
         s += ',' if s
         s += i
       i++
@@ -24,13 +25,14 @@ aToS = (obj={},arr)->
 sToA = (obj={},str='')->
   str = str || ''
   str = str.split ','
+  str2 = {}
   for s in str
-    str[s] = true
+    str2[s] = true
   arr = []
   i = 0
   for key,o of obj
     for val in o
-      if str[i]
+      if str2[i]
         arr.push val
       i++
   return arr

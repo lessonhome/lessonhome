@@ -1,3 +1,9 @@
+- value = value.filter || {};
+- var sub_exist = {};
+- var cou_exist = {};
+- for(var key in value.subjects) sub_exist[value.subjects[key]] = true;
+- for(key in value.course) cou_exist[value.course[key]] = true;
+- console.log(sub_exist);
 .search-filter
   .top-filter-parametrs
     .row.no-bottom-margin
@@ -5,44 +11,47 @@
        .filter-title Выберете предмет и направление подготовки
     .row.no-bottom-margin
       .input-field.col.s12
-        select(name='subject', multiple)
+        select(name='subject', multiple).js-subjects
           option(value='', selected, disabled) Предмет
           each groups,gname in subject_list
             optgroup(label!=gname)
               each val,index in groups
-                option(value!=val)!=val
+                option(value!=val, selected=(sub_exist[val]?true:undefined))!=val
     .row.no-bottom-margin
       .input-field.col.s12
-        select(name='course', multiple)
+        select(name='course', multiple).js-course
           option(value='', disabled, selected) Направление подготовки
             each val, index in training_direction.items
-              option(value=!val)!=val
+              option(value=!val, selected=(cou_exist[val]?true:undefined))!=val
 
-  ul.collapsible(data-collapsible='expandable').search-filter.js-indicate
+  ul.collapsible(data-collapsible='expandable').search-filter
 
-    li.i-block
-      .collapsible-header.i-header(data-check='0', data-type='price') Цена за 60 минут
+    li.i-block.js-price_block
+      .collapsible-header.i-header Цена за 60 минут
       .collapsible-body
         each val, index in price_select.items
           .row
             .col.s12
-              input(name='price', type='checkbox', id='price-' + index, value!=val)
+              input(name='price', type='checkbox', id='price-' + index, value!=val, data-v='price')
               label(for='price-' + index)!=val
-    li.i-block
+    li.i-block.js-status_block
       .collapsible-header.i-header(data-check='0', data-type='status') Статус репетитора
       .collapsible-body
         each val, index in status_tutor.items
           .row
             .col.s12
-              input(name='status', type='checkbox', id='status-' + index, value!=val)
+              input(name='status', type='checkbox', id='status-' + index, value!=val, data-v='status')
               label(for='status-' + index)!=val
-    li.i-block
-      .collapsible-header.i-header(data-type='sex') Пол
+    li.i-block.js-sex_block
+      .collapsible-header.i-header Пол
       .collapsible-body
         each val, index in sex.items
           .row.no-bottom-margin
             .col.s12
-              input(name='sex', type='radio', id='sex-' + index, value!=val).with-gap
+              if index == 0
+                input(checked=true, name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex').with-gap.i-no
+              else
+                input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex').with-gap
               label(for='sex-' + index)!=val
   .row
     .input-field.col.s12.center-align
