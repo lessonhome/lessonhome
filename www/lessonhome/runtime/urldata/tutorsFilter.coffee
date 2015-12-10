@@ -72,27 +72,27 @@ class @D2U
     type : 'string'
     value : aToS _subjects,obj?.subjects
     default : ''
-    filter : true
+    tutorsFilter : true
   $course : (obj)=>
     type : 'string'
     value : aToS {obj:_course},obj?.course
     default : ''
-    fitler : true
+    tutorsFitler : true
   $price : (obj)=>
     type : 'int'
     value : oToB _price,obj?.price
     default : 0
-    filter : true
+    tutorsFilter : true
   $status : (obj)=>
     type : 'int'
     value : oToB _status,obj?.status
     default : 0
-    filter : true
+    tutorsFilter : true
   $sex    : (obj)=>
     type : 'int'
     value : aToI _sex, obj?.sex
     default : 0
-    filter : true
+    tutorsFilter : true
 
 
 class @U2D

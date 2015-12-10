@@ -169,6 +169,10 @@ class @main
 
 
   show: =>
+    Feel.urlData.on 'change',=> do Q.async =>
+      hash = yield Feel.urlData.filterHash 'tutorsFilter'
+      console.log hash,@hash==hash
+      @hash = hash
     @subjects.on 'change', => Feel.urlData.set 'tutorsFilter', {subjects: @subjects.val()}
     @course.on 'change', => Feel.urlData.set 'tutorsFilter', {course: @course.val()}
     @price.on 'change', => Feel.urlData.set 'tutorsFilter', @price.val()

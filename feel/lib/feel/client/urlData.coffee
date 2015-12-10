@@ -253,16 +253,15 @@ class @urlData
     #data = @state.url.match /\?(.*)$/
     #for key of @forms
     #  @data[key] ?= {}
-  filterHash : (o={})=>
+  filterHash : (o={},field='filter')=>
+    if typeof o == 'string'
+      field = o
+      o = {}
     hash = ''
     o.url ?= History.getState().url
-    hash += (yield @filter o.url,'filter') ? ''
+    hash += (yield @filter o.url,field) ? ''
     return hash
-  tutorsFilterHash : (o={})=>
-    hash = ''
-    o.url ?= History.getState().url
-    hash += (yield @filter o.url,'tutorsFilter') ? ''
-    return hash
+
   ###
   emitChange : =>
     @lastChange ?= 0
