@@ -17,7 +17,6 @@ class _material_select extends EE
       name = @_ejectLiName(li)
       @_sort[name]?= []
       @_sort[name].push li
-
     @_preload()
 
   _preload : =>
@@ -184,7 +183,11 @@ class @main
     @price.on 'change', => Feel.urlData.set 'tutorsFilter', @price.val()
     @status.on 'change', => Feel.urlData.set 'tutorsFilter', @status.val()
     @sex.on 'change', => Feel.urlData.set 'tutorsFilter', @sex.val()
-    @found.use_settings.on 'click', => Q.spawn => yield Feel.urlData.set 'tutorsFilter', @getValue()
+    @found.use_settings.on 'click', =>
+      top = @dom.offset?()?.top
+      $(window).scrollTop top-10 if top >= 0
+      @emit 'reshow'
+#      Q.spawn => yield Feel.urlData.set 'tutorsFilter', @getValue()
 
   getValue : =>
     subjects : @subjects.val()

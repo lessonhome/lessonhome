@@ -10,7 +10,6 @@ class @main
     @tags.on 'click', '.chip.active', @onClickTag
 
   onClickTag : (e) =>
-    console.log '111111'
     el = $(e.currentTarget)
     el.removeClass('active').find('i').trigger('click')
     val = el.attr('data-v')
