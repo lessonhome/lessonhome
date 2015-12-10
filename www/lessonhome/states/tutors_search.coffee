@@ -8,7 +8,10 @@ class @main extends @template 'lp'
   }
   tree : =>
     content : @module '$':
-      filter_tags: @module '$/filter_tags'
+      filter_tags: @module '$/filter_tags' :
+        value :
+          filter  : $urlform : tutorsFilter : ''
+          default_filter  : $durlform : mainFilter : ''
       search_filter: @module '$/search_filter':
         value :
           filter  : $urlform : tutorsFilter : ''

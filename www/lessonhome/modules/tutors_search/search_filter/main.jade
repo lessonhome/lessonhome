@@ -26,7 +26,7 @@
 
   mixin checkBlock(title, is_open)
     li.i-block&attributes(attributes)
-      .collapsible-header.i-header(class=is_open?'selected':undefined)(class=is_open?'active':undefined)!=title
+      .collapsible-header.i-header(class=is_open?'selected active':undefined)!=title
       .collapsible-body(style=is_open?'display:block':undefined)
         block
 
