@@ -24,35 +24,45 @@
             each val, index in training_direction.items
               option(value=!val, selected=(cou_exist[val]?true:undefined))!=val
 
-  ul.collapsible(data-collapsible='expandable').search-filter
+  mixin checkBlock(title, is_open)
+    li.i-block&attributes(attributes)
+      .collapsible-header.i-header(class=is_open?'selected':undefined)(class=is_open?'active':undefined)!=title
+      .collapsible-body(style=is_open?'display:block':undefined)
+        block
 
-    li.i-block.js-price_block
-      .collapsible-header.i-header Цена за 60 минут
-      .collapsible-body
-        each val, index in price_select.items
-          .row
-            .col.s12
-              input(name='price', type='checkbox', id='price-' + index, value!=val, data-v='price')
-              label(for='price-' + index)!=val
-    li.i-block.js-status_block
-      .collapsible-header.i-header(data-check='0', data-type='status') Статус репетитора
-      .collapsible-body
-        each val, index in status_tutor.items
-          .row
-            .col.s12
-              input(name='status', type='checkbox', id='status-' + index, value!=val, data-v='status')
-              label(for='status-' + index)!=val
-    li.i-block.js-sex_block
-      .collapsible-header.i-header Пол
-      .collapsible-body
-        each val, index in sex.items
-          .row.no-bottom-margin
-            .col.s12
-              if index == 0
-                input(checked=true, name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex').with-gap.i-no
-              else
-                input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex').with-gap
-              label(for='sex-' + index)!=val
+
+  ul.collapsible(data-collapsible='expandable').search-filter
+    -var open = false,s;
+    -for(s in value.price){open=true; break;}
+    +checkBlock('Цена за 60 минут', open).js-price_block
+      each val, index in price_select.items
+        .row
+          .col.s12
+            input(name='price', type='checkbox', id='price-' + index, value!=val, data-v='price', checked=(value.price[val]?true:undefined))
+            label(for='price-' + index)!=val
+
+    -open = false;
+    -for(s in value.status){open=true; break;}
+    +checkBlock('Статус репетитора', open).js-status_block
+      each val, index in status_tutor.items
+        .row
+          .col.s12
+            input(name='status', type='checkbox', id='status-' + index, value!=val, data-v='status',checked=(value.status[val]?true:undefined))
+            label(for='status-' + index)!=val
+
+    -open = sex.items[0] != value.sex;
+    +checkBlock('Пол', open).js-sex_block
+      each val, index in sex.items
+        .row.no-bottom-margin
+          .col.s12
+            if index == 0
+              input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex',checked=(value.sex == val?true:undefined)).with-gap.i-no
+            else
+              input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex', checked=(value.sex == val?true:undefined)).with-gap
+            label(for='sex-' + index)!=val
+
+
+
   .row
     .input-field.col.s12.center-align
       button.btn.js-use_settings Подобрать
