@@ -121,7 +121,15 @@ class slideBlock extends EE
 
     return result
 
+  _resetAll : ->
+    @inputs.each ->
+      type = this.type || 'text'
+      if type=='radio' or type == 'checkbox'
+        $(this).prop('checked', false)
+      else
+        this.value = ''
   _setValue : (data) ->
+    @_resetAll()
     for key, values of data
       if typeof(values) == 'object'
         @inputs.filter("[data-v=\"#{key}\"]")
@@ -167,10 +175,10 @@ class @main
 
 
   show: =>
-    Feel.urlData.on 'change',=> do Q.async =>
-      hash = yield Feel.urlData.filterHash 'tutorsFilter'
-      console.log hash,@hash==hash
-      @hash = hash
+#    Feel.urlData.on 'change',=> do Q.async =>
+#      hash = yield Feel.urlData.filterHash 'tutorsFilter'
+#      console.log hash,@hash==hash
+#      @hash = hash
     @subjects.on 'change', => Feel.urlData.set 'tutorsFilter', {subjects: @subjects.val()}
     @course.on 'change', => Feel.urlData.set 'tutorsFilter', {course: @course.val()}
     @price.on 'change', => Feel.urlData.set 'tutorsFilter', @price.val()
@@ -186,7 +194,6 @@ class @main
     sex : @sex.val()?.sex
 
   setValue : (value) =>
-    console.log '111'
     value = value.filter
     @subjects.val value.subjects
     @course.val value.course

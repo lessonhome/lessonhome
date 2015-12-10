@@ -1,16 +1,26 @@
+-value = value.filter || {}
 .filter-tags
   .row
     .col.s12.js-tags_filter
-      .chip
-        span Русский язык
-        i.material-icons.close close
-      //.chip Математика
-      //  i.material-icons close
-      //.chip У себя
-      //  i.material-icons close
-      //.chip У ученика
-      //  i.material-icons close
-      //.chip от 400 до 1600 рублей
-      //  i.material-icons close
-      //.chip Преподаватель школы
-      //  i.material-icons close
+      mixin tag(name)
+        .chip.active(data-v=name)&attributes(attributes)
+          span!=name
+          i.material-icons close
+      div.templ(style="display:none")
+        +tag()
+      if value.subjects
+        each s in value.subjects
+          +tag(s)(data-b='subjects')
+      if value.course
+        each s in value.course
+          +tag(s)(data-b='course')
+      if value.price
+        for v, k in value.price
+          if v
+            +tag(k)(data-b='price')
+      if value.status
+        for v, k in value.status
+          if v
+            +tag(k)(data-b='status')
+      if value.sex && sex.items[0] != value.sex
+        +tag(value.sex)(data-b='sex')
