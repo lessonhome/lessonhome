@@ -11,7 +11,7 @@ class @main extends @template 'lp'
       filter_tags: @module '$/filter_tags'
       search_filter: @module '$/search_filter':
         value :
-          filter  : $urlform : mainFilter : ''
+          filter  : $urlform : tutorsFilter : ''
           default_filter  : $durlform : mainFilter : ''
         subject_list: @const('filter').subjects
           ###
