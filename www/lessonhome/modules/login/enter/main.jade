@@ -1,12 +1,14 @@
-.enter_block
-  form.js-form.check_in_fields.unselect(action="/form/tutor/login" method="post" name="login")
-    input.js-submit(type='submit')
-    .login
-      .input!= login
-    .password
-      .input!= password
-    .text_block
-      a(href = '/forgot_password').forgot_password Забыли пароль?
-      a(href = '/tutor_registration').reg Регистрация
-    .buttons
-      .enter_button!=enter_button
+.container
+  h1.center-align Вход в личный кабинет
+  .row
+    .col.l4.offset-l4
+      form.js-form.check_in_fields.unselect(action="/form/tutor/login" method="post" name="login")
+        .row!= login
+        .row!= password
+        .row
+          .col.l6.m6.s6.left-align
+            a(href = '/forgot_password').forgot_password Забыли пароль?
+          .col.l6.m6.s6.right-align
+            a(href = '/tutor_registration').reg Регистрация
+        .row
+          .col.s12.l12.m12.center-align!=enter_button

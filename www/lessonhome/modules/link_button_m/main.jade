@@ -1,0 +1,10 @@
+//- if inactive selector must be "inactive"
+
+- selector = selector || "";
+- activities_str = selector.indexOf('inactive')
+if activities_str != -1
+  a.waves-effect.waves-light.btn-large(href=href class=selector).js-text!=text
+    i.material-icons.left lock_open
+else
+  a.waves-effect.waves-light.btn-large.active(href=href class=selector).js-text!=text
+    i.material-icons.left lock_open
