@@ -7,7 +7,6 @@ class Sms
     $W @
     @cid = 0
   init : =>
-
   send : (messages,sender='lessonhome')=>
     for m in messages
       m.phone = m.phone.replace /\D/gmi,''
