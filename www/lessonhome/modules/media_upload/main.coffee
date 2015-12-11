@@ -7,9 +7,11 @@ class AddPhotos
     $W @
   Dom : =>
     @input = @found.input
-    @photos = document.getElementsByClassName('photo1')
-
+    @type = @tree.type
+    console.log @tree.photos
   show : =>
+    @params = {}
+    @params[@type] = 'true'
     @input.fileupload
       dataType : 'json'
       progressall : @progressall
@@ -22,7 +24,7 @@ class AddPhotos
     nowFile   = data?.files[data?.files?.length-1]
     lastFile  = data?.originalFiles?[data?.originalFiles?.length-1]
     return unless nowFile==lastFile
-    $.getJSON('/uploaded/image', {avatar:'false'})
+    $.getJSON('/uploaded/image', @params)
     .success (data)=>
       if data?.uploaded?
         photos = []

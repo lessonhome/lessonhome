@@ -89,7 +89,9 @@ class FileUpload
 
       for f in files
         #console.log 'fileupload.coffee EXTENSION', f.split('.').pop()
-        hash = _randomHash().substr 0,10
+        #hash = _randomHash().substr 0,10
+        hash = (yield md5file "#{@dir}/temp/"+req.user.id+'/image/'+f).substr(0,10)
+        console.log hash
         o =
           hash      : hash
           original  : hash+".jpg"
@@ -102,12 +104,18 @@ class FileUpload
         qs.push @parseImage o
 
       yield Q.all qs
-      photos = []
-      user_uploads = {}
-      avatars = []
+
+      uploaded = []
+      hash_news = []
+
+      person =  yield _invoke personsDb.find({account:req?.user?.id}), 'toArray'
+      person = person[0]
+      return unless person?
+
+      user_upload = person.uploaded ? {}
 
       for o in arr
-        photos.push(
+        uploaded.push(
           {
             hash: o.hash
             account: req.user.id
@@ -139,23 +147,10 @@ class FileUpload
             url: Feel.static.F @site.name, "user_data/images/" + o.high
           }
         )
-        accountsDb = yield db.get 'accounts'
-        persons =  yield _invoke personsDb.find({account:req?.user?.id}), 'toArray'
-        person = persons[0] ? {}
-        user_photos = person.photos ? []
-        user_uploads = person.uploaded
-        avatars.push o.hash
 
+        hash_news.push o.hash
 
-        if !user_photos?
-          user_photos = [o.hash]
-          yield _invoke personsDb, 'update', {account: req.user.id}, {$set:{photos : user_photos} }, {upsert: true}
-        else
-          yield _invoke personsDb, 'update', {account: req.user.id}, {$push:{photos : o.hash} }, {upsert: true}
-
-        if !user_uploads?
-          user_uploads = {}
-        user_uploads[o.hash] = {
+        user_upload[o.hash] = {
           type : 'image'
           original : o.hash
           low : o.hash+'low'
@@ -165,11 +160,31 @@ class FileUpload
           high_url : Feel.static.F @site.name, "user_data/images/" + o.high
         }
 
-      if photos.length
-        yield _invoke uploadedDb, 'insert',     photos
-        yield _invoke personsDb, 'update', {account: req.user.id}, {$set:{uploaded : user_uploads} }, {upsert: true}
-        if params.avatar == 'true'
-          yield _invoke personsDb, 'update', {account: req.user.id}, {$push:{avatar : {$each: avatars}} }, {upsert: true}
+
+      if uploaded.length
+        console.log hash_news
+        yield _invoke uploadedDb, 'insert', uploaded
+        yield _invoke personsDb, 'update', {account: req.user.id}, {$set:{uploaded : user_upload} }, {upsert: true}
+
+        set = null
+        field = null
+
+        switch 'true'
+          when params.avatar then set = avatar : field = person.avatar ? []
+          when params.documents then set = documents : field = person.documents ? []
+          else set = photos : field = person.photos ? []
+
+        count_change = 0
+        exist = {}
+        exist[key] = true for key in field
+        for key in hash_news
+          continue if exist[key]
+          exist[key] = true
+          field.push key
+          count_change++
+
+        if count_change
+          yield _invoke personsDb, 'update', {account: req.user.id}, {$set : set}, {upsert : true}
 
     yield @site.form.flush ['person'],req,res
     res.setHeader 'content-type','application/json'
@@ -184,10 +199,10 @@ class FileUpload
         url : el.url
         width : el.width
         height : el.height
-        uploaded : photos
+        uploaded : uploaded
       }
     else
-      res.end JSON.stringify {uploaded: photos}
+      res.end JSON.stringify {uploaded: uploaded}
  
   parseImage : (o)=>
     qs = []

@@ -4,22 +4,20 @@
 class media
   constructor : ->
     $W @
-  Dom : =>
-    @setRemoveHandlers()
-    @setAvaHandlers()
-
   show : =>
-
     @photos = {}
     for i, layer of @tree.photos
       for j, photo of layer.photos
         @photos[photo.hash] = photo
+    console.log @photos
+    @dom.on 'click', '.remove',  (e) =>
+      @emit 'remove', $(e.currentTarget).closest('.photo-wrap').attr('data-id')
 
   reloadPhotos: (photos) =>
 
     layers = yield @remakeLayers(photos)
 
-    media_content = document.getElementById('m-tutor-profile_content-media')
+    media_content = @dom[0]
 
     media_content.removeChild(media_content.lastChild) while media_content.lastChild
 
@@ -29,7 +27,8 @@ class media
       layerDOM.style.height = layer.height+'px'
       for photo in layer.photos
         wrapper = document.createElement('div')
-        wrapper.id = 'wrapper-'+photo.hash
+        wrapper.className = 'photo-wrap'
+        wrapper.setAttribute('data-id', photo.hash)
         wrapper.style.left = photo.left+'px'
         remove = document.createElement('div')
         remove.className = 'remove'
@@ -44,12 +43,9 @@ class media
 
       media_content.appendChild(layerDOM)
 
-    @setRemoveHandlers()
-    @setAvaHandlers()
-
   remove_photo: (id) =>
 
-    yield @$send('removeMedia', {hash: id})
+#    yield @$send('removeMedia', {hash: id})
     delete @photos[id]
 
     photos_left = []
@@ -75,28 +71,9 @@ class media
 
     @reloadPhotos(photos)
 
-
-  setRemoveHandlers: =>
-    @remove_buttons = document.getElementsByClassName('remove')
-
-    remove = @remove_photo
-
-    for button in @remove_buttons
-      button.onclick = () ->
-        remove(this.nextSibling.id)
-
-  setAvaHandlers: =>
-    @images = document.getElementsByClassName('big')
-    photos = @photos
-    setAsAvatar = @setAsAvatar
-
-    for image in @images
-      image.onclick = () ->
-        setAsAvatar(this.id)
-
   setAsAvatar: (id)=> do Q.async =>
-    data = yield @$send('setAvatar', {id: id})
-    @emit 'set_ava', data.newAva
+#    data = yield @$send('setAvatar', {id: id})
+#    @emit 'set_ava', data.newAva
   remakeLayers: (photos) =>
     W = 738
     HMIN = 150

@@ -61,7 +61,8 @@
     "readdirp" : "*",
     "request-json":"*",
     "yandex-direct" : "*",
-    "yandex-direct-api": "*"
+    "yandex-direct-api": "*",
+    "md5-file":"*"
   }
 }
 
