@@ -1,42 +1,7 @@
-
-#@check = (data)=>
-#  errs = []
-#  for i,subject of data.subjects_val
-#    # short
-#    if subject.duration.length < 1
-#      errs.push "short_duration":i
-#    # long
-#    if subject.duration.length > 100
-#      errs.push "long_duration":i
-#    # empty
-#    if subject.duration.length == 0
-#      errs.push "empty_duration":i
-#    #if f.qualification.length == 0
-#    #  errs.push "empty_qualification"
-#    if subject.group_learning.length == 0
-#      errs.push "empty_group_learning":i
-#    active = false
-#    ###
-#    for val in subject.categories_of_students
-#      console.log 'val :'
-#      console.log val
-#      if val
-#        active = true
-#    if !active
-#      errs.push "empty_categories_of_students":i
-#    active = false
-#    for val in subject.place
-#      if val
-#        active = true
-#    if !active
-#      errs.push "empty_place":i
-#    ###
-#  return errs
-
 @atLeastAll = (func) ->
   result = {
     correct : false
-    message : 'errror'
+    message : 'error'
   }
   return {
   some : (data) ->
@@ -51,16 +16,16 @@
 @isSelected = (data) -> return if data.selected is true then true else false
 @isFill = (data) -> return if data isnt '' then true else false
 @isString = (data) -> return if typeof(data) isnt 'string' then 'not_string' else true
-@isInt = (data) -> return if data isnt '' and isNaN(parseInt data) then 'not_int' else true
+@isInt = (data) -> return if data isnt '' and isNaN(+data) then 'not_int' else true
 
 @stud = @atLeastAll @isTrue
 @place = @atLeastAll @isSelected
 @pr = @atLeastAll @isFill
 
-@required = (data) -> return if data is '' then 'empty_field' else true
-@tag = (data) -> return if (data.length > 85) then 'long_tag' else true
-@comments = (data) -> return if (data.length > 302) then 'long_comments' else true
-@price = (data) -> return if data > 9999 then 'so_expensive' else true
+@required = (data) -> return unless data then 'empty_field' else true
+@tag = (data) -> return if (data.length > 285) then 'long_tag' else true
+@comments = (data) -> return if (data.length > 30200) then 'long_comments' else true
+@price = (data) -> return if data > 99999 then 'so_expensive' else true
 @group_count = (data) -> return if data is '' then 'select_group' else true
 @isNormalTags = (data) =>
 

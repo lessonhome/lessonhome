@@ -1,0 +1,60 @@
+@import base
+$icon_tutor : 'main/icon_tutor.png'
+$icon_mail : 'main/icon_mail.png'
+$icon_info : 'main/icon_info.png'
+$icon_book : 'main/icon_book.png'
+$width : image-width($icon_tutor)
+$height : image-height($icon_tutor)
+.content
+  padding: 24px 36px
+  position: relative
+  label
+    color: #000000 !important
+  h1
+    font-size: 24px
+    margin-bottom: 24px
+  .second_block
+    display: none
+    .btn_send
+      width: 250px
+      margin: 20px auto 24px
+      height: 50px
+      div
+        a
+          .button
+            background-color: #3CB27D
+            &:hover
+              background-color: #3CB27D
+  .second_block .step, .step
+    margin-bottom: 25px
+    &:after
+      content: ''
+      display: table
+      clear: both
+    .contents
+      margin-left: $width
+      padding-left: 20px
+      h2.title
+        font-size: 20px
+        padding: 10px 0
+        margin-bottom: 5px
+      //.form .subject
+      //  height: 37px
+      //  line-height: 37px
+
+    .icon
+      width: $width
+      height: $height
+      float: left
+      background: #DDD
+      &.tutor
+        background: url(F($icon_tutor)) no-repeat
+      &.subject
+        background: url(F($icon_book)) no-repeat
+      &.info
+        background: url(F($icon_info)) no-repeat
+      &.contacts
+        background: url(F($icon_mail)) no-repeat
+
+  .step.subject
+    margin-bottom: 56px

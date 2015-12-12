@@ -4,6 +4,7 @@
 #selector      : 'padding_1px_rating'
 class @main
   tree : => @module '$' :
+    onepage : @exports()
     selector  : @exports()
     rating_photo  : @state './all_rating_photo' :
       image         : @exports()
@@ -12,7 +13,10 @@ class @main
       close         : false
       extract       : @exports()
       rating        : @exports()
+      showrating    : @exports()
+      showsubject   : @exports()
     tutor_extract : @module '$/tutor_extract'  :
+      onepage : @exports()
       value : @exports()
       ### value have variables
         tutor_name        - имя репетитора
@@ -28,6 +32,7 @@ class @main
       view_button       : @module 'link_button' :
         selector: 'view'
         text: 'Смотреть'
+        active : false
       choose_button     : @module 'tutor/checkbox_button' :
         checkbox        : @module 'tutor/forms/checkbox' :
           value : false

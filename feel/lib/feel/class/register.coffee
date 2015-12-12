@@ -168,6 +168,20 @@ class Register
     for session of @accounts[id].sessions
       delete @sessions[session]
     delete @accounts[id]
+  reload : (id)=>
+    acc  = yield _invoke @account.find(id:id),'toArray'
+    sess = yield _invoke @session.find(account:id),'toArray'
+    for session of @accounts[id].sessions
+      delete @sessions[session]
+    for a in acc
+      @accounts[a.id]   = a
+      delete a.account
+      delete a.acc
+      if a.login?
+        @logins[a.login] = a
+    for s in sess
+      @sessions[s.hash] = s
+    
   register : (session,unknown,adminHash)=>
     o = {}
     created = false
@@ -296,7 +310,7 @@ class Register
     qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     yield Q.all qs
     return {session:@sessions[sessionhash],user:user}
-  passwordUpdate : (user,sessionhash,data)=>
+  passwordUpdate : (user,sessionhash,data,admin=false)=>
     throw err:'bad_query'            unless data?.login? && data?.password? && data?.newpassword?
     throw err:'login_not_exists'      if !@logins[data.login]?
     throw err:'bad_session'           if !@accounts[user.id]?
@@ -304,7 +318,7 @@ class Register
     user = @accounts[user.id]
     throw err:'not_logined'       unless user.registered
     data_password = data.login+data.password
-    throw err:'wrong_password'    unless yield @passwordCompare _hash(data_password), user.hash
+    throw err:'wrong_password'    unless admin || yield @passwordCompare _hash(data_password), user.hash
     ndata_password = data.login+data.newpassword
     user.hash       = yield @passwordCrypt _hash ndata_password
     user.accessTime = new Date()
@@ -316,19 +330,14 @@ class Register
   passwordRestore: (data) =>
     db = yield Main.service 'db'
 
-    #personsDb = yield @dbpersons.get 'persons'
-    #accountsDb = yield @account.get 'accounts'
-
     token = _randomHash(10)
     utoken = yield @urldata.d2u 'authToken',{token:token}
 
-    #accounts = yield _invoke @account.find({login: data.login},{login:1}),'toArray'
-
     validDate = new Date()
-    validDate.setHours(validDate.getHours()+1)
+    validDate.setHours(validDate.getHours()+24)
     user = @logins[data.login]
     throw err:'login_not_exists' unless user?
-    throw err:'login_not_exists' unless data.login.match '@'
+    throw err:'email_not_exists' unless data.email?.length
     restorePassword = {
       token: token
       valid: validDate
@@ -339,26 +348,23 @@ class Register
     delete acc.account
     yield _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
 
-    #console.log 'http://127.0.0.1:8081/new_password?'+utoken
-
     persons = yield  _invoke @dbpersons.find({account: user.id}), 'toArray'
     p = persons?[0] ? {}
     name = "#{p?.last_name ? ''} #{p?.first_name ? ''} #{p?.middle_name ? ''}"
     name = name.replace /^\s+/,''
     name = name.replace /\s+$/,''
     name = ', '+ name if name
-    if data.login.match '@'
+    for email in data.email ? []
       yield @mail.send(
         'restore_password.html'
-        user.login
+        email
         'Восстановление пароля'
         {
           name: name
+          login: user.login
           link: 'https://lessonhome.ru/new_password?'+utoken
         }
       )
-    else
-      console.log 'mail: Signed up with phone number, can\'t send mail'
 
   newPassword: (user, data) =>
     db = yield Main.service 'db'
@@ -445,7 +451,7 @@ class Register
     yield Q.all qs
     return {session:@sessions[sessionhash],user:user}
   loginExists     : (name)=> @logins[name]?
-  loginUpdate : (user,sessionhash,data)=>
+  loginUpdate : (user,sessionhash,data,admin=false)=>
     throw err:'bad_query'            unless data?.login? && data?.password? && data?.newlogin?
     throw err:'login_not_exists'      if !@logins[data.login]?
     throw err:'login_exists'  if @logins[data.newlogin]?
@@ -454,7 +460,7 @@ class Register
     user = @accounts[user.id]
     throw err:'not_logined'       unless user.registered
     data_password = data.login+data.password
-    throw err:'wrong_password'    unless yield @passwordCompare _hash(data_password), user.hash
+    throw err:'wrong_password'    unless admin || yield @passwordCompare _hash(data_password), user.hash
     ndata_password = data.newlogin+data.password
 
     user.hash       = yield @passwordCrypt _hash ndata_password

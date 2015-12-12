@@ -3,7 +3,7 @@
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
     window.popup = @
   show : =>
     @found.link.click =>

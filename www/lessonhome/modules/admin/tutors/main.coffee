@@ -1,13 +1,19 @@
 
+Date.prototype.addHours = (h)->
+  this.setTime(this.getTime() + (h*60*60*1000))
+  return this
+
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   Dom : =>
     @template =
+      bids : @dom.find('.container .content.bids .template')
       backcall : @dom.find('.container .content.backcall .template')
       nophoto :  @dom.find('.container .content.nophoto .template')
       time :  @dom.find('.container .content.time .template')
+      nosubject :  @dom.find('.container .content.nosubject .template')
 
     @dom.find('.header .item').click (e)=> Q.spawn =>
       cl = ($(e.target).attr 'class').match(/\w+$/)[0]
@@ -15,9 +21,32 @@ class @main
       yield @['on'+cl]()
       #@data = yield @$send './load'
       #yield @['on'+cl]()
+    @data = yield @$send './load',{fast:true}
+    yield @['on'+key]() for key of @template
     @data = yield @$send './load'
-    yield @ontime()
+    yield @['on'+key]() for key of @template
 
+  onbids : =>
+    dom  = @dom.find '.container .content.bids'
+    console.log @data
+    dom.empty()
+    for bc in @data.bids
+      row = @template.bids.clone()
+      if bc.id
+        row.find('.title').text 'Сообщение'
+      else
+        row.find('.title').text 'Заявка'
+      row.find('.name').html "#{bc.name}<br>#{bc.subject}"
+      row.find('.time').html "#{new Date(bc.time).addHours(3).toUTCString()}<br>\##{bc.account.substr(-5)}"
+      row.find('.phone').html "#{bc.phone || ""};<br>#{bc.email || ''}"
+      row.find('.comment').text bc.comments
+      lk = []
+      lk.push bc.id if bc.id
+      lk = [lk...,(Object.keys(bc.linked ? {}) ? [])...] if Object.keys(bc?.linked ? {})?.length
+      for l,i in lk
+        lk[i] = "<a target='_blank' href='https://lessonhome.ru/tutor_profile?x=#{l}'>\##{l}</a>"
+      row.find('.linked').html lk.join '; '
+      dom.append row
   onbackcall : =>
     dom  = @dom.find '.container .content.backcall'
     dom.empty()
@@ -48,6 +77,17 @@ class @main
     dom.empty()
     for bc in @data.nophotos
       row = @template.nophoto.clone()
+      row.find('.name').text [bc.last_name ? '',bc.first_name ? '',bc.middle_name ? ''].join ' '
+      arr =  [(bc.email ? [])...,(bc.phone ? [])...,bc.login].filter (a)-> a
+      row.find('.contacts').html arr.join '<br>'
+      @relogin row,bc.index
+      dom.append row
+  onnosubject : =>
+    dom  = @dom.find '.container .content.nosubject'
+    dom.empty()
+    console.log @data.nosubject
+    for id,bc of @data.nosubject
+      row = @template.nosubject.clone()
       row.find('.name').text [bc.last_name ? '',bc.first_name ? '',bc.middle_name ? ''].join ' '
       arr =  [(bc.email ? [])...,(bc.phone ? [])...,bc.login].filter (a)-> a
       row.find('.contacts').html arr.join '<br>'

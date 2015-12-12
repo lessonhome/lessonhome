@@ -30,7 +30,6 @@ class @main extends EE
 
   tryRegister : (e)=>
     return if @success
-    #@$send( './loginExists',login).then (exists)=> console.log exists
     e?.preventDefault?()
     pass = @password.getValue()
     login = @login.getValue()
@@ -55,21 +54,17 @@ class @main extends EE
       pass = '`'+pass
       @password.setValue pass
       @hashedPassword = true
-    @$send( 'register',{
-      password : escape pass
-      login    : login
-    }).then ({status,err})=>
-      console.log 'register',arguments
+    Q.spawn =>
+      {status,err} = yield @$send( 'register',{
+        password : escape pass
+        login    : login
+      })
       if status == 'success'
-        Feel.sendAction 'register'
+        yield Feel.sendAction 'register'
         @success = true
-        Feel.formSubmit @found.form
-        #@found.form.submit()
+        yield Feel.formSubmit @found.form
       else
         @printErrors err
-
-
-    .done()
   checkEmail : (login)=>
     re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
     re.test login

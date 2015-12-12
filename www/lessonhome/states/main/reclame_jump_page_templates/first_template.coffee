@@ -16,6 +16,7 @@ class @main extends @template '../../main'
       tutors : $form : tutors : 'tutor'
       title_suit_tutors : @exports()
       suit_tutors : @state 'main/preview/tutors_result' :
+        onepage : true
         image : {
           src: ''
           w: 1000
@@ -25,6 +26,8 @@ class @main extends @template '../../main'
         reclame : true
         selector  : 'jump_visit_card'
         extract : 'jump_visit_card'
+        showrating : true
+        showsubject : true
       # вытянуть значение
       #filling           : 100 # вытянуть значение
         cost      : 1000 # вытянуть значение

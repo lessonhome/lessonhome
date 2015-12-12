@@ -6,6 +6,7 @@ class @main
       selector  : 'third_reg'
       smart : true
       self : true
+      value : $form : tutor : 'all_subjects.0.name'
 #      default_options     : {
 #        '0': {value: 'english', text: 'английский язык'}
 #        '1': {value: 'math', text: 'математика'}
@@ -15,7 +16,7 @@ class @main
 #        '5': {value: 'chemistry', text: 'химия'}
 #        '6': {value: 'german', text: 'немецкий язык'}
 #        '7': {value: 'primary_school', text: 'начальная школа'}
-#        '8': {value: 'french', text: 'франзузский язык'}
+#        '8': {value: 'french', text: 'французский язык'}
 #        '9': {value: 'social_studies', text: 'обществознание'}
 #        '10': {value: 'computer_science', text: 'информатика'}
 #        '11': {value: 'programming', text: 'программирование'}
@@ -90,41 +91,61 @@ class @main
         smart : true
         self : true
         selector  : 'third_reg'
+      tags : $form : tutor : 'all_subjects.0.course'
 #        items : ['JLPT', 'JLPT N1', 'JLPT N2', 'JLPT N3', 'JLPT N4', 'JLPT N5', 'TOPIK', 'TOPIK I', 'TOPIK II', 'HSK', 'HSK Высший', 'HSK Начальный/средний', 'HSK Базовый', 'DELE', 'DELE A', 'DELE B', 'DELE C', 'TOEFL','IELTS', 'FCE', 'TOEIC', 'Business English', 'GMAT', 'GRE', 'SAT', 'DELF', 'DELF A', 'DELF B', 'DALF ', 'DSH', 'TestDaF', 'CILS', 'CILS B1', 'CILS B2', 'CILS C1', 'CILS C2', 'CEPRE-Bras', 'CEPRE-Bras Средний', 'CEPRE-Bras Выше среднейго', 'CEPRE-Bras Продвинутый', 'CEPRE-Bras Выше продвинутого', 'ЕГЭ', 'ОГЭ (ГИА)', 'Разговорный', 'Бизнес', 'С нуля']
     pre_school      : @module 'tutor/forms/checkbox' :
       text      : 'дошкольники'
       selector  : 'small font_16'
+      value : $form : tutor : 'all_subjects.0.pre_school'
     junior_school   : @module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'младшая школа'
+      value : $form : tutor : 'all_subjects.0.junior_school'
     medium_school   : @module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'средняя школа'
+      value : $form : tutor : 'all_subjects.0.medium_school'
     high_school     : @module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'старшая школа'
+      value : $form : tutor : 'all_subjects.0.high_school'
     student         : @module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'студент'
+      value : $form : tutor : 'all_subjects.0.student'
     adult           : @module 'tutor/forms/checkbox' :
       selector  : 'small font_16'
       text      : 'взрослый'
+      value : $form : tutor : 'all_subjects.0.adult'
     place_tutor    : @state 'tutor/forms/checkbox_hide_block' :
+      is_show : $form : tutor : 'all_subjects.0.place_tutor.selected'
       title : 'у себя'
       selector: 'col2'
       content : @state 'tutor/time_price' :
         currency : 'руб.'
+        one_hour : $form : tutor : 'all_subjects.0.place_tutor.one_hour'
+        two_hour : $form : tutor : 'all_subjects.0.place_tutor.two_hour'
+        tree_hour : $form : tutor : 'all_subjects.0.place_tutor.tree_hour'
     place_pupil    : @state 'tutor/forms/checkbox_hide_block' :
+      is_show : $form : tutor : 'all_subjects.0.place_pupil.selected'
       title : 'у ученика'
       selector: 'col2'
       content : @state 'tutor/time_price' :
         currency : 'руб.'
+        one_hour : $form : tutor : 'all_subjects.0.place_pupil.one_hour'
+        two_hour : $form : tutor : 'all_subjects.0.place_pupil.two_hour'
+        tree_hour : $form : tutor : 'all_subjects.0.place_pupil.tree_hour'
     place_remote   : @state 'tutor/forms/checkbox_hide_block' :
+      is_show : $form : tutor : 'all_subjects.0.place_remote.selected'
       title : 'удаленно'
       selector: 'col2'
       content : @state 'tutor/time_price' :
         currency : 'руб.'
+        one_hour : $form : tutor : 'all_subjects.0.place_remote.one_hour'
+        two_hour : $form : tutor : 'all_subjects.0.place_remote.two_hour'
+        tree_hour : $form : tutor : 'all_subjects.0.place_remote.tree_hour'
     group_learning : @state 'tutor/forms/checkbox_hide_block' :
+      is_show : $form : tutor : 'all_subjects.0.group_learning.selected'
       title : 'групповые'
       content : @module 'tutor/group_price' :
         price : @module 'tutor/forms/input' :
@@ -132,12 +153,13 @@ class @main
             "[^\\d]"
             "(\\d\\d\\d\\d)(.+)":"$1"
           ]
-          value : '0'
+          value : $form : tutor : 'all_subjects.0.group_learning.price'
           selector   : 'fast_bid'
         group_people : @module 'tutor/forms/drop_down_list' :
           placeholder : 'Численность группы'
           selector  : 'first_reg1'
           self      : false
+          value : $form : tutor : 'all_subjects.0.group_learning.groups'
           default_options     : {
 #            '0': {value: '0', text: 'не проводятся'},
             '1': {value: '1', text: '2-4 ученика'},
@@ -186,4 +208,4 @@ class @main
     comments        : @module 'tutor/forms/textarea' :
       height    : '100px'
       selector  : 'third_reg'
-      value : @exports 'subject.description'
+      value : $form : tutor : 'all_subjects.0.comments'

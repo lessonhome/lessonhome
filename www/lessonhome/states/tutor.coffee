@@ -1,7 +1,7 @@
 class @main
   tree : => @module '$' :
     depend        : [
-      @state 'lib'
+      @state 'libnm'
     ]
     header        : @state 'tutor/header'  :
       icons       : @module '$/header/icons' :

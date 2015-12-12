@@ -1,4 +1,5 @@
 
+
 class @main
   Dom : =>
     @changes_field = @found.changes_field
@@ -13,19 +14,8 @@ class @main
     console.log @tree.tutor_edit
     @save_button?.on 'submit', @b_save
 
-  b_save : =>
-    @tutor_edit?.save?().then (success)=>
-      console.log 'tutor/edit'
-      if success
-        ###
-        @$send('./save',@progress).then ({status})=>
-          if status=='success'
-            return true
-        ###
-        console.log 'IS SEND!!!'
-        $('body,html').animate({scrollTop:0}, 500)
-        @changes_field.fadeIn(1000)
-        return true
-    .done()
-
-
+  b_save : => Q.spawn =>
+    success = yield @tutor_edit?.save?()
+    if success
+      $('body,html').animate({scrollTop:0}, 500)
+      @changes_field.fadeIn(1000)

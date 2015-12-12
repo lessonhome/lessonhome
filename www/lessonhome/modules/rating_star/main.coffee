@@ -9,10 +9,11 @@ class @main
     @tree.value ?= {}
     @tree.value[key] = val for key,val of value
     if @tree.value?.rating?
-      @tree.value.rating = Math.ceil(@tree.value.rating*3)/3
+      r = @tree.value.rating
+      @tree.value.rating = Math.ceil(r*60)/60
       @tree.filling = @tree.value.rating*100/5
     tf = @tree.filling*5
-    tf = Math.round(tf*2/100)*100/2
+    tf = Math.round(tf*20/100)*100/20
     sf = tf/100
     np = Math.floor sf
     p = 4

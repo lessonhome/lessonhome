@@ -15,7 +15,7 @@ class @main extends @template '../registration_popup'
     current_progress: 4
     selector_button_back  : 'fast_bid_nav'
     href_button_back      : 'third_step'
-    href_button_next      : '/tutor/profile'
+    href_button_next      : 'fifth_step'
     close   : true
     content : @module '$' :
       form      : @state 'about_tutor'

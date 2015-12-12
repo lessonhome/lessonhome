@@ -1,24 +1,15 @@
-.clear_block
+- balance = balance || 0;
+//.clear_block
   .left_block
-    .title_balance Ваш баланс :
-    .balance!=''
-    a.history История
-  .right_block
-    .sum Сумма :
-    .refill_many!=refill_many
-    .measurement руб.
-    .button_balance
-      .icon
-      .text Пополнить баланс
-      .triangle
-.pay_bids_block
-  .pay_bids Заявки к оплате :
-  .need_pay_block
-    each val, index in need_pay
-      if index % 2 !== 0
+    .title_balance Ваш баланс:
+    .js-balance #{balance} руб.
+  .left_block
+    a.js-refill Пополнить
+if need_pay && need_pay[0]
+  .pay_bids_block
+    .pay_bids Заявки к оплате :
+    .need_pay_block
+      each val, index in need_pay
         .need_pay!= val
-      else
-        .need_pay.background!= val
 
-
-
+iframe.js-pay(class="iframe" src="https://money.yandex.ru/fastpay/form/adf0a0eb052645fc9aae1ce1d3c87457" width="500" height="417" style="border: 1px solid #e8e8e8;")

@@ -3,19 +3,10 @@ class @main extends @template '../main'
   tree : =>
     filter_top  : @exports()
     tag         : @exports()
-    ###
-    info_panel  : @state './info_panel'  :
-      subject   : 'Предметы +'
-      tutor     : 'Преподаватель +'
-      place     : 'Место'
-      price     : 'Цена'
-      selector  : 'second_step'
-
-    ###
-
     content : @module '$' :
       popup                     : @exports()
       bid_issue_button           : @exports()
+      fastest_bid : @state './fastest_bid'
       advanced_filter : @state './advanced_filter' :
         val_list_course       : '' # вытянуть значение
         val_list_calendar     : 11 # вытянуть значение
@@ -35,22 +26,11 @@ class @main extends @template '../main'
           show : $urlform : mainFilter : 'showBy'
       choose_tutors_num : 2
       choose_tutors : []
-      #  @state './preview/all_rating_photo' :
-      #    src       : '#'
-      #    #filling   : 100
-      #    selector  : 'padding_1px_small'
-      #    close     : true
-      #
-      #  @state './preview/all_rating_photo' :
-      #    src       : '#'
-      #    #filling   : 50
-      #    selector  : 'padding_1px_small'
-      #    close     : true
-
 
       tutors : $form : tutors : 'tutor'
       tutor_test :
         @state './preview/tutors_result' :
+          onepage : true
           image : {
             src: ''
             w: 1000

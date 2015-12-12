@@ -3,11 +3,14 @@ class @main extends @template '../main'
   route : '/tutor_profile'
   model : 'main/eyed_student_profile'
   title : "Профиль репетитора"
-  forms : [{person:['dativeName']}]
   access : ['other','pupil']
   tree : =>
+    onepage : 'tutor_profile'
+    clear_profile : true
+
+###    
     content : @module '$' :
-      rating_photo  : @state './preview/all_rating_photo' :
+      rating_photo  : @state './preview/all_rating_photo':
         image         : @exports()
         count_review  : @exports()
         close         : false
@@ -34,23 +37,6 @@ class @main extends @template '../main'
             subject: 'Английский язык'
             training_direction: ['ЕГЭ', 'ИСА', 'разговорный', 'грамматика']
             comment: 'очень важный комментарий'
-            ###
-              tutor:
-                v60 : '500'
-                v90 : '900'
-                v120: '1200'
-              pupil:
-                v60 : '500'
-                v90 : '900'
-                v120: '1200'
-              remote:
-                v60 : '500'
-                v90 : '900'
-                v120: '1200'
-              group:
-                v60 : '250 руб. с человека 3-4 человека'
-
-            ###
         ]
       }
       attach_button     : @module 'tutor/checkbox_button' :
@@ -84,7 +70,7 @@ class @main extends @template '../main'
           '5': {value: 'chemistry', text: 'химия'}
           '6': {value: 'german', text: 'немецкий язык'}
           '7': {value: 'primary_school', text: 'начальная школа'}
-          '8': {value: 'french', text: 'франзузский язык'}
+          '8': {value: 'french', text: 'французский язык'}
           '9': {value: 'social_studies', text: 'обществознание'}
           '10': {value: 'computer_science', text: 'информатика'}
           '11': {value: 'programming', text: 'программирование'}
@@ -156,4 +142,4 @@ class @main extends @template '../main'
       write_button: @module 'link_button' :
         selector: 'write_tutor'
         text: 'Написать' #TODO: insert a real name of tutor
-
+###

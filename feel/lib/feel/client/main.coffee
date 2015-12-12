@@ -105,6 +105,9 @@ class @Feel
     index = @index++
     window["jsonCallback#{index}"] = ->
     d = Q.defer()
+    serviceName = @resolve context,'/'+name,pref
+    console.log serviceName
+    return console.error 'bad service name: '+serviceName unless @servicesIp?[serviceName]?
     data = encodeURIComponent JSON.stringify args
     context = encodeURIComponent JSON.stringify context
     pref = encodeURIComponent JSON.stringify pref
@@ -119,7 +122,7 @@ class @Feel
       jsonpCallback : "jsonCallback#{index}"
       contentType : 'application/json'
       method : 'GET'
-      url:"//#{location.hostname}:#{pport}/#{name}?data=#{data}&context=#{context}&#{udata}pref=#{pref}&callback=?"
+      url:"//#{location.hostname}:#{@servicesIp[serviceName].port}/#{name}?data=#{data}&context=#{context}&#{udata}pref=#{pref}&callback=?"
       crossDomain : true
     })
     .success (data)=>
@@ -164,6 +167,12 @@ class @Feel
         else
           window.open href,'_newtab'#, '_blank'
     q.done()
+  gor : (href,newwindow=false)=> do Q.async =>
+    href = (yield @urlData.udataToUrl href)
+    return unless href && (typeof href == 'string')
+    state = History.getState()
+    History.pushState {},(state.title || $('head>title').text()),href
+    yield Feel.urlData.initFromUrl()
   goBack : (def_url)=> Feel.go @getBack def_url
   getBack : (def_url)=>
     state = History.getState()
@@ -220,14 +229,14 @@ class @Feel
     return $.cookie('sendAction__'+action,t) unless cook?
     @sendActionOnce action,time
     
-  ## args... :: label,data object
-  sendGAction : (category,action,args...)=>
+  ## args... :: data object
+  sendGAction : (category,action,label,args...)=>
     @ga ?= ga ? undefined
     return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
-    @ga 'send','event',category,action,args...
+    @ga 'send','event',category,action,label,args...
 
-  sendGActionOnce : (time,category,action,args...)=>
-    key = "sendGAction__#{category}_#{action}"
+  sendGActionOnce : (time,category,action,label,args...)=>
+    key = "sendGAction__#{category}_#{action}_#{label}"
     cook = $.cookie()?[key]
     t = new Date().getTime()
     if time?
@@ -235,9 +244,9 @@ class @Feel
       return if cook? && ((t-cook)<time)
     return if cook? && (!time?)
     $.cookie(key,t)
-    @sendGAction category,action,args...
-  sendGActionOnceIf : (time,category,action,args...)=>
-    key = "sendGAction__#{category}_#{action}"
+    @sendGAction category,action,label,args...
+  sendGActionOnceIf : (time,category,action,label,args...)=>
+    key = "sendGAction__#{category}_#{action}_#{label}"
     t = new Date().getTime()
     cook = $.cookie()?[key]
     return $.cookie(key,t) unless cook?
@@ -246,7 +255,35 @@ class @Feel
   login : (id)=> do Q.async =>
     yield @root.tree.class.$send('/relogin',id)
     yield @go '/form/tutor/login'
-
+  sms : (args...)=> @root.tree.class.$send '/sms', args...
+  resolve : (context,path,pref)=>
+    name = pref+path.substr 1
+    #"runtime#{path}.c.coffee"
+    suffix  = ""
+    postfix = name
+    file = ""
+    m = name.match /^(\w)\:(.*)$/
+    if m
+      suffix  = m[1]
+      postfix = m[2]
+    suffix = switch suffix
+      when 's' then 'states'
+      when 'm' then 'modules'
+      when 'r' then 'runtime'
+      else ''
+    m = context.match /^(\w+)\/(.*)$/
+    s = m[1]
+    p = m[2]
+    if postfix.match /^\./
+      suffix = s if !suffix
+      file = _normalizePath suffix+"/"+p+"/"+postfix
+    else if postfix.match /^\//
+      suffix = "runtime" if !suffix
+      file = _normalizePath suffix+postfix
+    else
+      suffix = "runtime" if !suffix
+      file = _normalizePath suffix+"/"+postfix
+    return file
 
 Feel = new @Feel()
 window.Feel = Feel

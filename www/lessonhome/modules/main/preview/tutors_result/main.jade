@@ -1,6 +1,14 @@
 - selector = selector || ''
-.result_block(class = selector)
+.result_block.select(class = selector)
   .left_block
     .rating_photo!=rating_photo
-  .right_block
+    if $req.user.admin
+      .ads
+        .adt.js-ratio
+        a.ad.js-rdown   Понизить рейтинг
+        a.ad.js-rup     Повысить рейтинг
+        a.ad.js-lp      Не лендинг
+        a.ad.js-filter  Не фильтрация
+        textarea.js-mcomment(rows=5)
+  .js-right_block
     .tutor_extract!=tutor_extract

@@ -1,7 +1,6 @@
-
-
-
 class @main
+  constructor: ->
+    $W @
   Dom : =>
     @html = $('html')
     @bar = @tree.bottom_bar.class
@@ -14,72 +13,46 @@ class @main
 
     @form_block = @found.popup
     @btn_send = @tree.popup.class.tree.btn_send.class
-    @scrollWidth = @getScrollWidth()
+    @scrollWidth = yield @getScrollWidth()
   show : =>
     @register 'bid_attached'
     @updatePanel()
     Feel.urlData.on 'change', @updatePanel
-    @open_form.on 'submit', => @showForm()
+    @open_form.on 'submit', @showForm
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
-    @btn_send.on 'submit', @sendForm
-    @tree.popup.first.phone.class.on 'end', =>
-      setTimeout =>
-        @sendForm true
-      , 500
+    @btn_send.on 'submit', => Q.spawn =>
+      errors = yield @sendForm()
+      if errors.correct is true
+        yield Feel.urlData.set 'mainFilter','linked':{}
+        Feel.sendGActionOnceIf(18000,'bid_full','form_submit')
+        Feel.go '/fast_bid/fourth_step'
+      else
+        @popup.parseError errors
+        @scrollToTop()
+
+    @tree.popup.first.phone.class.on 'end', => Q.spawn =>
+      errors = yield @sendForm()
+      if errors.correct is false then @popup.parseError phone : errors['phone']
 
   scrollToTop : =>
     @popup_block.addClass('fixed').animate {
       scrollTop : 0
     }, 300
 
-  sendForm : (quiet=false) => Q.spawn =>
+  sendForm : =>
     data = yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     data = @js.takeData data
     error = @js.check data
-
-    if error.correct is false
-      if quiet
-        @popup.parseError(phone: error['phone'])
-      else
-        @popup.parseError(error)
-        @scrollToTop()
-
     if !error['phone']?
-      {status,errs} = yield @$send('./save', data,'quiet')
+      {status,errs_server} = yield @$send('./save', data,'quiet')
       if status is 'success'
         Feel.sendActionOnce 'bid_popup'
-        if error.correct is true and !quiet
-          yield Feel.urlData.set 'mainFilter','linked', {}
-          Feel.go '/fast_bid/fourth_step'
-
-
-
-
-#    if quiet
-#      if !error['phone']
-#        {status,errs} = yield @$send('./save', data,'quiet')
-#      else if error.correct is false
-#        @popup.parseError error
-#      return false
-#    if error.correct is false
-#      @scrollToTop()
-#      @popup.parseError error
-#
-#    if !error['phone']?
-#      {status,errs} = yield @$send('./save', data,'quiet')
-#      Feel.sendActionOnce 'bid_popup'
-#      if status is 'failed'
-#        @popup.parseError errs
-#        return false
-#      else if error.correct is true
-#        yield Feel.urlData.set 'mainFilter','linked', {}
-#        @hideForm()
-#
-#        return true
-
+      else
+        error = errs_server
+    return error
   showForm : =>
     @popup_block.show('slow')
     @html.css {
@@ -99,12 +72,12 @@ class @main
     @bar.btn_attach.fadeIn 200
     @popup_block.removeClass 'fixed'
 
-  updatePanel : => do Q.async =>
+  updatePanel : =>
     length = yield @bar.reshow()
+    return unless length?
     if length != 0
       @bar_block.fadeIn()
     else
-#      @hideForm()
       @bar_block.fadeOut()
   getScrollWidth : =>
     div = $('<div>').css {

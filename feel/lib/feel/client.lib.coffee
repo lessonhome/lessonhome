@@ -1,6 +1,14 @@
 
 window?.global ?= window
 
+Math.sign = (n)->
+  if n >= 0
+    1
+  else
+    -1
+String::capitalizeFirstLetter = -> @charAt(0).toUpperCase() + @slice(1)
+
+
 last = ""
 log =
   s1 : ""
@@ -41,6 +49,19 @@ global.Warn = ->
   console.log arguments...
 global.Err = ->
   console.error arguments...
+
+_oldQAsync = Q.async
+Q.async = global.Q.async = (f)=>
+  if f?.constructor?.name == 'GeneratorFunction'
+    return _oldQAsync.call Q,f
+  return f
+_oldQSpawn = Q.spawn
+Q.spawn = global.Q.spawn = (f)=>
+  if f?.constructor?.name == 'GeneratorFunction'
+    return _oldQSpawn.call Q,f
+  return f?()?.done?()
+
+
 
 global.VC = (classes...)->
   classes.reduceRight (Parent, Child)->
@@ -348,7 +369,8 @@ global.$W = (obj)->
     newfunc = func
     if func?.constructor?.name == 'GeneratorFunction'
       newfunc = Q.async func
-    obj[fname] = newfunc
+    do (newfunc)=>
+      obj[fname] = => newfunc.apply obj,arguments
   unless obj.emit?
     ee = new EE
     obj.emit = -> ee.emit arguments...

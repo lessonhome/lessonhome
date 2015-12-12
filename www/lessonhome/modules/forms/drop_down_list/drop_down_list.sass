@@ -1,0 +1,308 @@
+//@import compass/css3
+////$border_radius: 4px
+//$border_width: 1px
+//$border_hover: solid #a0a0a0
+//// #b3b3b3
+////$border_focus: solid rgb( 137, 209, 255 )
+//$border_focus: solid #a0a0a0
+//
+//
+//$padding_left:12px
+//main
+//  height: inherit
+//  line-height : inherit
+//label
+//  //display: block
+//  //width: 100%
+//  //height: inherit
+//  //cursor: pointer
+//  //line-height: inherit
+//  //.text
+//  //  +inline-block
+//  //  color: rgba(75, 75, 75, 0.70)
+//  //  float: left
+//  //  line-height: inherit
+//  .drop_down_list
+//    +inline-block
+//    float: left
+//    position: relative
+//    height: inherit
+//    line-height: inherit
+//    width: 100%
+//    box-sizing: border-box
+//    //border: $border_width solid #b2b2b2
+//    //+border-radius($border_radius)
+//    background-color: rgb( 255, 255, 255 )
+//    .disabled
+//      display : none
+//      cursor : pointer
+//      width : 100%
+//      height : inherit
+//      position : absolute
+//      z-index : 1
+//    //.sub_input
+//    //  position : absolute
+//    //  padding: 0 0 0 $padding_left
+//    //  left : 0
+//    //  height : inherit
+//    //  line-height : inherit
+//    //  width : 100%
+//    //  +box-sizing('border-box')
+//    //  top : 0
+//    //  margin : -1px 0 0 0
+//    //  z-index : 0
+//    //  +inline-block
+//    //  color : #CCC
+//    //  text-align : left
+//    //input
+//    //  position : relative
+//    //  z-index : 1
+//    //  float: left
+//    //  margin: -1px 0 0 0
+//    //  +inline-block
+//    //  height: inherit
+//    //  line-height: inherit
+//    //  width: 100%
+//    //  +box-sizing('border-box')
+//    //  padding: 0 0 0 $padding_left
+//    //  border: none
+//    //  background: none
+//    //  outline: none
+//    //  color: #000000
+//    //  cursor: text
+//      +input-placeholder
+//        margin-top: 2px
+//        height: inherit
+//        line-height: inherit
+//        color: #AAAAAA
+//        opacity: 1
+//    .icon_box
+//      position: absolute
+//      top: 0
+//      height: 100%
+//      right: 0px
+//      cursor: pointer
+//      .icon
+//        position: relative
+//        top: 50%
+//    .drop_down_items
+//      position: absolute
+//      z-index: 1
+//      width: 100%
+//  .drop_down_list:after
+//    +inline-block
+//    height: 100%
+//    content: ''
+//
+////////////////     select options box      ///////////////////
+//label>.drop_down_list>.select_sets
+//  display : none
+//  top : 100%
+//  border: $border_width $border_focus
+//  background-color: white
+//  z-index: 3
+//  width: 100%
+//  left: -0.5px
+//  text-align: left
+//  //+border-bottom-right-radius($border_radius)
+//  //+border-bottom-left-radius($border_radius)
+//  position: absolute
+//  margin-left: -$border_width/2
+//  border-top: none
+//  //, inset 1px 0 3px rgba(0, 0, 0, 0.65)
+//
+//label>.drop_down_list>.select_sets>*>*
+//  overflow-y : auto
+//label>.drop_down_list>.select_sets>*>*>.selected
+//  background: #ebebeb
+//label>.drop_down_list>.select_sets>*>*>.custom-option>.begin
+//  color: #2c7fd2
+//
+////////////////// select options box open   ///////////////
+////label.open_select .drop_down_list
+//  border-bottom-left-radius: 0
+//  border-bottom-right-radius: 0
+//
+////////////////// function //////////////
+////default if not selector, do any selector with
+//  $icon_padding: 6px
+//  $icon_width: image-width($icon_src)
+//  $font_size: 20px
+//  $_font_size: 18px
+//
+////data:
+//  $selector - selector element
+//  $font_size - inner input
+//  $_font_size - in text out input
+//  $icon_src - path image
+//  $icon_padding - padding left and right icon
+//  $padding_left - padding left in drop_down_list
+//=selector($selector,$_font_size,$font_size,$icon_src,$icon_padding,$padding_text_r,$padding_text_b,$width,$height,$text_align)
+//  $icon_height: image-height($icon_src)
+//  $icon_width: image-width($icon_src)
+//  label.#{$selector}
+//    height: $height
+//    line-height: $height
+//    .text
+//      font-size: $_font_size
+//      padding-right: $padding_text_r
+//      padding-bottom: $padding_text_b
+//    .drop_down_list
+//      width: $width
+//      //height: $height
+//      //line-height : $height
+//      //input,
+//      //.sub_input
+//      //  padding-right: (2*$icon_padding+$icon_width)
+//      //  font-size: $font_size
+//      //  text-align: $text_align
+//      .icon_box
+//        padding: 0 $icon_padding
+//        .icon
+//          width: $icon_width
+//          height: $icon_height
+//          margin-top: -$icon_height / 2
+//          background: url(F($icon_src)) no-repeat
+//    .drop_down_list>.select_sets>.options_container>.options>.custom-option
+//      padding-left: $padding_left
+//      font-size: $font_size
+//      height: auto
+//
+//
+///////////////////--------Main page ----------////////////////////////////
+//+selector('main_subject',16px,18px,'main/arrow_6x4_down.gif',12px,none,none,none,none,none)
+//.main_subject
+//  .drop_down_list
+//    border: none
+//    //input
+//    //  +input-placeholder
+//    //    color: #b5b5b5
+//    //    //opacity: 1
+//    //    font-size: 18px
+//    .select_sets
+//      border: 1px solid #4c4c4c
+//      border-top : none
+//      margin-top : 1px
+//.main_subject>.drop_down_list>.select_sets>*>*
+//  color: #757575
+//  font-size: 16px
+//  line-height: 24px
+//.main_subject:hover
+//  .drop_down_list
+//    border: none
+//.main_subject.focus,.main_subject.focus:hover
+//  .drop_down_list
+//    +box-shadow(none)
+//    border: none
+//    .select_sets
+//      +box-shadow(none)
+//
+//
+///////////////////--------list_course---------//////////////////////
+//+selector('list_course',16px,18px,'main/arrow_6x4_down.gif',10px,none,none,none,33px,none)
+//////////////////--------advanced_filter_form---------//////////////////////
+//+selector('advanced_filter_form',16px,18px,'main/arrow_6x4_down.gif',10px,none,none,none,33px,none)
+////////////////---------fast_bid---------////////
+//+selector('fast_bid',16px,18px,'main/arrow_6x4_down.gif',10px,none,10px,none,none,left)
+//.fast_bid
+//  text-align: left
+//
+////falldown_triangle3.png
+////////////////---------search_bids---------////////
+//+selector('search_bids',18px,18px,'main/arrow_6x4_down.gif',6px,none,none,none,33px,none)
+///////////////// first step registration /////////////
+//+selector('first_reg',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,341px,33px,none)
+//+selector('first_reg1',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,100%,33px,none)
+////////
+//+selector('third_reg',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,100%,36px,none)
+//////
+//+selector('first_reg_day',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,91px,none,none)
+/////
+//+selector('first_reg_from',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,107px,none,none)
+/////
+//+selector('first_reg_till',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,117px,none,none)
+/////
+//+selector('first_reg_place',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,171px,none,none)
+/////
+////+selector('first_reg_group',16px,18px,'falldown_triangle3.png',6px,26px,none,185px,none,none)
+/////
+////+selector('first_reg_bet',16px,18px,'falldown_triangle3.png',6px,26px,none,122px,none,none)
+////////////
+//+selector('first_reg_month',16px,18px,'main/arrow_6x4_down.gif',6px,26px,none,none,none,none)
+//
+///////////////////--------list_subject, list_tutor in filter_top---------//////////////////////
+//+selector('filter_top',18px,37px,'main/triangle_24x21.png',15px,none,none,none,none,none)
+//
+///////////// area tutor in city /////////
+//+selector('area',18px,18px,'main/arrow_6x4_down.gif',15px,26px,none,385px,none,none)
+//
+///////////// area tutor in city /////////
+//+selector('in_bids',18px,20px,'main/arrow_6x4_down.gif',6px,none,none,none,none,none)
+//
+//////////// WRite tutor panel in profile ////////////////////////////////
+//+selector('write_tutor', 14px, 18px,'main/arrow_6x4_down.gif',6px,26px,none,none,37px,none)
+//
+//label.write_tutor
+//  //line-height: 18px
+//  .text
+//    margin-bottom: 7px
+//    color: #000
+//
+///////////////////// actions ///////////////////////
+//
+////------------------------ hover -----------------------
+//
+//$icon_hover_src: 'main/arrow_6x4_down.gif'
+//label:hover
+//  .text
+//    color: #000000
+//  .drop_down_list
+//    //border: $border_width $border_hover
+//    .icon_box
+//      .icon
+//        background: url(F($icon_hover_src)) no-repeat
+//
+/////////////// filter_top  ////////////
+//$icon_hover_src: 'main/triangle-24x21_hover.png'
+//.filter_top:hover
+//  .drop_down_list
+//    .icon_box
+//      .icon
+//        background: url(F($icon_hover_src)) no-repeat
+//
+//
+////------------------------ focus --------------------------------
+//$icon_hover_src: 'main/arrow_6x4_down.gif'
+//label.focus,label.focus:hover
+//  .text
+//    color: #000000
+//  .drop_down_list
+//    //box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.4)
+//    box-shadow: 0 0 3px rgba(39, 255, 186, 0.8)
+//    //, inset 1px 0 3px rgba(0, 0, 0, 0.65)
+//    //border: $border_width $border_focus
+//    border: 1px solid #a0a0a0
+//    .icon_box
+//      .icon
+//        background: url(F($icon_hover_src)) no-repeat
+//    .select_sets
+//      +box-shadow(3px 0px 3px -3px rgba(39, 255, 186, 0.8),-3px 0px 3px -3px rgba(39, 255, 186, 0.8),0px 3px 3px -3px rgba(39, 255, 186, 0.8))
+//  // -- if &.filter_top
+//  $icon_hover_src: 'main/triangle-24x21_hover.png'
+//  &.filter_top
+//    .drop_down_list
+//      .icon_box
+//        .icon
+//          background: url(F($icon_hover_src)) no-repeat
+//
+//
+//////------------errors-------------/////////////
+//label.err_effect
+//  .drop_down_list
+//    border: $border_width solid rgba(255,61,61,0.7)
+//    +box-shadow(0 0 14px rgba(255,61,61,0.8))
+//
+//
+////main
+//  height : inherit
+//  line-height : inherit

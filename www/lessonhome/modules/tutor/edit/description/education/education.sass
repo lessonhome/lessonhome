@@ -1,6 +1,12 @@
 @import compass/css3
 $padding: 7px
 $height: 37px
+main
+  margin-left: 135px
+.title
+  font-size: 21px
+  text-align: left
+  padding: 0 30px 20px
 .value, .release_date, .add_button
   +inline-block
   padding: $padding 0
@@ -17,11 +23,6 @@ $height: 37px
     padding-right: 3px
   .learn_till
     padding: 0 111px 0 3px
-//.add_button
-  +inline-block
-  height: 37px
-  line-height: 37px
-  padding-bottom: 0
 .err
   overflow: hidden
   div
@@ -33,3 +34,23 @@ $height: 37px
     display: none
     padding: 0.3em
     box-sizing: border-box
+.items .item
+  +box-shadow(0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24))
+  margin-bottom : 20px
+  background-color: #E6E6E6
+  border: 1px solid #DDD
+  //padding: 15px 20px
+.add_button
+  +box-shadow(0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24))
+  font-size: 1.2em
+  text-align: center
+  line-height: 63px
+  height: 63px
+  cursor: pointer
+  background: #FFF171
+  width : 100%
+  &:hover
+    +box-shadow(0 1px 3px rgba(0, 0, 0, 0.12), 0 3px 3px rgba(0, 0, 0, 0.24))
+  &:hover:active
+    +box-shadow(0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24))
+    +transform(scale(0.99))

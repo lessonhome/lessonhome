@@ -3,7 +3,7 @@
 
 class @UrlDataFunctions
   constructor : ->
-    Wrap @
+    $W @
   init : (@json,@forms)=>
   d2o : (fname,data)=>
     form = @forms[fname]
@@ -22,6 +22,7 @@ class @UrlDataFunctions
           field.value = Math.floor field.value
           continue if field.value == field.default
         when 'bool'
+          field.value = field.value == true
           def = field.default
           def = def == true
           continue if field.value == def

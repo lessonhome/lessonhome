@@ -1,13 +1,16 @@
 
-#check = require("./check")
 
 @handler = ($,data)=>
   return {status:'success'} unless data.phone
   data.account = $.user.id
   console.log 'save bid'
+  data.time = new Date()
   db = yield $.db.get 'bids'
   yield _invoke db,'update',{account:$.user.id},{$set:data},{upsert:true}
+  other.call(@,$,data).done()
   return {status:'success'}
+
+
 
 
 

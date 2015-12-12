@@ -48,12 +48,6 @@ class @main extends @template '../edit_description'
       change_button_email : @module 'tutor/button' :
         text     : 'Изменить'
         selector : 'edit_save'
-      #confirm_code_login : @module 'tutor/forms/input' :
-        #text2      : 'Введите код :'
-        #selector  : 'first_reg'
-      #confirm_code_login_button : @module 'tutor/button' :
-       # text     : 'Подтвердить'
-        #selector : 'edit_save'
       old_login : '+7*** *** ** 98'
       new_login : @module 'tutor/forms/input' :
         text2      : 'Новый :'
@@ -62,19 +56,27 @@ class @main extends @template '../edit_description'
       password: @module 'tutor/forms/input' :
         text2      : 'Ваш пароль :'
         selector  : 'first_reg'
+        name : 'password'
+        type : 'password'
       old_email : 'dd******@mail.ru'
       new_email : @module 'tutor/forms/input'  :
         text2      : 'Новый :'
         selector  : 'first_reg'
       old_password : @module 'tutor/forms/input' :
         text2      : 'Старый :'
+        name : 'password'
+        type : 'password'
         selector  : 'first_reg'
       new_password : @module 'tutor/forms/input' :
         text2      : 'Новый :'
         selector  : 'first_reg'
+        name : 'password'
+        type : 'password'
       confirm_password : @module 'tutor/forms/input' :
         text2      : 'Подтвердите :'
         selector  : 'first_reg'
+        name : 'password'
+        type : 'password'
       line_login : @module 'tutor/separate_line' :
         title     : 'Изменить логин'
         selector  : 'horizon'

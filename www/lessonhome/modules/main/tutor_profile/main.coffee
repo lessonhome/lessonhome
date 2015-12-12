@@ -33,28 +33,8 @@ class @main extends EE
     @subject = @tree.subject.class
     @agree_checkbox = @tree.agree_checkbox.class
     @write_tutor_error_field = @found.write_tutor_error_field
-    state = History.getState()
-    unless ((""+document.referrer).indexOf document.location.href.substr(0,15))== 0
-      $(@back).hide()
   show: => do Q.async =>
-    inset = Feel.urlData.get('tutorProfile','inset')
-    inset.then (data)=>
-      switch data
-        when 0
-          @setActiveItem @about, @about_content
-        when 1
-          @setActiveItem @subjects, @subjects_content
-        when 2
-          @setActiveItem @reviews, @reviews_content
-    @index = yield Feel.urlData.get('tutorProfile','index') ? 77
-    console.log @index
-    preps=yield Feel.dataM.getTutor [@index]
-    prep = preps[@index]
-    #return Feel.go '/second_step' unless prep?
-    console.log prep
-    unless prep.reviews && prep.reviews.length
-      @reviews.hide()
-    @setValue prep
+    yield @open()
     $(@back).click => @goBack()
     $(@about).on 'click', =>
       @setActiveItem @about, @about_content
@@ -66,17 +46,54 @@ class @main extends EE
       @setActiveItem @reviews, @reviews_content
       Feel.urlData.set('tutorProfile',{'inset':2})
     @agree_checkbox.on 'change', => @write_tutor_error_field.hide()
-    $(@write_button).on 'click', =>
+    $(@write_button).on 'click', => Q.spawn =>
       @found.right.css 'min-height','inherit'
-      save_result = @save()
-      save_result.then (result)=>
-        if result
-          @found.write_tutor_content.text("Ваше сообщение отправлено! Скоро с Вами свяжутся.")
+      result = yield @save()
+      if result
+        @found.write_tutor_content.text("Ваше сообщение отправлено! Скоро с Вами свяжутся.")
     @found.attach_button.click @addTutor
+    Feel.urlData.on 'change',=> @setLinked()
+  open : (prep)=> do Q.async =>
+    window.history.length ?= 0
+    state = History.getState()
+    if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
+      $(@back).hide()
+    else
+      $(@back).show()
+    unless prep?
+      data = yield Feel.urlData.get('tutorProfile','inset')
+      switch data
+        when 0
+          @setActiveItem @about, @about_content
+        when 1
+          @setActiveItem @subjects, @subjects_content
+        when 2
+          @setActiveItem @reviews, @reviews_content
+      @index = yield Feel.urlData.get('tutorProfile','index') ? 77
+      preps=yield Feel.dataM.getTutor [@index]
+      prep = preps[@index]
+    else
+      @index = prep
+      preps=yield Feel.dataM.getTutor [@index]
+      prep = preps[@index]
+    return unless prep?
+    #return Feel.go '/second_step' unless prep?
+    unless prep.reviews && prep.reviews.length
+      @reviews.hide()
+    @setValue prep
   goBack: =>
+    if @tree.onepage!='tutor_profile'
+      return Feel.root.tree.class.hideTutor()
     #Feel.go '/second_step'
-    console.log document.referrer
-    document.location.href = document.referrer
+    if (window.history.length>1) && History.back()
+      setInterval @goHitoryUrl,100
+      @goHistoryUrl()
+      return
+    document.location.href=document.referrer
+  goHistoryUrl : =>
+    setTimeout ->
+      document.location.href = History.getState().url
+    ,0
   setActiveItem: (item, content)=>
     return if item.hasClass 'active'
     for val in @header_items
@@ -87,56 +104,72 @@ class @main extends EE
       val.hide()
     content.show()
   addTutor : => Q.spawn =>
-    linked = yield Feel.urlData.get 'mainFilter','linked'
+    linked = yield Feel.urlData.get 'mainFilter','linked','reload'
     if linked[@tree.value.index]?
       delete linked[@tree.value.index]
     else
       linked[@tree.value.index] = true
-    @setLinked linked
     yield Feel.urlData.set 'mainFilter','linked',linked
+    @setLinked()
   setLinked : (linked)=> Q.spawn =>
-    linked ?= yield Feel.urlData.get 'mainFilter','linked'
+    linked ?= yield Feel.urlData.get 'mainFilter','linked','reload'
     if linked[@tree.value.index]?
-      @tree.attach_button?.class?.setValue {text:'прикрепить к заявке',color:'#3ab27d',pressed:true}
+      @tree.attach_button?.class?.setValue {text:'прикрепить к заявке'}
       @tree.attach_button?.class?.setActiveCheckbox()
       #@hopacity.removeClass 'g-hopacity'
     else
       @tree.attach_button?.class?.setValue {text:'прикрепить к заявке'}
+      @tree.attach_button?.class?.setDeactiveCheckbox()
       #@hopacity.addClass 'g-hopacity'
   setValue : (data={})=>
+    console.log data
     @tree.value ?= {}
     @tree.value[key] = val for key,val of data
     @rating_photo.setValue {
       photos : data.photos
     }
     @tree.rating.class.setValue rating:data.rating
-    @found.full_name.text("#{data.name.last ? ""} #{data.name.first ? ""} #{data.name.middle ? ""}")
+    if Feel.user?.type?.admin
+      @found.full_name.text("#{data.name.last ? ""} #{data.name.first ? ""} #{data.name.middle ? ""}")
+    else
+      @found.full_name.text("#{data.name.first ? ""} #{data.name.middle ? ""}")
     l = data?.location ? {}
     cA = (str="",val,rep=', ')->
-      return str unless val 
+      return str unless val
       val = ""+val
       val = val.replace /^\s+/,''
       val = val.replace /\s+$/,''
-      return str unless val 
-      unless str 
-        str += val 
+      return str unless val
+      unless str
+        str += val
       else
         str += rep+val
 
     ls1 = ""
     ls1 = cA ls1,l.city
     ls1 = cA ls1,l.area
-#    ls2 = ""
-#    ls2 = cA ls2,l.street
-#    ls2 = cA ls2,l.house
-#    ls2 = cA ls2,l.building
+    if Feel.user?.type?.admin
+      ls1 = cA ls1,data.login,'<br>'
+      ls1 = cA ls1,data.phone?.join('; '),'<br>'
+      ls1 = cA ls1,data.email?.join('; '),'<br>'
+      ls2 = ""
+      ls2 = cA ls2,l.street
+      ls2 = cA ls2,l.house
+      ls2 = cA ls2,l.building
+    if Feel?.user?.type?.admin
+      @found.location.css 'height','auto'
+      ls4 = ""
+      for key,val of (data?.check_out_the_areas ? {})
+        ls4 = cA ls4,val
+      ls = cA ls,ls4,'<br>'
     ls3 = ""
     ls3 += "м. #{l.metro}" if l.metro
     ls = ""
-#    ls = cA ls,ls2,'<br>'
     ls = cA ls,ls3,'<br>'
+    ls = cA ls,ls2,'<br>' if Feel?.user?.type?.admin
     ls = cA ls,ls1,'<br>'
-
+    ls = cA ls,ls4,'<br>' if Feel?.user?.type?.admin
+    
     @found.location.html ls
     ###
     if data.location?.country
@@ -192,6 +225,7 @@ class @main extends EE
         @found.education_value.text("#{data.education?[0]?.name ? ""}")
     else
       @found.education.hide()
+    $(@areas_departure_value).empty()
     if data.check_out_the_areas?
       for key, val of data.check_out_the_areas
         if key > 0
@@ -201,6 +235,8 @@ class @main extends EE
     else
       @areas_departure.hide()
     @found.about_text.text("#{data.about ? ""}")
+    @found.interests.hide()
+    @found.interests_val.empty()
     if data.interests?
       for key, val of data.interests
         if val.description
@@ -216,18 +252,24 @@ class @main extends EE
     #@honors_text.text("#{data.honors_text ? ""}")
     subjects_number = 0
     @tutor_subjects = []
+    @subjects_content.empty()
+    console.log data.subjects
     for key,val of data.subjects
       ss = key.split /[\.,;]/
       for s in ss
         s = s.replace /^\s+/,''
         s = s.replace /\s+$/,''
         if s.length > 2
-          @tutor_subjects.push s
+          @tutor_subjects.push [s,val]
           subjects_number++
+    newarr = []
+    for s in @tutor_subjects
       new_subject = @hidden_subject.$clone()
-      new_subject.setValue key, val, data.place
-      console.log new_subject.dom
-      $(@subjects_content).append(new_subject.dom)
+      new_subject.setValue s[0], s[1], data.place
+      newarr.push s[0]
+      @subjects_content.append(new_subject.dom)
+    @tutor_subjects = newarr
+    console.log @tutor_subjects
     # right panel
     $(@found.write_tutor_msg).on 'click', =>
       @found.write_tutor_name.addClass 'shown'
@@ -245,7 +287,7 @@ class @main extends EE
     else
       @tree.subject.class.setValue @tutor_subjects[0]
       @found.write_tutor_subject.hide()
-    @dom.find('>div').css 'opacity',1
+    @dom.css 'opacity',1
 
   setItem: (item_block, item_value, value_block)=>
     if item_value
@@ -261,16 +303,13 @@ class @main extends EE
       last  : name.lastName('dative')
     }
 
-  save : => Q().then =>
-    if @check_form()
-      return @$send('../fast_bid/third_step/save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          Feel.sendActionOnce 'direct_bid'
-          return true
-        return false
-    else
-      return false
+  save : => do Q.async =>
+    return false unless @check_form()
+    {status,errs} = yield @$send('../attached/save',@getData())
+    if status=='success'
+      Feel.sendActionOnce 'direct_bid'
+      return true
+    return false
 
   check_form : =>
     errs = @js.check @getData()
@@ -304,20 +343,3 @@ class @main extends EE
       phone:          @phone.getValue()
       subject:        @subject.getValue()
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

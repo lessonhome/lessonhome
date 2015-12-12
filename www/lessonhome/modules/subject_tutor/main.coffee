@@ -5,9 +5,9 @@ class @main
       "английский язык":['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'TOEFL','IELTS', 'FCE', 'TOEIC', 'Business English', 'GMAT', 'GRE', 'SAT'],
       "японский язык": ['JLPT', 'JLPT N1', 'JLPT N2', 'JLPT N3', 'JLPT N4', 'JLPT N5'],
       "корейский язык": ['TOPIK', 'TOPIK I', 'TOPIK II'],
-      "китайския язык": ['HSK', 'HSK Высший', 'HSK Начальный/средний', 'HSK Базовый'],
+      "китайский язык": ['HSK', 'HSK Высший', 'HSK Начальный/средний', 'HSK Базовый'],
       "испанский язык": ['DELE', 'DELE A', 'DELE B', 'DELE C'],
-      "франзузский язык": ['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'DELF', 'DELF A', 'DELF B', 'DALF'],
+      "французский язык": ['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'DELF', 'DELF A', 'DELF B', 'DALF'],
       "немецкий язык": ['ЕГЭ', 'ОГЭ(ГИА)', 'Разговорный', 'с нуля', 'DSH', 'TestDaF'],
       "итальянский язык": ['CILS', 'CILS B1', 'CILS B2', 'CILS C1', 'CILS C2'],
       "португальский язык": ['CEPRE-Bras', 'CEPRE-Bras Средний', 'CEPRE-Bras Выше среднейго', 'CEPRE-Bras Продвинутый', 'CEPRE-Bras Выше продвинутого'],
@@ -50,10 +50,9 @@ class @main
         direction = @training_direction['default']
       console.log direction
       @subjects?[0]?.class?.showName? name, direction
-  save : => Q().then =>
+  save : => do Q.async =>
     if @check_form()
-      return @$send('./save',@getData())
-      .then @onReceive
+      return @onReceive yield @$send('./save',@getData())
     else
       return false
 

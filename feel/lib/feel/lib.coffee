@@ -11,6 +11,7 @@ setInterval ->
 , 5000
 ###
 
+
 global._production = false
 if require('os').hostname() == 'pi0h.org'
   global._production = true
@@ -343,6 +344,17 @@ global.lrequire = (name)-> require './lib/'+name
 global.Path     = new (require('./service/path'))()
 global.Q        = require 'q'
 
+_oldQAsync = Q.async
+global.Q.async = (f)=>
+  if f?.constructor?.name == 'GeneratorFunction'
+    return _oldQAsync.call Q,f
+  return f
+_oldQSpawn = Q.spawn
+global.Q.spawn = (f)=>
+  if f?.constructor?.name == 'GeneratorFunction'
+    return _oldQSpawn.call Q,f
+  return f?()?.done?()
+
 #Q.longStackSupport  = true
 
 global._lookDown = (obj,first,foo)-> do Q.async ->
@@ -476,6 +488,7 @@ Q.wait = -> Q().wait arguments...
 Q.tick = -> Q().wait arguments...
 Q.Promise::tick = Q.Promise::wait
 global.EE           = require('events').EventEmitter
+EE.defaultMaxListeners = 100
 
 class Wraper extends EE
   constructor : ->
@@ -542,6 +555,7 @@ global._fs_copy =   Q.denode _fse.copy
 global._fs_remove =   Q.denode _fse.remove
 global._readdirp = Q.denode require 'readdirp'
 regenerator = require("regenerator")
+global._LZString = require './lib/lz-string.min.js'
 global._regenerator = (source)-> regenerator.compile(source).code
 global._args    = (a)->
   for ar,i in a

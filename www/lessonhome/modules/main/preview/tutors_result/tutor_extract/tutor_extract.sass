@@ -31,7 +31,9 @@ a.name
   display: block
   line-height: 24px
   cursor: pointer
+  white-space : nowrap
   .tutor_name
+    white-space : nowrap
     +inline-block
     font-size: 16px
     color: #00a3b8
@@ -55,7 +57,7 @@ a.name:after, .tutor_status_wrap:after
     +inline-block
     vertical-align: top
   .left
-    width: 342px
+    width: 375px
     padding-right: 24px
     box-sizing: border-box
     //margin-right: 24px
@@ -76,8 +78,9 @@ a.name:after, .tutor_status_wrap:after
       div
         +inline-block
       .tag, .more_subjects
-        cursor : pointer
         font-size: 12px
+        line-height: 20px
+        height : 20px
         color: #444444
         font-style: italic
         //padding-right : 5px
@@ -132,12 +135,19 @@ a.name:after, .tutor_status_wrap:after
         text-decoration : none
 
   .location
-    height: 50px
+    text-align: left
     font-size: 12px
     line-height: 16px
     font-style: italic
     color : #777
     padding: 5px 0
+    height: 36px
+  .tutor_subject
+    margin-bottom: 1px
+    height: 50px
+    font-size: 12px
+    line-height: 16px
+    text-align: right
   .button_wrap
     overflow: hidden
     height: 48px

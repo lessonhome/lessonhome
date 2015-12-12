@@ -2,7 +2,7 @@
 
 
 @handler = ($, data)->
-  data.password = unescape data.password
+
   data.ref = $.req.headers.referer
 
   if data.check
@@ -19,6 +19,10 @@
 
     return !accounts[0]? or accounts[0].valid < Date.now()
 
+  if data?.password?.match /\%/
+    data.password = unescape data.password
+  else
+    data.password = _LZString.decompressFromBase64 data.password
 
   try
     obj = yield $.register.newPassword $.user, data

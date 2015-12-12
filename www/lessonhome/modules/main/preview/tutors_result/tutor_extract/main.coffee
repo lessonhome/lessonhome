@@ -23,8 +23,9 @@ class @main extends EE
     @hopacity ?= @dom.find('.g-hopacity')
     #@hideExtraText() # hide text that is larger than the maximum length and show full text by click
     @found.choose_button.click @addTutor
+    Feel.urlData.on 'change',@setLinked
   addTutor : => Q.spawn =>
-    linked = yield Feel.urlData.get 'mainFilter','linked'
+    linked = yield Feel.urlData.get 'mainFilter','linked','reload'
     if linked[@tree.value.index]?
       delete linked[@tree.value.index]
 #      feel.sendActionOnce('button')
@@ -33,7 +34,7 @@ class @main extends EE
     @setLinked linked
     yield Feel.urlData.set 'mainFilter','linked',linked
   setLinked : (linked)=> Q.spawn =>
-    linked ?= yield Feel.urlData.get 'mainFilter','linked'
+    linked ?= yield Feel.urlData.get 'mainFilter','linked','reload'
     if linked[@tree.value.index]?
       @tree.choose_button?.class?.setValue {text:'Убрать',color:'#3ab27d',pressed:true}
       @tree.choose_button?.class?.setActiveCheckbox()
@@ -62,7 +63,10 @@ class @main extends EE
     value = @tree.value
     #@with_verification.css 'background-color', value.with_verification if value?.with_verification?
     @tree.all_rating.class.setValue rating:value?.rating
-    @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
+    unless Feel?.user?.type?.admin
+      @tutor_name.text("#{value.name.first ? ""} #{value.name.middle ? ""}")
+    else
+      @tutor_name.text("#{value.name.last ? ""} #{value.name.first ? ""} #{value.name.middle ? ""}")
     @tutor_subject?.empty?()
     i = 0
     if @tutor_subject?.append? then for key,val of value.subjects
@@ -70,15 +74,18 @@ class @main extends EE
       if key
         key = key?.capitalizeFirstLetter?() ? key if i == 1
         skey = key
-#        if i > 1
-#          skey += ','
-        @tutor_subject?.append? s=$("<div class='tag'></div>").text(skey ? "")
+        if i > 2
+          break
+        else
+          @tutor_subject?.append? s=$("<div class='tag'></div>").text(skey ? "")
+        ###
         do (s,key,val)=>
           s.click => Q.spawn =>
             link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
             #@found.link_name.attr 'href',link
             #@tree.view_button.class.activate link
             yield Feel.go link
+        ###
 
 
         #do (s,key,val)=>
@@ -93,7 +100,22 @@ class @main extends EE
 
     exp = value.experience ? ""
     exp += " года" if exp && !exp?.match? /\s/
-    @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
+    unless Feel?.user?.type?.admin
+      @tutor_status.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
+    else
+      texts = {}
+      if value.login.match(/\@/)
+        texts[value.login.replace(/\s/gmi,'')] = true
+      else
+        texts[value.login.replace(/\D/gmi,'').substr(-10)] = true
+      for i,p of value.phone ? []
+        continue unless p = p?.replace?(/\D/gmi,'').substr(-10)
+        texts[p] = true
+      for i,p of value.email ? []
+        continue unless p = p?.replace?(/\s/gmi,'')
+        texts[p] = true
+      texts = for k of texts then k
+      @tutor_status.html "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"+"<br>"+texts.join('; ')
     l = value?.location ? {}
     cA = (str="",val,rep=', ')->
       return str unless val
@@ -108,7 +130,7 @@ class @main extends EE
 
     ls1 = ""
     ls1 = cA ls1,l.city
-#    ls1 = cA ls1,l.area
+    ls1 = cA ls1,l.area if Feel?.user?.type?.admin
     ls2 = ""
     ls2 = cA ls2,l.street
     ls2 = cA ls2,l.house
@@ -116,14 +138,24 @@ class @main extends EE
     ls3 = ""
     ls3 += "м. #{l.metro}" if l.metro
     ls = ""
-#    ls = cA ls,ls2,'<br>'
-    ls = cA ls,ls3,'<br><br>'
+    ls = cA ls,ls2,'<br>' if Feel?.user?.type?.admin
+    ls = cA ls,ls3,'<br>'
     ls = cA ls,ls1,'<br>'
+    if Feel?.user?.type?.admin
+      @found.location.css 'height','auto'
+      ls4 = ""
+      for key,val of (value?.check_out_the_areas ? {})
+        ls4 = cA ls4,val
+      ls = cA ls,ls4,'<br>'
+    
     @found.location.html(ls)
     #@tutor_title.   text(value.tutor_title) if value?.tutor_title?
     tutor_text = value.about || ''
-    if (tutor_text.length > 210) && @tree.reclame
-      tutor_text = tutor_text.substr 0,199
+    maxl = 500
+    maxl = 210 if @tree.reclame
+
+    if (tutor_text.length > maxl)
+      tutor_text = tutor_text.substr 0,maxl-11
       tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
       tutor_text += '...'
       @tutor_text.text tutor_text
@@ -138,9 +170,19 @@ class @main extends EE
     #@hideExtraText()
     do => Q.spawn =>
       link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
-      @found.link_name.attr 'href',link
-      @tree.view_button.class.activate link
-      @dom.find('.about_link').attr 'href',link
+
+      @dom.find('a').attr 'href',link
+      if @tree.onepage
+        do (that=this)=> @dom.find('a').click (e)->
+          return unless e.button == 0
+          e.preventDefault()
+          Feel.root.tree.class.showTutor that.tree.value.index,$(this).attr('href')
+          return false
+
+
+      #unless @tree.onepage
+      #  @tree.view_button.class.activate link
+      #@dom.find('.about_link').attr 'href',link
   getValue : => @getData()
 
   getData : => @tree.value

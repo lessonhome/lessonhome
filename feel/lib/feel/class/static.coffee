@@ -14,14 +14,25 @@ class Static
   init : =>
     @watch()
   watch : =>
+    return if _production
+    q = Q()
     watch.createMonitor './',(@monitor)=>
-      @monitor.on 'created', @mcreated
-      @monitor.on 'changed', @mchanged
-      @monitor.on 'removed', @mremoved
+      ###
       for file,stat of @monitor.files
         if file.match /^www\/\w+\/static\/.*\.\w+$/
           if stat.isFile()
-            @createHash file,stat
+            do (file,stat)=> q = q.then =>
+              process.stdout.write '.'
+              Q.rdenode(@createHash) file,stat
+      q.done()
+      ###
+      if _production
+        @monitor.stop()
+      else
+        @monitor.on 'created', @mcreated
+        @monitor.on 'changed', @mchanged
+        @monitor.on 'removed', @mremoved
+    
   mcreated : (f,stat)=>
     @checkHash f,stat
   mchanged : (f,stat,pstat)=>

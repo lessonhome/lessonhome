@@ -4,9 +4,11 @@ class @main extends @template '../main'
     filter_top  : @exports()
     info_panel  : @exports()
     tag         : @exports()
+    onepage : true
     content     : @module '$' :
       reps : [
         @state 'main/preview/tutors_result' :
+          onepage : true
           image : {
               src: ''
               w: 1000
@@ -14,9 +16,9 @@ class @main extends @template '../main'
             }
           rating : 3.5
           reclame : true
+          showrating : true
+          showsubject : true
           selector  : 'jump_visit_card'
-        # вытянуть значение
-        #filling           : 100 # вытянуть значение
           cost      : 1000 # вытянуть значение
           value :
             name :
@@ -30,7 +32,6 @@ class @main extends @template '../main'
                   left : 900
             location :
               city : 'Москва'
-          #tutor_name        : 'Чехов Андрей Юрьевич' # вытянуть значение
             with_verification : 'rgb(183, 210, 120)' # вытянуть значение
             tutor_subject     : 'Математика' # вытянуть значение
             status      : 'cтудент' # вытянуть значение

@@ -7,6 +7,8 @@ url  = require 'url'
 _cookies = require 'cookies'
 Form = require '../class/form'
 
+defaultHandlers = ['modules/main/preview/tutors']
+
 class Socket
   constructor : ->
     Wrap @
@@ -34,6 +36,21 @@ class Socket
     @sshServer = spdy.createServer options,@handler
     @sshServer.listen 8084
   run  : =>
+    yield for handler in defaultHandlers
+      @initHandler handler
+  initHandler : (clientName)=>
+    unless @handlers[clientName]?
+      @handlers[clientName] = require "#{process.cwd()}/www/lessonhome/#{clientName}.c.coffee"
+      obj = @handlers[clientName]
+      for key,val of obj
+        if typeof val == 'function'
+          if val?.constructor?.name == 'GeneratorFunction'
+            obj[key] = Q.async val
+          else
+            do (obj,key,val)->
+              obj[key] = (args...)-> Q.then -> val.apply obj,args
+      obj.$db = @db
+      yield obj?.init?()
 
   handler : (req,res)=> Q.spawn =>
     host = req.headers.host
@@ -67,18 +84,7 @@ class Socket
       else
         _keys.push d
     console.log "client:".blue+clientName.yellow+("::handler("+_keys.join(',')+");").grey
-    unless @handlers[clientName]?
-      @handlers[clientName] = require "#{process.cwd()}/www/lessonhome/#{clientName}.c.coffee"
-      obj = @handlers[clientName]
-      for key,val of obj
-        if typeof val == 'function'
-          if val?.constructor?.name == 'GeneratorFunction'
-            obj[key] = Q.async val
-          else
-            do (obj,key,val)->
-              obj[key] = (args...)-> Q.then -> val.apply obj,args
-      obj.$db = @db
-      yield obj?.init?()
+    yield @initHandler clientName
     $.db = @db
     do (req,res)=>
       req ?= {}

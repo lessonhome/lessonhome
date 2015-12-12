@@ -25,4 +25,4 @@ class @main extends @template '../tutor'
       possibility_save_button :  true               # this property responds for save button
   init : ->
     @parent.tree.left_menu.setActive 'Анкета'
-    @parent.tree.left_menu.setLinks ['../profile', '../search_bids', '#', '#', '#', '#', '#']
+    @parent.tree.left_menu.setLinks ['/tutor/profile', '/tutor/search_bids', '/tutor/pay', '/tutor/support', '#', '#', '#']

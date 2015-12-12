@@ -2,6 +2,9 @@
   'name'
   'phone'
   'linked'
+  'id'
+  'comment'
+  'comments'
   'gender'
   'experience'
   'place'
@@ -58,7 +61,7 @@
   return if reg.test(data) then true else 'wrong_name'
 @isPhone = (data) ->
   if data is '' then return true
-  if 6 <= data.replace(/\D/g, '').length <= 11 then return true
+  if 7 <= data.replace(/\D/g, '').length <= 13 then return true
   return 'wrong_phone'
 @isEmail = (data) ->
   if data is '' then return true

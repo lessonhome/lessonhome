@@ -1,0 +1,45 @@
+@import variables
+
+//tutors card
+.tutors-hover:hover
+  transition: all 0.3s ease-out
+  &:hover
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+.tutor-block
+  .stars
+    display : none
+  //box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12)
+  transition: box-shadow 0.25s ease 0s
+  overflow: hidden
+  padding: 1rem 0
+  //@media #{$medium-and-down}
+  //  padding: 1 0 1rem
+  .tutor-title
+    font-size: 1.6rem
+    line-height: 130%
+    margin: 0 0 0.5rem
+    color: #039BE5
+    a
+      text-decoration: underline
+      transition: all 0.3s ease-out
+      &:hover
+        color: #F44336
+    @media #{$medium-and-down}
+      font-size: 1.5rem
+    @media #{$small-and-down}
+      font-size: 1.4rem
+  .description
+    a
+      text-decoration: underline
+      transition: all 0.3s ease-out
+      &:hover
+        color: #F44336
+  .price
+    font-size: 1.6rem
+  .tutor-action
+    margin-top: 1rem
+
+  &.tutor_more
+    cursor: pointer
+  .stars
+    cursor : pointer

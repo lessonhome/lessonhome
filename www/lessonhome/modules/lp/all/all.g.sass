@@ -1,0 +1,826 @@
+@import variables
+
+$dialog_bg: #e5e5e5
+$animation-happy-01:    0 0
+$animation-happy-02:    10% 0
+$animation-sad-01:      20% 0
+$animation-sad-02:      30% 0
+$animation-hello-01:    40% 0
+$animation-hello-02:    50% 0
+$animation-hello-03:    60% 0
+$animation-good-01:     70% 0
+$animation-default-01:  80% 0
+
+.lp_custom
+  //padding-top: 40px
+  //padding-bottom: 140px
+  @media #{$medium-and-down}
+    //padding-top: 60px
+    //padding-bottom: 60px
+  @media #{$small-and-down}
+    //padding-top: 20px
+    //padding-bottom: 60px
+  h1
+    font-size: 2rem
+    margin: 2.6rem 0 2.5rem
+    @media #{$small-and-down}
+      font-size: 2rem
+      margin-top: 0
+  h2
+    font-size: 1.9rem
+    margin: 0 0 0.7rem
+    @media #{$small-and-down}
+      font-size: 1.8rem
+      margin: 0 0 0.7rem
+  h3
+    font-size: 2.4rem
+    margin: 0 0 1.8rem 0
+    @media #{$small-and-down}
+      font-size: 1.8rem
+      margin: 0 0 1rem 0
+      font-weight: 700
+  h4
+    font-size: 1.6rem
+    margin: 0 0 1.5rem
+    @media #{$small-and-down}
+      margin: 0 0 1rem
+  p
+    @media #{$small-and-down}
+      margin-top: 0.7rem
+      padding-right: 0.1rem
+  .pinned
+    top: 20%
+    @media #{$large-and-up}
+      top: 20%
+    @media #{$medium-and-down}
+      top: 20%
+
+#character
+  background: url(F('/lp/char-sprite-six.png')) no-repeat $animation-default-01
+  background-size: cover
+  font-size: 0
+  line-height: 0
+  animation-name: char-animation
+  animation-duration: 2s
+  animation-timing-function: steps(1)
+  animation-iteration-count: 2
+
+  img
+    @media #{$large-and-up}
+      max-width: auto
+      width: 100%
+
+@keyframes char-animation
+  0%
+    background-position: $animation-hello-01
+  5%
+    background-position: $animation-hello-02
+  10%
+    background-position: $animation-hello-03
+  15%
+    background-position: $animation-hello-02
+  20%
+    background-position: $animation-hello-01
+  25%
+    background-position: $animation-hello-02
+  30%
+    background-position: $animation-hello-03
+  35%
+    background-position: $animation-hello-02
+  40%
+    background-position: $animation-hello-01
+  45%
+    background-position: $animation-hello-02
+  50%
+    background-position: $animation-hello-03
+  55%
+    background-position: $animation-hello-02
+  60%
+    background-position: $animation-hello-01
+  65%
+    background-position: $animation-hello-02
+  70%
+    background-position: $animation-hello-03
+  75%
+    background-position: $animation-hello-02
+  80%
+    background-position: $animation-hello-01
+  85%
+    background-position: $animation-hello-02
+  90%
+    background-position: $animation-hello-03
+  95%
+    background-position: $animation-hello-02
+  100%
+    background-position: $animation-default-01
+
+
+.dialog_block
+  //background-color: $dialog_bg
+  text-align: center
+  padding: 45px
+  position: relative
+  border-radius: 3px
+  @media #{$small-and-down}
+    position: relative
+    &:after
+      content: ''
+      display: none
+      width: 35px
+      height: 35px
+      background: url(F('/lp/lesson-character-avatar.png')) no-repeat 0 0
+      background-size: cover
+      top: 15px
+      left: 15px
+      position: absolute
+    &.text-dialog
+      &:after
+        top: 18px
+    .left-padding
+      padding-left: 50px
+  @media #{$medium-and-down}
+    padding: 15px
+    padding-bottom: 10px
+  p
+    font-size: 20px
+    margin: 0
+    margin-bottom: 1rem
+    //&.form_p
+    @media #{$small-and-down}
+      font-size: 16px
+
+  &:before
+    display: none
+    content: ''
+    border: solid
+    border-width: 10px 20px 10px 20px
+    border-color: transparent $dialog_bg transparent transparent
+    position: absolute
+    top: 20%
+    right: 100%
+  .on_send
+    display : none
+.container-fish
+  min-height: 150px
+  background-color: #eeeeff
+  margin-bottom: 1.5rem
+  box-sizing: border-box
+  padding: 1rem
+  border-radius: 3px
+
+.step_one
+  padding: 0
+  p
+    font-size: 1.6rem
+    &:first-of-type
+      margin-bottom: 0
+  h3
+    font-size: 1rem
+    margin-bottom: 1rem
+    @media #{$medium-and-down}
+      font-size: 1.6rem
+.tutors_list
+  margin-bottom: 3rem
+  @media #{$small-and-down}
+    margin-bottom: 2.3rem
+    opacity: 1
+  >div
+    display : none
+.step_two
+  opacity: 1
+  .row
+    margin-bottom: 0
+  @media #{$small-and-down}
+    opacity: 1
+.seo_text
+  opacity: 1
+  @media #{$small-and-down}
+    opacity: 1
+.step_three
+  opacity: 1
+  @media #{$small-and-down}
+    opacity: 1
+.any_devices
+  .tutors_list
+    opacity: 1 !important
+  .step_two
+    opacity: 1 !important
+  .seo_text
+    opacity: 1 !important
+  .step_three
+    opacity: 1 !important
+
+//selected teachers
+.selected-teachers
+  background-color: #ffffff
+  position: fixed
+  z-index: 30
+  bottom: 0
+  left: 0
+  right: 0
+  box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12)
+  padding: 0.5rem 0 0 0
+  @media #{$small-and-down}
+    padding: 0
+  .row
+    margin-bottom: 0.4rem
+    @media #{$small-and-down}
+      margin-bottom: 0
+      position: relative
+  .chip
+    margin-right: 0.5rem
+  ul
+    margin: 0
+    padding: 0
+    @media #{$small-and-down}
+      padding: 1rem 0
+    li
+      list-style: none
+      margin-right: 0.5rem
+      @media #{$small-and-down}
+        margin-bottom: 0.5rem
+      display: inline-block
+      &:last-of-type
+        margin-right: 0
+.tutors-overflow
+  white-space: nowrap
+  overflow: auto
+  height: 50px
+  @media #{$small-and-down}
+    white-space: normal
+    height: auto
+
+.mobile-top
+  @media #{$small-and-down}
+    position: absolute
+    top: -1rem
+    right: 0
+
+#m-tutor-forms-input > label > div.level2
+  font-size: 37px !important
+
+.slider
+  width: auto
+  height: auto
+
+.show_select_rep
+  white-space: nowrap
+  span
+    border-bottom: 1px dashed #2196F3
+  cursor: pointer
+  padding: 0.5rem 0
+
+.hidden_rep_list
+  @media #{$small-and-down}
+    display: none
+
+.hidden
+  display: none
+#m-main-attached_panel-bar-tutor_smallest
+  .prep
+    .block_prep
+      a.photo_box
+        @media #{$medium-and-down}
+          //width: 40px
+          height: 40px
+          overflow: hidden
+      .rem
+        @media #{$medium-and-down}
+          opacity: 1 !important
+          right: -40px
+          top: 0
+          width: 40px
+          height: 40px
+
+//popup
+.popup
+  box-sizing: content-box !important
+  label
+    color: #000000 !important
+  .text_box
+    @media #{$small-and-down}
+      height: auto !important
+      padding-bottom: 0 !important
+      margin-bottom: 1rem
+  .close_button
+    display: none
+    @media #{$small-and-down}
+      display: block
+      position: fixed
+      top: 1rem
+      right: 1rem
+      z-index: 20
+      cursor: pointer
+  @media #{$small-and-down}
+    width: auto !important
+    margin-top: 0 !important
+    margin-bottom: 2rem !important
+  .step
+    @media #{$small-and-down}
+      margin-bottom: 0 !important
+      &.subject
+        margin-bottom: 1rem !important
+  h1
+    @media #{$small-and-down}
+      font-weight: 700
+      margin-top: 1rem !important
+      margin-bottom: 0.5rem !important
+  h2
+    @media #{$small-and-down}
+      margin-top: 0 !important
+  .content
+    @media #{$small-and-down}
+      padding: 0.5rem 1rem  3rem !important
+  .icon
+    @media #{$small-and-down}
+      display: none
+  .contents
+    @media #{$small-and-down}
+      margin: 0 !important
+      padding: 0 !important
+
+#m-tutor-forms-drop_down_list>label>.drop_down_list>.select_sets
+  box-sizing: content-box !important
+
+.centered-block
+  margin: 0 auto !important
+  float: none !important
+
+.tutors_list
+  margin-bottom: 0
+.first-step-bg
+  background: url(F('/lp/green-bg_02.jpg'))
+.two-step-bg
+  //background: url(F('/lp/white-bg.jpg'))
+
+  .dialog_block
+    padding: 0
+
+.three-step-bg
+  //background: url(F('/lp/green-bg_02.jpg'))
+  background: #F5F5F5
+  padding-bottom: 60px
+  @media #{$medium-and-down}
+    padding-bottom: 60px
+  @media #{$small-and-down}
+    padding-bottom: 60px
+
+.no-vertical-space
+  .col
+    &:first-of-type
+      padding-left: 0
+    &:last-of-type
+      padding-right: 0
+
+//form hover
+.input-field
+  label
+    &:after
+      top: 40px !important
+      white-space: nowrap
+    &.active
+      &:after
+        top: 65px !important
+  &.error-text
+    input[type=text],input[type=tel]
+      margin-bottom: 25px !important
+  &:hover
+    label
+      color: #000000
+      &:after
+        white-space: nowrap
+    input[type=text],input[type=tel]
+      border-bottom: 1px solid #000000
+    input[type=text],input[type=tel]
+      &:focus
+        border-bottom: 1px solid #26a69a
+.on_send
+  transition: all 0.3s ease-out
+  h4
+    font-size: 2rem
+    margin-top: 0
+  a
+    text-decoration: underline
+    transition: all 0.3s ease-out
+    &:hover
+      color: #F44336
+  p
+    &:first-of-type
+      margin-bottom: 1.5rem !important
+
+.tutors_list
+  &>div
+    &:last-of-type
+      .divider
+        display: none
+.top_form_bg
+  background-size: cover
+  background-position: center
+  background-repeat: no-repeat
+  min-height: 329px
+  padding: 5rem 0
+  @media #{$small-and-down}
+    padding: 3rem 0 2rem
+    min-height: 0
+  color: #ffffff !important
+.opacity-bg
+  background-color: rgba(0,0,0,0.7)
+  transition: all 0.3s ease-out
+.row
+  .col
+    &.opacity-bg
+      padding-top: 1.5rem
+      padding-bottom: 1.75rem
+      padding-right: 4rem
+      padding-left: 3rem
+
+.tf-title
+  font-size: 1.64rem
+  line-height: 110%
+  margin-bottom: 0.5rem
+.tf-sub_title
+  font-size: 1.2rem
+  line-height: 110%
+.top-landing-form
+  .dialog_block
+    transition: all 0.3s ease-out
+    .row
+      margin-bottom: 0.5rem
+      &.no-margin
+        margin-bottom: 0
+      &.phone-margin
+        margin-bottom: 1rem
+.opacity-text-block
+  background-color: rgba(0,0,0,0.7)
+  line-height: 130%
+  color: #ffffff
+  font-size: 1.6rem
+  display: inline-block
+  padding: 1rem 1.4rem
+  h1
+    font-size: 1.8rem
+    line-height: 130%
+    margin: 0
+    small
+      font-size: 65%
+.top_form_bg
+  .container
+    .row
+      .col
+        display: inline-block
+        float: none
+        vertical-align: top
+        &.bottom
+          vertical-align: bottom
+        .input-field
+          label
+            color: #ffffff
+          .prefix
+            top: 14px
+          input[type=text]
+            margin-bottom: 0
+            border-bottom-color: #ffffff
+            &.invalid
+              border-bottom-color: transparent
+            &.valid
+              border-bottom-color: transparent
+            &:focus
+              border-bottom-color: transparent
+          input[type=tel]
+            border-bottom-color: #ffffff
+            &.invalid
+              border-bottom-color: transparent
+            &.valid
+              border-bottom-color: transparent
+            &:focus
+              border-bottom-color: transparent
+.top-shadow
+  box-shadow: 0 -4px 5px 0 rgba(0, 0, 0, 0.16), 0 -4px 10px 0 rgba(0, 0, 0, 0.12)
+.tree-icons-block
+  .row.small-bottom-margin
+    margin-bottom: 45px
+  h1
+    font-size: 2.4rem
+    margin-bottom: 0rem
+  h2
+    font-size: 2.4rem
+    margin-bottom: 0.5rem
+  h4
+    font-size: 1.4rem
+    margin-top: 0.5rem
+    margin-bottom: 0
+  .row.vertical-top-row
+    .divider
+      margin-bottom: 0.5rem
+    .col
+      display: inline-block
+      float: none
+      vertical-align: top
+      &.s-left
+        @media #{$small-and-down}
+          text-align: left
+      img
+        max-width: 60%
+        height: auto
+        @media #{$small-and-down}
+          max-width: 100%
+          margin-top: 15px
+          margin-bottom: 15px
+      p
+        font-size: 1rem
+        color: #424242
+        margin-top: 5px
+.top-form
+  h4
+    font-size: 1.6rem
+  p
+    font-size: 1.2rem
+
+//button colors
+.english_color
+  .btn
+    background-color: #7bd14c
+    color: #010000
+.biology_color
+  .btn
+    background-color: #64dd16
+    color: #010000
+.history_color
+  .btn
+    background-color: #ffb74e
+    color: #010000
+.literat_color
+  .btn
+    background-color: #ffcd46
+    color: #010000
+.mat_color
+  .btn
+    background-color: #7cd061
+    color: #010000
+.physics_color
+  .btn
+    background-color: #fa8c00
+    color: #010000
+.chemis_color
+  .btn
+    background-color: #00f063
+    color: #010000
+.russian_color
+  .btn
+    background-color: #1de9b6
+    color: #010000
+.georgaph_color
+  .btn
+    background-color: #00d240
+    color: #010000
+.german_color
+  .btn
+    background-color: #ffc928
+    color: #010000
+.inform_color
+  .btn
+    background-color: #ffec3a
+    color: #010000
+.french_color
+  .btn
+    background-color: #fec107
+    color: #010000
+.spanish_color
+  .btn
+    background-color: #ffd741
+    color: #010000
+.social_color
+  .btn
+    background-color: #ffd741
+    color: #010000
+  .input-field
+    input[type=text]:focus
+      border-bottom-color: #ffd741
+//color form
+.top_form_bg
+  .container
+    .row
+      //1
+      &.english_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #7bd14c
+              box-shadow: 0 1px 0 0 #7bd14c
+          .prefix
+            &.active
+              color: #7bd14c
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #7bd14c
+              box-shadow: 0 1px 0 0 #7bd14c
+            .prefix
+              color: #7bd14c
+      //2
+      &.biology_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #64dd16
+              box-shadow: 0 1px 0 0 #64dd16
+          .prefix
+            &.active
+              color: #64dd16
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #64dd16
+              box-shadow: 0 1px 0 0 #64dd16
+            .prefix
+              color: #64dd16
+      //3
+      &.history_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffb74e
+              box-shadow: 0 1px 0 0 #ffb74e
+          .prefix
+            &.active
+              color: #ffb74e
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffb74e
+              box-shadow: 0 1px 0 0 #ffb74e
+            .prefix
+              color: #ffb74e
+      //4
+      &.literat_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffcd46
+              box-shadow: 0 1px 0 0 #ffcd46
+          .prefix
+            &.active
+              color: #ffcd46
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffcd46
+              box-shadow: 0 1px 0 0 #ffcd46
+            .prefix
+              color: #ffcd46
+      //5
+      &.mat_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #7cd061
+              box-shadow: 0 1px 0 0 #7cd061
+          .prefix
+            &.active
+              color: #7cd061
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #7cd061
+              box-shadow: 0 1px 0 0 #7cd061
+            .prefix
+              color: #7cd061
+      //6
+      &.physics_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #fa8c00
+              box-shadow: 0 1px 0 0 #fa8c00
+          .prefix
+            &.active
+              color: #fa8c00
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #fa8c00
+              box-shadow: 0 1px 0 0 #fa8c00
+            .prefix
+              color: #fa8c00
+      //7
+      &.chemis_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #00f063
+              box-shadow: 0 1px 0 0 #00f063
+          .prefix
+            &.active
+              color: #00f063
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #00f063
+              box-shadow: 0 1px 0 0 #00f063
+            .prefix
+              color: #00f063
+      //8
+      &.russian_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #1de9b6
+              box-shadow: 0 1px 0 0 #1de9b6
+          .prefix
+            &.active
+              color: #1de9b6
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #1de9b6
+              box-shadow: 0 1px 0 0 #1de9b6
+            .prefix
+              color: #1de9b6
+      //9
+      &.georgaph_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #00d240
+              box-shadow: 0 1px 0 0 #00d240
+          .prefix
+            &.active
+              color: #00d240
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #00d240
+              box-shadow: 0 1px 0 0 #00d240
+            .prefix
+              color: #00d240
+      //10
+      &.german_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffc928
+              box-shadow: 0 1px 0 0 #ffc928
+          .prefix
+            &.active
+              color: #ffc928
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffc928
+              box-shadow: 0 1px 0 0 #ffc928
+            .prefix
+              color: #ffc928
+      //11
+      &.inform_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffec3a
+              box-shadow: 0 1px 0 0 #ffec3a
+          .prefix
+            &.active
+              color: #ffec3a
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffec3a
+              box-shadow: 0 1px 0 0 #ffec3a
+            .prefix
+              color: #ffec3a
+      //12
+      &.french_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #fec107
+              box-shadow: 0 1px 0 0 #fec107
+          .prefix
+            &.active
+              color: #fec107
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #fec107
+              box-shadow: 0 1px 0 0 #fec107
+            .prefix
+              color: #fec107
+      //13
+      &.spanish_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffd741
+              box-shadow: 0 1px 0 0 #ffd741
+          .prefix
+            &.active
+              color: #ffd741
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffd741
+              box-shadow: 0 1px 0 0 #ffd741
+            .prefix
+              color: #ffd741
+      //14
+      &.social_color
+        .input-field
+          input[type=text], input[type=tel]
+            &:focus
+              border-bottom: 1px solid #ffd741
+              box-shadow: 0 1px 0 0 #ffd741
+          .prefix
+            &.active
+              color: #ffd741
+          &:hover
+            input[type=text], input[type=tel]
+              border-bottom: 1px solid #ffd741
+              box-shadow: 0 1px 0 0 #ffd741
+            .prefix
+              color: #ffd741

@@ -1,13 +1,17 @@
 if popup
   !=popup
-  //.js-popup_wrap
-    .js-content!= popup
 .container
   .header!= header
-  .filter_top!=filter_top
+  .js-filter_top!=filter_top
   if info_panel
-    .info_panel!=info_panel
-  .content!= content
-//.attach_tutor!=attach_tutor
+    .js-info_panel!=info_panel
+  if content && !clear_profile
+    .js-content!= content
+  else
+    .js-content
+  if clear_profile
+    .js-tutor_profile!= tutor_profile
+  else
+    .js-tutor_profile.hidden!= tutor_profile
 .footer!= footer
 .attached!=bottom_block_attached

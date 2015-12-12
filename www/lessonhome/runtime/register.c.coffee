@@ -3,7 +3,11 @@
 
 @handler = ($,data)->
   #$.req.udata.onceAuth.hash
-  data.password = unescape data?.password
+  if data?.password?.match? /\%/
+    data.password = unescape data.password
+  else
+    data.password = _LZString.decompressFromBase64 data.password
+
   data.type = 'tutor'
   try
     yield $.register.newType $.user,$.session,data

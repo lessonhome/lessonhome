@@ -1,7 +1,7 @@
 
 class @main
   constructor : ->
-    Wrap @
+    $W @
   show : =>
   setValue : (value={})=>
     @tree.value ?= {}
@@ -16,5 +16,10 @@ class @main
 
     #@dom.click => Feel.go(link)
     @found.photo_box.attr 'href',link
+    index = @tree.value.index
+    @dom.find('a').click (e)->
+      return unless e.button == 0
+      e.preventDefault()
+      Feel.root.tree.class.showTutor index,$(this).attr('href')
 #    h = im.lheight * 76/im.lwidth
 #    return {h}

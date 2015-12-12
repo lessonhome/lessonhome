@@ -26,10 +26,10 @@ class @main
 
 
     # link more address
-    @link_more.on 'click', (e)=>
+    @link_more.on 'click', (e)=> Q.spawn =>
       e.preventDefault()
-      @save().then (ok)=>
-        Feel.go @link_more.attr 'href' if ok
+      ok = yield @save(true)
+      Feel.go @link_more.attr 'href' if ok
 
     # click outside popup element
     if @found.href_back?
@@ -43,26 +43,17 @@ class @main
       Feel.goBack  @tree.href_back
 
 
-  save : => Q().then =>
-    if @check_form()
-      return @$send('./save',@getData())
-      .then ({status,errs})=>
-        if status=='success'
-          return true
-        if errs?.length
-          @parseError errs
-        return false
-    else
-      return false
+  save : (quiet=false)=> do Q.async =>
+    return false unless quiet || @check_form()
+    {status,errs} = yield @$send('./save',@getData(),quiet)
+    if status=='success'
+      return true
+    if errs?.length
+      @parseError errs
+    return false
 
   check_form :() =>
     errs = @js.check @getData()
-    #if link
-    #  if !@mobile_phone.doMatch() then errs.push "bad_mobile"
-    #if !@country.exists() && @country.getValue().length!=0
-    #  errs.push 'bad_country'
-    #if !@city.exists() && @city.getValue().length!=0
-    #  errs.push 'bad_city'
     for e in errs
       @parseError e
     return errs.length==0

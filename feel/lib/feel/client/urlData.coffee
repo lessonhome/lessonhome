@@ -5,7 +5,7 @@ fstate = History.getState()
 
 class @urlData
   constructor : ->
-    Wrap @
+    $W @
     @_hash    = ""
     @_long    = {}
     @_short   = {}
@@ -13,18 +13,54 @@ class @urlData
     @forms    = {}
     @data     = {}
     @fdata    = {}
+    @id       = ""+Math.random()
+    @lastUpdate = new Date().getTime()
+    @first = true
   init : =>
     @json = Feel.urldataJson
     for fname,form of Feel.urlforms
       @forms[fname] = {}
-      @forms[fname].U2D = Wrap (new form.U2D) if form.U2D?
-      @forms[fname].D2U = Wrap (new form.D2U) if form.D2U?
+      @forms[fname].U2D = $W (new form.U2D) if form.U2D?
+      @forms[fname].D2U = $W (new form.D2U) if form.D2U?
     for key of @forms
       @data[key] ?= {}
     Feel.udata = new Feel.UrlDataFunctions
     @udata = Feel.udata
     yield @udata.init @json,@forms
+    yield @initFromUrl(true)
+    setTimeout =>
+      try console.log 'abTest:',@udata.json?.forms?.abTest
+    ,1000
+    setInterval =>
+      Q.spawn =>
+        time = $.localStorage.get('UrlCookieTime')
+        unless time?
+          $.localStorage.set('UrlCookieTime',@lastUpdate)
+          $.localStorage.set('UrlCookieId',@id)
+        else if time > @lastUpdate
+          console.log @lastUpdate,$.localStorage.get('UrlCookieTime'),@id,$.localStorage.get('UrlCookieId')
+          return if $.localStorage.get('UrlCookieId') == @id
+          @readCookie = true
+          return if @readingCookie > 1
+          if @readingCookie == 1
+            @readingCookie = 2
+          else
+            @readingCookie = 1
+          console.log 'ok'
+          #yield @loadCookie()
+          while @readingCookie == 1
+            @lastUpdate = new Date().getTime()
+            yield @initFromUrl()
+            yield @setUrl()
+            @readingCookie--
+          yield Q.delay 2000
+          if (@readingCookie == 0) && (((new Date().getTime())-@lastUpdate)>2000)
+            @readCookie = false
+          return
+    ,500
+    @first = false
 
+  initFromUrl : (first=false)=>
     @state  = History.getState()
     url = @state?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     url2 = url.split '&'
@@ -33,27 +69,45 @@ class @urlData
     cook = decodeURIComponent cook
     cook = '{}' unless cook
     cook = JSON.parse cook
+    if !@readCookie
+      @lastUpdate = new Date().getTime()
     cook ?= {}
     for u in url2
       continue unless u
       u = u.split '='
-      url[u[0]] = u[1]
-    url[key] = val for key,val of cook
+      if @first || !@udata.json.shorts?[u?[0]]?.cookie
+        url[u[0]] = u[1]
+    for key,val of cook
+      url[key] = val
     str = ''
     for key,val of url
       str += '&' if str
       str += key if key
       str += '='+val if val?
     @data   = yield @udata.u2d str ? ''
-    @fdata  = yield @udata.u2d str ? '' #fstate?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
+    if first
+      @fdata  = yield @udata.u2d str ? '' #fstate?.url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     for key of @forms
       @data[key] ?= {}
-      @fdata[key] ?= {}
-    setTimeout =>
-      try
-        console.log 'abTest:',@udata.json?.forms?.abTest
-    ,1000
+      @fdata[key] ?= {} if first
+  loadCookie : =>
+    cook = $.cookie()?.urldata ? ''
+    cook = decodeURIComponent cook
+    cook = '{}' unless cook
+    cook = JSON.parse cook
+    cook ?= {}
+    if !@readCookie
+      @lastUpdate = new Date().getTime()
+    url = {}
+    for key,val of cook
+      url[key] = val
+    str = (yield @getU()) || ""
+    for key,val of url
+      str += '&' if str
+      str += key if key
+    @data = yield @udata.u2d str || ''
   set : (form,key,val)=>
+    #yield @initFromUrl()
     if val?
       _setKey @data[form],key,val
     else if key?
@@ -66,7 +120,8 @@ class @urlData
           _setKey @data[k],a,b
         #@data[key] = val
     yield @setUrl()
-  get : (form,key)=>
+  get : (form,key,...,reload)=>
+    #yield @loadCookie() if reload == 'reload'
     return @data unless form?
     return @data[form] unless key?
     return _setKey @data[form],key
@@ -111,29 +166,40 @@ class @urlData
       str += r[0]
       str += "="+r[1] if r[1]?
     return str
-        
-
-  udataToUrl : (url=window.location.href,...,usecookie='true',skip='not')=>
+  udataToUrl : (url,...,usecookie='true',skip='not')=>
     params = {}
-    unless typeof url == 'string'
+    firstu  = (window.location.href || "").match?(/^[^\?]*\??(.*)$/)?[1] ? ""
+    secondu = yield @getU()
+    thirdu  = (url || "").match?(/^[^\?]*\??(.*)$/)?[1] ? ""
+    if false
+      purl = firstu.split '&'
+      for p in purl
+        np = p.split '='
+        if @first || !@udata.json.shorts?[np?[0]]?.cookie
+          params[np[0]] = np[1]
+    purl = secondu.split '&'
+    for p in purl
+      np = p.split '='
+      params[np[0]] = np[1]
+    
+    if url
+      purl = thirdu.split '&'
+      for p in purl
+        np = p.split '='
+        if @first || !@udata.json.shorts?[np?[0]]?.cookie
+          params[np[0]] = np[1]
+          if skip=='skip'
+            if @udata.json.shorts[np[0]]?
+              delete params[np[0]]
+    unless url?
       url = window.location.href
       url ?= ""
-    purl = url?.match?(/^[^\?]*\??(.*)$/)?[1] ? ""
-    purl = purl.split '&'
-    for p in purl
-      np = p.split '='
-      params[np[0]] = np[1]
-      if skip=='skip'
-        if @udata.json.shorts[np[0]]?
-          delete params[np[0]]
+
     obj = {url}
-    urldata = (yield @getU()) ? ""
-    purl = urldata.split '&'
-    for p in purl
-      np = p.split '='
-      params[np[0]] = np[1]
     urldata = ""
     purl = []
+    if !@readCookie
+      @lastUpdate = new Date().getTime()
     if usecookie == 'true'
       cook = $.cookie()?.urldata ? ''
       cook = decodeURIComponent cook
@@ -146,7 +212,13 @@ class @urlData
             delete cook?[key]
           else
             cook[key] = params?[key]
-      $.cookie 'urldata', encodeURIComponent( JSON.stringify cook)
+      oldCookie = $.cookie 'urldata'
+      newCookie = encodeURIComponent JSON.stringify cook
+      if (oldCookie != newCookie) && (!@readCookie)
+        if @lastUpdate > $.localStorage.get('UrlCookieTime')
+          $.cookie 'urldata', newCookie
+          $.localStorage.set 'UrlCookieTime',@lastUpdate
+          $.localStorage.set 'UrlCookieId',  @id
     for key,val of params
       purl.push [key,val]
     purl.sort (a,b)-> a[0]<b[0]
@@ -208,4 +280,7 @@ class @urlData
   _emitChange : =>
     return if (!@lastChange) || (((new Date().getTime())-@lastChange)<200)
     @lastChange = 0
+    url = History.getState().url
+    return if url == @lastEmitUrl
+    @lastEmitUrl = url
     @emit 'change'

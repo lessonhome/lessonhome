@@ -13,6 +13,7 @@ class @main
       placeholder : 'Телефон'
       selector : 'fast_bid'
       $form : person : 'firstphone'
+      ###
       placeholder: '+7 (___) ___–__–__'
       replace     : [
         {"^(8|7)(?!\\+7)":"+7"}
@@ -30,6 +31,7 @@ class @main
       patterns : [
         "^\\+7 \\(\\d\\d\\d\\) \\d\\d\\d-\\d\\d-\\d\\d$" : "Введите телефон <br>в формате +7 (926) 123-45-45"
       ]
+      ###
     comments  : @module 'tutor/forms/textarea' :
       placeholder : 'Комментарий'
     pupil       : @module 'tutor/header/button_toggle' :

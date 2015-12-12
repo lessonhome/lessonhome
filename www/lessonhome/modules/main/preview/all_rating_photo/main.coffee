@@ -28,7 +28,7 @@ class @main extends EE
     @photo.css 'z-index',100
     @small = true
   setValue : (value={})=>
-    #@tree.all_rating.class.setValue rating:value?.rating
+    @tree.all_rating.class.setValue rating:value?.rating
     @tree.value ?= {}
     @tree.value[key] = val for key,val of value
     @tree.value.photos ?= []
@@ -40,7 +40,6 @@ class @main extends EE
     @small = true
     photo = value.photos[@now]
     @first = photo
-    console.log @W()
     h = photo.lheight*@W()/photo.lwidth
     w = @W()
     @photo.height h

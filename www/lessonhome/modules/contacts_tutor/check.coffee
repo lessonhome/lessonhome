@@ -2,10 +2,12 @@
   #console.log f
   errs = []
   #short
-  #if f.mobile_phone.length == 0
-  #  errs.push "empty_mobile"
-  #else unless 7 <= f.mobile_phone.length
-  #  errs.push "bad_mobile"
+  if f.mobile_phone.length == 0
+    errs.push "empty_mobile"
+  else
+    p = f.mobile_phone.replace /\D/gmi,''
+    if p.length < 7
+      errs.push "bad_mobile"
   #if 0 < f.extra_phone.length < 10
   #  errs.push "bad_extra_phone"
   #if 0 < f.post.length < 5

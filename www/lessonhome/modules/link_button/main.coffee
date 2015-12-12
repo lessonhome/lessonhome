@@ -4,6 +4,7 @@ class @main extends EE
     @link         = @dom.find "a"
     @link.on     'mousedown', @mdown
     @link.click (e)=>
+      return unless e.button == 0
       e.preventDefault()
       return @submit() unless (e.button==0) && (!@tree.active)
       @emit 'submit'
