@@ -1,9 +1,10 @@
 - value = value.filter || {};
+- value.price = value.price || {};
+- value.status = value.status || {};
 - var sub_exist = {};
 - var cou_exist = {};
-- for(var key in value.subjects) sub_exist[value.subjects[key]] = true;
-- for(key in value.course) cou_exist[value.course[key]] = true;
-- console.log(sub_exist);
+- if (value.subjects) for(var key in value.subjects) sub_exist[value.subjects[key]] = true;
+- if (value.course) for(key in value.course) cou_exist[value.course[key]] = true;
 .search-filter
   .top-filter-parametrs
     .row.no-bottom-margin
@@ -25,7 +26,7 @@
               option(value=!val, selected=(cou_exist[val]?true:undefined))!=val
 
   mixin checkBlock(title, is_open)
-    li.i-block&attributes(attributes)
+    li.i-block(class=is_open?'active':undefined)&attributes(attributes)
       .collapsible-header.i-header(class=is_open?'selected active':undefined)!=title
       .collapsible-body(style=is_open?'display:block':undefined)
         block
@@ -33,7 +34,7 @@
 
   ul.collapsible(data-collapsible='expandable').search-filter
     -var open = false,s;
-    -for(s in value.price){open=true; break;}
+    -for(s in value.price)if(value.price[s]) {open=true; break;}
     +checkBlock('Цена за 60 минут', open).js-price_block
       each val, index in price_select.items
         .row
@@ -42,7 +43,7 @@
             label(for='price-' + index)!=val
 
     -open = false;
-    -for(s in value.status){open=true; break;}
+    -for(s in value.status)if(value.status[s]) {open=true; break;}
     +checkBlock('Статус репетитора', open).js-status_block
       each val, index in status_tutor.items
         .row
