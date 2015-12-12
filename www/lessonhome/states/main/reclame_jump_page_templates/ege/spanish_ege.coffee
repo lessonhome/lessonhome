@@ -14,6 +14,10 @@ class @main extends @template 'lp/all'
 <p><b>Наша база профессиональных педагогов — лучший вариант для поиска наставника, организующего должный уровень подготовки.</b></p>
 <p>Подбор репетитора абсолютно бесплатно!</p>'
     title_suit_tutors : 'Репетиторы для подготовки к ЕГЭ по испанскому языку'
+    landing_img       : 'reclame_background/span.png'
+    title_position    : 'top'
+    button_color      : 'spanish_color'
+    bg_position       : 'right'
     filter :
       subject : [
         'испанский язык'

@@ -64,7 +64,7 @@ class @main
               tree_hour : $form : tutor : 'all_subjects.0.place_pupil.tree_hour'
           place_remote   : @state 'tutor/forms/checkbox_hide_block' :
             is_show : $form : tutor : 'all_subjects.0.place_remote.selected'
-            title : 'удаленно'
+            title : 'Skype'
             selector: 'col2'
             content : @state 'tutor/time_price' :
               currency : 'руб.'

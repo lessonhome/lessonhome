@@ -23,16 +23,18 @@ class Admin
     yield @reload $,data
     return @obj
   reload : =>
-    [dbBackcall,dbPersons,dbAccounts,dbTutor] = yield Q.all [
+    [dbBackcall,dbPersons,dbAccounts,dbTutor,dbBids] = yield Q.all [
       @$db.get 'backcall'
       @$db.get 'persons'
       @$db.get 'accounts'
       @$db.get 'tutor'
+      @$db.get 'bids'
     ]
     backcall = null
     accounts = null
     bytime   = null
     nosubject = null
+    bids      = null
     yield Q.all [
       do Q.async =>
         bc = yield _invoke dbBackcall.find({time:{$exists:true}}).sort({time:-1}),'toArray'
@@ -81,8 +83,10 @@ class Admin
         for a in nosubject
           delete newaccs[a.account]
         nosubject = newaccs
+      do Q.async =>
+        bids = yield _invoke dbBids.find({time:{$exists:true}}).sort({time:-1}),'toArray'
     ]
-    @obj = {backcall,nophotos:accounts,time:bytime,nosubject:nosubject}
+    @obj = {backcall,nophotos:accounts,time:bytime,nosubject:nosubject,bids:bids}
     Q.spawn =>
       yield _invoke @redis,'set','adminTutors',JSON.stringify @obj
     @ltime = new Date().getTime()
