@@ -6,58 +6,81 @@
 -title = title.replace(/\s+/gmi,' ');
 -alt = alt.replace(/\s+/gmi,' ');
 -title_suit_tutors = title_suit_tutors.replace(/\s+/gmi,' ');
-//.parallax-container
-//  .parallax.js-paralax_obj
-//    img(src=F('lp/school.jpg'))
-.first-step-bg
+-bg_position = bg_position || '';
+-bg_position = bg_position || '';
+.top_form_bg(style='background-image: url(' + F(landing_img) + '); background-position: ' + bg_position + ';')
   .container
     .row
-      .col.l9.m9.centered-block
-        .dialog_block.js-step_one.hide-on-small-only.fastest
-          h5 Мы подберем Вам репетитора.
-          h3 Для этого заполните простую форму:
-          //h3.left-align Оставьте заявку:
-          .row
+      .col.l7.m7.s12(class=title_position)
+        .opacity-text-block(style='background-color: ' + opacity_form + ';')
+          .hide-on-small-only Подберем Вам репетитора бесплатно!
+          h1.hide-on-med-and-up!=title_suit_tutors
+      .col.l5.m5.s12.opacity-bg.top-landing-form.hide-on-small-only(style='background-color: ' + opacity_form + ';')
+        .dialog_block.js-step_one.fastest
+          .tf-title Заполните форму
+          .tf-sub_title и мы Вам позвоним:
+          .row(class=button_color)
             .input-field.col.l12.m12.s12
               i.material-icons.prefix account_circle
               input.js-input_name(type='text' value=value.name)#name.validate
               label(for='name') Имя
-          .row
+          .row.phone-margin(class=button_color)
             .input-field.col.l12.m12.s12.error-text
               i.material-icons.prefix phone
               input.js-input_phone(type='tel' value=value.phone)#phone.validate
               label(for='phone', data-error="Введите корректный телефон") Телефон
-          .row
-            .col.l12.m12.s12
+          .row.no-margin
+            .col.l12.m12.s12(class=button_color)
               button.js-btn_send(type='submit', name='form_submit').btn.waves-effect.waves-light Отправить
                 i.material-icons.right send
-          .js-on_send
+          .js-on_send.top-form
             .row
               .col.s12.left-align
                 h4 Заявка отправлена!
                 p С Вами скоро свяжется наш специалист.
-                button.js-open_form.btn.waves-effect.waves-light Дополнить заявку
+                .center-align(class=button_color)
+                  button.js-open_form.btn.waves-effect.waves-light Дополнить заявку
+.top-shadow
+  .container.tree-icons-block
+    .row
+      .col.l12.m12
+        .row.small-bottom-margin
+          .col.l12.m12.s12
+            h1.hide-on-small-only!=title_suit_tutors
+            //h2!=title
+            //h4!=sub_title
+        .row.center-align.vertical-top-row
+          .col.l4.m4.s12
+            .col.l12.m12.s3.s-left
+              img(src=F('lp/icon1v.png'))
+            .col.l12.m12.s9
+              p.left-align Мы работаем только с проверенными репетиторами. Каждый кандидат проходит строгий отбор
+          .divider.hide-on-med-and-up
+          .col.l4.m4.s12
+            .col.l12.m12.s3.s-left
+              img(src=F('lp/icon2v.png'))
+            .col.l12.m12.s9
+              p.left-align Для вашего удобства занятия могут проходить как у Вас так и у преподавателя
+          .divider.hide-on-med-and-up
+          .col.l4.m4.s12
+            .col.l12.m12.s3
+              img(src=F('lp/icon3v.png'))
+            .col.l12.m12.s9
+              p.left-align Все это позволяет Вам сэкономить свое время на поиски репетитора и достичь поставленной цели
+
 .container.js-lp_custom
-  //.top-form!=top_form
   .row
-    //.col.l2.m2.pinned.js-charset
-    //  #character.hide-on-small-only
-    //    img(src=F('lp/charset-opacity.gif')).responsive-img
     .col.l9.m9.centered-block
-      h1!=title_suit_tutors
+      //h1!=title_suit_tutors
       .js-tutors_list
         !=tutor
-      //.tutors_list
-        !=tutors
   .two-step-bg
     .row
       .col.l9.m9.centered-block
         .dialog_block.text-dialog
           .row
-            //.col.s12.left-padding
-            //  //p Или Вы можете сами подобрать себе преподавателя
             .col.s12
-              a.js-go_find.waves-effect.waves-light.btn-large Перейти к поиску
+              a.js-go_find.waves-effect.waves-light.btn-large Ещё репетиторы
                 i.material-icons.right search
 .two-step-bg.js-step_two
 .container.js-lp_custom

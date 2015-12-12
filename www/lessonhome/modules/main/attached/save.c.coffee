@@ -5,10 +5,10 @@ os = require 'os'
 hostname = os.hostname()
 
 phones = [
+  '79254688208'
   '79267952303'
   '79152292244'
   '79263672997'
-  '79254688208'
 ]
 
 other = ($,data,second)-> do Q.async =>
