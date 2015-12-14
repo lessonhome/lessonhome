@@ -32,6 +32,9 @@ class @main extends @template 'lp/all'
 <p>Узнайте подробнее об <a href = "http://www.classes.ru/all-russian/russian-dictionary-Ozhegov-term-30101.htm">олимпиадах по математике в 2016 году.</a></p>
  <p><b>Подбор репетитора абсолютно бесплатно!</b></p>'
     title_suit_tutors : 'Репетиторы для подготовки к ЕГЭ по математике'
+    landing_img       : 'reclame_background/mat.png'
+    title_position    : 'top'
+    button_color      : 'mat_color'
     filter :
       subject : [
         'математика'

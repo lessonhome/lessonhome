@@ -67,13 +67,12 @@
   if data.location?
     l = []
     loc = data.location
-    l.push('г. ' + @trim loc.city) if loc.city?
-    l.push('p. ' + @trim loc.area) if loc.area?
-
+    if (str = loc.city)? and (str = @trim str) then l.push('г. ' + str)
+    if (str = loc.area)? and (str = @trim str) then l.push('р-н ' + str)
     if loc.metro?
       metro = loc.metro.split(',')
-      for m in metro when m = @trim m
-        l.push('м. ' + m)
+      for str in metro when str = @trim str
+        l.push('м. ' + str)
 
     value.location = l.join(', ') if l.length
 
