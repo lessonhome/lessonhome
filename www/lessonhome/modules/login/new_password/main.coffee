@@ -3,6 +3,7 @@
 class @main extends EE
   Dom  : =>
   show : =>
+    ###
     Q.spawn =>
       redirect = yield @$send( 'newPassword',{
         check: true
@@ -10,9 +11,11 @@ class @main extends EE
       console.log redirect
       if redirect
         window.location.replace 'forgot_password'
+
+    ###
     @save_button = @tree.save_button.class
     @password = @tree.password.class
-    @confirm_password = @tree.password.class
+    @confirm_password = @tree.confirm_password.class
 
     @save_button.on 'submit', @newPassword
 
@@ -58,22 +61,16 @@ class @main extends EE
     switch err
       when 'already_logined'
         return @redirect './'
-        @login.showError 'Кажется вы уже вошли. Сначала надо выйти!'
-        @password.showError()
-      when 'empty_login'
-        @login.showError 'Введите логин'
+        @password.showError 'Кажется вы уже вошли. Сначала надо выйти!'
+        @confirm_password.showError()
       when 'empty_password'
         @password.showError "Введите пароль"
       when 'bad_password','wrong_password'
         @password.showError 'Неверный пароль'
-      when 'bad_login'
-        @login.showError 'Введите телефон или email'
       when 'short_password'
         @password.showError 'Слишком короткий пароль'
-      when 'login_not_exists'
-        @login.showError 'Пользователь с таким логином не зарегестрирован'
       else
-        @login.showError()
-        @password.showError "что-то пошло не так"
+        @password.showError()
+        @confirm_password.showError "что-то пошло не так"
 
 

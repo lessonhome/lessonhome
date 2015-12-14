@@ -22,10 +22,10 @@ class @main extends EE
     })
     console.log status
     if status == 'success'
-      @dom.find('.title').text 'Спасибо!'
-      @dom.find('.text').text 'Мы выслали Вам email с сылкой для восстановления пароля.'
-      @dom.find('.login').hide()
-      @dom.find('.buttons').hide()
+      @dom.find('h1').text 'Спасибо!'
+      @dom.find('h5').text 'Мы выслали Вам email с сылкой для восстановления пароля.'
+      @dom.find('.login_row').hide()
+      @dom.find('.button_row').hide()
       #return Feel.go '/send_code'
     if status == 'failed'
       if err
