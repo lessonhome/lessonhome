@@ -10,13 +10,22 @@ class @main
     @media = @tree.media.class
     @doc = @tree.documents.class
 
-    @input_photo.on 'uploaded', (photo)=> @media.add photo
-    @input_doc.on 'uploaded', (photo)=> @doc.add photo
+    @input_photo.on 'uploaded', (photo)=>@media.add photo
+    @input_doc.on 'uploaded', (photo)=>@doc.add photo
 #    @add_photos.on 'uploaded', (photo)=> @media.add photo
 
 #    @media.on 'select', (photo) =>
 #      console.log 'ava'
 #      @add_photos.setPhoto(photo.url, photo.width, photo.height)
+
+    @media.on 'select', (hash) => Q.spawn =>
+      data = yield @$send('setAvatar', {id: hash})
+      if data.status == 'success'
+        $('html, body').animate {scrollTop: @dom.offset().top}, 250
+        data = data.newAva
+        return unless data.url? and data.width? and data.height?
+
+        @add_photos.setPhoto data.url, data.width, data.height
 
     @media.on 'remove', (hash)=>
       result = yield @$send('removeMedia', {hash: hash})

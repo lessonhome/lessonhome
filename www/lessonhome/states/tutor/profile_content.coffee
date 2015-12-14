@@ -13,7 +13,7 @@ class @main
 
     media : @module '$/media' :
       photos : $form : person : 'photos'
-      min : true
+      message: "Сделать главной"
       depend : [
         @module 'lib/jquery/ui_widget'
         @module 'lib/jquery/iframe_transport_plugin'
@@ -22,7 +22,6 @@ class @main
 
     documents : @module '$/media' :
       photos : $form : person : 'documents'
-      min : true
       depend : [
         @module 'lib/jquery/ui_widget'
         @module 'lib/jquery/iframe_transport_plugin'

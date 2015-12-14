@@ -9,7 +9,6 @@ class AddPhotos
     @front = @found.front
     @preloader = @found.preloader
     @input = @found.input
-    @photo = @found.photo
     @photos = @found.photos
   show : =>
     once_click = true
@@ -27,6 +26,7 @@ class AddPhotos
         @input = jQuery(e.target)
         @disable_loader()
     @found.remove_photo.click => Q.spawn => yield @remove_photo()
+
   remove_photo : =>
     return unless @found.photos.find('>.photo').length
     @disable_loader()
@@ -134,7 +134,9 @@ class AddPhotos
       img.css 'opacity',0
       img.appendTo @photos
       img.find('img').on 'load',thenf
+      @found.remove_photo.show()
     else
+      @found.remove_photo.hide()
       thenf()
 
 @main = AddPhotos

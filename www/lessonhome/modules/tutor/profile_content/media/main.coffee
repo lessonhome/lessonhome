@@ -9,13 +9,17 @@ class media
     for i, layer of @tree.photos
       for j, photo of layer.photos
         @photos[photo.hash] = photo
-    console.log @photos
+
     @dom.on 'click', '.remove',  (e) =>
       @emit 'remove', $(e.currentTarget).closest('.photo-wrap').attr('data-id')
+      e.stopPropagation()
 
-  reloadPhotos: (photos) =>
+    if @tree.message
+      @dom.on 'click', '.photo-wrap', (e) =>
+        @emit 'select', $(e.currentTarget).attr('data-id')
 
-    layers = yield @remakeLayers(photos)
+  reloadPhotos: () =>
+    layers = yield @remakeLayers()
 
     media_content = @dom[0]
 
@@ -39,6 +43,12 @@ class media
 
         wrapper.appendChild(remove)
         wrapper.appendChild(image)
+        if @tree.message
+          div = document.createElement('div')
+          div.className = 'load-text'
+          div.innerHTML = @tree.message
+          wrapper.className += ' ' + 'pointer'
+          wrapper.appendChild(div)
         layerDOM.appendChild(wrapper)
 
       media_content.appendChild(layerDOM)
@@ -69,12 +79,12 @@ class media
     for photo in photos
       @photos[photo.hash] = photo
 
-    @reloadPhotos(photos)
+    @reloadPhotos()
 
   setAsAvatar: (id)=> do Q.async =>
 #    data = yield @$send('setAvatar', {id: id})
 #    @emit 'set_ava', data.newAva
-  remakeLayers: (photos) =>
+  remakeLayers: () =>
     W = 738
     HMIN = 150
     HMAX = 350
@@ -84,7 +94,7 @@ class media
     a = 0
     n = 0
 
-    for p in photos
+    for hash, p of @photos
       continue unless p
       unless layer
         a = 0

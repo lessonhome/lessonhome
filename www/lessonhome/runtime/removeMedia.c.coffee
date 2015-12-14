@@ -8,6 +8,7 @@
   persons = yield _invoke personsDb.find({account: $.user.id}),'toArray'
   persons = persons[0]
 
+  set = null
   photos = null
 
   switch data.type

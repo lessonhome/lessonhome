@@ -14,6 +14,7 @@ class AddPhotos
     @params[@type] = 'true'
     @input.fileupload
       dataType : 'json'
+      singleFileUploads: false
       progressall : @progressall
       done : @done
       change : (e)=>
@@ -21,9 +22,9 @@ class AddPhotos
         @input.prop 'disabled',true
         
   done : (e,data)=>
-    nowFile   = data?.files[data?.files?.length-1]
-    lastFile  = data?.originalFiles?[data?.originalFiles?.length-1]
-    return unless nowFile==lastFile
+#    nowFile   = data?.files[data?.files?.length-1]
+#    lastFile  = data?.originalFiles?[data?.originalFiles?.length-1]
+#    return unless nowFile==lastFile
     $.getJSON('/uploaded/image', @params)
     .success (data)=>
       if data?.uploaded?

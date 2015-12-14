@@ -2,7 +2,7 @@
 
 @handler = ($, data)=>
 
-  result = {status: 'succes'}
+  result = {status: 'success'}
   personsDb = yield $.db.get 'persons'
   uploadedDb = yield $.db.get 'uploaded'
   acc = yield _invoke personsDb.find({account:$.user.id},{avatar:1}), 'toArray'

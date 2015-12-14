@@ -2,7 +2,6 @@
 month = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь']
 
 getLayers = (uploaded, data) ->
-  console.log data
   return [] unless data and uploaded
   W = 738
   HMIN = 150
@@ -14,7 +13,9 @@ getLayers = (uploaded, data) ->
   n = 0
   photos = []
   for p in data ? []
-    photos.push uploaded[p]
+    copy = {}
+    copy[key] = value for key, value of uploaded[p]
+    photos.push copy
   photos.reverse()
   for p in photos
     continue unless p

@@ -162,29 +162,31 @@ class FileUpload
 
 
       if uploaded.length
-        console.log hash_news
         yield _invoke uploadedDb, 'insert', uploaded
         yield _invoke personsDb, 'update', {account: req.user.id}, {$set:{uploaded : user_upload} }, {upsert: true}
 
         set = null
         field = null
+        old = null
 
         switch 'true'
-          when params.avatar then set = avatar : field = person.avatar ? []
-          when params.documents then set = documents : field = person.documents ? []
-          else set = photos : field = person.photos ? []
+          when params.avatar
+            set = avatar : field = []
+            old = person.avatar ? []
+          when params.documents
+            set = documents : field = []
+            old = person.documents ? []
+          else
+            set = photos : field = []
+            old = person.photos ? []
 
-        count_change = 0
         exist = {}
-        exist[key] = true for key in field
-        for key in hash_news
-          continue if exist[key]
-          exist[key] = true
-          field.push key
-          count_change++
+        exist[key] = true for key in hash_news
+        field.push(key) for key in old when not exist[key]
+        field.push(key) for key in hash_news
+        exist = null
 
-        if count_change
-          yield _invoke personsDb, 'update', {account: req.user.id}, {$set : set}, {upsert : true}
+        yield _invoke personsDb, 'update', {account: req.user.id}, {$set : set}, {upsert : true}
 
     yield @site.form.flush ['person'],req,res
     res.setHeader 'content-type','application/json'
