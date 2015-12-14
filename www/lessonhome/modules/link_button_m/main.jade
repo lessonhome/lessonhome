@@ -2,9 +2,11 @@
 
 - selector = selector || "";
 - activities_str = selector.indexOf('inactive')
+- btn_icon = btn_icon || "";
+
 if activities_str != -1
   a.waves-effect.waves-light.btn-large(href=href class=selector).js-text!=text
-    i.material-icons.left lock_open
+    i.material-icons.left!=btn_icon
 else
   a.waves-effect.waves-light.btn-large.active(href=href class=selector).js-text!=text
-    i.material-icons.left lock_open
+    i.material-icons.left!=btn_icon
