@@ -1,0 +1,47 @@
+.search-filter
+  label
+    color: rgba(0, 0, 0, 0.87)
+.collapsible-header
+  -webkit-transition: .4s ease-out
+  -o-transition: .4s ease-out
+  -moz-transition: .4s ease-out
+  transition: .4s ease-out
+  border-left: 4px solid #ddd
+  &.selected
+    border-left: 4px solid #26a69a
+.collapsible-body
+  padding: 1rem 2rem
+.row
+  &.no-bottom-margin
+    margin-bottom: 1rem
+    .input-field
+      margin-top: 0
+
+.dropdown-content
+  li
+    &>span
+      font-size: 1rem
+      color: #26a69a
+      display: block
+      padding: 0.5rem 0.5rem
+
+.select-wrapper
+  input.select-dropdown
+    font-size: 0.9rem
+.select-dropdown
+  li.optgroup ~ li:not(.optgroup)
+    display: none
+  li.optgroup ~ li.subgroup_1
+    display: block
+  li.optgroup ~ li:not(.optgroup).disabled
+    display: none !important
+
+.megaselect
+  ul.active
+    top: 0 !important
+.top-filter-parametrs
+  padding: 1rem
+.filter-title
+  font-weight: 700
+  font-size: 1.2rem
+  margin-bottom: 0.5rem

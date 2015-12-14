@@ -77,6 +77,10 @@ class module.exports
           n = _jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\\\"/, @replacer2)
           break if n == _jade.fnCli
           _jade.fnCli = n
+        while true
+          n = _jade.fnCli.replace(/class\"\s*\:\s*\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\"/, @replacer2)
+          break if n == _jade.fnCli
+          _jade.fnCli = n
         ###
         m = _jade.fnCli.match(/class=\\\"([\w-\s]+)\\\"/mg)
         console.log m

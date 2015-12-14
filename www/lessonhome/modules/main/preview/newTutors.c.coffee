@@ -9,6 +9,7 @@ class Tutors
     @timereload = 0
     @inited = 0
   init : =>
+    return
     return _waitFor @,'inited' if @inited == 1
     return if @inited > 1
     @redis = yield Main.service('redis')
@@ -78,6 +79,7 @@ class Tutors
       delete @filters[f]
     return @refiltering = false
   handler : ($, {filter,preps,from,count,exists})->
+    return
     yield @init() unless @inited == 2
     ret = {}
     ret.preps = {}
@@ -113,8 +115,6 @@ class Tutors
     return f
     
   reload : => _reload.apply @
-
-
 
 tutors = new Tutors
 module.exports = tutors

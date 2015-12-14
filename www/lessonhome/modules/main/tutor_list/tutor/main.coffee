@@ -117,30 +117,30 @@ class @main
     @found.price?.text?(value.left_price)
      
     @found.name.text name
-    rating = (value.rating-3)*3/2+4
-    rating = Math.ceil(rating*10)/10
-    stars = @found.stars.find('i')
-    i = 0
-    while i<=(rating)
-      unless stars[i]
-        star = $(stars[0]).clone(true,true)
-        @found.stars.append star
-
-      else
-        star = $ stars[i]
-      star.addClass 'orange-text'
-      i++
-    if rating <= 5
-      rtext = 'Рейтинг: '+rating
-    else if rating <= 6
-      rtext = "Рейтинг: 5+"
-    else
-      rtext = "Рейтинг: 5++"
-    if rating > 5
-      @found.stars.find('i').css 'font-size':'1.2rem'
-        
-
-    @found.stars.attr('title',rtext).attr('alt',rtext)
+#    rating = (value.rating-3)*3/2+4
+#    rating = Math.ceil(rating*10)/10
+#    stars = @found.stars.find('i')
+#    i = 0
+#    while i<=(rating)
+#      unless stars[i]
+#        star = $(stars[0]).clone(true,true)
+#        @found.stars.append star
+#
+#      else
+#        star = $ stars[i]
+#      star.addClass 'orange-text'
+#      i++
+#    if rating <= 5
+#      rtext = 'Рейтинг: '+rating
+#    else if rating <= 6
+#      rtext = "Рейтинг: 5+"
+#    else
+#      rtext = "Рейтинг: 5++"
+#    if rating > 5
+#      @found.stars.find('i').css 'font-size':'1.2rem'
+#
+#
+#    @found.stars.attr('title',rtext).attr('alt',rtext)
 
     @found.image.attr('src', value.photos[value.photos.length-1].lurl)
       .attr('alt',name).attr('title',name)

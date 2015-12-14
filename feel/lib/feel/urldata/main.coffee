@@ -16,9 +16,11 @@ class UrlData
     @forms  = {}
     @fforms = {}
     @files = {}
+    @const = {}
     @udata = new UrlDataFunctions
   init : =>
     @Feel = yield Main.service 'feel'
+    yield @readConsts()
     @hostname = require('os').hostname()
     try
       @json = require "#{@path}/static/urldata/#{@hostname}.json"
@@ -77,6 +79,17 @@ class UrlData
     for fname,file of @files
       @files[fname].src =  "(function(){"+(yield file.src)+"}).call(_FEEL_that);"
       @files[fname].hash = _shash @files[fname].src
+  readConsts : => do Q.async =>
+    global.Feel ?= {}
+    global.Feel.const ?= (name)=> @const[name]
+    @const = {}
+    readed = yield _readdirp
+      root : 'www/lessonhome/const'
+      fileFilter  : '*.coffee'
+    files = for file in readed.files then file.path
+    w8for = for file,i in files
+      @const[file.replace(/\.coffee$/,'')] = require process.cwd()+'/www/lessonhome/const/'+file
+    yield Q.all w8for
   next : (str)=>
     make = false
     make = true unless str?

@@ -97,6 +97,8 @@ class module.exports
        (!fs.existsSync("www/#{sass[1]}.css"))
       )
         fs.unlinkSync file
+  const : (name)=> @site['lessonhome'].const[name]
+
   cacheFile : (path,data,sfx="")=>
     path = _path.normalize path
     cache = path.replace /^\w+\//, ".cache\/"
