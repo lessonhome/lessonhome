@@ -1,9 +1,10 @@
-.thanks_block(style = "background: url(#{F('main/filter_top.jpg')})")
-  .icon_block
-    .icon(style="width: #{thanks_icon.width}px; height: #{thanks_icon.height}px; background: url(#{thanks_icon.src});")
-  .progress_bar!= progress_bar
-  .text
-    .t1.select Спасибо!
-    .t2.select Ваша заявка отправлена.
-    .t3.select В ближайшее время оператор свяжется с Вами.
-    .t4.select!= 'Если у вас есть вопросы, то вы можете посмотреть раздел<br><a>помощи</a> или отправить нам <a>сообщение</a>.'
+.container
+  h1.center-align Спасибо!
+  .row
+    .col.l6.m6.s12.left-align.offset-l3.offset-m3
+      p Ваша заявка отправлена.
+      p В ближайшее время оператор свяжется с Вами.
+      p Если у вас есть вопросы, то вы можете посмотреть раздел&#032;
+        a(href='/support') помощи
+        | &#032;или посмотрите нам&#032;
+        a(href='/second_step') наших преподавателей
