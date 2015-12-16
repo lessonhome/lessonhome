@@ -1,9 +1,10 @@
+- value = require(process.cwd()+'/www/lessonhome/modules/main/tutor_list/tutor/parse').parse(value) || {};
 .row.tutors-hover
   .col.s12.m12.l12
     .tutor-block
       .col.s3.left
         a.js-image_a
-          img.js-image(src!= photo).responsive-img
+          img.js-image(src!= value.photo).responsive-img
       //.col.s9.m9.l7.left.js-stars
       //  i.material-icons.tiny grade
       //  i.material-icons.tiny grade
@@ -12,19 +13,19 @@
       //  i.material-icons.tiny grade
       .col.s9.m9.l7.left
         .tutor-title
-          a.js-name!=name
+          a.js-name!=value.name
       .col.s9.m9.l9.right.hide-on-small-only
-        .grey-text.text-darken-1.js-experience!=experience
+        .grey-text.text-darken-1.js-experience!=value.experience
       .col.s12.m9.l9.right
-        .grey-text.text-darken-1.js-subject!= subject
+        .grey-text.text-darken-1.js-subject!= value.subject
       .col.s12.m9.l9.right.description
-        p.js-about!=description
+        p.js-about!=value.description
       .col.s12.m9.l9.right.valign-wrapper.no-vertical-space
         .col.s12.m9.l6.valign
-          .grey-text.text-darken-1.js-location!=location
+          .grey-text.text-darken-1.js-location!=value.location
         .col.s12.m9.l6.valign
           .small.gray-text.right-align от&nbsp;
-            span.js-price!=price
+            span.js-price!=value.price
             span р./час
       .col.s12.m12.l12.right-align.tutor-action
         button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger

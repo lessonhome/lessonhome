@@ -35,7 +35,7 @@ class @main
       any:        ->
         return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
 
-    @found.tutors_list.find('>div').remove()
+#    @found.tutors_list.find('>div').remove()
     numTutors = 5
     tutors = yield Feel.dataM.getByFilter numTutors, (@tree.filter ? {})
     tutors ?= []
