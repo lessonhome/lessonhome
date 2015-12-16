@@ -135,12 +135,19 @@ class @activeState
                         v.value = nv.value
                       else for key,val of nv.value
                         _setKey v.value,key,val
-                    cl.setValue nv.value
+                    ret = cl.setValue nv.value
+                    try ret?.done?()
+                    catch e
+                      console.error e
                   cl.__w8change2 = 0
                   cl.__ulock = false
                   cl.emit 'w8change2'
           $W cl,null,false
           $W cl.js,null,false if cl?.js?
+          if cl.js?.parse? && cl.setValue?
+            cl.__setValue = cl.setValue
+            cl.setValue = (args...)-> do Q.async =>
+              return cl.__setValue.call cl, yield cl.js.parse.apply {},args
   parseTree : (node,statename)=>
     return if node._parseIn
     if node._statename?
