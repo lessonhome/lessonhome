@@ -8,32 +8,34 @@ status =
 #metro = Feel.const('metro').metro
 
 @parse = (value)->
-  console.log JSON.stringify value
 
   value ?= {}
 
   ret = {}
 
+  #index
+  ret.index = value.index
+
   #name
-  value.name = "#{value?.name?.first ? ""} #{value?.name?.middle ? ""}"
+  ret.name = "#{value?.name?.first ? ""} #{value?.name?.middle ? ""}"
 
   #subject
-  value.subject = ""
+  ret.subject = ""
   value.subjects ?= {}
 
   for key of value.subjects
-    value.subject += ', ' if value.subject
-    value.subject += key?.capitalizeFirstLetter?()
+    ret.subject += ', ' if ret.subject
+    ret.subject += key?.capitalizeFirstLetter?()
 
   #exp
   value.experience ?= ""
   exp = ""
   exp += " года" if exp && !exp?.match? /\s/
-  value.experience = "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
+  ret.experience = "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
 
   #about
   value.about ?= ""
-  value.about = value.about || ''
+  ret.about = value.about || ''
 
   #location
   value.location ?= {}
@@ -60,22 +62,15 @@ status =
   ls = ""
   ls = cA ls,ls3,'<br><br>'
   ls = cA ls,ls1,'<br>'
-  value.location = ls
+  ret.location = ls
 
   #price
   value.left_price ?= 0
-  value.left_price = value.left_price
+  ret.left_price = value.left_price
 
   #photo src
   value.photos ?= {}
-  value.photos = value.photos[Object.keys(value.photos).length-1].lurl
+  ret.photos = value.photos[Object.keys(value.photos).length-1].lurl
 
-  ret.name = value.name
-  ret.subject = value.subject
-  ret.experience = value.experience
-  ret.location = value.location
-  ret.left_price = value.left_price
-  ret.photos = value.photos
-  ret.about = value.about
-
+  console.log ret
   return ret
