@@ -106,7 +106,6 @@ class @main
     preps = yield Feel.dataM.getTutor [@index]
     prep = preps[@index]
     return unless prep?
-    console.log prep
     @setValue prep
     yield @setLinked()
   goBack : =>
@@ -148,7 +147,6 @@ class @main
       yield Feel.urlData.set 'mainFilter','linked',linked
     @tutorChoose state==true if choose
   tutorChoose : (active)=>
-    console.log 'tutorchoose',active
     if active
       @found.tutor_trigger.addClass('waves-light teal lighten-2 selected white-text').removeClass('btn-trigger waves-teal')
       @found.tutor_trigger.find('.tutor_button_text').html('Убрать')

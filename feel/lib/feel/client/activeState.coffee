@@ -147,7 +147,7 @@ class @activeState
           if cl.js?.parse? && cl.setValue?
             cl.__setValue = cl.setValue
             cl.setValue = (args...)-> do Q.async =>
-              return cl.__setValue.call cl, yield cl.js.parse.apply {},args
+              return cl.__setValue.call cl, yield $W(cl.js.parse).apply {},args
   parseTree : (node,statename)=>
     return if node._parseIn
     if node._statename?
