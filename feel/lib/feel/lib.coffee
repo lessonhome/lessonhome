@@ -10,7 +10,7 @@ setInterval ->
   __used = n
 , 5000
 ###
-
+String::capitalizeFirstLetter = -> @charAt(0).toUpperCase() + @slice(1)
 
 global._production = false
 if require('os').hostname() == 'pi0h.org'

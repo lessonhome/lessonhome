@@ -8,6 +8,8 @@ status =
 #metro = Feel.const('metro').metro
 
 @parse = (value)->
+  console.log JSON.stringify value
+
   value ?= {}
 
   ret = {}

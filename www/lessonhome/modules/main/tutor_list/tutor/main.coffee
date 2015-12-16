@@ -41,9 +41,9 @@ class @main
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
       @found.tutor_trigger.find('.material-icons').html('add')
   setValue : (value)=>
-#    @tree.value ?= {}
-#    @tree.value[key] = val for key,val of value
-#    value = @tree.value
+    @tree.value ?= {}
+    @tree.value[key] = val for key,val of value
+    value = @tree.value
 
     name = value.name
     @found.name.text name
