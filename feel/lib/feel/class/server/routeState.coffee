@@ -356,7 +356,7 @@ class RouteState
         path += "."+uform.part if uform.part
         _setKey uform.node,path,uform.fkf.default,true
     @time 'forms set'
-    @parse @top,null,@top,@top,@,'top'
+    yield @parse @top,null,@top,@top,@,'top'
     if @site.modules['default'].allCss && !@modules['default']? && (!@state.page_tags['skip:default'])
       @cssModule 'default'
     for modname of @modules
@@ -490,7 +490,7 @@ class RouteState
   cssModuleExt    : (modname,exts)=>
     css = @site.modules[modname].getAllCssExt exts
     @css += "<style id=\"f-css-#{modname}-exts\">#{css}</style>"
-  parse : (now,uniq,module,state,_pnode,_pkey)=>
+  parse : (now,uniq,module,state,_pnode,_pkey)=> do Q.async =>
     #return if now.__parsed
     if now?.__state?.parent?.tree?
       @getTopNode now, true
@@ -520,7 +520,7 @@ class RouteState
           new_module = module
         #console.log val
         #now.__parsed = true
-        @parse val,uniq,new_module,new_state,now,key
+        yield @parse val,uniq,new_module,new_state,now,key
         #delete now.__parsed
     if now._isModule
       @modules[now._name] = true
@@ -532,7 +532,7 @@ class RouteState
       if !@site.modules[now._name]?
         throw new Error "can't find module '#{now._name}' in state '#{@statename}'"
       
-      filetag = @site.modules[now._name]?.coffee?['parse.coffee']
+      filetag = @site.modules[now._name]?.coffeenr?['parse.coffee']
       if filetag
         tempGThis = {}
         try
@@ -541,7 +541,8 @@ class RouteState
           console.error "failed eval parse.coffee in #{now._name}"
           console.error e
         try
-          o.value = tempGThis.parse o.value
+          tempGThis.parse = $W tempGThis.parse
+          o.value = yield tempGThis.parse o.value
         catch e
           console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}"
           console.error e

@@ -8,14 +8,13 @@ status =
 #metro = Feel.const('metro').metro
 
 @parse = (value)->
-
   value ?= {}
 
   ret = {}
 
   #index
   ret.index = value.index
-
+  ret.link = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
   #name
   ret.name = "#{value?.name?.first ? ""} #{value?.name?.middle ? ""}"
 

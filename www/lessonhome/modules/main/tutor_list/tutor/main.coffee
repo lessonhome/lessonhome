@@ -45,8 +45,7 @@ class @main
     @tree.value[key] = val for key,val of value
     value = @tree.value
 
-    name = value.name
-    @found.name.text name
+    @found.name.text value.name
 
     @found.subject.text value.subject
 
@@ -88,9 +87,9 @@ class @main
 
     src_path = value.photos
     @found.image.attr('src', src_path)
-      .attr('alt',name).attr('title',name)
-    link = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
-    @dom.find('a').attr('href',link).attr('title',name).attr('alt',name)
+      .attr('alt',value.name).attr('title',value.name)
+    #link = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
+    @dom.find('a').attr('href',value.link).attr('title',value.name).attr('alt',value.name)
     @dom.find('a').click (e)=>
       return unless e.button == 0
       e.preventDefault()
