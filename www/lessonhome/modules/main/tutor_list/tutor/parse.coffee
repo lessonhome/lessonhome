@@ -29,7 +29,7 @@ status =
 
   #exp
   value.experience ?= ""
-  exp = ""
+  exp = value.experience ? ""
   exp += " года" if exp && !exp?.match? /\s/
   ret.experience = "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
 
@@ -72,5 +72,4 @@ status =
   value.photos ?= {}
   ret.photos = value.photos[Object.keys(value.photos).length-1].lurl
 
-  console.log ret
   return ret

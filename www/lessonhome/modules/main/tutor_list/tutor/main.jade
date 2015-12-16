@@ -3,11 +3,11 @@
   .col.s12.m12.l12
     .tutor-block
       .col.s3.left
-        a.js-image_a
+        a(href!=value.link).js-image_a
           img.js-image(src!= value.photos).responsive-img
       .col.s9.m9.l7.left
         .tutor-title
-          a.js-name!=value.name
+          a(href!=value.link).js-name!=value.name
       .col.s9.m9.l9.right.hide-on-small-only
         .grey-text.text-darken-1.js-experience!=value.experience
       .col.s12.m9.l9.right
