@@ -204,8 +204,8 @@ class @main
       @templ_pr.add()
     @templ_pr.push parent.html('')
 #  setValue : =>
-  setValue : (data={})=>
-    value = @js.parse data
+  setValue : (value)=>
+    #value = @js.parse data
 
     @setAvatar(value.src_avatar)
 

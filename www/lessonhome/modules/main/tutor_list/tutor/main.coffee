@@ -40,8 +40,7 @@ class @main
       @found.tutor_trigger.removeClass('waves-light teal lighten-2 selected white-text').addClass('btn-trigger waves-teal')
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
       @found.tutor_trigger.find('.material-icons').html('add')
-  setValue : (value={})=>
-    value = @js.parse value
+  setValue : (value)=>
 #    @tree.value ?= {}
 #    @tree.value[key] = val for key,val of value
 #    value = @tree.value

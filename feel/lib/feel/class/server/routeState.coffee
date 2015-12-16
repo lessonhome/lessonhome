@@ -531,6 +531,20 @@ class RouteState
       o = @getO now,uniq
       if !@site.modules[now._name]?
         throw new Error "can't find module '#{now._name}' in state '#{@statename}'"
+      
+      filetag = @site.modules[now._name]?.coffee?['parse.coffee']
+      if filetag
+        tempGThis = {}
+        try
+          eval "(function(){#{filetag}}).apply(tempGThis);"
+        catch e
+          console.error "failed eval parse.coffee in #{now._name}"
+          console.error e
+        try
+          o.value = tempGThis.parse o.value
+        catch e
+          console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}"
+          console.error e
       now._html = @site.modules[now._name].doJade o,@,state.__state
       ms = now._html.match /js-\w+--{{UNIQ}}/mg
       now._domregx = {}
