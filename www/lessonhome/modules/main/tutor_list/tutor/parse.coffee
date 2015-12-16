@@ -5,7 +5,7 @@ status =
   private_teacher  :'Частный преподаватель'
   native_speaker : 'Носитель языка'
 
-#metro = Feel.const('metro').metro
+metro_map = Feel.const('metro').metro_map
 
 @parse = (value)->
 
@@ -71,5 +71,10 @@ status =
   #photo src
   value.photos ?= {}
   ret.photos = value.photos[Object.keys(value.photos).length-1].lurl
+
+  #metro
+  metroObj = JSON.parse(metro_map);
+
+  console.log metroObj
 
   return ret
