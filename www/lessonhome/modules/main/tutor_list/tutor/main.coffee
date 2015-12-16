@@ -42,20 +42,16 @@ class @main
       @found.tutor_trigger.find('.material-icons').html('add')
   setValue : (value={})=>
     value = @js.parse value
-    @tree.value ?= {}
-    @tree.value[key] = val for key,val of value
-    value = @tree.value
-  
-    name = "#{value?.name?.first ? ""} #{value?.name?.middle ? ""}"
-    subject = ""
-    for key of value.subjects
-      subject += ', ' if subject
-      subject += key?.capitalizeFirstLetter?()
-    @found.subject.text subject
-    
-    exp = value.experience ? ""
-    exp += " года" if exp && !exp?.match? /\s/
-    @found.experience.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
+#    @tree.value ?= {}
+#    @tree.value[key] = val for key,val of value
+#    value = @tree.value
+
+    name = value.name
+    @found.name.text name
+
+    @found.subject.text value.subject
+
+    @found.experience.text value.experience
 
     isMobile =
       Android:    ->
@@ -71,8 +67,7 @@ class @main
       any:        ->
         return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
 
-    tutor_text = value.about || ''
-#    maxl = 500
+    tutor_text = value.about
 
     if !isMobile.any()
       maxl = 500
@@ -87,63 +82,13 @@ class @main
       @found.about.append $("<a class='about_link'>подробнее</a>")
     else
       @found.about.text tutor_text
-  
-    l = value?.location ? {}
-    cA = (str="",val,rep=', ')->
-      return str unless val
-      val = ""+val
-      val = val.replace /^\s+/,''
-      val = val.replace /\s+$/,''
-      return str unless val
-      unless str
-        str += val
-      else
-        str += rep+val
 
-    ls1 = ""
-    ls1 = cA ls1,l.city
-#    ls1 = cA ls1,l.area
-    ls2 = ""
-    ls2 = cA ls2,l.street
-    ls2 = cA ls2,l.house
-    ls2 = cA ls2,l.building
-    ls3 = ""
-    ls3 += "м. #{l.metro}" if l.metro
-    ls = ""
-#    ls = cA ls,ls2,'<br>'
-    ls = cA ls,ls3,'<br><br>'
-    ls = cA ls,ls1,'<br>'
-    @found.location.html(ls)
-    
+    @found.location.html(value.location)
+
     @found.price?.text?(value.left_price)
-     
-    @found.name.text name
-#    rating = (value.rating-3)*3/2+4
-#    rating = Math.ceil(rating*10)/10
-#    stars = @found.stars.find('i')
-#    i = 0
-#    while i<=(rating)
-#      unless stars[i]
-#        star = $(stars[0]).clone(true,true)
-#        @found.stars.append star
-#
-#      else
-#        star = $ stars[i]
-#      star.addClass 'orange-text'
-#      i++
-#    if rating <= 5
-#      rtext = 'Рейтинг: '+rating
-#    else if rating <= 6
-#      rtext = "Рейтинг: 5+"
-#    else
-#      rtext = "Рейтинг: 5++"
-#    if rating > 5
-#      @found.stars.find('i').css 'font-size':'1.2rem'
-#
-#
-#    @found.stars.attr('title',rtext).attr('alt',rtext)
 
-    @found.image.attr('src', value.photos[value.photos.length-1].lurl)
+    src_path = value.photos
+    @found.image.attr('src', src_path)
       .attr('alt',name).attr('title',name)
     link = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
     @dom.find('a').attr('href',link).attr('title',name).attr('alt',name)

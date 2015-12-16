@@ -1,16 +1,11 @@
 - value = require(process.cwd()+'/www/lessonhome/modules/main/tutor_list/tutor/parse').parse(value) || {};
+- console.log(value)
 .row.tutors-hover
   .col.s12.m12.l12
     .tutor-block
       .col.s3.left
         a.js-image_a
-          img.js-image(src!= value.photo).responsive-img
-      //.col.s9.m9.l7.left.js-stars
-      //  i.material-icons.tiny grade
-      //  i.material-icons.tiny grade
-      //  i.material-icons.tiny grade
-      //  i.material-icons.tiny grade
-      //  i.material-icons.tiny grade
+          img.js-image(src!= value.photos).responsive-img
       .col.s9.m9.l7.left
         .tutor-title
           a.js-name!=value.name
