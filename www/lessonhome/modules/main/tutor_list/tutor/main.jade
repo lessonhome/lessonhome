@@ -16,10 +16,10 @@
       .col.s12.m9.l9.right.valign-wrapper.no-vertical-space
         .col.s12.m9.l6.valign
           .grey-text.text-darken-1.js-location!=value.location
-          .grey-text.text-darken-1
+          .grey-text.text-darken-1.js-metro_line
             each val, index in value.metro_tutors
               span.stantion
-                i.material-icons directions_transit
+                i.material-icons(class!=val.color) directions_transit
                 span!=val.metro
         .col.s12.m9.l6.valign
           .small.gray-text.right-align от&nbsp;
