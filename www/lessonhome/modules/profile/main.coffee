@@ -39,8 +39,21 @@ class templ
 class @main
   constructor : ->
     $W @
+#
+#  metro : =>
+#    yield Q.delay 1000
+#    obj = Feel.const('metro').metro_map
+#    ret = {}
+#    for line in obj
+#      for s in line.stations
+#        ret[_diff.metroPrepare(s)] = {
+#          name : s
+#          line : line.line
+#          color : line.color
+#        }
+#    console.log ret
   Dom : =>
-
+#    @metro()
     @chooseTutor  = @found.tutor_trigger
     @triggerCount = 0
     @resolution = true
