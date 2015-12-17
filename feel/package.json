@@ -62,7 +62,7 @@
     "request-json":"*",
     "yandex-direct" : "*",
     "yandex-direct-api": "*",
-    "md5-file":"*"
+    "md5-file":"*",
     "kue" : "*",
     "redlock":"*"
   }
