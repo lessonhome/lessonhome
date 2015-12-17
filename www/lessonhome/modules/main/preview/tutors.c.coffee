@@ -1,6 +1,6 @@
 
-_filter = require './filter'
-_reload = require './reload'
+_filter = require './filter.c'
+_reload = require './reload.c'
 
 
 class Tutors
@@ -120,7 +120,7 @@ class Tutors
     @filterChange = true
     return f
     
-  reload : => _reload.apply @
+  reload : =>$W( _reload.reload).apply @
 
 
 

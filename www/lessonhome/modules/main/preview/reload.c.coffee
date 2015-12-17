@@ -15,7 +15,7 @@ age = (date1,date2)=>
 
 
 
-module.exports = ->
+@reload = ->
     t = new Date().getTime()
     return @persons unless (t-@timereload)>(1000*10)
     @timereload = t

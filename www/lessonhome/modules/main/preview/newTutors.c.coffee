@@ -1,6 +1,6 @@
 
-_filter = require './filter'
-_reload = require './reload'
+_filter = require './filter.c'
+_reload = require './reload.c'
 
 
 class Tutors
