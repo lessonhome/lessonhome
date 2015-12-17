@@ -1,8 +1,10 @@
-.enter_block
-  .title Мы выслали Вам код, которым вы можете воспользоваться в течении 24 часов.
-  .text Если код не пришел в течении 5 мин. его можно запросить повторно.
-  .newCode_button!=newCode_button
-  .login
-    .input!= code
-  .buttons
-    .continue_button!=continue_button
+.container
+  .row
+    .col.l4.offset-l4
+      h5 Мы выслали Вам код, которым вы можете воспользоваться в течении 24 часов.
+      p Если код не пришел в течении 5 мин. его можно запросить повторно.
+      .row.center-align
+        a.waves-effect.waves-light.btn.disabled.js-again Отправить новый код
+      .row!= code
+      .row.button_row
+        .col.s12.l12.m12.center-align!=continue_button

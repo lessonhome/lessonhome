@@ -1,4 +1,4 @@
-class @main extends @template '../main'
+class @main extends @template '../lp'
   route : '/new_password'
   model : 'main/second_step'
   title : "Новый пароль"
@@ -9,27 +9,29 @@ class @main extends @template '../main'
     'pupil' : 'main/first_step'
   }
   tree : =>
-    filter_top : @module '$'  :
+    content : @module '$'  :
       depend : [
         @module 'lib/crypto'
         @module 'lib/lzstring'
       ]
-      password           : @module 'tutor/forms/input' :
+      password           : @module 'tutor/forms/input_m' :
         ###
         replace : [
           "[^\\d-\\(\\)\\@\\w\\+\\s\\.]"
         ]
         ###
-        name        : 'email'
+        name        : 'password'
         type        : 'password'
         selector    : 'registration'
         text1       : 'Новый пароль'
-      confirm_password    : @module 'tutor/forms/input' :
+        input_icon  : 'lock'
+      confirm_password    : @module 'tutor/forms/input_m' :
         name        : 'password'
         type        : 'password'
         selector    : 'registration'
         text1       : 'Подтвердить пароль'
-      save_button    : @module 'link_button' :
+        input_icon  : 'lock'
+      save_button    : @module 'link_button_m' :
         href      : '/tutor/search_bids'
         selector  : 'save_enter'
         text      : 'Сохранить и войти'

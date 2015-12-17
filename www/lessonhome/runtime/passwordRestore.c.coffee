@@ -1,76 +1,119 @@
+check = require('../modules/register/content/check')
+
+sms_time_life = 24*60 #minutes - the time limit for entering the code.
+sms_period_life = 5 #minutes - frequency with witch possible send message.
+sms_number_life = 10 #- Maximum the number of attempts. The number of attempts is reset to zero later time "sms_period_refresh".
+sms_period_refresh = 24 #hours - The number of attempts is reset to zero after this time
 
 
-
-@handler = ($, data)->
-  return {status:'failed',err:'login_not_exists'} unless data?.login?.length > 2
-
-  db = yield Main.service 'db'
-  accountsDb = yield db.get 'accounts'
-  personsDb = yield db.get 'persons'
-  
-  accounts = yield _invoke accountsDb.find({'login': data.login}),'toArray'
-  if accounts[0]?
-    data.id = accounts[0].id
-    persons = yield _invoke personsDb.find({account:accounts[0].id},{phone:1,email:1}),'toArray'
-    persons?[accounts[0].id] = persons?[0]
-    accountFound = true
-  unless accounts[0]? && persons?[data?.id]?.email?[0]
-    persons = yield _invoke personsDb.find({$or:[{'phone.0':{$exists:true}},{'email.0':{$exists:true}}]},{phone:1,email:1,account:1}),'toArray'
-    accs = []
-    for p in persons
-      str = ''
-      str += (p.phone ? []).join(';').replace(/[^\d\;]/gmi,'') ? ''
-      str += (p.email ? []).join(';') ? ''
-      if str.match data.login
-        accountFound = true
-        accs.push p.account
-        p.str = str
-        persons[p.account] = p
-    accounts = yield _invoke accountsDb.find({id:{$in:accs}},{id:1,accessTime:1,login:1}).sort({accessTime:-1}),'toArray'
-    ok = false
-    for a in accounts
-      str = a.login+';'+persons[a.id].str+';'
-      continue unless str.match /\@/
-      ok = true
-      data.login = a.login
-      data.id    = a.id
-    unless ok
-      return {status:'failed',err:'login_not_exists'} unless accountFound
-      return {status:'failed',err:'email_not_exists'}
-
-  
-  data.phone = []
-  data.email = []
-  if data.login.match /\@/
-    data.email.push data.login
-    data.email[data.login] = true
-  else
-    data.phone.push data.login
-    data.phone[data.login] = true
-  return {status:'failed',err:'login_not_exists'} unless data?.id
-  
-  unless persons?[data.id]?
-    persons = yield _invoke personsDb.find({account:data.id},{phone:1,email:1}),'toArray'
-    persons?[data.id] = persons?[0]
-  
-  for e in persons?[data.id]?.email ? []
-    if e?.match?(/\@/) && (e.length > 3)
-      unless data.email[e]
-        data.email.push e
-        data.email[e]=true
-  for e in persons?[data.id]?.phone ? []
-    e = e?.replace?(/\D/gmi,'') || ''
-    if e && !data.phone[e]
-      data.phone.push e
-      data.phone[e] = true
-  return {status:'failed',err:'email_not_exists'} unless data.email.length
-
+@handler = ($, data = {})->
   try
-    yield $.register.passwordRestore data
-  catch err
-    console.log 'err',err
-    err.err ?= 'internal_error'
-    return {status:'failed',err:'login_not_exists'}
-  yield $.form.flush '*',$.req,$.res
+    db = yield Main.service 'db'
+    accountsDb = yield db.get 'accounts'
+    account = yield _invoke accountsDb.find({id: $.user.id}, {changePasswordForId: 1, smsToken: 1, authToken: 1}), 'toArray'
+    account = account[0]
+    throw {err: 'internal_error'} unless account?
 
-  return {status:'success'}
+    desired_account = null
+
+    if data.login?
+      desired_account = yield _invoke accountsDb.find({login: data.login}, {id: 1}), 'toArray'
+      data.id = desired_account[0]?.id ? null
+    else
+      throw {err: 'login_not_exists'} unless account.changePasswordForId?
+      desired_account = yield _invoke accountsDb.find({id: account.changePasswordForId}, {login: 1}), 'toArray'
+      data.id = account.changePasswordForId
+      data.login = desired_account[0]?.login ? null
+
+    throw {err: 'login_not_exists'} unless data.login? and data.id?
+
+    phone = check.checkPhone(data.login)
+    is_email = check.checkEmail(data.login)
+
+    throw {err:'login_not_exists'} unless phone or is_email
+
+    data.phone = []
+    data.email = []
+
+    data.phone.push(phone) if phone
+    data.email.push(data.login) if is_email
+    
+    way = null
+    now = new Date()
+
+    if phone
+      smsToken = null
+      unless account.smsToken?.reborn?
+        smsToken = {
+          count: 0
+          token : _randomHash(3)
+          life : (new Date()).setMinutes(now.getMinutes() + sms_time_life)
+          reborn : (new Date()).setHours(now.getHours() + sms_period_refresh)
+          next : now
+        }
+      else
+        smsToken = account.smsToken
+
+      if smsToken.reborn < now then smsToken.count = 0
+
+      if smsToken.life < now
+        smsToken.token = _randomHash(3)
+        smsToken.life = (new Date()).setMinutes(now.getMinutes() + sms_time_life)
+
+      if smsToken.count < sms_number_life
+
+        if smsToken.next <= now
+          sms_service = yield Main.service 'sms'
+          result = yield sms_service.send [{phone: phone, text: ''+smsToken.token}]
+
+          if result.length and result[result.length - 1].status == 'ok'
+            smsToken.next = (new Date()).setMinutes(now.getMinutes() + sms_period_life)
+            ++smsToken.count
+            yield _invoke accountsDb, 'update', {id: $.user.id}, $set:{smsToken, changePasswordForId: data.id}, {upsert:true}
+            way = 'phone'
+          else throw {err: 'error_sms'}
+
+        else throw {err: 'send_later'}
+
+      else throw {err: 'limit_attempt'}
+
+    else if is_email
+      email_service = yield Main.service 'mail'
+      url_service = yield Main.service 'urldata'
+      authToken = {
+        token: _randomHash(10)
+        valid: (new Date).setHours(now.getHours() + 24)
+      }
+      utoken = yield url_service.d2u 'authToken',{token:authToken.token}
+      yield _invoke accountsDb,'update', {id: $.user.id}, $set:{authToken, changePasswordForId: data.id}, {upsert:true}
+
+      personsDb = yield db.get 'persons'
+      persons = yield _invoke personsDb.find({account: data.id}), 'toArray'
+      persons = persons?[0] ? {}
+
+      name = "#{persons?.last_name ? ''} #{persons?.first_name ? ''} #{persons?.middle_name ? ''}"
+      name = name.replace /^\s+/,''
+      name = name.replace /\s+$/,''
+      name = ', '+ name if name
+      for email in data.email ? []
+        yield email_service.send(
+          'restore_password.html'
+          email
+          'Восстановление пароля'
+          {
+            name: name
+            login: email
+            link: 'https://lessonhome.ru/new_password?'+utoken
+          }
+        )
+      way = 'email'
+
+  catch errs
+    errs['status'] = 'failed'
+    unless errs.err?
+      console.log errs
+      errs['err'] = 'internal_error'
+    return errs
+
+  yield $.form.flush '*',$.req,$.res
+  return {status:'success', way}

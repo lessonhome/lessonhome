@@ -2,11 +2,12 @@ class @main extends EE
   Dom: =>
     @motivation_create_profile = @found.motivation_create_profile
   show : =>
+    @found.terms_of_cooperation.leanModal()
     console.log @tree
     @password = @tree.password.class
-    @found.terms_link.click =>
-      Feel.root.tree.popup?.class?.open?()
-      return false
+#    @found.terms_link.click =>
+#      Feel.root.tree.popup?.class?.open?()
+#      return false
     @hashedPassword = false
     @login    = @tree.login.class
     @submit   = @tree.create_account.class
