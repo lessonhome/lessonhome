@@ -21,5 +21,6 @@ class @main
       return unless e.button == 0
       e.preventDefault()
       Feel.root.tree.class.showTutor index,$(this).attr('href')
+      return false
 #    h = im.lheight * 76/im.lwidth
 #    return {h}

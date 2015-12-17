@@ -212,10 +212,10 @@ SetNewFormatPrice = (data) ->
       val *= 50
       return val
 
-    p1 = subject.price.left
-    p2 = subject.price.right
-    t1 = subject.duration.left
-    t2 = subject.duration.right
+    p1 = subject?.price?.left
+    p2 = subject?.price?.right
+    t1 = subject?.duration?.left
+    t2 = subject?.duration?.right
     delta_t = t2 - t1
 
     if delta_t != 0 then k = (p2 - p1)/delta_t else k = 14

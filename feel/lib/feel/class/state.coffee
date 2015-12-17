@@ -153,7 +153,7 @@ class module.exports
     while cont
       cont = false
       @walk_tree_down state.tree, (node,key,val)=>
-        if Q.isPromise val
+        if !(key=='$defer') && Q.isPromise val
           cont = true
           qs.push val.then (ret)=>
             #console.log 'data stop'.red
@@ -233,9 +233,12 @@ class module.exports
       while cont
         cont = false
         @walk_tree_down state.tree, (node,key,val)=>
-          if Q.isPromise val
+          if !(key=="$defer") && Q.isPromise val
             cont = true
             qs.push val.then (ret)=> node[key] = ret
+          #if (key=="$defer")
+          #  cont = true
+          #  qs.push Q().then($W(val)).then (ret)=> node[key] = ret
         yield Q.all qs
     catch e
       console.error "failed state init #{@name}",Exception e

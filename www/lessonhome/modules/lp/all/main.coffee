@@ -34,8 +34,9 @@ class @main
         return navigator.userAgent.match(/IEMobile/i)
       any:        ->
         return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
-
-#    @found.tutors_list.find('>div').remove()
+    
+    ###
+    @found.tutors_list.find('>div').remove()
     numTutors = 5
     tutors = yield Feel.dataM.getByFilter numTutors, (@tree.filter ? {})
     tutors ?= []
@@ -57,7 +58,7 @@ class @main
       yield clone.setValue tutor
       clone.dom.show()
       clone.dom.animate (opacity:1),1400
-
+    ###
     if !isMobile.any()
       $(document).on 'scroll.lp', @onScroll
     else

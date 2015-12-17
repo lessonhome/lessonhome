@@ -8,10 +8,10 @@ ex = (v)=>
   return 0
 
 @filter = (input,mf)=> do Q.async =>
-  if mf.price.right > 3000
-    mf.price.right = 300000
-  if mf.price.left < 600
-    mf.price.left = 0
+  if mf.price?.right > 3000
+    mf.price?.right = 300000
+  if mf.price?.left < 600
+    mf.price?.left = 0
   out = []
   out2 = []
   out3 = []
@@ -22,8 +22,9 @@ ex = (v)=>
     course = _diff.prepare(course)
     course2 = _diff.prepare(course.replace(/[^\w\@\-а-яА-ЯёЁ]/gmi,''))
     arr = course.split ' '
-    coursearr = [coursearr...,arr...,course2,course2.substr(1),course2.substr(0,course2.length-2)]
+    coursearr = [coursearr...,arr...,course2,course2.substr(1),course2.substr(0,course2?.length-2)]
   arr = {}
+  coursearr ?= []
   for c in coursearr
     continue unless c
     arr[c] = true
@@ -44,14 +45,14 @@ ex = (v)=>
         if c == word
           p.points += 10
           continue
-        if c.length < word.length
+        if c?.length < word?.length
           l = c
           r = word
         else
           l = word
           r = c
-        r = r.substr 0,l.length
-        if (r.length > 2) && (r == l) && (Math.abs(c.length-word.length)<4)
+        r = r.substr 0,l?.length
+        if (r?.length > 2) && (r == l) && (Math.abs(c?.length-word?.length)<4)
           p.points2 += 0.1
     p.points += p.points2 unless p.points
 
@@ -62,11 +63,12 @@ ex = (v)=>
     for key,subject of mf.subject
       exists = true
       found = -1
+      p.words ?= []
       for s in p.words
         nw1 = subject.replace(/язык$/g,'')
         nw2 = s.replace(/язык$/g,'')
-        if (nw1.length < 10) || (nw2.length < 10)
-          continue if Math.abs(nw2.length-nw1.length)>2
+        if (nw1?.length < 10) || (nw2?.length < 10)
+          continue if Math.abs(nw2?.length-nw1?.length)>2
         dif = _diff.match nw1,nw2
         continue if (dif< 0) || (dif>0.4)
         if (found < 0) || (dif<found)
@@ -118,14 +120,14 @@ ex = (v)=>
     if mf.with_photo
       continue if p.nophoto
     if mf.with_verification
-      continue if p.nophoto || (p.about.length < 200)
+      continue if p.nophoto || (p.about?.length < 200)
     if !p.nophoto
-      if p.about.length > 50
+      if p.about?.length > 50
         out.push p
       else
         out2.push p
     else
-      if p.about.length > 50
+      if p.about?.length > 50
         out3.push p
       else
         out4.push p

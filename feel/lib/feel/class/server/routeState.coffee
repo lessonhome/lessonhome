@@ -225,6 +225,14 @@ class RouteState
     @time 'forms get'
     @$urlforms = []
     @$durlforms = []
+    @w8defer = []
+    @walk_tree_down @top,@,'top',(node,pnode,key)=>
+      return unless node["$defer"]
+      deffoo = node["$defer"]
+      delete pnode[key]
+      @w8defer.push do Q.async =>
+        pnode[key] = yield $W(deffoo)()
+    yield Q.all @w8defer
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       do =>
         return unless node?._isModule

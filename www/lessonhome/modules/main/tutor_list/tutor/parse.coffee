@@ -15,6 +15,7 @@ metro_map = Feel.const('metro').metro_map
   #index
   ret.index = value.index
   ret.link = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
+  value.link = ret.link
   #name
   ret.name = "#{value?.name?.first ? ""} #{value?.name?.middle ? ""}"
 
@@ -69,8 +70,7 @@ metro_map = Feel.const('metro').metro_map
 
   #photo src
   value.photos ?= {}
-  ret.photos = value.photos[Object.keys(value.photos).length-1].lurl
-
+  ret.photos = value.photos[Object.keys(value.photos).length-1]?.lurl ? ""
   #metro
   _location          = value.location
   _location.metro   ?= ""

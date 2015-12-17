@@ -76,6 +76,7 @@ class @UrlDataFunctions
     return url
   u2d : (url)=>
     url = "" unless url && (typeof url == 'string')
+    url = url.replace /^.*\?/gmi,''
     fields = url.split '&'
     udata = {}
     ffields = {}

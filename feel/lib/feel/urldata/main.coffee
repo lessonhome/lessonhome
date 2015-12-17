@@ -112,6 +112,47 @@ class UrlData
   d2u : => @udata.d2u arguments...
   u2d : => @udata.u2d arguments...
   d2o : => @udata.d2o arguments...
+  filter : (obj,field,value=true)=>
+    string = false
+    if typeof obj == 'string'
+      obj = yield @toObject obj
+      string = true
+    ret = {}
+    for key,val of obj
+      ret[key] = val if @json?.shorts?[key]?[field]==value
+    return @objectTo ret if string
+    return ret
+  objectTo : (obj)=>
+    obj = {} unless obj && typeof obj=='object'
+    ret = []
+    ret.push [key,val] for key,val of obj
+    ret.sort (a,b)-> a?[0] < b?[0]
+    str = ''
+    for r in ret
+      continue unless r[0]
+      str += '&' if str
+      str += r[0]
+      str += "="+r[1] if r[1]?
+    return str
+  toObject : (url)=>
+    url = '' unless typeof url == 'string'
+    url = url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
+    url = url.split '&'
+    ret = {}
+    for u in url
+      u = u?.split? '=' ? []
+      ret[u[0]]=u[1] if u[0]?
+    return ret
+  filterHash : (o={},field='filter')=>
+    if typeof o == 'object'
+      url = yield @d2u o
+    else
+      url = o
+    return (yield @filter "blablabla?"+url,field) ? ''
+ 
+
+
+
 
 module.exports = UrlData
 

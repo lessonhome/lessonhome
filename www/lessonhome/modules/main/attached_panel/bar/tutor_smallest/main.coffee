@@ -17,6 +17,7 @@ class @main
     @found.photo_box.attr 'href',link
     index = @tree.value.index
     @dom.find('a').click (e)->
-      return unless e.button = 0
+      return unless e.button == 0
       e.preventDefault()
       Feel.root.tree.class.showTutor index,$(this).attr 'href'
+      return false

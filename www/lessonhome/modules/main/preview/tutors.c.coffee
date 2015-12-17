@@ -11,6 +11,9 @@ class Tutors
   init : =>
     return _waitFor @,'inited' if @inited == 1
     return if @inited > 1
+    @jobs = yield Main.service 'jobs'
+    @jobs.listen 'filterTutors',@jobFilterTutors
+    @jobs.listen 'getTutor',@jobGetTutor
     @redis = yield Main.service('redis')
     @redis = yield @redis.get()
     @inited = 1
@@ -77,7 +80,12 @@ class Tutors
       f = f[0]
       delete @filters[f]
     return @refiltering = false
+  jobFilterTutors : ({filter,preps,from,count,exists})->
+    return @handler {},{filter,preps,from,count,exists}
+  jobGetTutor : ({index})=>
+    return @index[index] ? @index[99637]
   handler : ($, {filter,preps,from,count,exists})->
+    exists?=[]
     yield @init() unless @inited == 2
     ret = {}
     ret.preps = {}

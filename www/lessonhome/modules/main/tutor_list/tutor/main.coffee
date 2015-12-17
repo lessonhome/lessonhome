@@ -14,6 +14,18 @@ class @main
   show: =>
     @chooseTutor.on 'click', => Q.spawn => yield @onTutorChoose()
     Feel.urlData.on 'change',=> Q.spawn => yield @setLinked()
+    @parseAbout()
+    @prepareLink @dom.find('a')
+    yield @setLinked()
+
+  prepareLink : (a)=>
+    index = @tree.value.index
+    a.filter('a').off('click.prep').on 'click.prep', (e)->
+      return unless e.button == 0
+      e.preventDefault()
+      Feel.main.showTutor index,$(this).attr 'href'
+      return false
+
   hide: =>
     
   onTutorChoose : =>
@@ -41,48 +53,21 @@ class @main
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
       @found.tutor_trigger.find('.material-icons').html('add')
   setValue : (value)=>
-    @tree.value ?= {}
+    value ?= @tree.value
+    @tree.value = {}
     @tree.value[key] = val for key,val of value
     value = @tree.value
 
     @found.name.text value.name
-
     @found.subject.text value.subject
-
     @found.experience.text value.experience
-
-    isMobile =
-      Android:    ->
-        return navigator.userAgent.match(/Android/i)
-      BlackBerry: ->
-        return navigator.userAgent.match(/BlackBerry/i)
-      iOS:        ->
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i)
-      Opera:      ->
-        return navigator.userAgent.match(/Opera Mini/i)
-      Windows:    ->
-        return navigator.userAgent.match(/IEMobile/i)
-      any:        ->
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
-
-    tutor_text = value.about
-
-    if !isMobile.any()
-      maxl = 500
-    else
-      maxl = 145
-
-    if (tutor_text.length > maxl)
-      tutor_text = tutor_text.substr 0,maxl-11
-      tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
-      tutor_text += '... '
-      @found.about.text tutor_text
-      @found.about.append $("<a class='about_link'>подробнее</a>")
-    else
-      @found.about.text tutor_text
-
+    @parseAbout true
     @found.location.html(value.location)
+    @found.price?.text?(value.left_price)
 
+    @found.image.attr('src', value.photos)
+      .attr('alt',value.name).attr('title',value.name)
+    @dom.find('a').attr('href',value.link).attr('title',value.name).attr('alt',value.name)
     @found.metro_line.html ''
 
     metro_obj = value.metro_tutors
@@ -90,20 +75,23 @@ class @main
       if (name in metro_obj[line]) == false
         @found.metro_line.append '<span class="stantion"><i class="material-icons ' + metro_obj[line].color  + '">directions_transit</i>' + metro_obj[line].metro + '</span>'
 
-    @found.price?.text?(value.left_price)
+    console.log metro_obj
 
-    src_path = value.photos
-    @found.image.attr('src', src_path)
-      .attr('alt',value.name).attr('title',value.name)
-    #link = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
-    @dom.find('a').attr('href',value.link).attr('title',value.name).attr('alt',value.name)
-    @dom.find('a').click (e)=>
-      return unless e.button == 0
-      e.preventDefault()
-      Q.spawn =>
-        Feel.main.showTutor @tree.value.index,link
-      return false
-      
-
-    
     yield @setLinked()
+  parseAbout : (force = false)=>
+    if !_isMobile.any()
+      maxl = 500
+    else
+      maxl = 145
+    tutor_text = @tree.value.about
+    if (tutor_text.length > maxl)
+      tutor_text = tutor_text.substr 0,maxl-11
+      tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
+      tutor_text += '... '
+      @found.about.text tutor_text
+      la = $("<a class='about_link' href='#{@tree.value.link}'>подробнее</a>")
+      @found.about.append la
+      @prepareLink la
+    else if force
+      @found.about.text tutor_text
+

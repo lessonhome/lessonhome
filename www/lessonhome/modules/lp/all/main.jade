@@ -72,8 +72,11 @@
   .row
     .col.l9.m9.centered-block
       //h1!=title_suit_tutors
-      .js-tutors_list
+      //.js-tutors_list
         !=tutor
+      .js-tutors_list
+        each t in tutors
+          !=t
   .two-step-bg
     .row
       .col.l9.m9.centered-block

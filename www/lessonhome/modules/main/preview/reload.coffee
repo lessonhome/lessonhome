@@ -115,7 +115,7 @@ module.exports = ->
         ns.duration  = {}
         d = val.price?.duration
         if d?.left?
-          d = [d.left,d.right]
+          d = [d?.left,d?.right]
           d[1] ?= d[0]
         if (typeof d == 'string') && d
           o = d.match(/^\D*(\d*)?\D*(\d*)?/)
@@ -128,10 +128,10 @@ module.exports = ->
           d[1] = d[0]+30
         ns.duration = {left:d[0],right:d[1]}
         def = 800
-        ns.price.right = 900*3  unless ns.price.right > 0
-        ns.price.left  = 600    unless ns.price.left > 0
-        ns.duration.right = 180 unless ns.duration.right > 0
-        ns.duration.left  = 90  unless ns.duration.left > 0
+        ns.price?.right = 900*3  unless ns.price?.right > 0
+        ns.price?.left  = 600    unless ns.price?.left > 0
+        ns.duration?.right = 180 unless ns.duration?.right > 0
+        ns.duration?.left  = 90  unless ns.duration?.left > 0
         
         ns.place_prices = {}
         for place, prices of val.place_prices
@@ -145,15 +145,15 @@ module.exports = ->
           cRight prices[0]
           cRight prices[1],90,false
           cRight prices[2],120,false
-        l = ns.price.left*60/ns.duration.left
-        r = ns.price.right*60/ns.duration.right
+        l = ns.price?.left*60/ns.duration?.left
+        r = ns.price?.right*60/ns.duration?.right
         obj.newl = l if (!obj.newl) || (obj.newl > l)
         obj.newr = r if (!obj.newr) || (obj.newr > r)
         ns.price_per_hour  = 0.5*(r+l)
-        obj.price_left  = Math.round(Math.min(obj.price_left ? ns.price.left,ns.price.left)/50)*50
-        obj.price_right = Math.round(Math.max(obj.price_right ? ns.price.right, ns.price.right)/50)*50
-        obj.duration_left  = Math.round(Math.min(obj.duration_left ? ns.duration.left,ns.duration.left)/15)*15
-        obj.duration_right = Math.round(Math.max(obj.duration_right ? ns.duration.right, ns.duration.right)/15)*15
+        obj.price_left  = Math.round(Math.min(obj.price_left ? ns.price?.left,ns.price?.left)/50)*50
+        obj.price_right = Math.round(Math.max(obj.price_right ? ns.price?.right, ns.price?.right)/50)*50
+        obj.duration_left  = Math.round(Math.min(obj.duration_left ? ns.duration?.left,ns.duration?.left)/15)*15
+        obj.duration_right = Math.round(Math.max(obj.duration_right ? ns.duration?.right, ns.duration?.right)/15)*15
         obj.price_per_hour = Math.round(ns.price_per_hour/50)*50
         for key,val of val?.place
           obj.place[val] = true
