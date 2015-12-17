@@ -68,6 +68,15 @@ class @main
     @found.image.attr('src', value.photos)
       .attr('alt',value.name).attr('title',value.name)
     @dom.find('a').attr('href',value.link).attr('title',value.name).attr('alt',value.name)
+    @found.metro_line.html ''
+
+    metro_obj = value.metro_tutors
+    for line of metro_obj
+      if (name in metro_obj[line]) == false
+        @found.metro_line.append '<span class="stantion"><i class="material-icons ' + metro_obj[line].color  + '">directions_transit</i>' + metro_obj[line].metro + '</span>'
+
+    console.log metro_obj
+
     yield @setLinked()
   parseAbout : (force = false)=>
     if !_isMobile.any()
@@ -85,13 +94,4 @@ class @main
       @prepareLink la
     else if force
       @found.about.text tutor_text
-
-    @found.metro_line.html ''
-
-    metro_obj = value.metro_tutors
-    for line of metro_obj
-      if (name in metro_obj[line]) == false
-        @found.metro_line.append '<span class="stantion"><i class="material-icons ' + metro_obj[line].color  + '">directions_transit</i>' + metro_obj[line].metro + '</span>'
-
-    console.log metro_obj
 
