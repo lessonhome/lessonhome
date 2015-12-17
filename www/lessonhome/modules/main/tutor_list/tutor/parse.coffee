@@ -58,7 +58,7 @@ metro_map = Feel.const('metro').metro_map
   ls2 = cA ls2,l.house
   ls2 = cA ls2,l.building
   ls3 = ""
-  ls3 += "м. #{l.metro}" if l.metro
+#  ls3 += "м. #{l.metro}" if l.metro
   ls = ""
   ls = cA ls,ls3,'<br><br>'
   ls = cA ls,ls1,'<br>'
@@ -72,12 +72,29 @@ metro_map = Feel.const('metro').metro_map
   value.photos ?= {}
   ret.photos = value.photos[Object.keys(value.photos).length-1]?.lurl ? ""
   #metro
-  metroObj = metro_map
-#  console.log metroObj
-
   _location          = value.location
   _location.metro   ?= ""
   _location.area    ?= ""
-#  console.log this_station
+
+  split_station       = _location.metro.split(', ')
+  this_station = []
+  users_metro = {}
+
+  split_station.forEach (item, i, split_station) =>
+    this_station = _diff.metroPrepare(item)
+    if metro_map[this_station] != undefined
+      users_metro[this_station] = {
+        metro  :  metro_map[this_station].name
+        color : metro_map[this_station].color
+      }
+
+  if emptyObject(users_metro) == true
+    ret.metro_tutors = users_metro
 
   return ret
+
+emptyObject = (obj) ->
+  for i in obj
+    if Obj.hasOwnProperty(i)
+      return false
+  return true

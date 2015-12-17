@@ -39,7 +39,6 @@ class templ
 class @main
   constructor : ->
     $W @
-#
 #  metro : =>
 #    yield Q.delay 1000
 #    obj = Feel.const('metro').metro_map

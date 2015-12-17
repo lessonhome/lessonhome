@@ -86,3 +86,12 @@ class @main
     else if force
       @found.about.text tutor_text
 
+    @found.metro_line.html ''
+
+    metro_obj = value.metro_tutors
+    for line of metro_obj
+      if (name in metro_obj[line]) == false
+        @found.metro_line.append '<span class="stantion"><i class="material-icons ' + metro_obj[line].color  + '">directions_transit</i>' + metro_obj[line].metro + '</span>'
+
+    console.log metro_obj
+

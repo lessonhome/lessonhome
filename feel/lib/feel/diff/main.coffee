@@ -17,6 +17,7 @@ class @main
   metroPrepare : (str)=>
     str = str.replace /^[^\.]*\./,''
     str = str.replace /\s/gmi,''
+    str = str.replace /ё/gmi,'е'
     str = @prepare(str)
     str = str.replace('ploshchad','')
     str = str.replace('prospekt','')
