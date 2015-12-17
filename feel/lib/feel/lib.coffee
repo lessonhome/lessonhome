@@ -554,6 +554,7 @@ global._request = Q.denode require('request')
 global._fs_copy =   Q.denode _fse.copy
 global._fs_remove =   Q.denode _fse.remove
 global._readdirp = Q.denode require 'readdirp'
+global.md5file = Q.denode require 'md5-file'
 regenerator = require("regenerator")
 global._LZString = require './lib/lz-string.min.js'
 global._regenerator = (source)-> regenerator.compile(source).code
