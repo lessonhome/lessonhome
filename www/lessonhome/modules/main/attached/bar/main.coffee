@@ -46,4 +46,3 @@ class @main
       return false
     return $('<li class="block">').append el.dom
   setValue : (data) =>
-    console.log 'weerd', data

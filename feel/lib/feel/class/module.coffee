@@ -151,6 +151,7 @@ class module.exports
         "
       catch e
         throw new Error "Failed execute jade in module #{@name} with vars #{_inspect(o)}:\n\t"+e
+        console.error e
     return ""
   makeSass : =>
     @allCssRelative = {}
@@ -167,7 +168,7 @@ class module.exports
             try
               src = (yield _readFile(path)).toString()
             catch e
-              console.error Exception e
+              console.error e
               throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
             @cssSrc[filename] = src
             yield Feel.qCacheFile path,src,'csssrc'
@@ -199,7 +200,7 @@ class module.exports
           try
             src = (yield _readFile(path)).toString()
           catch e
-            console.error Exception e
+            console.error e
             throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
           @cssSrc[filename] = src
           yield Feel.qCacheFile path,src,'csssrc'

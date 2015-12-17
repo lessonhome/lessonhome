@@ -77,16 +77,8 @@ class @main
     @templ_place = new templ @found.template_places
     @templ_review = new templ @found.template_reviews
   show: =>
-    #scroll spy
     @reviewMark.scrollSpy()
-    #tabs
-
-#    @profileTab.find('.indicator').remove()
-
-
-
     @message_send.on 'click', @onSendMessage
-
     @found.show_detail.on 'click', @onShowDetail
     @chooseTutor.on 'click', => Q.spawn => yield @onTutorChoose()
     Feel.urlData.on 'change',=> Q.spawn => yield @setLinked()
@@ -95,32 +87,35 @@ class @main
       return unless e.button == 0
       e.preventDefault()
       Q.spawn => yield @goBack()
-
-    yield @open()
-
-    @message_sub.find('select').material_select()
-
-    @profileTab.addClass('tabs').tabs()
-    if exist = @profileTab.data('exist') then @profileTab.tabs('select_tab', exist)
-    $('.loaded').each @loadImage
-
-
-  open : (index)=>
-    state = History.getState()
+    #yield @open()
+    yield @matchAny() if @tree.single_profile== "tutor_profile"
+  
+  matchAny : (force=false)=>
+    #return unless @tree.value?.index
     if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
       @found.back.addClass 'hidden'
     else
       @found.back.removeClass 'hidden'
+    yield @matchExists()
+    @message_sub.find('select').material_select()
+    Q.spawn =>
+      yield Q.delay 300
+      @profileTab.addClass('tabs').tabs()
+      if exist = @profileTab.data('exist')
+        @profileTab.tabs('select_tab', exist)
+    @dom.find('.loaded').each @loadImage
+    yield @setLinked()
+  open : (index)=>
+    state = History.getState()
 
     unless index?
       @index = yield Feel.urlData.get('tutorProfile','index') ? 77
     else @index = index
-
     preps = yield Feel.dataM.getTutor [@index]
     prep = preps[@index]
     return unless prep?
-    @setValue prep
-    yield @setLinked()
+    yield @setValue prep
+    yield @matchAny(true)
   goBack : =>
     if @tree.single_profile!='tutor_profile'
       return yield Feel.main.hideTutor()
@@ -214,9 +209,11 @@ class @main
           body.append "<tr><td>#{_p[0]}</td><td>#{_p[1]}</td></tr>"
       @templ_pr.add()
     @templ_pr.push parent.html('')
-#  setValue : =>
   setValue : (value)=>
-    #value = @js.parse data
+    value ?= @tree.value
+    @tree.value = {}
+    @tree.value[key] = val for key,val of value
+    value = @tree.value
 
     @setAvatar(value.src_avatar)
 
@@ -306,14 +303,15 @@ class @main
       if value.why then @found.why.show().find('.text').text(value.why) else @found.why.hide()
       if value.interests then @found.interests.show().find('.text').text(value.interests) else @found.interests.hide()
       @found.block_about.show()
-
-    exist_rev = value.reviews?.length
-    exist_doc = value.documents?.length
+    #@matchExists()
+  matchExists : =>
+    exist_rev = @tree.value.reviews?.length
+    exist_doc = @tree.value.documents?.length
 
     if exist_rev or exist_doc
 
       if exist_rev
-        for r in value.reviews
+        for r in @tree.value.reviews
           @templ_review.use 'mark', r.mark
           @templ_review.useh 'course', r.course
           @templ_review.useh 'subject', r.subject
@@ -325,7 +323,7 @@ class @main
 
       if exist_doc
         @found.documents.html('')
-        for d in value.documents
+        for d in @tree.value.documents
           @found.documents.append("<div class='list'><div class='loaded'><img src='#{d.lurl}' data-src='#{d.hurl}'></div></div>")
 
       @found.review_mark.show(

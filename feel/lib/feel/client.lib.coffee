@@ -356,7 +356,13 @@ global.Wrap = (obj,prot,PR=true)->
 
 #Q.longStackSupport  = true
 
-
+global._isMobile =
+  Android:    -> navigator.userAgent.match(/Android/i)
+  BlackBerry: -> navigator.userAgent.match(/BlackBerry/i)
+  iOS:        -> navigator.userAgent.match(/iPhone|iPad|iPod/i)
+  Opera:      -> navigator.userAgent.match(/Opera Mini/i)
+  Windows:    -> navigator.userAgent.match(/IEMobile/i)
+  any:        -> (_isMobile.Android() || _isMobile.BlackBerry() || _isMobile.iOS() || _isMobile.Opera() || _isMobile.Windows())
 
 global.$W = (obj)->
   proto = obj?.__proto__
