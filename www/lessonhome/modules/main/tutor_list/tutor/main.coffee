@@ -90,8 +90,6 @@ class @main
       if (name in metro_obj[line]) == false
         @found.metro_line.append '<span class="stantion"><i class="material-icons ' + metro_obj[line].color  + '">directions_transit</i>' + metro_obj[line].metro + '</span>'
 
-    console.log metro_obj
-
     @found.price?.text?(value.left_price)
 
     src_path = value.photos

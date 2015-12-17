@@ -1,5 +1,12 @@
 @import variables
 
+@font-face
+  font-family: "metro_icon"
+  src: url(F('fonts/metro/metro.eot'))
+  src: url(F('fonts/metro/metro.ttf')) format('truetype')
+  src: url(F('fonts/metro/metro.woff')) format('woff')
+  src: url(F('fonts/metro/metro.svg')) format('svg')
+
 //tutors card
 .tutors-hover:hover
   transition: all 0.3s ease-out
@@ -51,6 +58,24 @@
   span
     display: inline-block
     vertical-align: middle
+
+.metro_icon
+  font-family: 'metro_icon' !important
+  font-size: 24px
+  display: inline-block
+  speak: none
+  font-style: normal
+  font-weight: normal
+  font-variant: normal
+  text-transform: none
+  line-height: 1
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  &:before
+    content: "\e900"
+
 .metro_red
   color: #ed1731 !important
 .metro_green
