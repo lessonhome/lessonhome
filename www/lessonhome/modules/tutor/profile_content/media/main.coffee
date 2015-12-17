@@ -4,22 +4,24 @@
 class media
   constructor : ->
     $W @
-  Dom : =>
-    @setRemoveHandlers()
-    @setAvaHandlers()
-
   show : =>
-
     @photos = {}
     for i, layer of @tree.photos
       for j, photo of layer.photos
         @photos[photo.hash] = photo
 
-  reloadPhotos: (photos) =>
+    @dom.on 'click', '.remove',  (e) =>
+      @emit 'remove', $(e.currentTarget).closest('.photo-wrap').attr('data-id')
+      e.stopPropagation()
 
-    layers = yield @remakeLayers(photos)
+    if @tree.message
+      @dom.on 'click', '.photo-wrap', (e) =>
+        @emit 'select', $(e.currentTarget).attr('data-id')
 
-    media_content = document.getElementById('m-tutor-profile_content-media')
+  reloadPhotos: () =>
+    layers = yield @remakeLayers()
+
+    media_content = @dom[0]
 
     media_content.removeChild(media_content.lastChild) while media_content.lastChild
 
@@ -29,7 +31,8 @@ class media
       layerDOM.style.height = layer.height+'px'
       for photo in layer.photos
         wrapper = document.createElement('div')
-        wrapper.id = 'wrapper-'+photo.hash
+        wrapper.className = 'photo-wrap'
+        wrapper.setAttribute('data-id', photo.hash)
         wrapper.style.left = photo.left+'px'
         remove = document.createElement('div')
         remove.className = 'remove'
@@ -40,16 +43,19 @@ class media
 
         wrapper.appendChild(remove)
         wrapper.appendChild(image)
+        if @tree.message
+          div = document.createElement('div')
+          div.className = 'load-text'
+          div.innerHTML = @tree.message
+          wrapper.className += ' ' + 'pointer'
+          wrapper.appendChild(div)
         layerDOM.appendChild(wrapper)
 
       media_content.appendChild(layerDOM)
 
-    @setRemoveHandlers()
-    @setAvaHandlers()
-
   remove_photo: (id) =>
 
-    yield @$send('removeMedia', {hash: id})
+#    yield @$send('removeMedia', {hash: id})
     delete @photos[id]
 
     photos_left = []
@@ -73,31 +79,12 @@ class media
     for photo in photos
       @photos[photo.hash] = photo
 
-    @reloadPhotos(photos)
-
-
-  setRemoveHandlers: =>
-    @remove_buttons = document.getElementsByClassName('remove')
-
-    remove = @remove_photo
-
-    for button in @remove_buttons
-      button.onclick = () ->
-        remove(this.nextSibling.id)
-
-  setAvaHandlers: =>
-    @images = document.getElementsByClassName('big')
-    photos = @photos
-    setAsAvatar = @setAsAvatar
-
-    for image in @images
-      image.onclick = () ->
-        setAsAvatar(this.id)
+    @reloadPhotos()
 
   setAsAvatar: (id)=> do Q.async =>
-    data = yield @$send('setAvatar', {id: id})
-    @emit 'set_ava', data.newAva
-  remakeLayers: (photos) =>
+#    data = yield @$send('setAvatar', {id: id})
+#    @emit 'set_ava', data.newAva
+  remakeLayers: () =>
     W = 738
     HMIN = 150
     HMAX = 350
@@ -107,7 +94,7 @@ class media
     a = 0
     n = 0
 
-    for p in photos
+    for hash, p of @photos
       continue unless p
       unless layer
         a = 0

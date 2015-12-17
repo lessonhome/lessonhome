@@ -1,5 +1,5 @@
 class @main
-  forms : [{person : ['eperiod','equalification','echair','efaculty','ename','ecity','workplace','avatar','first_name','middle_name','interests','last_name','birthdate','city']},{tutor:['status','experience','about']}]
+  forms : [{person : ['documents','photos','eperiod','equalification','echair','efaculty','ename','ecity','workplace','avatar','first_name','middle_name','interests','last_name','birthdate','city']},{tutor:['status','experience','about']}]
   tree : => @module '$'  :
     popup               : @exports()
     photo : @module 'add_photos' :
@@ -10,10 +10,18 @@ class @main
         @module 'lib/jquery/iframe_transport_plugin'
         @module 'lib/jquery/fileupload'
       ]
+
     media : @module '$/media' :
-      photos : $form : person : 'uploaded'
-      avatar : $form : person : 'avatar'
-      min : true
+      photos : $form : person : 'photos'
+      message: "Сделать главной"
+      depend : [
+        @module 'lib/jquery/ui_widget'
+        @module 'lib/jquery/iframe_transport_plugin'
+        @module 'lib/jquery/fileupload'
+      ]
+
+    documents : @module '$/media' :
+      photos : $form : person : 'documents'
       depend : [
         @module 'lib/jquery/ui_widget'
         @module 'lib/jquery/iframe_transport_plugin'
@@ -79,10 +87,17 @@ class @main
         'О себе :'       : $form : tutor : about : (s)->
           s || '<a href="./edit/about">заполнить</a>'
     line_med            : @module 'tutor/separate_line':
-      title    : 'Медиа'
+      title    : 'Фотографии'
       link      : '#'
       upload_input : @module 'media_upload' :
-        photos : $form : person : 'uploaded'
+        type: 'photos'
+      add     : @exports()
+      selector : 'horizon'
+    line_doc            : @module 'tutor/separate_line':
+      title    : 'Докуметны'
+      link      : '#'
+      upload_input : @module 'media_upload' :
+        type: 'documents'
       add     : @exports()
       selector : 'horizon'
     #media               : @module '$/media' :
