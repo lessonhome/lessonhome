@@ -1,18 +1,18 @@
-@PLACE_TITLES = [
+PLACE_TITLES = [
   ['tutor', 'У себя']
   ['pupil' , 'Выезд']
   ['remote' , 'Skype']
 ]
 
 
-@TIMES = [
+TIMES = [
   ['v60', 60],
   ['v90', 90],
   ['v120', 120]
 ]
 
 
-@STATUS_VALUES = {
+STATUS_VALUES = {
   student: "Студент"
   private_teacher: "Частный преподаватель"
   university_teacher: "Преподаватель ВУЗа"
@@ -20,14 +20,13 @@
 }
 
 @parse = (data) =>
+  data ?= {}
 
-  return unless data?
-
-  @setNewFormatPrice data
+  SetNewFormatPrice data
 
   value = {
-    full_name : "#{data.name.first || ''} #{data.name.middle || ''}"
-    dative_name : @dativeName(data.name).first || ''
+    full_name : "#{data.name?.first || ''} #{data.name?.middle || ''}"
+    dative_name : DativeName(data.name).first || ''
     slogan : data.slogan if data.slogan?
     src_avatar : null
     age : null
@@ -41,11 +40,10 @@
     education : []
     about : data['about']
     why : data['reason']
-    interests : @join data['interests'], 'description'
+    interests : Join data['interests'], 'description'
     reviews : []
     documents : []
   }
-
   if data.photos?
     continue for key, photo of data.photos
     value.src_avatar = {
@@ -67,20 +65,20 @@
   if data.location?
     l = []
     loc = data.location
-    if (str = loc.city)? and (str = @trim str) then l.push('г. ' + str)
-    if (str = loc.area)? and (str = @trim str) then l.push('р-н ' + str)
+    if (str = loc.city)? and (str = Trim str) then l.push('г. ' + str)
+    if (str = loc.area)? and (str = Trim str) then l.push('р-н ' + str)
     if loc.metro?
       metro = loc.metro.split(',')
-      for str in metro when str = @trim str
+      for str in metro when str = Trim str
         l.push('м. ' + str)
 
     value.location = l.join(', ') if l.length
 
-  if data.status? and @STATUS_VALUES[data.status]? then value.status = @STATUS_VALUES[data.status]
+  if data.status? and STATUS_VALUES[data.status]? then value.status = STATUS_VALUES[data.status]
 
 
   if data.place?
-    for place in @PLACE_TITLES
+    for place in PLACE_TITLES
 
       if data.place[place[0]]?
         p = place : place[1]
@@ -90,7 +88,7 @@
           when 'tutor' then l = value.location
           when 'pupil'
             if data.check_out_the_areas?
-              l = @join data.check_out_the_areas
+              l = Join data.check_out_the_areas
 
         p['location'] = l
         if l then value.show_places = true
@@ -101,7 +99,7 @@
     subjects  = (name for index, name of data.ordered_subj)
 
     if subjects.length == 1 and (e = subjects[0].split(',')).length > 1
-      value.sub = e.map(@trim)
+      value.sub = e.map(Trim)
     else
       value.sub = subjects
 
@@ -109,35 +107,35 @@
     for name in subjects when data.subjects[name]?.place_prices?
       subArr.push(data.subjects[name].place_prices)
 
-    general = @getGeneral subArr
+    general = GetGeneral subArr
 
     main = null
-    for place in @PLACE_TITLES when (price = general[place[0]])?
+    for place in PLACE_TITLES when (price = general[place[0]])?
       _r = {name : null, prices : null}
 
       switch place[0]
         when 'remote'
           _r.name = place[1]
-          _r.prices = '' + @getPriceAtHour(price) + ' руб. в час'
+          _r.prices = '' + GetPriceAtHour(price) + ' руб. в час'
         else
           unless main?
             main = price
           else
             _r.name = place[1]
-            if (diff = @getDiff(price, main))?
+            if (diff = GetDiff(price, main))?
               continue unless diff > 0
               _r.prices = diff + ' руб.'
 
-      _r.prices = @parsePrices(price) unless _r.prices
+      _r.prices = ParsePrices(price) unless _r.prices
       value.short_price.push _r
 
     
 
     for sub, i in subjects
       _sub = data.subjects[sub]
-      _r = {name: sub, prices: [], description: _sub.description, course : @join _sub.course}
-      for place in @PLACE_TITLES when (price = subArr[i][place[0]])?
-        _r.prices.push {name: place[1], prices: @parsePrices(price)}
+      _r = {name: sub, prices: [], description: _sub.description, course : Join _sub.course}
+      for place in PLACE_TITLES when (price = subArr[i][place[0]])?
+        _r.prices.push {name: place[1], prices: ParsePrices(price)}
       value.subjects.push _r
 
     for index, e of data.education
@@ -160,8 +158,8 @@
       for index, r of data.reviews
         value.reviews.push {
           mark : r.mark
-          subject : @join r.subject
-          course : @join r.course
+          subject : Join r.subject
+          course : Join r.course
           review : r.review
           name : r.name
           date : r.date
@@ -181,14 +179,14 @@
 
   return value
 
-@trim = (str) -> str.replace(/^\s+/g, '').replace(/\s+$/g, '')
-@join = (obj,key,prep = ', ') ->
+Trim = (str) -> str.replace(/^\s+/g, '').replace(/\s+$/g, '')
+Join = (obj,key,prep = ', ') ->
   l = ''
   for i, val of obj
     l += (if i == '0' then '' else prep) + (if key and val[key]? then val[key] else val)
   return l
 
-@dativeName = (data)->
+DativeName = (data)->
   name = _nameLib.get((data?.last ? ''),(data?.first ? ''),(data?.middle ? ''))
   return {
     first : name.firstName('dative')
@@ -196,7 +194,7 @@
     last  : name.lastName('dative')
   }
 
-@setNewFormatPrice = (data) ->
+SetNewFormatPrice = (data) ->
     return unless data.subjects?
 
     places = []
@@ -214,10 +212,10 @@
       val *= 50
       return val
 
-    p1 = subject.price.left
-    p2 = subject.price.right
-    t1 = subject.duration.left
-    t2 = subject.duration.right
+    p1 = subject?.price?.left
+    p2 = subject?.price?.right
+    t1 = subject?.duration?.left
+    t2 = subject?.duration?.right
     delta_t = t2 - t1
 
     if delta_t != 0 then k = (p2 - p1)/delta_t else k = 14
@@ -232,10 +230,10 @@
 
     subject.place_prices[k] = new_price for k in places
 
-@getPriceAtHour = (time_prices) =>
+GetPriceAtHour = (time_prices) =>
   result = 0
   count = 0
-  for key in @TIMES when time_prices[key[0]]?
+  for key in TIMES when time_prices[key[0]]?
     result += time_prices[key[0]]/key[1]
     count++
   return if count == 0
@@ -247,11 +245,11 @@
   return result
 
 
-@getGeneral = (priceArr) =>
+GetGeneral = (priceArr) =>
   result = {}
 
-  for place in @PLACE_TITLES
-    for time in @TIMES
+  for place in PLACE_TITLES
+    for time in TIMES
       for prices in priceArr when (price = prices[place[0]]?[time[0]])?
         result[place[0]] ?= {}
         result[place[0]][time[0]] = price
@@ -259,9 +257,9 @@
 
   return result
 
-@parsePrices = (p) ->
+ParsePrices = (p) ->
   result = []
-  for time in @TIMES when p[time[0]]?
+  for time in TIMES when p[time[0]]?
     result.push [
       '' + time[1] + ' мин.',
       '' + p[time[0]] + ' руб.'
@@ -269,10 +267,10 @@
 
   return result
 
-@getDiff = (p1, p2) ->
+GetDiff = (p1, p2) ->
   min_diff = null
   max_diff = null
-  for key in @TIMES
+  for key in TIMES
     return if p1[key[0]]? != p2[key[0]]?
     continue unless p1[key[0]]?
     diff = p2[key[0]] - p1[key[0]]

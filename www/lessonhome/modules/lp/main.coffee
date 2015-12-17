@@ -57,7 +57,7 @@ class @main extends EE
         @found.profile.find('>').off true,true
         @found.profile.empty()
         @found.profile.append @saveTutor.dom
-        #yield @saveTutor.open @urldata
+        yield @saveTutor.open()
   hidePage : =>
     switch @oldurl
       when 'tutor_profile'
@@ -86,7 +86,16 @@ class @main extends EE
     setTimeout ->
       document.location.href = History.getState().url
     ,0
-  showTutor : (index,href)=>
+  showTutor : (index,href='')=>
+    url1 = History.getState().url || ""
+    url2 = href || ""
+    #url1 = (url1.match(/(tutor_profile\?.*)$/)?[0] || '')
+    #url2 = (url2.match(/(tutor_profile\?.*)$/)?[0] || '')
+    if url1.match(/tutor_profile/) && url2.match(/tutor_profile/)
+      index1 = _setKey (yield Feel.udata.u2d url1),'tutorProfile.index'
+      index2 = _setKey (yield Feel.udata.u2d url2),'tutorProfile.index'
+      console.log index1,index2
+      return if index1 == index2
     yield Feel.gor(href)
   hideTutor : =>
     History.back()

@@ -26,6 +26,7 @@ class module.exports
     @cssSrc     = {}
     @allCssRelative = {}
     @coffee     = {}
+    @coffeenr     = {}
     @js         = {}
     @allCss     = ""
     @allCoffee  = ""
@@ -150,6 +151,7 @@ class module.exports
         "
       catch e
         throw new Error "Failed execute jade in module #{@name} with vars #{_inspect(o)}:\n\t"+e
+        console.error e
     return ""
   makeSass : =>
     @allCssRelative = {}
@@ -166,7 +168,7 @@ class module.exports
             try
               src = (yield _readFile(path)).toString()
             catch e
-              console.error Exception e
+              console.error e
               throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
             @cssSrc[filename] = src
             yield Feel.qCacheFile path,src,'csssrc'
@@ -198,7 +200,7 @@ class module.exports
           try
             src = (yield _readFile(path)).toString()
           catch e
-            console.error Exception e
+            console.error e
             throw new Error "failed read css in module #{@name}: #{file.name}(#{path})",e
           @cssSrc[filename] = src
           yield Feel.qCacheFile path,src,'csssrc'
@@ -318,6 +320,7 @@ class module.exports
     return ret
   makeCoffee  : => do Q.async =>
     @newCoffee = {}
+    @newCoffeenr = {}
     qs = []
     for filename, file of @files
       if file.ext == 'coffee' && !filename.match(/.*\.[d|c]\.coffee$/)
@@ -325,8 +328,10 @@ class module.exports
           console.log 'coffee\t'.yellow,"#{@name}/#{filename}".grey
           src = ""
           datasrc = yield Feel.qCacheFile file.path,null,'mcoffeefile'
-          if datasrc
+          datasrcnr = yield Feel.qCacheFile file.path,null,'mcoffeefilenr'
+          if datasrc && datasrcnr
             @newCoffee[filename] = datasrc
+            @newCoffeenr[filename] = datasrcnr
             return
           try
             src = Feel.cacheCoffee file.path
@@ -334,15 +339,19 @@ class module.exports
             console.error Exception e
             throw new Error "failed read coffee in module #{@name}: #{file.name}(#{file.path})",e
           @newCoffee[filename] = _regenerator src
+          @newCoffeenr[filename] = src
           if _production
             @newCoffee[filename] = yield Feel.yjs @newCoffee[filename]
+            @newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
           yield Feel.qCacheFile file.path,@newCoffee[filename],'mcoffeefile'
       if file.ext == 'js'
         do (filename,file)=> qs.push do Q.async =>
           src = ""
           datasrc = Feel.cacheFile file.path,null,'mcoffeefile'
-          if datasrc
+          datasrcnr = Feel.cacheFile file.path,null,'mcoffeefilenr'
+          if datasrc && datasrcnr
             @newCoffee[filename] = datasrc
+            @newCoffeenr[filename] = datasrcnr
             return
           try
             src = fs.readFileSync file.path
@@ -350,11 +359,15 @@ class module.exports
             console.error Exception e
             throw new Error "failed read js in module #{@name}: #{file.name}(#{file.path})",e
           @newCoffee[filename] = _regenerator src
+          @newCoffeenr[filename] = src
           if _production
             @newCoffee[filename] = yield Feel.yjs @newCoffee[filename]
+            @newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
           yield Feel.qCacheFile file.path,@newCoffee[filename],'mcoffeefile'
+          yield Feel.qCacheFile file.path,@newCoffeenr[filename],'mcoffeefilenr'
     yield Q.all qs
     @coffee     = @newCoffee
+    @coffeenr     = @newCoffeenr
     @allCoffee  = "(function(){ var arr = {}; (function(){"
     @allJs      = ""
     num = 0

@@ -1,5 +1,3 @@
-- value = require(process.cwd()+'/www/lessonhome/modules/profile/parse').parse(value) || {};
-  -value = value || {}
 - var exist = false
 
 .container.profile-bottom-padding
@@ -76,7 +74,7 @@
                 //li.js-experience
 
 
-          - exist = value.places && value.places.length
+          - exist = value.places && Object.keys(value.places).length    
           .row.info-row.info-row-small(style= exist ? '' : 'display: none')
             .col.s12
 
@@ -93,7 +91,7 @@
               ul.js-template_short_places(style='display: none')
                 +list()
 
-      - exist = value.subjects && value.subjects.length
+      - exist = value.subjects && Object.keys(value.subjects).length
       .row.tutorials-list.js-block_prices(style= exist ? '' : 'display: none')
         .col.s12
 
@@ -117,7 +115,7 @@
           mixin templ_subject(title, subjects)
             h4.grey-text.text-darken-4(style=title ? '' :'display: none' data-val='title')!=title
             div(data-val='body')
-              if subjects && subjects.length
+              if subjects && Object.keys(subjects).length
                 each p in subjects
                   +templ_price(p.name, p.prices)
 
@@ -160,14 +158,14 @@
 
           h4.red-text.text-darken-4 Предметы
           .js-subjects
-            if value.subjects && value.subjects.length
+            if value.subjects && Object.keys(value.subjects).length
               each sub in value.subjects
                 +sub(sub.name, sub.course, sub.description)
           .js-template_sub(style="display:none")
             +sub('', '&nbsp;', '&nbsp;')
 
 
-      -exist = value.show_places && value.places && value.places.length
+      -exist = value.show_places && value.places && Object.keys(value.places).length
       .row.tutorials-list.js-block_places(style= exist ? '' : 'display: none')
         .col.s12
 
@@ -187,7 +185,7 @@
           .js-template_places(style="display:none")
             +location()
 
-      -exist = value.education && value.education.length
+      -exist = value.education && Object.keys(value.education).length
       .row.tutorials-list.js-block_education(style= exist ? '' : 'display: none')
         .col.s12
 
@@ -229,8 +227,8 @@
             p.text!=int
 
 
-      -var exist_rev = value.reviews && value.reviews.length
-      -var exist_doc = value.documents && value.documents.length
+      -var exist_rev = value.reviews && Object.keys(value.reviews).length
+      -var exist_doc = value.documents && Object.keys(value.documents).length
       mixin review(mark, subject, course, review, name, date)
         .row
           .col.s12.m12.l4.review-rating-block
@@ -250,7 +248,7 @@
           ul.js-profile_tab(data-exist= exist_rev?'tab1':(exist_doc?'tab2' :''))
             li.tab.col.s6
               a(href="#tab1").js-tab_review Отзывы
-                span.js-rew_count!= exist_rev ? ' ' + value.reviews.length : ''
+                span.js-rew_count!= exist_rev ? ' ' + Object.keys(value.reviews).length : ''
             li.tab.col.s6
               a(href="#tab2").js-tab_doc Фотографии
           .col.s12.top-padding-tabs#tab1
@@ -296,7 +294,7 @@
             input(type='text')#phone.js-message_phone
             label(for='phone', data-error="Введите корректный телефон") Ваш телефон
 
-        -exist = value.sub && value.sub.length
+        -exist = value.sub && Object.keys(value.sub).length
         .row.js-select_subject(style = (exist && exist > 1) ? '' : 'display: none')
           .input-field.col.s12.js-message_subject
             if exist

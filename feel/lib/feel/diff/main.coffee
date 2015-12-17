@@ -12,6 +12,19 @@ class @main
       .replace(/^\s+/g,'')
       .replace(/\s+$/g,''))
       .toLowerCase()
+  metroCmp : (str1,str2)=>
+    return @match @metroPrepare(str1),@metroPrepare(str2)
+  metroPrepare : (str)=>
+    str = str.replace /^[^\.]*\./,''
+    str = str.replace /\s/gmi,''
+    str = str.replace /ё/gmi,'е'
+    str = @prepare(str)
+    str = str.replace('ploshchad','')
+    str = str.replace('prospekt','')
+    str = str.replace('bulvar','')
+    str = str.replace('ulica','')
+    #str = str.substr(0,5)+str.substr(-5)
+    return str
   match : (text,word,from=0,to=0.45,count=30)=>#,t1=0.8,t2=t1,d1=1000,d2=0)=>
     ntext = @js.toEn text
     nword = @js.toEn word

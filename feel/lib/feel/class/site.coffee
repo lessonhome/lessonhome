@@ -35,6 +35,7 @@ class module.exports
     @servicesIp = JSON.stringify yield (yield Main.service('services')).get()
     @form = new Form
     @urldata = yield Main.service 'urldata'
+    Feel.udata = @urldata
     @urldataFiles = yield @urldata.getFFiles()
     @urldataFilesStr = ""
     for fname,file of @urldataFiles
