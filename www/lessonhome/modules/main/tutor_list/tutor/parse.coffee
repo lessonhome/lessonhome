@@ -69,10 +69,10 @@ metro_map = Feel.const('metro').metro_map
 
   #photo src
   value.photos ?= {}
-  ret.photos = value.photos[Object.keys(value.photos).length-1].lurl
+  ret.photos = value.photos[Object.keys(value.photos).length-1]?.lurl ? ""
 
   #metro
-  metroObj = JSON.parse(metro_map);
+  metroObj = JSON.parse(metro_map)
 
   console.log metroObj
 
