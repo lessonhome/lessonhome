@@ -43,9 +43,9 @@ class @main extends EE
     document.location.href = window.history.back()
   onstatechange : =>
     return unless yield @checkStateChange()
-    if @tree.clear_profile && (@nowurl != 'tutor_profile')
-      setInterval @goHitoryUrl,100
-      @goHistoryUrl()
+    if (@profile?.single_profile == 'tutor_profile') && (@nowurl != 'tutor_profile')
+      setTimeout @goHitoryUrl,100
+      #@goHistoryUrl()
       return
     yield @preShow()
     yield @hidePage()
@@ -94,7 +94,6 @@ class @main extends EE
     if url1.match(/tutor_profile/) && url2.match(/tutor_profile/)
       index1 = _setKey (yield Feel.udata.u2d url1),'tutorProfile.index'
       index2 = _setKey (yield Feel.udata.u2d url2),'tutorProfile.index'
-      console.log index1,index2
       return if index1 == index2
     yield Feel.gor(href)
   hideTutor : =>

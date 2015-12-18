@@ -2,38 +2,13 @@ class @main
   constructor : ->
     $W @
   Dom : =>
-    @commonBlock    = @found.lp_custom
-    @firstStep      = @found.step_one
-    @firstHeight    = @found.step_one.height()
-    @tutorsList     = @found.tutors_list
-    @twoStep        = @found.step_two
-    @seoText        = @found.seo_text
-    @threeStep      = @found.step_three
-#    @paralax        = @found.paralax_obj
-#    @charset_boy    = @found.charset
-    @stepOffset     =
-      one   : 100
     @oldScroll      = $(document).scrollTop()
 
     @fastest = @dom.find '.fastest'
   show: =>
-#    $(@paralax).parallax()
     @found.open_form.click => Q.spawn => yield Feel.root.tree.class.attached.showForm()
     Q.spawn =>
       @found.go_find.attr 'href','/second_step?'+yield Feel.udata.d2u('mainFilter',@tree.filter)
-    isMobile =
-      Android:    ->
-        return navigator.userAgent.match(/Android/i)
-      BlackBerry: ->
-        return navigator.userAgent.match(/BlackBerry/i)
-      iOS:        ->
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i)
-      Opera:      ->
-        return navigator.userAgent.match(/Opera Mini/i)
-      Windows:    ->
-        return navigator.userAgent.match(/IEMobile/i)
-      any:        ->
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
     
     ###
     @found.tutors_list.find('>div').remove()
@@ -59,13 +34,7 @@ class @main
       clone.dom.show()
       clone.dom.animate (opacity:1),1400
     ###
-    if !isMobile.any()
-      $(document).on 'scroll.lp', @onScroll
-    else
-      @commonBlock.addClass 'any_devices'
 
-    #fuckid crutch
-#    @charset_boy.css('top', '20%')
     @found.input_phone.on 'input',(e)=>
       val = $(e.target).val()
       @tree.value ?= {}
@@ -105,59 +74,3 @@ class @main
   getValue : =>
     phone : @tree.value.phone
     name  : @tree.value.name
-  onScroll : (e) =>
-
-    e = e || window.event
-    thisScroll = $(e.currentTarget).scrollTop()
-#    charsetPosition = @charset_boy[0].style.top
-
-    if(thisScroll > @oldScroll)
-      #SCROLL DOWN
-      @oldScroll = thisScroll
-
-      #first step
-      if thisScroll > @stepOffset.one
-        _tutorOffset = @found.tutors_list.offset()
-        #update stepOffset
-        @stepOffset     =
-          one   : 100
-          two   : _tutorOffset.top + @found.tutors_list.height() - 400
-          three : _tutorOffset.top + @found.tutors_list.height() - 350
-          four  : _tutorOffset.top + @found.tutors_list.height() - 250
-
-        @tutorsList.animate
-          opacity: 1
-          1000
-
-#        if charsetPosition == '20%'
-#          @charset_boy.animate
-#            top: '45%'
-#            700
-
-      #two step
-      if thisScroll > @stepOffset.two
-        @twoStep.animate
-          opacity: 1
-          1000
-
-      #three step
-      if thisScroll > @stepOffset.three
-        @seoText.animate
-          opacity: 1
-          1000
-
-      #four step
-      if thisScroll > @stepOffset.four
-        @threeStep.animate
-          opacity: 1
-          1000
-    else
-      #SCROLL UP
-      @oldScroll = thisScroll
-
-      #first step
-#      if thisScroll < @stepOffset.one || thisScroll == @stepOffset.one
-#        if charsetPosition == '45%'
-#          @charset_boy.animate
-#            top: '20%'
-#            700
