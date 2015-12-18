@@ -8,23 +8,32 @@
         .tutor-title
           a(href!=value.link).js-name!=value.name
       .col.s9.m9.l9.right.hide-on-small-only
-        .grey-text.text-darken-1.js-experience!=value.experience
+        .grey-text.text-darken-1.js-experience.color-card
+          i.material-icons school
+          span.middle-span!=value.experience
       .col.s12.m9.l9.right
-        .grey-text.text-darken-1.js-subject!= value.subject
+        .grey-text.text-darken-1.js-subject.color-card
+          i.material-icons import_contacts
+          span.middle-span!= value.subject
       .col.s12.m9.l9.right.description
         p.js-about!=value.about
       .col.s12.m9.l9.right.valign-wrapper.no-vertical-space
         .col.s12.m9.l6.valign
-          .grey-text.text-darken-1.js-location!=value.location
+          .grey-text.text-darken-1.js-location.color-card
+            i.material-icons location_on
+            span.middle-span!=value.location
           .grey-text.text-darken-1.js-metro_line
             each val, index in value.metro_tutors
               span.stantion
                 i.metro_icon(class!=val.color)
                 span!=val.metro
         .col.s12.m9.l6.valign
-          .small.gray-text.right-align от&nbsp;
-            span.js-price!=value.left_price
-            span р./час
+          .small.gray-text.text-darken-1.right-align
+            i.material-icons.middle-icon bookmark_border
+            span.middle-span
+              | от&nbsp;
+              span.js-price!=value.left_price
+              span р./час
       .col.s12.m12.l12.right-align.tutor-action
         button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
           span.tutor_button_text Выбрать
