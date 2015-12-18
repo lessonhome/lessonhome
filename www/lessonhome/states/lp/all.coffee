@@ -32,7 +32,9 @@ class @main  extends @template '../lp'
         o ?= {}
         o.preps ?= {}
         modules = for index,prep of o.preps
-          @module 'main/tutor_list/tutor':value:prep
+          @module 'main/tutor_list/tutor':
+            value:prep
+            main_subject : _setKey @tree.content.filter,'subject.0'
         return modules
 
 

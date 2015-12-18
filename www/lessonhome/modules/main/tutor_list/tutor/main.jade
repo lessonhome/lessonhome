@@ -21,11 +21,19 @@
               i.material-icons location_on
               span.middle-span!=value.location
         .col.s4.m4.l4
-           .grey-text.text-darken-1.js-metro_line
-            each val, index in value.metro_tutors
-              span.stantion
-                i.material-icons.middle-icon(class!=val.color) fiber_manual_record
-                span!=val.metro         
+          .grey-text.text-darken-1.js-metro_line
+            - var ti =0;
+              each val, key in value.metro_tutors
+                span.stantion
+                  i.material-icons.middle-icon(class!=val.color) fiber_manual_record
+                  span!=val.metro
+                - break;
+             .order_stantion
+               each val, key in value.metro_tutors
+                - if(ti++==0) continue; 
+                 span.stantion
+                  i.material-icons.middle-icon(class!=val.color) fiber_manual_record
+                  span!=val.metro
       .col.s12.m9.l9.right.description
         p.js-about!=value.about
       .col.s12.m9.l9.right.valign-wrapper.no-vertical-space.card-control
