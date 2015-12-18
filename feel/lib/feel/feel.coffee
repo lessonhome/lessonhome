@@ -49,7 +49,12 @@ class module.exports
     .then => mkdirp '.cache'
     .then =>
       _writeFile '.cache/version',@sVersion
-    .then => mkdirp 'log'
+    .then =>
+      do Q.async =>
+        @redis = yield Main.service 'redis'
+        @redis = yield @redis.get()
+        yield _invoke @redis,'flushall'
+        yield mkdirp 'log'
     .then @checkCache
     .then @compass
     .then LoadSites
