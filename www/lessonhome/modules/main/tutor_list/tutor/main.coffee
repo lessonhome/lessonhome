@@ -89,7 +89,7 @@ class @main
       tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
       tutor_text += '... '
       @found.about.text tutor_text
-      la = $("<a class='about_link' href='#{@tree.value.link}'>подробнее</a>")
+      la = $("<a class='about_link' href='#{@found.name.attr('href')}'>подробнее</a>")
       @found.about.append la
       @prepareLink la
     else if force
