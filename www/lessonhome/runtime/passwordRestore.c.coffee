@@ -53,7 +53,8 @@ email_period_life = 24 #hours
           next : now
         }
       else
-        smsToken = account.smsToken
+        smsToken = {}
+        smsToken[key] = account.smsToken[key] for key in ['count', 'life', 'reborn', 'next']
 
       if smsToken.reborn < now then smsToken.count = 0
       if smsToken.life < now then smsToken.life = (new Date()).setMinutes(now.getMinutes() + sms_time_life)
@@ -82,7 +83,7 @@ email_period_life = 24 #hours
         valid: (new Date).setHours(now.getHours() + email_period_life)
       }
       utoken = yield url_service.d2u 'authToken',{token:authToken.token}
-      yield _invoke accountsDb,'update', {id: $.user.id}, $set:{authToken, changePasswordForId: data.id}, {upsert:true}
+      yield _invoke accountsDb,'update', {id: data.id}, $set:{authToken}, {upsert:true}
 
       personsDb = yield db.get 'persons'
       persons = yield _invoke personsDb.find({account: data.id}), 'toArray'
