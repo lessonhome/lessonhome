@@ -1,12 +1,5 @@
 @import variables
 
-@font-face
-  font-family: "metro_icon"
-  src: url(F('fonts/metro/metro.eot'))
-  src: url(F('fonts/metro/metro.ttf')) format('truetype')
-  src: url(F('fonts/metro/metro.woff')) format('woff')
-  src: url(F('fonts/metro/metro.svg')) format('svg')
-
 //tutors card
 .tutors-hover:hover
   transition: all 0.3s ease-out
@@ -53,50 +46,44 @@
 .stantion
   display: inline-block
   white-space: nowrap
-  i
-    vertical-align: middle
+  margin-right: 0.7rem
+  &:last-of-type
+    margin-right: 0
   span
     display: inline-block
     vertical-align: middle
+    line-height: 100%
 
 .metro_icon
-  font-family: 'metro_icon' !important
-  font-size: 24px
   display: inline-block
-  speak: none
-  font-style: normal
-  font-weight: normal
-  font-variant: normal
-  text-transform: none
-  line-height: 1
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
-  &:before
-    content: "\e900"
+  width: 1rem
+  height: 1rem
+  border-radius: 50%
+  vertical-align: middle
+  margin-right: 0.5rem
+  background-color: transparent
 
 .metro_red
-  color: #ed1731 !important
+  background-color: #ed1731 !important
 .metro_green
-  color: #44b85c !important
+  background-color: #44b85c !important
 .metro_blue
-  color: #0078bf !important
+  background-color: #0078bf !important
 .metro_light_blue
-  color: #19c1f3 !important
+  background-color: #19c1f3 !important
 .metro_brow
-  color: #894e35 !important
+  background-color: #894e35 !important
 .metro_orange
-  color: #f57f25 !important
+  background-color: #f57f25 !important
 .metro_purple
-  color: #8e479c !important
+  background-color: #8e479c !important
 .metro_yellow
-  color: #ffcb31 !important
+  background-color: #ffcb31 !important
 .metro_grey
-  color: #a1a2a3 !important
+  background-color: #a1a2a3 !important
 .metro_lime
-  color: #b3d445 !important
+  background-color: #b3d445 !important
 .metro_teal
-  color: #79cdcd !important
+  background-color: #79cdcd !important
 .metro_blue_grey
-  color: #acbfe1 !important
+  background-color: #acbfe1 !important
