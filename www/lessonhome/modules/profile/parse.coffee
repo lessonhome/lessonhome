@@ -40,6 +40,7 @@ STATUS_VALUES = {
     education : []
     about : data['about']
     why : data['reason']
+    index : data.index
     interests : Join data['interests'], 'description'
     reviews : []
     documents : []
