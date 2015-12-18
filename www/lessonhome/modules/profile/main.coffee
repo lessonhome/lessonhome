@@ -108,10 +108,9 @@ class @main
     state = History.getState()
 
     unless index?
-      @index = yield Feel.urlData.get('tutorProfile','index') ? 77
-    else @index = index
-    preps = yield Feel.dataM.getTutor [@index]
-    prep = preps[@index]
+      index = yield Feel.urlData.get('tutorProfile','index') ? 77
+    preps = yield Feel.dataM.getTutor [index]
+    prep = preps[index]
     return unless prep?
     yield @setValue prep
     yield @matchAny(true)
@@ -143,14 +142,15 @@ class @main
     @tutorChoose      active
     yield @setLinked  active,false
   setLinked : (active,choose = true)=>
-    return unless @index
+    console.log @tree.value
+    return unless @tree.value.index
     linked = yield Feel.urlData.get 'mainFilter','linked','reload'
-    state = active ? linked?[@index]==true
+    state = active ? linked?[@tree.value.index]==true
     if active?
       unless state
-        delete linked?[@index]
+        delete linked?[@tree.value.index]
       else
-        linked?[@index] = true
+        linked?[@tree.value.index] = true
       yield Feel.urlData.set 'mainFilter','linked',linked
     @tutorChoose state==true if choose
   tutorChoose : (active)=>
@@ -409,7 +409,7 @@ class @main
 
   getData : =>
     return {
-      id:             @index
+      id:             @tree.value.index
       comments:       @message_text.val()
       name:           @message_name.val()
       phone:          @message_phone.val()

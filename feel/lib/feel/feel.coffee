@@ -53,7 +53,7 @@ class module.exports
       do Q.async =>
         @redis = yield Main.service 'redis'
         @redis = yield @redis.get()
-        yield _invoke @redis,'flushall'
+        #yield _invoke @redis,'flushall'
         yield mkdirp 'log'
     .then @checkCache
     .then @compass
