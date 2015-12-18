@@ -421,7 +421,7 @@ class RouteState
           var $Feel = {};
           $Feel.version = '+Feel.version+';
           $Feel.oldversion = $.localStorage.get("coreVersion");
-          if ($Feel.oldversion != $Feel.version))
+          if ($Feel.oldversion != $Feel.version)
           {
             $.localStorage.removeAll();
             $.localStorage.set("coreVersion",$Feel.version);
