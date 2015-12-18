@@ -142,7 +142,6 @@ class @main
     @tutorChoose      active
     yield @setLinked  active,false
   setLinked : (active,choose = true)=>
-    console.log @tree.value
     return unless @tree.value.index
     linked = yield Feel.urlData.get 'mainFilter','linked','reload'
     state = active ? linked?[@tree.value.index]==true
