@@ -86,6 +86,7 @@ class Jobs
         #  @onprocess.call @,job,done
         #  return
       @listening[name].hash[hash] = foo
+      yield @onMessage 'jobs:'+name2
   onprocess : (job,done)=> Q.spawn =>
     [name,hash] = job.type.split(':')
     ret = yield @listening[name].hash[hash] job.data
