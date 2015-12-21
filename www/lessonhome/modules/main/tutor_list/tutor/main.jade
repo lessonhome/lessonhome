@@ -28,12 +28,15 @@
                   i.material-icons.middle-icon(class!=val.color) fiber_manual_record
                   span!=val.metro
                 - break;
-             .order_stantion
+              a.dropdown-button(href="#",data-hover="true",data-alignment="right",data-beloworigin="true",data-constrainwidth="false", data-activates!="d#{value.index}")
+                i.material-icons.middle-icon more_horiz
+              ul.dropdown-content(id!="d#{value.index}")
                each val, key in value.metro_tutors
-                - if(ti++==0) continue; 
-                 span.stantion
-                  i.material-icons.middle-icon(class!=val.color) fiber_manual_record
-                  span!=val.metro
+                  - if(ti++==0) continue;
+                  li
+                    span.stantion
+                     i.material-icons.middle-icon(class!=val.color) fiber_manual_record
+                     span!=val.metro
       .col.s12.m9.l9.right.description
         p.js-about!=value.about
       .col.s12.m9.l9.right.valign-wrapper.no-vertical-space.card-control
