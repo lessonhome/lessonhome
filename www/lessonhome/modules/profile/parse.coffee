@@ -140,7 +140,6 @@ STATUS_VALUES = {
       value.subjects.push _r
 
     for index, e of data.education
-      console.log JSON.stringify data.education
       start = e.period?.start
       end = e.period?.end
 
