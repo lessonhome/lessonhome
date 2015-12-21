@@ -374,7 +374,7 @@ class @main
 
 
   check_form : () =>
-    data = getData()
+    data = @getData()
     errs = @js.check data
     @showError errs
     return errs.length==0

@@ -151,8 +151,11 @@ STATUS_VALUES = {
 
       city = if e.city then "г. #{e.city}"
       period = "#{start} #{end} г." if start or end
-      info = "#{e.faculty}#{if e.qualification then ', ' + e.qualification else ''}"
-      _r = {name: e.name, city, period, info, about: e.comment}
+      info = []
+      info.push e.faculty if e.faculty
+      info.push e.qualification if e.qualification
+      info = info.join(', ')
+      _r = {name: e.university, city, period, info, about: e.comment}
       value.education.push _r
     
     if data.reviews?
