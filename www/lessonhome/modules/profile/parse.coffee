@@ -140,6 +140,7 @@ STATUS_VALUES = {
       value.subjects.push _r
 
     for index, e of data.education
+      console.log JSON.stringify data.education
       start = e.period?.start
       end = e.period?.end
 
@@ -155,7 +156,7 @@ STATUS_VALUES = {
       info.push e.faculty if e.faculty
       info.push e.qualification if e.qualification
       info = info.join(', ')
-      _r = {name: e.university, city, period, info, about: e.comment}
+      _r = {name:  e.name || e.university, city, period, info, about: e.comment}
       value.education.push _r
     
     if data.reviews?
