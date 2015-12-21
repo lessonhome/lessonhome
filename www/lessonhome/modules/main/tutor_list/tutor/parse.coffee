@@ -27,6 +27,12 @@ metro_map = Feel.const('metro').metro_map
     ret.subject += ', ' if ret.subject
     ret.subject += key?.capitalizeFirstLetter?()
 
+  sj = ret.subject
+  re = /\s*,\s*/
+  sj_array = sj.split(re)
+  
+  ret.subject = sj_array
+
   #exp
   value.experience ?= ""
   exp = value.experience ? ""
