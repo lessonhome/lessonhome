@@ -159,7 +159,7 @@ STATUS_VALUES = {
       value.education.push _r
     
     if data.reviews?
-      for index, r of data.reviews
+      for index, r of data.reviews when r.review
         value.reviews.push {
           mark : r.mark
           subject : Join r.subject
@@ -183,7 +183,7 @@ STATUS_VALUES = {
 
   return value
 
-Trim = (str) -> str.replace(/^\s+/g, '').replace(/\s+$/g, '')
+Trim = (str) -> str.replace(/^\s+|\s+$/gm, '')
 Join = (obj,key,prep = ', ') ->
   l = ''
   for i, val of obj
