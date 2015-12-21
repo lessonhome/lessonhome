@@ -123,8 +123,8 @@ STATUS_VALUES = {
             main = price
           else
             _r.name = place[1]
-            if (diff = GetDiff(price, main))?
-              continue unless diff > 0
+            if (diff = GetDiff(main, price))?
+              continue if diff == 0
               _r.prices = diff + ' руб.'
 
       _r.prices = ParsePrices(price) unless _r.prices
@@ -151,12 +151,15 @@ STATUS_VALUES = {
 
       city = if e.city then "г. #{e.city}"
       period = "#{start} #{end} г." if start or end
-      info = "#{e.faculty}#{if e.qualification then ', ' + e.qualification else ''}"
-      _r = {name: e.name, city, period, info, about: e.comment}
+      info = []
+      info.push e.faculty if e.faculty
+      info.push e.qualification if e.qualification
+      info = info.join(', ')
+      _r = {name:  e.name || e.university, city, period, info, about: e.comment}
       value.education.push _r
     
     if data.reviews?
-      for index, r of data.reviews
+      for index, r of data.reviews when r.review
         value.reviews.push {
           mark : r.mark
           subject : Join r.subject
@@ -180,7 +183,7 @@ STATUS_VALUES = {
 
   return value
 
-Trim = (str) -> str.replace(/^\s+/g, '').replace(/\s+$/g, '')
+Trim = (str) -> str.replace(/^\s+|\s+$/gm, '')
 Join = (obj,key,prep = ', ') ->
   l = ''
   for i, val of obj

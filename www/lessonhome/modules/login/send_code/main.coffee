@@ -13,10 +13,12 @@ class @main
   onSendAgain : (e) => Q.spawn =>
     btn = $(e.currentTarget)
     return if btn.is '.disabled'
-    {status} = yield @$send 'passwordRestore'
+    {status, err} = yield @$send 'passwordRestore'
     if status == 'success'
       btn.addClass('disabled')
       yield @updateBtn()
+    else
+      @showError(err)
 
   onSend : => Q.spawn =>
     if (value = @input.getValue())
@@ -30,19 +32,27 @@ class @main
 
   updateBtn : =>
     {status, err, time} = yield @$send './getTime'
-
     if status == 'success'
-      if time > 0
+      if time > 1000
         setTimeout =>
           Q.spawn =>
             yield @updateBtn()
         , time
       else
-        @btn_send_again.removeClass('disabled')
-
+        if time < 0
+          @btn_send_again.removeClass('disabled')
+        else
+          setTimeout =>
+            @btn_send_again.removeClass('disabled')
+          , 1000
 
   showError : (err)=>
+    console.log err
     switch err
+      when 'max_attempt'
+        @input.showError('Превышен лимит попыток. Отправьте новое сообщение')
+      when 'limit_attempt'
+        @input.showError('Сообщение все ещё не пришло? Для восстановления доступа свяжитесь с нами')
       when 'empty_code'
         @input.showError('Введите код подтверждения')
       when 'not_exist'

@@ -160,7 +160,8 @@
           .js-subjects
             if value.subjects && Object.keys(value.subjects).length
               each sub in value.subjects
-                +sub(sub.name, sub.course, sub.description)
+                if sub.name
+                  +sub(sub.name, sub.course, sub.description)
           .js-template_sub(style="display:none")
             +sub('', '&nbsp;', '&nbsp;')
 
@@ -300,7 +301,8 @@
             if exist
               select#sub
                 each sub in value.sub
-                  option(value = sub )!= sub
+                  if sub
+                    option(value = sub )!= sub
             label(for='sub') Выберите предмет
 
         .row

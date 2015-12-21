@@ -234,7 +234,7 @@ class @main
     @message_sub.html('')
     if value.sub?
       select = $('<select>')
-      for s in value.sub
+      for s in value.sub when s
         select.append "<option value='#{s}'>#{s}</option>"
       @message_sub.append select
     if value.sub.length > 1 then @found.select_subject.show()
@@ -265,16 +265,17 @@ class @main
       @found.short_prices.show()
 
       for sub in value.subjects
-        #####
-        @templ.use 'title', sub.name
-        @addPrice(sub.prices, @templ.use('body') )
-        @templ.add()
-        #####
-        @templ_sub.use 'name', sub.name
-        @templ_sub.useh 'direct', sub.course
-        @templ_sub.useh 'descr', sub.description
-        @templ_sub.add()
-        #####
+        if sub.name
+          #####
+          @templ.use 'title', sub.name
+          @addPrice(sub.prices, @templ.use('body') )
+          @templ.add()
+          #####
+          @templ_sub.use 'name', sub.name
+          @templ_sub.useh 'direct', sub.course
+          @templ_sub.useh 'descr', sub.description
+          @templ_sub.add()
+          #####
 
       @templ.push @found.detail_prices.html('')
       @templ_sub.push @found.subjects.html('')
@@ -373,7 +374,7 @@ class @main
 
 
   check_form : () =>
-    data = getData()
+    data = @getData()
     errs = @js.check data
     @showError errs
     return errs.length==0

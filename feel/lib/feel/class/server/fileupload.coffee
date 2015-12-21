@@ -109,8 +109,7 @@ class FileUpload
       hash_news = []
 
       person =  yield _invoke personsDb.find({account:req?.user?.id}), 'toArray'
-      person = person[0]
-      return unless person?
+      person = person[0] ? {}
 
       user_upload = person.uploaded ? {}
 
