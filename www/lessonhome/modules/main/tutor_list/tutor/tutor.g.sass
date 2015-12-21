@@ -11,17 +11,18 @@
   //box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12)
   transition: box-shadow 0.25s ease 0s
   overflow: hidden
-  padding: 1rem 0
+  padding: 1.5rem 0
   //@media #{$medium-and-down}
   //  padding: 1 0 1rem
   .tutor-title
     font-size: 1.6rem
     line-height: 130%
     margin: 0 0 0.5rem
-    color: #039BE5
     a
       text-decoration: underline
       transition: all 0.3s ease-out
+      color: #0094ae
+      text-decoration: none
       &:hover
         color: #F44336
     @media #{$medium-and-down}
@@ -37,7 +38,7 @@
   .price
     font-size: 1.6rem
   .tutor-action
-    margin-top: 1rem
+    margin-top: 0rem
 
   &.tutor_more
     cursor: pointer
@@ -60,41 +61,52 @@
   height: 1rem
   border-radius: 50%
   vertical-align: middle
-  margin-right: 0.5rem
+  margin-right: 0.4rem
   background-color: transparent
 
 .metro_red
-  background-color: #ed1731 !important
+  color: #ed1731 !important
 .metro_green
-  background-color: #44b85c !important
+  color: #44b85c !important
 .metro_blue
-  background-color: #0078bf !important
+  color: #0078bf !important
 .metro_light_blue
-  background-color: #19c1f3 !important
+  color: #19c1f3 !important
 .metro_brow
-  background-color: #894e35 !important
+  color: #894e35 !important
 .metro_orange
-  background-color: #f57f25 !important
+  color: #f57f25 !important
 .metro_purple
-  background-color: #8e479c !important
+  color: #8e479c !important
 .metro_yellow
-  background-color: #ffcb31 !important
+  color: #ffcb31 !important
 .metro_grey
-  background-color: #a1a2a3 !important
+  color: #a1a2a3 !important
 .metro_lime
-  background-color: #b3d445 !important
+  color: #b3d445 !important
 .metro_teal
-  background-color: #79cdcd !important
+  color: #79cdcd !important
 .metro_blue_grey
-  background-color: #acbfe1 !important
+  color: #acbfe1 !important
 .middle-span
   display: inline-block
   vertical-align: middle
 .color-card
   i
     vertical-align: middle
-    margin-right: 0.2rem
+    margin-right: 0.4rem
     color: #0094aa
 .middle-icon
   vertical-align: middle
-  margin-right: 0.3rem
+  margin-right: 0.4rem
+.tutor-info-line
+  font-size: 1.2rem
+  .col
+    &:first-of-type
+      padding-left: 0
+    &:last-of-type
+      padding-right: 0
+.experience
+  margin-bottom: 0.8rem
+.card-control
+  margin-top: 1rem
