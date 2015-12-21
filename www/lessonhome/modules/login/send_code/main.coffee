@@ -32,7 +32,6 @@ class @main
 
   updateBtn : =>
     {status, err, time} = yield @$send './getTime'
-    console.log time
     if status == 'success'
       if time > 1000
         setTimeout =>

@@ -1,7 +1,7 @@
 check = require('../modules/register/content/check')
 
 sms_time_life = 24*60 #minutes - the time limit for entering the code.
-sms_period_life = 1 #minutes - frequency with witch possible send message.
+sms_period_life = 5 #minutes - frequency with witch possible send message.
 sms_number_life = 10 #- Maximum the number of attempts. The number of attempts is reset to zero later time "sms_period_refresh".
 sms_period_refresh = 24 #hours - The number of attempts is reset to zero after this time
 
