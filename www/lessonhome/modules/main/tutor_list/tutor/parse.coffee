@@ -63,6 +63,8 @@ metro_map = Feel.const('metro').metro_map
   ls = cA ls,ls3,'<br><br>'
   ls = cA ls,ls1,'<br>'
   ret.location = ls
+  ret.street_loc  = l.street
+  ret.area_loc    = l.area
 
   #price
   value.left_price ?= 0
@@ -90,7 +92,6 @@ metro_map = Feel.const('metro').metro_map
 
   if emptyObject(users_metro) == true
     ret.metro_tutors = users_metro
-
   return ret
 
 emptyObject = (obj) ->
