@@ -7,6 +7,7 @@ class @main extends @template '../tutor'
     'other' : '/enter'
     'pupil' : '/enter'
   }
+  forms : [{bills: ['transactions']}]
   tree : =>
     items : [
       @module 'tutor/header/button' : {
@@ -27,4 +28,12 @@ class @main extends @template '../tutor'
         href  : '/tutor/out_bids'
       }
     ]
-    content       : @module '$'
+    content       : @module '$' :
+      transactions : $form: bills : 'transactions'
+      send_input : @module 'tutor/forms/input' :
+        placeholder : 'Введите вносимую сумму'
+        selector: 'write_tutor'
+        allowSymbolsPattern : "^\\d*$"
+      send_btn : @module 'link_button' :
+        text : 'Пополнить'
+        selector: 'view'

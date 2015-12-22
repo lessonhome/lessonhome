@@ -2,6 +2,8 @@
 
 
 
+
+
 class PayMaster
   constructor : ->
     $W @
