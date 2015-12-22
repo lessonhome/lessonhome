@@ -86,7 +86,7 @@ class @main
         @found.subject_ul = $ '<ul id="' + subjectID  + '" class="dropdown-content"></ul>'
         @found.subject.append @found.subject_ul
         for line of value.subject
-          if(ti++==0)
+          if(si++==0)
             continue
           @found.subject_ul.append '<li><span class="stantion"><i class="material-icons">import_contacts</i><span class="middle-span">' + value.subject[line]  + '</span></span></li>'
         sdd_button.dropdown()

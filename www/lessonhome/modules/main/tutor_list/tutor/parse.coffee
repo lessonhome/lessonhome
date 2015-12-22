@@ -39,6 +39,10 @@ metro_map = Feel.const('metro').metro_map
   exp += " года" if exp && !exp?.match? /\s/
   ret.experience = "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
 
+  #cours = value.subjects
+  #for key of cours
+    #console.log cours[key]
+
   #about
   value.about ?= ""
   ret.about = value.about || ''
