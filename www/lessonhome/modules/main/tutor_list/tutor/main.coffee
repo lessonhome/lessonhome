@@ -53,31 +53,67 @@ class @main
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
       @found.tutor_trigger.find('.material-icons').html('add')
   setValue : (value)=>
+    #Получение и обновление value
     value ?= @tree.value
     @tree.value = {}
     @tree.value[key] = val for key,val of value
     value = @tree.value
 
+    #Имя и отчество
     @found.name.text value.name
+    
+    #Список предметов
     @found.subject.text value.subject
-    @found.experience.text value.experience
-    @parseAbout true
-    @found.location.html(value.location)
-    @found.price?.text?(value.left_price)
 
+    #Опыт и статус преподавателя
+    @found.experience.text value.experience
+
+    @parseAbout true
+
+    #Отображение города
+    @found.location.html value.location
+
+    #Отображение цены
+    @found.price?.text? value.left_price
+
+    #Аватарка и раздача ссылок
     @found.image.attr('src', value.photos)
       .attr('alt',value.name).attr('title',value.name)
     @dom.find('a').attr('href',value.link).attr('title',value.name).attr('alt',value.name)
+
+    #Метро
     @found.metro_line.html ''
 
     metro_obj = value.metro_tutors
-    for line of metro_obj
-      if (name in metro_obj[line]) == false
-        @found.metro_line.append '<span class="stantion"><i class="material-icons ' + metro_obj[line].color  + '">directions_transit</i>' + metro_obj[line].metro + '</span>'
+    metroL = Object.keys(metro_obj).length
+    ti = 0
+    metroID = 'd' + value.index
+    
+    if(metroL == 1)
+      for line of metro_obj
+        @found.metro_line.append '<span class="stantion"><i class="' + metro_obj[line].color  + ' material-icons middle-icon">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span></span>'
+    else if(metroL == 0)
+      street_loc = value.street_loc || value.area_loc || ""
+      if(street_loc != "")
+        @found.metro_line.append '<span class="middle-span card-info-color">' + street_loc  + '</span>'
+    else
+      for line of metro_obj
+        dd_button = $ '<span class="dropdown-button stantion" data-hover="true" data-alignment="right" data-beloworigin="true" data-constrainwidth="false" data-activates="' + metroID  + '"></span>'
+        dd_button.append '<i class="' + metro_obj[line].color  + ' material-icons middle-icon">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span><div class="dotted_more-button right-align"></div>'
+        @found.metro_line.append dd_button
+        break
+      @found.metro_ul = $ '<ul id="' + metroID  + '" class="dropdown-content"></ul>'
+      @found.metro_line.append @found.metro_ul
+      for line of metro_obj
+        if(ti++==0)
+          continue
+        @found.metro_ul.append '<li><span class="stantion"><i class="' + metro_obj[line].color  + ' material-icons middle-icon">fiber_manual_record</i><span>' + metro_obj[line].metro + '</span></span></li>'
+      dd_button.dropdown()
 
-    console.log metro_obj
-
+    #console.log value
     yield @setLinked()
+
+
   parseAbout : (force = false)=>
     if !_isMobile.any()
       maxl = 500
