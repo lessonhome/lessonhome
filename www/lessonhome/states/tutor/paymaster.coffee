@@ -7,7 +7,7 @@ class @main extends @template '../tutor'
     'other' : '/enter'
     'pupil' : '/enter'
   }
-  forms : [{bills: ['transactions']}]
+  forms : [{bills: ['transactions', 'current_sum']}]
   tree : =>
     items : [
       @module 'tutor/header/button' : {
@@ -29,6 +29,7 @@ class @main extends @template '../tutor'
       }
     ]
     content       : @module '$' :
+      current_sum : $form: bills : 'current_sum'
       transactions : $form: bills : 'transactions'
       send_input : @module 'tutor/forms/input' :
         placeholder : 'Введите вносимую сумму'

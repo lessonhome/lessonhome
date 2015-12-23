@@ -30,7 +30,7 @@ class DbRead
 
   getObjFromDb : ($,bname,find,fields)=>
     db = yield $.db.get bname
-    cursor = db.find(find,fields)
+    cursor = db.find(find,fields).sort({date: -1})
     obj = yield _invoke cursor,'toArray'
     cursor.close()
     return obj
