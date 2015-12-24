@@ -1,16 +1,14 @@
 
 
-//<script type='text/javascript' src='https://paymaster.ru/ru-RU/widget/Basic/1?LMI_MERCHANT_ID=263bd7cb-0fa3-43c6-aa72-e209c0fc4649&LMI_PAYMENT_AMOUNT=2000&LMI_PAYMENT_DESC=%u041E%u043F%u043B%u0430%u0442%u0430%20%u0437%u0430%u044F%u0432%u043A%u0438&LMI_CURRENCY=RUB'></script>
-
 h2 На вашем счете:
 .summ_price
-  span.summ!=current_sum
+  span.summ!=current_sum || "0.00"
   span &nbsp;руб.
 .form
   .summ_send!=send_input
   .btn_send!=send_btn
 h2 Транзакции:
-mixin trans(date, type, value, residue)
+mixin trans(date, type, status, value, residue)
   tr
     td
       .time(style ="display: none")!=date
@@ -21,19 +19,30 @@ mixin trans(date, type, value, residue)
         td.up Пополнение
       when 'pay'
         td.down Списание
-      when 'wait'
-        td.grey Ожидание оплаты
       default
         td Прочие операции
+    case status
+      when 'wait'
+       td.grey Ожидание
+      when 'success'
+        td Завершено
+      default
+        td.grey Ошибка
     td #{value || '0.00'} руб.
-    td #{residue || '0.00'} руб.
+    td!=residue? "#{residue} руб.": "&#8212;"
 
 table.js-transations
   tbody
     tr
       th Дата / Время
       th Операция
+      th Статус
       th Сумма
       th Остаток
+    - var exist = false
     for t in transactions
-      +trans(t.date, t.type, t.value, t.residue)
+      -exist = true
+      +trans(t.date, t.type, t.status, t.value, t.residue)
+    if !exist
+      tr
+        td Операций не обнаружено

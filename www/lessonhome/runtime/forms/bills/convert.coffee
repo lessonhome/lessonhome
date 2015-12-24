@@ -10,11 +10,12 @@ class @F2V
       result[k] = {
         date: v.date
         type: v.type
+        status: v.status
         value: v.value
         residue : v.residue
       }
 
-      if v.type == "fill"
+      if v.status == "success"
         _date ?= v.date
 
         if v.date > _date
@@ -31,7 +32,7 @@ class @F2V
     curr_sum = null
     for k, v of data
 
-      if v.type == "fill"
+      if v.status == "success"
         _date ?= v.date
 
         if v.date > _date

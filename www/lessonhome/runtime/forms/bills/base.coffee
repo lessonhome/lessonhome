@@ -4,4 +4,5 @@
   'type'
   'value'
   'residue'
+  'status'
 ]

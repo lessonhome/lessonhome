@@ -1,9 +1,9 @@
 class @main
   Dom   : =>
-    @input = @tree.send_btn.class
+    @input = @tree.send_input.class
   show  : =>
-    console.log @tree.transactions
-    @tree.send_btn.class.on 'submit', => @sendPay()
+    console.log "hello", @tree.current_sum
+    @tree.send_btn.class.on 'submit', @sendPay
     @setLocalDate()
 
   setLocalDate : =>
@@ -14,7 +14,14 @@ class @main
       parent.find('.local_date:first').text(date.toLocaleDateString()).css 'visibility', 'visible'
       parent.find('.local_time:first').text(date.toLocaleTimeString()).css 'visibility', 'visible'
   sendPay : =>
-    {status, err, get} = yield @$send "./sendPay", {value : @tree.send_input.class.getValue()}
-    console.log status, err, get
+    value = @input.getValue()
+    if err = @js.check value
+      @showError {err}
+      return
+    {status, error, get} = yield @$send "./sendPay", {value}
+    console.log status, error, get
     if status == 'success'
-      window.open("https://paymaster.ru/Payment/Init?#{get}")
+      window.open(get)
+    else @showError error
+  showError : (err) ->
+    alert err.err
