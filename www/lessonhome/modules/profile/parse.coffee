@@ -160,17 +160,12 @@ STATUS_VALUES = {
         newDate = r.date
         dotted = "."
         newDate = newDate.replace /,/g, dotted
-        dateDay = newDate.substr 0, 2
-        dateDayFirst = dateDay.substr 0, 1
-        dateDayFirst = parseInt dateDayFirst
-        dateDay = parseInt dateDay
+        dateDay = newDate.split /\./, 1
+        dateDay = dateDay.join /\./
+        dateDay = parseInt dateDay, 10
         if(dateDay < 10)
-          if(dateDayFirst == 0)
-            dateDay = '0' + dateDay
-          else
-            dateDay = '0' + dateDay + '.'
-        replaceDay = newDate.substr 2, newDate.length
-        newDate = dateDay + replaceDay
+          dateDay = '0' + dateDay
+        newDate = newDate.replace /[0-9]{1,2}/i, dateDay
         value.reviews.push {
           mark : r.mark
           subject : Join r.subject
@@ -179,7 +174,6 @@ STATUS_VALUES = {
           name : r.name
           date : newDate
         }
-        console.log dateDayFirst
 
     if data.media?
       exist = {}
