@@ -1,8 +1,5 @@
 
 @bills = [
-  'date'
-  'type'
-  'value'
+  'transactions'
   'residue'
-  'status'
 ]

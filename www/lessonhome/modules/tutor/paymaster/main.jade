@@ -2,7 +2,7 @@
 
 h2 На вашем счете:
 .summ_price
-  span.summ!=current_sum || "0.00"
+  span.summ!=current_sum
   span &nbsp;руб.
 .form
   .summ_send!=send_input
@@ -29,7 +29,7 @@ mixin trans(date, type, status, value, residue)
       default
         td.grey Ошибка
     td #{value || '0.00'} руб.
-    td!=residue? "#{residue} руб.": "&#8212;"
+    td!=residue? residue + " руб.": "&#8212;"
 
 table.js-transations
   tbody
@@ -40,7 +40,7 @@ table.js-transations
       th Сумма
       th Остаток
     - var exist = false
-    for t in transactions
+    each t in transactions
       -exist = true
       +trans(t.date, t.type, t.status, t.value, t.residue)
     if !exist
