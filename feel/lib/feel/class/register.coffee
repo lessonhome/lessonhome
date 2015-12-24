@@ -9,6 +9,8 @@ class Register
     Wrap @
   init : =>
     db = yield Main.service 'db'
+    @jobs = yield Main.service 'jobs'
+    yield @jobs.listen 'registerReload',@jobRegisterReload
     @account  = yield db.get 'accounts'
     @session = yield db.get 'sessions'
     @bills = yield db.get 'bills'
@@ -168,6 +170,10 @@ class Register
     for session of @accounts[id].sessions
       delete @sessions[session]
     delete @accounts[id]
+  jobRegisterReload : (id)=>
+    unless id && typeof id == 'string'
+      throw new Error 'job:registerReload(userId) require userId'
+    yield @reload id
   reload : (id)=>
     acc  = yield _invoke @account.find(id:id),'toArray'
     sess = yield _invoke @session.find(account:id),'toArray'
