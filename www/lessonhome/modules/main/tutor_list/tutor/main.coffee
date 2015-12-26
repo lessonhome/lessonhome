@@ -12,6 +12,7 @@ class @main
   Dom: =>
     @chooseTutor      = @found.tutor_trigger
   show: =>
+    Feel.dataM.getTutor([@tree.value.index]).done() if @tree.value?.index
     @chooseTutor.on 'click', => Q.spawn => yield @onTutorChoose()
     Feel.urlData.on 'change',=> Q.spawn => yield @setLinked()
     @parseAbout()
