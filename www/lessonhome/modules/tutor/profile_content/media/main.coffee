@@ -6,6 +6,8 @@ class media
     $W @
   Dom : =>
     @drop_zone = @found.drop_zone
+    @timeout_zone = null
+    @visible_zone = @drop_zone.is ':visible'
   show : =>
     @photos = {}
     for i, layer of @tree.photos
@@ -20,40 +22,54 @@ class media
       @dom.on 'click', '.photo-wrap', (e) =>
         @emit 'select', $(e.currentTarget).attr('data-id')
 
+  openZone : =>
+    if @timeout_zone
+      clearTimeout(@timeout_zone)
+    @drop_zone.fadeIn() unless @drop_zone.is ':visible' and @visible_zone
+    @timeout_zone = setTimeout =>
+      @timeout_zone = null
+      @drop_zone.fadeOut() unless @visible_zone
+    , 800
+
   reloadPhotos: () =>
     layers = yield @remakeLayers()
-
     media_content = @found.content[0]
+    if layers.length
+      @drop_zone.fadeOut =>
+        media_content.removeChild(media_content.lastChild) while media_content.lastChild
+        for layer in layers
+          layerDOM = document.createElement('div')
+          layerDOM.className = 'photo1'
+          layerDOM.style.height = layer.height+'px'
+          for photo in layer.photos
+            wrapper = document.createElement('div')
+            wrapper.className = 'photo-wrap'
+            wrapper.setAttribute('data-id', photo.hash)
+            wrapper.style.left = photo.left+'px'
+            remove = document.createElement('div')
+            remove.className = 'remove'
+            image = document.createElement('img')
+            image.id = photo.hash
+            image.className = 'big'
+            image.src = photo.url
 
-    media_content.removeChild(media_content.lastChild) while media_content.lastChild
+            wrapper.appendChild(remove)
+            wrapper.appendChild(image)
+            if @tree.message
+              div = document.createElement('div')
+              div.className = 'load-text'
+              div.innerHTML = @tree.message
+              wrapper.className += ' ' + 'pointer'
+              wrapper.appendChild(div)
+            layerDOM.appendChild(wrapper)
 
-    for layer in layers
-      layerDOM = document.createElement('div')
-      layerDOM.className = 'photo1'
-      layerDOM.style.height = layer.height+'px'
-      for photo in layer.photos
-        wrapper = document.createElement('div')
-        wrapper.className = 'photo-wrap'
-        wrapper.setAttribute('data-id', photo.hash)
-        wrapper.style.left = photo.left+'px'
-        remove = document.createElement('div')
-        remove.className = 'remove'
-        image = document.createElement('img')
-        image.id = photo.hash
-        image.className = 'big'
-        image.src = photo.url
+          media_content.appendChild(layerDOM)
+      @visible_zone = false
+    else
+      media_content.removeChild(media_content.lastChild) while media_content.lastChild
+      @drop_zone.fadeIn()
+      @visible_zone = true
 
-        wrapper.appendChild(remove)
-        wrapper.appendChild(image)
-        if @tree.message
-          div = document.createElement('div')
-          div.className = 'load-text'
-          div.innerHTML = @tree.message
-          wrapper.className += ' ' + 'pointer'
-          wrapper.appendChild(div)
-        layerDOM.appendChild(wrapper)
-
-      media_content.appendChild(layerDOM)
 
   remove_photo: (id) =>
 

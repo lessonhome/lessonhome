@@ -11,6 +11,7 @@ class AddPhotos
     console.log @tree.photos
 
   initUploaded : (dropZone) =>
+    dropZone.on 'click', => @input.trigger('click')
     @params = {}
     @params[@type] = 'true'
     @input.fileupload
