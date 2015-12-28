@@ -21,23 +21,20 @@ class PayMaster
   init : =>
     @db = yield Main.service 'db'
     @jobs = yield Main.service 'jobs'
+    yield @jobs.listen 'withdraw',@withdraw
     yield @jobs.listen 'makeCheck',@makeCheck
     yield @jobs.listen 'waitPay', @getPay
     @bills = yield @db.get 'bills'
 
-
   getPay : ({url, body}) =>
-    console.log body
-    if yield  @validAnswer body
-      number = body['LMI_PAYMENT_NO']
-      console.log number
-      console.log yield @_confirmTrans(number, body['LMI_SYS_PAYMENT_ID'])
+    if yield @validAnswer body
+      yield @_confirmTrans(body['LMI_PAYMENT_NO'], body['LMI_SYS_PAYMENT_ID'])
 
     return {status: 301, body: ''}
 
   makeCheck : ({id_acc, amount, description})=>
     try
-      throw new Error('Please, transfer account ID in "id_acc"') unless id_acc?
+      throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
       amount = parseFloat(amount)
       throw 'amount_not_num' if isNaN(amount)
       amount =  Math.floor(amount*10)/10
@@ -53,16 +50,32 @@ class PayMaster
         console.log "ERROR: #{errs.stack}"
       return err
 
+  withdraw : ({id_acc, amount}) =>
+    try
+      throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
+      amount = parseFloat(amount)
+      throw 'amount_not_num' if isNaN(amount)
+      amount =  Math.floor(amount*10)/10
+      unless yield @_newTransaction(id_acc, 'pay', amount, true)
+        throw new Error("Error in _newTransaction")
+      return {status: 'success'}
+    catch errs
+      err = {status: 'failed'}
+      if typeof(errs) == 'string'
+        err['err'] =  errs
+      else
+        err['err'] = 'internal_error'
+        console.log "ERROR: #{errs.stack}"
+      return err
 
   _getUrl : (amount, number, description="Оплата услуги") ->
-    console.log amount
     get = [
       "LMI_MERCHANT_ID=#{ID}"
       "LMI_PAYMENT_AMOUNT=#{amount.toFixed(2)}"
       "LMI_CURRENCY=RUB"
       "LMI_PAYMENT_NO=#{number}"
       "LMI_PAYMENT_DESC=#{encodeURIComponent(description)}"
-      "LMI_SIM_MODE=1"
+      "LMI_SIM_MODE=0"
     ]
 
     return address + "?" + get.join("&")
@@ -73,9 +86,7 @@ class PayMaster
     h.push(ans[key] || '') for key in hash
     h.push secret_key
     h = h.join(';')
-    console.log h
     h = _crypto.createHash(type_signature).update(h).digest('base64')
-    console.log h
     return ans['LMI_HASH'] == h
 
   _getNumber : ->
@@ -119,7 +130,6 @@ class PayMaster
 
   _confirmTrans : (num_trans, payment_id) ->
     bill = yield _invoke @bills.find({"transactions.#{num_trans}.status":'wait'}, {account: 1, residue: 1, transactions: 1}), 'toArray'
-    console.log bill
     bill = bill[0]
     return false unless bill
     residue = bill.residue || 0
@@ -148,21 +158,5 @@ class PayMaster
       when 'pay'
         sum -= value
     return sum
-
-  writeOff : (id_acc, amount) =>
-    try
-      num = yield @_newTransaction(id_acc, 'pay', amount, true)
-      return {status: 'success'}
-    catch errs
-      err = {status: 'failed'}
-      if typeof(errs) == 'string'
-        err['err'] =  errs
-      else
-        err['err'] = 'internal_error'
-        console.log "ERROR: #{errs.stack}"
-      return err
-
-
-
 
 module.exports = new PayMaster

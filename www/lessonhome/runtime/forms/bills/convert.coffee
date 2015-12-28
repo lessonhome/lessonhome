@@ -4,8 +4,8 @@ class @F2V
   $transactions : (data) ->
     result = []
     for id, val of data.transactions
-      val.value = val.value.toFixed?(2)
-      val.residue = val.residue.toFixed?(2)
+      val.value = val.value?.toFixed?(2)
+      val.residue = val.residue?.toFixed?(2)
       result.push val
     result.sort sort_date
     return result
