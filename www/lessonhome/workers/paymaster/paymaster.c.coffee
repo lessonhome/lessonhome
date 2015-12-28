@@ -75,7 +75,7 @@ class PayMaster
       "LMI_CURRENCY=RUB"
       "LMI_PAYMENT_NO=#{number}"
       "LMI_PAYMENT_DESC=#{encodeURIComponent(description)}"
-      "LMI_SIM_MODE=1"
+      "LMI_SIM_MODE=0"
     ]
 
     return address + "?" + get.join("&")

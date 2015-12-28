@@ -21,6 +21,7 @@ mixin trans(date, type, status, value, residue)
         td.down Списание
       default
         td Прочие операции
+    td #{value || '0.00'} руб.
     case status
       when 'wait'
        td.grey Ожидание
@@ -28,7 +29,6 @@ mixin trans(date, type, status, value, residue)
         td Завершено
       default
         td.grey Ошибка
-    td #{value || '0.00'} руб.
     td!=residue? residue + " руб.": "&#8212;"
 
 table.js-transations
@@ -36,13 +36,12 @@ table.js-transations
     tr
       th Дата / Время
       th Операция
-      th Статус
       th Сумма платежа
+      th Статус
       th Остаток на счете
     - var exist = false
     each t in transactions
       -exist = true
-      - console.log("wefwfe",t.value)
       +trans(t.date, t.type, t.status, t.value, t.residue)
     if !exist
       tr
