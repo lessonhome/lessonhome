@@ -3,6 +3,7 @@ feel/node_modules
 **.log
 **.swp
 **.swo
+**.swn
 **.orig
 **/.sass-cache
 **/node_modules
@@ -11,6 +12,7 @@ feel/node_modules
 **/.idia
 **/.idea
 **/.cache
+**/.coffee_cache
 **/.DS_Store
 feel/.npmversion
 **/Icon
