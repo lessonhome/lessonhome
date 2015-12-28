@@ -18,6 +18,8 @@
       yield _invoke pdb,'update',{account:account},{$set:{ratio:ratio}}
     when 'landing'
       yield _invoke pdb,'update',{account:account},{$set:{landing:indata}}
+    when 'checked'
+      yield _invoke pdb,'update',{account:account},{$set:{checked:indata}}
     when 'filtration'
       yield _invoke pdb,'update',{account:account},{$set:{filtration:indata}}
     when 'mcomment'

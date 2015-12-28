@@ -65,6 +65,7 @@ age = (date1,date2)=>
       obj.nophoto = o.nophoto
       obj.account = account
       obj.landing = p.landing ? false
+      obj.checked = p.checked ? false
       obj.mcomment = p.mcomment || ''
       obj.filtration = p.filtration ? false
       obj.phone = p.phone

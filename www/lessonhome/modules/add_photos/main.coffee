@@ -20,6 +20,7 @@ class AddPhotos
       return false
     @input.fileupload
       dataType : 'json'
+      dropZone : @input
       done : @done
       progressall : @progressall
       change : (e) =>
@@ -65,11 +66,13 @@ class AddPhotos
     @dom.find('input').remove()
     @found.input_wrap.append @input=$('<input accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="" class="input" />')
     @input.fileupload
+      dropZone : @input
       dataType : 'json'
       done : @done
       progressall : @progressall
       progress : @start
       start: @start
+      change : (e) => @disable_loader()
   start : (e,data)=>
     @input.css {
       opacity: 0.5

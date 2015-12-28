@@ -3,6 +3,7 @@ feel/node_modules
 **.log
 **.swp
 **.swo
+**.swn
 **.orig
 **/.sass-cache
 **/node_modules

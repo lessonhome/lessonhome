@@ -4,6 +4,8 @@
 class media
   constructor : ->
     $W @
+  Dom : =>
+    @drop_zone = @found.drop_zone
   show : =>
     @photos = {}
     for i, layer of @tree.photos
@@ -21,7 +23,7 @@ class media
   reloadPhotos: () =>
     layers = yield @remakeLayers()
 
-    media_content = @dom[0]
+    media_content = @found.content[0]
 
     media_content.removeChild(media_content.lastChild) while media_content.lastChild
 
