@@ -7,6 +7,15 @@ class @main  extends @template '../lp'
 
   }
   tree : =>
+    ###
+    test : $defer : =>
+      taskTypes = yield Feel.getAllTaskTypes()
+      ret = {}
+      for type in taskTypes
+        struct = yield Feel.getTaskStruct type
+        ret[type] = @module 'task': struct
+      return ret
+    ###
     content : @module '$':
       top_form  : @module 'main/fastest_top'
       value :
