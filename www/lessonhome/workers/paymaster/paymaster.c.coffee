@@ -3,7 +3,7 @@ class PayMaster
   address = "https://paymaster.ru/Payment/Init"
   type_signature = "sha1"
   ID = "263bd7cb-0fa3-43c6-aa72-e209c0fc4649"
-  secret_key = "2C8AE0E31F83473E85E1AB4141D3198"
+  secret_key = "F1267224EAFB40B4A0078BF36B42D911"
   hash = [
     "LMI_MERCHANT_ID",
     "LMI_PAYMENT_NO",
@@ -27,10 +27,11 @@ class PayMaster
 
 
   getPay : ({url, body}) =>
-#    is_valid = yield @validAnswer body.post
-#    if is_valid
-#    number = "00008"
-#    yield @_confirmTrans(number)
+    console.log body
+    if yield  @validAnswer body
+      number = body['LMI_PAYMENT_NO']
+      console.log number
+      console.log yield @_confirmTrans(number)
 
     return {status: 301, body: ''}
 
@@ -39,6 +40,7 @@ class PayMaster
       throw new Error('Please, transfer account ID in "id_acc"') unless id_acc?
       amount = parseFloat(amount)
       throw 'amount_not_num' if isNaN(amount)
+      amount =  Math.floor(amount*10)/10
       number = yield @_newTransaction(id_acc, 'fill', amount)
       return {status: "success", url: yield @_getUrl(amount, number, description)}
 
@@ -52,7 +54,7 @@ class PayMaster
       return err
 
 
-  _getUrl : (amount, number, description="Оплата услуги") =>
+  _getUrl : (amount, number, description="Оплата услуги") ->
     console.log amount
     get = [
       "LMI_MERCHANT_ID=#{ID}"
@@ -71,10 +73,12 @@ class PayMaster
     h.push(ans[key] || '') for key in hash
     h.push secret_key
     h = h.join(';')
+    console.log h
     h = _crypto.createHash(type_signature).update(h).digest('base64')
+    console.log h
     return ans['LMI_HASH'] == h
 
-  _getNumber : =>
+  _getNumber : ->
     n = 5
     count = yield _invoke @bills.find({next_number_bill: {$exists: true}}, {next_number_bill: 1}), 'toArray'
     count = count[0]
@@ -88,27 +92,40 @@ class PayMaster
       return count if n <= count.length
       return (new Array(n - count.length + 1)).join('0') + count
 
-  _newTransaction : (id_acc, type, value, status = "wait", rem_old = true) =>
-    trans = yield _invoke @bills.find({account : id_acc}, {transactions : 1, _id: 0}), 'toArray'
-    trans = trans[0]
-    trans = if trans? then trans.transactions else {}
-    if rem_old then delete trans[key] for key, val of trans when val.status is 'wait'
+  _newTransaction : (id_acc, type, value, confirm = false) ->
+    bill = yield _invoke @bills.find({account : id_acc}, {transactions : 1, residue: 1}), 'toArray'
+    bill = bill[0] || {}
+    trans = bill.transactions || {}
+    residue = bill.residue || 0
+
+    delete trans[key] for key, val of trans when val.status is 'wait' and val.type is type
+
+    set = {transactions : trans}
+
     number = yield @_getNumber()
-    trans[number] = {type, status, value : Math.floor(value*10)/10, date: new Date}
-    set = {$set: transactions : trans}
-    yield _invoke @bills, 'update', {account : id_acc}, set, {upsert: true}
+    trans[number] = {type, value, date: new Date}
+
+    if confirm
+      trans[number]['status'] = 'success'
+      residue = yield @_operation residue, value, type
+      set['residue'] = trans[number]['residue'] = residue
+    else
+      trans[number]['status'] = 'wait'
+
+    yield _invoke @bills, 'update', {account : id_acc}, $set: set, {upsert: true}
+    if confirm then yield @jobs.solve 'flushForm', id_acc
+
     return number
 
-  _confirmTrans : (num_trans) =>
+  _confirmTrans : (num_trans) ->
     bill = yield _invoke @bills.find({"transactions.#{num_trans}.status":'wait'}, {account: 1, residue: 1, transactions: 1}), 'toArray'
     console.log bill
     bill = bill[0]
     return false unless bill
     residue = bill.residue || 0
+    trans = bill.transactions[num_trans]
 
-    switch bill.transactions[num_trans].type
-      when 'fill'
-        residue += bill.transactions[num_trans].value
+    residue = yield @_operation residue, trans.value, trans.type
 
     set = {
       residue
@@ -121,8 +138,28 @@ class PayMaster
     yield @jobs.solve 'flushForm', bill.account
     return true
 
+  _operation : (sum ,value, type) ->
+    switch type
+      when 'fill'
+        sum += value
+      when 'pay'
+        sum -= value
+    return sum
+
   writeOff : (id_acc, amount) =>
-    yield @_newTransaction(id_acc, 'pay', amount, 'success', false)
+    try
+      num = yield @_newTransaction(id_acc, 'pay', amount, true)
+      return {status: 'success'}
+    catch errs
+      err = {status: 'failed'}
+      if typeof(errs) == 'string'
+        err['err'] =  errs
+      else
+        err['err'] = 'internal_error'
+        console.log "ERROR: #{errs.stack}"
+      return err
+
+
 
 
 module.exports = new PayMaster
