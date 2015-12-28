@@ -9,10 +9,12 @@ class AddPhotos
     @input = @found.input
     @type = @tree.type
     console.log @tree.photos
-  show : =>
+
+  initUploaded : (dropZone) =>
     @params = {}
     @params[@type] = 'true'
     @input.fileupload
+      dropZone : dropZone
       dataType : 'json'
       singleFileUploads: false
       progressall : @progressall
@@ -20,7 +22,7 @@ class AddPhotos
       change : (e)=>
         @input = $(e.target)
         @input.prop 'disabled',true
-        
+
   done : (e,data)=>
 #    nowFile   = data?.files[data?.files?.length-1]
 #    lastFile  = data?.originalFiles?[data?.originalFiles?.length-1]

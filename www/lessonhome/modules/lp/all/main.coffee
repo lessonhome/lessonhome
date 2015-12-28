@@ -8,7 +8,7 @@ class @main
   show: =>
     @found.open_form.click => Q.spawn => yield Feel.root.tree.class.attached.showForm()
     Q.spawn =>
-      @found.go_find.attr 'href','/second_step?'+yield Feel.udata.d2u('mainFilter',@tree.filter)
+      @found.go_find.attr 'href','/tutors_search?'+yield Feel.udata.d2u('mainFilter',@tree.filter)
     
     ###
     @found.tutors_list.find('>div').remove()

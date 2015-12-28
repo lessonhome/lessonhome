@@ -5,6 +5,8 @@
   transition: all 0.3s ease-out
   &:hover
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+    .divider
+      opacity: 0
 .tutor-block
   .stars
     display : none
@@ -39,6 +41,9 @@
     font-size: 1.6rem
   .tutor-action
     margin-top: 0rem
+    .btn-flat
+      @media #{$small-and-down} 
+        width: auto !important
 
   &.tutor_more
     cursor: pointer
@@ -48,6 +53,7 @@
   display: inline-block
   white-space: nowrap
   margin-right: 0.7rem
+  cursor: pointer
   &:last-of-type
     margin-right: 0
   span
@@ -110,3 +116,35 @@
   margin-bottom: 0.8rem
 .card-control
   margin-top: 1rem
+.order_stantion
+  display: inline-block
+  vertical-align: middle
+.dropdown-button
+  cursor: pointer
+.color-icon
+  color: #0094aa
+.dotted_more-button
+  display: inline-block
+  width: 20px
+  line-height: 10px
+  height: 20px
+  background-color: #e4e4e4
+  border-radius: 50%
+  vertical-align: middle
+  text-align: center
+  &.left-align
+    margin-right: 0.5rem
+  &.right-align
+    margin-left: 0.5rem
+  &:before
+    content: "..."
+.card-info-color
+  color: #646464
+.subject-color
+  color: #0094aa
+.dropdown-content 
+  li
+    &>span
+      font-size: 1.2rem !important
+      color: #646464 !important
+      padding: 1rem 1rem !important

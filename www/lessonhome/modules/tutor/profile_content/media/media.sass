@@ -4,61 +4,76 @@ main
   +inline-block
   height: 100%
 
-.photo1
-  width : 738px
-  position : relative
-  float: left
-  margin : 5px 0
-  div
-    overflow: hidden
-    position : absolute
-    top : 0
-    height : 100%
-    margin : 0 0
-    display: inline-block
-    &.pointer
-      cursor: pointer
-    .load-text
-      +transition(all 200ms ease-out)
-      position: absolute
-      left: 0
-      right: 0
-      bottom: 0
-      background: rgba(0, 0, 0, 0.7)
-      color: rgba(255, 255, 255, 0.7)
-      height: 25px
-      line-height: 25px
-      font-size: 13px
-      font-weight: bold
-      margin-bottom: -25px
-    img
-      height : 100%
-      position: relative
-    .remove
-      &:after
-        content: '\00D7'
-      cursor: pointer
-      +transition(all 200ms ease-out)
-      z-index : 1
+.content
+  .photo1
+    width : 738px
+    position : relative
+    float: left
+    margin : 5px 0
+    div
+      overflow: hidden
       position : absolute
       top : 0
-      right : 0
-      width : 30px
-      height: 30px
-      color: rgba(255, 255, 255, 0.7)
-      line-height: 30px
-      background : rgba(0,0,0,0.8)
-      font-size: 23px
-      //background-image : url("/file/e567ec3e40/calendar_delete_sign.png")
-      //background-size : 8px
-      //background-position : 6px
-      //background-repeat : no-repeat
-      opacity : 0
-      border-radius : 2px
-    &:hover
-      +box-shadow(0px 5px 12px rgba(0,0,0,0.4))
+      height : 100%
+      margin : 0 0
+      display: inline-block
+      &.pointer
+        cursor: pointer
       .load-text
-        margin: 0px
+        +transition(all 200ms ease-out)
+        position: absolute
+        left: 0
+        right: 0
+        bottom: 0
+        background: rgba(0, 0, 0, 0.7)
+        color: rgba(255, 255, 255, 0.7)
+        height: 25px
+        line-height: 25px
+        font-size: 13px
+        font-weight: bold
+        margin-bottom: -25px
+      img
+        height : 100%
+        position: relative
       .remove
-        opacity : 0.7
-
+        &:after
+          content: '\00D7'
+        cursor: pointer
+        +transition(all 200ms ease-out)
+        z-index : 1
+        position : absolute
+        top : 0
+        right : 0
+        width : 30px
+        height: 30px
+        color: rgba(255, 255, 255, 0.7)
+        line-height: 30px
+        background : rgba(0,0,0,0.8)
+        font-size: 23px
+        //background-image : url("/file/e567ec3e40/calendar_delete_sign.png")
+        //background-size : 8px
+        //background-position : 6px
+        //background-repeat : no-repeat
+        opacity : 0
+        border-radius : 2px
+      &:hover
+        +box-shadow(0px 5px 12px rgba(0,0,0,0.4))
+        .load-text
+          margin: 0px
+        .remove
+          opacity : 0.7
+.drop_zone
+  clear: both
+  width: 600px
+  margin: 10px auto
+  height: 150px
+  //background: #E6E6E6
+  border: 3px dotted #BDBDBD
+  color: #969696
+  //line-height: 150px
+  font-size: 17px
+  span
+    margin-top: 45px
+    line-height: 27px
+    width: 400px
+    display: inline-block
