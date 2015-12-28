@@ -1,6 +1,6 @@
 
 
-h2 На вашем счете:
+h2 На счете репетитора:
 .summ_price
   span.summ!=current_sum
   span &nbsp;руб.
@@ -42,6 +42,7 @@ table.js-transations
     - var exist = false
     each t in transactions
       -exist = true
+      - console.log("wefwfe",t.value)
       +trans(t.date, t.type, t.status, t.value, t.residue)
     if !exist
       tr
