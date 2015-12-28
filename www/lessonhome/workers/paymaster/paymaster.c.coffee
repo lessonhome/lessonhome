@@ -31,7 +31,7 @@ class PayMaster
     if yield  @validAnswer body
       number = body['LMI_PAYMENT_NO']
       console.log number
-      console.log yield @_confirmTrans(number)
+      console.log yield @_confirmTrans(number, body['LMI_SYS_PAYMENT_ID'])
 
     return {status: 301, body: ''}
 
@@ -62,7 +62,7 @@ class PayMaster
       "LMI_CURRENCY=RUB"
       "LMI_PAYMENT_NO=#{number}"
       "LMI_PAYMENT_DESC=#{encodeURIComponent(description)}"
-      "LMI_SIM_MODE=0"
+      "LMI_SIM_MODE=1"
     ]
 
     return address + "?" + get.join("&")
@@ -117,7 +117,7 @@ class PayMaster
 
     return number
 
-  _confirmTrans : (num_trans) ->
+  _confirmTrans : (num_trans, payment_id) ->
     bill = yield _invoke @bills.find({"transactions.#{num_trans}.status":'wait'}, {account: 1, residue: 1, transactions: 1}), 'toArray'
     console.log bill
     bill = bill[0]
@@ -133,6 +133,9 @@ class PayMaster
       "transactions.#{num_trans}.status" : 'success'
       "transactions.#{num_trans}.date" : new Date
     }
+
+    if payment_id
+      set["transactions.#{num_trans}.pay_id"] = payment_id
 
     yield _invoke @bills, 'update', {account: bill.account}, $set: set, {upsert: true}
     yield @jobs.solve 'flushForm', bill.account
