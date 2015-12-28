@@ -4,6 +4,7 @@ http  = require 'http'
 spdy  = require 'spdy'
 https = require 'https'
 _crypto = require 'crypto'
+_postdata = Q.denode require 'post-data'
 os = require "os"
 
 
@@ -119,6 +120,7 @@ class Server
     obj.url += urldata
     return obj.url
   handler : (req,res)=>
+    req.body = _postdata req if req.method == 'POST'
     req.udataToUrl = (url)=> @udataToUrl req,res,url
     m = req.url.match /^([^\?]*)\?(.*)$/
     if m
