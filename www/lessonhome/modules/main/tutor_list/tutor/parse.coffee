@@ -27,11 +27,21 @@ metro_map = Feel.const('metro').metro_map
     ret.subject += ', ' if ret.subject
     ret.subject += key?.capitalizeFirstLetter?()
 
+  sj = ret.subject
+  re = /\s*,\s*/
+  sj_array = sj.split(re)
+  
+  ret.subject = sj_array
+
   #exp
   value.experience ?= ""
   exp = value.experience ? ""
   exp += " года" if exp && !exp?.match? /\s/
   ret.experience = "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
+
+  #cours = value.subjects
+  #for key of cours
+    #console.log cours[key]
 
   #about
   value.about ?= ""
@@ -63,6 +73,8 @@ metro_map = Feel.const('metro').metro_map
   ls = cA ls,ls3,'<br><br>'
   ls = cA ls,ls1,'<br>'
   ret.location = ls
+  ret.street_loc  = l.street
+  ret.area_loc    = l.area
 
   #price
   value.left_price ?= 0
@@ -90,7 +102,6 @@ metro_map = Feel.const('metro').metro_map
 
   if emptyObject(users_metro) == true
     ret.metro_tutors = users_metro
-
   return ret
 
 emptyObject = (obj) ->

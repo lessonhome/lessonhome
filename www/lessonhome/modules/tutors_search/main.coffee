@@ -24,7 +24,7 @@ class @main
 
 
     numTutors = 5
-    tutors = yield Feel.dataM.getByFilter numTutors, (@tree.filter ? {})
+    tutors = yield Feel.dataM.getByFilter numTutors, ({subject:['Русский язык']})
     tutors ?= []
     if tutors.length < numTutors
       newt = yield Feel.dataM.getByFilter numTutors*2, ({})
