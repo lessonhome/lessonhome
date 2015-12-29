@@ -1,3 +1,5 @@
+@import variables
+
 //custom header style
 header
   position: relative
@@ -5,12 +7,20 @@ header
   a
     font-size: 1.2rem
     font-weight: 700
+.pinned
+  z-index: 100
 nav
   background: #464646 !important
   box-shadow: none
-  line-height: 100%
+  line-height: 100% 
   height: auto
   overflow: hidden
+  .button-collapse
+    height: 54px
+    line-height: 54px
+    i
+      height: 54px
+      line-height: 54px
   ul
     li
       a
@@ -19,6 +29,7 @@ nav
         font-size: 1.2rem
   .btn-large
     background-color: #fd7c48
+    border-radius: 0
     &:hover
       background-color: #df6736
 .logo-phone-block
@@ -31,10 +42,15 @@ nav
       display: inline-block
       font-size: 0
       line-height: 0
+      img
+        @media #{$small-and-down}
+          height: 25px
     &.phone-link
       color: #020202
       font-size: 1.4rem
       line-height: 100%
+      @media #{$small-and-down}
+        font-size: 1.1rem
       span
         display: inline-block
         vertical-align: middle
@@ -44,3 +60,5 @@ nav
         height: 48px
         width: 0
         vertical-align: middle
+        @media #{$small-and-down}
+          height: 25px
