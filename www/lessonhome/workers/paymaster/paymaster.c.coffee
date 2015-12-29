@@ -67,7 +67,7 @@ class PayMaster
         console.log "ERROR: #{errs.stack}"
       return err
 
-  _getUrl : (amount, number, description="Оплата услуги") ->
+  _getUrl : (amount, number, description="Пополнение счета LessonHome") ->
     get = [
       "LMI_MERCHANT_ID=#{ID}"
       "LMI_PAYMENT_AMOUNT=#{amount.toFixed(2)}"
