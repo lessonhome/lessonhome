@@ -8,6 +8,7 @@ class _material_select extends EE
     @elem.material_select()
     @input = @elem.siblings('input')
     @_default = @input.val()
+    @is_multi = @elem.multiple
 
     @lis = @elem.siblings('ul')
     .on('mouseup touchend', LI, @_change)
@@ -17,7 +18,8 @@ class _material_select extends EE
       name = @_ejectLiName(li)
       @_sort[name]?= []
       @_sort[name].push li
-    @_preload()
+
+  if @is_multi then @_preload()
 
   _preload : =>
     exist = {}
@@ -25,7 +27,7 @@ class _material_select extends EE
     for v in @elem.val() when not exist[v]
       exist[v] = true
       result.push v
-    @_chekByArrNames result
+    @val result
 
   _change : (e) =>
     li = $(e.currentTarget)
@@ -60,16 +62,15 @@ class _material_select extends EE
 
   val : (value) ->
     return @value unless value?
-    @_chekByArrNames(value)
+    @_resetAllSelected()
+    @elem.val value
+    @value = if value instanceof Array then value else [value]
+    @_chekByArrNames(@value)
+    @elem.trigger 'change'
+    @_updateInput()
     return @elem
 
-  _chekByArrNames : (value) ->
-    @_resetAllSelected()
-    @checkByName(v) for v in value
-    @elem.val value
-    @value = value
-    @_updateInput()
-
+  _chekByArrNames : (value) -> @checkByName(v) for v in value
   checkByName : (name, check = true) ->
     if @_sort[name]?
       @_setCheckedLi(li, check) for li in @_sort[name]
@@ -151,6 +152,10 @@ class slideBlock extends EE
           input.filter("[value=\"#{values}\"]").prop "checked", true
         else
           input.val values
+#          console.log input.prop('tagName')
+          input.trigger('change') if input.prop('tagName') == 'SELECT'
+
+
 
   val : (data) ->
     return @_getValue() unless data
@@ -166,6 +171,11 @@ class @main
     @price = new slideBlock @found.price_block
     @status = new slideBlock @found.status_block
     @sex = new slideBlock @found.sex_block
+    @metro = new slideBlock @found.metro_location
+
+    @branch = new _material_select @found.branch
+    @station = new _material_select @found.station
+
 
     @dom.find('.optgroup').on 'click', (e)=>
       thisGroup = e.currentTarget
@@ -192,6 +202,9 @@ class @main
     @price.on 'change', => Feel.urlData.set 'tutorsFilter', @price.val()
     @status.on 'change', => Feel.urlData.set 'tutorsFilter', @status.val()
     @sex.on 'change', => Feel.urlData.set 'tutorsFilter', @sex.val()
+    @branch.on 'change', => Feel.urlData.set 'tutorsFilter', {branch: @branch.val()}
+    @station.on 'change', => Feel.urlData.set 'tutorsFilter', {station: @station.val()}
+
 
     @found.use_settings.on 'click', =>
       top = @dom.offset?()?.top
@@ -200,11 +213,16 @@ class @main
 #      Q.spawn => yield Feel.urlData.set 'tutorsFilter', @getValue()
 
   getValue : =>
-    subjects : @subjects.val()
-    course : @course.val()
-    price : @price.val().price
-    status : @status.val().status
-    sex : @sex.val()?.sex
+    metro = @metro.val()
+    return {
+      subjects: @subjects.val()
+      course: @course.val()
+      price: @price.val().price
+      status: @status.val().status
+      sex: @sex.val()?.sex
+      branch: metro.branch
+      station: metro.station
+    }
 
   setValue : (value) =>
     value = value.filter
@@ -213,4 +231,6 @@ class @main
     @price.val {price: value.price}
     @status.val {status: value.status}
     @sex.val {sex: value.sex}
+    @branch.val value.branch
+    @station.val value.station
 
