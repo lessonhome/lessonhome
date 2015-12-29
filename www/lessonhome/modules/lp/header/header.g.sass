@@ -7,14 +7,15 @@ header
   a
     font-size: 1.2rem
     font-weight: 700
-.pinned
-  z-index: 100
 nav
   background: #464646 !important
   box-shadow: none
   line-height: 100% 
   height: auto
   overflow: hidden
+  &.pinned 
+    overflow: inherit
+    z-index: 999
   .button-collapse
     height: 54px
     line-height: 54px
@@ -30,8 +31,10 @@ nav
   .btn-large
     background-color: #fd7c48
     border-radius: 0
+    box-shadow: none
     &:hover
       background-color: #df6736
+      box-shadow: none
 .logo-phone-block
   position: relative
   padding: 11px 0
