@@ -2,8 +2,8 @@
 class PayMaster
   address = "https://paymaster.ru/Payment/Init"
   type_signature = "sha1"
-  id = "263bd7cb-0fa3-43c6-aa72-e209c0fc4649"
-  secret_key = "2C8AE0E31F83473E85E1AB4141D3198"
+  ID = "263bd7cb-0fa3-43c6-aa72-e209c0fc4649"
+  secret_key = "F1267224EAFB40B4A0078BF36B42D911"
   hash = [
     "LMI_MERCHANT_ID",
     "LMI_PAYMENT_NO",
@@ -21,49 +21,25 @@ class PayMaster
   init : =>
     @db = yield Main.service 'db'
     @jobs = yield Main.service 'jobs'
+    yield @jobs.listen 'withdraw',@withdraw
     yield @jobs.listen 'makeCheck',@makeCheck
     yield @jobs.listen 'waitPay', @getPay
     @bills = yield @db.get 'bills'
 
-
   getPay : ({url, body}) =>
-#    is_valid = yield @validAnswer body.post
-#    if is_valid
-    number_check = "3840e9b1f90fede051c5"
-    bill = yield _invoke @bills.find({"transactions.#{number_check}.status":'wait'}, {account: 1, transactions: 1, residue: 1}), 'toArray'
-    bill = bill[0]
-    residue = bill.residue || 0
-    tran = bill.transactions
-    residue += tran[number_check].value
-    tran[number_check]['residue'] = residue
-    tran[number_check].status = 'success'
-    tran[number_check].date = new Date()
-    yield _invoke @bills, 'update', {account: bill.account}, $set: {residue, transactions: tran}, {upsert: true}
-    yield @jobs.solve 'flushForm', bill.account
-
+    if yield @validAnswer body
+      yield @_confirmTrans(body['LMI_PAYMENT_NO'], body['LMI_SYS_PAYMENT_ID'])
 
     return {status: 301, body: ''}
 
   makeCheck : ({id_acc, amount, description})=>
     try
-      throw new Error('Please, transfer account ID in "id_acc"') unless id_acc?
-      bill = yield _invoke @bills.find({account: id_acc}, {transactions: 1}), 'toArray'
-      is_exist = bill[0]?.transactions?
-      result_trans = if is_exist then bill[0].transactions else {}
-#      delete result_trans[key] for key, val of result_trans when val.status is 'wait'
-
-      number_check = _randomHash(10)
-
-      while is_exist and result_trans[number_check]?
-        number_check = _randomHash(10)
-
-      amount = (Math.floor(amount*10)/10)
-
-      result_trans[number_check] = {type: 'fill', status: 'wait', date: new Date, value: amount}
-
-      yield _invoke @bills, 'update', {account : id_acc}, {$set:{transactions: result_trans}}, {upsert: true}
-
-      return {status: "success",url: yield @_getUrl(amount, number_check, description)}
+      throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
+      amount = parseFloat(amount)
+      throw 'amount_not_num' if isNaN(amount)
+      amount =  Math.floor(amount*10)/10
+      {number} = yield @_newTransaction(id_acc, 'fill', amount)
+      return {status: "success", url: yield @_getUrl(amount, number, description)}
 
     catch errs
       err = {status: 'failed'}
@@ -74,11 +50,26 @@ class PayMaster
         console.log "ERROR: #{errs.stack}"
       return err
 
+  withdraw : ({id_acc, amount}) =>
+    try
+      throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
+      amount = parseFloat(amount)
+      throw 'amount_not_num' if isNaN(amount)
+      amount =  Math.floor(amount*10)/10
+      {bill} = yield @_newTransaction(id_acc, 'pay', amount, true)
+      return {status: 'success', bill}
+    catch errs
+      err = {status: 'failed'}
+      if typeof(errs) == 'string'
+        err['err'] =  errs
+      else
+        err['err'] = 'internal_error'
+        console.log "ERROR: #{errs.stack}"
+      return err
 
-  _getUrl : (amount, number, description="Оплата услуги") =>
-
+  _getUrl : (amount, number, description="Пополнение счета LessonHome") ->
     get = [
-      "LMI_MERCHANT_ID=#{id}"
+      "LMI_MERCHANT_ID=#{ID}"
       "LMI_PAYMENT_AMOUNT=#{amount.toFixed(2)}"
       "LMI_CURRENCY=RUB"
       "LMI_PAYMENT_NO=#{number}"
@@ -96,5 +87,75 @@ class PayMaster
     h = h.join(';')
     h = _crypto.createHash(type_signature).update(h).digest('base64')
     return ans['LMI_HASH'] == h
+
+  _getNumber : ->
+    n = 5
+    count = yield _invoke @bills.find({next_number_bill: {$exists: true}}, {next_number_bill: 1}), 'toArray'
+    count = count[0]
+    unless count
+      yield _invoke @bills, 'insert', {next_number_bill: 2}
+      return (new Array(n)).join('0') + '1'
+    else
+      yield _invoke @bills, 'update', {next_number_bill: {$exists: true}}, {$inc: {next_number_bill: 1}}
+      count = count.next_number_bill
+      count = new String(count)
+      return count if n <= count.length
+      return (new Array(n - count.length + 1)).join('0') + count
+
+  _newTransaction : (id_acc, type, value, confirm = false) ->
+    bill = yield _invoke @bills.find({account : id_acc}, {transactions : 1, residue: 1}), 'toArray'
+    bill = bill[0] || {}
+    trans = bill.transactions || {}
+    residue = bill.residue || 0
+
+    delete trans[key] for key, val of trans when val.status is 'wait' and val.type is type
+
+    set = {transactions : trans}
+
+    number = yield @_getNumber()
+    trans[number] = {type, value, date: new Date}
+
+    if confirm
+      trans[number]['status'] = 'success'
+      residue = yield @_operation residue, value, type
+      set['residue'] = trans[number]['residue'] = residue
+    else
+      trans[number]['status'] = 'wait'
+
+    yield _invoke @bills, 'update', {account : id_acc}, $set: set, {upsert: true}
+    if confirm then yield @jobs.solve 'flushForm', id_acc
+
+    return {number, bill: trans[number]}
+
+  _confirmTrans : (num_trans, payment_id) ->
+    bill = yield _invoke @bills.find({"transactions.#{num_trans}.status":'wait'}, {account: 1, residue: 1, transactions: 1}), 'toArray'
+    bill = bill[0]
+    return false unless bill
+    residue = bill.residue || 0
+    trans = bill.transactions[num_trans]
+
+    residue = yield @_operation residue, trans.value, trans.type
+
+    set = {
+      residue
+      "transactions.#{num_trans}.residue" : residue
+      "transactions.#{num_trans}.status" : 'success'
+      "transactions.#{num_trans}.date" : new Date
+    }
+
+    if payment_id
+      set["transactions.#{num_trans}.pay_id"] = payment_id
+
+    yield _invoke @bills, 'update', {account: bill.account}, $set: set, {upsert: true}
+    yield @jobs.solve 'flushForm', bill.account
+    return true
+
+  _operation : (sum ,value, type) ->
+    switch type
+      when 'fill'
+        sum += value
+      when 'pay'
+        sum -= value
+    return sum
 
 module.exports = new PayMaster

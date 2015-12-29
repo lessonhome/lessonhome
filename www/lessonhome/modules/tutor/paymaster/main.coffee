@@ -2,7 +2,7 @@ class @main
   Dom   : =>
     @input = @tree.send_input.class
   show  : =>
-    console.log "hello", @tree.current_sum
+    @input.addError('wrong', "Введите корректоное значение")
     @tree.send_btn.class.on 'submit', @sendPay
     @setLocalDate()
 
@@ -16,12 +16,12 @@ class @main
   sendPay : =>
     value = @input.getValue()
     if err = @js.check value
-      @showError {err}
+      @showError err
       return
-    {status, error, get} = yield @$send "./sendPay", {value}
-    console.log status, error, get
+    {status, err, get} = yield @$send "./sendPay", {value}
     if status == 'success'
       window.open(get)
-    else @showError error
+    else @showError err
   showError : (err) ->
-    alert err.err
+    @input.onFocus()
+    @input.showError(err)

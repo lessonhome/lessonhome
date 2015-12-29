@@ -18,3 +18,5 @@ class @main extends @template '../edit_description'
     send_message : @module 'tutor/button' :
       text : 'отправить смс'
       selector : 'edit_save'
+  init : ->
+    @parent.parent.parent.tree.left_menu.setActive 'Отправить смс'
