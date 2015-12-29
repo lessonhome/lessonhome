@@ -39,3 +39,5 @@ class @main extends @template '../tutor'
       send_btn : @module 'link_button' :
         text : 'Списать'
         selector: 'edit_save'
+  init : ->
+    @parent.tree.left_menu.setActive 'Управление счетом'

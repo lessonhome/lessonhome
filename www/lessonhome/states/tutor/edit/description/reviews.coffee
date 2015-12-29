@@ -67,3 +67,5 @@ class @main extends @template '../edit_description'
     save_comment : @module 'tutor/button' :
       text : 'Сохранить коментарий'
       selector : 'edit_save'
+  init : ->
+    @parent.parent.parent.tree.left_menu.setActive 'Отзывы/Удаление'
