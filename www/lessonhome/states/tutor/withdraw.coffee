@@ -2,8 +2,9 @@ class @main extends @template '../tutor'
   route : '/tutor/withdraw'
   model   : 'tutor/pay'
   title : "списание со счета"
-  access : ['tutor']
+  access : ['admin']
   redirect : {
+    'tutor' : '/enter'
     'other' : '/enter'
     'pupil' : '/enter'
   }

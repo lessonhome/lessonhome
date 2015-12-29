@@ -11,16 +11,17 @@ h2
     font-weight: bold
 .form
   height: 35px
-  margin-bottom: 20px
+  margin-bottom: 40px
   .btn_send
     width: 200px
     height: 100%
-    +inline-block()
   .summ_send
     margin-right: 5px
     width: 260px
     font-size: 35px
-    +inline-block()
+  .summ_send, .btn_send
+    display: inline-block
+    vertical-align: top
 table.transations
   width: 700px
   tbody

@@ -38,7 +38,7 @@ class PayMaster
       amount = parseFloat(amount)
       throw 'amount_not_num' if isNaN(amount)
       amount =  Math.floor(amount*10)/10
-      number = yield @_newTransaction(id_acc, 'fill', amount)
+      {number} = yield @_newTransaction(id_acc, 'fill', amount)
       return {status: "success", url: yield @_getUrl(amount, number, description)}
 
     catch errs
@@ -56,9 +56,8 @@ class PayMaster
       amount = parseFloat(amount)
       throw 'amount_not_num' if isNaN(amount)
       amount =  Math.floor(amount*10)/10
-      unless yield @_newTransaction(id_acc, 'pay', amount, true)
-        throw new Error("Error in _newTransaction")
-      return {status: 'success'}
+      {bill} = yield @_newTransaction(id_acc, 'pay', amount, true)
+      return {status: 'success', bill}
     catch errs
       err = {status: 'failed'}
       if typeof(errs) == 'string'
@@ -126,7 +125,7 @@ class PayMaster
     yield _invoke @bills, 'update', {account : id_acc}, $set: set, {upsert: true}
     if confirm then yield @jobs.solve 'flushForm', id_acc
 
-    return number
+    return {number, bill: trans[number]}
 
   _confirmTrans : (num_trans, payment_id) ->
     bill = yield _invoke @bills.find({"transactions.#{num_trans}.status":'wait'}, {account: 1, residue: 1, transactions: 1}), 'toArray'
