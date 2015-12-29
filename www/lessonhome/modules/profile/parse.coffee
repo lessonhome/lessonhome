@@ -160,13 +160,22 @@ STATUS_VALUES = {
     
     if data.reviews?
       for index, r of data.reviews when r.review
+        newDate = r.date
+        dotted = "."
+        newDate = newDate.replace /,/g, dotted
+        dateDay = newDate.split /\./, 1
+        dateDay = dateDay.join /\./
+        dateDay = parseInt dateDay, 10
+        if(dateDay < 10)
+          dateDay = '0' + dateDay
+        newDate = newDate.replace /[0-9]{1,2}/i, dateDay
         value.reviews.push {
           mark : r.mark
           subject : Join r.subject
           course : Join r.course
           review : r.review
           name : r.name
-          date : r.date
+          date : newDate
         }
 
     if data.media?

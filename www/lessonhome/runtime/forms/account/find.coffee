@@ -2,7 +2,7 @@
 
 
 class Find
-  get : (req,res)=> id:req.user.id
+  get : (o)=> id:o.id
 
 
 module.exports = Find

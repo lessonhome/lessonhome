@@ -2,7 +2,7 @@
 
 
 class Find
-  get : (req,res)=> $or:[{account:req.user.id},{id:req.user.id}]
+  get : (o)=> $or:[{account:o.id},{id:o.id}]
 
 
 module.exports = Find

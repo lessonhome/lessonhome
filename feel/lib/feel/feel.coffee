@@ -51,6 +51,7 @@ class module.exports
       _writeFile '.cache/version',@sVersion
     .then =>
       do Q.async =>
+        @jobs = yield Main.service 'jobs'
         @redis = yield Main.service 'redis'
         @redis = yield @redis.get()
         #yield _invoke @redis,'flushall'

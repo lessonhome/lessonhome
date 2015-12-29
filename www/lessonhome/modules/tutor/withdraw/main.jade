@@ -1,0 +1,48 @@
+
+
+h2 На счете репетитора:
+.summ_price
+  span.js-summ!=current_sum
+  span &nbsp;руб.
+.form
+  .summ_send!=send_input
+  .btn_send!=send_btn
+h2 Транзакции:
+mixin trans(date, type, status, value, residue)
+  tr
+    td
+      .time(style ="display: none")!=date
+      p.local_date(style ="visibility: hidden") 00.00.0000
+      i.local_time(style ="visibility: hidden") 00:00:00
+    case type
+      when 'fill'
+        td.up Пополнение
+      when 'pay'
+        td.down Списание
+      default
+        td Прочие операции
+    td #{value || '0.00'} руб.
+    case status
+      when 'wait'
+       td.grey Ожидание
+      when 'success'
+        td Завершено
+      default
+        td.grey Ошибка
+    td!=residue? residue + " руб.": "&#8212;"
+
+table.js-transations
+  tbody
+    tr
+      th Дата / Время
+      th Операция
+      th Сумма платежа
+      th Статус
+      th Остаток на счете
+    - var exist = false
+    each t in transactions
+      -exist = true
+      +trans(t.date, t.type, t.status, t.value, t.residue)
+    if !exist
+      tr
+        td(colspan='5') Операций не обнаружено

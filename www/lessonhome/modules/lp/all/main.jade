@@ -79,46 +79,54 @@
           !=t
   .two-step-bg
     .row
+      .col.l9.m9.centered-block.text-before-button
+        .text Посмотреть еще анкеты наших преподавателей, ознакомиться с личнной информацией, фотографиями, отзывами, достижениями и многое дргуое.
+    .row
       .col.l9.m9.centered-block
         .dialog_block.text-dialog
           .row
             .col.s12
               a.js-go_find.waves-effect.waves-light.btn-large Ещё репетиторы
                 i.material-icons.right search
-.two-step-bg.js-step_two
-.container.js-lp_custom
-  .row
-    .col.l9.m9.centered-block
-      .row
-        .col.l12.m12.s12.js-seo_text
-          h2!=title
-          h4.grey-text.text-darken-1!=sub_title
-          p!=text
 .three-step-bg.js-step_three
   .container
-    .row
+    .row.common-row
       .col.l9.m9.centered-block
-        .dialog_block.fastest
+        .dialog_block.fastest.bottom-form
           h3 Помочь Вам?
-          p.form_p Заполните эти поля и в течении 5 минут Вам позвонит наш специалист и поможет Вам с подбором репетитора.
-          .row
+          p.form_p Заполните форму и через 5 минут Вам позвонит  наш администратор
+          .row.name-row
             .input-field.col.l12.m12.s12
               i.material-icons.prefix account_circle
               input.js-input_name(type='text' value=value.name)#icon_prefix.validate
               label(for='icon_prefix') Имя
-          .row
+          .row.phone-row
             .input-field.col.l12.m12.s12.error-text
               i.material-icons.prefix phone
               input.js-input_phone(type='tel' value=value.phone)#icon_telephone.validate
               label(for='icon_telephone', data-error="Введите корректный телефон") Телефон
-          .row
+          .row.botton-row
             .col.l12.m12.s12
-              button.js-btn_send(footer='footer' type='submit', name='submit_form').btn-large.waves-effect.waves-light Отправить
+              button.js-btn_send(footer='footer' type='submit', name='submit_form').btn.waves-effect.waves-light Отправить
                 i.material-icons.right send
           .js-on_send
             .row
-              .col.s12.left-align
+              .col.s12.left-align.final-send-block
                 h4 Заявка отправлена!
                 p С Вами скоро свяжется наш специалист.
                 button.js-open_form.btn.waves-effect.waves-light Дополнить заявку
+.grey.lighten-3
+  .container.after-button-text.grey.lighten-3
+    .row
+      .col.l9.m9.centered-block
+        p
+          i.material-icons fiber_manual_record
+          span.middle-text Не нужно платить сразу за весь курс – оплата производится частями и только по факту оказания услуг 
+        p 
+          i.material-icons fiber_manual_record 
+          span.middle-text Если случилось непредвиденное - Вы просто говорите об этом преподавателю и переносите занятие.
+        p 
+          i.material-icons fiber_manual_record
+          span.middle-text Гибкий график - Вам не надо ждать набора группы и быть зависимым от расписания занятий
+
 

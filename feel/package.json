@@ -64,7 +64,8 @@
     "yandex-direct-api": "*",
     "kue" : "*",
     "md5-file":"*",
-    "redlock":"*"
+    "redlock":"*",
+    "post-data":"*"
   }
 }
 

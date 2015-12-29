@@ -1,10 +1,12 @@
-
-each layer in photos
-  if layer && layer.height && layer.photos && layer.photos[0]
-    .photo1(style="height:#{layer.height}px;")
-      each photo in layer.photos
-        div(data-id=photo.hash, style="left:#{photo.left}px", class = message? "pointer" : undefined).photo-wrap
-          .remove
-          img.big(src=photo.url)
-          if message
-            .load-text!=message
+.js-drop_zone
+  span Для загрузки перетащите файлы в эту область. Или нажмите "Загрузить фото".
+.js-content
+  each layer in photos
+    if layer && layer.height && layer.photos && layer.photos[0]
+      .photo1(style="height:#{layer.height}px;")
+        each photo in layer.photos
+          div(data-id=photo.hash, style="left:#{photo.left}px", class = message? "pointer" : undefined).photo-wrap
+            .remove
+            img.big(src=photo.url)
+            if message
+              .load-text!=message

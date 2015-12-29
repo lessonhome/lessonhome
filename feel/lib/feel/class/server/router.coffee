@@ -32,15 +32,21 @@ class Router
               @url.text[r] = statename
             else if r instanceof RegExp
               @url.reg.push [r,statename]
-            
+  paymaster : (req,res)=> do Q.async =>
+    req.body = yield req.body
+    {status,body} = yield Feel.jobs.solve 'waitPay',{url:req.url,body:req.body}
+    res.statusCode = status
+    res.end body
   handler : (req,res)=> do Q.async =>
+    console.log req.url
     req.site = @site
     req.status = (args...)=> @site.status req,res,args...
     if (redirect = @_redirects?.redirect?[req?.url])?
       return @redirect req,res,redirect
     if req.url == '/favicon.ico'
       req.url = '/file/666/favicon.ico'
-
+    if req.url.match /\/paymaster\/payment/
+      return @paymaster req,res
     if req.url.match /^\/(js|jsfile|jsfilet|urlform|jsclient)\/.*/
       return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/file\/.*/
