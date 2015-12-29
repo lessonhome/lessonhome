@@ -358,13 +358,69 @@ $animation-default-01:  80% 0
 
 .three-step-bg
   //background: url(F('/lp/green-bg_02.jpg'))
+  
   background: #F5F5F5
-  padding-bottom: 60px
+  @media #{$medium-and-up} 
+    background: url(F('/lp/girl_bg.jpg')) no-repeat center bottom
+    background-color: #ffffff
+  //padding-bottom: 60px
   @media #{$medium-and-down}
-    padding-bottom: 60px
+    //padding-bottom: 60px
   @media #{$small-and-down}
     padding-bottom: 60px
+  @media #{$medium-and-up}   
+    .container
+      .row
+        &.common-row
+          min-height: 608px
+          margin-bottom: 0
+@media #{$medium-and-up}
+  .bottom-form
+    padding-top: 230px
+    padding-left: 0 
+    padding-right: 0
+    width: 438px
+    margin: 0 auto
+    p
+      font-size: 1.2rem
+      margin-bottom: 0
+    h3
+      font-size: 1.8rem
+      margin-top: 0
+    .row
+      &.phone-row
+        margin-bottom: 10px
+      &.name-row
+        margin-bottom: 0
+      &.botton-row
+        margin-bottom: 0
+      .input-field
+        .prefix
+          top: 14px
+  .final-send-block
+    text-align: center
+    padding-top: 80px !important
 
+.text-before-button
+  font-size: 1.2rem
+.after-button-text
+  padding-top: 30px
+  padding-bottom: 40px
+  i.material-icons
+    font-size: 1rem
+    margin-right: 0.7rem
+    vertical-align: middle
+    color: #22b4a6
+  span.middle-text
+    display: inline-block
+    vertical-align: top
+    font-size: 1.2rem
+    width: 95%
+    @media #{$medium-and-down}
+      width: 90%
+    @media #{$small-and-down}
+      vertical-align: top
+      width: 80%
 .no-vertical-space
   .col
     &:first-of-type
