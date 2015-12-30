@@ -1,1 +1,244 @@
-//style for new main page
+@import variables
+
+//fixed container whidth
+.container
+  width: 90% !important
+  @media #{$medium-and-down}
+    width: 90% !important
+
+//custom button
+.btn-large, .btn
+  &.orange-btn
+    background-color: #fd7c48
+    box-shadow: none
+    &:hover
+      background-color: #df6736
+      box-shadow: none
+.luck-history
+  background: url(F('/lp/history_img.jpg'))
+  background-size: cover
+  min-height: 644px
+  color: #ffffff
+  .valign-row
+    .row
+      width: 99%
+      display: inline-block
+      vertical-align: middle
+    &:before
+      content: ''
+      display: inline-block
+      width: 0
+      height: 644px
+      vertical-align: middle
+  .history-title
+    font-size: 2.8rem
+    line-height: 130%
+    font-weight: 700
+    margin-bottom: 1rem
+    font-style: italic
+    text-shadow: 0 0 35px #7b7b7b 
+  .history-text
+    font-size: 1.6rem
+    line-height: 130%
+    margin-bottom: 1.8rem
+    font-style: italic
+    text-shadow: 0 0 35px #7b7b7b 
+.about-row
+  padding-bottom: 4rem
+  background-color: #f8f8f8
+  .col
+    padding-top: 4rem
+  h1
+    margin: 0 0 1.2rem 0
+    font-size: 2.8rem
+    font-weight: 700
+  p
+    font-size: 1.4rem
+    line-height: 140%
+    margin: 0
+.reliable-experts
+  position: relative
+  h3
+    font-size: 2rem
+    margin: 0 0 1.2rem
+  p
+    font-size: 1.2rem
+    line-height: 140%
+    margin: 0
+  img
+    position: relative
+    z-index: 3
+  .row
+    .col
+      position: relative
+      z-index: 2
+  .outer-round
+    position: absolute
+    z-index: 1
+    top: 0
+    bottom: 0
+    background-color: #7550b6
+    transform: skewX(-205deg)
+    left: -100%
+    right: 83px
+.resoult-block
+  background-color: #fdd600
+  padding: 4rem 0
+  .row
+    .col
+      &.re-text
+        padding-top: 4rem
+.ege-gia-block
+  position: relative
+  .right-img-block
+    position: absolute
+    top: 0
+    right: 0
+    left: 52%
+    bottom: 0
+    background: url(F('/lp/ege_gia_img.jpg'))
+    background-size: cover
+    z-index: 1
+    overflow: hidden
+    &:before
+      content: ''
+      display: block
+      position: absolute
+      top: 0
+      left: -250%
+      bottom: 0
+      right: 90%
+      background-color: #ffffff
+      transform: skewX(-205deg)
+  .row
+    .col
+      &.re-text
+        position: relative
+        padding-top: 6rem
+        padding-bottom: 6rem
+.subjects-block
+  background-color: #f8f8f8
+  padding: 4rem 0
+  ul
+    &.subject-list
+      margin: 0
+      padding: 0
+      padding-left: 110px
+      padding-bottom: 20px
+      display: inline-block
+      li
+        font-size: 1.1rem
+        padding-bottom: 0.2rem
+        &.title
+          font-size: 1.3rem
+          font-weight: 700
+          margin-bottom: 0.5rem
+        a
+          color: #464646
+          transition: all 0.3s ease-out
+      &.list-one
+        background: transparent url(F('/lp/subject_1.png')) no-repeat left top
+        .title
+          color: #2db598
+        a
+          &:hover
+            color: #2db598
+      &.list-two 
+        background: transparent url(F('/lp/subject_2.png')) no-repeat left top
+        .title
+          color: #5596e6
+        a
+          &:hover
+            color: #5596e6
+      &.list-three
+        background: transparent url(F('/lp/subject_3.png')) no-repeat left top
+        .title
+          color: #fcba00
+        a
+          &:hover
+            color: #fcba00
+      &.list-four 
+        background: transparent url(F('/lp/subject_4.png')) no-repeat left top
+        .title
+          color: #fd7c48
+        a
+          &:hover
+            color: #fd7c48           
+  .row
+    .col
+      &:first-of-type
+        padding-left: 0
+      &:last-of-type
+        padding-right: 0
+.what-work
+  background-color: #fdd600
+  padding: 4rem 0
+  p
+    margin: 0
+  img
+    margin-bottom: 1rem
+  .col
+    position: relative
+    &:after
+      content: ''
+      display: block
+      background: transparent url(F('/lp/arrow_01.png')) no-repeat
+      width: 56px
+      height: 20px
+      position: absolute
+      right: 0
+      top: 80px
+      margin-top: -10px
+      margin-right: -28px
+    &:first-of-type
+      padding-left: 0
+    &:last-of-type
+      padding-right: 0
+      &:after
+        display: none
+.works-facts
+  background-color: #7550b6
+  color: #ffffff
+  .row
+    .col
+      padding-top: 4rem
+      padding-bottom: 4rem
+      padding-left: 4rem
+      padding-right: 4rem
+      &.white-block
+        background-color: #ffffff
+        color: #464646
+      transform: skewX(-205deg)
+      .inner-block
+        overflow: hidden
+        transform: skewX(205deg)
+      font-size: 1.2rem
+      i
+        &.material-icons
+          font-size: 2.5rem
+          display: inline-block
+          vertical-align: middle
+          margin-right: 0.5rem
+      span
+        width: 85%
+        display: inline-block
+        vertical-align: top
+.title-block
+  h3
+    font-size: 2rem
+    margin: 0 0 2rem 0
+    font-weight: 700
+.row
+  &.no-margin-row
+    margin-bottom: 0 !important
+  .col
+    &.re-text
+      padding-top: 6rem
+      h3
+        font-size: 2rem
+        margin: 0 0 1.2rem
+        font-weight: 700
+      p
+        font-size: 1.2rem
+        line-height: 140%
+        margin: 0 
