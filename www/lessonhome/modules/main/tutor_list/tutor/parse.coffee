@@ -5,7 +5,9 @@ status =
   private_teacher  :'Частный преподаватель'
   native_speaker : 'Носитель языка'
 
-metro_map = Feel.const('metro').metro_map
+metro = Feel.const('metro')
+metro_stations = metro.stations
+metro_lines = metro.lines
 
 @parse = (value)->
   value ?= {}
@@ -94,14 +96,16 @@ metro_map = Feel.const('metro').metro_map
 
   split_station.forEach (item, i, split_station) =>
     this_station = _diff.metroPrepare(item)
-    if metro_map[this_station] != undefined
+
+    if metro_stations[this_station]?
       users_metro[this_station] = {
-        metro  :  metro_map[this_station].name
-        color : metro_map[this_station].color
+        metro  :  metro_stations[this_station].name
+        color : metro_lines[metro_stations[this_station].lines[0]].color
       }
 
   if emptyObject(users_metro) == true
     ret.metro_tutors = users_metro
+
   return ret
 
 emptyObject = (obj) ->

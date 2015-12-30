@@ -5,19 +5,37 @@ class _material_select extends EE
     @_sort = {}
     @elem = jQelem
     @value = null
+
+    @elem.find('option').each ->
+      o = $(this)
+      v = o.attr('value')
+      o.text(o.text() + "\#\{#{v}\}") if v
+
     @elem.material_select()
-    @input = @elem.siblings('input')
-    @_default = @input.val()
-    @is_multi = @elem.multiple
+
+    regexp = /^(.+)#{(.+)}$/
 
     @lis = @elem.siblings('ul')
     .on('mouseup touchend', LI, @_change)
     .find(LI)
     .each (i, li) =>
       li = $(li)
-      name = @_ejectLiName(li)
-      @_sort[name]?= []
-      @_sort[name].push li
+      textNode = @_getTextNode(li)
+      text = textNode.text()
+      text = text.match regexp
+
+      if text?[1]? and text[2]?
+
+        textNode[0].data = text[1]
+
+        li.attr('data-value', text[2])
+        @_sort[text[2]]?= {n:text[1], el:[]}
+        @_sort[text[2]].el.push li
+
+
+    @input = @elem.siblings('input')
+    @_default = @input.val()
+    @is_multi = @elem.multiple
 
   if @is_multi then @_preload()
 
@@ -31,16 +49,17 @@ class _material_select extends EE
 
   _change : (e) =>
     li = $(e.currentTarget)
-    name = @_ejectLiName(li)
+    name = li.attr('data-value')
     setTimeout =>
-      if @_sort[name]?.length > 1
-        @_setCheckedLi(l, li.is '.active') for l in @_sort[name]
+      if @_sort[name]?.el?.length > 1
+        @_setCheckedLi(l, li.is '.active') for l in @_sort[name].el
       @value = @_getSelectedNames()
       @_updateInput()
       @emit 'change'
     ,0
 
-  _ejectLiName : (li) -> li.find('span').text().trim()
+  _getTextNode : (li) ->
+    return li.find('span').contents().filter(-> return this.nodeType == 3)
 
   _setCheckedLi : (li, check = true) ->
     return if check == li.is '.active'
@@ -51,12 +70,14 @@ class _material_select extends EE
     exist = {}
     $.map @lis, (li) =>
       li = $(li)
-      name = @_ejectLiName li
+      name = li.attr('data-value')
       return if exist[name] or not li.is('.active')
       exist[name] = true
       return name
 
-  _updateInput : -> @input.val(@value.join(', ') || @_default)
+  _updateInput : ->
+    value = @value.map (e) => @_sort[e].n
+    @input.val(value.join(', ') || @_default)
 
   _resetAllSelected : -> @lis.each (i, e) => @_setCheckedLi $(e), false
 
@@ -72,8 +93,8 @@ class _material_select extends EE
 
   _chekByArrNames : (value) -> @checkByName(v) for v in value
   checkByName : (name, check = true) ->
-    if @_sort[name]?
-      @_setCheckedLi(li, check) for li in @_sort[name]
+    if @_sort[name]?.el?
+      @_setCheckedLi(li, check) for li in @_sort[name].el
 
 class slideBlock extends EE
   constructor : (parent, inputs = null) ->
@@ -155,8 +176,6 @@ class slideBlock extends EE
 #          console.log input.prop('tagName')
           input.trigger('change') if input.prop('tagName') == 'SELECT'
 
-
-
   val : (data) ->
     return @_getValue() unless data
     @_setValue(data)
@@ -174,7 +193,6 @@ class @main
     @metro = new slideBlock @found.metro_location
 
     @branch = new _material_select @found.branch
-    @station = new _material_select @found.station
 
 
     @dom.find('.optgroup').on 'click', (e)=>
@@ -197,13 +215,13 @@ class @main
 #      hash = yield Feel.urlData.filterHash 'tutorsFilter'
 #      console.log hash,@hash==hash
 #      @hash = hash
+
     @subjects.on 'change', => Feel.urlData.set 'tutorsFilter', {subjects: @subjects.val()}
     @course.on 'change', => Feel.urlData.set 'tutorsFilter', {course: @course.val()}
     @price.on 'change', => Feel.urlData.set 'tutorsFilter', @price.val()
     @status.on 'change', => Feel.urlData.set 'tutorsFilter', @status.val()
     @sex.on 'change', => Feel.urlData.set 'tutorsFilter', @sex.val()
     @branch.on 'change', => Feel.urlData.set 'tutorsFilter', {branch: @branch.val()}
-    @station.on 'change', => Feel.urlData.set 'tutorsFilter', {station: @station.val()}
 
 
     @found.use_settings.on 'click', =>
@@ -221,7 +239,6 @@ class @main
       status: @status.val().status
       sex: @sex.val()?.sex
       branch: metro.branch
-      station: metro.station
     }
 
   setValue : (value) =>
@@ -232,5 +249,4 @@ class @main
     @status.val {status: value.status}
     @sex.val {sex: value.sex}
     @branch.val value.branch
-    @station.val value.station
 

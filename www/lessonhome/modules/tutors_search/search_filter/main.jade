@@ -1,3 +1,5 @@
+- metro = value.metro || {}
+//- console.log('metro', metro)
 - value = value.filter || {};
 - value.price = value.price || {};
 - value.status = value.status || {};
@@ -22,8 +24,9 @@
       .input-field.col.s12
         select(name='course', multiple).js-course
           option(value='', disabled, selected) Направление подготовки
-            each val, index in training_direction.items
-              option(value=!val, selected=(cou_exist[val]?true:undefined))!=val
+          each val, index in training_direction.items
+            -console.log(val)
+            option(value!=val, selected=cou_exist[val]?true:undefined)!=val
 
   mixin checkBlock(title, is_open)
     li.i-block(class=is_open?'active':undefined)&attributes(attributes)
@@ -64,19 +67,12 @@
     +checkBlock('Метро', false).js-metro_location
       .row.no-bottom-margin
         .input-field.col.s12
-          select(name='color', data-v="branch").js-branch
-            option(value='' selected) Любая ветка
-            option(value="Красный") Красный
-            option(value="Оранжевый") Оранжевый
-            option(value="Желтый") Желтый
-      .row.no-bottom-margin
-        .input-field.col.s12
-          select(name='color', data-v="station").js-station
-            option(value='' selected) Любая станция
-            option(value="Алтуфьево")  Алтуфьево
-            option(value="Биберево") Биберево
-            option(value="Отрадное") Отрадное
-
+          select(name='color', data-v="branch", multiple).js-branch
+            option(value='', selected, disabled) Станции
+            for v, id in metro
+              optgroup(label=v.name)
+                each s, i in v.stations
+                  option(value=id+i)!=s
 
 
   .row
