@@ -14,11 +14,12 @@ class TutorsLoad
     @dbPersons  = yield @db.get 'persons'
     @dbTutor    = yield @db.get 'tutor'
     
-    yield @jobs.listen 'reloadIndexes', @reloadIndexes
-    yield @jobs.listen 'reloadTutor',   @reloadTutor
+    @redis = yield Main.service 'redis'
+    @redis = yield @redis.get()
+
+    yield @jobs.listen 'reloadTutor',   @jobReloadTutor
     
-  reloadTutor   : require './reloadTutor'
-  reloadIndexes : require './reloadIndexes'
+  jobReloadTutor   : require './reloadTutor'
 
   
 
