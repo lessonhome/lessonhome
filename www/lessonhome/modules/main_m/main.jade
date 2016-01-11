@@ -119,3 +119,71 @@
         .inner-block 
           i.material-icons done
           span Если репетитор не подходит, ничего страшного. Мы уточним ваши замечания и предложим другого.
+.leave-the-application
+  .container
+    .row.title-block.no-margin-row.js-form_offset_label
+      h3 Оставьте заявку
+      p Выберите предмет, укажите имя и телефон.<br /> Мы свяжемся с вами, уточним подробности и подберем преподавателя.
+    .row.no-margin-row      
+      .application-progress.js-app_progress
+        .col.s4.m4.l4.center-align
+          .progress-line
+          .circle-number.js-app_prev 1
+        .col.s4.m4.l4.center-align
+          .progress-line
+          .circle-number.js-app_next 2
+        .col.s4.m4.l4.center-align
+          .progress-line
+          .circle-number 3
+      .progress-body
+        .col.s12.m6.l6.offset-m3.offset-l3.js-fixed_height
+          .first-step-form.js-app_first_form
+            .row.no-margin-row
+              .col.s9.input-field
+                select.js-app_subject
+                  option(value='1', disabled, selected) Выберете предмет
+                  option(value='2') Математика
+                  option(value='3') Русский язык
+                  option(value='4') Английский язык
+                  option(value='5') История
+                  option(value='6') Химия
+                  option(value='6') Физика (если Вы Стас)
+                label Выберете предмет
+              .col.s3.input-field.right-align
+                a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Далее
+          .two-step-form.js-app_two_form
+            .row
+              .col.s12.input-field
+                i.material-icons.prefix account_circle
+                input#app_name.validate(name='name', type='text')
+                label(for='app_name') Ваше имя 
+              .col.s12.input-field
+                i.material-icons.prefix phone
+                input#app_phone.validate(name='phone', type='tel')
+                label(for='app_phone') Ваш телефон
+              .col.s12
+                p Мы не разглашаем ваши личные данные.
+            .row
+              .col.s12.input-field
+                select.js-app_subject
+                  option(value='1', disabled, selected) Выберете направление подготовки
+                  option(value='2') ЕГЭ
+                  option(value='2') ОГЭ
+                  option(value='2') Еще что то
+                  option(value='2') Опять направление
+                label Какое направление подготовки вас интересует?
+            .row
+              .col.s12
+                p Напишите, когда вам удобно ответить на вопросы оператора, ваши пожелания к преподавателю и расписанию занятий.
+              .col.s12.input-field
+                textarea#app-comment.materialize-textarea
+                label(for='app-commet') Введите коментарий
+            .row
+              .col.s12.right-align
+                a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Отправить
+          .tree-step-form.js-app_three_form
+            .row
+              .col.s12
+                h2 Готово!
+                h3 Заявка отправлена.
+                h3 Наш оператор позвонит вам через 10 – 15 минут.
