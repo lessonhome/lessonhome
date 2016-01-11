@@ -40,7 +40,8 @@ class @main
           500
           =>
             @appFormTwo.css 'display', 'none'
-            @appFormThree.fadeIn 500
+            @appFormThree.fadeIn 500, =>
+              @appProgress.addClass 'final-step'
   changeFormStep : (route) =>
     if @defaultAppStep != 3
       if route == 'next'
