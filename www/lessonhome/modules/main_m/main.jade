@@ -162,22 +162,20 @@
                 input#app_phone.validate(name='phone', type='tel')
                 label(for='app_phone') Ваш телефон
               .col.s12
-                p Мы не разглашаем ваши личные данные.
+                p.warning-p Мы не разглашаем ваши личные данные.
             .row
-              .col.s12.input-field
+              .col.s12.input-field.select-no-prefix
                 select.js-app_subject
-                  option(value='1', disabled, selected) Выберете направление подготовки
+                  option(value='1', disabled, selected) Какое направление подготовки вас интересует?
                   option(value='2') ЕГЭ
                   option(value='2') ОГЭ
                   option(value='2') Еще что то
                   option(value='2') Опять направление
-                label Какое направление подготовки вас интересует?
             .row
-              .col.s12
-                p Напишите, когда вам удобно ответить на вопросы оператора, ваши пожелания к преподавателю и расписанию занятий.
               .col.s12.input-field
+                i.material-icons.prefix comment
                 textarea#app-comment.materialize-textarea
-                label(for='app-commet') Введите коментарий
+                label(for='app-comment') Напишите, когда вам удобно ответить на вопросы оператора, ваши пожелания к преподавателю и расписанию занятий.
             .row
               .col.s12.right-align
                 a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Отправить
@@ -186,4 +184,4 @@
               .col.s12
                 h2 Готово!
                 h3 Заявка отправлена.
-                h3 Наш оператор позвонит вам через 10 – 15 минут.
+                h3 Наш оператор позвонит вам через <span class="color-green">10 – 15</span> минут.

@@ -318,7 +318,7 @@
   .progress-body
     .input-field
       .prefix
-        top: 10px
+        top: 15px
     .dropdown-content
       li
         &>span
@@ -327,7 +327,46 @@
       display: block
     .two-step-form
       display: none
+      .row
+        p
+          margin: 0
+          font-size: 1rem
+          color: #464646
+          &.warning-p
+            margin: 0 0 0 3rem
+            font-style: italic
+            font-size: 0.8rem
+        .select-no-prefix
+          padding-left: 3.5rem
+
     .tree-step-form
       display: none
+      .row
+        h2
+          font-size: 3rem
+          font-weight: 700
+          color: #2db598
+        h3
+          font-size: 1.7rem
+          line-height: 140%
+        span
+          &.color-green
+            color: #2db598
+            font-weight: 700
+            font-size: 1.8rem
     .app-form-body
       min-height: 320px
+  input[type=text]:focus:not([readonly]), input[type=tel]:focus:not([readonly])
+    border-bottom: 1px solid #fd7c48
+    box-shadow: 0 1px 0 0 #fd7c48
+    & + label
+      color: #fd7c48
+  textarea.materialize-textarea:focus:not([readonly])
+    border-bottom: 1px solid #fd7c48
+    box-shadow: 0 1px 0 0 #fd7c48
+    & + label
+      color: #fd7c48
+  .input-field
+    .prefix
+      &.active
+        color: #fd7c48
