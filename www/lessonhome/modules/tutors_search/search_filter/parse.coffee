@@ -12,6 +12,7 @@
 #  ready = metro.ready
 #  stations = {}
 #  lines = {}
+#
 #  colors = {
 #    "Сокольническая линия": "#ED1B35"
 #    "Замоскворецкая линия": "#44B85C"
@@ -27,27 +28,40 @@
 #    "Бутовская линия": "#ACBFE1"
 #  }
 #
+#  means = {}
+#  exist = {}
+#
 #  for a in ready
 #    l = _diff.metroPrepare(a.line.replace(' линия', '')).slice(0,4)
 #    s = []
 #    lines[l] = { name: a.line, color: colors[a.line], stations: s}
 #    for stat in a.stations
-#      s_name = _diff.metroPrepare(stat.replace('Парк', '').replace('Проспект', '').replace('академика', '').replace('Октябрьское', '')).slice(0,7)
+#      s_name = _diff.metroPrepare(stat)
+#
+#      unless exist[stat]
+#        a = stat.split(' ')
+#
+#        if a.length > 1
+#          for word in a
+#            means[word]?=[]
+#            means[word].push s_name
+#
+#        exist[stat] = true
+#
 #      s.push s_name
 #      if stations[s_name]? then console.log stations[s_name].name, stat, s_name
 #      stations[s_name]?= {name: stat, lines: []}
 #      stations[s_name].lines.push l
 #
-#  names = []
-#  for n of stations
-#    names.push n
-#
-#  result = []
-#
-#  for a in names
-#    result.push a.slice(0,1)
+#  for w of means
+#    if means[w].length == 1
+#      means[w] = means[w][0]
+#    else
+#      delete means[w]
 #
 #  console.log '@stations = ', JSON.stringify(stations)
 #  console.log '@lines = ', JSON.stringify(lines)
+#  console.log '@means=', JSON.stringify(means)
+
 
   return data
