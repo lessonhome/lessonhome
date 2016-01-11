@@ -97,6 +97,12 @@ metro_lines = metro.lines
   split_station.forEach (item, i, split_station) =>
     this_station = _diff.metroPrepare(item)
 
+    unless metro_stations[this_station]?
+      for w in item.split ' '
+        if metro.means[w]?
+          this_station = metro.means[w]
+          break
+
     if metro_stations[this_station]?
       users_metro[this_station] = {
         metro  :  metro_stations[this_station].name

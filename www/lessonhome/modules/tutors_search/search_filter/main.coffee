@@ -86,13 +86,13 @@ class _material_select extends EE
     @_resetAllSelected()
     @elem.val value
     @value = if value instanceof Array then value else [value]
-    @_chekByArrNames(@value)
+    @_chekByArrValues(@value)
     @elem.trigger 'change'
     @_updateInput()
     return @elem
 
-  _chekByArrNames : (value) -> @checkByName(v) for v in value
-  checkByName : (name, check = true) ->
+  _chekByArrValues : (value) -> @checkByValue(v) for v in value
+  checkByValue : (name, check = true) ->
     if @_sort[name]?.el?
       @_setCheckedLi(li, check) for li in @_sort[name].el
 
