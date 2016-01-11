@@ -20,12 +20,12 @@
             optgroup(label!=gname)
               each val,index in groups
                 option(value!=val, selected=(sub_exist[val]?true:undefined))!=val
+
     .row.no-bottom-margin
       .input-field.col.s12
         select(name='course', multiple).js-course
           option(value='', disabled, selected) Направление подготовки
           each val, index in training_direction.items
-            -console.log(val)
             option(value!=val, selected=cou_exist[val]?true:undefined)!=val
 
   mixin checkBlock(title, is_open)
@@ -68,11 +68,11 @@
       .row.no-bottom-margin
         .input-field.col.s12
           select(name='color', data-v="branch", multiple).js-branch
-            option(value='', selected, disabled) Станции
+            option(value='', selected, disabled) Любая станция
             for v, id in metro
               optgroup(label=v.name)
-                each s, i in v.stations
-                  option(value=id+i)!=s
+                for s, i in v.stations
+                  option(value=id+":"+i)!=s
 
 
   .row

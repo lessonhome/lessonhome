@@ -1,13 +1,14 @@
-@parse = (data) ->
-  metro = Feel.const('metro')
-  stations = metro.stations
-  lines = metro.lines
+metro = Feel.const('metro')
+stations = metro.stations
+lines = metro.lines
 
+@parse = (data) ->
+  console.log 'current', data
   data.metro = {}
   for k, l of lines
-    data.metro[k] = {name: l.name,color: l.color, stations: metro_s =  []}
+    data.metro[k] = {name: l.name,color: l.color, stations: metro_s =  {}}
     for s_name in l.stations
-      metro_s.push stations[s_name].name
+      metro_s[s_name] = stations[s_name].name
 
 #  ready = metro.ready
 #  stations = {}
@@ -37,16 +38,16 @@
 #    lines[l] = { name: a.line, color: colors[a.line], stations: s}
 #    for stat in a.stations
 #      s_name = _diff.metroPrepare(stat)
-#
-#      unless exist[stat]
-#        a = stat.split(' ')
+#      a = stat.toLowerCase()
+#      unless exist[a]
+#        a = a.split(' ')
 #
 #        if a.length > 1
 #          for word in a
 #            means[word]?=[]
 #            means[word].push s_name
 #
-#        exist[stat] = true
+#        exist[a] = true
 #
 #      s.push s_name
 #      if stations[s_name]? then console.log stations[s_name].name, stat, s_name
@@ -61,6 +62,7 @@
 #
 #  console.log '@stations = ', JSON.stringify(stations)
 #  console.log '@lines = ', JSON.stringify(lines)
+##  console.log means
 #  console.log '@means=', JSON.stringify(means)
 
 
