@@ -253,6 +253,7 @@ class @main
     }
 
   setValue : (value) =>
+    value = value.filter
     @subjects.val value.subjects
     @course.val value.course
     @price.val {price: value.price}
