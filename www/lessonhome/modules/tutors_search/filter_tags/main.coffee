@@ -43,5 +43,10 @@ class @main
     if value.sex != @tree.sex.items[0]
       frag.append(@getTag(value.sex).attr('data-b', 'sex'))
 
-    frag.append( @getTag(s, v).attr('data-b', 'metro') ) for v,s of metro_tags when v
+    for k,v of metro_tags when v and v.name
+      tag = @getTag(v.name, k).attr('data-b', 'metro')
+      if v.color
+        tag.prepend("<i class=\"material-icons middle-icon\" style=\"color:#{v.color}\">fiber_manual_record</i>")
+      frag.append(tag)
+
     @tags.html('').append(frag)

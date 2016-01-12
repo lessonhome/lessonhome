@@ -16,12 +16,9 @@ class _material_select extends EE
         @_default = o.text()
 
     @elem.material_select()
-
+    @ul = @elem.siblings('ul').on('mouseup touchend', LI, @_change)
     regexp = /^(.+)#{(.+)}$/
-
-    @lis = @elem.siblings('ul')
-    .on('mouseup touchend', LI, @_change)
-    .find(LI)
+    @lis = @ul.find(LI)
     .each (i, li) =>
       li = $(li)
       textNode = @_getTextNode(li)
@@ -208,7 +205,7 @@ class @main
     @sex = new slideBlock @found.sex_block
     @metro = new slideBlock @found.metro_location
     @branch = new _material_select @found.branch
-
+    setTimeout @metroColor, 100
     @dom.find('.optgroup').on 'click', (e)=>
       thisGroup = e.currentTarget
       thisGroupNumber = $(thisGroup).attr('data-group')
@@ -223,6 +220,17 @@ class @main
         $(thisGroup).attr('data-open', 0)
 
 
+  metroColor : (material_select = @branch) =>
+    material_select.ul.find('li.optgroup').each (i, e) =>
+      li = $(e)
+      name = li.next().attr('data-value')
+      return true unless name
+      name = name.split(':')
+      return true if name.length < 2
+      return true unless @tree.metro_lines[name[0]]?
+      elem = $('<i class="material-icons middle-icon">fiber_manual_record</i>')
+      elem.css {color: @tree.metro_lines[name[0]].color}
+      li.find('span').prepend(elem)
   show: =>
 #    Feel.urlData.on 'change',=> do Q.async =>
 #      hash = yield Feel.urlData.filterHash 'tutorsFilter'

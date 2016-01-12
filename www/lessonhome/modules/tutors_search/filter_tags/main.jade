@@ -6,6 +6,7 @@
 
       mixin tag(name, val)
         .chip.active(data-v=val || name, onselectstart="return false", onmousedown="return false")&attributes(attributes)
+          block
           span!=name
           i.material-icons close
 
@@ -28,5 +29,8 @@
       if value.sex && sex.items[0] != value.sex
         +tag(value.sex)(data-b='sex')
       if metro
-        for k, v in metro
-          +tag(k, v)(data-b='metro')
+        for v, k in metro
+          if v && v.name
+            +tag(v.name, k)(data-b='metro')
+              if v.color
+                i.material-icons.middle-icon(style="color:"+v.color) fiber_manual_record
