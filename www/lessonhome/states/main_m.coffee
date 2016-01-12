@@ -7,4 +7,7 @@ class @main extends @template 'lp'
   redirect : {
   }
   tree : =>
-    content : @module '$'
+    filter = @const('filter')
+    content : @module '$':
+      subject_list: filter.subjects
+      training_direction : filter.course

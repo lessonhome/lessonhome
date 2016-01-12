@@ -141,13 +141,19 @@
             .row.no-margin-row
               .col.s9.input-field
                 select.js-field_subject(multiple=true)
-                  option(value='1', disabled, selected) Выберете предмет
-                  option(value='2') Математика
-                  option(value='3') Русский язык
-                  option(value='4') Английский язык
-                  option(value='5') История
-                  option(value='6') Химия
-                  option(value='6') Физика (если Вы Стас)
+                  option(value='', selected, disabled) Выберете предмет
+                  each groups,gname in subject_list
+                    optgroup(label!=gname)
+                      each val,index in groups
+                        option(value!=val)!=val
+                //select.js-field_subject(multiple=true)
+                //  option(value='1', disabled, selected) Выберете предмет
+                //  option(value='2') Математика
+                //  option(value='3') Русский язык
+                //  option(value='4') Английский язык
+                //  option(value='5') История
+                //  option(value='6') Химия
+                //  option(value='6') Физика (если Вы Стас)
                 label Выберете предмет
               .col.s3.input-field.right-align
                 a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Далее
@@ -165,12 +171,16 @@
                 p.warning-p Мы не разглашаем ваши личные данные.
             .row
               .col.s12.input-field.select-no-prefix
-                select.js-field_course
-                  option(value='1', disabled, selected) Какое направление подготовки вас интересует?
-                  option(value='2') ЕГЭ
-                  option(value='2') ОГЭ
-                  option(value='2') Еще что то
-                  option(value='2') Опять направление
+                select.js-field_course(multiple=true)
+                  option(value='', disabled, selected) Какое направление подготовки вас интересует?
+                  each val, index in training_direction
+                    option(value=!val)!=val
+                //select.js-field_course(multiple=true)
+                //  option(value='1', disabled, selected) Какое направление подготовки вас интересует?
+                //  option(value='2') ЕГЭ
+                //  option(value='2') ОГЭ
+                //  option(value='2') Еще что то
+                //  option(value='2') Опять направление
             .row
               .col.s12.input-field
                 i.material-icons.prefix comment

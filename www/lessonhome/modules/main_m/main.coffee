@@ -63,7 +63,7 @@ class @main
 
   sendForm : () =>
     console.log data = @getData()
-    console.log 'send', yield @$send('./save')
+    console.log 'send', yield @$send('./save', data)
 
     return false
 
@@ -82,3 +82,6 @@ class @main
           @changeFormAnimation @defaultAppStep, route
           @defaultAppStep--
     return true
+
+  getValue : () ->
+  setValue : () ->
