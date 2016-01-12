@@ -1,7 +1,7 @@
 
 
 class @main extends @template './motivation_content'
-  route : '/'
+  route : '/main_old'
   model   : 'main/first_step'
   title : "Быстро подберем Вам лучшего репетитора"
   forms : ['pupil']

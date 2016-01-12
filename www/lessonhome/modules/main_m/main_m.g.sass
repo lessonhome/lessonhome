@@ -72,6 +72,8 @@
     .col
       position: relative
       z-index: 2
+      &.outrer-padding
+        padding: 4rem 0
   .outer-round
     position: absolute
     z-index: 1
@@ -398,6 +400,12 @@
     overflow: hidden
     max-height: 160px
     height: 160px
+  .comment-link
+    a
+      color: #626262
+      transition: all 0.2s ease-out
+      &:hover
+        color: #fd7c48
   .row
     .col
       &.no-padding-col
