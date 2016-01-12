@@ -33,11 +33,12 @@ class Router
             else if r instanceof RegExp
               @url.reg.push [r,statename]
   paymaster : (req,res)=> do Q.async =>
-    console.log req
+    req.body = yield req.body
     {status,body} = yield Feel.jobs.solve 'waitPay',{url:req.url,body:req.body}
     res.statusCode = status
     res.end body
   handler : (req,res)=> do Q.async =>
+    console.log req.url
     req.site = @site
     req.status = (args...)=> @site.status req,res,args...
     if (redirect = @_redirects?.redirect?[req?.url])?

@@ -1,5 +1,5 @@
 class @main extends @template '../tutor'
-  route : '/tutor/paymaster'
+  route : '/tutor/pay'
   model   : 'tutor/pay'
   title : "оплата"
   access : ['tutor']
@@ -9,25 +9,7 @@ class @main extends @template '../tutor'
   }
   forms : [{bills: ['transactions', 'current_sum']}]
   tree : =>
-    items : [
-      @module 'tutor/header/button' : {
-        title : 'Поиск'
-        href  : '/tutor/search_bids'
-      }
-      @module 'tutor/header/button' : {
-        title : 'Отчёты'
-        href  : '/tutor/reports'
-      }
-      @module 'tutor/header/button' : {
-        title : 'Входящие'
-        href  : '/tutor/in_bids'
-        tag   : 'tutor:in_bids'
-      }
-      @module 'tutor/header/button' : {
-        title : 'Исходящие'
-        href  : '/tutor/out_bids'
-      }
-    ]
+    items : []
     content       : @module '$' :
       current_sum : $form: bills : 'current_sum'
       transactions : $form: bills : 'transactions'
@@ -38,3 +20,5 @@ class @main extends @template '../tutor'
       send_btn : @module 'link_button' :
         text : 'Пополнить'
         selector: 'view'
+  init : ->
+    @parent.tree.left_menu.setActive 'Оплата'
