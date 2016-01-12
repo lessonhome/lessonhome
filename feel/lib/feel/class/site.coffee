@@ -44,7 +44,7 @@ class module.exports
       @urldataFilesStr += "<script type='text/javascript' src='/urlform/#{file.hash}/#{fname}'></script>"
     @urldataFilesStr += "<script>$Feel.urldataJson = #{yield @urldata.getJsonString()};</script>"
     yield @readConsts()
-    yield @jobs.listen 'getConsts'
+    yield @jobs.listen 'getConsts',@jobGetConsts
     yield @form.init()
     yield @fileupload.init()
     yield @configInit()

@@ -22,7 +22,7 @@ class Db
         @error err
         defer.reject err for defer in @connecting[dbname]
       else
-        @log dbname
+        #@log dbname
         @connections[dbname] = db
         defer.resolve db for defer in @connecting[dbname]
       delete @connecting[dbname]

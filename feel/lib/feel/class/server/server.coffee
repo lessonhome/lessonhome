@@ -12,7 +12,7 @@ class Server
   constructor : ->
     @_google = {}
     hostname = os.hostname()
-    console.log 'hostname',hostname
+    console.log 'hostname'.grey,hostname.red
     @port = 8081
     @ip = '127.0.0.1'
     @ip2 = '176.9.22.118'
@@ -34,7 +34,7 @@ class Server
     else
       @server.listen @port
     @runSsh() if @ssh
-    console.log "listen port #{@ip}:#{@port}"
+    console.log "listen port".blue+" #{@ip}:#{@port}".yellow
     @domains =
       text : {}
       reg  : []

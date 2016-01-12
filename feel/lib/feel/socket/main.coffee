@@ -15,7 +15,6 @@ class Socket
     
   init : =>
     @db = yield Main.service 'db'
-    @jobs = yield Main.service 'jobs'
     @form = new Form
     yield @form.init()
     @register = yield Main.service 'register'
@@ -24,10 +23,6 @@ class Socket
     if os.hostname() == 'pi0h.org'
       yield @runSsh()
     @handlers = {}
-    unless global.Feel?.const?
-      @const = yield @jobs.solve 'getConsts'
-      global.Feel ?= {}
-      global.Feel.const = (name)=> @const[name]
   runSsh : =>
     options = {
       key: _fs.readFileSync '/key/server.key'
