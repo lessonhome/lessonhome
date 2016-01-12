@@ -72,7 +72,7 @@ class Tutors
       t_ = new Date().getTime()
       yield @filter {hash:f,data:o.data}
       nt_ = new Date().getTime()
-      console.log 'refilter',"#{i}/#{filters.length}",nt_-t_,o.num
+      console.log "refilter #{i}/#{filters.length} #{nt_-t_} #{o.num}".grey
       return @refiltering = false if time < @refilterTime
       yield Q.delay (nt_-t_)
     filters = filters.slice i
