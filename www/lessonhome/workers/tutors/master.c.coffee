@@ -29,9 +29,15 @@ class TutorsMaster
     o = {}
     o[i.match(/^parsedTutor\.(.*)$/)?[1]]    = true for i in rids
     o[a.id] = true for a in dids
+    o = Object.keys o
     console.log new Date().getTime() - @t
     q = []
-    q.push @jobs.solve 'reloadTutor',id for id of o
+    #q.push @jobs.solve 'reloadTutor',id for id in o
+    n = 8
+    step = o.length//n
+    for i in [0...n]
+      unless i==(n-1) then q.push @jobs.solve 'reloadTutor', o.slice(i*step,(i+1)*step)
+      else q.push @jobs.solve 'reloadTutor', o.slice(i*step)
     yield Q.all q
     return
 
