@@ -2,8 +2,28 @@ metro = Feel.const('metro')
 stations = metro.stations
 lines = metro.lines
 
+getInf = (obj) ->
+  res = {
+    fill: false
+  }
+  for key, val of obj when obj.hasOwnProperty(key)
+    res.fill = true
+    return res if typeof val is 'boolean'
+    res['exist']?={}
+    res.exist[val] = true if typeof val isnt 'object'
+  return res
+
+
 @parse = (data) ->
-  console.log 'current', data
+
+  data.sub_exist = getInf(data.filter.subjects).exist
+  data.course_exist = getInf(data.filter.course).exist
+  data.metro_exist = getInf(data.filter.metro).exist
+
+  data.sh_price = getInf(data.filter.price).fill
+  data.sh_status = getInf(data.filter.status).fill
+  data.sh_metro = data.filter.metro[0]?
+
   data.metro = {}
   for k, l of lines
     data.metro[k] = {name: l.name,color: l.color, stations: metro_s =  {}}

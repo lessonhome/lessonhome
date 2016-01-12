@@ -38,7 +38,7 @@ class @main extends @template 'lp'
           items: @const('filter').price
         status_tutor:
           items: @const('filter').status
-        sex:
+        sex_tutor:
           items: @const('filter').sex
         
 

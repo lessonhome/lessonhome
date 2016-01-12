@@ -65,9 +65,7 @@ class _material_select extends EE
         @_setCheckedLi(l, li.is '.active') for l in @_sort[name].el
 
       @value = @_getSelectedValues()
-#      console.log '1', @value
       @elem.val(@value)
-#      console.log '2', @elem.val()
       @_updateInput()
       @emit 'change'
     ,0
@@ -192,7 +190,6 @@ class slideBlock extends EE
           input.filter("[value=\"#{values}\"]").prop "checked", true
         else
           input.val values
-#          console.log input.prop('tagName')
           input.trigger('change') if input.prop('tagName') == 'SELECT'
 
   val : (data) ->
@@ -243,7 +240,6 @@ class @main
     @found.use_settings.on 'click', =>
       top = @dom.offset?()?.top
       $(window).scrollTop top-10 if top >= 0
-      console.log @branch.val()
       @emit 'reshow'
 #      Q.spawn => yield Feel.urlData.set 'tutorsFilter', @getValue()
 
@@ -257,7 +253,6 @@ class @main
     }
 
   setValue : (value) =>
-    console.log value = value.filter
     @subjects.val value.subjects
     @course.val value.course
     @price.val {price: value.price}

@@ -23,13 +23,14 @@ class @main
         @val[belong] = @tree.sex.items[0]
     Q.spawn => yield Feel.urlData.set 'tutorsFilter', @val
 
-  getTag: (name) ->
+  getTag: (name, val = null) ->
     @templ_n.text(name)
-    return @templ_b.clone().attr('data-v', name)
+    return @templ_b.clone().attr('data-v', val || name)
 
   getValue: ->
 
   setValue: (value) ->
+    metro_tags = value.metro_tags
     value = value.filter || {}
     @val = value
     frag = $(document.createDocumentFragment())
@@ -38,9 +39,9 @@ class @main
     frag.append( @getTag(s).attr('data-b', 'course') ) for s in value.course
     frag.append( @getTag(s).attr('data-b', 'price') ) for s,v of value.price when v
     frag.append( @getTag(s).attr('data-b', 'status') ) for s,v of value.status when v
-    frag.append( @getTag(s).attr('data-b', 'metro') ) for s,v in value.metro when s
 
     if value.sex != @tree.sex.items[0]
       frag.append(@getTag(value.sex).attr('data-b', 'sex'))
-    @tags.html('').append(frag)
 
+    frag.append( @getTag(s, v).attr('data-b', 'metro') ) for v,s of metro_tags when v
+    @tags.html('').append(frag)
