@@ -1,5 +1,5 @@
 class @main extends @template '../tutor'
-  route : '/tutor/pay'
+  route : '/tutor/paymaster'
   model   : 'tutor/pay'
   title : "оплата"
   access : ['other','pupil','admin','tutor']

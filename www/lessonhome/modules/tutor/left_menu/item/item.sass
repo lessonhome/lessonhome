@@ -5,10 +5,12 @@ $margin: ($heightSectionMenu - $heightIcon)/2
 main
   font-size: 16px
 div
+  position : relative
   line-height: $heightSectionMenu
   height : $heightSectionMenu
   a
     overflow : hidden
+    width : 100%
     +inline-block
     vertical-align: baseline
     height: 100%
@@ -24,6 +26,9 @@ div
     .title
       color: #757575
   .edit
+    position : absolute
+    right : 0
+    top : 0
     float: right
     a
       text-decoration: none
@@ -79,12 +84,16 @@ div
   .title
     color : rgb(0, 0, 0)
 /*--------------------------------------------------------------*/
-.profile.active, .bids.active, .support.active, .payment.active
+.profile.active, .bids.active, .support.active, .payment.active, .active
   background : #fff
   +box-shadow(0px 1px 3px 0px rgba(0,0,0,0.26))
   a
     .title
       color : #b30000
+div 
+  a.admin1,a.admin2,a.admin3
+    background : rgba(255,0,0,0.05)
+  
 //-.profile.active a .icon
   background : url(F('left_menu/active_01-profile.png')) no-repeat
   .bids.active a .icon

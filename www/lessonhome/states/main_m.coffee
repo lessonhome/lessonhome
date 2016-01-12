@@ -1,5 +1,5 @@
 class @main extends @template 'lp'
-  route : '/main_m'
+  route : '/'
   model : 'main_m'
   title : "LessonHome - Главная страница"
   tags   : [ 'tutor:reports']

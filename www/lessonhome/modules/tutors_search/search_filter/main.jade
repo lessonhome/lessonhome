@@ -61,6 +61,23 @@
             else
               input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex', checked=(value.sex == val?true:undefined)).with-gap
             label(for='sex-' + index)!=val
+    +checkBlock('Метро', false).js-metro_location
+      .row.no-bottom-margin
+        .input-field.col.s12
+          select(name='color', data-v="branch").js-branch
+            option(value='', selected, disabled) Ветка метро
+            option(value='') Не важно
+            option(value="1") Красный
+            option(value="2") Оранжевый
+            option(value="3") Желтый
+      .row.no-bottom-margin
+        .input-field.col.s12
+          select(name='color', data-v="station").js-station
+            option(value='', selected, disabled) Станция
+            option(value='') Не важно
+            option(value="4")  Алтуфьево
+            option(value="5") Биберево
+            option(value="6") Отрадное
 
 
 

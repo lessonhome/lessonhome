@@ -76,10 +76,11 @@ class _material_select extends EE
 
 class slideBlock extends EE
   constructor : (parent, inputs = null) ->
-    @inputs = inputs || parent.find 'input[data-v]'
+    @inputs = inputs || parent.find '[data-v]'
     @parent = parent
     .on('click', 'input[type=radio][data-v], input[type=checkbox][data-v]', @_change)
     .on('blur', 'input[type=text][data-v]', @_change)
+    .on('change', 'select[data-v]', @_change)
     @indicator = parent.find('.i-header')
     @_change()
 
@@ -89,8 +90,13 @@ class slideBlock extends EE
 
   _updateIndicator : =>
     @inputs.each (index, input) =>
-      type = input.type || 'text'
-      exist = (type!='text' and input.checked) or (type=='text' and input.value)
+      exist = null
+
+      switch input.type
+        when 'checkbox', 'radio'
+          exist = input.checked
+        else
+          exist = input.value
 
       if exist and not $(input).is '.i-no'
         @_setIndicator true
@@ -109,24 +115,28 @@ class slideBlock extends EE
     @inputs.each (i) ->
       el = $(this)
       name = el.data('v')
-      type = el.attr('type') || 'text'
-
-      if (type == 'text' and el.val()) or (type == 'radio' and el.is ':checked')
-        result[name] = el.val()
-        return true
+      type = this.type
 
       result[name]?={}
-      result[name][el.val()] = true if el.is ':checked'
+
+      switch type
+        when 'checkbox'
+          result[name][el.val()] = true if el.is ':checked'
+        when 'radio'
+          result[name] = el.val() if el.is ':checked'
+        else
+          result[name] = el.val()
 
     return result
 
   _resetAll : ->
     @inputs.each ->
-      type = this.type || 'text'
-      if type=='radio' or type == 'checkbox'
-        $(this).prop('checked', false)
-      else
-        this.value = ''
+      switch this.type
+        when 'radio', 'checkbox'
+          $(this).prop('checked', false)
+        else
+          $(this).val('')
+
   _setValue : (data) ->
     @_resetAll()
     for key, values of data
@@ -136,12 +146,11 @@ class slideBlock extends EE
           $(input).prop('checked', true) if values[input.value]
 
       else if typeof(values) == 'string'
-        input = @inputs.filter("input[data-v=\"#{key}\"]")
-        type = input.attr('type') || 'text'
-        if type == 'text'
-          input.val values
-        else if type == 'radio'
+        input = @inputs.filter("[data-v=\"#{key}\"]")
+        if input[0].type == 'radio'
           input.filter("[value=\"#{values}\"]").prop "checked", true
+        else
+          input.val values
 
   val : (data) ->
     return @_getValue() unless data
@@ -183,6 +192,7 @@ class @main
     @price.on 'change', => Feel.urlData.set 'tutorsFilter', @price.val()
     @status.on 'change', => Feel.urlData.set 'tutorsFilter', @status.val()
     @sex.on 'change', => Feel.urlData.set 'tutorsFilter', @sex.val()
+
     @found.use_settings.on 'click', =>
       top = @dom.offset?()?.top
       $(window).scrollTop top-10 if top >= 0

@@ -72,6 +72,8 @@
     .col
       position: relative
       z-index: 2
+      &.outrer-padding
+        padding: 4rem 0
   .outer-round
     position: absolute
     z-index: 1
@@ -117,7 +119,7 @@
         padding-top: 6rem
         padding-bottom: 6rem
 .subjects-block
-  background-color: #f8f8f8
+  background-color: #f1f1f1
   padding: 4rem 0
   ul
     &.subject-list
@@ -243,7 +245,7 @@
         line-height: 140%
         margin: 0
 .leave-the-application
-  background-color: #f8f8f8
+  background-color: #f1f1f1
   padding: 4rem 0
   .row
     h3
@@ -355,7 +357,7 @@
             font-weight: 700
             font-size: 1.8rem
     .app-form-body
-      min-height: 320px
+      min-height: 320px 
   input[type=text]:focus:not([readonly]), input[type=tel]:focus:not([readonly])
     border-bottom: 1px solid #fd7c48
     box-shadow: 0 1px 0 0 #fd7c48
@@ -370,3 +372,48 @@
     .prefix
       &.active
         color: #fd7c48
+.comments-block
+  padding: 4rem 0
+  .comment-img
+    font-size: 0
+    line-height: 0
+    overflow: hidden
+    max-height: 250px
+  .comment-body
+    background-color: #fdd600
+    color: #101010
+  .comment-name
+    font-weight: 700
+    font-size: 1.1rem
+  .comment-like
+    font-size: 1.2rem
+    line-height: 120%
+    color: #fd7c48
+    font-weight: 700
+  .comment-subject
+    font-size: 0.9rem
+    color: #626262
+    line-height: 120%
+    font-weight: 700
+  .comment-text
+    font-size: 0.9rem
+    overflow: hidden
+    max-height: 160px
+    height: 160px
+  .comment-link
+    a
+      color: #626262
+      transition: all 0.2s ease-out
+      &:hover
+        color: #fd7c48
+  .row
+    .col
+      &.no-padding-col
+        padding: 0
+        .col
+          padding: 0
+          &.comment-text
+            padding-top: 0.5rem
+      &.comment-body
+        padding: 1.5rem
+        padding-top: 1rem
