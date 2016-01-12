@@ -140,7 +140,7 @@
           .first-step-form.js-app_first_form
             .row.no-margin-row
               .col.s9.input-field
-                select.js-app_subject
+                select.js-field_subject(multiple=true)
                   option(value='1', disabled, selected) Выберете предмет
                   option(value='2') Математика
                   option(value='3') Русский язык
@@ -155,17 +155,17 @@
             .row
               .col.s12.input-field
                 i.material-icons.prefix account_circle
-                input#app_name.validate(name='name', type='text')
+                input#app_name.validate.js-field_name(name='name', type='text')
                 label(for='app_name') Ваше имя 
               .col.s12.input-field
                 i.material-icons.prefix phone
-                input#app_phone.validate(name='phone', type='tel')
+                input#app_phone.validate(name='phone', type='tel').js-field_phone
                 label(for='app_phone') Ваш телефон
               .col.s12
                 p.warning-p Мы не разглашаем ваши личные данные.
             .row
               .col.s12.input-field.select-no-prefix
-                select.js-app_subject
+                select.js-field_course
                   option(value='1', disabled, selected) Какое направление подготовки вас интересует?
                   option(value='2') ЕГЭ
                   option(value='2') ОГЭ
@@ -174,7 +174,7 @@
             .row
               .col.s12.input-field
                 i.material-icons.prefix comment
-                textarea#app-comment.materialize-textarea
+                textarea#app-comment.materialize-textarea.js-field_comment
                 label(for='app-comment') Напишите, когда вам удобно ответить на вопросы оператора, ваши пожелания к преподавателю и расписанию занятий.
             .row
               .col.s12.right-align
