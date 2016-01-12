@@ -30,6 +30,7 @@ class module.exports
     @router       = new Router @
     @fileupload   = new FileUpload @
   init : => do Q.async =>
+    @jobs = yield Main.service 'jobs'
     @db = yield Main.service('db')
     @register = yield Main.service 'register'
     @servicesIp = JSON.stringify yield (yield Main.service('services')).get()
@@ -43,12 +44,15 @@ class module.exports
       @urldataFilesStr += "<script type='text/javascript' src='/urlform/#{file.hash}/#{fname}'></script>"
     @urldataFilesStr += "<script>$Feel.urldataJson = #{yield @urldata.getJsonString()};</script>"
     yield @readConsts()
+    yield @jobs.listen 'getConsts'
     yield @form.init()
     yield @fileupload.init()
     yield @configInit()
     yield @loadModules()
     yield @loadStates()
     yield @router.init()
+  jobGetConsts : =>
+    return @const
   readConsts : => do Q.async =>
     @const = {}
     readed = yield _readdirp
