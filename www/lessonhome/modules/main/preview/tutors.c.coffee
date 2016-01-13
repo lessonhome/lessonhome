@@ -14,7 +14,7 @@ class Tutors
     @jobs = yield Main.service 'jobs'
     @jobs.listen 'filterTutors',@jobFilterTutors
     @jobs.listen 'getTutor',@jobGetTutor
-    @jobs.listen 'getTutors', @jobGetTutors
+    @jobs.listen 'getTutorsOnMain',@jobGetTutorsOnMain
     @redis = yield Main.service('redis')
     @redis = yield @redis.get()
     @inited = 1
@@ -23,11 +23,14 @@ class Tutors
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
     @dbuploaded = yield @$db.get 'uploaded'
+    @onmain = {}
     try
       @persons = JSON.parse yield _invoke @redis, 'get', 'persons'
       for key,val of (@persons ? {})
         @index?= {}
         @index[val.index] = val
+        @onmain ?= {}
+        @onmain[val.index]=true if val.onmain
       @filters = JSON.parse yield _invoke @redis, 'get', 'filters'
     catch e
       console.error e
@@ -35,6 +38,7 @@ class Tutors
       unless @persons? && @index? && @filters?
         @persons ?= {}
         @index   ?= {}
+        @onmain   ?= {}
         @filters ?= {}
         yield @reload()
         @inited = 2
@@ -85,15 +89,17 @@ class Tutors
     return @handler {},{filter,preps,from,count,exists}
   jobGetTutor : ({index})=>
     return @index[index] ? @index[99637]
-  jobGetTutors : (indexes)=>
-    prep = []
-
-    if indexes and indexes instanceof Array
-      for index in indexes when (p = @index[index])? then prep.push p
-    else
-      prep.push @index[99637]
-
-    return prep
+  jobGetTutorsOnMain : (num)=>
+    arr2 = Object.keys @onmain
+    arr = []
+    for i in [1..num]
+      break unless arr2.length
+      ind = arr2.splice(Math.floor(Math.random()*arr2.length),1)?[0]
+      ind = @index[ind]
+      arr.push ind
+      
+      
+    return ind
   handler : ($, {filter,preps,from,count,exists})->
     exists?=[]
     yield @init() unless @inited == 2

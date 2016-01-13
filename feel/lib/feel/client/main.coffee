@@ -17,7 +17,7 @@ class @Feel
       #if $Feel.user?.type?.admin
       if val
         $.cookie key,true
-    yield Q.delay 10
+    yield Q.delay 1
     for key,val of $Feel
       @[key] = val
     for key,mod of $Feel.modules
@@ -30,23 +30,29 @@ class @Feel
           window[name] = obj
           console.log "global class window['#{name}'];"
     window.onerror = (e)=> @error e
-    yield Q.delay 10
+    
+    yield Q.delay 1
+    @jobs = new @Jobs()
+    yield @jobs.init()
+    
+    yield Q.delay 1
     urlData = new @urlData()
     @urlData = urlData
     yield urlData.init()
-    yield Q.delay 10
+    yield Q.delay 1
     
     @dataM = new @DataM()
     yield @dataM.init()
-    yield Q.delay 10
+    yield Q.delay 1
     
     @pbar = new @PBar()
     yield @pbar.init()
-    yield Q.delay 10
+    yield Q.delay 1
+    
     
     @active = new @activeState @root.tree
     yield @active.init()
-    yield Q.delay 10
+    yield Q.delay 1
     
     setTimeout @checkUnknown,200
 
@@ -272,6 +278,7 @@ class @Feel
       when 's' then 'states'
       when 'm' then 'modules'
       when 'r' then 'runtime'
+      when 'w' then 'workers'
       else ''
     m = context.match /^(\w+)\/(.*)$/
     s = m[1]

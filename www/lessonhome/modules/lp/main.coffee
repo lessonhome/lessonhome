@@ -8,7 +8,7 @@ class @main extends EE
     @attached = @tree.bottom_block_attached.class
     @content    = @found.content
     Q.spawn => yield @initListenStateChange()
-    
+
   initListenStateChange : =>
     yield @checkStateChange true
     window.onstatechange = =>

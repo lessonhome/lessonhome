@@ -160,6 +160,7 @@ class Socket
       when 's' then 'states'
       when 'm' then 'modules'
       when 'r' then 'runtime'
+      when 'w' then 'workers'
       else ''
     m = context.match /^(\w+)\/(.*)$/
     s = m[1]
