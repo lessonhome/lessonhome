@@ -11,6 +11,7 @@ class @main
     date    : @tree.date    .class.getValue()
     mark    : @tree.mark    .class.getValue()
     comment : @tree.comment .class.getValue()
+    onmain  : @found.onmain.is(':checked')
   setValue : (data={})=>
     @tree.subject .class.setValue data.subject  ? []
     @tree.course  .class.setValue data.course   ? []
@@ -19,5 +20,6 @@ class @main
     @tree.date    .class.setValue data.date     ? ''
     @tree.mark    .class.setValue data.mark     ? ''
     @tree.comment .class.setValue data.comment  ? ''
+    @found.onmain.prop('checked',data.onmain ? false)
 
     
