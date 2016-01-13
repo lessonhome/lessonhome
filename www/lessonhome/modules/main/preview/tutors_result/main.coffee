@@ -42,6 +42,8 @@ class @main extends EE
       @found.ratio.text "#{data.rating?.toFixed?(2)} - #{data.ratio?.toFixed?(2)} - #{data.ratingNow?.toFixed?(0)}"
       if data.landing
         @found.lp.addClass 'red'
+      if data.onmain
+        @found.onmain.addClass 'red'
       if data.checked
         @found.checked.addClass 'red'
       if data.filtration
@@ -60,6 +62,9 @@ class @main extends EE
       @found.lp.click =>
         @found.lp.toggleClass 'red'
         @$send './ratingAva','landing',   @index,@found.lp.hasClass('red')
+      @found.onmain.click =>
+        @found.onmain.toggleClass 'red'
+        @$send './ratingAva','onmain',   @index,@found.onmain.hasClass('red')
       @found.checked.click =>
         @found.checked.toggleClass 'red'
         @$send './ratingAva','checked',   @index,@found.checked.hasClass('red')

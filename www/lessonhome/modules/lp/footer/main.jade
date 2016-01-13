@@ -1,70 +1,38 @@
 .container.js-footer_container.white-text
   .row.no-bottom-margin
-    .col.s12.hide-on-med-and-up.mobile-row-margin
-      .row
-        .col.s12.center-align
-          h4
-            a(href='tel:+7-495-181-0373') +7 (495) 181-03-73
-      .row
-        .col.s12.center-align
-          button.btn.waves-effect.waves-teal.blue.lighten-5.grey-text.text-darken-3.js-attach Оформить заявку
-      .row
-        .col.s12.social-links.center-align
-          a(href="http://ok.ru/lesson.home" target="_blank").social.ok
-          a(href="https://vk.com/lesson_home" target="_blank").social.vk
-          a(href="https://www.facebook.com/lessonhome.ru" target="_blank").social.fb
-          a(href="https://vk.com/lesson_home" target="_blank").social.gp
-          a(href="https://twitter.com/lesson_home" target="_blank").social.tw
-
-    .col.l4.m4.s12.hide-on-small-and-down
-      .row
-        .col.s12.social-links
-            a(href="http://ok.ru/lesson.home" target="_blank").social.ok.hoverable
-            a(href="https://vk.com/lesson_home" target="_blank").social.vk.hoverable
-            a(href="https://www.facebook.com/lessonhome.ru" target="_blank").social.fb.hoverable
-            a(href="https://vk.com/lesson_home" target="_blank").social.gp.hoverable
-            a(href="https://twitter.com/lesson_home" target="_blank").social.tw.hoverable
+    .col.l3.m3.s12
       .row
         .col.s11
           a(href='/')
-            img(src='https://lessonhome.ru/file/de6fd69bf0/header/logo.png').responsive-img
+            img(src=F('/lp/footer_logo.png')).responsive-img
       .row
         .col.s12.footer-text
           p 121087, Россия, г. Москва
           p Береговой проезд, дом 2, строение 3
           p &copy; Lessonhome.ru 2015 г.
-    .col.l4.m4.s12.hide-on-small-and-down
+    .col.l7.m7.s12
       .row
         .col.s12
-          ul
-            li.row
-              .col.s12
-                button.btn.waves-effect.waves-teal.blue.lighten-5.grey-text.text-darken-3.js-attach Оформить заявку
-            li.row
-              .col.s12
-                a(href='/second_step') Найти репетитора
-            li.row
-              .col.s12
-                a(href='/main_tutor') Репетиторам
-            li.row
-              .col.s12
-                a(href='/about_us') О нас
-            li.row
-              .col.s12
-                a(href='/support') Помощь
-    .col.l4.m4.s12.hide-on-small-and-down
+          ul.row.footer-links-list
+            li 
+              a(href='/second_step') Наши репетиторы
+            li
+              a(href='/main_tutor') Репетиторам
+            li
+              a(href='#modal1').btn.waves-effect.waves-light.modal-trigger.js-request_a_call.footer-btn Заказать звонок    
+    .col.l2.m2.s12.hide-on-small-and-down
       .row
-        .col.s12
+        .col.s12.right-align
           .row
-            .col.s12
-              h4 Контакты
+            .col.s12.social-links
+              a(href="http://ok.ru/lesson.home" target="_blank").social.ok
+              a(href="https://vk.com/lesson_home" target="_blank").social.vk
+              a(href="https://www.facebook.com/lessonhome.ru" target="_blank").social.fb
+              a(href="https://vk.com/lesson_home" target="_blank").social.gp
+              a(href="https://twitter.com/lesson_home" target="_blank").social.tw
           .row
             .col.s12
               a(href="#") support@lessonhome.ru
           .row
             .col.s12
               a(href='tel:+7-495-181-0373') +7 (495) 181-03-73
-          .row.hide-on-med-and-down
-            .col.s12
-              a(href='#modal1').btn.waves-effect.waves-teal.blue.lighten-5.grey-text.text-darken-3.modal-trigger.js-request_a_call Заказать звонок
-

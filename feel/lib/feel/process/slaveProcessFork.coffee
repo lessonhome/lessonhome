@@ -14,7 +14,8 @@ class SlaveProcessFork
     @conf   = JSON.parse process.env.FORK
     @processId  = @conf.processId
     @name       = @conf.name
-    @log()
+    #console.log @conf.name,@conf
+    @log(@conf.name.yellow) unless @conf.name == 'service-socket2'
 
     @messanger = new Messanger()
     yield @messanger.init()

@@ -15,9 +15,10 @@ class Services
     for file,i in files
       o = @services[file] = {}
       o.port = @startPort+i
-      n = 1
-      n = 8 if file.match 'reloadTutor'
-      for num in [1..n]
+      switch file
+        when 'workers/jobs/io_client','reloadTutor' then num = 8
+        else num = 1
+      for i in [1..num]
         w8for.push Main.serviceManager.master.runService 'socket2',{
           file : file
           port : o.port

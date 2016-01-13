@@ -31,6 +31,8 @@
   ]
 #  'subject_comment'
   'subject'
+  'subjects' #multiselect on main page
+  'course' #multiselect on main page
   'email'
 #  'phone_comment'
 #  'comments'

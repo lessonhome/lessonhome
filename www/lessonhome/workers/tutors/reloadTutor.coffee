@@ -68,6 +68,7 @@ LoadTutor = (id,account={},person={},tutor={})-> do Q.async =>
   obj.nophoto = p.avatar?[0]?
   obj.account = account
   obj.landing = p.landing ? false
+  obj.onmain = p.onmain ? false
   obj.checked = p.checked ? false
   obj.mcomment = p.mcomment || ''
   obj.filtration = p.filtration ? false

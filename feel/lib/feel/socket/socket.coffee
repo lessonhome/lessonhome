@@ -34,7 +34,17 @@ class Socket
     @sshServer = spdy.createServer options,@handler
     @sshServer.listen Main.conf.args.port
   run  : =>
+    str = Main.conf.args.file
+    #if m = str.match /\/(\w+\/\w+\/\w+)$/
+    #  str = '...'+m[1]
+    console.log "service worker ".blue+str.yellow
     yield @initHandler Main.conf.args.file
+    Q.spawn =>
+      @jobs = yield Main.service 'jobs'
+      unless global.Feel?.const?
+        @const = yield @jobs.solve 'getConsts'
+        global.Feel ?= {}
+        global.Feel.const = (name)=> @const[name]
   initHandler : (clientName)=>
     unless @handlers[clientName]?
       @handlers[clientName] = require "#{process.cwd()}/www/lessonhome/#{clientName}.c.coffee"
@@ -150,6 +160,7 @@ class Socket
       when 's' then 'states'
       when 'm' then 'modules'
       when 'r' then 'runtime'
+      when 'w' then 'workers'
       else ''
     m = context.match /^(\w+)\/(.*)$/
     s = m[1]
