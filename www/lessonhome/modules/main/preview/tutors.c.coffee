@@ -14,6 +14,7 @@ class Tutors
     @jobs = yield Main.service 'jobs'
     @jobs.listen 'filterTutors',@jobFilterTutors
     @jobs.listen 'getTutor',@jobGetTutor
+    @jobs.listen 'getTutors', @jobGetTutors
     @redis = yield Main.service('redis')
     @redis = yield @redis.get()
     @inited = 1
@@ -84,6 +85,15 @@ class Tutors
     return @handler {},{filter,preps,from,count,exists}
   jobGetTutor : ({index})=>
     return @index[index] ? @index[99637]
+  jobGetTutors : (indexes)=>
+    prep = []
+
+    if indexes and indexes instanceof Array
+      for index in indexes when (p = @index[index])? then prep.push p
+    else
+      prep.push @index[99637]
+
+    return prep
   handler : ($, {filter,preps,from,count,exists})->
     exists?=[]
     yield @init() unless @inited == 2

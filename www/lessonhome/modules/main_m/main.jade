@@ -200,58 +200,22 @@
                 h3 Заявка отправлена.
                 h3 Наш оператор позвонит вам через <span class="color-green">10 – 15</span> минут.
 .comments-block
+  mixin reviews (image, name, rating, subject, text)
+    .col.s12.m3.l3
+      .col.s12.no-padding-col.comment-img
+        img(src=F(image)).responsive-img
+      .col.s12.no-padding-col.comment-body
+        .col.s12.valign-wrapper
+          .col.s6.sub-col.valign
+            .comment-name!=name
+          .col.s6.sub-col.valign
+            .comment-like.right-align!=rating
+            .comment-subject.right-align!=subject
+        .col.s12.comment-text!=text
+        .col.s12.right-align.comment-link
+          a(href="#") Далее...
   .container
     .row.no-margin-row.title-block
       h3 Отзывы
-      .col.s12.m3.l3
-        .col.s12.no-padding-col.comment-img
-          img(src=F('/user_data/images/ab80a043a3.jpg')).responsive-img
-        .col.s12.no-padding-col.comment-body
-          .col.s12.valign-wrapper
-            .col.s6.sub-col.valign
-              .comment-name Мария
-            .col.s6.sub-col.valign
-              .comment-like.right-align 5+
-              .comment-subject.right-align Математика
-          .col.s12.comment-text Великолепный преподаватель математики. Дочке понравилось с ней работать. За 3 урока все пробелы Ирины были восстановлены, поэтому у меня только самый хороший отзыв о специалисте.
-          .col.s12.right-align.comment-link
-            a(href="#") Далее...
-      .col.s12.m3.l3
-        .col.s12.no-padding-col.comment-img
-          img(src=F('/user_data/images/12ab2f333e.jpg')).responsive-img
-        .col.s12.no-padding-col.comment-body
-          .col.s12.valign-wrapper
-            .col.s6.sub-col.valign
-              .comment-name Анна
-            .col.s6.sub-col.valign
-              .comment-like.right-align 5+
-              .comment-subject.right-align Английский
-          .col.s12.comment-text Благодаря Георгию, Семён сдал ГИА по математике на "5", получив 24 балла. На мой взгляд занятия прошли хорошо. Всем рекоммендую
-          .col.s12.right-align.comment-link
-            a(href="#") Далее...
-      .col.s12.m3.l3
-        .col.s12.no-padding-col.comment-img
-          img(src=F('/user_data/images/a210324c9ah.jpg')).responsive-img
-        .col.s12.no-padding-col.comment-body
-          .col.s12.valign-wrapper
-            .col.s6.sub-col.valign
-              .comment-name Мария
-            .col.s6.sub-col.valign
-              .comment-like.right-align 5+
-              .comment-subject.right-align Математика
-          .col.s12.comment-text Великолепный преподаватель математики. Дочке понравилось с ней работать. За 3 урока все пробелы Ирины были восстановлены, поэтому у меня только самый хороший отзыв о специалисте.
-          .col.s12.right-align.comment-link
-            a(href="#") Далее...
-      .col.s12.m3.l3
-        .col.s12.no-padding-col.comment-img
-          img(src=F('/user_data/images/ab80a043a3.jpg')).responsive-img
-        .col.s12.no-padding-col.comment-body
-          .col.s12.valign-wrapper
-            .col.s6.sub-col.valign
-              .comment-name Анна
-            .col.s6.sub-col.valign
-              .comment-like.right-align 5+
-              .comment-subject.right-align Английский
-          .col.s12.comment-text Благодаря Георгию, Семён сдал ГИА по математике на "5", получив 24 балла. На мой взгляд занятия прошли хорошо. Всем рекоммендую
-          .col.s12.right-align.comment-link
-            a(href="#") Далее... 
+      +reviews('/user_data/images/ab80a043a3.jpg', 'Мария', '5+', 'Математика', 'Великолепный преподаватель математики. Дочке понравилось с ней работать. За 3 урока все пробелы Ирины были восстановлены, поэтому у меня только самый хороший отзыв о специалисте.')
+
