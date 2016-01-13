@@ -44,23 +44,34 @@ other = ($,data,second)-> do Q.async =>
       text : text
   console.log yield sms.send messages
  
+class BidSaver
+  constructor : ->
+    $W @
+  init : =>
+    @jobs = yield Main.service 'jobs'
+    yield @jobs.listen 'saveBid',@jobSaveBid
+  jobSaveBid : => yield @handler arguments...
 
-@handler = ($,data)=>
-  data = check.takeData data
-  #  return {status:'success'} unless data.phone
-  errs = [] #check.check data
-  if errs['phone']? then return {status:'failed', errs}
-  if errs.correct is false then data = {phone: data['phone']}
-  data.account = $.user.id
-  data['phone'] = data['phone'].replace /^\+7/, '8'
-  data['phone'] = data['phone'].replace /[^\d]/g, ''
-  data['time'] = new Date()
-  console.log 'save bid'
-  db = yield $.db.get 'bids'
-  saved = yield _invoke db.find({$or:[{account:$.user.id},{phone:data.phone}]}),'toArray'
-  if data.id>0
-    yield _invoke db,'insert',data
-  else
-    yield _invoke db,'update',{account:$.user.id},{$set:data},{upsert:true}
-  other.call(@,$,data,second=(saved[0]?)).done()
-  return {status:'success'}
+  handler : ($,data)=>
+    console.log 'test_start2', data
+    console.log 'test_start1', $
+    data = check.takeData data
+    #  return {status:'success'} unless data.phone
+    errs = [] #check.check data
+    if errs['phone']? then return {status:'failed', errs}
+    if errs.correct is false then data = {phone: data['phone']}
+    data.account = $.user.id
+    data['phone'] = data['phone'].replace /^\+7/, '8'
+    data['phone'] = data['phone'].replace /[^\d]/g, ''
+    data['time'] = new Date()
+    console.log 'save bid'
+    db = yield $.db.get 'bids'
+    saved = yield _invoke db.find({$or:[{account:$.user.id},{phone:data.phone}]}),'toArray'
+    if data.id>0
+      yield _invoke db,'insert',data
+    else
+      yield _invoke db,'update',{account:$.user.id},{$set:data},{upsert:true}
+    other.call(@,$,data,second=(saved[0]?)).done()
+    return {status:'success'}
+
+module.exports = new BidSaver

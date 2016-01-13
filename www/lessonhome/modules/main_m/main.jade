@@ -140,12 +140,12 @@
           .first-step-form.js-app_first_form
             .row.no-margin-row
               .col.s9.input-field
-                select.js-field_subject(multiple=true)
+                select.js-field_subjects(multiple=true)
                   option(value='', selected, disabled) Выберете предмет
                   each groups,gname in subject_list
                     optgroup(label!=gname)
                       each val,index in groups
-                        option(value!=val)!=val
+                        option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
                 //select.js-field_subject(multiple=true)
                 //  option(value='1', disabled, selected) Выберете предмет
                 //  option(value='2') Математика
@@ -161,20 +161,20 @@
             .row
               .col.s12.input-field
                 i.material-icons.prefix account_circle
-                input#app_name.validate.js-field_name(name='name', type='text')
+                input#app_name.validate.js-field_name(name='name', type='text', value = value.name || '')
                 label(for='app_name') Ваше имя 
               .col.s12.input-field
                 i.material-icons.prefix phone
-                input#app_phone.validate(name='phone', type='tel').js-field_phone
+                input#app_phone.validate(name='phone', type='tel', value = value.phone || '').js-field_phone
                 label(for='app_phone') Ваш телефон
-              .col.s12
+              .col.s12.warning
                 p.warning-p Мы не разглашаем ваши личные данные.
             .row
               .col.s12.input-field.select-no-prefix
                 select.js-field_course(multiple=true)
                   option(value='', disabled, selected) Какое направление подготовки вас интересует?
                   each val, index in training_direction
-                    option(value=!val)!=val
+                    option(value!=val, selected=value.cou_exist[val]?true:undefined)!=val
                 //select.js-field_course(multiple=true)
                 //  option(value='1', disabled, selected) Какое направление подготовки вас интересует?
                 //  option(value='2') ЕГЭ
@@ -186,6 +186,10 @@
                 i.material-icons.prefix comment
                 textarea#app-comment.materialize-textarea.js-field_comment
                 label(for='app-comment') Напишите, когда вам удобно ответить на вопросы оператора, ваши пожелания к преподавателю и расписанию занятий.
+            .row
+              .col.s11.offset-s1
+                span.red-text.js-fatal_error
+
             .row
               .col.s12.right-align
                 a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Отправить

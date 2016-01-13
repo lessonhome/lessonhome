@@ -9,7 +9,7 @@ class @main
     @defaultAppStep   = 0
     
     @form = 
-      subject : @found.field_subject
+      subjects : @found.field_subjects
       course : @found.field_course
       name : @found.field_name
       phone : @found.field_phone
@@ -18,11 +18,23 @@ class @main
     @appFormLabel     = @found.form_offset_label
     @fixedHeightBlock = @found.fixed_height
   show: =>
-    @form.subject.material_select()
-    @form.course.material_select()
+
     @found.app_next.on 'click', => Q.spawn => @changeFormStep 'next'
     @found.app_prev.on 'click', => Q.spawn => @changeFormStep 'prev'
 
+    @form.subjects.material_select()
+    @form.course.material_select()
+
+    @form.name.on 'change', (e) ->Feel.urlData.set 'pupil', 'name', this.value
+    @form.phone.on 'change', (e) ->Feel.urlData.set 'pupil', 'phone', this.value
+
+    @form.subjects.on 'change', (e) ->
+      v = $(this).val()
+      Feel.urlData.set 'pupil', 'subjects', v
+
+    @form.course.on 'change', (e) ->
+      v = $(this).val()
+      Feel.urlData.set 'pupil', 'course', v
 
   changeFormAnimation : (appStep, route) =>
     switch appStep
@@ -52,19 +64,64 @@ class @main
               @appProgress.addClass 'final-step'
 
 
-  getData:  =>
-    subject : @form.subject.val()
+  getValue:  =>
+    subjects : @form.subjects.val()
     course : @form.course.val()
     name : @form.name.val()
     phone : @form.phone.val()
     comment : @form.comment.val()
 
-  parseError: (error) =>
+  setValue : (data) ->
+  showError: (errs =[]) =>
+    for e in errs
+
+      if e is 'wrong_phone'
+        @errInput @form.phone, 'Введите корректный телефон'
+      else if e is 'empty_phone'
+        @errInput @form.phone, 'Введите телефон'
+
+      @found.fatal_error.text('')
+
+      if e is 'internal_error'
+        @found.fatal_error.text('Внутренняя ошибка сервера. Приносим свои извенения.')
+
+  errInput: (input, error) =>
+
+    if error?
+      input.next('label').attr 'data-error', error
+      parent = input.closest('.input-field')
+
+      if parent.length and !parent.is('.err_show')
+        parent.addClass('err_show')
+        bottom = parent.stop(false, true).css 'margin-bottom'
+        parent.animate {marginBottom: parseInt(bottom) + 17 + 'px'}, 200
+        input.one 'blur', ->
+          parent
+            .removeClass('err_show')
+            .stop().animate {marginBottom: bottom}, 200, ->
+              parent
+                .css 'margin-bottom', ''
+
+    input.addClass('invalid')
+
+
 
   sendForm : () =>
-    console.log data = @getData()
-    console.log 'send', yield @$send('./save', data)
+    data = yield Feel.urlData.get 'pupil'
+    data.linked = yield Feel.urlData.get 'mainFilter','linked'
+    data.place = yield Feel.urlData.get 'mainFilter','place_attach'
+    data = @js.takeData data
+    console.log data
+    errs = @js.check(data)
+    if errs.length is 0
+      {status, err, errs} = yield @$send('./save', data, 'quiet')
+      if status is 'success'
+        Feel.sendActionOnce 'bid_popup'
+        return true
+      errs?=[]
+      errs.push err if err
 
+    @showError errs
     return false
 
   changeFormStep : (route) =>
@@ -81,7 +138,6 @@ class @main
         if @defaultAppStep != 0
           @changeFormAnimation @defaultAppStep, route
           @defaultAppStep--
+
     return true
 
-  getValue : () ->
-  setValue : () ->

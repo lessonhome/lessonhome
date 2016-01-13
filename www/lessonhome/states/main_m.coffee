@@ -11,3 +11,4 @@ class @main extends @template 'lp'
     content : @module '$':
       subject_list: filter.subjects
       training_direction : filter.course
+      value : $urlform : pupil: ''
