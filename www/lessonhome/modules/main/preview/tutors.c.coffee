@@ -175,6 +175,7 @@ class Tutors
       obj.nophoto = o.nophoto
       obj.account = account
       obj.landing = p.landing ? false
+      obj.onmain = p.onmain ? false
       obj.checked = p.checked ? false
       obj.mcomment = p.mcomment || ''
       obj.filtration = p.filtration ? false
