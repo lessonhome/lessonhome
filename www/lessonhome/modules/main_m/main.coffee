@@ -25,6 +25,8 @@ class @main
     @form.subjects.material_select()
     @form.course.material_select()
 
+    @found.popup.on 'click', -> Feel.root.tree.class.attached.showForm()
+
     @form.name.on 'change', (e) ->Feel.urlData.set 'pupil', 'name', this.value
     @form.phone.on 'change', (e) ->Feel.urlData.set 'pupil', 'phone', this.value
 
