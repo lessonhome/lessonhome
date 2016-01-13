@@ -152,6 +152,7 @@ class Socket
     suffix = switch suffix
       when 's' then 'states'
       when 'm' then 'modules'
+      when 'w' then 'workers'
       when 'r' then 'runtime'
       else ''
     m = context.match /^(\w+)\/(.*)$/

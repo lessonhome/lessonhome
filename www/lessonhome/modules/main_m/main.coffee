@@ -8,7 +8,7 @@ class @main
     @appFormThree     = @found.app_three_form
     @defaultAppStep   = 0
     
-    @form = 
+    @form =
       subject : @found.field_subject
       course : @found.field_course
       name : @found.field_name
@@ -22,7 +22,6 @@ class @main
     @form.course.material_select()
     @found.app_next.on 'click', => Q.spawn => @changeFormStep 'next'
     @found.app_prev.on 'click', => Q.spawn => @changeFormStep 'prev'
-
 
   changeFormAnimation : (appStep, route) =>
     switch appStep
