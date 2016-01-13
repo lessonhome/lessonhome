@@ -4,20 +4,21 @@ class _material_select extends EE
   constructor : (jQelem) ->
     @_sort = {}
     @elem = jQelem
+    @is_multi = @elem[0].multiple
     @value = null
-
-    @elem.find('option').each ->
-      o = $(this)
+    @_default = "ds"
+    @elem.find('option').each (i, e) =>
+      o = $(e)
       v = o.attr('value')
-      o.text(o.text() + "\#\{#{v}\}") if v
+      if v.length
+        o.text(o.text() + "\#\{#{v}\}")
+      else
+        @_default = o.text()
 
     @elem.material_select()
-
+    @ul = @elem.siblings('ul').on('mouseup touchend', LI, @_change)
     regexp = /^(.+)#{(.+)}$/
-
-    @lis = @elem.siblings('ul')
-    .on('mouseup touchend', LI, @_change)
-    .find(LI)
+    @lis = @ul.find(LI)
     .each (i, li) =>
       li = $(li)
       textNode = @_getTextNode(li)
@@ -32,12 +33,17 @@ class _material_select extends EE
         @_sort[text[2]]?= {n:text[1], el:[]}
         @_sort[text[2]].el.push li
 
-
     @input = @elem.siblings('input')
-    @_default = @input.val()
-    @is_multi = @elem.multiple
 
-  if @is_multi then @_preload()
+    if @is_multi then @_preload()
+
+    regexp = /#{.+}$/
+
+    setTimeout =>
+      @elem.find('option').each ->
+        o = $(this)
+        o.text(o.text().replace(regexp, ''))
+    ,200
 
   _preload : =>
     exist = {}
@@ -50,13 +56,18 @@ class _material_select extends EE
   _change : (e) =>
     li = $(e.currentTarget)
     name = li.attr('data-value')
+
     setTimeout =>
       if @_sort[name]?.el?.length > 1
         @_setCheckedLi(l, li.is '.active') for l in @_sort[name].el
-      @value = @_getSelectedNames()
+
+      @value = @_getSelectedValues()
+      @elem.val(@value)
       @_updateInput()
       @emit 'change'
     ,0
+
+    return false
 
   _getTextNode : (li) ->
     return li.find('span').contents().filter(-> return this.nodeType == 3)
@@ -66,14 +77,14 @@ class _material_select extends EE
     if check then li.addClass('active') else li.removeClass('active')
     li.find('input[type="checkbox"]:first').prop('checked', check)
 
-  _getSelectedNames : ->
+  _getSelectedValues : ->
     exist = {}
     $.map @lis, (li) =>
       li = $(li)
-      name = li.attr('data-value')
-      return if exist[name] or not li.is('.active')
-      exist[name] = true
-      return name
+      val = li.attr('data-value')
+      return if exist[val] or not li.is('.active')
+      exist[val] = true
+      return val
 
   _updateInput : ->
     value = @value.map (e) => @_sort[e].n
@@ -91,7 +102,7 @@ class _material_select extends EE
     @_updateInput()
     return @elem
 
-  _chekByArrValues : (value) -> @checkByValue(v) for v in value
+  _chekByArrValues : (values) -> @checkByValue(v) for v in values
   checkByValue : (name, check = true) ->
     if @_sort[name]?.el?
       @_setCheckedLi(li, check) for li in @_sort[name].el
@@ -107,8 +118,10 @@ class slideBlock extends EE
     @_change()
 
   _change : =>
-    @_updateIndicator()
-    @emit 'change'
+    setTimeout =>
+      @_updateIndicator()
+      @emit 'change'
+    ,0
 
   _updateIndicator : =>
     @inputs.each (index, input) =>
@@ -118,7 +131,8 @@ class slideBlock extends EE
         when 'checkbox', 'radio'
           exist = input.checked
         else
-          exist = input.value
+          v = $(input).val()
+          exist = v && v.length
 
       if exist and not $(input).is '.i-no'
         @_setIndicator true
@@ -134,7 +148,7 @@ class slideBlock extends EE
 
   _getValue : ->
     result = {}
-    @inputs.each (i) ->
+    @inputs.each ->
       el = $(this)
       name = el.data('v')
       type = this.type
@@ -173,7 +187,6 @@ class slideBlock extends EE
           input.filter("[value=\"#{values}\"]").prop "checked", true
         else
           input.val values
-#          console.log input.prop('tagName')
           input.trigger('change') if input.prop('tagName') == 'SELECT'
 
   val : (data) ->
@@ -191,10 +204,8 @@ class @main
     @status = new slideBlock @found.status_block
     @sex = new slideBlock @found.sex_block
     @metro = new slideBlock @found.metro_location
-
     @branch = new _material_select @found.branch
-
-
+    setTimeout @metroColor, 100
     @dom.find('.optgroup').on 'click', (e)=>
       thisGroup = e.currentTarget
       thisGroupNumber = $(thisGroup).attr('data-group')
@@ -209,7 +220,17 @@ class @main
         $(thisGroup).attr('data-open', 0)
 
 
-
+  metroColor : (material_select = @branch) =>
+    material_select.ul.find('li.optgroup').each (i, e) =>
+      li = $(e)
+      name = li.next().attr('data-value')
+      return true unless name
+      name = name.split(':')
+      return true if name.length < 2
+      return true unless @tree.metro_lines[name[0]]?
+      elem = $('<i class="material-icons middle-icon">fiber_manual_record</i>')
+      elem.css {color: @tree.metro_lines[name[0]].color}
+      li.find('span').prepend(elem)
   show: =>
 #    Feel.urlData.on 'change',=> do Q.async =>
 #      hash = yield Feel.urlData.filterHash 'tutorsFilter'
@@ -221,7 +242,7 @@ class @main
     @price.on 'change', => Feel.urlData.set 'tutorsFilter', @price.val()
     @status.on 'change', => Feel.urlData.set 'tutorsFilter', @status.val()
     @sex.on 'change', => Feel.urlData.set 'tutorsFilter', @sex.val()
-    @branch.on 'change', => Feel.urlData.set 'tutorsFilter', {branch: @branch.val()}
+    @branch.on 'change', => Feel.urlData.set 'tutorsFilter', {metro: @branch.val()}
 
 
     @found.use_settings.on 'click', =>
@@ -231,14 +252,12 @@ class @main
 #      Q.spawn => yield Feel.urlData.set 'tutorsFilter', @getValue()
 
   getValue : =>
-    metro = @metro.val()
     return {
       subjects: @subjects.val()
       course: @course.val()
       price: @price.val().price
       status: @status.val().status
-      sex: @sex.val()?.sex
-      branch: metro.branch
+      sex: @sex.val().sex
     }
 
   setValue : (value) =>
@@ -248,5 +267,5 @@ class @main
     @price.val {price: value.price}
     @status.val {status: value.status}
     @sex.val {sex: value.sex}
-    @branch.val value.branch
+    @branch.val value.metro
 
