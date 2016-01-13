@@ -4,5 +4,5 @@ check = require './check'
   errs = check.check data
   return {errs, status: 'failed'} if errs.length
   jobs = yield Main.service 'jobs'
-  console.log r = yield jobs.solve 'saveBid', $, data
-  return r
+  data['subject'] = data.subjects[0] if data.subjects?.length
+  return yield jobs.solve 'saveBid', $.user.id, $.user.admin, data

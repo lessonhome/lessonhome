@@ -31,6 +31,8 @@ class @main
     @form.subjects.on 'change', (e) ->
       v = $(this).val()
       Feel.urlData.set 'pupil', 'subjects', v
+      if v.length
+        Feel.urlData.set 'pupil', 'subject', v[0]
 
     @form.course.on 'change', (e) ->
       v = $(this).val()
@@ -108,10 +110,10 @@ class @main
 
   sendForm : () =>
     data = yield Feel.urlData.get 'pupil'
+    data.comment = @form.comment.val()
+    data = @js.takeData data
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
-    data = @js.takeData data
-    console.log data
     errs = @js.check(data)
     if errs.length is 0
       {status, err, errs} = yield @$send('./save', data, 'quiet')
