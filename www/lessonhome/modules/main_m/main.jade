@@ -200,10 +200,10 @@
                 h3 Заявка отправлена.
                 h3 Наш оператор позвонит вам через <span class="color-green">10 – 15</span> минут.
 .comments-block
-  mixin reviews (image, name, rating, subject, text)
+  mixin reviews (image, name, link, rating, subject, text)
     .col.s12.m3.l3
       .col.s12.no-padding-col.comment-img
-        img(src=F(image)).responsive-img
+        img(src=image, style="width: 100%").responsive-img
       .col.s12.no-padding-col.comment-body
         .col.s12.valign-wrapper
           .col.s6.sub-col.valign
@@ -213,9 +213,10 @@
             .comment-subject.right-align!=subject
         .col.s12.comment-text!=text
         .col.s12.right-align.comment-link
-          a(href="#") Далее...
+          a(href!=link) Далее...
   .container
     .row.no-margin-row.title-block
       h3 Отзывы
-      +reviews('/user_data/images/ab80a043a3.jpg', 'Мария', '5+', 'Математика', 'Великолепный преподаватель математики. Дочке понравилось с ней работать. За 3 урока все пробелы Ирины были восстановлены, поэтому у меня только самый хороший отзыв о специалисте.')
-
+      for rep in main_rep
+        -rew = rep.reviews[rep.num_show_rev];
+        +reviews(rep.avatar, rep.name.first, rep.link, rew.mark, rew.subject[0], rew.review)

@@ -97,9 +97,7 @@ class Tutors
       ind = arr2.splice(Math.floor(Math.random()*arr2.length),1)?[0]
       ind = @index[ind]
       arr.push ind
-      
-      
-    return ind
+    return arr
   handler : ($, {filter,preps,from,count,exists})->
     exists?=[]
     yield @init() unless @inited == 2
