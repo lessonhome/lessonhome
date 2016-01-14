@@ -120,7 +120,7 @@ class @main
     
     if(metroL == 1)
       for line of metro_obj
-        @found.metro_line.append '<span class="stantion"><i class="' + metro_obj[line].color  + ' material-icons middle-icon">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span></span>'
+        @found.metro_line.append '<span class="stantion"><i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span></span>'
     else if(metroL == 0)
       street_loc = value.street_loc || value.area_loc || ""
       if(street_loc != "")
@@ -128,7 +128,7 @@ class @main
     else
       for line of metro_obj
         dd_button = $ '<span class="dropdown-button stantion" data-hover="true" data-alignment="right" data-beloworigin="true" data-constrainwidth="false" data-activates="' + metroID  + '"></span>'
-        dd_button.append '<i class="' + metro_obj[line].color  + ' material-icons middle-icon">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span><div class="dotted_more-button right-align"></div>'
+        dd_button.append '<i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span><div class="dotted_more-button right-align"></div>'
         @found.metro_line.append dd_button
         break
       @found.metro_ul = $ '<ul id="' + metroID  + '" class="dropdown-content"></ul>'
@@ -136,7 +136,7 @@ class @main
       for line of metro_obj
         if(ti++==0)
           continue
-        @found.metro_ul.append '<li><span class="stantion"><i class="' + metro_obj[line].color  + ' material-icons middle-icon">fiber_manual_record</i><span>' + metro_obj[line].metro + '</span></span></li>'
+        @found.metro_ul.append '<li><span class="stantion"><i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span>' + metro_obj[line].metro + '</span></span></li>'
       dd_button.dropdown()
 
     yield @setLinked()

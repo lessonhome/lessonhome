@@ -8,6 +8,8 @@ class Jobs
     @client_listening  = {}
     @client_solves     = {}
   init : =>
+    @emits = {}
+    @emitter = new EE
     @redis = yield Main.service 'redis'
     @redisP = yield @redis.get()
     @redisS = yield @redis.get()
@@ -19,6 +21,9 @@ class Jobs
         return
       if @client_solves[channel]
         @client_solves[channel] JSON.parse m
+        return
+      if @emits[channel]
+        @emitter.emit channel,m
         return
     while true
       m = yield _invoke @redisP,'rpop',channel
@@ -36,6 +41,19 @@ class Jobs
           console.error err
           @redisP.publish obj.id,JSON.stringify {err:ExceptionJson(err)}
       yield Q.delay 0
+  onSignal : (name,foo)=>
+    unless @emits["emit_jobs:"+name]
+      yield _invoke @redisS,'subscribe',"emit_jobs:"+name
+      @emits["emit_jobs:"+name] = true
+    @emitter.on "emit_jobs:"+name,(m)=> Q.spawn =>
+      try
+        data = JSON.parse m
+        yield foo data...
+      catch e
+        console.error "jobs::on(#{name}) error: "+Exception e
+        throw e
+  signal : (name,data...)=>
+    @redisP.publish "emit_jobs:"+name,JSON.stringify data
   listen : (name,foo)=>
     unless @listening[name]?
       @listening[name] = {}

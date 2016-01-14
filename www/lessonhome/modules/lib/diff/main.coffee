@@ -23,6 +23,11 @@ class @main
     str = str.replace('prospekt','')
     str = str.replace('bulvar','')
     str = str.replace('ulica','')
+    str = str.replace('park','')
+    str = str.replace('-gorod', '')
+    str = str.replace('akademika','')
+    str = str.replace('oktyabrskoe','')
+    str = str.slice(0,7)
     #str = str.substr(0,5)+str.substr(-5)
     return str
 
