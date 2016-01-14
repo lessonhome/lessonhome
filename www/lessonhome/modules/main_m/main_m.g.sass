@@ -18,6 +18,8 @@
   background: url(F('/lp/history_img.jpg'))
   background-size: cover
   min-height: 644px
+  @media #{$medium-and-down}
+    min-height: 464px
   color: #ffffff
   .valign-row
     .row
@@ -29,6 +31,8 @@
       display: inline-block
       width: 0
       height: 644px
+      @media #{$medium-and-down}
+        height: 464px
       vertical-align: middle
   .history-title
     font-size: 2.8rem
@@ -45,7 +49,7 @@
     text-shadow: 0 0 35px #7b7b7b 
 .about-row
   padding-bottom: 4rem
-  background-color: #f8f8f8
+  background-color: #f1f1f1
   .col
     padding-top: 4rem
   h1
@@ -73,7 +77,13 @@
       position: relative
       z-index: 2
       &.outrer-padding
-        padding: 4rem 0
+        padding: 5rem 0
+      &.re-text
+        padding-top: 4rem
+        padding-bottom: 4rem
+        @media #{$medium-and-down}
+          padding-top: 2.5rem
+          padding-bottom: 2.5rem
   .outer-round
     position: absolute
     z-index: 1
@@ -81,15 +91,23 @@
     bottom: 0
     background-color: #7550b6
     transform: skewX(-205deg)
+    @media #{$medium-and-down}
+      transform: skewX(0deg)
     left: -100%
     right: 83px
 .resoult-block
   background-color: #fdd600
   padding: 4rem 0
+  @media #{$medium-and-down}
+    padding: 3rem 0
   .row
     .col
       &.re-text
         padding-top: 4rem
+        padding-bottom: 4rem
+        @media #{$medium-and-down}
+          padding-top: 0
+          padding-bottom: 0
 .ege-gia-block
   position: relative
   .right-img-block
@@ -118,6 +136,9 @@
         position: relative
         padding-top: 6rem
         padding-bottom: 6rem
+        @media #{$medium-and-down}
+          padding-top: 2rem
+          padding-bottom: 2rem
 .subjects-block
   background-color: #f1f1f1
   padding: 4rem 0
@@ -184,6 +205,8 @@
     &:after
       content: ''
       display: block
+      @media #{$medium-and-down}
+        display: none
       background: transparent url(F('/lp/arrow_01.png')) no-repeat
       width: 56px
       height: 20px
@@ -202,18 +225,26 @@
   background-color: #7550b6
   color: #ffffff
   .row
+    &.overflow-row
+      overflow: hidden
     .col
       padding-top: 4rem
       padding-bottom: 4rem
       padding-left: 4rem
-      padding-right: 4rem
+      padding-right: 2rem
+      @media #{$medium-and-down}
+        padding: 2rem
       &.white-block
         background-color: #ffffff
-        color: #464646
+        color: #464646  
       transform: skewX(-205deg)
+      @media #{$medium-and-down}
+        transform: skewX(0deg)
       .inner-block
         overflow: hidden
         transform: skewX(205deg)
+        @media #{$medium-and-down}
+          transform: skewX(0deg)
       font-size: 1.2rem
       i
         &.material-icons
@@ -221,8 +252,10 @@
           display: inline-block
           vertical-align: middle
           margin-right: 0.5rem
+          @media #{$medium-and-down}
+            display: none
       span
-        width: 85%
+        width: 75%
         display: inline-block
         vertical-align: top
 .title-block
