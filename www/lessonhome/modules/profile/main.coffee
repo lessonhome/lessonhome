@@ -97,12 +97,12 @@ class @main
       @found.back.removeClass 'hidden'
     yield @matchExists()
     @message_sub.find('select').material_select()
-    Q.spawn =>
-      yield Q.delay 300
-      @profileTab.addClass('tabs').tabs()
+    @profileTab.addClass('tabs').tabs()
+    @dom.find('.loaded').each @loadImage
+    setTimeout =>
       if exist = @profileTab.data('exist')
         @profileTab.tabs('select_tab', exist)
-    @dom.find('.loaded').each @loadImage
+    ,0
     yield @setLinked()
   open : (index)=>
     state = History.getState()
