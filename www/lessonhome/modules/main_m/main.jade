@@ -200,10 +200,11 @@
                 h3 Заявка отправлена.
                 h3 Наш оператор позвонит вам через <span class="color-green">10 – 15</span> минут.
 .comments-block
-  mixin reviews (image, name, link, rating, subject, text)
+  mixin reviews (index, image, name, link, rating, subject, text)
     .col.s12.m3.l3
       .col.s12.no-padding-col.comment-img
-        img(src=image, style="width: 100%").responsive-img
+        a(href!=link, data-i!=index)
+          img(src=image, style="width: 100%").responsive-img
       .col.s12.no-padding-col.comment-body
         .col.s12.valign-wrapper
           .col.s6.sub-col.valign
@@ -213,10 +214,10 @@
             .comment-subject.right-align!=subject
         .col.s12.comment-text!=text || 'Отзывов пока нет.'
         .col.s12.right-align.comment-link
-          a(href!=link) Далее...
-  .container
+          a(href!=link, data-i!=index) Далее...
+  .container.js-rew
     .row.no-margin-row.title-block
       h3 Отзывы
       for rep in main_rep
         -rew = rep.num_show_rev !== undefined ? rep.reviews[rep.num_show_rev] : {};
-        +reviews(rep.avatar, rep.name.first, rep.link, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)
+        +reviews(rep.index, rep.avatar, rep.name.first, rep.link, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)

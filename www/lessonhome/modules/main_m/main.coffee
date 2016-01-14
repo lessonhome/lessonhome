@@ -134,6 +134,7 @@ class @main
     @form.name.on 'change', (e) ->Feel.urlData.set 'pupil', 'name', this.value
     @form.phone.on 'change', (e) ->Feel.urlData.set 'pupil', 'phone', this.value
 
+    @prepareLink @found.rew.find('a')
 
     @form.subjects.ul.find('.optgroup').on 'click', (e)=>
       thisGroup = e.currentTarget
@@ -246,6 +247,15 @@ class @main
 
     @showError errs
     return false
+
+  prepareLink : (a)=>
+    a.filter('a').off('click').on 'click', (e)->
+      link = $(this)
+      index = link.attr('data-i')
+      e.preventDefault()
+      if index?
+        Feel.main.showTutor index, $(this).attr 'href'
+      return false
 
   changeFormStep : (route) =>
 

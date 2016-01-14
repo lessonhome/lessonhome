@@ -73,8 +73,8 @@ class @main extends EE
   showPage : =>
     switch @nowurl
       when 'tutor_profile'
-        $(window).scrollTop 0
         @found.profile?.removeClass? 'hidden'
+        $(window).scrollTop 0
       when 'other'
         #@found.filter_top?.show?()
         #@found.info_panel?.show?()
