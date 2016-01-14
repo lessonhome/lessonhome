@@ -49,7 +49,7 @@ class MasterServiceManager
                   services  : [name]
                 }
               _q = _q.then (p)=>
-                _waitFor p,'run',3*60*1000
+                _waitFor p,'run',10*60*1000
           qs.push _q
         else
           qs.push Main.processManager.runProcess {
@@ -59,7 +59,7 @@ class MasterServiceManager
     yield Q.all qs
   runService : (name,args)=>
     process = yield Main.processManager.runProcess {name:'service-'+name,services:[name],args}
-    yield _waitFor process,'run',3*60*1000
+    yield _waitFor process,'run',10*60*1000
   connectService : (processId,serviceId)=>
     process = yield Main.processManager.getProcess processId
     service = new MasterProcessConnect {

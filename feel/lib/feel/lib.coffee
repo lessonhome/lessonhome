@@ -571,7 +571,7 @@ global._mkdirp  = Q.denode require 'mkdirp'
 #global._clone   = (o,d=true)-> v8clone.clone o,d
 module.exports  = Lib
 
-global._waitFor = (obj,action,time=60000)-> Q.then ->
+global._waitFor = (obj,action,time=300000)-> Q.then ->
   waited = false
   defer = Q.defer()
   obj.once action, (args...)=>
