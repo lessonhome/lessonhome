@@ -136,8 +136,8 @@ class @DataM
     for i in indexes
       preps.push arr[i]
     return preps
-  getByFilter : (count,obj={})=>
-    indexes = (yield @getTutors 0,count,(yield Feel.udata.d2u('mainFilter',obj)))?.slice?(0,count) ? []
+  getByFilter : (count,obj={},from=0)=>
+    indexes = (yield @getTutors 0,from+count,(yield Feel.udata.d2u('mainFilter',obj)))?.slice?(from,count) ? []
     arr = yield @getTutor indexes
     preps = []
     for i in indexes
