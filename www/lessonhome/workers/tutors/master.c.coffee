@@ -21,7 +21,6 @@ class TutorsMaster
     #yield @jobs.solve 'reloadIndexes'
     yield @load()
   load : => Q.spawn =>
-    console.log 'init'.red
     yield @jobReloadIndexes()
     yield @jobs.signal 'loadTutorsFromRedis'
     @const = yield @jobs.solve 'getConsts','filter'
@@ -29,11 +28,9 @@ class TutorsMaster
     for key,arr of @const.filter.subjects
       for subject in arr
         q.push @jobs.solve 'prefilterTutors','subject',subject
-    console.log @const.filter.subjects
     yield Q.all q
 
   jobReloadIndexes : =>
-    console.log 'start'.red
     dids = yield _invoke @dbAccounts.find({tutor:true},{id:1}),'toArray'
     rids = yield _invoke @redis,'hkeys', 'parsedTutors'
     o = {}
@@ -48,7 +45,6 @@ class TutorsMaster
       else q.push @jobs.solve 'reloadTutor', o.slice(i*step)
     yield Q.all q
     yield _invoke @redis,'set','tutorsVersion',_randomHash()
-    console.log 'ok'.red
     return
 
   
