@@ -11,7 +11,7 @@ phones = [
   '79263672997'
 ]
 
-other = ($,data,second)-> do Q.async =>
+other = (uid,is_admin,data,second)-> do Q.async =>
   sms = yield Main.service 'sms'
   text = ''
   if data.id > 0
@@ -36,7 +36,7 @@ other = ($,data,second)-> do Q.async =>
   text += '\n' unless !text || (text.substr(-1)=='\n')
   text += data.comment || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
-  return console.log text if $.user.admin || (hostname != 'pi0h.org')
+  return console.log text if is_admin || (hostname != 'pi0h.org')
   messages = []
   for p in phones
     messages.push
@@ -44,23 +44,32 @@ other = ($,data,second)-> do Q.async =>
       text : text
   console.log yield sms.send messages
  
+class BidSaver
+  constructor : ->
+    $W @
+  init : =>
+    @jobs = yield Main.service 'jobs'
+    @db = yield Main.service 'db'
+    yield @jobs.listen 'saveBid',@jobSaveBid
+  jobSaveBid : (uid,is_admin,data)=>
+    data = check.takeData data
+    errs = [] #check.check data
+    if errs['phone']? then return {status:'failed', errs}
+    if errs.correct is false then data = {phone: data['phone']}
+    data.account = uid
+    data['phone'] = data['phone'].replace /^\+7/, '8'
+    data['phone'] = data['phone'].replace /[^\d]/g, ''
+    data['time'] = new Date()
+    console.log 'save bid'
+    db = yield @db.get 'bids'
+    saved = yield _invoke db.find({$or:[{account:uid},{phone:data.phone}]}),'toArray'
+    if data.id>0
+      yield _invoke db,'insert',data
+    else
+      yield _invoke db,'update',{account:uid},{$set:data},{upsert:true}
+    other.call(@,uid,is_admin,data,second=(saved[0]?)).done()
+    return {status:'success'}
+  handler : ($,data)=> @jobSaveBid $.user.id,$.user.admin,data
 
-@handler = ($,data)=>
-  data = check.takeData data
-  #  return {status:'success'} unless data.phone
-  errs = [] #check.check data
-  if errs['phone']? then return {status:'failed', errs}
-  if errs.correct is false then data = {phone: data['phone']}
-  data.account = $.user.id
-  data['phone'] = data['phone'].replace /^\+7/, '8'
-  data['phone'] = data['phone'].replace /[^\d]/g, ''
-  data['time'] = new Date()
-  console.log 'save bid'
-  db = yield $.db.get 'bids'
-  saved = yield _invoke db.find({$or:[{account:$.user.id},{phone:data.phone}]}),'toArray'
-  if data.id>0
-    yield _invoke db,'insert',data
-  else
-    yield _invoke db,'update',{account:$.user.id},{$set:data},{upsert:true}
-  other.call(@,$,data,second=(saved[0]?)).done()
-  return {status:'success'}
+
+module.exports = new BidSaver

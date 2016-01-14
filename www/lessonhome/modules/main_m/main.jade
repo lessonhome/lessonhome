@@ -4,7 +4,7 @@
       .col.l6.m6.s12.offset-l1.offset-m1
         .history-title Lesson Home помог нам подготовиться к ЕГЭ
         .history-text и сдать на 90 баллов 
-        a.btn-large.orange-btn.waves-effect.waves-light Тоже хочу сдать ЕГЭ
+        a.btn-large.orange-btn.waves-effect.waves-light.js-popup Тоже хочу сдать ЕГЭ
 .about-row        
   .container 
     .row
@@ -106,7 +106,7 @@
         p Вы занимаетесь с репетитором.
 .works-facts
   .container
-    .row.no-margin-row
+    .row.no-margin-row.overflow-row
       .col.s12.l4.m4
         .inner-block
           i.material-icons done
@@ -140,14 +140,20 @@
           .first-step-form.js-app_first_form
             .row.no-margin-row
               .col.s9.input-field
-                select.js-field_subject(multiple=true)
-                  option(value='1', disabled, selected) Выберете предмет
-                  option(value='2') Математика
-                  option(value='3') Русский язык
-                  option(value='4') Английский язык
-                  option(value='5') История
-                  option(value='6') Химия
-                  option(value='6') Физика (если Вы Стас)
+                select.js-field_subjects(multiple=true)
+                  option(value='', selected, disabled) Выберете предмет
+                  each groups,gname in subject_list
+                    optgroup(label!=gname)
+                      each val,index in groups
+                        option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
+                //select.js-field_subject(multiple=true)
+                //  option(value='1', disabled, selected) Выберете предмет
+                //  option(value='2') Математика
+                //  option(value='3') Русский язык
+                //  option(value='4') Английский язык
+                //  option(value='5') История
+                //  option(value='6') Химия
+                //  option(value='6') Физика (если Вы Стас)
                 label Выберете предмет
               .col.s3.input-field.right-align
                 a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Далее
@@ -155,27 +161,35 @@
             .row
               .col.s12.input-field
                 i.material-icons.prefix account_circle
-                input#app_name.validate.js-field_name(name='name', type='text')
+                input#app_name.validate.js-field_name(name='name', type='text', value = value.name || '')
                 label(for='app_name') Ваше имя 
               .col.s12.input-field
                 i.material-icons.prefix phone
-                input#app_phone.validate(name='phone', type='tel').js-field_phone
+                input#app_phone.validate(name='phone', type='tel', value = value.phone || '').js-field_phone
                 label(for='app_phone') Ваш телефон
-              .col.s12
+              .col.s12.warning
                 p.warning-p Мы не разглашаем ваши личные данные.
             .row
               .col.s12.input-field.select-no-prefix
-                select.js-field_course
-                  option(value='1', disabled, selected) Какое направление подготовки вас интересует?
-                  option(value='2') ЕГЭ
-                  option(value='2') ОГЭ
-                  option(value='2') Еще что то
-                  option(value='2') Опять направление
+                select.js-field_course(multiple=true)
+                  option(value='', disabled, selected) Какое направление подготовки вас интересует?
+                  each val, index in training_direction
+                    option(value!=val, selected=value.cou_exist[val]?true:undefined)!=val
+                //select.js-field_course(multiple=true)
+                //  option(value='1', disabled, selected) Какое направление подготовки вас интересует?
+                //  option(value='2') ЕГЭ
+                //  option(value='2') ОГЭ
+                //  option(value='2') Еще что то
+                //  option(value='2') Опять направление
             .row
               .col.s12.input-field
                 i.material-icons.prefix comment
                 textarea#app-comment.materialize-textarea.js-field_comment
                 label(for='app-comment') Напишите, когда вам удобно ответить на вопросы оператора, ваши пожелания к преподавателю и расписанию занятий.
+            .row
+              .col.s11.offset-s1
+                span.red-text.js-fatal_error
+
             .row
               .col.s12.right-align
                 a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Отправить
@@ -186,58 +200,23 @@
                 h3 Заявка отправлена.
                 h3 Наш оператор позвонит вам через <span class="color-green">10 – 15</span> минут.
 .comments-block
+  mixin reviews (image, name, link, rating, subject, text)
+    .col.s12.m3.l3
+      .col.s12.no-padding-col.comment-img
+        img(src=image, style="width: 100%").responsive-img
+      .col.s12.no-padding-col.comment-body
+        .col.s12.valign-wrapper
+          .col.s6.sub-col.valign
+            .comment-name!=name
+          .col.s6.sub-col.valign
+            .comment-like.right-align!=rating
+            .comment-subject.right-align!=subject
+        .col.s12.comment-text!=text || 'Отзывов пока нет.'
+        .col.s12.right-align.comment-link
+          a(href!=link) Далее...
   .container
     .row.no-margin-row.title-block
       h3 Отзывы
-      .col.s12.m3.l3
-        .col.s12.no-padding-col.comment-img
-          img(src=F('/user_data/images/ab80a043a3.jpg')).responsive-img
-        .col.s12.no-padding-col.comment-body
-          .col.s12.valign-wrapper
-            .col.s6.sub-col.valign
-              .comment-name Мария
-            .col.s6.sub-col.valign
-              .comment-like.right-align 5+
-              .comment-subject.right-align Математика
-          .col.s12.comment-text Великолепный преподаватель математики. Дочке понравилось с ней работать. За 3 урока все пробелы Ирины были восстановлены, поэтому у меня только самый хороший отзыв о специалисте.
-          .col.s12.right-align.comment-link
-            a(href="#") Далее...
-      .col.s12.m3.l3
-        .col.s12.no-padding-col.comment-img
-          img(src=F('/user_data/images/12ab2f333e.jpg')).responsive-img
-        .col.s12.no-padding-col.comment-body
-          .col.s12.valign-wrapper
-            .col.s6.sub-col.valign
-              .comment-name Анна
-            .col.s6.sub-col.valign
-              .comment-like.right-align 5+
-              .comment-subject.right-align Английский
-          .col.s12.comment-text Благодаря Георгию, Семён сдал ГИА по математике на "5", получив 24 балла. На мой взгляд занятия прошли хорошо. Всем рекоммендую
-          .col.s12.right-align.comment-link
-            a(href="#") Далее...
-      .col.s12.m3.l3
-        .col.s12.no-padding-col.comment-img
-          img(src=F('/user_data/images/a210324c9ah.jpg')).responsive-img
-        .col.s12.no-padding-col.comment-body
-          .col.s12.valign-wrapper
-            .col.s6.sub-col.valign
-              .comment-name Мария
-            .col.s6.sub-col.valign
-              .comment-like.right-align 5+
-              .comment-subject.right-align Математика
-          .col.s12.comment-text Великолепный преподаватель математики. Дочке понравилось с ней работать. За 3 урока все пробелы Ирины были восстановлены, поэтому у меня только самый хороший отзыв о специалисте.
-          .col.s12.right-align.comment-link
-            a(href="#") Далее...
-      .col.s12.m3.l3
-        .col.s12.no-padding-col.comment-img
-          img(src=F('/user_data/images/ab80a043a3.jpg')).responsive-img
-        .col.s12.no-padding-col.comment-body
-          .col.s12.valign-wrapper
-            .col.s6.sub-col.valign
-              .comment-name Анна
-            .col.s6.sub-col.valign
-              .comment-like.right-align 5+
-              .comment-subject.right-align Английский
-          .col.s12.comment-text Благодаря Георгию, Семён сдал ГИА по математике на "5", получив 24 балла. На мой взгляд занятия прошли хорошо. Всем рекоммендую
-          .col.s12.right-align.comment-link
-            a(href="#") Далее... 
+      for rep in main_rep
+        -rew = rep.num_show_rev !== undefined ? rep.reviews[rep.num_show_rev] : {};
+        +reviews(rep.avatar, rep.name.first, rep.link, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)
