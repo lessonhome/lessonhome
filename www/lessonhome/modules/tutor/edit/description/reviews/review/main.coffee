@@ -3,6 +3,9 @@ class @main
     $W @
   show : =>
     @found.remove_button.on 'click',=> @emit 'remove'
+    @tree.review.class.dom.find('textarea').on 'input',=>
+      @found.rtitle.text "Отзыв (#{@tree.review.class.getValue().length ? 0})"
+    @found.rtitle.text "Отзыв (#{@tree.review?.length ? 0})"
   getValue : =>
     subject : @tree.subject .class.getValue()
     course  : @tree.course  .class.getValue()
@@ -21,5 +24,6 @@ class @main
     @tree.mark    .class.setValue data.mark     ? ''
     @tree.comment .class.setValue data.comment  ? ''
     @found.onmain.prop('checked',data.onmain ? false)
+    @found.rtitle.text "Отзыв (#{data.review?.length ? 0})"
 
     
