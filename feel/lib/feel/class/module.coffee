@@ -177,7 +177,7 @@ class module.exports
           data = yield data
           unless data
             @css[filename] = @parseCss @cssSrc[filename],filename
-            if _production
+            if _production && false
               @css[filename] = yield Feel.ycss @css[filename]
             else
               @css[filename] = Feel.bcss @css[filename]
@@ -209,7 +209,7 @@ class module.exports
         data = yield data
         unless data
           @css[filename] = @parseCss @cssSrc[filename],filename
-          if _production
+          if _production && false
             @css[filename] = yield Feel.ycss @css[filename]
           else
             @css[filename] = Feel.bcss @css[filename]
@@ -340,7 +340,7 @@ class module.exports
             throw new Error "failed read coffee in module #{@name}: #{file.name}(#{file.path})",e
           @newCoffee[filename] = _regenerator src
           @newCoffeenr[filename] = src
-          if _production
+          if _production && false
             @newCoffee[filename] = yield Feel.yjs @newCoffee[filename]
             @newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
           yield Feel.qCacheFile file.path,@newCoffee[filename],'mcoffeefile'
@@ -360,7 +360,7 @@ class module.exports
             throw new Error "failed read js in module #{@name}: #{file.name}(#{file.path})",e
           @newCoffee[filename] = _regenerator src
           @newCoffeenr[filename] = src
-          if _production
+          if _production && false
             @newCoffee[filename] = yield Feel.yjs @newCoffee[filename]
             @newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
           yield Feel.qCacheFile file.path,@newCoffee[filename],'mcoffeefile'
