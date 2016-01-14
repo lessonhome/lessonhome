@@ -203,10 +203,10 @@
                 h3 Наш оператор позвонит вам через <span class="color-green">10 – 15</span> минут.
 .comments-block
   mixin reviews (index, image, name, link, rating, subject, text)
-    .col.s12.m3.l3
-      .col.s12.no-padding-col.comment-img
+    .col.s12.m6.l3.comment-cell
+      .col.s12.no-padding-col.comment-img.center-align
         a(href!=link, data-i!=index)
-          img(src=image, style="width: 100%").responsive-img
+          img(src=image).responsive-img
       .col.s12.no-padding-col.comment-body
         .col.s12.valign-wrapper
           .col.s6.sub-col.valign

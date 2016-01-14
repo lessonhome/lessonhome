@@ -232,8 +232,11 @@
   .col
     position: relative
     &.no-after
-      display: table
-      background: none
+      &:after
+        display: table
+        background: none
+        width: auto
+        height: auto
       padding-left: 0.75rem !important
     &:after
       content: ''
@@ -442,11 +445,19 @@
         color: #fd7c48
 .comments-block
   padding: 4rem 0
+  @media #{$medium-and-down}
+    padding: 2rem 0
+    .comment-cell
+      margin-bottom: 2rem
   .comment-img
     font-size: 0
     line-height: 0
     overflow: hidden
-    max-height: 250px
+    height: 250px
+    background: #fdd600
+    img
+      max-width: 100%
+      width: 100%
   .comment-body
     background-color: #fdd600
     color: #101010
@@ -463,11 +474,14 @@
     color: #626262
     line-height: 120%
     font-weight: 700
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
   .comment-text
     font-size: 0.9rem
-    overflow: hidden
-    max-height: 160px
-    height: 160px
+    height: 220px
+    @media #{$medium-and-down}
+      height: 160px
   .comment-link
     a
       color: #626262
