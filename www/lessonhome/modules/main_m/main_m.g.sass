@@ -485,3 +485,11 @@
       &.comment-body
         padding: 1.5rem
         padding-top: 1rem
+
+.select-dropdown
+  li.optgroup ~ li:not(.optgroup)
+    display: none
+  li.optgroup ~ li.subgroup_1
+    display: block
+  li.optgroup ~ li:not(.optgroup).disabled
+    display: none !important

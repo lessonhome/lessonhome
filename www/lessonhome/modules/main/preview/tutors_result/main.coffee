@@ -40,6 +40,7 @@ class @main extends EE
       console.log data
       @found.mcomment.val data.mcomment
       @found.ratio.text "#{data.rating?.toFixed?(2)} - #{data.ratio?.toFixed?(2)} - #{data.ratingNow?.toFixed?(0)}"
+      @found.reviews.text "отзывы - #{Object.keys(data?.reviews ? {})?.length ? 0}"
       if data.landing
         @found.lp.addClass 'red'
       if data.onmain
