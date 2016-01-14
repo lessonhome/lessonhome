@@ -18,7 +18,11 @@ class @main extends @template 'lp'
         for p in prep
           continue unless p.reviews.length
           onmain = []
-          for r, i in p.reviews when r.onmain then onmain.push i
+          i = 0
+          while i < p.reviews.length
+            p.reviews.splice(i--, 1) unless p.reviews[i].review
+            onmain.push i if p.reviews[i].onmain
+            i++
           onmain = Object.keys(p.reviews) unless onmain.length
 
           if onmain.length is 1
