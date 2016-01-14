@@ -5,6 +5,7 @@ feel/node_modules
 **.swo
 **.swn
 **.swm
+**.swl
 **.orig
 **/.sass-cache
 **/node_modules

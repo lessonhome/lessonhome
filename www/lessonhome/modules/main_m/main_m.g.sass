@@ -142,6 +142,8 @@
 .subjects-block
   background-color: #f1f1f1
   padding: 4rem 0
+  @media #{$medium-and-down}
+    padding: 2rem 0
   ul
     &.subject-list
       margin: 0
@@ -188,6 +190,17 @@
           &:hover
             color: #fd7c48           
   .row
+    &.min-subject-height
+      .col
+        min-height: 185px
+        &.no-col
+          min-height: 0
+          padding: 0 0.75rem !important
+        @media #{$small-and-down}
+          text-align: left !important
+          padding-left: 2.5rem
+          &:first-of-type
+            padding-left: 2.5rem
     .col
       &:first-of-type
         padding-left: 0
@@ -196,12 +209,32 @@
 .what-work
   background-color: #fdd600
   padding: 4rem 0
+  @media #{$medium-and-down}
+    padding: 2rem 0
+    padding-bottom: 0.5rem 
   p
     margin: 0
   img
     margin-bottom: 1rem
+  @media #{$medium-and-down}  
+    .row
+      .col
+        margin-bottom: 1rem
+        @media #{$medium-and-down}
+          padding-left: 1.5rem
+      &.left-left
+        img
+          float: left
+          max-width: 15%
+        p
+          text-align: left !important
+          padding-left: 5.5rem
   .col
     position: relative
+    &.no-after
+      display: table
+      background: none
+      padding-left: 0.75rem !important
     &:after
       content: ''
       display: block
@@ -280,6 +313,8 @@
 .leave-the-application
   background-color: #f1f1f1
   padding: 4rem 0
+  @media #{$medium-and-down}
+    padding: 2rem 0.75rem
   .row
     h3
       margin-bottom: 1rem
