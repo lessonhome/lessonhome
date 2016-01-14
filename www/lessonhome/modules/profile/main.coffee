@@ -164,6 +164,7 @@ class @main
 
   loadImage : (i, elem) =>
     photo_parent = $(elem).addClass 'materialboxed'
+    photo_parent.parent().addClass('_fix_bug') #materialize bug fix
 
     photo_parent.removeClass 'initialized'
     photo_parent.materialbox()
@@ -176,7 +177,7 @@ class @main
         position: 'absolute'
         left: 0
         top: 0
-      }).attr('data-src', '')
+      }).attr('data-src', null)
 
       photo_parent.one 'click', ->
         photo_parent.append h_img
