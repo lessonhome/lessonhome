@@ -14,10 +14,10 @@
 .reliable-experts
   .container
     .row.no-margin-row
-      .col.s12.m6.l6.outrer-padding
+      .col.s12.m6.l6.outrer-padding.hide-on-med-and-down
         .outer-round
         img.responsive-img(src=F('/lp/reliable_experts_01.png'))
-      .col.s12.m6.l6.re-text
+      .col.s12.m12.l6.re-text
         h3 Мы предлагаем надежных специалистов
         p Среди наших репетиторов нет случайных людей, мы не набираем всех желающих и не публикуем непроверенные анкеты. Мы относимся к репетиторам, как к своим сотрудникам и следим за их работой: разрабатываем учебные стандарты, проверяем компетенцию преподавателей внутренними тестами и собираем отзывы учеников.
 .resoult-block
@@ -26,10 +26,10 @@
       .col.s12.m6.l6.re-text
         h3 Нам важен ваш результат
         p Мы подберём подходящего репетитора, учитывая ваши задачи, бюджет и уровень знаний. Занимайтесь в удобном месте и в удобное время. Если выбранный преподаватель вам не подойдёт, мы учтем ваши замечания и бесплатно подберем другого.
-      .col.s12.m6.l6.right-align
+      .col.s12.m6.l6.right-align.hide-on-small-only
         img.responsive-img(src=F('/lp/result_img.jpg'))
 .ege-gia-block
-  .right-img-block
+  .right-img-block.hide-on-small-only
   .container
     .row.no-margin-row
       .col.s12.m6.l6.re-text
@@ -139,7 +139,7 @@
         .col.s12.m6.l6.offset-m3.offset-l3.js-fixed_height
           .first-step-form.js-app_first_form
             .row.no-margin-row
-              .col.s9.input-field
+              .col.s12.m9.l9.input-field
                 select.js-field_subjects(multiple=true)
                   option(value='', selected, disabled) Выберете предмет
                   each groups,gname in subject_list
@@ -155,7 +155,7 @@
                 //  option(value='6') Химия
                 //  option(value='6') Физика (если Вы Стас)
                 label Выберете предмет
-              .col.s3.input-field.right-align
+              .col.s12.m3.l3.input-field.right-align
                 a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Далее
           .two-step-form.js-app_two_form
             .row
