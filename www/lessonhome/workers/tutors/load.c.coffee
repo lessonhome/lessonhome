@@ -19,8 +19,12 @@ class TutorsLoad
     @redis = yield @redis.get()
 
     yield @jobs.listen 'reloadTutor', @jobReloadTutor
+    yield @jobs.listen 'prefilterTutors', @jobPrefilterTutors
+    yield @jobs.onSignal 'loadTutorsFromRedis', @jobLoadTutorsFromRedis
     
-  jobReloadTutor   : require './reloadTutor'
+  jobReloadTutor          : require './reloadTutor'
+  jobLoadTutorsFromRedis  : require './loadTutorsFromRedis'
+  jobPrefilterTutors      : require './prefilterTutors'
 
   
 

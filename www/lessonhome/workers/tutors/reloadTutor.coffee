@@ -33,7 +33,7 @@ module.exports = (ids)->
 
 LoadTutor = (id,account={},person={},tutor={})-> do Q.async =>
   unless account.id && account.index>0
-    yield _invoke @redis,'del','parsedTutor.'+id
+    yield _invoke @redis,'hdel','parsedTutors',id
     return
 
   obj = {}
@@ -279,4 +279,4 @@ LoadTutor = (id,account={},person={},tutor={})-> do Q.async =>
   awords = Awords
   p.awords = awords
 
-  yield _invoke @redis,'set','parsedTutor.'+id, JSON.stringify obj
+  yield _invoke @redis,'hset','parsedTutors',id, JSON.stringify obj
