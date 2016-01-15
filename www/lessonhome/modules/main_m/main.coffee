@@ -66,7 +66,7 @@ class _material_select extends EE
       @emit 'change'
     ,0
 
-    return false
+    return true
 
   _getTextNode : (li) ->
     return li.find('span').contents().filter(-> return this.nodeType == 3)
@@ -87,7 +87,7 @@ class _material_select extends EE
 
   _updateInput : ->
     value = @value.map (e) => @_sort[e].n
-    @input.val(value.join(', ') || @_default)
+    @input[0].value = value.join(', ') || @_default
 
   _resetAllSelected : -> @lis.each (i, e) => @_setCheckedLi $(e), false
 
