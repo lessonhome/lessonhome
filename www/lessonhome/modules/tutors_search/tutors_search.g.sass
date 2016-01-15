@@ -1,24 +1,18 @@
 @import variables
 
-//fixed container whidth
-.container
-  width: 95% !important
-  @media #{$medium-and-down}
-    width: 90% !important
-
 .row
   .col
     &.content-block
       padding-top: 1rem
       .collapsible
-        margin-top: 0
+        margin: 0 1rem 1rem
 .search-filter
   label
     color: rgba(0, 0, 0, 0.87)
 .collapsible-header
   border-left: 4px solid #ddd
   &.selected
-    border-left: 4px solid #26a69a
+    border-left: 4px solid #fd7c48
 .collapsible-body
   padding: 1rem 2rem
 .row
@@ -26,14 +20,6 @@
     margin-bottom: 1rem
     .input-field
       margin-top: 0
-
-.dropdown-content
-  li
-    &>span
-      font-size: 1rem
-      color: #26a69a
-      display: block
-      padding: 0.5rem 0.5rem
 
 .select-wrapper
   input.select-dropdown

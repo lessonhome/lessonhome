@@ -1,19 +1,5 @@
 @import variables
 
-//fixed container whidth
-.container
-  width: 90% !important
-  @media #{$medium-and-down}
-    width: 90% !important
-
-//custom button
-.btn-large, .btn
-  &.orange-btn
-    background-color: #fd7c48
-    box-shadow: none
-    &:hover
-      background-color: #df6736
-      box-shadow: none
 .luck-history
   background: url(F('/lp/history_img.jpg'))
   background-size: cover
@@ -389,17 +375,6 @@
             cursor: default
             background-color: #2db598
   .progress-body
-    .input-field
-      .prefix
-        top: 15px
-    .dropdown-content
-      li
-        &.optgroup
-          &>span
-            background-color: #fd7c48
-            color: #fff
-        &>span
-          color: #646464
     .first-step-form
       display: block
     .two-step-form
@@ -433,28 +408,6 @@
             font-size: 1.8rem
     .app-form-body
       min-height: 320px 
-  input[type=text]:focus:not([readonly]), input[type=tel]:focus:not([readonly])
-    border-bottom: 1px solid #fd7c48
-    box-shadow: 0 1px 0 0 #fd7c48
-    & + label
-      color: #fd7c48
-  textarea.materialize-textarea:focus:not([readonly])
-    border-bottom: 1px solid #fd7c48
-    box-shadow: 0 1px 0 0 #fd7c48
-    & + label
-      color: #fd7c48
-  .input-field
-    .prefix
-      &.active
-        color: #fd7c48
-  .dropdown-content
-    max-height: 350px
-  [type="checkbox"]
-    &:checked
-      &+label
-        &:before
-          border-right-color: #fd7c48
-          border-bottom-color: #fd7c48
 .comments-block
   padding: 4rem 0
   @media #{$medium-and-down}
