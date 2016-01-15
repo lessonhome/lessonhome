@@ -315,7 +315,7 @@
         margin: 0
 .leave-the-application
   background-color: #f1f1f1
-  padding: 4rem 0
+  padding: 4rem 0 
   @media #{$medium-and-down}
     padding: 2rem 0.75rem
   .row
@@ -394,8 +394,12 @@
         top: 15px
     .dropdown-content
       li
+        &.optgroup
+          &>span
+            background-color: #fd7c48
+            color: #fff
         &>span
-          color: #fd7c48
+          color: #646464
     .first-step-form
       display: block
     .two-step-form
@@ -443,7 +447,15 @@
     .prefix
       &.active
         color: #fd7c48
-.comments-block
+  .dropdown-content
+    max-height: 350px
+  [type="checkbox"]
+    &:checked
+      &+label
+        &:before
+          border-right-color: #fd7c48
+          border-bottom-color: #fd7c48
+.comments-blocki
   padding: 4rem 0
   @media #{$medium-and-down}
     padding: 2rem 0
