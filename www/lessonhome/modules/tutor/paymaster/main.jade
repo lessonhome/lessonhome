@@ -1,11 +1,12 @@
 
 
 h2 На вашем счете:
-.summ_price
+.summ_price(class=parseInt(current_sum) < 0? 'red' : '')
   span.js-summ!=current_sum
   span &nbsp;руб.
 .form
   .summ_send!=send_input
+  span.curr &nbsp;руб.
   .btn_send!=send_btn
 h2 Транзакции:
 mixin trans(date, type, status, value, residue)
@@ -41,8 +42,9 @@ table.js-transations
       th Остаток на счете
     - var exist = false
     each t in transactions
-      -exist = true
-      +trans(t.date, t.type, t.status, t.value, t.residue)
+      if t.status == 'success'
+        -exist = true
+        +trans(t.date, t.type, t.status, t.value, t.residue)
     if !exist
       tr
         td(colspan='5') Операций не обнаружено

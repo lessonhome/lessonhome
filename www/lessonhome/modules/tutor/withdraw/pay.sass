@@ -9,16 +9,25 @@ h2
   font-size: 25px
   span.summ
     font-weight: bold
+  &.red span.summ
+    color: #E96666
 .form
   height: 35px
   margin-bottom: 40px
   .btn_send
     width: 200px
     height: 100%
+    & + .btn_send
+      margin-left: 10px
   .summ_send
     margin-right: 5px
     width: 260px
     font-size: 35px
+  .curr
+    font-size: 25px
+    display: inline-block
+    height: 100%
+    vertical-align: top
   .summ_send, .btn_send
     display: inline-block
     vertical-align: top

@@ -33,39 +33,20 @@ class PayMaster
     return {status: 301, body: ''}
 
   makeCheck : ({id_acc, amount, description})=>
-    try
-      throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
-      amount = parseFloat(amount)
-      throw 'amount_not_num' if isNaN(amount)
-      amount =  Math.floor(amount*10)/10
-      {number} = yield @_newTransaction(id_acc, 'fill', amount)
-      return {status: "success", url: yield @_getUrl(amount, number, description)}
-
-    catch errs
-      err = {status: 'failed'}
-      if typeof(errs) == 'string'
-        err['err'] =  errs
-      else
-        err['err'] = 'internal_error'
-        console.log "ERROR: #{errs.stack}"
-      return err
+    throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
+    amount = parseFloat(amount)
+    throw 'amount_not_num' if isNaN(amount)
+    amount =  Math.floor(amount*10)/10
+    {number} = yield @_newTransaction(id_acc, 'fill', amount)
+    return {status: "success", url: yield @_getUrl(amount, number, description)}
 
   withdraw : ({id_acc, amount}) =>
-    try
-      throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
-      amount = parseFloat(amount)
-      throw 'amount_not_num' if isNaN(amount)
-      amount =  Math.floor(amount*10)/10
-      {bill} = yield @_newTransaction(id_acc, 'pay', amount, true)
-      return {status: 'success', bill}
-    catch errs
-      err = {status: 'failed'}
-      if typeof(errs) == 'string'
-        err['err'] =  errs
-      else
-        err['err'] = 'internal_error'
-        console.log "ERROR: #{errs.stack}"
-      return err
+    throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
+    amount = parseFloat(amount)
+    throw 'amount_not_num' if isNaN(amount)
+    amount =  Math.floor(amount*10)/10
+    {bill} = yield @_newTransaction(id_acc, 'pay', amount, true)
+    return {status: 'success', bill}
 
   _getUrl : (amount, number, description="Пополнение счета LessonHome") ->
     get = [

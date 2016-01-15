@@ -4,7 +4,9 @@ class @main
   show  : =>
     @input.addError('wrong', "Введите корректоное значение")
 
-    @tree.send_btn.class.on 'submit', @sendPay
+    @tree.sub_btn.class.on 'submit', @sendPay
+    @tree.fill_btn.class.on 'submit', @FillPay
+
     @setLocalDate @found.transations.find('.time')
 
   setLocalDate : (time) =>
@@ -22,6 +24,7 @@ class @main
     residue = residue.toFixed(2)
     tr.append("<td><p class='local_date'>#{time.toLocaleDateString()}</p><i class='local_time'>#{time.toLocaleTimeString()}</i></td>")
     tr.append("<td class='down'>Списание</td><td>#{value.toFixed(2)} руб.</td><td>Завершено</td><td>#{residue} руб.</td>")
+    tr.append("<td><a href=''#'>del</a></td>")
     @found.summ.text(residue)
     @input.setValue('')
     @found.transations.find('tbody>tr:first-child').after(tr)
@@ -37,6 +40,9 @@ class @main
         @addTr bill.date , bill.value, bill.residue
       else @showError err
     else @input.onFocus()
+
+  @FillPay : =>
+
 
   showError : (err) ->
     @input.onFocus()

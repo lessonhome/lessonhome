@@ -3,10 +3,9 @@ check = require('./check')
   try
     if err = check.check(data.value) then throw err
     job = yield Main.service 'jobs'
-    {status, err, bill} = yield job.solve 'withdraw', {id_acc: $.user.id, amount: data.value}
+    {status, bill} = yield job.solve 'withdraw', {id_acc: $.user.id, amount: data.value}
     if status == 'success'
       return {status: 'success', bill}
-    else throw err
 
   catch errs
     err = {status: 'failed'}

@@ -1,12 +1,18 @@
 
 
 h2 На счете репетитора:
-.summ_price
+
+.summ_price(class=parseInt(current_sum) < 0? 'red' : '')
   span.js-summ!=current_sum
   span &nbsp;руб.
+
 .form
   .summ_send!=send_input
-  .btn_send!=send_btn
+  span.curr &nbsp;руб.
+.form
+  .btn_send!=sub_btn
+  .btn_send!=fill_btn
+
 h2 Транзакции:
 mixin trans(date, type, status, value, residue)
   tr
@@ -30,6 +36,8 @@ mixin trans(date, type, status, value, residue)
       default
         td.grey Ошибка
     td!=residue? residue + " руб.": "&#8212;"
+    td -
+
 
 table.js-transations
   tbody
@@ -39,10 +47,11 @@ table.js-transations
       th Сумма платежа
       th Статус
       th Остаток на счете
+      th del.
     - var exist = false
     each t in transactions
       -exist = true
       +trans(t.date, t.type, t.status, t.value, t.residue)
     if !exist
       tr
-        td(colspan='5') Операций не обнаружено
+        td(colspan='6') Операций не обнаружено

@@ -33,11 +33,16 @@ class @main extends @template '../tutor'
       current_sum : $form: bills : 'current_sum'
       transactions : $form: bills : 'transactions'
       send_input : @module 'tutor/forms/input' :
-        placeholder : 'Списываемая сумма'
+        placeholder : 'Cумма'
         selector: 'write_tutor'
         allowSymbolsPattern : "^\\d*$"
-      send_btn : @module 'link_button' :
-        text : 'Списать'
+
+      fill_btn : @module 'link_button' :
+        text : 'Пополнение'
+        selector: 'view'
+
+      sub_btn : @module 'link_button' :
+        text : 'Списывание'
         selector: 'edit_save'
   init : ->
     @parent.tree.left_menu.setActive 'Управление счетом'
