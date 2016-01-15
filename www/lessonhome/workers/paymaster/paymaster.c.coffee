@@ -22,8 +22,10 @@ class PayMaster
     @db = yield Main.service 'db'
     @jobs = yield Main.service 'jobs'
     yield @jobs.listen 'withdraw',@withdraw
+    yield @jobs.listen 'refill',@refill
     yield @jobs.listen 'makeCheck',@makeCheck
     yield @jobs.listen 'waitPay', @getPay
+    yield @jobs.listen 'delTrans', @delTrans
     @bills = yield @db.get 'bills'
 
   getPay : ({url, body}) =>
@@ -32,20 +34,38 @@ class PayMaster
 
     return {status: 301, body: ''}
 
-  makeCheck : ({id_acc, amount, description})=>
-    throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
+  makeCheck : ({user, amount})=>
+    throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
     amount = parseFloat(amount)
-    throw 'amount_not_num' if isNaN(amount)
+    throw new Error('wrong_amount') if isNaN(amount)
     amount =  Math.floor(amount*10)/10
-    {number} = yield @_newTransaction(id_acc, 'fill', amount)
-    return {status: "success", url: yield @_getUrl(amount, number, description)}
+    {number} = yield @_newTransaction(user.id, 'fill', amount)
+    return {status: "success", url: yield @_getUrl(amount, number)}
 
-  withdraw : ({id_acc, amount}) =>
-    throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
+  refill : ({user, amount}) => yield @_createTrans(user, amount, 'fill')
+  withdraw : ({user, amount}) => yield @_createTrans(user, amount, 'pay')
+
+  delTrans : ({user, number}) =>
+    throw new Error('Permission denied') unless user.admin
+    throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
+    bill = yield _invoke @bills.find({account : user.id}, {transactions : 1, residue: 1}), 'toArray'
+    bill = bill[0] || {}
+    throw new Error('Not exist transaction') unless bill.transactions?[number]?
+    curr_res = bill.residue || 0
+    residue = bill.transactions[number].value || 0
+    bill.residue = (curr_res -= residue)
+    delete bill.transactions[number]
+    yield _invoke @bills, 'update', {account : user.id}, $set: bill, {upsert: true}
+    return {status: 'success', residue: curr_res}
+
+  _createTrans : (user, amount, type) =>
+    throw new Error('Permission denied') unless user.admin
+    throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
     amount = parseFloat(amount)
-    throw 'amount_not_num' if isNaN(amount)
+    throw new Error('amount_not_num') if isNaN(amount)
     amount =  Math.floor(amount*10)/10
-    {bill} = yield @_newTransaction(id_acc, 'pay', amount, true)
+    {number, bill} = yield @_newTransaction(user.id, type, amount, true)
+    bill.number = number
     return {status: 'success', bill}
 
   _getUrl : (amount, number, description="Пополнение счета LessonHome") ->

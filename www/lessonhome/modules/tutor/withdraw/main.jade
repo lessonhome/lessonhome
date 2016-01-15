@@ -14,7 +14,7 @@ h2 На счете репетитора:
   .btn_send!=fill_btn
 
 h2 Транзакции:
-mixin trans(date, type, status, value, residue)
+mixin trans(number, date, type, status, value, residue)
   tr
     td
       .time(style ="display: none")!=date
@@ -36,11 +36,13 @@ mixin trans(date, type, status, value, residue)
       default
         td.grey Ошибка
     td!=residue? residue + " руб.": "&#8212;"
-    td -
+    td
+      if status != 'wait'
+        a(href='#', data-number=number, class="delete") del.
 
 
 table.js-transations
-  tbody
+  thead
     tr
       th Дата / Время
       th Операция
@@ -48,10 +50,11 @@ table.js-transations
       th Статус
       th Остаток на счете
       th del.
+  tbody
     - var exist = false
     each t in transactions
       -exist = true
-      +trans(t.date, t.type, t.status, t.value, t.residue)
+      +trans(t.number, t.date, t.type, t.status, t.value, t.residue)
     if !exist
       tr
-        td(colspan='6') Операций не обнаружено
+        td.empty(colspan='6') Операций не обнаружено

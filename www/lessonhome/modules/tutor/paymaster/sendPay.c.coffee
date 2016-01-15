@@ -1,17 +1,12 @@
 check = require('./check')
 @handler = ($, data) =>
   try
-    if err = check.check(data.value) then throw err
+    if err = check.check(data.value) then throw new Error(err)
     job = yield Main.service 'jobs'
-    {status, url} = yield job.solve 'makeCheck', {id_acc: $.user.id, amount: data.value}
+    {status, url} = yield job.solve 'makeCheck', {user: $.user, amount: data.value}
+
     if status == 'success'
       return {status: 'success', get: url}
 
   catch errs
-    err = {status: 'failed'}
-    if typeof(errs) == 'string'
-      err['err'] =  errs
-    else
-      err['err'] = 'internal_error'
-      console.log "ERROR: #{errs.stack}"
-    return err
+    return {status: 'failed', err: errs.stack}
