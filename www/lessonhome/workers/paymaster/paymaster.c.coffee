@@ -38,12 +38,14 @@ class PayMaster
     throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
     amount = parseFloat(amount)
     throw new Error('wrong_amount') if isNaN(amount)
+    desc =
     amount =  Math.floor(amount*10)/10
-    {number} = yield @_newTransaction(user.id, 'fill', amount)
-    return {status: "success", url: yield @_getUrl(amount, number)}
+    description = "Пополнение счета LessonHome"
+    {number} = yield @_newTransaction(user.id, 'fill', amount, description)
+    return {status: "success", url: yield @_getUrl(amount, number, description)}
 
-  refill : ({user, amount}) => yield @_createTrans(user, amount, 'fill')
-  withdraw : ({user, amount}) => yield @_createTrans(user, amount, 'pay')
+  refill : ({user, amount, desc}) => yield @_createConfirmedTrans(user, amount, 'fill', desc)
+  withdraw : ({user, amount, desc}) => yield @_createConfirmedTrans(user, amount, 'pay', desc)
 
   delTrans : ({user, number}) =>
     throw new Error('Permission denied') unless user.admin
@@ -58,17 +60,17 @@ class PayMaster
     yield _invoke @bills, 'update', {account : user.id}, $set: bill, {upsert: true}
     return {status: 'success', residue: curr_res}
 
-  _createTrans : (user, amount, type) =>
+  _createConfirmedTrans : (user, amount, type, desc) =>
     throw new Error('Permission denied') unless user.admin
     throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
     amount = parseFloat(amount)
     throw new Error('amount_not_num') if isNaN(amount)
     amount =  Math.floor(amount*10)/10
-    {number, bill} = yield @_newTransaction(user.id, type, amount, true)
+    {number, bill} = yield @_newTransaction(user.id, type, amount, desc, true)
     bill.number = number
     return {status: 'success', bill}
 
-  _getUrl : (amount, number, description="Пополнение счета LessonHome") ->
+  _getUrl : (amount, number, description) ->
     get = [
       "LMI_MERCHANT_ID=#{ID}"
       "LMI_PAYMENT_AMOUNT=#{amount.toFixed(2)}"
@@ -103,18 +105,15 @@ class PayMaster
       return count if n <= count.length
       return (new Array(n - count.length + 1)).join('0') + count
 
-  _newTransaction : (id_acc, type, value, confirm = false) ->
+  _newTransaction : (id_acc, type, value, desc="Описание не указано", confirm = false) ->
     bill = yield _invoke @bills.find({account : id_acc}, {transactions : 1, residue: 1}), 'toArray'
     bill = bill[0] || {}
     trans = bill.transactions || {}
     residue = bill.residue || 0
-
-    delete trans[key] for key, val of trans when val.status is 'wait' and val.type is type
-
+#    delete trans[key] for key, val of trans when val.status is 'wait' and val.type is type
     set = {transactions : trans}
-
     number = yield @_getNumber()
-    trans[number] = {type, value, date: new Date}
+    trans[number] = {type, value, date: new Date, desc}
 
     if confirm
       trans[number]['status'] = 'success'

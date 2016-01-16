@@ -7,8 +7,8 @@ class @main
     @input.addError('empty', "Введите значение")
     @input.addError('amount_not_num', "Введите корректоное значение")
 
-    @tree.sub_btn.class.on 'submit', => Q.spawn @subPay
-    @tree.fill_btn.class.on 'submit', => Q.spawn @fillPay
+    @tree.save_btn.class.on 'submit', => Q.spawn @subPay
+    @tree.add_btn.class.on 'submit', => Q.spawn @fillPay
 
     @setLocalDate @found.transations.find('.time')
 
@@ -25,9 +25,18 @@ class @main
 
   addTr : (number, type, time, value, residue) =>
     time = new Date time
-    tr = $('<tr>')
+    tr = $('<tr class="new">')
+    summ = @found.summ
+    price_wrap =  summ.parent()
+
+    if residue >= 0
+      price_wrap.removeClass('red')
+    else
+      price_wrap.addClass('red')
+
     residue = residue.toFixed(2)
-    tr.append("<td><p class='local_date'>#{time.toLocaleDateString()}</p><i class='local_time'>#{time.toLocaleTimeString()}</i></td>")
+    summ.text(residue)
+    tr.append("<td>-</td><td>#{number}</td><td><p class='local_date'>#{time.toLocaleDateString()}</p><i class='local_time'>#{time.toLocaleTimeString()}</i></td>")
 
     switch type
       when 'pay' then tr.append("<td class='down'>Списание</td>")
@@ -37,7 +46,7 @@ class @main
 
     tr.append("<td>#{value.toFixed(2)} руб.</td><td>Завершено</td><td>#{residue} руб.</td>")
     tr.append("<td><a href='#' data-number='#{number}'>del.</a></td>")
-    @found.summ.text(residue)
+
     @input.setValue('')
     body = @found.transations.find('tbody')
     body.find('.empty').remove()
