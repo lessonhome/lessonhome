@@ -155,6 +155,11 @@ class module.exports
     return data if data?
     data = coffee._compileFile path
     return @qCacheFile path,data
+  checkExec : (args...)=>
+    proc = spawn args...
+    proc.stdout.on 'data', (data)=> process.stdout.write data
+    proc.stderr.on 'data', (data)=> process.stderr.write data
+    proc.on 'close', (code)=>
   compass : =>
     defer = Q.defer()
     process.chdir 'feel'
