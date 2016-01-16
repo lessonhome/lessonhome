@@ -3,7 +3,7 @@
 .container.profile-bottom-padding
   .row.js-nav_panel.valign-wrapper
     .col.s6.left-align.valign
-      a.js-back.btn-flat.waves-effect.waves-teal Назад
+      a.js-back.btn-flat.waves-effect.waves-grey Назад
         i.material-icons.left arrow_back
     .col.s6.right-align.tutor-action.valign.hide-on-large-only
 
@@ -25,7 +25,7 @@
 
 
             .input-field.col.s12.center-align.tutor-action.profile-button.valign.hide-on-med-and-down
-              button.waves-effect.waves-teal.btn-flat.btn-trigger.js-tutor_trigger
+              button.waves-effect.btn-flat.btn-trigger.js-tutor_trigger
                 span.tutor_button_text Выбрать
                 i.material-icons.right add
 
@@ -80,7 +80,7 @@
 
               mixin list(place)
                 li
-                  i.material-icons.tiny.teal-text.text-lighten-1 lens
+                  i.material-icons.tiny.orange-m-text lens
                   span(data-val='place')!=place
 
               ul.tags-list.js-short_places
@@ -142,7 +142,7 @@
                   +templ_subject(sub.name, sub.prices)
       .row
         .col.s12
-          button.btn.waves-effect.waves-light.js-show_detail Подробнее
+          button.btn.orange-btn.waves-effect.waves-light.js-show_detail Подробнее
 
 
       .row.tutorials-list.js-block_subjects(style= exist ? '' : 'display: none')
@@ -307,7 +307,7 @@
 
         .row
           .input-field.col.s12
-            button(type='submit').btn.waves-effect.waves-light.js-message_send Отправить
+            button(type='submit').btn.orange-btn.waves-effect.waves-light.js-message_send Отправить
               i.material-icons.right send
       .js-success
         .col.l3.m3.s3
