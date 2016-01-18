@@ -13,7 +13,7 @@ h2 Добавить транзакцию:
     .input!=send_input
     span.curr &nbsp;руб.
   .elem-form
-    select
+    select.js-desc_sel
       option(value='', selected=true, disabled=true) Описание операции
       option(value='') Другое...
       option(value='Оплата заявки') Оплата заявки
@@ -22,13 +22,13 @@ h2 Добавить транзакцию:
   .elem-form
     .description!=description
   .elem-form
-    select
+    select.js-type
       option(value='', selected=true, disabled=true) Операция
       option(value="pay") Снятие
       option(value="fill") Пополнение
   .elem-form.btn-panel
-    .btn.right!=add_btn
-    .btn.left!=save_btn
+    .btn.left!=add_btn
+    .btn.right!=save_btn
 
 h2 Транзакции:
 mixin trans(number, pay_id, date, type, status, value, residue)

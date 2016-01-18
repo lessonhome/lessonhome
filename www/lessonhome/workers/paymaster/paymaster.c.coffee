@@ -118,7 +118,7 @@ class PayMaster
     if confirm
       trans[number]['status'] = 'success'
       residue = yield @_operation residue, value, type
-      set['residue'] = trans[number]['residue'] = residue
+      set['residue'] = residue
     else
       trans[number]['status'] = 'wait'
 
@@ -138,7 +138,6 @@ class PayMaster
 
     set = {
       residue
-      "transactions.#{num_trans}.residue" : residue
       "transactions.#{num_trans}.status" : 'success'
       "transactions.#{num_trans}.date" : new Date
     }

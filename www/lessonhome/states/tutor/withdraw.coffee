@@ -43,11 +43,11 @@ class @main extends @template '../tutor'
         selector: 'write_tutor'
         allowSymbolsPattern : "^\\d*$"
 
-      save_btn : @module 'link_button' :
+      add_btn : @module 'link_button' :
         text : 'Добавить'
         selector: 'view'
 
-      add_btn : @module 'link_button' :
+      save_btn : @module 'link_button' :
         text : 'Сохранить изменения'
         selector: 'edit_save'
 
