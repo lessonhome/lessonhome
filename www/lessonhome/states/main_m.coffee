@@ -38,7 +38,7 @@ class @main extends @template 'lp'
           else
             p['num_show_rev'] = onmain[Math.floor(Math.random()*onmain.length)]
 
-          p.avatar = p.photos[p.photos.length - 1].lurl
+          p.avatar = p.photos[p.photos.length - 1].hurl
           p.link = '/tutor_profile?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
 
         return prep

@@ -132,7 +132,9 @@ class Server
     return obj.url
   handler : (req,res)=>
     return @verify req,res if req.url.match /well-known/
-    req.body = _postdata req if req.method == 'POST'
+    if req.method == 'POST'
+      unless req.url.match /upload/
+        req.body = _postdata req
     req.udataToUrl = (url)=> @udataToUrl req,res,url
     m = req.url.match /^([^\?]*)\?(.*)$/
     if m

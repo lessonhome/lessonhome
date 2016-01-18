@@ -148,12 +148,12 @@ class @main
   createDom : (prep)=>
     return @doms[prep.index] if @doms[prep.index]?
     cl = @tree.tutor_test.class.$clone()
-    @relinkedOne cl
-    @doms[prep.index] =
+    obj =
       class : cl
       dom   : cl.dom
-    @updateDom @doms[prep.index],prep
-    return @doms[prep.index]
+    @updateDom obj, prep
+#    @relinkedOne cl
+    return @doms[prep.index] = obj
   updateDom : (dom,prep)=>
     dom.class.setValue prep
   onscroll : => Q.spawn =>
