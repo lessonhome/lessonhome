@@ -418,13 +418,43 @@
     font-size: 0
     line-height: 0
     overflow: hidden
-    height: 250px
-    background: #fdd600
+    height: 300px
+    background: #e5e5e5
     img
       max-width: 100%
       width: 100%
+    a.comment-img-link
+      display: block
+      position: relative
+      .comment-tutor-name
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        height: 38px
+        @media #{$medium-and-down}
+          height: auto
+        background: rgba(0, 0, 0, 0.5)
+        font-size: 1rem
+        line-height: 130%
+        color: #fff
+        text-align: left !important
+        transition: all 0.2s ease-out
+        overflow: hidden
+        .comment-img-layer
+          font-size: 1rem
+          line-height: 130%
+          padding: 0.75rem 1.35rem
+        .comment-img-name
+          font-size: 1.15rem
+          padding-bottom: 0.35rem
+      &:hover
+        .comment-tutor-name
+          height: 64.5px
+          @media #{$medium-and-down}
+            height: auto
   .comment-body
-    background-color: #fdd600
+    background-color: #e5e5e5
     color: #101010
   .comment-name
     font-weight: 700
@@ -443,16 +473,18 @@
     white-space: nowrap
     overflow: hidden
   .comment-text
-    font-size: 0.9rem
-    height: 220px
+    font-size: 1rem
+    height: 160px
     @media #{$medium-and-down}
-      height: 160px
+      height: 120px
   .comment-link
     a
       color: #626262
       transition: all 0.2s ease-out
       &:hover
         color: #fd7c48
+  .rew_name
+    color: #626262
   .row
     .col
       &.no-padding-col
