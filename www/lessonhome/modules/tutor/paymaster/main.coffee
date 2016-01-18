@@ -2,7 +2,8 @@ class @main
   Dom   : =>
     @input = @tree.send_input.class
   show  : =>
-    @input.addError('wrong', "Введите корректоное значение")
+    @input.addError('empty', "Введите значение")
+    @input.addError('wrong_amount', "Введите корректоное значение")
     @tree.send_btn.class.on 'submit', @sendPay
     @setLocalDate()
 

@@ -95,8 +95,12 @@ bToO = (all=[],bool=0)->
 
 
 aToI = (all=[],selected)=>
-  all.indexOf(selected)
-iToA = (all=[],i=0)=> all[i]
+  ret = all.indexOf(selected)
+  return 0 if ret<0
+  return ret
+iToA = (all=[],i=0)=>
+  i = 0 unless i>=0
+  all[i]
 
 
 
