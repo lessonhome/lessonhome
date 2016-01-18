@@ -22,8 +22,10 @@ class PayMaster
     @db = yield Main.service 'db'
     @jobs = yield Main.service 'jobs'
     yield @jobs.listen 'withdraw',@withdraw
+    yield @jobs.listen 'refill',@refill
     yield @jobs.listen 'makeCheck',@makeCheck
     yield @jobs.listen 'waitPay', @getPay
+    yield @jobs.listen 'delTrans', @delTrans
     @bills = yield @db.get 'bills'
 
   getPay : ({url, body}) =>
@@ -32,42 +34,43 @@ class PayMaster
 
     return {status: 301, body: ''}
 
-  makeCheck : ({id_acc, amount, description})=>
-    try
-      throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
-      amount = parseFloat(amount)
-      throw 'amount_not_num' if isNaN(amount)
-      amount =  Math.floor(amount*10)/10
-      {number} = yield @_newTransaction(id_acc, 'fill', amount)
-      return {status: "success", url: yield @_getUrl(amount, number, description)}
+  makeCheck : ({user, amount})=>
+    throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
+    amount = parseFloat(amount)
+    throw new Error('wrong_amount') if isNaN(amount)
+    desc =
+    amount =  Math.floor(amount*10)/10
+    description = "Пополнение счета LessonHome"
+    {number} = yield @_newTransaction(user.id, 'fill', amount, description)
+    return {status: "success", url: yield @_getUrl(amount, number, description)}
 
-    catch errs
-      err = {status: 'failed'}
-      if typeof(errs) == 'string'
-        err['err'] =  errs
-      else
-        err['err'] = 'internal_error'
-        console.log "ERROR: #{errs.stack}"
-      return err
+  refill : ({user, amount, desc}) => yield @_createConfirmedTrans(user, amount, 'fill', desc)
+  withdraw : ({user, amount, desc}) => yield @_createConfirmedTrans(user, amount, 'pay', desc)
 
-  withdraw : ({id_acc, amount}) =>
-    try
-      throw new Error('Please, transfer account ID in "id_acc" ') unless id_acc?
-      amount = parseFloat(amount)
-      throw 'amount_not_num' if isNaN(amount)
-      amount =  Math.floor(amount*10)/10
-      {bill} = yield @_newTransaction(id_acc, 'pay', amount, true)
-      return {status: 'success', bill}
-    catch errs
-      err = {status: 'failed'}
-      if typeof(errs) == 'string'
-        err['err'] =  errs
-      else
-        err['err'] = 'internal_error'
-        console.log "ERROR: #{errs.stack}"
-      return err
+  delTrans : ({user, number}) =>
+    throw new Error('Permission denied') unless user.admin
+    throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
+    bill = yield _invoke @bills.find({account : user.id}, {transactions : 1, residue: 1}), 'toArray'
+    bill = bill[0] || {}
+    throw new Error('Not exist transaction') unless bill.transactions?[number]?
+    curr_res = bill.residue || 0
+    residue = bill.transactions[number].value || 0
+    bill.residue = (curr_res -= residue)
+    delete bill.transactions[number]
+    yield _invoke @bills, 'update', {account : user.id}, $set: bill, {upsert: true}
+    return {status: 'success', residue: curr_res}
 
-  _getUrl : (amount, number, description="Пополнение счета LessonHome") ->
+  _createConfirmedTrans : (user, amount, type, desc) =>
+    throw new Error('Permission denied') unless user.admin
+    throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
+    amount = parseFloat(amount)
+    throw new Error('amount_not_num') if isNaN(amount)
+    amount =  Math.floor(amount*10)/10
+    {number, bill} = yield @_newTransaction(user.id, type, amount, desc, true)
+    bill.number = number
+    return {status: 'success', bill}
+
+  _getUrl : (amount, number, description) ->
     get = [
       "LMI_MERCHANT_ID=#{ID}"
       "LMI_PAYMENT_AMOUNT=#{amount.toFixed(2)}"
@@ -102,18 +105,15 @@ class PayMaster
       return count if n <= count.length
       return (new Array(n - count.length + 1)).join('0') + count
 
-  _newTransaction : (id_acc, type, value, confirm = false) ->
+  _newTransaction : (id_acc, type, value, desc="Описание не указано", confirm = false) ->
     bill = yield _invoke @bills.find({account : id_acc}, {transactions : 1, residue: 1}), 'toArray'
     bill = bill[0] || {}
     trans = bill.transactions || {}
     residue = bill.residue || 0
-
-    delete trans[key] for key, val of trans when val.status is 'wait' and val.type is type
-
+#    delete trans[key] for key, val of trans when val.status is 'wait' and val.type is type
     set = {transactions : trans}
-
     number = yield @_getNumber()
-    trans[number] = {type, value, date: new Date}
+    trans[number] = {type, value, date: new Date, desc}
 
     if confirm
       trans[number]['status'] = 'success'

@@ -1,18 +1,22 @@
 check = require('./check')
 @handler = ($, data) =>
   try
-    if err = check.check(data.value) then throw err
     job = yield Main.service 'jobs'
-    {status, err, bill} = yield job.solve 'withdraw', {id_acc: $.user.id, amount: data.value}
-    if status == 'success'
-      return {status: 'success', bill}
-    else throw err
+    if err = check.check(data.value) then throw err
+
+    switch data.type
+      when 'pay'
+        {status, bill} = yield job.solve 'withdraw', {user: $.user, amount: data.value}
+        if status == 'success'
+          return {status: 'success', bill}
+      when 'fill'
+        {status, bill} = yield job.solve 'refill', {user: $.user, amount: data.value}
+        if status == 'success'
+          return {status: 'success', bill}
+      when 'del'
+        {status, bill} = yield job.solve 'delTrans', {user: $.user, number: data.value}
+        if status == 'success'
+          return {status: 'success', residue}
 
   catch errs
-    err = {status: 'failed'}
-    if typeof(errs) == 'string'
-      err['err'] =  errs
-    else
-      err['err'] = 'internal_error'
-      console.log "ERROR: #{errs.stack}"
-    return err
+    return {status: 'failed', err: errs.stack}

@@ -30,14 +30,28 @@ class @main extends @template '../tutor'
       }
     ]
     content       : @module '$' :
+
       current_sum : $form: bills : 'current_sum'
       transactions : $form: bills : 'transactions'
-      send_input : @module 'tutor/forms/input' :
-        placeholder : 'Списываемая сумма'
+      date : @module 'tutor/forms/input' :
+        placeholder : 'Дата транзации'
         selector: 'write_tutor'
         allowSymbolsPattern : "^\\d*$"
-      send_btn : @module 'link_button' :
-        text : 'Списать'
+
+      send_input : @module 'tutor/forms/input' :
+        placeholder : 'Cумма'
+        selector: 'write_tutor'
+        allowSymbolsPattern : "^\\d*$"
+
+      save_btn : @module 'link_button' :
+        text : 'Добавить'
+        selector: 'view'
+
+      add_btn : @module 'link_button' :
+        text : 'Сохранить изменения'
         selector: 'edit_save'
+
+      description : @module 'tutor/forms/textarea':
+        placeholder: 'Дополнение к описанию (не обязательно)'
   init : ->
     @parent.tree.left_menu.setActive 'Управление счетом'

@@ -3,9 +3,10 @@ sort_date = (a,b) -> return new Date(b.date) - new Date(a.date)
 class @F2V
   $transactions : (data) ->
     result = []
-    for id, val of data.transactions
+    for number, val of data.transactions
       val.value = val.value?.toFixed?(2)
       val.residue = val.residue?.toFixed?(2)
+      val.number = number
       result.push val
     result.sort sort_date
     return result

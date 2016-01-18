@@ -1,4 +1,5 @@
 @import base
+$width : 700px
 main
   padding: 24px 0 132px 24px
 h2
@@ -9,23 +10,53 @@ h2
   font-size: 25px
   span.summ
     font-weight: bold
+  &.red span.summ
+    color: #E96666
 .form
-  height: 35px
   margin-bottom: 40px
-  .btn_send
-    width: 200px
-    height: 100%
-  .summ_send
-    margin-right: 5px
-    width: 260px
-    font-size: 35px
-  .summ_send, .btn_send
-    display: inline-block
-    vertical-align: top
+  .elem-form
+    margin-bottom: 15px
+    &:after
+      content: ''
+      display: table
+      clear: both
+    .description
+      width: $width
+    &.btn-panel
+      margin-top: 40px
+      width: $width
+      .btn
+        width: 200px
+        height: 50px
+        &.left
+          float: left
+        &.right
+          float: right
+    .input
+      margin-right: 5px
+      width: 260px
+      font-size: 35px
+    .curr
+      font-size: 25px
+      display: inline-block
+      height: 100%
+      vertical-align: top
+    &.price
+      .input, .btn_send
+        display: inline-block
+        vertical-align: top
+    select
+      height: 40px
+      & + select
+        margin-left: 10px
 table.transations
   width: 700px
   tbody
+    border-top: 1px solid #000
+  tbody, thead
     tr
+      &.new
+        background: #fdffd5
       & + tr
         border-top: 1px solid #DADADA
       th

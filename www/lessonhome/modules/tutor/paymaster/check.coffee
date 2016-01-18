@@ -1,5 +1,5 @@
 @check = (data)->
   return 'empty' unless data?
   data = parseFloat(data)
-  return 'wrong' if isNaN(data) or data < 300
+  return 'wrong_amount' if isNaN(data) or data <= 0
   return null
