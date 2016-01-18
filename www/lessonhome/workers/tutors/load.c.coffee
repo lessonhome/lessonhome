@@ -13,12 +13,18 @@ class TutorsLoad
     @dbAccounts = yield @db.get 'accounts'
     @dbPersons  = yield @db.get 'persons'
     @dbTutor    = yield @db.get 'tutor'
+    @dbUploaded = yield @db.get 'uploaded'
     
-    yield @jobs.listen 'reloadIndexes', @reloadIndexes
-    yield @jobs.listen 'reloadTutor',   @reloadTutor
+    @redis = yield Main.service 'redis'
+    @redis = yield @redis.get()
+
+    yield @jobs.listen 'reloadTutor', @jobReloadTutor
+    yield @jobs.listen 'prefilterTutors', @jobPrefilterTutors
+    yield @jobs.onSignal 'loadTutorsFromRedis', @jobLoadTutorsFromRedis
     
-  reloadTutor   : require './reloadTutor'
-  reloadIndexes : require './reloadIndexes'
+  jobReloadTutor          : require './reloadTutor'
+  jobLoadTutorsFromRedis  : require './loadTutorsFromRedis'
+  jobPrefilterTutors      : require './prefilterTutors'
 
   
 

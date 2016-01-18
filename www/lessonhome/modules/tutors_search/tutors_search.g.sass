@@ -1,5 +1,5 @@
 @import variables
-
+@import compass/css3
 .row
   .col
     &.content-block
@@ -25,6 +25,7 @@
   input.select-dropdown
     font-size: 0.9rem
 .select-dropdown
+  max-height: 406px
   li.optgroup ~ li:not(.optgroup)
     display: none
   li.optgroup ~ li.subgroup_1
@@ -49,3 +50,6 @@
     display: none
 .show_filter
   width: 100%
+.container .row .col .tutors_list
+  opacity : 0
+  +transition( opacity 400ms ease-out)
