@@ -14,11 +14,13 @@ cd "$ROOT"
 #killall -KILL nodejs 2>> /dev/null
 echo "" > nohup.out
 if [ "$#" -eq 1 ];then
-  nohup iojs ./feel/bin/feel  >> ./nohup.out 2>> ./nohup.out &
+  iojs ./feel/bin/feel &
+  #nohup iojs ./feel/bin/feel  >> ./nohup.out 2>> ./nohup.out &
 else
-  nohup iojs  ./feel/bin/feel >> ./nohup.out 2>> ./nohup.out &
+  iojs ./feel/bin/feel &
+  #nohup iojs  ./feel/bin/feel >> ./nohup.out 2>> ./nohup.out &
 fi
-tail -f ./nohup.out &
+#tail -f ./nohup.out &
 #node ./feel/bin/updater --harmony --force & 
 
 #> log/out.log 2>> log/out.log &
