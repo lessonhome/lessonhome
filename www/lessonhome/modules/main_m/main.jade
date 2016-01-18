@@ -148,14 +148,6 @@
                     optgroup(label!=gname)
                       each val,index in groups
                         option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
-                //select.js-field_subject(multiple=true)
-                //  option(value='1', disabled, selected) Выберете предмет
-                //  option(value='2') Математика
-                //  option(value='3') Русский язык
-                //  option(value='4') Английский язык
-                //  option(value='5') История
-                //  option(value='6') Химия
-                //  option(value='6') Физика (если Вы Стас)
                 label Выберете предмет
               .col.s12.m3.l3.input-field.right-align
                 a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Далее
@@ -177,12 +169,6 @@
                   option(value='', disabled, selected) Какое направление подготовки вас интересует?
                   each val, index in training_direction
                     option(value!=val, selected=value.cou_exist[val]?true:undefined)!=val
-                //select.js-field_course(multiple=true)
-                //  option(value='1', disabled, selected) Какое направление подготовки вас интересует?
-                //  option(value='2') ЕГЭ
-                //  option(value='2') ОГЭ
-                //  option(value='2') Еще что то
-                //  option(value='2') Опять направление
             .row
               .col.s12.input-field
                 i.material-icons.prefix comment
@@ -202,24 +188,23 @@
                 h3 Заявка отправлена.
                 h3 Наш оператор позвонит вам через <span class="color-green">10 – 15</span> минут.
 .comments-block
-  mixin reviews (index, image, name, link, rating, subject, text)
+  mixin reviews (index, image, name, link, name_r, date_r, rating, subject, text)
     .col.s12.m6.l3.comment-cell
       .col.s12.no-padding-col.comment-img.center-align
-        a(href!=link, data-i!=index)
+        a(href!=link, data-i!=index).comment-img-link
           img(src=image).responsive-img
+          .comment-tutor-name
+            .comment-img-layer
+              .comment-img-name!=name
+              .comment-img-subject!=subject
       .col.s12.no-padding-col.comment-body
-        .col.s12.valign-wrapper
-          .col.s6.sub-col.valign
-            .comment-name!=name
-          .col.s6.sub-col.valign
-            .comment-like.right-align!=rating
-            .comment-subject.right-align!=subject
         .col.s12.comment-text!=text || 'Отзывов пока нет.'
-        .col.s12.right-align.comment-link
-          a(href!=link, data-i!=index) Далее...
+        .col.s12.right-align
+          .rew_name!=name_r
+          .rew_name!=date_r
   .container.js-rew
     .row.no-margin-row.title-block
       h3 Отзывы
       for rep in main_rep
         -rew = rep.num_show_rev !== undefined ? rep.reviews[rep.num_show_rev] : {};
-        +reviews(rep.index, rep.avatar, rep.name.first, rep.link, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)
+        +reviews(rep.index, rep.avatar, rep.name.first, rep.link, rew.name, rew.date, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)
