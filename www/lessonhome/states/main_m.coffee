@@ -3,8 +3,9 @@ class @main extends @template 'lp'
   model : 'main_m'
   title : "LessonHome - Главная страница"
   tags   : [ 'tutor:reports']
-  access : ['other']
+  access : ['other','pupil']
   redirect : {
+    tutor : 'tutor/profile'
   }
   tree : =>
     filter = @const('filter')
