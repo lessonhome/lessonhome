@@ -12,15 +12,23 @@
   &.orange-btn
     background-color: #fd7c48
     box-shadow: none
+    color: #ffffff
     &:hover
       background-color: #df6736
       box-shadow: none
+      color: #ffffff
 
 .input-field
   .prefix
     top: 15px
+a
+  color: #356094
+  text-decoration: none
+  transition: all 0.3s ease-out
+  &:hover
+    color: #fd7c48
 
-input[type=text]:focus:not([readonly]), input[type=tel]:focus:not([readonly])
+input[type=text]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly])
   border-bottom: 1px solid #fd7c48
   box-shadow: 0 1px 0 0 #fd7c48
   & + label
