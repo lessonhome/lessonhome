@@ -1,3 +1,72 @@
+@import variables
+
+//fixed container whidth
+.container
+  width: 95% !important
+  @media #{$medium-and-down}
+    width: 90% !important
+.orange-m-text
+  color: #fd7c48
+//custom button
+.btn-large, .btn, .btn-flat
+  &.orange-btn
+    background-color: #fd7c48
+    box-shadow: none
+    &:hover
+      background-color: #df6736
+      box-shadow: none
+
+.input-field
+  .prefix
+    top: 15px
+
+input[type=text]:focus:not([readonly]), input[type=tel]:focus:not([readonly])
+  border-bottom: 1px solid #fd7c48
+  box-shadow: 0 1px 0 0 #fd7c48
+  & + label
+    color: #fd7c48
+textarea.materialize-textarea:focus:not([readonly])
+  border-bottom: 1px solid #fd7c48
+  box-shadow: 0 1px 0 0 #fd7c48
+  & + label
+    color: #fd7c48
+.input-field
+  .prefix
+    &.active
+      color: #fd7c48
+.dropdown-content
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) 
+  max-height: 350px
+  li
+    &.optgroup
+      &>span
+        background-color: #fd7c48
+        color: #fff !important
+        padding: 0.5rem 1rem !important
+    &>span
+      font-size: 1rem !important
+      color: #26a69a
+      display: block
+      padding: 0.5rem 0.5rem !important
+
+[type="checkbox"]
+  &:checked
+    &+label
+      &:before
+        border-right-color: #fd7c48
+        border-bottom-color: #fd7c48
+[type="radio"]
+  &.with-gap
+    &:checked
+      &+label
+        &:before
+          border-color: #fd7c48
+        &:after
+          background-color: #fd7c48
+          border-color: #fd7c48
+
+
+
 
 .hidden
   display : none

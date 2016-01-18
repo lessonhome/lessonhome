@@ -14,6 +14,7 @@ class Tutors
     @jobs = yield Main.service 'jobs'
     @jobs.listen 'filterTutors',@jobFilterTutors
     @jobs.listen 'getTutor',@jobGetTutor
+    @jobs.listen 'getTutorsOnMain',@jobGetTutorsOnMain
     @redis = yield Main.service('redis')
     @redis = yield @redis.get()
     @inited = 1
@@ -22,11 +23,14 @@ class Tutors
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
     @dbuploaded = yield @$db.get 'uploaded'
+    @onmain = {}
     try
       @persons = JSON.parse yield _invoke @redis, 'get', 'persons'
       for key,val of (@persons ? {})
         @index?= {}
         @index[val.index] = val
+        @onmain ?= {}
+        @onmain[val.index]=true if val.onmain
       @filters = JSON.parse yield _invoke @redis, 'get', 'filters'
     catch e
       console.error e
@@ -34,6 +38,7 @@ class Tutors
       unless @persons? && @index? && @filters?
         @persons ?= {}
         @index   ?= {}
+        @onmain   ?= {}
         @filters ?= {}
         yield @reload()
         @inited = 2
@@ -72,7 +77,7 @@ class Tutors
       t_ = new Date().getTime()
       yield @filter {hash:f,data:o.data}
       nt_ = new Date().getTime()
-      console.log 'refilter',"#{i}/#{filters.length}",nt_-t_,o.num
+      console.log "refilter #{i}/#{filters.length} #{nt_-t_} #{o.num}".grey
       return @refiltering = false if time < @refilterTime
       yield Q.delay (nt_-t_)
     filters = filters.slice i
@@ -84,6 +89,15 @@ class Tutors
     return @handler {},{filter,preps,from,count,exists}
   jobGetTutor : ({index})=>
     return @index[index] ? @index[99637]
+  jobGetTutorsOnMain : (num)=>
+    arr2 = Object.keys @onmain
+    arr = []
+    for i in [1..num]
+      break unless arr2.length
+      ind = arr2.splice(Math.floor(Math.random()*arr2.length),1)?[0]
+      ind = @index[ind]
+      arr.push ind
+    return arr
   handler : ($, {filter,preps,from,count,exists})->
     exists?=[]
     yield @init() unless @inited == 2

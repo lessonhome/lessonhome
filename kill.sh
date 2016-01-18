@@ -3,3 +3,4 @@ pkill -fce iojs
 pkill -fce nodejs
 pkill -fce node
 pkill -fce compass
+pkill -fce nohup

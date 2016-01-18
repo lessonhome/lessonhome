@@ -1,10 +1,14 @@
 
+_filter = Feel.const('filter')
+_metro = Feel.const('metro')
 
-_subjects = Feel.const('filter').subjects
-_course   = Feel.const('filter').course
-_price    = Feel.const('filter').price
-_status   = Feel.const('filter').status
-_sex      = Feel.const('filter').sex
+_subjects = _filter.subjects
+_course   = _filter.course
+_price    = _filter.price
+_status   = _filter.status
+_sex      = _filter.sex
+
+_lines = _metro.lines
 
 
 aToS = (obj={},arr)->
@@ -21,6 +25,37 @@ aToS = (obj={},arr)->
         s += i
       i++
   return s
+
+maToS = (metro_arr, lines = _lines) ->
+  result = []
+  exist = {}
+  i = null
+  if metro_arr?.length
+    for s in metro_arr
+      s = s.split ':'
+      exist[s[0]]?=[]
+      i = lines[s[0]]?.stations.indexOf(s[1])
+      exist[s[0]].push(i) if i? and i >= 0
+    for b, ids_st of exist
+      ids_st = ids_st.join(',')
+      result.push b + ',' + ids_st if ids_st
+  return result.join('#')
+
+sToMa = (str='', lines = _lines)->
+  str = str.split '#'
+  metro_arr = []
+
+  if str.length
+    for block in str
+      block = block.split(',')
+
+      if block.length >= 2 and (l = lines[block[0]])?
+        for i in [1...block.length]
+
+          if (i = l.stations[block[i]])?
+            metro_arr.push "#{block[0]}:#{i}"
+
+  return metro_arr
 
 sToA = (obj={},str='')->
   str = str || ''
@@ -60,10 +95,12 @@ bToO = (all=[],bool=0)->
 
 
 aToI = (all=[],selected)=>
-  all.indexOf(selected)
-iToA = (all=[],i=0)=> all[i]
-
-
+  ret = all.indexOf(selected)
+  return 0 if ret<0
+  return ret
+iToA = (all=[],i=0)=>
+  i = 0 unless i>=0
+  all[i]
 
 
 
@@ -93,6 +130,11 @@ class @D2U
     value : aToI _sex, obj?.sex
     default : 0
     tutorsFilter : true
+  $metro : (obj)=>
+    type: 'string'
+    default : ''
+    value : maToS obj?.metro
+    tutorsFilter : true
 
 
 class @U2D
@@ -101,6 +143,7 @@ class @U2D
   $price    : (obj)=> bToO _price,obj?.price
   $status   : (obj)=> bToO _status,obj?.status
   $sex      : (obj)=> iToA _sex,obj?.sex
+  $metro    : (obj)=> sToMa obj?.metro
 
 
 

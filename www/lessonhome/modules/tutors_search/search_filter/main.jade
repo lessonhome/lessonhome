@@ -1,10 +1,23 @@
-- value = value.filter || {};
-- value.price = value.price || {};
-- value.status = value.status || {};
-- var sub_exist = {};
-- var cou_exist = {};
-- if (value.subjects) for(var key in value.subjects) sub_exist[value.subjects[key]] = true;
-- if (value.course) for(key in value.course) cou_exist[value.course[key]] = true;
+
+- var metro_stations = value.metro || {};
+
+- var data = value.filter || {};
+- var price = data.price || {};
+- var status = data.status || {};
+- var sex = data.sex || '';
+- var metro = data.metro || [];
+
+- var show_price = value.sh_price || false;
+- var show_status = value.sh_status || false;
+- var show_sex = value.sh_sex !== undefined? value.sh_sex : (sex_tutor.items[0] != sex);
+- var show_metro = value.sh_metro || false;
+
+- var subject_exist = value.sub_exist || {};
+- var course_exist = value.course_exist || {};
+- var metro_exist = value.metro_exist || {};
+
+//- if (data.subjects) for(var key in data.subjects) sub_exist[data.subjects[key]] = true;
+//- if (data.course) for(key in data.course) cou_exist[data.course[key]] = true;
 .search-filter
   .top-filter-parametrs
     .row.no-bottom-margin
@@ -17,13 +30,14 @@
           each groups,gname in subject_list
             optgroup(label!=gname)
               each val,index in groups
-                option(value!=val, selected=(sub_exist[val]?true:undefined))!=val
+                option(value!=val, selected=(subject_exist[val]?true:undefined))!=val
+
     .row.no-bottom-margin
       .input-field.col.s12
         select(name='course', multiple).js-course
           option(value='', disabled, selected) Направление подготовки
-            each val, index in training_direction.items
-              option(value=!val, selected=(cou_exist[val]?true:undefined))!=val
+          each val, index in training_direction.items
+            option(value!=val, selected=course_exist[val]?true:undefined)!=val
 
   mixin checkBlock(title, is_open)
     li.i-block(class=is_open?'active':undefined)&attributes(attributes)
@@ -33,54 +47,43 @@
 
 
   ul.collapsible(data-collapsible='expandable').search-filter
-    -var open = false,s;
-    -for(s in value.price)if(value.price[s]) {open=true; break;}
-    +checkBlock('Цена за 60 минут', open).js-price_block
+
+    +checkBlock('Цена за 60 минут', show_price).js-price_block
       each val, index in price_select.items
         .row
           .col.s12
-            input(name='price', type='checkbox', id='price-' + index, value!=val, data-v='price', checked=(value.price[val]?true:undefined))
+            input(name='price', type='checkbox', id='price-' + index, value!=val, data-v='price', checked=(price[val]?true:undefined))
             label(for='price-' + index)!=val
 
-    -open = false;
-    -for(s in value.status)if(value.status[s]) {open=true; break;}
-    +checkBlock('Статус репетитора', open).js-status_block
+    +checkBlock('Статус репетитора', show_status).js-status_block
       each val, index in status_tutor.items
         .row
           .col.s12
-            input(name='status', type='checkbox', id='status-' + index, value!=val, data-v='status',checked=(value.status[val]?true:undefined))
+            input(name='status', type='checkbox', id='status-' + index, value!=val, data-v='status',checked=(status[val]?true:undefined))
             label(for='status-' + index)!=val
 
-    -open = sex.items[0] != value.sex;
-    +checkBlock('Пол', open).js-sex_block
-      each val, index in sex.items
+    +checkBlock('Пол', show_sex).js-sex_block
+      each val, index in sex_tutor.items
         .row.no-bottom-margin
           .col.s12
             if index == 0
-              input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex',checked=(value.sex == val?true:undefined)).with-gap.i-no
+              input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex',checked=(sex == val?true:undefined)).with-gap.i-no
             else
-              input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex', checked=(value.sex == val?true:undefined)).with-gap
+              input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex', checked=(sex == val?true:undefined)).with-gap
             label(for='sex-' + index)!=val
-    +checkBlock('Метро', false).js-metro_location
-      .row.no-bottom-margin
-        .input-field.col.s12
-          select(name='color', data-v="branch").js-branch
-            option(value='', selected, disabled) Ветка метро
-            option(value='') Не важно
-            option(value="1") Красный
-            option(value="2") Оранжевый
-            option(value="3") Желтый
-      .row.no-bottom-margin
-        .input-field.col.s12
-          select(name='color', data-v="station").js-station
-            option(value='', selected, disabled) Станция
-            option(value='') Не важно
-            option(value="4")  Алтуфьево
-            option(value="5") Биберево
-            option(value="6") Отрадное
 
+    +checkBlock('Метро', show_metro).js-metro_location
+      .row.no-bottom-margin
+        .input-field.col.s12
+          select(name='color', data-v="branch", multiple).js-branch
+            option(value='', selected, disabled) Любая станция
+            for v, name_li in metro_stations
+              optgroup(label=v.name)
+                each s, name_st in v.stations
+                  -var val = name_li+":"+name_st
+                  option(value=val, selected=metro_exist[val]?true:undefined)!=s
 
 
   .row
     .input-field.col.s12.center-align
-      button.btn.js-use_settings Подобрать
+      button.btn.orange-btn.waves-effect.waves-light.js-use_settings Подобрать

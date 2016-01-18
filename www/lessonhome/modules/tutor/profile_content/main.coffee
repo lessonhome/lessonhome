@@ -13,9 +13,10 @@ class @main
     @input_photo.initUploaded @media.drop_zone
     @input_doc.initUploaded @doc.drop_zone
 
-
-
     $(document).bind 'drop dragover', (e)-> e.preventDefault()
+    $(document).bind 'dragover', (e)=>
+      @media.openZone()
+      @doc.openZone()
 
     @input_photo.on 'uploaded', (photo)=>@media.add photo
     @input_doc.on 'uploaded', (photo)=>@doc.add photo

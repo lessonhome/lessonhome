@@ -2,7 +2,7 @@
 
 
 @bin        = "direct/main"
-@autostart  = true
+@autostart  = false
 @single     = true
 
 

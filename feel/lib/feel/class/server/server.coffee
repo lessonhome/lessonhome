@@ -12,7 +12,7 @@ class Server
   constructor : ->
     @_google = {}
     hostname = os.hostname()
-    console.log 'hostname',hostname
+    console.log 'hostname'.grey,hostname.red
     @port = 8081
     @ip = '127.0.0.1'
     @ip2 = '176.9.22.118'
@@ -34,7 +34,7 @@ class Server
     else
       @server.listen @port
     @runSsh() if @ssh
-    console.log "listen port #{@ip}:#{@port}"
+    console.log "listen port".blue+" #{@ip}:#{@port}".yellow
     @domains =
       text : {}
       reg  : []
@@ -58,13 +58,14 @@ class Server
     options = {
       key: _fs.readFileSync '/key/server.key'
       cert : _fs.readFileSync '/key/server.crt'
+      ca : _fs.readFileSync '/key/server.ca'
       ciphers: "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4"
       honorCipherOrder: true
       autoSpdy31 : true
       ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'
     }
-    @sshServer = spdy.createServer options,@handler
+    @sshServer = https.createServer options,@handler
     if _production
       @sshServer.listen 8083,@ip
     else
@@ -96,7 +97,8 @@ class Server
     .on 'error',(e)=>
       res.statusCode = 404
       res.end JSON.strinigfy e
-  handlerHttpRedirect : (req,res)=> #do Q.async =>
+  handlerHttpRedirect : (req,res)=>
+    return @verify req,res if req.url.match /well-known/
     res.statusCode = 301
     host = req.headers.host
     if m = host?.match /^www\.(.*)$/
@@ -104,6 +106,15 @@ class Server
     #yield req?.udataToUrl?()
     res.setHeader 'location', "https://#{host}#{req.url}"
     res.end()
+  verify : (req,res)=>
+    res.setHeader 'Content-Type','text/plain'
+    switch req.url
+      when '/.well-known/acme-challenge/RsDJqtxTo1-NfWUFYojrWyhPuUnO26Lott2XuGAZ8F4'
+        res.write 'RsDJqtxTo1-NfWUFYojrWyhPuUnO26Lott2XuGAZ8F4.XBoa84QTnDAQ0fXF-6tT9GYEyUjyclDN7Jg2fNsTjeI'
+      when '/.well-known/acme-challenge/_PdrHjI10v4TuX-8_RJZIlZSgR4s3wnXwtsfziX_YPs'
+        res.write '_PdrHjI10v4TuX-8_RJZIlZSgR4s3wnXwtsfziX_YPs.XBoa84QTnDAQ0fXF-6tT9GYEyUjyclDN7Jg2fNsTjeI'
+    res.end()
+    return
   udataToUrl : (req,res,url)=> do Q.async =>
     unless url?
       obj = req
@@ -120,7 +131,10 @@ class Server
     obj.url += urldata
     return obj.url
   handler : (req,res)=>
-    req.body = _postdata req if req.method == 'POST'
+    return @verify req,res if req.url.match /well-known/
+    if req.method == 'POST'
+      unless req.url.match /upload/
+        req.body = _postdata req
     req.udataToUrl = (url)=> @udataToUrl req,res,url
     m = req.url.match /^([^\?]*)\?(.*)$/
     if m

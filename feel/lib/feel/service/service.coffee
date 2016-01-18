@@ -11,7 +11,7 @@ class Service
     Wrap @
     @path = process.cwd()+"/feel/lib/feel/"+@conf.bin
     @ee = new EE
-    @log @name
+    #@log @name
     Class   = require @path
     @service  = new Class()
     Wrap @service

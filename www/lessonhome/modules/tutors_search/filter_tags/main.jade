@@ -1,11 +1,15 @@
+-metro = value.metro_tags
 -value = value.filter || {}
 .filter-tags
   .row
     .col.s12.js-tags_filter
-      mixin tag(name)
-        .chip.active(data-v=name)&attributes(attributes)
+
+      mixin tag(name, val)
+        .chip.active(data-v=val || name, onselectstart="return false", onmousedown="return false")&attributes(attributes)
+          block
           span!=name
           i.material-icons close
+
       div.templ(style="display:none")
         +tag()
       if value.subjects
@@ -24,3 +28,9 @@
             +tag(k)(data-b='status')
       if value.sex && sex.items[0] != value.sex
         +tag(value.sex)(data-b='sex')
+      if metro
+        for v, k in metro
+          if v && v.name
+            +tag(v.name, k)(data-b='metro')
+              if v.color
+                i.material-icons.middle-icon(style="color:"+v.color) fiber_manual_record

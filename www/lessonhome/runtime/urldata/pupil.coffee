@@ -1,6 +1,39 @@
+filter = Feel.const('filter')
+_subjects = filter.subjects
+_course   = filter.course
 
 calendar = []
 for i in [1..7] then for j in [1..3] then calendar.push ''+i+j
+
+aToS = (obj={},arr)->
+  arr ?= {}
+  if arr.length then for a in arr
+    arr[a] = true
+  s = ''
+  i = 0
+  for key,o of obj
+    for val in o
+      if arr[val]
+        delete arr[val]
+        s += ',' if s
+        s += i
+      i++
+  return s
+
+sToA = (obj={},str='')->
+  str = str || ''
+  str = str.split ','
+  str2 = {}
+  for s in str
+    str2[s] = true
+  arr = []
+  i = 0
+  for key,o of obj
+    for val in o
+      if str2[i]
+        arr.push val
+      i++
+  return arr
 
 boolSet = (obj,list)=>
   list.sort()
@@ -93,6 +126,16 @@ class @D2U
     default : 'неважно'
     value : obj?.gender
     cookie : true
+  $subjects : (obj)=>
+    type : 'string'
+    value : aToS _subjects,obj?.subjects
+    default : ''
+    cookie : true
+  $course : (obj)=>
+    type : 'string'
+    value : aToS {obj:_course},obj?.course
+    default : ''
+    tutorsFitler : true
 class @U2D
   $name : (obj)=> obj?.name
   $phone : (obj)=> obj?.phone
@@ -110,4 +153,6 @@ class @U2D
   $status : (obj)=> boolSetR obj?.status,status
   $experience : (obj)=> obj?.experience
   $gender : (obj)=> obj?.gender
+  $subjects : (obj)=> sToA _subjects,obj?.subjects
+  $course   : (obj)=> sToA {obj:_course},obj?.course
 

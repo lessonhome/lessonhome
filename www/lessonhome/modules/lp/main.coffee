@@ -8,7 +8,7 @@ class @main extends EE
     @attached = @tree.bottom_block_attached.class
     @content    = @found.content
     Q.spawn => yield @initListenStateChange()
-    
+
   initListenStateChange : =>
     yield @checkStateChange true
     window.onstatechange = =>
@@ -43,9 +43,9 @@ class @main extends EE
     document.location.href = window.history.back()
   onstatechange : =>
     return unless yield @checkStateChange()
-    if (@profile?.single_profile == 'tutor_profile') && (@nowurl != 'tutor_profile')
-      setTimeout @goHitoryUrl,100
-      #@goHistoryUrl()
+    if (@tree.profile?.single_profile == 'tutor_profile') && (@nowurl != 'tutor_profile')
+      #setTimeout @goHitoryUrl,100
+      @goHistoryUrl()
       return
     yield @preShow()
     yield @hidePage()
@@ -53,7 +53,9 @@ class @main extends EE
   preShow : =>
     switch @nowurl
       when 'tutor_profile'
+        @tree.profile.class.dom.find('img.avatar').attr 'src',''
         @saveTutor = @tree.profile.class.$clone()
+        @saveTutor.dom.find('img.avatar').attr 'src',''
         @found.profile.find('>').off true,true
         @found.profile.empty()
         @found.profile.append @saveTutor.dom
@@ -73,8 +75,8 @@ class @main extends EE
   showPage : =>
     switch @nowurl
       when 'tutor_profile'
-        $(window).scrollTop 0
         @found.profile?.removeClass? 'hidden'
+        $(window).scrollTop 0
       when 'other'
         #@found.filter_top?.show?()
         #@found.info_panel?.show?()

@@ -3,6 +3,7 @@
 http = require 'http'
 os = require 'os'
 spdy = require 'spdy'
+https = require 'https'
 url  = require 'url'
 _cookies = require 'cookies'
 Form = require '../class/form'
@@ -25,16 +26,27 @@ class Socket
     options = {
       key: _fs.readFileSync '/key/server.key'
       cert : _fs.readFileSync '/key/server.crt'
+      ca : _fs.readFileSync '/key/server.ca'
       ciphers: "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4"
       honorCipherOrder: true
       autoSpdy31 : true
       ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'             
     }
-    @sshServer = spdy.createServer options,@handler
+    @sshServer = https.createServer options,@handler
     @sshServer.listen Main.conf.args.port
   run  : =>
+    str = Main.conf.args.file
+    #if m = str.match /\/(\w+\/\w+\/\w+)$/
+    #  str = '...'+m[1]
+    console.log "service worker ".blue+str.yellow
     yield @initHandler Main.conf.args.file
+    Q.spawn =>
+      @jobs = yield Main.service 'jobs'
+      unless global.Feel?.const?
+        @const = yield @jobs.solve 'getConsts'
+        global.Feel ?= {}
+        global.Feel.const = (name)=> @const[name]
   initHandler : (clientName)=>
     unless @handlers[clientName]?
       @handlers[clientName] = require "#{process.cwd()}/www/lessonhome/#{clientName}.c.coffee"
@@ -150,6 +162,7 @@ class Socket
       when 's' then 'states'
       when 'm' then 'modules'
       when 'r' then 'runtime'
+      when 'w' then 'workers'
       else ''
     m = context.match /^(\w+)\/(.*)$/
     s = m[1]

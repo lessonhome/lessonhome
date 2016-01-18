@@ -97,12 +97,12 @@ class @main
       @found.back.removeClass 'hidden'
     yield @matchExists()
     @message_sub.find('select').material_select()
-    Q.spawn =>
-      yield Q.delay 300
-      @profileTab.addClass('tabs').tabs()
+    @profileTab.addClass('tabs').tabs()
+    @dom.find('.loaded').each @loadImage
+    setTimeout =>
       if exist = @profileTab.data('exist')
         @profileTab.tabs('select_tab', exist)
-    @dom.find('.loaded').each @loadImage
+    ,0
     yield @setLinked()
   open : (index)=>
     state = History.getState()
@@ -154,16 +154,17 @@ class @main
     @tutorChoose state==true if choose
   tutorChoose : (active)=>
     if active
-      @found.tutor_trigger.addClass('waves-light teal lighten-2 selected white-text').removeClass('btn-trigger waves-teal')
+      @found.tutor_trigger.addClass('waves-light orange-btn selected white-text').removeClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Убрать')
       @found.tutor_trigger.find('.material-icons').html('remove')
     else
-      @found.tutor_trigger.removeClass('waves-light teal lighten-2 selected white-text').addClass('btn-trigger waves-teal')
+      @found.tutor_trigger.removeClass('waves-light orange-btn selected white-text').addClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
       @found.tutor_trigger.find('.material-icons').html('add')
 
   loadImage : (i, elem) =>
     photo_parent = $(elem).addClass 'materialboxed'
+    photo_parent.parent().addClass('_fix_bug') #materialize bug fix
 
     photo_parent.removeClass 'initialized'
     photo_parent.materialbox()
@@ -176,7 +177,7 @@ class @main
         position: 'absolute'
         left: 0
         top: 0
-      }).attr('data-src', '')
+      }).attr('data-src', null)
 
       photo_parent.one 'click', ->
         photo_parent.append h_img

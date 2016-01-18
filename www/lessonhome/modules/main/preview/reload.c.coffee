@@ -65,6 +65,7 @@ age = (date1,date2)=>
       obj.nophoto = o.nophoto
       obj.account = account
       obj.landing = p.landing ? false
+      obj.onmain = p.onmain ? false
       obj.checked = p.checked ? false
       obj.mcomment = p.mcomment || ''
       obj.filtration = p.filtration ? false
@@ -289,12 +290,14 @@ age = (date1,date2)=>
 
     @persons = persons
     @index = {}
+    @onmain = {}
     @filters ?= {}
     for key,f of @filters
       f.redis = true
     Q.spawn => yield @refilterRedis()
     for key,val of @persons
       @index[val.index] = val
+      @onmain[val.index]=true if val.onmain
     Q.spawn =>
       yield _invoke(@redis,'set','persons',JSON.stringify(@persons))
     return @persons

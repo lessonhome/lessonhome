@@ -1,5 +1,19 @@
 @import variables
 
+//fixed container whidth
+.container
+  width: 90% !important
+  @media #{$medium-and-down}
+    width: 90% !important
+
+.orange-m-text
+  color: #fd7c48
+
+.dropdown-content 
+  li
+    &>span
+      color: #646464 !important
+
 //selected teachers
 .selected-teachers
   background-color: #ffffff
@@ -359,3 +373,13 @@
   .row
     &.modal-footer
       margin-bottom: 0.5rem
+._fix_bug 
+  overflow: hidden
+.tabs
+  .indicator
+    background-color: #fd7c48
+  .tab
+    a
+      color: #fd7c48
+      &:hover
+        color: #df6736

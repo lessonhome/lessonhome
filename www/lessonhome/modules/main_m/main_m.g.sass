@@ -1,0 +1,506 @@
+@import variables
+
+.luck-history
+  background: url(F('/lp/history_img.jpg'))
+  background-size: cover
+  min-height: 644px
+  @media #{$medium-and-down}
+    min-height: 464px
+  color: #ffffff
+  .valign-row
+    .row
+      width: 99%
+      display: inline-block
+      vertical-align: middle
+    &:before
+      content: ''
+      display: inline-block
+      width: 0
+      height: 644px
+      @media #{$medium-and-down}
+        height: 464px
+      vertical-align: middle
+  .history-title
+    font-size: 2.8rem
+    line-height: 130%
+    font-weight: 700
+    margin-bottom: 1rem
+    font-style: italic
+    text-shadow: 0 0 35px #7b7b7b 
+  .history-text
+    font-size: 1.6rem
+    line-height: 130%
+    margin-bottom: 1.8rem
+    font-style: italic
+    text-shadow: 0 0 35px #7b7b7b 
+.about-row
+  padding-bottom: 4rem
+  background-color: #f1f1f1
+  .col
+    padding-top: 4rem
+  h1
+    margin: 0 0 1.2rem 0
+    font-size: 2.8rem
+    font-weight: 700
+  p
+    font-size: 1.4rem
+    line-height: 140%
+    margin: 0
+.reliable-experts
+  position: relative
+  h3
+    font-size: 2rem
+    margin: 0 0 1.2rem
+  p
+    font-size: 1.2rem
+    line-height: 140%
+    margin: 0
+  img
+    position: relative
+    z-index: 3
+  .row
+    .col
+      position: relative
+      z-index: 2
+      &.outrer-padding
+        padding: 5rem 0
+      &.re-text
+        padding-top: 4rem
+        padding-bottom: 4rem
+        @media #{$medium-and-down}
+          padding-top: 2.5rem
+          padding-bottom: 2.5rem
+  .outer-round
+    position: absolute
+    z-index: 1
+    top: 0
+    bottom: 0
+    background-color: #7550b6
+    transform: skewX(-205deg)
+    @media #{$medium-and-down}
+      transform: skewX(0deg)
+    left: -100%
+    right: 83px
+.resoult-block
+  background-color: #fdd600
+  padding: 4rem 0
+  @media #{$medium-and-down}
+    padding: 3rem 0
+  .row
+    .col
+      &.re-text
+        padding-top: 4rem
+        padding-bottom: 4rem
+        @media #{$medium-and-down}
+          padding-top: 0
+          padding-bottom: 0
+.ege-gia-block
+  position: relative
+  .right-img-block
+    position: absolute
+    top: 0
+    right: 0
+    left: 52%
+    bottom: 0
+    background: url(F('/lp/ege_gia_img.jpg'))
+    background-size: cover
+    z-index: 1
+    overflow: hidden
+    &:before
+      content: ''
+      display: block
+      position: absolute
+      top: 0
+      left: -250%
+      bottom: 0
+      right: 90%
+      background-color: #ffffff
+      transform: skewX(-205deg)
+  .row
+    .col
+      &.re-text
+        position: relative
+        padding-top: 6rem
+        padding-bottom: 6rem
+        @media #{$medium-and-down}
+          padding-top: 2rem
+          padding-bottom: 2rem
+.subjects-block
+  background-color: #f1f1f1
+  padding: 4rem 0
+  @media #{$medium-and-down}
+    padding: 2rem 0
+  ul
+    &.subject-list
+      margin: 0
+      padding: 0
+      padding-left: 110px
+      padding-bottom: 20px
+      display: inline-block
+      li
+        font-size: 1.1rem
+        padding-bottom: 0.2rem
+        &.title
+          font-size: 1.3rem
+          font-weight: 700
+          margin-bottom: 0.5rem
+        a
+          color: #356094
+          transition: all 0.3s ease-out
+      &.list-one
+        background: transparent url(F('/lp/subject_1.png')) no-repeat left top
+        .title
+          color: #2db598
+        a
+          &:hover
+            color: #2db598
+      &.list-two 
+        background: transparent url(F('/lp/subject_2.png')) no-repeat left top
+        .title
+          color: #5596e6
+        a
+          &:hover
+            color: #5596e6
+      &.list-three
+        background: transparent url(F('/lp/subject_3.png')) no-repeat left top
+        .title
+          color: #fcba00
+        a
+          &:hover
+            color: #fcba00
+      &.list-four 
+        background: transparent url(F('/lp/subject_4.png')) no-repeat left top
+        .title
+          color: #fd7c48
+        a
+          &:hover
+            color: #fd7c48           
+  .row
+    &.min-subject-height
+      .col
+        min-height: 185px
+        &.no-col
+          min-height: 0
+          padding: 0 0.75rem !important
+        @media #{$small-and-down}
+          text-align: left !important
+          padding-left: 2.5rem
+          &:first-of-type
+            padding-left: 2.5rem
+    .col
+      &:first-of-type
+        padding-left: 0
+      &:last-of-type
+        padding-right: 0
+.what-work
+  background-color: #fdd600
+  padding: 4rem 0
+  @media #{$medium-and-down}
+    padding: 2rem 0
+    padding-bottom: 0.5rem 
+  p
+    margin: 0
+  img
+    margin-bottom: 1rem
+  @media #{$medium-and-down}  
+    .row
+      .col
+        margin-bottom: 1rem
+        @media #{$medium-and-down}
+          padding-left: 1.5rem
+      &.left-left
+        img
+          float: left
+          max-width: 15%
+        p
+          text-align: left !important
+          padding-left: 5.5rem
+  .col
+    position: relative
+    &.no-after
+      &:after
+        display: table
+        background: none
+        width: auto
+        height: auto
+      padding-left: 0.75rem !important
+    &:after
+      content: ''
+      display: block
+      @media #{$medium-and-down}
+        display: none
+      background: transparent url(F('/lp/arrow_01.png')) no-repeat
+      width: 56px
+      height: 20px
+      position: absolute
+      right: 0
+      top: 80px
+      margin-top: -10px
+      margin-right: -28px
+    &:first-of-type
+      padding-left: 0
+    &:last-of-type
+      padding-right: 0
+      &:after
+        display: none
+.works-facts
+  background-color: #7550b6
+  color: #ffffff
+  .row
+    &.overflow-row
+      overflow: hidden
+    .col
+      padding-top: 4rem
+      padding-bottom: 4rem
+      padding-left: 4rem
+      padding-right: 2rem
+      @media #{$medium-and-down}
+        padding: 2rem
+      &.white-block
+        background-color: #ffffff
+        color: #464646  
+      transform: skewX(-205deg)
+      @media #{$medium-and-down}
+        transform: skewX(0deg)
+      .inner-block
+        overflow: hidden
+        transform: skewX(205deg)
+        @media #{$medium-and-down}
+          transform: skewX(0deg)
+      font-size: 1.2rem
+      i
+        &.material-icons
+          font-size: 2.5rem
+          display: inline-block
+          vertical-align: middle
+          margin-right: 0.5rem
+          @media #{$medium-and-down}
+            display: none
+      span
+        width: 75%
+        display: inline-block
+        vertical-align: top
+.title-block
+  h3
+    font-size: 2rem
+    margin: 0 0 2rem 0
+    font-weight: 700
+.row
+  &.no-margin-row
+    margin-bottom: 0 !important
+  .col
+    &.re-text
+      padding-top: 6rem
+      h3
+        font-size: 2rem
+        margin: 0 0 1.2rem
+        font-weight: 700
+      p
+        font-size: 1.2rem
+        line-height: 140%
+        margin: 0
+.leave-the-application
+  background-color: #f1f1f1
+  padding: 4rem 0 
+  @media #{$medium-and-down}
+    padding: 2rem 0.75rem
+  .row
+    h3
+      margin-bottom: 1rem
+    p
+      font-size: 1.2rem
+      color: #8b8b8b
+      margin-top: 0
+      margin-bottom: 2rem  
+  .application-progress
+    height: 6px
+    background-color: #626262
+    margin-bottom: 3rem
+    .col
+      position: relative
+      height: 6px
+      padding: 0
+    .circle-number 
+      transition: all 0.4s ease-out
+      position: absolute
+      background-color: #626262
+      border-radius: 50%
+      color: #fff
+      width: 35px
+      line-height: 35px
+      font-weight: 700
+      font-size: 1.2rem
+      top: 50%
+      margin-top: -16px
+      left: 50%
+      margin-left: -16px
+      z-index: 2
+      cursor: default 
+    .progress-line
+      transition: all 1s ease-out
+      height: 6px
+      background-color: #fd7c48
+      position: absolute
+      z-index: 1
+      left: 0
+      right: 100%
+    .col
+      &:nth-of-type(1)
+        .progress-line
+          right: 0
+        .circle-number
+          background-color: #fd7c48
+          cursor: pointer
+    &.two-step-on
+      .col
+        &:nth-of-type(2)
+          .progress-line
+            right: 0
+          .circle-number
+            background-color: #fd7c48
+            cursor: pointer
+    &.tree-step-on
+      .col
+        &:nth-of-type(3)
+          .progress-line
+            right: 0
+          .circle-number
+            background-color: #fd7c48
+            cursor: pointer
+      &.final-step
+        .col
+          .progress-line
+            background-color: #2db598
+          .circle-number
+            cursor: default
+            background-color: #2db598
+  .progress-body
+    .first-step-form
+      display: block
+    .two-step-form
+      display: none
+      .row
+        p
+          margin: 0
+          font-size: 1rem
+          color: #464646
+          &.warning-p
+            margin: 0 0 0 3rem
+            font-style: italic
+            font-size: 0.8rem
+        .select-no-prefix
+          padding-left: 3.5rem
+
+    .tree-step-form
+      display: none
+      .row
+        h2
+          font-size: 3rem
+          font-weight: 700
+          color: #2db598
+        h3
+          font-size: 1.7rem
+          line-height: 140%
+        span
+          &.color-green
+            color: #2db598
+            font-weight: 700
+            font-size: 1.8rem
+    .app-form-body
+      min-height: 320px 
+.comments-block
+  padding: 4rem 0
+  @media #{$medium-and-down}
+    padding: 2rem 0
+    .comment-cell
+      margin-bottom: 2rem
+  .comment-img
+    font-size: 0
+    line-height: 0
+    overflow: hidden
+    height: 300px
+    background: #e5e5e5
+    img
+      max-width: 100%
+      width: 100%
+    a.comment-img-link
+      display: block
+      position: relative
+      .comment-tutor-name
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        height: 38px
+        @media #{$medium-and-down}
+          height: auto
+        background: rgba(0, 0, 0, 0.5)
+        font-size: 1rem
+        line-height: 130%
+        color: #fff
+        text-align: left !important
+        transition: all 0.2s ease-out
+        overflow: hidden
+        .comment-img-layer
+          font-size: 1rem
+          line-height: 130%
+          padding: 0.75rem 1.35rem
+        .comment-img-name
+          font-size: 1.15rem
+          padding-bottom: 0.35rem
+      &:hover
+        .comment-tutor-name
+          height: 64.5px
+          @media #{$medium-and-down}
+            height: auto
+  .comment-body
+    background-color: #e5e5e5
+    color: #101010
+  .comment-name
+    font-weight: 700
+    font-size: 1.1rem
+  .comment-like
+    font-size: 1.2rem
+    line-height: 120%
+    color: #fd7c48
+    font-weight: 700
+  .comment-subject
+    font-size: 0.9rem
+    color: #626262
+    line-height: 120%
+    font-weight: 700
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+  .comment-text
+    font-size: 1rem
+    height: 160px
+    @media #{$medium-and-down}
+      height: 120px
+  .comment-link
+    a
+      color: #626262
+      transition: all 0.2s ease-out
+      &:hover
+        color: #fd7c48
+  .rew_name
+    color: #626262
+  .row
+    .col
+      &.no-padding-col
+        padding: 0
+        .col
+          padding: 0
+          &.comment-text
+            padding-top: 0.5rem
+      &.comment-body
+        padding: 1.5rem
+        padding-top: 1rem
+
+.select-dropdown
+  li.optgroup ~ li:not(.optgroup)
+    display: none
+  li.optgroup ~ li.subgroup_1
+    display: block
+  li.optgroup ~ li:not(.optgroup).disabled
+    display: none !important

@@ -1,5 +1,11 @@
 @import variables
 
+//fixed container whidth
+.container
+  width: 95% !important
+  @media #{$medium-and-down}
+    width: 90% !important
+
 $dialog_bg: #e5e5e5
 $animation-happy-01:    0 0
 $animation-happy-02:    10% 0
@@ -10,6 +16,39 @@ $animation-hello-02:    50% 0
 $animation-hello-03:    60% 0
 $animation-good-01:     70% 0
 $animation-default-01:  80% 0
+
+//custom button
+.btn-large, .btn
+  &.orange-btn
+    background-color: #fd7c48
+    box-shadow: none
+    &:hover
+      background-color: #df6736
+      box-shadow: none
+
+input[type=text]:focus:not([readonly]), input[type=tel]:focus:not([readonly])
+  border-bottom: 1px solid #fd7c48
+  box-shadow: 0 1px 0 0 #fd7c48
+  & + label
+    color: #fd7c48
+textarea.materialize-textarea:focus:not([readonly])
+  border-bottom: 1px solid #fd7c48
+  box-shadow: 0 1px 0 0 #fd7c48
+  & + label
+    color: #fd7c48
+.input-field
+  .prefix
+    &.active
+      color: #fd7c48
+.dropdown-content
+  max-height: 350px
+[type="checkbox"]
+  &:checked
+    &+label
+      &:before
+        border-right-color: #fd7c48
+        border-bottom-color: #fd7c48
+
 
 .lp_custom
   //padding-top: 40px

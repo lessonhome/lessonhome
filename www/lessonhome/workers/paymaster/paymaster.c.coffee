@@ -29,6 +29,7 @@ class PayMaster
     @bills = yield @db.get 'bills'
 
   getPay : ({url, body}) =>
+    body = body[0] if body.length
     if yield @validAnswer body
       yield @_confirmTrans(body['LMI_PAYMENT_NO'], body['LMI_SYS_PAYMENT_ID'])
 

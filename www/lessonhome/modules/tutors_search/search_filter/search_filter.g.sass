@@ -1,6 +1,8 @@
 .search-filter
   label
     color: rgba(0, 0, 0, 0.87)
+  .collapsible
+    box-shadow: none
 .collapsible-header
   -webkit-transition: .4s ease-out
   -o-transition: .4s ease-out
@@ -8,7 +10,7 @@
   transition: .4s ease-out
   border-left: 4px solid #ddd
   &.selected
-    border-left: 4px solid #26a69a
+    border-left: 4px solid #fd7c48
 .collapsible-body
   padding: 1rem 2rem
 .row
@@ -16,14 +18,6 @@
     margin-bottom: 1rem
     .input-field
       margin-top: 0
-
-.dropdown-content
-  li
-    &>span
-      font-size: 1rem
-      color: #26a69a
-      display: block
-      padding: 0.5rem 0.5rem
 
 .select-wrapper
   input.select-dropdown
@@ -40,8 +34,15 @@
   ul.active
     top: 0 !important
 .top-filter-parametrs
-  padding: 1rem
+  padding: 1rem 1rem 2rem
 .filter-title
-  font-weight: 700
+  font-weight: 500
   font-size: 1.2rem
   margin-bottom: 0.5rem
+.branch ul
+  li
+    span
+      font-size: 1em !important
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis

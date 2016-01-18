@@ -4,6 +4,8 @@ feel/node_modules
 **.swp
 **.swo
 **.swn
+**.swm
+**.swl
 **.orig
 **/.sass-cache
 **/node_modules
@@ -18,3 +20,4 @@ feel/.npmversion
 **/Icon
 **/static/user_data
 **/static/urldata/**/*.json
+nohup.out

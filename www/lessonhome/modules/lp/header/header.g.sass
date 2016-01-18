@@ -1,10 +1,78 @@
+@import variables
+
 //custom header style
 header
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
   position: relative
 .phone-link
   a
     font-size: 1.2rem
     font-weight: 700
+.header-spacer
+  height: 54px
+  background-color: #464646
 nav
-  background: #00796B !important
+  background: rgba(70, 70, 70, 0.85) !important
+  box-shadow: none
+  line-height: 100% 
+  height: auto
+  overflow: hidden
+  &.pinned 
+    overflow: inherit
+    z-index: 999
+  a
+    &.button-collapse
+      height: 54px
+      line-height: 54px
+  .nav-wrapper
+    i
+      height: 54px !important
+      line-height: 54px !important
+  .button-collapse
+    height: 54px
+    line-height: 54px
+    i
+      height: 54px
+      line-height: 54px
+  ul
+    li
+      a
+        height: 54px
+        line-height: 56px
+        font-size: 1.2rem
+  .btn-large
+    background-color: #fd7c48
+    border-radius: 0
+    box-shadow: none
+    &:hover
+      background-color: #df6736
+      box-shadow: none
+.logo-phone-block
+  position: relative
+  padding: 11px 0
+  font-size: 0
+  line-height: 0
+  a
+    &.logo
+      display: inline-block
+      font-size: 0
+      line-height: 0
+      img
+        @media #{$small-and-down}
+          height: 25px
+    &.phone-link
+      color: #020202
+      font-size: 1.4rem
+      line-height: 100%
+      @media #{$small-and-down}
+        font-size: 1.1rem
+      span
+        display: inline-block
+        vertical-align: middle
+      &:before
+        content: ''
+        display: inline-block
+        height: 48px
+        width: 0
+        vertical-align: middle
+        @media #{$small-and-down}
+          height: 25px

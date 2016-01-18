@@ -544,15 +544,13 @@ global._args    = (a)->
     if ar == null
       a[i] = undefined
   return a
-###
-global._randomHash = (b=20)-> _crypto.randomBytes(b).toString('hex')
-global._shash   = (f)-> _hash(f).substr 0,10
-###
+global._randomHash = -> (""+Math.random()).split('.')[1]
+#global._shash   = (f)-> _hash(f).substr 0,10
 global._invoke  = (args...)-> Q.ninvoke args...
 #global._mkdirp  = Q.denode require 'mkdirp'
 #module.exports  = Lib
 
-global._waitFor = (obj,action,time=60000)-> Q.then ->
+global._waitFor = (obj,action,time=300000)-> Q.then ->
   waited = false
   defer = Q.defer()
   obj.once action, (args...)=>

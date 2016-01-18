@@ -50,7 +50,7 @@ class MasterProcessManager
       args = {}
     for key,val of args
       conf2[key] = val
-    @log conf2.name
+    #@log conf2.name
     @process[conf2.name] ?= []
     return if (@process[conf2.name].length>0)&&(conf2.single)
     s = new MasterProcess conf2,@
