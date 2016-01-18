@@ -20,3 +20,4 @@ feel/.npmversion
 **/Icon
 **/static/user_data
 **/static/urldata/**/*.json
+nohup.out
