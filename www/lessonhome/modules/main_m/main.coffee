@@ -127,6 +127,12 @@ class @main
     @appFormLabel     = @found.form_offset_label
     @fixedHeightBlock = @found.fixed_height
   show: =>
+    @dom.find('a.goFilter').on 'click', (e) ->
+      el = $(this)
+      Q.spawn =>
+        get = yield Feel.udata.d2u 'tutorsFilter', {subjects: [el.attr('data-v')]}
+        Feel.go el.attr('href') + '?' + get
+      return false
 
     @found.app_next.on 'click', => Q.spawn => @changeFormStep 'next'
     @found.app_prev.on 'click', => Q.spawn => @changeFormStep 'prev'

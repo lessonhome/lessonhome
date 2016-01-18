@@ -42,53 +42,38 @@
       .col.s12.no-col
         h3 Предметы
       .col.s12.l3.m6.center-align 
+        mixin liUpCase(str, replace)
+          if str
+            -n_str = str.replace(replace, '')
+            -n_str = n_str[0].toUpperCase() + n_str.slice(1)
+            li
+              a(href ='/tutors_search', data-v=str, class="goFilter")!=n_str
+
+        mixin liSubjects(arr, num, replace)
+          -for(key in arr) {
+            -if(num && key > num - 1) break;
+              +liUpCase(arr[key], replace)
+          -}
+
         ul.subject-list.list-one.left-align
           li.title Естественные
-          li
-            a(href='#') Астрономия
-          li
-            a(href='#') Биология
-          li
-            a(href='#') Естествознание
-          li
-            a(href='#') Псхология
-          li
-            a(href='#') Химия
+          +liSubjects(subject_list["Естественные"], 5)
+
       .col.s12.l3.m6.center-align
         ul.subject-list.list-two.left-align
           li.title Точные
-          li
-            a(href='#') Информатика
-          li
-            a(href='#') Математика
-          li
-            a(href='#') Геометрия
-          li
-            a(href='#') Физика
+          +liSubjects(subject_list["Точные"], 4)
+
       .col.s12.l3.m6.center-align
         ul.subject-list.list-three.left-align
           li.title Гумантитарные
-          li
-            a(href='#') Психология
-          li
-            a(href='#') Философия
-          li
-            a(href='#') Искусствоведение
-          li
-            a(href='#') Риторика
+          +liSubjects(subject_list["Гумантитарные"], 4)
+
       .col.s12.l3.m6.center-align
         ul.subject-list.list-four.left-align
           li.title Языки
-          li
-            a(href='#') Русский
-          li
-            a(href='#') Английский
-          li
-            a(href='#') Немецкий
-          li
-            a(href='#') Французский
-          li
-            a(href='#') Испанский
+          +liSubjects(subject_list["Иностранные языки"], 5, 'язык')
+
 .what-work
   .container
     .row.no-margin-row.title-block.left-left
