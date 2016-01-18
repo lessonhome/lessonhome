@@ -1,110 +1,3 @@
-class _material_select extends EE
-  LI = 'li:not(.optgroup)'
-  constructor : (jQelem) ->
-    @_sort = {}
-    @elem = jQelem
-    @is_multi = @elem[0].multiple
-    @value = null
-    @_default = "ds"
-    @elem.find('option').each (i, e) =>
-      o = $(e)
-      v = o.attr('value')
-      if v.length
-        o.text(o.text() + "\#\{#{v}\}")
-      else
-        @_default = o.text()
-
-    @elem.material_select()
-    @ul = @elem.siblings('ul').on('mouseup touchend', LI, @_change)
-    regexp = /^(.+)#{(.+)}$/
-    @lis = @ul.find(LI)
-    .each (i, li) =>
-      li = $(li)
-      textNode = @_getTextNode(li)
-      text = textNode.text()
-      text = text.match regexp
-
-      if text?[1]? and text[2]?
-
-        textNode[0].data = text[1]
-
-        li.attr('data-value', text[2])
-        @_sort[text[2]]?= {n:text[1], el:[]}
-        @_sort[text[2]].el.push li
-
-    @input = @elem.siblings('input')
-
-    if @is_multi then @_preload()
-
-    regexp = /#{.+}$/
-
-    setTimeout =>
-      @elem.find('option').each ->
-        o = $(this)
-        o.text(o.text().replace(regexp, ''))
-    ,200
-
-  _preload : =>
-    exist = {}
-    result = []
-    for v in @elem.val() when not exist[v]
-      exist[v] = true
-      result.push v
-    @val result
-
-  _change : (e) =>
-    li = $(e.currentTarget)
-    name = li.attr('data-value')
-
-    setTimeout =>
-      if @_sort[name]?.el?.length > 1
-        @_setCheckedLi(l, li.is '.active') for l in @_sort[name].el
-
-      @value = @_getSelectedValues()
-      @elem.val(@value)
-      @_updateInput()
-      @emit 'change'
-    ,0
-
-    return true
-
-  _getTextNode : (li) ->
-    return li.find('span').contents().filter(-> return this.nodeType == 3)
-
-  _setCheckedLi : (li, check = true) ->
-    return if check == li.is '.active'
-    if check then li.addClass('active') else li.removeClass('active')
-    li.find('input[type="checkbox"]:first').prop('checked', check)
-
-  _getSelectedValues : ->
-    exist = {}
-    $.map @lis, (li) =>
-      li = $(li)
-      val = li.attr('data-value')
-      return if exist[val] or not li.is('.active')
-      exist[val] = true
-      return val
-
-  _updateInput : ->
-    value = @value.map (e) => @_sort[e].n
-    @input[0].value = value.join(', ') || @_default
-
-  _resetAllSelected : -> @lis.each (i, e) => @_setCheckedLi $(e), false
-
-  val : (value) ->
-    return @value unless value?
-    @_resetAllSelected()
-    @elem.val value
-    @value = if value instanceof Array then value else [value]
-    @_chekByArrValues(@value)
-    @elem.trigger 'change'
-    @_updateInput()
-    return @elem
-
-  _chekByArrValues : (values) -> @checkByValue(v) for v in values
-  checkByValue : (name, check = true) ->
-    if @_sort[name]?.el?
-      @_setCheckedLi(li, check) for li in @_sort[name].el
 
 
 class @main
@@ -118,8 +11,8 @@ class @main
     @defaultAppStep   = 0
     
     @form = 
-      subjects : new _material_select @found.field_subjects
-      course : new _material_select @found.field_course
+      subjects : new $._material_select @found.field_subjects
+      course : new $._material_select @found.field_course
       name : @found.field_name
       phone : @found.field_phone
       comment : @found.field_comment
@@ -159,12 +52,17 @@ class @main
     @form.subjects.on 'change', =>
       v = @form.subjects.val()
       Feel.urlData.set 'pupil', 'subjects', v
-      if v.length
-        Feel.urlData.set 'pupil', 'subject', v[0]
+#      if v.length
+#        Feel.urlData.set 'pupil', 'subject', v[0]
 
     @form.course.on 'change', =>
       v = @form.course.val()
       Feel.urlData.set 'pupil', 'course', v
+
+    Q.spawn =>
+      indexes = []
+      for key, t of @tree.main_rep when @tree.main_rep.hasOwnProperty(key) then indexes.push t.index
+      yield Feel.dataM.getTutor indexes
 
   changeFormAnimation : (appStep, route) =>
     switch appStep
@@ -260,7 +158,7 @@ class @main
       index = link.attr('data-i')
       e.preventDefault()
       if index?
-        Feel.main.showTutor index, $(this).attr 'href'
+        Feel.main.showTutor index, link.attr 'href'
       return false
 
   changeFormStep : (route) =>
