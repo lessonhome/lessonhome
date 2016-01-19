@@ -21,12 +21,17 @@
 
   return {status:'success'}
 
+_phones = [
+  '79254688208'
+  '79152292244'
+  '79267952303'
+]
 
 
 
 @delayRegisterMail = (id)->
 
-  yield Q.delay 1000*60*10
+  yield Q.delay 1000*60*5
 
   db = yield Main.service 'db'
   mail = yield Main.service 'mail'
@@ -40,7 +45,21 @@
   name = "#{p?.last_name ? ''} #{p?.first_name ? ''} #{p?.middle_name ? ''}"
   name = name.replace /^\s+/,''
   name = name.replace /\s+$/,''
+  text = "Регистрация репетитора\n"
+  text += "#{name}\n" if name
   name = ', '+ name if name
+  text += "#{accounts[0].login}\n"
+  text += "#{persons[0].phone.join?('; ') ? ''}\n" if persons[0]?.phone?[0]
+  text += "#{persons[0].email.join?('; ') ? ''}\n" if persons[0]?.email?[0]
+
+  @jobs = yield Main.service 'jobs'
+  messages = []
+  for phone in _phones
+    messages.push
+      phone:phone
+      text :text
+  Q.spawn => yield @jobs.solve 'sendSms',messages
+
   return unless accounts[0].login.match '@'
   yield mail.send(
     'register.html'
