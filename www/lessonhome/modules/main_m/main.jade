@@ -39,40 +39,37 @@
 .subjects-block
   .container
     .row.no-margin-row.title-block.min-subject-height
+      mixin liUpCase(link, replace)
+        if link
+          -text = link.text.replace(replace, '')
+          li
+            a(href!=link.link)!=text
+
+      mixin liSubjects(links, num, replace)
+        -for(var i = 0; i < num; i++){
+            +liUpCase(links[i], replace)
+        -}
       .col.s12.no-col
         h3 Предметы
-      .col.s12.l3.m6.center-align 
-        mixin liUpCase(str, replace)
-          if str
-            -n_str = str.replace(replace, '')
-            -n_str = n_str[0].toUpperCase() + n_str.slice(1)
-            li
-              a(href ='/tutors_search', data-v=str, class="goFilter")!=n_str
-
-        mixin liSubjects(arr, num, replace)
-          -for(key in arr) {
-            -if(num && key > num - 1) break;
-              +liUpCase(arr[key], replace)
-          -}
-
+      .col.s12.l3.m6.center-align
         ul.subject-list.list-one.left-align
           li.title Естественные
-          +liSubjects(subject_list["Естественные"], 5)
+          +liSubjects(value.sub_link["Естественные"], 5)
 
       .col.s12.l3.m6.center-align
         ul.subject-list.list-two.left-align
           li.title Точные
-          +liSubjects(subject_list["Точные"], 4)
+          +liSubjects(value.sub_link["Точные"], 4)
 
       .col.s12.l3.m6.center-align
         ul.subject-list.list-three.left-align
           li.title Гумантитарные
-          +liSubjects(subject_list["Гумантитарные"], 4)
+          +liSubjects(value.sub_link["Гумантитарные"], 4)
 
       .col.s12.l3.m6.center-align
         ul.subject-list.list-four.left-align
           li.title Языки
-          +liSubjects(subject_list["Иностранные языки"], 5, 'язык')
+          +liSubjects(value.sub_link["Иностранные языки"], 5, 'язык')
 
 .what-work
   .container
