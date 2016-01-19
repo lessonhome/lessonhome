@@ -8,16 +8,18 @@ class @F2V
       result.push val
     result.sort sort_date
     residue = 0
-    for i in [result.length-1..0]
 
-      if result[i].status == 'success'
+    if result.length
+      for i in [result.length-1..0]
 
-        switch result[i].type
-          when 'fill' then residue += result[i].value
-          when 'pay' then residue -= result[i].value
+        if result[i].status == 'success'
 
-        result[i].residue = residue.toFixed?(2)
+          switch result[i].type
+            when 'fill' then residue += result[i].value
+            when 'pay' then residue -= result[i].value
+          result[i].residue = residue.toFixed?(2)
 
-      result[i].value = result[i].value.toFixed?(2)
+        result[i].value = result[i].value.toFixed?(2)
+
     return result
   $current_sum : (data) -> if data.residue? then data.residue.toFixed(2) else '0.00'
