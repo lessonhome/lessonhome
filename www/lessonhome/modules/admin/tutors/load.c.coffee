@@ -33,6 +33,7 @@ class Admin
     backcall = null
     accounts = null
     bytime   = null
+    byreg   = null
     nosubject = null
     bids      = null
     yield Q.all [
@@ -75,6 +76,13 @@ class Admin
         for a in bytime
           a.person = (yield a.person)?[0] ? {}
       do Q.async =>
+        byreg = yield _invoke dbAccounts.find({login:{$exists:true}},{id:1,registerTime:1,login:1,index:1}
+        ).sort({registerTime:-1}).limit(200),'toArray'
+        for a in byreg
+          a.person = _invoke dbPersons.find({account:a.id}),'toArray'
+        for a in byreg
+          a.person = (yield a.person)?[0] ? {}
+      do Q.async =>
         accs = yield _invoke dbAccounts.find({login:{$exists:true}},{id:1,login:1,index:1}).sort({registerTime:-1}),'toArray'
         newaccs = {}
         for a in accs
@@ -86,7 +94,7 @@ class Admin
       do Q.async =>
         bids = yield _invoke dbBids.find({time:{$exists:true}}).sort({time:-1}),'toArray'
     ]
-    @obj = {backcall,nophotos:accounts,time:bytime,nosubject:nosubject,bids:bids}
+    @obj = {backcall,nophotos:accounts,time:bytime,byreg:byreg,nosubject:nosubject,bids:bids}
     Q.spawn =>
       yield _invoke @redis,'set','adminTutors',JSON.stringify @obj
     @ltime = new Date().getTime()

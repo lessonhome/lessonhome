@@ -13,6 +13,7 @@ class @main
       backcall : @dom.find('.container .content.backcall .template')
       nophoto :  @dom.find('.container .content.nophoto .template')
       time :  @dom.find('.container .content.time .template')
+      byreg :  @dom.find('.container .content.byreg .template')
       nosubject :  @dom.find('.container .content.nosubject .template')
 
     @dom.find('.header .item').click (e)=> Q.spawn =>
@@ -71,7 +72,18 @@ class @main
       row.find('.time').text new Date(p.accessTime).toUTCString()
       @relogin row,p.index
       dom.append row
-
+  onbyreg : =>
+    dom  = @dom.find '.container .content.byreg'
+    dom.empty()
+    for p in @data.byreg
+      row = @template.byreg.clone()
+      bc = p.person
+      row.find('.name').text [bc.last_name ? '',bc.first_name ? '',bc.middle_name ? ''].join ' '
+      arr =  [(bc.email ? [])...,(bc.phone ? [])...,p.login].filter (a)-> a
+      row.find('.contacts').html arr.join '<br>'
+      row.find('.time').text new Date(p.registerTime).toUTCString()
+      @relogin row,p.index
+      dom.append row
   onnophoto : =>
     dom  = @dom.find '.container .content.nophoto'
     dom.empty()
