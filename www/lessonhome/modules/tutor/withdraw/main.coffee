@@ -5,8 +5,11 @@ class @main
     @preTrans = []
     @input = @tree.send_input.class
     @date = @tree.date.class
+    @trans = @found.transations
+
   show  : =>
     @date.addError('wr_date', "Введите корректную дату. Пример: 21.12.2012")
+    @date.addError('future', "Введенная дата не наступила")
 
     @input.addError('empty', "Введите значение")
     @input.addError('amount_not_num', "Введите корректоное значение")
@@ -14,9 +17,9 @@ class @main
 #    @tree.save_btn.class.on 'submit', => Q.spawn @subPay
     @tree.add_btn.class.on 'submit', @addPreTrans
 
-    @setLocalDate @found.transations.find('.time')
+    @setLocalDate @trans.find('.time')
 
-    @found.transations.on 'click', '.remove', ->
+    @trans.on 'click', '.remove', ->
 
   setLocalDate : (time) =>
     time.each (i, e) ->
@@ -36,8 +39,7 @@ class @main
         i = parseInt(e)
         throw new Error('invalid Date') unless typeof(i) is 'number' and !isNaN(i)
         return i
-      date = new Date(date[2], date[1] - 1, date[0], 12, 0, 0)
-      console.log date
+      date = new Date(date[2], date[1] - 1, date[0], 10, 0, 0)
       return date
     catch errs
       return NaN
@@ -54,14 +56,29 @@ class @main
     description : @getDesc()
     type : @found.type.val()
 
+  putTr : (tr, date) =>
+    news = @trans.find('.new')
+
+    if news.length == 0 or !date?
+      @trans.prepend(tr)
+    else
+      news.each  (i, e)->
+        e = $(e)
+
+        if e.attr('data-date') <= date
+          e.before(tr)
+          return false
+
+        e.after(tr) if i == news.length - 1
+
   addPreTrans : =>
     form = @getForm()
-    console.log form
+
     if (errs = @js.check form).length
       @showError errs
       return
 
-    tr = $('<tr class="new">')
+    tr = $("<tr class='new' data-date='#{form.date.getTime()}'>")
 
     tr.append("<td>-</td><td>-</td>")
     tr.append("<td><p class='local_date'>#{form.date.toLocaleDateString()}</p><i class='local_time'>#{form.date.toLocaleTimeString()}</i></td>")
@@ -74,11 +91,10 @@ class @main
 
     tr.append("<td>#{form.value.toFixed(2)} руб.</td><td class='grey'>success</td><td>-</td>")
     tr.append("<td><a href='#' class='del'>del.</a></td>")
-
-    body = @found.transations.find('tbody')
-    body.find('.empty').remove()
-    body.prepend(tr)
-
+    @trans.find('.empty').remove()
+    @putTr(tr, form.date.getTime())
+    @preTrans.push form
+    @input.onFocus()
 
   showError: (errors) =>
     for err in errors
@@ -86,7 +102,7 @@ class @main
         when 'empty', 'amount_not_num'
           @input.showError(err)
           @input.onFocus()
-        when 'wr_date'
+        when 'wr_date', 'future'
           @date.showError(err)
 
 
