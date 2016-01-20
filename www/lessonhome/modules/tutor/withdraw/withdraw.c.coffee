@@ -19,4 +19,15 @@ check = require('./check')
           return {status: 'success', residue}
 
   catch errs
-    return {status: 'failed', err: errs.stack}
+    error = {status: 'failed'}
+
+    if errs instanceof Array
+      error['errs'] = errs
+    else
+      switch errs.message
+        when 'wrong amount', 'invalid date'
+          error['errs'] = [errs.message]
+        else
+          error['errs'] = ['internal error']
+
+    return error

@@ -12,5 +12,5 @@
       err['err'] =  errs
     else
       err['err'] = 'internal_error'
-      console.log "ERROR: #{errs.stack}"
+      console.log "ERROR: #{errs.message}"
     return err

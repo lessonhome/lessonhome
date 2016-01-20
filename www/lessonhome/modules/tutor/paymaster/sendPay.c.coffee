@@ -9,4 +9,4 @@ check = require('./check')
       return {status: 'success', get: url}
 
   catch errs
-    return {status: 'failed', err: errs.stack}
+    return {status: 'failed', err: errs.message}

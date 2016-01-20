@@ -2,24 +2,34 @@ class @main
   constructor: ->
     $W @
   Dom   : =>
-    @preTrans = []
+    @preTrans = {
+      index : 0
+      trans : {}
+    }
     @input = @tree.send_input.class
     @date = @tree.date.class
     @trans = @found.transations
 
   show  : =>
-    @date.addError('wr_date', "Введите корректную дату. Пример: 21.12.2012")
-    @date.addError('future', "Введенная дата не наступила")
+    @date.addError('invalid date', "Введите корректную дату. Пример: 21.12.2012")
+    @date.addError('future date', "Введенная дата не наступила")
 
     @input.addError('empty', "Введите значение")
-    @input.addError('amount_not_num', "Введите корректоное значение")
+    @input.addError('wrong amount', "Введите корректоное значение")
 
 #    @tree.save_btn.class.on 'submit', => Q.spawn @subPay
     @tree.add_btn.class.on 'submit', @addPreTrans
-
     @setLocalDate @trans.find('.time')
 
-    @trans.on 'click', '.remove', ->
+    @trans.on 'click', '.del', (e) =>
+      parent = $(e.currentTarget).closest('.new')
+      index = parent.attr('data-index')
+
+      if index
+        @_delData(index)
+        parent.remove()
+
+      return false
 
   setLocalDate : (time) =>
     time.each (i, e) ->
@@ -56,6 +66,16 @@ class @main
     description : @getDesc()
     type : @found.type.val()
 
+  _saveData : (form) =>
+    index = @preTrans.index
+    @preTrans.trans[index] = form
+    @preTrans.index++
+    return index
+
+  _delData: (index) =>
+    if @preTrans.trans[index]?
+      delete @preTrans.trans[index]
+
   putTr : (tr, date) =>
     news = @trans.find('.new')
 
@@ -71,6 +91,8 @@ class @main
 
         e.after(tr) if i == news.length - 1
 
+    tr.attr('data-date', date)
+
   addPreTrans : =>
     form = @getForm()
 
@@ -78,7 +100,7 @@ class @main
       @showError errs
       return
 
-    tr = $("<tr class='new' data-date='#{form.date.getTime()}'>")
+    tr = $("<tr class='new'>")
 
     tr.append("<td>-</td><td>-</td>")
     tr.append("<td><p class='local_date'>#{form.date.toLocaleDateString()}</p><i class='local_time'>#{form.date.toLocaleTimeString()}</i></td>")
@@ -93,16 +115,16 @@ class @main
     tr.append("<td><a href='#' class='del'>del.</a></td>")
     @trans.find('.empty').remove()
     @putTr(tr, form.date.getTime())
-    @preTrans.push form
+    tr.attr('data-index', @_saveData(form))
     @input.onFocus()
 
   showError: (errors) =>
     for err in errors
       switch err
-        when 'empty', 'amount_not_num'
+        when 'empty', 'wrong amount'
           @input.showError(err)
           @input.onFocus()
-        when 'wr_date', 'future'
+        when 'invalid date', 'future date'
           @date.showError(err)
 
 

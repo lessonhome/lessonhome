@@ -38,9 +38,7 @@ class PayMaster
 
   makeCheck : ({user, amount})=>
     @_validUser(user)
-    amount = parseFloat(amount)
-    throw new Error('wrong_amount') if isNaN(amount)
-    amount =  Math.floor(amount*10)/10
+    amount = yield @_parseAmount(amount)
     description = "Пополнение счета LessonHome"
     {number} = yield @_newTransaction(user, 'fill', amount, description)
     return {status: "success", url: yield @_getUrl(amount, number, description)}
@@ -63,9 +61,7 @@ class PayMaster
   _createConfirmedTrans : (user, amount, type, desc) =>
     throw new Error('Permission denied') unless user.admin
     throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
-    amount = parseFloat(amount)
-    throw new Error('amount_not_num') if isNaN(amount)
-    amount =  Math.floor(amount*10)/10
+    amount = yield @_parseAmount(amount)
     {number, bill} = yield @_newTransaction(user, type, amount, desc, true)
     bill.number = number
     return {status: 'success', bill}
@@ -91,18 +87,10 @@ class PayMaster
     h = _crypto.createHash(type_signature).update(h).digest('base64')
     return ans['LMI_HASH'] == h
 
-  _validUser: (user, admin=false)  ->
-    throw new Error('Permission denied') if admin and !user.admin
-    throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
-    return true
-
-
   _newTransaction : (user, type, value, desc="Описание не указано", confirm) ->
     added = yield @_newTrans user, [{type, value, desc}], confirm
-    console.log JSON.stringify added
     for number, bill of added when added.hasOwnProperty(number) then break
     return {number, bill}
-
 
   _newTrans: (user, arrConf, confirm=false) =>
     bill = yield _invoke @bills.find({account : user.id}, {transactions : 1, residue: 1}), 'toArray'
@@ -134,12 +122,13 @@ class PayMaster
 
   _getBill : (conf) ->
     date = if conf.date? then new Date(conf.date) else new Date
-    throw new Error("Invalid date") if isNaN(date)
+    throw new Error("invalid date") if isNaN(date)
+    throw new Error("fields not exist") unless conf.value? and conf.type?
     return {
-    date: date
-    value: conf.value
-    type: conf.type
-    desc: conf.desc
+      date: date
+      value: yield @_parseAmount conf.value
+      type: conf.type
+      desc: conf.desc || ''
     }
 
   _getNumbers : (count) ->
@@ -182,6 +171,12 @@ class PayMaster
     yield @jobs.solve 'flushForm', bill.account
     return true
 
+  _parseAmount : (amount) ->
+    amount = parseFloat(amount)
+    throw new Error('wrong amount') if isNaN(amount)
+    amount =  Math.floor(amount*10)/10
+    return amount
+
   _operation : (sum ,value, type) ->
     switch type
       when 'fill'
@@ -189,5 +184,11 @@ class PayMaster
       when 'pay'
         sum -= value
     return sum
+
+  _validUser: (user, admin=false)  ->
+    throw new Error('Permission denied') if admin and !user.admin
+    throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
+    return true
+
 
 module.exports = new PayMaster
