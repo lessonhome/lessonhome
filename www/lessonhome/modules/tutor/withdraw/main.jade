@@ -4,7 +4,8 @@ h2 На счете репетитора:
 
 .summ_price(class=parseInt(current_sum) < 0? 'red' : '')
   span.js-summ!=current_sum
-  span &nbsp;руб.
+  span &nbsp;руб.&nbsp;
+  span.js-history
 h2 Добавить транзакцию:
 .form
   .elem-form
@@ -24,7 +25,7 @@ h2 Добавить транзакцию:
   .elem-form
     select.js-type
       option(value='', selected=true, disabled=true) Операция
-      option(value="pay") Снятие
+      option(value="pay") Списание
       option(value="fill") Пополнение
   .elem-form.btn-panel
     .btn.left!=add_btn
@@ -56,7 +57,7 @@ mixin trans(number, pay_id, date, type, status, value, residue)
         a(href='#', data-number=number, class="delete") del.
 
 
-table.js-transations
+table
   thead
     tr
       th ID
@@ -67,7 +68,7 @@ table.js-transations
       th Статус
       th Остаток
       th del.
-  tbody
+  tbody.js-transations
     - var exist = false
     each t in transactions
       -exist = true
