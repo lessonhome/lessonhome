@@ -1,4 +1,7 @@
 @import base
+$red : #E96666
+$green: #008000
+$grey: #9E9E9E
 $width : 700px
 main
   padding: 24px 0 132px 24px
@@ -11,7 +14,14 @@ h2
   span.summ
     font-weight: bold
   &.red span.summ
-    color: #E96666
+    color: $red
+  span.history
+    color: $grey
+    &.up
+      color: $green
+    &.down
+      color: $red
+
 .form
   margin-bottom: 40px
   .elem-form
@@ -49,7 +59,7 @@ h2
       height: 40px
       & + select
         margin-left: 10px
-table.transations
+table
   width: 700px
   tbody
     border-top: 1px solid #000
@@ -57,6 +67,8 @@ table.transations
     tr
       &.new
         background: #fdffd5
+        transition: background 0.5s ease, color 0.3s ease
+        -webkit-transition: background 0.5s ease, color 0.3s ease
       & + tr
         border-top: 1px solid #DADADA
       th
@@ -65,11 +77,11 @@ table.transations
         padding: 10px 0
         vertical-align: middle
         &.grey
-          color: #A7A7A7
+          color: $grey
         &.up
-          color: #008000
+          color: $green
         &.down
-          color: #E96666
+          color: $red
         i,p
           font-size: 14px
         i
