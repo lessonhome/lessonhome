@@ -94,8 +94,7 @@ class @F2V
 
   $documents : (data) -> getLayers data.uploaded, data.documents
   $photos : (data) -> getLayers data.uploaded, data.photos
-
-
+  $photos_avatars : (data) -> getLayers data.uploaded, data.avatar
   $avatars      : (data)-> data?.ava
   $email_first  : (data)-> data?.email?[0]
   $interests0_description : (data)-> data?.interests?[0]?.description
