@@ -3,7 +3,7 @@
     a.logo(href='/')
       img(src=F('lp/lh_logo.png'))
     a.phone-link.right(href='tel:+7-495-181-0373') 
-      span +7 (495) 181-03-73 
+      span +7 (495) 181-03-73
 .header-spacer
   nav.js-fixed_nav 
     .nav-wrapper
@@ -18,7 +18,10 @@
           li
             a(href='/main_tutor') Репетиторам
         .right
-          a.btn-large.waves-effect.waves-light.js-attach Оформить заявку
+          if $req.cookie.get('tutor')
+            a(href='/enter').btn-large.waves-effect.waves-light Войти
+          else
+            a.btn-large.waves-effect.waves-light.js-attach Оформить заявку
         ul.side-nav#mobile-demo
           li
             a(href='/tutors_search') Найти репетитора

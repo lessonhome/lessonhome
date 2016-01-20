@@ -11,4 +11,4 @@ class @main
         top: top_offset
       }
     )
-    @found.attach.on 'click', -> Feel.root.tree.class.attached.showForm()
+    @found.attach?.on? 'click', -> Feel.root.tree.class.attached.showForm()
