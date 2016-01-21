@@ -17,44 +17,47 @@ h2 Добавить транзакцию:
     select.js-desc_sel
       option(value='', selected=true, disabled=true) Описание операции
       option(value='') Другое...
-      option(value='Оплата заявки') Оплата заявки
-      option(value='Пополнение счета') Пополнение счета
+      option(value='Оплата заявки', data-type='pay') Оплата заявки
+      option(value='Пополнение счета LessonHome', data-type='fill') Пополнение счета LessonHome
 
   .elem-form
     .description!=description
   .elem-form
     select.js-type
-      option(value='', selected=true, disabled=true) Операция
+      option(value='', selected=true, disabled=true) Тип операции
       option(value="pay") Списание
       option(value="fill") Пополнение
+  .elem-form
+    p.js-error
   .elem-form.btn-panel
     .btn.left!=add_btn
     .btn.right!=save_btn
 
 h2 Транзакции:
-mixin trans(number, pay_id, date, type, status, value, residue)
-  tr
-    td!=pay_id || '-'
-    td!=number
+mixin trans(t)
+  tr(data-n!=t.number)
+    td!=t.pay_id || '-'
+    td!=t.number
     td
-      .time(style ="display: none")!=date
+      .time(style ="display: none")!=t.date
       p.local_date(style ="visibility: hidden") 00.00.0000
       i.local_time(style ="visibility: hidden") 00:00:00
-    case type
+    case t.type
       when 'fill'
-        td.up Пополнение
+        td.up Поп.
       when 'pay'
-        td.down Списание
+        td.down Спис.
       default
         td Прочие операции
-    td #{value || '0.00'} руб.
+    td #{t.value || '0.00'} руб.
 
-    td.grey!=status
-
-    td!=residue? residue + " руб.": "&#8212;"
+    td.grey!=t.status
+    td.desc!=t.desc
     td
-      if status != 'wait'
-        a(href='#', data-number=number, class="delete") del.
+      if !t.pay_id && t.status != 'wait'
+        a(href='#', class="del") del.
+      else
+        span!="&#8212;"
 
 
 table
@@ -62,17 +65,17 @@ table
     tr
       th ID
       th Счет
-      th Дата / Время
-      th Операция
+      th Дата
+      th Тип
       th Сумма
       th Статус
-      th Остаток
+      th Описание
       th del.
   tbody.js-transations
     - var exist = false
     each t in transactions
       -exist = true
-      +trans(t.number, t.pay_id, t.date, t.type, t.status, t.value, t.residue)
+      +trans(t)
     if !exist
-      tr
-        td.empty(colspan='6') Операций не обнаружено
+      tr.empty
+        td(colspan='8') Операций не обнаружено

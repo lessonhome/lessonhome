@@ -1,33 +1,17 @@
 check = require('./check')
 @handler = ($, data) =>
-  try
-    job = yield Main.service 'jobs'
-    if err = check.check(data.value) then throw err
+  job = yield Main.service 'jobs'
 
+  try
     switch data.type
-      when 'pay'
-        {status, bill} = yield job.solve 'withdraw', {user: $.user, amount: data.value}
-        if status == 'success'
-          return {status: 'success', bill}
-      when 'fill'
-        {status, bill} = yield job.solve 'refill', {user: $.user, amount: data.value}
-        if status == 'success'
-          return {status: 'success', bill}
+      when 'save'
+        console.log data.data
+        throw Error('Wrong arr of trans') unless check.validTrans data.data
+        data = yield job.solve 'addTrans', {user: $.user, data: data.data}
+        return {status: 'success', data}
       when 'del'
-        {status, bill} = yield job.solve 'delTrans', {user: $.user, number: data.value}
-        if status == 'success'
-          return {status: 'success', residue}
+        {residue} = yield job.solve 'delTrans', {user: $.user, number: data.number}
+        return {status: 'success', residue}
 
   catch errs
-    error = {status: 'failed'}
-
-    if errs instanceof Array
-      error['errs'] = errs
-    else
-      switch errs.message
-        when 'wrong amount', 'invalid date'
-          error['errs'] = [errs.message]
-        else
-          error['errs'] = ['internal error']
-
-    return error
+    return {status: 'failed', err: errs.message}

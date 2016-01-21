@@ -1,5 +1,6 @@
 @import base
 $red : #E96666
+$err_red : #b30000
 $green: #008000
 $grey: #9E9E9E
 $width : 700px
@@ -42,6 +43,8 @@ h2
           float: left
         &.right
           float: right
+    .error
+      color: $err_red
     .input
       margin-right: 5px
       width: 260px
@@ -57,6 +60,7 @@ h2
         vertical-align: top
     select
       height: 40px
+      width: 260px
       & + select
         margin-left: 10px
 table
@@ -67,12 +71,18 @@ table
     tr
       &.new
         background: #fdffd5
-        transition: background 0.5s ease, color 0.3s ease
-        -webkit-transition: background 0.5s ease, color 0.3s ease
+      &.ready
+        background: #F4E8E8
       & + tr
         border-top: 1px solid #DADADA
       th
         font-weight: bold
+      td.desc
+        max-width: 140px
+        width: 140px
+        line-height: 1.5
+        font-size: 0.9em
+        padding-right: 5px
       td, th
         padding: 10px 0
         vertical-align: middle
@@ -85,7 +95,7 @@ table
         i,p
           font-size: 14px
         i
-          color: #9E9E9E
+          color: $grey
 //$icon_src: 'tutor/icon_pay.png'
 //$icon_src_height: image-height($icon_src)
 //$icon_src_width: image-width($icon_src)
