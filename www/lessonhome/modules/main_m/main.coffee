@@ -10,21 +10,29 @@ class @main
     @appFormThree     = @found.app_three_form
     @defaultAppStep   = 0
     
-    @form = 
+    @fast_form =
+      subjects: new $._material_select @found.fast_sub
+
+
+    @form =
       subjects : new $._material_select @found.field_subjects
       course : new $._material_select @found.field_course
       name : @found.field_name
       phone : @found.field_phone
       comment : @found.field_comment
 
+
+
     @appFormLabel     = @found.form_offset_label
     @fixedHeightBlock = @found.fixed_height
   show: =>
     @found.app_next.on 'click', => Q.spawn => @changeFormStep 'next'
     @found.app_prev.on 'click', => Q.spawn => @changeFormStep 'prev'
-    @found.popup.on 'click', -> Feel.root.tree.class.attached.showForm()
+#    @found.popup.on 'click', -> Feel.root.tree.class.attached.showForm()
     @form.name.on 'change', (e) ->Feel.urlData.set 'pupil', 'name', this.value
     @form.phone.on 'change', (e) ->Feel.urlData.set 'pupil', 'phone', this.value
+
+    @found.send_form.on 'click', => @found.fast_filter.submit()
 
     @prepareLink @found.rew.find('a')
 
@@ -41,16 +49,15 @@ class @main
         $('.subgroup_' + thisGroupNumber).slideUp(400)
         $(thisGroup).attr('data-open', 0)
 
+    getListener  = (name) ->
+      return (element) ->
+        Feel.urlData.set 'pupil', name, element.val()
 
-    @form.subjects.on 'change', =>
-      v = @form.subjects.val()
-      Feel.urlData.set 'pupil', 'subjects', v
-#      if v.length
-#        Feel.urlData.set 'pupil', 'subject', v[0]
+    sub_listener = getListener('subjects')
 
-    @form.course.on 'change', =>
-      v = @form.course.val()
-      Feel.urlData.set 'pupil', 'course', v
+    @fast_form.subjects.on 'change', sub_listener
+    @form.subjects.on 'change', sub_listener
+    @form.course.on 'change', getListener('course')
 
     Q.spawn =>
       indexes = []
@@ -93,6 +100,9 @@ class @main
     comment : @form.comment.val()
 
   setValue : (data) ->
+    @form.subjects.val(data.subjects)
+    @fast_form.subjects.val(data.subjects)
+
   showError: (errs =[]) =>
     for e in errs
 

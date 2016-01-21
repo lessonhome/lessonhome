@@ -98,9 +98,11 @@ metro_lines = metro.lines
     this_station = _diff.metroPrepare(item)
 
     unless metro_stations[this_station]?
+      console.log item
       for w in item.toLowerCase().split ' '
         if metro.means[w]?
           this_station = metro.means[w]
+          console.log 'its my life',  this_station
           break
 
     if metro_stations[this_station]?
