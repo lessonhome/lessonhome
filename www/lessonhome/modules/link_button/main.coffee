@@ -1,13 +1,14 @@
 
 class @main extends EE
   Dom : =>
+    @_active = true
     @link         = @dom.find "a"
     @link.on     'mousedown', @mdown
     @link.click (e)=>
       return unless e.button == 0
       e.preventDefault()
       return @submit() unless (e.button==0) && (!@tree.active)
-      @emit 'submit'
+      @emit('submit') if @_active
   show : =>
 
 
@@ -27,7 +28,10 @@ class @main extends EE
     Feel.go href
   activate : (href)=>
     @tree.active = true
-    @link.attr 'href',href
+    @link.attr('href',href)
+
+  active: => @_active = true
+  deactive: =>@_active = false
 
   makeActive : =>
     return if @link.hasClass 'active'

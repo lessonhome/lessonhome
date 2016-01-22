@@ -26,7 +26,7 @@ class PayMaster
     yield @jobs.listen 'makeCheck',@makeCheck
     yield @jobs.listen 'waitPay', @getPay
     yield @jobs.listen 'addTrans', @addTrans
-#    yield @jobs.listen 'delTrans', @delTrans
+    yield @jobs.listen 'delTrans', @delTrans
     @bills = yield @db.get 'bills'
 
   getPay : ({url, body}) =>
@@ -36,35 +36,35 @@ class PayMaster
 
     return {status: 301, body: ''}
 
+  addTrans: ({user, data}) =>
+    yield @_validUser(user, true)
+    return {} unless data.length
+    return yield @_newTrans user, data, true
+
   makeCheck : ({user, amount})=>
-    @_validUser(user)
+    yield @_validUser(user)
     amount = yield @_parseAmount(amount)
     description = "Пополнение счета LessonHome"
     {number} = yield @_newTransaction(user, 'fill', amount, description)
     return {status: "success", url: yield @_getUrl(amount, number, description)}
 
-  refill : ({user, amount, desc}) => yield @_createConfirmedTrans(user, amount, 'fill', desc)
-  withdraw : ({user, amount, desc}) => yield @_createConfirmedTrans(user, amount, 'pay', desc)
-
   delTrans : ({user, number}) =>
-    @_validUser(user, true)
+    yield @_validUser(user, true)
     bill = yield _invoke @bills.find({account : user.id}, {transactions : 1, residue: 1}), 'toArray'
     bill = bill[0] || {}
     throw new Error('Not exist transaction') unless bill.transactions?[number]?
     curr_res = bill.residue || 0
-    residue = bill.transactions[number].value || 0
-    bill.residue = (curr_res -= residue)
+    trans = bill.transactions[number]
+    residue = trans.value || 0
+
+    if trans.status == 'success'
+      curr_res = yield @_operation curr_res, -residue, trans.type
+
+    bill.residue = curr_res
     delete bill.transactions[number]
     yield _invoke @bills, 'update', {account : user.id}, $set: bill, {upsert: true}
+    yield @jobs.solve 'flushForm', user.id
     return {status: 'success', residue: curr_res}
-
-  _createConfirmedTrans : (user, amount, type, desc) =>
-    throw new Error('Permission denied') unless user.admin
-    throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
-    amount = yield @_parseAmount(amount)
-    {number, bill} = yield @_newTransaction(user, type, amount, desc, true)
-    bill.number = number
-    return {status: 'success', bill}
 
   _getUrl : (amount, number, description) ->
     get = [
@@ -88,7 +88,7 @@ class PayMaster
     return ans['LMI_HASH'] == h
 
   _newTransaction : (user, type, value, desc="Описание не указано", confirm) ->
-    added = yield @_newTrans user, [{type, value, desc}], confirm
+    {added} = yield @_newTrans user, [{type, value, desc}], confirm
     for number, bill of added when added.hasOwnProperty(number) then break
     return {number, bill}
 
@@ -106,7 +106,7 @@ class PayMaster
     numbers = yield @_getNumbers bills.length
     for b, i in bills
 
-      if numbers[i]?
+      if (i = numbers[i])?
 
         if confirm
           b['status'] = 'success'
@@ -114,11 +114,11 @@ class PayMaster
         else
           b['status'] = 'wait'
 
-        trans[numbers[i]] = added[numbers[i]] = b
+        trans[i] = added[i] = b
 
     yield _invoke @bills, 'update', {account : user.id}, $set: {residue, transactions: trans}, {upsert: true}
-    if confirm then yield @jobs.solve 'flushForm', user.id
-    return added
+    yield @jobs.solve 'flushForm', user.id
+    return {residue, added}
 
   _getBill : (conf) ->
     date = if conf.date? then new Date(conf.date) else new Date
