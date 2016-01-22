@@ -1,5 +1,8 @@
 
 
+os = require 'os'
+hostname = os.hostname()
+
 
 @handler = ($,data)->
   #$.req.udata.onceAuth.hash
@@ -17,7 +20,7 @@
     return {status:'failed',err:err.err}
   yield $.form.flush '*',$.req,$.res
 
-  @delayRegisterMail($.user.id).done()
+  @delayRegisterMail($.user.id,$.user.admin).done()
 
   return {status:'success'}
 
@@ -29,8 +32,8 @@ _phones = [
 
 
 
-@delayRegisterMail = (id)->
-
+@delayRegisterMail = (id,isadmin)->
+  return if isadmin || (hostname != 'pi0h.org')
   yield Q.delay 1000*60*5
 
   db = yield Main.service 'db'
