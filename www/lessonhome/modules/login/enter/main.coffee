@@ -89,7 +89,7 @@ class @main extends EE
   showError : (err)=>
     switch err
       when 'already_logined'
-        return @redirect './'
+        return @redirect '/tutor/profile'
         @login.showError 'Кажется, вы уже вошли. Сначала надо выйти.'
         @password.showError()
       when 'empty_login'

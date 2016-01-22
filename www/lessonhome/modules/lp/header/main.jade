@@ -18,7 +18,9 @@
           li
             a(href='/main_tutor') Репетиторам
         .right
-          if $req.cookie.get('tutor')
+          if $req.user.tutor
+            a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
+          else if $req.cookie.get('tutor')
             a(href='/enter').btn-large.waves-effect.waves-light Войти
           else
             a.btn-large.waves-effect.waves-light.js-attach Оформить заявку
