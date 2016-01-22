@@ -28,7 +28,7 @@ class @main
   show: =>
     @found.app_next.on 'click', => Q.spawn => @changeFormStep 'next'
     @found.app_prev.on 'click', => Q.spawn => @changeFormStep 'prev'
-#    @found.popup.on 'click', -> Feel.root.tree.class.attached.showForm()
+    #@found.popup.on 'click', -> Feel.root.tree.class.attached.showForm()
     @form.name.on 'change', (e) ->Feel.urlData.set 'pupil', 'name', this.value
     @form.phone.on 'change', (e) ->Feel.urlData.set 'pupil', 'phone', this.value
 
