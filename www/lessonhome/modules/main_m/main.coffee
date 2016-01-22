@@ -12,7 +12,9 @@ class @main
     
     @fast_form =
       subjects: new $._material_select @found.fast_sub
+      metro: new $._material_select @found.fast_branch
 
+    @metroColor @fast_form.metro
 
     @form =
       subjects : new $._material_select @found.field_subjects
@@ -20,8 +22,6 @@ class @main
       name : @found.field_name
       phone : @found.field_phone
       comment : @found.field_comment
-
-
 
     @appFormLabel     = @found.form_offset_label
     @fixedHeightBlock = @found.fixed_height
@@ -32,11 +32,9 @@ class @main
     @form.name.on 'change', (e) ->Feel.urlData.set 'pupil', 'name', this.value
     @form.phone.on 'change', (e) ->Feel.urlData.set 'pupil', 'phone', this.value
 
-    @found.send_form.on 'click', => @found.fast_filter.submit()
-
+    @found.send_form.on 'click', @sendFastForm
     @prepareLink @found.rew.find('a')
-
-    @form.subjects.ul.find('.optgroup').on 'click', (e)=>
+    $('.slide_collapse .optgroup').on 'click', (e)=>
       thisGroup = e.currentTarget
       thisGroupNumber = $(thisGroup).attr('data-group')
       thisOpen = $(thisGroup).attr('data-open')
@@ -90,6 +88,26 @@ class @main
             @appFormTwo.css 'display', 'none'
             @appFormThree.fadeIn 500, =>
               @appProgress.addClass 'final-step'
+
+
+  sendFastForm: =>
+    subjects = @fast_form.subjects.val()
+    metro = @fast_form.metro.val()
+    @found.fast_filter.attr('action', "/tutors_search?#{ yield Feel.udata.d2u 'tutorsFilter', {subjects, metro}}")
+    @found.fast_filter.submit()
+
+  metroColor : (_material_select) =>
+    return unless @tree.metro_lines?
+    _material_select.ul.find('li.optgroup').each (i, e) =>
+      li = $(e)
+      name = li.next().attr('data-value')
+      return true unless name
+      name = name.split(':')
+      return true if name.length < 2
+      return true unless @tree.metro_lines[name[0]]?
+      elem = $('<i class="material-icons middle-icon">fiber_manual_record</i>')
+      elem.css {color: @tree.metro_lines[name[0]].color}
+      li.find('span').prepend(elem)
 
 
   getValue:  =>
