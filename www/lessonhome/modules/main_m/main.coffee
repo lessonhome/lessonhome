@@ -10,7 +10,7 @@ class @main
     @appFormThree     = @found.app_three_form
     @defaultAppStep   = 0
     
-    @form = 
+    @form =
       subjects : new $._material_select @found.field_subjects
       course : new $._material_select @found.field_course
       name : @found.field_name
@@ -22,7 +22,7 @@ class @main
   show: =>
     @found.app_next.on 'click', => Q.spawn => @changeFormStep 'next'
     @found.app_prev.on 'click', => Q.spawn => @changeFormStep 'prev'
-    @found.popup.on 'click', -> Feel.root.tree.class.attached.showForm()
+    #@found.popup.on 'click', -> Feel.root.tree.class.attached.showForm()
     @form.name.on 'change', (e) ->Feel.urlData.set 'pupil', 'name', this.value
     @form.phone.on 'change', (e) ->Feel.urlData.set 'pupil', 'phone', this.value
 
@@ -45,8 +45,6 @@ class @main
     @form.subjects.on 'change', =>
       v = @form.subjects.val()
       Feel.urlData.set 'pupil', 'subjects', v
-#      if v.length
-#        Feel.urlData.set 'pupil', 'subject', v[0]
 
     @form.course.on 'change', =>
       v = @form.course.val()
