@@ -13,6 +13,7 @@
 
   switch data.type
     when 'documents' then set = documents : photos = persons.documents ? []
+    when 'avatars' then set = avatar : photos = persons.avatar ? []
     else set = photos : photos = persons.photos ? []
 
   if photos.indexOf(data.hash) != -1

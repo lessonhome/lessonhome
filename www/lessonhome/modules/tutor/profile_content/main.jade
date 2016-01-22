@@ -47,6 +47,10 @@ if contacts
 +section_box ('education', education)
 .separate_box!=line_pri
 +section_box ('about', about)
+if $req.user.admin
+  .separate_box!=line_avatars
+  .media_box
+    .media!= avatars
 .separate_box!=line_med
 .media_box
   .media!= media
