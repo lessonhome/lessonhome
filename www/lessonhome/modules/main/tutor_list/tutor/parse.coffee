@@ -90,7 +90,7 @@ metro_lines = metro.lines
   _location.metro   ?= ""
   _location.area    ?= ""
 
-  split_station       = _location.metro.split(', ')
+  split_station       = _location.metro.split(',').map (a) -> a.trim()
   this_station = []
   users_metro = {}
 
