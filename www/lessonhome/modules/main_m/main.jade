@@ -17,20 +17,20 @@
       .col.s12.l9.m9.opacity-col
         .col.s12.l4.m4.input-field
           select.js-field_subjects(multiple=true)
-            option(value='', selected, disabled) Выберете предмет
+            option(value='', selected, disabled) Выберите предмет
             each groups,gname in subject_list
               optgroup(label!=gname)
                 each val,index in groups
                   option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
         .col.s12.l6.m6.metro-loc
           select.js-field_subjects(multiple=true)
-            option(value='', selected, disabled) Выберете метро (фикция)
+            option(value='', selected, disabled) Выберите метро (фикция)
             each groups,gname in subject_list
               optgroup(label!=gname)
                 each val,index in groups
                   option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
         .col.s12.l2.m2.input-col-link
-          a.btn.orange-btn.waves-effect.waves-lighti Далее
+          a.btn.orange-btn.waves-effect.waves-light Далее
 .about-row        
   .container 
     .row
@@ -151,7 +151,7 @@
             .row.no-margin-row
               .col.s12.m9.l9.input-field
                 select.js-field_subjects(multiple=true)
-                  option(value='', selected, disabled) Выберете предмет
+                  option(value='', selected, disabled) Выберите предмет
                   each groups,gname in subject_list
                     optgroup(label!=gname)
                       each val,index in groups

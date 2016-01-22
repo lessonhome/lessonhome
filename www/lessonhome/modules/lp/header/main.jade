@@ -21,7 +21,7 @@
           if $req.cookie.get('tutor')
             a(href='/enter').btn-large.waves-effect.waves-light Войти
           else
-            a.btn-large.waves-effect.waves-light.js-attach Оформить заявку
+            a(data-target="req_send").btn-large.waves-effect.waves-light.js-demo_modal Оформить заявку
         ul.side-nav#mobile-demo
           li
             a(href='/tutors_search') Найти репетитора

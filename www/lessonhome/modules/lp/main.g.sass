@@ -83,11 +83,85 @@ textarea.materialize-textarea:focus:not([readonly])
         &:after
           background-color: #fd7c48
           border-color: #fd7c48
-
-
-
-
 .hidden
   display : none
 
-
+//modals style
+.send-your-request
+  height: 80%
+  overflow-y: inherit
+  width: 500px
+  .modal-inner
+    position: relative
+    height: 93%
+    .modal-content
+      position: absolute
+      top: 0
+      left: 0
+      right: 2px
+      max-height: 100%
+      overflow-y: auto
+  .modal-footer
+    text-align: center
+    height: auto
+    .btn
+      float: none
+      margin: 1rem 0
+  .input-field
+    .prefix
+      top: 10px
+  @media #{$medium-and-down}
+    width: 70%
+  @media #{$small-and-down}
+    width: 95%
+    max-height: 90%
+  .dropdown-content
+    top: auto !important
+    bottom: 0 !important
+  .select-wrapper
+    .select-dropdown
+      margin-left: 3rem
+      width: calc(100% - 3rem)
+  .prefix
+    color: #777777
+  h4
+    font-size: 1.5em
+    letter-spacing: 1.25px
+    margin-top: .5rem
+    margin-bottom: 1.15rem
+  h5
+    font-size: 1.3rem
+    letter-spacing: 1.25px
+    margin-top: 1.8rem
+  .row
+    &:first-of-type
+      h5
+        margin-top: 0.82rem
+  .col-title
+    margin-top: 0.7rem
+    margin-bottom: 0.7rem
+    .prefix
+      vertical-align: middle
+    span 
+      margin-left: 1.3rem
+      font-size: 1.2rem
+      letter-spacing: 1px
+      color: #777777
+      display: inline-block
+      vertical-align: middle
+  [type="radio"]:not(:checked)+label, [type="radio"]:checked+label
+    padding-left: 30px
+    margin-right: 1rem
+    font-family: 'Roboto Condensed', sans-serif
+    letter-spacing: 1.1px
+    &:last-of-type
+      margin-right: 0
+  .col-radio
+    padding-left: 3.4rem
+  .input-field .prefix ~ label, .select-wrapper input.select-dropdown, .select-wrapper
+    font-family: 'Roboto Condensed', sans-serif
+    letter-spacing: 1.1px
+  .select-wrapper input.select-dropdown
+    font-size: 1rem
+  .row
+    margin-bottom: 0

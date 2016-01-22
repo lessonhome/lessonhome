@@ -39,6 +39,7 @@ class @main extends EE
         return true if @nowdata != @olddata
     return false
   show: =>
+    @found.m_select.material_select()
   goBack: =>
     document.location.href = window.history.back()
   onstatechange : =>
