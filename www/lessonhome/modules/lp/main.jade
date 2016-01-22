@@ -37,8 +37,8 @@ footer!=footer
             option(value="4") Прикладная черная магия
             option(value="5") Ритуалы и жертвоприношения
   .modal-footer
-    a(data-target="req_more_send").btn.orange-btn.waves-effect.js-demo_next.waves-light <i class="material-icons right">send</i> Отправить
-#req_more_send.modal.send-your-request.light-req-form.js-req_modal
+    e(data-target="req_more_send").btn.orange-btn.waves-effect.js-demo_next.waves-light <i class="material-icons right">send</i> Отправить
+#req_more_send.modal.send-your-request.req-more-form.js-req_modal
   .modal-content
     .row
       .col.s12
@@ -86,7 +86,7 @@ footer!=footer
         i.material-icons.prefix account_balance_wallet 
         select(multiple).js-m_select
           option(value="" disabled selected) Цена за 60 мин.
-          optgroup(label="Место")
+          optgroup(label="Цена")
             option(value="1") до 700 руб. 
             option(value="2") от 700 руб. до 1500 руб.
             option(value="3") от 1500 руб.
