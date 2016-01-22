@@ -10,6 +10,12 @@ class @main
     @appFormThree     = @found.app_three_form
     @defaultAppStep   = 0
     
+    @fast_form =
+      subjects: new $._material_select @found.fast_sub
+      metro: new $._material_select @found.fast_branch
+
+    @metroColor @fast_form.metro
+
     @form =
       subjects : new $._material_select @found.field_subjects
       course : new $._material_select @found.field_course
@@ -26,9 +32,9 @@ class @main
     @form.name.on 'change', (e) ->Feel.urlData.set 'pupil', 'name', this.value
     @form.phone.on 'change', (e) ->Feel.urlData.set 'pupil', 'phone', this.value
 
+    @found.send_form.on 'click', @sendFastForm
     @prepareLink @found.rew.find('a')
-
-    @form.subjects.ul.find('.optgroup').on 'click', (e)=>
+    $('.slide_collapse .optgroup').on 'click', (e)=>
       thisGroup = e.currentTarget
       thisGroupNumber = $(thisGroup).attr('data-group')
       thisOpen = $(thisGroup).attr('data-open')
@@ -41,14 +47,15 @@ class @main
         $('.subgroup_' + thisGroupNumber).slideUp(400)
         $(thisGroup).attr('data-open', 0)
 
+    getListener  = (name) ->
+      return (element) ->
+        Feel.urlData.set 'pupil', name, element.val()
 
-    @form.subjects.on 'change', =>
-      v = @form.subjects.val()
-      Feel.urlData.set 'pupil', 'subjects', v
+    sub_listener = getListener('subjects')
 
-    @form.course.on 'change', =>
-      v = @form.course.val()
-      Feel.urlData.set 'pupil', 'course', v
+    @fast_form.subjects.on 'change', sub_listener
+    @form.subjects.on 'change', sub_listener
+    @form.course.on 'change', getListener('course')
 
     Q.spawn =>
       indexes = []
@@ -83,6 +90,26 @@ class @main
               @appProgress.addClass 'final-step'
 
 
+  sendFastForm: =>
+    subjects = @fast_form.subjects.val()
+    metro = @fast_form.metro.val()
+    @found.fast_filter.attr('action', "/tutors_search?#{ yield Feel.udata.d2u 'tutorsFilter', {subjects, metro}}")
+    @found.fast_filter.submit()
+
+  metroColor : (_material_select) =>
+    return unless @tree.metro_lines?
+    _material_select.ul.find('li.optgroup').each (i, e) =>
+      li = $(e)
+      name = li.next().attr('data-value')
+      return true unless name
+      name = name.split(':')
+      return true if name.length < 2
+      return true unless @tree.metro_lines[name[0]]?
+      elem = $('<i class="material-icons middle-icon">fiber_manual_record</i>')
+      elem.css {color: @tree.metro_lines[name[0]].color}
+      li.find('span').prepend(elem)
+
+
   getValue:  =>
     subjects : @form.subjects.val()
     course : @form.course.val()
@@ -91,6 +118,9 @@ class @main
     comment : @form.comment.val()
 
   setValue : (data) ->
+    @form.subjects.val(data.subjects)
+    @fast_form.subjects.val(data.subjects)
+
   showError: (errs =[]) =>
     for e in errs
 
