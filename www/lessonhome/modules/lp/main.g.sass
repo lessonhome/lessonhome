@@ -88,25 +88,14 @@ textarea.materialize-textarea:focus:not([readonly])
 
 //modals style
 .send-your-request
-  height: 80%
   overflow-y: inherit
-  width: 500px
-  .modal-inner
-    position: relative
-    height: 93%
-    .modal-content
-      position: absolute
-      top: 0
-      left: 0
-      right: 2px
-      max-height: 100%
-      overflow-y: auto
+  width: 390px
   .modal-footer
     text-align: center
     height: auto
     .btn
       float: none
-      margin: 1rem 0
+      margin: 0 0 2rem
   .input-field
     .prefix
       top: 10px
@@ -130,16 +119,20 @@ textarea.materialize-textarea:focus:not([readonly])
     margin-top: .5rem
     margin-bottom: 1.15rem
   h5
-    font-size: 1.3rem
+    font-size: 1.22rem
     letter-spacing: 1.25px
     margin-top: 1.8rem
+  &.req-fast-form
+    h4
+      font-size: 1.22rem
+      margin-bottom: 0.5rem
   .row
-    &:first-of-type
+    &:nth-of-type(2)
       h5
         margin-top: 0.82rem
   .col-title
     margin-top: 0.7rem
-    margin-bottom: 0.7rem
+    margin-bottom: 1rem
     .prefix
       vertical-align: middle
     span 

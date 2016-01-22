@@ -39,7 +39,9 @@ class @main extends EE
         return true if @nowdata != @olddata
     return false
   show: =>
+    @req_more_on = 0
     @found.m_select.material_select()
+    @found.demo_next.leanModal()
   goBack: =>
     document.location.href = window.history.back()
   onstatechange : =>
