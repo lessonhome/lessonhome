@@ -45,11 +45,11 @@ class @main extends @template '../tutor'
 
       add_btn : @module 'link_button' :
         text : 'Добавить'
-        selector: 'view'
+        selector: 'edit_save'
 
       save_btn : @module 'link_button' :
         text : 'Сохранить изменения'
-        selector: 'edit_save'
+        selector: 'view'
 
       description : @module 'tutor/forms/textarea':
         placeholder: 'Дополнение к описанию (не обязательно)'
