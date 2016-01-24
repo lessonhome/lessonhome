@@ -18,6 +18,21 @@ switch require('os').hostname()
   else
     global._production = false
 
+fs = require 'fs'
+
+logStream = fs.createWriteStream './out',flags:'a'
+errStream = fs.createWriteStream './err',flags:'a'
+
+swrite = process.stdout.write
+process.stdout.write = ->
+  swrite.apply process.stdout, arguments
+  logStream.write arguments...
+swriteerr = process.stderr.write
+process.stderr.write = ->
+  swriteerr.apply process.stderr, arguments
+  errStream.write arguments...
+   
+
 last = ""
 log =
   s1 : ""
