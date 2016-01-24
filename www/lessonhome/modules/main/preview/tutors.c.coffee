@@ -88,15 +88,16 @@ class Tutors
   jobFilterTutors : ({filter,preps,from,count,exists})->
     return @handler {},{filter,preps,from,count,exists}
   jobGetTutor : ({index})=>
-    return @index[index] ? @index[99637]
+    return @index?[index] ? (@index?[99637] ? {})
   jobGetTutorsOnMain : (num)=>
-    arr2 = Object.keys @onmain
+
+    arr2 = Object.keys (@onmain ? {})
     arr = []
     for i in [1..num]
       break unless arr2.length
       ind = arr2.splice(Math.floor(Math.random()*arr2.length),1)?[0]
-      ind = @index[ind]
-      arr.push ind
+      ind = @index?[ind] ? null
+      arr.push ind if @index
     return arr
   handler : ($, {filter,preps,from,count,exists})->
     exists?=[]
