@@ -23,7 +23,6 @@
   'documents'
   'photos'
   'reviews'
-  'comment'
 ]
 @accounts = [
   'login'

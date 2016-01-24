@@ -12,9 +12,11 @@ setInterval ->
 ###
 String::capitalizeFirstLetter = -> @charAt(0).toUpperCase() + @slice(1)
 
-global._production = false
-if require('os').hostname() == 'pi0h.org'
-  global._production = true
+switch require('os').hostname()
+  when 'pi0h.org','lessonhome.org','lessonhome.ru'
+    global._production = true
+  else
+    global._production = false
 
 last = ""
 log =

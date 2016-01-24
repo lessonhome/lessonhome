@@ -17,15 +17,12 @@ class Redis
       retryDelay:  200
     }
   get : =>
-    switch hostname
-      when 'pi0h.org','lessonhome.org','lessonhome.ru'
-        redis =  _Redis.createClient port : 36379
-        yield _invoke redis, 'auth',"Savitri2734&"
-      else
-        redis = _Redis.createClient()
+    if _production
+      redis =  _Redis.createClient port : 36379
+      yield _invoke redis, 'auth',"Savitri2734&"
+    else
+      redis = _Redis.createClient()
     return redis
-      
-
   getLock : =>
     @connect()
     return @redlock

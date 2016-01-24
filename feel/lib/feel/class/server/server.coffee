@@ -17,13 +17,12 @@ class Server
     @ip = '127.0.0.1'
     @ip2 = '176.9.22.118'
     @ip3 = '176.9.22.124'
-    switch hostname
-      when 'pi0h.org'
-        @port = 8081
-        @ip = @ip2
-        @ssh = true
-      else
-        @port = 8081
+    if _production
+      @port = 8081
+      @ip = hostname
+      @ssh = true
+    else
+      @port = 8081
   init : =>
     unless @ssh
       @server = http.createServer @handler
