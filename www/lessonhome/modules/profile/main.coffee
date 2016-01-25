@@ -381,6 +381,7 @@ class @main
     return errs.length==0
 
   showError : (errs) =>
+    Feel.sendAction 'error_on_page' if errs.length
     @resetError()
     for e in errs
       @parseError e

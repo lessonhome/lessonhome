@@ -45,6 +45,8 @@ class @main
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     data = @js.takeData data
     error = @js.check data
+    Feel.sendAction 'error_on_page' unless error.correct
+
     if !error['phone']?
       {status,errs, err} = yield @$send('./save', data,quiet)
 
@@ -57,9 +59,6 @@ class @main
       else
         Feel.sendAction 'error_on_page'
         error = errs
-
-    else
-      Feel.sendAction 'error_on_page'
 
     return error
   showForm : =>
