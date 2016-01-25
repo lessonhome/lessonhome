@@ -4,6 +4,7 @@ MasterProcessConnect = require '../process/masterProcessConnect'
 
 global.MASTERSERVICEMANAGERSERVICEID = 0
 
+
 class MasterServiceManager
   constructor : ->
     Wrap @
@@ -36,8 +37,9 @@ class MasterServiceManager
     for name,conf of @config
       if conf.autostart && conf.single
         num = 1
-        #num = 3 if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
-        num = os.cpus().length if os.hostname() == 'pi0h.org' && name=="feel" && os.cpus().length>8
+        if _production && name=="feel" && os.cpus().length>3
+          num = os.cpus().length-3
+          num = 1 if os.hostname() == 'lessonhome.org'
         _q = Q()
 
         if num != 1

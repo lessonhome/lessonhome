@@ -40,7 +40,6 @@ class DbRead
       _obj = {}
       for item in obj
         _obj[item.hash] = item
-
-      return _obj
+    return _obj
 
 module.exports = DbRead

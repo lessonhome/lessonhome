@@ -16,7 +16,7 @@ class Socket
     @form = new Form
     yield @form.init()
     @register = yield Main.service 'register'
-    if os.hostname() == 'pi0h.org'
+    if _production
       yield @runSsh()
     else
       @server = http.createServer @handler

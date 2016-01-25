@@ -14,8 +14,9 @@ class module.exports
     @port = 8888
     @updating = false
   run : ->
-    #return if os.hostname() != 'pi0h.org'
-    @ssh = true if os.hostname() == 'pi0h.org'
+    switch os.hostname()
+      when 'pi0h.org','lessonhome.ru','lessonhome.org'
+        @ssh = true
     options = {
       key: _fs.readFileSync '/key/server.key'
       cert : _fs.readFileSync '/key/server.crt'
