@@ -137,9 +137,11 @@ class @main
 
 
     @found.use_settings.on 'click', =>
-      top = @dom.offset?()?.top
-      $(window).scrollTop top-10 if top >= 0
-      @emit 'reshow'
+      Feel.urlData.emit 'change', true
+#      top = @dom.offset?()?.top
+#      $(window).scrollTop top-70 if top >= 0
+      return false
+
 #      Q.spawn => yield Feel.urlData.set 'tutorsFilter', @getValue()
 
   getValue : =>

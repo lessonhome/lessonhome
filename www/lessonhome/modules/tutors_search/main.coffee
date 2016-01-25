@@ -2,6 +2,7 @@ class @main
   constructor : ->
     $W @
   Dom : =>
+    @loadedTime = new Date().getTime()
     @showFilter   = @found.show_filter
     @filterBlock  = @found.filter_block
     @listTutors   = @found.list_tutors
@@ -25,8 +26,8 @@ class @main
 
     #@advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll.tutors',@onscroll
-    Feel.urlData.on 'change', => Q.spawn =>
-      yield @apply_filter()
+    Feel.urlData.on 'change', (force) => Q.spawn =>
+      yield @apply_filter(force)
     ### TODO
     @tree.advanced_filter.apply.class.on 'submit',=> Q.spawn =>
       #top = $('#m-main-advanced_filter').offset?()?.top

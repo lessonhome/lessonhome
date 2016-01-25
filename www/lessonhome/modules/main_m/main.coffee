@@ -164,11 +164,15 @@ class @main
     errs = @js.check(data)
     if errs.length is 0
       {status, err, errs} = yield @$send('./save', data, 'quiet')
+
       if status is 'success'
         Feel.sendActionOnce 'bid_popup'
         return true
       errs?=[]
       errs.push err if err
+
+    if errs.length > 0
+      Feel.sendAction 'error_on_page'
 
     @showError errs
     return false
