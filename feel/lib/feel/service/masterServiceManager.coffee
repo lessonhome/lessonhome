@@ -37,7 +37,9 @@ class MasterServiceManager
     for name,conf of @config
       if conf.autostart && conf.single
         num = 1
-        num = os.cpus().length-3 if _production && name=="feel" && os.cpus().length>3
+        if _production && name=="feel" && os.cpus().length>3
+          num = os.cpus().length-3
+          num = 1 if os.hostname() == 'lessonhome.org'
         _q = Q()
 
         if num != 1
