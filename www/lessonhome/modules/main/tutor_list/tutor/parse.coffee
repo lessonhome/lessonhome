@@ -101,7 +101,6 @@ metro_lines = metro.lines
       for w in item.toLowerCase().split ' '
         if metro.means[w]?
           this_station = metro.means[w]
-          console.log 'its my life',  this_station
           break
 
     if metro_stations[this_station]?

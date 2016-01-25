@@ -23,6 +23,8 @@ class AddPhotos
       change : (e)=>
         @input = $(e.target)
         @input.prop 'disabled',true
+      fail : ->
+        Feel.sendAction 'error_on_page'
 
   done : (e,data)=>
 #    nowFile   = data?.files[data?.files?.length-1]
@@ -42,6 +44,7 @@ class AddPhotos
       @input.prop 'disabled',false
     .error (err)=>
       console.error err
+      Feel.sendAction 'error_on_page'
   progressall : (e,data)=>
     Feel.pbar.set data.loaded*0.5/data.total
 @main = AddPhotos

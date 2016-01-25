@@ -109,6 +109,7 @@ class @main
   getData : => subjects_val : @getValue()
 
   showErrors : (errors) =>
+    Feel.sendAction 'error_on_page' unless errors.correct
     that = @
     if errors['empty']?
       @test.showErrEmpty "Добавьте хотя бы один предмет."

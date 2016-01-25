@@ -74,6 +74,7 @@ class @main extends EE
     @your_name.removeClass('invalid')
 
   showError : (errs) =>
+    Feel.sendAction 'error_on_page' if errs.length
     @resetError()
     for e in errs
       @parseError(e)
