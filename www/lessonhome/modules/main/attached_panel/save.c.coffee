@@ -51,25 +51,30 @@ class BidSaver
     @jobs = yield Main.service 'jobs'
     @db = yield Main.service 'db'
     yield @jobs.listen 'saveBid',@jobSaveBid
-  jobSaveBid : (uid,is_admin,data)=>
+  jobSaveBid : (user, data)=>
     data = check.takeData data
     errs = [] #check.check data
     if errs['phone']? then return {status:'failed', errs}
     if errs.correct is false then data = {phone: data['phone']}
-    data.account = uid
+#    data.account = user.id
     data['phone'] = data['phone'].replace /^\+7/, '8'
     data['phone'] = data['phone'].replace /[^\d]/g, ''
     data['time'] = new Date()
     console.log 'save bid'
     db = yield @db.get 'bids'
-    saved = yield _invoke db.find({$or:[{account:uid},{phone:data.phone}]}),'toArray'
-    if data.id>0
-      yield _invoke db,'insert',data
-    else
-      yield _invoke db,'update',{account:uid},{$set:data},{upsert:true}
-    other.call(@,uid,is_admin,data,second=(saved[0]?)).done()
+    saved = yield _invoke db.find({$or:[{account:user.id},{phone:data.phone}]}),'toArray'
+#    if data.id>0
+#      yield _invoke db,'insert',data
+#    else
+    yield _invoke db,'update',{account:user.id},{$set:data},{upsert:true}
+    other.call(@,user.id,user.admin,data,second=(saved[0]?)).done()
     return {status:'success'}
-  handler : ($,data)=> @jobSaveBid $.user.id,$.user.admin,data
+  handler : ($,data)=>
+    try
+      return yield @jobSaveBid $.user ,data
+    catch errs
+      return {status: 'failed', err: 'internal_error'}
+
 
 
 module.exports = new BidSaver
