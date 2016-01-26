@@ -22,3 +22,4 @@ class @main
         return prep
     single_profile  : @exports()
     req_call : @module 'lp/request_call'
+    bid_popup : @module 'lp/bid_popup'

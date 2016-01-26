@@ -1,4 +1,6 @@
 class @main
+  constructor : ->
+    $W @
   Dom : =>
     @menuButton = @found.show_menu
     @fixedMenu  = @found.fixed_nav
@@ -12,4 +14,8 @@ class @main
       }
     )
     #@found.attach?.on? 'click', -> Feel.root.tree.class.attached.showForm()
-    $(@found.demo_modal).leanModal()
+    
+    @found.demo_modal?.on? 'click', => Q.spawn =>
+      #передать параметр 'fullBid' для открытия полной формы
+      yield Feel.jobs.solve 'openBidPopup'
+
