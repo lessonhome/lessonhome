@@ -34,31 +34,50 @@ class MasterServiceManager
     qs = []
     os = require 'os'
     
+    first =  {
+      services : true
+    }
+    last = {
+      feel : true
+    }
+    console.log @config
+    q = []
+    for name of first
+      q.push @runByConf name,@config[name] if @config[name]
+    console.log 'WAIT FOR FIRST'.red
+    yield Q.all q
+    console.log 'WAIT FOR FIRST OK'.red
+    q = []
     for name,conf of @config
-      if conf.autostart && conf.single
-        num = 1
-        if _production && name=="feel" && os.cpus().length>3
-          num = os.cpus().length-3
-          num = 1 if os.hostname() == 'lessonhome.org'
-        _q = Q()
+      continue if first[name] || last[name]
+      q.push @runByConf name,conf
+    console.log 'WAIT FOR SEC'.red,q
+    yield Q.all q
+    console.log 'WAIT FOR SEC OK'.red
+    q = []
+    for name of last
+      q.push @runByConf name,@config[name] if @config[name]
 
-        if num != 1
-          for i in [1..num]
-            do (name,conf)=>
-              _q = _q.then =>
-                Main.processManager.runProcess {
-                  name      : 'service-'+name
-                  services  : [name]
-                }
-              _q = _q.then (p)=>
-                _waitFor p,'run',10*60*1000
-          qs.push _q
-        else
-          qs.push Main.processManager.runProcess {
-            name      : 'service-'+name
-            services  : [name]
-          }
+    console.log 'WAIT FOR 3'.red
     yield Q.all qs
+    console.log 'WAIT FOR 3 ok'.red
+  runByConf : (name,conf)=>
+    console.log "RUN ".yellow,name.yellow
+    return unless conf.autostart && conf.single
+    console.log "RUN ".red,name.yellow
+    num = 1
+    if _production && os.cpus().length>3
+      switch name
+        when 'feel'
+          unless os.hostname() == 'lessonhome.org'
+            num = os.cpus().length-3
+
+    for i in [1..num]
+      process = yield Main.processManager.runProcess {
+          name      : 'service-'+name
+          services  : [name]
+      }
+      yield _waitFor process,'run',10*60*1000
   runService : (name,args)=>
     process = yield Main.processManager.runProcess {name:'service-'+name,services:[name],args}
     yield _waitFor process,'run',10*60*1000
