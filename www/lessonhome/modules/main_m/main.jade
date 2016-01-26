@@ -13,24 +13,28 @@
         .history-title Lesson Home помог нам подготовиться к ЕГЭ
         .history-text и сдать на 90 баллов 
     .row.opacity-row
-      .col.s1.l1.m1 &nbsp;
-      .col.s12.l9.m9.opacity-col
-        .col.s12.l4.m4.input-field
-          select.js-field_subjects(multiple=true)
-            option(value='', selected, disabled) Выберите предмет
-            each groups,gname in subject_list
-              optgroup(label!=gname)
-                each val,index in groups
-                  option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
-        .col.s12.l6.m6.metro-loc
-          select.js-field_subjects(multiple=true)
-            option(value='', selected, disabled) Выберите метро (фикция)
-            each groups,gname in subject_list
-              optgroup(label!=gname)
-                each val,index in groups
-                  option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
-        .col.s12.l2.m2.input-col-link
-          a.btn.orange-btn.waves-effect.waves-light Далее
+      form(method="post", action='/tutors_search').js-fast_filter
+        .col.s1.l1.m1 &nbsp;
+        .col.s12.l9.m9.opacity-col
+          .col.s12.l4.m4.input-field.slide_collapse
+            select.js-fast_sub(multiple=true)
+              option(value='', selected, disabled) Выберите предмет
+              each groups,gname in subject_list
+                optgroup(label!=gname)
+                  each val,index in groups
+                    option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
+          .col.s12.l6.m6.metro-loc.slide_collapse
+            -var metro_stations = value.metro;
+            select(name='color', data-v="branch", multiple).js-fast_branch
+              option(value='', selected, disabled) Выберите метро
+              for v, name_li in metro_stations
+                optgroup(label=v.name)
+                  each s, name_st in v.stations
+                    -var val = name_li+":"+name_st
+                    option(value=val)!=s
+                    //option(value=val, selected=metro_exist[val]?true:undefined)!=s
+          .col.s12.l2.m2.input-col-link
+            a.btn.orange-btn.waves-effect.waves-light.js-send_form Далее
 .about-row        
   .container 
     .row
@@ -149,14 +153,14 @@
         .col.s12.m6.l6.offset-m3.offset-l3.js-fixed_height
           .first-step-form.js-app_first_form
             .row.no-margin-row
-              .col.s12.m9.l9.input-field
+              .col.s12.m9.l9.input-field.slide_collapse
                 select.js-field_subjects(multiple=true)
                   option(value='', selected, disabled) Выберите предмет
                   each groups,gname in subject_list
                     optgroup(label!=gname)
                       each val,index in groups
                         option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
-                label Выберете предмет
+                label Выберите предмет
               .col.s12.m3.l3.input-field.right-align
                 a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Далее
           .two-step-form.js-app_two_form

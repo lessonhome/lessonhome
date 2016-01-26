@@ -1,15 +1,124 @@
+class Data
+  constructor: ->
+    @cleanData()
+
+  saveData : (form) ->
+    index = @index
+    @data[index] = form
+    @index++
+    @_l++
+    return index
+
+  getSaved : ->
+    result = []
+    for index, data of @data when @data.hasOwnProperty(index) then result.push data
+    return result
+
+  delData: (index) ->
+    if @data[index]?
+      delete @data[index]
+      @_l--
+
+  cleanData: ->
+    @data = {}
+    @_l = 0
+    @index = 0
+
+  exist: => @_l > 0
+
+class TableTrans
+  constructor : (table) ->
+    @table = table
+    @tbody = @table.find('tbody')
+    @trs = @tbody.find('>tr')
+    @setLocalDate()
+
+  setLocalDate : ->
+    @trs.each (i, e) =>
+      tr = $(e)
+      t = tr.find('.time:first')
+      date = t.text()
+      return unless date
+      date = new Date(date)
+      @setIndex tr, date.getTime()
+      t.siblings('.local_date').text(date.toLocaleDateString()).css 'visibility', 'visible'
+      t.siblings('.local_time').text(date.toLocaleTimeString()).css 'visibility', 'visible'
+
+  removeTr: (selector) ->
+    if selector
+      @trs.filter("tr#{selector}").remove()
+      @trs = @tbody.find('>tr')
+
+      if @trs.length == 0
+        @tbody.append("<tr class='empty'><td colspan='8'>Операций не обнаружено</td></tr>")
+
+
+  getNewTr: (data, className) ->
+    tr = $("<tr data-n='#{data.number}'>")
+    tr.addClass(className) if className
+    tr.append("<td>-</td><td>#{if data.number? then data.number else '-'}</td>")
+    tr.append("<td><p class='local_date'>#{data.date.toLocaleDateString()}</p><i class='local_time'>#{data.date.toLocaleTimeString()}</i></td>")
+    switch data.type
+      when 'pay' then tr.append("<td class='down'>Спис.</td>")
+      when 'fill' then tr.append("<td class='up'>Поп.</td>")
+      else
+        tr.append("<td>")
+
+    tr.append("<td>#{data.value.toFixed(2)} руб.</td><td class='grey'>success</td><td class='desc'>#{data.desc}</td>")
+    tr.append("<td><a href='#' class='del'>del.</a></td>")
+    return tr
+
+  addTr: (data, index, className) -> @putTr @getNewTr(data, className), index, (if className then ".#{className}" else '')
+
+  putTr : (tr, tr_pos, among_selector) ->
+    among = if among_selector then @trs.filter("#{among_selector}") else @trs
+    @tbody.find('.empty').remove() if tr.length
+
+    if among.length == 0 or !tr_pos?
+      @tbody.prepend(tr)
+    else
+      among.each  (i, e)=>
+        e = $(e)
+
+        if @getIndex(e) <= tr_pos
+          e.before(tr)
+          return false
+
+        e.after(tr) if i == among.length - 1
+
+    @setIndex(tr, tr_pos)
+    @trs = @trs.add(tr)
+    return tr
+
+  setIndex : (tr, index) -> tr.attr('data-tr_pos', index)
+  getIndex: (tr) -> parseInt(tr.attr('data-tr_pos'))
+
+class CurrentPrice
+  constructor: (elem, value=0) ->
+    @elem = elem
+    @sum = @elem.find('.summ')
+    @curr = value
+  get : -> @curr
+  set : (val) ->
+    return if isNaN val
+    val = val.toFixed(2)
+    @sum.text(val)
+
+    if val < 0
+      @elem.addClass('red')
+    else
+      @elem.removeClass('red')
+
 class @main
   constructor: ->
     $W @
   Dom   : =>
-    @preTrans = {
-      index : 0
-      trans : {}
-    }
+    @added = new Data
     @input = @tree.send_input.class
     @date = @tree.date.class
     @trans = @found.transations
-
+    @table = new TableTrans @trans.closest('table')
+    @price = new CurrentPrice $('.summ_price:first'), @tree.current_sum
   show  : =>
     @date.addError('invalid date', "Введите корректную дату. Пример: 21.12.2012")
     @date.addError('future date', "Введенная дата не наступила")
@@ -18,39 +127,131 @@ class @main
     @input.addError('wrong amount', "Введите корректоное значение")
 
 #    @tree.save_btn.class.on 'submit', => Q.spawn @subPay
-    @tree.add_btn.class.on 'submit', @addPreTrans
-    @setLocalDate @trans.find('.time')
+    @tree.add_btn.class.on 'submit', @addTrans
+    @tree.save_btn.class.on 'submit', @saveTrans
 
-    @trans.on 'click', '.del', (e) =>
-      parent = $(e.currentTarget).closest('.new')
-      index = parent.attr('data-index')
+    @found.desc_sel.on 'change', =>
+      @tree.description.class.input.trigger('focus')
+      type = @found.desc_sel.find('option:selected').attr('data-type')
+      if type
+        @found.type.prop('disabled', true).val(type)
+      else
+        @found.type.prop('disabled', false)
 
-      if index
-        @_delData(index)
-        parent.remove()
+    @trans.on 'click', 'a.del', (e) =>
+      Q.spawn =>
+        tr = $(e.currentTarget).closest('tr')
+
+        if tr.is '.new'
+
+          if index = tr.attr('data-i')
+            @table.removeTr("[data-i=#{index}]")
+            @added.delData(index)
+
+        else
+          number = tr.attr 'data-n'
+
+          if number
+            tr.addClass('ready')
+
+            if confirm("Удалить транзакцию № #{number}?")
+              {status, residue,err} = yield @$send './withdraw', {number, type: 'del'}, 'quiet'
+
+              if status == 'success'
+                @table.removeTr("[data-n=#{number}]")
+                @price.set(residue)
+
+            tr.removeClass('ready')
+
+
 
       return false
 
-  setLocalDate : (time) =>
-    time.each (i, e) ->
-      return unless e.innerHTML
-      date = new Date(e.innerHTML)
-      e.innerHTML = ''
-      parent = $(this.parentNode)
-      parent.find('.local_date:first').text(date.toLocaleDateString()).css 'visibility', 'visible'
-      parent.find('.local_time:first').text(date.toLocaleTimeString()).css 'visibility', 'visible'
+  addTrans : =>
+    @found.error.text('')
+    form = @getForm()
 
-  getCurr : => return parseFloat(@tree.current_sum)
+    if (errs = @js.check form).length
+      @showError errs
+      return
+
+    tr = @table.addTr(form,form.date.getTime(), 'new')
+    tr.attr('data-i', @added.saveData(form))
+    @resetForm(false)
+
+  saveTrans : ->
+    data = @added.getSaved()
+
+    if @added.exist()
+
+      if @js.validTrans(data)
+
+        if confirm("Сохранить добавленные транзакции: \n" + @transToString(data))
+          {status, data, err} = yield @$send('./withdraw', {type: 'save', data}, 'quiet')
+
+          if status == 'success'
+            @added.cleanData()
+            @table.removeTr '.new'
+
+            for number, v of data.added
+              v['number'] = number
+              v.date = new Date(v.date)
+              @table.addTr v, v.date.getTime()
+
+            @price.set(data.residue)
+
+          else
+            @showError [err]
+
+      else
+        @showError(['wrong data'])
+
+    else
+      @input.onFocus()
+
+  transToString: (trans) =>
+    str = ''
+    for t in trans
+
+      switch t.type
+        when 'fill'
+          str += "Внести "
+        when 'pay'
+          str += "Списать "
+        else
+          str += "Неизвестная операция"
+
+      str += t.value.toFixed(2) + ' руб. \n'
+
+    return str
+
+  showError: (errors) =>
+    for err in errors
+      switch err
+        when 'empty', 'wrong amount'
+          @input.showError(err)
+          @input.onFocus()
+        when 'invalid date', 'future date'
+          @date.showError(err)
+        when 'type not exist'
+          @found.error.text("Выберите тип операции")
+        else
+          @found.error.text(err)
+
+
   getDate : =>
     try
+      now  = new Date
       date = @tree.date.class.getValue()
-      return new Date() unless date
+      return now unless date
       date = date.split('.').map (e) ->
         i = parseInt(e)
-        throw new Error('invalid Date') unless typeof(i) is 'number' and !isNaN(i)
+        throw new Error('invalid Date') if isNaN(i)
         return i
-      date = new Date(date[2], date[1] - 1, date[0], 10, 0, 0)
-      return date
+      now.setDate(date[0])
+      now.setFullYear(date[2])
+      now.setMonth(date[1] - 1)
+      return now
     catch errs
       return NaN
 
@@ -63,124 +264,17 @@ class @main
   getForm : =>
     value : parseFloat(@tree.send_input.class.getValue())
     date : @getDate()
-    description : @getDesc()
+    desc : @getDesc()
     type : @found.type.val()
 
-  _saveData : (form) =>
-    index = @preTrans.index
-    @preTrans.trans[index] = form
-    @preTrans.index++
-    return index
+  resetForm: (all = true) ->
 
-  _delData: (index) =>
-    if @preTrans.trans[index]?
-      delete @preTrans.trans[index]
+    if all
+      @tree.date.class.setValue('')
 
-  putTr : (tr, date) =>
-    news = @trans.find('.new')
-
-    if news.length == 0 or !date?
-      @trans.prepend(tr)
-    else
-      news.each  (i, e)->
-        e = $(e)
-
-        if e.attr('data-date') <= date
-          e.before(tr)
-          return false
-
-        e.after(tr) if i == news.length - 1
-
-    tr.attr('data-date', date)
-
-  addPreTrans : =>
-    form = @getForm()
-
-    if (errs = @js.check form).length
-      @showError errs
-      return
-
-    tr = $("<tr class='new'>")
-
-    tr.append("<td>-</td><td>-</td>")
-    tr.append("<td><p class='local_date'>#{form.date.toLocaleDateString()}</p><i class='local_time'>#{form.date.toLocaleTimeString()}</i></td>")
-
-    switch form.type
-      when 'pay' then tr.append("<td class='down'>Списание</td>")
-      when 'fill' then tr.append("<td class='up'>Пополнение</td>")
-      else
-        tr.append("<td>")
-
-    tr.append("<td>#{form.value.toFixed(2)} руб.</td><td class='grey'>success</td><td>-</td>")
-    tr.append("<td><a href='#' class='del'>del.</a></td>")
-    @trans.find('.empty').remove()
-    @putTr(tr, form.date.getTime())
-    tr.attr('data-index', @_saveData(form))
-    @input.onFocus()
-
-  showError: (errors) =>
-    for err in errors
-      switch err
-        when 'empty', 'wrong amount'
-          @input.showError(err)
-          @input.onFocus()
-        when 'invalid date', 'future date'
-          @date.showError(err)
+    @found.type.prop('disabled', false).val('')
+    @input.setValue('')
+    @found.desc_sel.val('')
+    @tree.description.class.setValue('')
 
 
-
-#  addTr : (number, type, time, value, residue) =>
-#    time = new Date time
-#    tr = $('<tr class="new">')
-#    summ = @found.summ
-#    price_wrap =  summ.parent()
-#
-#    if residue >= 0
-#      price_wrap.removeClass('red')
-#    else
-#      price_wrap.addClass('red')
-#
-#    residue = residue.toFixed(2)
-#    summ.text(residue)
-#    tr.append("<td>-</td><td>#{number}</td><td><p class='local_date'>#{time.toLocaleDateString()}</p><i class='local_time'>#{time.toLocaleTimeString()}</i></td>")
-#
-#    switch type
-#      when 'pay' then tr.append("<td class='down'>Списание</td>")
-#      when 'fill' then tr.append("<td class='up'>Пополнение</td>")
-#      else
-#        tr.append("<td>")
-#
-#    tr.append("<td>#{value.toFixed(2)} руб.</td><td>Завершено</td><td>#{residue} руб.</td>")
-#    tr.append("<td><a href='#' data-number='#{number}'>del.</a></td>")
-#
-#    @input.setValue('')
-#    body = @found.transations.find('tbody')
-#    body.find('.empty').remove()
-#    body.prepend(tr)
-#
-#  _send : (type, value) => yield @$send "./withdraw", {type, value}, 'quiet'
-#
-#  _addTrans : (message, type) =>
-#    value = @input.getValue()
-#
-#    if err = @js.check value
-#      @showError err
-#      return
-#
-#    if confirm("#{message}\n\n Сумма : #{value} руб.")
-#      {status, err, bill} = yield @_send(type, value)
-#
-#      if status == 'success'
-#        @addTr bill.number, bill.type, bill.date , bill.value, bill.residue
-#      else @showError err
-#
-#    else @input.onFocus()
-#
-#  fillPay : => yield @_addTrans "Пополнениe", 'fill'
-#  subPay : => yield @_addTrans "Списание", 'pay'
-#  delTrans : (index) =>
-#
-#
-#  showError : (err) ->
-#    @input.onFocus()
-#    @input.showError(err)

@@ -27,6 +27,14 @@ class @main
         @module 'lib/jquery/iframe_transport_plugin'
         @module 'lib/jquery/fileupload'
       ]
+    avatars : @module '$/media' :
+      photos : $form : person : 'photos_avatars'
+      message: "Сделать главной"
+      depend : [
+        @module 'lib/jquery/ui_widget'
+        @module 'lib/jquery/iframe_transport_plugin'
+        @module 'lib/jquery/fileupload'
+      ]
     #all_rating          : @module '../rating_star':
     #  filling  : 40
     #progress            : @exports()
@@ -98,6 +106,13 @@ class @main
       link      : '#'
       upload_input : @module 'media_upload' :
         type: 'documents'
+      add     : @exports()
+      selector : 'horizon'
+    line_avatars            : @module 'tutor/separate_line':
+      title    : 'Фотографии профиля'
+      link      : '#'
+      upload_input : @module 'media_upload' :
+        type: 'avatars'
       add     : @exports()
       selector : 'horizon'
     #media               : @module '$/media' :

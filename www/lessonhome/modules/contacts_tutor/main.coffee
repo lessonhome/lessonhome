@@ -48,16 +48,21 @@ class @main
     {status,errs} = yield @$send('./save',@getData(),quiet)
     if status=='success'
       return true
-    if errs?.length
-      @parseError errs
+    @showError errs
     return false
 
   check_form :() =>
     errs = @js.check @getData()
-    for e in errs
-      @parseError e
+    @showError errs
     return errs.length==0
 
+  showError : (errs) =>
+    errs = [errs] if typeof(errs) is 'string'
+
+    if errs?.length
+      Feel.sendAction 'error_on_page'
+      for e in errs
+        @parseError e
 
   getData : =>
     return {

@@ -1,5 +1,7 @@
-filter = Feel.const('filter')
-subjects = filter.subjects
+subjects = Feel.const('filter').subjects
+metro = Feel.const('metro')
+stations = metro.stations
+lines = metro.lines
 
 getExist = (obj) ->
   result = {}
@@ -16,6 +18,12 @@ getExist = (obj) ->
         text: subject[0].toUpperCase() + subject.slice(1)
         link: "/tutors_search?#{ yield Feel.udata.d2u 'tutorsFilter', {subjects: [subject]} }"
       }
+
+  value.metro = {}
+  for k, l of lines
+    value.metro[k] = {name: l.name,color: l.color, stations: metro_s =  {}}
+    for s_name in l.stations
+      metro_s[s_name] = stations[s_name].name
 
   value.cou_exist = getExist value.course
   value.sub_exist = getExist value.subjects

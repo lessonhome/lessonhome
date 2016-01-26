@@ -13,6 +13,7 @@ class @main extends @template 'lp'
       subject_list: filter.subjects
       training_direction : filter.course
       value : $urlform : pupil: ''
+      metro_lines : @const('metro').lines
       main_rep : $defer : =>
         maxl = 200
         jobs = yield Main.service 'jobs'

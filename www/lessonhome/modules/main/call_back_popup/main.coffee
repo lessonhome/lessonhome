@@ -41,6 +41,7 @@ class @main extends EE
       Feel.sendAction 'back_call'
       return true
     if errs?.length
+      Feel.sendAction 'error_on_page'
       for e in errs
         @parseError e
     return false

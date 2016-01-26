@@ -65,7 +65,7 @@ class _material_select extends EE
       @value = @_getSelectedValues()
       @elem.val(@value)
       @_updateInput()
-      @emit 'change'
+      @emit 'change', @
     ,0
 
     return true

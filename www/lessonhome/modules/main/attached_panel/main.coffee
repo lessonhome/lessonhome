@@ -23,7 +23,7 @@ class @main
     @tree.popup.class.on 'close', @hideForm
     @btn_send.on 'submit', => Q.spawn =>
       errors = yield @sendForm()
-      if errors.correct is true
+      if errors.correct
         yield Feel.urlData.set 'mainFilter','linked':{}
         Feel.sendGActionOnceIf(18000,'bid_full','form_submit')
         Feel.go '/fast_bid/fourth_step'
@@ -33,7 +33,7 @@ class @main
 
     @tree.popup.first.phone.class.on 'end', => Q.spawn =>
       errors = yield @sendForm()
-      if errors.correct is false then @popup.parseError phone : errors['phone']
+      unless errors.correct then @popup.parseError phone : errors['phone']
   scrollToTop : =>
     @popup_block.addClass('fixed').animate {
       scrollTop : 0
@@ -45,12 +45,21 @@ class @main
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     data = @js.takeData data
     error = @js.check data
+    Feel.sendAction 'error_on_page' unless error.correct
+
     if !error['phone']?
-      {status,errs_server} = yield @$send('./save', data,quiet)
+      {status,errs, err} = yield @$send('./save', data,quiet)
+
+      if err
+        Feel.sendAction 'error_on_page'
+        return {other: err }
+
       if status is 'success'
         Feel.sendActionOnce 'bid_popup'
       else
-        error = errs_server
+        Feel.sendAction 'error_on_page'
+        error = errs
+
     return error
   showForm : =>
     @popup_block.show('slow')
