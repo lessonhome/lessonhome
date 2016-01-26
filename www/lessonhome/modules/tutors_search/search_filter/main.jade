@@ -23,7 +23,7 @@
     .row.no-bottom-margin
       .col.s12
        .filter-title Выберите предмет и направление подготовки
-    .row.no-bottom-margin
+    .row.no-bottom-margin.fixed-spicer
       .input-field.col.s12
         select(name='subject', multiple).js-subjects
           option(value='', selected, disabled) Предмет
@@ -32,7 +32,7 @@
               each val,index in groups
                 option(value!=val, selected=(subject_exist[val]?true:undefined))!=val
 
-    .row.no-bottom-margin
+    .row.no-bottom-margin.fixed-spicer
       .input-field.col.s12
         select(name='course', multiple).js-course
           option(value='', disabled, selected) Направление подготовки
