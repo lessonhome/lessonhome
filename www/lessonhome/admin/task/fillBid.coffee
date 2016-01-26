@@ -15,7 +15,6 @@
 
 @full = [
   {
-    type : 'text'
     value : 'task.createTime'
   }
   {

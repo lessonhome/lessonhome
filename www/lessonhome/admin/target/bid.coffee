@@ -7,6 +7,9 @@
   { value : 'target.name' }
   { value : 'target.createTime'}
 ]
+@short = [
+
+]
 
 
 @linked = {
@@ -17,6 +20,7 @@
     }
   ]
 }
+@name = ""
 
 @full = [
   {
@@ -33,3 +37,7 @@
     value: 'text'
   }
 ]
+
+
+@job = 'getFakeBids'
+@signal = 'fakeBidsChange'
