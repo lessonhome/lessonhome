@@ -9,7 +9,10 @@ class @main
     @found.open_form.click => Q.spawn => yield Feel.root.tree.class.attached.showForm()
     Q.spawn =>
       @found.go_find.attr 'href','/tutors_search?'+yield Feel.udata.d2u('mainFilter',@tree.filter)
-    
+
+    @on 'change', ->
+      Feel.sendActionOnce('interacting_with_form', 1000*60*10)
+
     ###
     @found.tutors_list.find('>div').remove()
     numTutors = 5
@@ -35,35 +38,53 @@ class @main
       clone.dom.animate (opacity:1),1400
     ###
 
-    @found.input_phone.on 'input',(e)=>
-      val = $(e.target).val()
-      @tree.value ?= {}
-      @tree.value.phone = val
-      @found.input_phone.filter(':not(:focus)').val val
-      @found.input_phone.removeClass 'invalid'
-      if val
-        @found.input_phone.filter(':not(:focus)').parent().find('>i,>label').addClass 'active'
-      else
-        @found.input_phone.filter(':not(:focus)').parent().find('>i,>label').removeClass 'active'
-      @emit 'change'
-    @found.input_name.on 'input',(e)=>
-      val = $(e.target).val()
-      @tree.value ?= {}
-      @tree.value.name = val
-      @found.input_name.filter(':not(:focus)').val val
-      if val
-        @found.input_name.filter(':not(:focus)').parent().find('>i,>label').addClass 'active'
-      else
-        @found.input_name.filter(':not(:focus)').parent().find('>i,>label').removeClass 'active'
-      @found.input_name.val val
-      @emit 'change'
+
+    getListener = (name, elems) =>
+      return (e) =>
+        el = $(e.target)
+        val = el.val()
+        @tree.value ?= {}
+        @tree.value[name] = val
+        elems.filter(':not(:focus)').val(val).focusin().focusout()
+        @emit 'change'
+
+    @found.input_phone.on 'input', getListener('phone', @found.input_phone)
+    @found.input_name.on 'input', getListener('name', @found.input_name)
+    @found.input_phone.on 'change', => Q.spawn => yield @sendForm(false, true)
+
+#    @found.input_phone.on 'input',(e)=>
+#      val = $(e.target).val()
+#      @tree.value ?= {}
+#      @tree.value.phone = val
+#      @found.input_phone.filter(':not(:focus)').val val
+#      @found.input_phone.removeClass 'invalid'
+#      if val
+#        @found.input_phone.filter(':not(:focus)').parent().find('>i,>label').addClass 'active'
+#      else
+#        @found.input_phone.filter(':not(:focus)').parent().find('>i,>label').removeClass 'active'
+#      @emit 'change'
+#    @found.input_name.on 'input',(e)=>
+#      val = $(e.target).val()
+#      @tree.value ?= {}
+#      @tree.value.name = val
+#      @found.input_name.filter(':not(:focus)').val val
+#      if val
+#        @found.input_name.filter(':not(:focus)').parent().find('>i,>label').addClass 'active'
+#      else
+#        @found.input_name.filter(':not(:focus)').parent().find('>i,>label').removeClass 'active'
+#      @found.input_name.val val
+#      @emit 'change'
     @found.btn_send.on 'click',(e)=> Q.spawn => yield @sendForm($(e.target).attr('footer')=='footer')
-  sendForm : (footer=false)=>
-    error = yield Feel.root.tree.class.attached.sendForm('')
+
+  sendForm : (footer=false, quiet = false)=>
+    error = yield Feel.root.tree.class.attached.sendForm(quiet && 'quiet' || '')
     return @found.input_phone.addClass 'invalid' if error['phone']?
-    @fastest.find('>:not(.on_send)').remove()
-    @fastest.find('.on_send').show()
-    $(window).scrollTop($(document).height()) if footer
+
+    unless quiet
+      @fastest.find('>:not(.on_send)').remove()
+      @fastest.find('.on_send').show()
+      $(window).scrollTop($(document).height()) if footer
+
     Feel.sendGActionOnceIf 6000,'bid_quick','form_submit'
   setValue : (value={})=>
     @tree.value ?= {}
