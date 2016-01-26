@@ -14,6 +14,7 @@ MasterProcessConnector  = require './masterProcessConnector'
 class MasterProcessManager
   constructor : ->
     Wrap @
+    @jobs = _Helper 'jobs/main'
     @config     = {}
     @process    = {}
     @processById= {}
@@ -30,6 +31,8 @@ class MasterProcessManager
       @config[m[1]].services ?= []
       @config[m[1]].single   ?= false
       @config[m[1]].autostart?= false
+    yield @jobs.listen 'process-connect-masterServiceManager',@jobConnectMasterServiceManager
+    yield @jobs.listen 'process-connect-masterProcessManager',@jobConnectMasterProcessManager
   run : =>
     @log()
     qs = []
@@ -69,6 +72,7 @@ class MasterProcessManager
         .catch (err)=>
           @query.__emit "#{name}:#{id}",ExceptionJson err
   q_nearest : (args...)=>
+  jobConnectMasterProcessManager : (conf)=>
   q_connect : (conf)=>
     connector = new MasterProcessConnector conf, yield @getProcess conf.processId
     yield connector.init()

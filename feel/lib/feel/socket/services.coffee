@@ -7,6 +7,7 @@ class Services
     @services = {}
     @startPort = 8900
   run : =>
+    return
     readed  = yield _readdirp
       root : 'www/lessonhome'
       fileFilter : '*.c.coffee'

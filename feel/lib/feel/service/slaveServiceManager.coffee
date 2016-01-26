@@ -18,23 +18,25 @@ class SlaveServiceManager
     @master = new SlaveProcessConnect 'masterServiceManager'
     yield @master.__init()
     @config = yield @master.config
-    for name,conf of @config
-      if conf.autostart && !conf.single
-        @waitFor[name] = true
+    #for name,conf of @config
+    #  if conf.autostart && !conf.single
+    #    @waitFor[name] = true
     for serv in Main.conf.services
       @waitFor[serv] = true
   run : =>
-    qs = []
-    for name,conf of @config
-      if conf.autostart && !conf.single
-        qs.push @start name
-    yield Q.all qs
+    #qs = []
+    #for name,conf of @config
+    #  if conf.autostart && !conf.single
+    #    qs.push @start name
+    #yield Q.all qs
 
   nearest : (name)=>
     return @choose(@services.self[name])    if @services.self[name]?[0]?
     return @choose(@services.master[name])  if @services.master[name]?[0]?
     return @choose(@services.others[name])  if @services.others[name]?[0]?
     return @waitForService name             if @waitFor[name]
+    if @config[name]?.autostart && !@config[name]?.single
+      return yield @start name
     return @masterNearest(name)
   getById : (id)=>
     return @serviceById[id] if @serviceById[id]?

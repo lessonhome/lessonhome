@@ -589,7 +589,7 @@ global._mkdirp  = Q.denode require 'mkdirp'
 #global._clone   = (o,d=true)-> v8clone.clone o,d
 module.exports  = Lib
 
-global._waitFor = (obj,action,time=300000)-> Q.then ->
+global._waitFor = (obj,action,time=300000)->
   waited = false
   defer = Q.defer()
   obj.once action, (args...)=>
@@ -600,7 +600,6 @@ global._waitFor = (obj,action,time=300000)-> Q.then ->
     setTimeout =>
       return if waited
       defer.reject "timout waiting action #{action}"
-      return
     ,time
   return defer.promise
   
@@ -665,5 +664,7 @@ global._diff = require './diff/main'
 
 global._nameLib = require('./lib/name')
 
+helpers = {}
+global._Helper = (service)-> helpers[service] ?= new (require('./'+service))
 
 

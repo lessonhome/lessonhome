@@ -7,6 +7,7 @@ SlaveProcessConnector = require './slaveProcessConnector'
 class SlaveProcessMessanger
   constructor : ->
     Wrap @
+    @jobs = _Helper 'jobs/main'
     @ee = new EE
     @queryEE = new EE
     @receive 'query',@onQuery
@@ -20,6 +21,9 @@ class SlaveProcessMessanger
   onMessage : ({msg,args  })=>
     @ee.emit msg,args...
   query     : (args...)=> # query(name,args...)
+    switch args[0]
+      when 'connect'
+        return @jobs.solve 'process-connect-'+args[1].type,args[1]
     id = global.SLAVEPROCESSMESSANGERID++
     defer = Q.defer()
     @ee.once 'query:'+id, (err,data)=>
