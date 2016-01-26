@@ -31,4 +31,9 @@
     type : 'date'
     value : 'task.date'
   }
+  {
+    type: ''
+  }
 ]
+
+@controls = ['Не дозвонился', 'Закрыть']
