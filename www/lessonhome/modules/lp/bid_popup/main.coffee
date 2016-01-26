@@ -4,7 +4,7 @@ class @main
 
   Dom : =>
     @html = $('html')
-    @thisScrooll = @getScrollWidth() * -1
+    @thisScroll = @getScrollWidth()
     @found.m_select.material_select()
 
     @found.demo_finish.on 'click', @miniBidSend
@@ -21,9 +21,9 @@ class @main
         in_duration: 0,
         out_duration: 0
         ready: =>
-          $("body").css("margin", "0 0 0 " + @thisScrooll + "px")
+          $("body").css("margin-right", @thisScroll + "px")
         complete: =>
-          $("body").css("margin", "0 0 0 0")
+          $("body").css("margin-right", "")
       }
     )
   miniBidSend: =>
