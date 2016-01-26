@@ -40,31 +40,22 @@ class MasterServiceManager
     last = {
       feel : true
     }
-    console.log @config
     q = []
     for name of first
       q.push @runByConf name,@config[name] if @config[name]
-    console.log 'WAIT FOR FIRST'.red
-    yield Q.all q
-    console.log 'WAIT FOR FIRST OK'.red
-    q = []
+    #yield Q.all q
+    #q = []
     for name,conf of @config
       continue if first[name] || last[name]
       q.push @runByConf name,conf
-    console.log 'WAIT FOR SEC'.red,q
-    yield Q.all q
-    console.log 'WAIT FOR SEC OK'.red
-    q = []
+    #yield Q.all q
+    #q = []
     for name of last
       q.push @runByConf name,@config[name] if @config[name]
 
-    console.log 'WAIT FOR 3'.red
     yield Q.all qs
-    console.log 'WAIT FOR 3 ok'.red
   runByConf : (name,conf)=>
-    console.log "RUN ".yellow,name.yellow
     return unless conf.autostart && conf.single
-    console.log "RUN ".red,name.yellow
     num = 1
     if _production && os.cpus().length>3
       switch name

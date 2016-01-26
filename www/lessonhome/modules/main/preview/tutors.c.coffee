@@ -85,7 +85,7 @@ class Tutors
       f = f[0]
       delete @filters[f]
     return @refiltering = false
-  jobFilterTutors : ({filter,preps,from,count,exists})->
+  jobFilterTutors : ({filter,preps,from,count,exists})=>
     return @handler {},{filter,preps,from,count,exists}
   jobGetTutor : ({index})=>
     return @index?[index] ? (@index?[99637] ? {})
@@ -99,7 +99,7 @@ class Tutors
       ind = @index?[ind] ? null
       arr.push ind if @index
     return arr
-  handler : ($, {filter,preps,from,count,exists})->
+  handler : ($, {filter,preps,from,count,exists})=>
     exists?=[]
     yield @init() unless @inited == 2
     ret = {}
@@ -139,4 +139,4 @@ class Tutors
 
 
 
-module.exports = Tutors
+module.exports = new Tutors
