@@ -44,6 +44,9 @@ STATUS_VALUES = {
     interests : Join data['interests'], 'description'
     reviews : []
     documents : []
+    name_pupil: data.data_pupil?.name
+    phone_pupil: data.data_pupil?.phone
+    subject_pupil: data.data_pupil?.subject
   }
   if data.photos?
     continue for key, photo of data.photos
