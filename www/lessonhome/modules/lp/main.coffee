@@ -39,6 +39,7 @@ class @main extends EE
         return true if @nowdata != @olddata
     return false
   show: =>
+    @req_more_on = 0
   goBack: =>
     document.location.href = window.history.back()
   onstatechange : =>

@@ -83,11 +83,122 @@ textarea.materialize-textarea:focus:not([readonly])
         &:after
           background-color: #fd7c48
           border-color: #fd7c48
-
-
-
-
 .hidden
   display : none
 
-
+//modals style
+.send-your-request
+  overflow-y: inherit
+  width: 390px
+  .modal-footer
+    text-align: center
+    height: auto
+    .btn
+      float: none
+      margin: 0 0 2rem
+  .input-field
+    .prefix
+      top: 10px
+  @media #{$medium-and-down}
+    width: 70%
+  @media #{$small-and-down}
+    width: 95%
+    max-height: 90%
+  .dropdown-content
+    top: auto !important
+    bottom: 0 !important
+  .select-wrapper
+    .select-dropdown
+      margin-left: 3rem
+      width: calc(100% - 3rem)
+  .prefix
+    color: #777777
+  h4
+    font-size: 1.5em
+    letter-spacing: 1.25px
+    margin-top: .5rem
+    margin-bottom: 1.15rem
+  h5
+    font-size: 1.22rem
+    letter-spacing: 1.25px
+    margin-top: 1.8rem
+  &.req-fast-form
+    h4
+      font-size: 1.22rem
+      margin-bottom: 0.5rem
+  &.req-fast-form
+    //min-height: 385px
+  &.req-more-form
+    width: 100%
+    max-height: 100%
+    overflow-y: auto
+    background-color: transparent
+    border-radius: 0
+    box-shadow: none
+    top: 0 !important
+    .emulate-shadow
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
+    .inner-modal
+      background-color: #fafafa
+      padding: 0
+      width: 450px
+      margin: 5rem auto
+      border-radius: 2px
+      will-change: top, opacity
+      box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21)
+      transition: all 0.5s ease-out
+  .row
+    &:nth-of-type(2)
+      h5
+        margin-top: 0.82rem
+  .col-title
+    margin-top: 0.7rem
+    margin-bottom: 1rem
+    .prefix
+      vertical-align: middle
+    span 
+      margin-left: 1.3rem
+      font-size: 1.2rem
+      letter-spacing: 1px
+      color: #777777
+      display: inline-block
+      vertical-align: middle
+  [type="radio"]:not(:checked)+label, [type="radio"]:checked+label
+    padding-left: 30px
+    margin-right: 1rem
+    font-family: 'Roboto Condensed', sans-serif
+    letter-spacing: 1.1px
+    &:last-of-type
+      margin-right: 0
+  .col-radio
+    padding-left: 3.4rem
+  .input-field .prefix ~ label, .select-wrapper input.select-dropdown, .select-wrapper
+    font-family: 'Roboto Condensed', sans-serif
+    letter-spacing: 1.1px
+  .select-wrapper input.select-dropdown
+    font-size: 1rem
+  .row
+    margin-bottom: 0
+  .req-modal-success
+    display: none
+    h3
+      color: #fd7c48
+      font-size: 2.5rem
+    h4
+      font-size: 1.4rem
+      span
+        color: #fd7c48
+        font-weight: 700
+      &:first-of-type
+        margin-bottom: 1rem
+  .req-more-body
+    display: none
+  &.fullBid
+    .req-more-body
+      display: block
+    .req-modal-body
+      display: none
