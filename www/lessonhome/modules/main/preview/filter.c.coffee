@@ -186,6 +186,3 @@ ex = (v)=>
   ret2.push p.index for p in ret
   return ret2
 
-
-
-

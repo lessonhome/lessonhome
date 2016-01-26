@@ -15,16 +15,15 @@ cd "$ROOT"
 echo "" > nohup.out
 if [ "$#" -eq 1 ];then
   #iojs ./feel/bin/feel --color &
-  nohup iojs ./feel/bin/feel --color  >> ./nohup.out 2>> ./nohup.out &
+  nohup node ./feel/bin/feel --color  >> ./nohup.out 2>> ./nohup.out &
 else
   #iojs ./feel/bin/feel --color &
-  nohup iojs  ./feel/bin/feel --color >> ./nohup.out 2>> ./nohup.out &
+  nohup node  ./feel/bin/feel --color >> ./nohup.out 2>> ./nohup.out &
 fi
 tail -f ./nohup.out &
 #node ./feel/bin/updater --harmony --force & 
 
 #> log/out.log 2>> log/out.log &
-
 
 
 # ПУК
