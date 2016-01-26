@@ -4,8 +4,6 @@
 
 
 class TutorsLoad
-  constructor : ->
-    $W @
   init : =>
     @jobs = yield Main.service 'jobs'
     
@@ -18,9 +16,9 @@ class TutorsLoad
     @redis = yield Main.service 'redis'
     @redis = yield @redis.get()
 
-    yield @jobs.listen 'reloadTutor', @jobReloadTutor
-    yield @jobs.listen 'prefilterTutors', @jobPrefilterTutors
-    yield @jobs.onSignal 'loadTutorsFromRedis', @jobLoadTutorsFromRedis
+    yield @jobs.listen 'reloadTutor',           => @jobReloadTutor arguments...
+    yield @jobs.listen 'prefilterTutors',       => @jobPrefilterTutors arguments...
+    yield @jobs.onSignal 'loadTutorsFromRedis', => @jobLoadTutorsFromRedis arguments...
     
   jobReloadTutor          : require './reloadTutor'
   jobLoadTutorsFromRedis  : require './loadTutorsFromRedis'
@@ -33,4 +31,4 @@ class TutorsLoad
   
   
 
-module.exports = new TutorsLoad
+module.exports = TutorsLoad

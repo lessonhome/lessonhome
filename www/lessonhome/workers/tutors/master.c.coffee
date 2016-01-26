@@ -4,8 +4,6 @@
 
 
 class TutorsMaster
-  constructor : ->
-    $W @
   init : =>
     @jobs = yield Main.service 'jobs'
     
@@ -50,8 +48,8 @@ class TutorsMaster
   
 
 
+module.exports = TutorsMaster
   
   
   
 
-module.exports = new TutorsMaster

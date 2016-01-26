@@ -139,5 +139,4 @@ class Tutors
 
 
 
-tutors = new Tutors
-module.exports = tutors
+module.exports = Tutors

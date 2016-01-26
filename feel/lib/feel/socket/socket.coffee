@@ -12,6 +12,18 @@ class Socket
   constructor : ->
     Wrap @
   init : =>
+    @workerName = Main.conf.args.file || ""
+    @isWorker = @workerName.match(/^workers\//)?
+  runWorker : =>
+    Class = require "#{process.cwd()}/www/lessonhome/#{@workerName}.c.coffee"
+    obj = new Class
+    obj = $W obj
+    console.log "worker ".blue+@workerName.yellow
+    yield obj.init?()
+    yield obj?.run?()
+    if typeof obj.__handler == 'function'
+      yield @init__Handler '__handler'
+  init__Handler : (obj,handler='handler')=>
     @db = yield Main.service 'db'
     @form = new Form
     yield @form.init()
@@ -21,7 +33,14 @@ class Socket
     else
       @server = http.createServer @handler
       @server.listen Main.conf.args.port
-    @handlers = {}
+    @mainObject       = obj
+    @handlerFunction  = handler
+    @jobs = yield Main.service 'jobs'
+    Q.spawn =>
+      unless global.Feel?.const?
+        @const = yield @jobs.solve 'getConsts'
+        global.Feel ?= {}
+        global.Feel.const = (name)=> @const[name]
   runSsh : =>
     options = {
       key: _fs.readFileSync '/key/server.key'
@@ -36,34 +55,27 @@ class Socket
     @sshServer = https.createServer options,@handler
     @sshServer.listen Main.conf.args.port
   run  : =>
-    str = Main.conf.args.file
-    #if m = str.match /\/(\w+\/\w+\/\w+)$/
-    #  str = '...'+m[1]
-    console.log "service worker ".blue+str.yellow
-    yield @initHandler Main.conf.args.file
-    Q.spawn =>
-      @jobs = yield Main.service 'jobs'
-      unless global.Feel?.const?
-        @const = yield @jobs.solve 'getConsts'
-        global.Feel ?= {}
-        global.Feel.const = (name)=> @const[name]
-  initHandler : (clientName)=>
-    unless @handlers[clientName]?
-      @handlers[clientName] = require "#{process.cwd()}/www/lessonhome/#{clientName}.c.coffee"
-      obj = @handlers[clientName]
-      for key,val of obj
-        if typeof val == 'function'
-          if val?.constructor?.name == 'GeneratorFunction'
-            obj[key] = Q.async val
-          else
-            do (obj,key,val)->
-              obj[key] = (args...)-> Q.then -> val.apply obj,args
-      obj.$db = @db
-      yield obj?.init?()
+    return yield @runWorker() if @isWorker
+    return yield @initHandler()
+  initHandler : =>
+    console.log "handler ".blue+@workerName.yellow
+    obj = require "#{process.cwd()}/www/lessonhome/#{@workerName}.c.coffee"
+    if obj.prototype?
+      obj = $W new obj
+    else for key,val of obj
+      if typeof val == 'function'
+        if val?.constructor?.name == 'GeneratorFunction'
+          obj[key] = Q.async val
+        else
+          do (obj,key,val)->
+            obj[key] = (args...)-> Q.then -> val.apply obj,args
+    yield @init__Handler obj
+    obj.$db = @db
+    yield obj?.init?()
+    yield obj?.run?()
 
   handler : (req,res)=> Q.spawn =>
     host = req.headers.host
-    console.log host
     $ = {}
     $.req = req
     $.res = res
@@ -107,7 +119,7 @@ class Socket
     $.form = @form
     $.updateUser = (session)=> @updateUser req,res,$,session
     try
-      ret = yield @handlers[clientName].handler $,data...
+      ret = yield @mainObject[@handlerFunction] $,data...
     catch e
       console.error Exception e
       ret = {err:"internal_error",status:'failed'}
@@ -139,7 +151,6 @@ class Socket
     cookie = req.cookie
     session ?= cookie.get 'session'
     unknown = cookie.get 'unknown'
-    console.log session
     register = yield @register.register session, cookie.get('unknown'),cookie.get('adminHash')
     session = register.session
     req.user = register.account
