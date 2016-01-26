@@ -127,8 +127,28 @@ textarea.materialize-textarea:focus:not([readonly])
       font-size: 1.22rem
       margin-bottom: 0.5rem
   &.req-more-form
-    width: 450px
-    max-height: none
+    width: 100%
+    max-height: 100%
+    overflow-y: auto
+    background-color: transparent
+    border-radius: 0
+    box-shadow: none
+    top: 0 !important
+    .emulate-shadow
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
+    .inner-modal
+      background-color: #fafafa
+      padding: 0
+      width: 450px
+      margin: 5rem auto
+      border-radius: 2px
+      will-change: top, opacity
+      box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21)
+      transition: all 0.5s ease-out
   .row
     &:nth-of-type(2)
       h5
