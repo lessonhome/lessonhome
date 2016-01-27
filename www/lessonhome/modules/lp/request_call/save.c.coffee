@@ -30,7 +30,7 @@ _phones = [
 ]
 
 @sendSms = (o,isadmin)->
-  return if isadmin || (hostname != 'pi0h.org')
+  return if isadmin || !_production
 
   text = "Обратный звонок\n"
   text += "#{o.name}\n" if o.name
