@@ -16,8 +16,6 @@ class PayMaster
     "LMI_PAYMENT_SYSTEM",
     "LMI_SIM_MODE"
   ]
-  constructor : ->
-    $W @
   init : =>
     @db = yield Main.service 'db'
     @jobs = yield Main.service 'jobs'
@@ -191,4 +189,4 @@ class PayMaster
     return true
 
 
-module.exports = new PayMaster
+module.exports = PayMaster

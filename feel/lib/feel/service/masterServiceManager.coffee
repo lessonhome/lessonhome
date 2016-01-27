@@ -34,31 +34,41 @@ class MasterServiceManager
     qs = []
     os = require 'os'
     
+    first =  {
+      services : true
+    }
+    last = {
+      feel : true
+    }
+    q = []
+    for name of first
+      q.push @runByConf name,@config[name] if @config[name]
+    #yield Q.all q
+    #q = []
     for name,conf of @config
-      if conf.autostart && conf.single
-        num = 1
-        if _production && name=="feel" && os.cpus().length>3
-          num = os.cpus().length-3
-          num = 1 if os.hostname() == 'lessonhome.org'
-        _q = Q()
+      continue if first[name] || last[name]
+      q.push @runByConf name,conf
+    #yield Q.all q
+    #q = []
+    for name of last
+      q.push @runByConf name,@config[name] if @config[name]
 
-        if num != 1
-          for i in [1..num]
-            do (name,conf)=>
-              _q = _q.then =>
-                Main.processManager.runProcess {
-                  name      : 'service-'+name
-                  services  : [name]
-                }
-              _q = _q.then (p)=>
-                _waitFor p,'run',10*60*1000
-          qs.push _q
-        else
-          qs.push Main.processManager.runProcess {
-            name      : 'service-'+name
-            services  : [name]
-          }
     yield Q.all qs
+  runByConf : (name,conf)=>
+    return unless conf.autostart && conf.single
+    num = 1
+    if _production && os.cpus().length>3
+      switch name
+        when 'feel'
+          unless os.hostname() == 'lessonhome.org'
+            num = os.cpus().length-3
+
+    for i in [1..num]
+      process = yield Main.processManager.runProcess {
+          name      : 'service-'+name
+          services  : [name]
+      }
+      yield _waitFor process,'run',10*60*1000
   runService : (name,args)=>
     process = yield Main.processManager.runProcess {name:'service-'+name,services:[name],args}
     yield _waitFor process,'run',10*60*1000

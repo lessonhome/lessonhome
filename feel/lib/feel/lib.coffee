@@ -519,6 +519,7 @@ global.Exception = (e)=>
   str += (""+e.stack).grey          if e.stack?
   return str
 global.ExceptionJson = (e)=>
+  _jsoned : true
   name    : e.name
   message : e.message
   stack   : e.stack
