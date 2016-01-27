@@ -5,7 +5,6 @@ class @main
   access : ['other']
   redirect : {
   }
-  forms: ['pupil']
   tree : => @module '$' :
     lib : @state 'libm'
     header  : @module "$/header"

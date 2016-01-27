@@ -1,3 +1,23 @@
+class Radio
+  constructor: (jQ) ->
+    @parent = jQ
+    @radio = @parent.find('input[type=radio]')
+  val: (val) ->
+    results = null
+
+    @radio.each ->
+      if val?
+
+        if this.value == val
+          this.cheched = true
+
+      else if this.checked
+        results = this.value
+        return false
+
+    return results
+
+
 class @main
   contructor : ->
     $W @
@@ -5,13 +25,27 @@ class @main
   Dom : =>
     @html = $('html')
     @thisScroll = @getScrollWidth()
-    @found.m_select.material_select()
+#    @found.m_select.material_select()
 
-    @found.demo_finish.on 'click', @miniBidSend
-    @found.demo_supplement.on 'click', @bidSupplementShow
-    @found.req_full_send.on 'click', @supplementBidSend
+#    @found.demo_finish.on 'click', @miniBidSend
+#    @found.demo_supplement.on 'click', @bidSupplementShow
+#    @found.req_full_send.on 'click', @supplementBidSend
 
     yield Feel.jobs.listen 'openBidPopup',@jobOpenBidPopup
+
+    @forms = {
+      name: @found.name
+      phone: @found.phone
+      price: new $._material_select @found.price
+      subjects: new $._material_select @found.subjects
+      metro: new $._material_select @found.metro
+      status: new $._material_select @found.status
+      sex: new Radio @found.sex
+      comments: @found.comments
+    }
+
+    @getValue()
+
   jobOpenBidPopup : (bidType)=>
     if (bidType == 'fullBid')
       @found.bid_popup.addClass 'fullBid'
@@ -53,3 +87,9 @@ class @main
     width = div.get(0).offsetWidth - div.get(0).clientWidth
     div.remove()
     return width
+
+  setValue: (v) => console.log v
+  getValue: =>
+    r = {}
+    for key, el of @forms when @forms.hasOwnProperty(key) then r[key] = el.val()
+    return r
