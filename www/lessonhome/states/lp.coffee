@@ -5,6 +5,7 @@ class @main
   access : ['other']
   redirect : {
   }
+  forms: ['pupil']
   tree : => @module '$' :
     lib : @state 'libm'
     header  : @module "$/header"
@@ -24,4 +25,5 @@ class @main
         return prep
     single_profile  : @exports()
     req_call : @module 'lp/request_call'
-    bid_popup : @module 'lp/bid_popup'
+    bid_popup : @module 'lp/bid_popup':
+      value: $urlform: pupil: ''
