@@ -9,6 +9,7 @@ phones = [
   '79267952303'
   '79152292244'
   '79263672997'
+  '79651818071'
 ]
 
 other = (uid,is_admin,data,second)-> do Q.async =>
@@ -36,7 +37,7 @@ other = (uid,is_admin,data,second)-> do Q.async =>
   text += '\n' unless !text || (text.substr(-1)=='\n')
   text += data.comment || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
-  return console.log text if is_admin || (hostname != 'pi0h.org')
+  return console.log text if is_admin || !_production
   messages = []
   for p in phones
     messages.push

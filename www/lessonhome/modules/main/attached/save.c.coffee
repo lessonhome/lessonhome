@@ -37,7 +37,7 @@ other = ($,data,second)-> do Q.async =>
   text += '\n' unless !text || (text.substr(-1)=='\n')
   text += data.comment || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
-  return console.log text if $.user.admin || (hostname != 'pi0h.org')
+  return console.log text if $.user.admin || !_production
   messages = []
   for p in phones
     messages.push

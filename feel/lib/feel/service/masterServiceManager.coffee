@@ -4,10 +4,11 @@ MasterProcessConnect = require '../process/masterProcessConnect'
 
 global.MASTERSERVICEMANAGERSERVICEID = 0
 
+os = require 'os'
 
 class MasterServiceManager
   constructor : ->
-    Wrap @
+    $W @
     @config = {}
     @services =
       byProcess : {}
@@ -15,7 +16,6 @@ class MasterServiceManager
       byName    : {}
     @waitFor = {}
   init : =>
-    @log()
     configs = yield _readdir 'feel/lib/feel/service/config'
     for name in configs
       continue unless m = name.match /^(\w+)\.coffee$/
@@ -30,9 +30,6 @@ class MasterServiceManager
       if conf.autostart && conf.services?
         for serv in conf.services
           @waitFor[serv] = true
-    @log()
-    qs = []
-    os = require 'os'
     
     first =  {
       services : true
@@ -52,8 +49,7 @@ class MasterServiceManager
     #q = []
     for name of last
       q.push @runByConf name,@config[name] if @config[name]
-
-    yield Q.all qs
+    yield Q.all q
   runByConf : (name,conf)=>
     return unless conf.autostart && conf.single
     num = 1
@@ -62,7 +58,6 @@ class MasterServiceManager
         when 'feel'
           unless os.hostname() == 'lessonhome.org'
             num = os.cpus().length-3
-
     for i in [1..num]
       process = yield Main.processManager.runProcess {
           name      : 'service-'+name
@@ -82,7 +77,6 @@ class MasterServiceManager
     wrapper = service
     masterId  = MASTERSERVICEMANAGERSERVICEID++
     name      = yield service.__serviceName
-    #@log "#{process.name}:#{processId}:#{name}"
     @services.byProcess[processId] ?= {}
     @services.byProcess[processId][serviceId] = wrapper
     @services.byId[masterId] = wrapper

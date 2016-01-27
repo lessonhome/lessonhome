@@ -34,7 +34,7 @@ _phones = [
 
 
 @delayRegisterMail = (id,isadmin)->
-  return if isadmin || (hostname != 'pi0h.org')
+  return if isadmin || !_production
   yield Q.delay 1000*60*5
 
   db = yield Main.service 'db'
