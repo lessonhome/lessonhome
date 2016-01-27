@@ -19,6 +19,9 @@ class @main
         index = _setKey @req.udata,'tutorProfile.index'
         jobs = yield Main.service 'jobs'
         prep = yield jobs.solve 'getTutor',{index}
+        pupil = _setKey @req.udata, 'pupil'
+        prep["data_pupil"] = pupil
         return prep
     single_profile  : @exports()
     req_call : @module 'lp/request_call'
+    bid_popup : @module 'lp/bid_popup'

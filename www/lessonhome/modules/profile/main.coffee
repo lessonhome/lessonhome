@@ -75,12 +75,35 @@ class @main
     @templ_short_place = new templ @found.template_short_places
     @templ_place = new templ @found.template_places
     @templ_review = new templ @found.template_reviews
+
+    getListener = (name) =>
+      return (e) =>
+        o = {}
+        o[name] = $(e.target).val()
+        Feel.urlData.set 'pupil', o
+        Feel.sendActionOnce('interacting_with_form', 1000*60*10)
+
+    @listenName = getListener 'name'
+    @listenPhone = getListener 'phone'
+
   show: =>
-    @reviewMark.scrollSpy()
+#    @reviewMark.scrollSpy()
     @message_send.on 'click', @onSendMessage
     @found.show_detail.on 'click', @onShowDetail
     @chooseTutor.on 'click', => Q.spawn => yield @onTutorChoose()
-    Feel.urlData.on 'change',=> Q.spawn => yield @setLinked()
+    Feel.urlData.on 'change',=>
+      pupil = Feel.urlData.get 'pupil'
+
+      @message_name.val(pupil.name).focusin().focusout()
+      @message_phone.val(pupil.phone).focusin().focusout()
+
+      Q.spawn =>
+        yield @setLinked()
+
+    @message_name.on 'change', @listenName
+    @message_phone.on 'change', (e) =>
+      @listenPhone(e)
+      @save(false, true)
 
     @found.back.on 'click', (e)=>
       return unless e.button == 0
@@ -88,7 +111,7 @@ class @main
       Q.spawn => yield @goBack()
     #yield @open()
     yield @matchAny() if @tree.single_profile== "tutor_profile"
-  
+
   matchAny : (force=false)=>
     #return unless @tree.value?.index
     if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
@@ -357,14 +380,14 @@ class @main
       @found.send_form.animate({opacity: '1'})
     )
 
-  save : (show_er = false) => do Q.async =>
+  save : (show_er = false, quiet = false) => do Q.async =>
     data = @getData()
     errs = @js.check(data)
 
     if errs.length
       return show_er && {status: 'failed', errs}
 
-    r = yield @$send('../main/attached/save', data)
+    r = yield @$send('../main/attached/save', data, quiet && 'quiet' || '')
 
     if r.status == 'success'
       Feel.sendActionOnce 'direct_bid'
@@ -408,6 +431,10 @@ class @main
   hide : =>
     @chooseTutor.off 'click'
     @found.back.off 'click'
+    @found.show_detail.off 'click'
+    @message_send.off 'click'
+    @message_name.off 'change'
+    @message_phone.off 'change'
 
   getData : =>
     return {

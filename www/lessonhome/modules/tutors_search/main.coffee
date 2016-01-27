@@ -168,7 +168,7 @@ class @main
     @hashnow = hashnow
     unless force
       if (new Date().getTime() - @loadedTime)>(1000*5)
-        Feel.sendActionOnce 'tutors_filter',1000*60*2
+        Feel.sendActionOnce 'tutors_filter',1000*60*20
     @changed = true
     yield @reshow()
   toOldFilter : =>

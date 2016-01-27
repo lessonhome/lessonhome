@@ -9,7 +9,7 @@ class @main
     @appFormTwo       = @found.app_two_form
     @appFormThree     = @found.app_three_form
     @defaultAppStep   = 0
-    
+    @listeners = []
     @fast_form =
       subjects: new $._material_select @found.fast_sub
       metro: new $._material_select @found.fast_branch
@@ -29,8 +29,11 @@ class @main
     @found.app_next.on 'click', => Q.spawn => @changeFormStep 'next'
     @found.app_prev.on 'click', => Q.spawn => @changeFormStep 'prev'
     #@found.popup.on 'click', -> Feel.root.tree.class.attached.showForm()
-    @form.name.on 'change', (e) ->Feel.urlData.set 'pupil', 'name', this.value
-    @form.phone.on 'change', (e) ->Feel.urlData.set 'pupil', 'phone', this.value
+    @form.name.on 'change', (e) ->
+      Feel.urlData.set 'pupil', 'name', this.value
+    @form.phone.on 'change', (e) =>
+      Feel.urlData.set 'pupil', 'phone', e.target.value
+      Q.spawn => yield @sendForm(true)
 
     @found.send_form.on 'click', @sendFastForm
     @prepareLink @found.rew.find('a')
@@ -51,16 +54,50 @@ class @main
       return (element) ->
         Feel.urlData.set 'pupil', name, element.val()
 
+    setListenerForm = (form, callback) ->
+      for key, field of form when form.hasOwnProperty(key)
+        field.on? 'change', callback
+
     sub_listener = getListener('subjects')
+    cou_listener = getListener('course')
 
     @fast_form.subjects.on 'change', sub_listener
     @form.subjects.on 'change', sub_listener
-    @form.course.on 'change', getListener('course')
+    @form.course.on 'change', cou_listener
+
+    @listeners.push {
+      t: 'change'
+      c: sub_listener
+      e: [@fast_form.subjects, @form.subjects]
+    }
+
+    @listeners.push {
+      t: 'change'
+      c: cou_listener
+      e: [@form.course]
+    }
+
+    @setListenerForm @form, 'change', ->
+      Feel.sendActionOnce('interacting_with_form', 1000*60*10)
 
     Q.spawn =>
       indexes = []
       for key, t of @tree.main_rep when @tree.main_rep.hasOwnProperty(key) then indexes.push t.index
       yield Feel.dataM.getTutor indexes
+
+  setListenerForm : (form, type, callback) ->
+    a = {c: callback, e: [], t: type}
+    @listeners.push a
+    for key, field of form when form.hasOwnProperty(key)
+      if field.on?
+        field.on type, callback
+        a.e.push field
+
+  remListener : ->
+    for l in @listeners
+      for el in l.e
+        el.off l.t, l.c
+    @listeners = []
 
   changeFormAnimation : (appStep, route) =>
     switch appStep
@@ -153,9 +190,7 @@ class @main
 
     input.addClass('invalid')
 
-
-
-  sendForm : () =>
+  sendForm : (quiet = false) =>
     data = yield Feel.urlData.get 'pupil'
     data.comment = @form.comment.val()
     data = @js.takeData data
@@ -163,7 +198,7 @@ class @main
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     errs = @js.check(data)
     if errs.length is 0
-      {status, err, errs} = yield @$send('./save', data, 'quiet')
+      {status, err, errs} = yield @$send('./save', data, quiet && 'quiet')
 
       if status is 'success'
         Feel.sendActionOnce 'bid_popup'
@@ -202,4 +237,7 @@ class @main
           @defaultAppStep--
 
     return true
+
+  hide : () ->
+    @remListener()
 
