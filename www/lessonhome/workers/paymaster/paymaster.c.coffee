@@ -26,7 +26,7 @@ class PayMaster
     yield @jobs.listen 'addTrans', @addTrans
     yield @jobs.listen 'delTrans', @delTrans
     @bills = yield @db.get 'bills'
-
+    
   getPay : ({url, body}) =>
     body = body[0] if body.length
     if yield @validAnswer body

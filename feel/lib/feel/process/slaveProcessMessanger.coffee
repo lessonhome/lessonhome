@@ -21,9 +21,6 @@ class SlaveProcessMessanger
   onMessage : ({msg,args  })=>
     @ee.emit msg,args...
   query     : (args...)=> # query(name,args...)
-    switch args[0]
-      when 'connect'
-        return @jobs.solve 'process-connect-'+args[1].type,args[1]
     id = global.SLAVEPROCESSMESSANGERID++
     defer = Q.defer()
     @ee.once 'query:'+id, (err,data)=>

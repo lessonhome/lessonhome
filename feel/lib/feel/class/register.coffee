@@ -4,7 +4,7 @@ bcrypt = require 'bcryptjs'
 
 time = (str)=>
   t = new Date().getTime()
-  console.log str,t-@t if str
+  #console.log str,t-@t if str
   @t = t
 
 

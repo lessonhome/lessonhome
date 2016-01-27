@@ -14,10 +14,10 @@ cd "$ROOT"
 #killall -KILL nodejs 2>> /dev/null
 #echo "" > nohup.out
 if [ "$#" -eq 1 ];then
-  node ./feel/bin/feel --harmony-proxies --color &
+  node --harmony_proxies ./feel/bin/feel  --color &
   #nohup node ./feel/bin/feel --color  >> ./nohup.out 2>> ./nohup.out &
 else
-  node ./feel/bin/feel --harmony-proxies --color &
+  node --harmony_proxies ./feel/bin/feel  --color &
   #nohup node  ./feel/bin/feel --color >> ./nohup.out 2>> ./nohup.out &
 fi
 #tail -f ./nohup.out &

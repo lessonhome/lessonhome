@@ -9,7 +9,7 @@ module.exports = (key)->
       return false
   return true if ee[key]?
   switch key
-    when 'init','log','error','_lock','_unlock','_block','_unblock','_single'
+    when 'init','log','error','_lock','_unlock','_block','_unblock','_single','then'
       return true
   if key.match /^__.*$/
     return true

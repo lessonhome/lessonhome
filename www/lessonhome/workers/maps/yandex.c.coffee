@@ -4,7 +4,7 @@
 
 class YandexMap
   init : =>
-    
+  
 
 
 

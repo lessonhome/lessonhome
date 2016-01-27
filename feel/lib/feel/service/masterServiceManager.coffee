@@ -15,6 +15,8 @@ class MasterServiceManager
       byId      : {}
       byName    : {}
     @waitFor = {}
+    @redis = _Helper('redis/main').get()
+    @jobs = _Helper 'jobs/main'
   init : =>
     configs = yield _readdir 'feel/lib/feel/service/config'
     for name in configs
@@ -25,6 +27,11 @@ class MasterServiceManager
       @config[name] = service
       if service.autostart
         @waitFor[name] = true
+    @redis = yield @redis
+    yield _invoke @redis,'set','__masterProcessConfig',JSON.stringify @config
+    yield @jobs.listen 'masterServiceManager-runServices',(args...)=> @runServices args...
+    
+    
   run  : =>
     for name,conf of Main.processManager.config
       if conf.autostart && conf.services?
@@ -39,16 +46,16 @@ class MasterServiceManager
     }
     q = []
     for name of first
-      q.push yield @runByConf name,@config[name] if @config[name]
+      q.push @runByConf name,@config[name] if @config[name]
     #yield Q.all q
     #q = []
     for name,conf of @config
       continue if first[name] || last[name]
-      q.push yield  @runByConf name,conf
+      q.push @runByConf name,conf
     #yield Q.all q
     #q = []
     for name of last
-      q.push yield @runByConf name,@config[name] if @config[name]
+      q.push @runByConf name,@config[name] if @config[name]
     yield Q.all q
   runByConf : (name,conf)=>
     return unless conf.autostart && conf.single
@@ -65,10 +72,15 @@ class MasterServiceManager
           services  : [name]
       }
       yield _waitFor process,'run',10*60*1000
-    console.log "RUN OK".yellow,name.yellow,"#{new Date().getTime()-t}".blue
+    console.log "Started: ".blue,name.yellow,"\t#{new Date().getTime()-t}ms".blue
   runService : (name,args)=>
     process = yield Main.processManager.runProcess {name:'service-'+name,services:[name],args}
     yield _waitFor process,'run',10*60*1000
+  runServices : (arr)=>
+    qs = []
+    for a in arr
+      qs.push @runService a[0],a[1]
+    yield Q.all qs
   connectService : (processId,serviceId)=>
     process = yield Main.processManager.getProcess processId
     service = new MasterProcessConnect {
