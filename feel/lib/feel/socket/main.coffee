@@ -21,7 +21,7 @@ class Socket
     @register = yield Main.service 'register'
     @server = http.createServer @handler
     @server.listen 8082
-    if os.hostname() == 'pi0h.org'
+    if _production
       yield @runSsh()
     @handlers = {}
   runSsh : =>

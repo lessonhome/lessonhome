@@ -75,7 +75,7 @@
       //.js-tutors_list
         !=tutor
       .js-tutors_list
-        - if((!tutors)|| (!tutors.length))tutors = [];
+        - if((!tutors)|| (!tutors[0]))tutors = [];
         each t in tutors
           !=t
   .two-step-bg

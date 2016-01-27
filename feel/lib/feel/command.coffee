@@ -28,7 +28,7 @@ process.on 'SIGTERM', =>
 
 class module.exports
   constructor : ->
-    Wrap @
+    $W @
     @domain   = require 'domain'
     @context  = @domain.create()
     @context.on 'error', @onerror

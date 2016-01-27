@@ -8,8 +8,13 @@ class @main
   show: =>
     @found.open_form.click => Q.spawn => yield Feel.root.tree.class.attached.showForm()
     Q.spawn =>
-      @found.go_find.attr 'href','/tutors_search?'+yield Feel.udata.d2u('mainFilter',@tree.filter)
-
+      filter =
+        mainFilter : @tree.filter
+        tutorsFilter :
+          subjects : @tree?.filter?.subject
+      filter = yield Feel.udata.d2u filter
+      @found.go_find.attr 'href','/tutors_search?'+filter
+    
     @on 'change', ->
       Feel.sendActionOnce('interacting_with_form', 1000*60*10)
 

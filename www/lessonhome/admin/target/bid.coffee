@@ -25,3 +25,11 @@
   }
   { value : 'target.name'}
 ]
+
+
+@filter = [
+  {
+    type: 'input',
+    value: 'text'
+  }
+]

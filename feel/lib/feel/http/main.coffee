@@ -8,11 +8,6 @@ class Http
     Wrap @
     hostname = os.hostname()
     @port = 8081
-    switch hostname
-      when 'pi0h.org'
-        @port = '8081'
-      else
-        @port = '8081'
   init : =>
     @server = http.createServer (args...)=> @handler(args...).catch(@error).done()
     @server.on 'error', @error

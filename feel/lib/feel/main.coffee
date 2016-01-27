@@ -5,6 +5,7 @@ MasterServiceManager = require './service/masterServiceManager'
 
 class Main
   constructor : ->
+    $W @
     @name = 'Master'
     @startTime = new Date()
     setInterval =>
@@ -14,16 +15,13 @@ class Main
       hour = min*60
       console.log "started time 
         #{Math.floor(t/hour)}:#{Math.floor((t/min)%60)}:#{Math.floor((t/sec)%60)}".grey
-    , 30000
-    Wrap @
+    , 5*60*1000
   init : =>
-    @log()
     @serviceManager = new MasterServiceManager()
     @processManager = new MasterProcessManager()
-    yield @serviceManager.init()
-    yield @processManager.init()
+    yield @serviceManager.init?()
+    yield @processManager.init?()
     yield @serviceManager.run?()
     yield @processManager.run?()
-    @log 'OK'
 module.exports = Main
 

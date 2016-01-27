@@ -12,9 +12,26 @@ setInterval ->
 ###
 String::capitalizeFirstLetter = -> @charAt(0).toUpperCase() + @slice(1)
 
-global._production = false
-if require('os').hostname() == 'pi0h.org'
-  global._production = true
+switch require('os').hostname()
+  when 'pi0h.org','lessonhome.org','lessonhome.ru'
+    global._production = true
+  else
+    global._production = false
+
+fs = require 'fs'
+
+logStream = fs.createWriteStream './out',flags:'a'
+errStream = fs.createWriteStream './err',flags:'a'
+
+swrite = process.stdout.write
+process.stdout.write = ->
+  swrite.apply process.stdout, arguments
+  logStream.write arguments...
+swriteerr = process.stderr.write
+process.stderr.write = ->
+  swriteerr.apply process.stderr, arguments
+  errStream.write arguments...
+   
 
 last = ""
 log =
@@ -502,6 +519,7 @@ global.Exception = (e)=>
   str += (""+e.stack).grey          if e.stack?
   return str
 global.ExceptionJson = (e)=>
+  _jsoned : true
   name    : e.name
   message : e.message
   stack   : e.stack

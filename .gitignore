@@ -22,3 +22,6 @@ feel/.npmversion
 **/static/user_data
 **/static/urldata/**/*.json
 nohup.out
+out
+err
+client.out

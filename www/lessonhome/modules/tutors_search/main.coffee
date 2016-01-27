@@ -173,9 +173,24 @@ class @main
     yield @reshow()
   toOldFilter : =>
     filters = yield Feel.urlData.get 'tutorsFilter'
+    olds = yield Feel.urlData.get 'mainFilter'
     mf = {}
     mf.subject = filters.subjects
+    ss = {}
+    mf.subject ?= []
+    for s in mf.subject
+      ss[s] = true
+    if olds.subject[0]
+      for s in olds.subject
+          ss[s] = true
+    mf.subject = Object.keys ss
     mf.course = filters.course ? []
+    ss = []
+    for c in mf.course
+      ss[c] = true
+    for c in (olds.course ? [])
+      ss[c] = true
+    mf.course = Object.keys ss
     l = 500
     r = 6000
     if filters.price?["до 700 руб."]

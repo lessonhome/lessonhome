@@ -6,7 +6,7 @@ class Services
     $W @
     @services = {}
     @startPort = 8900
-  init : ->
+  run : =>
     readed  = yield _readdirp
       root : 'www/lessonhome'
       fileFilter : '*.c.coffee'
