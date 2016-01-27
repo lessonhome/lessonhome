@@ -114,6 +114,11 @@
             label(for='req_s2') Мужской
             input(name="req_sex" type="radio" id="req_s3").with-gap
             label(for='req_s3') Женский
+        .row.bid-textarea
+          .col.s12.input-field
+            i.material-icons.prefix mode_edit
+            textarea#bid_textarea.materialize-textarea
+            label(for='bid_textarea') Ваш комментарий
       .modal-footer
         a(href='#!').btn.orange-btn.waves-effect.waves-light.js-req_full_send <i class="material-icons right">send</i> Отправить
     .req-modal-success.js-req_full_success
