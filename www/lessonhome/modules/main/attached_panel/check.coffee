@@ -8,6 +8,7 @@
   'gender'
   'experience'
   'place'
+  'prices'
   [
     'calendar'
     ['11','12','13','21','22','23','31','32','33','41','42','43','51','52', '53','61','62','63', '71', '72', '73']
@@ -19,6 +20,7 @@
       'native_speaker'
       'school_teacher'
       'student'
+      'private_teacher'
     ]
   ]
   [
@@ -31,6 +33,7 @@
   ]
 #  'subject_comment'
   'subject'
+  'metro'
   'subjects' #multiselect on main page
   'course' #multiselect on main page
   'email'

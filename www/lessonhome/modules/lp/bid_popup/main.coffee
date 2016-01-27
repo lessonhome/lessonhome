@@ -18,7 +18,7 @@ class Radio
     return results
 
 
-class @main
+class @main extends EE
   contructor : ->
     $W @
 
@@ -29,22 +29,57 @@ class @main
 
 #    @found.demo_finish.on 'click', @miniBidSend
 #    @found.demo_supplement.on 'click', @bidSupplementShow
-#    @found.req_full_send.on 'click', @supplementBidSend
+    @found.req_full_send.on 'click', =>
+      Q.spawn =>
+        if yield @sendForm()
+          @miniBidSend()
+          @found.demo_supplement.one 'click', @bidSupplementShow
 
     yield Feel.jobs.listen 'openBidPopup',@jobOpenBidPopup
 
     @forms = {
       name: @found.name
       phone: @found.phone
-      price: new $._material_select @found.price
+      prices: new $._material_select @found.price
       subjects: new $._material_select @found.subjects
       metro: new $._material_select @found.metro
       status: new $._material_select @found.status
-      sex: new Radio @found.sex
-      comments: @found.comments
+      gender: new Radio @found.sex
+      comment: @found.comment
     }
 
-    @getValue()
+    @metroColor @forms.metro
+
+
+    getListener = (name, el) ->
+      return  (e) ->
+        o = {}
+        o[name] = el.val()
+        Feel.urlData.set 'pupil', o
+
+    for k in ['name', 'subjects']
+      @forms[k].on? 'change', getListener k, @forms[k]
+
+    l_phone = getListener 'phone', @forms['phone']
+    @forms['phone'].on? 'change', =>
+      l_phone()
+      Q.spawn => yield @sendForm(true)
+
+  show: =>
+
+    @dom.find('.slide_collapse').on 'click' ,'.optgroup', (e)=>
+      thisGroup = $(e.currentTarget)
+      slider = thisGroup.closest('ul')
+      thisGroupNumber = thisGroup.attr('data-group')
+      thisOpen = thisGroup.attr('data-open')
+      if thisOpen == '0'
+        slider.find('li[class*="subgroup"]').slideUp(400)
+        slider.find('.optgroup').attr('data-open', 0)
+        slider.find('.subgroup_' + thisGroupNumber).slideDown(400)
+        thisGroup.attr('data-open', 1)
+      else
+        slider.find('.subgroup_' + thisGroupNumber).slideUp(400)
+        thisGroup.attr('data-open', 0)
 
   jobOpenBidPopup : (bidType)=>
     if (bidType == 'fullBid')
@@ -63,15 +98,13 @@ class @main
   miniBidSend: =>
     #отправка быстрой формы
     @found.req_body.fadeOut 300, =>
+      @found.longer.show()
       @found.req_success.fadeIn 300
   bidSupplementShow : =>
     #функция показа подробной формы по нажатию ДОПОЛНИТЬ ЗАЯВКУ
     @found.req_success.fadeOut 300, =>
-      @found.more_body.fadeIn 300
-  supplementBidSend : =>
-    #отправка подробной формы
-    @found.more_body.fadeOut 300, =>
-      @found.req_full_success.fadeIn 300
+      @found.full_btn.hide()
+      @found.req_body.fadeIn 300
 
   getScrollWidth : =>
     div = $('<div>').css {
@@ -88,8 +121,76 @@ class @main
     div.remove()
     return width
 
-  setValue: (v) => console.log v
+  getExist: (arr) =>
+    exist = {}
+    for l in arr then exist[l] = true
+    return exist
+
+  sendForm: (quiet = false) =>
+    data = @getValue()
+    errs = @js.check data
+
+    if errs.length == 0
+      {status, errs, err} = yield @$send('./save', data, quiet && 'quiet')
+      if status == 'success'
+        Feel.sendActionOnce 'bid_popup'
+        return true
+      errs?=[]
+      errs.push err if err
+
+    Feel.sendAction 'error_on_page'
+    @showError errs
+    return false
+
+  setValue: (v) =>
+    @forms.phone.val(v.phone).focusin().focusout()
+    @forms.name.val(v.name).focusin().focusout()
+    @forms.subjects.val v.subjects
+
   getValue: =>
     r = {}
     for key, el of @forms when @forms.hasOwnProperty(key) then r[key] = el.val()
+    for k in ['metro', 'status']
+      r[k] = @getExist r[k]
     return r
+
+  showError: (errs)  =>
+    for e in errs
+      switch e
+        when 'wrong_phone'
+          @errInput @forms.phone, 'Введите корректный телефон'
+        when 'empty_phone'
+          @errInput @forms.phone, 'Введите телефон'
+
+
+  metroColor : (_material_select) =>
+    return unless @tree.metro_lines?
+    _material_select.ul.find('li.optgroup').each (i, e) =>
+      li = $(e)
+      name = li.next().attr('data-value')
+      return true unless name
+      name = name.split(':')
+      return true if name.length < 2
+      return true unless @tree.metro_lines[name[0]]?
+      elem = $('<i class="material-icons middle-icon">fiber_manual_record</i>')
+      elem.css {color: @tree.metro_lines[name[0]].color}
+      li.find('span').prepend(elem)
+
+  errInput: (input, error) =>
+
+    if error?
+      input.next('label').attr 'data-error', error
+      parent = input.closest('.input-field')
+
+      if parent.length and !parent.is('.err_show')
+        parent.addClass('err_show')
+        bottom = parent.stop(false, true).css 'margin-bottom'
+        parent.animate {marginBottom: parseInt(bottom) + 17 + 'px'}, 200
+        input.one 'blur', ->
+          parent
+          .removeClass('err_show')
+          .stop().animate {marginBottom: bottom}, 200, ->
+            parent
+            .css 'margin-bottom', ''
+
+    input.addClass('invalid')
