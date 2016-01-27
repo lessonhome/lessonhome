@@ -7,11 +7,13 @@ Service   = require '../service/service'
 SlaveServiceManager = require '../service/slaveServiceManager'
 Messanger = require './slaveProcessMessanger'
 
+
 class SlaveProcessFork
   constructor : ->
     Wrap @
   init : =>
     @conf   = JSON.parse process.env.FORK
+    @jobs = _Helper 'jobs/main'
     @processId  = @conf.processId
     @name       = @conf.name
     #console.log @conf.name,@conf
@@ -31,6 +33,10 @@ class SlaveProcessFork
     yield Q.all qs
     @messanger.send 'run'
   service : (name)=> @serviceManager.nearest name
+  serv : (name)=>
+    proxy = new Proxy {},{
+      get : (t,key,rec)=> => @jobs.solve "process--#{name}",key,arguments...
+    }
 
 
 module.exports = SlaveProcessFork

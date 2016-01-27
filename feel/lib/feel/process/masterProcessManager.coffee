@@ -73,6 +73,7 @@ class MasterProcessManager
           @query.__emit "#{name}:#{id}",ExceptionJson err
   q_nearest : (args...)=>
   jobConnectMasterProcessManager : (conf)=>
+  jobConnectMasterServiceManager : (conf)=>
   q_connect : (conf)=>
     connector = new MasterProcessConnector conf, yield @getProcess conf.processId
     yield connector.init()

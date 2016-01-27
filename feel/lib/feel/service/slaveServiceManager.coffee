@@ -3,7 +3,7 @@ util = require 'util'
 
 SlaveProcessConnect = require '../process/slaveProcessConnect'
 Service             = require './service'
-
+_blackList = require '../process/blackList'
 class SlaveServiceManager
   constructor : ->
     Wrap @
@@ -13,6 +13,7 @@ class SlaveServiceManager
       others  : {}
     @waitFor = {}
     @serviceById = {}
+    @jobs = _Helper 'jobs/main'
   init : =>
     #@log()
     @master = new SlaveProcessConnect 'masterServiceManager'
@@ -73,6 +74,13 @@ class SlaveServiceManager
     unless conf.autostart && !conf.single
       qs.push @connectServiceToMaster(service)
     yield service.init()
+    Q.spawn => @jobs.listen "process--#{name}", (key,args...)=> service[key] args...
+    ###
+    for key,val of service
+      continue unless typeof val == 'function'
+      continue if _blackList key
+      do (key)=> Q.spawn => @jobs.listen "process--#{name}--#{key}", => service[key] arguments...
+    ###
     @serviceById[service.id] = wrapper
     @services.self[name] ?= []
     @services.self[name].push wrapper

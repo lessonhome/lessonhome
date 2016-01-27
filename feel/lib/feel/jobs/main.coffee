@@ -43,7 +43,7 @@ class Jobs
             else throw new Error 'wrong job_type(jobs or client_jobs) but '+job_type
           @redisP.publish obj.id,JSON.stringify {data:ret}
         catch err
-          console.error err
+          console.error "onMessage listening[#{name}].foo",obj.data...,Exception err
           @redisP.publish obj.id,JSON.stringify {err:ExceptionJson(err)}
       yield Q.delay 0
   onSignal : (name,foo)=>

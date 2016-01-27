@@ -1,5 +1,6 @@
 
 
+require 'harmony-reflect'
 require 'colors'
 global._colors = require 'colors/safe'
 ###
