@@ -216,7 +216,7 @@ class @Feel
       delete @_popupAdd[key]
   sendAction : (action,params)=>
     @yaC ?= yaCounter30199739 ? undefined
-    return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
+    #return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
     unless params?
       @yaC?.reachGoal? action
     else
