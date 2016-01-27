@@ -14,7 +14,6 @@ class Socket
   init : =>
     @workerName = Main.conf.args.file || ""
     @isWorker = @workerName.match(/^workers\//)?
-    console.log @workerName.red
   runWorker : =>
     Class = require "#{process.cwd()}/www/lessonhome/#{@workerName}.c.coffee"
     obj = new Class
@@ -56,7 +55,6 @@ class Socket
     @sshServer = https.createServer options,@handler
     @sshServer.listen Main.conf.args.port
   run  : =>
-    return
     return yield @runWorker() if @isWorker
     return yield @initHandler()
   initHandler : =>
@@ -107,7 +105,6 @@ class Socket
       else
         _keys.push d
     console.log "client:".blue+clientName.yellow+("::handler("+_keys.join(',')+");").grey
-    yield @initHandler clientName
     $.db = @db
     do (req,res)=>
       req ?= {}

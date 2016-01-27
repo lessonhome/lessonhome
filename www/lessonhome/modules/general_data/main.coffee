@@ -43,9 +43,7 @@ class @main
       errs.push err
     if status=='success'
       return true
-    if errs?.length
-      for e in errs
-        @parseError e
+    @showError errs
     return false
 
   check_form : =>
@@ -64,8 +62,7 @@ class @main
       errs.push 'empty_date'
     if !@status.exists() && @status.getValue().length!=0
       errs.push 'bad_status'
-    for e in errs
-      @parseError e
+    @showError errs
     return errs.length==0
 
   getData : =>
@@ -79,6 +76,14 @@ class @main
       year        : @year.getValue()
       status      : @status.getValue()
     }
+
+  showError : (errs) =>
+    errs = [errs] if typeof(errs) is 'string'
+
+    if errs?.length
+      Feel.sendAction 'error_on_page'
+      for e in errs
+        @parseError e
 
   parseError : (err)=>
     switch err

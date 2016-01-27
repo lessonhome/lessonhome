@@ -44,7 +44,7 @@ class @main extends EE
     @printErrors ret.err if ret?.err?
     return if ret?.err?
     login = ret.login if ret?.login?
-    console.log pass
+
     unless pass.substr(0,1) == '`'
       len = pass.length
       pass = LZString.compress((CryptoJS.SHA1(pass)).toString(CryptoJS.enc.Hex)).toString()

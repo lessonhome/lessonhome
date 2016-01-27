@@ -2,6 +2,7 @@ class @main
   constructor : ->
     $W @
   Dom : =>
+    @loadedTime = new Date().getTime()
     @showFilter   = @found.show_filter
     @filterBlock  = @found.filter_block
     @listTutors   = @found.list_tutors
@@ -22,15 +23,11 @@ class @main
     @tree.tutor_test = @tree.tutor
   show: =>
     @found.tutors_list.find('>div').remove()
-    
+
     #@advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll.tutors',@onscroll
-    
-    @on 'change', =>
-      if (new Date().getTime() - @loadedTime)>(1000*5)
-        Feel.sendActionOnce 'tutors_filter',1000*60*2
-    Feel.urlData.on 'change', => Q.spawn =>
-      yield @apply_filter()
+    Feel.urlData.on 'change', (force) => Q.spawn =>
+      yield @apply_filter(force)
     ### TODO
     @tree.advanced_filter.apply.class.on 'submit',=> Q.spawn =>
       #top = $('#m-main-advanced_filter').offset?()?.top
@@ -42,7 +39,7 @@ class @main
     @showFilter.on 'click', (e)=>
       thisShowButton = e.currentTarget
       if(@filterStatus == 0)
-        $(thisShowButton).html('Подобрать репетиторов (1233)')
+        $(thisShowButton).html('Подобрать репетиторов')
         $(@filterBlock).slideDown('fast')
         $(@listTutors).slideUp('fast')
         @filterStatus = 1
@@ -169,7 +166,9 @@ class @main
     hashnow = yield Feel.urlData.filterHash url:"blabla?"+filter
     return if (@hashnow == hashnow) && !force
     @hashnow = hashnow
-
+    unless force
+      if (new Date().getTime() - @loadedTime)>(1000*5)
+        Feel.sendActionOnce 'tutors_filter',1000*60*20
     @changed = true
     yield @reshow()
   toOldFilter : =>

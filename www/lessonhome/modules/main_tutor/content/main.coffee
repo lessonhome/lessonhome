@@ -81,6 +81,7 @@ class @main extends EE
     return null
 
   printErrors : (err)=>
+    Feel.sendAction 'error_on_page'
     #console.log err
     switch err
       when 'wrong_password'

@@ -4,10 +4,11 @@ MasterProcessConnect = require '../process/masterProcessConnect'
 
 global.MASTERSERVICEMANAGERSERVICEID = 0
 
+os = require 'os'
 
 class MasterServiceManager
   constructor : ->
-    Wrap @
+    $W @
     @config = {}
     @services =
       byProcess : {}
@@ -15,7 +16,6 @@ class MasterServiceManager
       byName    : {}
     @waitFor = {}
   init : =>
-    @log()
     configs = yield _readdir 'feel/lib/feel/service/config'
     for name in configs
       continue unless m = name.match /^(\w+)\.coffee$/
@@ -30,9 +30,6 @@ class MasterServiceManager
       if conf.autostart && conf.services?
         for serv in conf.services
           @waitFor[serv] = true
-    @log()
-    qs = []
-    os = require 'os'
     
     first =  {
       services : true
@@ -43,34 +40,25 @@ class MasterServiceManager
     q = []
     for name of first
       q.push yield @runByConf name,@config[name] if @config[name]
-    console.log 'WAIT FOR FIRST'.red
     #yield Q.all q
-    console.log 'WAIT FOR FIRST OK'.red
-    q = []
+    #q = []
     for name,conf of @config
       continue if first[name] || last[name]
       q.push yield  @runByConf name,conf
-    console.log 'WAIT FOR SEC'.red,q
     #yield Q.all q
-    console.log 'WAIT FOR SEC OK'.red
-    q = []
+    #q = []
     for name of last
       q.push yield @runByConf name,@config[name] if @config[name]
-
-    console.log 'WAIT FOR 3'.red
-    #yield Q.all qs
-    console.log 'WAIT FOR 3 ok'.red
+    yield Q.all q
   runByConf : (name,conf)=>
     return unless conf.autostart && conf.single
     t = new Date().getTime()
-    console.log "RUN ".red,name.yellow
     num = 1
     if _production && os.cpus().length>3
       switch name
         when 'feel'
           unless os.hostname() == 'lessonhome.org'
             num = os.cpus().length-3
-
     for i in [1..num]
       process = yield Main.processManager.runProcess {
           name      : 'service-'+name
@@ -91,7 +79,6 @@ class MasterServiceManager
     wrapper = service
     masterId  = MASTERSERVICEMANAGERSERVICEID++
     name      = yield service.__serviceName
-    #@log "#{process.name}:#{processId}:#{name}"
     @services.byProcess[processId] ?= {}
     @services.byProcess[processId][serviceId] = wrapper
     @services.byId[masterId] = wrapper

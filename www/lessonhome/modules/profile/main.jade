@@ -287,12 +287,12 @@
         .row
           .input-field.col.s12
             //i.material-icons.prefix account_circle
-            input(type='text')#name.js-message_name
+            input(type='text', value=value.name_pupil)#name.js-message_name
             label(for='name') Ваше имя
         .row
           .input-field.col.s12
             //i.material-icons.prefix phone
-            input(type='text')#phone.js-message_phone
+            input(type='text', value=value.phone_pupil)#phone.js-message_phone
             label(for='phone', data-error="Введите корректный телефон") Ваш телефон
 
         -exist = value.sub && Object.keys(value.sub).length
@@ -302,7 +302,7 @@
               select#sub
                 each sub in value.sub
                   if sub
-                    option(value = sub )!= sub
+                    option(value = sub, selected=value.subject_pupil == sub)!= sub
             label(for='sub') Выберите предмет
 
         .row
@@ -313,5 +313,5 @@
         .col.l3.m3.s3
           i.medium.material-icons.teal-text.text-lighten-1 done
         .col.l9.m9.s9.left-align
-          h5 Спасибо, Ваше сообщение успешно отправлено
-
+          h5 Спасибо, Ваше сообщение успешно отправлено.
+          
