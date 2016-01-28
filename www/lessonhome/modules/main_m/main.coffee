@@ -33,22 +33,24 @@ class @main
       Feel.urlData.set 'pupil', 'name', this.value
     @form.phone.on 'change', (e) =>
       Feel.urlData.set 'pupil', 'phone', e.target.value
-      Q.spawn => yield @sendForm(true)
+      Q.spawn => @sendForm(true)
 
     @found.send_form.on 'click', @sendFastForm
     @prepareLink @found.rew.find('a')
-    $('.slide_collapse .optgroup').on 'click', (e)=>
-      thisGroup = e.currentTarget
-      thisGroupNumber = $(thisGroup).attr('data-group')
-      thisOpen = $(thisGroup).attr('data-open')
+
+    @dom.find('.slide_collapse').on 'click' ,'.optgroup', (e)=>
+      thisGroup = $(e.currentTarget)
+      slider = thisGroup.closest('ul')
+      thisGroupNumber = thisGroup.attr('data-group')
+      thisOpen = thisGroup.attr('data-open')
       if thisOpen == '0'
-        $('li[class*="subgroup"]').slideUp(400)
-        $('.optgroup').attr('data-open', 0)
-        $('.subgroup_' + thisGroupNumber).slideDown(400)
-        $(thisGroup).attr('data-open', 1)
+        slider.find('li[class*="subgroup"]').slideUp(400)
+        slider.find('.optgroup').attr('data-open', 0)
+        slider.find('.subgroup_' + thisGroupNumber).slideDown(400)
+        thisGroup.attr('data-open', 1)
       else
-        $('.subgroup_' + thisGroupNumber).slideUp(400)
-        $(thisGroup).attr('data-open', 0)
+        slider.find('.subgroup_' + thisGroupNumber).slideUp(400)
+        thisGroup.attr('data-open', 0)
 
     getListener  = (name) ->
       return (element) ->
@@ -155,6 +157,8 @@ class @main
     comment : @form.comment.val()
 
   setValue : (data) ->
+    @form.name.val(data.name)
+    @form.phone.val(data.phone)
     @form.subjects.val(data.subjects)
     @fast_form.subjects.val(data.subjects)
 
@@ -193,7 +197,7 @@ class @main
   sendForm : (quiet = false) =>
     data = yield Feel.urlData.get 'pupil'
     data.comment = @form.comment.val()
-    data = @js.takeData data
+#    data = @js.takeData data
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     errs = @js.check(data)
@@ -206,9 +210,7 @@ class @main
       errs?=[]
       errs.push err if err
 
-    if errs.length > 0
-      Feel.sendAction 'error_on_page'
-
+    Feel.sendAction 'error_on_page'
     @showError errs
     return false
 

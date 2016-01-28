@@ -65,7 +65,8 @@
     "kue" : "*",
     "md5-file":"*",
     "redlock":"*",
-    "post-data":"*"
+    "post-data":"*",
+    "harmony-reflect":"*"
   }
 }
 

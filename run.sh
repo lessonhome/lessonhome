@@ -12,15 +12,15 @@ cd "$ROOT"
 #killall -KILL iojs 2>> /dev/null
 #killall -KILL node 2>> /dev/null
 #killall -KILL nodejs 2>> /dev/null
-echo "" > nohup.out
+#echo "" > nohup.out
 if [ "$#" -eq 1 ];then
-  #iojs ./feel/bin/feel --color &
-  nohup node ./feel/bin/feel --color  >> ./nohup.out 2>> ./nohup.out &
+  node --harmony_proxies ./feel/bin/feel  --color &
+  #nohup node ./feel/bin/feel --color  >> ./nohup.out 2>> ./nohup.out &
 else
-  #iojs ./feel/bin/feel --color &
-  nohup node  ./feel/bin/feel --color >> ./nohup.out 2>> ./nohup.out &
+  node --harmony_proxies ./feel/bin/feel  --color &
+  #nohup node  ./feel/bin/feel --color >> ./nohup.out 2>> ./nohup.out &
 fi
-tail -f ./nohup.out &
+#tail -f ./nohup.out &
 #node ./feel/bin/updater --harmony --force & 
 
 #> log/out.log 2>> log/out.log &

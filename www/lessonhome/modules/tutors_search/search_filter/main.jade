@@ -24,7 +24,7 @@
       .col.s12
        .filter-title Выберите предмет и направление подготовки
     .row.no-bottom-margin.fixed-spicer
-      .input-field.col.s12
+      .input-field.col.s12.slide_collapse
         select(name='subject', multiple).js-subjects
           option(value='', selected, disabled) Предмет
           each groups,gname in subject_list
@@ -33,7 +33,7 @@
                 option(value!=val, selected=(subject_exist[val]?true:undefined))!=val
 
     .row.no-bottom-margin.fixed-spicer
-      .input-field.col.s12
+      .input-field.col.s12.slide_collapse
         select(name='course', multiple).js-course
           option(value='', disabled, selected) Направление подготовки
           each val, index in training_direction.items
@@ -74,7 +74,7 @@
 
     +checkBlock('Метро', show_metro).js-metro_location
       .row.no-bottom-margin.metro-loc
-        .input-field.col.s12
+        .input-field.col.s12.slide_collapse
           select(name='color', data-v="branch", multiple).js-branch
             option(value='', selected, disabled) Любая станция
             for v, name_li in metro_stations

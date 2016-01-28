@@ -33,6 +33,8 @@ class @main  extends @template '../lp'
       bg_position : @exports()
       opacity_form: @exports()
       tutors : $defer : =>
+        @tree.content.filter ?= {}
+        @tree.content.filter.page = 'landing'
         filter = yield Feel.udata.d2u "mainFilter",@tree.content.filter
         hash = yield Feel.udata.filterHash filter,'filter'
         filter = yield Feel.udata.u2d filter

@@ -7,14 +7,19 @@ class Jobs
     @solves     = {}
     @client_listening  = {}
     @client_solves     = {}
-  init : =>
     @emits = {}
     @emitter = new EE
-    @redis = yield Main.service 'redis'
-    @redisP = yield @redis.get()
-    @redisS = yield @redis.get()
-    @redisS.on 'message',  => @onMessage.apply @,arguments
+    @redis = _Helper 'redis/main'
+    @inited = false
+    Q.spawn =>
+      @redisP = @redis.get()
+      @redisS = @redis.get()
+      [@redisP,@redisS] = yield Q.all [@redisP,@redisS]
+      @inited = true
+      @redisS.on 'message',  => @onMessage.apply @,arguments
+      @emit 'init'
   onMessage   : (channel,m)=> Q.spawn =>
+    yield _waitFor @,'init' unless @inited
     if m
       if @solves[channel]
         @solves[channel] JSON.parse m
@@ -38,10 +43,11 @@ class Jobs
             else throw new Error 'wrong job_type(jobs or client_jobs) but '+job_type
           @redisP.publish obj.id,JSON.stringify {data:ret}
         catch err
-          console.error err
+          console.error "onMessage listening[#{name}].foo",obj.data...,Exception err
           @redisP.publish obj.id,JSON.stringify {err:ExceptionJson(err)}
       yield Q.delay 0
   onSignal : (name,foo)=>
+    yield _waitFor @,'init' unless @inited
     unless @emits["emit_jobs:"+name]
       yield _invoke @redisS,'subscribe',"emit_jobs:"+name
       @emits["emit_jobs:"+name] = true
@@ -53,8 +59,10 @@ class Jobs
         console.error "jobs::on(#{name}) error: "+Exception e
         throw e
   signal : (name,data...)=>
+    yield _waitFor @,'init' unless @inited
     @redisP.publish "emit_jobs:"+name,JSON.stringify data
   listen : (name,foo)=>
+    yield _waitFor @,'init' unless @inited
     unless @listening[name]?
       @listening[name] = {}
     unless @listening[name].foo?
@@ -62,6 +70,7 @@ class Jobs
     @listening[name].foo = foo
     yield @onMessage 'jobs:'+name
   client : (name,foo)=>
+    yield _waitFor @,'init' unless @inited
     unless @client_listening[name]?
       @client_listening[name] = {}
     unless @client_listening[name].foo?
@@ -69,6 +78,7 @@ class Jobs
     @client_listening[name].foo = foo
     yield @onMessage 'client_jobs:'+name
   solve : (name,data...)=>
+    yield _waitFor @,'init' unless @inited
     d = Q.defer()
     id = _randomHash()
     @solves[id] = (obj)=>
@@ -87,6 +97,7 @@ class Jobs
     @redisP.publish "jobs:"+name,''
     return d.promise
   solve_as_client : (name,data...)=>
+    yield _waitFor @,'init' unless @inited
     d = Q.defer()
     id = _randomHash()
     @client_solves[id] = (obj)=>

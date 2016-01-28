@@ -8,6 +8,7 @@ ex = (v)=>
   return 0
 
 @filter = (input,mf)=> do Q.async =>
+  console.log "filter".red,mf.page
   if mf.price?.right > 3000
     mf.price?.right = 300000
   if mf.price?.left < 600
@@ -29,12 +30,24 @@ ex = (v)=>
     continue unless c
     arr[c] = true
   coursearr = Object.keys arr
-
+  num1 =  0
+  num2 =  0
   for acc,p of input
     continue unless p?.name?.first
     continue unless p.left_price <= mf?.price?.right
     continue unless p.right_price >= mf?.price?.left
-    
+    num1++
+    switch mf.page
+      when 'filter'
+        continue if p.nophoto
+        continue if p.filtration
+        continue unless p.checked
+      when 'landing'
+        continue if p.nophoto
+        continue if p.landing
+        continue if p.filtration
+        continue unless p.checked
+    num2++
     p.points = 0
     p.points2 = 0
     p.pointsNeed = false
@@ -131,7 +144,7 @@ ex = (v)=>
         out3.push p
       else
         out4.push p
-
+  console.log {num1,num2}
   nd = new Date().getTime()
   switch mf.sort
     when 'rating'

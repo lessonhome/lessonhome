@@ -6,7 +6,8 @@ class @main
 
     @fastest = @dom.find '.fastest'
   show: =>
-    @found.open_form.click => Q.spawn => yield Feel.root.tree.class.attached.showForm()
+    @found.open_form.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid'
+
     Q.spawn =>
       filter =
         mainFilter : @tree.filter
@@ -15,8 +16,8 @@ class @main
       filter = yield Feel.udata.d2u filter
       @found.go_find.attr 'href','/tutors_search?'+filter
     
-    @on 'change', ->
-      Feel.sendActionOnce('interacting_with_form', 1000*60*10)
+    @on 'change', -> Q.spawn => Feel.sendActionOnce('interacting_with_form', 1000*60*10)
+    Q.spawn => Feel.jobs.onSignal? "bidSuccessSend", => @found.open_form.fadeOut 300
 
     ###
     @found.tutors_list.find('>div').remove()

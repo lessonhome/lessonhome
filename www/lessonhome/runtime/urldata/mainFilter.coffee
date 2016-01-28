@@ -38,6 +38,8 @@ boolSetR = (obj,list)=>
     v //= 2
   return ret
 
+page = ['manager','main','landing','filter']
+
 class @D2U
   $test : (obj)=>
     type  : 'int'
@@ -99,6 +101,16 @@ class @D2U
     value : boolSet obj?.place,place
     default : 0
     filter : true
+  $page : (obj)=>
+    i = page.indexOf obj?.page
+    i = undefined unless i>=0
+    return {
+      type : 'int'
+      value : i
+      default : 0
+      filter : true
+    }
+    
   $placeAreaPupil : (obj)=>
     type : 'string[]'
     value : obj?.place?.area_pupil
@@ -185,6 +197,7 @@ class @U2D
     left  : obj?.priceLeft
     right : obj?.priceRight
   $gender : (obj)=> gender[obj?.gender ? 0]
+  $page : (obj)=> page[obj?.page ? 0]
   $with_reviews : (obj)=> obj?.with_reviews
   $with_photo : (obj)=> obj?.with_photo
   $with_verification : (obj)=> obj?.with_verification

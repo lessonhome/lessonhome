@@ -5,11 +5,12 @@ class @main
   Dom : =>
     @preps = @found.preps
     @panel = @found.bottom_panel
-    @btn_attach = @found.btn_attach
+    @btn_attach = @found.open_attach
     @linked = {}
     @show_tutors = @found.show_select_rep
     @show_tutors_count = 0
   show : =>
+    @btn_attach.click => Q.spawn => Feel.jobs.solve 'openBidPopup'
     @found.clean.on 'click', =>
       do Q.async =>
         yield Feel.urlData.set 'mainFilter','linked', {}
