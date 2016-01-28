@@ -207,3 +207,11 @@ textarea.materialize-textarea:focus:not([readonly])
       display: block
     .req-modal-body
       display: none
+
+.select-dropdown
+  li.optgroup ~ li:not(.optgroup)
+    display: none
+  li.optgroup ~ li.subgroup_1
+    display: block
+  li.optgroup ~ li:not(.optgroup).disabled
+    display: none !important
