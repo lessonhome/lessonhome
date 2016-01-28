@@ -33,7 +33,7 @@ class @main
       Feel.urlData.set 'pupil', 'name', this.value
     @form.phone.on 'change', (e) =>
       Feel.urlData.set 'pupil', 'phone', e.target.value
-      Q.spawn => yield @sendForm(true)
+      Q.spawn => @sendForm(true)
 
     @found.send_form.on 'click', @sendFastForm
     @prepareLink @found.rew.find('a')
@@ -197,7 +197,7 @@ class @main
   sendForm : (quiet = false) =>
     data = yield Feel.urlData.get 'pupil'
     data.comment = @form.comment.val()
-    data = @js.takeData data
+#    data = @js.takeData data
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
     data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     errs = @js.check(data)

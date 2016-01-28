@@ -62,6 +62,11 @@ class @main
 
     #Имя и отчество
     @found.name.text value.name
+
+    #Отзывы
+    reviews = value.reviews
+    if reviews != '0 отзывов'
+      @found.reviews_text.html '<a href="#"><span>' + reviews  + '</span><i class="material-icons">question_answer</i></a>'
     
     #Список предметов
     
@@ -70,27 +75,20 @@ class @main
     main_subject = main_subject.capitalizeFirstLetter()
     subjectID = 's' + value.index
     si = 0
+    
     @found.subject.text ""
-
-    if(main_subject != "")
-      @found.subject.append '<span class="stantion"><i class="material-icons">import_contacts</i><span class="middle-span subject-color">' + main_subject + '</span></span>'
-    else
-      if(subjL == 1)
-        for line of value.subject
-          @found.subject.append '<span class="stantion"><i class="material-icons">import_contacts</i><span class="middle-span subject-color">' + value.subject[line] + '</span></span>'
+    @found.subject_block = $ '<span class="middle-span subject-text"><i class="material-icons">import_contacts</i></span>'
+    @found.subject_list = $ '<span class="middle-span card-info-color"></span>'
+    @found.subject.append @found.subject_block
+    @found.subject_block.append @found.subject_list
+        
+    for line of value.subject
+      if si != 0
+        @found.subject_list.append ',&#32;' + value.subject[line]
       else
-        for line of value.subject
-          sdd_button = $ '<span class="dropdown-button stantion" data-hover="true" data-alignment="right" data-beloworigin="true" data-constrainwidth="false" data-activates="' + subjectID  + '"></span>'
-          sdd_button.append '<i class="material-icons">import_contacts</i><span class="middle-span subject-color">' + value.subject[line]  + '</span><div class="dotted_more-button right-align"></div>'
-          @found.subject.append sdd_button
-          break
-        @found.subject_ul = $ '<ul id="' + subjectID  + '" class="dropdown-content"></ul>'
-        @found.subject.append @found.subject_ul
-        for line of value.subject
-          if(si++==0)
-            continue
-          @found.subject_ul.append '<li><span class="stantion"><i class="material-icons">import_contacts</i><span class="middle-span">' + value.subject[line]  + '</span></span></li>'
-        sdd_button.dropdown()
+        @found.subject_list.append value.subject[line]
+      si++
+
 
     #@found.subject.text value.subject
 
