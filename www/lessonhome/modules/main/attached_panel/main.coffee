@@ -48,7 +48,7 @@ class @main
     Feel.sendAction 'error_on_page' unless error.correct
 
     if !error['phone']?
-      {status,errs, err} = Feel.jobs.server 'saveBid', data
+      {status,errs, err} = yield Feel.jobs.server 'saveBid', data
 
       if err
         Feel.sendAction 'error_on_page'
@@ -85,8 +85,10 @@ class @main
     return unless length?
     if length != 0
       @bar_block.fadeIn()
+      Q.spawn => Feel.jobs.signal 'bottomBarShow'
     else
       @bar_block.fadeOut()
+      Q.spawn => Feel.jobs.signal 'bottomBarHide'
   getScrollWidth : =>
     div = $('<div>').css {
       position : 'absolute'

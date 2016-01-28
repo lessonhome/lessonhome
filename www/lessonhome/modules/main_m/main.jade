@@ -76,9 +76,10 @@
             a(href!=link.link)!=text
 
       mixin liSubjects(links, num, replace)
-        -for(var i = 0; i < num; i++){
-            +liUpCase(links[i], replace)
-        -}
+        if links && links.length
+          -for(var i = 0; i < num; i++){
+              +liUpCase(links[i], replace)
+          -}
       .col.s12.no-col
         h3 Предметы
       .col.s12.l3.m6.center-align
@@ -93,9 +94,8 @@
 
       .col.s12.l3.m6.center-align
         ul.subject-list.list-three.left-align
-          li.title Гумантитарные
-          +liSubjects(value.sub_link["Гумантитарные"], 4)
-
+          li.title Гуманитарные
+          +liSubjects(value.sub_link["Гуманитарные"], 4)
       .col.s12.l3.m6.center-align
         ul.subject-list.list-four.left-align
           li.title Языки
