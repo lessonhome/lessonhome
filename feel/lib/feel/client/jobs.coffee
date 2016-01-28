@@ -5,6 +5,7 @@ class @Jobs
   constructor : ->
     $W @
     @ee = new EE
+    @signals = new EE
     @solves = {}
     @listening = {}
     @data = {}
@@ -27,6 +28,8 @@ class @Jobs
     }
     @ee.emit 'jobs:'+name,'jobs:'+name,''
     return d.promise
+  signal    : => @signals.emit arguments...
+  onSignal  : => @signals.on arguments...
   onMessage : (channel,m)=> Q.spawn =>
     if m && @solves[channel]
       @solves[channel] m

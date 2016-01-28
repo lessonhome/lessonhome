@@ -175,6 +175,7 @@ class @main
     filters = yield Feel.urlData.get 'tutorsFilter'
     olds = yield Feel.urlData.get 'mainFilter'
     mf = {}
+    mf.page = 'filter'
     mf.subject = filters.subjects
     ss = {}
     mf.subject ?= []
