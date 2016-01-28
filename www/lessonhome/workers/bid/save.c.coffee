@@ -52,11 +52,8 @@ class BidSaver
     yield @jobs.listen 'saveBid',@jobSaveBid
     yield @jobs.client 'saveBid',@jobClientSaveBid
   jobClientSaveBid : (user,data)=>
-    console.log "this:cli",@
     return yield @jobSaveBid user,data
   jobSaveBid : (user, data)=>
-    console.log "this",@
-    console.log {user}
     data = check.takeData data
     errs = [] #check.check data
     if errs['phone']? then return {status:'failed', errs}
