@@ -339,12 +339,12 @@ global.$W = (obj)->
   return Q.async obj if (typeof obj == 'function') && (obj?.constructor?.name == 'GeneratorFunction')
   return obj if obj.__wraped
   obj.__wraped = true
+  newfunc = null
   for fname,func of proto
     continue unless typeof func == 'function'
-    newfunc = func
     if func?.constructor?.name == 'GeneratorFunction'
-      newfunc = Q.async func
-    obj[fname] = newfunc
+      do (func)=> newfunc = => Q.async(func).apply obj,arguments
+      obj[fname] = newfunc
   unless obj.emit?
     ee = new EE
     obj.emit = -> ee.emit arguments...

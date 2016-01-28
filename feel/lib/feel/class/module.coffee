@@ -39,24 +39,23 @@ class module.exports
     .then @makeSass
     .then @makeAllCss
     .then @makeCoffee
-  rescanFiles : =>
-    readdir "#{@site.path.modules}/#{@name}"
-    .then (files)=>
-      @files = {}
-      for f in files
-        m = f.match /^([^\.].*)\.(\w*)$/
-        if m
-          @files[f] = {
-            name  : m[1]
-            ext   : m[2]
-            path  : "#{@site.path.modules}/#{@name}/#{f}"
-          }
-        else if f.match /^[^\.].*$/
-          @files[f] = {
-            name  : f
-            ext   : ""
-            path  : "#{@site.path.modules}/#{@name}/#{f}"
-          }
+  rescanFiles : => do Q.async =>
+    files = yield readdir "#{@site.path.modules}/#{@name}"
+    @files = {}
+    for f in files
+      m = f.match /^([^\.].*)\.(\w*)$/
+      if m
+        @files[f] = {
+          name  : m[1]
+          ext   : m[2]
+          path  : "#{@site.path.modules}/#{@name}/#{f}"
+        }
+      else if f.match /^[^\.].*$/
+        @files[f] = {
+          name  : f
+          ext   : ""
+          path  : "#{@site.path.modules}/#{@name}/#{f}"
+        }
   replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-]+)/,"$1mod-#{@id}--$2")
   replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-]+)/,"$1js-$2--{{UNIQ}} $2")
   makeJade : =>
@@ -319,6 +318,17 @@ class module.exports
       break unless ret2?.args?
     return ret
   makeCoffee  : => do Q.async =>
+    if @files['config.coffee']
+      conffile = require.resolve "#{process.cwd()}/#{@files['config.coffee'].path}"
+      delete require.cache[conffile]
+      @config = require conffile
+    @config ?= {}
+    for key,val of (@config.isomorph ? {})
+      @files["#{val}.coffee"] = {
+        name : val
+        ext  : 'coffee'
+        path : "#{@site.path.isomorph}/#{key}.coffee"
+      }
     @newCoffee = {}
     @newCoffeenr = {}
     qs = []

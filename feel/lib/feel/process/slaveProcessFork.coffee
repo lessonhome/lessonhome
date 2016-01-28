@@ -37,6 +37,8 @@ class SlaveProcessFork
     #  console.log "service ".blue,(@conf.name.yellow),new Date().getTime()-t
     #@messanger.send 'run'
   #service : (name)=> @serviceManager.nearest name
+  helper  : => _Helper arguments...
+  isomorph: (name)=> require "#{process.cwd()}/www/lessonhome/isomorph/#{name}.coffee"
   service : (name)=>
     serv = yield @serviceManager.nearest name,false
     return serv if serv
@@ -60,6 +62,7 @@ class SlaveProcessFork
           else
             return (args...)=> @jobs.solve "process--#{name}",key,args...
     }
+
 
 
 module.exports = SlaveProcessFork

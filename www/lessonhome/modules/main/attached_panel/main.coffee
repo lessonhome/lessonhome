@@ -48,7 +48,7 @@ class @main
     Feel.sendAction 'error_on_page' unless error.correct
 
     if !error['phone']?
-      {status,errs, err} = yield @$send('./save', data,quiet)
+      {status,errs, err} = Feel.jobs.server 'saveBid', data
 
       if err
         Feel.sendAction 'error_on_page'

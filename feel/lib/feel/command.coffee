@@ -42,5 +42,5 @@ class module.exports
     try
       error 'main domain handle'.yellow,Exception err
       process.exit 1
-  run : =>
+  run : => do Q.async =>
     log "run()".blue
