@@ -22,11 +22,14 @@ class @main
           text += 'message:    '+st.messages[0].status+'\n\n'
       else
         text = JSON.stringify(data,4,4)
+      text = "Ошибка. Возможно вы не админ?" unless text
       text = text.replace /\ /gmi,'&nbsp;'
       @found.status.html text.replace /\n/gmi,'<br>'
     catch e
       #@found.status.text
-      text = ""+e+"\n\n"+JSON.stringify(e,4,4).replace /\ /gmi,'&nbsp;'
+      text = ""+e+"\n\n"+JSON.stringify(e,4,4)
+      text = "Ошибка. Возможно вы не админ?" unless text
+      text = text.replace /\ /gmi,'&nbsp;'
       @found.status.html text.replace /\n/gmi,'<br>'
     @active = true
     

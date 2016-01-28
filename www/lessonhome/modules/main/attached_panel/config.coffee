@@ -1,0 +1,5 @@
+
+@isomorph =
+  'bid/check' : 'check'
+
+

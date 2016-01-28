@@ -1,5 +1,5 @@
 
-check = require("./check")
+check = Main.isomorph 'bid/check'
 
 os = require 'os'
 hostname = os.hostname()

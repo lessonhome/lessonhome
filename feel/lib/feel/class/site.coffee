@@ -18,6 +18,7 @@ class module.exports
     @path.states  = "#{@path.src}/states"
     @path.const  = "#{@path.src}/const"
     @path.modules = "#{@path.src}/modules"
+    @path.isomorph = "#{@path.src}/isomorph"
     @path.config  = "#{@path.root}/config"
     @path.cache   = "#{Feel.path.cache}/#{@name}"
     @path.sass    = "#{@path.cache}/modules"
