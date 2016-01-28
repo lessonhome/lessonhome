@@ -17,7 +17,7 @@ class @main
     @register 'bid_attached'
     @updatePanel()
     Feel.urlData.on 'change', @updatePanel
-    @tree.bottom_bar.class.found.btn_attach.click @showForm
+#    @tree.bottom_bar.class.found.btn_attach.click @showForm
     @form_block.on 'click', (e) => e.stopPropagation()
     @popup_block.on 'click', @hideForm
     @tree.popup.class.on 'close', @hideForm

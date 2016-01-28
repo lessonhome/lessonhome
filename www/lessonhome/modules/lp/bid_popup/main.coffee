@@ -31,9 +31,13 @@ class @main extends EE
 #    @found.demo_supplement.on 'click', @bidSupplementShow
     @found.req_full_send.on 'click', =>
       Q.spawn =>
-        if yield @sendForm()
+
+        if (errs = yield @sendForm()).length == 0
           @miniBidSend()
+          yield Feel.jobs.signal? "bidSuccessSend"
           @found.demo_supplement.one 'click', @bidSupplementShow
+        else
+          @showError errs
 
     yield Feel.jobs.listen 'openBidPopup',@jobOpenBidPopup
 
@@ -63,7 +67,7 @@ class @main extends EE
     l_phone = getListener 'phone', @forms['phone']
     @forms['phone'].on? 'change', =>
       l_phone()
-      Q.spawn => yield @sendForm(true)
+      Q.spawn => @sendForm(true)
 
   show: =>
 
@@ -83,7 +87,7 @@ class @main extends EE
 
   jobOpenBidPopup : (bidType)=>
     if (bidType == 'fullBid')
-      @found.bid_popup.addClass 'fullBid'
+      @makeFullBid()
 
     @found.bid_popup.openModal(
       {
@@ -100,11 +104,18 @@ class @main extends EE
     @found.req_body.fadeOut 300, =>
       @found.longer.show()
       @found.req_success.fadeIn 300
+
   bidSupplementShow : =>
     #функция показа подробной формы по нажатию ДОПОЛНИТЬ ЗАЯВКУ
     @found.req_success.fadeOut 300, =>
       @found.full_btn.hide()
       @found.req_body.fadeIn 300
+
+  makeFullBid: =>
+    @found.full_btn.hide()
+    @found.longer.show()
+    @found.req_success.hide()
+    @found.req_body.show()
 
   getScrollWidth : =>
     div = $('<div>').css {
@@ -123,24 +134,26 @@ class @main extends EE
 
   getExist: (arr) =>
     exist = {}
-    for l in arr then exist[l] = true
+    if arr instanceof Array then for l in arr then exist[l] = true
     return exist
 
   sendForm: (quiet = false) =>
     data = @getValue()
+    data.linked = yield Feel.urlData.get 'mainFilter','linked'
+
     errs = @js.check data
 
     if errs.length == 0
       {status, errs, err} = yield @$send('./save', data, quiet && 'quiet')
       if status == 'success'
         Feel.sendActionOnce 'bid_popup'
-        return true
+        return []
       errs?=[]
       errs.push err if err
 
     Feel.sendAction 'error_on_page'
-    @showError errs
-    return false
+#    @showError errs
+    return errs
 
   setValue: (v) =>
     @forms.phone.val(v.phone).focusin().focusout()
