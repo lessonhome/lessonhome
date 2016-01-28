@@ -39,7 +39,8 @@ metro_lines = metro.lines
   value.experience ?= ""
   exp = value.experience ? ""
   exp += " года" if exp && !exp?.match? /\s/
-  ret.experience = "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
+  #ret.experience = "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
+  ret.experience = "#{status[value?.status] ? 'Репетитор'}"
 
   #cours = value.subjects
   #for key of cours
@@ -111,6 +112,15 @@ metro_lines = metro.lines
 
   if emptyObject(users_metro) == true
     ret.metro_tutors = users_metro
+  
+  #reviews
+  
+  ret.reviews ?= {}
+  reviwersWord = ['отзыв','отзыва','отзывов']
+  rewNum = Object.keys(value.reviews ? {}).length
+  rewText = rewNum + ' ' + getNumEnding(rewNum, reviwersWord)
+
+  ret.reviews = rewText
 
   return ret
 
@@ -119,3 +129,19 @@ emptyObject = (obj) ->
     if Obj.hasOwnProperty(i)
       return false
   return true
+
+getNumEnding = (iNumber, aEndings) ->
+  sEnding = {}
+  i = 0
+  iNumber = iNumber % 100
+  if (iNumber>=11 && iNumber<=19)
+    sEnding=aEndings[2]
+  else
+    i = iNumber % 10
+    switch i
+      when 1 then sEnding = aEndings[0]
+      when 2 then sEnding = aEndings[1]
+      when 3 then sEnding = aEndings[1]
+      when 4 then sEnding = aEndings[1]
+      else sEnding = aEndings[2]
+  return sEnding

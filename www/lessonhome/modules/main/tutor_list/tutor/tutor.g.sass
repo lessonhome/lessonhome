@@ -31,6 +31,28 @@
       font-size: 1.5rem
     @media #{$small-and-down}
       font-size: 1.4rem
+  .sub-col
+    .col
+      &:first-of-type
+        padding-left: 0 !important
+      &:last-of-type
+        padding-right: 0 !important
+  .subject-list
+    .middle-span
+      font-size: 1.1rem
+      font-family: 'Roboto'
+      font-weight: 300
+  .tutor-reviews
+    font-size: 1.05rem
+    font-family: 'Roboto'
+    letter-spacing: 1px
+    font-weight: 300
+    span
+      display: inline-block
+      vertical-align: middle
+      padding-right: 0.4rem
+    i.material-icons
+      vertical-align: middle
   .description
     a
       text-decoration: underline
@@ -38,7 +60,7 @@
       &:hover
         color: #F44336
   .price
-    font-size: 1.6rem
+    font-size: 1.5rem
   .tutor-action
     margin-top: 0rem
     .btn-flat
@@ -118,6 +140,11 @@
 .middle-span
   display: inline-block
   vertical-align: middle
+  &.subject-text
+    white-space: nowrap
+    .middle-span
+      white-space: normal
+      vertical-align: top
 .color-card
   i
     vertical-align: middle
