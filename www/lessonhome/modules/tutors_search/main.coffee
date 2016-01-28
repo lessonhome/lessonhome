@@ -60,7 +60,7 @@ class @main
         exists[t.index]= true
       i = 0
       while tutors.length < numTutors
-        t = newt[i++]
+        t = newt[i++]-height
         break unless t?
         continue if exists[t.index]
         tutors.push t
@@ -101,6 +101,7 @@ class @main
     htime = 400-((new Date().getTime())-@htime)
     #htime = 0 if htime < 0
     setTimeout (=> Q.spawn =>
+      @dom.height @dom.height()
       @tutors_result.children().remove()
       yield Q.delay(10)
       for key,val of @doms
@@ -111,6 +112,7 @@ class @main
         d.dom.appendTo @tutors_result
         yield Q.delay(10)
       @tutors_result.css 'opacity',1
+      @dom.css 'height', ''
       yield @BusyNext()
     ),htime
   BusyNext : => do Q.async =>

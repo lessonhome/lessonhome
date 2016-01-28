@@ -85,8 +85,10 @@ class @main
     return unless length?
     if length != 0
       @bar_block.fadeIn()
+      Q.spawn => Feel.jobs.signal 'bottomBarShow'
     else
       @bar_block.fadeOut()
+      Q.spawn => Feel.jobs.signal 'bottomBarHide'
   getScrollWidth : =>
     div = $('<div>').css {
       position : 'absolute'

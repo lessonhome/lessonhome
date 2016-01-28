@@ -7,14 +7,25 @@ class @main extends EE
     @register 'main'
     @attached = @tree.bottom_block_attached.class
     @content    = @found.content
-    Q.spawn => yield @initListenStateChange()
+    Q.spawn =>
+      yield @initListenStateChange()
+      yield Feel.jobs.onSignal 'bottomBarHide',@onBarHide
+      yield Feel.jobs.onSignal 'bottomBarShow',@onBarShow
 
   initListenStateChange : =>
     yield @checkStateChange true
     window.onstatechange = =>
       @savedScroll = $(window).scrollTop()
       Q.spawn => yield @onstatechange()
-  
+
+  onBarHide : =>
+    @dom.css 'padding-bottom', ''
+  onBarShow : =>
+    pb = @dom.css 'padding-bottom'
+    pb = parseInt pb, 10
+    pb = pb + 70 + 'px'
+    @dom.css 'padding-bottom', pb
+
   checkStateChange : (first=false)=>
     @oldurl = @nowurl
     @olddata = @nowdata
