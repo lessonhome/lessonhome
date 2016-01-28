@@ -59,7 +59,9 @@ class @main extends EE
       return  (e) ->
         o = {}
         o[name] = el.val()
-        Feel.urlData.set 'pupil', o
+        Q.spawn =>
+          yield Feel.urlData.set 'pupil', o
+          yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
 
     for k in ['name', 'subjects']
       @forms[k].on? 'change', getListener k, @forms[k]
