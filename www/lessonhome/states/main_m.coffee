@@ -18,10 +18,11 @@ class @main extends @template 'lp'
         maxl = 200
         jobs = yield Main.service 'jobs'
         prep = yield jobs.solve 'getTutorsOnMain', 4
+        prep?= []
         regexp = /\s+[^\s]*$/
         regexp_dot = /\s*\.{1,3}$/
         for p in prep
-          continue unless p.reviews.length
+          continue unless p?.reviews?.length
           onmain = []
           i = 0
           while i < p.reviews.length
@@ -33,9 +34,9 @@ class @main extends @template 'lp'
               p.reviews[i].review = tutor_text + '... '
             onmain.push i if p.reviews[i].onmain
             i++
-          onmain = Object.keys(p.reviews) unless onmain.length
+          onmain = Object.keys(p.reviews) unless onmain?.length
 
-          if onmain.length is 1
+          if onmain?.length is 1
             p['num_show_rev'] = onmain[0]
           else
             p['num_show_rev'] = onmain[Math.floor(Math.random()*onmain.length)]
