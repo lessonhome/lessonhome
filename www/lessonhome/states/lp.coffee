@@ -10,7 +10,9 @@ class @main
     filter = @const('filter')
     @module '$' :
       lib : @state 'libm'
-      header  : @module "$/header"
+      header  : @module "$/header":
+        hide_head_button: @exports('content.hide_head_button')
+        hide_menu_punkt: @exports('content.hide_menu_punkt')
       content : @exports()
       footer  : @module "$/footer"
       bottom_block_attached : @module 'main/attached_panel' :
