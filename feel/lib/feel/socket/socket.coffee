@@ -22,7 +22,7 @@ class Socket
     yield obj.init?()
     yield obj?.run?()
     if typeof obj.__handler == 'function'
-      yield @init__Handler '__handler'
+      yield @init__Handler obj,'__handler'
   init__Handler : (obj,handler='handler')=>
     @db = yield Main.service 'db'
     @form = new Form
@@ -69,7 +69,7 @@ class Socket
         else
           do (obj,key,val)->
             obj[key] = (args...)-> Q.then -> val.apply obj,args
-    yield @init__Handler obj
+    yield @init__Handler obj,'handler'
     obj.$db = @db
     yield obj?.init?()
     yield obj?.run?()
