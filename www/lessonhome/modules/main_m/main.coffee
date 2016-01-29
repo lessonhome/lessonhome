@@ -57,7 +57,7 @@ class @main
         Feel.urlData.set 'pupil', name, element.val()
 
     setListenerForm = (form, callback) ->
-      for key, field of form when form.hasOwnProperty(key)
+      for own key, field of form
         field.on? 'change', callback
 
     sub_listener = getListener('subjects')
@@ -84,13 +84,13 @@ class @main
 
     Q.spawn =>
       indexes = []
-      for key, t of @tree.main_rep when @tree.main_rep.hasOwnProperty(key) then indexes.push t.index
+      for own key, t of @tree.main_rep then indexes.push t.index
       yield Feel.dataM.getTutor indexes
 
   setListenerForm : (form, type, callback) ->
     a = {c: callback, e: [], t: type}
     @listeners.push a
-    for key, field of form when form.hasOwnProperty(key)
+    for own key, field of form
       if field.on?
         field.on type, callback
         a.e.push field
