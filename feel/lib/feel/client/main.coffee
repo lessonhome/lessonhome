@@ -29,6 +29,15 @@ class @Feel
         for name,obj of mod
           window[name] = obj
           console.log "global class window['#{name}'];"
+
+
+    try
+      errorfunc = console.error
+      myerrorfunc = =>
+        Q.spawn => @sendActionOnce 'error_on_page'
+        errorfunc.apply console,arguments
+      console.error = myerrorfunc
+
     window.onerror = (e)=> @error e
     
     yield Q.delay 1
@@ -64,6 +73,7 @@ class @Feel
   const : (name)=> $Feel.constJson[name]
 
   error : (e,args...)=>
+    Q.spawn => @sendActionOnce 'error_on_page'
     return unless e?
     e = new Error e unless e?.stack? || e?.name?
     e.message ?= ""
