@@ -124,7 +124,7 @@ metro_lines = metro.lines
 
   return ret
 
-emptyObject = (obj) ->
+emptyObject = (obj={})->
   for own i of obj
     return false
   return true
