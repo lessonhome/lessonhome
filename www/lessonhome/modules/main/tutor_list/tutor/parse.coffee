@@ -112,6 +112,8 @@ metro_lines = metro.lines
 
   if emptyObject(users_metro) == true
     ret.metro_tutors = users_metro
+  else
+    ret.metro_tutors = {}
   
   #reviews
   
