@@ -2,9 +2,9 @@ class @main  extends @template '../lp'
   route : '/tutors_lp'
   model   : 'tutor/bids/reports'
   title : "LessonHome - Репетиторам"
-  access : ['other']
+  access : ['other', 'pupil']
   redirect : {
-
+    tutor: '/tutor/profile'
   }
   tree : =>
     ###

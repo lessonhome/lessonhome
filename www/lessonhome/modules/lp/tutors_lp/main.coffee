@@ -2,10 +2,11 @@ class @main
   constructor : ->
     $W @
   Dom : =>
-    @sliderBlock  = @found.slider_block
-    @sliderLeft   = @found.slider_left
-    @sliderRight  = @found.slider_right
-    @sliderArea   = @found.slider_area
+    @sliderBlock    = @found.slider_block
+    @sliderLeft     = @found.slider_left
+    @sliderRight    = @found.slider_right
+    @sliderArea     = @found.slider_area
+    @sliderOpacity  = @found.slider_opacity
   show: =>
     $(@sliderBlock).slider(
       {
@@ -21,6 +22,14 @@ class @main
       => $(@sliderBlock).slider('start')
     )
     $(@sliderLeft).hover(
+      => $(@sliderBlock).slider('pause')
+      => $(@sliderBlock).slider('start')
+    )
+    $(@sliderArea).hover(
+      => $(@sliderBlock).slider('pause')
+      => $(@sliderBlock).slider('start')
+    )
+    $(@sliderOpacity).hover(
       => $(@sliderBlock).slider('pause')
       => $(@sliderBlock).slider('start')
     )
