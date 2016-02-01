@@ -3,6 +3,7 @@
 http = require 'http'
 os = require 'os'
 spdy = require 'spdy'
+https = require 'https'
 url  = require 'url'
 _cookies = require 'cookies'
 Form = require '../class/form'
@@ -11,47 +12,70 @@ class Socket
   constructor : ->
     Wrap @
   init : =>
+    @workerName = Main.conf.args.file || ""
+    @isWorker = @workerName.match(/^workers\//)?
+  runWorker : =>
+    Class = require "#{process.cwd()}/www/lessonhome/#{@workerName}.c.coffee"
+    obj = new Class
+    obj = $W obj
+    console.log "worker ".blue+@workerName.yellow
+    yield obj.init?()
+    yield obj?.run?()
+    if typeof obj.__handler == 'function'
+      yield @init__Handler obj,'__handler'
+  init__Handler : (obj,handler='handler')=>
     @db = yield Main.service 'db'
     @form = new Form
     yield @form.init()
     @register = yield Main.service 'register'
-    if os.hostname() == 'pi0h.org'
+    if _production
       yield @runSsh()
     else
       @server = http.createServer @handler
       @server.listen Main.conf.args.port
-    @handlers = {}
+    @mainObject       = obj
+    @handlerFunction  = handler
+    @jobs = yield Main.service 'jobs'
+    Q.spawn =>
+      unless global.Feel?.const?
+        @const = yield @jobs.solve 'getConsts'
+        global.Feel ?= {}
+        global.Feel.const = (name)=> @const[name]
   runSsh : =>
     options = {
       key: _fs.readFileSync '/key/server.key'
       cert : _fs.readFileSync '/key/server.crt'
+      ca : _fs.readFileSync '/key/server.ca'
       ciphers: "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4"
       honorCipherOrder: true
       autoSpdy31 : true
       ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'             
     }
-    @sshServer = spdy.createServer options,@handler
+    @sshServer = https.createServer options,@handler
     @sshServer.listen Main.conf.args.port
   run  : =>
-    yield @initHandler Main.conf.args.file
-  initHandler : (clientName)=>
-    unless @handlers[clientName]?
-      @handlers[clientName] = require "#{process.cwd()}/www/lessonhome/#{clientName}.c.coffee"
-      obj = @handlers[clientName]
-      for key,val of obj
-        if typeof val == 'function'
-          if val?.constructor?.name == 'GeneratorFunction'
-            obj[key] = Q.async val
-          else
-            do (obj,key,val)->
-              obj[key] = (args...)-> Q.then -> val.apply obj,args
-      obj.$db = @db
-      yield obj?.init?()
+    return yield @runWorker() if @isWorker
+    return yield @initHandler()
+  initHandler : =>
+    console.log "handler ".blue+@workerName.yellow
+    obj = require "#{process.cwd()}/www/lessonhome/#{@workerName}.c.coffee"
+    if obj.prototype?
+      obj = $W new obj
+    else for key,val of obj
+      if typeof val == 'function'
+        if val?.constructor?.name == 'GeneratorFunction'
+          obj[key] = Q.async val
+        else
+          do (obj,key,val)->
+            obj[key] = (args...)-> Q.then -> val.apply obj,args
+    yield @init__Handler obj,'handler'
+    obj.$db = @db
+    yield obj?.init?()
+    yield obj?.run?()
 
   handler : (req,res)=> Q.spawn =>
     host = req.headers.host
-    console.log host
     $ = {}
     $.req = req
     $.res = res
@@ -81,7 +105,6 @@ class Socket
       else
         _keys.push d
     console.log "client:".blue+clientName.yellow+("::handler("+_keys.join(',')+");").grey
-    yield @initHandler clientName
     $.db = @db
     do (req,res)=>
       req ?= {}
@@ -95,7 +118,7 @@ class Socket
     $.form = @form
     $.updateUser = (session)=> @updateUser req,res,$,session
     try
-      ret = yield @handlers[clientName].handler $,data...
+      ret = yield @mainObject[@handlerFunction] $,data...
     catch e
       console.error Exception e
       ret = {err:"internal_error",status:'failed'}
@@ -127,7 +150,6 @@ class Socket
     cookie = req.cookie
     session ?= cookie.get 'session'
     unknown = cookie.get 'unknown'
-    console.log session
     register = yield @register.register session, cookie.get('unknown'),cookie.get('adminHash')
     session = register.session
     req.user = register.account
@@ -150,6 +172,7 @@ class Socket
       when 's' then 'states'
       when 'm' then 'modules'
       when 'r' then 'runtime'
+      when 'w' then 'workers'
       else ''
     m = context.match /^(\w+)\/(.*)$/
     s = m[1]

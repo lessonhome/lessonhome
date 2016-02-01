@@ -1,7 +1,8 @@
-.enter_block
-  .title Забыли пароль?
-  .text Для восстановления введите Ваш email или телефон.
-  .login
-    .input!= login
-  .buttons
-    .send_button!=send_button
+.container
+  h1.center-align Забыли пароль?
+  .row
+    .col.l4.offset-l4
+      h5 Для восстановления введите Ваш email или телефон.
+      .row.login_row!= login
+      .row.button_row
+        .col.s12.l12.m12.center-align!=send_button

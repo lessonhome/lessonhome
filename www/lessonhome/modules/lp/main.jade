@@ -1,2 +1,12 @@
+- content = content || "";
 header!=header
-content!=content
+if single_profile
+  content.js-content.hidden!=content
+  content.js-profile!=profile
+else
+  content.js-content!=content
+  content.js-profile.hidden!=profile
+footer!=footer
+.req_call!=req_call
+.bid!=bid_popup
+.attached!=bottom_block_attached

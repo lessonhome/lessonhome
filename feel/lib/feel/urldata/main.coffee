@@ -16,9 +16,11 @@ class UrlData
     @forms  = {}
     @fforms = {}
     @files = {}
+    @const = {}
     @udata = new UrlDataFunctions
   init : =>
     @Feel = yield Main.service 'feel'
+    yield @readConsts()
     @hostname = require('os').hostname()
     try
       @json = require "#{@path}/static/urldata/#{@hostname}.json"
@@ -77,6 +79,17 @@ class UrlData
     for fname,file of @files
       @files[fname].src =  "(function(){"+(yield file.src)+"}).call(_FEEL_that);"
       @files[fname].hash = _shash @files[fname].src
+  readConsts : => do Q.async =>
+    global.Feel ?= {}
+    global.Feel.const ?= (name)=> @const[name]
+    @const = {}
+    readed = yield _readdirp
+      root : 'www/lessonhome/const'
+      fileFilter  : '*.coffee'
+    files = for file in readed.files then file.path
+    w8for = for file,i in files
+      @const[file.replace(/\.coffee$/,'')] = require process.cwd()+'/www/lessonhome/const/'+file
+    yield Q.all w8for
   next : (str)=>
     make = false
     make = true unless str?
@@ -99,6 +112,47 @@ class UrlData
   d2u : => @udata.d2u arguments...
   u2d : => @udata.u2d arguments...
   d2o : => @udata.d2o arguments...
+  filter : (obj,field,value=true)=>
+    string = false
+    if typeof obj == 'string'
+      obj = yield @toObject obj
+      string = true
+    ret = {}
+    for key,val of obj
+      ret[key] = val if @json?.shorts?[key]?[field]==value
+    return @objectTo ret if string
+    return ret
+  objectTo : (obj)=>
+    obj = {} unless obj && typeof obj=='object'
+    ret = []
+    ret.push [key,val] for key,val of obj
+    ret.sort (a,b)-> a?[0] < b?[0]
+    str = ''
+    for r in ret
+      continue unless r[0]
+      str += '&' if str
+      str += r[0]
+      str += "="+r[1] if r[1]?
+    return str
+  toObject : (url)=>
+    url = '' unless typeof url == 'string'
+    url = url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
+    url = url.split '&'
+    ret = {}
+    for u in url
+      u = u?.split? '=' ? []
+      ret[u[0]]=u[1] if u[0]?
+    return ret
+  filterHash : (o={},field='filter')=>
+    if typeof o == 'object'
+      url = yield @d2u o
+    else
+      url = o
+    return (yield @filter "blablabla?"+url,field) ? ''
+ 
+
+
+
 
 module.exports = UrlData
 

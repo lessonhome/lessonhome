@@ -1,10 +1,96 @@
+@import variables
+
 //custom header style
 header
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
   position: relative
 .phone-link
   a
     font-size: 1.2rem
     font-weight: 700
+.header-spacer
+  height: 44px
+  background-color: #464646
 nav
-  background: #00796B !important
+  background: rgba(70, 70, 70, 0.85) !important
+  box-shadow: none
+  line-height: 100% 
+  height: auto
+  overflow: hidden
+  font-family: 'Roboto', sans-serif
+  font-weight: 300
+  &.pinned 
+    overflow: inherit
+    z-index: 999
+  a
+    &.button-collapse
+      height: 44px
+      line-height: 44px
+  .nav-wrapper
+    i
+      height: 44px !important
+      line-height: 44px !important
+  .button-collapse
+    height: 44px
+    line-height: 44px
+    i
+      height: 44px
+      line-height: 44px
+  ul
+    li
+      &:hover
+        background-color: rgba(0, 0, 0, 0.4)
+      &.active
+        background-color: rgba(0, 0, 0, 0.4)
+      a
+        height: 44px
+        line-height: 46px
+        font-size: 1.2rem
+        color: #fff
+        &:hover
+          color: #fff
+  .btn-large
+    letter-spacing: 1.25px
+    background-color: #fd7c48
+    height: 44px
+    line-height: 46px
+    border-radius: 0
+    box-shadow: none
+    color: #ffffff
+    font-weight: 600
+    font-family: 'Roboto Condensed'
+    font-size: 1.05rem
+    padding: 0 3.5rem
+    &:hover
+      background-color: #df6736
+      box-shadow: none
+      color: #ffffff
+.logo-phone-block
+  position: relative
+  padding: 11px 0
+  font-size: 0
+  line-height: 0
+  a
+    &.logo
+      display: inline-block
+      font-size: 0
+      line-height: 0
+      img
+        @media #{$small-and-down}
+          height: 25px
+    &.phone-link
+      color: #020202
+      font-size: 1.4rem
+      line-height: 100%
+      @media #{$small-and-down}
+        font-size: 1.1rem
+      span
+        display: inline-block
+        vertical-align: middle
+      &:before
+        content: ''
+        display: inline-block
+        height: 48px
+        width: 0
+        vertical-align: middle
+        @media #{$small-and-down}
+          height: 25px

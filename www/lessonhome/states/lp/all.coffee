@@ -7,23 +7,17 @@ class @main  extends @template '../lp'
 
   }
   tree : =>
+    ###
+    test : $defer : =>
+      taskTypes = yield Feel.getAllTaskTypes()
+      ret = {}
+      for type in taskTypes
+        struct = yield Feel.getTaskStruct type
+        ret[type] = @module 'task': struct
+      return ret
+    ###
     content : @module '$':
-      lib_diff  : @module 'lib/diff'
-      tutor : @module 'main/tutor_list/tutor':
-        name : 'Конон Екатерина Владимировна'
-        description : 'Индивидуальное обучение на гитаре — акустической, классической и электрогитаре в Одинцово и Одинцовском районе. Игорь Хотинский — профессиональный гитарист, работавший с Игорем Ивановым в группе «Кинематограф», с Юрием Лозой, с Женей Белоусовым, с Александром Малининым и другими составами.'
-        experience  : 'Преподаватель ВУЗа, опыт более 4 лет'
-        subject : 'Ритульаные жертвоприношения, Окультизм, Латынь'
-        location  : 'Москва м. Перово'
-        price : 500
-        photo : 'https://lessonhome.ru/file/5453ab9948/user_data/images/323e35c6f4l.jpg'
       top_form  : @module 'main/fastest_top'
-      bottom_block_attached : @module 'main/attached_panel' :
-        bottom_bar  : @state 'main/attached_panel/bar'
-        popup       : @state 'main/attached_panel/popup'
-      button_attach : @module 'link_button' :
-        text : 'Оформить заявку'
-        selector : 'view'
       value :
         phone : $urlform : pupil : 'phone'
         name : $urlform : pupil : 'name'
@@ -38,19 +32,22 @@ class @main  extends @template '../lp'
       button_color: @exports()
       bg_position : @exports()
       opacity_form: @exports()
-      ###
-      tutors : do Q.async =>
-        #console.log @req.urlData.filterHash()
-        yield console.log @req.udata
-        m = []
-        for i in [0...5]
-          m.push @module 'main/tutor_list/tutor':
-            name : 'Конон Екатерина Владимировна'
-            description : 'Индивидуальное обучение на гитаре — акустической, классической и электрогитаре в Одинцово и Одинцовском районе. Игорь Хотинский — профессиональный гитарист, работавший с Игорем Ивановым в группе «Кинематограф», с Юрием Лозой, с Женей Белоусовым, с Александром Малининым и другими составами.'
-            experience  : 'Преподаватель ВУЗа, опыт более 4 лет'
-            subject : 'Ритульаные жертвоприношения, Окультизм, Латынь'
-            location  : 'Москва м. Перово'
-        return m
-      ###
+      hide_head_button: true
+      hide_menu_punkt: true
+      tutors : $defer : =>
+        @tree.content.filter ?= {}
+        @tree.content.filter.page = 'landing'
+        filter = yield Feel.udata.d2u "mainFilter",@tree.content.filter
+        hash = yield Feel.udata.filterHash filter,'filter'
+        filter = yield Feel.udata.u2d filter
+        jobs = yield Main.service 'jobs'
+        o = yield jobs.solve 'filterTutors',{filter:{data:filter.mainFilter,hash},count:5,from:0}
+        o ?= {}
+        o.preps ?= {}
+        modules = for index,prep of o.preps
+          @module 'main/tutor_list/tutor':
+            value:prep
+            main_subject : _setKey @tree.content.filter,'subject.0'
+        return modules
 
 

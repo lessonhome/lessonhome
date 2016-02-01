@@ -17,7 +17,7 @@
 
     accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
 
-    return !accounts[0]? or accounts[0].valid < Date.now()
+    return unless accounts[0]? and accounts[0].valid > Date.now()
 
   if data?.password?.match /\%/
     data.password = unescape data.password

@@ -16,10 +16,14 @@ class module.exports
     @path.root    = "#{Feel.path.www}/#{@name}"
     @path.src     = "#{@path.root}/"
     @path.states  = "#{@path.src}/states"
+    @path.const  = "#{@path.src}/const"
     @path.modules = "#{@path.src}/modules"
+    @path.isomorph = "#{@path.src}/isomorph"
     @path.config  = "#{@path.root}/config"
     @path.cache   = "#{Feel.path.cache}/#{@name}"
     @path.sass    = "#{@path.cache}/modules"
+    @const        = {}
+    @constJson    = ""
     @config       = {}
     @state        = {}
     @nstate       = {}
@@ -27,23 +31,39 @@ class module.exports
     @router       = new Router @
     @fileupload   = new FileUpload @
   init : => do Q.async =>
+    @jobs = yield Main.service 'jobs'
     @db = yield Main.service('db')
     @register = yield Main.service 'register'
     @servicesIp = JSON.stringify yield (yield Main.service('services')).get()
     @form = new Form
     @urldata = yield Main.service 'urldata'
+    Feel.udata = @urldata
     @urldataFiles = yield @urldata.getFFiles()
     @urldataFilesStr = ""
     for fname,file of @urldataFiles
       @urldataFilesStr += "<script>window._FEEL_that = $Feel.urlforms['#{fname}'] = {};</script>"
       @urldataFilesStr += "<script type='text/javascript' src='/urlform/#{file.hash}/#{fname}'></script>"
     @urldataFilesStr += "<script>$Feel.urldataJson = #{yield @urldata.getJsonString()};</script>"
+    yield @readConsts()
+    yield @jobs.listen 'getConsts',@jobGetConsts
     yield @form.init()
     yield @fileupload.init()
     yield @configInit()
     yield @loadModules()
     yield @loadStates()
     yield @router.init()
+  jobGetConsts : =>
+    return @const
+  readConsts : => do Q.async =>
+    @const = {}
+    readed = yield _readdirp
+      root : 'www/lessonhome/const'
+      fileFilter  : '*.coffee'
+    files = for file in readed.files then file.path
+    w8for = for file,i in files
+      @const[file.replace(/\.coffee$/,'')] = require process.cwd()+'/www/lessonhome/const/'+file
+    yield Q.all w8for
+    @constJson = JSON.stringify @const
   configInit : =>
     return Q() unless fs.existsSync @path.config
     return Q() unless fs.statSync(@path.config).isDirectory()
@@ -257,3 +277,5 @@ class module.exports
       status[name] = value
       yield _invoke db,'update', {id:req.user.id},{$set:{status:status}},{upsert:true}
     return status[name]
+
+

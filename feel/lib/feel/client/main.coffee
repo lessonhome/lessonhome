@@ -17,7 +17,7 @@ class @Feel
       #if $Feel.user?.type?.admin
       if val
         $.cookie key,true
-    yield Q.delay 10
+    yield Q.delay 1
     for key,val of $Feel
       @[key] = val
     for key,mod of $Feel.modules
@@ -29,24 +29,39 @@ class @Feel
         for name,obj of mod
           window[name] = obj
           console.log "global class window['#{name}'];"
+
+
+    try
+      errorfunc = console.error
+      myerrorfunc = =>
+        Q.spawn => @sendActionOnce 'error_on_page'
+        errorfunc.apply console,arguments
+      console.error = myerrorfunc
+
     window.onerror = (e)=> @error e
-    yield Q.delay 10
+    
+    yield Q.delay 1
+    @jobs = new @Jobs()
+    yield @jobs.init()
+    
+    yield Q.delay 1
     urlData = new @urlData()
     @urlData = urlData
     yield urlData.init()
-    yield Q.delay 10
+    yield Q.delay 1
     
     @dataM = new @DataM()
     yield @dataM.init()
-    yield Q.delay 10
+    yield Q.delay 1
     
     @pbar = new @PBar()
     yield @pbar.init()
-    yield Q.delay 10
+    yield Q.delay 1
+    
     
     @active = new @activeState @root.tree
     yield @active.init()
-    yield Q.delay 10
+    yield Q.delay 1
     
     setTimeout @checkUnknown,200
 
@@ -55,7 +70,10 @@ class @Feel
     if $.cookie()?.tutor
       @sendActionOnceIf 'reaccess',1000*60*30
 
+  const : (name)=> $Feel.constJson[name]
+
   error : (e,args...)=>
+    Q.spawn => @sendActionOnce 'error_on_page'
     return unless e?
     e = new Error e unless e?.stack? || e?.name?
     e.message ?= ""
@@ -208,7 +226,7 @@ class @Feel
       delete @_popupAdd[key]
   sendAction : (action,params)=>
     @yaC ?= yaCounter30199739 ? undefined
-    return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
+    #return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
     unless params?
       @yaC?.reachGoal? action
     else
@@ -270,6 +288,7 @@ class @Feel
       when 's' then 'states'
       when 'm' then 'modules'
       when 'r' then 'runtime'
+      when 'w' then 'workers'
       else ''
     m = context.match /^(\w+)\/(.*)$/
     s = m[1]

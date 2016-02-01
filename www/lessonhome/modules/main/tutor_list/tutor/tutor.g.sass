@@ -5,29 +5,54 @@
   transition: all 0.3s ease-out
   &:hover
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+    .divider
+      opacity: 0
 .tutor-block
   .stars
     display : none
   //box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12)
   transition: box-shadow 0.25s ease 0s
   overflow: hidden
-  padding: 1rem 0
+  padding: 1.5rem 0
   //@media #{$medium-and-down}
   //  padding: 1 0 1rem
   .tutor-title
     font-size: 1.6rem
     line-height: 130%
     margin: 0 0 0.5rem
-    color: #039BE5
     a
       text-decoration: underline
       transition: all 0.3s ease-out
+      color: #356094
+      text-decoration: none
       &:hover
-        color: #F44336
+        color: #fd7c48
     @media #{$medium-and-down}
       font-size: 1.5rem
     @media #{$small-and-down}
       font-size: 1.4rem
+  .sub-col
+    .col
+      &:first-of-type
+        padding-left: 0 !important
+      &:last-of-type
+        padding-right: 0 !important
+  .subject-list
+    .middle-span
+      font-size: 1.1rem
+      font-family: 'Roboto'
+      font-weight: 300
+  .tutor-reviews
+    font-size: 1.05rem
+    font-family: 'Roboto'
+    letter-spacing: 1px
+    font-weight: 300
+    span
+      display: inline-block
+      vertical-align: middle
+      padding-right: 0.4rem
+    i.material-icons
+      vertical-align: middle
   .description
     a
       text-decoration: underline
@@ -35,11 +60,143 @@
       &:hover
         color: #F44336
   .price
-    font-size: 1.6rem
+    font-size: 1.5rem
   .tutor-action
-    margin-top: 1rem
+    margin-top: 0rem
+    .btn-flat
+      @media #{$small-and-down} 
+        width: auto !important
 
   &.tutor_more
     cursor: pointer
   .stars
     cursor : pointer
+.middle-span
+  font-size: 1rem
+.stantion
+  display: inline-block
+  white-space: nowrap
+  margin-right: 0.7rem
+  cursor: pointer
+  &:last-of-type
+    margin-right: 0
+  span
+    display: inline-block
+    vertical-align: middle
+    line-height: 100%
+    font-size: 1rem
+    &.middle-span
+      max-width: 100px
+      overflow: hidden
+      text-overflow: ellipsis
+    &.card-info-color
+      max-width: 90px
+      overflow: hidden
+      text-overflow: ellipsis
+.location
+  span
+    display: inline-block
+    vertical-align: middle
+    line-height: 100%
+    font-size: 1rem
+    &.card-info-color
+      white-space: nowrap
+      max-width: 90px
+      overflow: hidden
+      text-overflow: ellipsis
+.metro_icon
+  display: inline-block
+  width: 1rem
+  height: 1rem
+  border-radius: 50%
+  vertical-align: middle
+  margin-right: 0.4rem
+  background-color: transparent
+
+.metro_red
+  color: #ed1731 !important
+.metro_green
+  color: #44b85c !important
+.metro_blue
+  color: #0078bf !important
+.metro_light_blue
+  color: #19c1f3 !important
+.metro_brow
+  color: #894e35 !important
+.metro_orange
+  color: #f57f25 !important
+.metro_purple
+  color: #8e479c !important
+.metro_yellow
+  color: #ffcb31 !important
+.metro_grey
+  color: #a1a2a3 !important
+.metro_lime
+  color: #b3d445 !important
+.metro_teal
+  color: #79cdcd !important
+.metro_blue_grey
+  color: #acbfe1 !important
+.middle-span
+  display: inline-block
+  vertical-align: middle
+  &.subject-text
+    white-space: nowrap
+    .middle-span
+      white-space: normal
+      vertical-align: top
+.color-card
+  i
+    vertical-align: middle
+    margin-right: 0.4rem
+    color: #356094
+.middle-icon
+  vertical-align: middle
+  margin-right: 0.4rem
+.tutor-info-line
+  font-size: 1.2rem
+  .col
+    &:first-of-type
+      padding-left: 0
+    &:last-of-type
+      padding-right: 0
+.experience
+  margin-bottom: 0.8rem
+.card-control
+  margin-top: 1rem
+.order_stantion
+  display: inline-block
+  vertical-align: middle
+.dropdown-button
+  cursor: pointer
+.color-icon
+  color: #0094aa
+.dotted_more-button
+  display: inline-block
+  width: 20px
+  line-height: 10px
+  height: 20px
+  background-color: #e4e4e4
+  border-radius: 50%
+  vertical-align: middle
+  text-align: center
+  &.left-align
+    margin-right: 0.5rem
+  &.right-align
+    margin-left: 0.5rem
+  &:before
+    content: "..."
+.card-info-color
+  color: #646464
+
+.subject-color
+  color: #646464
+.dropdown-button
+  .subject-color
+    color: #356094
+.dropdown-content 
+  li
+    &>span
+      font-size: 1.2rem !important
+      color: #646464 !important
+      padding: 1rem 1rem !important

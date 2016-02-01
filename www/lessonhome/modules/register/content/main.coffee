@@ -2,11 +2,12 @@ class @main extends EE
   Dom: =>
     @motivation_create_profile = @found.motivation_create_profile
   show : =>
+    @found.terms_of_cooperation.leanModal()
     console.log @tree
     @password = @tree.password.class
-    @found.terms_link.click =>
-      Feel.root.tree.popup?.class?.open?()
-      return false
+#    @found.terms_link.click =>
+#      Feel.root.tree.popup?.class?.open?()
+#      return false
     @hashedPassword = false
     @login    = @tree.login.class
     @submit   = @tree.create_account.class
@@ -43,7 +44,7 @@ class @main extends EE
     @printErrors ret.err if ret?.err?
     return if ret?.err?
     login = ret.login if ret?.login?
-    console.log pass
+
     unless pass.substr(0,1) == '`'
       len = pass.length
       pass = LZString.compress((CryptoJS.SHA1(pass)).toString(CryptoJS.enc.Hex)).toString()

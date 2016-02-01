@@ -1,5 +1,6 @@
 
 
+require 'harmony-reflect'
 require 'colors'
 global._colors = require 'colors/safe'
 ###
@@ -10,11 +11,28 @@ setInterval ->
   __used = n
 , 5000
 ###
+String::capitalizeFirstLetter = -> @charAt(0).toUpperCase() + @slice(1)
 
+switch require('os').hostname()
+  when 'pi0h.org','lessonhome.org','lessonhome.ru'
+    global._production = true
+  else
+    global._production = false
 
-global._production = false
-if require('os').hostname() == 'pi0h.org'
-  global._production = true
+fs = require 'fs'
+
+logStream = fs.createWriteStream './out',flags:'a'
+errStream = fs.createWriteStream './err',flags:'a'
+
+swrite = process.stdout.write
+process.stdout.write = ->
+  swrite.apply process.stdout, arguments
+  logStream.write arguments...
+swriteerr = process.stderr.write
+process.stderr.write = ->
+  swriteerr.apply process.stderr, arguments
+  errStream.write arguments...
+   
 
 last = ""
 log =
@@ -321,12 +339,12 @@ global.$W = (obj)->
   return Q.async obj if (typeof obj == 'function') && (obj?.constructor?.name == 'GeneratorFunction')
   return obj if obj.__wraped
   obj.__wraped = true
+  newfunc = null
   for fname,func of proto
     continue unless typeof func == 'function'
-    newfunc = func
     if func?.constructor?.name == 'GeneratorFunction'
-      newfunc = Q.async func
-    obj[fname] = newfunc
+      do (func)=> newfunc = => Q.async(func).apply obj,arguments
+      obj[fname] = newfunc
   unless obj.emit?
     ee = new EE
     obj.emit = -> ee.emit arguments...
@@ -502,6 +520,7 @@ global.Exception = (e)=>
   str += (""+e.stack).grey          if e.stack?
   return str
 global.ExceptionJson = (e)=>
+  _jsoned : true
   name    : e.name
   message : e.message
   stack   : e.stack
@@ -554,6 +573,7 @@ global._request = Q.denode require('request')
 global._fs_copy =   Q.denode _fse.copy
 global._fs_remove =   Q.denode _fse.remove
 global._readdirp = Q.denode require 'readdirp'
+global.md5file = Q.denode require 'md5-file'
 regenerator = require("regenerator")
 global._LZString = require './lib/lz-string.min.js'
 global._regenerator = (source)-> regenerator.compile(source).code
@@ -570,7 +590,7 @@ global._mkdirp  = Q.denode require 'mkdirp'
 #global._clone   = (o,d=true)-> v8clone.clone o,d
 module.exports  = Lib
 
-global._waitFor = (obj,action,time=60000)-> Q.then ->
+global._waitFor = (obj,action,time=300000)->
   waited = false
   defer = Q.defer()
   obj.once action, (args...)=>
@@ -581,7 +601,6 @@ global._waitFor = (obj,action,time=60000)-> Q.then ->
     setTimeout =>
       return if waited
       defer.reject "timout waiting action #{action}"
-      return
     ,time
   return defer.promise
   
@@ -646,5 +665,7 @@ global._diff = require './diff/main'
 
 global._nameLib = require('./lib/name')
 
+helpers = {}
+global._Helper = (service)-> helpers[service] ?= new (require('./'+service))
 
 

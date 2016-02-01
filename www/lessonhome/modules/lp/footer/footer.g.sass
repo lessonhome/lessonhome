@@ -1,0 +1,90 @@
+@import variables
+
+footer
+  background: #464646 !important
+  position: relative
+  min-height: 150px
+  padding: 2rem 0 0
+  a
+    color: #ffffff
+    text-decoration: none
+    transition: all 0.2s ease-out
+    &:hover
+      color: #c6c6c6
+  h4
+    margin: 0
+    &.modal-title
+      margin: 1rem 0 !important
+  ul
+    margin: 0
+    &.footer-links-list
+      li
+        display: inline-block
+        margin-right: 3.4rem
+        &:last-of-type
+          margin-right: 0
+          @media #{$medium-and-down}
+            margin-top: 2rem
+
+  .footer-btn
+    background-color: #464646
+    border: 1px solid #ffffff
+    box-shadow: none
+    &:hover
+      box-shadow: none
+      color: #ffffff
+      background-color: #464646
+.social-links
+  white-space: nowrap
+.social
+  display: inline-block
+  vertical-align: middle
+  margin-left: 1rem
+  background: url(F('/lp/social_sprite.png'))
+  &:first-of-type
+    margin-left: 0
+.vk
+  width: 12px
+  height: 15px
+  background-position: 0 -1px 
+.fb
+  width: 8px
+  height: 18px
+  background-position: -63px 0
+.gp
+  background-position: -89px -2px
+  width: 19px
+  height: 17px
+.tw
+  width: 21px
+  height: 16px
+  background-position: -25px 0
+
+.footer-text
+  p
+    margin-top: 0
+    margin-bottom: 0.3rem
+    &:last-of-type
+      margin-bottom: 0
+.row
+  &.no-bottom-margin
+    margin-bottom: 0 !important
+.request-call-background
+  background: #fd7c48 !important
+  &.modal-header
+    .row
+      padding-top: 0.8rem
+      margin-bottom: 0    
+.request-call-modal
+  width: 35%
+  .input-field
+    .prefix
+      top: 10px
+  @media #{$medium-and-down}
+    width: 70%
+  @media #{$small-and-down}
+    width: 95%
+    max-height: 90%
+
+.orange-d-text
+  color: #fd7c48

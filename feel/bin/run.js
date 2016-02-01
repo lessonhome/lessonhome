@@ -2,7 +2,7 @@
 
 module.exports = function(lib){
   require ('coffee-script/register');
-  require ('coffee-cache').setCacheDir('.cache/.coffee');
+  require ('coffee-cache').setCacheDir('.coffee_cache');
 
 
   var Command = require(lib + '/feel/command');

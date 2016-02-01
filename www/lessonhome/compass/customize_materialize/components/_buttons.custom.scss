@@ -5,9 +5,18 @@
     border: 1px solid transparent;
     width: 165px;
     &.btn-trigger {
-      color: #26A69A !important;
+      color: #fd7c48 !important;
       background-color: #ffffff !important;
-      border: 1px solid #26A69A !important;
+      border: 1px solid #fd7c48 !important;
+    }
+  }
+  &.profile-button {
+    padding-left: 0;
+    padding-right: 0;
+    .btn-flat {
+      width: 90%;
+      height: 44px;
+      line-height: 45px;
     }
   }
 }

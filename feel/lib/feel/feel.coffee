@@ -49,7 +49,13 @@ class module.exports
     .then => mkdirp '.cache'
     .then =>
       _writeFile '.cache/version',@sVersion
-    .then => mkdirp 'log'
+    .then =>
+      do Q.async =>
+        @jobs = yield Main.service 'jobs'
+        @redis = yield Main.service 'redis'
+        @redis = yield @redis.get()
+        #yield _invoke @redis,'flushall'
+        yield mkdirp 'log'
     .then @checkCache
     .then @compass
     .then LoadSites
@@ -97,6 +103,8 @@ class module.exports
        (!fs.existsSync("www/#{sass[1]}.css"))
       )
         fs.unlinkSync file
+  const : (name)=> @site['lessonhome'].const[name]
+
   cacheFile : (path,data,sfx="")=>
     path = _path.normalize path
     cache = path.replace /^\w+\//, ".cache\/"
@@ -147,6 +155,11 @@ class module.exports
     return data if data?
     data = coffee._compileFile path
     return @qCacheFile path,data
+  checkExec : (args...)=>
+    proc = spawn args...
+    proc.stdout.on 'data', (data)=> process.stdout.write data
+    proc.stderr.on 'data', (data)=> process.stderr.write data
+    proc.on 'close', (code)=>
   compass : =>
     defer = Q.defer()
     process.chdir 'feel'

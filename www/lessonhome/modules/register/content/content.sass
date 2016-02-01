@@ -1,197 +1,27 @@
-@import compass/css3
-$advantages_photo_src: 'main_tutor/mainreg_team.png'
-
-$main_tutor_search_src: 'main_tutor/main_tutor_search.png'
-$main_tutor_search_height: image-height($main_tutor_search_src)
-$main_tutor_search_width: image-width($main_tutor_search_src)
-
-$main_pattern_src: 'main/main_pattern.png'
-$main_pattern_height: image-height($main_pattern_src)
-$main_pattern_width: image-width($main_pattern_src)
-
-$pattern_bottom_src: 'main/main_pattern_bottom.png'
-$pattern_bottom_height: image-height($pattern_bottom_src)
-$pattern_bottom_width: image-width($pattern_bottom_src)
-
-$main_pattern_noise_src: 'main/main_pattern_noise.png'
-$main_pattern_top_src: 'main/main_pattern_top.png'
-$main_pattern_top_height: image-height($main_pattern_top_src)
-
-$board_src: 'main_tutor/main_tutor_board.jpg'
-$board_height: image-height($board_src)
-$board_width: image-width($board_src)
-
-$quotes_src: 'main/quotes.png'
-$quotes_height: image-height($quotes_src)
-$quotes_width: image-width($quotes_src)
-
-$triangle_src: 'main/corner_review.jpg'
-$triangle_height: image-height($triangle_src)
-$triangle_width: image-width($triangle_src)
-
-$main_apple_src: 'main/main_apple.jpg'
-$main_apple_height: image-height($main_apple_src)
-$main_apple_width: image-width($main_apple_src)
-
-$photo1_src: 'main_tutor/photo1.jpg'
-$photo1_height: image-height($photo1_src)
-$photo1_width: image-width($photo1_src)
-
-$photo2_src: 'main_tutor/photo2.jpg'
-$photo2_height: image-height($photo2_src)
-$photo2_width: image-width($photo2_src)
-
-
-$earth_src              : 'filter_top/mainimage_earth.png'
-$note_src               : 'filter_top/mainimage_note.png'
-$pc_src                 : 'filter_top/mainimage_pc.png'
-$pencils_src            : 'filter_top/mainimage_pencils.png'
-$ruler_src              : 'filter_top/mainimage_ruler.png'
-$vial_src               : 'filter_top/mainimage_vial.png'
-$earth_height           : image-height($earth_src)
-$note_height            : image-height($note_src)
-$pc_height              : image-height($pc_src)
-$pencil_height          : image-height($pencils_src)
-$ruler_height           : image-height($ruler_src)
-$vial_height            : image-height($vial_src)
-$earth_width            : image-width($earth_src)
-$note_width             : image-width($note_src)
-$pc_width               : image-width($pc_src)
-$pencil_width           : image-width($pencils_src)
-$ruler_width            : image-width($ruler_src)
-$vial_width             : image-width($vial_src)
-
-.m-font
-  color: #363636
-.m-landingBlockTitle
-  font-size: 50px
-  color: rgb( 201, 92, 81 )
-.m-text
-  font-size: 30px
-  color: rgb( 0, 0, 0 )
-.m-Link
-  font-size: 16px
-  color: #b1deda
-  text-decoration: underline
-
-main
-  overflow: hidden
-  position: relative
-.background_earth, .background_note, .background_pc, .background_pencils, .background_ruler, .background_vial
-  z-index: -1
-  position: absolute
-
-.background_earth
-  height: $earth_height
-  width: $earth_width
-  background: url(F($earth_src))
-  right: 1%
-  top: 28%
-.background_note
-  height: $note_height
-  width: $note_width
-  background: url(F($note_src))
-  left: 6%
-  top: 1%
-.background_pc
-  height: $pc_height
-  width: $pc_width
-  background: url(F($pc_src))
-  right: 3%
-  top: 8%
-.background_pencils
-  height: $pencil_height
-  width: $pencil_width
-  background: url(F($pencils_src))
-  left: 5%
-  top: 35%
-.background_ruler
-  height: $ruler_height
-  width: $ruler_width
-  background: url(F($ruler_src))
-  right: 5%
-  top: 72%
-.background_vial
-  height: $vial_height
-  width: $vial_width
-  background: url(F($vial_src))
-  right: 84%
-  top: 66%
-// ------------------------- CHECK IN -------------------------------------------
-.check_in
-  padding: 40px 0 80px
-  .top_block
-    +inline-block
-    width: 600px
-    .top_text
-      box-sizing: border-box
-      padding: 30px 44px 12px
-      text-align: left
-      background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.5)
-      .t1, .t2, .t3
-        line-height: 24px
-        color: #202020
-      .t1, .t2
-        font-size: 16px
-      .t1
-        font-size: 16px
-      .t3
-        font-size: inherit
-        margin-bottom: 16px
-    .check_in_fields
-      box-sizing: border-box
-      padding: 12px 48px 18px 48px
-      background:  url(F('invite/block_pattern.png')), rgba(255, 255, 255, 0.7)
-      .submit
-        position : fixed
-        color : white
-        top : -8000px
-        background : white
-      text-align: left
-      .title
-        text-align: center
-        font-size: 20px
-        line-height: 24px
-        color: #202020
-        font-weight: 600
-      .password
-        padding-bottom: 10px
-        +inline-block
-      .login
-        display: block
-        float: left
-      .login, .password
-        position: relative
-        width: 100%
-        padding-top: 20px
-        .input
-          width: 100%
-          font-size: 37px
-      .checkbox
-        text-align: left
-        margin-bottom: 28px
-        .field, .text
-          +inline-block
-        .field
-          margin: 4px 12px 0 0
-        .text
-          color: #444444
-          font-size: 14px
-          line-height: 17px
-          margin-top: 15px
-          width: 319px
-          a
-            color: black
-            font-size: 14px
-        .checkbox_error
-          display: none
-          margin-top: 15px
-          color: red
-          font-size: 14px
-      .buttons
-        margin-top: 30px
-        .create_account
-          +inline-block
-          height: 48px
-          width: 100%
-          vertical-align: baseline
+.container
+  padding-top: 3rem
+  padding-bottom: 3rem
+  h1
+    font-size: 2rem
+    margin: 0
+    margin-bottom: 2rem
+  .row
+    .col
+      form
+        .row
+          .col
+            .checkbox
+              .field
+                display: inline-block
+                margin-right: 10px
+                vertical-align: top
+              .text
+                display: inline-block
+                width: 90%
+                vertical-align: top
+                position: relative
+                top: -3px
+              .checkbox_error
+                color: #F44336
+                display: none
+                padding-left: 28px

@@ -1,0 +1,66 @@
+@import variables
+@import compass/css3
+.row
+  .col
+    &.content-block
+      padding-top: 1rem
+      .collapsible
+        margin: 0 1rem 1rem
+.search-filter
+  label
+    color: rgba(0, 0, 0, 0.87)
+.collapsible-header
+  border-left: 4px solid #ddd
+  &.selected
+    border-left: 4px solid #fd7c48
+.collapsible-body
+  padding: 1rem 2rem
+.row
+  &.no-bottom-margin
+    margin-bottom: 1rem
+    .input-field
+      margin-top: 0
+
+.select-wrapper
+  input.select-dropdown
+    font-size: 0.9rem
+.select-dropdown
+  max-height: 406px
+  li.optgroup ~ li:not(.optgroup)
+    display: none
+  li.optgroup ~ li.subgroup_1
+    display: block
+  li.optgroup ~ li:not(.optgroup).disabled
+    display: none !important
+
+.search-filter
+  .select-dropdown
+    li.disabled
+      display: none !important
+  .slider-block
+    padding-top: 1.9rem
+    .row
+      .input-field
+        input[type='text']
+          margin-bottom: 0
+
+//js style
+.filter_block
+  @media #{$medium-and-down}
+    display: none
+.show_filter
+  width: 100%
+.container .row .col .tutors_list
+  opacity : 0
+  +transition( opacity 400ms ease-out)
+
+.tutor-list
+  position: relative
+.tutors_list
+  background-color: #fff
+.preloader
+  position: absolute
+  left: 50%
+  margin-left: -32px
+  z-index: -1
+  top: 5rem

@@ -47,9 +47,16 @@ if contacts
 +section_box ('education', education)
 .separate_box!=line_pri
 +section_box ('about', about)
+if $req.user.admin
+  .separate_box!=line_avatars
+  .media_box
+    .media!= avatars
 .separate_box!=line_med
 .media_box
   .media!= media
+.separate_box!=line_doc
+.media_box
+  .media!=documents
     //.add_button
       .icon
       .text Добавить фото или файл

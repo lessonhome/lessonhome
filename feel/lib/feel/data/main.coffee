@@ -8,7 +8,9 @@ class Data
     @flushs = {}
   init : =>
     @db = yield Main.service 'db'
-      
+    @jobs = yield Main.service 'jobs'
+    yield @jobs.listen 'flushData',@jobFlushData
+  
   get : (fname,find,fields)=>
     fhash= yield @findtohash find
     hash = _shash fname+fhash
@@ -120,6 +122,12 @@ class Data
       for o in @flushs[fhash]
         delete o[0][o[1]]
     delete @flushs[fhash]
+  jobFlushData : (arr)=>
+    for it in arr
+      yield @flush it.find,it.dbname
+    return
+
+
   loadForm : (fname)=>
     form = {}
     form.name = fname

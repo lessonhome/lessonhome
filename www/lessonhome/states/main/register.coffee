@@ -1,5 +1,5 @@
 
-class @main extends @template '../main'
+class @main extends @template '../lp'
   route : '/tutor_registration'
   tags  : -> ['registration']
   model : 'main/registration'
@@ -15,22 +15,24 @@ class @main extends @template '../main'
         @module 'lib/crypto'
         @module 'lib/lzstring'
       ]
-      login           : @module 'tutor/forms/input' :
+      login           : @module 'tutor/forms/input_m' :
         replace : [
           "[^\\d-\\(\\)\\@\\w\\+А-Яа-яёЁ\\s\\.]"
         ]
         name        : 'email'
         selector    : 'registration'
         text1       : 'Введите ваш телефон или email адрес'
-      password        : @module 'tutor/forms/input' :
+        input_icon  : 'person'
+      password        : @module 'tutor/forms/input_m' :
         name        :'password'
         type        : 'password'
         selector    : 'registration'
         text1       : 'Придумайте пароль'
+        input_icon  : 'lock'
       agree_checkbox        : @module 'tutor/forms/checkbox' :
         value : true
         selector: 'small'
-      create_account  : @module 'link_button' :
+      create_account  : @module 'link_button_m' :
         href      : 'tutor/profile/first_step'
         selector  : 'main_page_motivation_test'
         text      : 'СОЗДАТЬ АККАУНТ'

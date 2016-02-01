@@ -6,7 +6,6 @@ class @main extends EE
 
     @send_button = @tree.send_button.class
     @login = @tree.login.class
-
     @send_button.on 'submit', @sendAuthMail
 
   sendAuthMail: => Q.spawn =>
@@ -17,16 +16,18 @@ class @main extends EE
       return @showError ret.err
     login = ret.login if ret?.login?
 
-    {status,err} = yield @$send('passwordRestore',{
+    {status,err, way} = yield @$send('passwordRestore',{
       login: login
     })
-    console.log status
+    console.log status, err
     if status == 'success'
-      @dom.find('.title').text 'Спасибо!'
-      @dom.find('.text').text 'Мы выслали Вам email с сылкой для восстановления пароля.'
-      @dom.find('.login').hide()
-      @dom.find('.buttons').hide()
-      #return Feel.go '/send_code'
+      if way == 'email'
+        @dom.find('h1').text 'Спасибо!'
+        @dom.find('h5').text 'Мы выслали Вам email с сылкой для восстановления пароля.'
+        @dom.find('.login_row').hide()
+        @dom.find('.button_row').hide()
+      else if way == 'phone'
+        return Feel.go '/send_code'
     if status == 'failed'
       if err
         @showError err
@@ -38,23 +39,19 @@ class @main extends EE
       when 'already_logined'
         return @redirect './'
         @login.showError 'Кажется вы уже вошли. Сначала надо выйти!'
-        @password.showError()
       when 'empty_login'
         @login.showError 'Введите логин'
-      when 'empty_password'
-        @password.showError "Введите пароль"
-      when 'bad_password','wrong_password'
-        @password.showError 'Неверный пароль'
       when 'bad_login'
         @login.showError 'Введите телефон или email'
-      when 'short_password'
-        @password.showError 'Слишком короткий пароль'
+      when 'send_later','limit_attempt', 'already_send'
+        Feel.go '/send_code'
+      when 'error_sms'
+        @login.showError 'Неудалось отправить сообщение. Пожалуйста, повторите попытку позже'
       when 'login_not_exists'
         @login.showError 'К сожалению мы не смогли Вас найти'
       when 'email_not_exists'
-        @login.showError 'К сожалению вы не привязали к анкете свой email. Для восстановления доступа позвоните нам по телефону +7 (495) 181-03-73'
+        @login.showError 'К сожалению вы не привязали к анкете свой email. Для восстановления доступа позвоните нам по телефону +7 (495) 181-03-73.'
       else
-        @login.showError()
-        @password.showError "что-то пошло не так"
+        @login.showError('Внутренняя ошибка сервера. Приносим свои извинения')
 
 

@@ -1,6 +1,6 @@
 
 class @main extends @template '../main'
-  route : '/tutor_profile'
+  route : '/profile'
   model : 'main/eyed_student_profile'
   title : "Профиль репетитора"
   access : ['other','pupil']

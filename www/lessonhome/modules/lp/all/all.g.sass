@@ -1,5 +1,11 @@
 @import variables
 
+//fixed container whidth
+.container
+  width: 95% !important
+  @media #{$medium-and-down}
+    width: 90% !important
+
 $dialog_bg: #e5e5e5
 $animation-happy-01:    0 0
 $animation-happy-02:    10% 0
@@ -10,6 +16,39 @@ $animation-hello-02:    50% 0
 $animation-hello-03:    60% 0
 $animation-good-01:     70% 0
 $animation-default-01:  80% 0
+
+//custom button
+.btn-large, .btn
+  &.orange-btn
+    background-color: #fd7c48
+    box-shadow: none
+    &:hover
+      background-color: #df6736
+      box-shadow: none
+
+input[type=text]:focus:not([readonly]), input[type=tel]:focus:not([readonly])
+  border-bottom: 1px solid #fd7c48
+  box-shadow: 0 1px 0 0 #fd7c48
+  & + label
+    color: #fd7c48
+textarea.materialize-textarea:focus:not([readonly])
+  border-bottom: 1px solid #fd7c48
+  box-shadow: 0 1px 0 0 #fd7c48
+  & + label
+    color: #fd7c48
+.input-field
+  .prefix
+    &.active
+      color: #fd7c48
+.dropdown-content
+  max-height: 350px
+[type="checkbox"]
+  &:checked
+    &+label
+      &:before
+        border-right-color: #fd7c48
+        border-bottom-color: #fd7c48
+
 
 .lp_custom
   //padding-top: 40px
@@ -183,32 +222,16 @@ $animation-default-01:  80% 0
   margin-bottom: 3rem
   @media #{$small-and-down}
     margin-bottom: 2.3rem
-    opacity: 1
-  >div
+  //>div
     display : none
 .step_two
-  opacity: 1
   .row
     margin-bottom: 0
   @media #{$small-and-down}
-    opacity: 1
 .seo_text
-  opacity: 1
   @media #{$small-and-down}
-    opacity: 1
 .step_three
-  opacity: 1
   @media #{$small-and-down}
-    opacity: 1
-.any_devices
-  .tutors_list
-    opacity: 1 !important
-  .step_two
-    opacity: 1 !important
-  .seo_text
-    opacity: 1 !important
-  .step_three
-    opacity: 1 !important
 
 //selected teachers
 .selected-teachers
@@ -286,7 +309,6 @@ $animation-default-01:  80% 0
           overflow: hidden
       .rem
         @media #{$medium-and-down}
-          opacity: 1 !important
           right: -40px
           top: 0
           width: 40px
@@ -358,13 +380,69 @@ $animation-default-01:  80% 0
 
 .three-step-bg
   //background: url(F('/lp/green-bg_02.jpg'))
+  
   background: #F5F5F5
-  padding-bottom: 60px
+  @media #{$medium-and-up} 
+    background: url(F('/lp/girl_bg.jpg')) no-repeat center bottom
+    background-color: #ffffff
+  //padding-bottom: 60px
   @media #{$medium-and-down}
-    padding-bottom: 60px
+    padding-bottom: 5px
   @media #{$small-and-down}
-    padding-bottom: 60px
+    padding-bottom: 5px
+  @media #{$medium-and-up}   
+    .container
+      .row
+        &.common-row
+          min-height: 608px
+          margin-bottom: 0
+@media #{$medium-and-up}
+  .bottom-form
+    padding-top: 230px
+    padding-left: 0 
+    padding-right: 0
+    width: 438px
+    margin: 0 auto
+    p
+      font-size: 1.2rem
+      margin-bottom: 0
+    h3
+      font-size: 1.8rem
+      margin-top: 0
+    .row
+      &.phone-row
+        margin-bottom: 10px
+      &.name-row
+        margin-bottom: 0
+      &.botton-row
+        margin-bottom: 0
+      .input-field
+        .prefix
+          top: 14px
+  .final-send-block
+    text-align: center
+    padding-top: 80px !important
 
+.text-before-button
+  font-size: 1.2rem
+.after-button-text
+  padding-top: 30px
+  padding-bottom: 40px
+  i.material-icons
+    font-size: 1rem
+    margin-right: 0.7rem
+    vertical-align: middle
+    color: #22b4a6
+  span.middle-text
+    display: inline-block
+    vertical-align: top
+    font-size: 1.2rem
+    width: 95%
+    @media #{$medium-and-down}
+      width: 90%
+    @media #{$small-and-down}
+      vertical-align: top
+      width: 80%
 .no-vertical-space
   .col
     &:first-of-type

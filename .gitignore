@@ -3,6 +3,10 @@ feel/node_modules
 **.log
 **.swp
 **.swo
+**.swn
+**.swm
+**.swl
+**.swk
 **.orig
 **/.sass-cache
 **/node_modules
@@ -11,8 +15,13 @@ feel/node_modules
 **/.idia
 **/.idea
 **/.cache
+**/.coffee_cache
 **/.DS_Store
 feel/.npmversion
 **/Icon
 **/static/user_data
 **/static/urldata/**/*.json
+nohup.out
+out
+err
+client.out

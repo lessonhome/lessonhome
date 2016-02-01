@@ -1,0 +1,17 @@
+- placeholder = placeholder || "";
+- selector = selector || "";
+- value = value || "";
+- type = type || "text";
+- name = name || "text";
+- text1 = text1 || "";
+- text2 = text2 || "";
+- text3 = text3 || "";
+- error_align = error_align || "left";
+- align = align || "left";
+- input_icon = input_icon || "";
+
+.row
+  .input-field.col.s12
+    i.material-icons.prefix(hide=(input_icon==""))!= input_icon
+    input.validate.js-input(value=value type=type name=name id=_uniq)
+    label(data-error='' for="#{_uniq}").js-text1!= text1

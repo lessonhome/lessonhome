@@ -1,4 +1,4 @@
-class @main extends @template '../main'
+class @main extends @template '../lp'
   route : '/enter'
   model : 'main/second_step'
   title : "вход"
@@ -9,24 +9,28 @@ class @main extends @template '../main'
     'pupil' : 'main/first_step'
   }
   tree : =>
-    filter_top : @module '$'  :
+    content : @module 'login/enter' :
       depend : [
         @module 'lib/crypto'
         @module 'lib/lzstring'
       ]
-      login           : @module 'tutor/forms/input' :
+      login           : @module 'tutor/forms/input_m' :
         replace : [
           "[^\\d-\\(\\)\\@\\w\\А-Яа-яЁё\\+\\s\\.]"
         ]
         name        : 'email'
         selector    : 'registration'
         text1       : 'Телефон или email'
-      password        : @module 'tutor/forms/input' :
+        input_icon  : 'person'
+      password        : @module 'tutor/forms/input_m' :
         name        : 'password'
         type        : 'password'
         selector    : 'registration'
         text1       : 'Пароль'
-      enter_button    : @module 'link_button' :
+        input_icon  : 'lock'
+      enter_button    : @module 'link_button_m' :
         href      : 'tutor/profile/first_step'
         selector  : 'enter_office'
         text      : 'Войти'
+        btn_icon  : 'lock_open'
+#    filter_top : @module '$'

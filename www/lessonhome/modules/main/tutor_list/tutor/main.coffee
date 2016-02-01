@@ -12,8 +12,21 @@ class @main
   Dom: =>
     @chooseTutor      = @found.tutor_trigger
   show: =>
+    Feel.dataM.getTutor([@tree.value.index]).done() if @tree.value?.index
     @chooseTutor.on 'click', => Q.spawn => yield @onTutorChoose()
     Feel.urlData.on 'change',=> Q.spawn => yield @setLinked()
+    @parseAbout()
+    @prepareLink @dom.find('a')
+    yield @setLinked()
+
+  prepareLink : (a)=>
+    index = @tree.value.index
+    a.filter('a').off('click.prep').on 'click.prep', (e)->
+      return unless e.button == 0
+      e.preventDefault()
+      Feel.main.showTutor index,$(this).attr 'href'
+      return false
+
   hide: =>
     
   onTutorChoose : =>
@@ -33,118 +46,114 @@ class @main
     @tutorChoose state==true if choose
   tutorChoose : (active)=>
     if active
-      @found.tutor_trigger.addClass('waves-light teal lighten-2 selected white-text').removeClass('btn-trigger waves-teal')
+      @found.tutor_trigger.addClass('waves-light orange-btn selected white-text').removeClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Убрать')
       @found.tutor_trigger.find('.material-icons').html('remove')
     else
-      @found.tutor_trigger.removeClass('waves-light teal lighten-2 selected white-text').addClass('btn-trigger waves-teal')
+      @found.tutor_trigger.removeClass('waves-light orange-btn selected white-text').addClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
       @found.tutor_trigger.find('.material-icons').html('add')
-  setValue : (value={})=>
-    @tree.value ?= {}
+  setValue : (value)=>
+    #Получение и обновление value
+    value ?= @tree.value
+    @tree.value = {}
     @tree.value[key] = val for key,val of value
     value = @tree.value
-  
-    name = "#{value?.name?.first ? ""} #{value?.name?.middle ? ""}"
-    subject = ""
-    for key of value.subjects
-      subject += ', ' if subject
-      subject += key?.capitalizeFirstLetter?()
-    @found.subject.text subject
+
+    #Имя и отчество
+    @found.name.text value.name
+
+    #Отзывы
+    reviews = value.reviews
+    if reviews != '0 отзывов'
+      @found.reviews_text.html '<a href="#"><span>' + reviews  + '</span><i class="material-icons">question_answer</i></a>'
     
-    exp = value.experience ? ""
-    exp += " года" if exp && !exp?.match? /\s/
-    @found.experience.text "#{status[value?.status] ? 'Репетитор'}, опыт #{exp}"
+    #Список предметов
+    
+    main_subject = main_subject || ""
+    subjL = value.subject.length
+    main_subject = main_subject.capitalizeFirstLetter()
+    subjectID = 's' + value.index
+    si = 0
+    
+    @found.subject.text ""
+    @found.subject_block = $ '<span class="middle-span subject-text"><i class="material-icons">import_contacts</i></span>'
+    @found.subject_list = $ '<span class="middle-span card-info-color"></span>'
+    @found.subject.append @found.subject_block
+    @found.subject_block.append @found.subject_list
+        
+    for line of value.subject
+      if si != 0
+        @found.subject_list.append ',&#32;' + value.subject[line]
+      else
+        @found.subject_list.append value.subject[line]
+      si++
 
-    isMobile =
-      Android:    ->
-        return navigator.userAgent.match(/Android/i)
-      BlackBerry: ->
-        return navigator.userAgent.match(/BlackBerry/i)
-      iOS:        ->
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i)
-      Opera:      ->
-        return navigator.userAgent.match(/Opera Mini/i)
-      Windows:    ->
-        return navigator.userAgent.match(/IEMobile/i)
-      any:        ->
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
 
-    tutor_text = value.about || ''
-#    maxl = 500
+    #@found.subject.text value.subject
 
-    if !isMobile.any()
+    #Опыт и статус преподавателя
+    @found.experience.html '<i class="material-icons middle-icon">school</i><span class="middle-span">' +  value.experience + '</span>'
+
+    @parseAbout true
+
+    #Отображение города
+    @found.location.html '<i class="material-icons">location_on</i><span class="middle-span card-info-color">' +  value.location + '</span>'
+
+    #Отображение цены
+    @found.price?.text? value.left_price
+
+    #Аватарка и раздача ссылок
+    @found.image.attr('src', value.photos)
+      .attr('alt',value.name).attr('title',value.name)
+    @dom.find('a').attr('href',value.link).attr('title',value.name).attr('alt',value.name)
+
+    #Метро
+    @found.metro_line.html ''
+
+    metro_obj = value.metro_tutors
+    metroL = Object.keys(metro_obj).length
+    ti = 0
+    metroID = 'd' + value.index
+    
+    if(metroL == 1)
+      for line of metro_obj
+        @found.metro_line.append '<span class="stantion"><i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span></span>'
+    else if(metroL == 0)
+      street_loc = value.street_loc || value.area_loc || ""
+      if(street_loc != "")
+        @found.metro_line.append '<span class="middle-span card-info-color">' + street_loc  + '</span>'
+    else
+      for line of metro_obj
+        dd_button = $ '<span class="dropdown-button stantion" data-hover="true" data-alignment="right" data-beloworigin="true" data-constrainwidth="false" data-activates="' + metroID  + '"></span>'
+        dd_button.append '<i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span><div class="dotted_more-button right-align"></div>'
+        @found.metro_line.append dd_button
+        break
+      @found.metro_ul = $ '<ul id="' + metroID  + '" class="dropdown-content"></ul>'
+      @found.metro_line.append @found.metro_ul
+      for line of metro_obj
+        if(ti++==0)
+          continue
+        @found.metro_ul.append '<li><span class="stantion"><i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span>' + metro_obj[line].metro + '</span></span></li>'
+      dd_button.dropdown()
+
+    yield @setLinked()
+
+
+  parseAbout : (force = false)=>
+    if !_isMobile.any()
       maxl = 500
     else
       maxl = 145
-
+    tutor_text = @tree.value.about
     if (tutor_text.length > maxl)
       tutor_text = tutor_text.substr 0,maxl-11
       tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
       tutor_text += '... '
       @found.about.text tutor_text
-      @found.about.append $("<a class='about_link'>подробнее</a>")
-    else
+      la = $("<a class='about_link' href='#{@found.name.attr('href')}'>подробнее</a>")
+      @found.about.append la
+      @prepareLink la
+    else if force
       @found.about.text tutor_text
-  
-    l = value?.location ? {}
-    cA = (str="",val,rep=', ')->
-      return str unless val
-      val = ""+val
-      val = val.replace /^\s+/,''
-      val = val.replace /\s+$/,''
-      return str unless val
-      unless str
-        str += val
-      else
-        str += rep+val
 
-    ls1 = ""
-    ls1 = cA ls1,l.city
-#    ls1 = cA ls1,l.area
-    ls2 = ""
-    ls2 = cA ls2,l.street
-    ls2 = cA ls2,l.house
-    ls2 = cA ls2,l.building
-    ls3 = ""
-    ls3 += "м. #{l.metro}" if l.metro
-    ls = ""
-#    ls = cA ls,ls2,'<br>'
-    ls = cA ls,ls3,'<br><br>'
-    ls = cA ls,ls1,'<br>'
-    @found.location.html(ls)
-    
-    @found.price?.text?(value.left_price)
-     
-    @found.name.text name
-    rating = (value.rating-3)*3/2+4
-    rating = Math.ceil(rating*10)/10
-    stars = @found.stars.find('i')
-    i = 0
-    while i<=(rating)
-      unless stars[i]
-        star = $(stars[0]).clone(true,true)
-        @found.stars.append star
-
-      else
-        star = $ stars[i]
-      star.addClass 'orange-text'
-      i++
-    if rating <= 5
-      rtext = 'Рейтинг: '+rating
-    else if rating <= 6
-      rtext = "Рейтинг: 5+"
-    else
-      rtext = "Рейтинг: 5++"
-    if rating > 5
-      @found.stars.find('i').css 'font-size':'1.2rem'
-        
-
-    @found.stars.attr('title',rtext).attr('alt',rtext)
-
-    @found.image.attr('src', value.photos[value.photos.length-1].lurl)
-      .attr('alt',name).attr('title',name)
-    link = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
-    @dom.find('a').attr('href',link).attr('title',name).attr('alt',name)
-    
-    yield @setLinked()

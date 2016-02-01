@@ -1,0 +1,44 @@
+link(href=F("nouislider/nouislider.css"), rel="stylesheet")
+.container
+  .row
+    .input-field.col.s12.center-align.hide-on-large-only
+      a.waves-effect.waves-light.btn.js-show_filter Подобрать по параметрам
+    .col.l4.m12.s12.content-block.js-filter_block
+      !=search_filter
+    .col.l8.m12.s12.content-block.js-list_tutors
+      .js-filter_tags_block
+        !=filter_tags
+      .tutor-list
+        .preloader
+          .preloader-wrapper.big.active
+            .spinner-layer.spinner-blue
+              .circle-clipper.left
+                .circle
+              .gap-patch
+                .circle
+              .circle-clipper.right
+                .circle
+            .spinner-layer.spinner-red
+              .circle-clipper.left
+                .circle
+              .gap-patch
+                .circle
+              .circle-clipper.right
+                .circle
+            .spinner-layer.spinner-yellow
+              .circle-clipper.left
+                .circle
+              .gap-patch
+                .circle
+              .circle-clipper.right
+                .circle
+            .spinner-layer.spinner-green
+              .circle-clipper.left
+                .circle
+              .gap-patch
+                .circle
+              .circle-clipper.right
+                .circle
+        .js-tutors_list
+          !=tutor
+script(src=F("nouislider/nouislider.js"))

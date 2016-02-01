@@ -1,0 +1,385 @@
+@import variables
+
+//fixed container whidth
+.container
+  width: 90% !important
+  @media #{$medium-and-down}
+    width: 90% !important
+
+.orange-m-text
+  color: #fd7c48
+
+.dropdown-content 
+  li
+    &>span
+      color: #646464 !important
+
+//selected teachers
+.selected-teachers
+  background-color: #ffffff
+  position: fixed
+  z-index: 30
+  bottom: 0
+  left: 0
+  right: 0
+  box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12)
+  padding: 0.5rem 0 0 0
+  @media #{$small-and-down}
+    padding: 0
+  .row
+    margin-bottom: 0.4rem
+    @media #{$small-and-down}
+      margin-bottom: 0
+      position: relative
+  .chip
+    margin-right: 0.5rem
+  ul
+    margin: 0
+    padding: 0
+    @media #{$small-and-down}
+      padding: 1rem 0
+    li
+      list-style: none
+      margin-right: 0.5rem
+      @media #{$small-and-down}
+        margin-bottom: 0.5rem
+      display: inline-block
+      &:last-of-type
+        margin-right: 0
+
+.tutors-overflow
+  white-space: nowrap
+  overflow: auto
+  height: 50px
+  @media #{$small-and-down}
+    white-space: normal
+    height: auto
+
+.mobile-top
+  @media #{$small-and-down}
+    position: absolute
+    top: -1rem
+    right: 0
+
+#m-tutor-forms-input > label > div.level2
+  font-size: 37px !important
+
+.slider
+  width: auto
+  height: auto
+
+.show_select_rep
+  white-space: nowrap
+  span
+    border-bottom: 1px dashed #2196F3
+  cursor: pointer
+  padding: 0.5rem 0
+
+.hidden_rep_list
+  @media #{$small-and-down}
+    display: none
+
+.hidden
+  display: none
+#m-main-attached_panel-bar-tutor_smallest
+  .prep
+    .block_prep
+      a.photo_box
+        @media #{$medium-and-down}
+          //width: 40px
+          height: 40px
+          overflow: hidden
+      .rem
+        @media #{$medium-and-down}
+          opacity: 1 !important
+          right: -40px
+          top: 0
+          width: 40px
+          height: 40px
+
+//popup
+.popup
+  box-sizing: content-box !important
+  label
+    color: #000000 !important
+  .text_box
+    @media #{$small-and-down}
+      height: auto !important
+      padding-bottom: 0 !important
+      margin-bottom: 1rem
+  .close_button
+    display: none
+    @media #{$small-and-down}
+      display: block
+      position: fixed
+      top: 1rem
+      right: 1rem
+      z-index: 20
+      cursor: pointer
+  @media #{$small-and-down}
+    width: auto !important
+    margin-top: 0 !important
+    margin-bottom: 2rem !important
+  .step
+    @media #{$small-and-down}
+      margin-bottom: 0 !important
+      &.subject
+        margin-bottom: 1rem !important
+  h1
+    @media #{$small-and-down}
+      font-weight: 700
+      margin-top: 1rem !important
+      margin-bottom: 0.5rem !important
+  h2
+    @media #{$small-and-down}
+      margin-top: 0 !important
+  .content
+    @media #{$small-and-down}
+      padding: 0.5rem 1rem  3rem !important
+  .icon
+    @media #{$small-and-down}
+      display: none
+  .contents
+    @media #{$small-and-down}
+      margin: 0 !important
+      padding: 0 !important
+
+#m-tutor-forms-drop_down_list>label>.drop_down_list>.select_sets
+  box-sizing: content-box !important
+
+.no-vertical-space
+  .col
+    &:first-of-type
+      padding-left: 0
+    &:last-of-type
+      padding-right: 0
+
+//form hover
+.input-field
+  label
+    &:after
+      top: 40px !important
+      white-space: nowrap
+    &.active
+      &:after
+        top: 65px !important
+  &.error-text
+    input[type=text],input[type=tel]
+      margin-bottom: 25px !important
+  &:hover
+    label
+      color: #000000
+      &:after
+        white-space: nowrap
+    //input[type=text],input[type=tel]
+    //  border-bottom: 1px solid #000000
+    //input[type=text],input[type=tel]
+    //  border-color: #26a69a
+    //  &.invalid
+    //    border-color: #C62828
+      //&:focus
+        //border-bottom: 1px solid
+
+//profile style
+.nav_panel
+  margin-top: 1rem
+  margin-bottom: 1rem
+.row
+  .col
+    &.profile-send-form
+      padding: 0 2rem
+.profile-send-form
+  position: relative
+  .success
+    padding: 1rem 1rem 1rem 0
+    display: none
+    h5
+      line-height: 140%
+      font-size: 1.3rem
+    .col
+      float: none
+      display: inline-block
+      vertical-align: middle
+  .title
+    padding-top: 2rem
+    font-size: 1.4rem
+.profile-info
+  .plus-price
+    padding: 0 1rem
+    font-size: 1.2rem
+  .materialboxed
+    margin: 0 auto
+  .upper-line
+    line-height: 130%
+    padding: 1rem 0 1.5rem
+    font-size: 1.2rem
+  .tutorials-list
+    h5
+      margin-top: 0.2rem
+      margin-bottom: 0
+    i
+      display: inline-block
+      margin-top: 0.7rem
+    p
+      margin-bottom: 0
+  h1
+    font-size: 2rem
+    margin: 0 0 1rem
+  h4
+    margin-top: 0
+  h5
+    margin-top: 0
+    padding-top: 0.82rem
+  .row
+    &.profile-card
+      margin-bottom: 1rem
+    &.info-row
+      margin-bottom: 1.5rem
+      font-size: 1.1rem
+      ul.tags-list
+        margin: 0
+        li
+          display: inline-block
+          vertical-align: middle
+          margin-right: 0.8rem
+          white-space: nowrap
+          span
+            display: inline-block
+            vertical-align: middle
+          i.material-icons
+            vertical-align: middle
+            display: inline-block
+            margin-right: 0.5rem
+            font-size: 10px
+
+    &.info-row-small
+      margin-bottom: 0.7rem
+      .chip
+        margin-right: 0.5rem
+    &.bottom-info
+      h5
+        margin-bottom: 0.5rem
+        padding: 0
+      p
+        margin-bottom: 0
+        margin-top: 0.7rem
+
+  .info-row
+    .param-name
+      font-weight: 700
+      margin-right: 0.5rem
+      font-size: 1.1rem
+.inst-ya
+  padding-left: 1rem
+  font-size: 1.2rem
+  white-space: nowrap
+.rating-block
+  margin-bottom: .8rem
+  .row
+    &:last-of-type
+      margin-bottom: 0
+.rating-line
+  display: inline-block
+  position: relative
+  .base-stars
+    white-space: nowrap
+    position: absolute
+    z-index: 1
+    top: 0
+    left: 0
+  .this-rating
+    overflow: hidden
+    white-space: nowrap
+    position: relative
+    z-index: 2
+  i
+    vertical-align: middle
+.rating-text
+  font-size: 1.1rem
+  margin-bottom: .2rem
+  .rating-text_label
+    margin-right: .5rem
+  .rating-text_index
+    font-size: 1.5rem
+.review-block
+  font-size: 1.4rem
+  a
+    border-bottom: 1px dashed #039be5
+    transition: all 0.3s ease-out
+    &:hover
+      color: #C62828
+      border-color: #C62828
+.row
+  .col
+    &.top-padding-tabs
+      padding-top: 0.5rem
+      //display: none
+  .col
+    &.review-rating-block
+      padding-top: 1rem
+.reviews-date_name
+  font-weight: 700
+  //font-size: 1.2rem
+  margin-right: 0.7rem
+.reviews-date_date
+  font-style: italic
+  margin-right: 0.7rem
+.reviews-date_comment
+  font-style: italic
+.reviews-rating_index
+  font-size: 2.4rem
+.reviews-rating_subject
+  font-weight: 700
+.profile-documents
+  margin: 2rem 0 0 0
+  padding: 0
+  @media #{$small-and-down}
+    text-align: center
+  .list
+    display: inline-block
+    width: 200px
+    vertical-align: top
+    padding: 0 1rem 2rem
+    img
+      width: 100%
+      height: auto
+.review_mark
+  .col
+    position: relative
+.slogan
+  &:after
+    content: ' »'
+    font-size: 1.2em
+    white-space: nowrap
+  &:before
+    content: '« '
+    font-size: 1.2em
+    white-space: nowrap
+    
+.loaded img
+  width: 100%
+.modal-header
+  .row
+    padding-top: 0.6rem
+    margin-bottom: 0
+.request-call-modal
+  .modal-content
+    .row
+      margin-bottom: 0
+    h5
+      line-height: 140%
+    p
+      font-size: 1.2rem
+  .row
+    &.modal-footer
+      margin-bottom: 0.5rem
+._fix_bug 
+  overflow: hidden
+.tabs
+  .indicator
+    background-color: #fd7c48
+  .tab
+    a
+      color: #fd7c48
+      &:hover
+        color: #df6736

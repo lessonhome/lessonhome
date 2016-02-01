@@ -6,12 +6,12 @@ global.SLAVESERVICEID = 0
 
 class Service
   constructor : (@conf)->
+    Wrap @
     @name = @conf.name
     @id = SLAVESERVICEID++
-    Wrap @
     @path = process.cwd()+"/feel/lib/feel/"+@conf.bin
     @ee = new EE
-    @log @name
+    #@log @name
     Class   = require @path
     @service  = new Class()
     Wrap @service
@@ -20,10 +20,9 @@ class Service
     @wrapper.__serviceId    = @id
   init : (args...)=>
     args ?= @conf.args if @conf?.args?
-    yield @service.init args...
+    yield @service.init? args...
     return @wrapper
   run : (args...)=>
-    #console.log 'service run',@service.run
     yield @service.run? args...
     return
   get  : => @wrapper

@@ -1,0 +1,50 @@
+.search-filter
+  label
+    color: rgba(0, 0, 0, 0.87)
+  .collapsible
+    box-shadow: none
+.collapsible-header
+  -webkit-transition: .4s ease-out
+  -o-transition: .4s ease-out
+  -moz-transition: .4s ease-out
+  transition: .4s ease-out
+  border-left: 4px solid #ddd
+  &.selected
+    border-left: 4px solid #fd7c48
+.collapsible-body
+  padding: 1rem 2rem
+.row
+  .fixed-spicer
+    min-height: 61px
+  &.no-bottom-margin
+    margin-bottom: 1rem
+    .input-field
+      margin-top: 0
+
+.select-wrapper
+  input.select-dropdown
+    font-size: 0.9rem
+.select-dropdown
+  li.optgroup ~ li:not(.optgroup)
+    display: none
+  li.optgroup ~ li.subgroup_1
+    display: block
+  li.optgroup ~ li:not(.optgroup).disabled
+    display: none !important
+
+.megaselect
+  ul.active
+    top: 0 !important
+.top-filter-parametrs
+  padding: 1rem 1rem 2rem
+.filter-title
+  font-weight: 500
+  font-size: 1.2rem
+  margin-bottom: 0.5rem
+.branch ul
+  li
+    span
+      font-size: 1em !important
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis

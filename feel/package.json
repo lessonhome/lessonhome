@@ -61,7 +61,12 @@
     "readdirp" : "*",
     "request-json":"*",
     "yandex-direct" : "*",
-    "yandex-direct-api": "*"
+    "yandex-direct-api": "*",
+    "kue" : "*",
+    "md5-file":"*",
+    "redlock":"*",
+    "post-data":"*",
+    "harmony-reflect":"*"
   }
 }
 

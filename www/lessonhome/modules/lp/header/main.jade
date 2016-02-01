@@ -1,29 +1,36 @@
-nav
-  .nav-wrapper
-    .container
-      a.brand-logo(href='/')
-        img(src=F('header/logo.png'))
-      a(href='#', data-activates='mobile-demo').button-collapse.js-show_menu
-        i.material-icons menu
-      ul.hide-on-med-and-down.right
-        li
-          a(href='/second_step') Найти репетитора
-        li
-          a(href='/main_tutor') Репетиторам
-        li
-          a(href='/about_us') О нас
-        li
-          a(href='/support') Помощь
-        li.phone-link
-          a(href='tel:+7-495-181-0373') +7 (495) 181-03-73
-      ul.side-nav#mobile-demo
-        li
-          a(href='/second_step') Найти репетитора
-        li
-          a(href='/main_tutor') Репетиторам
-        li
-          a(href='/about_us') О нас
-        li
-          a(href='/support') Помощь
-        li.phone-link
-          a(href='tel:+7-495-181-0373') +7 (495) 181-03-73
+.logo-phone-block.js-offset_block
+  .container
+    a.logo(href='/')
+      img(src=F('lp/lh_logo.png'))
+    a.phone-link.right(href='tel:+7-495-181-0373') 
+      span +7 (495) 181-03-73
+.header-spacer
+  nav.js-fixed_nav 
+    .nav-wrapper
+      .container
+        a(href='#', data-activates='mobile-demo').button-collapse.js-show_menu
+          i.material-icons menu
+        ul.hide-on-med-and-down
+          li
+            a(href='/') Главная
+          li
+            a(href='/tutors_search') Наши репетиторы
+          li
+            if hide_menu_punkt != true
+              a(href='/main_tutor') Репетиторам
+        .right
+          if hide_head_button != true
+            if $req.user.tutor
+              a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
+            else if $req.cookie.get('tutor')
+              a(href='/enter').btn-large.waves-effect.waves-light Войти
+            else
+              a(data-target="req_more_send").btn-large.waves-effect.waves-light.js-demo_modal Оформить заявку
+        ul.side-nav#mobile-demo
+          li
+            a(href='/tutors_search') Найти репетитора
+          li
+            if hide_menu_punkt != true
+              a(href='/main_tutor') Репетиторам
+          li.phone-link
+            a(href='tel:+7-495-181-0373') +7 (495) 181-03-73

@@ -356,7 +356,13 @@ global.Wrap = (obj,prot,PR=true)->
 
 #Q.longStackSupport  = true
 
-
+global._isMobile =
+  Android:    -> navigator.userAgent.match(/Android/i)
+  BlackBerry: -> navigator.userAgent.match(/BlackBerry/i)
+  iOS:        -> navigator.userAgent.match(/iPhone|iPad|iPod/i)
+  Opera:      -> navigator.userAgent.match(/Opera Mini/i)
+  Windows:    -> navigator.userAgent.match(/IEMobile/i)
+  any:        -> (_isMobile.Android() || _isMobile.BlackBerry() || _isMobile.iOS() || _isMobile.Opera() || _isMobile.Windows())
 
 global.$W = (obj)->
   proto = obj?.__proto__
@@ -364,11 +370,13 @@ global.$W = (obj)->
   return Q.async obj if (typeof obj == 'function') && (obj?.constructor?.name == 'GeneratorFunction')
   return obj if obj.__wraped
   obj.__wraped = true
+  newfunc = null
   for fname,func of proto
     continue unless typeof func == 'function'
-    newfunc = func
     if func?.constructor?.name == 'GeneratorFunction'
       newfunc = Q.async func
+    else
+      newfunc = func
     do (newfunc)=>
       obj[fname] = => newfunc.apply obj,arguments
   unless obj.emit?
@@ -490,6 +498,7 @@ global.Exception = (e)=>
   str += (""+e.stack)          if e.stack?
   return str
 global.ExceptionJson = (e)=>
+  _jsoned : true
   name    : e.name
   message : e.message
   stack   : e.stack
@@ -538,15 +547,13 @@ global._args    = (a)->
     if ar == null
       a[i] = undefined
   return a
-###
-global._randomHash = (b=20)-> _crypto.randomBytes(b).toString('hex')
-global._shash   = (f)-> _hash(f).substr 0,10
-###
+global._randomHash = -> (""+Math.random()).split('.')[1]
+#global._shash   = (f)-> _hash(f).substr 0,10
 global._invoke  = (args...)-> Q.ninvoke args...
 #global._mkdirp  = Q.denode require 'mkdirp'
 #module.exports  = Lib
 
-global._waitFor = (obj,action,time=60000)-> Q.then ->
+global._waitFor = (obj,action,time=300000)-> Q.then ->
   waited = false
   defer = Q.defer()
   obj.once action, (args...)=>

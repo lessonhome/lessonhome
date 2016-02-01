@@ -1,1 +1,5 @@
-killall iojs nodejs node compass 2>> /dev/null
+#killall iojs nodejs node compass
+pkill --signal 9 -f iojs
+pkill --signal 9 -f nodejs
+pkill --signal 9 -f node
+pkill --signal 9 -f compass

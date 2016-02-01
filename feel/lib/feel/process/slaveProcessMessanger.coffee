@@ -7,6 +7,7 @@ SlaveProcessConnector = require './slaveProcessConnector'
 class SlaveProcessMessanger
   constructor : ->
     Wrap @
+    @jobs = _Helper 'jobs/main'
     @ee = new EE
     @queryEE = new EE
     @receive 'query',@onQuery

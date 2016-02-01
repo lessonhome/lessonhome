@@ -1,6 +1,7 @@
 
 utils = require 'util'
 http  = require 'http'
+https  = require 'https'
 spdy  = require 'spdy'
 os    = require 'os'
 spawn = require('child_process').spawn
@@ -13,11 +14,13 @@ class module.exports
     @port = 8888
     @updating = false
   run : ->
-    #return if os.hostname() != 'pi0h.org'
-    @ssh = true if os.hostname() == 'pi0h.org'
+    switch os.hostname()
+      when 'pi0h.org','lessonhome.ru','lessonhome.org'
+        @ssh = true
     options = {
       key: _fs.readFileSync '/key/server.key'
       cert : _fs.readFileSync '/key/server.crt'
+      ca : _fs.readFileSync '/key/server.ca'
       ciphers: "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4"
       honorCipherOrder: true
       autoSpdy31 : true
@@ -27,7 +30,7 @@ class module.exports
     unless @ssh
       @server = http.createServer @handler
     else
-      @server = spdy.createServer options,@handler
+      @server = https.createServer options,@handler
     @hand = 0
     @server.listen @port
   handler :(req,res)=> Q.spawn =>

@@ -1,0 +1,81 @@
+
+
+h2 На счете репетитора:
+
+.summ_price(class=parseInt(current_sum) < 0? 'red' : '')
+  span.js-summ!=current_sum
+  span &nbsp;руб.&nbsp;
+  span.js-history
+h2 Добавить транзакцию:
+.form
+  .elem-form
+    .input!=date
+  .elem-form.price
+    .input!=send_input
+    span.curr &nbsp;руб.
+  .elem-form
+    select.js-desc_sel
+      option(value='', selected=true, disabled=true) Описание операции
+      option(value='') Другое...
+      option(value='Оплата заявки', data-type='pay') Оплата заявки
+      option(value='Пополнение счета LessonHome', data-type='fill') Пополнение счета LessonHome
+
+  .elem-form
+    .description!=description
+  .elem-form
+    select.js-type
+      option(value='', selected=true, disabled=true) Тип операции
+      option(value="pay") Списание
+      option(value="fill") Пополнение
+  .elem-form
+    p.js-error
+  .elem-form.btn-panel
+    .btn.left!=add_btn
+    .btn.right!=save_btn
+
+h2 Транзакции:
+mixin trans(t)
+  tr(data-n!=t.number)
+    td!=t.pay_id || '-'
+    td!=t.number
+    td
+      .time(style ="display: none")!=t.date
+      p.local_date(style ="visibility: hidden") 00.00.0000
+      i.local_time(style ="visibility: hidden") 00:00:00
+    case t.type
+      when 'fill'
+        td.up Поп.
+      when 'pay'
+        td.down Спис.
+      default
+        td Прочие операции
+    td #{t.value || '0.00'} руб.
+
+    td.grey!=t.status
+    td.desc!=t.desc
+    td
+      if !t.pay_id && t.status != 'wait'
+        a(href='#', class="del") del.
+      else
+        span!="&#8212;"
+
+
+table
+  thead
+    tr
+      th ID
+      th Счет
+      th Дата
+      th Тип
+      th Сумма
+      th Статус
+      th Описание
+      th del.
+  tbody.js-transations
+    - var exist = false
+    each t in transactions
+      -exist = true
+      +trans(t)
+    if !exist
+      tr.empty
+        td(colspan='8') Операций не обнаружено

@@ -9,7 +9,6 @@ class AddPhotos
     @front = @found.front
     @preloader = @found.preloader
     @input = @found.input
-    @photo = @found.photo
     @photos = @found.photos
   show : =>
     once_click = true
@@ -21,12 +20,14 @@ class AddPhotos
       return false
     @input.fileupload
       dataType : 'json'
+      dropZone : @input
       done : @done
       progressall : @progressall
       change : (e) =>
         @input = jQuery(e.target)
         @disable_loader()
     @found.remove_photo.click => Q.spawn => yield @remove_photo()
+
   remove_photo : =>
     return unless @found.photos.find('>.photo').length
     @disable_loader()
@@ -65,11 +66,13 @@ class AddPhotos
     @dom.find('input').remove()
     @found.input_wrap.append @input=$('<input accept="image/*" type="file" name="files[]" data-url="/upload/image" multiple="" class="input" />')
     @input.fileupload
+      dropZone : @input
       dataType : 'json'
       done : @done
       progressall : @progressall
       progress : @start
       start: @start
+      change : (e) => @disable_loader()
   start : (e,data)=>
     @input.css {
       opacity: 0.5
@@ -134,7 +137,9 @@ class AddPhotos
       img.css 'opacity',0
       img.appendTo @photos
       img.find('img').on 'load',thenf
+      @found.remove_photo.show()
     else
+      @found.remove_photo.hide()
       thenf()
 
 @main = AddPhotos

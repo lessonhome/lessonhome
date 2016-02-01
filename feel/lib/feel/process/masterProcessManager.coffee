@@ -14,14 +14,17 @@ MasterProcessConnector  = require './masterProcessConnector'
 class MasterProcessManager
   constructor : ->
     Wrap @
+    @jobs = _Helper 'jobs/main'
     @config     = {}
     @process    = {}
     @processById= {}
     @connectors = {}
     @query      = new EE
+    @jobs = _Helper 'jobs/main'
   init : =>
     @log()
     yield @setQuery()
+    yield @jobs.listen 'slaveProcessSendToMaster',@slaveProcessSendToMaster
     configs = yield _readdir 'feel/lib/feel/process/config'
     for name in configs
       continue unless m = name.match /^(\w+)\.coffee$/
@@ -30,6 +33,13 @@ class MasterProcessManager
       @config[m[1]].services ?= []
       @config[m[1]].single   ?= false
       @config[m[1]].autostart?= false
+    #yield @jobs.listen 'process-connect-masterServiceManager',@jobConnectMasterServiceManager
+    #yield @jobs.listen 'process-connect-masterProcessManager',@jobConnectMasterProcessManager
+  slaveProcessSendToMaster : (name,data)=>
+    switch name
+      when 'run'
+        @processById[data].emit name
+
   run : =>
     @log()
     qs = []
@@ -50,7 +60,7 @@ class MasterProcessManager
       args = {}
     for key,val of args
       conf2[key] = val
-    @log conf2.name
+    #@log conf2.name
     @process[conf2.name] ?= []
     return if (@process[conf2.name].length>0)&&(conf2.single)
     s = new MasterProcess conf2,@
@@ -69,6 +79,8 @@ class MasterProcessManager
         .catch (err)=>
           @query.__emit "#{name}:#{id}",ExceptionJson err
   q_nearest : (args...)=>
+  jobConnectMasterProcessManager : (conf)=>
+  jobConnectMasterServiceManager : (conf)=>
   q_connect : (conf)=>
     connector = new MasterProcessConnector conf, yield @getProcess conf.processId
     yield connector.init()

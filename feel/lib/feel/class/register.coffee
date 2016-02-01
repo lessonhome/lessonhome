@@ -2,13 +2,22 @@
 
 bcrypt = require 'bcryptjs'
 
+time = (str)=>
+  t = new Date().getTime()
+  #console.log str,t-@t if str
+  @t = t
 
 
 class Register
   constructor : ->
     Wrap @
   init : =>
+    time()
     db = yield Main.service 'db'
+    @jobs = yield Main.service 'jobs'
+    time '1'
+    yield @jobs.listen 'registerReload',@jobRegisterReload
+    time '2'
     @account  = yield db.get 'accounts'
     @session = yield db.get 'sessions'
     @bills = yield db.get 'bills'
@@ -19,18 +28,23 @@ class Register
     @mail = yield Main.service 'mail'
     @urldata = yield Main.service 'urldata'
     @adminHashs = yield db.get 'adminHashs'
+    time '3'
     arr = yield _invoke @adminHashs.find({}),'toArray'
+    time '4'
     @adminHashsArr = {}
     for r in arr
       @adminHashsArr[r.hash] = true
     ids = {}
     _ids = (yield _invoke @dbpersons.find({},{account:1}),'toArray')
+    time '5'
     ids[row.account] = true for row in _ids
     console.log "persons: ".magenta, _ids?.length
     _ids = (yield _invoke @dbpupil.find({},{account:1}),'toArray')
+    time '6'
     ids[row.account] = true for row in _ids
     console.log 'pupils: '.magenta,_ids?.length
     _ids = (yield _invoke @dbtutor.find({},{account:1}),'toArray')
+    time '7'
     ids[row.account] = true for row in _ids
     console.log 'tutors: '.magenta, _ids?.length
     
@@ -38,25 +52,37 @@ class Register
     d = new Date()
     d.setDate d.getDate()-1
     _ids = (yield _invoke @account.find({$or:[ {accessTime:{$eq:null}},{id:{$nin:Object.keys(ids)},accessTime:{$lt:d}}]},{id:1}),'toArray')
+    time '8'
     nids[row.id] = true for row in _ids
     nids = Object.keys nids
     console.log 'illegals: '.magenta,nids.length
+    time '9'
     yield _invoke @account,'update',{account:{$exists:true}},{$unset:{account:""}},{multi:true}
+    time '21'
     yield _invoke @account,'update',{acc:{$exists:true}},{$unset:{acc:""}},{multi:true}
+    time '22'
     yield _invoke @account, 'remove',{id:{$in:nids}}
+    time '23'
     yield _invoke @session, 'remove',{account:{$in:nids}}
+    time '24'
     yield _invoke @dbpersons, 'remove',{account:{$in:nids}}
+    time '25'
     yield _invoke @dbtutor, 'remove',{account:{$in:nids}}
+    time '26'
     yield _invoke @dbpupil, 'remove',{account:{$in:nids}}
+    time '27'
     d = new Date()
     d.setDate d.getDate()-30
     yield _invoke @session,'remove',{accessTime:{$lt:d}}
+    time '28'
 
     @accounts = {}
     @sessions = {}
     @logins   = {}
     acc  = yield _invoke @account.find(),'toArray'
+    time '29'
     sess = yield _invoke @session.find(),'toArray'
+    time '30'
     for a in acc
       @accounts[a.id]   = a
       delete a.account
@@ -69,6 +95,7 @@ class Register
     for id,a of @accounts
       @aindex = a.index if (a?.index?) && (@aindex<a.index)
     d.setDate d.getDate()-100000
+    time '31'
     for id,a of @accounts
       unless a?.index?
         a.index = ++@aindex
@@ -86,7 +113,9 @@ class Register
           delete @sessions[s]
         yield _invoke @session, 'remove',{hash:{$in:arr2}}
         yield _invoke @account,'update',{id:id},{$set:{sessions:a.sessions}}
+    time '32'
     oldAvaAccs = yield _invoke @dbpersons.find({ava:{$exists:true}},{ava:1,account:1}), 'toArray'
+    time '33'
     ###
     "ava" : [
       {
@@ -111,6 +140,7 @@ class Register
     ###
     uploadedImages = []
 
+    time '35'
     for acc in oldAvaAccs
       avatar = []
       photos = []
@@ -162,12 +192,17 @@ class Register
         $set:{avatar: avatar, photos:photos, uploaded: uploaded}
         $unset:{ava:''}
       },{upsert:true})
+    time '36'
 
     #yield _invoke @dbuploaded, 'insert', uploadedImages if uploadedImages.length
   delete_tutor : (id)=>
     for session of @accounts[id].sessions
       delete @sessions[session]
     delete @accounts[id]
+  jobRegisterReload : (id)=>
+    unless id && typeof id == 'string'
+      throw new Error 'job:registerReload(userId) require userId'
+    yield @reload id
   reload : (id)=>
     acc  = yield _invoke @account.find(id:id),'toArray'
     sess = yield _invoke @session.find(account:id),'toArray'

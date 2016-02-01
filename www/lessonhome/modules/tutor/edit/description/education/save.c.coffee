@@ -37,5 +37,6 @@ check = require("./check")
   #yield _invoke db, 'update',{account:$.user.id},{$set: {education: education}},{upsert:true}
 
   yield $.status 'tutor_prereg_5', true
-  yield $.form.flush '*',$.req,$.res
+  @jobs = yield Main.service 'jobs'
+  yield @jobs.solve 'flushForm',$.req.user.id
   return {status:'success'}
