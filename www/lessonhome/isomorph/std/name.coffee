@@ -1,8 +1,9 @@
 
 @prepare = (str = '') ->
 #  str = _string.prepare(str)
-  str = str.toLowerCase().split(' ')
-  str = ( ( s[0].toUpperCase() + s.substr(1) ) for s, i in str)
+  return '' unless str
+  str = str.toLowerCase().split(/\s+/g)
+  str = ( ( s[0].toUpperCase() + s.substr(1) ) for s, i in str when s[0]?)
   return str.join(' ')
 
 @check = (str) ->
