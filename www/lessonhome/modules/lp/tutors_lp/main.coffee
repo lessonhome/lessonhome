@@ -16,3 +16,11 @@ class @main
       $(@sliderBlock).slider('next')
     $(@sliderLeft).on 'click', =>
       $(@sliderBlock).slider('prev')
+    $(@sliderRight).hover(
+      => $(@sliderBlock).slider('pause')
+      => $(@sliderBlock).slider('start')
+    )
+    $(@sliderLeft).hover(
+      => $(@sliderBlock).slider('pause')
+      => $(@sliderBlock).slider('start')
+    )
