@@ -110,11 +110,10 @@ metro_lines = metro.lines
         color : metro_lines[metro_stations[this_station].lines[0]].color
       }
 
-  unless emptyObject(users_metro)
-    ret.metro_tutors = users_metro
-  else
-    ret.metro_tutors = {}
-  
+  #if emptyObject(users_metro) != true
+  ret.metro_tutors = users_metro
+
+
   #reviews
   
   ret.reviews ?= {}
