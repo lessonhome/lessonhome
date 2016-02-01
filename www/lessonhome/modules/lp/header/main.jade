@@ -17,7 +17,7 @@
             a(href='/tutors_search') Наши репетиторы
           li
             if hide_menu_punkt != true
-              a(href='/main_tutor') Репетиторам
+              a(href='/tutors_lp') Репетиторам
         .right
           if hide_head_button != true
             if $req.user.tutor
@@ -28,9 +28,11 @@
               a(data-target="req_more_send").btn-large.waves-effect.waves-light.js-demo_modal Оформить заявку
         ul.side-nav#mobile-demo
           li
+            a(href='/') Главная
+          li
             a(href='/tutors_search') Найти репетитора
           li
             if hide_menu_punkt != true
-              a(href='/main_tutor') Репетиторам
+              a(href='/tutors_lp') Репетиторам
           li.phone-link
             a(href='tel:+7-495-181-0373') +7 (495) 181-03-73
