@@ -326,28 +326,37 @@ class @main
       if value.why then @found.why.show().find('.text').text(value.why) else @found.why.hide()
       if value.interests then @found.interests.show().find('.text').text(value.interests) else @found.interests.hide()
       @found.block_about.show()
+
+
+    @found.reviews.html('')
+    @found.documents.html('')
+
+    if value.reviews?.length
+      for r in @tree.value.reviews
+        @templ_review.use 'mark', r.mark
+        @templ_review.useh 'course', r.course
+        @templ_review.useh 'subject', r.subject
+        @templ_review.use 'name', r.name
+        @templ_review.use 'review', r.review
+        @templ_review.use 'date', r.date
+        @templ_review.add()
+      @templ_review.push @found.reviews
+    else
+      @found.reviews.html('<p>Отзывов пока нет.</p>')
+
+    if value.documents?.length
+      for d in @tree.value.documents
+        @found.documents.append("<div class='list'><div class='loaded'><img src='#{d.lurl}' data-src='#{d.hurl}'></div></div>")
+    else
+      @found.documents.html('<p>Нет загруженных фотографий.</p>')
+
+
     #@matchExists()
   matchExists : =>
     exist_rev = @tree.value.reviews?.length
     exist_doc = @tree.value.documents?.length
 
     if exist_rev or exist_doc
-
-      if exist_rev
-        for r in @tree.value.reviews
-          @templ_review.use 'mark', r.mark
-          @templ_review.useh 'course', r.course
-          @templ_review.useh 'subject', r.subject
-          @templ_review.use 'name', r.name
-          @templ_review.use 'review', r.review
-          @templ_review.use 'date', r.date
-          @templ_review.add()
-        @templ_review.push @found.reviews.html('')
-
-      if exist_doc
-        @found.documents.html('')
-        for d in @tree.value.documents
-          @found.documents.append("<div class='list'><div class='loaded'><img src='#{d.lurl}' data-src='#{d.hurl}'></div></div>")
 
       @found.review_mark.show(
         0, =>

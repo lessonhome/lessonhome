@@ -20,12 +20,14 @@ class @main
     yield @setLinked()
 
   prepareLink : (a)=>
-    index = @tree.value.index
-    a.filter('a').off('click.prep').on 'click.prep', (e)->
-      return unless e.button == 0
-      e.preventDefault()
-      Feel.main.showTutor index,$(this).attr 'href'
-      return false
+    index = @tree.value?.index
+
+    if index
+      a.filter('a').off('click.prep').on 'click.prep', (e)->
+        return unless e.button == 0
+        e.preventDefault()
+        Feel.main.showTutor index,$(this).attr 'href'
+        return false
 
   hide: =>
     
@@ -115,7 +117,7 @@ class @main
     metroL = Object.keys(metro_obj).length
     ti = 0
     metroID = 'd' + value.index
-    
+
     if(metroL == 1)
       for line of metro_obj
         @found.metro_line.append '<span class="stantion"><i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span></span>'
@@ -145,7 +147,7 @@ class @main
       maxl = 500
     else
       maxl = 145
-    tutor_text = @tree.value.about
+    tutor_text = @tree.value?.about ? ''
     if (tutor_text.length > maxl)
       tutor_text = tutor_text.substr 0,maxl-11
       tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
