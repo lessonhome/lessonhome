@@ -3167,13 +3167,13 @@ $(document).ready(function(){
         // Transitions the caption depending on alignment
         function captionTransition(caption, duration) {
           if (caption.hasClass("center-align")) {
-            caption.velocity({opacity: 0, translateY: -100}, {duration: duration, queue: false});
+            caption.velocity({opacity: 0}, {duration: duration, queue: false});
           }
           else if (caption.hasClass("right-align")) {
-            caption.velocity({opacity: 0, translateX: 100}, {duration: duration, queue: false});
+            caption.velocity({opacity: 0}, {duration: duration, queue: false});
           }
           else if (caption.hasClass("left-align")) {
-            caption.velocity({opacity: 0, translateX: -100}, {duration: duration, queue: false});
+            caption.velocity({opacity: 0}, {duration: duration, queue: false});
           }
         }
 
@@ -3193,7 +3193,7 @@ $(document).ready(function(){
             $active.removeClass('active');
             $active.velocity({opacity: 0}, {duration: options.transition, queue: false, easing: 'easeOutQuad',
                               complete: function() {
-                                $slides.not('.active').velocity({opacity: 0, translateX: 0, translateY: 0}, {duration: 0, queue: false});
+                                $slides.not('.active').velocity({opacity: 0}, {duration: 0, queue: false});
                               } });
             captionTransition($caption, options.transition);
 
@@ -3204,7 +3204,7 @@ $(document).ready(function(){
             }
 
             $slides.eq(index).velocity({opacity: 1}, {duration: options.transition, queue: false, easing: 'easeOutQuad'});
-            $slides.eq(index).find('.caption').velocity({opacity: 1, translateX: 0, translateY: 0}, {duration: options.transition, delay: options.transition, queue: false, easing: 'easeOutQuad'});
+            $slides.eq(index).find('.caption').velocity({opacity: 1}, {duration: options.transition, delay: options.transition, queue: false, easing: 'easeOutQuad'});
             $slides.eq(index).addClass('active');
 
 
@@ -3220,7 +3220,7 @@ $(document).ready(function(){
         if (!$this.hasClass('fullscreen')) {
           if (options.indicators) {
             // Add height if indicators are present
-            $this.height(options.height + 40);
+            $this.height(options.height);
           }
           else {
             $this.height(options.height);
@@ -3291,7 +3291,7 @@ $(document).ready(function(){
 
         // Adjust height to current slide
         $active.find('img').each(function() {
-          $active.find('.caption').velocity({opacity: 1, translateX: 0, translateY: 0}, {duration: options.transition, queue: false, easing: 'easeOutQuad'});
+          $active.find('.caption').velocity({opacity: 1}, {duration: options.transition, queue: false, easing: 'easeOutQuad'});
         });
 
         // auto scroll
