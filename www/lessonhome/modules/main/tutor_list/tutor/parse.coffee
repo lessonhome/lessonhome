@@ -125,9 +125,8 @@ metro_lines = metro.lines
   return ret
 
 emptyObject = (obj) ->
-  for i in obj
-    if Obj.hasOwnProperty(i)
-      return false
+  for own i of obj
+    return false
   return true
 
 getNumEnding = (iNumber, aEndings) ->
