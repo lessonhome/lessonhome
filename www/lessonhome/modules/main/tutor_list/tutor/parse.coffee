@@ -91,7 +91,7 @@ metro_lines = metro.lines
   _location.metro   ?= ""
   _location.area    ?= ""
 
-  split_station       = _location.metro.split(',').map (a) -> a.trim()
+  split_station       = _location.metro.split(/\s+/g)
   this_station = []
   users_metro = {}
 
@@ -99,7 +99,7 @@ metro_lines = metro.lines
     this_station = _diff.metroPrepare(item)
 
     unless metro_stations[this_station]?
-      for w in item.toLowerCase().split ' '
+      for w in item.toLowerCase().split(/\s+/g)
         if metro.means[w]?
           this_station = metro.means[w]
           break
