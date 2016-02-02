@@ -1,17 +1,10 @@
 -landing_page = landing_page || '';
 div(class!=landing_page ? 'lp_container' : 'container')
-  if landing_page == true
-    h1.center-align Регистрация
-  else
-    h1.center-align Вход в личный кабинет
+  h1.center-align Регистрация
   .row
     div(class!=landing_page ? 'col s12' : 'col s12 m8 l6 offset-l3 offset-m2')
       if landing_page == true
         p.center-align Получите доступ к личному кабинету
-      else
-        p Вы преподаёте или хотите начать преподавать - тогда Вы попали куда нужно!<br>Создайте свою анкету на LessonHome и ученики сами будут вас находить.
-        p Уже очень скоро наш сервис будет полностью запущен.
-        p Зарегистрируйтесь сейчас и получите бонус к рейтингу +1!
   .row
     div(class!=landing_page ? 'col s12' : 'col s11 m7 l5 offset-l3 offset-m2')
       form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")

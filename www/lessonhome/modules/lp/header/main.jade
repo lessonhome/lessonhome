@@ -20,12 +20,20 @@
               a(href='/tutors_lp') Репетиторам
         .right
           if hide_head_button != true
-            if $req.user.tutor
-              a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
-            else if $req.cookie.get('tutor')
-              a(href='/enter').btn-large.waves-effect.waves-light Войти
+            if enter_button_show != true
+              if $req.user.tutor
+                a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
+              else if $req.cookie.get('tutor')
+                a(href='/enter').btn-large.waves-effect.waves-light Войти
+              else
+                a(data-target="req_more_send").btn-large.waves-effect.waves-light.js-demo_modal Оформить заявку
             else
-              a(data-target="req_more_send").btn-large.waves-effect.waves-light.js-demo_modal Оформить заявку
+              if $req.user.tutor
+                a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
+              else if $req.cookie.get('tutor')
+                a(href='/enter').btn-large.waves-effect.waves-light Войти
+              else
+                a(href='/enter').btn-large.waves-effect.waves-light Войти
         ul.side-nav#mobile-demo
           li
             a(href='/') Главная

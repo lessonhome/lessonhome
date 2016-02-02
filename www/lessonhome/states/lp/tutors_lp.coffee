@@ -17,6 +17,7 @@ class @main  extends @template '../lp'
       return ret
     ###
     content : @module '$':
+      enter_button_show: true
       top_form  : @module 'register/content' :
         landing_page: true
         depend : [
