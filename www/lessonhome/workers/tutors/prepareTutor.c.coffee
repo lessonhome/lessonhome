@@ -1,5 +1,5 @@
 class PrepareTutor
-  version : "1"
+  version : "1.0"
   init :=>
     @db = yield Main.service 'db'
 
@@ -24,12 +24,18 @@ class PrepareTutor
       yield _invoke @collect.account, 'update', {}, {$unset: prepare: ""}, {multi: true}
       yield _invoke @redis, 'set', 'prepareVersion', @version
 
-    yield @jobPrepareOldTutors(7*24*60*60*1000)
+    yield @jobPrepareOldTutors(1000*60*60*24*7)
+
+
+  jobPrepareTutorById : require './prepareTutor/tutorById'
+  jobPrepareTutorByData: (data) => @prepare data
+  prepare : require './prepareTutor/prepare'
 
   jobPrepareOldTutors :  (period) =>
     time = new Date()
     time.setTime(time.getTime() - period)
     accounts  = yield _invoke @collect.account.find({'type.tutor' : true, $or: [{prepare: $exists: false}, {'prepare.date' : $lte: time}]}, {accessTime: 0}), 'toArray'
+    console.log 'The number of accounts for preparation:', accounts.length
     if accounts.length
       for acc in accounts when acc.id?
         data = yield @_getById [acc.id], ['tutor', 'person', 'uploaded']
@@ -46,12 +52,9 @@ class PrepareTutor
             hash
             date : new Date()
           }
-        console.log data
-        yield Q.delay(200)
 
-  jobPrepareTutorById : require './prepareTutor/tutorById'
-  jobPrepareTutorByData: (data) => @prepare data
-  prepare : require './prepareTutor/prepare'
+        yield @_saveData(data)
+        yield Q.delay(100)
 
   _getById : (arr_id, fields) =>
     result = []
@@ -84,14 +87,16 @@ class PrepareTutor
     return result
 
   _saveData : ({account, person, tutor, uploaded}) =>
-    if account? then yield _invoke @collect.account, 'update', {id : account.id },  {$set: account}, {$upsert: false}
-    if person? then yield _invoke @collect.person, 'update', {account : person.account },  {$set: person}, {$upsert: false}
-    if tutor? then yield _invoke @collect.tutor, 'update', {account : tutor.account },  {$set: tutor}, {$upsert: false}
+    if account.id? then yield _invoke @collect.account, 'update', {id : account.id, _id: account._id },  {$set: account}, {$upsert: false}
+    if person.account? then yield _invoke @collect.person, 'update', {account : person.account, _id: person._id },  {$set: person}, {$upsert: false}
+    if tutor.account? then yield _invoke @collect.tutor, 'update', {account : tutor.account, _id: tutor._id },  {$set: tutor}, {$upsert: false}
+
     if uploaded? and uploaded.length?
-      for u in uploaded
-        yield _invoke @collect.uploaded, 'update', {account : u.account },  {$set: u}, {$upsert: false}
+      for u in uploaded when u.account?
 
-
-
+        if u._id?
+          yield _invoke @collect.uploaded, 'update', {account : u.account, _id: u._id },  {$set: u}, {$upsert: false}
+        else
+          yield _invoke @collect.uploaded, 'insert', u
 
 module.exports = PrepareTutor

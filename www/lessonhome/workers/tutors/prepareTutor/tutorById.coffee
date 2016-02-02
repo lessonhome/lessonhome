@@ -4,8 +4,4 @@ module.exports = (indexes) =>
   for d in data
     d = @prepare d
     id = d.account?.id
-
-    if id
-      yield _invoke @accounts, 'update', {id}, {$set: d.account}, {$upset: true}
-      yield _invoke @persons, 'update', {account: id}, {$set: d.person}, {$upset: true}
-      yield _invoke @tutors, 'update', {account: id}, {$set: d.tutor}, {$upset: true}
+    yield @saveData(d) if id
