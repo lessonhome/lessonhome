@@ -1,3 +1,4 @@
+-id_page = id_page || ''
 .logo-phone-block.js-offset_block
   .container
     a.logo(href='/')
@@ -12,12 +13,21 @@
           i.material-icons menu
         ul.hide-on-med-and-down
           li
-            a(href='/') Главная
+            if id_page == 'main_p'
+              a.active(href='/') Главная
+            else
+              a(href='/') Главная
           li
-            a(href='/tutors_search') Наши репетиторы
+            if id_page == 'search_p'
+              a.active(href='/tutors_search') Наши репетиторы
+            else
+              a(href='/tutors_search') Наши репетиторы
           li
             if hide_menu_punkt != true
-              a(href='/tutors_lp') Репетиторам
+              if id_page == 'lp_tutors'
+                a.active(href='/tutors_lp') Репетиторам
+              else
+                a(href='/tutors_lp') Репетиторам
         .right
           if hide_head_button != true
             if enter_button_show != true
