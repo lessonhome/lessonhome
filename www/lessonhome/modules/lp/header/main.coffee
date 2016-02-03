@@ -1,5 +1,3 @@
-
-
 class @main
   constructor : ->
     $W @
