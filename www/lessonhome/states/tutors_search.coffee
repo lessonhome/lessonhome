@@ -9,6 +9,7 @@ class @main extends @template 'lp'
   }
   tree : =>
     content : @module '$':
+      id_page: 'search_p'
       filter_tags: @module '$/filter_tags' :
         value :
           filter  : $urlform : tutorsFilter : ''

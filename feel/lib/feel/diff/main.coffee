@@ -23,6 +23,11 @@ class @main
     str = str.replace('prospekt','')
     str = str.replace('bulvar','')
     str = str.replace('ulica','')
+    str = str.replace('park','')
+    str = str.replace('-gorod', '')
+    str = str.replace('akademika','')
+    str = str.replace('oktyabrskoe','')
+    str = str.slice(0,7)
     #str = str.substr(0,5)+str.substr(-5)
     return str
   match : (text,word,from=0,to=0.45,count=30)=>#,t1=0.8,t2=t1,d1=1000,d2=0)=>

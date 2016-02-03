@@ -14,3 +14,4 @@ mongorestore --username admin --password 'Monach2734&' --host 127.0.0.1:27081 .c
 
 cp ./www/lessonhome/static/urldata/pi0h.org.json ./www/lessonhome/static/urldata/`hostname`.json
 touch ./www/lessonhome/static/urldata/.gitkeep
+./mongo.sh dbindexing.js

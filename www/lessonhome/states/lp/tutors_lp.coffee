@@ -18,6 +18,7 @@ class @main  extends @template '../lp'
     ###
     content : @module '$':
       enter_button_show: true
+      id_page: 'lp_tutors'
       top_form  : @module 'register/content' :
         landing_page: true
         depend : [
@@ -30,7 +31,7 @@ class @main  extends @template '../lp'
           ]
           name        : 'email'
           selector    : 'registration'
-          text1       : 'Введите ваш телефон или email адрес'
+          text1       : 'Введите ваш телефон'
           input_icon  : 'mail_outline'
         password        : @module 'tutor/forms/input_m' :
           name        :'password'

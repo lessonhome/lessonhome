@@ -2,8 +2,12 @@
 
 .contacts
   color: #464646
+  .row
+    &.title-row
+      margin-bottom: 0
+      letter-spacing: 1px
   .title
-    font-size: 1.8rem
+    font-size: 1.6rem
     margin: 1.8rem 0
   .adres
     height: 475px
@@ -16,16 +20,48 @@
       text-transform: uppercase
       margin: 3rem 0 -1rem
     span
-      font-size: 1.3rem
-      line-height: 1rem
-      margin-bottom: 3rem
+      font-size: 1.19rem
+      line-height: 120%
+      color: #0e0e0e
+      &.info-title
+        display: block
+        margin-bottom: 1rem
+      &.block-block
+        display: block
+        margin-bottom: 0.8rem
+        padding-left: 1rem
+        font-size: 1rem
     i
       font-size: 2.3rem
       margin-top: -0.5rem
     .row
       margin-bottom: 4rem
-  .map
-    .container
-      height: 475px
-      background: url(F('/lp/map_fish.jpg')) no-repeat center center
-      background-size: cover
+.map
+  .map-container
+    width: 100%
+    min-height: 450px
+.map-icon
+  display: none
+//ballon content
+.ballon-title
+  font-size: 1.2rem
+  color: #fd7c48
+  font-weight: 700
+  margin-bottom: 0.5rem
+.ballon-text, .ballon-contacts
+  color: #464646
+.ballon-text
+  font-size: 1.1rem
+  margin-bottom: 0.5rem
+.ballon-contacts
+  margin-bottom: 0.5rem
+  &:last-of-type
+    margin-bottom: 0
+  i.material-icons, span
+    display: inline-block
+    vertical-align: middle
+  i.material-icons
+    font-size: 1.2rem
+    margin-right: 0.5rem
+    
+

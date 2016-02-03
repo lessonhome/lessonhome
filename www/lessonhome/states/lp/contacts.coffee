@@ -8,4 +8,5 @@ class @main extends @template 'lp'
     tutor : 'tutor/profile'
   }
   tree : =>
-    content : @module '$'
+    content : @module '$':
+      id_page: 'contacts_page'
