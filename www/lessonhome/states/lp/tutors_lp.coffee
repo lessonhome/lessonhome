@@ -31,7 +31,7 @@ class @main  extends @template '../lp'
           ]
           name        : 'email'
           selector    : 'registration'
-          text1       : 'Введите ваш телефон или email адрес'
+          text1       : 'Введите ваш телефон'
           input_icon  : 'mail_outline'
         password        : @module 'tutor/forms/input_m' :
           name        :'password'
