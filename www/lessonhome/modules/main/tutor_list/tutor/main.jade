@@ -2,18 +2,16 @@
   .col.s12.m12.l12
     .tutor-block
       .col.s3.left
-        a(href!=value.link).js-image_a
-          img.js-image(src!= value.photos).responsive-img
+        a(href!=value.link, title!= value.name).js-image_a
+          img.js-image(src!= value.photos, alt!=value.name).responsive-img
       .col.s9.m9.l9.left.sub-col
         .col.s12.m12.l6
           .tutor-title
-            a(href!=value.link).js-name!=value.name
-        .col.s12.m12.l6.right-align.tutor-reviews.js-reviews_text
-          - var review_link = value.link// + '&#reviews'
-          if value.reviews != '0 отзывов'
-            a(href!=review_link)
-              span!=value.reviews
-              i.material-icons question_answer 
+            a(href!=value.link, title!= value.name).js-name!=value.name
+        .col.s12.m12.l6.right-align.tutor-reviews
+          a.js-review_a(href!=value.link_comment, title!= value.name, style= value.reviews == '0 отзывов'? 'display: none': undefined)
+            span!=value.reviews
+            i.material-icons question_answer
       .col.s9.m9.l9.right.hide-on-small-only
         .grey-text.text-darken-1.js-experience
           i.material-icons.middle-icon school
@@ -32,32 +30,27 @@
               span.middle-span.card-info-color!=value.location
         .col.s6.m4.l4
           .js-metro_line
-            - var ti =0;
-            - var metroL = Object.keys(value.metro_tutors).length
-              if (metroL == 1)
-                each val, key in value.metro_tutors
-                  span.stantion
-                    i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
-                    span.card-info-color!=val.metro
-                  - break;
-              else if(metroL == 0)
-                - var street_loc = value.street_loc || value.area_loc || ""
-                if street_loc != ""
-                  span.middle-span.card-info-color!=street_loc
-              else
-                each val, key in value.metro_tutors
-                  span.stantion.dropdown-button(href="#",data-hover="true",data-alignment="right",data-beloworigin="true",data-constrainwidth="false", data-activates!="d#{value.index}")
-                    i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
-                    span.card-info-color!=val.metro
-                    .dotted_more-button.right-align
-                  - break;
-                ul.dropdown-content(id!="d#{value.index}")
-                 each val, key in value.metro_tutors
-                    - if(ti++==0) continue;
-                    li
-                      span.stantion
-                        i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
-                        span!=val.metro
+            case value.metro_tutors.type
+              when 'remote'
+              when 'all'
+              when 'area'
+              when 'street'
+                span.middle-span.card-info-color!=value.metro_tutors.data
+              when 'metro'
+                -val = value.metro_tutors.data[0]
+                span.stantion.dropdown-button(data-hover="true",data-alignment="right",data-beloworigin="true",data-constrainwidth="false", data-activates!="d#{value.index}", title="#{val.metro}")
+                  i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
+                  span.card-info-color!=val.metro
+                if value.metro_tutors.data.length > 1
+                  .dotted_more-button.right-align
+                  ul.dropdown-content(id!="d#{value.index}")
+                    each val, i in value.metro_tutors.data
+                      if i > 0
+                        li
+                          span.stantion
+                            i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
+                            span!=val.metro
+
       .col.s12.m9.l9.right.description.card-info-color
         p.js-about!=value.about
       .col.s12.m9.l9.right.valign-wrapper.no-vertical-space.card-control

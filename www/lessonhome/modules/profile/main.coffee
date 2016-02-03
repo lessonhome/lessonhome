@@ -125,6 +125,15 @@ class @main
     setTimeout =>
       if exist = @profileTab.data('exist')
         @profileTab.tabs('select_tab', exist)
+
+      Q.spawn =>
+        inset = yield Feel.urlData.get('tutorProfile','inset')
+        Q.spawn -> Feel.urlData.set('tutorProfile',{'inset': ''})
+        if inset == 1
+          top = @found.reviews.offset().top - 120
+          a = $('body, html')
+          a.delay(500).animate {scrollTop: top}, {duration: 1000}
+          $(window).one 'mousewheel', -> a.stop(true)
     ,0
     yield @setLinked()
   open : (index)=>

@@ -8,6 +8,10 @@ status =
 metro = Feel.const('metro')
 metro_stations = metro.stations
 metro_lines = metro.lines
+const_mess = {
+  all: 'Вся Москва'
+  remote: 'Skype'
+}
 
 @parse = (value)->
   value ?= {}
@@ -17,7 +21,9 @@ metro_lines = metro.lines
   #index
   ret.index = value.index
   ret.link = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
+  ret.link_comment = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{inset:1, index:value.index}
   value.link = ret.link
+  value.link_comment = ret.link_comment
   #name
   ret.name = "#{value?.name?.first ? ""} #{value?.name?.middle ? ""}"
 
@@ -30,8 +36,8 @@ metro_lines = metro.lines
     ret.subject += key?.capitalizeFirstLetter?()
 
   sj = ret.subject
-  re = /\s*,\s*/
-  sj_array = sj.split(re)
+  reg_comma = /\s*,\s*/
+  sj_array = sj.split(reg_comma)
   
   ret.subject = sj_array
 
@@ -87,32 +93,39 @@ metro_lines = metro.lines
   value.photos ?= {}
   ret.photos = value.photos[Object.keys(value.photos).length-1]?.lurl ? ""
   #metro
-  _location          = value.location
-  _location.metro   ?= ""
-  _location.area    ?= ""
 
-  split_station       = _location.metro.split(/\s+/g)
-  this_station = []
-  users_metro = {}
+  ret.metro_tutors = do ->
+    for_show = {type: 'all', data: []}
+    where = value.check_out_the_areas ? {}
+    regexp = /vsya_moskva/i
 
-  split_station.forEach (item, i, split_station) =>
-    this_station = _diff.metroPrepare(item)
+    for own i, place of where
+      return for_show if regexp.test _diff.prepare(place)
+      place = prepareStr(place)
+      for p in place.split(reg_comma)
+        if p = getGuessedMetro(p) then for_show.data.push(p)
 
-    unless metro_stations[this_station]?
-      for w in item.toLowerCase().split(/\s+/g)
-        if metro.means[w]?
-          this_station = metro.means[w]
-          break
+    if !value.place?.pupil and !value.place?.tutor and value.place?.remote
+      for_show.type = 'remote'
+      return for_show
 
-    if metro_stations[this_station]?
-      users_metro[this_station] = {
-        metro  :  metro_stations[this_station].name
-        color : metro_lines[metro_stations[this_station].lines[0]].color
-      }
+    for_show.type = 'metro'
+    return for_show if for_show.data.length
+    where = value.location?.metro || ''
 
-  #if emptyObject(users_metro) != true
-  ret.metro_tutors = users_metro
+    if where
+      where = prepareStr(where).split(reg_comma)
+      for place in where when place = getGuessedMetro(place) then for_show.data.push(place)
+      return for_show if for_show.data.length
 
+    for where in ['area', 'street']
+      return for_show if for_show.data = value.location?[for_show.type = where]
+
+    for_show.type = 'all'
+    return for_show
+
+  if const_mess[type = ret.metro_tutors.type]?
+    ret.metro_tutors.data = const_mess[type]
 
   #reviews
   
@@ -124,6 +137,24 @@ metro_lines = metro.lines
   ret.reviews = rewText
 
   return ret
+
+getGuessedMetro = (str) ->
+  m = metro_stations[_diff.metroPrepare(str)]
+
+  unless m
+    for w in str.toLowerCase().split(/\s+/g) when metro.means[w]?
+      m= metro_stations[metro.means[w]]
+      break
+
+  if m
+    return {
+      metro : m.name
+      color : metro_lines[m.lines[0]].color
+    }
+
+  return null
+
+prepareStr = (str) -> str.replace(/^\s+|\s+$/gm, '').replace(/\s+/g, ' ')
 
 emptyObject = (obj={})->
   for own i of obj
