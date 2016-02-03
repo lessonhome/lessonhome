@@ -18,6 +18,7 @@ class @main  extends @template '../lp'
     ###
     content : @module '$':
       enter_button_show: true
+      id_page: 'lp_tutors'
       top_form  : @module 'register/content' :
         landing_page: true
         depend : [

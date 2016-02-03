@@ -10,6 +10,7 @@ class @main extends @template '../lp'
   }
   tree : =>
     content : @module 'login/enter' :
+      hide_head_button: true
       depend : [
         @module 'lib/crypto'
         @module 'lib/lzstring'
