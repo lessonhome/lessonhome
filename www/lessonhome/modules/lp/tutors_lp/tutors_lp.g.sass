@@ -1,0 +1,138 @@
+//resistration block
+.registration-block
+  background: url(F('/lp/tutors_lp/registratioin_bg.jpg'))
+  background-size: cover
+  min-height: 477px
+  padding: 3rem 0
+  h2
+    font-size: 2rem
+    line-height: 120%
+    letter-spacing: 1px
+    margin: 0 0 2rem 0
+  p
+    margin: 0
+    font-size: 1.1rem
+  .row
+    .col
+      &.sub-col
+        .col
+          padding-left: 0
+          padding-right: 0
+  .clearfix
+    color: #585858
+    margin-bottom: 2rem
+    i
+      &.material-icons
+        margin: 0
+        font-size: 1.1rem
+        line-height: 1.6rem
+    p
+      margin-left: 1.8rem
+.info-steps
+  padding: 6rem 0
+  p
+    margin: 0
+    font-size: 1.3rem
+    padding-left: 1.8rem
+    color: #464646
+  h2
+    font-size: 2.6rem
+    line-height: 100%
+    letter-spacing: 1px
+    margin: 0 0 2rem 0
+  .row
+    margin-bottom: 4rem
+    &:last-of-type
+      margin-bottom: 0
+    .col
+      &.margin-top
+        margin-top: 1.5rem
+      &.offset-l1
+        padding-right: 1.5rem
+
+//registration form
+.lp_container
+  background-color: rgba(0,0,0,0.6)
+  color: #ffffff
+  .text
+    a
+      color: #ffffff
+      text-decoration: underline
+      &:hover
+        color: #fd7c48
+  .input-field
+    label
+      color: #ffffff
+      &:hover
+        color: #ffffff
+  .row
+    &:last-of-type
+      margin-bottom: 0
+
+//slider
+.slider-container
+  max-width: 800px 
+  margin: 0 auto
+.slider-arrow
+  max-width: 1080px
+  margin: 0 auto
+  padding: 0 40px
+  position: relative
+.slider-opacity
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  background-color: rgba(0,0,0, 0.7)
+  top: 68%
+  z-index: 2
+.slider-left, .slider-right
+  position: absolute
+  z-index: 4
+  bottom: 5rem
+  color: #fcfcfc
+  font-size: 5rem
+  line-height: 2rem
+  font-family: 'Roboto'
+  font-weight: 200
+  width: 30px
+  height: 30px
+  border-color: #fcfcfc
+  cursor: pointer
+.slider-left
+  left: 1rem
+  border-left: 1px solid
+  border-top: 1px solid
+  transform: rotate(-45deg)
+.slider-right
+  right: 1rem
+  border-right: 1px solid
+  border-top: 1px solid
+  transform: rotate(45deg)
+.slider
+  .slides
+    li
+      z-index: auto
+      &.active
+        z-index: auto
+      .caption
+        color: #fff
+        top: 70%
+        bottom: auto
+        left: 0
+        width: 100%
+        opacity: 0
+        z-index: 3
+        font-family: 'Roboto'
+        font-weight: 300
+        h5
+          font-size: 1.5rem
+          line-height: 120%
+  .indicators
+    bottom: 0.5rem
+    z-index: 4
+    .indicator-item
+      background-color: transparent
+      border: 1px solid #fcfcfc
+      &.active
+        background-color: #fcfcfc
