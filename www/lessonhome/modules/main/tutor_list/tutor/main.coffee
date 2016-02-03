@@ -20,12 +20,15 @@ class @main
     yield @setLinked()
 
   prepareLink : (a)=>
-    index = @tree.value.index
-    a.filter('a').off('click.prep').on 'click.prep', (e)->
-      return unless e.button == 0
-      e.preventDefault()
-      Feel.main.showTutor index,$(this).attr 'href'
-      return false
+    index = @tree.value?.index
+
+    if index
+      a.filter('a').off('click.prep').on 'click.prep', (e)=>
+        return unless e.button == 0
+        e.preventDefault()
+        href = $(e.currentTarget).attr 'href'
+        Q.spawn => Feel.main.showTutor index, href
+        return false
 
   hide: =>
     
@@ -63,11 +66,17 @@ class @main
     #Имя и отчество
     @found.name.text value.name
 
+    #Аватарка и раздача ссылок
+    @found.image.attr('src', value.photos)
+    .attr('alt',value.name).attr('title',value.name)
+    @dom.find('a').attr('href',value.link).attr('title',value.name)
+
     #Отзывы
     reviews = value.reviews
     if reviews != '0 отзывов'
-      @found.reviews_text.html '<a href="#"><span>' + reviews  + '</span><i class="material-icons">question_answer</i></a>'
-    
+      @prepareLink @found.review_a.show().attr('href', value.link_comment).find('span').text(reviews)
+    else
+      @found.review_a.hide()
     #Список предметов
     
     main_subject = main_subject || ""
@@ -103,39 +112,38 @@ class @main
     #Отображение цены
     @found.price?.text? value.left_price
 
-    #Аватарка и раздача ссылок
-    @found.image.attr('src', value.photos)
-      .attr('alt',value.name).attr('title',value.name)
-    @dom.find('a').attr('href',value.link).attr('title',value.name).attr('alt',value.name)
-
     #Метро
     @found.metro_line.html ''
 
-    metro_obj = value.metro_tutors
-    metroL = Object.keys(metro_obj).length
-    ti = 0
-    metroID = 'd' + value.index
-    
-    if(metroL == 1)
-      for line of metro_obj
-        @found.metro_line.append '<span class="stantion"><i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span></span>'
-    else if(metroL == 0)
-      street_loc = value.street_loc || value.area_loc || ""
-      if(street_loc != "")
-        @found.metro_line.append '<span class="middle-span card-info-color">' + street_loc  + '</span>'
-    else
-      for line of metro_obj
-        dd_button = $ '<span class="dropdown-button stantion" data-hover="true" data-alignment="right" data-beloworigin="true" data-constrainwidth="false" data-activates="' + metroID  + '"></span>'
-        dd_button.append '<i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span><div class="dotted_more-button right-align"></div>'
-        @found.metro_line.append dd_button
-        break
-      @found.metro_ul = $ '<ul id="' + metroID  + '" class="dropdown-content"></ul>'
-      @found.metro_line.append @found.metro_ul
-      for line of metro_obj
-        if(ti++==0)
-          continue
-        @found.metro_ul.append '<li><span class="stantion"><i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span>' + metro_obj[line].metro + '</span></span></li>'
-      dd_button.dropdown()
+    place = value.metro_tutors
+    switch place.type
+      when 'all', 'street', 'remote', 'area'
+        @found.metro_line.append "<span class='middle-span card-info-color'>#{place.data}</span>"
+      when 'metro'
+        val = place.data[0]
+        span = $("
+          <span class='stantion dropdown-button' data-hover='true' data-alignment='right' data-beloworigin='true' data-constrainwidth='false' data-activates='d#{value.index}' title='#{val.metro}'>
+            <i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>
+            <span class='card-info-color'>#{val.metro}</span>
+          </span>")
+
+        @found.metro_line.append span
+
+        if place.data.length > 1
+          @found.metro_line.append("<div class='dotted_more-button right-align'></div>")
+          ul = $("<ul class='dropdown-content' id='d#{value.index}'>")
+          for val, i in place.data when i > 0
+              ul.append("
+                <li>
+                  <span class='stantion'>
+                    <i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>
+                    <span>#{val.metro}</span>
+                  </span>
+                </li>
+              ")
+          @found.metro_line.append ul
+          span.dropdown()
+
 
     yield @setLinked()
 
@@ -145,7 +153,7 @@ class @main
       maxl = 500
     else
       maxl = 145
-    tutor_text = @tree.value.about
+    tutor_text = @tree.value?.about ? ''
     if (tutor_text.length > maxl)
       tutor_text = tutor_text.substr 0,maxl-11
       tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''

@@ -1,3 +1,5 @@
+@import variables
+
 //resistration block
 .registration-block
   background: url(F('/lp/tutors_lp/registratioin_bg.jpg'))
@@ -30,6 +32,8 @@
       margin-left: 1.8rem
 .info-steps
   padding: 6rem 0
+  @media #{$medium-and-down}
+    padding: 3rem 0
   p
     margin: 0
     font-size: 1.3rem
@@ -40,8 +44,12 @@
     line-height: 100%
     letter-spacing: 1px
     margin: 0 0 2rem 0
+    @media #{$medium-and-down}
+      margin: 0
   .row
     margin-bottom: 4rem
+    @media #{$medium-and-down}
+      margin-bottom: 1.5rem
     &:last-of-type
       margin-bottom: 0
     .col
@@ -54,17 +62,45 @@
 .lp_container
   background-color: rgba(0,0,0,0.6)
   color: #ffffff
+  padding: 1.5rem 4rem 2rem 3.5rem
+  @media #{$medium-and-down}
+    padding: 0 !important
+    color: #464646
+    background-color: transparent
+  h1
+    margin-bottom: 1rem
   .text
     a
       color: #ffffff
+      @media #{$medium-and-down}
+        color: #356094
       text-decoration: underline
       &:hover
         color: #fd7c48
   .input-field
     label
       color: #ffffff
+      @media #{$medium-and-down}
+        color: #464646
       &:hover
         color: #ffffff
+        @media #{$medium-and-down}
+          color: #464646
+  input[type=text], input[type=password],
+  input[type=email], input[type=url],
+  input[type=time], input[type=date],
+  input[type=datetime-local],
+  input[type=tel], input[type=number],
+  input[type=search],
+  textarea.materialize-textarea
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active
+      transition: background-color 50000s ease-in-out 0s !important
+      -webkit-text-fill-color: #fff
+      @media #{$medium-and-down}
+        -webkit-text-fill-color: #464646  
   .row
     &:last-of-type
       margin-bottom: 0

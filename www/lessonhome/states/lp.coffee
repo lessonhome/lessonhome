@@ -14,6 +14,7 @@ class @main
         hide_head_button: @exports('content.hide_head_button')
         hide_menu_punkt: @exports('content.hide_menu_punkt')
         enter_button_show: @exports('content.enter_button_show')
+        id_page: @exports('content.id_page')
       content : @exports()
       footer  : @module "$/footer"
       bottom_block_attached : @module 'main/attached_panel' :
