@@ -7,7 +7,7 @@ class @main
   show: =>
 
   initMap: =>
-    lessonHome_map = ymaps.Map('lessonhome_map', {
+    @map = new ymaps.Map(@found.map_container[0], {
       center: [55.76, 37.64],
       zoom: 10
     })
