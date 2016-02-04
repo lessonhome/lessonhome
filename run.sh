@@ -4,6 +4,8 @@ cd "$ROOT"
 
 ./kill.sh
 
+export NODE_ENV=production
+
 #killall iojs 2>> /dev/null
 #killall node 2>> /dev/null
 #killall nodejs 2>> /dev/null
