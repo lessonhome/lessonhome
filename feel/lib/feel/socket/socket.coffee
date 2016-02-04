@@ -12,8 +12,16 @@ class Socket
   constructor : ->
     Wrap @
   init : =>
-    @workerName = Main.conf.args.file || ""
-    @isWorker = @workerName.match(/^workers\//)?
+    @workers = {}
+    if Main.conf.args?.files?.length == 1
+      @workerName = Main.conf.args.files[0]
+      @isWorker = @workerName.match(/^workers\//)?
+    else
+      @isService = true
+      @workerName = 'multi_service'
+    unless @isWorker
+      for file in (Main.conf?.args?.files ? [])
+        @workers[file] = false
   runWorker : =>
     Class = require "#{process.cwd()}/www/lessonhome/#{@workerName}.c.coffee"
     obj = new Class
@@ -33,8 +41,8 @@ class Socket
     else
       @server = http.createServer @handler
       @server.listen Main.conf.args.port
-    @mainObject       = obj
-    @handlerFunction  = handler
+    @mainObject       = obj if obj?
+    @handlerFunction  = handler if obj?
     @jobs = yield Main.service 'jobs'
     Q.spawn =>
       unless global.Feel?.const?
@@ -59,7 +67,16 @@ class Socket
     return yield @initHandler()
   initHandler : =>
     console.log "handler ".blue+@workerName.yellow
-    obj = require "#{process.cwd()}/www/lessonhome/#{@workerName}.c.coffee"
+    return yield @initMulti() if @isService
+    obj = yield @initObject @workerName,'handler'
+  initMulti : =>
+    yield @init__Handler()
+  initMultiWorker : (name)=>
+    obj = yield @initObject name
+    @workers[name] = obj
+
+  initObject : (name,handlerName)=>
+    obj = require "#{process.cwd()}/www/lessonhome/#{name}.c.coffee"
     if obj.prototype?
       obj = $W new obj
     else for key,val of obj
@@ -69,11 +86,11 @@ class Socket
         else
           do (obj,key,val)->
             obj[key] = (args...)-> Q.then -> val.apply obj,args
-    yield @init__Handler obj,'handler'
+    yield @init__Handler obj,handlerName if handlerName
     obj.$db = @db
     yield obj?.init?()
     yield obj?.run?()
-
+    return obj
   handler : (req,res)=> Q.spawn =>
     host = req.headers.host
     $ = {}
@@ -118,7 +135,12 @@ class Socket
     $.form = @form
     $.updateUser = (session)=> @updateUser req,res,$,session
     try
-      ret = yield @mainObject[@handlerFunction] $,data...
+      if @isService
+        unless @workers[clientName]
+          yield @initMultiWorker clientName
+        ret = yield @workers[clientName].handler $,data...
+      else
+        ret = yield @mainObject[@handlerFunction] $,data...
     catch e
       console.error Exception e
       ret = {err:"internal_error",status:'failed'}

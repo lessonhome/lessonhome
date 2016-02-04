@@ -10,6 +10,7 @@ _readdir  = Q.denode _fs.readdir
 MasterProcess         = require './masterProcess'
 MasterProcessConnector  = require './masterProcessConnector'
 
+mem = -> Math.floor(process.memoryUsage().rss/(1024*1024)*100)/100
 
 class MasterProcessManager
   constructor : ->
@@ -22,6 +23,35 @@ class MasterProcessManager
     @query      = new EE
     @jobs = _Helper 'jobs/main'
   init : =>
+    @redis = yield _Helper('redis/main').get()
+
+    ###
+    Q.spawn => while true
+      m = mem()
+      #console.log "mastermprocess:".yellow,"#{m}".red
+      
+      t = (new Date().getTime())/1000
+      all = yield _invoke @redis,'get','allmemory'
+      yield _invoke @redis,'set','allmemory',0
+      list = yield _invoke @redis,'lrange','allservices',0,-1
+      list ?= []
+      yield _invoke @redis,'del','allservices'
+      for l,i in list
+        list[i] = JSON.parse l
+      list.push ['master',m]
+      list.sort (a,b)-> a[1]-b[1]
+      total = 0
+      service = 0
+      for l in list
+        console.log "memory #{l[0]}:".yellow,"#{l[1]}Mb".red
+        total += l[1]
+        service += l[1] if l[0].match /service-/
+      all /= 100
+      all += m
+      console.log "total usage: #{all}".red,service,all-service
+      console.log 'del',del = ((t+15)//15*15+10-t)*1000
+      yield Q.delay del
+    ###
     @log()
     yield @setQuery()
     yield @jobs.listen 'slaveProcessSendToMaster',@slaveProcessSendToMaster
@@ -38,7 +68,8 @@ class MasterProcessManager
   slaveProcessSendToMaster : (name,data)=>
     switch name
       when 'run'
-        @processById[data].emit name
+        @processById[data]?.emit? name
+        
 
   run : =>
     @log()
@@ -64,8 +95,8 @@ class MasterProcessManager
     @process[conf2.name] ?= []
     return if (@process[conf2.name].length>0)&&(conf2.single)
     s = new MasterProcess conf2,@
-    @process[conf2.name].push s
     @processById[s.id] = s
+    @process[conf2.name].push s
     return s.init()
   setQuery : =>
     @query.__emit = @query.emit
