@@ -112,6 +112,16 @@ class @main
     #yield @open()
     yield @matchAny() if @tree.single_profile== "tutor_profile"
 
+    if @found.avatar.height() is 0
+      @found.avatar.load @prepareAvatar
+    else
+      @prepareAvatar()
+
+  prepareAvatar : =>
+    @found.view_photo.removeClass('avatar_loaded').css {
+      'padding-top': ''
+    }
+
   matchAny : (force=false)=>
     #return unless @tree.value?.index
     if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
@@ -125,6 +135,15 @@ class @main
     setTimeout =>
       if exist = @profileTab.data('exist')
         @profileTab.tabs('select_tab', exist)
+
+      Q.spawn =>
+        inset = yield Feel.urlData.get('tutorProfile','inset')
+        Q.spawn -> Feel.urlData.set('tutorProfile',{'inset': ''})
+        if inset == 1
+          top = @found.reviews.offset().top - 120
+          a = $('body, html')
+          a.delay(500).animate {scrollTop: top}, {duration: 1000}
+          $(window).one 'mousewheel', -> a.stop(true)
     ,0
     yield @setLinked()
   open : (index)=>
@@ -203,14 +222,17 @@ class @main
       }).attr('data-src', null)
 
       photo_parent.one 'click', ->
-        photo_parent.append h_img
+        l_img.before h_img
         h_img.attr('src', src_h).load ->
           h_img.css('display', '').animate {opacity: 1}, ->
             l_img.remove()
-            h_img.css({position: 'static'})
+            h_img.css({position: ''})
 
 
   setAvatar : (avatar)=>
+    @found.view_photo.css {
+      'padding-top' : "#{avatar.ratio*100}%"
+    }
     @found.avatar.attr {
       "src" : avatar.lurl
       "data-src" : avatar.hurl
@@ -326,28 +348,37 @@ class @main
       if value.why then @found.why.show().find('.text').text(value.why) else @found.why.hide()
       if value.interests then @found.interests.show().find('.text').text(value.interests) else @found.interests.hide()
       @found.block_about.show()
+
+
+    @found.reviews.html('')
+    @found.documents.html('')
+
+    if value.reviews?.length
+      for r in @tree.value.reviews
+        @templ_review.use 'mark', r.mark
+        @templ_review.useh 'course', r.course
+        @templ_review.useh 'subject', r.subject
+        @templ_review.use 'name', r.name
+        @templ_review.use 'review', r.review
+        @templ_review.use 'date', r.date
+        @templ_review.add()
+      @templ_review.push @found.reviews
+    else
+      @found.reviews.html('<p>Отзывов пока нет.</p>')
+
+    if value.documents?.length
+      for d in @tree.value.documents
+        @found.documents.append("<div class='list'><div class='loaded'><img src='#{d.lurl}' data-src='#{d.hurl}'></div></div>")
+    else
+      @found.documents.html('<p>Нет загруженных фотографий.</p>')
+
+
     #@matchExists()
   matchExists : =>
     exist_rev = @tree.value.reviews?.length
     exist_doc = @tree.value.documents?.length
 
     if exist_rev or exist_doc
-
-      if exist_rev
-        for r in @tree.value.reviews
-          @templ_review.use 'mark', r.mark
-          @templ_review.useh 'course', r.course
-          @templ_review.useh 'subject', r.subject
-          @templ_review.use 'name', r.name
-          @templ_review.use 'review', r.review
-          @templ_review.use 'date', r.date
-          @templ_review.add()
-        @templ_review.push @found.reviews.html('')
-
-      if exist_doc
-        @found.documents.html('')
-        for d in @tree.value.documents
-          @found.documents.append("<div class='list'><div class='loaded'><img src='#{d.lurl}' data-src='#{d.hurl}'></div></div>")
 
       @found.review_mark.show(
         0, =>

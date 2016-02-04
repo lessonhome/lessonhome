@@ -10,6 +10,7 @@ class @main extends @template 'lp'
   tree : =>
     filter = @const('filter')
     content : @module '$':
+      id_page: 'main_p'
       subject_list: filter.subjects
       training_direction : filter.course
       value : $urlform : pupil: ''
@@ -22,6 +23,8 @@ class @main extends @template 'lp'
         regexp = /\s+[^\s]*$/
         regexp_dot = /\s*\.{1,3}$/
         for p in prep
+          p.avatar = p.photos[p.photos.length - 1].hurl
+          p.link = '/tutor_profile?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
           continue unless p?.reviews?.length
           onmain = []
           i = 0
@@ -40,8 +43,5 @@ class @main extends @template 'lp'
             p['num_show_rev'] = onmain[0]
           else
             p['num_show_rev'] = onmain[Math.floor(Math.random()*onmain.length)]
-
-          p.avatar = p.photos[p.photos.length - 1].hurl
-          p.link = '/tutor_profile?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
 
         return prep
