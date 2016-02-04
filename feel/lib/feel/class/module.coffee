@@ -16,10 +16,14 @@ escapeRegExp = (string)-> string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1")
 replaceAll   = (string, find, replace)->
   string.replace(new RegExp(escapeRegExp(find), 'g'), replace)
 
+global.ttt = 0
+
 class module.exports
   constructor :   (module,@site)->
-    @files      = module.files
+    @version = 5
+    @files      = module.files ? {}
     @name       = module.name
+    @hashsum    = _hash(module.stat || "")+@version
     @id         = module.name.replace /\//g, '-'
     @jade       = {}
     @css        = {}
@@ -33,12 +37,29 @@ class module.exports
     @allJs      = ""
     @jsHash     = '666'
     @coffeeHash = '666'
-  init : =>
-    Q()
-    .then @makeJade
-    .then @makeSass
-    .then @makeAllCss
-    .then @makeCoffee
+    @vars_to_cache = [
+      'jade'
+      'hashsum'
+      'allCssRelative','cssSrc','css','allCss'
+      'config','newCoffee','newCoffeenr','coffee','coffeenr','allCoffee','allJs','jsHash','coffeeHash'
+    ]
+  init : => do Q.async =>
+    @cache = @site.module_redis_cache["module_cache-"+@name] ? {}
+    
+    if @cache.hashsum == @hashsum
+      @[field] = @cache[field] for field in @vars_to_cache
+      @jade.fn = eval "(#{@jade.fnCli})" if @jade.fnCli
+      console.log 'module\t'.yellow,"#{@name}".grey
+    else
+      yield @makeJade()
+      yield @makeSass()
+      yield @makeAllCss()
+      yield @makeCoffee()
+      @cache = {}
+      @cache[field] = @[field] for field in @vars_to_cache
+      Q.spawn =>
+        yield _invoke @site.redis,'set',"module_cache-"+@name,JSON.stringify @cache
+
   rescanFiles : => do Q.async =>
     files = yield readdir "#{@site.path.modules}/#{@name}"
     @files = {}
@@ -58,7 +79,7 @@ class module.exports
         }
   replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-]+)/,"$1mod-#{@id}--$2")
   replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-]+)/,"$1js-$2--{{UNIQ}} $2")
-  makeJade : =>
+  makeJade : (source=false)=>
     _jade = {}
     for filename, file of @files
       if file.ext == 'jade' && file.name == 'main'

@@ -356,8 +356,10 @@
     font-size: 1.2em
     white-space: nowrap
     
-.loaded img
-  width: 100%
+.loaded
+  font-size: 0
+  img
+    width: 100%
 .modal-header
   .row
     padding-top: 0.6rem
@@ -383,3 +385,11 @@
       color: #fd7c48
       &:hover
         color: #df6736
+.avatar_loaded
+  width: 100%
+  position: relative
+  overflow: hidden
+  img
+    position: absolute
+    top: 0
+    left: 0

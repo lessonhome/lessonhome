@@ -49,10 +49,13 @@ STATUS_VALUES = {
     subject_pupil: data.data_pupil?.subject
   }
   if data.photos?
-    continue for key, photo of data.photos
+    continue for own key, photo of data.photos
     value.src_avatar = {
       lurl : photo.lurl
       hurl : photo.hurl
+      hheight : photo.hheight
+      hwidth : photo.hwidth
+      ratio: photo.hheight/photo.hwidth
     }
 
   if data.age? && data.age
