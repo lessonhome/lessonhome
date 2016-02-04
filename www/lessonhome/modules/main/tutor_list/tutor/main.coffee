@@ -8,6 +8,7 @@ status =
 
 
 class @main
+  DATA_FILTER = {}
   constructor : -> $W @
   Dom: =>
     @chooseTutor      = @found.tutor_trigger
@@ -56,16 +57,25 @@ class @main
       @found.tutor_trigger.removeClass('waves-light orange-btn selected white-text').addClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
       @found.tutor_trigger.find('.material-icons').html('add')
+  setFilter : (filter = {}) ->
+    DATA_FILTER = {}
+    if filter.metro?.length
+      DATA_FILTER['metro'] = obj = {}
+      for e in filter.metro
+        e = e.split(':')[1]
+        obj[e] = true
+
+  getFilter : -> return DATA_FILTER
   setValue : (value)=>
     #Получение и обновление value
     value ?= @tree.value
     @tree.value = {}
     @tree.value[key] = val for key,val of value
     value = @tree.value
+    filter = @getFilter()
 
     #Имя и отчество
     @found.name.text value.name
-
     #Аватарка и раздача ссылок
     @found.image.attr('src', value.photos)
     .attr('alt',value.name).attr('title',value.name)
@@ -116,13 +126,25 @@ class @main
     @found.metro_line.html ''
 
     place = value.metro_tutors
+
+    if filter.metro and place.type is 'metro' and place.data.length > 1
+      _pl = []
+      for p in place.data
+
+        if filter.metro[p.key]?
+          _pl.unshift(p)
+        else
+          _pl.push(p)
+
+      place.data = _pl
+
     switch place.type
       when 'all', 'street', 'remote', 'area'
         @found.metro_line.append "<span class='middle-span card-info-color'>#{place.data}</span>"
       when 'metro'
         val = place.data[0]
         span = $("
-          <span class='stantion dropdown-button' data-hover='true' data-alignment='right' data-beloworigin='true' data-constrainwidth='false' data-activates='d#{value.index}' title='#{val.metro}'>
+          <span class='stantion dropdown-button' data-hover='true' data-constrainwidth='false' data-activates='d#{value.index}'>
             <i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>
             <span class='card-info-color'>#{val.metro}</span>
           </span>")
@@ -130,9 +152,9 @@ class @main
         @found.metro_line.append span
 
         if place.data.length > 1
-          @found.metro_line.append("<div class='dotted_more-button right-align'></div>")
+          span.append("<div class='dotted_more-button right-align'></div>")
           ul = $("<ul class='dropdown-content' id='d#{value.index}'>")
-          for val, i in place.data when i > 0
+          for val, i in place.data
               ul.append("
                 <li>
                   <span class='stantion'>
