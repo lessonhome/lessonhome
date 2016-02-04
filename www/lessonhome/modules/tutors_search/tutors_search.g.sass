@@ -46,13 +46,21 @@
   opacity : 0
   +transition( opacity 400ms ease-out)
 
-.tutor-list
+.results
   position: relative
+  .not_exist, .wait
+    font-size: 1.3rem
+    //color: #9E9E9E
+    text-align: center
+  .wait
+    &.abs
+      position: absolute
+      top: 135px
+      left: 0
+      right: 0
+    margin-bottom: 40px
+  .not_exist
+    display: none
+
 .tutors_list
   background-color: #fff
-.preloader
-  position: absolute
-  left: 50%
-  margin-left: -32px
-  z-index: -1
-  top: 5rem
