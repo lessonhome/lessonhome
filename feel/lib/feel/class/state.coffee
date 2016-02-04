@@ -27,9 +27,7 @@ class module.exports
     @initing = true
     that = @
     console.log "state\t\t".magenta, "#{@name}".cyan
-    unless @src
-      console.log 'init src'
-      @initSrc()
+    @initSrc() unless @src
     @makeClass()
   initSrc : =>
     try
