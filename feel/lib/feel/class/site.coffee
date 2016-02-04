@@ -31,6 +31,7 @@ class module.exports
     @router       = new Router @
     @fileupload   = new FileUpload @
   init : => do Q.async =>
+    @redis = yield _Helper('redis/main').get()
     @jobs = yield Main.service 'jobs'
     @db = yield Main.service('db')
     @register = yield Main.service 'register'

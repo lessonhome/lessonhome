@@ -16,8 +16,11 @@ escapeRegExp = (string)-> string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1")
 replaceAll   = (string, find, replace)->
   string.replace(new RegExp(escapeRegExp(find), 'g'), replace)
 
+global.ttt = 0
+
 class module.exports
   constructor :   (module,@site)->
+    @t = new Date().getTime()
     @files      = module.files
     @name       = module.name
     @id         = module.name.replace /\//g, '-'
@@ -33,12 +36,31 @@ class module.exports
     @allJs      = ""
     @jsHash     = '666'
     @coffeeHash = '666'
-  init : =>
-    Q()
-    .then @makeJade
-    .then @makeSass
-    .then @makeAllCss
-    .then @makeCoffee
+    @version = 2
+    @vars_to_cache = ['jade','hashsum','allCssRelative','cssSrc','css','allCss','config','newCoffee','newCoffeenr','coffee','coffeenr','allCoffee','allJs','jsHash','coffeeHash']
+  init : => do Q.async =>
+    stats = for name,file of @files
+      _stat file.path
+    stats = yield Q.all stats
+    @hashsum = ""
+    @hashsum += s.mtime for s in stats
+    @hashsum =_hash(@hashsum)+@version
+    @cache = JSON.parse (yield _invoke @site.redis,'get',"module_cache-"+@name) ? "{}"
+    
+    if @cache.hashsum == @hashsum
+      @[field] = @cache[field] for field in @vars_to_cache
+      console.log 'module\t'.yellow,"#{@name}".grey
+    else
+      yield @makeJade()
+      yield @makeSass()
+      yield @makeAllCss()
+      yield @makeCoffee()
+      @cache = {}
+      @cache[field] = @[field] for field in @vars_to_cache
+      Q.spawn =>
+        yield _invoke @site.redis,'set',"module_cache-"+@name,JSON.stringify @cache
+
+
   rescanFiles : => do Q.async =>
     files = yield readdir "#{@site.path.modules}/#{@name}"
     @files = {}
