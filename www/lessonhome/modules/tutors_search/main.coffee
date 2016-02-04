@@ -50,30 +50,41 @@ class @main
         $(@listTutors).slideDown('fast')
         @filterStatus = 0
 
-    ###
-    numTutors = 5
-    tutors = yield Feel.dataM.getByFilter numTutors, ({subject:['Русский язык']})
-    tutors ?= []
-    if tutors.length < numTutors
-      newt = yield Feel.dataM.getByFilter numTutors*2, ({})
-      exists = {}
-      for t in tutors
-        exists[t.index]= true
-      i = 0
-      while tutors.length < numTutors
-        t = newt[i++]-height
-        break unless t?
-        continue if exists[t.index]
-        tutors.push t
-    for tutor,i in tutors
-      clone = @tree.tutor.class.$clone()
-      clone.dom.css opacity:0
-      @found.tutors_list.append clone.dom
-      yield clone.setValue tutor
-      clone.dom.show()
-      clone.dom.animate (opacity:1),1400
-    ###
+    @found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup'
+
+  ###
+  numTutors = 5
+  tutors = yield Feel.dataM.getByFilter numTutors, ({subject:['Русский язык']})
+  tutors ?= []
+  if tutors.length < numTutors
+    newt = yield Feel.dataM.getByFilter numTutors*2, ({})
+    exists = {}
+    for t in tutors
+      exists[t.index]= true
+    i = 0
+    while tutors.length < numTutors
+      t = newt[i++]-height
+      break unless t?
+      continue if exists[t.index]
+      tutors.push t
+  for tutor,i in tutors
+    clone = @tree.tutor.class.$clone()
+    clone.dom.css opacity:0
+    @found.tutors_list.append clone.dom
+    yield clone.setValue tutor
+    clone.dom.show()
+    clone.dom.animate (opacity:1),1400
+  ###
+  showLoader : =>@found.wait.show()
+  hideLoader : =>@found.wait.hide()
+  fixLoader : => @found.wait.addClass('abs')
+  unfixLoader: =>@found.wait.removeClass('abs')
+  showEmpty : =>
+    @hideLoader()
+    @found.not_exist.show()
+  hideEmpty : => @found.not_exist.hide()
   reshow : =>
+    @fixLoader()
     end = =>
       @tutors_result.css 'opacity',1
     return (@busyNext = {f:@reshow}) if @busy
@@ -104,6 +115,13 @@ class @main
     setTimeout (=> Q.spawn =>
       @dom.height @dom.height()
       @tutors_result.children().remove()
+
+      if indexes.length > 0
+        @hideEmpty()
+        @showLoader()
+      else
+        @showEmpty()
+
       yield Q.delay(10)
       for key,val of @doms
         delete @doms[key]
@@ -112,6 +130,8 @@ class @main
         d = @createDom p
         d.dom.appendTo @tutors_result
         yield Q.delay(10)
+      @hideLoader()
+      @unfixLoader()
       @tutors_result.css 'opacity',1
       @dom.css 'height', ''
       yield @BusyNext()
