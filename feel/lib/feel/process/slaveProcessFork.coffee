@@ -9,6 +9,8 @@ Messanger = require './slaveProcessMessanger'
 
 _blackList = require './blackList'
 
+mem = -> Math.floor(process.memoryUsage().rss/(1024*1024)*100)/100
+#heapdump = require 'heapdump'
 class SlaveProcessFork
   constructor : ->
     $W @
@@ -16,8 +18,11 @@ class SlaveProcessFork
     t = new Date().getTime()
     @conf   = JSON.parse process.env.FORK
     @jobs = _Helper 'jobs/main'
+    @redis = yield _Helper('redis/main').get()
     @processId  = @conf.processId
     @name       = @conf.name
+    wname = @conf.args?.file || @conf.name
+    wname = wname.replace /\//gmi,'_'
 
     #@messanger = new Messanger()
 
@@ -33,6 +38,19 @@ class SlaveProcessFork
         qs.push @serviceManager.start name
     yield Q.all qs
     Q.spawn => @jobs.solve 'slaveProcessSendToMaster','run',@processId
+    #Q.spawn =>
+    #  yield Q.delay 30000
+    #  heapdump.writeSnapshot('heap/'+wname+@conf.processId+'.heapsnapshot')
+    ###
+    Q.spawn =>
+      while true
+        m = mem()
+        #console.log "memory #{name}:".yellow,"#{m}".red
+        t = (new Date().getTime())/1000
+        yield _invoke @redis,'incrby','allmemory',(m*100)//1
+        yield _invoke @redis,'rpush','allservices',JSON.stringify [wname,m]
+        yield Q.delay ((t+15)//15*15-t)*1000
+    ###
     #unless @conf.name == 'service-socket2'
     #  console.log "service ".blue,(@conf.name.yellow),new Date().getTime()-t
     #@messanger.send 'run'
