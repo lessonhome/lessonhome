@@ -35,13 +35,16 @@ class module.exports
     @router       = new Router @
     @fileupload   = new FileUpload @
   init : => do Q.async =>
-    @redis = yield _Helper('redis/main').get()
-    @jobs = yield Main.service 'jobs'
-    @db = yield Main.service('db')
-    @register = yield Main.service 'register'
-    @servicesIp = JSON.stringify yield (yield Main.service('services')).get()
     @form = new Form
-    @urldata = yield Main.service 'urldata'
+    [@redis,@jobs,@db,@register,@urldata,services] = yield Q.all [
+      _Helper('redis/main').get()
+      Main.service 'jobs'
+      Main.service('db')
+      Main.service 'register'
+      Main.service 'urldata'
+      Main.service 'services'
+    ]
+    @servicesIp = JSON.stringify yield (services).get()
     Feel.udata = @urldata
     @urldataFiles = yield @urldata.getFFiles()
     @urldataFilesStr = ""
@@ -49,14 +52,17 @@ class module.exports
       @urldataFilesStr += "<script>window._FEEL_that = $Feel.urlforms['#{fname}'] = {};</script>"
       @urldataFilesStr += "<script type='text/javascript' src='/urlform/#{file.hash}/#{fname}'></script>"
     @urldataFilesStr += "<script>$Feel.urldataJson = #{yield @urldata.getJsonString()};</script>"
-    yield @readConsts()
-    yield @jobs.listen 'getConsts',@jobGetConsts
-    yield @form.init()
-    yield @fileupload.init()
-    yield @configInit()
-    yield @loadModules()
-
-    yield @loadStates()
+    yield Q.all [
+      @readConsts()
+      @jobs.listen 'getConsts',@jobGetConsts
+      @form.init()
+      @fileupload.init()
+      @configInit()
+    ]
+    yield Q.all [
+      @loadModules()
+      @loadStates()
+    ]
     yield @router.init()
   jobGetConsts : =>
     return @const
@@ -181,7 +187,9 @@ class module.exports
     @modules = {}
     @module_redis_cache = do Q.async =>
       keys = yield _invoke @redis,'keys','module_cache-*'
-      cache = yield _invoke @redis,'mget',keys ? []
+      keys ?= []
+      cache = yield _invoke @redis,'mget',keys if keys.length
+      cache ?= []
       ret = {}
       for k,i in keys
         ret[k] = JSON.parse cache[i] ? "{}"
