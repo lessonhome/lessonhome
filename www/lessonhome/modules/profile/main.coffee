@@ -112,6 +112,16 @@ class @main
     #yield @open()
     yield @matchAny() if @tree.single_profile== "tutor_profile"
 
+    if @found.avatar.height() is 0
+      @found.avatar.load @prepareAvatar
+    else
+      @prepareAvatar()
+
+  prepareAvatar : =>
+    @found.view_photo.removeClass('avatar_loaded').css {
+      'padding-top': ''
+    }
+
   matchAny : (force=false)=>
     #return unless @tree.value?.index
     if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
@@ -212,14 +222,17 @@ class @main
       }).attr('data-src', null)
 
       photo_parent.one 'click', ->
-        photo_parent.append h_img
+        l_img.before h_img
         h_img.attr('src', src_h).load ->
           h_img.css('display', '').animate {opacity: 1}, ->
             l_img.remove()
-            h_img.css({position: 'static'})
+            h_img.css({position: ''})
 
 
   setAvatar : (avatar)=>
+    @found.view_photo.css {
+      'padding-top' : "#{avatar.ratio*100}%"
+    }
     @found.avatar.attr {
       "src" : avatar.lurl
       "data-src" : avatar.hurl
