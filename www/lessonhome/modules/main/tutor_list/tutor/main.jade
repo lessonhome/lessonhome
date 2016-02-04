@@ -38,18 +38,18 @@
                 span.middle-span.card-info-color!=value.metro_tutors.data
               when 'metro'
                 -val = value.metro_tutors.data[0]
-                span.stantion.dropdown-button(data-hover="true",data-alignment="right",data-beloworigin="true",data-constrainwidth="false", data-activates!="d#{value.index}", title="#{val.metro}")
+                span.stantion.dropdown-button(data-hover="true",data-constrainwidth="false", data-activates!="d#{value.index}")
                   i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
                   span.card-info-color!=val.metro
+                  if value.metro_tutors.data.length > 1
+                    .dotted_more-button.right-align
                 if value.metro_tutors.data.length > 1
-                  .dotted_more-button.right-align
                   ul.dropdown-content(id!="d#{value.index}")
                     each val, i in value.metro_tutors.data
-                      if i > 0
-                        li
-                          span.stantion
-                            i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
-                            span!=val.metro
+                      li
+                        span.stantion
+                          i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
+                          span!=val.metro
 
       .col.s12.m9.l9.right.description.card-info-color
         p.js-about!=value.about

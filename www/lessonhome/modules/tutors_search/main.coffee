@@ -21,6 +21,7 @@ class @main
     @busy = false
     @busyNext = null
     @tree.tutor_test = @tree.tutor
+    @filter_data = null
   show: =>
     @found.tutors_list.find('>div').remove()
 
@@ -153,8 +154,7 @@ class @main
     @updateDom obj, prep
 #    @relinkedOne cl
     return @doms[prep.index] = obj
-  updateDom : (dom,prep)=>
-    dom.class.setValue prep
+  updateDom : (dom,prep) => dom.class.setValue(prep)
   onscroll : => Q.spawn =>
     ll = @tutors_result.find(':last')
     dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
@@ -175,6 +175,7 @@ class @main
     yield @reshow()
   toOldFilter : =>
     filters = yield Feel.urlData.get 'tutorsFilter'
+    @tree.tutor_test.class.setFilter? filters
     olds = yield Feel.urlData.get 'mainFilter'
     mf = {}
     mf.page = 'filter'
