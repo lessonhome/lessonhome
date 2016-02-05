@@ -96,7 +96,6 @@ class module.exports
       ,Q()
     
   loadStates : => do Q.async =>
-    
     @state_cache_redis = do Q.async =>
       ret = yield _invoke @redis,'get','state_cache'
       ret = JSON.parse ret ? "{}"
@@ -194,7 +193,7 @@ class module.exports
       for k,i in keys
         ret[k] = JSON.parse cache[i] ? "{}"
       return ret
-
+    
     readed = yield _readdirp root:@path.modules
     modules = {}
     for o in readed.directories
