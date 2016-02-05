@@ -195,9 +195,6 @@ class module.exports
       return ret
     
     readed = yield _readdirp root:@path.modules
-    readed ?= {}
-    readed.files ?= []
-    readed.directories ?= []
     modules = {}
     for o in readed.directories
       modules[o.path] = {name:o.path}
