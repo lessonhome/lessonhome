@@ -27,14 +27,14 @@ STATUS_VALUES = {
   value = {
     full_name : "#{data.name?.first || ''} #{data.name?.middle || ''}"
     dative_name : DativeName(data.name).first || ''
-    slogan : data.slogan if data.slogan?
-    src_avatar : null
-    age : null
-    location : null
-    status : null
+    slogan : data.slogan ? ''
+    src_avatar : {}
+    age : ''
+    location : ''
+    status : ''
     places : []
     show_places : false
-    sub : null
+    sub : []
     short_price : []
     subjects : []
     education : []
@@ -146,11 +146,22 @@ STATUS_VALUES = {
       value.subjects.push _r
 
     for index, e of data.education
-      start = e.period?.start
-      end = e.period?.end
+      period = [e.period?.start, e.period?.end]
 
-      start = /\d{4}/.exec(start)[0] if start
-      end = /\d{4}/.exec(end)[0] if end
+      now = '' + new Date().getFullYear()
+      for p, i in period
+        p = /\d{1,4}/.exec(p)?[0]
+        if p? and now.length > p.length
+          h_now = now.substr 0, now.length-p.length
+          _now = now.substr -p.length
+          _now = +_now
+          p = +p
+          --h_now if p > _now
+          h_now = '' unless h_now
+          period[i] = '' + h_now + p
+
+      start = period[0] if period[0]
+      end = period[1] if period[1]
 
       start = (unless end then 'c ' else '') + start if start
       end = (if start then ' - ' else 'до ') + end if end
