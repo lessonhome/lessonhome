@@ -2,7 +2,8 @@
 
 .help
   color: #2d2d2d
-  height: 800px // Фиксируем высоту что-бы не пригал footer
+  min-height: 620px
+  padding-bottom: 5rem
   .title
     font-size: 1.6rem
     margin: 1.8rem 0
@@ -21,8 +22,8 @@
       position: relative
       a
         color: #2d2d2d   
-      .active
-        color: #fff
+        &.active
+          color: #fff
     .indicator
       height: 48px
       background-color: #34afbe
@@ -41,8 +42,8 @@
       a
         color: #393939
         cursor: pointer
-      .active
-        color: #34afbe 
+        &.active
+          color: #34afbe 
     li:last-child
       margin-bottom: 0 
   ul.listInText
