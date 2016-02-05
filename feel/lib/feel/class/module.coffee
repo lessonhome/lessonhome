@@ -63,6 +63,7 @@ class module.exports
   rescanFiles : => do Q.async =>
     files = yield readdir "#{@site.path.modules}/#{@name}"
     @files = {}
+    files.sort()
     for f in files
       m = f.match /^([^\.].*)\.(\w*)$/
       if m

@@ -108,7 +108,7 @@ class module.exports
       root:@path.states
       fileFilter : "*.coffee"
     @stateHashSum = ""
-    readed.files.sort (a,b)-> if a.path<b.path then -1 else 1
+    readed.files.sort (a,b)-> if a.path<b.path then 1 else -1
     for o in readed.files
       continue if o.name.match /.*\.[c|d]\.coffee$/
       continue if o.name.match /^test/
@@ -198,7 +198,7 @@ class module.exports
     modules = {}
     for o in readed.directories
       modules[o.path] = {name:o.path}
-    readed.files.sort (a,b)-> if a.path > b.path then -1 else 1
+    readed.files.sort (a,b)-> if a.path > b.path then 1 else -1
     for o in readed.files
       continue if o.name.match /^\./
       reg = o.name.match /^(.*)\.(\w+)$/
