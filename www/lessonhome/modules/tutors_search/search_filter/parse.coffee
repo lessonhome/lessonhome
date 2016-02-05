@@ -6,7 +6,7 @@ getInf = (obj) ->
   res = {
     fill: false
   }
-  for key, val of obj when obj.hasOwnProperty(key)
+  for own key, val of obj
     res.fill = true
     return res if typeof val is 'boolean'
     res['exist']?={}
