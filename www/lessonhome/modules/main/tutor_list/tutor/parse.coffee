@@ -98,12 +98,17 @@ const_mess = {
     for_show = {type: 'all', data: []}
     where = value.check_out_the_areas ? {}
     regexp = /vsya_moskva/i
-
+    exist = {}
     for own i, place of where
       return for_show if regexp.test _diff.prepare(place)
       place = prepareStr(place)
-      for p in place.split(reg_comma)
-        if p = getGuessedMetro(p) then for_show.data.push(p)
+      for p in place.split(reg_comma) when p = getGuessedMetro(p)
+
+        unless exist[p.metro]?
+          exist[p.metro] = true
+          for_show.data.push(p)
+
+    exist = null
 
     if !value.place?.pupil and !value.place?.tutor and value.place?.remote
       for_show.type = 'remote'
@@ -115,7 +120,14 @@ const_mess = {
 
     if where
       where = prepareStr(where).split(reg_comma)
-      for place in where when place = getGuessedMetro(place) then for_show.data.push(place)
+      exist = {}
+      for place in where when place = getGuessedMetro(place)
+
+        unless exist[place.metro]?
+          exist[place.metro] = true
+          for_show.data.push(place)
+
+      exist = null
       return for_show if for_show.data.length
 
     for where in ['area', 'street']
@@ -139,17 +151,19 @@ const_mess = {
   return ret
 
 getGuessedMetro = (str) ->
-  m = metro_stations[_diff.metroPrepare(str)]
+  return null unless str
+  m = metro_stations[key = _diff.metroPrepare(str)]
 
   unless m
     for w in str.toLowerCase().split(/\s+/g) when metro.means[w]?
-      m= metro_stations[metro.means[w]]
+      m= metro_stations[key = metro.means[w]]
       break
 
-  if m
+  if m?.name? and m.lines?[0]?
     return {
       metro : m.name
       color : metro_lines[m.lines[0]].color
+      key
     }
 
   return null

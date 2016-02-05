@@ -669,3 +669,16 @@ helpers = {}
 global._Helper = (service)-> helpers[service] ?= new (require('./'+service))
 
 
+_spawn = require('child_process').spawn
+global._exec = (file,args...)->
+  d = Q.defer()
+  prog = _spawn file,args
+  data = ""
+  prog.stdout.on 'data',(d)-> data+=d
+  prog.stderr.on 'data',(d)-> data+=d
+  prog.on 'close',-> d.resolve data
+  prog.on 'error',(err)-> d.reject err
+  return d.promise
+  
+
+

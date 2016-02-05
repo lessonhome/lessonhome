@@ -8,7 +8,7 @@ getExist = (arr) ->
 
 hasProp = (obj) ->
   return false unless obj?
-  for key of obj when obj.hasOwnProperty(key) then return true
+  for own key of obj then return true
   return false
 
 @takeData = (data = {}) =>
@@ -37,7 +37,7 @@ hasProp = (obj) ->
     errs.push 'empty_phone'
 
   if hasProp data.status
-    for key of data.status when data.status.hasOwnProperty(key)
+    for own key of data.status
       unless status.hasOwnProperty(key)
         errs.push('wrong_status')
         break
@@ -49,14 +49,14 @@ hasProp = (obj) ->
         break
 
   if hasProp data.metro
-    for key of data.metro when data.metro.hasOwnProperty(key)
+    for own key of data.metro
       s = key.split(':')
       unless metro[s[0]]?.stations[s[1]]?
         errs.push 'wrong_metro'
         break
 
   if exist = getExist data.subjects
-    for key, vv of filter.subjects when filter.subjects.hasOwnProperty(key)
+    for own key, vv of filter.subjects
       for v in vv
         delete exist[v] if exist[v]
     errs.push 'wrong_subj' if hasProp exist
