@@ -22,6 +22,7 @@ class Socket
     unless @isWorker
       for file in (Main.conf?.args?.files ? [])
         @workers[file] = false
+    console.log Main.conf.args.files.join(', ').red,@isWorker,@isService,Main.conf.args.port
   runWorker : =>
     Class = require "#{process.cwd()}/www/lessonhome/#{@workerName}.c.coffee"
     obj = new Class
