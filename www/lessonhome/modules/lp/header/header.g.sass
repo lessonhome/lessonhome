@@ -71,28 +71,31 @@ nav
   padding: 11px 0
   font-size: 0
   line-height: 0
+  .header-info
+    display: inline-block
+    font-size: 1.4rem
+    line-height: 100%
+    color: #4e4e50
+    font-family: 'futura'
+    margin-left: 3rem
+    vertical-align: middle
+    @media #{$small-and-down}
+      font-size: 1.1rem
   a
     &.logo
       display: inline-block
       font-size: 0
       line-height: 0
+      vertical-align: middle
       img
         @media #{$small-and-down}
           height: 25px
     &.phone-link
-      color: #020202
-      font-size: 1.4rem
-      line-height: 100%
+      margin-bottom: 0.5rem
+      display: inline-block
+      color: #4e4e50
       @media #{$small-and-down}
         font-size: 1.1rem
       span
         display: inline-block
         vertical-align: middle
-      &:before
-        content: ''
-        display: inline-block
-        height: 48px
-        width: 0
-        vertical-align: middle
-        @media #{$small-and-down}
-          height: 25px

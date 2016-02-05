@@ -1,3 +1,23 @@
+@font-face {
+  font-family: "DIN";
+  src: url(F("/font/din/PFDinDisplay.eot"));
+  src: url(F("/font/din/PFDinDisplay.eot?#iefix"))format("embedded-opentype"),
+  url(F("/font/din/PFDinDisplay.woff")) format("woff"),
+  url(F("/font/din/PFDinDisplay.ttf")) format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+    font-family: "futura";
+    src: url(F("/font/futura/futura.eot"));
+    src: url(F("/font/futura/futura.eot?#iefix"))format("embedded-opentype"),
+    url(F("/font/futura/futura.woff")) format("woff"),
+    url(F("/font/futura/futura.ttf")) format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
 html{
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'DIN' sans-serif;
 }
