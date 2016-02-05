@@ -17,11 +17,8 @@
         .col.l4.m4.s12.center-align
           .row
             .col.s12
-              .js-view_photo.loaded.avatar_loaded(style="padding-top:#{value.src_avatar.ratio*100}%")
-                if value.src_avatar
-                    img.responsive-img.js-avatar(src = value.src_avatar.lurl data-src = value.src_avatar.hurl)
-                else
-                  img.responsive-img.js-avatar
+              .js-view_photo.loaded.avatar_loaded(style="padding-top:#{value.src_avatar.ratio ? value.src_avatar.ratio*100: 100}%")
+                  img.responsive-img.js-avatar(src = value.src_avatar.lurl data-src = value.src_avatar.hurl)
 
 
             .input-field.col.s12.center-align.tutor-action.profile-button.valign.hide-on-med-and-down
