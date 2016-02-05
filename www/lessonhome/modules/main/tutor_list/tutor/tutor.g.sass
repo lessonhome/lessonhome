@@ -194,7 +194,14 @@
 .dropdown-button
   .subject-color
     color: #356094
-.dropdown-content 
+
+.dropdown-content
+  &>span
+    font-size: 1.2rem !important
+    color: #646464 !important
+    padding: 1rem 1rem !important
+
+.metro_line .dropdown-content
   margin-top: -4px
   margin-left: -8px
   li
@@ -202,7 +209,3 @@
       cursor: default !important
     &:hover
       background: inherit !important
-    &>span
-      font-size: 1.2rem !important
-      color: #646464 !important
-      padding: 1rem 1rem !important
