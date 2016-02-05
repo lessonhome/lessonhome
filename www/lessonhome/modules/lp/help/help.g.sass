@@ -2,7 +2,7 @@
 
 .help
   color: #464646
-  padding-bottom: 200px
+  height: 800px // Фиксируем высоту что-бы не пригал footer
   .title
     font-size: 1.8rem
     margin: 1.8rem 0
@@ -35,15 +35,23 @@
   ul.menu
     font-size: 1.2rem
     line-height: 1.2rem
-    margin: 0
+    margin: 1.8rem 0 0
     li
-      margin: 1.8rem 0
+      margin-bottom: 1.8rem
+      .active
+        color: #fd7c48 
     li:last-child
-      margin: 0 
+      margin-bottom: 0 
   ul.listInText
     li
       list-style-type: disc
       margin-left: 1.2rem
+.question_body
+  display: none
+  &.active
+    display: block
+
+
 
 
 
