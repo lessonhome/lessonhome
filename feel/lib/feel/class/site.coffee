@@ -96,7 +96,6 @@ class module.exports
       ,Q()
     
   loadStates : => do Q.async =>
-    
     @state_cache_redis = do Q.async =>
       ret = yield _invoke @redis,'get','state_cache'
       ret = JSON.parse ret ? "{}"
@@ -194,7 +193,7 @@ class module.exports
       for k,i in keys
         ret[k] = JSON.parse cache[i] ? "{}"
       return ret
-
+    
     readed = yield _readdirp root:@path.modules
     readed ?= {}
     readed.files ?= []
@@ -204,13 +203,14 @@ class module.exports
       modules[o.path] = {name:o.path}
     readed.files.sort (a,b)-> if a.path > b.path then -1 else 1
     for o in readed.files
-      a = modules[o.parentDir]
-      a.files ?= {}
+      continue if o.name.match /^\./
       reg = o.name.match /^(.*)\.(\w+)$/
       continue unless reg
       switch reg[2]
         when 'coffee','sass','jade','js','css'
         else continue
+      a = modules[o.parentDir]
+      a.files ?= {}
       a.files[o.name] = {
         name : reg[1]
         ext  : reg[2]
