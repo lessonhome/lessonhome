@@ -38,26 +38,12 @@ class @main
     @found.send_form.on 'click', @sendFastForm
     @prepareLink @found.rew.find('a')
 
-    @dom.find('.slide_collapse').on 'click' ,'.optgroup', (e)=>
-      thisGroup = $(e.currentTarget)
-      slider = thisGroup.closest('ul')
-      thisGroupNumber = thisGroup.attr('data-group')
-      thisOpen = thisGroup.attr('data-open')
-      if thisOpen == '0'
-        slider.find('li[class*="subgroup"]').slideUp(400)
-        slider.find('.optgroup').attr('data-open', 0)
-        slider.find('.subgroup_' + thisGroupNumber).slideDown(400)
-        thisGroup.attr('data-open', 1)
-      else
-        slider.find('.subgroup_' + thisGroupNumber).slideUp(400)
-        thisGroup.attr('data-open', 0)
-
     getListener  = (name) ->
       return (element) ->
         Feel.urlData.set 'pupil', name, element.val()
 
     setListenerForm = (form, callback) ->
-      for key, field of form when form.hasOwnProperty(key)
+      for own key, field of form
         field.on? 'change', callback
 
     sub_listener = getListener('subjects')
@@ -84,13 +70,13 @@ class @main
 
     Q.spawn =>
       indexes = []
-      for key, t of @tree.main_rep when @tree.main_rep.hasOwnProperty(key) then indexes.push t.index
+      for own key, t of @tree.main_rep then indexes.push t.index
       yield Feel.dataM.getTutor indexes
 
   setListenerForm : (form, type, callback) ->
     a = {c: callback, e: [], t: type}
     @listeners.push a
-    for key, field of form when form.hasOwnProperty(key)
+    for own key, field of form
       if field.on?
         field.on type, callback
         a.e.push field

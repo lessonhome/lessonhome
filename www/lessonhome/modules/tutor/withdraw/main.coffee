@@ -11,7 +11,7 @@ class Data
 
   getSaved : ->
     result = []
-    for index, data of @data when @data.hasOwnProperty(index) then result.push data
+    for own index, data of @data then result.push data
     return result
 
   delData: (index) ->

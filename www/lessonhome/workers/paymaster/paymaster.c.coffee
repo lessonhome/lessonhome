@@ -87,7 +87,7 @@ class PayMaster
 
   _newTransaction : (user, type, value, desc="Описание не указано", confirm) ->
     {added} = yield @_newTrans user, [{type, value, desc}], confirm
-    for number, bill of added when added.hasOwnProperty(number) then break
+    for own number, bill of added then break
     return {number, bill}
 
   _newTrans: (user, arrConf, confirm=false) =>
