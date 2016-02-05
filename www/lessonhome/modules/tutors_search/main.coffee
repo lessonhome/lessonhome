@@ -75,7 +75,9 @@ class @main
     clone.dom.show()
     clone.dom.animate (opacity:1),1400
   ###
-  showLoader : =>@found.wait.show()
+  showLoader : =>
+    @hideEmpty()
+    @found.wait.show()
   hideLoader : =>@found.wait.hide()
   fixLoader : => @found.wait.addClass('abs')
   unfixLoader: =>@found.wait.removeClass('abs')
@@ -85,6 +87,7 @@ class @main
   hideEmpty : => @found.not_exist.hide()
   reshow : =>
     @fixLoader()
+    @showLoader()
     end = =>
       @tutors_result.css 'opacity',1
     return (@busyNext = {f:@reshow}) if @busy
@@ -99,6 +102,7 @@ class @main
     num = indexes.length
     yield Q.delay(10)
     indexes = indexes.slice @from,@from+@count
+
     ### TODO
     if indexes.length is 0
       @message_empty.fadeIn 400
@@ -115,13 +119,7 @@ class @main
     setTimeout (=> Q.spawn =>
       @dom.height @dom.height()
       @tutors_result.children().remove()
-
-      if indexes.length > 0
-        @hideEmpty()
-        @showLoader()
-      else
-        @showEmpty()
-
+      @showEmpty() unless indexes.length
       yield Q.delay(10)
       for key,val of @doms
         delete @doms[key]
