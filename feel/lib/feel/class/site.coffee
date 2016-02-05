@@ -200,13 +200,14 @@ class module.exports
       modules[o.path] = {name:o.path}
     readed.files.sort (a,b)-> if a.path > b.path then -1 else 1
     for o in readed.files
-      a = modules[o.parentDir]
-      a.files ?= {}
+      continue if o.name.match /^\./
       reg = o.name.match /^(.*)\.(\w+)$/
       continue unless reg
       switch reg[2]
         when 'coffee','sass','jade','js','css'
         else continue
+      a = modules[o.parentDir]
+      a.files ?= {}
       a.files[o.name] = {
         name : reg[1]
         ext  : reg[2]
