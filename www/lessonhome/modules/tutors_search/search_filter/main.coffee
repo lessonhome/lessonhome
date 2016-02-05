@@ -98,21 +98,6 @@ class @main
     @branch = new $._material_select @found.branch
     setTimeout @metroColor, 100
 
-    @dom.find('.slide_collapse').on 'click' ,'.optgroup', (e)=>
-      thisGroup = $(e.currentTarget)
-      slider = thisGroup.closest('ul')
-      thisGroupNumber = thisGroup.attr('data-group')
-      thisOpen = thisGroup.attr('data-open')
-      if thisOpen == '0'
-        slider.find('li[class*="subgroup"]').slideUp(400)
-        slider.find('.optgroup').attr('data-open', 0)
-        slider.find('.subgroup_' + thisGroupNumber).slideDown(400)
-        thisGroup.attr('data-open', 1)
-      else
-        slider.find('.subgroup_' + thisGroupNumber).slideUp(400)
-        thisGroup.attr('data-open', 0)
-
-
   metroColor : (material_select = @branch) =>
     material_select.ul.find('li.optgroup').each (i, e) =>
       li = $(e)
