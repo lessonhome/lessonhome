@@ -9,36 +9,42 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
       .js-filter_tags_block
         !=filter_tags
       .tutor-list
-        .preloader
-          .preloader-wrapper.big.active
-            .spinner-layer.spinner-blue
-              .circle-clipper.left
-                .circle
-              .gap-patch
-                .circle
-              .circle-clipper.right
-                .circle
-            .spinner-layer.spinner-red
-              .circle-clipper.left
-                .circle
-              .gap-patch
-                .circle
-              .circle-clipper.right
-                .circle
-            .spinner-layer.spinner-yellow
-              .circle-clipper.left
-                .circle
-              .gap-patch
-                .circle
-              .circle-clipper.right
-                .circle
-            .spinner-layer.spinner-green
-              .circle-clipper.left
-                .circle
-              .gap-patch
-                .circle
-              .circle-clipper.right
-                .circle
-        .js-tutors_list
-          !=tutor
+        .results
+          .js-not_exist
+            h4 Не нашли подходящего репетитора?
+            p Мы не оставим Вас на произвол судьбы. Оставьте контактные данные и наши специалисты помогут Вам с этой нелегкой задачей.
+            a(data-target="req_more_send").btn-large.orange-btn.waves-effect.waves-light.js-demo_modal Оставить контакты
+          .js-tutors_list!=tutor
+          .js-wait.abs
+            .preloader
+              .preloader-wrapper.big.active
+                .spinner-layer.spinner-blue
+                  .circle-clipper.left
+                    .circle
+                  .gap-patch
+                    .circle
+                  .circle-clipper.right
+                    .circle
+                .spinner-layer.spinner-red
+                  .circle-clipper.left
+                    .circle
+                  .gap-patch
+                    .circle
+                  .circle-clipper.right
+                    .circle
+                .spinner-layer.spinner-yellow
+                  .circle-clipper.left
+                    .circle
+                  .gap-patch
+                    .circle
+                  .circle-clipper.right
+                    .circle
+                .spinner-layer.spinner-green
+                  .circle-clipper.left
+                    .circle
+                  .gap-patch
+                    .circle
+                  .circle-clipper.right
+                    .circle
+
 script(src=F("nouislider/nouislider.js"))
