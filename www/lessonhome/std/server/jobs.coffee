@@ -1,7 +1,7 @@
 
 
 
-StdClas::jobs = -> _Helper('jobs/main').get()
+Std.define 'jobs', -> _Helper('jobs/main').get()
 
 
 

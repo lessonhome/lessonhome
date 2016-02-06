@@ -1,11 +1,14 @@
 
 
 
-class StdClass
+class Std
+  constructor : -> $W @
+  define : (key,object)=>
+    throw new Error if @[key]?
+    @[key] = object
 
 
-global.StdClass = StdClass
-global.Std = new StdClass
+global.Std = new Std
 
 
 
