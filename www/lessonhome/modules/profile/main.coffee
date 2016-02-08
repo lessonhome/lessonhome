@@ -37,6 +37,7 @@ class templ
 
 
 class @main
+  _parent_url = History.getState().hash
   constructor : ->
     $W @
 #  metro : =>
@@ -421,6 +422,9 @@ class @main
 
     if r.status == 'success'
       Feel.sendActionOnce 'direct_bid'
+      url = _parent_url?.replace?(/\/?\?.*$/, '')
+      url = '/' if url is ''
+      Feel.sendActionOnce 'bid_action', null, {name: 'target', url}
     else
       return show_er && r
 
