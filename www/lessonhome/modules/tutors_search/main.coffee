@@ -8,6 +8,7 @@ class @main
     @listTutors   = @found.list_tutors
     @tutors_result= @found.tutors_list
     @filterStatus = 0
+    @metro = yield Feel.const('metro')
     @linked = {}
     #@tutors = $.localStorage.get 'tutors'
     #@tutors ?= {}
@@ -16,6 +17,7 @@ class @main
     #@tnum   = 10
     #@tfrom  = 0
     #@now    = []
+    @filter_stations = []
     @from = 0
     @count = 10
     @changed = true
@@ -39,6 +41,14 @@ class @main
     #@advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll.tutors',@onscroll
     Feel.urlData.on 'change', (force) => Q.spawn =>
+      @filter_stations = []
+      arr = yield Feel.urlData.get('tutorsFilter','metro')
+      for s in arr
+        @filter_stations.push {
+          metro : @metro.stations[s.split(':')[1]].name
+          color : @metro.lines[s.split(':')[0]].color
+          key : s.split(':')[1]
+        }
       yield @apply_filter(force)
     ### TODO
     @tree.advanced_filter.apply.class.on 'submit',=> Q.spawn =>
@@ -179,6 +189,7 @@ class @main
     obj =
       class : cl
       dom   : cl.dom
+    prep.filter_stations = @filter_stations
     @updateDom obj, prep
 #    @relinkedOne cl
     return @doms[prep.index] = obj

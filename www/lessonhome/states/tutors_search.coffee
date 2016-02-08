@@ -105,9 +105,19 @@ class @main extends @template 'lp'
         o ?= {}
         o.preps ?= {}
         modules = []
+        filter_stations = []
+        arr = _setKey @req.udata,'tutorsFilter.metro'
+        for s in arr
+          filter_stations.push {
+            metro : metro.stations[s.split(':')[1]].name
+            color : metro.lines[s.split(':')[0]].color
+            key : s.split(':')[1]
+          }
         for index,i in (o?.filters?[hash]?.indexes ? [])
           break unless i < 10
-          modules.push @module 'main/tutor_list/tutor': value:o.preps[index]
+          prep = o.preps[index]
+          prep.filter_stations = filter_stations
+          modules.push @module 'main/tutor_list/tutor': value:prep
 
         return modules
 
