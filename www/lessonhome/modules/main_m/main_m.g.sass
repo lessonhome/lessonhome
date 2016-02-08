@@ -271,6 +271,16 @@
         margin-bottom: 1rem
 .comments-block
   padding: 1.5rem 0 3.333rem 0
+  position: relative
+  &:before
+    content: ''
+    display: block
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    top: 40%
+    background-color: #147585
   .title
     h2
       font-size: 2rem
@@ -281,12 +291,15 @@
     padding: 2rem 0
     .comment-cell
       margin-bottom: 2rem
+  .comment-cell
+    position: relative
+    z-index: 2
   .comment-img
     font-size: 0
     line-height: 0
     overflow: hidden
     height: 300px
-    background: #e5e5e5
+    background: #ffffff
     img
       max-width: 100%
       width: 100%
@@ -321,7 +334,7 @@
           @media #{$medium-and-down}
             height: auto
   .comment-body
-    background-color: #e5e5e5
+    background-color: #ffffff
     color: #101010
   .comment-name
     font-weight: 700
@@ -340,10 +353,12 @@
     white-space: nowrap
     overflow: hidden
   .comment-text
-    font-size: 1rem
-    height: 160px
-    @media #{$medium-and-down}
-      height: 120px
+    font-size: 0.9rem
+    color: #4c4c4c
+    &:before
+      content: '"'
+    @:after
+      content: '"'
   .comment-link
     a
       color: #626262
