@@ -16,14 +16,25 @@ class @main
     #@tnum   = 10
     #@tfrom  = 0
     #@now    = []
+    @from = 0
+    @count = 10
     @changed = true
     @sending = false
     @busy = false
     @busyNext = null
     @tree.tutor_test = @tree.tutor
     @filter_data = null
+    @isfirst = true
+    @now = []
+    for key,t of @tree.tutors
+      @now.push t.value.index
+      @doms[t.value.index] =
+        cl : t.class
+        dom : t.class.dom
+
   show: =>
-    @found.tutors_list.find('>div').remove()
+    @metro = yield Feel.const('metro')
+    @found.tutor.remove()
 
     #@advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll.tutors',@onscroll
@@ -51,7 +62,6 @@ class @main
         @filterStatus = 0
 
     @found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup'
-
   ###
   numTutors = 5
   tutors = yield Feel.dataM.getByFilter numTutors, ({subject:['Русский язык']})
@@ -179,6 +189,7 @@ class @main
     if dist >= -400
       yield @addTen()
   apply_filter : (force=false)=> do Q.async =>
+    return @isfirst = false if @isfirst
     @linked = yield Feel.urlData.get 'mainFilter','linked'
     #yield @setFiltered()
     @hashnow ?= 'null'
@@ -198,6 +209,7 @@ class @main
     mf = {}
     mf.page = 'filter'
     mf.subject = filters.subjects
+      
     ss = {}
     mf.subject ?= []
     for s in mf.subject
@@ -212,6 +224,9 @@ class @main
       ss[c] = true
     for c in (olds.course ? [])
       ss[c] = true
+    for m in (filters.metro ? [])
+      m = @metro.stations?[m?.split?(':')?[1] ? ""]?.name
+      ss[m] = true if m
     mf.course = Object.keys ss
     l = 500
     r = 6000
