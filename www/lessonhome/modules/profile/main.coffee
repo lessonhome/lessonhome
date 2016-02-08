@@ -118,9 +118,8 @@ class @main
       @prepareAvatar()
 
   prepareAvatar : =>
-    @found.view_photo.removeClass('avatar_loaded').css {
-      'padding-top': ''
-    }
+    @found.view_photo.css 'padding-top', ''
+    .removeClass('avatar_loaded')
 
   matchAny : (force=false)=>
     #return unless @tree.value?.index
