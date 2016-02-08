@@ -61,7 +61,7 @@ class @main
         $(@listTutors).slideDown('fast')
         @filterStatus = 0
 
-    @found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup'
+    @found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'empty'
   ###
   numTutors = 5
   tutors = yield Feel.dataM.getByFilter numTutors, ({subject:['Русский язык']})
