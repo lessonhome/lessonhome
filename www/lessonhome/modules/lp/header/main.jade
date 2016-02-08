@@ -33,6 +33,11 @@
               a.active(href='/contacts') Контакты
             else
               a(href='/contacts') Контакты
+          li
+            if id_page == 'help_page'
+              a.active(href='/help') Помощь
+            else
+              a(href='/help') Помощ    
         .right
           if hide_head_button != true
             if enter_button_show != true
@@ -56,6 +61,8 @@
             a(href='/tutors_search') Найти репетитора
           li
             a(href='/contacts') Контакты
+          li
+            a(href='/help') Помощь  
           li
             if hide_menu_punkt != true
               a(href='/tutors_lp') Репетиторам
