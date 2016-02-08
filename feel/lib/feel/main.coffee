@@ -54,6 +54,8 @@ class Main
       _readFile 'feel/version'
       _invoke @redis,'get','feel-version'
     ]
+    now ?= ""
+    old ?= ""
     now = now.toString()
     @feel_version_now = now.replace(/\D/gmi,'')
     @feel_version_old = old.replace(/\D/gmi,'')
