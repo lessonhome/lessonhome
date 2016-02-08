@@ -161,9 +161,12 @@
             li.clearfix
               i.material-icons.left done
               span Занимаетесь у репетитора или у себя дома.
-            li.clearfix
+            li.clearfix.before-line
               i.material-icons.left done
               span Если преподаватель вам не подошел, мы учтем замечания и подберем другого.
+            li.cleatfix
+              i.material-icons.white-text.left done
+              .color-line
 
 .comments-block
   mixin reviews (index, image, name, link, name_r, date_r, rating, subject, text)
@@ -181,8 +184,10 @@
           .rew_name!=name_r
           .rew_name!=date_r
   .container.js-rew
-    .row.no-margin-row.title-block
-      h3 Отзывы
-      for rep in main_rep
-        -rew = rep.num_show_rev !== undefined ? rep.reviews[rep.num_show_rev] : {};
-        +reviews(rep.index, rep.avatar, rep.name.first, rep.link, rew.name, rew.date, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)
+    .row.no-margin-row.title
+      .col.s12
+        h2 Отзывы о преподавателях 
+      .comment-body
+        for rep in main_rep
+          -rew = rep.num_show_rev !== undefined ? rep.reviews[rep.num_show_rev] : {};
+          +reviews(rep.index, rep.avatar, rep.name.first, rep.link, rew.name, rew.date, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)

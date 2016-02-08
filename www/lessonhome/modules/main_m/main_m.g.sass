@@ -253,6 +253,12 @@
   .form-right-text
     margin: 0
     li
+      .color-line
+        display: inline-block
+        background-color: #01a59a
+        width: 70%
+        &:before
+          background-color: #fbc02d
       i
         color: #2d8190
       font-size: 1.333rem
@@ -261,8 +267,16 @@
       margin-bottom: 2rem
       &:last-of-type
         margin-bottom: 0
+      &.before-line
+        margin-bottom: 1rem
 .comments-block
-  padding: 4rem 0
+  padding: 1.5rem 0 3.333rem 0
+  .title
+    h2
+      font-size: 2rem
+      line-height: 100%
+      margin: 0 0 3rem 0
+      color: #093c44
   @media #{$medium-and-down}
     padding: 2rem 0
     .comment-cell
