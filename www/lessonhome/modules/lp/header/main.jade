@@ -1,11 +1,21 @@
 -id_page = id_page || ''
 .logo-phone-block.js-offset_block
-  .container
+  .container.clearfix
     a.logo(href='/')
       img(src=F('lp/lh_logo.png'))
     .header-info
       a.phone-link(href='tel:+7-495-181-0373') +7 (495) 181-03-73
       .hi-sity г. Москва
+    .contacts-line.right
+      ul
+        li
+          a(href='/contacts')
+            span Контакты
+            i.icon-location
+        li
+          a(href='/help')
+            span Помощь
+            i.icon-question2
 .header-spacer
   nav.js-fixed_nav 
     .nav-wrapper
@@ -29,11 +39,6 @@
                 a.active(href='/tutors_lp') Репетиторам
               else
                 a(href='/tutors_lp') Репетиторам
-          li
-            if id_page == 'contacts_page'
-              a.active(href='/contacts') Контакты
-            else
-              a(href='/contacts') Контакты
         .right
           if hide_head_button != true
             if enter_button_show != true
@@ -55,8 +60,6 @@
             a(href='/') Главная
           li
             a(href='/tutors_search') Найти репетитора
-          li
-            a(href='/contacts') Контакты
           li
             if hide_menu_punkt != true
               a(href='/tutors_lp') Репетиторам

@@ -1,9 +1,10 @@
 @font-face {
   font-family: "DIN";
-  src: url(F("/font/din/PFDinDisplay.eot"));
-  src: url(F("/font/din/PFDinDisplay.eot?#iefix"))format("embedded-opentype"),
-  url(F("/font/din/PFDinDisplay.woff")) format("woff"),
-  url(F("/font/din/PFDinDisplay.ttf")) format("truetype");
+  src: url(F("/font/din/din.eot"));
+  src: url(F("/font/din/din.eot?#iefix"))format("embedded-opentype"),
+  url(F("/font/din/din.woff")) format("woff"),
+  url(F("/font/din/din.ttf")) format("truetype"),
+  url(F("/font/din/din.svg")) format("svg");
   font-style: normal;
   font-weight: normal;
 }
@@ -16,6 +17,17 @@
     url(F("/font/futura/futura.ttf")) format("truetype");
     font-style: normal;
     font-weight: normal;
+}
+
+@font-face {
+  font-family: "futuris-cyrilic";
+  src: url(F("/font/futuris/futuris-cyrillic.eot"));
+  src: url(F("/font/futuris/futuris-cyrillic.eot#iefix")) format("embedded-opentype"),
+  url(F("/font/futuris/futuris-cyrillic.woff")) format("woff"),
+  url(F("/font/futuris/futuris-cyrillic.ttf")) format("truetype"),
+  url(F("/font/futuris/futuris-cyrillic.svg")) format("svg");
+  font-weight: normal;
+  font-style: normal;
 }
 
 html{
