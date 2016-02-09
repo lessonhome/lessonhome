@@ -577,6 +577,7 @@ global.md5file = Q.denode require 'md5-file'
 regenerator = require("regenerator")
 global._LZString = require './lib/lz-string.min.js'
 global._regenerator = (source)-> regenerator.compile(source).code
+global._rmrf = Q.denode require 'rimraf'
 global._args    = (a)->
   for ar,i in a
     if ar == null

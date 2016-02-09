@@ -419,7 +419,7 @@ class RouteState
       '+('
           window.EE = EventEmitter;
           var $Feel = {};
-          $Feel.version = '+Feel.version+';
+          $Feel.version = "'+Feel.version+'";
           $Feel.oldversion = $.localStorage.get("coreVersion");
           if ($Feel.oldversion != $Feel.version)
           {

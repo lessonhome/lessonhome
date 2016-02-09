@@ -192,6 +192,9 @@ class @main
 
       if status is 'success'
         Feel.sendActionOnce 'bid_popup'
+#        url = History.getState().hash
+#        url = url?.replace?(/\/?\?.*$/, '')
+        Feel.sendActionOnce 'bid_action', null, {name: 'main'}
         return true
       errs?=[]
       errs.push err if err

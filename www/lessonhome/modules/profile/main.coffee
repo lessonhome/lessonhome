@@ -37,6 +37,7 @@ class templ
 
 
 class @main
+  _parent_url = History.getState().hash
   constructor : ->
     $W @
 #  metro : =>
@@ -118,9 +119,8 @@ class @main
       @prepareAvatar()
 
   prepareAvatar : =>
-    @found.view_photo.removeClass('avatar_loaded').css {
-      'padding-top': ''
-    }
+    @found.view_photo.css 'padding-top', ''
+    .removeClass('avatar_loaded')
 
   matchAny : (force=false)=>
     #return unless @tree.value?.index
@@ -422,6 +422,9 @@ class @main
 
     if r.status == 'success'
       Feel.sendActionOnce 'direct_bid'
+      url = _parent_url?.replace?(/\/?\?.*$/, '')
+      url = '/' if url is ''
+      Feel.sendActionOnce 'bid_action', null, {name: 'target', url}
     else
       return show_er && r
 
