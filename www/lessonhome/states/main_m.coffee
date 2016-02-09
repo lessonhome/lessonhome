@@ -10,7 +10,7 @@ class @main extends @template 'lp'
   tree : =>
     filter = @const('filter')
     content : @module '$':
-      carousel : @module 'lib/jquery/plugins/slick_n'
+      carousel : @module 'lib/jquery/plugins/slick'
       id_page: 'main_p'
       subject_list: filter.subjects
       training_direction : filter.course
@@ -19,7 +19,7 @@ class @main extends @template 'lp'
       main_rep : $defer : =>
         maxl = 200
         jobs = yield Main.service 'jobs'
-        prep = yield jobs.solve 'getTutorsOnMain', 4
+        prep = yield jobs.solve 'getTutorsOnMain', 16
         prep?= []
         regexp = /\s+[^\s]*$/
         regexp_dot = /\s*\.{1,3}$/

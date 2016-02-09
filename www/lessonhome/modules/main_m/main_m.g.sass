@@ -5,7 +5,7 @@
   margin-right: 0.4rem
 
 .luck-history
-  background: url(F('/lp/first_screen_bg.jpg'))
+  background: url(F('/lp/first_screen_bg.jpg')) no-repeat center
   background-size: cover
   min-height: 498px
   color: #ffffff
@@ -16,6 +16,14 @@
     vertical-align: bottom
     height: 454px
     width: .1px
+  @media #{$medium-and-down}
+    min-height: 290px
+    &:before
+      height: 275px
+  @media #{$small-and-down}
+    min-height: 370px
+    &:before
+      height: 350px
   .container
     display: inline-block
     vertical-align: bottom
@@ -25,6 +33,9 @@
     margin-bottom: 1rem
     text-shadow: 0 0 35px #7b7b7b
     text-transform: uppercase
+    @media #{$medium-and-down}
+      text-transform: none
+      line-height: 130%
   .history-text
     font-size: 1.6rem
     line-height: 130%
@@ -41,7 +52,7 @@
         background-color: #fff 
       .select-wrapper
         background-color: #ffffff
-        width: 98%
+        width: 97%
         display: inline-block
         input.select-dropdown
           margin-bottom: 0
@@ -69,18 +80,23 @@
             margin-bottom: 0
     &.input-col-link
       a
-        &.orange-btn
+        &.blue-btn
           width: 100%
           padding: 0
           border-radius: 0
 .subjects-list-block
   padding: 3.333rem 0
+  @media #{$medium-and-down}
+    padding: 2rem 0
   .title
     h1
       font-size: 2rem
       line-height: 100%
       margin: 0 0 1.667rem 0
       color: #093c44
+      @media #{$medium-and-down}
+        font-size: 1.8rem
+        line-height: 130%
   .subjets-list
     .col
       padding: 0.2667rem
@@ -103,10 +119,14 @@
         .sl-text
           font-size: 1.6rem
           font-family: "futura"
+          @media #{$medium-and-down}
+            font-size: 1.2rem
         .sl-icons
           font-size: 5rem
           line-height: 1rem
           margin-bottom: 0.8rem
+          @media #{$medium-and-down}
+            font-size: 4rem
       &:nth-of-type(3n)
         .sl-body
           background-color: #01a59a
@@ -123,12 +143,17 @@
     font-size: 1.2rem
     color: #272727
     margin-top: 4.667rem
+    margin-bottom: 0
+    @media #{$medium-and-down}
+      margin-top: 2.5rem
     p
       margin: 0 0 2rem 0
   .round-border
     border: 1px solid #e2e2e2
     padding: 2rem
     display: inline-block
+    @media #{$small-and-down}
+      border: none
     p
       margin-bottom: 0.5rem
     .btn-large
@@ -147,12 +172,14 @@
   background: transparent url(F('/lp/dark_img.jpg')) no-repeat center center
   background-size: cover
   color: #ffffff
+  @media #{$medium-and-down}
+    padding: 1rem 0
   .row
     margin: 0
     .col
       height: 300px
       @media #{$medium-and-down}
-        height: 150px
+        height: 90px
       &:before
         content: ''
         display: inline-block
@@ -168,10 +195,16 @@
       text-align: left
       width: 69%
       margin-left: 1rem
+      @media #{$medium-and-down}
+        font-size: 1.2rem
     i
       font-size: 5rem
+      @media #{$medium-and-down}
+        font-size: 4rem
 .our_tutors
   padding: 3.333rem 0
+  @media #{$medium-and-down}
+    padding: 2rem 0
   .title
     h2
       font-size: 2rem
@@ -186,20 +219,38 @@
     font-size: 1.2rem
     color: #272727
     margin: 0 0 1.5rem 0
-  a
-    color: #179cab
-    &:hover
-      color: #136e7d
+    &.no-margin-p
+      margin: 0
+  .link
+    font-size: 1.2rem
+    a
+      color: #179cab
+      &:hover
+        color: #136e7d
 .what-work
   padding: 3.333rem 0
   color: #fff
   background-color: #147585
+  @media #{$medium-and-down}
+    padding: 2rem 0
+  .col
+    text-align: center
+    @media #{$small-and-down}
+      text-align: left
+      &:last-of-type
+        .ww-icons
+          margin-bottom: 0 !important
   .title
     h2
       font-size: 2rem
       line-height: 100%
       margin: 0 0 3.333rem 0
       color: #fff
+      text-align: left
+      @media #{$medium-and-down}
+        margin-bottom: 2rem
+      @media #{$small-and-down}
+        text-align: center
   .ww-content
     font-family: 'futura'
     font-size: 1.333rem
@@ -213,9 +264,28 @@
     border: 1px solid #52ddd4
     border-radius: 50%
     margin-bottom: 2rem
+    text-align: center
     i
       font-size: 6rem
       line-height: 12.27rem
+    @media #{$medium-and-down}
+      width: 10rem
+      height: 10rem
+      i
+        font-size: 5rem
+        line-height: 10rem
+    @media #{$small-and-down}
+      width: 8rem
+      height: 8rem
+      i
+        font-size: 4rem
+        line-height: 8rem
+  .ww-text
+    @media #{$small-and-down}
+      display: inline-block
+      width: 45%
+      margin-left: 2rem
+      vertical-align: middle
 .title-block
   h3
     font-size: 2rem
@@ -237,12 +307,16 @@
         margin: 0
 .leave-application
   padding: 3.333rem 0
+  @media #{$medium-and-down}
+    padding: 2rem 0
   .title
     h2
       font-size: 2rem
       line-height: 100%
       margin: 0 0 1.667rem 0
       color: #093c44
+      @media #{$small-and-down}
+        text-align: center
   .la-form
     color: #143844
     .btn-large
@@ -250,8 +324,12 @@
       color: #000000
       font-size: 1.2rem
       padding: 0 3rem
+      @media #{$small-and-down}
+        margin-top: 1rem
   .form-right-text
     margin: 0
+    @media #{$small-and-down}
+      margin-top: 3rem
     li
       .color-line
         display: inline-block
@@ -261,6 +339,9 @@
           background-color: #fbc02d
       i
         color: #2d8190
+      span
+        display: block
+        margin-left: 3rem
       font-size: 1.333rem
       line-height: 120%
       color: #272727
@@ -288,7 +369,7 @@
       margin: 0 0 3rem 0
       color: #093c44
   @media #{$medium-and-down}
-    padding: 2rem 0
+    padding: 1rem 0 0.5rem
     .comment-cell
       margin-bottom: 2rem
   .comment-cell
@@ -298,7 +379,9 @@
     font-size: 0
     line-height: 0
     overflow: hidden
-    height: 300px
+    height: 200px
+    @media #{$medium-and-down}
+      height: 300px
     background: #ffffff
     img
       max-width: 100%
@@ -356,6 +439,7 @@
     font-size: 0.95rem
     color: #4c4c4c
     font-style: italic
+    margin-bottom: 0.5rem
     &:before
       content: '"'
     @:after
@@ -374,8 +458,5 @@
         padding: 0
         .col
           padding: 0
-          &.comment-text
-            padding-top: 0.5rem
       &.comment-body
-        padding: 1.5rem
-        padding-top: 1rem
+        padding: 0.7rem 1rem
