@@ -138,7 +138,7 @@ class @main
     htime = 400-((new Date().getTime())-@htime)
     #htime = 0 if htime < 0
     setTimeout (=> Q.spawn =>
-      if @tutors_result.is ':visible' then @dom.height @dom.height()
+      @dom.height @dom.height()
       @tutors_result.children().remove()
       @showEmpty() unless indexes.length
       yield Q.delay(10)
