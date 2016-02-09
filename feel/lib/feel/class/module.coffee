@@ -44,7 +44,7 @@ class module.exports
       'config','newCoffee','newCoffeenr','coffee','coffeenr','allCoffee','allJs','jsHash','coffeeHash'
     ]
   init : => do Q.async =>
-    @cache = @site.module_redis_cache["module_cache-"+@name] ? {}
+    @cache = @site.module_redis_cache[@name] ? {}
     
     if @cache.hashsum == @hashsum
       @[field] = @cache[field] for field in @vars_to_cache
@@ -58,7 +58,7 @@ class module.exports
       @cache = {}
       @cache[field] = @[field] for field in @vars_to_cache
       Q.spawn =>
-        yield _invoke @site.redis,'set',"module_cache-"+@name,JSON.stringify @cache
+        yield _invoke @site.redis,'hset',"module_cache",@name,JSON.stringify @cache
 
   rescanFiles : => do Q.async =>
     files = yield readdir "#{@site.path.modules}/#{@name}"

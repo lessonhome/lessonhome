@@ -6,7 +6,7 @@ class @main
 
     @fastest = @dom.find '.fastest'
   show: =>
-    @found.open_form.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid'
+    @found.open_form.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid', 'fast'
 
     Q.spawn =>
       filter =

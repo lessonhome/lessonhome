@@ -19,12 +19,12 @@ module.exports.make = function (cb){
   process.chdir('feel');
   console.log('npm i');
   sp('npm',['i'], function(){
-    console.log('npm update');
-    sp('npm',['update'],function(){
+    //console.log('npm update');
+    //sp('npm',['update'],function(){
       process.chdir('..');
       fs.writeFileSync(fsave,sum);
       cb();
-    });
+    //});
   });
 }
 
