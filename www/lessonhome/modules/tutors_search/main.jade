@@ -19,6 +19,16 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
             -if(!tutors || (!tutors[0]))tutors=[];
             each t in tutors
               !=t
+          if forward
+            .js-controlls
+              .col.l6.m6.s6
+                if forward.prev
+                  a(href=forward.prev) Назад
+                else
+                  a
+              .col.l6.m6.s6.right-align
+                if forward.next
+                  a(href=forward.next) Вперед
           .js-wait.abs
             .preloader
               .preloader-wrapper.big.active
