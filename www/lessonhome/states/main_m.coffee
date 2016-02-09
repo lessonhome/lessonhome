@@ -10,6 +10,7 @@ class @main extends @template 'lp'
   tree : =>
     filter = @const('filter')
     content : @module '$':
+      carousel : @module 'lib/jquery/plugins/slick_n'
       id_page: 'main_p'
       subject_list: filter.subjects
       training_direction : filter.course
