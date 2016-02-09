@@ -54,12 +54,12 @@ class module.exports
     @urldataFilesStr += "<script>$Feel.urldataJson = #{yield @urldata.getJsonString()};</script>"
     yield Q.all [
       @readConsts()
-      @jobs.listen 'getConsts',@jobGetConsts
       @form.init()
       @fileupload.init()
       @configInit()
     ]
     yield Q.all [
+      @jobs.listen 'getConsts',@jobGetConsts
       @loadModules()
       @loadStates()
     ]
