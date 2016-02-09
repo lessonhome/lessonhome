@@ -24,6 +24,35 @@ nav
     &.button-collapse
       height: 48px
       line-height: 48px
+      &:hover
+        color: #fff
+    &.logo
+      display: inline-block
+      height: 48px
+      @media #{$medium_and_down}
+        width: 25%
+      @media #{$small_and_down}
+        width: 50%
+      &:before
+        content: ''
+        display: inline-block
+        height: 100%
+        width: .1px
+        vertical-align: middle
+      img
+        max-width: 99%
+        height: auto
+        vertical-align: middle
+        margin: 0 !important
+  @media #{$medium_and_down}
+    background: #ffffff !important
+    //box-shadow: inset 0px -4px 0px 0px #199aad
+    border-bottom: 5px solid #199aad
+    a
+      &.button-collapse
+        color: #4e4e50
+        &:hover
+          color: #4e4e50
   .nav-wrapper
     i
       height: 48px !important
