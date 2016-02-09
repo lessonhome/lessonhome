@@ -225,13 +225,19 @@ class @Feel
       v?.foo?()
       delete @_popupAdd[key]
   sendAction : (action,params)=>
+
+    switch action
+      when 'direct_bid', 'bid_popup'
+        return null
+
     @yaC ?= yaCounter30199739 ? undefined
     #return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
+    console.log action, params
     unless params?
       @yaC?.reachGoal? action
     else
       @yaC?.reachGoal? action,params
-  sendActionOnce : (action,time)=>
+  sendActionOnce : (action,time, params)=>
     cook = $.cookie()?['sendAction__'+action]
       
     t = new Date().getTime()
@@ -240,12 +246,12 @@ class @Feel
       return if cook? && ((t-cook)<time)
     return if cook? && (!time?)
     $.cookie('sendAction__'+action,t)
-    @sendAction action
-  sendActionOnceIf : (action,time)=>
+    @sendAction action, params
+  sendActionOnceIf : (action,time, params)=>
     t = new Date().getTime()
     cook = $.cookie()?['sendAction__'+action]
     return $.cookie('sendAction__'+action,t) unless cook?
-    @sendActionOnce action,time
+    @sendActionOnce action,time, params
     
   ## args... :: data object
   sendGAction : (category,action,label,args...)=>

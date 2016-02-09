@@ -126,28 +126,29 @@ class @main
     @found.metro_line.html ''
 
     place = value.metro_tutors
-
+    ###
     if filter.metro and place.type is 'metro' and place.data.length > 1
       _pl = []
       for p in place.data
-
         if filter.metro[p.key]?
           _pl.unshift(p)
         else
           _pl.push(p)
 
       place.data = _pl
-
+    ###
     switch place.type
       when 'all', 'street', 'remote', 'area'
         @found.metro_line.append "<span class='middle-span card-info-color'>#{place.data}</span>"
       when 'metro'
         val = place.data[0]
-        span = $("
-          <span class='stantion dropdown-button' data-hover='true' data-constrainwidth='false' data-activates='d#{value.index}'>
-            <i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>
-            <span class='card-info-color'>#{val.metro}</span>
-          </span>")
+        span = "
+            <span class='stantion dropdown-button' data-hover='true' data-constrainwidth='false' data-activates='d#{value.index}'>"
+        if val.color?
+          span += "<i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>"
+        span +="<span class='card-info-color'>#{val.metro}</span>
+          </span>"
+        span = $ span
 
         @found.metro_line.append span
 
@@ -155,14 +156,16 @@ class @main
           span.append("<div class='dotted_more-button right-align'></div>")
           ul = $("<ul class='dropdown-content' id='d#{value.index}'>")
           for val, i in place.data
-              ul.append("
+            str = "
                 <li>
-                  <span class='stantion'>
-                    <i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>
-                    <span>#{val.metro}</span>
+                  <span class='stantion'>"
+            if val.color
+              str += "<i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>"
+            str += "<span>#{val.metro}</span>
                   </span>
                 </li>
-              ")
+              "
+            ul.append $ str
           @found.metro_line.append ul
           span.dropdown()
 

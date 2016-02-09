@@ -37,7 +37,7 @@
               when 'street'
                 span.middle-span.card-info-color!=value.metro_tutors.data
               when 'metro'
-                -val = value.metro_tutors.data[0]
+                -val = value.metro_tutors.data[0];
                 span.stantion.dropdown-button(data-hover="true",data-constrainwidth="false", data-activates!="d#{value.index}")
                   i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
                   span.card-info-color!=val.metro
