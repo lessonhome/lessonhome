@@ -64,6 +64,8 @@ class module.exports
       @loadStates()
     ]
     yield @router.init()
+    yield @jobs.listen 'getAllStates',@jobGetAllStates
+  jobGetAllStates : =>  @router.url.text
   jobGetConsts : =>
     return @const
   readConsts : => do Q.async =>

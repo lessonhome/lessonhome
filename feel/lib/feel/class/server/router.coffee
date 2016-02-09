@@ -128,6 +128,7 @@ class Router
       #unless req.url == '/urls'
       #  req.url = '/urls'
       #  return @handler req,res
+      return yield Feel.static.handlerRoot req,res,@site.name
       return Feel.res404 req,res
     route = new RouteState statename,req,res,@site
     return route.go()
