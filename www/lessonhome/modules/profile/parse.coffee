@@ -147,18 +147,20 @@ STATUS_VALUES = {
 
     for index, e of data.education
       period = [e.period?.start, e.period?.end]
-
       now = '' + new Date().getFullYear()
       for p, i in period
         p = /\d{1,4}/.exec(p)?[0]
-        if p? and now.length > p.length
+
+        if p? and now.length >= p.length
           h_now = now.substr 0, now.length-p.length
           _now = now.substr -p.length
           _now = +_now
           p = +p
           --h_now if p > _now
           h_now = '' unless h_now
-          period[i] = '' + h_now + p
+          p = '' + h_now + p
+
+        period[i] = p ? ''
 
       start = period[0] if period[0]
       end = period[1] if period[1]
