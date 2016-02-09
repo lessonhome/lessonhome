@@ -71,6 +71,7 @@ class BidSaver
     try
       return yield @jobSaveBid $.user ,data
     catch errs
+      console.error Exception errs
       return {status: 'failed', err: 'internal_error'}
 
 

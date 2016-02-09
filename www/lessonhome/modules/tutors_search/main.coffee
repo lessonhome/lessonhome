@@ -58,18 +58,18 @@ class @main
     ###
     @choose_tutors_num = @found.choose_tutors_num
 
-    @showFilter.on 'click', (e)=>
-      thisShowButton = e.currentTarget
-      if(@filterStatus == 0)
-        $(thisShowButton).html('Подобрать репетиторов')
-        $(@filterBlock).slideDown('fast')
-        $(@listTutors).slideUp('fast')
-        @filterStatus = 1
-      else
-        $(thisShowButton).html('Подобрать по параметрам')
-        $(@filterBlock).slideUp('fast')
-        $(@listTutors).slideDown('fast')
-        @filterStatus = 0
+    @showFilter.on 'click', =>
+      @listTutors.hide(0,
+        =>
+          @filterBlock.show()
+          @showFilter.hide()
+      )
+    @found.show_result.on 'click', =>
+      @filterBlock.hide(0,
+        =>
+          @listTutors.show()
+          @showFilter.show()
+      )
 
     @found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'empty'
   ###
@@ -137,7 +137,7 @@ class @main
     htime = 400-((new Date().getTime())-@htime)
     #htime = 0 if htime < 0
     setTimeout (=> Q.spawn =>
-      @dom.height @dom.height()
+      if @tutors_result.is ':visible' then @dom.height @dom.height()
       @tutors_result.children().remove()
       @showEmpty() unless indexes.length
       yield Q.delay(10)
