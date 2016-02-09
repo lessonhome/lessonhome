@@ -19,6 +19,11 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
             -if(!tutors || (!tutors[0]))tutors=[];
             each t in tutors
               !=t
+            if !tutors[0]
+              .not_exist_start
+                h4 Не нашли подходящего репетитора?
+                p Мы не оставим Вас на произвол судьбы. Оставьте контактные данные и наши специалисты помогут Вам с этой нелегкой задачей.
+                a(data-target="req_more_send").btn-large.orange-btn.waves-effect.waves-light.js-demo_modal Оставить контакты
           .js-wait.abs
             .preloader
               .preloader-wrapper.big.active

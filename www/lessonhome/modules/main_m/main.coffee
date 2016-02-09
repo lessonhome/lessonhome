@@ -89,7 +89,7 @@ class @main
 
 #        url = History.getState().hash
 #        url = url?.replace?(/\/?\?.*$/, '')
-        Feel.sendActionOnce 'bid_action', null, {name: 'main'}
+    Feel.sendActionOnce 'bid_action', null, {name: 'main'}
   prepareLink : (a)=>
     a.filter('a').off('click').on 'click', (e)->
       link = $(this)
