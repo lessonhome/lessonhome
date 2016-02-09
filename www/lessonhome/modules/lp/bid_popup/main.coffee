@@ -9,7 +9,7 @@ class Radio
       if val?
 
         if this.value == val
-          this.cheched = true
+          this.checked = true
 
       else if this.checked
         results = this.value
@@ -21,7 +21,7 @@ class Radio
 class @main extends EE
   contructor : ->
     $W @
-
+    @accessory = null
   Dom : =>
     @html = $('html')
     @thisScroll = @getScrollWidth()
@@ -57,10 +57,8 @@ class @main extends EE
 
     getListener = (name, el) ->
       return  (e) ->
-        o = {}
-        o[name] = el.val()
         Q.spawn =>
-          yield Feel.urlData.set 'pupil', o
+          yield Feel.urlData.set 'pupil', {"#{name}": el?.val?()}
           yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
 
     for k in ['name', 'subjects']
@@ -73,9 +71,11 @@ class @main extends EE
 
   show: =>
 
-  jobOpenBidPopup : (bidType)=>
+  jobOpenBidPopup : (bidType, accessory)=>
     if (bidType == 'fullBid')
       @makeFullBid()
+
+    @accessory = accessory if accessory?
 
     @found.bid_popup.openModal(
       {
@@ -135,6 +135,17 @@ class @main extends EE
       {status, errs, err} = yield @$send('./save', data, quiet && 'quiet')
       if status == 'success'
         Feel.sendActionOnce 'bid_popup'
+        url = History.getState().hash
+        url = url?.replace?(/\/?\?.*$/, '')
+        url = '/' if url is ''
+
+        switch @accessory
+          when 'menu', 'empty', 'fast'
+            name = @accessory
+          else
+            name = 'popup'
+
+        Feel.sendActionOnce 'bid_action', null, {name, url}
         return []
       errs?=[]
       errs.push err if err

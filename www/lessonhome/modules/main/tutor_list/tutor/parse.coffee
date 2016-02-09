@@ -122,7 +122,6 @@ const_mess = {
       where = prepareStr(where).split(reg_comma)
       exist = {}
       for place in where when place = getGuessedMetro(place)
-
         unless exist[place.metro]?
           exist[place.metro] = true
           for_show.data.push(place)
@@ -147,7 +146,22 @@ const_mess = {
   rewText = rewNum + ' ' + getNumEnding(rewNum, reviwersWord)
 
   ret.reviews = rewText
-
+  fs = value.filter_stations ? {}
+  value.filter_stations = for key,val of fs then val
+  ret.metro_tutors ?= {}
+  ret.metro_tutors.type ?= 'metro'
+  ret.metro_tutors.data ?= []
+  if value.filter_stations
+    unless ret.metro_tutors.type == 'metro'
+      ret.metro_tutors.data = [{metro:ret.metro_tutors.data,color:"#FFF"}]
+      ret.metro_tutors.type = 'metro'
+    o = {}
+    arr = []
+    for f in [value.filter_stations...,ret.metro_tutors.data...]
+      continue if o[f.metro]
+      arr.push f
+      o[f.metro] = true
+    ret.metro_tutors.data = arr
   return ret
 
 getGuessedMetro = (str) ->

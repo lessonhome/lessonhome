@@ -38,7 +38,6 @@ class Router
     res.statusCode = status
     res.end body
   handler : (req,res)=> do Q.async =>
-    console.log req.url
     req.site = @site
     req.status = (args...)=> @site.status req,res,args...
     if (redirect = @_redirects?.redirect?[req?.url])?
@@ -51,6 +50,7 @@ class Router
       return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/file\/.*/
       return Q().then => Feel.static.handler req,res,@site.name
+    console.log req.url
     cookie = new _cookies req,res
     req.cookie = cookie
     ucook = cookie.get('urldata') ? '%257B%257D'
