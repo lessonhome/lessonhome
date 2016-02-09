@@ -12,6 +12,7 @@ class @main extends @template 'lp'
     content : @module '$':
       carousel : @module 'lib/jquery/plugins/slick'
       id_page: 'main_p'
+      hide_head_button: true
       subject_list: filter.subjects
       training_direction : filter.course
       value : $urlform : pupil: ''
