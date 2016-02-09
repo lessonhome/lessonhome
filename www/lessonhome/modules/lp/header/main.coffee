@@ -17,4 +17,4 @@ class @main
     
     @found.demo_modal?.on? 'click', => Q.spawn =>
       #передать параметр 'fullBid' для открытия полной формы
-      yield Feel.jobs.solve 'openBidPopup'
+      yield Feel.jobs.solve 'openBidPopup', null, 'menu'
