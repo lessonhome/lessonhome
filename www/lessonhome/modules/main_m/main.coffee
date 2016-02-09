@@ -9,6 +9,32 @@ class @main
     @appFormTwo       = @found.app_two_form
     @appFormThree     = @found.app_three_form
     @defaultAppStep   = 0
+    @slickBlock       = @found.slick_block
+
+    @slickBlock.slick({
+      dots: false,
+      infinite: true,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      responsive: [
+        {
+          breakpoint: 1000,
+          settings: {
+            infinite: true,
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    })
     @fast_form =
       subjects: new $._material_select @found.fast_sub
       metro: new $._material_select @found.fast_branch
