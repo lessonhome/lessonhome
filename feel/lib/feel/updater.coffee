@@ -70,9 +70,7 @@ class module.exports
       @log res, "Can't find process node:feel!\n"
     yield @exec "git", ["pull"], res
     yield @exec "cat", ["./feel/version"], res
-    process.chdir 'feel'
     yield @exec "npm",["i"],res
-    process.chdir '..'
     yield @exec "sudo",["systemctl","start","feel.service"], res
     @exec "sudo", ["journalctl","-f","-n","0","-u","feel.service"],res,600000
     .then => @end res

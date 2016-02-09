@@ -80,6 +80,7 @@ class @main extends EE
   preShow : =>
     switch @nowurl
       when 'tutor_profile'
+        #@tree.profile.class.dom.find('.avatar_loaded').css 'opacity',0
         @tree.profile.class.dom.find('img.avatar').attr 'src',''
         @saveTutor = @tree.profile.class.$clone()
         @saveTutor.dom.find('img.avatar').attr 'src',''
