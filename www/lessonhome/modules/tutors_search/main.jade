@@ -2,16 +2,15 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
 .container
   .row
     .input-field.col.s12.center-align.hide-on-large-only
-      a.waves-effect.waves-light.btn.orange-btn.js-show_filter Подобрать по параметрам
-
-    .col.l4.m12.s12.content-block.js-filter_block
+      a.waves-effect.waves-light.btn.yellow-btn.js-show_filter Подобрать по параметрам
+    .col.l3.m12.s12.content-block.js-filter_block
       //.input-field.top.col.s12.center-align.hide-on-large-only
       //  button.btn.orange-btn.waves-effect.waves-light.js-show_result Подобрать
       !=search_filter
       .input-field.col.s12.center-align.hide-on-large-only
-        button.btn.orange-btn.waves-effect.waves-light.js-show_result Подобрать
-
-    .col.l8.m12.s12.content-block.js-list_tutors
+        button.btn.yellow-btn.waves-effect.waves-light.js-show_result Подобрать
+      !=search_help
+    .col.l9.m12.s12.content-block.js-list_tutors
       .js-filter_tags_block!=filter_tags
       .tutor-list
         .results
