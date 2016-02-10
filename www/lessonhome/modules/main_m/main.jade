@@ -32,54 +32,24 @@
       .col.s12.title
         h1 Помогаем подготовиться к школе, сдать ГИА и ЕГЭ, поступить в ВУЗ
       .col.s12.subjets-list
-        .col.s6.l3.m3.center-align
-          a.sl-body
-            .sl-content
-              .sl-icons
-                i.icon-subjec1
-              .sl-text Математика
-        .col.s6.l3.m3.center-align
-          a.sl-body
-            .sl-content
-              .sl-icons
-                i.icon-subjec2
-              .sl-text Физика
-        .col.s6.l3.m3.center-align
-          a.sl-body
-            .sl-content
-              .sl-icons
-                i.icon-subjec3
-              .sl-text Русский язык
-        .col.s6.l3.m3.center-align
-          a.sl-body
-            .sl-content
-              .sl-icons
-                i.icon-subjec4
-              .sl-text Английский язык
-        .col.s6.l3.m3.center-align
-          a.sl-body
-            .sl-content
-              .sl-icons
-                i.icon-subjec5
-              .sl-text Биология
-        .col.s6.l3.m3.center-align
-          a.sl-body
-            .sl-content
-              .sl-icons
-                i.icon-subjec6
-              .sl-text Химия
-        .col.s6.l3.m3.center-align
-          a.sl-body
-            .sl-content
-              .sl-icons
-                i.icon-subjec7
-              .sl-text Начальные классы
-        .col.s6.l3.m3.center-align
-          a.sl-body
-            .sl-content
-              .sl-icons
-                i.icon-subjec8
-              .sl-text Другие предметы
+        mixin rect(key, cl, name)
+          .col.s6.l3.m3.center-align
+            -v = key && value && value.sub_link && value.sub_link[key] ? value.sub_link[key] : {};
+            a.sl-body(href=v.link ? v.link : "/tutors_search" )
+              .sl-content
+                .sl-icons
+                  i(class=cl)
+                .sl-text!=name ? name : v.text ? v.text : 'Другие предметы'
+
+        +rect('математика', 'icon-subjec1')
+        +rect('физика', 'icon-subjec2')
+        +rect('русский язык', 'icon-subjec3')
+        +rect('английский язык', 'icon-subjec4')
+        +rect('биология', 'icon-subjec5')
+        +rect('химия', 'icon-subjec6')
+        +rect('младшая школа', 'icon-subjec7', 'Начальные классы')
+        +rect(null, 'icon-subjec8')
+
     .row.text-one
       .col.l7.m7.s12
         p Вы хотите, чтобы у вашего ребенока были хорошие оценки, он выигрывал олимпиады, сдавал ЕГЭ и поступил в выбранный ВУЗ? 
@@ -91,7 +61,7 @@
           p.left-align Выбирайте эффективные решения.
           p.left-align Доверьте выбор нашим специалистам.
           .center-align
-            a.btn-large.yellow-btn.waves-effect.waves-light Оформить заявку
+            a.btn-large.yellow-btn.waves-effect.waves-light.js-attach Оформить заявку
 .facts-about-us
   .container
     .row
@@ -139,21 +109,33 @@
       .col.s12.title
         h2 Оставьте заявку
       .la-content
-        .col.s12.m6.l6.la-form
-          .row
-            .col.input-field.s12
-              i.material-icons.prefix person_outline
-              input.validate#la_name(type='text')
-              label(for="la_name") Имя
-          .row
-            .col.input-field.s12
-              i.material-icons.prefix phone
-              input.validate#la_phone(type='tel')
-              label(for="la_phone") Телефон
-          .row.no-margin-row
-            .col.s12.center-align
-              a.btn-large.yellow-btn.waves-effect.waves-light Отправить
-                i.material-icons.right send
+        .col.s12.m6.l6
+          .js-short_form.la-form
+            .row
+              .col.input-field.s12
+                i.material-icons.prefix person_outline
+                input.validate#la_name(type='text').js-name
+                label(for="la_name") Имя
+            .row
+              .col.input-field.s12
+                i.material-icons.prefix phone
+                input.validate#la_phone(type='tel').js-phone
+                label(for="la_phone") Телефон
+            .row(style="display: none")
+              .col.s12.center-align
+                span.red-text.js-fatal_error
+            .row.no-margin-row
+              .col.s12.center-align
+                a.btn-large.yellow-btn.waves-effect.waves-light.js-send Отправить
+                  i.material-icons.right send
+          .js-success_form(style="display:none")
+            .row
+              .col.s12.our_tutors.center-align
+                h5 Заявка успешно отправлена!
+                p.no-margin-p Наш оператор позвонит вам в течении 10 – 15 минут.
+            .row.no-margin-row
+              .col.s12.center-align
+                a.btn-large.yellow-btn.waves-effect.waves-light.js-detail Дополнить заявку
       .col.s12.m6.l5.offset-l1
           ul.form-right-text
             li.clearfix

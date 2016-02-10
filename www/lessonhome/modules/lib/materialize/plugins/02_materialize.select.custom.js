@@ -52,11 +52,7 @@
                 selectOptGroups.each(function() {
 
                     selectOptions = $(this).children('option');
-                    if(outGroup == 1) {
-                        options.append($('<li class="optgroup" data-open="1" data-group="' + outGroup + '"><span>' + $(this).attr('label') + '</span></li>'));
-                    } else {
-                        options.append($('<li class="optgroup" data-open="0" data-group="' + outGroup + '"><span>' + $(this).attr('label') + '</span></li>'));
-                    }
+                    options.append($('<li class="optgroup" data-open="0" data-group="' + outGroup + '"><span>' + $(this).attr('label') + '</span></li>'));
                     selectOptions.each(function() {
                         var disabledClass = ($(this).is(':disabled')) ? 'disabled ' : '';
 
