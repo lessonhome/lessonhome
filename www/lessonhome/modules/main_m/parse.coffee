@@ -9,12 +9,11 @@ getExist = (obj) ->
   return result
 
 @parse = (value) ->
-  value.sub_link = {}
+  value.sub_link = a = {}
 
-  for key, ss of subjects when subjects.hasOwnProperty(key)
-    value.sub_link[key] = a = []
+  for own key, ss of subjects
     for subject in ss
-      a.push {
+      a[subject] = {
         text: subject[0].toUpperCase() + subject.slice(1)
         link: "/tutors_search?#{ yield Feel.udata.d2u 'tutorsFilter', {subjects: [subject]} }"
       }
