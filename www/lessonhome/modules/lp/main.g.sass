@@ -251,21 +251,22 @@ textarea.materialize-textarea
     .req-modal-body
       display: none
 
-.select-dropdown
-  //li.optgroup[data-open="0"] + li
-  //  display: none
-  //li:not(.optgroup)
-  //  display: none
-  li.optgroup[data-open="0"] ~ li:not(.optgroup)
-    display: none
-  li.optgroup[data-open="1"] ~ li:not(.optgroup)
-    display: block
-  li.optgroup[data-open="1"] ~ li.optgroup[data-open="0"] ~ li:not(.optgroup)
-    display: none
+.slide_collapse
+  .select-dropdown
+    //li.optgroup[data-open="0"] + li
+    //  display: none
+    //li:not(.optgroup)
+    //  display: none
+    li.optgroup[data-open="0"] ~ li:not(.optgroup)
+      display: none
+    li.optgroup[data-open="1"] ~ li:not(.optgroup)
+      display: block
+    li.optgroup[data-open="1"] ~ li.optgroup[data-open="0"] ~ li:not(.optgroup)
+      display: none
 
-  //li.optgroup ~ li.subgroup_1
-  //  display: block
-  li.optgroup ~ li:not(.optgroup).disabled
-    display: none !important
+    //li.optgroup ~ li.subgroup_1
+    //  display: block
+    li.optgroup ~ li:not(.optgroup).disabled
+      display: none !important
 
 //commit
