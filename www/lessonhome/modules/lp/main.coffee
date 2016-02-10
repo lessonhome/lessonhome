@@ -55,16 +55,17 @@ class @main extends EE
     @dom.find('.slide_collapse').on 'click' ,'.optgroup', (e)=>
       thisGroup = $(e.currentTarget)
       slider = thisGroup.closest('ul')
-      thisGroupNumber = thisGroup.attr('data-group')
-      thisOpen = thisGroup.attr('data-open')
-      if thisOpen == '0'
-        slider.find('li[class*="subgroup"]').slideUp(400)
+
+      if thisGroup.attr('data-open') == '0'
         slider.find('.optgroup').attr('data-open', 0)
-        slider.find('.subgroup_' + thisGroupNumber).slideDown(400)
         thisGroup.attr('data-open', 1)
+        setTimeout ->
+          if top = Math.ceil(slider.scrollTop() + thisGroup.position().top)
+            slider.animate({scrollTop: top}, 200)
+        , 17
       else
-        slider.find('.subgroup_' + thisGroupNumber).slideUp(400)
         thisGroup.attr('data-open', 0)
+
   goBack: =>
     document.location.href = window.history.back()
   onstatechange : =>
@@ -79,6 +80,7 @@ class @main extends EE
   preShow : =>
     switch @nowurl
       when 'tutor_profile'
+        #@tree.profile.class.dom.find('.avatar_loaded').css 'opacity',0
         @tree.profile.class.dom.find('img.avatar').attr 'src',''
         @saveTutor = @tree.profile.class.$clone()
         @saveTutor.dom.find('img.avatar').attr 'src',''

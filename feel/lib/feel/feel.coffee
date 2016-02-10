@@ -194,10 +194,8 @@ class module.exports
       yield Q.all qs
   npm : =>
     defer = Q.defer()
-    process.chdir 'feel'
     console.log 'npm install'.red
     npm = spawn 'npm', ['i']
-    process.chdir '..'
     npm.stdout.on 'data', (data)=> process.stdout.write data
     npm.stderr.on 'data', (data)=> process.stderr.write data
     npm.on 'close', (code)=>
