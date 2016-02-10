@@ -1,13 +1,12 @@
 class @main extends @template '../../tutor'
-  route : '/tutor/moderate_bids'
-  model   : 'tutor/new_bids/moderate_bids'
+  route : '/tutor/bid_detail'
+#  model   : 'tutor/new_bids/bid_detail'
   title : "поиск заявок"
   tags   : -> 'tutor:search_bids'
-  access : ['admin']
+  access : ['tutor']
   redirect : {
-    'tutor' : '/enter'
-    'other' : '/enter'
-    'pupil' : '/enter'
+    'other': '/enter'
+    'pupil': '/enter'
   }
   tree : =>
     items : [
@@ -29,8 +28,16 @@ class @main extends @template '../../tutor'
         href  : '/tutor/out_bids'
       }
     ]
-    content : @module '$'
+    content : @module '$' :
+      value : $defer : =>
+        _id = _setKey @req.udata,'tutorBids.index'
+        bid = {}
 
+        if _id
+          jobs = yield Main.service 'jobs'
+          bid = yield jobs.solve 'getDetailBid', @req.user,  _id
+
+        return bid
 
   init : ->
     @parent.tree.left_menu.setActive 'Заявки'

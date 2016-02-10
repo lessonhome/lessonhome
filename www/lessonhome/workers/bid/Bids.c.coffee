@@ -10,7 +10,7 @@ class Bids
     @bids = yield @db.get 'bids'
     @jobs = yield Main.service 'jobs'
     yield @jobs.client 'getBids', @jobGetBids
-    yield @jobs.client 'getDetailBid', @jobGetDetailBid
+    yield @jobs.listen 'getDetailBid', @jobGetDetailBid
 #    yield @jobs.listen 'getBids', @jobGetBids
 
   jobGetBids : (user) =>
@@ -45,25 +45,25 @@ class Bids
     bids = yield _invoke @bids.find($get), 'toArray'
     bids = bids[0] ? null
 
-    if bids and user.admin
-      bids.linked_detail = yield @_getLinked(bids)
+#    if bids and user.admin
+#      bids.linked_detail = yield @_getLinked(bids)
 
     return bids
 
-  _getLinked : (bids) =>
-    linked = {}
+#  _getLinked : (bids) =>
+#    linked = {}
+#
+#    for own index of (bids.linked ? {})
+#      linked[index] = yield @_getTutor index
+#
+#    index = bids.id
+#
+#    if index? and !linked[index]?
+#      linked[index] = yield @_getTutor index
+#
+#    return linked
 
-    for own index of (bids.linked ? {})
-      linked[index] = yield @_getTutor index
-
-    index = bids.id
-
-    if index? and !linked[index]?
-      linked[index] = yield @_getTutor index
-
-    return linked
-
-  _getTutor : (index) => yield @jobs.solve 'getTutor', {index}
+#  _getTutor : (index) => yield @jobs.solve 'getTutor', {index}
 
   _sortBids : (bids) =>
     result = {}
