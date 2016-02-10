@@ -353,7 +353,10 @@
 .comments-block
   padding: 1.5rem 0 3.333rem 0
   position: relative
-  &:before
+  @media #{$medium-and-down}
+    background-color: #147585
+    padding: 3.333rem 0 1.5rem 0
+  &:after
     content: ''
     display: block
     position: absolute
@@ -362,14 +365,20 @@
     bottom: 0
     top: 40%
     background-color: #147585
+    @media #{$medium-and-down}
+      display: none
   .title
     h2
       font-size: 2rem
       line-height: 100%
       margin: 0 0 3rem 0
       color: #093c44
+      @media #{$medium-and-down}
+        color: #ffffff
+      @media #{$small-and-down}
+        text-align: center
+        font-size: 1.8rem
   @media #{$medium-and-down}
-    padding: 1rem 0 0.5rem
     .comment-cell
       margin-bottom: 2rem
   .comment-cell
@@ -381,22 +390,28 @@
     overflow: hidden
     height: 200px
     @media #{$medium-and-down}
-      height: 300px
+      height: auto
     background: #ffffff
     img
       max-width: 100%
       width: 100%
+      @media #{$medium-and-down}
+        width: 35%
+        display: inline-block
+        vertical-align: top
+
     a.comment-img-link
       display: block
       position: relative
+      @media #{$medium-and-down}
+        background-color: #147585
+        text-align: left
       .comment-tutor-name
         position: absolute
         top: 0
         left: 0
         right: 0
         height: 38px
-        @media #{$medium-and-down}
-          height: auto
         background: rgba(0, 0, 0, 0.5)
         font-size: 1rem
         line-height: 130%
@@ -404,6 +419,13 @@
         text-align: left !important
         transition: all 0.2s ease-out
         overflow: hidden
+        @media #{$medium-and-down}
+          height: auto
+          position: static
+          display: inline-block
+          vertical-align: top
+          width: 60%
+          background: transparent
         .comment-img-layer
           font-size: 1rem
           line-height: 130%
