@@ -16,9 +16,60 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
         .results
           -not_exist = !tutors || !tutors[0];
           .js-not_exist(style= not_exist ? 'display: block' : undefined )
-            h4 Не нашли подходящего репетитора?
-            p Мы не оставим Вас на произвол судьбы. Оставьте контактные данные и наши специалисты помогут Вам с этой нелегкой задачей.
-            a(data-target="req_more_send").btn-large.orange-btn.waves-effect.waves-light.js-demo_modal Оставить контакты
+            h4 Поиск не дал результата? У нас есть еще репетиторы.
+            .row
+              .col.l4.right-align
+                i.icon-owl
+              .col.l6
+                ol
+                  li Некоторые преподаватели не захотели участвовать в поиске.
+                  li Другие не успели отметить, свободное время в данны момент
+            h5 Хотите узнать о всех репетиторах?
+            .row
+              .col.l6              
+                p Позвоните нам по <span>телефону +7(495) 151-18-51,</span> или оставьте контактные данные и мы перезвоним.  
+                .color-line
+              .col.l6
+                
+
+
+                .js-short_form.la-form
+                  .row
+                    .col.input-field.s12
+                      i.material-icons.prefix person_outline
+                      input.validate#la_name(type='text').js-name
+                      label(for="la_name") Имя
+                  .row
+                    .col.input-field.s12
+                      i.material-icons.prefix phone
+                      input.validate#la_phone(type='tel').js-phone
+                      label(for="la_phone") Телефон
+                  .row(style="display: none")
+                    .col.s12.center-align
+                      span.red-text.js-fatal_error
+                  .row.no-margin-row
+                    .col.s12.center-align
+                      a.btn-large.blue-btn.waves-effect.waves-light.js-send Заказать звонок
+                        i.material-icons.right send
+                .js-success_form(style="display:none")
+                  .row
+                    .col.s12.our_tutors.center-align
+                      h5 Заявка успешно отправлена!
+                      p.no-margin-p Наш оператор позвонит вам в течении 10 – 15 минут.
+                  .row.no-margin-row
+                    .col.s12.center-align
+                      a.btn-large.yellow-btn.waves-effect.waves-light.js-detail Дополнить заявку
+
+
+
+
+
+
+
+
+
+
+                  
           .js-tutor!=tutor
           .js-tutors_list
             -if(not_exist)tutors=[];

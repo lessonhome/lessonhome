@@ -55,9 +55,55 @@
 .results
   position: relative
   .not_exist, .wait
-    font-size: 1.3rem
+    //font-size: 1.3rem
     //color: #9E9E9E
-    text-align: center
+    h4
+      color: #093c44
+      font-size: 1.6rem
+      margin-bottom: 2rem
+    h5
+      color: #093c44
+      font-size: 1.4rem  
+      margin-top: 3rem
+    ol
+      counter-reset: li
+      list-style: none
+      padding: 0
+      margin: 0
+    li
+      margin-bottom: 2rem  
+      &:before
+        content: counter(li)
+        counter-increment: li
+        color: #179cab
+        border-radius: 50%
+        border: 1px solid #179cab
+        width: 3rem
+        display: inline-block
+        height: 3rem
+        text-align: center
+        font-size: 2rem
+        line-height: 2.75rem
+        margin-right: 1rem
+        float: left
+    span
+      color: #179cab
+    .color-line
+      height: 0.4667rem
+      background-color: #fbc02d
+      width: 60%
+      &:before
+        content: ''
+        display: block
+        height: 0.4667rem
+        width: 50%
+        background-color: #01a59a
+    .icon-owl
+      font-size: 11rem
+      color: #179cab
+
+
+
   .wait
     display : none
     &.abs
