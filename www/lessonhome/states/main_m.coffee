@@ -25,7 +25,7 @@ class @main extends @template 'lp'
         regexp = /\s+[^\s]*$/
         regexp_dot = /\s*\.{1,3}$/
         for p in prep
-          p.avatar = p.photos[p.photos.length - 1].hurl
+          p.avatar = p.photos[p.photos.length - 1].lurl
           p.link = '/tutor_profile?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
           continue unless p?.reviews?.length
           onmain = []
