@@ -7,20 +7,28 @@
     width: 46px
     height: 46px
     cursor: pointer
-    border: none
+    border: 1px solid rgba(255, 255, 255, 0.7)
+    border-radius: 50%
     outline: none
     font-size: 0
     line-height: 0
     position: absolute
     top: 50%
     margin-top: -23px
+    @media #{$small-and-down}
+      border: none
+      top: 0
+      bottom: 0
+      background-color: rgba(0,0,0,0.2) !important
+      height: auto
+      border-radius: 0
     &.slick-prev
-      background: url(F('/lp/slick-prev.png'))
+      background: url(F('/lp/slick-prev.png')) no-repeat center
       right: 100%
       @media #{$small-and-down}
         right: 95%
     &.slick-next
-      background: url(F('/lp/slick-next.png'))
+      background: url(F('/lp/slick-next.png')) no-repeat center
       left: 100%
       @media #{$small-and-down}
         left: 95%
