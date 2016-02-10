@@ -4,10 +4,13 @@ class Bids
     'to_pay' : true
     'payed' : true
   }
+  need_first = {'name': 1, 'time': 1, 'subject': 1, 'subjects': 1}
   init: =>
     @db = yield Main.service 'db'
     @bids = yield @db.get 'bids'
     @jobs = yield Main.service 'jobs'
+    yield @jobs.client 'getBids', @jobGetBids
+    yield @jobs.client 'getDetailBid', @jobGetDetailBid
     yield @jobs.listen 'getBids', @jobGetBids
 
   jobGetBids : (user) =>
@@ -17,25 +20,48 @@ class Bids
     unless user.admin
       $find['moderate'] = true
 
-    return yield _invoke @bids.find($find), 'toArray'
+    return yield _invoke @bids.find($find, need_first), 'toArray'
 
   jobChangeBids : (user, data) =>
     yield @_validUser user, true
 
   jobGetMyBids : (user) =>
     yield @_validUser user
-    bids = yield _invoke @bids.find({moderate: true, app_tutor: user.id}), 'toArray'
+    bids = yield _invoke @bids.find({moderate: true, app_tutor: user.id}, need_first), 'toArray'
     return yield @_sortBids bids
 
   jobGetModerBids : (user) =>
     yield @_validUser user, true
-    bids = yield _invoke @bids.find({}), 'toArray'
+    bids = yield _invoke @bids.find({}, need_first), 'toArray'
     return yield @_sortBids bids
 
+  jobGetDetailBid : (user, _id) =>
+    yield @_validUser user
+    $get = {_id : new (require('mongodb').ObjectID)(_id)}
+
+    unless user.admin
+      $get['moderate'] = true
+
+    bids = yield _invoke @bids.find($get), 'toArray'
+    bids = bids[0] ? null
+
+    if bids and user.admin
+      bids.linked_detail = yield @_getLinked(bids)
+
+    return bids
+
+  _getTutor : (index) => yield @jobs.solve 'getTutor', {index}
   _getLinked : (bids) =>
-    l = bids.linked ? []
-    linked = if bids.id? and l.indexOf(bids.id) < 0 then [bids.id] else []
-    linked.push(index) for index in l
+    linked = {}
+
+    for own index of (bids.linked ? {})
+      linked[index] = yield @_getTutor index
+
+    index = bids.id
+
+    if index? and !linked[index]?
+      linked[index] = yield @_getTutor index
+
     return linked
 
   _sortBids : (bids) =>
