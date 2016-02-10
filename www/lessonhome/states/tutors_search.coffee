@@ -1,7 +1,7 @@
 class @main extends @template 'lp'
   route : '/tutors_search'
   model : 'tutor/profile_registration/fourth_step'
-  title : "LessonHome - Профиль репетитора"
+  title : "Наши репетиторы"
   tags   : [ 'tutor:reports']
   access : ['other','pupil']
   redirect : {
@@ -44,6 +44,8 @@ class @main extends @template 'lp'
           items: @const('filter').sex
         metro_lines: @const('metro').lines
       search_help: @module '$/search_help'
+      from : $urldata : tutorsFilter : 'offset'
+      count : 10
       tutors : $defer : =>
         metro =  Feel.const('metro')
         filters = @req.udata.tutorsFilter
@@ -102,7 +104,8 @@ class @main extends @template 'lp'
         hash = yield Feel.udata.filterHash filter,'filter'
         filter = yield Feel.udata.u2d filter
         jobs = yield Main.service 'jobs'
-        o = yield jobs.solve 'filterTutors',{filter:{data:filter.mainFilter,hash},count:10,from:0}
+        from = filters.offset ? 0
+        o = yield jobs.solve 'filterTutors',{filter:{data:filter.mainFilter,hash},count:10,from:from}
         o ?= {}
         o.preps ?= {}
         modules = []
@@ -114,8 +117,28 @@ class @main extends @template 'lp'
             color : metro.lines[s.split(':')[0]].color
             key : s.split(':')[1]
           }
-        for index,i in (o?.filters?[hash]?.indexes ? [])
-          break unless i < 10
+        prev = from-10
+        next = from+10
+        if prev < 0
+          prev = 0
+        iss = o?.filters?[hash]?.indexes ? []
+        if next > (iss.length-1)
+          next = false
+        nf = {}
+        for key,val of filters
+          nf[key]=val
+        if iss.length > 10
+          if prev || next>10
+            nf.offset = prev
+            prev = '/tutors_search?'+yield Feel.udata.d2u 'tutorsFilter',nf
+          if next
+            nf.offset = next
+            next = '/tutors_search?'+yield Feel.udata.d2u 'tutorsFilter',nf
+          @tree.content.forward = {next,prev}
+
+        for i in [from...from+10]
+          break unless iss[i]
+          index = iss[i]
           prep = o.preps[index]
           prep.filter_stations = filter_stations
           modules.push @module 'main/tutor_list/tutor': value:prep

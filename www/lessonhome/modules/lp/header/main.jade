@@ -1,15 +1,28 @@
 -id_page = id_page || ''
-.logo-phone-block.js-offset_block
-  .container
+.logo-phone-block.js-offset_block.hide-on-med-and-down
+  .container.clearfix
     a.logo(href='/')
       img(src=F('lp/lh_logo.png'))
-    a.phone-link.right(href='tel:+7-495-181-0373') 
-      span +7 (495) 181-03-73
+    .header-info
+      a.phone-link(href='tel:+7-495-181-0373') +7 (495) 181-03-73
+      .hi-sity г. Москва
+    .contacts-line.right
+      ul
+        li
+          a(href='/contacts')
+            span Контакты
+            i.icon-location
+        li.hide
+          a(href='/help')
+            span Помощь
+            i.icon-question2
 .header-spacer
   nav.js-fixed_nav 
     .nav-wrapper
       .container
-        a(href='#', data-activates='mobile-demo').button-collapse.js-show_menu
+        a.logo(href='/').hide-on-large-only.left
+          img(src=F('lp/lh_logo.png'))
+        a(href='#', data-activates='mobile-demo').button-collapse.js-show_menu.right
           i.material-icons menu
         ul.hide-on-med-and-down
           li
@@ -28,17 +41,12 @@
                 a.active(href='/tutors_lp') Репетиторам
               else
                 a(href='/tutors_lp') Репетиторам
-          li
-            if id_page == 'contacts_page'
-              a.active(href='/contacts') Контакты
-            else
-              a(href='/contacts') Контакты
+        .right.hide-on-med-and-down
           li
             if id_page == 'help_page'
               a.active(href='/help') Помощь
             else
               a(href='/help') Помощ    
-        .right
           if hide_head_button != true
             if enter_button_show != true
               if $req.user.tutor
@@ -60,11 +68,13 @@
           li
             a(href='/tutors_search') Найти репетитора
           li
-            a(href='/contacts') Контакты
           li
             a(href='/help') Помощь  
-          li
             if hide_menu_punkt != true
               a(href='/tutors_lp') Репетиторам
+          li
+            a(href='/contacts') Контакты
+          li.hide
+            a(href='/help') Помощь
           li.phone-link
             a(href='tel:+7-495-181-0373') +7 (495) 181-03-73

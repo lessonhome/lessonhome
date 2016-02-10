@@ -140,7 +140,7 @@ class @main extends EE
         url = '/' if url is ''
 
         switch @accessory
-          when 'menu', 'empty', 'fast'
+          when 'menu', 'empty', 'fast', 'motivation', 'add_tutors'
             name = @accessory
           else
             name = 'popup'

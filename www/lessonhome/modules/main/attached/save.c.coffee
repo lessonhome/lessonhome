@@ -11,6 +11,12 @@ phones = [
   '79263672997'
   '79651818071'
 ]
+checkHistAdd = (m)=> do Q.async =>
+  m = m.replace(/повторная заявка/gmi,'').replace(/заявка/gmi,'')
+  redis = yield _Helper('redis/main').get()
+  ret = yield _invoke redis,'sadd','sms-history',m
+  return ret>0
+
 
 other = ($,data,second)-> do Q.async =>
   sms = yield Main.service 'sms'
@@ -38,6 +44,7 @@ other = ($,data,second)-> do Q.async =>
   text += data.comment || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
   return console.log text if $.user.admin || !_production
+  return unless yield checkHistAdd text
   messages = []
   for p in phones
     messages.push

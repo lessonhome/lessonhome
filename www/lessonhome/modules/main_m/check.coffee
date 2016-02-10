@@ -17,6 +17,7 @@ hasProp = (obj) ->
   name : data.name
   phone : data.phone
   comment : data.comment
+  linked : data.linked
 
 @check  = (data) =>
   filter = Feel.const('filter')
