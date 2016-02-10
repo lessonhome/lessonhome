@@ -478,7 +478,9 @@ class RouteState
     #@res.writeHead @res.statusCode||200
     zlib    = require 'zlib'
     zlib.gzip end,{level:9},(err,resdata)=>
-      return Feel.res500 @req,@res,err if err?
+      if err?
+        console.error 'gzip',err,Exception err
+        return Feel.res500 @req,@res,err
       @res.setHeader 'content-length',resdata.length
       @res.end resdata
       @time 'zlib'
