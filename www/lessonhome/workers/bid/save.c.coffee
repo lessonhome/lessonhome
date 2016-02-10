@@ -12,6 +12,12 @@ phones = [
   '79651818071'
 ]
 
+checkHistAdd = (m)=> do Q.async =>
+  m = m.replace(/повторная заявка/gmi,'').replace(/заявка/gmi,'')
+  redis = yield _Helper('redis/main').get()
+  ret = yield _invoke redis,'sadd','sms-history',m
+  return ret>0
+
 other = (uid,is_admin,data,second)-> do Q.async =>
   sms = yield Main.service 'sms'
   text = ''
@@ -38,13 +44,15 @@ other = (uid,is_admin,data,second)-> do Q.async =>
   text += data.comment || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
   return console.log text if is_admin || !_production
+  return unless yield checkHistAdd text
   messages = []
   for p in phones
     messages.push
       phone :p
       text : text
   console.log yield sms.send messages
- 
+    
+
 class BidSaver
   init : =>
     @jobs = yield Main.service 'jobs'
