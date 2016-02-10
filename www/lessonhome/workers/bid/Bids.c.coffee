@@ -11,7 +11,7 @@ class Bids
     @jobs = yield Main.service 'jobs'
     yield @jobs.client 'getBids', @jobGetBids
     yield @jobs.client 'getDetailBid', @jobGetDetailBid
-    yield @jobs.listen 'getBids', @jobGetBids
+#    yield @jobs.listen 'getBids', @jobGetBids
 
   jobGetBids : (user) =>
     yield @_validUser user
@@ -50,7 +50,6 @@ class Bids
 
     return bids
 
-  _getTutor : (index) => yield @jobs.solve 'getTutor', {index}
   _getLinked : (bids) =>
     linked = {}
 
@@ -63,6 +62,8 @@ class Bids
       linked[index] = yield @_getTutor index
 
     return linked
+
+  _getTutor : (index) => yield @jobs.solve 'getTutor', {index}
 
   _sortBids : (bids) =>
     result = {}
