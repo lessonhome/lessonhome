@@ -9,11 +9,12 @@ class @main
       yield Feel.jobs.solve 'openBidPopup'
   show: =>
     beforeFilter = @dom.parent().find('.search-filter')
-    top_offset = beforeFilter.offset().top + beforeFilter.outerHeight()
-
-    @blockSearchHelp.pushpin(
-      {
-        top: top_offset
-        offset: 60
-      }
-    )
+    $(window).scroll( =>
+      top_offset = beforeFilter.offset().top + beforeFilter.outerHeight()
+      @blockSearchHelp.pushpin(
+        {
+          top: top_offset
+          offset: 60
+        }
+      )
+    )  
