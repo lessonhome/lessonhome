@@ -31,6 +31,11 @@ _phones = [
   '79651818071'
 ]
 
+checkHistAdd = (m)=> do Q.async =>
+  m = m.replace(/повторная заявка/gmi,'').replace(/заявка/gmi,'')
+  redis = yield _Helper('redis/main').get()
+  ret = yield _invoke redis,'sadd','sms-history',m
+  return ret>0
 
 
 @delayRegisterMail = (id,isadmin)->
@@ -55,7 +60,7 @@ _phones = [
   text += "#{accounts[0].login}\n"
   text += "#{persons[0].phone.join?('; ') ? ''}\n" if persons[0]?.phone?[0]
   text += "#{persons[0].email.join?('; ') ? ''}\n" if persons[0]?.email?[0]
-
+  return unless yield checkHistAdd text
   @jobs = yield Main.service 'jobs'
   messages = []
   for phone in _phones
