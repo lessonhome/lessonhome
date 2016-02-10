@@ -77,7 +77,7 @@
 
               mixin list(place)
                 li
-                  i.material-icons.tiny.orange-m-text lens
+                  i.material-icons.tiny.yellow-color lens
                   span(data-val='place')!=place
 
               ul.tags-list.js-short_places
@@ -116,7 +116,7 @@
                 each p in subjects
                   +templ_price(p.name, p.prices)
 
-          h4.red-text.text-darken-3 Цены
+          h4 Цены
           //div(style='display:none')!=template_subject
           div(style='display: none')
             .js-template_price
@@ -139,7 +139,7 @@
                   +templ_subject(sub.name, sub.prices)
       .row
         .col.s12
-          button.btn.orange-btn.waves-effect.waves-light.js-show_detail Подробнее
+          button.btn.yellow-btn.waves-effect.waves-light.js-show_detail Подробнее
 
 
       .row.tutorials-list.js-block_subjects(style= exist ? '' : 'display: none')
@@ -153,7 +153,7 @@
                 p.grey-text.text-darken-2(data-val='descr' style= description?'':'display:none')!=description
             .divider
 
-          h4.red-text.text-darken-4 Предметы
+          h4 Предметы
           .js-subjects
             if value.subjects && Object.keys(value.subjects).length
               each sub in value.subjects
@@ -174,7 +174,7 @@
                 p(data-val ='location')!=location
             .divider
 
-          h4.red-text.text-darken-4 Место занятий
+          h4 Место занятий
           .js-location_places
             if exist
               each l in value.places
@@ -199,7 +199,7 @@
             .divider
 
 
-          h4.red-text.text-darken-4 Образование
+          h4 Образование
           .js-education
             if exist
               each e in value.education
@@ -213,7 +213,7 @@
       - exist = about || why || int
       .row.bottom-info.js-block_about(style= exist ? '' : 'display: none')
         .col.s12
-          h4.red-text.text-darken-4 О себе
+          h4 О себе
           p.js-about_me(style= about?'':'display:none')!=about
           .js-why(style= why?'':'display:none')
             p
@@ -230,7 +230,7 @@
       mixin review(mark, subject, course, review, name, date)
         .row
           .col.s12.m12.l4.review-rating-block
-            .col.s3.m3.l12.reviews-rating_index.red-text.text-darken-4(data-val='mark')!=mark
+            .col.s3.m3.l12.reviews-rating_index.blue-color(data-val='mark')!=mark
             .col.s9.m9.l12.reviews-rating_subject(data-val='subject' style= subject?'':'display:none')!=subject
             .col.s9.m9.l12.reviews-rating_direction(data-val ='course' style= course?'':'display:none')!=course
           .col.s12.m12.l8
@@ -304,7 +304,7 @@
 
         .row
           .input-field.col.s12
-            button(type='submit').btn.orange-btn.waves-effect.waves-light.js-message_send Отправить
+            button(type='submit').btn.yellow-btn.waves-effect.waves-light.js-message_send Отправить
               i.material-icons.right send
       .js-success
         .col.l3.m3.s3
