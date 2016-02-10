@@ -39,6 +39,11 @@
     margin: 2.5rem 0 0
     li
       margin-bottom: 2rem
+      @media #{$small-and-down}
+        display: inline-block
+        margin-right: 1.5rem
+        &:last-of-type
+          margin-right: 0
       a
         color: #393939
         cursor: pointer
