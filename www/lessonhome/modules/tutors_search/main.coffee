@@ -58,18 +58,18 @@ class @main
     ###
     @choose_tutors_num = @found.choose_tutors_num
 
-    @showFilter.on 'click', (e)=>
-      thisShowButton = e.currentTarget
-      if(@filterStatus == 0)
-        $(thisShowButton).html('Подобрать репетиторов')
-        $(@filterBlock).slideDown('fast')
-        $(@listTutors).slideUp('fast')
-        @filterStatus = 1
-      else
-        $(thisShowButton).html('Подобрать по параметрам')
-        $(@filterBlock).slideUp('fast')
-        $(@listTutors).slideDown('fast')
-        @filterStatus = 0
+    @showFilter.on 'click', =>
+      @listTutors.hide(0,
+        =>
+          @filterBlock.show()
+          @showFilter.hide()
+      )
+    @found.show_result.on 'click', =>
+      @filterBlock.hide(0,
+        =>
+          @listTutors.show()
+          @showFilter.show()
+      )
 
     @found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'empty'
   ###
@@ -111,6 +111,7 @@ class @main
     end = =>
       @tutors_result.css 'opacity',1
     return (@busyNext = {f:@reshow}) if @busy
+    @found.controlls?.hide?()
     @tutors_result.css 'opacity',0
     @htime = new Date().getTime()
     @busy = true
@@ -167,6 +168,7 @@ class @main
     fhash = yield @toOldFilter()
     indexes = yield Feel.dataM.getTutors @from,@count+10,fhash
     return yield @BusyNext() if indexes.length<=@count
+    @found.controlls?.hide?()
     yield Q.delay(10)
     @count = Math.min(indexes.length-@from,@count+10)
     indexes = indexes.slice @from,@from+@count
@@ -198,6 +200,7 @@ class @main
     ll = @tutors_result.find(':last')
     dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
     if dist >= -400
+      return if (yield Feel.urlData.get('tutorsFilter','offset'))!=0
       yield @addTen()
   apply_filter : (force=false)=> do Q.async =>
     return @isfirst = false if @isfirst

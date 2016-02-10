@@ -1,21 +1,12 @@
-//TODO luck story resurection
-//.luck-history
-  .container.valign-row
-    .row
-      .col.l6.m6.s12.offset-l1.offset-m1
-        .history-title Lesson Home помог нам подготовиться к ЕГЭ
-        .history-text и сдать на 90 баллов 
-        a.btn-large.orange-btn.waves-effect.waves-light.js-popup Тоже хочу сдать ЕГЭ
-.luck-history.search-form
+.luck-history
   .container
-    .row.sf-text
-      .col.l6.m6.s12.offset-l1.offset-m1
-        .history-title Lesson Home помог нам подготовиться к ЕГЭ
-        .history-text и сдать на 90 баллов 
+    .row
+      .col.l10.m10.s12.offset-l1.offset-m1.center-align
+        .history-title Индивидуальный подбор репетиторов
     .row.opacity-row
       form(method="post", action='/tutors_search', accept-charset="utf-8").js-fast_filter
         .col.s1.l1.m1 &nbsp;
-        .col.s12.l9.m9.opacity-col
+        .col.s12.l10.m10.opacity-col
           .col.s12.l4.m4.input-field.slide_collapse &nbsp;
             select.js-fast_sub(multiple=true)
               option(value='', selected, disabled) Выберите предмет
@@ -34,171 +25,132 @@
                     option(value=val)!=s
                     //option(value=val, selected=metro_exist[val]?true:undefined)!=s
           .col.s12.l2.m2.input-col-link
-            a.btn.orange-btn.waves-effect.waves-light.js-send_form Далее
-.about-row        
-  .container 
+            a.btn.blue-btn.waves-effect.waves-light.js-send_form Далее
+.subjects-list-block
+  .container
     .row
-      .col.s12.l12.m12
-        h1 Lesson Home — сервис подбора репетиторов
-        p Индивидуально подбираем репетиторов под ваши задачи, требования и бюджет. <br />Помогаем подготовиться к ЕГЭ и ГИА, поступить в ВУЗ и получить новые знания. <br />Работаем только с проверенными преподавателями и экспертами.
-.reliable-experts
+      .col.s12.title
+        h1 Помогаем подготовиться к школе, сдать ГИА и ЕГЭ, поступить в ВУЗ
+      .col.s12.subjets-list
+        mixin rect(key, cl, name)
+          .col.s6.l3.m3.center-align
+            -v = key && value && value.sub_link && value.sub_link[key] ? value.sub_link[key] : {};
+            a.sl-body(href=v.link ? v.link : "/tutors_search" )
+              .sl-content
+                .sl-icons
+                  i(class=cl)
+                .sl-text!=name ? name : v.text ? v.text : 'Другие предметы'
+
+        +rect('математика', 'icon-subjec1')
+        +rect('физика', 'icon-subjec2')
+        +rect('русский язык', 'icon-subjec3')
+        +rect('английский язык', 'icon-subjec4')
+        +rect('биология', 'icon-subjec5')
+        +rect('химия', 'icon-subjec6')
+        +rect('младшая школа', 'icon-subjec7', 'Начальные классы')
+        +rect(null, 'icon-subjec8')
+
+    .row.text-one
+      .col.l7.m7.s12
+        p Вы хотите, чтобы у вашего ребенока были хорошие оценки, он выигрывал олимпиады, сдавал ЕГЭ и поступил в выбранный ВУЗ? 
+        p Помогая в учебе сейчас, вы определяете будущее вашего ребенка
+        p Индивидуальные занятия с педагогом &mdash; лучший способ в достижении цели.
+        .color-line
+      .col.l5.m5.s12.right-align
+        .round-border
+          p.left-align Выбирайте эффективные решения.
+          p.left-align Доверьте выбор нашим специалистам.
+          .center-align
+            a.btn-large.yellow-btn.waves-effect.waves-light.js-attach Оформить заявку
+.facts-about-us
+  .container
+    .row
+      .col.s12.l4.center-align
+        i.icon-strongside1
+        .fau-text Подбираем репетиторов бесплатно и в день обращения.
+      .col.s12.l4.center-align
+        i.icon-strongside2
+        .fau-text Работаем только с проверенными преподавателями.
+      .col.s12.l4.center-align
+        i.icon-strongside3
+        .fau-text Учтем ваши задачи, бюджет и уровень знаний.
+.our_tutors
   .container
     .row.no-margin-row
-      .col.s12.m6.l6.outrer-padding.hide-on-med-and-down
-        .outer-round
-        img.responsive-img(src=F('/lp/reliable_experts_01.png'))
-      .col.s12.m12.l6.re-text
-        h3 Мы предлагаем надежных специалистов
-        p Среди наших репетиторов нет случайных людей, мы не набираем всех желающих и не публикуем непроверенные анкеты. Мы относимся к репетиторам, как к своим сотрудникам и следим за их работой: разрабатываем учебные стандарты, проверяем компетенцию преподавателей внутренними тестами и собираем отзывы учеников.
-.resoult-block
-  .container
-    .row.no-margin-row
-      .col.s12.m6.l6.re-text
-        h3 Нам важен ваш результат
-        p Мы подберём подходящего репетитора, учитывая ваши задачи, бюджет и уровень знаний. Занимайтесь в удобном месте и в удобное время. Если выбранный преподаватель вам не подойдёт, мы учтем ваши замечания и бесплатно подберем другого.
-      .col.s12.m6.l6.right-align.hide-on-small-only
-        img.responsive-img(src=F('/lp/result_img.jpg'))
-.ege-gia-block
-  .right-img-block.hide-on-small-only
-  .container
-    .row.no-margin-row
-      .col.s12.m6.l6.re-text
-        h3 Мы специализируемся на подготовке к ЕГЭ и ГИА
-        p С нами работает больше 700 преподавателей вузов, педагогов и экспертов по ЕГЭ и ГИА. Треть репетиров — молодые специалисты с опытом подготовки и сдачи Единых экзаменов и Аттестации. Средний балл наших учеников — 80, а лучшие сдают экзамены на 90 и выше.
-      .col.s12.m6.l6
-.subjects-block
-  .container
-    .row.no-margin-row.title-block.min-subject-height
-      mixin liUpCase(link, replace)
-        if link
-          -text = link.text.replace(replace, '')
-          li
-            a(href!=link.link)!=text
-
-      mixin liSubjects(links, num, replace)
-        if links && links.length
-          -for(var i = 0; i < num; i++){
-              +liUpCase(links[i], replace)
-          -}
-      .col.s12.no-col
-        h3 Предметы
-      .col.s12.l3.m6.center-align
-        ul.subject-list.list-one.left-align
-          li.title Естественные
-          +liSubjects(value.sub_link["Естественные"], 5)
-
-      .col.s12.l3.m6.center-align
-        ul.subject-list.list-two.left-align
-          li.title Точные
-          +liSubjects(value.sub_link["Точные"], 4)
-
-      .col.s12.l3.m6.center-align
-        ul.subject-list.list-three.left-align
-          li.title Гуманитарные
-          +liSubjects(value.sub_link["Гуманитарные"], 4)
-      .col.s12.l3.m6.center-align
-        ul.subject-list.list-four.left-align
-          li.title Языки
-          +liSubjects(value.sub_link["Иностранные языки"], 5, 'язык')
-
+      .col.s12.title
+        h2 Наши репетиторы
+      .col.m3.l2.our-owl.center-align.hide-on-small-only
+        i.icon-owl
+      .col.s12.m9.l10
+        p Каждого репетитора знаем лично, развиваем долгосрочные отношения как со своими сотрудниками: проверяем компетенцию преподавателей, ведем отчеты по работе.
+        p.no-margin-p.hide-on-small-only С нами уже больше 700 преподавателей и экспертов по ЕГЭ и ГИА. Треть репетиров — молодые специалисты. Знают что такое ЕГЭ на собственном опыте, но уже имеют опыт репетиторства и подготовки к сдаче Единых экзаменов и Аттестации. Средний балл наших учеников — 80, а лучшие сдают экзамены на 90 и выше.
+        .link <a href="/tutors_search">Посмотреть отзывы, достижения и фотографии репетиторов ></a>
 .what-work
   .container
-    .row.no-margin-row.title-block.left-left
-      .col.s12.no-after
-        h3 Как мы работаем
-      .col.s12.l3.m6.center-align
-        img(src=F('/lp/step_work_1.png')).responsive-img
-        p Вы оставляете заявку.
-      .col.s12.l3.m6.center-align
-        img(src=F('/lp/step_work_2.png')).responsive-img
-        p С вами свяжется администратор, уточнит подробности и подберёт репетитора.
-      .col.s12.l3.m6.center-align
-        img(src=F('/lp/step_work_3.png')).responsive-img
-        p Вам позвонит репетитор, договоритесь о первом занятии.
-      .col.s12.l3.m6.center-align
-        img(src=F('/lp/step_work_4.png')).responsive-img
-        p Вы занимаетесь с репетитором.
-.works-facts
+    .row
+      .col.s12.title
+        h2 Как мы работаем
+      .ww-content
+        .col.s12.m4.l4
+          .ww-icons
+            i.icon-howwework1
+          .ww-text Оставьте заявку
+        .col.s12.m4.l4
+          .ww-icons
+            i.icon-howwework2
+          .ww-text С вами свяжется администратор, уточнит подробности
+        .col.s12.m4.l4
+          .ww-icons
+            i.icon-howwework3
+          .ww-text Вы знакомитесь с репетитором и занимаетесь
+.leave-application
   .container
-    .row.no-margin-row.overflow-row
-      .col.s12.l4.m12
-        .inner-block
-          i.material-icons done
-          span Мы подбираем репетиторов бесплатно. Вы платите только за работу преподавателя.
-      .col.s12.l4.m12.white-block
-        .inner-block 
-          i.material-icons done
-          span Выбирайте удобное время и место. Занимайтесь у репетитора или у себя дома, в коворкинге, кафе или парке. Главное, чтобы вам никто не мешал и не отвлекал.
-      .col.s12.l4.m12
-        .inner-block 
-          i.material-icons done
-          span Если репетитор не подходит, ничего страшного. Мы уточним ваши замечания и предложим другого.
-.leave-the-application
-  .container
-    .row.title-block.no-margin-row.js-form_offset_label
-      h3 Оставьте заявку
-      p Выберите предмет, укажите имя и телефон.<br /> Мы свяжемся с вами, уточним подробности и подберем преподавателя.
-    .row.no-margin-row      
-      .application-progress.js-app_progress
-        .col.s4.m4.l4.center-align
-          .progress-line
-          .circle-number.js-app_prev 1
-        .col.s4.m4.l4.center-align
-          .progress-line
-          .circle-number.js-app_next 2
-        .col.s4.m4.l4.center-align
-          .progress-line
-          .circle-number 3
-      .progress-body
-        .col.s12.m6.l6.offset-m3.offset-l3.js-fixed_height
-          .first-step-form.js-app_first_form
-            .row.no-margin-row
-              .col.s12.m9.l9.input-field.slide_collapse
-                select.js-field_subjects(multiple=true)
-                  option(value='', selected, disabled) Выберите предмет
-                  each groups,gname in subject_list
-                    optgroup(label!=gname)
-                      each val,index in groups
-                        option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
-                label Выберите предмет
-              .col.s12.m3.l3.input-field.right-align
-                a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Далее
-          .two-step-form.js-app_two_form
+    .row.no-margin-row
+      .col.s12.title
+        h2 Оставьте заявку
+      .la-content
+        .col.s12.m6.l6
+          .js-short_form.la-form
             .row
-              .col.s12.input-field
-                i.material-icons.prefix account_circle
-                input#app_name.validate.js-field_name(name='name', type='text', value = value.name || '')
-                label(for='app_name') Ваше имя 
-              .col.s12.input-field
+              .col.input-field.s12
+                i.material-icons.prefix person_outline
+                input.validate#la_name(type='text').js-name
+                label(for="la_name") Имя
+            .row
+              .col.input-field.s12
                 i.material-icons.prefix phone
-                input#app_phone.validate(name='phone', type='tel', value = value.phone || '').js-field_phone
-                label(for='app_phone') Ваш телефон
-              .col.s12.warning
-                p.warning-p Мы не разглашаем ваши личные данные.
-            .row
-              .col.s12.input-field.select-no-prefix
-                select.js-field_course(multiple=true)
-                  option(value='', disabled, selected) Какое направление подготовки вас интересует?
-                  each val, index in training_direction
-                    option(value!=val, selected=value.cou_exist[val]?true:undefined)!=val
-            .row
-              .col.s12.input-field
-                i.material-icons.prefix comment
-                textarea#app-comment.materialize-textarea.js-field_comment
-                label(for='app-comment') Напишите, когда вам удобно ответить на вопросы оператора, ваши пожелания к преподавателю и расписанию занятий.
-            .row
-              .col.s11.offset-s1
+                input.validate#la_phone(type='tel').js-phone
+                label(for="la_phone") Телефон
+            .row(style="display: none")
+              .col.s12.center-align
                 span.red-text.js-fatal_error
+            .row.no-margin-row
+              .col.s12.center-align
+                a.btn-large.yellow-btn.waves-effect.waves-light.js-send Отправить
+                  i.material-icons.right send
+          .js-success_form(style="display:none")
+            .row
+              .col.s12.our_tutors.center-align
+                h5 Заявка успешно отправлена!
+                p.no-margin-p Наш оператор позвонит вам в течении 10 – 15 минут.
+            .row.no-margin-row
+              .col.s12.center-align
+                a.btn-large.yellow-btn.waves-effect.waves-light.js-detail Дополнить заявку
+      .col.s12.m6.l5.offset-l1
+          ul.form-right-text
+            li.clearfix
+              i.material-icons.left done
+              span Платите только за работу преподавателя.
+            li.clearfix
+              i.material-icons.left done
+              span Занимаетесь у репетитора или у себя дома.
+            li.clearfix.before-line
+              i.material-icons.left done
+              span Если преподаватель вам не подошел, мы учтем замечания и подберем другого.
+            li.cleatfix
+              i.material-icons.white-text.left done
+              .color-line
 
-            .row
-              .col.s12.right-align
-                a.btn-large.orange-btn.waves-effect.waves-light.js-app_next Отправить
-          .tree-step-form.js-app_three_form
-            .row
-              .col.s12
-                h2 Готово!
-                h3 Заявка отправлена.
-                h3 Наш оператор позвонит вам через <span class="color-green">10 – 15</span> минут.
 .comments-block
   mixin reviews (index, image, name, link, name_r, date_r, rating, subject, text)
     .col.s12.m6.l3.comment-cell
@@ -213,10 +165,12 @@
         .col.s12.comment-text!=text || 'Отзывов пока нет.'
         .col.s12.right-align
           .rew_name!=name_r
-          .rew_name!=date_r
+          //.rew_name!=date_r
   .container.js-rew
-    .row.no-margin-row.title-block
-      h3 Отзывы
-      for rep in main_rep
-        -rew = rep.num_show_rev !== undefined ? rep.reviews[rep.num_show_rev] : {};
-        +reviews(rep.index, rep.avatar, rep.name.first, rep.link, rew.name, rew.date, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)
+    .row.no-margin-row.title
+      .col.s12
+        h2 Отзывы о преподавателях 
+      .col.s10.cb-body.js-slick_block.clearfix.offset-s1.slick-main
+        for rep in main_rep
+          -rew = rep.num_show_rev !== undefined ? rep.reviews[rep.num_show_rev] : {};
+          +reviews(rep.index, rep.avatar, rep.name.first, rep.link, rew.name, rew.date, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)

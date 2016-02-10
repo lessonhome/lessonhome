@@ -108,12 +108,12 @@ email_period_life = 24 #hours
     yield $.form.flush '*',$.req,$.res
     return {status:'success', way}
   catch errs
+    console.error Exception errs
     err = {status: 'failed'}
     if typeof(errs) == 'string'
       err['err'] =  errs
     else
       err['err'] = 'internal_error'
-      console.log "ERROR: #{errs.message}"
     return err
 
 

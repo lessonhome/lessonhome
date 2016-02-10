@@ -44,11 +44,12 @@ class Socket
     @mainObject       = obj if obj?
     @handlerFunction  = handler if obj?
     @jobs = yield Main.service 'jobs'
-    Q.spawn =>
-      unless global.Feel?.const?
-        @const = yield @jobs.solve 'getConsts'
-        global.Feel ?= {}
-        global.Feel.const = (name)=> @const[name]
+    
+    #unless typeof global.Feel?.const == 'function'
+    @const = yield @jobs.solve 'getConsts'
+    global.Feel ?= {}
+    global.Feel.const = (name)=> @const[name]
+    Feel.cconst = @const
   runSsh : =>
     options = {
       key: _fs.readFileSync '/key/server.key'

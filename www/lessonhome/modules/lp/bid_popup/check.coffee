@@ -29,7 +29,7 @@ hasProp = (obj) ->
   prices = filter.price
 
   errs = []
-#  data = @takeData(data)
+  #  data = @takeData(data)
 
   if data.phone?.length
     errs.push 'wrong_phone' unless 7 <= data.phone.replace(/\D/g, '').length <= 13
