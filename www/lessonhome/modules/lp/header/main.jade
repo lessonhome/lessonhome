@@ -41,12 +41,7 @@
                 a.active(href='/tutors_lp') Репетиторам
               else
                 a(href='/tutors_lp') Репетиторам
-        .right.hide-on-med-and-down
-          li
-            if id_page == 'help_page'
-              a.active(href='/help') Помощь
-            else
-              a(href='/help') Помощь    
+        .right.hide-on-med-and-down   
           if hide_head_button != true
             if enter_button_show != true
               if $req.user.tutor
@@ -67,9 +62,7 @@
             a(href='/') Главная
           li
             a(href='/tutors_search') Найти репетитора
-          li
-          li
-            a(href='/help') Помощь  
+          li  
             if hide_menu_punkt != true
               a(href='/tutors_lp') Репетиторам
           li
