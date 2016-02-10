@@ -12,6 +12,7 @@ hasProp = (obj) ->
   return false
 
 @takeData = (data = {}) =>
+  linked : data.linked
   subjects : data.subjects
   gender: data.gender
   name : data.name
