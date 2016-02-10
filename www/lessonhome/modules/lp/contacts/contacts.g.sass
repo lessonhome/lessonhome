@@ -3,22 +3,27 @@
 .contacts
   color: #464646
   .row
-    &.title-row
-      margin-bottom: 0
-      letter-spacing: 1px
+    margin-bottom: 0
   .title
     font-size: 1.6rem
     margin: 1.8rem 0
+    letter-spacing: 1px
   .adres
-    height: 475px
+    padding-bottom: 3.5rem
     margin-bottom: 0.1rem
     background: url(F('/lp/contacts_bg.jpg')) no-repeat center center
     background-size: cover
+    .text_content
+      .row
+        margin-bottom: 4rem
+      .col:last-child
+        .row:last-child
+          margin-bottom: 0
     h1
       font-size: 2.4rem
       text-align: center
       text-transform: uppercase
-      margin: 3rem 0 -1rem
+      margin: 3rem 0
       letter-spacing: 1.5px
     span
       font-size: 1.2rem
@@ -30,13 +35,11 @@
       &.block-block
         display: block
         margin-bottom: 0.8rem
-        padding-left: 1rem
         font-size: 1rem
     i
       font-size: 2.3rem
       margin-top: -0.5rem
-    .row
-      margin-bottom: 4rem
+
 .map
   .map-container
     width: 100%

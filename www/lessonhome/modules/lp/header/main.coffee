@@ -15,6 +15,7 @@ class @main
     $(window).resize =>
       showMenu = @offset_block.css 'display'
       if showMenu == 'block'
+        @top_offset = $(@offset_block).offset().top + $(@offset_block).outerHeight()
         @fixedMenu.pushpin(
           {
             top: @top_offset
