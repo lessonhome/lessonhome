@@ -8,6 +8,7 @@ class @main
     @listTutors   = @found.list_tutors
     @tutors_result= @found.tutors_list
     @filterStatus = 0
+    @metro = yield Feel.const('metro')
     @linked = {}
     #@tutors = $.localStorage.get 'tutors'
     #@tutors ?= {}
@@ -16,18 +17,38 @@ class @main
     #@tnum   = 10
     #@tfrom  = 0
     #@now    = []
+    @filter_stations = []
+    @from = 0
+    @count = 10
     @changed = true
     @sending = false
     @busy = false
     @busyNext = null
     @tree.tutor_test = @tree.tutor
     @filter_data = null
+    @isfirst = true
+    @now = []
+    for key,t of @tree.tutors
+      @now.push t.value.index
+      @doms[t.value.index] =
+        cl : t.class
+        dom : t.class.dom
+
   show: =>
-    @found.tutors_list.find('>div').remove()
+    @metro = yield Feel.const('metro')
+    @found.tutor.remove()
 
     #@advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll.tutors',@onscroll
     Feel.urlData.on 'change', (force) => Q.spawn =>
+      @filter_stations = []
+      arr = yield Feel.urlData.get('tutorsFilter','metro')
+      for s in arr
+        @filter_stations.push {
+          metro : @metro.stations[s.split(':')[1]].name
+          color : @metro.lines[s.split(':')[0]].color
+          key : s.split(':')[1]
+        }
       yield @apply_filter(force)
     ### TODO
     @tree.advanced_filter.apply.class.on 'submit',=> Q.spawn =>
@@ -50,8 +71,7 @@ class @main
         $(@listTutors).slideDown('fast')
         @filterStatus = 0
 
-    @found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup'
-
+    @found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'empty'
   ###
   numTutors = 5
   tutors = yield Feel.dataM.getByFilter numTutors, ({subject:['Русский язык']})
@@ -169,6 +189,7 @@ class @main
     obj =
       class : cl
       dom   : cl.dom
+    prep.filter_stations = @filter_stations
     @updateDom obj, prep
 #    @relinkedOne cl
     return @doms[prep.index] = obj
@@ -179,6 +200,7 @@ class @main
     if dist >= -400
       yield @addTen()
   apply_filter : (force=false)=> do Q.async =>
+    return @isfirst = false if @isfirst
     @linked = yield Feel.urlData.get 'mainFilter','linked'
     #yield @setFiltered()
     @hashnow ?= 'null'
@@ -198,6 +220,7 @@ class @main
     mf = {}
     mf.page = 'filter'
     mf.subject = filters.subjects
+      
     ss = {}
     mf.subject ?= []
     for s in mf.subject
@@ -212,6 +235,9 @@ class @main
       ss[c] = true
     for c in (olds.course ? [])
       ss[c] = true
+    for m in (filters.metro ? [])
+      m = @metro.stations?[m?.split?(':')?[1] ? ""]?.name
+      ss[m] = true if m
     mf.course = Object.keys ss
     l = 500
     r = 6000

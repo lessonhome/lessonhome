@@ -185,13 +185,10 @@ class module.exports
   loadModules : => do Q.async =>
     @modules = {}
     @module_redis_cache = do Q.async =>
-      keys = yield _invoke @redis,'keys','module_cache-*'
-      keys ?= []
-      cache = yield _invoke @redis,'mget',keys if keys.length
-      cache ?= []
-      ret = {}
-      for k,i in keys
-        ret[k] = JSON.parse cache[i] ? "{}"
+      ret = yield _invoke @redis,'hgetall','module_cache'
+      ret ?= {}
+      for key,val of ret
+        ret[key] = JSON.parse val ? "{}"
       return ret
     
     readed = yield _readdirp root:@path.modules
