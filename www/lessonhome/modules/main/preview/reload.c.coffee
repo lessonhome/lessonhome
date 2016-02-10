@@ -295,9 +295,30 @@ age = (date1,date2)=>
   for key,f of @filters
     f.redis = true
   Q.spawn => yield @refilterRedis()
+
+  _toSkip = {
+    _client:true
+    awords:true
+    words : true
+  }
+  #keys = {}
   for key,val of @persons
     @index[val.index] = val
     @onmain[val.index]=true if val.onmain
+    val._client = {}
+    for k,v of val
+      continue if _toSkip[k]
+      val._client[k] = v
+    #for k,v of val
+    #  keys[k] ?= {type:typeof v, l:0}
+    #  keys[k].l += JSON.stringify(v ? {})?.length/1024
+  #arr = []
+  #for n,o of keys
+  #  o.name = n
+  #  arr.push o
+  #arr.sort (a,b)-> a.l-b.l
+  #for a in arr
+  #  console.log "#{a.name}\t#{a.l}\t#{a.type}"
   Q.spawn =>
     yield _invoke(@redis,'set','persons',JSON.stringify(@persons))
   return @persons

@@ -20,7 +20,7 @@ class @main extends @template 'lp'
       main_rep : $defer : =>
         maxl = 200
         jobs = yield Main.service 'jobs'
-        prep = yield jobs.solve 'getTutorsOnMain', 99999
+        prep = yield jobs.solve 'getTutorsOnMain', 16
         prep?= []
         regexp = /\s+[^\s]*$/
         regexp_dot = /\s*\.{1,3}$/
