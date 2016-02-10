@@ -374,7 +374,7 @@ class module.exports
           @newCoffeenr[filename] = src
           if _production
             @newCoffee[filename] = yield Feel.yjs @newCoffee[filename]
-            @newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
+            #@newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
           yield Feel.qCacheFile file.path,@newCoffee[filename],'mcoffeefile'
       if file.ext == 'js'
         do (filename,file)=> qs.push do Q.async =>
@@ -394,7 +394,7 @@ class module.exports
           @newCoffeenr[filename] = src
           if _production
             @newCoffee[filename] = yield Feel.yjs @newCoffee[filename]
-            @newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
+            #@newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
           yield Feel.qCacheFile file.path,@newCoffee[filename],'mcoffeefile'
           yield Feel.qCacheFile file.path,@newCoffeenr[filename],'mcoffeefilenr'
     yield Q.all qs

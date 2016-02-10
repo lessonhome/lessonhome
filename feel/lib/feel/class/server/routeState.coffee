@@ -387,8 +387,8 @@ class RouteState
     end += '<title>'+title+'</title>'
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
     end += @css+'</head><body>'
-    end += @site.router.body
     end += @top._html
+    end += @site.router.body
     @removeHtml @top
     @time "remove html"
     json_tree = @getTree @top

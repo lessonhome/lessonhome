@@ -219,7 +219,7 @@ class module.exports
       @modules[name] = new Module m,@
       all.push @modules[name]
     @module_redis_cache = yield @module_redis_cache
-    qs = for i in [0...cpus] then do Q.async =>
+    qs = for i in [0...(cpus*2)] then do Q.async =>
       while mod = all.pop()
         yield mod.init?()
     yield Q.all qs
