@@ -222,7 +222,9 @@ class Static
     res.writeHead 304
     res.end()
   res303 : (req,res,location)=>
-    return Feel.res500 req,res if req.url == location
+    if req.url == location
+      console.error Exception new Error 'req.url == location :'+req.url
+      return Feel.res500 req,res
     res.statusCode = 303
     res.setHeader 'Location', location
     res.end()
