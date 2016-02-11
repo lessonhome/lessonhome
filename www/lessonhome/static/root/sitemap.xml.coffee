@@ -8,6 +8,7 @@ main = [
   '/enter'
   '/tutor_registration'
   '/contacts'
+  '/help'
 ]
 other = []
 
