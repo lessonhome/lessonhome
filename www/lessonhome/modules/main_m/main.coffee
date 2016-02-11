@@ -52,7 +52,10 @@ class @main
     @per_err = @error.closest('.row')
   show: =>
 
-    getListener  = (name, element) -> -> Feel.urlData.set 'pupil', name, element.val()
+    getListener  = (name, element) -> ->
+      Q.spawn ->
+        yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
+        yield Feel.urlData.set 'pupil', name, element.val()
 
     @fast_form.subjects.on 'change', getListener('subjects', @fast_form.subjects)
     @form.name.on          'change', getListener('name', @form.name)

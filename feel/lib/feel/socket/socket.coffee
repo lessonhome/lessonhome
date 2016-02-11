@@ -154,7 +154,11 @@ class Socket
     #  ret = {status:"failed",err:"internal_error"}
     #res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(ret))});"
     try
-      res.end "#{cb}(#{ JSON.stringify( data: ret)});"
+      _res_data = yield _gzip "#{cb}(#{ JSON.stringify( data: ret)});"
+      res.setHeader 'content-encoding','gzip'
+      res.setHeader 'content-length',_res_data.length
+      res.end _res_data
+      #res.end "#{cb}(#{ JSON.stringify( data: ret)});"
     catch e
       #unless ret? && typeof ret == 'string'
       console.error Exception new Error "failed JSON.stringify client returned object"
