@@ -293,7 +293,7 @@
             label(for='phone', data-error="Введите корректный телефон") Ваш телефон
 
         -exist = value.sub && Object.keys(value.sub).length
-        .row.js-select_subject(style = (exist && exist > 1) ? '' : 'display: none')
+        .row.profile-subject-select.js-select_subject(style = (exist && exist > 1) ? '' : 'display: none')
           .input-field.col.s12.js-message_subject
             if exist
               select#sub

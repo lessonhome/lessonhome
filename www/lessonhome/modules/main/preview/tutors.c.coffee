@@ -8,6 +8,7 @@ class Tutors
     $W @
     @timereload = 0
     @inited = 0
+    @_max_age = 5*60
   init : =>
     return _waitFor @,'inited' if @inited == 1
     return if @inited > 1

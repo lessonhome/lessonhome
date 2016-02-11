@@ -587,6 +587,7 @@ global._shash   = (f)-> _hash(f).substr 0,10
 global._invoke  = (args...)-> Q.ninvoke args...
 global._mkdirp  = Q.denode require 'mkdirp'
 
+require './lib/wget'
 zlib    = require 'zlib'
 zlib_gzip = Q.denode zlib.gzip
 global._gzip = (data)-> zlib_gzip data,{level:5}
