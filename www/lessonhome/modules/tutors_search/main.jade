@@ -16,17 +16,19 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
         .results
           -not_exist = !tutors || !tutors[0];
           .js-not_exist(style= not_exist ? 'display: block' : undefined )
-            h4 Поиск не дал результата? У нас есть еще репетиторы.
-            .row
-              .col.l4.right-align
+            
+            .row.why
+              .col.s12
+                h4 Поиск не дал результата? У нас есть еще репетиторы.
+              .col.l6.s4.center
                 i.icon-owl
-              .col.l6
+              .col.l6.s6
                 ol
                   li Некоторые преподаватели не захотели участвовать в поиске.
                   li Другие не успели отметить, свободное время в данны момент
-            h5 Хотите узнать о всех репетиторах?
             .row
-              .col.l6              
+              .col.l6    
+                h5 Хотите узнать о всех репетиторах?          
                 p Позвоните нам по <span>телефону +7(495) 151-18-51,</span> или оставьте контактные данные и мы перезвоним.  
                 .color-line
               .col.l6
