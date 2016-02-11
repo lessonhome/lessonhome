@@ -2,14 +2,13 @@
 _sitemap = require "sitemap"
 
 main = [
-  '/'
-  '/tutors_search'
 ]
-other = []
 
 
 class Sitemap
   init : =>
+    main = Feel.const('pages').main
+    console.log main
     @redis = yield _Helper('redis/main').get()
     @jobs = _Helper('jobs/main')
     @udata = yield Main.service 'urldata'

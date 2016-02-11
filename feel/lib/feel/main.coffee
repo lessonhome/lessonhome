@@ -35,7 +35,7 @@ class Main
     yield @serviceManager.run?()
     yield @processManager.run?()
   removeCacheByVersion : =>
-    redis_keys = ['__masterProcessConfig','module_cache','state_cache','client_cache']
+    redis_keys = ['__masterProcessConfig','module_cache','state_cache','client_cache','redis_cache']
     yield Q.all [
       _invoke @redis,'del',redis_keys
       _rmrf '.cache'
@@ -56,6 +56,7 @@ class Main
     ]
     now ?= ""
     old ?= ""
+    old = old.toString()
     now = now.toString()
     @feel_version_now = now.replace(/\D/gmi,'')
     @feel_version_old = old.replace(/\D/gmi,'')

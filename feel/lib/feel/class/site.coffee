@@ -35,6 +35,8 @@ class module.exports
     @router       = new Router @
     @fileupload   = new FileUpload @
   init : => do Q.async =>
+    @redis_cache = _Helper('redis/cache')
+    Q.spawn => @redis_cache.get()
     @form = new Form
     [@redis,@jobs,@db,@register,@urldata,services] = yield Q.all [
       _Helper('redis/main').get()

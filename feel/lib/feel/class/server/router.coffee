@@ -8,7 +8,9 @@ class Router
     @url =
       text  : {}
       reg   : []
-  init : =>
+  init : => do Q.async =>
+    @redis_cache = _Helper('redis/cache')
+    Q.spawn => @redis_cache.get()
     try @head = _fs.readFileSync(process.cwd()+"/www/#{@site.name}/config/head/head.html").toString()
     try @body = _fs.readFileSync(process.cwd()+"/www/#{@site.name}/config/body/body.html").toString()
     @head ?= ''
@@ -50,12 +52,12 @@ class Router
       return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/file\/.*/
       return Q().then => Feel.static.handler req,res,@site.name
-    console.log req.url
+    console.log req.originalUrl.yellow
     cookie = new _cookies req,res
     req.cookie = cookie
     ucook = cookie.get('urldata') ? '%257B%257D'
     ucook = decodeURIComponent(decodeURIComponent(ucook)) ? '{}'
-    ucook = JSON.parse(ucook) ? {}
+    ucook = JSON.parse(ucook || "{}") ? {}
     #ucook = yield @site.urldata.d2u ucook
     ucookstr = ''
     for key,val of ucook
@@ -68,10 +70,37 @@ class Router
       req.udata += "&" if req.udata
       req.udata += ucookstr
     _session = cookie.get 'session'
-    req.udata = @site.urldata.u2d req.udata
-    req.udatadefault = @site.urldata.u2d ""
-    yield @setSession req,res,cookie,_session
+    req.udata = yield @site.urldata.u2d req.udata
     req.udata = yield req.udata
+    req.udataString = yield @site.urldata.d2u req.udata
+    req.uniqHash = "#{_session || ""}:#{req.url}?#{req.udataString}"
+    req.udatadefault = @site.urldata.u2d ""
+    try
+      if cache = yield @redis_cache.get req.uniqHash
+        console.log "from redis cache".grey,req.uniqHash.grey
+        res.setHeader 'Access-Control-Allow-Origin', '*'
+        res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+        res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
+        res.setHeader 'Access-Control-Allow-Credentials', true
+        res.setHeader 'Cache-Control', 'public, max-age='+cache.d
+        res.setHeader 'content-encoding', cache.encoding
+        d = new Date()
+        d.setTime d.getTime()+30000
+        res.setHeader 'Expires',d.toGMTString()
+        if req.headers['if-none-match'] == cache.etag
+          res.statusCode = 304
+          res.end()
+          return
+        res.setHeader 'ETag',cache.etag
+        res.statusCode = 200
+        data = new Buffer(cache.data, 'hex')
+        res.setHeader 'content-length',data.length
+        res.end data
+        return
+    catch e
+      console.error Exception e
+    
+    yield @setSession req,res,cookie,_session
     req.udatadefault = yield req.udatadefault
     req.udata ?= {}
     req.udatadefault ?= {}
@@ -92,13 +121,12 @@ class Router
       yield @setSession req,res,cookie,""
       ahash = cookie.get 'adminHash'
       if ahash
-        console.log {ahash}
         cookie.set 'adminHash'
         yield req.register.removeAdminHash ahash
       return @redirect req,res,'/'
     req.udata.abTest ?= {}
     try
-      abcookie = JSON.parse decodeURIComponent cookie.get 'abTest'
+      abcookie = JSON.parse((decodeURIComponent cookie.get 'abTest') || "{}")
     abcookie ?= {}
     abchanged = false
     for key,val of req.udata.abTest

@@ -145,6 +145,9 @@ class Server
       #for d in data
       #  kv = d.split '='
       #  req.data[kv[0]] = kv[1]
+    else
+      req.originalUrl = req.url
+
 
     if req.url == '/404'
       _end = res.end

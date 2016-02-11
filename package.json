@@ -70,7 +70,7 @@
     "kerberos" : "*",
     "sitemap":"*",
     "underscore":"*",
-    "yui-compressor":"*"
+    "wget" : "*"
   }
 }
 
