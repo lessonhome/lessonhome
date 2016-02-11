@@ -124,6 +124,11 @@ class @main
 
 
     @found.use_settings.on 'click', =>
+
+      $("body, html").animate {
+          "scrollTop":0
+        }, 200
+
       Feel.urlData.emit 'change', true
 #      top = @dom.offset?()?.top
 #      $(window).scrollTop top-70 if top >= 0

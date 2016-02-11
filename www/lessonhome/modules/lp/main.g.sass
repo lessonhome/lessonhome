@@ -85,7 +85,31 @@ textarea.materialize-textarea
     transition: background-color 50000s ease-in-out 0s !important
     -webkit-text-fill-color: #464646
     @media #{$medium-and-down}
-      -webkit-text-fill-color: #464646  
+      -webkit-text-fill-color: #464646
+[type="checkbox"]
+  &+label
+    font-family: 'Roboto'
+    font-size: .8rem
+    &:before
+      border-width: 1px
+      width: 1rem
+      height: 1rem
+      margin-top: 0.2667rem
+  &:checked
+    &+label
+      &:before
+        width: 0.8rem
+        height: 1.467rem
+        border-width: 2px
+[type="radio"]
+  &:not(:checked)
+    &+label
+      font-family: 'Roboto'
+      font-size: .8rem
+  &:checked
+    &+label
+      font-family: 'Roboto'
+      font-size: 1rem 
 .select-wrapper 
   input.select-dropdown
     font-family: 'Roboto'
@@ -268,5 +292,13 @@ textarea.materialize-textarea
     //  display: block
     li.optgroup ~ li:not(.optgroup).disabled
       display: none !important
-
+.max-width-btn
+  button
+    width: 100%
+  a
+    width: 100%
+.row
+  .col
+    &.col-no-padding
+      padding: 0
 //commit

@@ -24,12 +24,12 @@
               | от&nbsp;
               span.js-price!=value.left_price
               span р./час
-        .col.s6.m4.l4
+        .col.s6.m3.l3
           .js-location.color-card
               i.material-icons location_on
               span.middle-span.card-info-color!=value.location
-        .col.s6.m4.l4
-          .js-metro_line
+        .col.s6.m5.l5
+          .metro-line.js-metro_line
             case value.metro_tutors.type
               when 'remote'
               when 'all'
@@ -53,8 +53,8 @@
 
       .col.s12.m9.l9.right.description.card-info-color
         p.js-about!=value.about
-      .col.s12.m9.l9.right.valign-wrapper.no-vertical-space.card-control
-        .col.s12.m9.l7.valign.subject-list
+      .col.s12.m9.l9.right.no-vertical-space.card-control
+        .col.s12.m8.l8.subject-list
           .js-subject.color-card
             - var this_subject = main_subject || "";
             - var subj_l = value.subject.length;
@@ -72,8 +72,11 @@
                       - str += ',&#32;'
                     -str += val
                   span.middle-span.subject-color!=str
-        .col.s12.m9.l5.right-align.tutor-action.valign
+        .col.s12.m4.l4.right-align.tutor-action.hide
           button.waves-effect.btn-flat.btn-trigger.js-tutor_trigger
             span.tutor_button_text Выбрать
-            i.material-icons.right add
+            i.material-icons.right add                 
+        .col.s12.m4.l4.tutor-action
+          a(href!=value.link).waves-effect.waves-light.btn-flat.btn-trigger
+            span.tutor_button_text Посмотреть
     .divider
