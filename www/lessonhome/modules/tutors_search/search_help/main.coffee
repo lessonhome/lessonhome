@@ -10,13 +10,16 @@ class @main
   show: =>
     beforeFilter = @dom.parent().find('.search-filter')
     $(window).scroll( =>
-      top_offset = beforeFilter.offset().top + beforeFilter.outerHeight()
-      if top_offset < 587
-        top_offset = 587
+      top_offset = beforeFilter.offset().top + beforeFilter.outerHeight()       
       @blockSearchHelp.pushpin(
         {
           top: top_offset
           offset: 60
         }
       )
+      if @blockSearchHelp.hasClass 'pinned'
+        setTimeout((=>  @blockSearchHelp.addClass 'active'), 4000)
+      else
+        @blockSearchHelp.removeClass 'active'
+
     )  

@@ -17,24 +17,26 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
           -not_exist = !tutors || !tutors[0];
           .js-not_exist(style= not_exist ? 'display: block' : undefined )
             
-            .row.why
-              .col.s12
-                h4 Поиск не дал результата? У нас есть еще репетиторы.
-              .col.l6.s4.center
-                i.icon-owl
-              .col.l6.s6
-                ol
-                  li Некоторые преподаватели не захотели участвовать в поиске.
-                  li Другие не успели отметить, свободное время в данны момент
             .row
-              .col.l6    
+              .col.s12
+                h4 Поиск не дал результата? У&nbsp;нас есть еще репетиторы.
+            .row.valign-wrapper    
+              .col.l3.m3.s12.owl.hide-on-small-and-down
+                i.icon-owl
+              .col.l6.m6.s12
+                ol
+                  li 
+                    p.valign-wrapper Некоторые преподаватели не захотели участвовать в поиске.
+                  li 
+                    p.valign-wrapper Другие не успели отметить, свободное время в данны момент.
+            .row.now
+              .col.l6.m6.s12    
                 h5 Хотите узнать о всех репетиторах?          
-                p Позвоните нам по <span>телефону +7(495) 151-18-51,</span> или оставьте контактные данные и мы перезвоним.  
-                .color-line
-              .col.l6
-                
-
-
+                p Позвоните нам по телефону 
+                  a(href='tel:+7-495-151-18-51') +7(495) 151-18-51
+                  |, или оставьте контактные данные и мы перезвоним.  
+                .color-line.hide-on-small-and-down
+              .col.l6.m6.s12
                 .js-short_form.la-form
                   .row
                     .col.input-field.s12
@@ -64,14 +66,6 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
 
 
 
-
-
-
-
-
-
-
-                  
           .js-tutor!=tutor
           .js-tutors_list
             -if(not_exist)tutors=[];
