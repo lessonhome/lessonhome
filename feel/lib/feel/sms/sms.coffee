@@ -20,7 +20,7 @@ class Sms
           @host = 'lessonhome.ru'
         when 'lessonhome.ru'
           @host = 'lessonhome.org'
-      @recacheFriend 60*1000 if @host
+      @recacheFriend 5*60*1000 if @host
     else
       @prot = 'http'
       @host = '127.0.0.1'
