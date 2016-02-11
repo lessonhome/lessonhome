@@ -1,5 +1,9 @@
+.btn-large, .btn, .btn-flat {
+  &:hover {
+    color: #fff;
+  }
+}
 //button trigger
-
 .tutor-action {
   .btn-flat {
     border: 1px solid transparent;

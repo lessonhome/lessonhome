@@ -1,3 +1,7 @@
+
+os = require 'os'
+cpus = os.cpus().length
+
 class PrepareTutor
   version : "1.0"
   init :=>
@@ -15,8 +19,32 @@ class PrepareTutor
     yield @jobs.listen 'prepareTutorByData', @jobPrepareTutorByData
     yield @jobs.listen 'prepareTutorsById', @jobPrepareTutorById
     yield @jobs.listen 'prepareOldTutors', @jobPrepareOldTutors
-
-
+    yield @prepareImagesHash()
+  prepareImagesHash : =>
+    readed = yield _readdirp root:"www/lessonhome/static/user_data/images"
+    redis  = yield _invoke @redis,'hgetall','user_images_mtime'
+    redis ?= {}
+    arr = []
+    for o in readed.files
+      continue if "#{o.stat.mtime}" == "#{redis[o.path]}"
+      arr.push o
+    qs = for i in [0...3] then do Q.async =>
+      while file = arr.pop()
+        url   = yield @jobs.solve 'staticGetHash',"user_data/images/"+file.path
+        console.log "check image url #{url}".yellow
+        mongo = yield _invoke @collect.uploaded.find({url:$regex:file.name},{url:1,hash:1}),'toArray'
+        for a in mongo
+          continue if a.url == url
+          hash = a.hash.replace(/(low|high)$/,'')
+          yield Q.all [
+            _invoke @collect.person,'update',{"uploaded.#{hash}.low_url":a.url},{$set:{"uploaded.#{hash}.low_url":url}},{multi:true}
+            _invoke @collect.person,'update',{"uploaded.#{hash}.high_url":a.url},{$set:{"uploaded.#{hash}.high_url":url}},{multi:true}
+            _invoke @collect.person,'update',{"uploaded.#{hash}.original_url":a.url},{$set:{"uploaded.#{hash}.original_url":url}},{multi:true}
+          ]
+          yield _invoke @collect.uploaded,'update',{url:a.url},{$set:url:url},{multi:true}
+          console.log "rewrite image url #{url}".yellow
+        yield _invoke @redis,'hset','user_images_mtime',file.path,file.stat.mtime
+    yield Q.all qs
   run : =>
     old_version = yield _invoke @redis, 'get', 'prepareVersion'
 
