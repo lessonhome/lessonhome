@@ -71,6 +71,9 @@
     cursor: pointer
   .stars
     cursor : pointer
+  .tutor-action
+    .btn-flat
+      width: auto !important
 .middle-span
   font-size: 1rem
 .stantion
@@ -151,6 +154,7 @@
     vertical-align: middle
     margin-right: 0.4rem
     color: #147585
+    line-height: 0.1rem
 .middle-icon
   vertical-align: middle
   margin-right: 0.4rem
@@ -208,6 +212,10 @@
     color: #646464 !important
     padding: 1rem 1rem !important
 
+.metro-line
+  &>span
+    &:last-child
+      cursor: default !important
 .metro_line .dropdown-content
   margin-top: -4px
   margin-left: -8px
@@ -221,9 +229,24 @@
     &.btn-trigger
       text-align: center
       transition: all 0.5s ease-out
+      @media #{$medium-and-down}
+        padding: 0 1rem
       span
         transition: all 0.5s ease-out
       &:hover
         background-color: #179cab !important
         span
           color: #fff
+.card-control
+  .col
+    float: none
+    display: inline-block
+    vertical-align: middle
+    @media #{$medium-and-down}
+      &.subject-list
+        padding-right: 2rem
+    &.tutor-action
+      text-align: right
+      @media #{$small-and-down}
+        text-align: center
+        padding-top: 1rem
