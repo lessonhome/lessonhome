@@ -61,12 +61,18 @@ class @main
     @showFilter.on 'click', =>
       @listTutors.hide(0,
         =>
-          @filterBlock.show()
+          @filterBlock.show().addClass 'filterShow'
           @showFilter.hide()
       )
     @found.show_result.on 'click', =>
+
+      $("body, html").animate {
+          "scrollTop":0
+        }, 0
+
       @filterBlock.hide(0,
         =>
+          @filterBlock.removeClass 'filterShow'
           @listTutors.show()
           @showFilter.show()
       )
@@ -199,6 +205,7 @@ class @main
   onscroll : => Q.spawn =>
     ll = @tutors_result.find(':last')
     dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
+    return if @filterBlock.hasClass 'filterShow'
     if dist >= -400
       return if (yield Feel.urlData.get('tutorsFilter','offset'))!=0
       yield @addTen()

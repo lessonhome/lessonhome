@@ -38,6 +38,7 @@ class @main
       preps = for i in linked then preps[i]
       for prep in preps
         @preps.append yield @createDom prep
+      #@slickInit()
     @found.count.text "#{linked.length}"
     if @reshowing == 2
       @reshowing = 0
@@ -54,6 +55,33 @@ class @main
         delete @linked[prep.index]
         yield Feel.urlData.set 'mainFilter','linked', @linked
       return false
-    return $('<li class="block">').append el.dom
+    return $('<div class="block">').append el.dom
   setValue : (data) =>
     console.log 'weerd', data
+
+  slickInit : =>
+    @preps.slick({
+      dots: false,
+      infinite: true,
+      slidesToShow: 8,
+      slidesToScroll: 4,
+      responsive: [
+        {
+          breakpoint: 1000,
+          settings: {
+            infinite: true,
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    })
+
