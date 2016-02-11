@@ -72,8 +72,11 @@
                       - str += ',&#32;'
                     -str += val
                   span.middle-span.subject-color!=str
-        .col.s12.m9.l5.right-align.tutor-action.valign
+        .col.s12.m9.l5.right-align.tutor-action.valign.hide
           button.waves-effect.btn-flat.btn-trigger.js-tutor_trigger
             span.tutor_button_text Выбрать
-            i.material-icons.right add
+            i.material-icons.right add                 
+        .col.s12.m9.l5.right-align.tutor-action.valign
+          a(href!=value.link).waves-effect.waves-light.btn-flat.btn-trigger
+            span.tutor_button_text Посмотреть
     .divider
