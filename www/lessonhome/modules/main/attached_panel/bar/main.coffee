@@ -10,7 +10,7 @@ class @main
     @show_tutors = @found.show_select_rep
     @show_tutors_count = 0
   show : =>
-    @btn_attach.click => Q.spawn => Feel.jobs.solve 'openBidPopup'
+    @btn_attach.click => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'add_tutors'
     @found.clean.on 'click', =>
       do Q.async =>
         yield Feel.urlData.set 'mainFilter','linked', {}
