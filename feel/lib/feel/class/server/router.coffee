@@ -82,6 +82,7 @@ class Router
         res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
         res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
         res.setHeader 'Access-Control-Allow-Credentials', true
+        res.setHeader 'Vary','Accept-Encoding'
         res.setHeader 'Cache-Control', 'public, max-age='+cache.d
         res.setHeader 'content-encoding', cache.encoding
         d = new Date()

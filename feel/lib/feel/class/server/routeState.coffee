@@ -478,6 +478,7 @@ class RouteState
       @res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
       @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
       @res.setHeader 'Access-Control-Allow-Credentials', true
+      @res.setHeader 'Vary', 'Accept-Encoding'
       @res.setHeader 'ETag',resHash
       @res.setHeader 'Cache-Control', 'public, max-age='+_max_age
       @res.setHeader 'content-encoding', 'gzip'
