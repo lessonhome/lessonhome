@@ -64,7 +64,7 @@
 
     +checkBlock('Пол', show_sex).js-sex_block
       each val, index in sex_tutor.items
-        .row.no-bottom-margin
+        .row.sex-bottom-margin
           .col.s12
             if index == 0
               input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex',checked=(sex == val?true:undefined)).with-gap.i-no
