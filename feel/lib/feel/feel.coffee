@@ -19,7 +19,6 @@ _writeFile = Q.denodeify fs.writeFile
 _rmrf     = Q.denodeify require('rimraf')
 yui       = require 'yuicompressor'
 ycompress = Q.denode yui.compress
-newyui = require 'yui-compressor'
 curl = (url)->
   def = Q.defer()
   http = require("http")

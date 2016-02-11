@@ -121,7 +121,6 @@ class @Feel
       name = name.substr pref.length
     @index ?= 0
     index = @index++
-    window["jsonCallback#{index}"] = ->
     d = Q.defer()
     serviceName = @resolve context,'/'+name,pref
     console.log serviceName
@@ -135,13 +134,17 @@ class @Feel
     udata = (yield @urlData.getU()) ? ""
     if udata
       udata += "&"
+    _url= "//#{location.hostname}:#{@servicesIp[serviceName].port}/#{name}?data=#{data}&context=#{context}&#{udata}pref=#{pref}&callback=?"
+    _cb = _hash(_url)
+    window["jsonCallback#{_cb}"] = ->
     $.ajax({
       dataType : 'jsonp'
-      jsonpCallback : "jsonCallback#{index}"
+      jsonpCallback : "jsonCallback#{_cb}"
       contentType : 'application/json'
       method : 'GET'
-      url:"//#{location.hostname}:#{@servicesIp[serviceName].port}/#{name}?data=#{data}&context=#{context}&#{udata}pref=#{pref}&callback=?"
+      url:_url
       crossDomain : true
+      cache : true
     })
     .success (data)=>
       @pbar.stop() unless quiet
