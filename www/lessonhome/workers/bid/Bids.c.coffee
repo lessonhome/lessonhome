@@ -38,11 +38,14 @@ class Bids
   jobGetDetailBid : (user, _id) =>
     yield @_validUser user
     $get = {_id : new (require('mongodb').ObjectID)(_id)}
+    $fields = {}
 
     unless user.admin
       $get['moderate'] = true
+      $fields['phone'] = -1
+      $fields['email'] = -1
 
-    bids = yield _invoke @bids.find($get), 'toArray'
+    bids = yield _invoke @bids.find($get, $fields), 'toArray'
     bids = bids[0] ? null
 
 #    if bids and user.admin
