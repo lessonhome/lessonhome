@@ -1,6 +1,6 @@
 //
    Created by lh on 10.02.16.
-
+p!=new Date(value.time).toLocaleString()
 p!=value.name
 p!=value.phone
 p!=value.email
@@ -8,3 +8,6 @@ if value.subjects
    ul
       each sub, i in value.subjects
          li!=sub
+each v in value.link_detail
+   a(href="#").js-make_super
+      img(src="#{v.photos[0].hurl}", width=100)

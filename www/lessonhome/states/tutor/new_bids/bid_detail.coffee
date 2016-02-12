@@ -36,6 +36,14 @@ class @main extends @template '../../tutor'
         if _id
           jobs = yield Main.service 'jobs'
           bid = yield jobs.solve 'getDetailBid', @req.user,  _id
+          bid.link_detail = linked = {}
+
+          if (id = bid.id)?
+            linked[id] = yield jobs.solve 'getTutor', {index:id}
+
+          if bid.linked?
+            for own key of bid.linked when !linked[key]?
+              linked[key] = yield jobs.solve 'getTutor', {index:key}
 
         return bid
 

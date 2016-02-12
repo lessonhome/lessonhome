@@ -88,6 +88,7 @@ class Tutors
   jobFilterTutors : ({filter,preps,from,count,exists})=>
     return @handler {},{filter,preps,from,count,exists}
   jobGetTutor : ({index})=>
+    console.log index
     return @index?[index] ? (@index?[99637] ? {})
   jobGetTutorsOnMain : (num)=>
 

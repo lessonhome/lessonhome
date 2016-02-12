@@ -44,6 +44,8 @@ class Bids
       $get['moderate'] = true
       $fields['phone'] = -1
       $fields['email'] = -1
+      $fields['linked'] = -1
+      $fields['id'] = -1
 
     bids = yield _invoke @bids.find($get, $fields), 'toArray'
     bids = bids[0] ? null
