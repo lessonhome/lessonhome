@@ -101,7 +101,13 @@
                         options.find('li[data-value=\"'+value+'\"] input[type="checkbox"]').prop('checked', function(i, v) { return !v; });
                         _toggleEntryFromArray(valuesSelected, $this.text(), value, $select);
                         //toggleEntryFromArray(valuesSelected, $(this).index(), $select);
-                        $newSelect.trigger('focus');
+
+                        if (e.pageX - options.offset().left > 55) {
+                            $newSelect.trigger('close');
+                        } else {
+                            $newSelect.trigger('focus');
+                        }
+
                     } else {
                         options.find('li').removeClass('active');
                         $this.toggleClass('active');
