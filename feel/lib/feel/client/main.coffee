@@ -232,6 +232,9 @@ class @Feel
     switch action
       when 'direct_bid', 'bid_popup'
         return null
+      when 'bid_action'
+        params?={}
+        params['order_price'] = 1500
 
     @yaC ?= yaCounter30199739 ? undefined
     #return if Feel.user?.type?.admin || $.cookie.admin || (!@production)

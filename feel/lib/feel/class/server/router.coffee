@@ -76,7 +76,7 @@ class Router
     req.uniqHash = "#{_session || ""}:#{req.url}?#{req.udataString}"
     req.udatadefault = @site.urldata.u2d ""
     try
-      if cache = yield @redis_cache.get req.uniqHash
+      if _production && (cache = yield @redis_cache.get req.uniqHash)
         console.log "from redis cache".grey,req.uniqHash.grey
         res.setHeader 'Access-Control-Allow-Origin', '*'
         res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'

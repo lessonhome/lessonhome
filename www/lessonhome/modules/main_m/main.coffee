@@ -36,20 +36,35 @@ class @main
       ]
     })
 
-    @fast_form =
-      subjects: new $._material_select @found.fast_sub
-      metro: new $._material_select @found.fast_branch
+    @found.fast_sub.material_select()
+    @found.fast_branch.material_select()
 
-    @metroColor @fast_form.metro
+    @fast_form =
+      subjects: @found.fast_sub
+      metro: @found.fast_branch
+
+    setTimeout @metroColor, 100
 
     @appFormLabel     = @found.form_offset_label
     @fixedHeightBlock = @found.fixed_height
+
   show: =>
+    ejectUnique = (arr = []) =>
+      result = []
+      exist = {}
+      (result.push(a); exist[a] = true) for a in arr when !exist[a]?
+      return result
 
     getListener  = (name, element) -> ->
       Q.spawn ->
+        value = element.val()
+
+        switch name
+          when 'subjects'
+            value = ejectUnique value
+
         yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
-        yield Feel.urlData.set 'pupil', name, element.val()
+        yield Feel.urlData.set 'pupil', name, value
 
     @fast_form.subjects.on 'change', getListener('subjects', @fast_form.subjects)
 
@@ -70,9 +85,8 @@ class @main
     @found.fast_filter.attr('action', "/tutors_search?#{ yield Feel.udata.d2u 'tutorsFilter', {subjects, metro}}")
     @found.fast_filter.submit()
 
-  metroColor : (_material_select) =>
-    return unless @tree.metro_lines?
-    _material_select.ul.find('li.optgroup').each (i, e) =>
+  metroColor :  =>
+    @found.fast_branch.siblings('ul').find('li.optgroup').each (i, e) =>
       li = $(e)
       name = li.next().attr('data-value')
       return true unless name
@@ -82,7 +96,6 @@ class @main
       elem = $('<i class="material-icons middle-icon">fiber_manual_record</i>')
       elem.css {color: @tree.metro_lines[name[0]].color}
       li.find('span').prepend(elem)
-
 
   getValue:  =>
 

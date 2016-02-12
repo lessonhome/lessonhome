@@ -4,7 +4,7 @@
      *  Select Plugin  *
      ******************/
     $.fn.material_select = function (callback) {
-        $(this).each(function(){
+        var elements = $(this).each(function(){
             var $select = $(this);
 
             if ($select.hasClass('browser-default')) {
@@ -37,87 +37,92 @@
             var selectOptGroups = $select.children('optgroup');
 
             var valuesSelected = [],
-                optionsHover = false;
-
-            if ($select.find('option:selected').length > 0) {
+                optionsHover = false,
                 label = $select.find('option:selected');
-            } else {
+
+            if (label.length <= 0) {
                 label = selectOptions.first();
             }
 
             /* Create dropdown structure. */
             if (selectOptGroups.length) {
                 // Check for optgroup
-                var outGroup = 1;
                 selectOptGroups.each(function() {
-
-                    selectOptions = $(this).children('option');
-                    options.append($('<li class="optgroup" data-open="0" data-group="' + outGroup + '"><span>' + $(this).attr('label') + '</span></li>'));
+                    var $this = $(this);
+                    selectOptions = $this.children('option');
+                    options.append($('<li class="optgroup" data-open="0"><span>' + $this.attr('label') + '</span></li>'));
                     selectOptions.each(function() {
-                        var disabledClass = ($(this).is(':disabled')) ? 'disabled ' : '';
+                        var $this = $(this);
+                        var disabledClass = ($this.is(':disabled')) ? 'disabled ' : '';
 
                         // Add icons
                         if ($select.hasClass('icons')) {
-                            var icon_url = $(this).data('icon');
-                            var classes = $(this).attr('class');
+                            var icon_url = $this.data('icon');
+                            var classes = $this.attr('class');
                             if (!!icon_url) {
-                                options.append($('<li class="' + disabledClass + '"><img src="' + icon_url + '" class="' + classes + '"><span>' + $(this).html() + '</span></li>'));
+                                options.append($('<li class="' + disabledClass + '"><img src="' + icon_url + '" class="' + classes + '"><span>' + $this.html() + '</span></li>'));
                                 return true;
                             }
                         }
                         //options.append($('<li class="' + disabledClass + ' subgroup_' + outGroup + '"><span>' + $(this).html() + '</span></li>'));
-                        options.append($('<li class="' + disabledClass + ' subgroup_' + outGroup + '"><span><input type="checkbox"' + disabledClass + '/><label></label>' + $(this).html() + '</span></li>'));
+                        options.append($('<li class="' + disabledClass + '" data-value="' + this.value + '"><span><input type="checkbox"' + disabledClass + '/><label></label>' + $this.html() + '</span></li>'));
                     });
-
-                    outGroup = outGroup + 1
-
                 });
             } else {
                 selectOptions.each(function () {
+                    var $this = $(this);
                     // Add disabled attr if disabled
-                    var disabledClass = ($(this).is(':disabled')) ? 'disabled ' : '';
+                    var disabledClass = ($this.is(':disabled')) ? 'disabled ' : '';
                     if (multiple) {
-                        options.append($('<li class="' + disabledClass + '"><span><input type="checkbox"' + disabledClass + '/><label></label>' + $(this).html() + '</span></li>'));
+                        options.append($('<li class="' + disabledClass + '" " data-value="' + this.value + '"><span><input type="checkbox"' + disabledClass + '/><label></label>' + $this.html() + '</span></li>'));
                     } else {
                         // Add icons
                         if ($select.hasClass('icons')) {
-                            var icon_url = $(this).data('icon');
-                            var classes = $(this).attr('class');
+                            var icon_url = $this.data('icon');
+                            var classes = $this.attr('class');
                             if (!!icon_url) {
-                                options.append($('<li class="' + disabledClass + '"><img src="' + icon_url + '" class="' + classes + '"><span>' + $(this).html() + '</span></li>'));
+                                options.append($('<li class="' + disabledClass + '"><img src="' + icon_url + '" class="' + classes + '"><span>' + $this.html() + '</span></li>'));
                                 return true;
                             }
                         }
-                        options.append($('<li class="' + disabledClass + '"><span>' + $(this).html() + '</span></li>'));
+                        options.append($('<li class="' + disabledClass + '"><span>' + $this.html() + '</span></li>'));
                     }
                 });
             }
 
 
-            options.find('li:not(.optgroup)').each(function (i) {
-                var $curr_select = $select;
-                $(this).click(function (e) {
-                    // Check if option element is disabled
-                    if (!$(this).hasClass('disabled') && !$(this).hasClass('optgroup')) {
-                        if (multiple) {
-                            $('input[type="checkbox"]', this).prop('checked', function(i, v) { return !v; });
-                            toggleEntryFromArray(valuesSelected, $(this).index(), $curr_select);
-                            $newSelect.trigger('focus');
+            options.on('click', 'li:not(.optgroup)', function (e) {
+                // Check if option element is disabled
+                var $this = $(this);
+                if (!$this.hasClass('disabled') && !$this.hasClass('optgroup')) {
+                    var value = $this.attr('data-value');
+
+                    if (multiple) {
+                        options.find('li[data-value=\"'+value+'\"] input[type="checkbox"]').prop('checked', function(i, v) { return !v; });
+                        _toggleEntryFromArray(valuesSelected, $this.text(), value, $select);
+                        //toggleEntryFromArray(valuesSelected, $(this).index(), $select);
+
+                        if (e.pageX - options.offset().left > 55) {
+                            $newSelect.trigger('close');
                         } else {
-                            options.find('li').removeClass('active');
-                            $(this).toggleClass('active');
-                            $curr_select.siblings('input.select-dropdown').val($(this).text());
+                            $newSelect.trigger('focus');
                         }
 
-                        activateOption(options, $(this));
-                        $curr_select.find('option').eq(i).prop('selected', true);
-                        // Trigger onchange() event
-                        $curr_select.trigger('change');
-                        if (typeof callback !== 'undefined') callback();
+                    } else {
+                        options.find('li').removeClass('active');
+                        $this.toggleClass('active');
+                        $select.siblings('input.select-dropdown').val($this.text());
                     }
 
-                    e.stopPropagation();
-                });
+                    activateOption(options, $this);
+                    $select.find('option[value=\"'+value+'\"]:not(:disabled)').prop('selected', function (i, v) {return !v});
+                    //$select.find('option').eq(i).prop('selected', true);
+                    // Trigger onchange() event
+                    $select.trigger('change');
+                    if (typeof callback !== 'undefined') callback();
+                }
+
+                e.stopPropagation();
             });
 
             // Wrap Elements
@@ -180,13 +185,13 @@
             });
 
             $(window).on({
-                'click': function (e){
+                'click': function (){
                     multiple && (optionsHover || $newSelect.trigger('close'));
                 }
             });
 
             // Make option as selected and scroll to selected position
-            activateOption = function(collection, newOption) {
+            var activateOption = function(collection, newOption) {
                 collection.find('li.selected').removeClass('selected');
                 $(newOption).addClass('selected');
             };
@@ -194,6 +199,37 @@
             // Allow user to search by typing
             // this array is cleared after 1 second
             var filterQuery = [],
+                onUpdate = function (e) {
+                    var exist = {};
+                    var query = '';
+                    valuesSelected = [];
+
+                    $(e.currentTarget).find('option:selected:not([value=""])').each(function () {
+
+                        if (!exist[this.value]) {
+                            valuesSelected.push(this.innerHTML);
+                            query += (query?',':'') + '[data-value=\"'+this.value+'\"]';
+                            exist[this.value] = true;
+                        }
+
+                    });
+                    exist = null;
+
+                    options.find('li:not(.optgroup)').each(function () {
+                        var $this = $(this);
+
+                        if (query && $this.is(query)) {
+                            $this.find('input[type="checkbox"]').prop('checked', true);
+                            $this.addClass('active');
+                        } else {
+                            $this.find('input[type="checkbox"]').prop('checked', false);
+                            $this.removeClass('active');
+                        }
+
+                    });
+
+                    _setValueToInput(valuesSelected, $select);
+                },
                 onKeyDown = function(e){
                     // TAB - switch to another input
                     if(e.which == 9){
@@ -268,27 +304,58 @@
                 };
 
             $newSelect.on('keydown', onKeyDown);
+            $select.on('update', onUpdate);
+            $select.trigger('update');
         });
 
-        function toggleEntryFromArray(entriesArray, entryIndex, select) {
-            var index = entriesArray.indexOf(entryIndex);
+        function _toggleEntryFromArray(entriesArray, text, value, select) {
+            var index = entriesArray.indexOf(text);
 
             if (index === -1) {
-                entriesArray.push(entryIndex);
+                entriesArray.push(text);
             } else {
                 entriesArray.splice(index, 1);
             }
 
-            select.siblings('ul.dropdown-content').find('li').eq(entryIndex).toggleClass('active');
-            select.find('option').eq(entryIndex).prop('selected', true);
-            setValueToInput(entriesArray, select);
+            select.siblings('ul.dropdown-content').find('li[data-value=\"'+value+'\"]').toggleClass('active');
+            _setValueToInput(entriesArray, select);
         }
 
-        function setValueToInput(entriesArray, select) {
+        //function toggleEntryFromArray(entriesArray, entryIndex, select) {
+        //    var index = entriesArray.indexOf(entryIndex);
+        //
+        //    if (index === -1) {
+        //        entriesArray.push(entryIndex);
+        //    } else {
+        //        entriesArray.splice(index, 1);
+        //    }
+        //
+        //    select.siblings('ul.dropdown-content').find('li').eq(entryIndex).toggleClass('active');
+        //    select.find('option').eq(entryIndex).prop('selected', true);
+        //    setValueToInput(entriesArray, select);
+        //}
+
+        //function setValueToInput(entriesArray, select) {
+        //    var value = '';
+        //
+        //    for (var i = 0, count = entriesArray.length; i < count; i++) {
+        //        var text = select.find('option').eq(entriesArray[i]).text();
+        //
+        //        i === 0 ? value += text : value += ', ' + text;
+        //    }
+        //
+        //    if (value === '') {
+        //        value = select.find('option:disabled').eq(0).text();
+        //    }
+        //
+        //    select.siblings('input.select-dropdown').val(value);
+        //}
+
+        function _setValueToInput(entriesArray, select) {
             var value = '';
 
             for (var i = 0, count = entriesArray.length; i < count; i++) {
-                var text = select.find('option').eq(entriesArray[i]).text();
+                var text = entriesArray[i];
 
                 i === 0 ? value += text : value += ', ' + text;
             }
@@ -299,5 +366,7 @@
 
             select.siblings('input.select-dropdown').val(value);
         }
+
+        return elements;
     };
 }( jQuery ));

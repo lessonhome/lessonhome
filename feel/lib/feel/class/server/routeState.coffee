@@ -498,7 +498,8 @@ class RouteState
         @res.end resdata
         @time 'zlib'
         console.log process.pid+":state #{@statename}",@res.statusCode||200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
-      Q.spawn => @site.redis_cache.set @req.uniqHash,resdata,_max_age,resHash,'gzip'
+      if _production
+        Q.spawn => @site.redis_cache.set @req.uniqHash,resdata,_max_age,resHash,'gzip'
   addModuleJs : (name)=>
     unless @state.page_tags['skip:'+name]
       return @site.moduleJsTag(name)
