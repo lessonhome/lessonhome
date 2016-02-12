@@ -16,7 +16,6 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
         .results
           -not_exist = !tutors || !tutors[0];
           .js-not_exist(style= not_exist ? 'display: block' : undefined )
-            
             .row
               .col.s12
                 h4 Поиск не дал результата? У&nbsp;нас есть еще репетиторы.
@@ -63,9 +62,6 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
                   .row.no-margin-row
                     .col.s12.center-align
                       a.btn-large.yellow-btn.waves-effect.waves-light.js-detail Дополнить заявку
-
-
-
           .js-tutor!=tutor
           .js-tutors_list
             -if(not_exist)tutors=[];
