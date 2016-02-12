@@ -1,16 +1,17 @@
-.block_search_help
-  display: none
-  opacity: 0
-  transition: opacity 1.5s ease-in-out
-  -webkit-transition: opacity 1.5s ease-in-out
-  -o-transition: opacity 1.5s ease-in-out
-  -moz-transition: opacity 1.5s ease-in-out
+.mega-help-panel
+  opacity: 0 
+  transition: opacity .5s ease-in-out
+  -webkit-transition: opacity .5s ease-in-out
+  -o-transition: opacity .5s ease-in-out
+  -moz-transition: opacity .5s ease-in-out
+  .col
+    width: 100%
   &.pinned
     max-width: 1080px
-    width: 95% 
-    display: block
-  &.active
-    opacity: 1    
+    width: 95%
+    opacity: 1
+    .col
+      width: 25%
 .search_help
   text-align: center
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25)
