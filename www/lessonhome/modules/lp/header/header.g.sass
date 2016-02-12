@@ -47,7 +47,7 @@ nav
   @media #{$medium_and_down}
     background: #ffffff !important
     //box-shadow: inset 0px -4px 0px 0px #199aad
-    border-bottom: 5px solid #199aad
+    border-bottom: 3px solid #199aad
     a
       &.button-collapse
         color: #4e4e50
@@ -80,6 +80,17 @@ nav
         &.active
           color: #fff
           //box-shadow: inset 0px -7px 0px -4px #fd7c48
+    &.side-nav
+      li
+        padding: 0
+        a
+          padding: 0 30px
+          &:hover
+            color: #444
+          &.active
+            box-shadow: inset 5px 0 0px 0px #179cab
+            color: #444
+            background-color: #f2f2f2
   .btn-large
     background-color: #fbc02d
     height: 48px

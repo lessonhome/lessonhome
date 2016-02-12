@@ -59,15 +59,30 @@
                 a(href='/enter').btn-large.waves-effect.waves-light Войти
         ul.side-nav#mobile-demo
           li
-            a(href='/') Главная
+            if id_page == 'main_p'
+              a.active(href='/') Главная
+            else
+              a(href='/') Главная
           li
-            a(href='/tutors_search') Найти репетитора
+            if id_page == 'search_p'
+              a.active(href='/tutors_search') Наши репетитора
+            else
+              a(href='/tutors_search') Наши репетитора
           li  
             if hide_menu_punkt != true
-              a(href='/tutors_lp') Репетиторам
+              if id_page == 'lp_tutors'
+                a.active(href='/tutors_lp') Репетиторам
+              else
+                a(href='/tutors_lp') Репетиторам
           li
-            a(href='/contacts') Контакты
+            if id_page == 'contacts_page'
+              a.active(href='/contacts') Контакты
+            else
+              a(href='/contacts') Контакты
           li
-            a(href='/help') Помощь
+            if id_page == 'help_page'
+              a.active(href='/help') Помощь
+            else
+              a(href='/help') Помощь
           li.phone-link
             a(href='tel:+7-495-181-0373') +7 (495) 181-03-73

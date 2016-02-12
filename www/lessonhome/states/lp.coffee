@@ -16,7 +16,8 @@ class @main
         enter_button_show: @exports('content.enter_button_show')
         id_page: @exports('content.id_page')
       content : @exports()
-      footer  : @module "$/footer"
+      footer  : @module "$/footer":
+        id_page: @exports('content.id_page')
       bottom_block_attached : @module 'main/attached_panel' :
         bottom_bar  : @state 'main/attached_panel/bar'
         popup       : @state 'main/attached_panel/popup'
