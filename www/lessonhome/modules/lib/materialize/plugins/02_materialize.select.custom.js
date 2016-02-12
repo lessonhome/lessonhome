@@ -93,21 +93,22 @@
 
             options.on('click', 'li:not(.optgroup)', function (e) {
                 // Check if option element is disabled
-                if (!$(this).hasClass('disabled') && !$(this).hasClass('optgroup')) {
-                    var value = $(this).attr('data-value');
+                var $this = $(this);
+                if (!$this.hasClass('disabled') && !$this.hasClass('optgroup')) {
+                    var value = $this.attr('data-value');
 
                     if (multiple) {
                         options.find('li[data-value=\"'+value+'\"] input[type="checkbox"]').prop('checked', function(i, v) { return !v; });
-                        _toggleEntryFromArray(valuesSelected, $(this).text(), value, $select);
+                        _toggleEntryFromArray(valuesSelected, $this.text(), value, $select);
                         //toggleEntryFromArray(valuesSelected, $(this).index(), $select);
                         $newSelect.trigger('focus');
                     } else {
                         options.find('li').removeClass('active');
-                        $(this).toggleClass('active');
-                        $select.siblings('input.select-dropdown').val($(this).text());
+                        $this.toggleClass('active');
+                        $select.siblings('input.select-dropdown').val($this.text());
                     }
 
-                    activateOption(options, $(this));
+                    activateOption(options, $this);
                     $select.find('option[value=\"'+value+'\"]:not(:disabled)').prop('selected', function (i, v) {return !v});
                     //$select.find('option').eq(i).prop('selected', true);
                     // Trigger onchange() event
