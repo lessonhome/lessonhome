@@ -50,11 +50,11 @@ class @main
     @tutorChoose state==true if choose
   tutorChoose : (active)=>
     if active
-      @found.tutor_trigger.addClass('waves-light orange-btn selected white-text').removeClass('btn-trigger waves-grey')
+      @found.tutor_trigger.addClass('waves-light blue-btn selected white-text').removeClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Убрать')
       @found.tutor_trigger.find('.material-icons').html('remove')
     else
-      @found.tutor_trigger.removeClass('waves-light orange-btn selected white-text').addClass('btn-trigger waves-grey')
+      @found.tutor_trigger.removeClass('waves-light blue-btn selected white-text').addClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
       @found.tutor_trigger.find('.material-icons').html('add')
   setFilter : (filter = {}) ->

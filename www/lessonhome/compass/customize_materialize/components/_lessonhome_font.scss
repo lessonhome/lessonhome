@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'lessonhome_icons';
-  src:    url(F("/font/lh_fonts/lessonhome_icons.eot?puy8xo"));
-  src:    url(F("/font/lh_fonts/lessonhome_icons.eot?puy8xo#iefix")) format("embedded-opentype"),
-      url(F("/font/lh_fonts/lessonhome_icons.ttf?puy8xo")) format("truetype"),
-      url(F("/font/lh_fonts/lessonhome_icons.woff?puy8xo")) format("woff"),
-      url(F("/font/lh_fonts/lessonhome_icons.svg?puy8xo#lessonhome_icons")) format("svg");
+  src:    url("#{F('/font/lh_fonts/lessonhome_icons.eot')}?puy8xo");
+  src:    url("#{F('/font/lh_fonts/lessonhome_icons.eot')}?puy8xo#iefix") format("embedded-opentype"),
+      url("#{F('/font/lh_fonts/lessonhome_icons.woff')}?puy8xo") format("woff"),
+      url("#{F('/font/lh_fonts/lessonhome_icons.ttf')}?puy8x0") format("truetype"),
+      url("#{F('/font/lh_fonts/lessonhome_icons.svg')}?puy8xo#lessonhome_icons") format("svg");
   font-weight: normal;
   font-style: normal;
 }

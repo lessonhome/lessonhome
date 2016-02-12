@@ -52,7 +52,7 @@ class module.exports
       console.log 'module\t'.yellow,"#{@name}".grey
     else
       yield @makeJade()
-      yield @makeSass()
+      yield @makeSassAsync()
       yield @makeAllCss()
       yield @makeCoffee()
       @cache = {}
@@ -197,8 +197,8 @@ class module.exports
             @cssSrc[filename] = datasrc
           data = yield data
           unless data
-            @css[filename] = @parseCss @cssSrc[filename],filename
-            if _production && false
+            @css[filename] = yield @parseCss @cssSrc[filename],filename
+            if _production
               @css[filename] = yield Feel.ycss @css[filename]
             else
               @css[filename] = Feel.bcss @css[filename]
@@ -229,8 +229,8 @@ class module.exports
           @cssSrc[filename] = datasrc
         data = yield data
         unless data
-          @css[filename] = @parseCss @cssSrc[filename],filename
-          if _production && false
+          @css[filename] = yield @parseCss @cssSrc[filename],filename
+          if _production
             @css[filename] = yield Feel.ycss @css[filename]
           else
             @css[filename] = Feel.bcss @css[filename]
@@ -239,34 +239,34 @@ class module.exports
           @css[filename] = data
     yield Q.all qs
     yield @makeAllCss()
-  getAllCssExt : (exts)=>
+  getAllCssExt : (exts)=> do Q.async =>
     css = ""
     for ext of exts
-      css += @site.modules[ext]?.getCssRelativeTo? @name if @site.modules[ext]?.getCssRelativeTo?
+      css += yield @site.modules[ext]?.getCssRelativeTo? @name if @site.modules[ext]?.getCssRelativeTo?
     css = Feel.bcss css
     return css
-  getCssRelativeTo : (rel)=>
+  getCssRelativeTo : (rel)=> do Q.async =>
     return @allCssRelative[rel] if @allCssRelative?[rel]?
     @allCssRelative ?= {}
     @allCssRelative[rel] = ""
     for filename,src of @cssSrc
       @allCssRelative[rel] += "/*#{@name}:#{filename} relative to #{rel}*/"
-      @allCssRelative[rel] += @parseCss src,filename,@site.modules[rel].id
+      @allCssRelative[rel] += yield @parseCss src,filename,@site.modules[rel].id
     return @allCssRelative[rel]
   makeAllCss : =>
     @allCss = ""
     for name,src of @css
       @allCss += "/*#{name}*/#{src}"
-  parseCss : (css,filename,relative=@id,...,ifloop)=>
+  parseCss : (css,filename,relative=@id,...,ifloop)=> do Q.async =>
     ret = ''
     m = css.match /\$FILE--\"([^\$]*)\"--FILE\$/g
     if m then for f in m
       fname = f.match(/\$FILE--\"([^\$]*)\"--FILE\$/)[1]
-      css = replaceAll css,f,"\"#{Feel.static.F(@site.name,fname)}\""
+      css = replaceAll css,f,"#{yield Feel.static.FP(@site.name,fname)}"
     m = css.match /\$FILE--([^\$]*)--FILE\$/g
     if m then for f in m
       fname = f.match(/\$FILE--([^\$]*)--FILE\$/)[1]
-      css = replaceAll css,f,"\"#{Feel.static.F(@site.name,fname)}\""
+      css = replaceAll css,f,"#{yield Feel.static.FP(@site.name,fname)}"
     css = css.replace /\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\//gmi,''
     css = css.replace /\n/gmi,' '
     css = css.replace /\r/gmi,' '
@@ -331,7 +331,7 @@ class module.exports
     ret = newpref+body
     args = [post,filename,relative,'loop']
     loop
-      ret2 = @parseCss args... #(post,filename,relative,'loop')
+      ret2 = yield @parseCss args... #(post,filename,relative,'loop')
       if ret2?.args?
         ret+=ret2.begin
         args = ret2.args
@@ -372,9 +372,9 @@ class module.exports
             throw new Error "failed read coffee in module #{@name}: #{file.name}(#{file.path})",e
           @newCoffee[filename] = _regenerator src
           @newCoffeenr[filename] = src
-          if _production && false
+          if _production
             @newCoffee[filename] = yield Feel.yjs @newCoffee[filename]
-            @newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
+            #@newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
           yield Feel.qCacheFile file.path,@newCoffee[filename],'mcoffeefile'
       if file.ext == 'js'
         do (filename,file)=> qs.push do Q.async =>
@@ -392,9 +392,9 @@ class module.exports
             throw new Error "failed read js in module #{@name}: #{file.name}(#{file.path})",e
           @newCoffee[filename] = _regenerator src
           @newCoffeenr[filename] = src
-          if _production && false
+          if _production
             @newCoffee[filename] = yield Feel.yjs @newCoffee[filename]
-            @newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
+            #@newCoffeenr[filename] = yield Feel.yjs @newCoffeenr[filename]
           yield Feel.qCacheFile file.path,@newCoffee[filename],'mcoffeefile'
           yield Feel.qCacheFile file.path,@newCoffeenr[filename],'mcoffeefilenr'
     yield Q.all qs

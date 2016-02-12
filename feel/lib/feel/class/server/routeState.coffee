@@ -22,6 +22,12 @@ class RouteState
       res : @res
       req : @req
     @time "constr"
+
+  getMaxAge : (req,res)=>
+    sess = req.uniqHash.split(':')[0]
+    if @statename.match /^tutor\//
+      return 30
+    return 10*60
   time : (str="")=>
     if !@_time?
       @_time = new Date().getTime()
@@ -372,7 +378,7 @@ class RouteState
         @cssModule modname
     for modname,val of @modulesExt
       if @site.modules[modname].allCss && (!@state.page_tags['skip:'+modname])
-        @cssModuleExt modname,val
+        yield @cssModuleExt modname,val
       for key of val
         @modules[key] = true
     #for modname of @modules
@@ -387,8 +393,8 @@ class RouteState
     end += '<title>'+title+'</title>'
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
     end += @css+'</head><body>'
-    end += @site.router.body
     end += @top._html
+    end += @site.router.body
     @removeHtml @top
     @time "remove html"
     json_tree = @getTree @top
@@ -460,29 +466,40 @@ class RouteState
     sha1.update end
     resHash = sha1.digest('hex').substr 0,8
     @time "create hash"
+    _sent = false
     if resHash == @reqEtag
       @res.statusCode = 304
+      _sent = true
       #  console.log "state #{@statename}",304
-      return @res.end()
-    @res.setHeader 'Access-Control-Allow-Origin', '*'
-    @res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-    @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
-    @res.setHeader 'Access-Control-Allow-Credentials', true
-    @res.setHeader 'ETag',resHash
-    @res.setHeader 'Cache-Control', 'public, max-age=1'
-    @res.setHeader 'content-encoding', 'gzip'
-    #@res.statusCode = 200
-    d = new Date()
-    d.setTime d.getTime()+1
-    @res.setHeader 'Expires',d.toGMTString()
+      @res.end()
+    unless _sent
+      _max_age = @getMaxAge @req,@res
+      @res.setHeader 'Access-Control-Allow-Origin', '*'
+      @res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+      @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
+      @res.setHeader 'Access-Control-Allow-Credentials', true
+      @res.setHeader 'Vary', 'Accept-Encoding'
+      @res.setHeader 'ETag',resHash
+      @res.setHeader 'Cache-Control', 'public, max-age='+_max_age
+      @res.setHeader 'content-encoding', 'gzip'
+      #@res.statusCode = 200
+      d = new Date()
+      d.setTime d.getTime()+_max_age*1000
+      @res.setHeader 'Expires',d.toGMTString()
     #@res.writeHead @res.statusCode||200
     zlib    = require 'zlib'
-    zlib.gzip end,{level:9},(err,resdata)=>
-      return Feel.res500 @req,@res,err if err?
-      @res.setHeader 'content-length',resdata.length
-      @res.end resdata
-      @time 'zlib'
-      console.log process.pid+":state #{@statename}",@res.statusCode||200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
+    zlib.gzip end,{level:9},(err,resdata)=> Q.spawn =>
+      if err?
+        console.error 'gzip',err,Exception err
+        yield Feel.res500 @req,@res,err unless _sent
+        return
+      unless _sent
+        @res.setHeader 'content-length',resdata.length
+        @res.end resdata
+        @time 'zlib'
+        console.log process.pid+":state #{@statename}",@res.statusCode||200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
+      if _production
+        Q.spawn => @site.redis_cache.set @req.uniqHash,resdata,_max_age,resHash,'gzip'
   addModuleJs : (name)=>
     unless @state.page_tags['skip:'+name]
       return @site.moduleJsTag(name)
@@ -502,8 +519,8 @@ class RouteState
         @removeHtml val
   cssModule : (modname)=>
     @css += "<style id=\"f-css-#{modname}\">#{@site.modules[modname].allCss}</style>"
-  cssModuleExt    : (modname,exts)=>
-    css = @site.modules[modname].getAllCssExt exts
+  cssModuleExt    : (modname,exts)=> do Q.async =>
+    css = yield @site.modules[modname].getAllCssExt exts
     @css += "<style id=\"f-css-#{modname}-exts\">#{css}</style>"
   parse : (now,uniq,module,state,_pnode,_pkey)=> do Q.async =>
     #return if now.__parsed

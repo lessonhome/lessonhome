@@ -6,14 +6,15 @@ _path   = require 'path'
 mime    = require 'mime'
 mkdirp  = require 'mkdirp'
 
-
 class Static
   constructor : ->
     @files = {}
 
-  init : =>
+  init : => do Q.async =>
     @www = "#{process.cwd()}/www"
     @watch()
+    @jobs = yield _Helper('jobs/main')
+    yield @jobs.listen 'staticGetHash',@jobStaticGetHash
   watch : =>
     return if _production
     q = Q()
@@ -222,7 +223,9 @@ class Static
     res.writeHead 304
     res.end()
   res303 : (req,res,location)=>
-    return Feel.res500 req,res if req.url == location
+    if req.url == location
+      console.error Exception new Error 'req.url == location :'+req.url
+      return Feel.res500 req,res
     res.statusCode = 303
     res.setHeader 'Location', location
     res.end()
@@ -241,6 +244,7 @@ class Static
       res.statusCode = 200
       res.setHeader 'Content-Length', resdata.length
       res.setHeader 'Content-Encoding', 'gzip'
+      res.setHeader 'Vary','Accept-Encoding'
       #console.log "file\t#{file.name}",resdata.length/1024,file.data.length/1024,Math.ceil((resdata.length/file.data.length)*100)+"%"
       return res.end resdata
   F       : (site,file)=>
@@ -251,21 +255,35 @@ class Static
       hash = @hashS f
       #@createHash f
     return "/file/#{hash}/#{file}"
+  FP       : (site,file)=> do Q.async =>
+    f = _path.resolve "www/#{site}/static/#{file}"
+    if @watch[f]?
+      hash = @watch[f]
+    else
+      hash = yield @hashP f
+      #@createHash f
+    console.error 'failed create hash FP',f unless hash
+    hash ?= 666
+    return "/file/#{hash}/#{file}"
+  jobStaticGetHash : (file,site='lessonhome')=> @FP site,file
   res404  : (req,res,err)=>
     res.writeHead 404
     res.end()
     console.error err if err?
 
+  hashP : (f)=>
+    d = Q.defer()
+    @hash f,(hash)->d.resolve hash
+    return d.promise
   hash : (f,cb)=>
     f = _path.resolve f
     return cb(@watch[f]) if @watch[f]?
-    hash = @createHash f,null,cb
-    hash ?= 666
-    return hash
+    @createHash f,null,cb
   hashS : (f)=>
     f = _path.resolve f
     return @watch[f] if @watch[f]?
     hash = @createHashS f
+    console.error 'failed create hashS',f unless hash
     hash ?= 666
     return hash
   url : (f,site,cb)=>

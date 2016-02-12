@@ -44,21 +44,35 @@ class @main extends EE
     @forms = {
       name: @found.name
       phone: @found.phone
-      prices: new $._material_select @found.price
-      subjects: new $._material_select @found.subjects
-      metro: new $._material_select @found.metro
-      status: new $._material_select @found.status
+      prices: @found.price
+      subjects: @found.subjects
+      metro: @found.metro
+      status: @found.status
       gender: new Radio @found.sex
       comment: @found.comment
     }
 
-    @metroColor @forms.metro
+    @found.subjects.material_select()
+    @found.metro.material_select()
+    @found.status.material_select()
+    @found.price.material_select()
 
+
+    ejectUnique = (arr = []) =>
+      result = []
+      exist = {}
+      (result.push(a); exist[a] = true) for a in arr when !exist[a]?
+      return result
 
     getListener = (name, el) ->
       return  (e) ->
         Q.spawn =>
-          yield Feel.urlData.set 'pupil', {"#{name}": el?.val?()}
+          value = el?.val?()
+          switch name
+            when 'subjects'
+              value = ejectUnique value
+
+          yield Feel.urlData.set 'pupil', {"#{name}": value}
           yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
 
     for k in ['name', 'subjects']
@@ -70,6 +84,7 @@ class @main extends EE
       Q.spawn => @sendForm(true)
 
   show: =>
+    setTimeout @metroColor, 100
 
   jobOpenBidPopup : (bidType, accessory)=>
     if (bidType == 'fullBid')
@@ -157,11 +172,11 @@ class @main extends EE
   setValue: (v) =>
     @forms.phone.val(v.phone).focusin().focusout()
     @forms.name.val(v.name).focusin().focusout()
-    @forms.subjects.val v.subjects
+    @forms.subjects.val(v.subjects).trigger('update')
 
   getValue: =>
     r = {}
-    for key, el of @forms when @forms.hasOwnProperty(key) then r[key] = el.val()
+    for own key, el of @forms then r[key] = el.val()
     for k in ['metro', 'status']
       r[k] = @getExist r[k]
     return r
@@ -175,9 +190,9 @@ class @main extends EE
           @errInput @forms.phone, 'Введите телефон'
 
 
-  metroColor : (_material_select) =>
+  metroColor :  =>
     return unless @tree.metro_lines?
-    _material_select.ul.find('li.optgroup').each (i, e) =>
+    @found.metro.siblings('ul').find('li.optgroup').each (i, e) =>
       li = $(e)
       name = li.next().attr('data-value')
       return true unless name

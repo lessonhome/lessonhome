@@ -20,12 +20,12 @@ class @main extends @template 'lp'
       main_rep : $defer : =>
         maxl = 200
         jobs = yield Main.service 'jobs'
-        prep = yield jobs.solve 'getTutorsOnMain', 99999
+        prep = yield jobs.solve 'getTutorsOnMain', 16
         prep?= []
         regexp = /\s+[^\s]*$/
         regexp_dot = /\s*\.{1,3}$/
         for p in prep
-          p.avatar = p.photos[p.photos.length - 1].hurl
+          p.avatar = p.photos[p.photos.length - 1].lurl
           p.link = '/tutor_profile?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
           continue unless p?.reviews?.length
           onmain = []

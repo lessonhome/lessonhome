@@ -35,6 +35,8 @@ class module.exports
     @router       = new Router @
     @fileupload   = new FileUpload @
   init : => do Q.async =>
+    @redis_cache = _Helper('redis/cache')
+    Q.spawn => @redis_cache.get()
     @form = new Form
     [@redis,@jobs,@db,@register,@urldata,services] = yield Q.all [
       _Helper('redis/main').get()
@@ -219,7 +221,7 @@ class module.exports
       @modules[name] = new Module m,@
       all.push @modules[name]
     @module_redis_cache = yield @module_redis_cache
-    qs = for i in [0...cpus] then do Q.async =>
+    qs = for i in [0...(cpus*2)] then do Q.async =>
       while mod = all.pop()
         yield mod.init?()
     yield Q.all qs
@@ -346,6 +348,7 @@ class module.exports
         res.statusCode = 200
         res.setHeader 'Content-Length', resdata.length
         res.setHeader 'Content-Encoding', 'gzip'
+        res.setHeader 'Vary','Accept-Encoding'
         return res.end resdata
     return Feel.res404 req,res
   moduleJsUrl : (name)=>

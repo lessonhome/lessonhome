@@ -9,11 +9,9 @@ class @main
     @found.open_form.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid', 'fast'
 
     Q.spawn =>
-      filter =
-        mainFilter : @tree.filter
-        tutorsFilter :
-          subjects : @tree?.filter?.subject
-      filter = yield Feel.udata.d2u filter
+      subjects = [@tree.filter.subject[0]]
+      course = ((if /^(егэ|гиа)$/i.test(c) then c.toUpperCase() else c) for i, c of @tree.filter.course)
+      filter = yield Feel.udata.d2u tutorsFilter : {subjects, course}
       @found.go_find.attr 'href','/tutors_search?'+filter
     
     @on 'change', -> Q.spawn => Feel.sendActionOnce('interacting_with_form', 1000*60*10)

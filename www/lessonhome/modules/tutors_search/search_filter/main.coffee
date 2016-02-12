@@ -89,17 +89,22 @@ class @main
   constructor : ->
     $W @
   Dom : =>
-    @subjects = new $._material_select @found.subjects
-    @course = new $._material_select @found.course
+    @subjects = @found.subjects
+    @course = @found.course
+
+    @subjects.material_select()
+    @course.material_select()
+
     @price = new slideBlock @found.price_block
     @status = new slideBlock @found.status_block
     @sex = new slideBlock @found.sex_block
     @metro = new slideBlock @found.metro_location
-    @branch = new $._material_select @found.branch
+    @branch = @found.branch
+    @branch.material_select()
     setTimeout @metroColor, 100
 
-  metroColor : (material_select = @branch) =>
-    material_select.ul.find('li.optgroup').each (i, e) =>
+  metroColor : =>
+    @branch.siblings('ul').find('li.optgroup').each (i, e) =>
       li = $(e)
       name = li.next().attr('data-value')
       return true unless name
@@ -114,16 +119,26 @@ class @main
 #      hash = yield Feel.urlData.filterHash 'tutorsFilter'
 #      console.log hash,@hash==hash
 #      @hash = hash
+    ejectUnique = (arr = []) =>
+      result = []
+      exist = {}
+      (result.push(a); exist[a] = true) for a in arr when !exist[a]?
+      return result
 
-    @subjects.on 'change', => Feel.urlData.set 'tutorsFilter', {subjects: @subjects.val()}
+    @subjects.on 'change', => Feel.urlData.set 'tutorsFilter', {subjects: ejectUnique @subjects.val()}
     @course.on 'change', => Feel.urlData.set 'tutorsFilter', {course: @course.val()}
     @price.on 'change', => Feel.urlData.set 'tutorsFilter', @price.val()
     @status.on 'change', => Feel.urlData.set 'tutorsFilter', @status.val()
     @sex.on 'change', => Feel.urlData.set 'tutorsFilter', @sex.val()
-    @branch.on 'change', => Feel.urlData.set 'tutorsFilter', {metro: @branch.val()}
+    @branch.on 'change', => Feel.urlData.set 'tutorsFilter', {metro: ejectUnique @branch.val()}
 
 
     @found.use_settings.on 'click', =>
+
+      $("body, html").animate {
+          "scrollTop":0
+        }, 200
+
       Feel.urlData.emit 'change', true
 #      top = @dom.offset?()?.top
 #      $(window).scrollTop top-70 if top >= 0
@@ -148,4 +163,7 @@ class @main
     @status.val {status: value.status}
     @sex.val {sex: value.sex}
     @branch.val value.metro
+    @subjects.trigger('update')
+    @course.trigger('update')
+    @branch.trigger('update')
 

@@ -27,10 +27,10 @@ class Socket
     obj = new Class
     obj = $W obj
     console.log "worker ".blue+@workerName.yellow
-    yield obj.init?()
-    yield obj?.run?()
     if typeof obj.__handler == 'function'
       yield @init__Handler obj,'__handler'
+    yield obj.init?()
+    yield obj?.run?()
   init__Handler : (obj,handler='handler')=>
     @db = yield Main.service 'db'
     @form = new Form
@@ -43,13 +43,8 @@ class Socket
       @server.listen Main.conf.args.port
     @mainObject       = obj if obj?
     @handlerFunction  = handler if obj?
-    @jobs = yield Main.service 'jobs'
     
     #unless typeof global.Feel?.const == 'function'
-    @const = yield @jobs.solve 'getConsts'
-    global.Feel ?= {}
-    global.Feel.const = (name)=> @const[name]
-    Feel.cconst = @const
   runSsh : =>
     options = {
       key: _fs.readFileSync '/key/server.key'
@@ -64,6 +59,10 @@ class Socket
     @sshServer = https.createServer options,@handler
     @sshServer.listen Main.conf.args.port
   run  : =>
+    @jobs = yield Main.service 'jobs'
+    @const = yield @jobs.solve 'getConsts'
+    global.Feel ?= {}
+    global.Feel.const = (name)=> @const[name]
     return yield @runWorker() if @isWorker
     return yield @initHandler()
   initHandler : =>
@@ -116,6 +115,25 @@ class Socket
     cb   = _.query.callback
     path = _.pathname
     clientName = yield @resolve context,path,pref
+    _max_age = null
+    if @isService
+      unless @workers[clientName]
+        yield @initMultiWorker clientName
+      _max_age = @workers[clientName]._max_age
+    else
+      _max_age = @mainObject._max_age
+    if _max_age
+      etag = Math.ceil((new Date().getTime()/1000)/_max_age)*_max_age
+      if req.headers['if-none-match'] == etag
+        res.statusCode = 304
+        res.end()
+        return
+      d = new Date()
+      d.setTime d.getTime()+_max_age*1000
+      res.setHeader 'Expires',d.toGMTString()
+      res.setHeader 'ETag',etag
+      res.setHeader 'Cache-Control','public, max-age='+_max_age
+
     _keys = []
     for d in data
       if typeof d == 'object' && d!= null
@@ -137,8 +155,6 @@ class Socket
     $.updateUser = (session)=> @updateUser req,res,$,session
     try
       if @isService
-        unless @workers[clientName]
-          yield @initMultiWorker clientName
         ret = yield @workers[clientName].handler $,data...
       else
         ret = yield @mainObject[@handlerFunction] $,data...
@@ -154,7 +170,11 @@ class Socket
     #  ret = {status:"failed",err:"internal_error"}
     #res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(ret))});"
     try
-      res.end "#{cb}(#{ JSON.stringify( data: ret)});"
+      _res_data = yield _gzip "#{cb}(#{ JSON.stringify( data: ret)});"
+      res.setHeader 'content-encoding','gzip'
+      res.setHeader 'content-length',_res_data.length
+      res.end _res_data
+      #res.end "#{cb}(#{ JSON.stringify( data: ret)});"
     catch e
       #unless ret? && typeof ret == 'string'
       console.error Exception new Error "failed JSON.stringify client returned object"

@@ -69,7 +69,8 @@
     "harmony-reflect":"*",
     "kerberos" : "*",
     "sitemap":"*",
-    "underscore":"*"
+    "underscore":"*",
+    "wget" : "*"
   }
 }
 
