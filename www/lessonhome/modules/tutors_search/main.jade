@@ -36,35 +36,7 @@ link(href=F("nouislider/nouislider.css"), rel="stylesheet")
                   a(href='tel:+7-495-181-03-73') +7 (495) 181-03-73 
                   |, или оставьте контактные данные и мы перезвоним.  
                 .color-line.hide-on-small-and-down
-              .col.l6.m6.s12
-                .js-short_form.la-form
-                  .row
-                    .col.input-field.s12
-                      i.material-icons.prefix person_outline
-                      input.validate#la_name(type='text').js-name
-                      label(for="la_name") Имя
-                  .row
-                    .col.input-field.s12
-                      i.material-icons.prefix phone
-                      input.validate#la_phone(type='tel').js-phone
-                      label(for="la_phone") Телефон
-                  .row(style="display: none")
-                    .col.s12.center-align
-                      span.red-text.js-fatal_error
-                  .row.no-margin-row
-                    .col.s12.center-align
-                      a.btn-large.blue-btn.waves-effect.waves-light.js-send Заказать звонок
-                        i.material-icons.right send
-                .js-success_form(style="display:none")
-                  .row
-                    .col.s12.our_tutors.center-align
-                      h5 Заявка успешно отправлена!
-                      p.no-margin-p Наш оператор позвонит вам в течении 10 – 15 минут.
-                  .row.no-margin-row
-                    .col.s12.center-align
-                      a.btn-large.yellow-btn.waves-effect.waves-light.js-detail Дополнить заявку
-
-
+              .col.l6.m6.s12!=short_form
 
           .js-tutor!=tutor
           .js-tutors_list

@@ -35,10 +35,6 @@ class @main
         }
       ]
     })
-    @form = {
-      name : @found.name
-      phone : @found.phone
-    }
 
     @fast_form =
       subjects: new $._material_select @found.fast_sub
@@ -48,8 +44,6 @@ class @main
 
     @appFormLabel     = @found.form_offset_label
     @fixedHeightBlock = @found.fixed_height
-    @error = @found.fatal_error
-    @per_err = @error.closest('.row')
   show: =>
 
     getListener  = (name, element) -> ->
@@ -58,16 +52,8 @@ class @main
         yield Feel.urlData.set 'pupil', name, element.val()
 
     @fast_form.subjects.on 'change', getListener('subjects', @fast_form.subjects)
-    @form.name.on          'change', getListener('name', @form.name)
 
-    phone_listen = getListener('phone', @form.phone)
-    @form.phone.on 'change', (e) =>
-      phone_listen()
-      Q.spawn => @sendForm(true)
-
-    @found.detail.on    'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid', 'motivation'
     @found.attach.on    'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'motivation'
-    @found.send.on      'click', => Q.spawn => @sendForm()
     @found.send_form.on 'click', => Q.spawn => @sendFastForm()
 
 
@@ -99,76 +85,9 @@ class @main
 
 
   getValue:  =>
-    name : @form.name.val()
-    phone : @form.phone.val()
 
   setValue : (data) ->
-    @form.name.val(data.name).focusin().focusout()
-    @form.phone.val(data.phone).focusin().focusout()
     @fast_form.subjects.val(data.subjects)
-
-
-  sendForm : (quiet = false) =>
-    data = yield Feel.urlData.get 'pupil'
-#    data.comment = @form.comment.val()
-    #    data = @js.takeData data
-    data.linked = yield Feel.urlData.get 'mainFilter','linked'
-    data.place = yield Feel.urlData.get 'mainFilter','place_attach'
-    errs = @js.check(data)
-
-    if errs.length is 0
-      {status, err, errs} = yield @$send('./save', data, quiet && 'quiet')
-
-      if status is 'success'
-        Feel.sendActionOnce 'bid_popup'
-        #        url = History.getState().hash
-        #        url = url?.replace?(/\/?\?.*$/, '')
-        Feel.sendActionOnce 'bid_action', null, {name: 'main'}
-
-        unless quiet
-          @found.short_form.fadeOut 200, => @found.success_form.fadeIn()
-
-        return true
-
-      errs?=[]
-      errs.push err if err
-
-    Feel.sendAction 'error_on_page'
-    @showError errs unless quiet
-    return false
-
-
-  showError: (errs =[]) =>
-    @per_err.slideUp()
-    for e in errs
-
-      if e is 'wrong_phone'
-        @errInput @form.phone, 'Введите корректный телефон'
-      if e is 'empty_phone'
-        @errInput @form.phone, 'Введите телефон'
-
-      if e is 'internal_error'
-        @error.text('Внутренняя ошибка сервера. Приносим свои извенения.')
-        @per_err.slideDown()
-
-  errInput: (input, error) =>
-
-    if error?
-      input.next('label').attr 'data-error', error
-      parent = input.closest('.input-field')
-
-#      if parent.length and !parent.is('.err_show')
-#        parent.addClass('err_show')
-#        bottom = parent.stop(false, true).css 'margin-bottom'
-#        parent.animate {marginBottom: parseInt(bottom) + 17 + 'px'}, 200
-#        input.one 'blur', ->
-#          parent
-#            .removeClass('err_show')
-#            .stop().animate {marginBottom: bottom}, 200, ->
-#              parent
-#                .css 'margin-bottom', ''
-
-    input.addClass('invalid')
 
   prepareLink : (a)=>
     a.filter('a').off('click').on 'click', (e)->

@@ -10,6 +10,8 @@ class @main extends @template 'lp'
   tree : =>
     content : @module '$':
       id_page: 'search_p'
+      short_form : @state 'short_form' :
+        param_popup : 'empty'
       filter_tags: @module '$/filter_tags' :
         value :
           filter  : $urlform : tutorsFilter : ''

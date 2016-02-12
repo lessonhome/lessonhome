@@ -15,6 +15,8 @@ class @main extends @template 'lp'
       hide_head_button: true
       subject_list: filter.subjects
       training_direction : filter.course
+      short_form : @state 'short_form' :
+        param_popup : 'main'
       value : $urlform : pupil: ''
       metro_lines : @const('metro').lines
       main_rep : $defer : =>
