@@ -39,7 +39,7 @@ class @main
         Feel.sendActionOnce 'bid_popup'
         url = History.getState().hash
         url = url?.replace?(/\/?\?.*$/, '')
-        Feel.sendActionOnce 'bid_action', null, {name: 'short', url}
+        Feel.sendActionOnce 'bid_action', null, {name: @tree.param_popup, url}
 
         unless quiet
           @found.short_form.fadeOut 200, => @found.success_form.fadeIn()
