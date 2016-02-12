@@ -8,6 +8,6 @@ if value.subjects
    ul
       each sub, i in value.subjects
          li!=sub
-each v in value.link_detail
-   a(href="#").js-make_super
-      img(src="#{v.photos[0].hurl}", width=100)
+each v, index in value.link_detail
+   a(href!=index, title="Назначить на заявку", data-id!=v.account).js-make_super
+      img(src="#{v.photos[0].hurl}", width=100, style="margin-left: 10px")

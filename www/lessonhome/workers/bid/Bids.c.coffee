@@ -8,10 +8,14 @@ class Bids
   init: =>
     @db = yield Main.service 'db'
     @bids = yield @db.get 'bids'
+    @tutor = yield @db.get 'tutor'
     @jobs = yield Main.service 'jobs'
+
     yield @jobs.client 'getBids', @jobGetBids
     yield @jobs.listen 'getDetailBid', @jobGetDetailBid
-#    yield @jobs.listen 'getBids', @jobGetBids
+    yield @jobs.client 'setDoiter', @jobSetDoiter
+
+  _getID : (_id) => new (require('mongodb').ObjectID)(_id)
 
   jobGetBids : (user) =>
     yield @_validUser user
@@ -21,9 +25,6 @@ class Bids
       $find['moderate'] = true
 
     return yield _invoke @bids.find($find, need_first), 'toArray'
-
-  jobChangeBids : (user, data) =>
-    yield @_validUser user, true
 
   jobGetMyBids : (user) =>
     yield @_validUser user
@@ -35,9 +36,26 @@ class Bids
     bids = yield _invoke @bids.find({}, need_first), 'toArray'
     return yield @_sortBids bids
 
+  jobSetDoiter : (user, _id_bid, index) =>
+    try
+      yield @_validUser user, true
+
+      if index
+        tut = yield @jobs.solve 'getTutor', {index}
+
+        if tut
+          $get = _id : yield @_getID(_id_bid)
+          yield _invoke @bids, 'update', $get, $set : app_tutor : index
+          return {status: 'success'}
+
+      throw new Error("Invalid index")
+    catch errs
+      console.error Exception errs
+      return {status: 'failed', err: 'internal error'}
+
   jobGetDetailBid : (user, _id) =>
     yield @_validUser user
-    $get = {_id : new (require('mongodb').ObjectID)(_id)}
+    $get = {_id : yield @_getID(_id)}
     $fields = {}
 
     unless user.admin
@@ -49,9 +67,6 @@ class Bids
 
     bids = yield _invoke @bids.find($get, $fields), 'toArray'
     bids = bids[0] ? null
-
-#    if bids and user.admin
-#      bids.linked_detail = yield @_getLinked(bids)
 
     return bids
 
