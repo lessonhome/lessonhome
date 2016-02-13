@@ -1,13 +1,27 @@
 //
    Created by lh on 10.02.16.
 p!=new Date(value.time).toLocaleString()
-p!=value.name
-p!=value.phone
-p!=value.email
+mixin field(value, placeholder)
+   input(value!=value || '', placeholder!=placeholder)
++field(value.name, "Имя")
+br
++field(value.phone, "Телефон")
+br
++field(value.email, "E-mail")
+br
 if value.subjects
    ul
       each sub, i in value.subjects
          li!=sub
+br
 each v, index in value.link_detail
-   a(href!=index, title="Назначить на заявку", data-id!=v.account).js-make_super
-      img(src="#{v.photos[0].hurl}", width=100, style="margin-left: 10px")
+   a(href="#", title="Назначить на заявку", data-index!=index).show(class=index == value.app_tutor ? 'selected': '')
+      img(src="#{v.photos[0].hurl}", width=150, style="margin-left: 10px")
+.js-about_tutor(data-index="", style="display: none")
+   img.js-avatar(width=100)
+   p.js-name
+   a(href="#").js-to_profile На профиль репетитора
+   br
+   a(href="#").js-make Назначить исполнителем
+
+button.js-save Сохранить

@@ -42,6 +42,7 @@ class Bids
 
       if index
         tut = yield @jobs.solve 'getTutor', {index}
+        # TODO: make check on the test tutor
 
         if tut
           $get = _id : yield @_getID(_id_bid)
