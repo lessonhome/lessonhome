@@ -218,6 +218,27 @@ textarea.materialize-textarea
       will-change: top, opacity
       box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21)
       transition: all 0.5s ease-out
+      @media #{$medium-and-down}
+        width: 80%
+      @media #{$small-and-down}
+        width: 100%
+        margin: 0
+      .close-modal-wrapper
+        position: relative
+        .modal-close-button
+          position: absolute
+          right: 0
+          top: 0
+          cursor: pointer
+          background-color: #D06464
+          padding: 0.2rem
+          font-size: 1.8rem
+          border-radius: 0 2px 0 0
+          color: #fff
+          @media #{$small-and-down}
+            padding: 0.2rem 0.4rem 0.2rem 0.2rem
+            font-size: 2rem
+          
   .row
     &:nth-of-type(2)
       h5
