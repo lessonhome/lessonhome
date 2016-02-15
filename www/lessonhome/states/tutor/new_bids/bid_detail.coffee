@@ -9,6 +9,7 @@ class @main extends @template '../../tutor'
     'pupil': '/enter'
   }
   tree : =>
+    filter = @const('filter')
     items : [
       @module 'tutor/header/button' : {
         title : 'Поиск'
@@ -29,6 +30,17 @@ class @main extends @template '../../tutor'
       }
     ]
     content : @module '$' :
+      obj_status : filter.obj_status
+      gender : filter.sex
+      subjects : @state '../forms/drop_down_list_with_tags' :
+        list: @module 'tutor/forms/drop_down_list:type1'  :
+          smart : true
+          self : true
+          selector        : 'advanced_filter_form'
+          placeholder     : 'Выберите предмет'
+          value     : ''
+        tags: ''
+
       value : $defer : =>
         _id = _setKey @req.udata,'tutorBids.index'
         bid = {}
@@ -42,8 +54,8 @@ class @main extends @template '../../tutor'
             linked[id] = yield jobs.solve 'getTutor', {index:id}
 
           if bid.linked?
-            for own key of bid.linked when !linked[key]?
-              linked[key] = yield jobs.solve 'getTutor', {index:key}
+            for own id of bid.linked when !linked[id]?
+              linked[id] = yield jobs.solve 'getTutor', {index:id}
 
         return bid
 
