@@ -5,28 +5,21 @@
   margin-right: 0.4rem
 
 .luck-history
-  background: url(F('/lp/first_screen_bg.jpg')) no-repeat center
-  background-size: cover
-  min-height: 498px
   color: #ffffff
   text-align: center
-  &:before
-    content: ''
-    display: inline-block
-    vertical-align: bottom
-    height: 454px
-    width: .1px
+  position: relative
+  background-color: #574f43
   @media #{$medium-and-down}
-    min-height: 290px
-    &:before
-      height: 275px
-  @media #{$small-and-down}
-    min-height: 370px
-    &:before
-      height: 350px
+    background: url(F('/lp/first_screen_bg.jpg')) no-repeat center center
+    min-height: 35rem
+  &>img
+    max-width: 100%
+    height: auto
   .container
-    display: inline-block
-    vertical-align: bottom
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 2.333rem
   .history-title
     font-size: 2rem 
     line-height: 100%
