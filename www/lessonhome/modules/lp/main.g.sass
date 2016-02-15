@@ -230,11 +230,14 @@ textarea.materialize-textarea
           right: 0
           top: 0
           cursor: pointer
-          background-color: #D06464
-          padding: 0.2rem
+          background-color: transparent
+          padding: 0.25rem 0.4rem
           font-size: 1.8rem
           border-radius: 0 2px 0 0
-          color: #fff
+          color: #616161
+          @media #{$medium-and-down}
+            background-color: #B5B5B5
+            color: #fff
           @media #{$small-and-down}
             padding: 0.2rem 0.4rem 0.2rem 0.2rem
             font-size: 2rem
