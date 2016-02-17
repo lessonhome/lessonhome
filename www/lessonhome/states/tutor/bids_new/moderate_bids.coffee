@@ -1,4 +1,5 @@
 class @main extends @template '../../tutor'
+  forms : ['bids_moderate']
   route : '/tutor/moderate_bids'
 #  model   : 'tutor/new_bids/moderate_bids'
   title : "поиск заявок"
@@ -29,7 +30,8 @@ class @main extends @template '../../tutor'
         href  : '/tutor/out_bids'
       }
     ]
-    content : @module '$'
+    content : @module '$' :
+      value : $form : bids_moderate : 'bids'
 
 
   init : ->

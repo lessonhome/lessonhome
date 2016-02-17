@@ -13,7 +13,7 @@ br
 br
 !=subjects
 input(type='hidden', value=value._id, name="index").js-index
-input(type='hidden', value=value.app_tutor, name="executor").js-index_tutor
+input(type='hidden', value=value.id, name="executor").js-index_tutor
 br
 .js-status
    each v, key in obj_status
@@ -41,7 +41,7 @@ label
    !='Закончить модерацию'
 br
 each v, index in value.link_detail
-   a(href="#", title="Назначить на заявку", data-index=index).show(class=index == value.app_tutor ? 'selected': '')
+   a(href="#", title="Назначить на заявку", data-index=index).show(class=index == value.id ? 'selected': '')
       img(src="#{v.photos[0].hurl}", width=150, style="margin-left: 10px")
 .js-about_tutor(style="display: none")
    img.js-avatar(width=100)

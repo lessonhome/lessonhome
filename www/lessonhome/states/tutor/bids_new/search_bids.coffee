@@ -1,4 +1,5 @@
 class @main extends @template '../../tutor'
+  forms : ['bids']
   route : '/tutor/search_bids'
 #  model   : 'tutor/new_bids/search_bids'
   title : "поиск заявок"
@@ -8,7 +9,6 @@ class @main extends @template '../../tutor'
     'other' : '/enter'
     'pupil' : '/enter'
   }
-  forms : ['bids']
   tree : =>
     items : [
       @module 'tutor/header/button' : {
@@ -30,7 +30,7 @@ class @main extends @template '../../tutor'
       }
     ]
     content : @module '$' :
-      bids : $form : bids : 'bids'
+      value : $form : bids : 'bids'
 
   init : ->
     @parent.tree.left_menu.setActive 'Заявки'

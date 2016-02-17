@@ -2,8 +2,12 @@
 
 
 default_prepare = {
-  float : (val) -> parseFloat(val)
-  integer : (val) -> parseInt(val)
+  float : (val) ->
+    val = parseFloat(val)
+    return if isNaN val then 0 else val
+  integer : (val) ->
+    val = parseInt(val)
+    return if isNaN val then 0 else val
   string : (val) -> '' + val
   bool : (val)-> !!val
   arr : (foo) ->

@@ -13,8 +13,6 @@ class @main
     }
   show: =>
     @sub.setValue @tree.value.subjects
-
-    console.log @tree.value
     @dom.find("a.show").on 'click', @onShowDetail
     @found.make.on 'click', @onMakeExecutor
     @found.save.click @onSaveChange
@@ -67,7 +65,7 @@ class @main
     status : @getStatus()
     index : @form.index.val()
     gender : @getGender()
-    app_tutor : @form.executor.val()
+    id : @form.executor.val()
     name : @form.name.val()
     phone : @form.phone.val()
     email : @form.email.val()

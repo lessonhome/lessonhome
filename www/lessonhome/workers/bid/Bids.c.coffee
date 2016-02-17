@@ -12,15 +12,11 @@ class Bids
       prep: 'float'
     }
     {
-      name : 'app_tutor'
-      prep : 'integer'
-    }
-    {
       name: 'subjects'
       prep: 'arr:string'
     }
     {
-      name : ['name', 'gender', 'email', 'phone', 'index']
+      name : ['name', 'gender', 'email', 'phone', 'index', 'id']
       prep: 'string'
     }
     {
@@ -32,6 +28,12 @@ class Bids
       prep : 'obj:bool'
     }
   ]
+  for_log = [
+    {
+      name: ['desc', 'index']
+      prep: 'string'
+    }
+  ]
   init: =>
     @db = yield Main.service 'db'
     @bids = yield @db.get 'bids'
@@ -40,8 +42,9 @@ class Bids
 
     yield @jobs.client 'getBids', @jobGetBids
     yield @jobs.listen 'getDetailBid', @jobGetDetailBid
-    yield @jobs.client 'setExecutor', @jobSetExecutor
+#    yield @jobs.client 'setExecutor', @jobSetExecutor
     yield @jobs.client 'changeBid', @jobChangeBid
+    yield @jobs.client 'addLog', @jobAddLog
 
   _getID : (_id) => new (require('mongodb').ObjectID)(_id)
 
@@ -57,7 +60,7 @@ class Bids
   jobGetMyBids : (user) =>
     yield @_validUser user
     throw new Error('not tutor') unless user.index
-    bids = yield _invoke @bids.find({moderate: true, app_tutor: user.index}, need_first), 'toArray'
+    bids = yield _invoke @bids.find({moderate: true, id: user.index}, need_first), 'toArray'
     return yield @_sortBids bids
 
   jobGetModerBids : (user) =>
@@ -75,7 +78,7 @@ class Bids
 
         if tut
           $get = _id : yield @_getID(_id)
-          {result} = yield _invoke @bids, 'update', $get, $set : app_tutor : index, {upsert:false}
+          {result} = yield _invoke @bids, 'update', $get, $set : id : index, {upsert:false}
           console.log result
           throw new Error('wrong _id') unless result.n
           return {status: 'success'}
@@ -112,6 +115,20 @@ class Bids
 
   getData : (data) =>
 
+  _addLog : (_id, desc) =>
+    $get = _id : yield @_getID _id
+    {result} = yield _invoke @bids, 'update', $get, '$push' : 'log' : {time : new Date(), desc}
+    throw new Error('wrong _id') unless result.nModified
+
+  jobAddLog : (user, params = {}) =>
+    try
+      yield @_validUser user, true
+      params = check.prepare params, for_log
+      throw new Error('bad params') unless params?.index? and params.desc?
+      yield @_addLog params.index, params.desc
+    catch errs
+      console.error Exception errs
+      return {status: 'failed', err: 'internal error'}
 
   jobChangeBid : (user, params = {}) =>
     try
@@ -123,6 +140,7 @@ class Bids
       delete params.index
       {result} = yield _invoke @bids, 'update', $get, {$set: params}, {upsert: false}
       throw new Error('wrong _id') unless result.n
+      yield @jobs.solve 'flushForm', user.id
       return {status: 'success'}
     catch errs
       console.error Exception errs

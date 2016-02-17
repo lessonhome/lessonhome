@@ -50,7 +50,7 @@ class @main extends @template '../../tutor'
           bid = yield jobs.solve 'getDetailBid', @req.user,  _id
           bid.link_detail = linked = {}
 
-          if (id = bid.id)?
+          if (id = bid.id)? and id
             linked[id] = yield jobs.solve 'getTutor', {index:id}
 
           if bid.linked?

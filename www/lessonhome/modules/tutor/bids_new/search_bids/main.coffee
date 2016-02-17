@@ -2,4 +2,4 @@ class @main
   constructor: ->
     $W @
   show: =>
-    console.log @tree.bids
+    console.log @tree.value

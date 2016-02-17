@@ -1,0 +1,36 @@
+@import base
+$red : #E96666
+$blue: #227480
+$grey: #9E9E9E
+$green: #008000
+$yellow: #FFFDD4
+main
+  padding: 24px 0 132px 24px
+
+table.table_bids
+  width: 700px
+  tbody
+    border-top: 1px solid #000
+    tr:nth-child(2n + 1)
+      background: #F3F3F3
+    //tr:hover
+    //  background: $yellow
+  tbody, thead
+    tr
+      & + tr
+        border-top: 1px solid #DADADA
+      th
+        font-weight: bold
+      td, th
+        padding: 10px 0
+        vertical-align: middle
+        &.grey
+          color: $grey
+        &.up
+          color: $green
+        &.down
+          color: $red
+        i,p
+          font-size: 14px
+        i
+          color: $grey

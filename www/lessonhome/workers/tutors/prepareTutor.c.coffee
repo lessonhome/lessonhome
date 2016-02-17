@@ -115,9 +115,9 @@ class PrepareTutor
     return result
 
   _saveData : ({account, person, tutor, uploaded}) =>
-    if account.id? then yield _invoke @collect.account, 'update', {id : account.id, _id: account._id },  {$set: account}, {$upsert: false}
-    if person.account? then yield _invoke @collect.person, 'update', {account : person.account, _id: person._id },  {$set: person}, {$upsert: false}
-    if tutor.account? then yield _invoke @collect.tutor, 'update', {account : tutor.account, _id: tutor._id },  {$set: tutor}, {$upsert: false}
+    if account?.id? then yield _invoke @collect.account, 'update', {id : account.id, _id: account._id },  {$set: account}, {$upsert: false}
+    if person?.account? then yield _invoke @collect.person, 'update', {account : person.account, _id: person._id },  {$set: person}, {$upsert: false}
+    if tutor?.account? then yield _invoke @collect.tutor, 'update', {account : tutor.account, _id: tutor._id },  {$set: tutor}, {$upsert: false}
 
     if uploaded? and uploaded.length?
       for u in uploaded when u.account?
