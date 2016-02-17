@@ -1,10 +1,37 @@
+check = Main.isomorph 'bid/delegate'
 class Bids
   status_flags = {
     'current' : true
     'to_pay' : true
     'payed' : true
   }
-  need_first = {'name': 1, 'time': 1, 'subject': 1, 'subjects': 1}
+  need_first = {'name': 1, 'time': 1, 'subject': 1, 'subjects': 1, gender :1, price : 1, prices: 1}
+  fields = [
+    {
+      name: 'price'
+      prep: 'float'
+    }
+    {
+      name : 'app_tutor'
+      prep : 'integer'
+    }
+    {
+      name: 'subjects'
+      prep: 'arr:string'
+    }
+    {
+      name : ['name', 'gender', 'email', 'phone', 'index']
+      prep: 'string'
+    }
+    {
+      name : 'moderate'
+      prep: 'bool'
+    }
+    {
+      name : 'status'
+      prep : 'obj:bool'
+    }
+  ]
   init: =>
     @db = yield Main.service 'db'
     @bids = yield @db.get 'bids'
@@ -13,7 +40,8 @@ class Bids
 
     yield @jobs.client 'getBids', @jobGetBids
     yield @jobs.listen 'getDetailBid', @jobGetDetailBid
-    yield @jobs.client 'setDoiter', @jobSetDoiter
+    yield @jobs.client 'setExecutor', @jobSetExecutor
+    yield @jobs.client 'changeBid', @jobChangeBid
 
   _getID : (_id) => new (require('mongodb').ObjectID)(_id)
 
@@ -28,7 +56,8 @@ class Bids
 
   jobGetMyBids : (user) =>
     yield @_validUser user
-    bids = yield _invoke @bids.find({moderate: true, app_tutor: user.id}, need_first), 'toArray'
+    throw new Error('not tutor') unless user.index
+    bids = yield _invoke @bids.find({moderate: true, app_tutor: user.index}, need_first), 'toArray'
     return yield @_sortBids bids
 
   jobGetModerBids : (user) =>
@@ -36,7 +65,7 @@ class Bids
     bids = yield _invoke @bids.find({}, need_first), 'toArray'
     return yield @_sortBids bids
 
-  jobSetDoiter : (user, _id_bid, index) =>
+  jobSetExecutor : (user, _id, index) =>
     try
       yield @_validUser user, true
 
@@ -45,8 +74,10 @@ class Bids
         # TODO: make check on the test tutor
 
         if tut
-          $get = _id : yield @_getID(_id_bid)
-          yield _invoke @bids, 'update', $get, $set : app_tutor : index
+          $get = _id : yield @_getID(_id)
+          {result} = yield _invoke @bids, 'update', $get, $set : app_tutor : index, {upsert:false}
+          console.log result
+          throw new Error('wrong _id') unless result.n
           return {status: 'success'}
 
       throw new Error("Invalid index")
@@ -71,21 +102,6 @@ class Bids
 
     return bids
 
-#  _getLinked : (bids) =>
-#    linked = {}
-#
-#    for own index of (bids.linked ? {})
-#      linked[index] = yield @_getTutor index
-#
-#    index = bids.id
-#
-#    if index? and !linked[index]?
-#      linked[index] = yield @_getTutor index
-#
-#    return linked
-
-#  _getTutor : (index) => yield @jobs.solve 'getTutor', {index}
-
   _sortBids : (bids) =>
     result = {}
     for b in bids
@@ -93,6 +109,24 @@ class Bids
       result[key]?=[]
       result[key].push b
     return result
+
+  getData : (data) =>
+
+
+  jobChangeBid : (user, params = {}) =>
+    try
+      yield @_validUser user, true
+      params = check.prepare(params, fields)
+      throw new Error('bad params') unless params
+      throw new Error('index not exist') unless params?.index?
+      $get = _id : yield @_getID(params.index)
+      delete params.index
+      {result} = yield _invoke @bids, 'update', $get, {$set: params}, {upsert: false}
+      throw new Error('wrong _id') unless result.n
+      return {status: 'success'}
+    catch errs
+      console.error Exception errs
+      return {status: 'failed', err: 'internal error'}
 
   _validUser: require "../valid_user"
 

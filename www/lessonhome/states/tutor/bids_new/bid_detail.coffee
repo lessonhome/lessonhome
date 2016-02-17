@@ -58,6 +58,3 @@ class @main extends @template '../../tutor'
               linked[id] = yield jobs.solve 'getTutor', {index:id}
 
         return bid
-
-  init : ->
-    @parent.tree.left_menu.setActive 'Заявки'

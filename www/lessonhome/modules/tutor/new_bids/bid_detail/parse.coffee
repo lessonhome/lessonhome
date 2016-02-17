@@ -1,2 +1,0 @@
-@parse = (value) =>
-  return value

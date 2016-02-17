@@ -1,6 +1,6 @@
 class @main extends @template '../../tutor'
   route : '/tutor/moderate_bids'
-  model   : 'tutor/new_bids/moderate_bids'
+#  model   : 'tutor/new_bids/moderate_bids'
   title : "поиск заявок"
   tags   : -> 'tutor:search_bids'
   access : ['admin']
@@ -33,4 +33,4 @@ class @main extends @template '../../tutor'
 
 
   init : ->
-    @parent.tree.left_menu.setActive 'Заявки'
+    @parent.tree.left_menu.setActive 'Модерация заявок'
