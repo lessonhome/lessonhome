@@ -1,0 +1,53 @@
+//
+   Created by lh on 10.02.16.
+p!=new Date(value.time).toLocaleString()
+mixin field(value, placeholder)
+   input(value=value || '', placeholder=placeholder)&attributes(attributes)
++field(value.name, "Имя")(name='name').js-name
+br
++field(value.phone, "Телефон")(name='phone').js-phone
+br
++field(value.email, "E-mail")(name='email').js-email
+br
++field(value.final_price, "Окончательная цена руб./ч.")(name='price').js-price
+br
+!=subjects
+input(type='hidden', value=value._id, name="index").js-index
+input(type='hidden', value=value.id, name="executor").js-index_tutor
+br
+.js-status
+   each v, key in obj_status
+      label
+         input(type='checkbox', value=key, checked=value.status && value.status[key] ? true : undefined)
+         !=v
+      br
+br
+.js-gender
+   label
+      input(type='radio', value='male', name='sex', checked= value.gender === 'мужской' || value.gender === 'male')
+      !='Мужской'
+   br
+   label
+      input(type='radio', value='female', name='sex', checked= value.gender  === 'женский' || value.gender === 'female')
+      !='Женский'
+   br
+   label
+      input(type='radio', value='', name='sex', checked= !value.gender || value.gender === 'неважно' || value.gender === 'не важно')
+      !='Не важно'
+   br
+br
+label
+   input(type='checkbox', value='moderate', checked=value.moderate ? true : undefined).js-moderate
+   !='Закончить модерацию'
+br
+each v, index in value.link_detail
+   a(href="#", title="Назначить на заявку", data-index=index).show(class=index == value.id ? 'selected': '')
+      img(src="#{v.photos[0].hurl}", width=150, style="margin-left: 10px")
+.js-about_tutor(style="display: none")
+   img.js-avatar(width=100)
+   p.js-name
+   a(href="#").js-to_profile На профиль репетитора
+   br
+   a(href="#").js-make Назначить исполнителем
+br
+button.js-save Сохранить

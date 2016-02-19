@@ -28,9 +28,9 @@
             select(multiple).js-subjects
               option(value="" disabled selected) Выберите предмет
               each groups,gname in subjects
-                optgroup(label!=gname)
+                optgroup(label=gname)
                   each val,index in groups
-                    option(value!=val)!=val
+                    option(value=val)!=val
 
         .row.js-longer
           .col.s12
@@ -51,7 +51,7 @@
               option(value="" disabled selected) Цена за 60 мин.
               optgroup(label="Цена")
                 for p in prices
-                  option(value!=p)!=p
+                  option(value=p)!=p
         .row.js-longer
           .col.s12
             h5 Пожелания к репетитору:
