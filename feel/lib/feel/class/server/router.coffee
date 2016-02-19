@@ -85,6 +85,7 @@ class Router
         res.setHeader 'Vary','Accept-Encoding'
         res.setHeader 'Cache-Control', 'public, max-age='+cache.d
         res.setHeader 'content-encoding', cache.encoding
+        res.setHeader 'content-type','text/html; charset=UTF-8'
         d = new Date()
         d.setTime d.getTime()+30000
         res.setHeader 'Expires',d.toGMTString()
