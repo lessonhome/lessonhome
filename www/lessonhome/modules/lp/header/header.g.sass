@@ -176,11 +176,24 @@ nav
   position: relative
   .pc-body
     cursor: pointer
+  .pc-avatar-spacer
+    height: 3.6rem
+    float: left
+    transition: all 0.3s ease-out
+    img
+      height: 100%
   .pc-avatar
     overflow: hidden
-    max-width: 3.6rem
-    max-height: 3.6rem
+    //max-width: 3.6rem
+    height: 3.6rem
     float: left
+    position: absolute
+    left: 0
+    top: 0
+    z-index: 6
+    transition: all 0.3s ease-out
+    img
+      height: 100%
   .pc-text
     padding: 0 .8rem
     float: left
@@ -214,6 +227,7 @@ nav
     padding: 0 .8rem
     float: left
     white-space: nowrap
+    margin-left: .1px
     span
       display: inline-block
       vertical-align: middle
@@ -237,6 +251,8 @@ nav
         border-bottom: none
   @media #{$large-and-up}
     &:hover
+      .pc-avatar-spacer
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
       .pc-text
         box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
         i

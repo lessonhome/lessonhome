@@ -11,11 +11,16 @@
     if $req.user.registered
       .profile-chips.right
         .pc-body.clearfix
+          .pc-avatar-spacer
+            if photo
+              img(src=photo.url)
+            else
+              img(src=src)
           .pc-avatar
             if photo
-              img(src=photo.url).responsive-img
+              img(src=photo.url)
             else
-              img(src=src).responsive-img
+              img(src=src)
           .pc-text-spacer
             span=first_name + ' ' + middle_name
             i.material-icons keyboard_arrow_down
