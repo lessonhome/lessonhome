@@ -1,0 +1,8 @@
+User-agent: Yandex
+Host: https://lessonhome.ru
+
+User-agent: *
+Disallow:
+Host: https://lessonhome.ru
+Sitemap : https://lessonhome.ru/sitemap.xml
+Crawl-delay: 0.1

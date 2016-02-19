@@ -409,7 +409,6 @@ global._lookUp = (obj,first,foo)-> do Q.async ->
   return
 
 
-
 Q.rdenodeify = (f)-> Q.denodeify (as...,cb)-> f? as..., (a,b)->cb? b,a
 Q.denode  = -> Q.denodeify  arguments...
 Q.rdenode = -> Q.rdenodeify arguments...
@@ -587,6 +586,12 @@ global._randomHash = (b=20)-> _crypto.randomBytes(b).toString('hex')
 global._shash   = (f)-> _hash(f).substr 0,10
 global._invoke  = (args...)-> Q.ninvoke args...
 global._mkdirp  = Q.denode require 'mkdirp'
+
+require './lib/wget'
+zlib    = require 'zlib'
+zlib_gzip = Q.denode zlib.gzip
+global._gzip = (data)-> zlib_gzip data,{level:5}
+
 #v8clone = require 'node-v8-clone'
 #global._clone   = (o,d=true)-> v8clone.clone o,d
 module.exports  = Lib

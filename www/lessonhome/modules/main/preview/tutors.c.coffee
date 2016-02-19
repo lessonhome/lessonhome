@@ -8,6 +8,7 @@ class Tutors
     $W @
     @timereload = 0
     @inited = 0
+    @_max_age = 5*60
   init : =>
     return _waitFor @,'inited' if @inited == 1
     return if @inited > 1
@@ -88,7 +89,10 @@ class Tutors
   jobFilterTutors : ({filter,preps,from,count,exists})=>
     return @handler {},{filter,preps,from,count,exists}
   jobGetTutor : ({index})=>
-    return @index?[index] ? (@index?[99637] ? {})
+    ret = @index?[index] ? (@index?[99637] ? {})
+    ret = ret._client if ret?._client?
+    return ret
+
   jobGetTutorsOnMain : (num)=>
 
     arr2 = Object.keys (@onmain ? {})
@@ -97,6 +101,7 @@ class Tutors
       break unless arr2.length
       ind = arr2.splice(Math.floor(Math.random()*arr2.length),1)?[0]
       ind = @index?[ind] ? null
+      ind = ind._client if ind?._client?
       arr.push ind if @index
     return arr
   handler : ($, {filter,preps,from,count,exists})=>
@@ -106,7 +111,8 @@ class Tutors
     ret.preps = {}
     if preps?
       for p in preps
-        ret.preps[p] = @index[p]
+        ret.preps[p] = if @index[p]?._client? then @index[p]._client else @index[p]
+        
     if filter?
       ex = {}
       ex[k] = true for k in exists
@@ -121,7 +127,8 @@ class Tutors
       if from?
         inds = f?.indexes?.slice? from,from+count
         for i in inds
-          ret.preps[i] = @index[i] unless ex[i]
+          unless ex[i]
+            ret.preps[i] = if @index[i]?._client? then @index[i]._client else @index[i]
     return ret
   filter : (filter,inc = false)=>
     f = @filters[filter.hash] ? {}

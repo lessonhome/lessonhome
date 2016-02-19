@@ -16,7 +16,9 @@ class @main
     belong = el.attr('data-b')
     switch belong
       when 'subjects', 'course', 'metro'
-        @val[belong].splice(@val[belong].indexOf(val),1)
+        i = @val[belong]?.indexOf?(val)
+        if i? and i >= 0
+          @val[belong].splice(i, 1)
       when 'price', 'status'
         @val[belong][val] = false
       when 'sex'

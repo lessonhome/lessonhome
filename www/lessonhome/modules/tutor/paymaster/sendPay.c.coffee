@@ -9,4 +9,5 @@ check = require('./check')
       return {status: 'success', get: url}
 
   catch errs
+    console.error Exception errs
     return {status: 'failed', err: 'internal error'}

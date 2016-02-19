@@ -10,20 +10,24 @@ class @main extends @template 'lp'
   tree : =>
     filter = @const('filter')
     content : @module '$':
+      carousel : @module 'lib/jquery/plugins/slick'
       id_page: 'main_p'
+      hide_head_button: true
       subject_list: filter.subjects
       training_direction : filter.course
+      short_form : @state 'short_form' :
+        param_popup : 'main'
       value : $urlform : pupil: ''
       metro_lines : @const('metro').lines
       main_rep : $defer : =>
         maxl = 200
         jobs = yield Main.service 'jobs'
-        prep = yield jobs.solve 'getTutorsOnMain', 4
+        prep = yield jobs.solve 'getTutorsOnMain', 16
         prep?= []
         regexp = /\s+[^\s]*$/
         regexp_dot = /\s*\.{1,3}$/
         for p in prep
-          p.avatar = p.photos[p.photos.length - 1].hurl
+          p.avatar = p.photos[p.photos.length - 1].lurl
           p.link = '/tutor_profile?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
           continue unless p?.reviews?.length
           onmain = []

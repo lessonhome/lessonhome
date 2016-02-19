@@ -67,7 +67,10 @@
     "redlock":"*",
     "post-data":"*",
     "harmony-reflect":"*",
-    "kerberos" : "*"
+    "kerberos" : "*",
+    "sitemap":"*",
+    "underscore":"*",
+    "wget" : "*"
   }
 }
 

@@ -6,13 +6,15 @@ _path   = require 'path'
 mime    = require 'mime'
 mkdirp  = require 'mkdirp'
 
-
 class Static
   constructor : ->
     @files = {}
 
-  init : =>
+  init : => do Q.async =>
+    @www = "#{process.cwd()}/www"
     @watch()
+    @jobs = yield _Helper('jobs/main')
+    yield @jobs.listen 'staticGetHash',@jobStaticGetHash
   watch : =>
     return if _production
     q = Q()
@@ -100,6 +102,12 @@ class Static
   handler : (req,res,site)=>
     m     = req.url.match /^\/file\/(\w+)\/([^\.].*)\.(\w+)$/
     return Feel.res404 req,res unless m
+    isroot = false
+    if req.url.match /^\/file\/\w+\/root\//
+      isroot = true
+    if req.url.match(/^\/file\/\w+\/root\/(.*)\.coffee$/)
+      return Feel.res403 req,res
+
     if m[2].match /\.\./
       return Feel.res404 req,res unless m
     hash  = m[1]
@@ -110,17 +118,22 @@ class Static
     hhash ?= 2
     @hash path,(rhash=1)=>
       res.setHeader 'ETag', rhash
-      res.setHeader 'Cache-Control', 'public, max-age=126144001'
-      res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
-      return @res304 req,res if rhash==hash==hhash
+      unless isroot
+        res.setHeader 'Cache-Control', 'public, max-age=126144001'
+        res.setHeader 'Expires', "Thu, 07 Mar 2086 21:00:00 GMT"
+      else
+        res.setHeader 'Cache-Control', 'public, max-age=60'
+      return @res304 req,res if rhash==hhash
       if rhash != hash
-        return @url fname,site,(url)=> @res303 req,res,url
+        unless isroot
+          return @url fname,site,(url)=> @res303 req,res,url
       ext   = m[3]
       if @files[path]?
         return @write @files[path],req,res
 
       fs.readFile path, (err,data)=> fs.stat path,(err2,stat)=>
         if err? || err2?
+          console.error Exception err,err2
           return Feel.res500 req,res,err||err2
         @files[path] =
           data : data
@@ -128,22 +141,110 @@ class Static
           stat : stat
           name : fname
         return @write @files[path],req,res
+  statRoot : (url,site)=> do Q.async =>
+    @cacheStatRoot ?= {}
+    return @cacheStatRoot[site+url] if @cacheStatRoot[site+url]
+    ftext =_path.resolve "#{@www}/#{site}/static/root/"+_path.resolve url
+    fdir = _path.dirname ftext
+    ftext = _path.relative fdir,ftext
+    if ftext.match /\./
+      fnoext = ""
+    else
+      fnoext = ftext
+      ftext = ""
+    try
+      readed = yield _readdir fdir
+    catch e
+      return @cacheStatRoot[site+url] = {}
+    files = {}
+    exts  = {}
+    readed.sort()
+    for f in readed
+      files[f] = true
+      exts[f.replace(/\.\w+$/,"")] = f
+      if f.match /\.coffee$/
+        exts[f.replace(/\.\w+\.coffee$/,"")+".coffee"] = f
+
+    o = {}
+    if ftext
+      if files[ftext+'.coffee']
+        o.coffee = ftext+'.coffee'
+      else if files[ftext]
+        o.file = "#{fdir}/#{ftext}"
+    else
+      if files[fnoext+'.coffee']
+        o.coffee = fnoext+'.coffee'
+      else if exts[fnoext+'.coffee']
+        o.coffee = exts[fnoext+'.coffee']
+      else if files[fnoext]
+        o.file = "#{fdir}/#{fnoext}"
+      else if exts[fnoext]
+        o.file = "#{fdir}/#{exts[fnoext]}"
+    if o.coffee
+      o.coffee =  require "#{fdir}/#{o.coffee}"
+      if typeof o.coffee == 'function'
+        if o.coffee::handler?
+          o.coffee = new o.coffee
+      o.coffee = $W o.coffee
+      yield o.coffee?.init?()
+      yield o.coffee?.run?()
+    return @cacheStatRoot[site+url] = o
+  handlerRoot : (req,res,site)=> do Q.async =>
+    try
+      o = yield @statRoot req.url,site
+    catch e
+      console.error Exception e
+      o = {}
+    unless o.file || o.coffee
+      return Feel.res404 req,res
+    if o.coffee
+      if typeof o.coffee?.handler == 'function'
+        return o.coffee.handler req,res,site
+      else if typeof o.coffee == 'function'
+        return o.coffee req,res,site
+      else throw new Error 'bad root coffee handler in '+req.url
+    if o.file
+      rel = _path.relative("#{@www}/#{site}/static/root",o.file)
+      req.url = "/file/666/root/#{rel}"
+      try
+        yield @handler req,res,site
+        return
+      catch e
+        console.error Exception e
+        return Feel.res500 req,res
+
+    throw new Error 'something gone wrong'
+
+  
+      
+
+
   res304 : (req,res)=>
     res.writeHead 304
     res.end()
   res303 : (req,res,location)=>
-    return Feel.res500 req,res if req.url == location
+    if req.url == location
+      console.error Exception new Error 'req.url == location :'+req.url
+      return Feel.res500 req,res
     res.statusCode = 303
     res.setHeader 'Location', location
     res.end()
   write   : (file,req,res)=>
-    res.setHeader 'Content-type', file.mime
+    charset = mime.charsets.lookup(file.mime)
+    if charset
+      charset = "charset=#{charset}"
+    else
+      charset = ""
+    res.setHeader 'Content-type', "#{file.mime}; #{charset}"
     zlib = require 'zlib'
     zlib.gzip file.data,{level:9},(err,resdata)=>
-      return Feel.res500 req,res,err if err?
+      if err?
+        console.error Exception err
+        return Feel.res500 req,res,err
       res.statusCode = 200
       res.setHeader 'Content-Length', resdata.length
       res.setHeader 'Content-Encoding', 'gzip'
+      res.setHeader 'Vary','Accept-Encoding'
       #console.log "file\t#{file.name}",resdata.length/1024,file.data.length/1024,Math.ceil((resdata.length/file.data.length)*100)+"%"
       return res.end resdata
   F       : (site,file)=>
@@ -154,21 +255,35 @@ class Static
       hash = @hashS f
       #@createHash f
     return "/file/#{hash}/#{file}"
+  FP       : (site,file)=> do Q.async =>
+    f = _path.resolve "www/#{site}/static/#{file}"
+    if @watch[f]?
+      hash = @watch[f]
+    else
+      hash = yield @hashP f
+      #@createHash f
+    console.error 'failed create hash FP',f unless hash
+    hash ?= 666
+    return "/file/#{hash}/#{file}"
+  jobStaticGetHash : (file,site='lessonhome')=> @FP site,file
   res404  : (req,res,err)=>
     res.writeHead 404
     res.end()
     console.error err if err?
 
+  hashP : (f)=>
+    d = Q.defer()
+    @hash f,(hash)->d.resolve hash
+    return d.promise
   hash : (f,cb)=>
     f = _path.resolve f
     return cb(@watch[f]) if @watch[f]?
-    hash = @createHash f,null,cb
-    hash ?= 666
-    return hash
+    @createHash f,null,cb
   hashS : (f)=>
     f = _path.resolve f
     return @watch[f] if @watch[f]?
     hash = @createHashS f
+    console.error 'failed create hashS',f unless hash
     hash ?= 666
     return hash
   url : (f,site,cb)=>

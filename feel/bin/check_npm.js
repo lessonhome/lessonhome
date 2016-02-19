@@ -10,18 +10,16 @@ module.exports.make = function (cb){
 
   var fs = require ('fs');
   var sha1 = require('crypto').createHash('sha1');  
-  var hash="",sum,fsave = "feel/.npmversion",fpac = "feel/package.json";
+  var hash="",sum,fsave = "feel/.npmversion",fpac = "package.json";
   if (fs.existsSync(fsave))
     hash = fs.readFileSync(fsave).toString();
   sha1.update(fs.readFileSync(fpac));
   sum = sha1.digest('hex');
   if (sum == hash)return cb();
-  process.chdir('feel');
   console.log('npm i');
   sp('npm',['i'], function(){
     //console.log('npm update');
     //sp('npm',['update'],function(){
-      process.chdir('..');
       fs.writeFileSync(fsave,sum);
       cb();
     //});
