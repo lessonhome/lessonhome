@@ -22,5 +22,7 @@ class @F2V
         result[i].value = result[i].value.toFixed?(2)
 
     return result
-  $current_sum : (data) -> if data.residue? then data.residue.toFixed(2) else '0.00'
-  $toPay: (data) -> if data.residue? and data.residue < 0 then Math.abs(data.residue) else undefined
+  $current_sum : (data) ->
+    if data.residue? then data.residue.toFixed(2) else '0.00'
+  $toPay: (data) ->
+    if data.residue? and data.residue < 0 then Math.abs(data.residue) else undefined

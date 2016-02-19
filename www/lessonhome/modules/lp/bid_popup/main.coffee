@@ -141,7 +141,7 @@ class @main extends EE
     return exist
 
   sendForm: (quiet = false) =>
-    data = @getValue()
+    data = @getValue() # yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
 
     errs = @js.check data

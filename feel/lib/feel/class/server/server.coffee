@@ -97,6 +97,10 @@ class Server
       res.statusCode = 404
       res.end JSON.strinigfy e
   handlerHttpRedirect : (req,res)=>
+    unless req.url.match /^\/robots\.txt/ then switch req?.headers?.host
+      when 'prep.su','localhost.ru','pi0h.org'
+        res.writeHead 301, 'Location': 'https://lessonhome.ru'+req.url
+        return res.end()
     return @verify req,res if req.url.match /well-known/
     res.statusCode = 301
     host = req.headers.host
@@ -129,7 +133,12 @@ class Server
     obj.url = obj.url.replace /\?.*$/g,""
     obj.url += urldata
     return obj.url
+    res.end()
   handler : (req,res)=>
+    unless req.url.match /^\/robots\.txt/ then switch req?.headers?.host
+      when 'prep.su','localhost.ru','pi0h.org'
+        res.writeHead 301, 'Location': 'https://lessonhome.ru'+req.url
+        return res.end()
     return @verify req,res if req.url.match /well-known/
     if req.method == 'POST'
       unless req.url.match /upload/

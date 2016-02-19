@@ -14,4 +14,5 @@ check = require('./check')
         return {status: 'success', residue}
 
   catch errs
+    console.error Exception errs
     return {status: 'failed', err: errs.message}
