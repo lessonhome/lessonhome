@@ -26,7 +26,7 @@ class RouteState
   getMaxAge : (req,res)=>
     sess = req.uniqHash.split(':')[0]
     if @statename.match /^tutor\//
-      return 30
+      return 10
     return 10*60
   time : (str="")=>
     if !@_time?
