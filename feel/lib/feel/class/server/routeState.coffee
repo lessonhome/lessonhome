@@ -482,6 +482,7 @@ class RouteState
       @res.setHeader 'ETag',resHash
       @res.setHeader 'Cache-Control', 'public, max-age='+_max_age
       @res.setHeader 'content-encoding', 'gzip'
+      @res.setHeader 'content-type','text/html; charset=UTF-8'
       #@res.statusCode = 200
       d = new Date()
       d.setTime d.getTime()+_max_age*1000
