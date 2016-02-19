@@ -47,7 +47,7 @@ nav
   @media #{$medium_and_down}
     background: #ffffff !important
     //box-shadow: inset 0px -4px 0px 0px #199aad
-    border-bottom: 5px solid #199aad
+    border-bottom: 3px solid #199aad
     a
       &.button-collapse
         color: #4e4e50
@@ -72,7 +72,7 @@ nav
       a
         height: 48px
         line-height: 46px
-        font-size: 1.333rem
+        font-size: 1.2rem
         color: #c9f5f9
         padding: 0 1.6rem
         &:hover
@@ -80,6 +80,17 @@ nav
         &.active
           color: #fff
           //box-shadow: inset 0px -7px 0px -4px #fd7c48
+    &.side-nav
+      li
+        padding: 0
+        a
+          padding: 0 30px
+          &:hover
+            color: #444
+          &.active
+            box-shadow: inset 5px 0 0px 0px #179cab
+            color: #444
+            background-color: #f2f2f2
   .btn-large
     background-color: #fbc02d
     height: 48px
@@ -159,6 +170,120 @@ nav
       span
         display: inline-block
         vertical-align: middlie
+.profile-chips
+  font-size: 1rem
+  line-height: 120%
+  position: relative
+  .pc-body
+    cursor: pointer
+  .pc-avatar-spacer
+    height: 3.6rem
+    float: left
+    transition: all 0.3s ease-out
+    img
+      height: 100%
+  .pc-avatar
+    overflow: hidden
+    //max-width: 3.6rem
+    height: 3.6rem
+    float: left
+    position: absolute
+    left: 0
+    top: 0
+    z-index: 6
+    transition: all 0.3s ease-out
+    img
+      height: 100%
+  .pc-text
+    padding: 0 .8rem
+    float: left
+    box-shadow: none
+    transition: all 0.3s ease-out
+    position: absolute
+    z-index: 5
+    right: 0
+    top: 0
+    text-align: center
+    background-color: #fff
+    white-space: nowrap
+    span
+      display: inline-block
+      vertical-align: middle
+      max-width: 11.6rem
+      min-width: 7rem
+      color: #4e4e50
+      box-sizing: border-box
+      white-space: normal
+    i
+      vertical-align: middle
+      transition: all 0.3s ease-out
+      color: #4e4e50
+    &:before
+      content: ''
+      display: inline-block
+      vertical-align: middle
+      height: 3.6rem
+      width: .1px
+  .pc-text-spacer
+    padding: 0 .8rem
+    float: left
+    white-space: nowrap
+    margin-left: .1px
+    span
+      display: inline-block
+      vertical-align: middle
+      max-width: 11.6rem
+      white-space: normal
+      min-width: 7rem
+  .pc-link-list
+    background-color: #fff
+    text-align: center
+    margin: 0
+    height: 0rem
+    overflow: hidden
+    transition: all 0.3s ease-out
+    a
+      padding: 1rem 0
+      line-height: 100%
+      border-bottom: 1px solid #d0d0d0
+      display: block
+      &:first-of-type
+        border-top: 1px solid #d0d0d0
+      &:last-of-type
+        border-bottom: none
+  @media #{$large-and-up}
+    &:hover
+      .pc-avatar-spacer
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+      .pc-text
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+        i
+          transform: rotate(180deg)
+      .pc-link-list
+        height: 15.5rem
+  &.pc-devices
+    height: 48px
+    margin-right: .5rem
+    a
+      color: #147585
+    .pc-body
+      height: 48px
+      width: auto
+    .pc-text
+      box-sizing: border-box
+      white-space: nowrap
+      span
+        text-align: right
+        max-width: 7rem
+        font-size: 0.85rem
+        white-space: normal
+      &:before
+        height: 48px
+    &:hover
+      .pc-text
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+      .pc-link-list
+        height: 15.5rem     
 .clearfix
   &:after
     content: ""

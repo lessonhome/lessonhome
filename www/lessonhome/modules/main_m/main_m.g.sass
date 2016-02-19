@@ -5,28 +5,21 @@
   margin-right: 0.4rem
 
 .luck-history
-  background: url(F('/lp/first_screen_bg.jpg')) no-repeat center
-  background-size: cover
-  min-height: 498px
   color: #ffffff
   text-align: center
-  &:before
-    content: ''
-    display: inline-block
-    vertical-align: bottom
-    height: 454px
-    width: .1px
+  position: relative
+  background-color: #574f43
   @media #{$medium-and-down}
-    min-height: 290px
-    &:before
-      height: 275px
-  @media #{$small-and-down}
-    min-height: 370px
-    &:before
-      height: 350px
+    background: url(F('/lp/first_screen_bg.jpg')) no-repeat center center
+    min-height: 35rem
+  &>img
+    max-width: 100%
+    height: auto
   .container
-    display: inline-block
-    vertical-align: bottom
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 2.333rem
   .history-title
     font-size: 2rem 
     line-height: 100%
@@ -90,12 +83,12 @@
     padding: 2rem 0
   .title
     h1
-      font-size: 2rem
+      font-size: 1.8rem
       line-height: 100%
       margin: 0 0 1.667rem 0
       color: #093c44
       @media #{$medium-and-down}
-        font-size: 1.8rem
+        font-size: 1.7rem
         line-height: 130%
   .subjets-list
     .col
@@ -207,7 +200,7 @@
     padding: 2rem 0
   .title
     h2
-      font-size: 2rem
+      font-size: 1.8rem
       line-height: 100%
       margin: 0 0 1.667rem 0
       color: #093c44
@@ -242,7 +235,7 @@
           margin-bottom: 0 !important
   .title
     h2
-      font-size: 2rem
+      font-size: 1.8rem
       line-height: 100%
       margin: 0 0 3.333rem 0
       color: #fff
@@ -288,7 +281,7 @@
       vertical-align: middle
 .title-block
   h3
-    font-size: 2rem
+    font-size: 1.8rem
     margin: 0 0 2rem 0
     font-weight: 700
 .row
@@ -311,7 +304,7 @@
     padding: 2rem 0
   .title
     h2
-      font-size: 2rem
+      font-size: 1.8rem
       line-height: 100%
       margin: 0 0 1.667rem 0
       color: #093c44
@@ -369,7 +362,7 @@
       display: none
   .title
     h2
-      font-size: 2rem
+      font-size: 1.8rem
       line-height: 100%
       margin: 0 0 3rem 0
       color: #093c44
@@ -391,6 +384,7 @@
     height: 200px
     @media #{$medium-and-down}
       height: auto
+      overflow: hidden
     background: #ffffff
     img
       max-width: 100%
@@ -406,6 +400,17 @@
       @media #{$medium-and-down}
         background-color: #147585
         text-align: left
+        &:after
+          content: ''
+          display: block 
+          width: 0
+          height: 0
+          position: absolute
+          bottom: 0
+          left: 0
+          border: 10px solid transparent
+          border-left: 10px solid #fff
+          border-bottom: 10px solid #fff
       .comment-tutor-name
         position: absolute
         top: 0
