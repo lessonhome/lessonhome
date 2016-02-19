@@ -1,4 +1,6 @@
 -id_page = id_page || ''
+-first_name = first_name || 'Мой профиль'
+-middle_name = middle_name || ''
 .logo-phone-block.js-offset_block.hide-on-med-and-down
   .container.clearfix
     a.logo(href='/')
@@ -6,16 +8,38 @@
     .header-info
       a.phone-link(href='tel:+7-495-181-0373') +7 (495) 181-03-73
       .hi-sity г. Москва
-    .contacts-line.right
-      ul
-        li
-          a(href='/contacts')
-            span Контакты
-            i.icon-location
-        li
-          a(href='/help')
-            span Помощь
-            i.icon-question2
+    if $req.user.registered
+      .profile-chips.right
+        .pc-body.clearfix
+          .pc-avatar
+            if photo
+              img(src=photo.url).responsive-img
+            else
+              img(src=src).responsive-img
+          .pc-text-spacer
+            span=first_name + ' ' + middle_name
+            i.material-icons keyboard_arrow_down
+          .pc-text
+            span=first_name + ' ' + middle_name
+            i.material-icons keyboard_arrow_down
+            .clearfix
+            .pc-link-list
+              a(href='/tutor/profile') Профиль
+              a(href='/tutor/search_bids') Заявки
+              a(href='/tutor/pay') Оплата
+              a(href='/help') Помощь
+              a(href='/form/tutor/logout') Выход
+    else
+      .contacts-line.right
+        ul
+          li
+            a(href='/contacts')
+              span Контакты
+              i.icon-location
+          li
+            a(href='/help')
+              span Помощь
+              i.icon-question2
 .header-spacer
   nav.js-fixed_nav 
     .nav-wrapper
@@ -41,22 +65,35 @@
                 a.active(href='/tutors_lp') Репетиторам
               else
                 a(href='/tutors_lp') Репетиторам
-        .right.hide-on-med-and-down   
-          if hide_head_button != true
-            if enter_button_show != true
-              if $req.user.tutor
-                a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
-              else if $req.cookie.get('tutor')
-                a(href='/enter').btn-large.waves-effect.waves-light Войти
+        .right.hide-on-med-and-down
+          if !$req.user.registered
+            if hide_head_button != true
+              if enter_button_show != true
+                if $req.user.tutor
+                  a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
+                else if $req.cookie.get('tutor')
+                  a(href='/enter').btn-large.waves-effect.waves-light Войти
+                else
+                  a(data-target="req_more_send").btn-large.waves-effect.waves-light.js-demo_modal Оформить заявку
               else
-                a(data-target="req_more_send").btn-large.waves-effect.waves-light.js-demo_modal Оформить заявку
-            else
-              if $req.user.tutor
-                a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
-              else if $req.cookie.get('tutor')
-                a(href='/enter').btn-large.waves-effect.waves-light Войти
-              else
-                a(href='/enter').btn-large.waves-effect.waves-light Войти
+                if $req.user.tutor
+                  a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
+                else if $req.cookie.get('tutor')
+                  a(href='/enter').btn-large.waves-effect.waves-light Войти
+                else
+                  a(href='/enter').btn-large.waves-effect.waves-light Войти
+        if $req.user.registered
+          .profile-chips.right.pc-devices.hide-on-large-only
+            .pc-body.clearfix
+              .pc-text
+                span=first_name + ' ' + middle_name
+                .clearfix
+                .pc-link-list
+                  a(href='/tutor/profile') Профиль
+                  a(href='/tutor/search_bids') Заявки
+                  a(href='/tutor/pay') Оплата
+                  a(href='/help') Помощь
+                  a(href='/form/tutor/logout') Выход
         ul.side-nav#mobile-demo
           li
             if id_page == 'main_p'

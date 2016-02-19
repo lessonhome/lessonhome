@@ -170,6 +170,102 @@ nav
       span
         display: inline-block
         vertical-align: middlie
+.profile-chips
+  font-size: 1rem
+  line-height: 120%
+  position: relative
+  .pc-body
+    cursor: pointer
+  .pc-avatar
+    overflow: hidden
+    max-width: 3.6rem
+    max-height: 3.6rem
+    float: left
+  .pc-text
+    padding: 0 .8rem
+    float: left
+    box-shadow: none
+    transition: all 0.3s ease-out
+    position: absolute
+    z-index: 5
+    right: 0
+    top: 0
+    text-align: center
+    background-color: #fff
+    white-space: nowrap
+    span
+      display: inline-block
+      vertical-align: middle
+      max-width: 11.6rem
+      color: #4e4e50
+      box-sizing: border-box
+      white-space: normal
+    i
+      vertical-align: middle
+      transition: all 0.3s ease-out
+      color: #4e4e50
+    &:before
+      content: ''
+      display: inline-block
+      vertical-align: middle
+      height: 3.6rem
+      width: .1px
+  .pc-text-spacer
+    padding: 0 .8rem
+    float: left
+    white-space: nowrap
+    span
+      display: inline-block
+      vertical-align: middle
+      max-width: 11.6rem
+      white-space: normal
+  .pc-link-list
+    background-color: #fff
+    text-align: center
+    margin: 0
+    height: 0rem
+    overflow: hidden
+    transition: all 0.3s ease-out
+    a
+      padding: 1rem 0
+      line-height: 100%
+      border-bottom: 1px solid #d0d0d0
+      display: block
+      &:first-of-type
+        border-top: 1px solid #d0d0d0
+      &:last-of-type
+        border-bottom: none
+  @media #{$large-and-up}
+    &:hover
+      .pc-text
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+        i
+          transform: rotate(180deg)
+      .pc-link-list
+        height: 15.5rem
+  &.pc-devices
+    height: 48px
+    margin-right: .5rem
+    a
+      color: #147585
+    .pc-body
+      height: 48px
+      width: auto
+    .pc-text
+      box-sizing: border-box
+      white-space: nowrap
+      span
+        text-align: right
+        max-width: 7rem
+        font-size: 0.85rem
+        white-space: normal
+      &:before
+        height: 48px
+    &:hover
+      .pc-text
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+      .pc-link-list
+        height: 15.5rem     
 .clearfix
   &:after
     content: ""

@@ -5,6 +5,7 @@ class @main
   access : ['other']
   redirect : {
   }
+  forms : ['person']
   tree : =>
     metro = @const('metro')
     filter = @const('filter')
@@ -15,6 +16,10 @@ class @main
         hide_menu_punkt: @exports('content.hide_menu_punkt')
         enter_button_show: @exports('content.enter_button_show')
         id_page: @exports('content.id_page')
+        photo   : $form : person : 'avatar'
+        src     : @F 'vk.unknown.man.jpg'
+        first_name: $form : person : 'first_name'
+        middle_name: $form : person : 'middle_name'
       content : @exports()
       footer  : @module "$/footer":
         id_page: @exports('content.id_page')
