@@ -1,5 +1,7 @@
+User-agent: Yandex
+Host: https://lessonhome.ru
+
 User-agent: *
-Allow: /
 Disallow:
 Host: https://lessonhome.ru
 Sitemap : https://lessonhome.ru/sitemap.xml
