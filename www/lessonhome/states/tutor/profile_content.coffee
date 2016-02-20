@@ -102,7 +102,7 @@ class @main
       add     : @exports()
       selector : 'horizon'
     line_doc            : @module 'tutor/separate_line':
-      title    : 'Докуметны'
+      title    : 'Документы'
       link      : '#'
       upload_input : @module 'media_upload' :
         type: 'documents'

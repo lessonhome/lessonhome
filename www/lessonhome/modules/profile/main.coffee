@@ -58,13 +58,13 @@ class @main
     @triggerCount = 0
     @resolution = true
 
-
     #scroll spy
     @reviewMark   = @found.review_mark
     @profileTab   = @found.profile_tab
 
     @message_text = @found.message_text
     @message_phone = @found.message_phone
+    @message_phone.mask '9 (999) 999-99-99'
     @message_name = @found.message_name
     @message_send = @found.message_send
     @message_sub = @found.message_subject
