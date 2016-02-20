@@ -52,9 +52,11 @@ class @main
         elems.filter(':not(:focus)').val(val).focusin().focusout()
         @emit 'change'
 
-    @found.input_phone.on 'input', getListener('phone', @found.input_phone)
-    @found.input_name.on 'input', getListener('name', @found.input_name)
-    @found.input_phone.on 'change', => Q.spawn => yield @sendForm(false, true)
+    phone_listener = getListener('phone', @found.input_phone)
+    @found.input_phone.on 'change', (e) =>
+      phone_listener(e)
+      Q.spawn => yield @sendForm(false, true)
+    @found.input_name.on 'change', getListener('name', @found.input_name)
 
 #    @found.input_phone.on 'input',(e)=>
 #      val = $(e.target).val()
