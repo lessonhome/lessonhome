@@ -76,10 +76,11 @@ class PrepareTutor
 
         if hash != old_hash
           data = @prepare data
-          acc['prepare'] = {
-            hash
-            date : new Date()
-          }
+
+        acc['prepare'] = {
+          hash
+          date : new Date()
+        }
 
         yield @_saveData(data)
         yield Q.delay(100)
