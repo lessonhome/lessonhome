@@ -1,0 +1,42 @@
+@import base
+$width : 50px
+$height : 50px
+$color_btn : #179cab
+//$btn: 'go_up.png'
+//$icon_height: image-height($btn)
+//$icon_width: image-width($btn)
+main
+  width: $width
+  height: $height
+
+a.btn_up
+  transition: none
+  &:hover
+    background: $color_btn
+    &:before
+      border-color: #FFF
+
+  width: $width
+  height: $height
+  border-radius: 50%
+  border: 2px solid $color_btn
+  bottom: 70px
+  &:before
+    content: ''
+    border-top: 2px solid
+    border-left: 2px solid
+    border-color: $color_btn
+    width: 15px
+    height: 15px
+    position: absolute
+    top: 7px
+    bottom: 0
+    left: 0
+    right: 0
+    margin: auto
+    transform: rotate(45deg)
+
+a.btn_up
+  position: relative
+  &.fixed
+    position: fixed

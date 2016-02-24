@@ -9,6 +9,7 @@ class @main extends @template 'lp'
   }
   tree : =>
     content : @module '$':
+      btn_up : @module 'btn_up'
       id_page: 'search_p'
       short_form : @state 'short_form' :
         param_popup : 'empty'
