@@ -60,14 +60,17 @@ checkHistAdd = (m)=> do Q.async =>
   text += "#{accounts[0].login}\n"
   text += "#{persons[0].phone.join?('; ') ? ''}\n" if persons[0]?.phone?[0]
   text += "#{persons[0].email.join?('; ') ? ''}\n" if persons[0]?.email?[0]
-  return unless yield checkHistAdd text
-  @jobs = yield Main.service 'jobs'
+  #return unless yield checkHistAdd text
+  @jobs ?= yield Main.service 'jobs'
   messages = []
   for phone in _phones
     messages.push
       phone:phone
       text :text
-  Q.spawn => yield @jobs.solve 'sendSms',messages
+
+  Q.spawn =>
+    yield @jobs.solve 'telegramSendAll',text
+    #yield @jobs.solve 'sendSms',messages
 
   return unless accounts[0].login.match '@'
   yield mail.send(
