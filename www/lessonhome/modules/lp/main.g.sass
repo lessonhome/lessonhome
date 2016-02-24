@@ -203,6 +203,7 @@ textarea.materialize-textarea
     border-radius: 0
     box-shadow: none
     top: 0 !important
+    bottom: 0
     .emulate-shadow
       position: absolute
       top: 0
@@ -224,6 +225,10 @@ textarea.materialize-textarea
       @media #{$small-and-down}
         width: 100%
         margin: 0
+        height: 100%
+        background-color: #fff
+        .modal-content
+          background-color: #fff
       .close-modal-wrapper
         position: relative
         .modal-close-button
