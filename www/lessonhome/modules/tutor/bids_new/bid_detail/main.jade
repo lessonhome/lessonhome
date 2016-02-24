@@ -36,6 +36,12 @@ br
       !='Не важно'
    br
 br
+select(name="process").js-process
+   option(value='wait') Новая
+   option(value='perform') Назначена на исполнение
+   option(value='to_pay') К оплате
+   option(value='payed') Завершено
+br
 label
    input(type='checkbox', value='moderate', checked=value.moderate ? true : undefined).js-moderate
    !='Закончить модерацию'

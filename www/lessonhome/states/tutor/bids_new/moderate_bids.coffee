@@ -31,8 +31,9 @@ class @main extends @template '../../tutor'
       }
     ]
     content : @module '$' :
-      value : $form : bids_moderate : 'bids'
-
-
+      value : $defer : =>
+        jobs = yield Main.service 'jobs'
+        bids = yield jobs.solve 'GetModerBids',@req.user,  0
+        return bids
   init : ->
     @parent.tree.left_menu.setActive 'Модерация заявок'

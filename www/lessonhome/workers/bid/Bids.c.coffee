@@ -16,7 +16,7 @@ class Bids
       prep: 'arr:string'
     }
     {
-      name : ['name', 'gender', 'email', 'phone', 'index', 'id']
+      name : ['name', 'gender', 'email', 'phone', 'index', 'id', 'process']
       prep: 'string'
     }
     {
@@ -46,6 +46,9 @@ class Bids
     yield @jobs.client 'changeBid', @jobChangeBid
     yield @jobs.client 'addLog', @jobAddLog
 
+    @page_size = 15
+    yield @jobs.listen 'GetModerBids', @jobGetModerBids
+
   _getID : (_id) => new (require('mongodb').ObjectID)(_id)
 
   jobGetBids : (user) =>
@@ -63,9 +66,10 @@ class Bids
     bids = yield _invoke @bids.find({moderate: true, id: user.index}, need_first), 'toArray'
     return yield @_sortBids bids
 
-  jobGetModerBids : (user) =>
+  jobGetModerBids : (user, num_page = 0) =>
     yield @_validUser user, true
-    bids = yield _invoke @bids.find({}, need_first), 'toArray'
+    bids = yield _invoke @bids.find({}, need_first).skip(num_page * @page_size).limit(@page_size), 'toArray'
+    return bids
     return yield @_sortBids bids
 
   jobSetExecutor : (user, _id, index) =>
@@ -136,6 +140,7 @@ class Bids
       params = check.prepare(params, fields)
       throw new Error('bad params') unless params
       throw new Error('index not exist') unless params?.index?
+      params.id?= ''
       $get = _id : yield @_getID(params.index)
       delete params.index
       {result} = yield _invoke @bids, 'update', $get, {$set: params}, {upsert: false}
