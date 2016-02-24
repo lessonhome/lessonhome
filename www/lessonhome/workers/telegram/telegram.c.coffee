@@ -43,7 +43,6 @@ class Telegram
     return yield @status msg unless (_logins[login]?) && (_logins[login]==password)
     @auth[msg.from.id] ?= {}
     @auth[msg.from.id].login = login
-    console.log msg
     yield _invoke @redis, 'hset','telegramAuth',msg.from.id, JSON.stringify @auth[msg.from.id]
     return yield @status msg,'thanks'
     
@@ -51,7 +50,6 @@ class Telegram
     return yield @bot.sendMessage msg.from.id,text
    
   jobTelegramSendAll : (text)=>
-    console.log 'telegramSendAll',text
     qs = for id of @auth then @bot.sendMessage id,text
     yield Q.all qs
 
