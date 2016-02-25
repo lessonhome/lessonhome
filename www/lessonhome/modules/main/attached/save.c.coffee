@@ -20,6 +20,7 @@ checkHistAdd = (m)=> do Q.async =>
 
 other = ($,data,second)-> do Q.async =>
   sms = yield Main.service 'sms'
+  @jobs ?= yield _Helper 'jobs/main'
   text = ''
   if data.id > 0
     text += 'заявка(сообщение преподу)\n'
@@ -43,14 +44,15 @@ other = ($,data,second)-> do Q.async =>
   text += '\n' unless !text || (text.substr(-1)=='\n')
   text += data.comment || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
-  return console.log text if $.user.admin || !_production
-  return unless yield checkHistAdd text
+  #return console.log text if $.user.admin || !_production
+  #return unless yield checkHistAdd text
   messages = []
   for p in phones
     messages.push
       phone :p
       text : text
-  console.log yield sms.send messages
+  yield @jobs.solve 'telegramSendAll',text
+  #console.log yield sms.send messages
  
 
 @handler = ($,data)=>

@@ -40,14 +40,14 @@ checkHistAdd = (m)=> do Q.async =>
 
 
 @sendSms = (o,isadmin)->
-  return if isadmin || !_production
+  #return if isadmin || !_production
 
   text = "Обратный звонок\n"
   text += "#{o.name}\n" if o.name
   text += "#{o.phone}\n" if o.phone
   text += "#{o.comment}\n" if o.comment
   text += "#{o.type}\n" if o.type
-  return unless yield checkHistAdd text
+  #return unless yield checkHistAdd text
 
   @jobs = yield Main.service 'jobs'
   messages = []
@@ -55,6 +55,7 @@ checkHistAdd = (m)=> do Q.async =>
     messages.push
       phone:phone
       text :text
-  yield @jobs.solve 'sendSms',messages
+  yield @jobs.solve 'telegramSendAll',text
+  #yield @jobs.solve 'sendSms',messages
 
 
