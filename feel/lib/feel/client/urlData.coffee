@@ -165,7 +165,7 @@ class @urlData
       str += r[0]
       str += "="+r[1] if r[1]?
     return str
-  udataToUrl : (url,...,usecookie='true',skip='not')=>
+  udataToUrl : (url,...,usecookie='true',skip='not',remove=false)=>
     params = {}
     firstu  = (window.location.href || "").match?(/^[^\?]*\??(.*)$/)?[1] ? ""
     secondu = yield @getU()
@@ -219,8 +219,11 @@ class @urlData
           $.localStorage.set 'UrlCookieTime',@lastUpdate
           $.localStorage.set 'UrlCookieId',  @id
     for key,val of params
+      if remove && @udata.json.shorts?[key]?.cookie
+        console.log key,val
+        continue
       purl.push [key,val]
-    purl.sort (a,b)-> a[0]<b[0]
+    purl.sort (a,b)-> a[0] < b[0]
     for p in purl
       urldata += '&' if urldata && p[0]
       urldata += p[0] if p[0]

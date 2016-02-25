@@ -1,6 +1,6 @@
 
 class @main extends @template '../../main'
-  access : ['other','pupil', 'tutor']
+  access : ['all']
   redirect : {
   }
   tree : =>
