@@ -32,7 +32,7 @@ class MasterServiceManager
     yield @jobs.listen 'masterServiceManager-runServices',(args...)=> @runServices args...
     
     
-    #run  : =>
+  run  : =>
     for name,conf of Main.processManager.config
       if conf.autostart && conf.services?
         for serv in conf.services

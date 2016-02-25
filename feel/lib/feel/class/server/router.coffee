@@ -40,6 +40,12 @@ class Router
     res.statusCode = status
     res.end body
   handler : (req,res)=> do Q.async =>
+    if req.url.match /^\/tutors_search/
+      res.writeHead 301, 'Location': req.url.replace '/tutors_search','/search'
+      return res.end()
+    if req.url.match /^\/tutor_profile/
+      res.writeHead 301, 'Location': req.url.replace '/tutor_profile','/tutor'
+      return res.end()
     req.site = @site
     req.status = (args...)=> @site.status req,res,args...
     if (redirect = @_redirects?.redirect?[req?.url])?

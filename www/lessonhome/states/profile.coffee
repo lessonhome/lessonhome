@@ -1,5 +1,5 @@
 class @main extends @template 'lp'
-  route : '/tutor_profile'
+  route : '/tutor'
   model : 'tutor/profile_registration/fourth_step'
   title : "LessonHome - Профиль репетитора"
   tags   : [ 'tutor:reports']

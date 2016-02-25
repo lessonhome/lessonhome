@@ -1,5 +1,5 @@
 class @main extends @template 'lp'
-  route : '/tutors_search'
+  route : '/search'
   model : 'tutor/profile_registration/fourth_step'
   title : "Наши репетиторы"
   tags   : [ 'tutor:reports']
@@ -133,10 +133,10 @@ class @main extends @template 'lp'
         if iss.length > 10
           if prev || next>10
             nf.offset = prev
-            prev = '/tutors_search?'+yield Feel.udata.d2u 'tutorsFilter',nf
+            prev = '/search?'+yield Feel.udata.d2u 'tutorsFilter',nf
           if next
             nf.offset = next
-            next = '/tutors_search?'+yield Feel.udata.d2u 'tutorsFilter',nf
+            next = '/search?'+yield Feel.udata.d2u 'tutorsFilter',nf
           @tree.content.forward = {next,prev}
 
         for i in [from...from+10]

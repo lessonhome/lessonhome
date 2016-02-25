@@ -37,9 +37,9 @@ other = (uid,is_admin,data,second)-> do Q.async =>
   text += '\n' unless !text || (text.substr(-1)=='\n')
   if data.linked?
     for key,val of data.linked
-      text += 'https://lessonhome.ru/tutor_profile?x='+key+"\n"
+      text += 'https://lessonhome.ru/tutor?x='+key+"\n"
   if data.id
-    text += 'to: https://lessonhome.ru/tutor_profile?x='+data.id+"\n"
+    text += 'to: https://lessonhome.ru/tutor?x='+data.id+"\n"
   text += data.comments || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
   text += data.comment || ''

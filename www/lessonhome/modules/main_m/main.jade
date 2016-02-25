@@ -4,7 +4,7 @@
       .col.l10.m10.s12.offset-l1.offset-m1.center-align
         .history-title Индивидуальный подбор репетиторов
     .row.opacity-row
-      form(method="post", action='/tutors_search', accept-charset="utf-8").js-fast_filter
+      form(method="post", action='/search', accept-charset="utf-8").js-fast_filter
         .col.s1.l1.m1.hide-on-small-only &nbsp;
         .col.s12.l10.m10.opacity-col
           .col.s12.l4.m4.input-field.slide_collapse &nbsp;
@@ -34,7 +34,7 @@
       .col.s12.subjets-list
         mixin rect(key, cl, name,l)
           .col.s6.l3.m3.center-align
-            a.sl-body(href=l.link ? l.link : "/tutors_search" )
+            a.sl-body(href=l.link ? l.link : "/search" )
               .sl-content
                 .sl-icons
                   i(class=cl)
@@ -76,7 +76,7 @@
       .col.s12.m9.l10
         p Каждого репетитора знаем лично, развиваем долгосрочные отношения как со своими сотрудниками: проверяем компетенцию преподавателей, ведем отчеты по работе.
         p.no-margin-p.hide-on-small-only С нами уже больше 700 преподавателей и экспертов по ЕГЭ и ГИА. Треть репетиров — молодые специалисты. Знают что такое ЕГЭ на собственном опыте, но уже имеют опыт репетиторства и подготовки к сдаче Единых экзаменов и Аттестации. Средний балл наших учеников — 80, а лучшие сдают экзамены на 90 и выше.
-        .link <a href="/tutors_search">Посмотреть отзывы, достижения и фотографии репетиторов ></a>
+        .link <a href="/search">Посмотреть отзывы, достижения и фотографии репетиторов ></a>
 .what-work
   .container
     .row

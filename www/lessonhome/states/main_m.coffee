@@ -28,7 +28,7 @@ class @main extends @template 'lp'
         regexp_dot = /\s*\.{1,3}$/
         qs = for p in prep then do (p)=> do Q.async =>
           p.avatar = p.photos[p.photos.length - 1].lurl
-          p.link = '/tutor_profile?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
+          p.link = '/tutor?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
           return unless p?.reviews?.length
           onmain = []
           i = 0

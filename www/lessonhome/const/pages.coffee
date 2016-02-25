@@ -2,7 +2,7 @@
 
 @main = [
   '/'
-  '/tutors_search'
+  '/search'
   '/tutors_lp'
   '/enter'
   '/tutor_registration'

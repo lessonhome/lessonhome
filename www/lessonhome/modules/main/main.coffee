@@ -18,8 +18,8 @@ class @main extends EE
     @oldurl = @nowurl
     @olddata = @nowdata
     url = History.getState().url
-    if url.match /\/tutor_profile/
-      @nowurl = 'tutor_profile'
+    if url.match /\/tutor(\/\d+|\?|[^\/]|$)/
+      @nowurl = 'tutor'
       unless first
         yield Feel.urlData.initFromUrl()
       @nowdata = yield Feel.urlData.get 'tutorProfile','index'
@@ -40,7 +40,7 @@ class @main extends EE
     switch @nowurl
       when 'second_step','main'
         return false
-      when 'tutor_profile'
+      when 'tutor'
         return true if @nowdata != @olddata
     return false
   show: =>
@@ -74,7 +74,7 @@ class @main extends EE
     document.location.href = window.history.back()
   onstatechange : => Q.spawn =>
     return unless yield @checkStateChange()
-    if @tree.clear_profile && (@nowurl != 'tutor_profile')
+    if @tree.clear_profile && (@nowurl != 'tutor')
       setInterval @goHitoryUrl,100
       @goHistoryUrl()
       return
@@ -83,7 +83,7 @@ class @main extends EE
     yield @showPage()
   preShow : => do Q.async =>
     switch @nowurl
-      when 'tutor_profile'
+      when 'tutor'
         @saveTutor = @tree.tutor_profile.class.$clone()
         @found.tutor_profile.find('>').off true,true
         @found.tutor_profile.empty()
@@ -92,7 +92,7 @@ class @main extends EE
   hidePage : => do Q.async =>
     switch @oldurl
       when 'tutor_profile'
-        break if @nowurl == 'tutor_profile'
+        break if @nowurl == 'tutor'
         @found?.tutor_profile?.hide?()
         yield Feel.urlData.set 'tutorProfile',{index:0}
       when 'main','second_step','other'
@@ -103,7 +103,7 @@ class @main extends EE
         @found.content?.hide?()
   showPage : => do Q.async =>
     switch @nowurl
-      when 'tutor_profile'
+      when 'tutor'
         $(window).scrollTop 0
         @found.tutor_profile.show()
       when 'main','second_step','other'
