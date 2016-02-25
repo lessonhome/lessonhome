@@ -3,7 +3,7 @@ class @main extends @template 'lp'
   model : 'main_m'
   title : "Помощь"
   tags   : [ 'tutor:reports']
-  access : ['other','pupil']
+  access : ['all']
   redirect : {
     tutor : 'tutor/profile'
   }

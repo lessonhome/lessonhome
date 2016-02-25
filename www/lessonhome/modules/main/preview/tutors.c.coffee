@@ -82,7 +82,7 @@ class Tutors
       nt_ = new Date().getTime()
       console.log "refilter #{i}/#{filters.length} #{nt_-t_} #{o.num}".grey
       return @refiltering = false if time < @refilterTime
-      yield Q.delay (nt_-t_)
+      yield Q.delay (nt_-t_)*3
     filters = filters.slice i
     for f,i in filters
       f = f[0]

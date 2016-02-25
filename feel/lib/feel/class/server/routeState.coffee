@@ -119,6 +119,8 @@ class RouteState
       if sclass::access[key]
         access = true
         break
+    if sclass::access['all']
+      access = true
 
     unless access || @req.user.admin
       _setKey @req.udata,'accessRedirect.redirect',@req.url
@@ -571,14 +573,14 @@ class RouteState
         try
           eval "(function(){#{filetag}}).apply(tempGThis);"
         catch e
-          console.error "failed eval parse.coffee in #{now._name}"
-          console.error e
+          console.error "failed eval parse.coffee in #{now._name}".red
+          console.error Exception e
         try
           tempGThis.parse = $W tempGThis.parse
           o.value = yield tempGThis.parse o.value
         catch e
-          console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}"
-          console.error e
+          console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}".red
+          console.error Exception e
       now._html = @site.modules[now._name].doJade o,@,state.__state
       ms = now._html.match /js-\w+--{{UNIQ}}/mg
       now._domregx = {}

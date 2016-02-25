@@ -2,7 +2,7 @@ class @main
   route : '/lp'
   model : 'tutor/profile_registration/fourth_step'
   title : "LessonHome - Администрирование"
-  access : ['other']
+  access : ['all']
   redirect : {
   }
   forms : ['person']
@@ -35,7 +35,7 @@ class @main
           #prep = yield jobs.solve 'getTutor',{index}
           #t -= (new Date()).getTime()
           #t2 = (new Date()).getTime()
-          prep = yield jobs.solve 'getTutor2',{index}
+          prep = yield jobs.solve 'getTutor',{index}
           #t2 -= (new Date()).getTime()
           #console.log {t,t2}
           pupil = _setKey @req.udata, 'pupil'

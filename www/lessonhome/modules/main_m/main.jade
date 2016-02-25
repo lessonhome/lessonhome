@@ -32,23 +32,15 @@
       .col.s12.title
         h1 Помогаем подготовиться к школе, сдать ГИА и ЕГЭ, поступить в ВУЗ
       .col.s12.subjets-list
-        mixin rect(key, cl, name)
+        mixin rect(key, cl, name,l)
           .col.s6.l3.m3.center-align
-            -v = key && value && value.sub_link && value.sub_link[key] ? value.sub_link[key] : {};
-            a.sl-body(href=v.link ? v.link : "/tutors_search" )
+            a.sl-body(href=l.link ? l.link : "/tutors_search" )
               .sl-content
                 .sl-icons
                   i(class=cl)
-                .sl-text!=name ? name : v.text ? v.text : 'Другие предметы'
-
-        +rect('математика', 'icon-subjec1')
-        +rect('физика', 'icon-subjec2')
-        +rect('русский язык', 'icon-subjec3')
-        +rect('английский язык', 'icon-subjec4')
-        +rect('биология', 'icon-subjec5')
-        +rect('химия', 'icon-subjec6')
-        +rect('младшая школа', 'icon-subjec7', 'Начальные классы')
-        +rect(null, 'icon-subjec8')
+                .sl-text!=name ? name : l.text ? l.text : 'Другие предметы'
+        each r,key in value.rects
+          +rect(r.s, r.i,r.n,r.l)
 
     .row.text-one
       .col.l7.m7.s12

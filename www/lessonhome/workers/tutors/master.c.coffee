@@ -21,12 +21,14 @@ class TutorsMaster
   load : => Q.spawn =>
     yield @jobReloadIndexes()
     yield @jobs.signal 'loadTutorsFromRedis'
+    ###
     @const = yield @jobs.solve 'getConsts','filter'
     q = []
     for key,arr of @const.filter.subjects
       for subject in arr
         q.push @jobs.solve 'prefilterTutors','subject',subject
     yield Q.all q
+    ###
     Q.spawn => while true
       yield Q.delay 5*60*1000
       yield @jobReloadIndexes()
