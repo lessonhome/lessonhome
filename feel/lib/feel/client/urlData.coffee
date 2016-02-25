@@ -46,7 +46,6 @@ class @urlData
           @readingCookie = 2
         else
           @readingCookie = 1
-        console.log 'ok'
         #yield @loadCookie()
         while @readingCookie == 1
           @lastUpdate = new Date().getTime()
@@ -220,7 +219,6 @@ class @urlData
           $.localStorage.set 'UrlCookieId',  @id
     for key,val of params
       if remove && @udata.json.shorts?[key]?.cookie
-        console.log key,val
         continue
       purl.push [key,val]
     purl.sort (a,b)-> a[0] < b[0]
