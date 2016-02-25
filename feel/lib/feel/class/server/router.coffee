@@ -87,7 +87,7 @@ class Router
         res.setHeader 'content-encoding', cache.encoding
         res.setHeader 'content-type','text/html; charset=UTF-8'
         d = new Date()
-        d.setTime d.getTime()+30000
+        d.setTime d.getTime()+10000
         res.setHeader 'Expires',d.toGMTString()
         if req.headers['if-none-match'] == cache.etag
           res.statusCode = 304
