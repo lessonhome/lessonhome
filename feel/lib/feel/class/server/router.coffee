@@ -52,7 +52,7 @@ class Router
       return Q().then => @site.handler req,res,@site.name
     if req.url.match /^\/file\/.*/
       return Q().then => Feel.static.handler req,res,@site.name
-    console.log req.originalUrl.yellow
+    #console.log req.originalUrl.yellow
     cookie = new _cookies req,res
     req.cookie = cookie
     ucook = cookie.get('urldata') ? '%257B%257D'
@@ -73,8 +73,11 @@ class Router
     req.udata = yield @site.urldata.u2d req.udata
     req.udata = yield req.udata
     req.udataString = yield @site.urldata.d2u req.udata
-    req.uniqHash = "#{_session || ""}:#{req.url}?#{req.udataString}"
     req.udatadefault = @site.urldata.u2d ""
+    yield @setSession req,res,cookie,_session
+    userTypes = Object.keys(req.user?.type ? {}).sort().join ':'
+    req.uniqHash = "#{_session || ""}:#{userTypes}:#{req.url}?#{req.udataString}"
+    console.log "...#{req.uniqHash.substr(33)}".yellow
     try
       if _production && (cache = yield @redis_cache.get req.uniqHash)
         console.log "from redis cache".grey,req.uniqHash.grey
@@ -83,11 +86,11 @@ class Router
         res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
         res.setHeader 'Access-Control-Allow-Credentials', true
         res.setHeader 'Vary','Accept-Encoding'
-        res.setHeader 'Cache-Control', 'public, max-age='+cache.d
+        res.setHeader 'Cache-Control', 'public, max-age='+10
         res.setHeader 'content-encoding', cache.encoding
         res.setHeader 'content-type','text/html; charset=UTF-8'
         d = new Date()
-        d.setTime d.getTime()+30000
+        d.setTime d.getTime()+10000
         res.setHeader 'Expires',d.toGMTString()
         if req.headers['if-none-match'] == cache.etag
           res.statusCode = 304
@@ -102,7 +105,6 @@ class Router
     catch e
       console.error Exception e
     
-    yield @setSession req,res,cookie,_session
     req.udatadefault = yield req.udatadefault
     req.udata ?= {}
     req.udatadefault ?= {}

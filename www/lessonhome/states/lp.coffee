@@ -2,7 +2,7 @@ class @main
   route : '/lp'
   model : 'tutor/profile_registration/fourth_step'
   title : "LessonHome - Администрирование"
-  access : ['other']
+  access : ['all']
   redirect : {
   }
   forms : ['person']
@@ -30,8 +30,14 @@ class @main
         single_profile : @exports()
         value : $defer : =>
           index = _setKey @req.udata,'tutorProfile.index'
-          jobs = yield Main.service 'jobs'
+          jobs = _HelperJobs
+          #t = (new Date()).getTime()
+          #prep = yield jobs.solve 'getTutor',{index}
+          #t -= (new Date()).getTime()
+          #t2 = (new Date()).getTime()
           prep = yield jobs.solve 'getTutor',{index}
+          #t2 -= (new Date()).getTime()
+          #console.log {t,t2}
           pupil = _setKey @req.udata, 'pupil'
           prep["data_pupil"] = pupil
           return prep

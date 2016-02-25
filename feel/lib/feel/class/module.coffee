@@ -171,7 +171,7 @@ class module.exports
           </div>
         "
       catch e
-        throw new Error "Failed execute jade in module #{@name} with vars #{_inspect(o)}:\n\t"+e
+        throw new Error "Failed execute jade in module #{@name} with vars #{Object.keys(o)}:\n\t"+e
         console.error e
     return ""
   makeSass : =>

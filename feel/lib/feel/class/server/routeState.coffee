@@ -119,6 +119,8 @@ class RouteState
       if sclass::access[key]
         access = true
         break
+    if sclass::access['all']
+      access = true
 
     unless access || @req.user.admin
       _setKey @req.udata,'accessRedirect.redirect',@req.url
@@ -480,12 +482,12 @@ class RouteState
       @res.setHeader 'Access-Control-Allow-Credentials', true
       @res.setHeader 'Vary', 'Accept-Encoding'
       @res.setHeader 'ETag',resHash
-      @res.setHeader 'Cache-Control', 'public, max-age='+_max_age
+      @res.setHeader 'Cache-Control', 'public, max-age='+10
       @res.setHeader 'content-encoding', 'gzip'
       @res.setHeader 'content-type','text/html; charset=UTF-8'
       #@res.statusCode = 200
       d = new Date()
-      d.setTime d.getTime()+_max_age*1000
+      d.setTime d.getTime()+10*1000
       @res.setHeader 'Expires',d.toGMTString()
     #@res.writeHead @res.statusCode||200
     zlib    = require 'zlib'
@@ -571,14 +573,14 @@ class RouteState
         try
           eval "(function(){#{filetag}}).apply(tempGThis);"
         catch e
-          console.error "failed eval parse.coffee in #{now._name}"
-          console.error e
+          console.error "failed eval parse.coffee in #{now._name}".red
+          console.error Exception e
         try
           tempGThis.parse = $W tempGThis.parse
           o.value = yield tempGThis.parse o.value
         catch e
-          console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}"
-          console.error e
+          console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}".red
+          console.error Exception e
       now._html = @site.modules[now._name].doJade o,@,state.__state
       ms = now._html.match /js-\w+--{{UNIQ}}/mg
       now._domregx = {}

@@ -3,7 +3,7 @@ class @main extends @template 'lp'
   model : 'tutor/profile_registration/fourth_step'
   title : "Наши репетиторы"
   tags   : [ 'tutor:reports']
-  access : ['other','pupil']
+  access : ['all']
   redirect : {
     tutor : 'tutor/profile'
   }

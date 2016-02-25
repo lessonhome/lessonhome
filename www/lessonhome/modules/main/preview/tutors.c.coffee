@@ -9,6 +9,7 @@ class Tutors
     @timereload = 0
     @inited = 0
     @_max_age = 5*60
+
   init : =>
     return _waitFor @,'inited' if @inited == 1
     return if @inited > 1
@@ -55,6 +56,7 @@ class Tutors
     setInterval =>
       Q.spawn => yield @writeFilters()
     , 2*60*1000
+
   writeFilters  : =>
     return unless @filterChange
     @filterChange = false
@@ -80,21 +82,22 @@ class Tutors
       nt_ = new Date().getTime()
       console.log "refilter #{i}/#{filters.length} #{nt_-t_} #{o.num}".grey
       return @refiltering = false if time < @refilterTime
-      yield Q.delay (nt_-t_)
+      yield Q.delay (nt_-t_)*3
     filters = filters.slice i
     for f,i in filters
       f = f[0]
       delete @filters[f]
     return @refiltering = false
+
   jobFilterTutors : ({filter,preps,from,count,exists})=>
     return @handler {},{filter,preps,from,count,exists}
+
   jobGetTutor : ({index})=>
     ret = @index?[index] ? (@index?[99637] ? {})
     ret = ret._client if ret?._client?
     return ret
 
   jobGetTutorsOnMain : (num)=>
-
     arr2 = Object.keys (@onmain ? {})
     arr = []
     for i in [1..num]
@@ -104,6 +107,7 @@ class Tutors
       ind = ind._client if ind?._client?
       arr.push ind if @index
     return arr
+
   handler : ($, {filter,preps,from,count,exists})=>
     exists?=[]
     yield @init() unless @inited == 2
@@ -112,7 +116,6 @@ class Tutors
     if preps?
       for p in preps
         ret.preps[p] = if @index[p]?._client? then @index[p]._client else @index[p]
-        
     if filter?
       ex = {}
       ex[k] = true for k in exists
@@ -130,13 +133,13 @@ class Tutors
           unless ex[i]
             ret.preps[i] = if @index[i]?._client? then @index[i]._client else @index[i]
     return ret
+
   filter : (filter,inc = false)=>
     f = @filters[filter.hash] ? {}
     f.data  = filter.data
     f.num   ?= 0
     f.num++ if inc
     delete f.redis
-
     f.indexes = yield _filter.filter @persons,filter.data
     @filters[filter.hash] = f
     @filterChange = true

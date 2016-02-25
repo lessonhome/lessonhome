@@ -31,33 +31,32 @@ class @urlData
     setTimeout =>
       try console.log 'abTest:',@udata.json?.forms?.abTest
     ,1000
-    setInterval =>
-      Q.spawn =>
-        time = $.localStorage.get('UrlCookieTime')
-        unless time?
-          $.localStorage.set('UrlCookieTime',@lastUpdate)
-          $.localStorage.set('UrlCookieId',@id)
-        else if time > @lastUpdate
-          console.log @lastUpdate,$.localStorage.get('UrlCookieTime'),@id,$.localStorage.get('UrlCookieId')
-          return if $.localStorage.get('UrlCookieId') == @id
-          @readCookie = true
-          return if @readingCookie > 1
-          if @readingCookie == 1
-            @readingCookie = 2
-          else
-            @readingCookie = 1
-          console.log 'ok'
-          #yield @loadCookie()
-          while @readingCookie == 1
-            @lastUpdate = new Date().getTime()
-            yield @initFromUrl()
-            yield @setUrl()
-            @readingCookie--
-          yield Q.delay 2000
-          if (@readingCookie == 0) && (((new Date().getTime())-@lastUpdate)>2000)
-            @readCookie = false
-          return
-    ,500
+    Q.spawn =>
+      yield Q.delay 100
+      time = $.localStorage.get('UrlCookieTime')
+      unless time?
+        $.localStorage.set('UrlCookieTime',@lastUpdate)
+        $.localStorage.set('UrlCookieId',@id)
+      else if time > @lastUpdate
+        console.log @lastUpdate,$.localStorage.get('UrlCookieTime'),@id,$.localStorage.get('UrlCookieId')
+        return if $.localStorage.get('UrlCookieId') == @id
+        @readCookie = true
+        return if @readingCookie > 1
+        if @readingCookie == 1
+          @readingCookie = 2
+        else
+          @readingCookie = 1
+        console.log 'ok'
+        #yield @loadCookie()
+        while @readingCookie == 1
+          @lastUpdate = new Date().getTime()
+          yield @initFromUrl()
+          yield @setUrl()
+          @readingCookie--
+        yield Q.delay 2000
+        if (@readingCookie == 0) && (((new Date().getTime())-@lastUpdate)>2000)
+          @readCookie = false
+        return
     @first = false
 
   initFromUrl : (first=false)=>

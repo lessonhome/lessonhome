@@ -17,6 +17,7 @@ class @main extends EE
     window.onstatechange = =>
       @savedScroll = $(window).scrollTop()
       Q.spawn => yield @onstatechange()
+    @inited = true
 
   onBarHide : =>
     @dom.css 'padding-bottom', ''
