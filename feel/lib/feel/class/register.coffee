@@ -93,7 +93,7 @@ class Register
       @sessions[s.hash] = s
     @aindex = 0
     for id,a of @accounts
-      @aindex = a.index if (a?.index?) && (@aindex<a.index)
+      @aindex = a.index if (a?.index?) && (@aindex < a.index)
     d.setDate d.getDate()-100000
     time '31'
     for id,a of @accounts

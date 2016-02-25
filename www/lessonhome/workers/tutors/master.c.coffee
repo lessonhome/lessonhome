@@ -27,6 +27,10 @@ class TutorsMaster
       for subject in arr
         q.push @jobs.solve 'prefilterTutors','subject',subject
     yield Q.all q
+    Q.spawn => while true
+      yield Q.delay 5*60*1000
+      yield @jobReloadIndexes()
+      yield @jobs.signal 'loadTutorsFromRedis'
 
   jobReloadIndexes : =>
     dids = yield _invoke @dbAccounts.find({tutor:true},{id:1}),'toArray'

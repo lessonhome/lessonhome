@@ -480,12 +480,12 @@ class RouteState
       @res.setHeader 'Access-Control-Allow-Credentials', true
       @res.setHeader 'Vary', 'Accept-Encoding'
       @res.setHeader 'ETag',resHash
-      @res.setHeader 'Cache-Control', 'public, max-age='+_max_age
+      @res.setHeader 'Cache-Control', 'public, max-age='+10
       @res.setHeader 'content-encoding', 'gzip'
       @res.setHeader 'content-type','text/html; charset=UTF-8'
       #@res.statusCode = 200
       d = new Date()
-      d.setTime d.getTime()+_max_age*1000
+      d.setTime d.getTime()+10*1000
       @res.setHeader 'Expires',d.toGMTString()
     #@res.writeHead @res.statusCode||200
     zlib    = require 'zlib'
