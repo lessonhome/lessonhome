@@ -1,6 +1,6 @@
 class @main
   constructor : ->
-    @height_footer = 170
+    @height_footer = $('footer:first').outerHeight(true)
     @bottom = 70
   show: ->
 
@@ -17,7 +17,7 @@ class @main
 
           unless @found.btn_up.is('.abs')
             @found.btn_up.addClass('abs').css {
-              top : $(document).height() - @height_footer - @bottom - @found.btn_up.outerHeight(true)  + 'px'
+              top : $(document).height() - @dom.offset().top - @height_footer - @bottom - @found.btn_up.outerHeight(true)  + 'px'
               bottom : ''
             }
 
@@ -29,22 +29,11 @@ class @main
               top: ''
             }
 
-    .resize @reSize
 
     @found.btn_up
     .click ->
       $('html, body').animate {scrollTop: 0}, 300
       return false
-    .appendTo($('html:first'))
     .css {
       bottom : @bottom
-    }
-
-    @reSize()
-
-  reSize : =>
-    @found.btn_up.css {
-      width : @dom.width()
-      height : @dom.height()
-      left : @dom.offset().left
     }
