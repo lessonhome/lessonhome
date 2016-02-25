@@ -1,4 +1,44 @@
+$form_margin : 100px
 a.selected img
   box-shadow: 0 0 20px red
 .save
   padding : 20px
+
+.form
+  .form-block
+    margin-bottom: 20px
+    .form-label
+      font-weight: bold
+      label
+        display: block
+        padding-top: 8px
+        padding-right: 15px
+      float: left
+      width : $form_margin
+      text-align: right
+      &.title
+        padding-right: 0
+        float: none
+        width: auto
+        text-align: left
+        margin-bottom: 10px
+
+    .form-field
+      margin-left: $form_margin
+      span
+        display: block
+        padding: 8px 0
+      input[type=text], select
+        height: 30px
+      input, textarea
+        padding: 0 12px
+      textarea
+        padding-top: 10px
+        padding-bottom: 10px
+      label
+        margin: 7px 0
+        display: block
+        input[type=checkbox],input[type=radio]
+          margin-right: 5px
+      &.bottom
+        margin-left: 0
