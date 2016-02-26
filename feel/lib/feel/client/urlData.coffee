@@ -267,7 +267,8 @@ class @urlData
     @state = History.getState()
     #mnurl = @state.url.match(/^([^\?]*)/)[1]+"#{nurl}"
     return if url == @state.url
-    History.replaceState  @data,(@state.title || $('head>title').text()),url
+    console.log 'urldata replaceTitle '+($('head>title').text())
+    History.replaceState  @data,($('head>title').text()),url
     @state = History.getState()
     @emitChange()
     #@data = yield @udata.u2d url?.match?(/^[^\?]*\??(.*)$/)?[1] ? ""

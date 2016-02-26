@@ -1,3 +1,30 @@
+
+get = (pref="",arr=[],post="")->
+  for a1 in arr
+    for a2 in a1
+      pref += a2
+  pref += post
+  return pref
+toLen = (len=70,pref="",arr=[],post="",left=false)->
+  while (m = get pref,arr,post).length > len
+    ret = do ->
+      unless arr.length
+        unless post
+          return true
+        post = ""
+        return
+      if left
+        arr[arr.length-1].pop()
+        arr.pop() unless arr[arr.length-1].length
+      else
+        arr[0].pop()
+        arr.shift() unless arr[0].length
+      return
+    break if ret
+  return m
+
+
+
 class @main
   route : '/lp'
   model : 'tutor/profile_registration/fourth_step'
@@ -40,6 +67,71 @@ class @main
           #console.log {t,t2}
           pupil = _setKey @req.udata, 'pupil'
           prep["data_pupil"] = pupil
+          if index
+            link =  '/tutor?'+yield  Feel.udata.d2u 'tutorProfile',{index:prep.index}
+            prep.name ?= {}
+            prep.subjects ?= {}
+            prep.about ?= ''
+            name =  ""
+            name += " "+prep.name.first if prep.name.first
+            name += " "+prep.name.middle if prep.name.middle
+            title1 = "Репетитор"
+            title1 += " "+prep.name.first if prep.name.first
+            title1 += " "+prep.name.middle if prep.name.middle
+            ss = []
+            for s in Object.keys(prep.subjects ? {})
+              ss.push  _nameLib.get(s).fullName('dative')
+            ss.sort (a,b)->a.length-b.length
+            title2 = []
+            title2.push " по "+ss[0] if ss[0]
+            for i in [1...ss.length]
+              title2.push ", "+ss[i] if ss[i]
+            title3 = " - LessonHome"
+            title = toLen 70,title1,[title2],title3
+            @tree.profile._custom_title = title
+            title1 = 'Предметы: '
+            title2 = []
+            ss =  Object.keys(prep.subjects ? {})
+            ss.sort (a,b)->a.length-b.length
+            title2.push " "+ss[0] if ss[0]
+            for i in [1...ss.length]
+              title2.push ", "+ss[i] if ss[i]
+            desc = toLen 140,title1,[title2],""
+            if (desc.length < 90) && prep.about
+              desc += ". "+prep.about
+              desc = desc.substr 0,137
+              desc = desc.replace /\s+[\wа-яё]+$/gmi,''
+              desc+= '...' if desc.match /[\wа-яё]$/gmi
+            if prep.photos
+              continue for own key, photo of prep.photos
+              ava = photo
+            else
+              ava = {lurl:"",lwidth:0,lheight:0}
+            @tree.profile._custom_description = desc
+            tohead = "
+<!-- Schema.org markup for Google+ -->
+<meta itemprop='name' content='#{title}'>
+<meta itemprop='description' content='#{desc}'>
+<meta itemprop='image' content='https://lessonhome.ru#{ava.lurl}'>
+<!-- Twitter Card data -->
+<meta name='twitter:card' content='summary'>
+<meta name='twitter:site' content='@LessonHome'>
+<meta name='twitter:title' content='#{title}'>
+<meta name='twitter:description' content='#{desc}'>
+<meta name='twitter:image' content='https://lessonhome.ru#{ava.lurl}'>
+
+<!-- Open Graph data -->
+<meta property='og:title' content='#{title}'>
+<meta property='og:type' content='article'>
+<meta property='og:url' content='https://lessonhome.ru#{link}'>
+<meta property='og:locale' content='ru_RU'>
+<meta property='og:image' content='https://lessonhome.ru#{ava.lurl}'>
+<meta property='og:image:width' content='#{ava.lwidth}'> 
+<meta property='og:image:height' content='#{ava.lheight}'>
+<meta property='og:description' content='#{desc}'>
+<meta property='og:site_name' content='Lessonhome'>
+            "
+            @tree.profile._custom_head = tohead
           return prep
       single_profile  : @exports()
       req_call : @module 'lp/request_call'

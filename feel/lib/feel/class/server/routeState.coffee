@@ -241,6 +241,7 @@ class RouteState
       @w8defer.push do Q.async =>
         pnode[key] = yield $W(deffoo)()
     yield Q.all @w8defer
+    _custom = {}
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       do =>
         return unless node?._isModule
@@ -347,6 +348,10 @@ class RouteState
           else
             node[place] = @getField @$forms[fname],field
             node[place] = func? node[place] if func
+      do =>
+        for k,val of node
+          if m = k.match /^_custom_(.+)/
+            _custom[m[1]] = val
     for uform in @$urlforms
       vv = _setKey @req?.udata?[uform?.fkf?.form],uform?.fkf?.key
       uform.node.$urlforms ?= {}
@@ -391,9 +396,15 @@ class RouteState
     title  ?= @statename
     end  = ""
     end += '<!DOCTYPE html><html><head>'
-    end += @site.router.head
-    end += '<title>'+title+'</title>'
+    if _custom.title
+      end += '<title>'+_custom.title+'</title>'
+    else
+      end += '<title>'+title+'</title>'
+    if _custom.description
+      end += "<meta name='description' content='#{_custom.description}'>"
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
+    end += @site.router.head
+    end += _custom.head if _custom.head
     end += @css+'</head><body>'
     end += @top._html
     end += @site.router.body

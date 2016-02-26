@@ -206,7 +206,8 @@ class @Feel
     href = (yield @urlData.udataToUrl href)
     return unless href && (typeof href == 'string')
     state = History.getState()
-    History.pushState {},(state.title || $('head>title').text()),href
+    console.log 'main gor push title',$('head>title').text()
+    History.pushState {},($('head>title').text()),href
     yield Feel.urlData.initFromUrl()
   goBack : (def_url)=> Feel.go @getBack def_url
   getBack : (def_url)=>
