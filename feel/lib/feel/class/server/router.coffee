@@ -44,8 +44,8 @@ class Router
     req.status = (args...)=> @site.status req,res,args...
     if (redirect = @_redirects?.redirect?[req?.url])?
       return @redirect req,res,redirect
-    if req.url == '/favicon.ico'
-      req.url = '/file/666/favicon.ico'
+    #if req.url == '/favicon.ico'
+    #  req.url = '/file/666/favicon.ico'
     if req.url.match /\/paymaster\/payment/
       return @paymaster req,res
     if req.url.match /^\/(js|jsfile|jsfilet|urlform|jsclient)\/.*/
