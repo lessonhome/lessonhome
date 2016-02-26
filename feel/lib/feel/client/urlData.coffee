@@ -122,7 +122,6 @@ class @urlData
     u = href + "?" + @objectTo u
     if onlyhash
       u = u.replace /^.*\/\/[^\/]+\//,'/'
-    console.log u
     return u
   set : (form,key,val)=>
     #yield @initFromUrl()
