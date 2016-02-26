@@ -150,7 +150,7 @@ class @main extends EE
       {status, errs, err} = yield @$send('./save', data, quiet && 'quiet')
       if status == 'success'
         Feel.sendActionOnce 'bid_popup'
-        url = History.getState().hash
+        url = yield Feel.urlData.getUrl true
         url = url?.replace?(/\/?\?.*$/, '')
         url = '/' if url is ''
 

@@ -17,7 +17,7 @@ class @main extends EE
   checkStateChange : (first=false)=>
     @oldurl = @nowurl
     @olddata = @nowdata
-    url = History.getState().url
+    url = yield Feel.urlData.getUrl()
     if url.match /\/tutor(\/\d+|\?|[^\/]|$)/
       @nowurl = 'tutor'
       unless first
@@ -113,10 +113,8 @@ class @main extends EE
         $(window).scrollTop(@saveScroll)
         if @tree.content?.class?.onscroll?
           $(window).on 'scroll.tutors',@tree.content?.class?.onscroll
-  goHistoryUrl : =>
-    setTimeout ->
-      document.location.href = History.getState().url
-    ,0
+  goHistoryUrl : => Q.spawn =>
+    document.location.href = History.getState().url
   showTutor : (index,href)=> Q.spawn =>
     yield Feel.gor(href)
   hideTutor : => Q.spawn =>

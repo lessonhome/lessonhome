@@ -104,6 +104,26 @@ class @urlData
       str += '&' if str
       str += key if key
     @data = yield @udata.u2d str || ''
+  getUrl : (onlyhash=false)=>
+    @state = History.getState()
+    url = @state.url
+    if url.match /\?/
+      m = url.match(/^(.*)\?(.*)/)
+      u = m?[2] || ""
+      href = m?[1] || ""
+    else
+      u = ""
+      href = url
+    u = @toObject u
+    c = @toObject yield @getU()
+    for key,val of c
+      continue unless @udata.json.shorts?[key]?.cookie
+      u[key] = val
+    u = href + "?" + @objectTo u
+    if onlyhash
+      u = u.replace /^.*\/\/[^\/]+\//,'/'
+    console.log u
+    return u
   set : (form,key,val)=>
     #yield @initFromUrl()
     if val?
@@ -135,10 +155,12 @@ class @urlData
     return d2u
   toObject : (url)=>
     url = '' unless typeof url == 'string'
-    url = url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
+    if url.match /\?/
+      url = url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     url = url.split '&'
     ret = {}
     for u in url
+      continue unless u
       u = u?.split? '=' ? []
       ret[u[0]]=u[1] if u[0]?
     return ret
@@ -258,7 +280,7 @@ class @urlData
       field = o
       o = {}
     hash = ''
-    o.url ?= History.getState().url
+    o.url ?=  yield @getUrl()
     hash += (yield @filter o.url,field) ? ''
     return hash
 
@@ -281,10 +303,10 @@ class @urlData
   emitChange : =>
     @lastChange = new Date().getTime()
     setTimeout @_emitChange,200
-  _emitChange : =>
+  _emitChange : => Q.spawn =>
     return if (!@lastChange) || (((new Date().getTime())-@lastChange)<200)
     @lastChange = 0
-    url = History.getState().url
+    url = yield @getUrl()
     return if url == @lastEmitUrl
     @lastEmitUrl = url
     @emit 'change'
