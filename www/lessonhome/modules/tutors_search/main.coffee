@@ -159,6 +159,7 @@ class @main
       @unfixLoader()
       @tutors_result.css 'opacity',1
       @dom.css 'height', ''
+      @tree.search_help.class.pushpinIit()
       yield @BusyNext()
     ),htime
   BusyNext : => do Q.async =>
