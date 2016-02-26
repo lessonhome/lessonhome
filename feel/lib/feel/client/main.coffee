@@ -39,14 +39,14 @@ class @Feel
             yield @sendActionOnce 'error_on_page'
           catch e
             console.error Exception e
+        #try
+        #errorfunc.apply console,arguments
+        #catch e
+        #console.error Exception e
         try
-          errorfunc.apply console,arguments
+          errorfunc arguments...
         catch e
           console.error Exception e
-          try
-            errorfunc arguments...
-          catch e
-            console.error Exception e
         return
       console.error = myerrorfunc
     catch e
