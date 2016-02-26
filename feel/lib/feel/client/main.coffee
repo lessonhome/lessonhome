@@ -34,9 +34,23 @@ class @Feel
     try
       errorfunc = console.error
       myerrorfunc = =>
-        Q.spawn => @sendActionOnce 'error_on_page'
-        errorfunc.apply console,arguments
+        Q.spawn =>
+          try
+            yield @sendActionOnce 'error_on_page'
+          catch e
+            console.error Exception e
+        try
+          errorfunc.apply console,arguments
+        catch e
+          console.error Exception e
+          try
+            errorfunc arguments...
+          catch e
+            console.error Exception e
+        return
       console.error = myerrorfunc
+    catch e
+      console.error Exception e
 
     window.onerror = (e)=> @error e
     
