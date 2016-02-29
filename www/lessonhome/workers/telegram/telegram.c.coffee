@@ -18,13 +18,19 @@ class Telegram
       when 'pi0h.org'       then  key = keys.production
       when 'lessonhome.org' then  key = keys.develop
       else                        key = keys.local
-    @bot = new telegram key, polling : true
+    try
+      @bot = new telegram key, polling : true
+    catch e
+      console.error e
     @auth = {}
     @auth = yield _invoke @redis,'hgetall','telegramAuth'
     @auth ?= {}
     @auth[id] = JSON.parse(o || "{}") ? {} for id,o of @auth
     
-    yield @bot.on 'message',@onmessage
+    try
+      yield @bot.on 'message',@onmessage
+    catch e
+      console.error e
     @unsecure =
       start : true
       auth  : true
