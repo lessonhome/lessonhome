@@ -55,7 +55,6 @@ class @main extends EE
     Feel.urlData.on 'change',=> @setLinked()
   open : (prep)=> do Q.async =>
     window.history.length ?= 0
-    state = History.getState()
     if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
       $(@back).hide()
     else

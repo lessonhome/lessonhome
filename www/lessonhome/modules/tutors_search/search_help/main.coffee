@@ -6,26 +6,29 @@ class @main
     @blockSearchHelp = @found.block_search_help
     @filterBlock = @found.filter_block
     @beforeFilter = @dom.parent().find('.search-filter')
+
+
+  show: =>
     @found.demo_modal?.on? 'click', => Q.spawn =>
       #передать параметр 'fullBid' для открытия полной формы
       yield Feel.jobs.solve 'openBidPopup', null, 'filter_help'
-
-    @showHelpPanel()
-
     $(window).on 'scroll', @showHelpPanel
-  show: =>
+    @showHelpPanel()
 
   showHelpPanel: =>
     @top_offset = @beforeFilter.offset().top + @beforeFilter.outerHeight()
 
-    if $(document).scrollTop() > @top_offset
+    if @loadflag || ($(document).scrollTop() > @top_offset)
       if @loadflag == 0
         setTimeout(@pushpinIit, 4000)
       else
         @pushpinIit()
 
   pushpinIit: () =>
+    console.log 'ppinit'
     @top_offset = @beforeFilter.offset().top + @beforeFilter.outerHeight()
+    #unless $(document).scrollTop() > @top_offset
+
 
     @blockSearchHelp.pushpin(
       {

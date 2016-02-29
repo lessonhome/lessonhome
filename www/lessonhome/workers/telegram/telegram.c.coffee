@@ -17,7 +17,7 @@ class Telegram
     switch hostname
       when 'pi0h.org'       then  key = keys.production
       when 'lessonhome.org' then  key = keys.develop
-      else                        key = keys.local
+      else                        return #key = keys.local
     @bot = new telegram key, polling : true
     @auth = {}
     @auth = yield _invoke @redis,'hgetall','telegramAuth'

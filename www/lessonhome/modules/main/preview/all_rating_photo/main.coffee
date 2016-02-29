@@ -51,7 +51,7 @@ class @main extends EE
     #@img.attr   'width' , "100%"
     #@img.attr   'height', "100%"
     do => Q.spawn =>
-      link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,inset:2})
+      link = '/tutor?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,inset:2})
       @dom.find('a').attr 'href',link
     ###
     @photo.on 'mouseover', =>

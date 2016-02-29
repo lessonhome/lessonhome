@@ -37,7 +37,7 @@ class @main
 
       if status is 'success'
         Feel.sendActionOnce 'bid_popup'
-        url = History.getState().hash
+        url = yield Feel.urlData.getUrl true
         url = url?.replace?(/\/?\?.*$/, '')
         Feel.sendActionOnce 'bid_action', null, {name: @tree.param_popup, url}
 

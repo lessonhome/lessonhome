@@ -3,7 +3,7 @@ class @main extends @template 'lp'
   model : 'main_m'
   title : "LessonHome - Главная страница"
   tags   : [ 'tutor:reports']
-  access : ['other','pupil']
+  access : ['all']
   redirect : {
     tutor : 'tutor/profile'
   }
@@ -21,15 +21,15 @@ class @main extends @template 'lp'
       metro_lines : @const('metro').lines
       main_rep : $defer : =>
         maxl = 200
-        jobs = yield Main.service 'jobs'
+        jobs = _HelperJobs
         prep = yield jobs.solve 'getTutorsOnMain', 16
         prep?= []
         regexp = /\s+[^\s]*$/
         regexp_dot = /\s*\.{1,3}$/
-        for p in prep
+        qs = for p in prep then do (p)=> do Q.async =>
           p.avatar = p.photos[p.photos.length - 1].lurl
-          p.link = '/tutor_profile?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
-          continue unless p?.reviews?.length
+          p.link = '/tutor?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
+          return unless p?.reviews?.length
           onmain = []
           i = 0
           while i < p.reviews.length
@@ -47,5 +47,5 @@ class @main extends @template 'lp'
             p['num_show_rev'] = onmain[0]
           else
             p['num_show_rev'] = onmain[Math.floor(Math.random()*onmain.length)]
-
+        yield Q.all qs
         return prep
