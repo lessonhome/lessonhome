@@ -9,7 +9,7 @@ class @main
       phone : @found.phone
     }
   show: =>
-    @form.phone.mask '9 (999) 999-99-99'
+#    @form.phone.mask '9 (999) 999-99-99'
     @found.detail.on    'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid', @tree.param_popup
     @found.send.on      'click', => Q.spawn => @sendForm()
     getListener  = (name, element) -> ->

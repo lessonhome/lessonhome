@@ -3,7 +3,7 @@ class @main
     $W @
   Dom : =>
     @oldScroll      = $(document).scrollTop()
-    @found.input_phone.mask '9 (999) 999-99-99'
+#    @found.input_phone.mask '9 (999) 999-99-99'
     @fastest = @dom.find '.fastest'
   show: =>
     @found.open_form.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid', 'fast'
