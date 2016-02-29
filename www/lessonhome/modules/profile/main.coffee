@@ -58,13 +58,13 @@ class @main
     @triggerCount = 0
     @resolution = true
 
-
     #scroll spy
     @reviewMark   = @found.review_mark
     @profileTab   = @found.profile_tab
 
     @message_text = @found.message_text
     @message_phone = @found.message_phone
+    @message_phone.mask '9 (999) 999-99-99'
     @message_name = @found.message_name
     @message_send = @found.message_send
     @message_sub = @found.message_subject
@@ -147,7 +147,6 @@ class @main
     ,0
     yield @setLinked()
   open : (index)=>
-    state = History.getState()
 
     unless index?
       index = yield Feel.urlData.get('tutorProfile','index') ? 77
@@ -163,7 +162,9 @@ class @main
       setInterval (=> Q.spawn => yield @goHistoryUrl()),2000
       return yield @goHistoryUrl()
     document.location.href = document.referrer
-  goHistoryUrl : => setTimeout (-> document.location.href = History.getState().url),100
+  goHistoryUrl : => Q.spawn =>
+    yield Q.delay 100
+    document.location.href = History.getState().url
 
   onShowDetail : (e) =>
     btn = $(e.currentTarget)

@@ -1,8 +1,5 @@
-User-agent: Yandex
-Host: https://lessonhome.ru
-
 User-agent: *
-Disallow:
 Host: https://lessonhome.ru
+Disallow: https://lessonhome.ru/tutor_registration
+Disallow: https://lessonhome.ru/forgot_password
 Sitemap : https://lessonhome.ru/sitemap.xml
-Crawl-delay: 0.1

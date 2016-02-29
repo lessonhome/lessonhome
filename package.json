@@ -70,7 +70,9 @@
     "kerberos" : "*",
     "sitemap":"*",
     "underscore":"*",
-    "wget" : "*"
+    "wget" : "*",
+    "telegram-bot-api" : "*",
+    "node-telegram-bot-api" : "*"
   }
 }
 

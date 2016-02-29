@@ -78,7 +78,7 @@ ex = (v)=>
         if (nw1?.length < 10) || (nw2?.length < 10)
           continue if Math.abs(nw2?.length-nw1?.length)>2
         dif = _diff.match nw1,nw2
-        continue if (dif< 0) || (dif>0.4)
+        continue if (dif< 0) || (dif>0.1)
         if (found < 0) || (dif<found)
           found = dif
       continue if found < 0

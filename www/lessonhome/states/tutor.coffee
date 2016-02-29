@@ -3,6 +3,9 @@ class @main
     depend        : [
       @state 'libnm'
     ]
+    bottom_block_attached : @module 'main/attached' :
+      bottom_bar  : @state 'main/attached/bar'
+      popup       : @state 'main/attached/popup'
     header        : @state 'tutor/header'  :
       icons       : @module '$/header/icons' :
         counter : '5'

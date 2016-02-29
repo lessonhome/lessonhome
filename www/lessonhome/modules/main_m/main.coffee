@@ -82,7 +82,7 @@ class @main
   sendFastForm: =>
     subjects = @fast_form.subjects.val()
     metro = @fast_form.metro.val()
-    @found.fast_filter.attr('action', "/tutors_search?#{ yield Feel.udata.d2u 'tutorsFilter', {subjects, metro}}")
+    @found.fast_filter.attr('action', "/search?#{ yield Feel.udata.d2u 'tutorsFilter', {subjects, metro}}")
     @found.fast_filter.submit()
 
   metroColor :  =>

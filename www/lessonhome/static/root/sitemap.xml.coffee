@@ -45,10 +45,10 @@ class Sitemap
     }
     indexes = yield @jobs.solve 'filterTutors',{filter}
     indexes = indexes.filters[''].indexes
-    url = "/tutor_profile?"+yield @udata.d2u 'tutorProfile',{'index':637}
+    url = "/tutor?"+yield @udata.d2u 'tutorProfile',{'index':637}
     for index in indexes
       @push urls,url.replace(637,index),0.8
-    url = "/tutors_search?"+yield @udata.d2u 'tutorsFilter',{'offset':637}
+    url = "/search?"+yield @udata.d2u 'tutorsFilter',{'offset':637}
     for ind,i in indexes by 10
       continue if i<10
       @push urls,url.replace(637,i),0.6

@@ -25,6 +25,7 @@ class @main
 
     if index
       a.filter('a').off('click.prep').on 'click.prep', (e)=>
+        return unless Feel.main.inited
         return unless e.button == 0
         e.preventDefault()
         href = $(e.currentTarget).attr 'href'

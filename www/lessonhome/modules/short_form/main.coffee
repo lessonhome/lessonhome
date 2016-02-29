@@ -9,7 +9,7 @@ class @main
       phone : @found.phone
     }
   show: =>
-
+    @form.phone.mask '9 (999) 999-99-99'
     @found.detail.on    'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid', @tree.param_popup
     @found.send.on      'click', => Q.spawn => @sendForm()
     getListener  = (name, element) -> ->
@@ -37,7 +37,7 @@ class @main
 
       if status is 'success'
         Feel.sendActionOnce 'bid_popup'
-        url = History.getState().hash
+        url = yield Feel.urlData.getUrl true
         url = url?.replace?(/\/?\?.*$/, '')
         Feel.sendActionOnce 'bid_action', null, {name: @tree.param_popup, url}
 
