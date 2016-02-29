@@ -46,24 +46,56 @@ class History
 class @main
   Dom : =>
     @sub = @tree.subjects.class
-    @medium = 0
+    @income = null
   show: =>
-#    @sub.setValue @tree.value.subjects ? [@tree.value.subject]
+    @sub.setValue @tree.value.subjects ? [@tree.value.subject]
 #    @dom.find("a.show").on 'click', @onShowDetail
 #    @found.make.on 'click', @onMakeExecutor
     @found.save.click @onSaveChange
+
+    @found.commision.on 'change', 'input[type=text]', (e) =>
+      el = $(e.currentTarget)
+      console.log 'change2'
+      if el.is '[name=comm_percent]'
+        @countedCommission 'price'
+      else if el.is '[name=comm_price]'
+        @countedCommission 'precent'
+
+
     @found.form_price.on 'change', 'input[type=text]', (e) =>
-      @medium = 0
+      console.log 'change1'
       for el in @found.form_price.find('input[type=text]').toArray()
+
         unless el.value
           @found.full_price.text('0 руб.')
           return false
+
       v = @getPrices()
-      @found.full_price.text("#{v.spread_price.join('-')} руб.")
-      @medium += p for p in v.spread_price
-      @medium /= 2
+
+      if v.spread_price
+        @found.full_price.text("#{v.spread_price.join('-')} руб.")
+        @income = v.spread_price
+        @countedCommission 'precent'
 
     new History @found.list_history
+
+    @income = @found.full_price.text().split(/\s*-\s*/).map (v)-> parseFloat(v)
+
+  countedCommission : (field) =>
+
+    if @income
+      medium = 0
+      medium += p for p in @income
+      medium /= @income.length
+      elem = @found.commision.find('[name=comm_percent],[name=comm_price]')
+
+      switch field
+        when 'price'
+          v = elem.filter('[name=comm_percent]').val()*medium/100
+          elem.filter('[name=comm_price]').val(Math.floor(v/10)*10)
+        when 'precent'
+          v = elem.filter('[name=comm_price]').val()*100/medium
+          elem.filter('[name=comm_percent]').val(Math.floor(v*10)/10)
 
   onShowDetail : (e) =>
     a = $(e.currentTarget)
@@ -97,7 +129,7 @@ class @main
   onSaveChange : =>
     data = @getValue()
     console.log data
-#    console.log yield Feel.jobs.server 'changeBid', data
+    console.log yield Feel.jobs.server 'changeBid', data
     return false
 
   _getChecked : (from, to) =>
@@ -133,18 +165,23 @@ class @main
 
     res.pop() if res[0] == res[1]
     k = (1 + final_price['chance_add']/100)*(1 - final_price['chance_fail']/100)*(1 - final_price['chance_cancel']/100)
+#    console.log k
     return null unless k
-    return res.map (v) -> parseInt(v*k)
+    return res.map (v) -> Math.round(v*k)
 
   getPrices : =>
     result = {}
-    @found.form_price.find('input[type=text][name], input[type=hidden][name]').each ->
+    @found.form_price
+    .add(@found.commision)
+    .find('input[type=text][name], input[type=hidden][name]')
+    .each ->
       a = $(this)
       result[a.attr('name')] = a.val()
     regexp = /\s*\-\s*/
     for name in ['lesson_price', 'lesson_count', 'count_week', 'chance_fail', 'chance_cancel', 'chance_add', 'comm_percent', 'comm_price']
 
       if val = result[name]
+
         switch name
           when 'lesson_price', 'lesson_count', 'count_week'
             val = val.split(regexp).map((v) -> parseFloat(v || 0)).sort((a, b)-> a - b )
@@ -152,8 +189,11 @@ class @main
             val = parseFloat(val || 0)
         result[name] = val
 
-    result["spread_price"] = с if с = @calcPrices(result)
+    result["spread_price"] = @calcPrices(result)
     return result
+
+  setValue : (value) =>
+    console.log @income = value.final_price.spread_price
 
   getValue : =>
     result = {

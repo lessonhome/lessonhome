@@ -76,7 +76,7 @@ default_check = {
       for n in names when data[n]?
 
         if f.attach?
-          result[n] = @getValue(data[n], f.attach)
+          result[n] = @prepare(data[n], f.attach)
         else if f.prep?
           prep = null
 

@@ -6,6 +6,7 @@
       h1 Заявка
       mixin field(value, placeholder)
         input(id=attributes.name, value=value || '', placeholder=placeholder, type="text")&attributes(attributes)
+
       .block_info
         .left
           .form.js-form_person
@@ -82,40 +83,44 @@
             -var final = value.final_price || {};
             .form-block
               .form-label.title
-                label(for="comm_percent") Предполагаемый доход:
-              .form-field.bottom
-                span.big.js-full_price 0 руб.
-            .form-block
-              .form-label.title
                 label(for="lesson_price") Цена за занятие:
               .form-field.bottom
-                +field(final.lesson_price, "Цена")(name="lesson_price")
+                -var a = final.lesson_price || {};
+                +field((a[0] + (a[1] ? "-"+a[1] : '')), "Цена")(name="lesson_price")
             .form-block
               .form-label.title
                 label(for="lesson_count") Занятий в неделю:
               .form-field.bottom
-                +field(final.lesson_count, "Количество занятий")(name="lesson_count")
+                -var a = final.lesson_count|| {};
+                +field((a[0] + (a[1] ? "-"+a[1] : '')), "Количество занятий")(name="lesson_count")
             .form-block
               .form-label.title
                 label(for="count_week") Планируемых недель:
               .form-field.bottom
-                +field(final.count_week, "Количество недель")(name="count_week")
+                -var a = final.count_week|| {};
+                +field((a[0] + (a[1] ? "-"+a[1] : '')), "Количество недель")(name="count_week")
             .form-block
               .form-label.title
                 label(for="chance_fail") Вероятность срыва курса:
               .form-field.bottom
-                +field(final.chance_fail, "Проценты")(name="chance_fail", value="30")
+                +field(final.chance_fail, "Проценты")(name="chance_fail")
             .form-block
               .form-label.title
                 label(for="chance_cancel") Вероятность отмены/болезни:
               .form-field.bottom
-                +field(final.chance_cancel, "Проценты")(name="chance_cancel", value="30")
+                +field(final.chance_cancel, "Проценты")(name="chance_cancel")
             .form-block
               .form-label.title
                 label(for="chance_add") Вероятность дополнительных занятий:
               .form-field.bottom
-                +field(final.chance_add, "Проценты")(name="chance_add", value="30")
-      .form
+                +field(final.chance_add, "Проценты")(name="chance_add")
+            .form-block
+              .form-label.title
+                label(for="comm_percent") Доход репетитора:
+              .form-field.bottom
+                -var a = final.spread_price || {};
+                span.big.js-full_price #{(a[0] + (a[1] ? "-"+a[1] : ''))} руб.
+      .form.js-commision
         .form-block
           .form-label.title
             label(for="comm_percent") Процент комисии:

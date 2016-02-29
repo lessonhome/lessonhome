@@ -8,15 +8,11 @@ class Bids
   need_first = {'name': 1, 'time': 1, 'subject': 1, 'subjects': 1, gender :1, price : 1, prices: 1}
   fields = [
     {
-      name: ['price', 'chance_fail', 'chance_cancel', 'chance_add', 'comm_percent', 'comm_price']
-      prep: 'float'
-    }
-    {
       name: 'subjects'
       prep: 'arr:string'
     }
     {
-      name : ['name', 'gender', 'email', 'phone', 'index', 'id', 'process']
+      name : ['name', 'gender', 'email', 'phone', 'index', 'id', 'process', 'comment']
       prep: 'string'
     }
     {
@@ -31,8 +27,12 @@ class Bids
       name : 'final_price'
       attach : [
         {
-          name : ['lesson_price', 'lesson_count', 'count_week']
+          name : ['lesson_price', 'lesson_count', 'count_week', 'spread_price']
           prep : 'arr:float'
+        }
+        {
+          name : ['comm_percent', 'comm_price', 'chance_add', 'chance_cancel', 'chance_fail']
+          prep : 'float'
         }
       ]
     }
@@ -176,7 +176,9 @@ class Bids
   jobChangeBid : (user, params = {}) =>
     try
       yield @_validUser user, true
+      console.log params
       params = check.prepare(params, fields)
+      console.log params
       throw new Error('bad params') unless params
       throw new Error('index not exist') unless params?.index?
       params.id?= ''
@@ -184,6 +186,9 @@ class Bids
       delete params.index
       {result} = yield _invoke @bids, 'update', $get, {$set: params}, {upsert: false}
       throw new Error('wrong _id') unless result.n
+
+      yield @_addLog $get._id, 'Проведена модерация'
+
       yield @jobs.solve 'flushForm', user.id
       return {status: 'success'}
     catch errs
