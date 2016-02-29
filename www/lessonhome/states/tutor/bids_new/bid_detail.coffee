@@ -32,12 +32,13 @@ class @main extends @template '../../tutor'
     content : @module '$' :
       obj_status : filter.obj_status
       gender : filter.sex
+      price : filter.price
       subjects : @state '../forms/drop_down_list_with_tags' :
         list: @module 'tutor/forms/drop_down_list:type1'  :
           smart : true
           self : true
           selector        : 'advanced_filter_form'
-          placeholder     : 'Выберите предмет'
+          placeholder     : 'Введите предмет'
           value     : ''
         tags: ''
 

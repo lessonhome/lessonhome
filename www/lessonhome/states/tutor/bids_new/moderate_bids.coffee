@@ -31,8 +31,10 @@ class @main extends @template '../../tutor'
       }
     ]
     content : @module '$' :
-      value : $form : bids_moderate : 'bids'
-
-
+      value : $defer : =>
+        page = _setKey @req.udata,'tutorBids.page'
+        jobs = yield Main.service 'jobs'
+        bids = yield jobs.solve 'GetModerBids',@req.user,  page
+        return bids
   init : ->
     @parent.tree.left_menu.setActive 'Модерация заявок'

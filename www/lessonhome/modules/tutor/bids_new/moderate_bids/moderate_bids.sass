@@ -7,30 +7,65 @@ $yellow: #FFFDD4
 main
   padding: 24px 0 132px 24px
 
-table.table_bids
+.table
+  display: table
   width: 700px
-  tbody
-    border-top: 1px solid #000
-    tr:nth-child(2n + 1)
-      background: #F3F3F3
-    //tr:hover
-    //  background: $yellow
-  tbody, thead
-    tr
-      & + tr
-        border-top: 1px solid #DADADA
-      th
+  border-collapse: collapse
+  .table-header-group
+    .table-row
+      border-bottom: 1px solid
+      .table-cell
         font-weight: bold
-      td, th
+  .table-header-group, .table-row-group
+    display: table-row-group
+
+    .table-row
+      text-decoration: none
+      color: inherit !important
+      display: table-row
+      .table-cell
         padding: 10px 0
         vertical-align: middle
+        display: table-cell
+        &.time
+          font-size: 14px
+          i
+            color: $grey
         &.grey
           color: $grey
-        &.up
-          color: $green
-        &.down
-          color: $red
-        i,p
-          font-size: 14px
-        i
-          color: $grey
+          &.up
+            color: $green
+          &.down
+            color: $red
+          i,p
+            font-size: 14px
+          i
+            color: $grey
+
+  .table-row-group
+    .table-row:nth-child(2n + 1)
+      background: #F3F3F3
+    .table-row
+      &:hover
+        background: $yellow
+      & + .table-row
+        border-top: 1px solid #DADADA
+
+//table.table_bids
+//  width: 700px
+//  tbody
+//    border-top: 1px solid #000
+//    tr:nth-child(2n + 1)
+//      background: #F3F3F3
+//    //tr:hover
+//    //  background: $yellow
+//  tbody, thead
+//    tr
+//      & + tr
+//        border-top: 1px solid #DADADA
+//      th
+//        font-weight: bold
+//      td, th
+//        padding: 10px 0
+//        vertical-align: middle
+//
