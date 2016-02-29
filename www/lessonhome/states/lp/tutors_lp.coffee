@@ -2,7 +2,7 @@ class @main  extends @template '../lp'
   route : '/tutors_lp'
   model   : 'tutor/bids/reports'
   title : "LessonHome - Репетиторам"
-  access : ['other', 'pupil']
+  access : ['all']
   redirect : {
     tutor: '/tutor/profile'
   }
@@ -31,7 +31,7 @@ class @main  extends @template '../lp'
           ]
           name        : 'email'
           selector    : 'registration'
-          text1       : 'Введите ваш телефон'
+          text1       : 'Введите ваш телефон или email'
           input_icon  : 'mail_outline'
         password        : @module 'tutor/forms/input_m' :
           name        :'password'

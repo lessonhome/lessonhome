@@ -8,13 +8,14 @@
   color: #ffffff
   text-align: center
   position: relative
-  background-color: #574f43
+  //background-color: #574f43
+  background: url(F('/lp/first_screen_bg.png')) no-repeat center center
+  min-height: 33.33rem
+  background-size: cover
   @media #{$medium-and-down}
-    background: url(F('/lp/first_screen_bg.jpg')) no-repeat center center
+    background: url(F('/lp/first_screen_bg.png')) no-repeat center center
     min-height: 35rem
-  &>img
-    max-width: 100%
-    height: auto
+    background-size: auto
   .container
     position: absolute
     left: 0
@@ -155,11 +156,21 @@
   height: 0.4667rem
   background-color: #fbc02d
   width: 60%
+  position: relative
   &:before
     content: ''
     display: block
     height: 0.4667rem
-    width: 50%
+    width: 33%
+    position: absolute
+    left: 0
+    top: 0
+    background-color: #147585
+  &:after
+    content: ''
+    display: block
+    height: 0.4667rem
+    width: 66%
     background-color: #01a59a
 .facts-about-us
   background: transparent url(F('/lp/dark_img.jpg')) no-repeat center center
@@ -326,10 +337,12 @@
     li
       .color-line
         display: inline-block
-        background-color: #01a59a
+        background-color: #147585
         width: 70%
         &:before
           background-color: #fbc02d
+        &:after
+          background-color: #01a59a
       i
         color: #2d8190
       span

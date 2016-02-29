@@ -673,6 +673,7 @@ global._nameLib = require('./lib/name')
 
 helpers = {}
 global._Helper = (service)-> helpers[service] ?= new (require('./'+service))
+global._HelperJobs = _Helper 'jobs/main'
 
 
 _spawn = require('child_process').spawn

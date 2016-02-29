@@ -139,6 +139,12 @@ class Server
       when 'prep.su','localhost.ru','pi0h.org'
         res.writeHead 301, 'Location': 'https://lessonhome.ru'+req.url
         return res.end()
+    if req.url.match /^\/tutors_search/
+      res.writeHead 301, 'Location': req.url.replace '/tutors_search','/search'
+      return res.end()
+    if req.url.match /^\/tutor_profile/
+      res.writeHead 301, 'Location': req.url.replace '/tutor_profile','/tutor'
+      return res.end()
     return @verify req,res if req.url.match /well-known/
     if req.method == 'POST'
       unless req.url.match /upload/

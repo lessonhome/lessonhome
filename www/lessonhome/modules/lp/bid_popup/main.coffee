@@ -43,7 +43,7 @@ class @main extends EE
 
     @forms = {
       name: @found.name
-      phone: @found.phone
+      phone: @found.phone.mask '9 (999) 999-99-99'
       prices: @found.price
       subjects: @found.subjects
       metro: @found.metro
@@ -150,7 +150,7 @@ class @main extends EE
       {status, errs, err} = yield @$send('./save', data, quiet && 'quiet')
       if status == 'success'
         Feel.sendActionOnce 'bid_popup'
-        url = History.getState().hash
+        url = yield Feel.urlData.getUrl true
         url = url?.replace?(/\/?\?.*$/, '')
         url = '/' if url is ''
 

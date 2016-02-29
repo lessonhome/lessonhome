@@ -20,8 +20,8 @@ const_mess = {
 
   #index
   ret.index = value.index
-  ret.link = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
-  ret.link_comment = '/tutor_profile?'+yield  Feel.udata.d2u 'tutorProfile',{inset:1, index:value.index}
+  ret.link = '/tutor?'+yield  Feel.udata.d2u 'tutorProfile',{index:value.index}
+  ret.link_comment = '/tutor?'+yield  Feel.udata.d2u 'tutorProfile',{inset:1, index:value.index}
   value.link = ret.link
   value.link_comment = ret.link_comment
   #name

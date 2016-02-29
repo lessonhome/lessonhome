@@ -119,6 +119,8 @@ class RouteState
       if sclass::access[key]
         access = true
         break
+    if sclass::access['all']
+      access = true
 
     unless access || @req.user.admin
       _setKey @req.udata,'accessRedirect.redirect',@req.url
@@ -239,6 +241,7 @@ class RouteState
       @w8defer.push do Q.async =>
         pnode[key] = yield $W(deffoo)()
     yield Q.all @w8defer
+    _custom = {}
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       do =>
         return unless node?._isModule
@@ -345,6 +348,10 @@ class RouteState
           else
             node[place] = @getField @$forms[fname],field
             node[place] = func? node[place] if func
+      do =>
+        for k,val of node
+          if m = k.match /^_custom_(.+)/
+            _custom[m[1]] = val
     for uform in @$urlforms
       vv = _setKey @req?.udata?[uform?.fkf?.form],uform?.fkf?.key
       uform.node.$urlforms ?= {}
@@ -389,9 +396,15 @@ class RouteState
     title  ?= @statename
     end  = ""
     end += '<!DOCTYPE html><html><head>'
-    end += @site.router.head
-    end += '<title>'+title+'</title>'
+    if _custom.title
+      end += '<title>'+_custom.title+'</title>'
+    else
+      end += '<title>'+title+'</title>'
+    if _custom.description
+      end += "<meta name='description' content='#{_custom.description}'>"
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
+    end += @site.router.head
+    end += _custom.head if _custom.head
     end += @css+'</head><body>'
     end += @top._html
     end += @site.router.body
@@ -480,12 +493,12 @@ class RouteState
       @res.setHeader 'Access-Control-Allow-Credentials', true
       @res.setHeader 'Vary', 'Accept-Encoding'
       @res.setHeader 'ETag',resHash
-      @res.setHeader 'Cache-Control', 'public, max-age='+_max_age
+      @res.setHeader 'Cache-Control', 'public, max-age='+10
       @res.setHeader 'content-encoding', 'gzip'
       @res.setHeader 'content-type','text/html; charset=UTF-8'
       #@res.statusCode = 200
       d = new Date()
-      d.setTime d.getTime()+_max_age*1000
+      d.setTime d.getTime()+10*1000
       @res.setHeader 'Expires',d.toGMTString()
     #@res.writeHead @res.statusCode||200
     zlib    = require 'zlib'
@@ -571,14 +584,14 @@ class RouteState
         try
           eval "(function(){#{filetag}}).apply(tempGThis);"
         catch e
-          console.error "failed eval parse.coffee in #{now._name}"
-          console.error e
+          console.error "failed eval parse.coffee in #{now._name}".red
+          console.error Exception e
         try
           tempGThis.parse = $W tempGThis.parse
           o.value = yield tempGThis.parse o.value
         catch e
-          console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}"
-          console.error e
+          console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}".red
+          console.error Exception e
       now._html = @site.modules[now._name].doJade o,@,state.__state
       ms = now._html.match /js-\w+--{{UNIQ}}/mg
       now._domregx = {}

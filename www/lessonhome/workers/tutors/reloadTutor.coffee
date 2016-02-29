@@ -17,7 +17,6 @@ age = (date1,date2)=>
 module.exports = (ids)->
   if typeof ids == 'string'
     ids = [ids]
-
   account = _invoke @dbAccounts .find(id:{$in : ids})   ,'toArray'
   person  = _invoke @dbPersons  .find(account:{$in:ids}),'toArray'
   tutor   = _invoke @dbTutor    .find(account:{$in:ids}),'toArray'
@@ -34,6 +33,7 @@ module.exports = (ids)->
 LoadTutor = (id,account={},person={},tutor={})-> do Q.async =>
   unless account.id && account.index>0
     yield _invoke @redis,'hdel','parsedTutors',id
+    yield @jobs.signal 'reloadTutor-deleted',id
     return
 
   obj = {}
@@ -278,5 +278,14 @@ LoadTutor = (id,account={},person={},tutor={})-> do Q.async =>
   Awords[_diff.prepare(word)] = true for word in awords
   awords = Awords
   p.awords = awords
+  _toSkip =
+    _client : true
+    awords : true
+    words : true
+  obj._client = {}
+  for k,v of obj
+    continue if _toSkip[k]
+    obj._client[k] = v
 
   yield _invoke @redis,'hset','parsedTutors',id, JSON.stringify obj
+  yield @jobs.signal 'reloadTutor-changed',id

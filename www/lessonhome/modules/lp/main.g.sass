@@ -82,7 +82,7 @@ textarea.materialize-textarea
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active
-    transition: background-color 50000s ease-in-out 0s !important
+    transition: background-color 50000s ease-in-out !important
     -webkit-text-fill-color: #464646
     @media #{$medium-and-down}
       -webkit-text-fill-color: #464646
@@ -203,6 +203,7 @@ textarea.materialize-textarea
     border-radius: 0
     box-shadow: none
     top: 0 !important
+    bottom: 0
     .emulate-shadow
       position: absolute
       top: 0
@@ -218,11 +219,16 @@ textarea.materialize-textarea
       will-change: top, opacity
       box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21)
       transition: all 0.5s ease-out
+      position: relative
       @media #{$medium-and-down}
         width: 80%
       @media #{$small-and-down}
         width: 100%
         margin: 0
+        height: 100%
+        background-color: #fff
+        .modal-content
+          background-color: #fff
       .close-modal-wrapper
         position: relative
         .modal-close-button

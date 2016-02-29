@@ -34,9 +34,23 @@ class @Feel
     try
       errorfunc = console.error
       myerrorfunc = =>
-        Q.spawn => @sendActionOnce 'error_on_page'
-        errorfunc.apply console,arguments
+        Q.spawn =>
+          try
+            yield @sendActionOnce 'error_on_page'
+          catch e
+            console.error Exception e
+        #try
+        #errorfunc.apply console,arguments
+        #catch e
+        #console.error Exception e
+        try
+          errorfunc arguments...
+        catch e
+          console.error Exception e
+        return
       console.error = myerrorfunc
+    catch e
+      console.error Exception e
 
     window.onerror = (e)=> @error e
     
@@ -192,7 +206,8 @@ class @Feel
     href = (yield @urlData.udataToUrl href)
     return unless href && (typeof href == 'string')
     state = History.getState()
-    History.pushState {},(state.title || $('head>title').text()),href
+    console.log 'main gor push title',$('head>title').text()
+    History.pushState {},($('head>title').text()),href
     yield Feel.urlData.initFromUrl()
   goBack : (def_url)=> Feel.go @getBack def_url
   getBack : (def_url)=>

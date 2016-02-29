@@ -81,7 +81,7 @@ class @main extends EE
         ###
         do (s,key,val)=>
           s.click => Q.spawn =>
-            link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
+            link = '/tutor?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index,subject:(key ? '').toLocaleLowerCase(),inset:1})
             #@found.link_name.attr 'href',link
             #@tree.view_button.class.activate link
             yield Feel.go link
@@ -169,7 +169,7 @@ class @main extends EE
     @found.price?.text?(value.left_price)#Math.floor((Math.min(value.price_left,value.price_per_hour,value.price_right) ? 900)/10)*10)
     #@hideExtraText()
     do => Q.spawn =>
-      link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
+      link = '/tutor?'+yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index})
 
       @dom.find('a').attr 'href',link
       if @tree.onepage
