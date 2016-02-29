@@ -13,7 +13,25 @@ age = (date1,date2)=>
   return {years, months, days}
 
 
+_prepare = (word="")-> _diff.prepare word.replace /язык/gmi,''
+_mprepare = (word="")-> _diff.metroPrepare word
 
+toRedisHash = (obj)-> do Q.async =>
+  words = {}
+  metro = obj?.yandex?.metro ? []
+  for m in metro
+    words[_mprepare(m)] = true if m
+
+  ss = Object.keys(obj.subjects ? {})
+  for s in ss
+    words[_prepare(s)] = true if s
+
+  qs = for word of words
+    continue if @tutorsByWord[word]?[obj.index]
+    @tutorsByWord[word] ?= {}
+    @tutorsByWord[word][obj.index] = true
+    _invoke @redis,'sadd','tutorsByWord-'+word,obj.index
+  yield Q.all qs
 
 @reload = ->
   t = new Date().getTime()
@@ -65,6 +83,11 @@ age = (date1,date2)=>
     obj.nophoto = o.nophoto
     obj.account = account
     obj.landing = p.landing ? false
+    p.yandex ?= {}
+    obj.yandex = {}
+    obj.yandex.metro = p.yandex.metro ? []
+    obj.yandex.areas = p.yandex.areas ? []
+    obj.yandex.all_moscow = p.yandex.all_moscow ? []
     obj.onmain = p.onmain ? false
     obj.checked = p.checked ? false
     obj.mcomment = p.mcomment || ''
@@ -302,13 +325,16 @@ age = (date1,date2)=>
     words : true
   }
   #keys = {}
+  qs = []
   for key,val of @persons
     @index[val.index] = val
     @onmain[val.index]=true if val.onmain
+    qs.push toRedisHash.call @,val
     val._client = {}
     for k,v of val
       continue if _toSkip[k]
       val._client[k] = v
+  yield Q.all qs
     #for k,v of val
     #  keys[k] ?= {type:typeof v, l:0}
     #  keys[k].l += JSON.stringify(v ? {})?.length/1024

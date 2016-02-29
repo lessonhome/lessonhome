@@ -7,7 +7,25 @@ ex = (v)=>
   return 3 if v?.match? '4'
   return 0
 
+_prepare = (word)-> _diff.prepare word.replace(/язык/gmi,'')
+
 @filter = (input,mf)=> do Q.async =>
+  if mf.progress
+    __progress = true
+    __progress = true
+
+  rhash = {}
+  if __progress
+    if mf.subject.length
+      rhash.subject = []
+      for s in mf.subject
+        s = _prepare s
+        rhash.subject.push s if s
+    #if Object.keys(mf.metro ? {}).length
+    #  rhash.metro
+
+    #console.log mf.subject
+
   if mf.price?.right > 3000
     mf.price?.right = 300000
   if mf.price?.left < 600
@@ -79,7 +97,7 @@ ex = (v)=>
           continue if Math.abs(nw2?.length-nw1?.length)>2
         dif = _diff.match nw1,nw2
         continue if (dif< 0) || (dif>0.1)
-        if (found < 0) || (dif<found)
+        if (found < 0) || (dif < found)
           found = dif
       continue if found < 0
       if min < 0

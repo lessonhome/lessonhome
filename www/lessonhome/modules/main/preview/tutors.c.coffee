@@ -25,6 +25,7 @@ class Tutors
     @dbpersons = yield @$db.get 'persons'
     @dbaccounts = yield @$db.get 'accounts'
     @dbuploaded = yield @$db.get 'uploaded'
+    yield @loadTutorsByWord()
     @onmain = {}
     try
       @persons = JSON.parse yield _invoke @redis, 'get', 'persons'
@@ -56,6 +57,20 @@ class Tutors
     setInterval =>
       Q.spawn => yield @writeFilters()
     , 2*60*1000
+
+  loadTutorsByWord : =>
+    @tutorsByWord = {}
+    keys = yield _invoke @redis,'keys','tutorsByWord-*'
+    keys ?= []
+    qs = []
+    for key in keys
+      skey = key.replace /^tutorsByWord-/,''
+      @tutorsByWord[skey] = {}
+      qs.push do (skey,key)=> do Q.async =>
+        words = yield _invoke @redis,'smembers',key
+        words ?= []
+        for word in words
+          @tutorsByWord[skey][word] = true
 
   writeFilters  : =>
     return unless @filterChange
@@ -140,7 +155,7 @@ class Tutors
     f.num   ?= 0
     f.num++ if inc
     delete f.redis
-    f.indexes = yield _filter.filter @persons,filter.data
+    f.indexes = yield _filter.filter.call @,@persons,filter.data
     @filters[filter.hash] = f
     @filterChange = true
     return f
