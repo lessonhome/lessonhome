@@ -1,0 +1,146 @@
+@import variables
+
+.comments-block
+  padding: 1.5rem 0 3.333rem 0
+  position: relative
+  @media #{$medium-and-down}
+    background-color: #147585
+    padding: 3.333rem 0 1.5rem 0
+  &:before
+    content: ''
+    display: block
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    top: 40%
+    background-color: #147585
+    @media #{$medium-and-down}
+      display: none
+  .title
+    h2
+      font-size: 1.8rem
+      line-height: 100%
+      margin: 0 0 3rem 0
+      color: #093c44
+      @media #{$medium-and-down}
+        color: #ffffff
+      @media #{$small-and-down}
+        text-align: center
+        font-size: 1.8rem
+  @media #{$medium-and-down}
+    .comment-cell
+      margin-bottom: 2rem
+  .comment-cell
+    position: relative
+    z-index: 2
+  .comment-img
+    font-size: 0
+    line-height: 0
+    overflow: hidden
+    height: 200px
+    @media #{$medium-and-down}
+      height: auto
+      overflow: hidden
+    background: #ffffff
+    img
+      max-width: 100%
+      width: 100%
+      @media #{$medium-and-down}
+        width: 35%
+        display: inline-block
+        vertical-align: top
+
+    a.comment-img-link
+      display: block
+      position: relative
+      @media #{$medium-and-down}
+        background-color: #147585
+        text-align: left
+        &:after
+          content: ''
+          display: block 
+          width: 0
+          height: 0
+          position: absolute
+          bottom: 0
+          left: 0
+          border: 10px solid transparent
+          border-left: 10px solid #fff
+          border-bottom: 10px solid #fff
+      .comment-tutor-name
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        height: 38px
+        background: rgba(0, 0, 0, 0.5)
+        font-size: 1rem
+        line-height: 130%
+        color: #fff
+        text-align: left !important
+        transition: all 0.2s ease-out
+        overflow: hidden
+        @media #{$medium-and-down}
+          height: auto
+          position: static
+          display: inline-block
+          vertical-align: top
+          width: 60%
+          background: transparent
+        .comment-img-layer
+          font-size: 1rem
+          line-height: 130%
+          padding: 0.75rem 1.35rem
+        .comment-img-name
+          font-size: 1.15rem
+          padding-bottom: 0.35rem
+      &:hover
+        .comment-tutor-name
+          height: 64.5px
+          @media #{$medium-and-down}
+            height: auto
+  .comment-body
+    background-color: #ffffff
+    color: #101010
+  .comment-name
+    font-weight: 700
+    font-size: 1.1rem
+  .comment-like
+    font-size: 1.2rem
+    line-height: 120%
+    color: #fd7c48
+    font-weight: 700
+  .comment-subject
+    font-size: 0.9rem
+    color: #626262
+    line-height: 120%
+    font-weight: 700
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+  .comment-text
+    font-size: 0.95rem
+    color: #4c4c4c
+    font-style: italic
+    margin-bottom: 0.5rem
+    &:before
+      content: '"'
+    @:after
+      content: '"'
+  .comment-link
+    a
+      color: #626262
+      transition: all 0.2s ease-out
+      &:hover
+        color: #fd7c48
+  .rew_name
+    color: #626262
+  .row
+    .col
+      &.no-padding-col
+        padding: 0
+        .col
+          padding: 0
+      &.comment-body
+        padding: 0.7rem 1rem

@@ -1,0 +1,27 @@
+@import variables
+
+.slick-main
+  .col
+    outline: none !important
+  .slick-arrow
+    width: 46px
+    height: 46px
+    cursor: pointer
+    border: 1px solid rgba(255, 255, 255, 0.7)
+    border-radius: 50%
+    outline: none
+    font-size: 0
+    line-height: 0
+    position: absolute
+    top: 50%
+    margin-top: -23px
+    &.slick-prev
+      background: url(F('/lp/slick-prev.png')) no-repeat center
+      right: 100%
+      @media #{$small-and-down}
+        right: 95%
+    &.slick-next
+      background: url(F('/lp/slick-next.png')) no-repeat center
+      left: 100%
+      @media #{$small-and-down}
+        left: 95%
