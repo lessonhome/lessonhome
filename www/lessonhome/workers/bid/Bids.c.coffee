@@ -8,7 +8,7 @@ class Bids
   need_first = {'name': 1, 'time': 1, 'subject': 1, 'subjects': 1, gender :1, price : 1, prices: 1}
   fields = [
     {
-      name: 'price'
+      name: ['price', 'chance_fail', 'chance_cancel', 'chance_add', 'comm_percent', 'comm_price']
       prep: 'float'
     }
     {
@@ -27,11 +27,30 @@ class Bids
       name : 'status'
       prep : 'obj:bool'
     }
+    {
+      name : 'final_price'
+      attach : [
+        {
+          name : ['lesson_price', 'lesson_count', 'count_week']
+          prep : 'arr:float'
+        }
+      ]
+    }
   ]
   for_log = [
     {
-      name: ['desc', 'index']
+      name: ['desc', 'id']
       prep: 'string'
+    }
+  ]
+  del_log = [
+    {
+      name : 'id'
+      prep: 'string'
+    }
+    {
+      name: 'index'
+      prep: 'integer'
     }
   ]
   init: =>
@@ -44,6 +63,8 @@ class Bids
     yield @jobs.listen 'getDetailBid', @jobGetDetailBid
 #    yield @jobs.client 'setExecutor', @jobSetExecutor
     yield @jobs.client 'changeBid', @jobChangeBid
+
+    yield @jobs.client 'remLog', @jobRemLog
     yield @jobs.client 'addLog', @jobAddLog
 
     @page_size = 15
@@ -83,7 +104,6 @@ class Bids
         if tut
           $get = _id : yield @_getID(_id)
           {result} = yield _invoke @bids, 'update', $get, $set : id : index, {upsert:false}
-          console.log result
           throw new Error('wrong _id') unless result.n
           return {status: 'success'}
 
@@ -119,20 +139,39 @@ class Bids
 
   getData : (data) =>
 
-  _addLog : (_id, desc) =>
-    $get = _id : yield @_getID _id
-    {result} = yield _invoke @bids, 'update', $get, '$push' : 'log' : {time : new Date(), desc}
-    throw new Error('wrong _id') unless result.nModified
+  jobRemLog : (user, params) =>
+    try
+      yield @_validUser user, true
+      params = check.prepare params, del_log
+      throw new Error('bad params') unless params?.id? and params.index?
+      yield @_remLog params.id, params.index
+      return {status: 'success'}
+    catch errs
+      console.error Exception errs
+      return {status: 'failed', err: 'internal error'}
 
   jobAddLog : (user, params = {}) =>
     try
       yield @_validUser user, true
       params = check.prepare params, for_log
-      throw new Error('bad params') unless params?.index? and params.desc?
-      yield @_addLog params.index, params.desc
+      throw new Error('bad params') unless params?.id? and params.desc?
+      yield @_addLog params.id, params.desc
+      return {status: 'success'}
     catch errs
       console.error Exception errs
       return {status: 'failed', err: 'internal error'}
+
+  _remLog : (_id, index) =>
+    $get = _id : yield @_getID _id
+    {result} = yield _invoke @bids, 'update', $get, {$unset : "log.#{index}" : ''}
+    throw new Error('wrong _id') unless result.n
+    throw new Error('wrong index') unless result.nModified
+    yield _invoke @bids, 'update', $get, {$pull : log : null}
+
+  _addLog : (_id, desc) =>
+    $get = _id : yield @_getID _id
+    {result} = yield _invoke @bids, 'update', $get, '$push' : 'log' : {time : new Date(), desc}
+    throw new Error('wrong _id') unless result.nModified
 
   jobChangeBid : (user, params = {}) =>
     try

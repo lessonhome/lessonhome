@@ -1,21 +1,69 @@
+class History
+  constructor : (elem) ->
+    @elem = elem
+    @id_bid = elem.attr('data-id')
+    @elem.find('ul:first').on 'click', 'a.close', @onRemLog
+    @elem.find('.add:first').click @onAddLog
+
+  onRemLog: (e) =>
+
+    if confirm("Удалить запись?")
+      Q.spawn =>
+        li = $(e.currentTarget).closest('li')
+        {status} = yield Feel.jobs.server 'remLog', {
+          id : @id_bid
+          index : @elem.find('ul:first li').index(li)
+        }
+
+        if status == 'success'
+          li.remove()
+
+    return false
+
+  onAddLog: (e) =>
+    Q.spawn =>
+      input = @elem.find('input[type=text]')
+      desc = input.val()
+
+      if desc
+        {status} = yield Feel.jobs.server 'addLog', {id: @id_bid, desc}
+
+        if status == 'success'
+          input.val('')
+          @_addHistory desc
+    return false
+
+  _addHistory : (text) =>
+    @elem.find('ul:first').append "
+      <li>
+        <i>#{new Date().toLocaleDateString()}</i>
+        <a href='#' class='close'>&times</a>
+        <p>#{text}</p>
+      </li>
+    "
+
+
 class @main
   Dom : =>
     @sub = @tree.subjects.class
-    @form = {
-      price : @found.price
-      index : @found.index
-      executor : @found.index_tutor
-      name : @found.name
-      phone : @found.phone
-      email : @found.email
-      subjects : @sub
-      moderate : @found.moderate
-    }
+    @medium = 0
   show: =>
-    @sub.setValue @tree.value.subjects ? [@tree.value.subject]
-    @dom.find("a.show").on 'click', @onShowDetail
-    @found.make.on 'click', @onMakeExecutor
+#    @sub.setValue @tree.value.subjects ? [@tree.value.subject]
+#    @dom.find("a.show").on 'click', @onShowDetail
+#    @found.make.on 'click', @onMakeExecutor
     @found.save.click @onSaveChange
+    @found.form_price.on 'change', 'input[type=text]', (e) =>
+      @medium = 0
+      for el in @found.form_price.find('input[type=text]').toArray()
+        unless el.value
+          @found.full_price.text('0 руб.')
+          return false
+      v = @getPrices()
+      @found.full_price.text("#{v.spread_price.join('-')} руб.")
+      @medium += p for p in v.spread_price
+      @medium /= 2
+
+    new History @found.list_history
 
   onShowDetail : (e) =>
     a = $(e.currentTarget)
@@ -36,7 +84,7 @@ class @main
 
   onMakeExecutor : (e) =>
     index = $(e.currentTarget).closest('.about_tutor').attr('data-index')
-    @form.executor.val(index)
+    @found.index_tutor.executor.val(index)
     @dom.find("a.show[data-index]").each ->
 
       if $(this).is "[data-index=\"#{index}\"]"
@@ -69,18 +117,57 @@ class @main
 
   getGender : => @found.gender.find('input[type="radio"]:checked').val()
 
+  calcPrices : (final_price) =>
+    res = [1, 1]
+    for key in ['lesson_price', 'lesson_count', 'count_week']
+      return null unless a = final_price[key]
+
+      if a.length  > 1
+        res[0] *= a[0]
+        res[1] *= a[1]
+      else if a.length == 1
+        res[0] *= a[0]
+        res[1] *= a[0]
+      else
+        return null
+
+    res.pop() if res[0] == res[1]
+    k = (1 + final_price['chance_add']/100)*(1 - final_price['chance_fail']/100)*(1 - final_price['chance_cancel']/100)
+    return null unless k
+    return res.map (v) -> parseInt(v*k)
+
+  getPrices : =>
+    result = {}
+    @found.form_price.find('input[type=text][name], input[type=hidden][name]').each ->
+      a = $(this)
+      result[a.attr('name')] = a.val()
+    regexp = /\s*\-\s*/
+    for name in ['lesson_price', 'lesson_count', 'count_week', 'chance_fail', 'chance_cancel', 'chance_add', 'comm_percent', 'comm_price']
+
+      if val = result[name]
+        switch name
+          when 'lesson_price', 'lesson_count', 'count_week'
+            val = val.split(regexp).map((v) -> parseFloat(v || 0)).sort((a, b)-> a - b )
+          else
+            val = parseFloat(val || 0)
+        result[name] = val
+
+    result["spread_price"] = с if с = @calcPrices(result)
+    return result
+
   getValue : =>
-    result =
-      prices : []
-      status : {}
+    result = {
       gender : @getGender()
-      index : @form.index.val()
-      id : @form.executor.val()
-      name : @form.name.val()
-      phone : @form.phone.val()
-      email : @form.email.val()
-      subjects : @form.subjects.getValue()
-      moderate : @form.moderate.prop('checked')
-    @_getChecked @found.price, result.prices
+      status : {}
+      moderate : @found.moderate.prop('checked')
+      comment : @found.comment.val()
+      subjects : @sub.getValue()
+      final_price : @getPrices()
+    }
+
     @_getChecked @found.status, result.status
+    @found.form_person.find('input[type=text][name], input[type=hidden][name], select[name]').each ->
+      a = $(this)
+      result[a.attr('name')] = a.val()
+
     return result

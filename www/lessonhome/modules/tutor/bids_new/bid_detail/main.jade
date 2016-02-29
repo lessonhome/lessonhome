@@ -1,137 +1,176 @@
 //
    Created by lh on 10.02.16.
-.wrap
-  h1 Заявка
-  mixin field(value, placeholder)
-    input(value=value || '', placeholder=placeholder, type="text")&attributes(attributes)
-  .block_info
-    .left
+.bordering
+  .form-for-admin
+    .wrap
+      h1 Заявка
+      mixin field(value, placeholder)
+        input(id=attributes.name, value=value || '', placeholder=placeholder, type="text")&attributes(attributes)
+      .block_info
+        .left
+          .form.js-form_person
+            input(type='hidden', value=value._id, name="index").js-index
+            input(type='hidden', value=value.id, name="executor").js-index_tutor
+            .form-block
+              .form-label
+                label(for="process") Заявка
+              .form-field
+                select(name="process")
+                  option(value='wait') Старт
+                  option(value='perform') Назначена на исполнение
+                  option(value='to_pay') К оплате
+                  option(value='payed') Завершено
+            .form-block
+              .form-label
+                label(for="name") Имя
+              .form-field
+                +field(value.name, "Имя")(name='name')
+            .form-block
+              .form-label
+                label(for="phone") Телефон
+              .form-field
+                +field(value.phone, "Телефон")(name='phone')
+            .form-block
+              .form-label
+                label(for="email") E-mail
+              .form-field
+                +field(value.email, "E-mail")(name='email')
+            .form-block
+              .form-label
+                label(for="subjects") Предмет
+              .form-field
+                div.input!=subjects
+            .form-block
+              .form-label
+                label Статус
+              .form-field.js-status
+                each v, key in obj_status
+                  label
+                    input(type='checkbox', value=key, checked=value.status && value.status[key] ? true : undefined)
+                    !=v
+            .form-block
+              .form-label
+                label Пол
+              .form-field.js-gender
+                label
+                  input(type='radio', value='male', name='sex', checked= value.gender === 'мужской' || value.gender === 'male')
+                  !='Мужской'
+                label
+                  input(type='radio', value='female', name='sex', checked= value.gender === 'женский' || value.gender === 'female')
+                  !='Женский'
+                label
+                  input(type='radio', value='', name='sex', checked= !value.gender || value.gender === 'неважно' || value.gender === 'не важно')
+                  !='Не важно'
+
+
+            .form-block
+              .form-label
+                label Дата
+              .form-field
+                span!=new Date(value.time).toLocaleDateString()
+
+        .right
+          .form.js-form_price
+            //.form-block
+            //  .form-label.title
+            //    label Желаемая цена:
+            //  .form-field.bottom.js-price
+            //    each v, key in price
+            //      label
+            //        input(type='checkbox', value=v, checked=value.want_price[v])
+            //        !=v
+            -var final = value.final_price || {};
+            .form-block
+              .form-label.title
+                label(for="comm_percent") Предполагаемый доход:
+              .form-field.bottom
+                span.big.js-full_price 0 руб.
+            .form-block
+              .form-label.title
+                label(for="lesson_price") Цена за занятие:
+              .form-field.bottom
+                +field(final.lesson_price, "Цена")(name="lesson_price")
+            .form-block
+              .form-label.title
+                label(for="lesson_count") Занятий в неделю:
+              .form-field.bottom
+                +field(final.lesson_count, "Количество занятий")(name="lesson_count")
+            .form-block
+              .form-label.title
+                label(for="count_week") Планируемых недель:
+              .form-field.bottom
+                +field(final.count_week, "Количество недель")(name="count_week")
+            .form-block
+              .form-label.title
+                label(for="chance_fail") Вероятность срыва курса:
+              .form-field.bottom
+                +field(final.chance_fail, "Проценты")(name="chance_fail", value="30")
+            .form-block
+              .form-label.title
+                label(for="chance_cancel") Вероятность отмены/болезни:
+              .form-field.bottom
+                +field(final.chance_cancel, "Проценты")(name="chance_cancel", value="30")
+            .form-block
+              .form-label.title
+                label(for="chance_add") Вероятность дополнительных занятий:
+              .form-field.bottom
+                +field(final.chance_add, "Проценты")(name="chance_add", value="30")
       .form
         .form-block
-          .form-label
-            label Заявка
-          .form-field
-            select(name="process").js-process
-              option(value='wait') Старт
-              option(value='perform') Назначена на исполнение
-              option(value='to_pay') К оплате
-              option(value='payed') Завершено
+          .form-label.title
+            label(for="comm_percent") Процент комисии:
+          .form-field.bottom
+            +field(final.comm_percent, "Проценты")(name="comm_percent")
         .form-block
-          .form-label
-            label Имя
-          .form-field
-            +field(value.name, "Имя")(name='name').js-name
-        .form-block
-          .form-label
-            label Телефон
-          .form-field
-            +field(value.phone, "Телефон")(name='phone').js-phone
-        .form-block
-          .form-label
-            label E-mail
-          .form-field
-            +field(value.email, "E-mail")(name='email').js-email
-        .form-block
-          .form-label
-            label Предмет
-          .form-field
-            div.input!=subjects
-        .form-block
-          .form-label
-            label Статус
-          .form-field.js-status
-            each v, key in obj_status
-              label
-                input(type='checkbox', value=key, checked=value.status && value.status[key] ? true : undefined)
-                !=v
-        .form-block
-          .form-label
-            label Пол
-          .form-field.js-gender
-            label
-              input(type='radio', value='male', name='sex', checked= value.gender === 'мужской' || value.gender === 'male')
-              !='Мужской'
-            label
-              input(type='radio', value='female', name='sex', checked= value.gender === 'женский' || value.gender === 'female')
-              !='Женский'
-            label
-              input(type='radio', value='', name='sex', checked= !value.gender || value.gender === 'неважно' || value.gender === 'не важно')
-              !='Не важно'
-
-
-        .form-block
-          .form-label
-            label Дата
-          .form-field
-            span!=new Date(value.time).toLocaleDateString()
-
-    .right
+          .form-label.title
+            label(for="comm_price") Сумма комиссии:
+          .form-field.bottom
+            +field(final.comm_price, "Цена")(name="comm_price")
       .form
         .form-block
           .form-label.title
-            label Желаемая цена:
-          .form-field.bottom.js-price
-            each v, key in price
-              label
-                input(type='checkbox', value=v, checked=value.want_price[v])
-                !=v
-        .form-block
-          .form-label.title
-            label Цена за занятие:
+            label(for="comment") Комментарий:
           .form-field.bottom
-            +field(value.end_price, "Цена")(name="end_price").js-end_price
+            textarea(id="comment", rows=5, value=value.comment, name="comment").js-comment
         .form-block
-          .form-label.title
-            label Занятий в неделю:
           .form-field.bottom
-            +field(value.end_price, "Количество занятий")(name="count").js-count
-        .form-block
-          .form-label.title
-            label Планируемых недель:
-          .form-field.bottom
-            +field(value.end_price, "Количество недель")(name="count_week").js-count_week
-        .form-block
-          .form-label.title
-            label Вероятность срыва курса:
-          .form-field.bottom
-            +field(value.end_price, "Проценты")(name="end_price").js-end_price
-        .form-block
-          .form-label.title
-            label Вероятность отмены/болезни:
-          .form-field.bottom
-            +field(value.end_price, "Проценты")(name="count").js-count
-        .form-block
-          .form-label.title
-            label Вероятность дополнительных занятий:
-          .form-field.bottom
-            +field(value.end_price, "Проценты")(name="count_week").js-count_week
-  .form
-    .form-block
-      .form-label.title
-        label Комментарий:
-      .form-field.bottom
-        textarea(rows=5, value=value.comment).js-comment
-    .form-block
-      .form-field.bottom
-        label
-          input(type='checkbox', value='moderate', checked=value.moderate ? true : undefined).js-moderate
-          !='Завершить модерацию'
+            label
+              input(type='checkbox', value='moderate', checked=value.moderate ? true : undefined).js-moderate
+              | Завершить модерацию
+    .history(data-id=value._id).js-list_history
+      ul
+        if value.log
+          for h in value.log
+            li
+              i!=new Date().toLocaleDateString()
+              a(href="#").close &times;
+              p!=h.desc
 
+        //li
+        //  i 04.11.2000
+        //  a(href="#").close &times;
+        //  p За две секунды, мать твою!!
+        //
+        //li
+        //  i 24.02.2016
+        //  a(href="#").close &times;
+        //  p
+        //    |выдача списка заявок у репетитора
+        //    |выдача списка заявок у модератора
+        //    |функционал правки общей информации заявок для модератора
 
+      input(type="text", placeholder="Запись в историю")
+      a(href="#").btn.add Добавить
 
-
-  input(type='hidden', value=value._id, name="index").js-index
-  input(type='hidden', value=value.id, name="executor").js-index_tutor
-each v, index in value.link_detail
-  a(href="#", title="Назначить на заявку", data-index=index).show(class=index == value.id ? 'selected' : '')
-    -var p;
-    -for(p in v.photos) continue;
-    img(src="#{v.photos[p].hurl}", width=150, style="margin-left: 10px")
-.js-about_tutor(style="display: none")
-  img.js-avatar(width=100)
-  p.js-name
-  a(href="#").js-to_profile На профиль репетитора
-  br
-  a(href="#").js-make Назначить исполнителем
-
-a(href="#").js-save Сохранить
+    //each v, index in value.link_detail
+    //  a(href="#", title="Назначить на заявку", data-index=index).show(class=index == value.id ? 'selected' : '')
+    //    -var p;
+    //    -for(p in v.photos) continue;
+    //    img(src="#{v.photos[p].hurl}", width=150, style="margin-left: 10px")
+    //.js-about_tutor(style="display: none")
+    //  img.js-avatar(width=100)
+    //  p.js-name
+    //  a(href="#").js-to_profile На профиль репетитора
+    //  br
+    //  a(href="#").js-make Назначить исполнителем
+    a(href="#").btn.js-save Сохранить
