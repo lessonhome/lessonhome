@@ -3,7 +3,7 @@ os = require 'os'
 cpus = os.cpus().length
 
 class PrepareTutor
-  version : "1.0"
+  version : "1.4"
   init :=>
     @db = yield Main.service 'db'
 
@@ -56,7 +56,7 @@ class PrepareTutor
 
 
   jobPrepareTutorById : require './prepareTutor/tutorById'
-  jobPrepareTutorByData: (data) => @prepare data
+  jobPrepareTutorByData: (data) => yield @prepare data
   prepare : require './prepareTutor/prepare'
 
   jobPrepareOldTutors :  (period) =>
@@ -75,7 +75,7 @@ class PrepareTutor
         hash = _object_hash(data)
 
         if hash != old_hash
-          data = @prepare data
+          data = yield @prepare data
 
         acc['prepare'] = {
           hash
@@ -83,7 +83,7 @@ class PrepareTutor
         }
 
         yield @_saveData(data)
-        yield Q.delay(100)
+        yield Q.delay(10)
 
   _getById : (arr_id, fields) =>
     result = []
