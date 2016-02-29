@@ -43,7 +43,7 @@ class @main extends EE
 
     @forms = {
       name: @found.name
-      phone: @found.phone.mask '9 (999) 999-99-99'
+      phone: @found.phone
       prices: @found.price
       subjects: @found.subjects
       metro: @found.metro
@@ -52,6 +52,7 @@ class @main extends EE
       comment: @found.comment
     }
 
+#    @found.phone.mask '9 (999) 999-99-99'
     @found.subjects.material_select()
     @found.metro.material_select()
     @found.status.material_select()
