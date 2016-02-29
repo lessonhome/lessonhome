@@ -17,20 +17,14 @@ class Telegram
     switch hostname
       when 'pi0h.org'       then  key = keys.production
       when 'lessonhome.org' then  key = keys.develop
-      else                        key = keys.local
-    try
-      @bot = new telegram key, polling : true
-    catch e
-      console.error e
+      else                        return #key = keys.local
+    @bot = new telegram key, polling : true
     @auth = {}
     @auth = yield _invoke @redis,'hgetall','telegramAuth'
     @auth ?= {}
     @auth[id] = JSON.parse(o || "{}") ? {} for id,o of @auth
     
-    try
-      yield @bot.on 'message',@onmessage
-    catch e
-      console.error e
+    yield @bot.on 'message',@onmessage
     @unsecure =
       start : true
       auth  : true
