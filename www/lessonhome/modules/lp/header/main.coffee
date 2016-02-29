@@ -28,7 +28,7 @@ class @main
           }
         )
 
-    @menuButton.sideNav(edge: 'right')
+    @menuButton.sideNav()
     #@found.attach?.on? 'click', -> Feel.root.tree.class.attached.showForm()
     
     @found.demo_modal?.on? 'click', => Q.spawn =>
