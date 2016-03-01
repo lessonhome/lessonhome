@@ -134,8 +134,10 @@
 
             // escape double quotes
             var sanitizedLabelHtml = label.html() && label.html().replace(/"/g, '&quot;');
+            var constrainwidth = $select.data('constrainwidth');
+            if (constrainwidth === undefined) constrainwidth = true;
 
-            var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + (($select.is(':disabled')) ? 'disabled' : '') + ' data-activates="select-options-' + uniqueID +'" value="'+ sanitizedLabelHtml +'"/>');
+            var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + (($select.is(':disabled')) ? 'disabled' : '') +'data-constrainwidth="'+constrainwidth+'" data-beloworigin="true" data-activates="select-options-' + uniqueID +'" value="'+ sanitizedLabelHtml +'"/>');
             $select.before($newSelect);
             $newSelect.before(dropdownIcon);
 

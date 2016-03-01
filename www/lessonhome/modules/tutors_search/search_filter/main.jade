@@ -75,7 +75,7 @@
     +checkBlock('Метро', show_metro).js-metro_location
       .row.no-bottom-margin.metro-loc
         .input-field.col.s12.slide_collapse
-          select(name='color', data-v="branch", multiple).js-branch
+          select(name='color', data-v="branch", multiple, data-constrainwidth='false').js-branch
             option(value='', selected, disabled) Любая станция
             for v, name_li in metro_stations
               optgroup(label=v.name)
