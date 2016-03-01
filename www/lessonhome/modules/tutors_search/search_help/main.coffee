@@ -25,7 +25,6 @@ class @main
         @pushpinIit()
 
   pushpinIit: () =>
-    console.log 'ppinit'
     @top_offset = @beforeFilter.offset().top + @beforeFilter.outerHeight()
     #unless $(document).scrollTop() > @top_offset
 

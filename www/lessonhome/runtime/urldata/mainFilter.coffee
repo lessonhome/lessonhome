@@ -62,6 +62,7 @@ class @D2U
       type : 'string'
       value : Object.keys(obj?.metro ? {}).sort().join('.')
       default : ''
+      filter : true
     }
 
   $priceLeft : (obj)=>
@@ -162,6 +163,7 @@ class @D2U
     value : obj.progress && true
     default : false
     cookie : false
+    filter : true
   $pupil_status : (obj)=>
     v = pupil_status.indexOf(obj?.pupil_status)
     v = 0 unless v>=0
