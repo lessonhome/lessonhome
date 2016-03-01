@@ -19,7 +19,9 @@ _mprepare = (word="")-> _diff.metroPrepare word
 toRedisHash = (obj)-> do Q.async =>
   words = {}
   metro = obj?.yandex?.metro ? []
-  words.allmsc = true if obj?.yandex?.all_moscow
+  #unless metro?.length > 0
+  if obj?.yandex?.all_moscow
+    words.allmsc = true
   for m in metro
     words[_mprepare(m)] = true if m
 
@@ -88,7 +90,7 @@ toRedisHash = (obj)-> do Q.async =>
     obj.yandex = {}
     obj.yandex.metro = p.yandex.metro ? []
     obj.yandex.areas = p.yandex.areas ? []
-    obj.yandex.all_moscow = p.yandex.all_moscow ? []
+    obj.yandex.all_moscow = p.yandex.all_moscow && true
     obj.onmain = p.onmain ? false
     obj.checked = p.checked ? false
     obj.mcomment = p.mcomment || ''
