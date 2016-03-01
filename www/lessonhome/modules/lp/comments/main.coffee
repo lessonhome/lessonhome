@@ -4,6 +4,8 @@ class @main
   Dom : =>
     @slickBlock = @found.slick_block
 
+    @prepareLink()
+
     @slickBlock.slick({
       dots: false,
       infinite: true,
@@ -28,4 +30,12 @@ class @main
         }
       ]
     })
-
+ 
+  prepareLink : ()=>
+    @dom.find('a').off('click').on 'click', (e)->
+      link = $(this)
+      index = link.attr('data-i')
+      e.preventDefault()
+      if index?
+        Feel.main.showTutor index, link.attr 'href'
+      return false
