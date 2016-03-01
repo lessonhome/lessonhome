@@ -41,17 +41,17 @@ class Telegram
       yield @[cmd_func]? msg,(m[2] || "").split(/\s+/)...
 
   cmd_start : (msg)=>
-    yield @bot.sendMessage msg.from.id,"Hello, "+msg.from.first_name+"!"
+    yield @bot.sendMessage msg.chat.id,"Hello, "+msg.from.first_name+"!"
 
   cmd_auth : (msg,login,password)=>
     return yield @status msg unless (_logins[login]?) && (_logins[login]==password)
-    @auth[msg.from.id] ?= {}
-    @auth[msg.from.id].login = login
-    yield _invoke @redis, 'hset','telegramAuth',msg.from.id, JSON.stringify @auth[msg.from.id]
+    @auth[msg.chat.id] ?= {}
+    @auth[msg.chat.id].login = login
+    yield _invoke @redis, 'hset','telegramAuth',msg.chat.id, JSON.stringify @auth[msg.chat.id]
     return yield @status msg,'thanks'
     
   status : (msg,text='failed :(')=>
-    return yield @bot.sendMessage msg.from.id,text
+    return yield @bot.sendMessage msg.chat.id,text
    
   jobTelegramSendAll : (text)=>
     qs = for id of @auth then @bot.sendMessage id,text
