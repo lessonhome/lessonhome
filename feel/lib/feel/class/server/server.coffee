@@ -140,6 +140,8 @@ class Server
         return res.end()
     if (hostname!='pi0h.org') && req.url.match /^\/robots\.txt/
       req.url = '/robots_dev.txt'
+    if (req?.headers?.host!='lessonhome.ru') && req.url.match /^\/robots\.txt/
+      req.url = '/robots_dev.txt'
     if req.url.match /^\/tutors_search/
       res.writeHead 301, 'Location': req.url.replace '/tutors_search','/search'
       return res.end()
