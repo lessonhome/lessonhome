@@ -5,10 +5,14 @@ _logins =
   lessonhome : 'cheburashka'
 os = require 'os'
 hostname = os.hostname()
+
+_rj_c = require('request-json').createClient('http://sheepridge.pandorabots.com/')
+
 class Telegram
   init : =>
     @jobs = yield _Helper('jobs/main')
     @redis = yield _Helper('redis/main').get()
+    yield @init_alice()
 
     keys =
       production  : '216886462:AAE2imVL1-m5IAkR1FrqzjXd_nfxaWp1PDE'
@@ -52,6 +56,28 @@ class Telegram
   jobTelegramSendAll : (text)=>
     qs = for id of @auth then @bot.sendMessage id,text
     yield Q.all qs
+  
+  init_alice : =>
+    @alice_bot = new telegram '197380826:AAE2UoiB4mCuN6aTaZgYub_dKCKGYn7LfEw',polling:true
+    yield @alice_bot.on 'message',@alice
+  alice : (msg)=> Q.spawn =>
+    return unless hostname == 'lessonhome.org'
+    return if msg.text.match /[а-яё]/gmi
+    data =
+      botcust2:'8ae333b16e7d433c'
+      input : msg.text
+    ret = yield _requestPost
+      url :'http://sheepridge.pandorabots.com/pandora/talk?botid=b69b8d517e345aba&skin=custom_input'
+      form : data
+    if ret[1]? then body = ret[1]
+    else body = ret.body
+    return unless body
+    body = body.replace /\r|\n/gmi,' '
+    m = body.match /\<b\>A\.L\.I\.C\.E\.\:\<\/b\>([^\<]+)\<br\/\>/
+    text = m[1]?.replace(/^\s+/,'').replace(/\s+$/,'')
+    return unless text
 
+    yield @alice_bot.sendMessage msg.chat.id,text
+    
 
 module.exports = Telegram
