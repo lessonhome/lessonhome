@@ -25,7 +25,7 @@
        .filter-title Выберите предмет и направление подготовки
     .row.no-bottom-margin.fixed-spicer
       .input-field.col.s12.slide_collapse
-        select(name='subject', multiple).js-subjects
+        select(name='subject', multiple, data-constrainwidth='false', data-minwidth='true').js-subjects
           option(value='', selected, disabled) Предмет
           each groups,gname in subject_list
             optgroup(label!=gname)
@@ -75,7 +75,7 @@
     +checkBlock('Метро', show_metro).js-metro_location
       .row.no-bottom-margin.metro-loc
         .input-field.col.s12.slide_collapse
-          select(name='color', data-v="branch", multiple, data-constrainwidth='false').js-branch
+          select(name='color', data-v="branch", multiple, data-constrainwidth='false', data-minwidth='true').js-branch
             option(value='', selected, disabled) Любая станция
             for v, name_li in metro_stations
               optgroup(label=v.name)

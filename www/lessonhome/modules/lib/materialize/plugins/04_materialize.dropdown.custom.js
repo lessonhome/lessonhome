@@ -41,6 +41,8 @@
                     options.belowOrigin = origin.data('beloworigin');
                 if (origin.data('alignment') !== undefined)
                     options.alignment = origin.data('alignment');
+                if (origin.data('minwidth') !== undefined)
+                    options.minwidth = origin.data('minwidth');
             }
 
             updateOptions();
@@ -71,6 +73,7 @@
 
                 } else {
                     activates.css('white-space', 'nowrap');
+                    if (options.minwidth === true) activates.css('min-width', origin.outerWidth());
                 }
 
                 // Below Origin
