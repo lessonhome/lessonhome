@@ -8,7 +8,6 @@ ex = (v)=>
   return 0
 
 _prepare = (word)-> _diff.prepare word.replace(/язык/gmi,'')
-
 @filter = (input,mf)-> do Q.async =>
   if mf.progress
     __progress = true
@@ -164,7 +163,11 @@ _prepare = (word)-> _diff.prepare word.replace(/язык/gmi,'')
         out3.push p
       else
         out4.push p
-  #if out.length+out2.length+out3.length+out4.length
+  if Object.keys(mf.metro ? {}).length > 0
+    unless mf.metro.allmsc
+      if (out.length+out2.length+out3.length+out4.length)<5
+        mf.metro.allmsc = true
+        return yield module.exports.filter.call @,input,mf
   nd = new Date().getTime()
   switch mf.sort
     when 'rating'
