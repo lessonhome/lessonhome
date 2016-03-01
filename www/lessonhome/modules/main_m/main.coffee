@@ -45,9 +45,6 @@ class @main
     @found.attach.on    'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'motivation'
     @found.send_form.on 'click', => Q.spawn => @sendFastForm()
 
-
-    @prepareLink @found.rew.find('a')
-
     Q.spawn =>
       indexes = []
       for own key, t of @tree.main_rep then indexes.push t.index
@@ -75,12 +72,3 @@ class @main
 
   setValue : (data) ->
     @fast_form.subjects.val(data.subjects)
-
-  prepareLink : (a)=>
-    a.filter('a').off('click').on 'click', (e)->
-      link = $(this)
-      index = link.attr('data-i')
-      e.preventDefault()
-      if index?
-        Feel.main.showTutor index, link.attr 'href'
-      return false
