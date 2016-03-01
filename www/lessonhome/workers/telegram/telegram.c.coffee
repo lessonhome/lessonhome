@@ -58,6 +58,7 @@ class Telegram
     yield Q.all qs
   
   init_alice : =>
+    return unless hostname == 'lessonhome.org'
     @alice_bot = new telegram '197380826:AAE2UoiB4mCuN6aTaZgYub_dKCKGYn7LfEw',polling:true
     yield @alice_bot.on 'message',@alice
   alice : (msg)=> Q.spawn =>
