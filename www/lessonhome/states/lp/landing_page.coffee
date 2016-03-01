@@ -1,7 +1,7 @@
 class @main extends @template '../lp'
   route : '/ad/english'
   model   : 'tutor/bids/reports'
-  title : "Посадочная страница"
+  title : "Lessonhome - репетиторы по английскому языку"
   tags   : [ 'tutor:reports']
   access : ['all']
   redirect : {
