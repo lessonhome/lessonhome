@@ -1,5 +1,5 @@
 class @main extends @template '../lp'
-  route : '/landing_page'
+  route : '/ad/english'
   model   : 'tutor/bids/reports'
   title : "Посадочная страница"
   tags   : [ 'tutor:reports']

@@ -18,21 +18,22 @@ class @main
   showHelpPanel: =>
     @top_offset = @beforeFilter.offset().top + @beforeFilter.outerHeight()
 
-    if @loadflag || ($(document).scrollTop() > @top_offset)
-      if @loadflag == 0
-        setTimeout(@pushpinIit, 4000)
-      else
-        @pushpinIit()
+    if @top_offset > 350
+      if @loadflag || ($(document).scrollTop() > @top_offset)
+        if @loadflag == 0
+          setTimeout(@pushpinIit, 4000)
+        else
+          @pushpinIit()
 
   pushpinIit: () =>
     @top_offset = @beforeFilter.offset().top + @beforeFilter.outerHeight()
     #unless $(document).scrollTop() > @top_offset
 
-
-    @blockSearchHelp.pushpin(
-      {
-        top: @top_offset
-        offset: 60
-      }
-    )
-    @loadflag = 1
+    if @top_offset > 350
+      @blockSearchHelp.pushpin(
+        {
+          top: @top_offset
+          offset: 60
+        }
+      )
+      @loadflag = 1
