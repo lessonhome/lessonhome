@@ -12,5 +12,6 @@ class @main extends @template '../lp'
       id_page: 'landing_page'
       hide_head_button: true
       hide_menu_punkt: true
+      short_attach : @module 'short_form/js_form'
       tutor_target: @state './target_tutor'
       comments: @state 'lp/comments'
