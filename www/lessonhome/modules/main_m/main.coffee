@@ -9,32 +9,6 @@ class @main
     @appFormTwo       = @found.app_two_form
     @appFormThree     = @found.app_three_form
     @defaultAppStep   = 0
-    @slickBlock       = @found.slick_block
-
-    @slickBlock.slick({
-      dots: false,
-      infinite: true,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      responsive: [
-        {
-          breakpoint: 1000,
-          settings: {
-            infinite: true,
-            slidesToShow: 2,
-            slidesToScroll: 2
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            infinite: true,
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-      ]
-    })
 
     @found.fast_sub.material_select()
     @found.fast_branch.material_select()
@@ -71,9 +45,6 @@ class @main
     @found.attach.on    'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'motivation'
     @found.send_form.on 'click', => Q.spawn => @sendFastForm()
 
-
-    @prepareLink @found.rew.find('a')
-
     Q.spawn =>
       indexes = []
       for own key, t of @tree.main_rep then indexes.push t.index
@@ -101,12 +72,3 @@ class @main
 
   setValue : (data) ->
     @fast_form.subjects.val(data.subjects)
-
-  prepareLink : (a)=>
-    a.filter('a').off('click').on 'click', (e)->
-      link = $(this)
-      index = link.attr('data-i')
-      e.preventDefault()
-      if index?
-        Feel.main.showTutor index, link.attr 'href'
-      return false

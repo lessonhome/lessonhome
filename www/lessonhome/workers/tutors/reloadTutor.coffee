@@ -64,6 +64,11 @@ LoadTutor = (id,account={},person={},tutor={})-> do Q.async =>
   obj.rating = 1 #o.rating
   obj.check_out_the_areas = t?.check_out_the_areas ? []
   obj.ratio  = p.ratio ? 1.0
+  p.yandex ?= {}
+  obj.yandex = {}
+  obj.yandex.metro = p.yandex.metro ? []
+  obj.yandex.areas = p.yandex.areas ? []
+  obj.yandex.all_moscow = p.yandex.all_moscow ? []
   
   obj.nophoto = p.avatar?[0]?
   obj.account = account
