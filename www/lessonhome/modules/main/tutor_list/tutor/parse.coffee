@@ -142,6 +142,13 @@ const_mess = {
   ret.metro_tutors.type ?= 'metro'
   ret.metro_tutors.data ?= []
   value.filter_stations = []
+  ### 
+  if value.yandex?.all_moscow
+    value.filter_stations.push
+      metro :'Вся Москва'
+      color : "#FFF"
+      key : 'Вся Москва'
+  ###
   if value.filter_stations
     unless ret.metro_tutors.type == 'metro'
       ret.metro_tutors.data = [{metro:ret.metro_tutors.data,color:"#FFF"}]
