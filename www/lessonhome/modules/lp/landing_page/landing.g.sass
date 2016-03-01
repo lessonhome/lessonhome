@@ -2,7 +2,11 @@
 
 //first screen
 .first-screen
-  background-color: #b5b5b5
+  background: url(F('/lp/l_icons/landing_img_1.jpg')), url(F('/lp/l_icons/landing_img_1_1.jpg'))
+  background-repeat: no-repeat, repeat-x
+  background-position: center center
+  min-height: 508px
+  color: #fff
 .first-screen_padding
   padding: 8.667rem 0
 .primary_title
@@ -25,6 +29,8 @@
   text-align: center
 .screen__border
   border-top: 1px solid #a3a3a3
+.other__lh
+  line-height: 130%
 
 //advantages block
 .advantages_text
@@ -80,6 +86,13 @@
     background-color: #e2b033
     color: #393b3a
 
+//question block
+.questions-screen
+  background: url(F('/lp/l_icons/landing_img_2.jpg')) no-repeat center
+  background-size: cover
+  min-height: 500px
+  color: #fff
+
 //what work
 .what-work
   padding: 3.333rem 0
@@ -100,7 +113,6 @@
       line-height: 100%
       margin: 0 0 3.333rem 0
       color: #fff
-      text-align: left
       @media #{$medium-and-down}
         margin-bottom: 2rem
       @media #{$small-and-down}
@@ -140,3 +152,16 @@
       width: 45%
       margin-left: 2rem
       vertical-align: middle
+
+//comment block
+.landing-comment
+  padding: 3.333rem 0 3.333rem 0
+  &:before
+    display: none
+  .slick-main .slick-arrow
+    background-color: #147585
+    border-radius: 0
+  .rew_name
+    color: #147585
+  .comment-body
+    background-color: #f0f0f0

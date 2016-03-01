@@ -13,3 +13,4 @@ class @main extends @template '../lp'
       hide_head_button: true
       hide_menu_punkt: true
       tutor_target: @state './target_tutor'
+      comments: @state 'lp/comments'

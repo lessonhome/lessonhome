@@ -2,29 +2,29 @@
   .container.first-screen_padding
     .row
       .col.s6.m6.l6
-        h1.primary_title Изучайте английский с правильным преподавателем
-        h2.secondary_title Мы подберем его для Вас, бесплатно
+        //h1.primary_title Изучайте английский с правильным преподавателем
+        //h2.secondary_title Мы подберем его для Вас, бесплатно
 .advantages-screen
   .container.center-align.screen__padding
     .row.adv_row-margin
       .col.s4.m4.l4
-        i.icon_simulation
+        img(src=F('/lp/l_icons/l_icon_1.jpg'))
         .advantages_text Только проверенные мастера своего дела
       .col.s4.m4.l4
-        i.icon_simulation
+        img(src=F('/lp/l_icons/l_icon_5.jpg'))
         .advantages_text Занятия по skype, у Вас или у преподавателя
       .col.s4.m4.l4
-        i.icon_simulation
+        img(src=F('/lp/l_icons/l_icon_6.jpg'))
         .advantages_text Точный подбор по Вашим критериям, от обучения азам до подготовки к IELTS
     .row.adv_row-margin
       .col.s4.m4.l4
-        i.icon_simulation
+        img(src=F('/lp/l_icons/l_icon_3.jpg'))
         .advantages_text Подберем репетитора за 2 часа
       .col.s4.m4.l4
-        i.icon_simulation
+        img(src=F('/lp/l_icons/l_icon_2.jpg'))
         .advantages_text Оплата только по факту проведенного занятия
       .col.s4.m4.l4
-        i.icon_simulation
+        img(src=F('/lp/l_icons/l_icon_4.jpg'))
         .advantages_text Подбор совершенно бесплатен
 .your-tutor-screen.screen__border!=tutor_target
 .what-work
@@ -45,4 +45,11 @@
           .ww-icons
             i.icon-howwework3
           .ww-text Вы знакомитесь с репетитором и занимаетесь
+.comments-block.landing-comment!=comments
+.questions-screen
+  .container.screen__padding
+    h2.screen__title.other__lh
+      |У Вас остались вопросы?
+      br
+      |Наш менеджер с радостью все расскажет
 

@@ -10,7 +10,6 @@ class @main extends @template 'lp'
   tree : =>
     filter = @const('filter')
     content : @module '$':
-      #carousel : @module 'lib/jquery/plugins/slick'
       id_page: 'main_p'
       hide_head_button: true
       subject_list: filter.subjects
