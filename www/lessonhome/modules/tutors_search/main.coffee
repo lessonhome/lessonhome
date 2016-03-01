@@ -231,7 +231,7 @@ class @main
     mf = {}
     mf.page = 'filter'
     mf.subject = filters.subjects
-      
+ 
     ss = {}
     mf.subject ?= []
     for s in mf.subject
@@ -252,7 +252,7 @@ class @main
       m_path = m?.split?(':')?[1] || ""
       mf.metro[m_path] = true if m_path
       m = @metro.stations?[m?.split?(':')?[1] ? ""]?.name
-      ss[m] = true if m
+      #ss[m] = true if m
     mf.course = Object.keys ss
     l = 500
     r = 6000

@@ -9,7 +9,7 @@ ex = (v)=>
 
 _prepare = (word)-> _diff.prepare word.replace(/язык/gmi,'')
 
-@filter = (input,mf)=> do Q.async =>
+@filter = (input,mf)-> do Q.async =>
   if mf.progress
     __progress = true
     __progress = true
@@ -21,10 +21,17 @@ _prepare = (word)-> _diff.prepare word.replace(/язык/gmi,'')
       for s in mf.subject
         s = _prepare s
         rhash.subject.push s if s
-    #if Object.keys(mf.metro ? {}).length
-    #  rhash.metro
+    if Object.keys(mf.metro ? {}).length
+      rhash.metro = []
+      for m of mf.metro
+        rhash.metro.push 'tutorsByWord-'+m if m
+    if rhash?.metro?.length
+      inds = yield _invoke @redis, 'sunion',rhash.metro...
+    if inds?.length
+      input = {}
+      for ind in inds
+        input[ind] = @index[ind]
 
-    #console.log mf.subject
 
   if mf.price?.right > 3000
     mf.price?.right = 300000
@@ -138,7 +145,7 @@ _prepare = (word)-> _diff.prepare word.replace(/язык/gmi,'')
       exp =3 if mf.experience['bigger_experience']
       exp =2 if mf.experience['big_experience']
       exp =1 if mf.experience['little_experience']
-      if ex(p.experience ? "")<exp
+      if ex(p.experience ? "") < exp
         continue
     if mf.gender
       continue unless mf.gender==p.gender
@@ -157,6 +164,7 @@ _prepare = (word)-> _diff.prepare word.replace(/язык/gmi,'')
         out3.push p
       else
         out4.push p
+  #if out.length+out2.length+out3.length+out4.length
   nd = new Date().getTime()
   switch mf.sort
     when 'rating'
