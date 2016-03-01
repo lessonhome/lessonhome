@@ -63,6 +63,7 @@ class Telegram
     yield @alice_bot.on 'message',@alice
   alice : (msg)=> Q.spawn =>
     return unless hostname == 'lessonhome.org'
+    return unless msg?.text
     return if msg.text.match /[а-яё]/gmi
     data =
       botcust2:'8ae333b16e7d433c'
