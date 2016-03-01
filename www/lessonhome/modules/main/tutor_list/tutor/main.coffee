@@ -13,6 +13,9 @@ class @main
   Dom: =>
     @chooseTutor      = @found.tutor_trigger
   show: =>
+    @found.metro_line.find('.stantion.dropdown-button').on 'mouseenter', (e)->
+      $(e.currentTarget).siblings('ul.dropdown-content').scrollTop(0)
+
     Feel.dataM.getTutor([@tree.value.index]).done() if @tree.value?.index
     @chooseTutor.on 'click', => Q.spawn => yield @onTutorChoose()
     Feel.urlData.on 'change',=> Q.spawn => yield @setLinked()
@@ -144,7 +147,7 @@ class @main
       when 'metro'
         val = place.data[0]
         span = "
-            <span class='stantion dropdown-button' data-hover='true' data-constrainwidth='false' data-activates='d#{value.index}'>"
+            <span class='stantion dropdown-button' data-hover='true' data-constrainwidth='false' data-minwidth='true' data-activates='d#{value.index}'>"
         if val.color?
           span += "<i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>"
         span +="<span class='card-info-color'>#{val.metro}</span>
