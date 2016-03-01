@@ -1,9 +1,29 @@
 .first-screen
-  .container.first-screen_padding
-    .row
-      .col.s6.m6.l6
-        //h1.primary_title Изучайте английский с правильным преподавателем
-        //h2.secondary_title Мы подберем его для Вас, бесплатно
+  .container.fs-con
+    .row.adv_row-nomargin.fs-con
+      .col.s5.m5.l5.offset-s7.offset-m7.offset-l7.fs-con.fs-form-bg
+        .fs-form-padding.center-align.dark_form
+          .row
+            .col.s12
+              h1.form-title-one Изучайте английский
+                br
+                | с правильным преподавателем
+              h2.form-title-two Мы подберем его для Вас, бесплатно
+          .row
+            .input-field.col.s12
+              i.material-icons.prefix account_circle
+              input(type='text' id='f_name').validate
+              label(for='f_name') Имя
+          .row
+            .input-field.col.s12
+              i.material-icons.prefix phone
+              input(type='tel' id='f_phone').validate
+              label(for='f_phone') Телефон
+          .row.fs_row-button
+            .col.s12
+              a.waves-effect.waves-light.btn-large.yellow-btn.field-btn Подберите мне репетитора
+
+
 .advantages-screen
   .container.center-align.screen__padding
     .row.adv_row-margin
@@ -52,4 +72,15 @@
       |У Вас остались вопросы?
       br
       |Наш менеджер с радостью все расскажет
+    .row.dark_form.valign-wrapper.adv_row-nomargin
+      .input-field.col.s4.valign
+        i.material-icons.prefix account_circle
+        input(type='text' id='q_name').validate
+        label(for='q_name') Имя
+      .input-field.col.s4.valign
+        i.material-icons.prefix phone
+        input(type='tel' id='q_phone').validate
+        label(for='q_phone') Телефон
+      .col.s4.valign
+        a.waves-effect.waves-light.btn-large.yellow-btn.field-btn Получить консультацию
 
