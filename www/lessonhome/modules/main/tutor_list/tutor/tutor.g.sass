@@ -193,6 +193,7 @@
     margin-left: 0.5rem
   &:before
     content: "..."
+    font-size: 1rem
 .card-info-color
   color: #646464
   p
@@ -213,12 +214,16 @@
     padding: 1rem 1rem !important
 
 .metro-line
+  margin: -0.5rem
+  //position: relative
   &>span
+    font-size: 0
+    padding: 0.5rem
     &:last-child
       cursor: default !important
 .metro_line .dropdown-content
-  margin-top: -4px
-  margin-left: -8px
+  font-family: inherit
+  overflow-x: hidden
   li
     &, & *
       cursor: default !important
