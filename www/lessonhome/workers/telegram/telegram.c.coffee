@@ -74,12 +74,19 @@ class Telegram
     if ret[1]? then body = ret[1]
     else body = ret.body
     return unless body
-    body = body.replace /\r|\n/gmi,' '
-    m = body.match /\<b\>A\.L\.I\.C\.E\.\:\<\/b\>([^\<]+)\<br\/\>/
+    body = body.replace /\r|\n/gmi,'`'
+    m = body.match /\<b\>A\.L\.I\.C\.E\.\:\<\/b\>([^\`]+)/
     text = m[1]?.replace(/^\s+/,'').replace(/\s+$/,'')
-    return unless text
+    text = text.replace(/\<br\/\>/gmi,'')
+    str = text
+    str=str.replace(/<br>/gi, "\n")
+    str=str.replace(/<p.*>/gi, "\n")
+    str=str.replace(/<a.*href="(.*?)".*>(.*?)<\/a>/gi, " $2 (Link->$1) ")
+    str=str.replace(/<img.*src="(.*?)".*>(.*?)<\/img>/gi, " $2 (Link->$1) ")
+    str=str.replace(/<(?:.|\s)*?>/g, "")
+    return unless str
 
-    yield @alice_bot.sendMessage msg.chat.id,text
+    yield @alice_bot.sendMessage msg.chat.id,str
     
 
 module.exports = Telegram
