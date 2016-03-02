@@ -1,7 +1,7 @@
 (function ($) {
     var scroll_height = (function () {
-        var d = $('<div style="position: fixed; overflow-x: scroll; width: 50px; height: 50px; visibility: hidden">').appendTo($('body'));
-        var h = d.outerWidth() - d.innerWidth();
+        var d = $('<div style="position: fixed; width: 50px; height: 50px; visibility: hidden; overflow-y: scroll">').appendTo($('body'));
+        var h = d[0].offsetWidth - d[0].clientWidth;
         d.remove();
         return h;
     })(jQuery);
