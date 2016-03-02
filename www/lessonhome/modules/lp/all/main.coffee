@@ -49,7 +49,7 @@ class @main
         val = el.val()
         @tree.value ?= {}
         @tree.value[name] = val
-        elems.filter(':not(:focus)').val(val).focusin().focusout()
+        elems.filter(':not(:focus)').val(val)
         @emit 'change'
 
     phone_listener = getListener('phone', @found.input_phone)

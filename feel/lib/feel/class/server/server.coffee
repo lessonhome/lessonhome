@@ -6,12 +6,11 @@ https = require 'https'
 _crypto = require 'crypto'
 _postdata = Q.denode require 'post-data'
 os = require "os"
-
+hostname = os.hostname()
 
 class Server
   constructor : ->
     @_google = {}
-    hostname = os.hostname()
     console.log 'hostname'.grey,hostname.red
     @port = 8081
     @ip = '127.0.0.1'
@@ -139,6 +138,10 @@ class Server
       when 'prep.su','localhost.ru','pi0h.org'
         res.writeHead 301, 'Location': 'https://lessonhome.ru'+req.url
         return res.end()
+    if (hostname!='pi0h.org') && req.url.match /^\/robots\.txt/
+      req.url = '/robots_dev.txt'
+    if (req?.headers?.host!='lessonhome.ru') && req.url.match /^\/robots\.txt/
+      req.url = '/robots_dev.txt'
     if req.url.match /^\/tutors_search/
       res.writeHead 301, 'Location': req.url.replace '/tutors_search','/search'
       return res.end()

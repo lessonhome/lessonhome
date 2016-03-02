@@ -231,7 +231,7 @@ class @main
     mf = {}
     mf.page = 'filter'
     mf.subject = filters.subjects
-      
+ 
     ss = {}
     mf.subject ?= []
     for s in mf.subject
@@ -239,6 +239,7 @@ class @main
     if olds.subject[0]
       for s in olds.subject
           ss[s] = true
+    mf.progress = true
     mf.subject = Object.keys ss
     mf.course = filters.course ? []
     ss = []
@@ -246,9 +247,12 @@ class @main
       ss[c] = true
     for c in (olds.course ? [])
       ss[c] = true
+    mf.metro ?= {}
     for m in (filters.metro ? [])
+      m_path = m?.split?(':')?[1] || ""
+      mf.metro[m_path] = true if m_path
       m = @metro.stations?[m?.split?(':')?[1] ? ""]?.name
-      ss[m] = true if m
+      #ss[m] = true if m
     mf.course = Object.keys ss
     l = 500
     r = 6000

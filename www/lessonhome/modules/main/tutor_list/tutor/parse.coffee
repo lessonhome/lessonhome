@@ -97,6 +97,8 @@ const_mess = {
   ret.metro_tutors = do ->
     for_show = {type: 'all', data: []}
     where = value.check_out_the_areas ? {}
+    where = value.yandex?.metro ? where
+    
     regexp = /vsya_moskva/i
     exist = {}
     for own i, place of where
@@ -116,18 +118,6 @@ const_mess = {
 
     for_show.type = 'metro'
     return for_show if for_show.data.length
-    where = value.location?.metro || ''
-
-    if where
-      where = prepareStr(where).split(reg_comma)
-      exist = {}
-      for place in where when place = getGuessedMetro(place)
-        unless exist[place.metro]?
-          exist[place.metro] = true
-          for_show.data.push(place)
-
-      exist = null
-      return for_show if for_show.data.length
 
     for where in ['area', 'street']
       return for_show if for_show.data = value.location?[for_show.type = where]
@@ -151,6 +141,12 @@ const_mess = {
   ret.metro_tutors ?= {}
   ret.metro_tutors.type ?= 'metro'
   ret.metro_tutors.data ?= []
+  value.filter_stations = []
+  if value.yandex?.all_moscow
+    value.filter_stations.push
+      metro :'Вся Москва'
+      color : "#FFF"
+      key : 'Вся Москва'
   if value.filter_stations
     unless ret.metro_tutors.type == 'metro'
       ret.metro_tutors.data = [{metro:ret.metro_tutors.data,color:"#FFF"}]
