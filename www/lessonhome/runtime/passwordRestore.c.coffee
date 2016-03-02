@@ -82,6 +82,7 @@ email_period_life = 24 #hours
         token: _randomHash(10)
         valid: (new Date).setHours(now.getHours() + email_period_life)
       }
+      console.log {authToken,id:data.id}
       utoken = yield url_service.d2u 'authToken',{token:authToken.token}
       yield _invoke accountsDb,'update', {id: data.id}, $set:{authToken}, {upsert:true}
 
