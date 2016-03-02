@@ -1,5 +1,5 @@
 User-agent: *
 Host: https://lessonhome.ru
-Disallow: https://lessonhome.ru/tutor_registration
-Disallow: https://lessonhome.ru/forgot_password
+Disallow: /tutor_registration
+Disallow: /forgot_password
 Sitemap : https://lessonhome.ru/sitemap.xml

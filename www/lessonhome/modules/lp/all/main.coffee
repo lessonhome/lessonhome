@@ -3,7 +3,7 @@ class @main
     $W @
   Dom : =>
     @oldScroll      = $(document).scrollTop()
-    @found.input_phone.mask '9 (999) 999-99-99'
+#    @found.input_phone.mask '9 (999) 999-99-99'
     @fastest = @dom.find '.fastest'
   show: =>
     @found.open_form.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid', 'fast'
@@ -49,7 +49,7 @@ class @main
         val = el.val()
         @tree.value ?= {}
         @tree.value[name] = val
-        elems.filter(':not(:focus)').val(val).focusin().focusout()
+        elems.filter(':not(:focus)').val(val)
         @emit 'change'
 
     phone_listener = getListener('phone', @found.input_phone)

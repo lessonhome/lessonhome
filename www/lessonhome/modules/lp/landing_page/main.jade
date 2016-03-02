@@ -1,0 +1,86 @@
+.first-screen
+  .container.fs-con
+    .row.adv_row-nomargin.fs-con
+      .col.s5.m5.l5.offset-s7.offset-m7.offset-l7.fs-con.fs-form-bg
+        .fs-form-padding.center-align.dark_form
+          .row
+            .col.s12
+              h1.form-title-one Изучайте английский
+                br
+                | с правильным преподавателем
+              h2.form-title-two Мы подберем его для Вас, бесплатно
+          .row
+            .input-field.col.s12
+              i.material-icons.prefix account_circle
+              input(type='text' id='f_name', name ='name', value=value.name).js-name
+              label(for='f_name') Имя
+          .row
+            .input-field.col.s12
+              i.material-icons.prefix phone
+              input(type='tel' id='f_phone', name='phone', value=value.phone).js-phone
+              label(for='f_phone') Телефон
+          .row.fs_row-button
+            .col.s12
+              a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach Подберите мне репетитора
+
+
+.advantages-screen
+  .container.center-align.screen__padding
+    .row.adv_row-margin
+      .col.s4.m4.l4
+        img(src=F('/lp/l_icons/l_icon_1.jpg'))
+        .advantages_text Только проверенные мастера своего дела
+      .col.s4.m4.l4
+        img(src=F('/lp/l_icons/l_icon_5.jpg'))
+        .advantages_text Занятия по skype, у Вас или у преподавателя
+      .col.s4.m4.l4
+        img(src=F('/lp/l_icons/l_icon_6.jpg'))
+        .advantages_text Точный подбор по Вашим критериям, от обучения азам до подготовки к IELTS
+    .row.adv_row-margin
+      .col.s4.m4.l4
+        img(src=F('/lp/l_icons/l_icon_3.jpg'))
+        .advantages_text Подберем репетитора за 2 часа
+      .col.s4.m4.l4
+        img(src=F('/lp/l_icons/l_icon_2.jpg'))
+        .advantages_text Оплата только по факту проведенного занятия
+      .col.s4.m4.l4
+        img(src=F('/lp/l_icons/l_icon_4.jpg'))
+        .advantages_text Подбор совершенно бесплатен
+.your-tutor-screen.screen__border!=tutor_target
+.what-work
+  .container
+    .row
+      .col.s12.title
+        h2 Как мы работаем
+      .ww-content
+        .col.s12.m4.l4
+          .ww-icons
+            i.icon-howwework1
+          .ww-text Оставьте заявку
+        .col.s12.m4.l4
+          .ww-icons
+            i.icon-howwework2
+          .ww-text С вами свяжется администратор, уточнит подробности
+        .col.s12.m4.l4
+          .ww-icons
+            i.icon-howwework3
+          .ww-text Вы знакомитесь с репетитором и занимаетесь
+.comments-block.landing-comment!=comments
+.questions-screen
+  .container.screen__padding
+    h2.screen__title.other__lh
+      |У Вас остались вопросы?
+      br
+      |Наш менеджер с радостью все расскажет
+    .row.dark_form.valign-wrapper.adv_row-nomargin
+      .input-field.col.s4.valign
+        i.material-icons.prefix account_circle
+        input(type='text' id='q_name', name ='name', value=value.name).js-name
+        label(for='q_name') Имя
+      .input-field.col.s4.valign
+        i.material-icons.prefix phone
+        input(type='tel' id='q_phone', name='phone', value=value.phone).js-phone
+        label(for='q_phone') Телефон
+      .col.s4.valign
+        a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach Получить консультацию
+

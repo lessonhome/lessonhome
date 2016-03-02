@@ -45,7 +45,12 @@
             a(href='/help')
               span Помощь
               i.icon-question2
-.header-spacer
+-headerClass = ''
+if id_page == 'landing_page'
+  -headerClass = 'landing-header'
+else
+  -headerClass = ''
+.header-spacer(class=headerClass)
   nav.js-fixed_nav 
     .nav-wrapper
       .container
@@ -53,23 +58,24 @@
           img(src=F('lp/lh_logo.png'))
         a(href='#', data-activates='mobile-demo').button-collapse.js-show_menu.left
           i.material-icons menu
-        ul.hide-on-med-and-down
-          li
-            if id_page == 'main_p'
-              a.active(href='/') Главная
-            else
-              a(href='/') Главная
-          li
-            if id_page == 'search_p'
-              a.active(href='/search') Наши репетиторы
-            else
-              a(href='/search') Наши репетиторы
-          li
-            if hide_menu_punkt != true
-              if id_page == 'lp_tutors'
-                a.active(href='/tutors_lp') Репетиторам
+        if id_page != 'landing_page'
+          ul.hide-on-med-and-down
+            li
+              if id_page == 'main_p'
+                a.active(href='/') Главная
               else
-                a(href='/tutors_lp') Репетиторам
+                a(href='/') Главная
+            li
+              if id_page == 'search_p'
+                a.active(href='/search') Наши репетиторы
+              else
+                a(href='/search') Наши репетиторы
+            li
+              if hide_menu_punkt != true
+                if id_page == 'lp_tutors'
+                  a.active(href='/tutors_lp') Репетиторам
+                else
+                  a(href='/tutors_lp') Репетиторам
         .right.hide-on-med-and-down
           if !$req.user.registered
             if hide_head_button != true
@@ -105,11 +111,12 @@
               a.active(href='/') Главная
             else
               a(href='/') Главная
-          li
-            if id_page == 'search_p'
-              a.active(href='/search') Наши репетиторы
-            else
-              a(href='/search') Наши репетиторы
+          if id_page != 'landing_page'
+            li
+              if id_page == 'search_p'
+                a.active(href='/search') Наши репетиторы
+              else
+                a(href='/search') Наши репетиторы
           li  
             if hide_menu_punkt != true
               if id_page == 'lp_tutors'

@@ -27,7 +27,7 @@
           .row.phone-margin(class=button_color)
             .input-field.col.l12.m12.s12.error-text
               i.material-icons.prefix phone
-              input.js-input_phone(type='tel' value=value.phone)#phone.validate
+              input.js-input_phone(type='tel' value=value.phone, data-mask="9 (999) 999-99-99")#phone.validate
               label(for='phone', data-error="Введите корректный телефон") Телефон
           .row.no-margin
             .col.l12.m12.s12(class=button_color)
@@ -104,7 +104,7 @@
           .row.phone-row
             .input-field.col.l12.m12.s12.error-text
               i.material-icons.prefix phone
-              input.js-input_phone(type='tel' value=value.phone)#icon_telephone.validate
+              input.js-input_phone(type='tel' value=value.phone, data-mask="9 (999) 999-99-99")#icon_telephone.validate
               label(for='icon_telephone', data-error="Введите корректный телефон") Телефон
           .row.botton-row
             .col.l12.m12.s12

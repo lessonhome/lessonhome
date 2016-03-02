@@ -57,6 +57,14 @@ class @D2U
       default : ''
       cookie : true
     }
+  $metro : (obj)=>
+    return {
+      type : 'string'
+      value : Object.keys(obj?.metro ? {}).sort().join('.')
+      default : ''
+      filter : true
+    }
+
   $priceLeft : (obj)=>
     type  : 'int'
     value : obj?.price?.left
@@ -150,6 +158,12 @@ class @D2U
       default : 0
       filter : true
     }
+  $progress : (obj)=>
+    type : 'bool'
+    value : obj.progress && true
+    default : false
+    cookie : false
+    filter : true
   $pupil_status : (obj)=>
     v = pupil_status.indexOf(obj?.pupil_status)
     v = 0 unless v>=0
@@ -196,6 +210,13 @@ class @U2D
   $price : (obj)=>
     left  : obj?.priceLeft
     right : obj?.priceRight
+  $metro : (obj)=>
+    arr = (obj.metro || "").split('.')
+    o = {}
+    for a in arr
+      o[a] = true if a
+    return o
+  $progress  : (obj)=> obj?.progress && true
   $gender : (obj)=> gender[obj?.gender ? 0]
   $page : (obj)=> page[obj?.page ? 0]
   $with_reviews : (obj)=> obj?.with_reviews
