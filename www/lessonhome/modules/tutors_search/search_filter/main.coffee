@@ -125,12 +125,12 @@ class @main
       (result.push(a); exist[a] = true) for a in arr when !exist[a]?
       return result
 
-    @subjects.on 'change', => Feel.urlData.set 'tutorsFilter', {subjects: ejectUnique @subjects.val()}
-    @course.on 'change', => Feel.urlData.set 'tutorsFilter', {course: @course.val()}
-    @price.on 'change', => Feel.urlData.set 'tutorsFilter', @price.val()
-    @status.on 'change', => Feel.urlData.set 'tutorsFilter', @status.val()
-    @sex.on 'change', => Feel.urlData.set 'tutorsFilter', @sex.val()
-    @branch.on 'change', => Feel.urlData.set 'tutorsFilter', {metro: ejectUnique @branch.val()}
+    @subjects.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {subjects: ejectUnique @subjects.val()}
+    @course.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {course: @course.val()}
+    @price.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @price.val()
+    @status.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @status.val()
+    @sex.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @sex.val()
+    @branch.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {metro: ejectUnique @branch.val()}
 
 
     @found.use_settings.on 'click', =>

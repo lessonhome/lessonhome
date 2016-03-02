@@ -83,7 +83,13 @@
   cursor: pointer
   &:last-of-type
     margin-right: 0
+  //&:after
+  //  content: ''
+  //  display: inline-block
+  //  width: 1px
+  //  height: 1px
   span
+
     display: inline-block
     vertical-align: middle
     line-height: 100%
@@ -161,7 +167,7 @@
 .metro_line
   font-family: "futuris-cyrilic"
 .tutor-info-line
-  font-size: 1.2rem
+  //font-size: 1.2rem /don't use that! For god and dropdown dict
   .col
     &:first-of-type
       padding-left: 0
@@ -193,6 +199,7 @@
     margin-left: 0.5rem
   &:before
     content: "..."
+    font-size: 1rem
 .card-info-color
   color: #646464
   p
@@ -213,17 +220,28 @@
     padding: 1rem 1rem !important
 
 .metro-line
+  margin: -0.5rem
+  //position: relative
   &>span
+    //font-size: 0
+    padding: 0.5rem
     &:last-child
       cursor: default !important
 .metro_line .dropdown-content
-  margin-top: -4px
-  margin-left: -8px
+  font-family: inherit
+  overflow-x: hidden
+  line-height: inherit
   li
+
+    box-sizing: content-box
+    & *
+      box-sizing: border-box
+    margin-right: 17px
     &, & *
       cursor: default !important
     &:hover
       background: inherit !important
+
 .tutor-action
   .btn-flat
     &.btn-trigger

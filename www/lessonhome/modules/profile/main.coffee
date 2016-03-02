@@ -95,8 +95,8 @@ class @main
     Feel.urlData.on 'change',=>
       pupil = Feel.urlData.get 'pupil'
 
-      @message_name.val(pupil.name).focusin().focusout()
-      @message_phone.val(pupil.phone).focusin().focusout()
+      @message_name.val(pupil.name)
+      @message_phone.val(pupil.phone)
 
       Q.spawn =>
         yield @setLinked()

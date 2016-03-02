@@ -19,6 +19,7 @@ class @main
     @parseAbout()
     @prepareLink @dom.find('a')
     yield @setLinked()
+    @found.metro_line.on 'mouseenter', '.stantion.dropdown-button', (e)-> $(e.currentTarget).siblings('ul.dropdown-content').scrollTop(0)
 
   prepareLink : (a)=>
     index = @tree.value?.index
@@ -144,7 +145,7 @@ class @main
       when 'metro'
         val = place.data[0]
         span = "
-            <span class='stantion dropdown-button' data-hover='true' data-constrainwidth='false' data-activates='d#{value.index}'>"
+            <span class='stantion dropdown-button' data-hover='true' data-constrainwidth='false' data-minwidth='true' data-activates='d#{value.index}'>"
         if val.color?
           span += "<i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>"
         span +="<span class='card-info-color'>#{val.metro}</span>

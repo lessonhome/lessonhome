@@ -139,8 +139,8 @@ class @main
         value: {
           name: $urlform: pupil: 'name'
           phone: $urlform: pupil: 'phone'
-          subjects: $urlform: pupil: 'subjects'
-#          metro: $urlform: pupil: 'metro'
+          subjects: $urlform: tutorsFilter: 'subjects'
+          metro: $urlform: tutorsFilter: 'metro'
 #          comment: $urlform: pupil: 'prices'
 #          gender: $urlform: pupil: 'gender'
 #          prices: $urlform: pupil: 'comment'

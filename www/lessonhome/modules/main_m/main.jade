@@ -13,16 +13,16 @@
               each groups,gname in subject_list
                 optgroup(label!=gname)
                   each val,index in groups
-                    option(value!=val, selected=value.sub_exist[val]?true:undefined)!=val
+                    option(value!=val, selected=!!value.sub_exist[val])!=val
           .col.s12.l6.m6.metro-loc.slide_collapse &nbsp;
-            -var metro_stations = value.metro;
+            -var metro_stations = value.metro_line;
             select(name='color', data-v="branch", multiple).js-fast_branch
               option(value='', selected, disabled) Выберите метро
               for v, name_li in metro_stations
                 optgroup(label=v.name)
                   each s, name_st in v.stations
                     -var val = name_li+":"+name_st
-                    option(value=val)!=s
+                    option(value=val, selected=!!value.metr_exist[val])!=s
                     //option(value=val, selected=metro_exist[val]?true:undefined)!=s
           .col.s12.l2.m2.input-col-link
             a.btn.blue-btn.waves-effect.waves-light.js-send_form Далее
