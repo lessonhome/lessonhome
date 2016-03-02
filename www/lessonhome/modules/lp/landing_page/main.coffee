@@ -16,6 +16,8 @@ class @main
     if errs.length
       @showError(errs)
     else
+      name = $(e.currentTarget).attr 'name'
+      Q.spawn => Feel.sendActionOnce name
       @found.form.fadeOut  100, => @found.success.fadeIn()
 
     return false

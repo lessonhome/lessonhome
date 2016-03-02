@@ -22,7 +22,7 @@
                 label(for='f_phone') Телефон
             .row.fs_row-button
               .col.s12
-                a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach Подберите мне репетитора
+                a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach(name='bid_podbor') Подберите мне репетитора
           .js-success(style="display:none")
             h5.form-title-one Заявка успешно отправлена!
             h5.form-title-two Наш менеджер свяжется с Вами в течении 10-15 минут
@@ -89,7 +89,7 @@
           input(type='tel' id='q_phone', name='phone', value=value.phone).js-phone
           label(for='q_phone') Телефон
         .col.s4.valign
-          a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach Получить консультацию
+          a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach(name='bid_backcall') Получить консультацию
     .js-success(style="display:none").center-align
       h5.form-title-one Заявка успешно отправлена!
       h5.form-title-two Наш менеджер свяжется с Вами в течении 10-15 минут
