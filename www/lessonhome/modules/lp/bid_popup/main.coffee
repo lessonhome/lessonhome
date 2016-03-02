@@ -87,8 +87,12 @@ class @main extends EE
     setTimeout @metroColor, 100
 
   jobOpenBidPopup : (bidType, accessory)=>
+    @makeBid()
+    
     if (bidType == 'fullBid')
       @makeFullBid()
+    else if (bidType == 'callback')
+      @makeCallBack()
 
     @accessory = accessory if accessory?
 
@@ -119,6 +123,12 @@ class @main extends EE
     @found.longer.show()
     @found.req_success.hide()
     @found.req_body.show()
+
+  makeCallBack: =>
+    @found.bid_popup.addClass('callback')
+
+  makeBid: =>
+    @found.bid_popup.removeClass('callback')
 
   getScrollWidth : =>
     div = $('<div>').css {

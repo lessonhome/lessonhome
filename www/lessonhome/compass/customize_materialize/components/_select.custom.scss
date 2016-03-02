@@ -1,0 +1,19 @@
+.select-dropdown {
+  overflow-x: hidden;
+  //min-width: 100%;
+  //bottom: -10px;
+  //left: -10px;
+  //padding-right: 16px;
+  li {
+    box-sizing: content-box;
+    //width: auto;
+    //margin-right: 16px;
+    span {
+      box-sizing: border-box;
+      //font-size: 1em !important;
+      //white-space: nowrap;
+      //overflow: hidden;
+      //text-overflow: ellipsis;
+    }
+  }
+}
