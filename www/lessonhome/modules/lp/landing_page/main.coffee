@@ -2,12 +2,23 @@ class @main
   Dom : =>
     @short_attach = @tree.short_attach.class
   show: =>
-    @short_attach.addField(@found.name.focus => @found.name.removeClass('invalid'))
+    @short_attach.addField(@found.name)
     @found.phone.mask '9 (999) 999-99-99'
-    @short_attach.addField(@found.phone.focus => @found.phone.removeClass('invalid'))
+    @short_attach.addField(@found.phone)
     @found.attach.on 'click', @onAttach
 
-  onAttach : (e) => Q.spawn => @showError(yield @short_attach.send())
+    @found.name.focus => @found.name.removeClass('invalid')
+    @found.phone.focus => @found.phone.removeClass('invalid')
+    @found.detail.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid'
+  onAttach : (e) => Q.spawn =>
+    errs = yield @short_attach.send()
+
+    if errs.length
+      @showError(errs)
+    else
+      @found.form.fadeOut  100, => @found.success.fadeIn()
+
+    return false
 
   showError : (errs = []) =>
 

@@ -4,7 +4,8 @@ class @main
   Dom : =>
     @slickBlock = @found.slick_block
 
-    @prepareLink()
+    if @tree.not_page_refresh
+      @prepareLink()
 
     @slickBlock.slick({
       dots: false,
