@@ -18,4 +18,5 @@ class @main extends @template '../lp'
       short_attach : @module 'short_form/js_form' :
         value: $urlform : pupil : ''
       tutor_target: @state './target_tutor'
-      comments: @state 'lp/comments'
+      comments: @state 'lp/comments':
+        not_page_refresh: false
