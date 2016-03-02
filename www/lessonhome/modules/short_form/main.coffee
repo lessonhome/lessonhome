@@ -19,8 +19,11 @@ class @main
 
     if errs.length
       @showError errs
-    else
-      @found.short_form.fadeOut 200, => @found.success_form.fadeIn()
+      return false
+
+    @found.short_form.fadeOut 200, => @found.success_form.fadeIn()
+    return true
+
 
   showError: (errs =[]) =>
     @per_err.slideUp()

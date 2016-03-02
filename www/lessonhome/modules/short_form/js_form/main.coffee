@@ -16,23 +16,30 @@ class @main
       @fields[name] = @fields[name].add(field)
 
     field.keyup @_onKeyUp(name)
-    field.blur @_getListenKeyUp
+    field.blur @_getListenKeyUp(name)
 
   _onKeyUp : (name) => return (e) =>
     @fields[name].not(':focus').val( @values[name] = $(e.currentTarget).val() )
     Q.spawn -> Feel.sendActionOnce('interacting_with_form', 1000*60*10)
 
-  _getListenKeyUp : => Q.spawn => @_setUrl()
+  _getListenKeyUp : (name) => return (e) =>
+    Q.spawn =>
+      yield @_setUrl()
+      yield @_send(true) if name == 'phone'
 
   _setUrl : => yield Feel.urlData.set 'pupil', @values
 
   _execute : (data) => fields.val(data[name]) for own name, fields of @fields when data[name]?
 
-  send : (quiet = false) =>
+  send : (quiet=false) =>
     yield @_setUrl()
+    return yield @_send()
+
+  _send : (quiet) =>
     data = yield Feel.urlData.get 'pupil'
-    data.linked = yield Feel.urlData.get 'mainFilter','linked'
-    data.place = yield Feel.urlData.get 'mainFilter','place_attach'
+
+#    data.linked = yield Feel.urlData.get 'mainFilter','linked'
+#    data.place = yield Feel.urlData.get 'mainFilter','place_attach'
     errs = @js.check(data)
 
     if errs.length is 0
@@ -43,12 +50,13 @@ class @main
         url = yield Feel.urlData.getUrl true
         url = url?.replace?(/\/?\?.*$/, '')
         Feel.sendActionOnce 'bid_action', null, {name: 'fast', url}
+        @sended = true
         return []
 
       errs?=[]
       errs.push err if err
-
+    yield Feel.sendAction 'error_on_page'
     return errs
 
-  setValue : (data) => @_execute data
+#  setValue : (data) => @_execute data
   getValue : => @values

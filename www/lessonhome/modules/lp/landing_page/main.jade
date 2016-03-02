@@ -9,19 +9,24 @@
                 br
                 | с правильным преподавателем
               h2.form-title-two Мы подберем его для Вас, бесплатно
-          .row
-            .input-field.col.s12
-              i.material-icons.prefix account_circle
-              input(type='text' id='f_name', name ='name', value=value.name).js-name
-              label(for='f_name') Имя
-          .row
-            .input-field.col.s12
-              i.material-icons.prefix phone
-              input(type='tel' id='f_phone', name='phone', value=value.phone).js-phone
-              label(for='f_phone') Телефон
-          .row.fs_row-button
-            .col.s12
-              a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach Подберите мне репетитора
+          .js-form
+            .row
+              .input-field.col.s12
+                i.material-icons.prefix account_circle
+                input(type='text' id='f_name', name ='name', value=value.name).js-name
+                label(for='f_name') Имя
+            .row
+              .input-field.col.s12
+                i.material-icons.prefix phone
+                input(type='tel' id='f_phone', name='phone', value=value.phone).js-phone
+                label(for='f_phone') Телефон
+            .row.fs_row-button
+              .col.s12
+                a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach Подберите мне репетитора
+          .js-success(style="display:none")
+            h5 Заявка успешно отправлена!
+            p Наши специалисты свяжутся с вами в течении 10-15 минут
+            a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-detail Уточнить заявку
 
 
 .advantages-screen
@@ -72,15 +77,20 @@
       |У Вас остались вопросы?
       br
       |Наш менеджер с радостью все расскажет
-    .row.dark_form.valign-wrapper.adv_row-nomargin
-      .input-field.col.s4.valign
-        i.material-icons.prefix account_circle
-        input(type='text' id='q_name', name ='name', value=value.name).js-name
-        label(for='q_name') Имя
-      .input-field.col.s4.valign
-        i.material-icons.prefix phone
-        input(type='tel' id='q_phone', name='phone', value=value.phone).js-phone
-        label(for='q_phone') Телефон
-      .col.s4.valign
-        a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach Получить консультацию
+    .js-form
+      .row.dark_form.valign-wrapper.adv_row-nomargin
+        .input-field.col.s4.valign
+          i.material-icons.prefix account_circle
+          input(type='text' id='q_name', name ='name', value=value.name).js-name
+          label(for='q_name') Имя
+        .input-field.col.s4.valign
+          i.material-icons.prefix phone
+          input(type='tel' id='q_phone', name='phone', value=value.phone).js-phone
+          label(for='q_phone') Телефон
+        .col.s4.valign
+          a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach Получить консультацию
+    .js-success(style="display:none")
+      h5 Заявка успешно отправлена!
+      p Наши специалисты свяжутся с вами в течении 10-15 минут
+      a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-detail Уточнить заявку
 
