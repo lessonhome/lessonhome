@@ -20,4 +20,5 @@ class @main extends @template 'lp'
         subjects : $urlform : tutorsFilter: 'subjects'
         metro : $urlform : tutorsFilter: 'metro'
       metro_lines : @const('metro').lines
-      comments: @state 'lp/comments'
+      comments: @state 'lp/comments':
+        not_page_refresh: true

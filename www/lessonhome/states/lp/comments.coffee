@@ -1,6 +1,7 @@
 class @main
   tree : =>@module 'lp/comments':
     carousel : @module 'lib/jquery/plugins/slick'
+    not_page_refresh: @exports()
     main_rep : $defer : =>
       maxl = 200
       jobs = _HelperJobs
