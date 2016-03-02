@@ -22,7 +22,7 @@
                 label(for='f_phone') Телефон
             .row.fs_row-button
               .col.s12
-                a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach Подберите мне репетитора
+                a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach(name='bid_podbor') Подберите мне репетитора
           .js-success(style="display:none")
             h5.form-title-one Заявка успешно отправлена!
             h5.form-title-two Наш менеджер свяжется с Вами в течении 10-15 минут
@@ -30,8 +30,9 @@
               a.waves-effect.waves-light.btn-large.yellow-btn.js-detail Уточнить заявку
 
 
-.advantages-screen
+#tutorSelection.advantages-screen
   .container.center-align.screen__padding
+    h2.screen__title Lessonhome &mdash; это:
     .row.adv_row-margin
       .col.s4.m4.l4
         img(src=F('/lp/l_icons/l_icon_1.jpg'))
@@ -45,13 +46,13 @@
     .row.adv_row-margin
       .col.s4.m4.l4
         img(src=F('/lp/l_icons/l_icon_3.jpg'))
-        .advantages_text Подберем репетитора за 2 часа
+        .advantages_text Подбор репетитора за 2 часа
       .col.s4.m4.l4
         img(src=F('/lp/l_icons/l_icon_2.jpg'))
         .advantages_text Оплата только по факту проведенного занятия
       .col.s4.m4.l4
         img(src=F('/lp/l_icons/l_icon_4.jpg'))
-        .advantages_text Подбор совершенно бесплатен
+        .advantages_text Бесплатный подбор специалиста
 .your-tutor-screen.screen__border!=tutor_target
 .what-work
   .container
@@ -77,7 +78,7 @@
     h2.screen__title.other__lh
       |У Вас остались вопросы?
       br
-      |Наш менеджер с радостью все расскажет
+      |Наш менеджер с радостью на них ответит
     .js-form
       .row.dark_form.valign-wrapper.adv_row-nomargin
         .input-field.col.s4.valign
@@ -89,7 +90,7 @@
           input(type='tel' id='q_phone', name='phone', value=value.phone).js-phone
           label(for='q_phone') Телефон
         .col.s4.valign
-          a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach Получить консультацию
+          a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach(name='bid_backcall') Получить консультацию
     .js-success(style="display:none").center-align
       h5.form-title-one Заявка успешно отправлена!
       h5.form-title-two Наш менеджер свяжется с Вами в течении 10-15 минут

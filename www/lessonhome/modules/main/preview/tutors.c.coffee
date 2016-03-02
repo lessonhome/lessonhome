@@ -16,6 +16,7 @@ class Tutors
     @jobs = yield Main.service 'jobs'
     @jobs.listen 'filterTutors',@jobFilterTutors
     @jobs.listen 'getTutor',@jobGetTutor
+    @jobs.listen 'getTutors',@jobGetTutors
     @jobs.listen 'getTutorsOnMain',@jobGetTutorsOnMain
     @redis = yield Main.service('redis')
     @redis = yield @redis.get()
@@ -110,6 +111,13 @@ class Tutors
   jobGetTutor : ({index})=>
     ret = @index?[index] ? (@index?[99637] ? {})
     ret = ret._client if ret?._client?
+    return ret
+  jobGetTutors : (indexes=[])=>
+    ret = {}
+    for index in indexes
+      prep = @index?[index] ? (@index?[99637] ? {})
+      prep = prep._client if prep?._client?
+      ret[index] = prep
     return ret
 
   jobGetTutorsOnMain : (num)=>
