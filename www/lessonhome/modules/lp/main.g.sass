@@ -154,9 +154,21 @@ textarea.materialize-textarea
   display : none
 
 //modals style
+.send-your-request.callback
+  .req_body
+    .slide_collapse, .longer, .title_bid 
+      display: none !important
+    .title_call
+      display: block  
+  .req_success
+    .full_btn
+      display: none !important
+
 .send-your-request
   overflow-y: inherit
   width: 390px
+  .title_call
+    display: none
   .modal-footer
     text-align: center
     height: auto
