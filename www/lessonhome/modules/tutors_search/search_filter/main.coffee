@@ -125,7 +125,12 @@ class @main
       (result.push(a); exist[a] = true) for a in arr when !exist[a]?
       return result
 
-    @subjects.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {subjects: ejectUnique @subjects.val()}
+    @subjects.on 'change', =>
+      subjects = ejectUnique @subjects.val()
+      Q.spawn => Feel.urlData.set 'tutorsFilter', {subjects}
+      for s in subjects
+
+
     @course.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {course: @course.val()}
     @price.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @price.val()
     @status.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @status.val()
@@ -145,6 +150,9 @@ class @main
       return false
 
 #      Q.spawn => yield Feel.urlData.set 'tutorsFilter', @getValue()
+
+  sinchCourse : (subject) =>
+    @tree.
 
   getValue : =>
     return {

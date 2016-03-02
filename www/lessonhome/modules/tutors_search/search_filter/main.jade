@@ -32,7 +32,7 @@
               each val,index in groups
                 option(value!=val, selected=(subject_exist[val]?true:undefined))!=val
 
-    .row.no-bottom-margin.fixed-spicer
+    .row.no-bottom-margin.fixed-spicer(style="display:none")
       .input-field.col.s12.slide_collapse
         select(name='course', multiple).js-course
           option(value='', disabled, selected) Направление подготовки
