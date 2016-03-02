@@ -79,6 +79,7 @@
 
                 } else {
                     activates.css('white-space', 'nowrap');
+                    activates.find('>*').css({'margin-right':scroll_height + 'px'});
                     if (options.minwidth === true) activates.css('min-width', origin.outerWidth());
                 }
 
