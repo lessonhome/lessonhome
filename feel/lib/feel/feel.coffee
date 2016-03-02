@@ -234,7 +234,7 @@ class module.exports
           @rebuildSass o.site,o.dir,o.name
         when 'jade'
           @site[o.site].modules[o.dir]?.rebuildJade()
-        when 'coffee'
+        when 'coffee', 'js'
           @site[o.site].modules[o.dir]?.rebuildCoffee()
     if o.type == 'states'
       @site[o.site].loadStates()
