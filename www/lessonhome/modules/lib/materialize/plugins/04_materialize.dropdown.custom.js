@@ -5,7 +5,6 @@
         d.remove();
         return h;
     })(jQuery);
-    console.log(scroll_height);
     // Add posibility to scroll to selected option
     // usefull for select for example
     $.fn.scrollTo = function(elem) {
@@ -79,7 +78,8 @@
 
                 } else {
                     activates.css('white-space', 'nowrap');
-                    activates.find('>*').css({'margin-right':scroll_height + 'px'});
+                    activates.css({visibility: 'hidden', height: '0px'}).find('>*').css({'margin-right':scroll_height + 'px', display: 'block'});
+                    activates.css({width: activates.width()}).css({visibility: '', height: ''}).find('>*').css({display: ''});
                     if (options.minwidth === true) activates.css('min-width', origin.outerWidth());
                 }
 
