@@ -134,8 +134,15 @@
 
             // escape double quotes
             var sanitizedLabelHtml = label.html() && label.html().replace(/"/g, '&quot;');
+            var opt = {
+                constrainwidth : true,
+                minwidth : false
+            };
 
-            var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + (($select.is(':disabled')) ? 'disabled' : '') + ' data-activates="select-options-' + uniqueID +'" value="'+ sanitizedLabelHtml +'"/>');
+            if ($select.data('constrainwidth') !== undefined) opt.constrainwidth = $select.data('constrainwidth');
+            if ($select.data('minwidth') !== undefined) opt.minwidth = $select.data('minwidth');
+
+            var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + (($select.is(':disabled')) ? 'disabled' : '') +' data-constrainwidth="'+opt.constrainwidth+'" data-minwidth="'+opt.minwidth+'" data-beloworigin="true" data-activates="select-options-' + uniqueID +'" value="'+ sanitizedLabelHtml +'"/>');
             $select.before($newSelect);
             $newSelect.before(dropdownIcon);
 

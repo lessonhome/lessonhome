@@ -52,6 +52,8 @@ footer
   background: url(F('/lp/social_sprite.png'))
   &:first-of-type
     margin-left: 0
+  @media #{$medium-and-down}
+    margin-left: 2.5rem
 .vk
   width: 12px
   height: 15px
@@ -68,6 +70,10 @@ footer
   width: 21px
   height: 16px
   background-position: -25px 0
+.ok
+  width: 12px
+  height: 19px
+  background-position: -121px 0  
 
 .footer-text
   p
@@ -86,6 +92,7 @@ footer
       margin-bottom: 0    
 .request-call-modal
   width: 35%
+  max-height: 90%
   .input-field
     .prefix
       top: 10px
@@ -93,7 +100,7 @@ footer
     width: 70%
   @media #{$small-and-down}
     width: 95%
-    max-height: 90%
+    
 
 .orange-d-text
   color: #fd7c48

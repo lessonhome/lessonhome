@@ -95,8 +95,8 @@ class @main
     Feel.urlData.on 'change',=>
       pupil = Feel.urlData.get 'pupil'
 
-      @message_name.val(pupil.name).focusin().focusout()
-      @message_phone.val(pupil.phone).focusin().focusout()
+      @message_name.val(pupil.name)
+      @message_phone.val(pupil.phone)
 
       Q.spawn =>
         yield @setLinked()
@@ -198,7 +198,7 @@ class @main
   tutorChoose : (active)=>
     if active
       @found.tutor_trigger.addClass('waves-light blue-btn selected white-text').removeClass('btn-trigger waves-grey')
-      @found.tutor_trigger.find('.tutor_button_text').html('Убрать')
+      @found.tutor_trigger.find('.tutor_button_text').html('Отменить')
       @found.tutor_trigger.find('.material-icons').html('remove')
     else
       @found.tutor_trigger.removeClass('waves-light blue-btn selected white-text').addClass('btn-trigger waves-grey')

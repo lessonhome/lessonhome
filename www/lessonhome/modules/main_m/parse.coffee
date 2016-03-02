@@ -28,8 +28,8 @@ getExist = (obj) ->
     r.l.text = r.s[0].toUpperCase() + r.s.slice(1) if r.s
   yield Q.all qs
   value.rects = rects
-  value.metro = lines
+  value.metro_line = lines
 
-  value.cou_exist = getExist value.course
+  value.metr_exist = getExist value.metro
   value.sub_exist = getExist value.subjects
   return value
