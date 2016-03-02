@@ -37,10 +37,12 @@ class @main
         o = @clone.$clone()
         yield o.setValue _preps[id]
         arr.push o
+      @found.tutor_list.height @found.tutor_list.height()
       @found.tutor_list.empty()
       for a in arr
         @found.tutor_list.append a.dom
       @found.tutor_list.animate {'opacity':1},d
+      @found.tutor_list.height ''
       
     
     
