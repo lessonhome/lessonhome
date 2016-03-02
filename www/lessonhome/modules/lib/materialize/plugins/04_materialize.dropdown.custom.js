@@ -1,5 +1,11 @@
 (function ($) {
-
+    var scroll_height = (function () {
+        var d = $('<div style="position: fixed; overflow-x: scroll; width: 50px; height: 50px; visibility: hidden">').appendTo($('body'));
+        var h = d.outerWidth() - d.innerWidth();
+        d.remove();
+        return h;
+    })(jQuery);
+    console.log(scroll_height);
     // Add posibility to scroll to selected option
     // usefull for select for example
     $.fn.scrollTo = function(elem) {
