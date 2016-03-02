@@ -39,6 +39,7 @@ class Sitemap
     states = yield @jobs.solve 'getAllStates'
     for key,val of states
       @push urls,key if val.match /reclame_jump_page_templates/
+      @push urls,key if key.match /\/ad\//
     filter = {
       data:_setKey (yield @udata.u2d('')),'mainFilter'
       hash : ''
