@@ -75,6 +75,8 @@ class Telegram
     yield @alice_bot.on 'message',@alice
   alice : (msg)=> Q.spawn =>
     return unless msg?.text
+    if msg.text.match /^\/?next/
+      msg = @msg_next if @msg_next?
     mtr = msg.text.replace(/\@\w+/,'')
     if @audio_cache?[mtr]
       return yield @sendAudio msg, @audio_cache?[mtr]
@@ -121,8 +123,11 @@ class Telegram
     cmd = cmd.toLocaleLowerCase()
     switch cmd
       when 'find','afind','аштв','фаштв'
+        cmd2 ?= 10
         yield @alice_bot.sendChatAction msg.chat.id,'typing'
         items = yield @audioFind arg.join(' '),cmd2,cmd3
+        @msg_next = msg
+        @msg_next.text = "#{cmd} #{cmd2} #{cmd3+cmd2} #{arg.join(' ')}"
         str = ""
         @audio_cache ?= {}
         for it,i in items
@@ -131,11 +136,17 @@ class Telegram
           _invoke(@redis,'hset','audio_cache',key_,JSON.stringify it).done()
           str += "#{key_}\t #{it.artist.substr(0,30)}\t- #{it.title.substr(0,40)} #{_num it.duration//60}:#{_num it.duration%60}\n"
       when 'get','aget','фпуе','пуе'
+        cmd2 ?= 1
+        @msg_next = msg
+        @msg_next.text = "#{cmd} #{cmd2} #{cmd3+cmd2} #{arg.join(' ')}"
         items = yield @audioFind arg.join(' '),(cmd2 ? 1),cmd3
         for item in items
           yield @sendAudio msg,item
         return
       when 'photo','фото'
+        cmd2 ?= 5
+        @msg_next = msg
+        @msg_next.text = "#{cmd} #{cmd2} #{cmd3+cmd2} #{arg.join(' ')}"
         ret = yield _wget 'https','www.google.ru','/search?newwindow=1&source=lnms&tbm=isch&sa=X&q='+encodeURIComponent(arg.join(' '))
         #ret = yield _wget 'https','www.google.ru','/search?newwindow=1&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiNqb6syqTLAhXpHJoKHeAdAf4Q_AUICCgC&biw=1463&bih=950&q='+encodeURIComponent(arg.join(' '))
         imgs = ret?.data?.match?(/\<img[^\<]+src\=\"([^\"]+static[^\"]+)\"/gmi) ? []
@@ -146,7 +157,6 @@ class Telegram
           if src
             srcs.push src
             boo = true
-        cmd2 ?= 5
         if cmd2
           srcs = srcs.splice cmd3,cmd2
         yield @sendPhotos msg,srcs if boo
