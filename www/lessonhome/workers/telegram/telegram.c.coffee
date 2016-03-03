@@ -69,11 +69,11 @@ class Telegram
     if force
       key = '130213602:AAHekroPCeAMo2f5P6BSYRhSi4FlrLlNMYM'
     else if hostname == 'lessonhome.org'
-      key = '197380826:AAE2UoiB4mCuN6aTaZgYub_dKCKGYn7LfEw'
+      key = '197380826:AAGXdGdaP27f4F9ztb3bJyhM4oMBOz6PBBM'
     else return
     @alice_bot = new telegram key,polling:true
     yield @alice_bot.on 'message',@alice
-  alice : (msg)=> Q.spawn =>
+  alice : (msg)=> Q.spawn => try
     return unless msg?.text
     if msg.text.match /^\/?next/
       msg = @msg_next if @msg_next?
@@ -144,10 +144,20 @@ class Telegram
           yield @sendAudio msg,item
         return
       when 'photo','фото'
-        cmd2 ?= 5
+        cmd2 ?= 1
         @msg_next = msg
         @msg_next.text = "#{cmd} #{cmd2} #{cmd3+cmd2} #{arg.join(' ')}"
-        ret = yield _wget 'https','www.google.ru','/search?newwindow=1&source=lnms&tbm=isch&sa=X&q='+encodeURIComponent(arg.join(' '))
+        try
+          urls = yield @jobs.solve 'findImage',arg.join(' '),cmd2,cmd3
+        catch e
+          console.error Exception e
+          return
+        ###
+        try
+          ret = yield _wget 'https','www.google.ru','/search?newwindow=1&source=lnms&tbm=isch&sa=X&q='+encodeURIComponent(arg.join(' '))
+        catch e
+          console.error Exception e
+        return unless ret
         #ret = yield _wget 'https','www.google.ru','/search?newwindow=1&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiNqb6syqTLAhXpHJoKHeAdAf4Q_AUICCgC&biw=1463&bih=950&q='+encodeURIComponent(arg.join(' '))
         imgs = ret?.data?.match?(/\<img[^\<]+src\=\"([^\"]+static[^\"]+)\"/gmi) ? []
         boo = false
@@ -159,8 +169,10 @@ class Telegram
             boo = true
         if cmd2
           srcs = srcs.splice cmd3,cmd2
-        yield @sendPhotos msg,srcs if boo
-        return if boo
+        ###
+        urls = urls.splice 0,cmd2
+        yield @sendPhotos msg,urls if urls.length
+        return if urls.length
     str = str || 'не найдено'
     yield @alice_bot.sendMessage msg.chat.id,str
   audioFind : (name,num=10,cmd3)=> yield @jobs.solve 'findAudio',name,num,cmd3
@@ -177,6 +189,7 @@ class Telegram
     yield @sendAudioFile msg,audio
     clearInterval int
   sendPhotos : (msg,photos=[])=>
+
     Q.spawn => yield @alice_bot.sendChatAction msg.chat.id,'upload_photo'
     num = 60/5
     int = setInterval =>
@@ -186,8 +199,13 @@ class Telegram
       Q.spawn => yield @alice_bot.sendChatAction msg.chat.id,'upload_photo'
     , 5000
     for src in photos then do (src)=> Q.spawn =>
-      path = "#{process.cwd()}/.cache/#{_randomHash()}.jpg"
-      yield _exec 'wget','-q','-O',path,src
+      ext = src?.match?(/(\.\w+)$/)?[1] || "jpg"
+      path = "#{process.cwd()}/.cache/#{_randomHash()}.#{ext}"
+      try
+        yield _exec 'wget','-q','-O',path,src
+      catch e
+        console.error Exception e
+        return
       yield @alice_bot.sendPhoto msg.chat.id,path
       yield _rmrf path
     clearInterval int
@@ -195,7 +213,11 @@ class Telegram
   loadAudioFile : (msg,audio)=>
     return unless audio
     audio.path = "#{process.cwd()}/.cache/#{_randomHash()}.mp3"
-    yield _exec 'wget','-q','-O',audio.path,audio.url
+    try
+      yield _exec 'wget','-q','-O',audio.path,audio.url
+    catch e
+      console.error Exception e
+      return
   sendAudioFile : (msg,audio)=>
     return unless audio?.path
     yield @alice_bot.sendAudio msg.chat.id,audio.path,
