@@ -75,8 +75,10 @@ class Telegram
     yield @alice_bot.on 'message',@alice
   alice : (msg)=> Q.spawn =>
     return unless msg?.text
-    if @audio_cache?[msg.text]
-      return yield @sendAudio msg, @audio_cache?[msg.text]
+    mtr = msg.text.replace(/\@\w+/,'')
+    console.log @audio_cache[mtr],mtr
+    if @audio_cache?[mtr]
+      return yield @sendAudio msg, @audio_cache?[mtr]
       return
     cmd = msg.text.split(/\s+/)?[0] ? ""
     switch cmd
@@ -113,6 +115,7 @@ class Telegram
     cmd = arg.shift()
     cmd2 = null
     cmd2 = +arg.shift() if arg[0].match /^\d+$/
+    cmd = cmd.replace /\@\w+/,''
     switch cmd
       when 'find','afind','аштв','фаштв'
         yield @alice_bot.sendChatAction msg.chat.id,'typing'
@@ -177,10 +180,12 @@ class Telegram
     clearInterval int
 
   loadAudioFile : (msg,audio)=>
+    return unless audio
     audio.path = "#{process.cwd()}/.cache/#{_randomHash()}.mp3"
     console.log 'load',audio.path
     yield _exec 'wget','-q','-O',audio.path,audio.url
   sendAudioFile : (msg,audio)=>
+    return unless audio?.path
     console.log 'send', audio.path
     yield @alice_bot.sendAudio msg.chat.id,audio.path,
       duration : audio.duration
