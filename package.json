@@ -72,7 +72,8 @@
     "underscore":"*",
     "wget" : "*",
     "telegram-bot-api" : "*",
-    "node-telegram-bot-api" : "*"
+    "node-telegram-bot-api" : "*",
+    "vksdk" : "*"
   }
 }
 
