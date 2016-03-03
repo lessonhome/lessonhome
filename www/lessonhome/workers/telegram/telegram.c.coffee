@@ -81,6 +81,7 @@ class Telegram
       return yield @sendAudio msg, @audio_cache?[mtr]
       return
     cmd = msg.text.split(/\s+/)?[0] ? ""
+    cmd = cmd.toLocaleLowerCase()
     switch cmd
       when 'find','afind','аштв','фаштв','get','aget','фпуе','пуе','photo','фото'
         return @alice_audio msg
@@ -115,11 +116,14 @@ class Telegram
     cmd = arg.shift()
     cmd2 = null
     cmd2 = +arg.shift() if arg[0].match /^\d+$/
+    cmd3 = +arg.shift() if arg[0].match /^\d+$/
+    cmd3 ?= 0
     cmd = cmd.replace /\@\w+/,''
+    cmd = cmd.toLocaleLowerCase()
     switch cmd
       when 'find','afind','аштв','фаштв'
         yield @alice_bot.sendChatAction msg.chat.id,'typing'
-        items = yield @audioFind arg.join(' '),cmd2
+        items = yield @audioFind arg.join(' '),cmd2,cmd3
         str = ""
         @audio_cache ?= {}
         for it,i in items
@@ -128,7 +132,7 @@ class Telegram
           _invoke(@redis,'hset','audio_cache',key_,JSON.stringify it).done()
           str += "#{key_}\t #{it.artist.substr(0,30)}\t- #{it.title.substr(0,40)} #{_num it.duration//60}:#{_num it.duration%60}\n"
       when 'get','aget','фпуе','пуе'
-        items = yield @audioFind arg.join(' '),(cmd2 ? 1)
+        items = yield @audioFind arg.join(' '),(cmd2 ? 1),cmd3
         for item in items
           yield @sendAudio msg,item
         return
@@ -145,12 +149,12 @@ class Telegram
             boo = true
         cmd2 ?= 5
         if cmd2
-          srcs = srcs.splice 0,cmd2
+          srcs = srcs.splice cmd3,cmd2
         yield @sendPhotos msg,srcs if boo
         return if boo
     str = str || 'не найдено'
     yield @alice_bot.sendMessage msg.chat.id,str
-  audioFind : (name,num=10)=> yield @jobs.solve 'findAudio',name,num
+  audioFind : (name,num=10,cmd3)=> yield @jobs.solve 'findAudio',name,num,cmd3
   sendAudio : (msg,audio)=>
     Q.spawn => yield @alice_bot.sendChatAction msg.chat.id,'upload_audio'
     num = 60/5
