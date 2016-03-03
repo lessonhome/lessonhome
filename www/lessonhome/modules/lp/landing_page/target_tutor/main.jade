@@ -5,25 +5,25 @@
       .yt_text Начальные классы
       .yt_bottom-block
         img(src=F('/lp/l_icons/l_icon_7.jpg')) 
-        a.yt_button(href='/') улучшить оценки
-        a.yt_button(href='/') углубленное изучение
+        a.js-yt_button(hr='qy=0&qi=8') улучшить оценки
+        a.js-yt_button(hr='qy=0&qi=6') углубленное изучение
     .col.s4.m4.l4.yt_bottom-align
       .yt_text Средние и старшие классы
       .yt_bottom-block
         img(src=F('/lp/l_icons/l_icon_8.jpg'))
-        a.yt_button.ytb__active(href='/') Подтянуть предмет
-        a.yt_button(href='/') Подготовится к экзаменам
-        a.yt_button(href='/') углубленное изучение
+        a.js-yt_button(hr='qy=0&qi=2') Подтянуть предмет
+        a.js-yt_button(hr='qy=0&qw=2&qt=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7&qi=0') Подготовится к экзаменам
+        a.js-yt_button(hr='qy=0&qi=0') углубленное изучение
     .col.s4.m4.l4.yt_bottom-align
       .yt_text После школы
       .yt_bottom-block
         img(src=F('/lp/l_icons/l_icon_9.jpg'))
-        a.yt_button(href='/') сдача сертификата 
-        a.yt_button(href='/') изучить язык
-  .row.center-align.adv_row-margin
-    .tutor-list
+        a.js-yt_button(hr='qy=0&qw=2&qt=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7&qi=2') сдача сертификата 
+        a.js-yt_button(hr='qy=0&qi=4') изучить язык
+  #tutors.row.center-align.adv_row-margin
+    .js-tutor_list
       - if((!tutors)|| (!tutors[0]))tutors = [];
       each t in tutors
         !=t
     .col.s12.yt_button_bottom
-      a.waves-effect.waves-light.btn-large.yellow-btn(href='/search') Посмотреть всех репетиторов
+      a#tutorList.waves-effect.waves-light.btn-large.yellow-btn(href='/search?qy=0') Посмотреть всех репетиторов

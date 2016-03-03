@@ -216,6 +216,7 @@ class @main
     #yield @setFiltered()
     @hashnow ?= 'null'
     filter = yield @toOldFilter()
+    console.log filter
     hashnow = yield Feel.urlData.filterHash url:"blabla?"+filter
     return if (@hashnow == hashnow) && !force
     @hashnow = hashnow

@@ -265,7 +265,7 @@ class @Feel
         params?={}
         params['order_price'] = 1500
 
-    @yaC ?= yaCounter30199739 ? undefined
+    @yaC ?= yaCounter ? undefined
     #return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
     console.log action, params
     unless params?

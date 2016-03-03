@@ -351,7 +351,14 @@ class RouteState
       do =>
         for k,val of node
           if m = k.match /^_custom_(.+)/
-            _custom[m[1]] = val
+            m2 = m[1]?.match(/^(.+)__(.+)$/)
+            m = m2 ? m
+            continue unless m
+            m1 = m[1]
+            m2 = m[2] || ""
+            console.log 'custom',m1,m2
+            _custom[m1] ?= {}
+            _custom[m1][m2] = val
     for uform in @$urlforms
       vv = _setKey @req?.udata?[uform?.fkf?.form],uform?.fkf?.key
       uform.node.$urlforms ?= {}
@@ -397,17 +404,24 @@ class RouteState
     end  = ""
     end += '<!DOCTYPE html><html><head>'
     if _custom.title
-      end += '<title>'+_custom.title+'</title>'
+      for key,val of _custom.title
+        end += '<title>'+val+'</title>'
     else
       end += '<title>'+title+'</title>'
     if _custom.description
-      end += "<meta name='description' content='#{_custom.description}'>"
+      for key,val of _custom.description
+        end += "<meta name='description' content='#{val}'>"
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
     end += @site.router.head
-    end += _custom.head if _custom.head
+    if _custom.head
+      for key,val of _custom.head
+        end += val
     end += @css+'</head><body>'
     end += @top._html
     end += @site.router.body
+    if _custom.body
+      for key,val of _custom.body
+        end += val
     @removeHtml @top
     @time "remove html"
     json_tree = @getTree @top
@@ -446,8 +460,8 @@ class RouteState
             $.localStorage.set("coreVersion",$Feel.version);
           }
           $Feel.root = {
-              "tree" : '+json_tree+ #InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
-          '};
+              "tree" : JSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+ #InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
+          '"))};
           $Feel.constJson = '+@site.constJson+';
           $Feel.user = {};
           $Feel.servicesIp = '+@site.servicesIp+';

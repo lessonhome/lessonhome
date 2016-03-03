@@ -1,5 +1,10 @@
 (function ($) {
-
+    var scroll_height = (function () {
+        var d = $('<div style="position: fixed; width: 50px; height: 50px; visibility: hidden; overflow-y: scroll">').appendTo($('body'));
+        var h = d[0].offsetWidth - d[0].clientWidth;
+        d.remove();
+        return h;
+    })(jQuery);
     // Add posibility to scroll to selected option
     // usefull for select for example
     $.fn.scrollTo = function(elem) {
@@ -73,6 +78,8 @@
 
                 } else {
                     activates.css('white-space', 'nowrap');
+                    activates.css({visibility: 'hidden', height: '0px'}).find('>*').css({'margin-right':scroll_height + 'px', display: 'block'});
+                    activates.css({width: activates.width()}).css({visibility: '', height: ''}).find('>*').css({display: ''});
                     if (options.minwidth === true) activates.css('min-width', origin.outerWidth());
                 }
 
