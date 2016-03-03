@@ -76,7 +76,6 @@ class Telegram
   alice : (msg)=> Q.spawn =>
     return unless msg?.text
     mtr = msg.text.replace(/\@\w+/,'')
-    console.log @audio_cache[mtr],mtr
     if @audio_cache?[mtr]
       return yield @sendAudio msg, @audio_cache?[mtr]
       return
@@ -186,11 +185,9 @@ class Telegram
   loadAudioFile : (msg,audio)=>
     return unless audio
     audio.path = "#{process.cwd()}/.cache/#{_randomHash()}.mp3"
-    console.log 'load',audio.path
     yield _exec 'wget','-q','-O',audio.path,audio.url
   sendAudioFile : (msg,audio)=>
     return unless audio?.path
-    console.log 'send', audio.path
     yield @alice_bot.sendAudio msg.chat.id,audio.path,
       duration : audio.duration
       performer : audio.artist
