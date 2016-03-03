@@ -4,7 +4,7 @@
     .req-modal-body.js-req_body
 
       .modal-content.close-modal-wrapper
-        i.material-icons.modal-close.modal-close-button close
+        i.m_icon.icon_close.modal-close.modal-close-button
         .row
           .col.s12
             h4.center-align.title_bid Оформление заявки
@@ -13,19 +13,19 @@
           .col.s12.js-longer
             h5 Контактная информация:
           .col.input-field.s12
-            i.material-icons.prefix person_outline
+            i.m_icon.icon_person_outline.prefix
             input.validate.js-name#req_name(type='text')
             label(for="req_name") Имя
         .row
           .col.input-field.s12
-            i.material-icons.prefix phone
+            i.m_icon.icon_phone.prefix
             input.validate.js-phone#req_phone(type='tel', data-mask="9 (999) 999-99-99")
             label(for="req_phone") Телефон
         .row
           .col.s12.js-longer
             h5 Предмет:
           .col.s12.input-field.slide_collapse
-            i.material-icons.prefix subject 
+            i.m_icon.icon_subject.prefix
             select(multiple).js-subjects
               option(value="" disabled selected) Выберите предмет
               each groups,gname in subjects
@@ -37,7 +37,7 @@
           .col.s12
             h5 Информация о занятиях:
           .col.s12.input-field.slide_collapse.metro-loc
-            i.material-icons.prefix location_on 
+            i.m_icon.icon_location_on.prefix
             select(multiple).js-metro
               option(value="" disabled selected) Метро
               for v, name_li in metro
@@ -47,7 +47,7 @@
                     option(value=val)!=s
         .row.js-longer
           .col.s12.input-field
-            i.material-icons.prefix account_balance_wallet 
+            i.m_icon.icon_account_balance.prefix
             select(multiple).js-price
               option(value="" disabled selected) Цена за 60 мин.
               optgroup(label="Цена")
@@ -57,7 +57,7 @@
           .col.s12
             h5 Пожелания к репетитору:
           .col.s12.input-field
-            i.material-icons.prefix school 
+            i.m_icon.icon_school.prefix
             select(multiple).js-status
               option(value="" disabled selected) Статус репетитора
               optgroup(label="Статус")
@@ -65,7 +65,7 @@
                   option(value=k)!=s
         .row.js-longer
           .col.s12.col-title
-            i.material-icons.prefix assignment_ind
+            i.m_icon.icon_assignment_ind.prefix
             span Пол репетитора
           .col.s12.col-radio.js-sex
             input(name="req_sex" type="radio" id="req_s1" checked value="").with-gap
@@ -76,14 +76,15 @@
             label(for='req_s3') Женский
         .row.bid-textarea.js-longer
           .col.s12.input-field
-            i.material-icons.prefix mode_edit
+            i.m_icon.icon_mode_edit.prefix
             textarea#bid_textarea.materialize-textarea.js-comment
             label(for='bid_textarea') Ваш комментарий
       .modal-footer
-        a.btn.yellow-btn.waves-effect.waves-light.js-req_full_send <i class="material-icons right">send</i> Отправить
+        a.btn.yellow-btn.waves-effect.waves-light.js-req_full_send Отправить
+          i.m_icon.icon_send.right
     .req-modal-success.js-req_success
       .modal-content.close-modal-wrapper
-        i.material-icons.modal-close.modal-close-button close
+        i.m_icon.icon_close.modal-close.modal-close-button
         .row
           .col.s12
             h3.center-align Готово
