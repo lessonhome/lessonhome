@@ -24,11 +24,11 @@ getInf = (obj) ->
   data.sh_status = getInf(data.filter.status).fill
   data.sh_metro = data.filter.metro[0]?
 
-  data.metro = {}
-  for k, l of lines
-    data.metro[k] = {name: l.name,color: l.color, stations: metro_s =  {}}
-    for s_name in l.stations
-      metro_s[s_name] = stations[s_name].name
+  data.metro = metro.for_select
+#  for k, l of lines
+#    data.metro[k] = {name: l.name,color: l.color, stations: metro_s =  {}}
+#    for s_name in l.stations
+#      metro_s[s_name] = stations[s_name].name
 
 #  ready = metro.ready
 #  stations = {}

@@ -1,3 +1,4 @@
+
 class @main extends @template 'lp'
   route : '/search'
   model : 'tutor/profile_registration/fourth_step'
@@ -8,6 +9,7 @@ class @main extends @template 'lp'
     tutor : 'tutor/profile'
   }
   tree : =>
+    filter = @const('filter')
     content : @module '$':
       btn_up : @module 'btn_up'
       id_page: 'search_p'
@@ -17,12 +19,12 @@ class @main extends @template 'lp'
         value :
           filter  : $urlform : tutorsFilter : ''
         sex:
-          items: @const('filter').sex
+          items: filter.sex
       search_filter: @module '$/search_filter':
         value :
           filter  : $urlform : tutorsFilter : ''
 #          default_filter  : $durlform : mainFilter : ''
-        subject_list: @const('filter').subjects
+        subject_list: filter.subjects
           ###
           popular :
             group: 'Популярные предметы'
@@ -37,14 +39,49 @@ class @main extends @template 'lp'
             group: 'Другое'
             items: ["обществознание","информатика","программирование","логопеды","актёрское мастерство","алгебра","бухгалтерский учёт","высшая математика","география","геометрия","компьютерная графика","логика","макроэкономика","математический анализ","менеджмент","микроэкономика","оригами","правоведение","психология","рисование","риторика","статистика","теоретическая механика","теория вероятностей","философия","черчение","шахматы","эконометрика","экономика","электротехника"]
           ###
-        training_direction:
-          items: @const('filter').course
+#        training_direction: items: filter.course
+        group : filter.group_course
+        rules_sync : {
+          'Музыка' :[]
+          'Искусство' : []
+          'Спорт' : [2,3]
+          'Начальная школа' : []
+          'психология' : [2,3]
+          'бухгалтерский учет' : [3]
+          'английский язык':[0, 1, 2, 3]
+          'высшая математика':[3]
+          'инженерная графика':[3]
+          'компьютерная графика':[3]
+          'логика':[3]
+          'математический анализ':[3]
+          'начертательная геометрия':[3]
+          'программированрие':[3]
+          'сопромат':[3]
+          'статистика':[3]
+          'теоретическая механика':[3]
+          'черчение':[3]
+          'чисельные методы':[3]
+          'электротехника':[3]
+          'журналистика':[3]
+          'конституционное право':[3]
+          'культурология':[3]
+          'менеджмент':[3]
+          'научный стиль':[3]
+          'право':[0,3]
+          'право интеллектуальной собственности':[3]
+          'правоведение':[3]
+          'риторика':[3]
+          'философия':[3]
+          'фонетика':[3]
+          'экономика':[3]
+          'латынь':[3]
+        }
         price_select:
-          items: @const('filter').price
+          items: filter.price
         status_tutor:
-          items: @const('filter').status
+          items: filter.status
         sex_tutor:
-          items: @const('filter').sex
+          items: filter.sex
         metro_lines: @const('metro').lines
       search_help: @module '$/search_help'
       from : $urldata : tutorsFilter : 'offset'

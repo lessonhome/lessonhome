@@ -34,10 +34,11 @@
 
     .row.no-bottom-margin.fixed-spicer
       .input-field.col.s12.slide_collapse
-        select(name='course', multiple).js-course
-          option(value='', disabled, selected) Направление подготовки
-          each val, index in training_direction.items
-            option(value!=val, selected=course_exist[val]?true:undefined)!=val
+        .div-for-del
+          select(name='course', multiple, data-select-id="true" disabled="true").js-course
+            option(value='', disabled, selected) Направление подготовки
+            //each val, index in training_direction.items
+            //  option(value!=val, selected=course_exist[val]?true:undefined)!=val
 
   mixin checkBlock(title, is_open)
     li.i-block(class=is_open?'active':undefined)&attributes(attributes)

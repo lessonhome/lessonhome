@@ -89,6 +89,8 @@ class @main
   constructor : ->
     $W @
   Dom : =>
+    @courses_items = Feel.const('filter').course
+
     @subjects = @found.subjects
     @course = @found.course
 
@@ -125,7 +127,11 @@ class @main
       (result.push(a); exist[a] = true) for a in arr when !exist[a]?
       return result
 
-    @subjects.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {subjects: ejectUnique @subjects.val()}
+    @subjects.on 'change', =>
+      subjects = ejectUnique @subjects.val()
+      Q.spawn => Feel.urlData.set 'tutorsFilter', {subjects}
+#      @_syncCourse subjects
+
     @course.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {course: @course.val()}
     @price.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @price.val()
     @status.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @status.val()
@@ -146,6 +152,53 @@ class @main
 
 #      Q.spawn => yield Feel.urlData.set 'tutorsFilter', @getValue()
 
+  _getSections : (subjects) =>
+    sections = []
+    len = subjects.length
+
+    if len
+      obj_sub = {}
+      obj_sub[s] = true for s in subjects
+      for own section, subjects of @tree.subject_list
+        i = 0
+        while len and (subject = subjects[i++])?
+
+          if obj_sub[subject]
+            sections.push section
+            len--
+
+        break unless len
+
+    return sections
+
+
+  _syncCourse : (subjects) =>
+    @course.html('').prop('disabled', true)
+    exist = {}
+    for subject in subjects
+      rules = @tree.rules_sync[subject]
+
+      unless rules
+        sections = @_getSections([subject])
+        (rules = @tree.rules_sync[sections]; break) for s in sections when @tree.rules_sync[sections]?
+
+      rules ?= [0, 2, 3]
+
+      for own key, g of rules when !exist[g]?
+        exist[g] = true
+        curr_group = @tree.group[g]
+        next_group = @tree.group[++g]
+        next_group ?= @courses_items.length
+        group = @courses_items.slice curr_group, next_group
+        for course in group
+          @course.append("<option value='#{course}'>#{course}</option>")
+
+    (@course.prop('disabled', false); break) for own e of exist
+
+    @course.prepend("<option value='' disabled='disabled' selected='selected'>Направление подготовки</option>").material_select()
+#    @course.trigger('change')
+
+
   getValue : =>
     return {
       subjects: @subjects.val()
@@ -158,6 +211,7 @@ class @main
   setValue : (value) =>
     value = value.filter
     @subjects.val value.subjects
+    @_syncCourse value.subjects
     @course.val value.course
     @price.val {price: value.price}
     @status.val {status: value.status}
