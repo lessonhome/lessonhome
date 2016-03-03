@@ -182,7 +182,7 @@ class @main
         sections = @_getSections([subject])
         (rules = @tree.rules_sync[sections]; break) for s in sections when @tree.rules_sync[sections]?
 
-      rules ?= [0, 2, 3]
+      rules ?= [0, 2, 3, 4, 5]
 
       for own key, g of rules when !exist[g]?
         exist[g] = true
