@@ -7,7 +7,9 @@
 .tutor-action {
   .btn-flat {
     border: 1px solid transparent;
-    width: 165px;
+    @media #{$medium-and-up} {
+      width: 165px;
+    }
     &.btn-trigger {
       color: #179cab !important;
       background-color: #ffffff !important;
