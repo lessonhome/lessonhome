@@ -23,10 +23,10 @@
               img(src=src)
           .pc-text-spacer
             span=first_name + ' ' + middle_name
-            i.material-icons keyboard_arrow_down
+            i.m_icon.icon_expand_more
           .pc-text
             span=first_name + ' ' + middle_name
-            i.material-icons keyboard_arrow_down
+            i.m_icon.icon_expand_more
             .clearfix
             .pc-link-list
               a(href='/tutor/profile') Профиль
@@ -57,7 +57,7 @@ else
         a.logo(href='/').hide-on-large-only.right
           img(src=F('lp/lh_logo.png'))
         a(href='#', data-activates='mobile-demo').button-collapse.js-show_menu.left
-          i.material-icons menu
+          i.m_icon.icon_menu
         if id_page != 'landing_page'
           ul.hide-on-med-and-down
             li
