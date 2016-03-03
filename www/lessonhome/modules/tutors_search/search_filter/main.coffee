@@ -182,14 +182,18 @@ class @main
         sections = @_getSections([subject])
         (rules = @tree.rules_sync[sections]; break) for s in sections when @tree.rules_sync[sections]?
 
-      rules ?= [0, 2, 3, 4, 5]
+      rules ?= [1,2,3,4,5,6,7]
 
+      reg = /\s*\-\s*/
       for own key, g of rules when !exist[g]?
         exist[g] = true
-        curr_group = @tree.group[g]
-        next_group = @tree.group[++g]
-        next_group ?= @courses_items.length
-        group = @courses_items.slice curr_group, next_group
+        curr_group = @tree.group[g].split(reg)
+
+        if curr_group.length == 1
+          group = [@courses_items[ curr_group[0] ]]
+        else if curr_group.length > 1
+          group = Array.prototype.slice.apply @courses_items, curr_group
+
         for course in group
           @course.append("<option value='#{course}'>#{course}</option>")
 
