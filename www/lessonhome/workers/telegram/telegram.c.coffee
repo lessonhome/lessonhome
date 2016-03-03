@@ -8,11 +8,15 @@ hostname = os.hostname()
 
 _rj_c = require('request-json').createClient('http://sheepridge.pandorabots.com/')
 
+_num = (n)=>
+  return ""+n if n > 9
+  return '0'+n
+
 class Telegram
   init : =>
     @jobs = yield _Helper('jobs/main')
     @redis = yield _Helper('redis/main').get()
-    yield @init_alice()
+    yield @init_alice false
 
     keys =
       production  : '216886462:AAE2imVL1-m5IAkR1FrqzjXd_nfxaWp1PDE'
@@ -57,14 +61,31 @@ class Telegram
     qs = for id of @auth then @bot.sendMessage id,text
     yield Q.all qs
   
-  init_alice : =>
-    return unless hostname == 'lessonhome.org'
-    @alice_bot = new telegram '197380826:AAE2UoiB4mCuN6aTaZgYub_dKCKGYn7LfEw',polling:true
+  init_alice : (force=false)=>
+    @audio_cache = yield _invoke @redis,'hgetall','audio_cache'
+    @audio_cache ?= {}
+    for key,val of @audio_cache
+      @audio_cache[key] = JSON.parse val
+    if force
+      key = '130213602:AAHekroPCeAMo2f5P6BSYRhSi4FlrLlNMYM'
+    else if hostname == 'lessonhome.org'
+      key = '197380826:AAE2UoiB4mCuN6aTaZgYub_dKCKGYn7LfEw'
+    else return
+    @alice_bot = new telegram key,polling:true
     yield @alice_bot.on 'message',@alice
   alice : (msg)=> Q.spawn =>
-    return unless hostname == 'lessonhome.org'
     return unless msg?.text
+    mtr = msg.text.replace(/\@\w+/,'')
+    if @audio_cache?[mtr]
+      return yield @sendAudio msg, @audio_cache?[mtr]
+      return
+    cmd = msg.text.split(/\s+/)?[0] ? ""
+    switch cmd
+      when 'find','afind','аштв','фаштв','get','aget','фпуе','пуе','photo','фото'
+        return @alice_audio msg
     return if msg.text.match /[а-яё]/gmi
+    return unless msg.text.match /\w/gmi
+    yield @alice_bot.sendChatAction msg.chat.id,'typing'
     data =
       botcust2:'8ae333b16e7d433c'
       input : msg.text
@@ -87,6 +108,88 @@ class Telegram
     return unless str
 
     yield @alice_bot.sendMessage msg.chat.id,str
-    
+  alice_audio : (msg)=>
+    arg = msg.text.split /\s+/
+    str = ""
+    cmd = arg.shift()
+    cmd2 = null
+    cmd2 = +arg.shift() if arg[0].match /^\d+$/
+    cmd = cmd.replace /\@\w+/,''
+    switch cmd
+      when 'find','afind','аштв','фаштв'
+        yield @alice_bot.sendChatAction msg.chat.id,'typing'
+        items = yield @audioFind arg.join(' '),cmd2
+        str = ""
+        @audio_cache ?= {}
+        for it,i in items
+          key_ = "/a#{_num(i+1)}"
+          @audio_cache[key_] = it
+          _invoke(@redis,'hset','audio_cache',key_,JSON.stringify it).done()
+          str += "#{key_}\t #{it.artist.substr(0,30)}\t- #{it.title.substr(0,40)} #{_num it.duration//60}:#{_num it.duration%60}\n"
+      when 'get','aget','фпуе','пуе'
+        items = yield @audioFind arg.join(' '),(cmd2 ? 1)
+        for item in items
+          yield @sendAudio msg,item
+        return
+      when 'photo','фото'
+        ret = yield _wget 'https','www.google.ru','/search?newwindow=1&source=lnms&tbm=isch&sa=X&q='+encodeURIComponent(arg.join(' '))
+        #ret = yield _wget 'https','www.google.ru','/search?newwindow=1&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiNqb6syqTLAhXpHJoKHeAdAf4Q_AUICCgC&biw=1463&bih=950&q='+encodeURIComponent(arg.join(' '))
+        imgs = ret?.data?.match?(/\<img[^\<]+src\=\"([^\"]+static[^\"]+)\"/gmi) ? []
+        boo = false
+        srcs = []
+        for img in imgs
+          src = img?.match?(/src\=\"(.*)\"/)?[1]
+          if src
+            srcs.push src
+            boo = true
+        cmd2 ?= 5
+        if cmd2
+          srcs = srcs.splice 0,cmd2
+        yield @sendPhotos msg,srcs if boo
+        return if boo
+    str = str || 'не найдено'
+    yield @alice_bot.sendMessage msg.chat.id,str
+  audioFind : (name,num=10)=> yield @jobs.solve 'findAudio',name,num
+  sendAudio : (msg,audio)=>
+    Q.spawn => yield @alice_bot.sendChatAction msg.chat.id,'upload_audio'
+    num = 60/5
+    int = setInterval =>
+      num--
+      if num < 0
+        clearInterval int
+      Q.spawn => yield @alice_bot.sendChatAction msg.chat.id,'upload_audio'
+    , 5000
+    yield @loadAudioFile msg,audio
+    yield @sendAudioFile msg,audio
+    clearInterval int
+  sendPhotos : (msg,photos=[])=>
+    Q.spawn => yield @alice_bot.sendChatAction msg.chat.id,'upload_photo'
+    num = 60/5
+    int = setInterval =>
+      num--
+      if num < 0
+        clearInterval int
+      Q.spawn => yield @alice_bot.sendChatAction msg.chat.id,'upload_photo'
+    , 5000
+    for src in photos then do (src)=> Q.spawn =>
+      path = "#{process.cwd()}/.cache/#{_randomHash()}.jpg"
+      yield _exec 'wget','-q','-O',path,src
+      yield @alice_bot.sendPhoto msg.chat.id,path
+      yield _rmrf path
+    clearInterval int
+
+  loadAudioFile : (msg,audio)=>
+    return unless audio
+    audio.path = "#{process.cwd()}/.cache/#{_randomHash()}.mp3"
+    yield _exec 'wget','-q','-O',audio.path,audio.url
+  sendAudioFile : (msg,audio)=>
+    return unless audio?.path
+    yield @alice_bot.sendAudio msg.chat.id,audio.path,
+      duration : audio.duration
+      performer : audio.artist
+      title : audio.title
+    yield _rmrf audio.path
+
+
 
 module.exports = Telegram
