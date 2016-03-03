@@ -1,0 +1,247 @@
+//icons code
+
+$icon_account_balance: "\e900";
+$icon_account_bank: "\e901";
+$icon_account_circle: "\e902";
+$icon_add: "\e903";
+$icon_arrow_drop_down: "\e904";
+$icon_assignment_ind: "\e905";
+$icon_check_circle: "\e906";
+$icon_chevron_left: "\e907";
+$icon_chevron_right: "\e908";
+$icon_close: "\e909";
+$icon_date_range: "\e90a";
+$icon_delete: "\e90b";
+$icon_domain: "\e90c";
+$icon_done: "\e90d";
+$icon_email: "\e90e";
+$icon_expand_less: "\e90f";
+$icon_expand_more: "\e910";
+$icon_fiber_manual_record: "\e911";
+$icon_import_contacts: "\e912";
+$icon_lens: "\e913";
+$icon_location_on: "\e914";
+$icon_lock_outline: "\e915";
+$icon_mail_outline: "\e916";
+$icon_menu: "\e917";
+$icon_mode_edit: "\e918";
+$icon_more_horiz: "\e919";
+$icon_more_vert: "\e91a";
+$icon_person_outline: "\e91b";
+$icon_phone: "\e91c";
+$icon_query_builder: "\e91d";
+$icon_question_answer: "\e91e";
+$icon_remove: "\e91f";
+$icon_school: "\e920";
+$icon_search: "\e921";
+$icon_send: "\e922";
+$icon_subject: "\e923";
+$icon_work: "\e924";
+
+//common icons style
+.m_icon {
+    font-family: 'custom_material_icons' !important;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+//custom icons style
+.icon_account_balance {
+    &:before {
+        content: $icon_account_balance;
+    }
+}
+.icon_account_bank {
+    &:before {
+        content: $icon_account_bank;
+    }
+}
+.icon_account_circle {
+    &:before {
+        content: $icon_account_circle;
+    }
+}
+.icon_add {
+    &:before {
+        content: $icon_add;
+    }
+}
+.icon_arrow_drop_down {
+    &:before {
+        content: $icon_arrow_drop_down;
+    }
+}
+.icon_assignment_ind {
+    &:before {
+        content: $icon_assignment_ind;
+    }
+}
+.icon_check_circle {
+    &:before {
+        content: $icon_check_circle;
+    }
+}
+.icon_chevron_left {
+    &:before {
+        content: $icon_chevron_left;
+    }
+}
+.icon_chevron_right {
+    &:before {
+        content: $icon_chevron_right;
+    }
+}
+.icon_close {
+    &:before {
+        content: $icon_close;
+    }
+}
+.icon_date_range {
+    &:before {
+        content: $icon_date_range;
+    }
+}
+.icon_delete {
+    &:before {
+        content: $icon_delete;
+    }
+}
+.icon_domain {
+    &:before {
+        content: $icon_domain;
+    }
+}
+.icon_done {
+    &:before {
+        content: $icon_done;
+    }
+}
+.icon_email {
+    &:before {
+        content: $icon_email;
+    }
+}
+.icon_expand_less {
+    &:before {
+        content: $icon_expand_less;
+    }
+}
+.icon_expand_more {
+    &:before {
+        content: $icon_expand_more;
+    }
+}
+.icon_fiber_manual_record {
+    &:before {
+        content: $icon_fiber_manual_record;
+    }
+}
+.icon_import_contacts {
+    &:before {
+        content: $icon_import_contacts;
+    }
+}
+.icon_lens {
+    &:before {
+        content: $icon_lens;
+    }
+}
+.icon_location_on {
+    &:before {
+        content: $icon_location_on;
+    }
+}
+.icon_lock_outline {
+    &:before {
+        content: $icon_lock_outline;
+    }
+}
+.icon_mail_outline {
+    &:before {
+        content: $icon_mail_outline;
+    }
+}
+.icon_menu {
+    &:before {
+        content: $icon_menu;
+    }
+}
+.icon_mode_edit {
+    &:before {
+        content: $icon_mode_edit;
+    }
+}
+.icon_more_horiz {
+    &:before {
+        content: $icon_more_horiz;
+    }
+}
+.icon_more_vert {
+    &:before {
+        content: $icon_more_vert;
+    }
+}
+.icon_person_outline {
+    &:before {
+        content: $icon_person_outline;
+    }
+}
+.icon_phone {
+    &:before {
+        content: $icon_phone;
+    }
+}
+.icon_query_builder {
+    &:before {
+        content: $icon_query_builder;
+    }
+}
+.icon_question_answer {
+    &:before {
+        content: $icon_question_answer;
+    }
+}
+.icon_remove {
+    &:before {
+        content: $icon_remove;
+    }
+}
+.icon_school {
+    &:before {
+        content: $icon_school;
+    }
+}
+.icon_search {
+    &:before {
+        content: $icon_search;
+    }
+}
+.icon_send {
+    &:before {
+        content: $icon_send;
+    }
+}
+.icon_subject {
+    &:before {
+        content: $icon_subject;
+    }
+}
+.icon_work {
+    &:before {
+        content: $icon_work;
+    }
+}
