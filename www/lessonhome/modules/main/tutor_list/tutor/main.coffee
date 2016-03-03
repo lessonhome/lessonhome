@@ -54,11 +54,11 @@ class @main
     if active
       @found.tutor_trigger.addClass('waves-light blue-btn selected white-text').removeClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Убрать')
-      @found.tutor_trigger.find('.material-icons').html('remove')
+      @found.tutor_trigger.find('.m_icon').removeClass('icon_add').addClass('icon_remove')
     else
       @found.tutor_trigger.removeClass('waves-light blue-btn selected white-text').addClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
-      @found.tutor_trigger.find('.material-icons').html('add')
+      @found.tutor_trigger.find('.m_icon').removeClass('icon_remove').addClass('icon_add')
   setFilter : (filter = {}) ->
     DATA_FILTER = {}
     if filter.metro?.length
@@ -98,7 +98,7 @@ class @main
     si = 0
     
     @found.subject.text ""
-    @found.subject_block = $ '<span class="middle-span subject-text"><i class="material-icons">import_contacts</i></span>'
+    @found.subject_block = $ '<span class="middle-span subject-text"><i class="m_icon icon_import_contacts"></i></span>'
     @found.subject_list = $ '<span class="middle-span card-info-color"></span>'
     @found.subject.append @found.subject_block
     @found.subject_block.append @found.subject_list
@@ -114,12 +114,12 @@ class @main
     #@found.subject.text value.subject
 
     #Опыт и статус преподавателя
-    @found.experience.html '<i class="material-icons middle-icon">school</i><span class="middle-span">' +  value.experience + '</span>'
+    @found.experience.html '<i class="m_icon icon_school middle-icon"></i><span class="middle-span">' +  value.experience + '</span>'
 
     @parseAbout true
 
     #Отображение города
-    @found.location.html '<i class="material-icons">location_on</i><span class="middle-span card-info-color">' +  value.location + '</span>'
+    @found.location.html '<i class="m_icon icon_location_on"></i><span class="middle-span card-info-color">' +  value.location + '</span>'
 
     #Отображение цены
     @found.price?.text? value.left_price
@@ -147,7 +147,7 @@ class @main
         span = "
             <span class='stantion dropdown-button' data-hover='true' data-constrainwidth='false' data-minwidth='true' data-activates='d#{value.index}'>"
         if val.color?
-          span += "<i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>"
+          span += "<i class='m_icon icon_fiber_manual_record middle-icon' style='color:#{val.color}'></i>"
         span +="<span class='card-info-color'>#{val.metro}</span>
           </span>"
         span = $ span
@@ -162,7 +162,7 @@ class @main
                 <li>
                   <span class='stantion'>"
             if val.color
-              str += "<i class='material-icons middle-icon' style='color:#{val.color}'>fiber_manual_record</i>"
+              str += "<i class='m_icon icon_fiber_manual_record middle-icon' style='color:#{val.color}'></i>"
             str += "<span>#{val.metro}</span>
                   </span>
                 </li>

@@ -211,7 +211,7 @@ class @main extends EE
       name = name.split(':')
       return true if name.length < 2
       return true unless @tree.metro_lines[name[0]]?
-      elem = $('<i class="material-icons middle-icon">fiber_manual_record</i>')
+      elem = $('<i class="m_icon icon_fiber_manual_record middle-icon"></i>')
       elem.css {color: @tree.metro_lines[name[0]].color}
       li.find('span').prepend(elem)
 
