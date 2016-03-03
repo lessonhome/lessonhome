@@ -173,24 +173,25 @@ class @main
 
 
   _syncCourse : (subjects) =>
-    subjects = subjects.concat @_getSections(subjects)
     @course.html('').prop('disabled', true)
     exist = {}
     for subject in subjects
       rules = @tree.rules_sync[subject]
 
-      if @tree.subject_list[subject]?
-        rules ?= [0, 2, 3]
+      unless rules
+        sections = @_getSections([subject])
+        (rules = @tree.rules_sync[sections]; break) for s in sections when @tree.rules_sync[sections]?
 
-      if rules
-        for own key, g of rules when !exist[g]?
-          exist[g] = true
-          curr_group = @tree.group[g]
-          next_group = @tree.group[++g]
-          next_group ?= @courses_items.length
-          group = @courses_items.slice curr_group, next_group
-          for course in group
-            @course.append("<option value='#{course}'>#{course}</option>")
+      rules ?= [0, 2, 3]
+
+      for own key, g of rules when !exist[g]?
+        exist[g] = true
+        curr_group = @tree.group[g]
+        next_group = @tree.group[++g]
+        next_group ?= @courses_items.length
+        group = @courses_items.slice curr_group, next_group
+        for course in group
+          @course.append("<option value='#{course}'>#{course}</option>")
 
     (@course.prop('disabled', false); break) for own e of exist
 
