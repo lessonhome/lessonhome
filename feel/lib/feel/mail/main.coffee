@@ -66,7 +66,7 @@ class Mail
       service : 'Gmail'
       auth :
         user : 'support@lessonhome.ru'
-        pass : 'Jlth;bvjcnm'
+        pass : 'cheburashka'
 
     mailOptions =
       from : 'Лессон Хоум <support@lessonhome.ru>'
