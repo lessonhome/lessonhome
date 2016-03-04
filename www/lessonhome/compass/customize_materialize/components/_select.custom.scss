@@ -4,6 +4,9 @@
   //bottom: -10px;
   //left: -10px;
   //padding-right: 16px;
+  &.filter-result li {
+    display: none;
+  }
   li {
     &.hidden_label:not(.active) {
       display: none;

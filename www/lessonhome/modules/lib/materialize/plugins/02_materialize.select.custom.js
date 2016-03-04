@@ -12,7 +12,8 @@
             }
 
             var multiple = $select.attr('multiple') ? true : false,
-                lastID = $select.data('select-id'); // Tear down structure if Select needs to be rebuilt
+                lastID = $select.data('select-id'), // Tear down structure if Select needs to be rebuilt
+                filter = $select.data('filter');
 
             if (lastID) {
                 $select.parent().find('span.caret').remove();
@@ -93,7 +94,10 @@
 
             options.on('click', 'li:not(.optgroup)', function (e) {
                 // Check if option element is disabled
-                var $this = $(this);
+                var $this = $(this),
+                    $select = $this.closest('ul.select-dropdown').siblings('select'),
+                    multiple = $select.attr('multiple') ? true : false;
+
                 if (!$this.hasClass('disabled') && !$this.hasClass('optgroup')) {
                     var value = $this.attr('data-value');
 
@@ -142,7 +146,7 @@
             if ($select.data('constrainwidth') !== undefined) opt.constrainwidth = $select.data('constrainwidth');
             if ($select.data('minwidth') !== undefined) opt.minwidth = $select.data('minwidth');
 
-            var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + (($select.is(':disabled')) ? 'disabled' : '') +' data-constrainwidth="'+opt.constrainwidth+'" data-minwidth="'+opt.minwidth+'" data-beloworigin="true" data-activates="select-options-' + uniqueID +'" value="'+ sanitizedLabelHtml +'"/>');
+            var $newSelect = $('<input type="text" class="select-dropdown" '+ (filter ? '' : 'readonly="true" ') + (($select.is(':disabled')) ? 'disabled' : '') +' data-constrainwidth="'+opt.constrainwidth+'" data-minwidth="'+opt.minwidth+'" data-beloworigin="true" data-activates="select-options-' + uniqueID +'" value="'+ sanitizedLabelHtml +'"/>');
             $select.before($newSelect);
             $newSelect.before(dropdownIcon);
 
@@ -164,6 +168,9 @@
                     if ($('ul.select-dropdown').not(options[0]).is(':visible')) {
                         $('input.select-dropdown').trigger('close');
                     }
+
+                    $(this).val('');
+
                     if (!options.is(':visible')) {
                         $(this).trigger('open', ['focus']);
                         var label = $(this).val();
@@ -258,6 +265,7 @@
                     e.preventDefault();
 
                     // CASE WHEN USER TYPE LETTERS
+
                     var letter = String.fromCharCode(e.which).toLowerCase(),
                         nonLetters = [9,13,27,38,40];
                     if (letter && (nonLetters.indexOf(e.which) === -1)) {
@@ -308,9 +316,67 @@
 
                     // Automaticaly clean filter query so user can search again by starting letters
                     setTimeout(function(){ filterQuery = []; }, 1000);
+                },
+
+                _onKeyDown = function (e) {
+                    // TAB - switch to another input
+                    if(e.which == 9){
+                        $newSelect.trigger('close');
+                        return;
+                    }
+
+                    // ARROW DOWN WHEN SELECT IS CLOSED - open select options
+                    if(e.which == 40 && !options.is(':visible')){
+                        $newSelect.trigger('open');
+                        return;
+                    }
+
+                    // ENTER WHEN SELECT IS CLOSED - submit form
+                    if(e.which == 13 && !options.is(':visible')){
+                        return;
+                    }
+
+                    if (options.is(':visible')){
+
+                    }
+
+
+                    // ENTER - select option and close when select options are opened
+                    if (e.which == 13) {
+                        var activeOption = options.find('li.selected:not(.disabled)')[0];
+                        if(activeOption){
+                            $(activeOption).trigger('click');
+                            if (!multiple) {
+                                $newSelect.trigger('close');
+                            }
+                        }
+                    }
+
+                    // ARROW DOWN - move to next not disabled option
+                    if (e.which == 40) {
+                        if (options.find('li.selected').length) {
+                            newOption = options.find('li.selected').next('li:not(.disabled)')[0];
+                        } else {
+                            newOption = options.find('li:not(.disabled)')[0];
+                        }
+                        activateOption(options, newOption);
+                    }
+
+                    // ESC - close options
+                    if (e.which == 27) {
+                        $newSelect.trigger('close');
+                    }
+
+                    // ARROW UP - move to previous not disabled option
+                    if (e.which == 38) {
+                        newOption = options.find('li.selected').prev('li:not(.disabled)')[0];
+                        if(newOption)
+                            activateOption(options, newOption);
+                    }
+
                 };
 
-            $newSelect.on('keydown', onKeyDown);
+            $newSelect.on('keypress', _onKeyDown);
             $select.on('update', onUpdate);
             $select.trigger('update');
         });

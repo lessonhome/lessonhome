@@ -25,7 +25,7 @@
        .filter-title Выберите предмет и направление подготовки
     .row.no-bottom-margin.fixed-spicer
       .input-field.col.s12.slide_collapse
-        select(name='subject', multiple, data-constrainwidth='false', data-minwidth='true').js-subjects
+        select(name='subject', multiple, data-constrainwidth='false', data-minwidth='true' data-filter='true').js-subjects
           option(value='', selected, disabled) Предмет
           each groups,gname in subject_list
             optgroup(label!=gname)
