@@ -10,6 +10,7 @@ class @main
     @found.name.focus => @found.name.removeClass('invalid')
     @found.phone.focus => @found.phone.removeClass('invalid')
     @found.detail.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid'
+    @found.attach_pos.on    'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', 'null', 'motivation'
   onAttach : (e) => Q.spawn =>
     errs = yield @short_attach.send()
 
