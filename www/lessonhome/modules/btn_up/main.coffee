@@ -32,7 +32,7 @@ class @main
 
     @found.btn_up
     .click ->
-      $('html, body').animate {scrollTop: 0}, 300
+      $('html, body').scrollTop(200).animate {scrollTop: 0}, 300
       return false
     .css {
       bottom : @bottom

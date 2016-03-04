@@ -89,8 +89,6 @@ class @main
   constructor : ->
     $W @
   Dom : =>
-    @courses_items = Feel.const('filter').course
-
     @subjects = @found.subjects
     @course = @found.course
 
@@ -132,7 +130,7 @@ class @main
       Q.spawn => Feel.urlData.set 'tutorsFilter', {subjects}
 #      @_syncCourse subjects
 
-    @course.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {course: @course.val()}
+    @course.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {course: @course.val() ? []}
     @price.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @price.val()
     @status.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @status.val()
     @sex.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @sex.val()
@@ -173,33 +171,47 @@ class @main
 
 
   _syncCourse : (subjects) =>
-    @course.html('').prop('disabled', true)
+    subjects = [undefined] unless subjects and subjects.length
     exist = {}
+    numbers = {}
+    reg = /\s*\-\s*/
+    def = [1,2,3,4,5,6,7]
     for subject in subjects
-      rules = @tree.rules_sync[subject]
 
-      unless rules
-        sections = @_getSections([subject])
-        (rules = @tree.rules_sync[sections]; break) for s in sections when @tree.rules_sync[sections]?
+      if subject
+        rules = @tree.rules_sync[subject]
 
-      rules ?= [1,2,3,4,5,6,7]
+        unless rules
+          sections = @_getSections([subject])
+          (rules = @tree.rules_sync[sections]; break) for s in sections when @tree.rules_sync[sections]?
 
-      reg = /\s*\-\s*/
+      rules ?= def
+
       for own key, g of rules when !exist[g]?
         exist[g] = true
         curr_group = @tree.group[g].split(reg)
 
         if curr_group.length == 1
-          group = [@courses_items[ curr_group[0] ]]
-        else if curr_group.length > 1
-          group = Array.prototype.slice.apply @courses_items, curr_group
+          numbers[ curr_group[0] ] = true
+        else if curr_group.length == 2
+          i = +curr_group[0]
+          last_num = +curr_group[1]
+          while i <= last_num then numbers[i++] = true
 
-        for course in group
-          @course.append("<option value='#{course}'>#{course}</option>")
+    len = @course.siblings('ul.select-dropdown')
+    .find('li:not(.disabled)')
+    .each (i) -> $(this).toggleClass('hidden_label', !numbers[i])
+    .filter(':not(.hidden_label), .active').length
 
-    (@course.prop('disabled', false); break) for own e of exist
+    if !len then @course.trigger('close')
+    @course.siblings('input.select-dropdown').prop('disabled', !len)
 
-    @course.prepend("<option value='' disabled='disabled' selected='selected'>Направление подготовки</option>").material_select()
+
+#          @course.append("<option value='#{course}'>#{course}</option>")
+
+#    (@course.prop('disabled', false); break) for own e of exist
+
+#    @course.prepend("<option value='' disabled='disabled' selected='selected'>Направление подготовки</option>").material_select()
 #    @course.trigger('change')
 
 
