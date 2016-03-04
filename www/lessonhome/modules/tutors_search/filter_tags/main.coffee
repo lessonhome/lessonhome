@@ -48,7 +48,7 @@ class @main
     for k,v of metro_tags when v and v.name
       tag = @getTag(v.name, k).attr('data-b', 'metro')
       if v.color
-        tag.prepend("<i class=\"material-icons middle-icon\" style=\"color:#{v.color}\">fiber_manual_record</i>")
+        tag.prepend("<i class=\"m_icon icon_fiber_manual_record middle-icon\" style=\"color:#{v.color}\"></i>")
       frag.append(tag)
 
     @tags.html('').append(frag)

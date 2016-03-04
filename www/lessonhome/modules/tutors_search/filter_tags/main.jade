@@ -8,7 +8,7 @@
         .chip.active(data-v=val || name, onselectstart="return false", onmousedown="return false")&attributes(attributes)
           block
           span!=name
-          i.material-icons close
+          i.m_icon.icon_close
 
       div.templ(style="display:none")
         +tag()
@@ -33,4 +33,4 @@
           if v && v.name
             +tag(v.name, k)(data-b='metro')
               if v.color
-                i.material-icons.middle-icon(style="color:"+v.color) fiber_manual_record
+                i.m_icon.icon_fiber_manual_record.middle-icon(style="color:"+v.color)
