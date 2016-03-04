@@ -5,6 +5,9 @@
   //left: -10px;
   //padding-right: 16px;
   li {
+    &.hidden_label:not(.active) {
+      display: none;
+    }
     box-sizing: content-box;
     //width: auto;
     //margin-right: 16px;
