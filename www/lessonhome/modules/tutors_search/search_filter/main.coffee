@@ -203,7 +203,7 @@ class @main
     .each (i) -> $(this).toggleClass('hidden_label', !numbers[i])
     .filter(':not(.hidden_label), .active').length
 
-    if !len then @course.trigger('close')
+    @course.trigger('close') if !len
     @course.siblings('input.select-dropdown').prop('disabled', !len)
 
 
