@@ -131,7 +131,7 @@
 
             var setFilter = function(options, value) {
     			var exist = {};
-    			value = value.replace(/^\s*|\s*$/gm, '').toLowerCase();		
+    			value = value.replace(/^\s*|\s*$/gm, '').toLowerCase();
 
     			if (value.length) {
     				$(options).addClass('filter-result').find('li:not(.optgroup)').each(function () {
@@ -144,7 +144,7 @@
     					} else {
     						$(this).removeClass('result');
     					}
-    				
+
     				});
     			} else {
     				$(options).removeClass('filter-result')
@@ -153,11 +153,12 @@
             };
 
             var listeners = (function (options, multiple, callback, filter) {
-                
+
                 var valuesSelected = [];
                 var optionsHover = false;
                 return {
                     click_option : function (e) {
+                        e.preventDefault();
                         // Check if option element is disabled
 
                         //if ($(this).is('.optgroup')){
@@ -201,8 +202,8 @@
                         }
 
                         e.stopPropagation();
-                        
-                        
+
+
                     },
 
                     focus_input : function (){
@@ -224,7 +225,7 @@
                             //})[0];
                             //activateOption(options, selectedOption);
                         }
-                        
+
                     },
 
                     blur_input : function() {
@@ -241,7 +242,7 @@
                     },
 
                     window_click : function (){
-                        multiple && (optionsHover || $(options).siblings('input.select-dropdown').trigger('close'));
+                        multiple && (optionsHover || $(options).siblings('input.select-dropdown').trigger('close').blur());
                     },
 
                     update : function (e) {
@@ -293,15 +294,17 @@
                             if (e.which == 9) {
                                 return;
                             }
-
+                            //ESC
                             if (e.which == 27 ) {
-                                $(options).siblings('input.select-dropdown').blur().trigger('close');
+                                $(options).siblings('input.select-dropdown').trigger('close').blur();
                                 return;
                             }
 
                             //ENTER
 		                    if (e.which == 13 && $(options).is(':visible')) {
-		                    	$(options).find('li.active:visible').trigger('click');
+		                    	var l = $(options).find('li.active:visible').trigger('click').length;
+                                var input = $(options).siblings('input.select-dropdown');
+                                input.trigger('close').blur();
 		                    	return;
 		                    }
 

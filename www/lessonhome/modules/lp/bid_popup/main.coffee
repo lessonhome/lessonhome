@@ -45,23 +45,21 @@ class @main extends EE
       name: @found.name
       phone: @found.phone
       prices: @found.price
-      subjects: @found.subjects
-      metro: @found.metro
+      subjects: @tree.select_sub.class
+      metro: @tree.select_metr.class
       status: @found.status
       gender: new Radio @found.sex
       comment: @found.comment
     }
 
 #    @found.phone.mask '9 (999) 999-99-99'
-    @found.subjects.material_select()
-    @found.metro.material_select()
     @found.status.material_select()
     @found.price.material_select()
 
 
     @forms.name.on? 'blur', @_getListenerPupil 'name'
     @forms.phone.on? 'blur', @_getListenerPupil 'phone'
-    @forms.subjects.on? 'change', @_getListener 'subjects', @forms.subjects
+    @forms.subjects.select.on? 'change', @_getListener 'subjects', @forms.subjects
 
   _ejectUnique : (arr = []) =>
     result = []
@@ -83,8 +81,6 @@ class @main extends EE
         yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
         @sendForm(true) if name is 'phone'
 
-  show: =>
-    setTimeout @metroColor, 100
 
   jobOpenBidPopup : (bidType, accessory)=>
     @makeBid()
@@ -182,8 +178,8 @@ class @main extends EE
   setValue: (v) =>
     @forms.phone.val(v.phone)
     @forms.name.val(v.name)
-    @forms.subjects.val(v.subjects).trigger('update')
-    @forms.metro.val(v.metro).trigger('update')
+    @forms.subjects.val(v.subjects)
+    @forms.metro.val(v.metro)
 
   getValue: =>
     r = {}
@@ -200,20 +196,6 @@ class @main extends EE
           @errInput @forms.phone, 'Введите корректный телефон'
         when 'empty_phone'
           @errInput @forms.phone, 'Введите телефон'
-
-
-  metroColor :  =>
-    return unless @tree.metro_lines?
-    @found.metro.siblings('ul').find('li.optgroup').each (i, e) =>
-      li = $(e)
-      name = li.next().attr('data-value')
-      return true unless name
-      name = name.split(':')
-      return true if name.length < 2
-      return true unless @tree.metro_lines[name[0]]?
-      elem = $('<i class="m_icon icon_fiber_manual_record middle-icon"></i>')
-      elem.css {color: @tree.metro_lines[name[0]].color}
-      li.find('span').prepend(elem)
 
   errInput: (input, error) =>
 

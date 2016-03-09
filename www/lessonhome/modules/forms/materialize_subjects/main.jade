@@ -1,0 +1,9 @@
+//
+   Created by lh on 09.03.16.
+- var subject_exist = value.sub_exist || {};
+select(name='subject', multiple, data-constrainwidth='false', data-minwidth='true' data-filter='true').js-select
+   option(value='', selected, disabled)!= placeholder || 'Предмет'
+   each groups,gname in subject_list
+      optgroup(label!=gname)
+         each val,index in groups
+            option(value!=val, selected=(subject_exist[val]?true:undefined))!=val

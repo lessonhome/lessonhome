@@ -12,9 +12,9 @@
 - var show_sex = value.sh_sex !== undefined? value.sh_sex : (sex_tutor.items[0] != sex);
 - var show_metro = value.sh_metro || false;
 
-- var subject_exist = value.sub_exist || {};
+//- var subject_exist = value.sub_exist || {};
 - var course_exist = value.course_exist || {};
-- var metro_exist = value.metro_exist || {};
+//- var metro_exist = value.metro_exist || {};
 
 //- if (data.subjects) for(var key in data.subjects) sub_exist[data.subjects[key]] = true;
 //- if (data.course) for(key in data.course) cou_exist[data.course[key]] = true;
@@ -24,13 +24,8 @@
       .col.s12
        .filter-title Выберите предмет и направление подготовки
     .row.no-bottom-margin.fixed-spicer
-      .input-field.col.s12.slide_collapse
-        select(name='subject', multiple, data-constrainwidth='false', data-minwidth='true' data-filter='true').js-subjects
-          option(value='', selected, disabled) Предмет
-          each groups,gname in subject_list
-            optgroup(label!=gname)
-              each val,index in groups
-                option(value!=val, selected=(subject_exist[val]?true:undefined))!=val
+      .input-field.col.s12.slide_collapse!=subject_select
+
 
     .row.no-bottom-margin.fixed-spicer
       .input-field.col.s12.slide_collapse
@@ -74,15 +69,11 @@
             else
               input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex', checked=(sex == val?true:undefined)).with-gap
             label(for='sex-' + index)!=val
+  .row.no-bottom-margin
+    .col.s12
+      .filter-title Выберите станцию метро
   .row.no-bottom-margin.fixed-spicer.metro-loc
-    .input-field.col.s12.slide_collapse
-      select(name='color', data-v="branch", multiple, data-constrainwidth='false', data-minwidth='true', data-filter='true').js-branch
-        option(value='', selected, disabled) Станция метро
-        for v, name_li in metro_stations
-          optgroup(label=v.name)
-            each s, name_st in v.stations
-              -var val = name_li+":"+name_st
-              option(value=val, selected=metro_exist[val]?true:undefined)!=s
+    .input-field.col.s12.slide_collapse!=metro_select
   .row.hide-on-med-and-down
     .input-field.col.s12.center-align.max-width-btn
       button.btn.yellow-btn.waves-effect.waves-light.js-use_settings Подобрать

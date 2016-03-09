@@ -89,12 +89,10 @@ class @main
   constructor : ->
     $W @
   Dom : =>
-    @subjects = @found.subjects
+    @subjects = @tree.subject_select.class
     @course = @found.course
-    @branch = @found.branch
+    @branch = @tree.metro_select.class
 
-    @branch.material_select()
-    @subjects.material_select()
     @course.material_select()
 
     @price = new slideBlock @found.price_block
@@ -103,17 +101,7 @@ class @main
 
     setTimeout @metroColor, 100
 
-  metroColor : =>
-    @branch.siblings('ul').find('li.optgroup').each (i, e) =>
-      li = $(e)
-      name = li.next().attr('data-value')
-      return true unless name
-      name = name.split(':')
-      return true if name.length < 2
-      return true unless @tree.metro_lines[name[0]]?
-      elem = $('<i class="m_icon icon_fiber_manual_record middle-icon"></i>')
-      elem.css {color: @tree.metro_lines[name[0]].color}
-      li.find('span').prepend(elem)
+
   show: =>
 #    Feel.urlData.on 'change',=> do Q.async =>
 #      hash = yield Feel.urlData.filterHash 'tutorsFilter'
@@ -125,7 +113,7 @@ class @main
       (result.push(a); exist[a] = true) for a in arr when !exist[a]?
       return result
 
-    @subjects.on 'change', =>
+    @subjects.select.on 'change', =>
       subjects = ejectUnique @subjects.val()
       Q.spawn => Feel.urlData.set 'tutorsFilter', {subjects}
 #      @_syncCourse subjects
@@ -134,7 +122,7 @@ class @main
     @price.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @price.val()
     @status.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @status.val()
     @sex.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @sex.val()
-    @branch.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {metro: ejectUnique @branch.val()}
+    @branch.select.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {metro: ejectUnique @branch.val()}
 
 
     @found.use_settings.on 'click', =>
@@ -235,5 +223,5 @@ class @main
     @branch.val value.metro
     @subjects.trigger('update')
     @course.trigger('update')
-    @branch.trigger('update')
+#    @branch.trigger('update')
 

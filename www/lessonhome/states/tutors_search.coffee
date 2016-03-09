@@ -21,6 +21,11 @@ class @main extends @template 'lp'
         sex:
           items: filter.sex
       search_filter: @module '$/search_filter':
+        subject_select : @state 'forms/materialize_subjects':
+          value : $urlform : tutorsFilter : 'subjects'
+        metro_select : @state 'forms/materialize_metro':
+          value : $urlform : tutorsFilter : 'metro'
+
         value :
           filter  : $urlform : tutorsFilter : ''
 #          default_filter  : $durlform : mainFilter : ''
@@ -83,7 +88,7 @@ class @main extends @template 'lp'
           items: filter.status
         sex_tutor:
           items: filter.sex
-        metro_lines: @const('metro').lines
+#        metro_lines: @const('metro').lines
       search_help: @module '$/search_help'
       from : $urldata : tutorsFilter : 'offset'
       count : 10
