@@ -91,16 +91,16 @@ class @main
   Dom : =>
     @subjects = @found.subjects
     @course = @found.course
+    @branch = @found.branch
 
+    @branch.material_select()
     @subjects.material_select()
     @course.material_select()
 
     @price = new slideBlock @found.price_block
     @status = new slideBlock @found.status_block
     @sex = new slideBlock @found.sex_block
-    @metro = new slideBlock @found.metro_location
-    @branch = @found.branch
-    @branch.material_select()
+
     setTimeout @metroColor, 100
 
   metroColor : =>

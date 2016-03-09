@@ -4,8 +4,13 @@
   //bottom: -10px;
   //left: -10px;
   //padding-right: 16px;
-  &.filter-result li {
-    display: none;
+  &.filter-result{
+    li{
+      display: none !important;
+      &.result{
+        display: block !important;
+      }
+    }
   }
   li {
     &.hidden_label:not(.active) {

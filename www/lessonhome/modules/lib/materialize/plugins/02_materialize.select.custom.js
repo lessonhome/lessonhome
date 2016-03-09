@@ -135,9 +135,10 @@
 
     			if (value.length) {
     				$(options).addClass('filter-result').find('li:not(.optgroup)').each(function () {
-    					var val = $(this).removeClass('active').data('value').toLowerCase();
-    					
-    					if (val.indexOf(value) >= 0 && !exist[val]) {
+    					var text = $(this).removeClass('active').text().toLowerCase();
+    					var val = $(this).data('value');
+
+    					if (text.indexOf(value) >= 0 && !exist[val]) {
     						exist[val] = true;
     						$(this).addClass('result');
     					} else {
@@ -158,29 +159,36 @@
                 return {
                     click_option : function (e) {
                         // Check if option element is disabled
-                     
+
+                        //if ($(this).is('.optgroup')){
+                        //    $(options).siblings('input.select-dropdown').focus();
+                        //    return true;
+                        //}
+
                         var $this = $(this),
-                            o = $(options),
-                            $select,
-                            $newSelect = o.siblings('input.select-dropdown');
+                            o = $(options), $select;
 
                         if (!$this.hasClass('disabled') && !$this.hasClass('optgroup')) {
                             var value = $this.attr('data-value');
 
                             if (multiple) {
-                            	var index  = _addValues(valuesSelected, value);
+                            	var index  = _addValues(valuesSelected, $(this).text());
                                 o.find('li[data-value=\"'+value+'\"] input[type="checkbox"]').prop('checked', index < 0);
-                                
+
+                                if (filter && o.siblings('input.select-dropdown').is(':focus')){
+                                    /*   */
+                                }  else {
+                                    _setValueToInput(valuesSelected, o.siblings('select'));
+                                }
+
                                 if (e.pageX - o.offset().left > 55) {
-                                    $newSelect.trigger('close');
-                                } else {
-                                    $newSelect.trigger('focus');
+                                    o.siblings('input.select-dropdown').trigger('close');
                                 }
 
                             } else {
                                 o.find('li').removeClass('active');
                                 $this.toggleClass('active');
-                                $(newSelect).val($this.text());
+                                o.siblings('input.select-dropdown').val($this.text());
                             }
 
                             activateOption(o, $this);
@@ -198,14 +206,18 @@
                     },
 
                     focus_input : function (){
-
                         if ($('ul.select-dropdown').not(options).is(':visible')) {
                             $('input.select-dropdown').trigger('close');
                         }
-                        
-                        if (!$(options).is(':visible')) {	
+
+                        if(filter) {
+                            $(this).val('');
+                            $(options).removeClass('filter-result');
+                        }
+
+                        if (!$(options).is(':visible')) {
+
                             $(this).trigger('open', ['focus']);
-                            $(this).val($(this).data('save') || '');
                         	//var label = $(this).val();
                             //var selectedOption = options.find('li').filter(function() {
                             //    return $(this).text().toLowerCase() === label.toLowerCase();
@@ -216,14 +228,16 @@
                     },
 
                     blur_input : function() {
-                    	$(this).data('save', $(this).val());		
 
                         if (!multiple) {
                             $(this).trigger('close');
                         }
 
+                        if (filter) {
+                            _setValueToInput(valuesSelected, $(this).siblings('select'));
+                        }
+
                         $(options).find('li.selected').removeClass('selected');
-                        //_setValueToInput(valuesSelected, options.siblings('select'));
                     },
 
                     window_click : function (){
@@ -245,11 +259,14 @@
                         });
 
                         $(options).find('li:not(.optgroup)').each(function () {
-                            $(this).find('input[type="checkbox"]').prop('checked', exist[$(this).data('value')]);
-                            //$this.addClass('active');
+                            $(this).find('input[type="checkbox"]').prop('checked', !!exist[$(this).data('value')]);
                         });
 
-                        _setValueToInput(valuesSelected, $(this));
+                        if (filter && $(this).siblings('input.select-dropdown').is(':focus')){
+                            /*   */
+                        }  else {
+                            _setValueToInput(valuesSelected, $(this));
+                        }
                     },
 
                     hover_option : [
@@ -257,14 +274,14 @@
                         function () {optionsHover = false;}
                     ],
 
-                    close_input : function (e) {
-                    	_setValueToInput(valuesSelected, $(this).siblings('select'));
-                    },
+                    //close_input : function (e) {
+                    //	//_setValueToInput(valuesSelected, $(this).siblings('select'));
+                    //},
 
                     key_press : (function () {
                     	var index = null;
                     	return function (e) {
-
+                            //DOWN AND UP
                     		if (e.which == 40 || e.which == 38) {
                     			var el = $(options).find('li:not(.optgroup):visible');
                 				el.eq(
@@ -272,15 +289,27 @@
             					).addClass('active');
 		                    	return;
 		                    }
+                            //TAB
+                            if (e.which == 9) {
+                                return;
+                            }
 
+                            if (e.which == 27 ) {
+                                $(options).siblings('input.select-dropdown').blur().trigger('close');
+                                return;
+                            }
+
+                            //ENTER
 		                    if (e.which == 13 && $(options).is(':visible')) {
 		                    	$(options).find('li.active:visible').trigger('click');
 		                    	return;
 		                    }
 
                     		if (filter) {
+                                //var input = $(this);
 	                    		clearTimeout(index);
 	                    		index = setTimeout(function () {
+                                    //input.data('save', input.val());
 	                    			setFilter(options, e.currentTarget.value);
 	                    		}, 150);
                     		}
@@ -295,7 +324,6 @@
 
             $newSelect.on({
                 'focus': listeners.focus_input,
-                'close' : listeners.close_input,
                 'click': function (e){
                     e.stopPropagation();
                 }
