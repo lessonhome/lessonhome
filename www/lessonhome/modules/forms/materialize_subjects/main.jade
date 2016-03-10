@@ -1,7 +1,7 @@
 //
    Created by lh on 09.03.16.
 - var subject_exist = value.sub_exist || {};
-select(name='subject', multiple, data-constrainwidth='false', data-minwidth='true' data-filter='true').js-select
+select(name='subject', multiple, data-constrainwidth='false', data-minwidth='true' data-filter='true', data-large="true").js-select
    option(value='', selected, disabled)!= placeholder || 'Предмет'
    each groups,gname in subject_list
       optgroup(label!=gname)

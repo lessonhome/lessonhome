@@ -6,6 +6,16 @@
     $.fn.material_select = function (callback) {
         var elements = $(this).each(function(){
             var $select = $(this);
+            var opt = {
+                constrainwidth : true,
+                minwidth : false,
+                large : false
+            };
+
+            if ($select.data('constrainwidth') !== undefined) opt.constrainwidth = $select.data('constrainwidth');
+            if ($select.data('minwidth') !== undefined) opt.minwidth = $select.data('minwidth');
+            if ($select.data('large') !== undefined) opt.large = $select.data('large');
+
 
             if ($select.hasClass('browser-default')) {
                 return; // Continue to next (return false breaks out of entire loop)
@@ -43,6 +53,29 @@
                 label = selectOptions.first();
             }
 
+            var getOption = (function (is_icon, multiple) {
+                return function (option) {
+                    var disabledClass = (option.is(':disabled')) ? 'disabled ' : '';
+                    var checked = option.is(':selected') ? ' checked=\"checked\"' : '';
+                    if (multiple) {
+                        return $('<li class="' + disabledClass + '" " data-value="' + option[0].value + '"><span><input type="checkbox"' + disabledClass + checked+ '/><label></label>' + option.html() + '</span></li>').css({});
+                    } else {
+                        // Add icons
+                        if (is_icon) {
+                            var icon_url = option.data('icon');
+                            var classes = option.attr('class');
+                            if (!!icon_url) {
+                                return $('<li class="' + disabledClass + '"><img src="' + icon_url + '" class="' + classes + '"><span>' + option.html() + '</span></li>');
+                            }
+                        }
+                        return $('<li class="' + disabledClass + '"><span>' + option.html() + '</span></li>');
+                    }
+                }
+
+            }($select.hasClass('icons'), multiple));
+
+
+
             /* Create dropdown structure. */
             if (selectOptGroups.length) {
                 // Check for optgroup
@@ -50,42 +83,15 @@
                     var $this = $(this);
                     selectOptions = $this.children('option');
                     options.append($('<li class="optgroup" data-open="0"><span>' + $this.attr('label') + '</span></li>'));
-                    selectOptions.each(function() {
-                        var $this = $(this);
-                        var disabledClass = ($this.is(':disabled')) ? 'disabled ' : '';
-
-                        // Add icons
-                        if ($select.hasClass('icons')) {
-                            var icon_url = $this.data('icon');
-                            var classes = $this.attr('class');
-                            if (!!icon_url) {
-                                options.append($('<li class="' + disabledClass + '"><img src="' + icon_url + '" class="' + classes + '"><span>' + $this.html() + '</span></li>'));
-                                return true;
-                            }
-                        }
-                        //options.append($('<li class="' + disabledClass + ' subgroup_' + outGroup + '"><span>' + $(this).html() + '</span></li>'));
-                        options.append($('<li class="' + disabledClass + '" data-value="' + this.value + '"><span><input type="checkbox"' + disabledClass + '/><label></label>' + $this.html() + '</span></li>'));
-                    });
+                    if (!$select.data('large')){
+                        selectOptions.each(function() {
+                            options.append( getOption($(this)) );
+                        });
+                    }
                 });
             } else {
-                selectOptions.each(function () {
-                    var $this = $(this);
-                    // Add disabled attr if disabled
-                    var disabledClass = ($this.is(':disabled')) ? 'disabled ' : '';
-                    if (multiple) {
-                        options.append($('<li class="' + disabledClass + '" " data-value="' + this.value + '"><span><input type="checkbox"' + disabledClass + '/><label></label>' + $this.html() + '</span></li>'));
-                    } else {
-                        // Add icons
-                        if ($select.hasClass('icons')) {
-                            var icon_url = $this.data('icon');
-                            var classes = $this.attr('class');
-                            if (!!icon_url) {
-                                options.append($('<li class="' + disabledClass + '"><img src="' + icon_url + '" class="' + classes + '"><span>' + $this.html() + '</span></li>'));
-                                return true;
-                            }
-                        }
-                        options.append($('<li class="' + disabledClass + '"><span>' + $this.html() + '</span></li>'));
-                    }
+                selectOptions.each(function() {
+                    options.append( getOption($(this)) );
                 });
             }
 
@@ -98,13 +104,6 @@
 
             // escape double quotes
             var sanitizedLabelHtml = label.html() && label.html().replace(/"/g, '&quot;');
-            var opt = {
-                constrainwidth : true,
-                minwidth : false
-            };
-
-            if ($select.data('constrainwidth') !== undefined) opt.constrainwidth = $select.data('constrainwidth');
-            if ($select.data('minwidth') !== undefined) opt.minwidth = $select.data('minwidth');
 
             var $newSelect = $('<input type="text" class="select-dropdown" '+ (filter ? '' : 'readonly="true" ') + (($select.is(':disabled')) ? 'disabled' : '') +' data-constrainwidth="'+opt.constrainwidth+'" data-minwidth="'+opt.minwidth+'" data-beloworigin="true" data-activates="select-options-' + uniqueID +'" value="'+ sanitizedLabelHtml +'"/>');
             $select.before($newSelect);
@@ -130,44 +129,87 @@
             };
 
             var setFilter = function(options, value) {
-    			var exist = {};
+                options = $(options);
+                var exist = {};
+
     			value = value.replace(/^\s*|\s*$/gm, '').toLowerCase();
 
-    			if (value.length) {
-    				$(options).addClass('filter-result').find('li:not(.optgroup)').each(function () {
-    					var text = $(this).removeClass('active').text().toLowerCase();
-    					var val = $(this).data('value');
+                options.find('li.result').remove();
 
-    					if (text.indexOf(value) >= 0 && !exist[val]) {
-    						exist[val] = true;
-    						$(this).addClass('result');
-    					} else {
-    						$(this).removeClass('result');
-    					}
+    			if (value.length) {
+                    var frag = $(document.createDocumentFragment());
+                    var elems = [];
+    				options.addClass('filter-result');
+                    options.siblings('select').find('option').each(function () {
+    					var val = this.value;
+                        var text = $(this).text().toLowerCase();
+                        var i = text.indexOf(value);
+
+    					if (i >= 0 && !exist[val]) {
+                            exist[val] = true;
+
+                            elems.push({
+                                i : i,
+                                text : text,
+                                q : getOption($(this)).addClass('result')
+                            });
+
+                        }
 
     				});
+
+                    elems.sort(function (a, b) {
+                        if (a.i != b.i) return a.i - b.i;
+                        return a.text >= b.text;
+                    });
+
+                    for (var i = 0; i < elems.length; i++) {
+                        frag.append(elems[i].q);
+                    }
+                    options.prepend(frag);
     			} else {
-    				$(options).removeClass('filter-result')
+    				options.removeClass('filter-result')
     			}
 
             };
 
-            var listeners = (function (options, multiple, callback, filter) {
+            var listeners = (function (options, multiple, callback, filter, large) {
 
                 var valuesSelected = [];
                 var optionsHover = false;
                 return {
                     click_option : function (e) {
-                        e.preventDefault();
-                        // Check if option element is disabled
+                        var $this = $(this), o = $(options), $select;
 
-                        //if ($(this).is('.optgroup')){
-                        //    $(options).siblings('input.select-dropdown').focus();
-                        //    return true;
-                        //}
+                        if ($this.is('.optgroup')){
 
-                        var $this = $(this),
-                            o = $(options), $select;
+                            if ($this.attr('data-open') == '0') {
+                                o.find('.optgroup').attr('data-open', 0);
+
+                                if (large && !$this.data('fill')) {
+                                    var current = $this;
+                                    o.siblings('select').find('optgroup[label=\"'+$this.text()+'\"]').find('option').each(function () {
+                                        var o = getOption($(this));
+                                        current.after( o );
+                                        current = o;
+
+                                    });
+                                    $this.attr('data-fill', 'true');
+                                }
+
+                                $this.attr('data-open', 1);
+                                setTimeout(function () {
+                                    var top = Math.ceil(o.scrollTop() + $this.position().top);
+                                    if (top) o.animate({scrollTop: top}, 200);
+                                }, 17);
+                            }else{
+                                $this.attr('data-open', 0);
+                            }
+
+                            return true;
+                        }
+
+
 
                         if (!$this.hasClass('disabled') && !$this.hasClass('optgroup')) {
                             var value = $this.attr('data-value');
@@ -321,9 +363,9 @@
                     }())
 
                 }
-            }(options[0], multiple, callback, filter));
+            }(options[0], multiple, callback, filter, opt.large));
 
-            options.on('click', 'li:not(.optgroup)', listeners.click_option);
+            options.on('click', 'li', listeners.click_option);
 
             $newSelect.on({
                 'focus': listeners.focus_input,
