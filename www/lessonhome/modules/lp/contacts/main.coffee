@@ -22,8 +22,8 @@ class @main
         balloonContent: '
         <div class="ballon-title">LessonHome</div>
         <div class="ballon-text">Сервис по подбору репетиторов</div>
-        <div class="ballon-contacts"><i class="material-icons prefix">phone</i><span>+7 (495) 181-03-73</span></div>
-        <div class="ballon-contacts"><i class="material-icons prefix">mail</i><span>support@lesshome.ru</span></div>
+        <div class="ballon-contacts"><i class="m_icon icon_phone prefix"></i><span>+7 (495) 181-03-73</span></div>
+        <div class="ballon-contacts"><i class="m_icon icon_email prefix"></i><span>support@lesshome.ru</span></div>
         '
       },
       {
