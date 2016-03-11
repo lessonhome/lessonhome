@@ -18,6 +18,8 @@ replaceAll   = (string, find, replace)->
 
 global.ttt = 0
 
+htmlComment = new RegExp '<!--[\\s\\S]*?(?:-->)?' + '<!---+>?' + '|<!(?![dD][oO][cC][tT][yY][pP][eE]|\\[CDATA\\[)[^>]*>?' + '|<[?][^>]*>?', 'g'
+
 class module.exports
   constructor :   (module,@site)->
     @version = 5
@@ -166,14 +168,53 @@ class module.exports
     eo extends o
     if @jade.fn?
       try
-        return " <div id=\"m-#{@id}\" >
-            #{@jade.fn(eo)}
-          </div>
-        "
+        text = @jade.fn(eo)
+        return "<div id=\"m-#{@id}\">#{text}</div>"
       catch e
         throw new Error "Failed execute jade in module #{@name} with vars #{Object.keys(o)}:\n\t"+e
         console.error e
     return ""
+  matchTagAttr : (tag,attr)=>
+    out = ''
+    reg = "#{attr}=\"([^\"]+)\""
+    m = tag.match new RegExp reg,'mi'
+    if m
+      c = m[1].split ' '
+      for it in c
+        continue unless it
+        out += ' ' if out
+        out += it
+    return out || null
+
+  matchClasses : (src,id)=>
+    src = src.replace htmlComment,''
+    console.log id
+    level = []
+    body = src || ""
+    out = ''
+    while m = body.match /^(\<\w+[^\>]*\>)(.*)/m
+      tag = m[1]
+      next = m[2]
+      name = tag.match(/^\<(\w+)/)[1]
+      if m2 = name.match /(MM_\w+)/
+        m3 = next.match (new RegExp("(.*\\<\\/#{m2[1]}\\>)(.*)",'m'))
+        unless m3
+          console.error 'cant find </MM_hash in '+next
+        out += tag+m3[1]
+        body = m3[2]
+        continue
+      classes = @matchTagAttr tag,'class'
+      if classes
+        arr = classes.split ' '
+        classes = {}
+        for a in arr
+          classes[a] = true
+      console.log name,tag,classes
+      body = next
+    out += body
+    return out
+
+    
   makeSass : =>
     @allCssRelative = {}
     @cssSrc         = {}
@@ -282,7 +323,6 @@ class module.exports
       m[2] = m[2] || ''
       inline = yield @parseCssLoop '',m[2],filename,relative
       ret = m[1]+inline+m[3]
-      console.log {m1:m[1],m2:m[2],m3:m[3],inline}
       return yield @parseCssLoop ret,m[4],filename,relative,ifloop
       
     m = css.match /([^{]*)([^}]*})(.*)/
@@ -290,7 +330,6 @@ class module.exports
     pref = m[1]
     body = m[2]
     post = m[3]
-    console.log {pref,body,post}
     newpref = ""
     # перебор селекторов
     m = pref.match /([^,]+)/g
