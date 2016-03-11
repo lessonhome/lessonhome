@@ -80,8 +80,8 @@ class module.exports
           ext   : ""
           path  : "#{@site.path.modules}/#{@name}/#{f}"
         }
-  replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-]+)/,"$1mod-#{@id}--$2")
-  replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-]+)/,"$1js-$2--{{UNIQ}} $2")
+  replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-:]+)/,"$1mod-#{@id}--$2")
+  replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-:]+)/,"$1js-$2--{{UNIQ}} $2")
   makeJade : (source=false)=>
     _jade = {}
     for filename, file of @files
@@ -94,19 +94,19 @@ class module.exports
           compileDebug : false
         }
         while true
-          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(m-[\w-]+)(?: [\w-]+)*\\\"/, @replacer)
+          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-:]+ )*(m-[\w-:]+)(?: [\w-:]+)*\\\"/, @replacer)
           break if n == _jade.fnCli
           _jade.fnCli = n
         while true
-          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\\\"/, @replacer2)
+          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-:]+ )*(js-[\w-:]+)(?: [\w-:]+)*\\\"/, @replacer2)
           break if n == _jade.fnCli
           _jade.fnCli = n
         while true
-          n = _jade.fnCli.replace(/class\"\s*\:\s*\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\"/, @replacer2)
+          n = _jade.fnCli.replace(/class\"\s*\:\s*\"(?:[\w-:]+ )*(js-[\w-:]+)(?: [\w-:]+)*\"/, @replacer2)
           break if n == _jade.fnCli
           _jade.fnCli = n
         ###
-        m = _jade.fnCli.match(/class=\\\"([\w-\s]+)\\\"/mg)
+        m = _jade.fnCli.match(/class=\\\"([\w-:\s]+)\\\"/mg)
         console.log m
         if m then for m_ in m
           m_ = m_.match /(js-\w+)/mg
@@ -315,7 +315,8 @@ class module.exports
     #css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
     #css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
     return css if filename.match(/.*\.g\.(sass|scss|css)$/)
-    if m = css.match /^(\@media[^\{]+\{)([^\}]+\})(\})(.*)/
+    #if m = css.match /^(\@media[^\{]+\{)([^\}]+\})(\})(.*)/
+    if m = css.match /^(\@media[^\{]+\{)((?:[^\}]+\})*)(\})(.*)/
       unless m[1] || m[3]
         m[1] = ''
         m[3] = ''
@@ -342,30 +343,30 @@ class module.exports
         if sel.match /^main.*/
           sel = sel.replace /^main/, "#m-#{relative}"
           replaced = true
-        if !(sel.match /^\.(g-[\w-]+)/) && (!replaced)
+        if !(sel.match /^\.(g-[\w-:]+)/) && (!replaced)
           newpref += "#m-#{relative}"
         #continue if sel == 'main'
         m2 = sel.match /([^\s]+)/g
         if m2
           for a in m2
-            m3 = a.match /^\.(m-[\w-]+)/
+            m3 = a.match /^\.(m-[\w-:]+)/
             leftpref = ""
             if m3
               leftpref = " " unless replaced
               newpref += leftpref+"\.mod-#{relative}--#{m3[1]}"
-            else if a.match /^\.(g-[\w-]+)/
+            else if a.match /^\.(g-[\w-:]+)/
               leftpref = " " unless replaced
               newpref += leftpref+a
             else
               leftpref = ">" unless replaced
               newpref += leftpref+a
         else
-          m3 = sel.match /^\.m-[\w-]+/
+          m3 = sel.match /^\.m-[\w-:]+/
           leftpref = ""
           if m3
             leftpref = " " unless replaced
             newpref += leftpref+"\.mod-#{relative}--#{m3[1]}"
-          else if sel.match /^\.(g-[\w-]+)/
+          else if sel.match /^\.(g-[\w-:]+)/
             leftpref = " " unless replaced
             newpref += leftpref+sel
           else if sel && !replaced
