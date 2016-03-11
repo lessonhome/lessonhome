@@ -8,7 +8,6 @@ class @main extends @template 'lp'
     tutor : 'tutor/profile'
   }
   tree : =>
-    filter = @const('filter')
     content : @module '$':
       _custom_head__markup : '
 <!-- Schema.org markup for Google+ -->
@@ -35,13 +34,13 @@ class @main extends @template 'lp'
 '
       id_page: 'main_p'
       hide_head_button: true
-      subject_list: filter.subjects
-      training_direction : filter.course
+      select_sub : @state 'forms/materialize_subjects':
+        value : $urlform : tutorsFilter: 'subjects'
+      select_metr : @state 'forms/materialize_metro':
+        value : $urlform : tutorsFilter: 'metro'
+      value : {}
       short_form : @state 'short_form' :
         param_popup : 'main'
-      value :
-        subjects : $urlform : tutorsFilter: 'subjects'
-        metro : $urlform : tutorsFilter: 'metro'
-      metro_lines : @const('metro').lines
+
       comments: @state 'lp/comments':
         not_page_refresh: true

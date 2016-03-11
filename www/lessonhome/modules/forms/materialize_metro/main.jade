@@ -1,0 +1,10 @@
+//
+   Created by lh on 09.03.16.
+- var metro_exist = value.metro_exist || {};
+select(name='color', data-v="branch", multiple, data-constrainwidth='false', data-minwidth='true', data-filter='true', data-large="true").js-select
+   option(value='', selected, disabled)!=placeholder || 'Любая станция'
+   for v, name_li in metro_stations
+      optgroup(label=v.name, data-value=name_li)
+         each s, name_st in v.stations
+            -var val = name_li+":"+name_st
+            option(value=val, selected=metro_exist[val] ? true : undefined)!=s

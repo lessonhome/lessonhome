@@ -137,11 +137,13 @@ class @main
       single_profile  : @exports()
       req_call : @module 'lp/request_call'
       bid_popup : @module 'lp/bid_popup':
+        select_sub : @state 'forms/materialize_subjects' :
+          value : $urlform: tutorsFilter: 'subjects'
+        select_metr : @state 'forms/materialize_metro' :
+          value : $urlform: tutorsFilter: 'metro'
         value: {
           name: $urlform: pupil: 'name'
           phone: $urlform: pupil: 'phone'
-          subjects: $urlform: tutorsFilter: 'subjects'
-          metro: $urlform: tutorsFilter: 'metro'
 #          comment: $urlform: pupil: 'prices'
 #          gender: $urlform: pupil: 'gender'
 #          prices: $urlform: pupil: 'comment'
