@@ -26,25 +26,13 @@
             h5 Предмет:
           .col.s12.input-field.slide_collapse
             i.m_icon.icon_subject.prefix
-            select(multiple).js-subjects
-              option(value="" disabled selected) Выберите предмет
-              each groups,gname in subjects
-                optgroup(label!=gname)
-                  each val,index in groups
-                    option(value!=val)!=val
-
+            !=select_sub
         .row.js-longer
           .col.s12
             h5 Информация о занятиях:
           .col.s12.input-field.slide_collapse.metro-loc
             i.m_icon.icon_location_on.prefix
-            select(multiple).js-metro
-              option(value="" disabled selected) Метро
-              for v, name_li in metro
-                optgroup(label=v.name)
-                  each s, name_st in v.stations
-                    -var val = name_li+":"+name_st
-                    option(value=val)!=s
+            !=select_metr
         .row.js-longer
           .col.s12.input-field
             i.m_icon.icon_account_balance.prefix

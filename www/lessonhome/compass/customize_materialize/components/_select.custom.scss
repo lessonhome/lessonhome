@@ -4,6 +4,19 @@
   //bottom: -10px;
   //left: -10px;
   //padding-right: 16px;
+  li.result {
+    display: none;
+  }
+
+  &.filter-result{
+    li{
+      display: none !important;
+
+      &.result{
+        display: block !important;
+      }
+    }
+  }
   li {
     &.hidden_label:not(.active) {
       display: none;

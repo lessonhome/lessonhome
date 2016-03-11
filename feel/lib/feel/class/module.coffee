@@ -273,13 +273,24 @@ class module.exports
     css = css.replace /\s+/gmi,' '
     #css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
     #css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
-    m = css.match /([^{]*)([^}]*})(.*)/
     return css if filename.match(/.*\.g\.(sass|scss|css)$/)
+    if m = css.match /^(\@media[^\{]+\{)([^\}]+\})(\})(.*)/
+      unless m[1] || m[3]
+        m[1] = ''
+        m[3] = ''
+      m[4] = m[4] || ''
+      m[2] = m[2] || ''
+      inline = yield @parseCssLoop '',m[2],filename,relative
+      ret = m[1]+inline+m[3]
+      console.log {m1:m[1],m2:m[2],m3:m[3],inline}
+      return yield @parseCssLoop ret,m[4],filename,relative,ifloop
+      
+    m = css.match /([^{]*)([^}]*})(.*)/
     return css unless m
     pref = m[1]
     body = m[2]
     post = m[3]
- 
+    console.log {pref,body,post}
     newpref = ""
     # перебор селекторов
     m = pref.match /([^,]+)/g
@@ -323,12 +334,14 @@ class module.exports
             newpref += leftpref+sel
     else newpref = pref
     newpref=pref if filename.match(/.*\.g\.(sass|scss|css)$/)
+    return yield @parseCssLoop newpref+body,post,filename,relative,ifloop
+  parseCssLoop : (ret,post,filename,relative,ifloop)=> do Q.async =>
     if ifloop == 'loop'
       return {
-        begin : newpref+body
+        begin : ret
         args  : [post,filename,relative,'loop']
       }
-    ret = newpref+body
+    #ret = newpref+body
     args = [post,filename,relative,'loop']
     loop
       ret2 = yield @parseCss args... #(post,filename,relative,'loop')
