@@ -2,9 +2,11 @@
 
 //first screen
 .first-screen
-  background: url(F('/lp/l_icons/landing_img_1.jpg')), url(F('/lp/l_icons/landing_img_1_1.jpg'))
-  background-repeat: no-repeat, repeat-x
-  background-position: center center
+  //background: url(F('/lp/l_icons/landing_img_1.jpg')), url(F('/lp/l_icons/landing_img_1_1.jpg'))
+  //background-repeat: no-repeat, repeat-x
+  //background-position: center center
+  background: url(F('/reclame_background/english.png')) no-repeat center
+  background-size: cover
   height: 508px
   color: #fff
 .first-screen_padding
@@ -154,15 +156,17 @@
 
 //comment block
 .landing-comment
-  padding: 3.333rem 0 3.333rem 0
-  .title
-    text-align: center
-  &:before
-    display: none
+  #m-lp-comments
+    &>.comments-block
+      padding: 3.333rem 0 3.333rem 0 !important
+      &:before
+        display: none
+      .mod-lp-comments--m-title
+        text-align: center
+      .mod-lp-comments--m-comment_body
+        background-color: #f0f0f0
+      .mod-lp-comments--m-rew_name
+        color: #147585
   .slick-main .slick-arrow
     background-color: #147585
     border-radius: 0
-  .rew_name
-    color: #147585
-  .comment-body
-    background-color: #f0f0f0
