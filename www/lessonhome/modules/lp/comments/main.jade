@@ -1,16 +1,16 @@
 mixin reviews (index, image, name, link, name_r, date_r, rating, subject, text)
   .col.s12.m6.l3.m-cell
-    .col.s12.no-padding-col.m-img_con.center-align
+    .col.s12.m-no_padding.m-img_con.center-align
       a(href!=link, data-i!=index).m-img_link
         img(src=image).m-img.responsive-img
         .tutor-name
           .img-layer
             .img-name!=name
             .img-subject!=subject
-    .col.s12.no-padding-col.comment-body
-      .col.s12.comment-text!=text || 'Отзывов пока нет.'
-      .col.s12.right-align
-        .rew_name!=name_r
+    .col.s12.m-comment_body
+      .col.m-no_padding.s12.m-comment_text!=text || 'Отзывов пока нет.'
+      .col.m-no_padding.s12.right-align
+        .m-rew_name!=name_r
         //.rew_name!=date_r
 .comments-block
   .container.js-rew
