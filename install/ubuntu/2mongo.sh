@@ -1,3 +1,5 @@
+sudo mkdir -p /opt/mongo
+sudo chown -R mongodb.mongodb /opt/mongo
 sudo cp ../mongod.setup.conf /etc/mongod.conf
 sudo service mongod restart
 sleep 1
