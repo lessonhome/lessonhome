@@ -1,0 +1,124 @@
+@import variables
+
+.m-title
+  font-size: 1.8rem
+  line-height: 100%
+  margin: 0 0 3rem 0
+  color: #093c44
+  @media #{$medium-and-down}
+    color: #ffffff
+  @media #{$small-and-down}
+    text-align: center
+    font-size: 1.8rem
+.m-cell
+  position: relative
+  z-index: 2
+  @media #{$medium-and-down}
+    margin-bottom: 2rem
+.m-img_con
+  font-size: 0
+  line-height: 0
+  overflow: hidden
+  height: 200px
+  background: #ffffff
+  @media #{$medium-and-down}
+    height: auto
+    overflow: hidden
+.m-img
+  max-width: 100%
+  width: 100%
+  @media #{$medium-and-down}
+    width: 35%
+    display: inline-block
+    vertical-align: top
+.m-no_padding
+  padding: 0 !important
+.m-comment_body
+  padding: 0.7rem 1rem
+  background-color: #ffffff
+  color: #101010
+  text-align: left
+.m-comment_text
+  font-size: 0.95rem
+  color: #4c4c4c
+  font-style: italic
+  margin-bottom: 0.5rem
+  &:before
+    content: '"'
+  &:after
+    content: '"'
+.m-rew_name
+  color: #626262
+
+.m-img_link
+  display: block
+  position: relative
+  @media #{$medium-and-down}
+    background-color: #147585
+    text-align: left
+    &:after
+      content: ''
+      display: block 
+      width: 0
+      height: 0
+      position: absolute
+      bottom: 0
+      left: 0
+      border: 10px solid transparent
+      border-left: 10px solid #fff
+      border-bottom: 10px solid #fff
+  &:hover
+    .tutor-name
+      height: 64.5px
+      @media #{$medium-and-down}
+        height: auto
+  .tutor-name
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    height: 38px
+    background: rgba(0, 0, 0, 0.5)
+    font-size: 1rem
+    line-height: 130%
+    color: #fff
+    text-align: left !important
+    transition: all 0.2s ease-out
+    overflow: hidden
+    .img-layer
+      font-size: 1rem
+      line-height: 130%
+      padding: 0.75rem 1.35rem
+      .img-name
+        font-size: 1.15rem
+        padding-bottom: 0.35rem
+    @media #{$medium-and-down}
+      height: auto
+      position: static
+      display: inline-block
+      vertical-align: top
+      width: 60%
+      background: transparent
+  &:hover
+    .tutor-name
+      height: 64.5px
+      @media #{$medium-and-down}
+        height: auto
+
+.comments-block
+  padding: 1.5rem 0 3.333rem 0
+  position: relative
+  @media #{$medium-and-down}
+    background-color: #147585
+    padding: 3.333rem 0 1.5rem 0
+  &:before
+    content: ''
+    display: block
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    top: 40%
+    background-color: #147585
+    @media #{$medium-and-down}
+      display: none

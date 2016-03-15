@@ -1,22 +1,23 @@
 mixin reviews (index, image, name, link, name_r, date_r, rating, subject, text)
-  .col.s12.m6.l3.comment-cell
-    .col.s12.no-padding-col.comment-img.center-align
-      a(href!=link, data-i!=index).comment-img-link
-        img(src=image).responsive-img
-        .comment-tutor-name
-          .comment-img-layer
-            .comment-img-name!=name
-            .comment-img-subject!=subject
-    .col.s12.no-padding-col.comment-body
-      .col.s12.comment-text!=text || 'Отзывов пока нет.'
-      .col.s12.right-align
-        .rew_name!=name_r
+  .col.s12.m6.l3.m-cell
+    .col.s12.m-no_padding.m-img_con.center-align
+      a(href!=link, data-i!=index).m-img_link
+        img(src=image).m-img.responsive-img
+        .tutor-name
+          .img-layer
+            .img-name!=name
+            .img-subject!=subject
+    .col.s12.m-comment_body
+      .col.m-no_padding.s12.m-comment_text!=text || 'Отзывов пока нет.'
+      .col.m-no_padding.s12.right-align
+        .m-rew_name!=name_r
         //.rew_name!=date_r
-.container.js-rew
-  .row.no-margin-row.title
-    .col.s12
-      h2 Отзывы о преподавателях 
-    .col.s10.cb-body.js-slick_block.clearfix.offset-s1.slick-main
-      for rep in main_rep
-        -rew = rep.num_show_rev !== undefined ? rep.reviews[rep.num_show_rev] : {};
-        +reviews(rep.index, rep.avatar, rep.name.first, rep.link, rew.name, rew.date, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)
+.comments-block
+  .container.js-rew
+    .row.no-margin-row.title
+      .col.s12
+        h2.m-title Отзывы о преподавателях 
+      .col.s10.cb-body.js-slick_block.clearfix.offset-s1.slick-main
+        for rep in main_rep
+          -rew = rep.num_show_rev !== undefined ? rep.reviews[rep.num_show_rev] : {};
+          +reviews(rep.index, rep.avatar, rep.name.first, rep.link, rew.name, rew.date, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)
