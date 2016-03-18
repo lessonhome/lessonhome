@@ -8,44 +8,39 @@ class @main extends @template 'lp'
     tutor : 'tutor/profile'
   }
   tree : =>
-    filter = @const('filter')
     content : @module '$':
-      carousel : @module 'lib/jquery/plugins/slick'
+      _custom_head__markup : '
+<!-- Schema.org markup for Google+ -->
+<meta itemprop="name" content="Lessonhome - Репетиторы на каждый предмет">
+<meta itemprop="description" content="Подбор репетиторов для детей и взрослых, от английского языка до менеджмента">
+<meta itemprop="image" content="https://lessonhome.ru/apple-touch-icon-180x180.png">
+<!-- Twitter Card data -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@lesson_home">
+<meta name="twitter:title" content="Lessonhome - Репетиторы на каждый предмет">
+<meta name="twitter:description" content="Подбор репетиторов для детей и взрослых, от английского языка до менеджмента">
+<meta name="twitter:image" content="https://lessonhome.ru/apple-touch-icon-180x180.png">
+
+<!-- Open Graph data -->
+<meta property="og:title" content=""Lessonhome - Репетиторы на каждый предмет">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://lessonhome.ru/">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://lessonhome.ru/apple-touch-icon-180x180.png">
+<meta property="og:image:width" content="180"> 
+<meta property="og:image:height" content="180">
+<meta property="og:description" content="Подбор репетиторов для детей и взрослых, от английского языка до менеджмента">
+<meta property="og:site_name" content="Lessonhome">
+'
       id_page: 'main_p'
       hide_head_button: true
-      subject_list: filter.subjects
-      training_direction : filter.course
+      select_sub : @state 'forms/materialize_subjects':
+        value : $urlform : tutorsFilter: 'subjects'
+      select_metr : @state 'forms/materialize_metro':
+        value : $urlform : tutorsFilter: 'metro'
+      value : {}
       short_form : @state 'short_form' :
         param_popup : 'main'
-      value : $urlform : pupil: ''
-      metro_lines : @const('metro').lines
-      main_rep : $defer : =>
-        maxl = 200
-        jobs = _HelperJobs
-        prep = yield jobs.solve 'getTutorsOnMain', 16
-        prep?= []
-        regexp = /\s+[^\s]*$/
-        regexp_dot = /\s*\.{1,3}$/
-        qs = for p in prep then do (p)=> do Q.async =>
-          p.avatar = p.photos[p.photos.length - 1].lurl
-          p.link = '/tutor?'+yield Feel.udata.d2u 'tutorProfile',{index:p.index}
-          return unless p?.reviews?.length
-          onmain = []
-          i = 0
-          while i < p.reviews.length
-            p.reviews.splice(i--, 1) unless p.reviews[i].review
-            if p.reviews[i].review.length > maxl
-              tutor_text = p.reviews[i].review.substr 0, maxl
-              tutor_text = tutor_text.replace regexp,''
-              tutor_text = tutor_text.replace regexp_dot,''
-              p.reviews[i].review = tutor_text + '... '
-            onmain.push i if p.reviews[i].onmain
-            i++
-          onmain = Object.keys(p.reviews) unless onmain?.length
 
-          if onmain?.length is 1
-            p['num_show_rev'] = onmain[0]
-          else
-            p['num_show_rev'] = onmain[Math.floor(Math.random()*onmain.length)]
-        yield Q.all qs
-        return prep
+      comments: @state 'lp/comments':
+        not_page_refresh: true

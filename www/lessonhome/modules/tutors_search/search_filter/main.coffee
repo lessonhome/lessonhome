@@ -89,31 +89,19 @@ class @main
   constructor : ->
     $W @
   Dom : =>
-    @subjects = @found.subjects
+    @subjects = @tree.subject_select.class
     @course = @found.course
+    @branch = @tree.metro_select.class
 
-    @subjects.material_select()
     @course.material_select()
 
     @price = new slideBlock @found.price_block
     @status = new slideBlock @found.status_block
     @sex = new slideBlock @found.sex_block
-    @metro = new slideBlock @found.metro_location
-    @branch = @found.branch
-    @branch.material_select()
+
     setTimeout @metroColor, 100
 
-  metroColor : =>
-    @branch.siblings('ul').find('li.optgroup').each (i, e) =>
-      li = $(e)
-      name = li.next().attr('data-value')
-      return true unless name
-      name = name.split(':')
-      return true if name.length < 2
-      return true unless @tree.metro_lines[name[0]]?
-      elem = $('<i class="material-icons middle-icon">fiber_manual_record</i>')
-      elem.css {color: @tree.metro_lines[name[0]].color}
-      li.find('span').prepend(elem)
+
   show: =>
 #    Feel.urlData.on 'change',=> do Q.async =>
 #      hash = yield Feel.urlData.filterHash 'tutorsFilter'
@@ -125,12 +113,16 @@ class @main
       (result.push(a); exist[a] = true) for a in arr when !exist[a]?
       return result
 
-    @subjects.on 'change', => Feel.urlData.set 'tutorsFilter', {subjects: ejectUnique @subjects.val()}
-    @course.on 'change', => Feel.urlData.set 'tutorsFilter', {course: @course.val()}
-    @price.on 'change', => Feel.urlData.set 'tutorsFilter', @price.val()
-    @status.on 'change', => Feel.urlData.set 'tutorsFilter', @status.val()
-    @sex.on 'change', => Feel.urlData.set 'tutorsFilter', @sex.val()
-    @branch.on 'change', => Feel.urlData.set 'tutorsFilter', {metro: ejectUnique @branch.val()}
+    @subjects.select.on 'change', =>
+      subjects = ejectUnique @subjects.val()
+      Q.spawn => Feel.urlData.set 'tutorsFilter', {subjects}
+#      @_syncCourse subjects
+
+    @course.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {course: @course.val() ? []}
+    @price.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @price.val()
+    @status.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @status.val()
+    @sex.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', @sex.val()
+    @branch.select.on 'change', => Q.spawn => Feel.urlData.set 'tutorsFilter', {metro: ejectUnique @branch.val()}
 
 
     @found.use_settings.on 'click', =>
@@ -146,6 +138,71 @@ class @main
 
 #      Q.spawn => yield Feel.urlData.set 'tutorsFilter', @getValue()
 
+  _getSections : (subjects) =>
+    sections = []
+    len = subjects.length
+
+    if len
+      obj_sub = {}
+      obj_sub[s] = true for s in subjects
+      for own section, subjects of @tree.subject_list
+        i = 0
+        while len and (subject = subjects[i++])?
+
+          if obj_sub[subject]
+            sections.push section
+            len--
+
+        break unless len
+
+    return sections
+
+
+  _syncCourse : (subjects) =>
+    subjects = [undefined] unless subjects and subjects.length
+    exist = {}
+    numbers = {}
+    reg = /\s*\-\s*/
+    def = [1,2,3,4,5,6,7]
+    for subject in subjects
+
+      if subject
+        rules = @tree.rules_sync[subject]
+
+        unless rules
+          sections = @_getSections([subject])
+          (rules = @tree.rules_sync[sections]; break) for s in sections when @tree.rules_sync[sections]?
+
+      rules ?= def
+
+      for own key, g of rules when !exist[g]?
+        exist[g] = true
+        curr_group = @tree.group[g].split(reg)
+
+        if curr_group.length == 1
+          numbers[ curr_group[0] ] = true
+        else if curr_group.length == 2
+          i = +curr_group[0]
+          last_num = +curr_group[1]
+          while i <= last_num then numbers[i++] = true
+
+    len = @course.siblings('ul.select-dropdown')
+    .find('li:not(.disabled)')
+    .each (i) -> $(this).toggleClass('hidden_label', !numbers[i])
+    .filter(':not(.hidden_label), .active').length
+
+    @course.trigger('close') if !len
+    @course.siblings('input.select-dropdown').prop('disabled', !len)
+
+
+#          @course.append("<option value='#{course}'>#{course}</option>")
+
+#    (@course.prop('disabled', false); break) for own e of exist
+
+#    @course.prepend("<option value='' disabled='disabled' selected='selected'>Направление подготовки</option>").material_select()
+#    @course.trigger('change')
+
+
   getValue : =>
     return {
       subjects: @subjects.val()
@@ -158,6 +215,7 @@ class @main
   setValue : (value) =>
     value = value.filter
     @subjects.val value.subjects
+    @_syncCourse value.subjects
     @course.val value.course
     @price.val {price: value.price}
     @status.val {status: value.status}
@@ -165,5 +223,5 @@ class @main
     @branch.val value.metro
     @subjects.trigger('update')
     @course.trigger('update')
-    @branch.trigger('update')
+#    @branch.trigger('update')
 

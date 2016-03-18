@@ -118,6 +118,9 @@ textarea.materialize-textarea
   box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) 
   max-height: 350px
   font-family: 'Roboto'
+  .middle-icon
+    vertical-align: middle
+    margin-right: 0.4rem
   li
     &.optgroup
       &>span
@@ -154,9 +157,21 @@ textarea.materialize-textarea
   display : none
 
 //modals style
+.send-your-request.callback
+  .req_body
+    .slide_collapse, .longer, .title_bid 
+      display: none !important
+    .title_call
+      display: block  
+  .req_success
+    .full_btn
+      display: none !important
+
 .send-your-request
   overflow-y: inherit
   width: 390px
+  .title_call
+    display: none
   .modal-footer
     text-align: center
     height: auto

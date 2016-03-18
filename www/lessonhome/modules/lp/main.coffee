@@ -53,20 +53,6 @@ class @main extends EE
   show: =>
     @req_more_on = 0
 
-    @dom.find('.slide_collapse').on 'click' ,'.optgroup', (e)=>
-      thisGroup = $(e.currentTarget)
-      slider = thisGroup.closest('ul')
-
-      if thisGroup.attr('data-open') == '0'
-        slider.find('.optgroup').attr('data-open', 0)
-        thisGroup.attr('data-open', 1)
-        setTimeout ->
-          if top = Math.ceil(slider.scrollTop() + thisGroup.position().top)
-            slider.animate({scrollTop: top}, 200)
-        , 17
-      else
-        thisGroup.attr('data-open', 0)
-
   goBack: =>
     document.location.href = window.history.back()
   onstatechange : =>

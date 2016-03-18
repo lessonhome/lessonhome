@@ -7,22 +7,10 @@
       form(method="post", action='/search', accept-charset="utf-8").js-fast_filter
         .col.s1.l1.m1.hide-on-small-only &nbsp;
         .col.s12.l10.m10.opacity-col
-          .col.s12.l4.m4.input-field.slide_collapse &nbsp;
-            select.js-fast_sub(multiple=true)
-              option(value='', selected, disabled) Выберите предмет
-              each groups,gname in subject_list
-                optgroup(label=gname)
-                  each val,index in groups
-                    option(value=val, selected=value.sub_exist[val]?true:undefined)!=val
-          .col.s12.l6.m6.metro-loc.slide_collapse &nbsp;
-            -var metro_stations = value.metro;
-            select(name='color', data-v="branch", multiple).js-fast_branch
-              option(value='', selected, disabled) Выберите метро
-              for v, name_li in metro_stations
-                optgroup(label=v.name)
-                  each s, name_st in v.stations
-                    -var val = name_li+":"+name_st
-                    option(value=val)!=s
+          .col.s12.l4.m4.input-field.slide_collapse
+            !=select_sub
+          .col.s12.l6.m6.metro-loc.slide_collapse
+            !=select_metr
                     //option(value=val, selected=metro_exist[val]?true:undefined)!=s
           .col.s12.l2.m2.input-col-link
             a.btn.blue-btn.waves-effect.waves-light.js-send_form Далее
@@ -105,38 +93,15 @@
       .col.s12.m6.l5.offset-l1
           ul.form-right-text
             li.clearfix
-              i.material-icons.left done
+              i.m_icon.icon_done.left
               span Платите только за работу преподавателя.
             li.clearfix
-              i.material-icons.left done
+              i.m_icon.icon_done.left
               span Занимаетесь у репетитора или у себя дома.
             li.clearfix.before-line
-              i.material-icons.left done
+              i.m_icon.icon_done.left
               span Если преподаватель вам не подошел, мы учтем замечания и подберем другого.
             li.cleatfix
-              i.material-icons.white-text.left done
+              i.m_icon.icon_done.left.white-text.left
               .color-line
-
-.comments-block
-  mixin reviews (index, image, name, link, name_r, date_r, rating, subject, text)
-    .col.s12.m6.l3.comment-cell
-      .col.s12.no-padding-col.comment-img.center-align
-        a(href=link, data-i=index).comment-img-link
-          img(src=image).responsive-img
-          .comment-tutor-name
-            .comment-img-layer
-              .comment-img-name!=name
-              .comment-img-subject!=subject
-      .col.s12.no-padding-col.comment-body
-        .col.s12.comment-text!=text || 'Отзывов пока нет.'
-        .col.s12.right-align
-          .rew_name!=name_r
-          //.rew_name!=date_r
-  .container.js-rew
-    .row.no-margin-row.title
-      .col.s12
-        h2 Отзывы о преподавателях 
-      .col.s10.cb-body.js-slick_block.clearfix.offset-s1.slick-main
-        for rep in main_rep
-          -rew = rep.num_show_rev !== undefined ? rep.reviews[rep.num_show_rev] : {};
-          +reviews(rep.index, rep.avatar, rep.name.first, rep.link, rew.name, rew.date, rew.mark, rew.subject ? rew.subject[0] : '', rew.review)
+.comments!=comments

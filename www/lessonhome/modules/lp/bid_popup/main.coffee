@@ -45,51 +45,50 @@ class @main extends EE
       name: @found.name
       phone: @found.phone
       prices: @found.price
-      subjects: @found.subjects
-      metro: @found.metro
+      subjects: @tree.select_sub.class
+      metro: @tree.select_metr.class
       status: @found.status
       gender: new Radio @found.sex
       comment: @found.comment
     }
 
 #    @found.phone.mask '9 (999) 999-99-99'
-    @found.subjects.material_select()
-    @found.metro.material_select()
     @found.status.material_select()
     @found.price.material_select()
 
 
-    ejectUnique = (arr = []) =>
-      result = []
-      exist = {}
-      (result.push(a); exist[a] = true) for a in arr when !exist[a]?
-      return result
+    @forms.name.on? 'blur', @_getListenerPupil 'name'
+    @forms.phone.on? 'blur', @_getListenerPupil 'phone'
+    @forms.subjects.select.on? 'change', @_getListener 'subjects', @forms.subjects
 
-    getListener = (name, el) ->
-      return  (e) ->
-        Q.spawn =>
-          value = el?.val?()
-          switch name
-            when 'subjects'
-              value = ejectUnique value
+  _ejectUnique : (arr = []) =>
+    result = []
+    exist = {}
+    (result.push(a); exist[a] = true) for a in arr when !exist[a]?
+    return result
 
-          yield Feel.urlData.set 'pupil', {"#{name}": value}
-          yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
+  _getListener : (name, el) =>
+    return => Q.spawn =>
+#      yield Feel.urlData.set 'tutorsFilter', {"#{name}":el?.val?()}
+      yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
 
-    for k in ['name', 'subjects']
-      @forms[k].on? 'change', getListener k, @forms[k]
 
-    l_phone = getListener 'phone', @forms['phone']
-    @forms['phone'].on? 'change', =>
-      l_phone()
-      Q.spawn => @sendForm(true)
 
-  show: =>
-    setTimeout @metroColor, 100
+  _getListenerPupil : (name) =>
+    return  (e) =>
+      Q.spawn =>
+        yield Feel.urlData.set 'pupil', {"#{name}": $(e.currentTarget).val()}
+        yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
+        @sendForm(true) if name is 'phone'
+
 
   jobOpenBidPopup : (bidType, accessory)=>
+    @makeBid()
+    
     if (bidType == 'fullBid')
       @makeFullBid()
+    else if (bidType == 'callback')
+      @makeCallBack()
 
     @accessory = accessory if accessory?
 
@@ -120,6 +119,12 @@ class @main extends EE
     @found.longer.show()
     @found.req_success.hide()
     @found.req_body.show()
+
+  makeCallBack: =>
+    @found.bid_popup.addClass('callback')
+
+  makeBid: =>
+    @found.bid_popup.removeClass('callback')
 
   getScrollWidth : =>
     div = $('<div>').css {
@@ -171,15 +176,17 @@ class @main extends EE
     return errs
 
   setValue: (v) =>
-    @forms.phone.val(v.phone).focusin().focusout()
-    @forms.name.val(v.name).focusin().focusout()
-    @forms.subjects.val(v.subjects).trigger('update')
+    @forms.phone.val(v.phone)
+    @forms.name.val(v.name)
+    @forms.subjects.val(v.subjects)
+    @forms.metro.val(v.metro)
 
   getValue: =>
     r = {}
     for own key, el of @forms then r[key] = el.val()
     for k in ['metro', 'status']
       r[k] = @getExist r[k]
+    r['subjects'] = @_ejectUnique r['subjects']
     return r
 
   showError: (errs)  =>
@@ -189,20 +196,6 @@ class @main extends EE
           @errInput @forms.phone, 'Введите корректный телефон'
         when 'empty_phone'
           @errInput @forms.phone, 'Введите телефон'
-
-
-  metroColor :  =>
-    return unless @tree.metro_lines?
-    @found.metro.siblings('ul').find('li.optgroup').each (i, e) =>
-      li = $(e)
-      name = li.next().attr('data-value')
-      return true unless name
-      name = name.split(':')
-      return true if name.length < 2
-      return true unless @tree.metro_lines[name[0]]?
-      elem = $('<i class="material-icons middle-icon">fiber_manual_record</i>')
-      elem.css {color: @tree.metro_lines[name[0]].color}
-      li.find('span').prepend(elem)
 
   errInput: (input, error) =>
 

@@ -1,12 +1,4 @@
-subjects = Feel.const('filter').subjects
-metro = Feel.const('metro')
-lines = metro.for_select
 
-
-getExist = (obj) ->
-  result = {}
-  if obj then for own key, val of obj then result[val] = true
-  return result
 
 @parse = (value) ->
   qs = []
@@ -28,8 +20,4 @@ getExist = (obj) ->
     r.l.text = r.s[0].toUpperCase() + r.s.slice(1) if r.s
   yield Q.all qs
   value.rects = rects
-  value.metro = lines
-
-  value.cou_exist = getExist value.course
-  value.sub_exist = getExist value.subjects
   return value

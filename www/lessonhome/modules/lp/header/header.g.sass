@@ -10,6 +10,10 @@ header
 .header-spacer
   height: 48px
   background-color: #464646
+.landing-header
+  height: auto
+  @media #{$medium_and_down}
+    height: 48px
 nav
   background: #179cab !important
   box-shadow: none
@@ -29,6 +33,7 @@ nav
     &.logo
       display: inline-block
       height: 48px
+      text-align: right
       @media #{$medium_and_down}
         width: 25%
       @media #{$small_and_down}

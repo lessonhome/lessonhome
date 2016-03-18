@@ -11,22 +11,22 @@
         .col.s12.m12.l6.right-align.tutor-reviews
           a.js-review_a(href=value.link_comment, title= value.name, style= value.reviews == '0 отзывов'? 'display: none': undefined)
             span!=value.reviews
-            i.material-icons question_answer
+            i.m_icon.icon_question_answer.middle-icon
       .col.s9.m9.l9.right.hide-on-small-only
         .grey-text.text-darken-1.js-experience
-          i.material-icons.middle-icon school
+          i.m_icon.icon_shool.middle-icon
           span.middle-span!=value.experience
       .col.s12.m9.l9.right.tutor-info-line
         .col.s6.m4.l4.color-card
           .small.gray-text.text-darken-1
-            i.material-icons.middle-icon account_balance_wallet 
+            i.m_icon.icon_account_balance.middle-icon 
             span.middle-span.card-info-color
               | от&nbsp;
               span.js-price!=value.left_price
               span р./час
         .col.s6.m3.l3
           .js-location.color-card
-              i.material-icons location_on
+              i.m_icon.icon_location_on
               span.middle-span.card-info-color!=value.location
         .col.s6.m5.l5
           .metro-line.js-metro_line
@@ -39,7 +39,7 @@
               when 'metro'
                 -val = value.metro_tutors.data[0];
                 span.stantion.dropdown-button(data-hover="true",data-constrainwidth="false", data-activates!="d#{value.index}")
-                  i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
+                  i.m_icon.icon_fiber_manual_record.middle-icon(style='color:' + val.color)
                   span.card-info-color!=val.metro
                   if value.metro_tutors.data.length > 1
                     .dotted_more-button.right-align
@@ -48,7 +48,7 @@
                     each val, i in value.metro_tutors.data
                       li
                         span.stantion
-                          i.material-icons.middle-icon(style='color:' + val.color) fiber_manual_record
+                          i.m_icon.icon_fiber_manual_record.middle-icon(style='color:' + val.color)
                           span!=val.metro
 
       .col.s12.m9.l9.right.description.card-info-color
@@ -61,11 +61,11 @@
             - this_subject = this_subject.capitalizeFirstLetter();
               if (this_subject != "")
                 span.middle-span
-                  i.material-icons import_contacts
+                  i.m_icon.icon_import_contacts
                   span.middle-span.subject-color!= this_subject
               else    
                 span.middle-span.subject-text
-                  i.material-icons import_contacts
+                  i.m_icon.icon_import_contacts
                   -str = ''
                   each val, index in value.subject
                     if index != 0
@@ -75,7 +75,7 @@
         .col.s12.m4.l4.right-align.tutor-action.hide
           button.waves-effect.btn-flat.btn-trigger.js-tutor_trigger
             span.tutor_button_text Выбрать
-            i.material-icons.right add                 
+            i.m_icon.icon_add.right
         .col.s12.m4.l4.tutor-action
           a(href=value.link).waves-effect.waves-light.btn-flat.btn-trigger
             span.tutor_button_text Посмотреть

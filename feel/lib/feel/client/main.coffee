@@ -34,19 +34,25 @@ class @Feel
     try
       errorfunc = console.error
       myerrorfunc = =>
+        return if @_inError2>0
+        @_inError2 = 2
         Q.spawn =>
           try
             yield @sendActionOnce 'error_on_page'
           catch e
-            console.error Exception e
-        #try
-        #errorfunc.apply console,arguments
-        #catch e
-        #console.error Exception e
+            errorfunc Exception e
+          finally
+            @_inError2--
         try
-          errorfunc arguments...
+          errorfunc.apply console,arguments
         catch e
-          console.error Exception e
+          console.log Exception e
+          try
+            errorfunc arguments...
+          catch e
+            console.log Exception e
+        finally
+          @_inError2--
         return
       console.error = myerrorfunc
     catch e
@@ -86,18 +92,26 @@ class @Feel
 
   const : (name)=> $Feel.constJson[name]
 
-  error : (e,args...)=>
-    Q.spawn => @sendActionOnce 'error_on_page'
-    return unless e?
-    e = new Error e unless e?.stack? || e?.name?
-    e.message ?= ""
-    for a in args
-      e.message += a+"\n" if typeof a == 'string'
-      e.message += JSON.stringify(a)+"\n" if a && typeof a == 'object'
-    console.error e.name,e.message,e.stack
-    @activeError()
-    #console.error e.message
-    #console.error e.stack
+  error : (e,args...)=> Q.spawn =>
+    try
+      return if @_inError
+      @_inError = true
+      yield @sendActionOnce 'error_on_page'
+      return @_inError = false unless e?
+      e = new Error e unless e?.stack? || e?.name?
+      e.message ?= ""
+      for a in args
+        e.message += a+"\n" if typeof a == 'string'
+        e.message += JSON.stringify(a)+"\n" if a && typeof a == 'object'
+      console.error e.name,e.message,e.stack
+      yield @activeError()
+      #console.error e.message
+      #console.error e.stack
+    catch e
+      console.error Exception e
+    finally
+      @_inError = false
+
   activeError : ->
     return if @activated
     @activated = true
@@ -251,7 +265,7 @@ class @Feel
         params?={}
         params['order_price'] = 1500
 
-    @yaC ?= yaCounter30199739 ? undefined
+    @yaC ?= yaCounter ? undefined
     #return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
     console.log action, params
     unless params?

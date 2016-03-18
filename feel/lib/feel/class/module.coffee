@@ -18,6 +18,8 @@ replaceAll   = (string, find, replace)->
 
 global.ttt = 0
 
+htmlComment = new RegExp '<!--[\\s\\S]*?(?:-->)?' + '<!---+>?' + '|<!(?![dD][oO][cC][tT][yY][pP][eE]|\\[CDATA\\[)[^>]*>?' + '|<[?][^>]*>?', 'g'
+
 class module.exports
   constructor :   (module,@site)->
     @version = 5
@@ -78,8 +80,8 @@ class module.exports
           ext   : ""
           path  : "#{@site.path.modules}/#{@name}/#{f}"
         }
-  replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-]+)/,"$1mod-#{@id}--$2")
-  replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-]+)/,"$1js-$2--{{UNIQ}} $2")
+  replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-:]+)/,"$1mod-#{@id}--$2")
+  replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-:]+)/,"$1js-$2--{{UNIQ}} $2")
   makeJade : (source=false)=>
     _jade = {}
     for filename, file of @files
@@ -92,19 +94,19 @@ class module.exports
           compileDebug : false
         }
         while true
-          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(m-[\w-]+)(?: [\w-]+)*\\\"/, @replacer)
+          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-:]+ )*(m-[\w-:]+)(?: [\w-:]+)*\\\"/, @replacer)
           break if n == _jade.fnCli
           _jade.fnCli = n
         while true
-          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\\\"/, @replacer2)
+          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-:]+ )*(js-[\w-:]+)(?: [\w-:]+)*\\\"/, @replacer2)
           break if n == _jade.fnCli
           _jade.fnCli = n
         while true
-          n = _jade.fnCli.replace(/class\"\s*\:\s*\"(?:[\w-]+ )*(js-[\w-]+)(?: [\w-]+)*\"/, @replacer2)
+          n = _jade.fnCli.replace(/class\"\s*\:\s*\"(?:[\w-:]+ )*(js-[\w-:]+)(?: [\w-:]+)*\"/, @replacer2)
           break if n == _jade.fnCli
           _jade.fnCli = n
         ###
-        m = _jade.fnCli.match(/class=\\\"([\w-\s]+)\\\"/mg)
+        m = _jade.fnCli.match(/class=\\\"([\w-:\s]+)\\\"/mg)
         console.log m
         if m then for m_ in m
           m_ = m_.match /(js-\w+)/mg
@@ -166,14 +168,53 @@ class module.exports
     eo extends o
     if @jade.fn?
       try
-        return " <div id=\"m-#{@id}\" >
-            #{@jade.fn(eo)}
-          </div>
-        "
+        text = @jade.fn(eo)
+        return "<div id=\"m-#{@id}\">#{text}</div>"
       catch e
         throw new Error "Failed execute jade in module #{@name} with vars #{Object.keys(o)}:\n\t"+e
         console.error e
     return ""
+  matchTagAttr : (tag,attr)=>
+    out = ''
+    reg = "#{attr}=\"([^\"]+)\""
+    m = tag.match new RegExp reg,'mi'
+    if m
+      c = m[1].split ' '
+      for it in c
+        continue unless it
+        out += ' ' if out
+        out += it
+    return out || null
+
+  matchClasses : (src,id)=>
+    src = src.replace htmlComment,''
+    console.log id
+    level = []
+    body = src || ""
+    out = ''
+    while m = body.match /^(\<\w+[^\>]*\>)(.*)/m
+      tag = m[1]
+      next = m[2]
+      name = tag.match(/^\<(\w+)/)[1]
+      if m2 = name.match /(MM_\w+)/
+        m3 = next.match (new RegExp("(.*\\<\\/#{m2[1]}\\>)(.*)",'m'))
+        unless m3
+          console.error 'cant find </MM_hash in '+next
+        out += tag+m3[1]
+        body = m3[2]
+        continue
+      classes = @matchTagAttr tag,'class'
+      if classes
+        arr = classes.split ' '
+        classes = {}
+        for a in arr
+          classes[a] = true
+      console.log name,tag,classes
+      body = next
+    out += body
+    return out
+
+    
   makeSass : =>
     @allCssRelative = {}
     @cssSrc         = {}
@@ -273,13 +314,23 @@ class module.exports
     css = css.replace /\s+/gmi,' '
     #css = css.replace /\$FILE--\"([^\$]*)\"--FILE\$/g, "\"/file/666/$1\""
     #css = css.replace /\$FILE--([^\$]*)--FILE\$/g, "\"/file/666/$1\""
-    m = css.match /([^{]*)([^}]*})(.*)/
     return css if filename.match(/.*\.g\.(sass|scss|css)$/)
+    #if m = css.match /^(\@media[^\{]+\{)([^\}]+\})(\})(.*)/
+    if m = css.match /^(\@media[^\{]+\{)((?:[^\}]+\})*)(\})(.*)/
+      unless m[1] || m[3]
+        m[1] = ''
+        m[3] = ''
+      m[4] = m[4] || ''
+      m[2] = m[2] || ''
+      inline = yield @parseCssLoop '',m[2],filename,relative
+      ret = m[1]+inline+m[3]
+      return yield @parseCssLoop ret,m[4],filename,relative,ifloop
+      
+    m = css.match /([^{]*)([^}]*})(.*)/
     return css unless m
     pref = m[1]
     body = m[2]
     post = m[3]
- 
     newpref = ""
     # перебор селекторов
     m = pref.match /([^,]+)/g
@@ -292,30 +343,30 @@ class module.exports
         if sel.match /^main.*/
           sel = sel.replace /^main/, "#m-#{relative}"
           replaced = true
-        if !(sel.match /^\.(g-[\w-]+)/) && (!replaced)
+        if !(sel.match /^\.(g-[\w-:]+)/) && (!replaced)
           newpref += "#m-#{relative}"
         #continue if sel == 'main'
         m2 = sel.match /([^\s]+)/g
         if m2
           for a in m2
-            m3 = a.match /^\.(m-[\w-]+)/
+            m3 = a.match /^\.(m-[\w-:]+)/
             leftpref = ""
             if m3
               leftpref = " " unless replaced
               newpref += leftpref+"\.mod-#{relative}--#{m3[1]}"
-            else if a.match /^\.(g-[\w-]+)/
+            else if a.match /^\.(g-[\w-:]+)/
               leftpref = " " unless replaced
               newpref += leftpref+a
             else
               leftpref = ">" unless replaced
               newpref += leftpref+a
         else
-          m3 = sel.match /^\.m-[\w-]+/
+          m3 = sel.match /^\.m-[\w-:]+/
           leftpref = ""
           if m3
             leftpref = " " unless replaced
             newpref += leftpref+"\.mod-#{relative}--#{m3[1]}"
-          else if sel.match /^\.(g-[\w-]+)/
+          else if sel.match /^\.(g-[\w-:]+)/
             leftpref = " " unless replaced
             newpref += leftpref+sel
           else if sel && !replaced
@@ -323,12 +374,14 @@ class module.exports
             newpref += leftpref+sel
     else newpref = pref
     newpref=pref if filename.match(/.*\.g\.(sass|scss|css)$/)
+    return yield @parseCssLoop newpref+body,post,filename,relative,ifloop
+  parseCssLoop : (ret,post,filename,relative,ifloop)=> do Q.async =>
     if ifloop == 'loop'
       return {
-        begin : newpref+body
+        begin : ret
         args  : [post,filename,relative,'loop']
       }
-    ret = newpref+body
+    #ret = newpref+body
     args = [post,filename,relative,'loop']
     loop
       ret2 = yield @parseCss args... #(post,filename,relative,'loop')

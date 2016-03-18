@@ -1,13 +1,13 @@
 .js-short_form.la-form
    .row
       .col.input-field.s12
-         i.material-icons.prefix person_outline
-         input.validate#la_name(type='text', value=value.name).js-name
+         i.m_icon.icon_person_outline.prefix
+         input.validate#la_name(type='text', value=value.name, name="name").js-name
          label(for="la_name") Имя
    .row
       .col.input-field.s12
-         i.material-icons.prefix phone
-         input.validate#la_phone(type='tel', value=value.phone, data-mask="9 (999) 999-99-99").js-phone
+         i.m_icon.icon_phone.prefix
+         input.validate#la_phone(type='tel', value=value.phone, name="phone", data-mask="9 (999) 999-99-99").js-phone
          label(for="la_phone") Телефон
    .row(style="display: none")
       .col.s12.center-align
@@ -15,12 +15,12 @@
    .row.no-margin-row
       .col.s12.center-align
          a.btn-large.yellow-btn.waves-effect.waves-light.js-send Отправить
-            i.material-icons.right send
+            i.m_icon.icon_send.right
 .js-success_form(style="display:none")
    .row
       .col.s12.our_tutors.center-align
          h5 Заявка успешно отправлена!
-         p.no-margin-p Наш оператор позвонит вам в течении 10 – 15 минут.
+         p.no-margin-p Наш менеджер свяжется с Вами в течении 10-15 минут
    .row.no-margin-row
       .col.s12.center-align
          a.btn-large.yellow-btn.waves-effect.waves-light.js-detail Дополнить заявку

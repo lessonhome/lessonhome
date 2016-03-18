@@ -1,3 +1,4 @@
+
 class @main extends @template 'lp'
   route : '/search'
   model : 'tutor/profile_registration/fourth_step'
@@ -8,6 +9,7 @@ class @main extends @template 'lp'
     tutor : 'tutor/profile'
   }
   tree : =>
+    filter = @const('filter')
     content : @module '$':
       btn_up : @module 'btn_up'
       id_page: 'search_p'
@@ -17,12 +19,17 @@ class @main extends @template 'lp'
         value :
           filter  : $urlform : tutorsFilter : ''
         sex:
-          items: @const('filter').sex
+          items: filter.sex
       search_filter: @module '$/search_filter':
+        subject_select : @state 'forms/materialize_subjects':
+          value : $urlform : tutorsFilter : 'subjects'
+        metro_select : @state 'forms/materialize_metro':
+          value : $urlform : tutorsFilter : 'metro'
+
         value :
           filter  : $urlform : tutorsFilter : ''
 #          default_filter  : $durlform : mainFilter : ''
-        subject_list: @const('filter').subjects
+        subject_list: filter.subjects
           ###
           popular :
             group: 'Популярные предметы'
@@ -37,15 +44,51 @@ class @main extends @template 'lp'
             group: 'Другое'
             items: ["обществознание","информатика","программирование","логопеды","актёрское мастерство","алгебра","бухгалтерский учёт","высшая математика","география","геометрия","компьютерная графика","логика","макроэкономика","математический анализ","менеджмент","микроэкономика","оригами","правоведение","психология","рисование","риторика","статистика","теоретическая механика","теория вероятностей","философия","черчение","шахматы","эконометрика","экономика","электротехника"]
           ###
-        training_direction:
-          items: @const('filter').course
+        training_direction: items: filter.course
+        group : filter.group_course
+        rules_sync : {
+          'Музыка' :[2,3,4,5,6,7]
+          'Искусство' : [2,3,4,5,6,7]
+          'Спорт' : [2,3,4,5,6,7]
+          'Начальная школа' : []
+          'психология' : [2,3,4,5,6,7]
+          'бухгалтерский учет' : [5,6,7]
+          'английский язык':[0,1,2,3,4,5,6,7]
+          'высшая математика':[1,5,6,7]
+          'инженерная графика':[1,5,6,7]
+          'компьютерная графика':[4,5,6,7]
+          'логика':[2,3,4,5,6,7]
+          'математический анализ':[5,6,7]
+          'начертательная геометрия':[5,6,7]
+          'программированрие':[4,5,6,7]
+          'сопротивление материалов':[5,6,7]
+          'статистика':[5,6,7]
+          'теоретическая механика':[5,6,7]
+          'черчение':[5,6,7]
+          'чисельные методы':[5,6,7]
+          'электротехника':[5,6,7]
+          'журналистика':[5,6,7]
+          'культурология':[5,6,7]
+          'менеджмент':[5,6,7]
+          'научный стиль':[5,6,7]
+          'право':[1,4,5,6,7]
+          'правоведение':[4,5,6,7]
+          'риторика':[2,3,4,5,6,7]
+          'философия':[5,6,7]
+          'фонетика':[2,3,4,5,6,7]
+          'экономика':[1,5,6,7]
+          'латынь':[5,6,7]
+          'компьютерная грамотность' : [2,3,4,5,6,7]
+          'культура речи' : [3,4,5,6,7]
+          'лексика' : [4,5,6,7]
+        }
         price_select:
-          items: @const('filter').price
+          items: filter.price
         status_tutor:
-          items: @const('filter').status
+          items: filter.status
         sex_tutor:
-          items: @const('filter').sex
-        metro_lines: @const('metro').lines
+          items: filter.sex
+#        metro_lines: @const('metro').lines
       search_help: @module '$/search_help'
       from : $urldata : tutorsFilter : 'offset'
       count : 10
@@ -64,6 +107,7 @@ class @main extends @template 'lp'
         if olds.subject[0]
           for s in olds.subject
               ss[s] = true
+        mf.progress = true
         mf.subject = Object.keys ss
         mf.course = filters.course ? []
         ss = []
@@ -71,9 +115,12 @@ class @main extends @template 'lp'
           ss[c] = true
         for c in (olds.course ? [])
           ss[c] = true
+        mf.metro ?= {}
         for m in (filters.metro ? [])
+          m_path = m?.split?(':')?[1] || ""
+          mf.metro[m_path] = true if m_path
           m = metro.stations?[m?.split?(':')?[1] ? ""]?.name
-          ss[m] = true if m
+          #ss[m] = true if m
         mf.course = Object.keys ss
         l = 500
         r = 6000
