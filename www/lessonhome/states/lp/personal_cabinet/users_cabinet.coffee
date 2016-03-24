@@ -10,3 +10,5 @@ class @main extends @template 'lp'
   tree : =>
     content : @module '$':
       id_page: 'uc_page'
+      personal_info: @state './personal_info'
+      bid_line: @state './bid'
