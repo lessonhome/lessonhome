@@ -2,14 +2,14 @@
   .col.s12.m12.l12
     .tutor-block
       .col.s3.left
-        a(href!=value.link, title!= value.name).js-image_a
-          img.js-image(src!= value.photos, alt!=value.name).responsive-img
+        a(href=value.link, title= value.name).js-image_a
+          img.js-image(src= value.photos, alt=value.name).responsive-img
       .col.s9.m9.l9.left.sub-col
         .col.s12.m12.l6
           .tutor-title
-            a(href!=value.link, title!= value.name).js-name!=value.name
+            a(href=value.link, title= value.name).js-name!=value.name
         .col.s12.m12.l6.right-align.tutor-reviews
-          a.js-review_a(href!=value.link_comment, title!= value.name, style= value.reviews == '0 отзывов'? 'display: none': undefined)
+          a.js-review_a(href=value.link_comment, title= value.name, style= value.reviews == '0 отзывов'? 'display: none': undefined)
             span!=value.reviews
             i.m_icon.icon_question_answer.middle-icon
       .col.s9.m9.l9.right.hide-on-small-only
@@ -44,7 +44,7 @@
                   if value.metro_tutors.data.length > 1
                     .dotted_more-button.right-align
                 if value.metro_tutors.data.length > 1
-                  ul.dropdown-content(id!="d#{value.index}")
+                  ul.dropdown-content(id="d#{value.index}")
                     each val, i in value.metro_tutors.data
                       li
                         span.stantion
@@ -77,6 +77,6 @@
             span.tutor_button_text Выбрать
             i.m_icon.icon_add.right
         .col.s12.m4.l4.tutor-action
-          a(href!=value.link).waves-effect.waves-light.btn-flat.btn-trigger
+          a(href=value.link).waves-effect.waves-light.btn-flat.btn-trigger
             span.tutor_button_text Посмотреть
     .divider
