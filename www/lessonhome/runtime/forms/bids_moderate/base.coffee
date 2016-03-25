@@ -18,7 +18,7 @@
   'subjects'
   'email'
   'course'
-  'comment'
+  #'comment'
   'prices'
   'metro'
 ]
