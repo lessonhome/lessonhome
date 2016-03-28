@@ -78,8 +78,12 @@
 
                 } else {
                     activates.css('white-space', 'nowrap');
-                    activates.css({visibility: 'hidden', height: '0px'}).find('>*').css({'margin-right':scroll_height + 'px', display: 'block'});
-                    activates.css({width: activates.width()}).css({visibility: '', height: ''}).find('>*').css({display: ''});
+                    activates.find('>*').css({'margin-right' : scroll_height + 'px'});
+                    
+                    if (activates.data('width')) {
+                        activates.css('width', activates.data('width') + scroll_height + 'px');
+                    }
+
                     if (options.minwidth === true) activates.css('min-width', origin.outerWidth());
                 }
 
