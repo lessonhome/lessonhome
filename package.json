@@ -47,7 +47,7 @@
     "regenerator" : "*",
     "ipware" : "*",
     "useragent":"*",
-    "jquery-file-upload-middleware":"",
+    "jquery-file-upload-middleware":"*",
     "express":"*",
     "body-parser":"*",
     "imagemagick": "*",
@@ -74,7 +74,8 @@
     "telegram-bot-api" : "*",
     "node-telegram-bot-api" : "*",
     "vksdk" : "*",
-    "google-images" : "*"
+    "google-images" : "*",
+    "continuation-local-storage":"*"
   }
 }
 

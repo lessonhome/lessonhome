@@ -15,8 +15,6 @@ class @main extends EE
       do (section)=>
        title.click => @change_visibility section
 
-
-
   change_visibility : (element)=>
     if element.hasClass 'showed'
       element.removeClass 'showed'

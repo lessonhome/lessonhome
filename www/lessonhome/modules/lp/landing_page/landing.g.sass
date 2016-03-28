@@ -2,9 +2,11 @@
 
 //first screen
 .first-screen
-  background: url(F('/lp/l_icons/landing_img_1.jpg')), url(F('/lp/l_icons/landing_img_1_1.jpg'))
-  background-repeat: no-repeat, repeat-x
-  background-position: center center
+  //background: url(F('/lp/l_icons/landing_img_1.jpg')), url(F('/lp/l_icons/landing_img_1_1.jpg'))
+  //background-repeat: no-repeat, repeat-x
+  //background-position: center center
+  background: url(F('/reclame_background/english.png')) no-repeat center
+  background-size: cover
   height: 508px
   color: #fff
 .first-screen_padding
@@ -46,10 +48,48 @@
   padding: 0
   margin: 0 0 3.5rem
   text-align: center
+._first_title
+  margin-bottom: 1.5rem
+._subtitle
+  font-size: 1.6rem
 .screen__border
   border-top: 1px solid #a3a3a3
 .other__lh
   line-height: 130%
+.title-screen__padding
+  padding: 3.667rem 0
+.no_spacer
+  margin-bottom: 0
+  padding-bottom: 0
+.result__padding
+  padding: 3.5rem 0
+.row_no-padding
+  margin-bottom: 0
+//advantages dark
+.advantages-dark
+  //min-height: 584px
+  background: transparent url(F('/lp/l_icons/two_screen_bg.jpg')) no-repeat center
+  background-size: cover
+  color: #fff
+.adv-dark_text
+  font-size: 1.2rem
+  line-height: 140%
+  display: inline-block
+  vertical-align: middle
+  padding: 2rem 0 0 7.533rem
+  min-height: 7.533rem
+  &.one_cell
+    background: url(F('/lp/l_icons/two_screen_01.png')) no-repeat left center
+  &.two_cell
+    background: url(F('/lp/l_icons/two_screen_02.png')) no-repeat left center
+  &.tree_cell
+    background: url(F('/lp/l_icons/two_screen_03.png')) no-repeat left center
+  &.four_cell
+    background: url(F('/lp/l_icons/two_screen_04.png')) no-repeat left center
+  &.five_cell
+    background: url(F('/lp/l_icons/two_screen_05.png')) no-repeat left center
+  &.six_cell
+    background: url(F('/lp/l_icons/two_screen_06.png')) no-repeat left center
 
 //advantages block
 .advantages_text
@@ -88,9 +128,7 @@
 
 //what work
 .what-work
-  padding: 3.333rem 0
-  color: #fff
-  background-color: #147585
+  padding: 3.333rem 0 4rem
   @media #{$medium-and-down}
     padding: 2rem 0
   .col
@@ -105,7 +143,6 @@
       font-size: 1.8rem
       line-height: 100%
       margin: 0 0 3.333rem 0
-      color: #fff
       @media #{$medium-and-down}
         margin-bottom: 2rem
       @media #{$small-and-down}
@@ -118,9 +155,8 @@
     display: inline-block
     width: 12.27rem
     height: 12.27rem
-    background-color: #136e7d
-    color: #52ddd4
-    border: 1px solid #52ddd4
+    color: #147585
+    border: 1px solid #147585
     border-radius: 50%
     margin-bottom: 2rem
     text-align: center
@@ -142,7 +178,7 @@
   .ww-text
     display: block
     &.link-popup
-      color: #fff
+      color: #147585
       cursor: pointer 
       span
         border-bottom: dashed 2px
@@ -152,17 +188,98 @@
       margin-left: 2rem
       vertical-align: middle
 
-//comment block
-.landing-comment
-  padding: 3.333rem 0 3.333rem 0
-  .title
-    text-align: center
+//result screen
+.result-title
+  margin-top: 3.5rem
+.result-screen
+  background-color: #147585
+  color: #fff
+  text-align: center
+.circle-row
+  color: #acffcd
+.result_title
+  font-size: 1.2rem
+  margin-bottom: 2rem
+.result-link
+  margin-top: 2rem
+.result-circle_layer
+  height: 165px
   &:before
-    display: none
-  .slick-main .slick-arrow
-    background-color: #147585
-    border-radius: 0
-  .rew_name
-    color: #147585
-  .comment-body
-    background-color: #f0f0f0
+    content: ''
+    display: inline-block
+    vertical-align: middle
+    height: 100%
+    width: .1px
+.result-circle
+  width: 162px
+  height: 162px
+  border: 1px solid #fbc02d
+  border-radius: 50%
+  position: relative
+  display: inline-block
+  vertical-align: middle
+  &:before
+    content: ''
+    display: block
+    width: 161px
+    height: 161px
+    border: 6px solid #fbc02d
+    border-radius: 50%
+    border-right-color: transparent
+  &:after
+    content: ''
+    display: block
+    position: absolute
+    top: 0
+    left: 0
+.one_circle
+  width: 162px
+  height: 162px
+  &:before
+    width: 161px
+    height: 161px
+  &:after
+    content: '79.5'
+    font-size: 48px
+    width: 161px
+    height: 161px
+    text-align: center
+    line-height: 155px
+.two_circle
+  width: 125px
+  height: 125px
+  &:before
+    width: 124px
+    height: 124px
+  &:after
+    content: '68.3'
+    font-size: 30px
+    width: 124px
+    height: 124px
+    text-align: center
+    line-height: 118px
+.three_circle
+  width: 105px
+  height: 105px
+  &:before
+    width: 104px
+    height: 104px
+  &:after
+    content: '64.0'
+    font-size: 30px
+    width: 104px
+    height: 104px
+    text-align: center
+    line-height: 98px
+
+//landing comment
+.landing-comment
+  #m-lp-comments
+    &>.comments-block
+      padding-top: 3rem
+    .mod-lp-comments--m-title
+      text-align: center
+
+.your-tutor-screen
+  .screen__padding
+    padding-bottom: 0
