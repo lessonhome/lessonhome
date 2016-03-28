@@ -2,7 +2,6 @@ class @main extends EE
   Dom: =>
     @select = @found.select
     @select.material_select()
-    setTimeout @_metroColor, 100
   val : (value) => return if value? then @select.val(value) else @select.val()
   setValue : (value) => @val(value).trigger('update')
   getValue : => @val()

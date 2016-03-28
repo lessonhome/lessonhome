@@ -9,7 +9,7 @@ getParam = (names) ->
     }
   return null
 
-getNames = (name) ->
+getNames = (name = '') ->
   name = name.split ':'
   return name if name.length > 1
   return null
