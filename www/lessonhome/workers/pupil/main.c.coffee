@@ -1,5 +1,67 @@
 
+###
 
+На сервере доступны задачи:
+  pupilGetPupil(id) : id - (from req.user.id)
+    name          # параметры которые по умолчанию приходят с заявками
+    registerTime
+    phone
+    ... плюс те которые ты передашь при обновлении профиля через функцию pupilUpdatePupil
+  pupilGetBids(id) : # id - айдишник ученика (req.user.id)
+    [
+      {
+        bid : {
+          index:"adasdad"
+          ... # данные заявки
+        },
+        chat : {
+          hash : # уникальный хэш чата
+          messages : [
+            {text,time,...},{},{} # сообщения в том формате, в котором ты их будешь пушить
+          ]
+        },
+        tutors : {      # массив с преподами
+          #index1# : {  # индекс репетитора
+            chat : {}      # аналогичный чат
+            data : {}      # объект препода, такой же какой в карточки приходит
+            type : 'linked' # тип связи с преподавателем
+                            # linked - прикрепленный учеником
+                            # message - сообщение преподу
+                            # tutorback - препод сам захотел заявку
+                            # moderator - модератор подобрал препода
+          }
+          #index2#... 
+        }
+        
+      },
+      ...
+    ]
+
+На клиенте:
+  pupilUpdatePupil(data) # где data, данные, которые нужно обновить в общей инфе об ученике
+  pupilUpdateBid(index,data) # где index - индекс заявки (bid.index), data - -||-
+  pupilChatPush(hash,msg) # где hash- хэш чата, msg- объект сообщения чата которое надо запушить
+
+
+соответственно юзать это все можно так:
+На сервере в состоянии:
+  tree : =>
+    content : $defer : =>
+      jobs = _Helper 'jobs/main'
+      bids = yield jobs.solve 'pupilGetBids',@req.user.id
+      modules = for bid in bids
+        @module 'bid_module_name' : bid
+      return modules
+
+
+На клиенте проще
+
+Feel.jobs.server 'pupilChatPush',chat.hash,{
+  text : text,
+  time : time,
+  color : 'yellow'
+}
+###
 
 
 class Pupil
