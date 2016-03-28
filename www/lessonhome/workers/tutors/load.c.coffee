@@ -21,6 +21,7 @@ class TutorsLoad
     yield @jobs.listen 'reloadTutor',           => @jobReloadTutor arguments...
     yield @jobs.listen 'prefilterTutors',       => @jobPrefilterTutors arguments...
     yield @jobs.listen 'getTutor',@jobGetTutor
+    yield @jobs.listen 'getTutors',@jobGetTutors
     yield @jobs.onSignal 'loadTutorsFromRedis', => @jobLoadTutorsFromRedis arguments...
     
   jobReloadTutor          : require './reloadTutor'
@@ -30,6 +31,13 @@ class TutorsLoad
     ret = @base?.tutors?.byindex?[index]
     ret ?= @base?.tutors?.byindex?[99637] ? {}
     ret = ret._client if ret?._client?
+    return ret
+  jobGetTutors : (indexes=[])=>
+    ret = {}
+    for index in indexes
+      prep = @base?.tutors?.byindex?[index] ? (@base?.tutors?.byindex?[99637] ? {})
+      prep = prep._client if prep?._client?
+      ret[index] = prep
     return ret
 
 
