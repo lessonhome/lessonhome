@@ -5,6 +5,7 @@ class @main
     @chatBox = @found.chat_box
     @messageTextarea = @found.message_textarea
     @messageSend = @found.message_send
+    @chatBox.scrollTop(@chatBox.get(0).scrollHeight)
 
     #плагин для клевой полосы прокрутки, есть баг, мигает при нажатии
     #элементы, пока не разберусь, подключать нет смысла
@@ -31,6 +32,7 @@ class @main
   appendMessage : (message) =>
     messageTemplate = '<div class="mod-lp-personal_cabinet-chat--m-message"><div class="meta"><span class="name">' + message.from.name  + '</span><span class="date">' + message.time + '</span></div><div class="text">' + message.text + '</div></div>'
     @chatBox.append messageTemplate
+    @chatBox.scrollTop(@chatBox.get(0).scrollHeight)
     @messageTextarea.val ''
 
   getThisTime : =>
