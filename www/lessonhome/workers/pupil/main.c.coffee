@@ -101,7 +101,7 @@ class Pupil
     rname = "uid:#{socket.user.id}"
     yield @jobPupilChatPush socket.user,hash,msg
     console.log 'iochatpush',hash,msg
-    socket.broadcast.to(rname).emit('chatPush',msg)
+    @io.io.to(rname).emit('chatPush:'+hash,msg)
   checkBidIndex :  (bid)=>
     return if bid.index
     id = @_getID bid._id

@@ -17,27 +17,27 @@ class @main
     @userName = 'Артем'
 
   show  : =>
-    @messageSend.on 'click', =>
-      userMessage = @messageTextarea.val()
-
-      @appendMessage({
-        from: {
-          name: 'Артем'
-        },
-        time: @getThisTime()
-        text: userMessage
-      })
-
-  appendMessage : (message) =>
-    messageTemplate = '<div class="mod-lp-personal_cabinet-chat--m-message"><div class="meta"><span class="name">' + message.from.name  + '</span><span class="date">' + message.time + '</span></div><div class="text">' + message.text + '</div></div>'
-    @chatBox.append messageTemplate
+    @messageSend.on 'click', @sendFromBox
+    
+    Feel.sio.io.on "chatPush:#{@tree.value.chat.hash}",@chatPush
+  chatPush : (msg)=>
+    @appendMessage msg
+  sendFromBox : =>
+    userMessage = @messageTextarea.val()
+    msg =
+      type : 'pupil'
+      time : new Date().getTime()
+      text : userMessage
+    Feel.sio.io.emit 'chatPush',@tree.value.chat.hash,msg
+    #@appendMessage msg
     @messageTextarea.val ''
 
-  getThisTime : =>
-    date = new Date()
-    dateMonth = date.getMonth() + 1
-    if dateMonth < 10
-      dateMonth = '0' + dateMonth
-    messageTime = date.getDate() + '.' + dateMonth  + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes()
-    return messageTime
+  appendMessage : (message) =>
+    message = @js.parseMessage message,@tree.value.pupil,@tree.value.moderator
+    messageTemplate = '<div class="mod-lp-personal_cabinet-chat--m-message '+message.type+'"><div class="meta">'
+    if message.from?.name
+      messageTemplate += '<span class="name">' + message.from.name  + '</span>'
+      
+    messageTemplate += '<span class="date">' + message.timestr + '</span></div><div class="text">' + message.text + '</div></div>'
+    @chatBox.append messageTemplate
 
