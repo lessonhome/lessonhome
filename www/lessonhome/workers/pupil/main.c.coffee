@@ -135,6 +135,7 @@ class Pupil
         tutors[bid.id].chat ?= yield @chatGet "#{id}:#{bid.index}:#{bid.id}"
         unless tutors[bid.id].chat.messages.length
           yield @chatPush tutors[bid.id].chat.hash,{
+            type : 'pupil'
             text : bid.comments
             time : bid.time
           }
