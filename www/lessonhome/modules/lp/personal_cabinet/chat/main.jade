@@ -1,0 +1,35 @@
+.operator
+  img(src=F('/lp/girl_operator.jpg'))
+  .name_and_status
+    .name Мария
+    .status оператор
+.chat
+  .m-message
+    .meta
+      span.date 25.03.2016 14:30
+    .text Ваша заявка принята, ожидайте звонка оператора
+  .m-message
+    .meta
+      span.date 25.03.2016 14:30
+    .text Вас обслуживает оператор Мария
+  .m-message
+    .meta
+      span.name Мария
+      span.date 25.03.2016 14:31
+    .text Здравтвуйте Артем. Если у Вас есть вопросы, я с радостью на них отвечу.
+  .m-message.reply
+    .meta
+      span.name Артем
+      span.date 25.03.2016 14:34
+    .text Здравтвуйте, подскажите, как долго будет подбиратся реметитор?
+  .m-message
+    .meta
+      span.name Мария
+      span.date 25.03.2016 14:36
+    .text Репетитор будет подобран Вам в течении часа. Спасибо за Вашу заявку.
+.message-input
+  .row
+    .input-field.col.s12
+      .m_icon.icon_mode_edit.prefix
+      textarea(id='chat_input').materialize-textarea
+      label(for='chat_input') Ваше сообщение
