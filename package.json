@@ -39,6 +39,7 @@
     "colors" : "*",
     "yuicompressor" : "*",
     "cookies" : "*",
+    "cookie" : "*",
     "bcryptjs": "*",
     "js-beautify" : "*",
     "spdy":"*",
@@ -75,7 +76,9 @@
     "node-telegram-bot-api" : "*",
     "vksdk" : "*",
     "google-images" : "*",
-    "continuation-local-storage":"*"
+    "continuation-local-storage":"*",
+    "socket.io" : "*",
+    "socket.io-redis":"*"
   }
 }
 

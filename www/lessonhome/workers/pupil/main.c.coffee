@@ -73,6 +73,8 @@ class Pupil
     @dbBids = yield @db.get 'bids'
     @dbChat = yield @db.get 'chat'
     @dbPupil = yield @db.get 'pupil'
+    @socket = _Helper 'socket.io/main'
+    console.log @socket
 
     @chats = {}
     @pupil = {}
