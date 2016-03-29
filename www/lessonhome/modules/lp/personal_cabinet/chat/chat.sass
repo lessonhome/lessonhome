@@ -16,8 +16,11 @@
     .status
       font-size: .8rem
 .chat
-  padding: 0.5rem 0 0 4.3997rem
+  padding: 0.5rem 1rem 0 0
+  height: 300px
+  overflow: auto
 .m-message
+  padding-left: 4.3997rem
   padding-bottom: .3rem
   margin-bottom: .3rem
   .meta
@@ -25,13 +28,17 @@
       font-size: .9rem
       font-weight: 500
       margin-right: .5rem
+      color: #3c688d
     .date
       font-size: .8rem
   .text
     font-size: .9rem
     color: #636363
   &.reply
-    background-color: #e6e6e6
+    //background-color: #f6f6f6
+  &.system
+    .text
+      color: #3c688d
 
 .message-input
   .row
