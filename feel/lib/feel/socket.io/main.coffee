@@ -29,10 +29,8 @@ class SocketIO
     cookies = (_cookie.parse socket?.handshake?.headers?.cookie ? "") ? {}
     @register ?= yield Main.service 'register'
     register = yield @register.register cookies.session,cookies.unknown,cookies.adminHash
-    session = register.session
-    user    = register.account
-    socket.join "uid:#{user.id}"
-    yield @emit 'connection',{socket,session,user}
+    socket.user = register.account
+    yield @emit 'connection', socket
 
 
 module.exports = SocketIO

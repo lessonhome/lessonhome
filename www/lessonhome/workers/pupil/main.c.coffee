@@ -73,9 +73,12 @@ class Pupil
     @dbBids = yield @db.get 'bids'
     @dbChat = yield @db.get 'chat'
     @dbPupil = yield @db.get 'pupil'
-    @socket = _Helper 'socket.io/main'
-    console.log @socket
+    @io = _Helper 'socket.io/main'
+    
+    @io.on 'connection',@ioconnection
 
+    
+    @rooms = {}
     @chats = {}
     @pupil = {}
 
@@ -87,6 +90,17 @@ class Pupil
     yield @jobs.client 'pupilUpdatePupil',@jobPupilUpdatePupil
   
   _getID : (_id)=> new (require('mongodb').ObjectID)(_id)
+  ioconnection : (socket)=>
+    rname = "uid:#{socket.user.id}"
+    unless @rooms[rname]?
+      @rooms[rname] ?= @io.io.in rname
+      #@rooms[rname].on 'chatPush',@ioChatPush
+    socket.join rname
+    socket.on 'chatPush', => @ioChatPush socket,arguments...
+  ioChatPush : (socket,hash,msg)=> Q.spawn =>
+    rname = "uid:#{socket.user.id}"
+    yield @jobPupilChatPush socket.user,hash,msg
+    socket.broadcast.to(rname).emit('chatPush',msg)
   checkBidIndex :  (bid)=>
     return if bid.index
     id = @_getID bid._id
