@@ -49,5 +49,8 @@
   .row
     .input-field.col.s12
       .m_icon.icon_mode_edit.prefix
-      textarea(id='chat_input').materialize-textarea
+      textarea(id='chat_input').materialize-textarea.js-message_textarea
       label(for='chat_input') Ваше сообщение
+    .col.s12.right-align
+      a.btn.yellow-btn.waves-effect.waves-light.js-message_send Отправить
+        i.m_icon.icon_send.right
