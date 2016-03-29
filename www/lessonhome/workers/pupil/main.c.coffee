@@ -100,14 +100,12 @@ class Pupil
   ioChatPush : (socket,hash,msg)=> Q.spawn =>
     rname = "uid:#{socket.user.id}"
     yield @jobPupilChatPush socket.user,hash,msg
-    console.log 'iochatpush',hash,msg
     @io.io.to(rname).emit('chatPush:'+hash,msg)
   checkBidIndex :  (bid)=>
     return if bid.index
     id = @_getID bid._id
     
     bid.index = _randomHash(8)
-    console.log bid.index
     yield _invoke @dbBids,'update',{_id:id},{$set:{index:bid.index}},{upsert:false}
  
   jobPupilGetPupil : (id)=>
@@ -163,7 +161,6 @@ class Pupil
     yield _invoke @dbPupil,'update',{account:auth.id},{$set:data},{upsert:true}
 
   jobPupilChatPush : (auth,hash,msg)=>
-    console.log 'jobchatpush',auth,hash,msg
     if hash.split(':')?[0] == auth.id
       yield @chatPush hash,msg
   chatGet : (hash)=>

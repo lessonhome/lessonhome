@@ -21,7 +21,6 @@
     second: '2-digit'
   
   message.timestr = d.format "dd.mm.yyyy HH:MM"
-  console.log message
   return message
 
 @parse = (value)=>
