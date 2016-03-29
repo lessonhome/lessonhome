@@ -18,11 +18,26 @@ class @main
 
   show  : =>
     @messageSend.on 'click', =>
-      @userMessage = @messageTextarea.val()
-      @appendMessage({})
+      userMessage = @messageTextarea.val()
+
+      @appendMessage({
+        from: {
+          name: 'Артем'
+        },
+        time: @getThisTime()
+        text: userMessage
+      })
 
   appendMessage : (message) =>
-    @messageTemplate = '<div class="mod-lp-personal_cabinet-chat--m-message"><div class="meta"><span class="name">' + message.from.name  + '</span><span class="date">' + message.time + '</span></div><div class="text">' + message.text + '</div></div>'
-    @chatBox.append @messageTemplate
+    messageTemplate = '<div class="mod-lp-personal_cabinet-chat--m-message"><div class="meta"><span class="name">' + message.from.name  + '</span><span class="date">' + message.time + '</span></div><div class="text">' + message.text + '</div></div>'
+    @chatBox.append messageTemplate
     @messageTextarea.val ''
+
+  getThisTime : =>
+    date = new Date()
+    dateMonth = date.getMonth() + 1
+    if dateMonth < 10
+      dateMonth = '0' + dateMonth
+    messageTime = date.getDate() + '.' + dateMonth  + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes()
+    return messageTime
 
