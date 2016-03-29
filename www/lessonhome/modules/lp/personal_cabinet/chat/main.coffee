@@ -5,6 +5,7 @@ class @main
     @chatBox = @found.chat_box
     @messageTextarea = @found.message_textarea
     @messageSend = @found.message_send
+    @chatBox.scrollTop(@chatBox.get(0).scrollHeight)
 
     #плагин для клевой полосы прокрутки, есть баг, мигает при нажатии
     #элементы, пока не разберусь, подключать нет смысла
@@ -40,4 +41,5 @@ class @main
       
     messageTemplate += '<span class="date">' + message.timestr + '</span></div><div class="text">' + message.text + '</div></div>'
     @chatBox.append messageTemplate
+    @chatBox.scrollTop(@chatBox.get(0).scrollHeight)
 
