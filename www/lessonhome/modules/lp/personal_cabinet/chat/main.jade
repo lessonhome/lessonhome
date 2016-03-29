@@ -1,7 +1,7 @@
 .operator
-  img(src=moderator.photo)
+  img(src=value.moderator.photo)
   .name_and_status
-    .name moderator.name
+    .name value.moderator.name
     .status оператор
 .chat.js-chat_box
   .m-message.system
@@ -45,11 +45,12 @@
       span.name Артем
       span.date 25.03.2016 14:34
     .text Нет, Михаил мне не подходит, слишко далко ездить. Если можно, то поближе пожалуйста
-  each msg in chat.messages
-    .m-message
+  each msg in value.chat.messages
+    .m-message(class=msg.type)
       .meta
-        span.name!=pupil.name
-        span.date!=msg.time
+        if msg.from && msg.from.name
+          span.name!=msg.from.name
+        span.date!=msg.timestr
       .text!=msg.text
 
 .message-input

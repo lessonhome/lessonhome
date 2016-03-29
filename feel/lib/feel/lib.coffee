@@ -3,6 +3,7 @@
 require 'harmony-reflect'
 require 'colors'
 global._colors = require 'colors/safe'
+require './lib/date.format'
 ###
 __used = 0
 setInterval ->

@@ -81,6 +81,7 @@ class module.exports
           path  : "#{@site.path.modules}/#{@name}/#{f}"
         }
   replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-:\.]+)/,"$1mod-#{@id}--$2")
+  replacer3  : (str,p,offset,s)=> str.replace(/([\'])(m-[\w-:\.]+\')/,"$1mod-#{@id}--$2")
   replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-:\.]+)/,"$1js-$2--{{UNIQ}} $2")
   makeJade : (source=false)=>
     _jade = {}
@@ -95,6 +96,10 @@ class module.exports
         }
         while true
           n = _jade.fnCli.replace(/class\=\\\"(?:[\w-:\.]+ )*(m-[\w-:\.]+)(?: [\w-:\.]+)*\\\"/, @replacer)
+          break if n == _jade.fnCli
+          _jade.fnCli = n
+        while true
+          n = _jade.fnCli.replace(/jade\.cls\(\[(?:[\w-:\.\s]+\,)*(\'m-[\w-:\.]+\')(?:\,[\w-:\.\s]+)*\]/, @replacer3)
           break if n == _jade.fnCli
           _jade.fnCli = n
         while true
