@@ -1,7 +1,7 @@
 .operator
-  img(src=F('/lp/girl_operator.jpg'))
+  img(src=moderator.photo)
   .name_and_status
-    .name Мария
+    .name moderator.name
     .status оператор
 .chat.js-chat_box
   .m-message.system
@@ -45,6 +45,13 @@
       span.name Артем
       span.date 25.03.2016 14:34
     .text Нет, Михаил мне не подходит, слишко далко ездить. Если можно, то поближе пожалуйста
+  each msg in chat.messages
+    .m-message
+      .meta
+        span.name!=pupil.name
+        span.date!=msg.time
+      .text!=msg.text
+
 .message-input
   .row
     .input-field.col.s12

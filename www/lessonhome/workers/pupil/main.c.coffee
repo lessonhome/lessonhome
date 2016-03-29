@@ -100,6 +100,7 @@ class Pupil
   ioChatPush : (socket,hash,msg)=> Q.spawn =>
     rname = "uid:#{socket.user.id}"
     yield @jobPupilChatPush socket.user,hash,msg
+    console.log 'iochatpush',hash,msg
     socket.broadcast.to(rname).emit('chatPush',msg)
   checkBidIndex :  (bid)=>
     return if bid.index
@@ -113,8 +114,8 @@ class Pupil
     return @pupil[id] if @pupil[id]
     pupil = yield _invoke @dbPupil.find({account:id}).limit(1),'toArray'
     pupil = pupil?[0]
-    unless pupil
-      pupil = {account:id}
+    unless pupil?.name && pupil?.phone && pupil?.registerTime
+      pupil ?= {account:id}
       bids = yield _invoke @dbBids.find({account:id}).sort({time:-1}),'toArray'
       for bid in bids ? []
         pupil.name = pupil.name || bid.name
@@ -162,6 +163,7 @@ class Pupil
     yield _invoke @dbPupil,'update',{account:auth.id},{$set:data},{upsert:true}
 
   jobPupilChatPush : (auth,hash,msg)=>
+    console.log 'jobchatpush',auth,hash,msg
     if hash.split(':')?[0] == auth.id
       yield @chatPush hash,msg
   chatGet : (hash)=>
