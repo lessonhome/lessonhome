@@ -105,7 +105,7 @@ class Pupil
     return if bid.index
     id = @_getID bid._id
     
-    bid.index = _randomHash(8)
+    bid.index = Math.ceil(Math.random()*900000)+100000
     yield _invoke @dbBids,'update',{_id:id},{$set:{index:bid.index}},{upsert:false}
  
   jobPupilGetPupil : (id)=>
