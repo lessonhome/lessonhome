@@ -1,10 +1,7 @@
-status =
-  student : 'студент'
-  school_teacher : 'Преподаватель школы'
-  university_teacher : 'Преподаватель ВУЗа'
-  private_teacher  :'Частный преподаватель'
-  native_speaker : 'Носитель языка'
-
+bids = Feel.const('bids')
+states = bids.states
+filter = Feel.const('filter')
+tutors_status = filter.obj_status
 metro = Feel.const('metro')
 metro_stations = metro.stations
 
@@ -56,7 +53,14 @@ metro_stations = metro.stations
   bid.tutor_status = ''
   for key of value.bid.status
     bid.tutor_status += ', ' if bid.tutor_status
-    bid.tutor_status += status[key]?.capitalizeFirstLetter?()
+    bid.tutor_status += tutors_status[key]?.capitalizeFirstLetter?()
+  
+  #bid state
+  bid.state ?= ''
+  bid.state_class ?= ''
+  value.bid.state ?= 'active'
+  bid.state = states[value.bid.state]
+  bid.state_class = value.bid.state
 
   #bid index
   bid.number_id = ''

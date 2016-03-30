@@ -1,6 +1,6 @@
 .bid.active
   .m_icon.icon_close
-  .bid_text.status.status_blue в работе
+  .bid_text.status(class=value.state_class)=value.state
   if value.subjects != ''
     .bid_text.subject=value.subjects
   else
