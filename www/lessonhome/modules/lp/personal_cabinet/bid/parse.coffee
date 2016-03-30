@@ -19,7 +19,14 @@ metro_stations = metro.stations
 
   #location
   bid.metro = {}
-  bid.metro = value.bid.metro
+  bid.metro.station = ''
+  
+  for a of value.bid.metro
+    metro_line = a.split(':')[0]
+    metro_station = a.split(':')[1]
+    bid.metro.color = metro.for_select[metro_line].color
+    bid.metro.station += ', ' if bid.metro.station
+    bid.metro.station += 'м. ' + metro.for_select[metro_line].stations[metro_station]
 
   #subjects
   bid.subjects = ''
@@ -45,10 +52,5 @@ metro_stations = metro.stations
   for key of value.bid.status
     bid.tutor_status += ', ' if bid.tutor_status
     bid.tutor_status += status[key]?.capitalizeFirstLetter?()
-
-  console.log value.bid
-  console.log '-------------------------------------------------'.red
-  console.log bid
-
 
   return bid

@@ -7,11 +7,41 @@
 .bid.active
   .m_icon.icon_close
   .bid_text.status.status_blue в работе
-  .bid_text.subject Английский язык
+  if value.subjects != ''
+    .bid_text.subject=value.subjects
+  else
+    .bid_text.subject Новая заявка
   .bid_text.number № 5123120
   .bid_text.updated обновлена: 02.03.2016 17:10
   .row.bid_info_chat
-    .col.s6.bid_info!=bid_info
+    .col.s6.m-bid_info
+      if value.subjects != ''
+        .m-details
+          .m_icon.icon_subject
+          span.subject=value.subjects
+      if value.metro.station != ''
+        .m-details
+          .m_icon.icon_location_on
+          span.location=value.metro.station
+      if value.tutor_status != ''
+        .m-details
+          .m_icon.icon_school
+          span.status_tutor=value.tutor_status
+      .row.valign-wrapper
+        if value.prices != ''
+          .col.s6.valign
+            .m-details
+              .m_icon.icon_account_balance
+              span.price!=value.prices
+        if value.gender != ''
+          .col.s6.valign
+            .m-details
+              .m_icon.icon_assignment_ind
+              span.sex=value.gender
+      if value.comment != ''
+        .comment
+          .text=value.comment
+          .m_icon.icon_mode_edit
     .col.s6.chat!=chat
 .bid
   .m_icon.icon_close
