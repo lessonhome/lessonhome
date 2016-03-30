@@ -1,28 +1,29 @@
-.m-details
-  .m_icon.icon_subject
-  span.subject Англйский язык
-  -console.log(value.bid);
+-comment  = value.comment || '';
+-subjects = value.subjects || '';
+-prices   = value.prices || '';
+-gender   = value.gender || '';
+if subjects != ''
+  .m-details
+    .m_icon.icon_subject
+    span.subject=subjects
 .m-details
   .m_icon.icon_location_on
   span.location м. Медведково
+.m-details
+  .m_icon.icon_school
+  span.status_tutor Частный преподаватель
 .row
-  .col.s6
-    .m-details
-      .m_icon.icon_account_balance
-      span.price от 1200 до 2000 рублей
-  .col.s6
-    .m-details
-      .m_icon.icon_query_builder
-      span.period от 60 до 120 минут
-.row
-  .col.s6
-    .m-details
-      .m_icon.icon_school
-      span.status_tutor Частный преподаватель
-  .col.s6
-    .m-details
-      .m_icon.icon_assignment_ind
-      span.sex Женский 
-.comment
-  .text Как у себя, так возможен выезд к репетитору, можно подобрать на других близких станциях на этой ветке Желательно человека, который жил в англоговорящих странах
-  .m_icon.icon_mode_edit
+  if prices != ''
+    .col.s6
+      .m-details
+        .m_icon.icon_account_balance
+        span.price=prices
+  if gender != ''
+    .col.s6
+      .m-details
+        .m_icon.icon_assignment_ind
+        span.sex=gender
+if comment != ''
+  .comment
+    .text=comment
+    .m_icon.icon_mode_edit
