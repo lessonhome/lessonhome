@@ -13,10 +13,11 @@
     display: inline-block
     margin-right: 1.467rem
     vertical-align: middle
-    &:last-of-type
+    &.updated
       margin-right: 2rem
   .bid_info_chat
     padding: 0 1.5rem 2rem
+    display: none
     .m-bid_info
       padding-top: 2rem
     .chat
@@ -72,6 +73,8 @@
     background-color: #ffffff
   &+.bid
     border-top: 1px solid transparent
+  .bid_info_chat
+    display: block
   .icon_close
     display: block
   .row

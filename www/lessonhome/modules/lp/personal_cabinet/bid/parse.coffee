@@ -46,6 +46,11 @@ metro_stations = metro.stations
     when '' then bid.gender = ''
     when 'male' then bid.gender = 'Мужской'
     when 'female' then bid.gender = 'Женский'
+
+  #create date
+  bid.create_date = ''
+  d = new Date(value.bid.time)
+  bid.create_date = d.format "dd.mm.yyyy HH:MM"
   
   #tutors status
   bid.tutor_status = ''
@@ -53,4 +58,7 @@ metro_stations = metro.stations
     bid.tutor_status += ', ' if bid.tutor_status
     bid.tutor_status += status[key]?.capitalizeFirstLetter?()
 
+  #bid index
+  bid.number_id = ''
+  bid.number_id = value.bid.index
   return bid

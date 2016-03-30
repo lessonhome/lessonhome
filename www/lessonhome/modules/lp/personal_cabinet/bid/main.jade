@@ -2,7 +2,8 @@
   .m_icon.icon_close
   .bid_text.status.status_green выполнена
   .bid_text.subject Русский язык
-  .bid_text.number № 5123120
+  .bid_text.number №&nbsp;
+    span 5123120
   .bid_text.updated обновлена: 02.03.2016 17:10
 .bid.active
   .m_icon.icon_close
@@ -11,8 +12,10 @@
     .bid_text.subject=value.subjects
   else
     .bid_text.subject Новая заявка
-  .bid_text.number № 5123120
-  .bid_text.updated обновлена: 02.03.2016 17:10
+  .bid_text.number №&nbsp;
+    span=value.number_id
+  .bid_text.updated обновлена:&nbsp;
+    span=value.create_date
   .row.bid_info_chat
     .col.s6.m-bid_info
       if value.subjects != ''
