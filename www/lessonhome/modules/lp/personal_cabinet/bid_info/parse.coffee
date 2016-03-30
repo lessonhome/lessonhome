@@ -30,7 +30,7 @@ metro_stations = metro.stations
   #prices
   bid.prices = ''
   for key of value.bid.prices
-    bid.prices += ', ' if bid.prices
+    bid.prices += ',<br />' if bid.prices
     bid.prices += value.bid.prices[key]
   
   #gender
@@ -41,7 +41,10 @@ metro_stations = metro.stations
     when 'female' then bid.gender = 'Женский'
   
   #tutors status
-  bid.status = ''
+  bid.tutor_status = ''
+  for key of value.bid.status
+    bid.tutor_status += ', ' if bid.tutor_status
+    bid.tutor_status += status[key]?.capitalizeFirstLetter?()
 
   console.log value.bid
   console.log '-------------------------------------------------'.red
