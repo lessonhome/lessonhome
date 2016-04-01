@@ -277,7 +277,8 @@ class module.exports
     [readed,stat1,stat2,client_cache] = yield Q.all [
       _readdirp {root:'feel/lib/feel/client',fileFilter:'*.coffee'}
       _stat 'feel/lib/feel/client.lib.coffee'
-      _stat 'feel/lib/feel/regenerator.runtime.js'
+      #_stat 'feel/lib/feel/regenerator.runtime.js'
+      _stat 'feel/lib/feel/polyfill.min.js'
       _invoke @redis,'get','client_cache'
     ]
     hash = ""
@@ -296,7 +297,8 @@ class module.exports
     @client   = {}
     @clientJs = @cacheCoffee 'feel/lib/feel/client.lib.coffee'
     #@clientRegenerator = require('regenerator').compile('',includeRuntime:true).code
-    @clientRegenerator = (yield _readFile 'feel/lib/feel/regenerator.runtime.js').toString()
+    #@clientRegenerator = (yield _readFile 'feel/lib/feel/regenerator.runtime.js').toString()
+    @clientRegenerator = (yield _readFile 'feel/lib/feel/polyfill.min.js').toString()
     #if _production
     #  @clientRegenerator = yield @yjs @clientRegenerator
     @clientRegeneratorHash = _shash @clientRegenerator

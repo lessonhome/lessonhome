@@ -75,7 +75,12 @@
     "node-telegram-bot-api" : "*",
     "vksdk" : "*",
     "google-images" : "*",
-    "continuation-local-storage":"*"
+    "continuation-local-storage":"*",
+    "babel-core":"*",
+    "babel-preset-es2015" : "*",
+    "babel-preset-stage-0":"*",
+    "babel-polyfill":"*",
+    "babel-plugin-transform-es2015-modules-umd" : "*"
   }
 }
 

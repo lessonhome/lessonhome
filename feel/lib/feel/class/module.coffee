@@ -460,9 +460,9 @@ class module.exports
       m = name.match /^(.*)\.(coffee|js)/
       if m
         num++
-        @allJs += "(function(){ #{src} }).call(this);"
+        @allJs += "\n(function(){\n#{src}\n}).call(this);"
     @allCoffee += @allJs
-    @allCoffee += "}).call(arr);return arr; })()"
+    @allCoffee += "\n}).call(arr);return arr; })()"
     @allCoffee = "" unless num
     #if _production
     #  @allCoffee = yield Feel.yjs @allCoffee
@@ -478,7 +478,7 @@ class module.exports
     f = @jsfile fname
     return f unless f
     #return f.replace /^\}\)\.call\(this\)\;$/mgi,"}).call(_FEEL_that);"
-    return "(function(){"+f+"}).call(_FEEL_that);"
+    return "(function(){\n"+f+"\n}).call(_FEEL_that);"
   jsNames : (fname)=> Object.keys @coffee
   makeJs  : =>
     @newJs = {}
@@ -498,7 +498,7 @@ class module.exports
       m = name.match /^(.*)\.js/
       if m
         num++
-        @allJs += "(function(){ #{src} }).call(arr);"
+        @allJs += "(function(){ \n#{src}\n }).call(arr);"
     @allJs += "return arr; })()"
     @allJs  = "" unless num
     #if _production
