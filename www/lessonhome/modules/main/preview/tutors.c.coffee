@@ -15,8 +15,8 @@ class Tutors
     return if @inited > 1
     @jobs = yield Main.service 'jobs'
     @jobs.listen 'filterTutors',@jobFilterTutors
-    @jobs.listen 'getTutor',@jobGetTutor
-    @jobs.listen 'getTutors',@jobGetTutors
+    #@jobs.listen 'getTutor',@jobGetTutor
+    #@jobs.listen 'getTutors',@jobGetTutors
     @jobs.listen 'getTutorsOnMain',@jobGetTutorsOnMain
     @redis = yield Main.service('redis')
     @redis = yield @redis.get()

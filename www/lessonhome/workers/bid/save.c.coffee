@@ -73,7 +73,7 @@ class BidSaver
     data['time'] = new Date()
     console.log 'save bid'
     db = yield @db.get 'bids'
-    saved = yield _invoke db.find({$or:[{account:user.id},{phone:data.phone}]}),'toArray'
+    saved = yield _invoke db.find({$or:[{account:user.id},{phone:data.phone}]}).sort(time:-1).limit(1),'toArray'
     yield _invoke db,'update',{account:user.id},{$set:data},{upsert:true}
     other.call(@,user.id,user.admin,data,second=(saved[0]?)).done()
     return {status:'success'}
