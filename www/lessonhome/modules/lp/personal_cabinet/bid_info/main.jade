@@ -1,0 +1,31 @@
+-comment  = value.comment || '';
+-subjects = value.subjects || '';
+-prices   = value.prices || '';
+-gender   = value.gender || '';
+-tutor_status = value.tutor_status || '';
+if subjects != ''
+  .m-details
+    .m_icon.icon_subject
+    span.subject=subjects
+.m-details
+  .m_icon.icon_location_on
+  span.location м. Медведково
+if tutor_status != ''
+  .m-details
+    .m_icon.icon_school
+    span.status_tutor=tutor_status
+.row.valign-wrapper
+  if prices != ''
+    .col.s6.valign
+      .m-details
+        .m_icon.icon_account_balance
+        span.price!=prices
+  if gender != ''
+    .col.s6.valign
+      .m-details
+        .m_icon.icon_assignment_ind
+        span.sex=gender
+if comment != ''
+  .comment
+    .text=comment
+    .m_icon.icon_mode_edit

@@ -58,20 +58,26 @@ class @main
     ###
     @choose_tutors_num = @found.choose_tutors_num
 
-    @showFilter.on 'click', (e)=>
-      thisShowButton = e.currentTarget
-      if(@filterStatus == 0)
-        $(thisShowButton).html('Подобрать репетиторов')
-        $(@filterBlock).slideDown('fast')
-        $(@listTutors).slideUp('fast')
-        @filterStatus = 1
-      else
-        $(thisShowButton).html('Подобрать по параметрам')
-        $(@filterBlock).slideUp('fast')
-        $(@listTutors).slideDown('fast')
-        @filterStatus = 0
+    @showFilter.on 'click', =>
+      @listTutors.hide(0,
+        =>
+          @filterBlock.show().addClass 'filterShow'
+          @showFilter.hide()
+      )
+    @found.show_result.on 'click', =>
 
-    @found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'empty'
+      $("body, html").animate {
+          "scrollTop":0
+        }, 0
+
+      @filterBlock.hide(0,
+        =>
+          @filterBlock.removeClass 'filterShow'
+          @listTutors.show()
+          @showFilter.show()
+      )
+
+    #@found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'empty'
   ###
   numTutors = 5
   tutors = yield Feel.dataM.getByFilter numTutors, ({subject:['Русский язык']})
@@ -111,6 +117,7 @@ class @main
     end = =>
       @tutors_result.css 'opacity',1
     return (@busyNext = {f:@reshow}) if @busy
+    @found.controlls?.hide?()
     @tutors_result.css 'opacity',0
     @htime = new Date().getTime()
     @busy = true
@@ -152,6 +159,7 @@ class @main
       @unfixLoader()
       @tutors_result.css 'opacity',1
       @dom.css 'height', ''
+      @tree.search_help.class.pushpinIit()
       yield @BusyNext()
     ),htime
   BusyNext : => do Q.async =>
@@ -167,6 +175,7 @@ class @main
     fhash = yield @toOldFilter()
     indexes = yield Feel.dataM.getTutors @from,@count+10,fhash
     return yield @BusyNext() if indexes.length<=@count
+    @found.controlls?.hide?()
     yield Q.delay(10)
     @count = Math.min(indexes.length-@from,@count+10)
     indexes = indexes.slice @from,@from+@count
@@ -197,7 +206,9 @@ class @main
   onscroll : => Q.spawn =>
     ll = @tutors_result.find(':last')
     dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
+    return if @filterBlock.hasClass 'filterShow'
     if dist >= -400
+      return if (yield Feel.urlData.get('tutorsFilter','offset'))!=0
       yield @addTen()
   apply_filter : (force=false)=> do Q.async =>
     return @isfirst = false if @isfirst
@@ -205,6 +216,7 @@ class @main
     #yield @setFiltered()
     @hashnow ?= 'null'
     filter = yield @toOldFilter()
+    console.log filter
     hashnow = yield Feel.urlData.filterHash url:"blabla?"+filter
     return if (@hashnow == hashnow) && !force
     @hashnow = hashnow
@@ -220,7 +232,7 @@ class @main
     mf = {}
     mf.page = 'filter'
     mf.subject = filters.subjects
-      
+ 
     ss = {}
     mf.subject ?= []
     for s in mf.subject
@@ -228,6 +240,7 @@ class @main
     if olds.subject[0]
       for s in olds.subject
           ss[s] = true
+    mf.progress = true
     mf.subject = Object.keys ss
     mf.course = filters.course ? []
     ss = []
@@ -235,9 +248,12 @@ class @main
       ss[c] = true
     for c in (olds.course ? [])
       ss[c] = true
+    mf.metro ?= {}
     for m in (filters.metro ? [])
+      m_path = m?.split?(':')?[1] || ""
+      mf.metro[m_path] = true if m_path
       m = @metro.stations?[m?.split?(':')?[1] ? ""]?.name
-      ss[m] = true if m
+      #ss[m] = true if m
     mf.course = Object.keys ss
     l = 500
     r = 6000

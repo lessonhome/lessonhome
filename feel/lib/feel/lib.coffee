@@ -3,6 +3,7 @@
 require 'harmony-reflect'
 require 'colors'
 global._colors = require 'colors/safe'
+require './lib/date.format'
 ###
 __used = 0
 setInterval ->
@@ -409,7 +410,6 @@ global._lookUp = (obj,first,foo)-> do Q.async ->
   return
 
 
-
 Q.rdenodeify = (f)-> Q.denodeify (as...,cb)-> f? as..., (a,b)->cb? b,a
 Q.denode  = -> Q.denodeify  arguments...
 Q.rdenode = -> Q.rdenodeify arguments...
@@ -577,6 +577,40 @@ global.md5file = Q.denode require 'md5-file'
 regenerator = require("regenerator")
 global._LZString = require './lib/lz-string.min.js'
 global._regenerator = (source)-> regenerator.compile(source).code
+babel = require("babel-core")
+babel_options = {
+  presets : ["stage-0"]
+  plugins : [
+    "check-es2015-constants"
+    "transform-es2015-arrow-functions"
+    "transform-es2015-block-scoped-functions"
+    "transform-es2015-block-scoping"
+    "transform-es2015-classes"
+    "transform-es2015-computed-properties"
+    "transform-es2015-destructuring"
+    "transform-es2015-duplicate-keys"
+    "transform-es2015-for-of"
+    "transform-es2015-function-name"
+    "transform-es2015-literals"
+    #"transform-es2015-modules-commonjs"
+    "transform-es2015-object-super"
+    "transform-es2015-parameters"
+    "transform-es2015-shorthand-properties"
+    "transform-es2015-spread"
+    "transform-es2015-sticky-regex"
+    "transform-es2015-template-literals"
+    "transform-es2015-typeof-symbol"
+    "transform-es2015-unicode-regex"
+    "transform-regenerator"
+    #"transform-strict-mode"
+  ]
+  compact : false
+  comments : true
+}
+global._regenerator = (s)->
+  ret = babel.transform s, babel_options
+  return ret.code
+
 global._rmrf = Q.denode require 'rimraf'
 global._args    = (a)->
   for ar,i in a
@@ -587,6 +621,12 @@ global._randomHash = (b=20)-> _crypto.randomBytes(b).toString('hex')
 global._shash   = (f)-> _hash(f).substr 0,10
 global._invoke  = (args...)-> Q.ninvoke args...
 global._mkdirp  = Q.denode require 'mkdirp'
+
+require './lib/wget'
+zlib    = require 'zlib'
+zlib_gzip = Q.denode zlib.gzip
+global._gzip = (data)-> zlib_gzip data,{level:5}
+
 #v8clone = require 'node-v8-clone'
 #global._clone   = (o,d=true)-> v8clone.clone o,d
 module.exports  = Lib
@@ -668,6 +708,7 @@ global._nameLib = require('./lib/name')
 
 helpers = {}
 global._Helper = (service)-> helpers[service] ?= new (require('./'+service))
+global._HelperJobs = _Helper 'jobs/main'
 
 
 _spawn = require('child_process').spawn

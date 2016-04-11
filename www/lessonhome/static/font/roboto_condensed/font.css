@@ -1,0 +1,72 @@
+@font-face {
+	font-family: 'Roboto Condensed';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		local('Roboto Condensed'),
+		local('RobotoCondensed-Regular'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/Zd2E9abXLFGSr9G3YK2MsCjONSUPxTx7W9d5NcUtbe4.eot */
+		url('Roboto_Condensed_400.eot?#iefix') format('embedded-opentype'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/Zd2E9abXLFGSr9G3YK2MsOC933fdLZhbewWVDyX-fYw.woff */
+		url('Roboto_Condensed_400.woff') format('woff'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/Zd2E9abXLFGSr9G3YK2MsJfEMY2SkgIPRFkbm0YpG3Y.woff2 */
+		url('Roboto_Condensed_400.woff2') format('woff2'),
+		/* from http://fonts.gstatic.com/l/font?kit=Zd2E9abXLFGSr9G3YK2MsFh0DjOs4swoAz88nnuq7v0&skey=9986ecffddb755ab#RobotoCondensed */
+		url('Roboto_Condensed_400.svg#RobotoCondensed') format('svg'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/Zd2E9abXLFGSr9G3YK2MsNbQxvdFQproHqwx84HIuqM.ttf */
+		url('Roboto_Condensed_400.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Roboto Condensed';
+	font-style: italic;
+	font-weight: 400;
+	src:
+		local('Roboto Condensed Italic'),
+		local('RobotoCondensed-Italic'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/BP5K8ZAJv9qEbmuFp8RpJblJgt8dJxn5xpswTqeRVt0.eot */
+		url('Roboto_Condensed_400italic.eot?#iefix') format('embedded-opentype'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/BP5K8ZAJv9qEbmuFp8RpJetPcIiHO7gbJ1EXQyTeBLw.woff */
+		url('Roboto_Condensed_400italic.woff') format('woff'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/BP5K8ZAJv9qEbmuFp8RpJZnphfRq36LyuqeBq3NTD8Y.woff2 */
+		url('Roboto_Condensed_400italic.woff2') format('woff2'),
+		/* from http://fonts.gstatic.com/l/font?kit=BP5K8ZAJv9qEbmuFp8RpJSLDpl7xQyHXtLWNjy9Vehk&skey=7b4bef3e83279e13#RobotoCondensed */
+		url('Roboto_Condensed_400italic.svg#RobotoCondensed') format('svg'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/BP5K8ZAJv9qEbmuFp8RpJehHuOLqwNoF1nbrW56GUTo.ttf */
+		url('Roboto_Condensed_400italic.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Roboto Condensed';
+	font-style: normal;
+	font-weight: 700;
+	src:
+		local('Roboto Condensed Bold'),
+		local('RobotoCondensed-Bold'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/b9QBgL0iMZfDSpmcXcE8nBXTSk9wCCZa_VN1fy81C40.eot */
+		url('Roboto_Condensed_700.eot?#iefix') format('embedded-opentype'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/b9QBgL0iMZfDSpmcXcE8nANHRvH4E1CCxguZf4zS03A.woff */
+		url('Roboto_Condensed_700.woff') format('woff'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/b9QBgL0iMZfDSpmcXcE8nBV4f1rh352p76gXHS_gk9g.woff2 */
+		url('Roboto_Condensed_700.woff2') format('woff2'),
+		/* from http://fonts.gstatic.com/l/font?kit=b9QBgL0iMZfDSpmcXcE8nAqYbPqna_acXtuR3q0YOiw&skey=b54a1a8c4612f15a#RobotoCondensed */
+		url('Roboto_Condensed_700.svg#RobotoCondensed') format('svg'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/b9QBgL0iMZfDSpmcXcE8nOXJWfeCXjwsU1ch6Jnjz-M.ttf */
+		url('Roboto_Condensed_700.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Roboto Condensed';
+	font-style: italic;
+	font-weight: 700;
+	src:
+		local('Roboto Condensed Bold Italic'),
+		local('RobotoCondensed-BoldItalic'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/mg0cGfGRUERshzBlvqxeAL7fEaKXshK4e1Pbxxf7Dl4.eot */
+		url('Roboto_Condensed_700italic.eot?#iefix') format('embedded-opentype'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/mg0cGfGRUERshzBlvqxeAB1Wm7TI8_m_rqugYSu8QuY.woff */
+		url('Roboto_Condensed_700italic.woff') format('woff'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/mg0cGfGRUERshzBlvqxeADdNUV1GypoviLUyZPXBquQ.woff2 */
+		url('Roboto_Condensed_700italic.woff2') format('woff2'),
+		/* from http://fonts.gstatic.com/l/font?kit=mg0cGfGRUERshzBlvqxeAD9j9FzUOasKv-AE1uCW5ac&skey=1e9005c9612bc9e3#RobotoCondensed */
+		url('Roboto_Condensed_700italic.svg#RobotoCondensed') format('svg'),
+		/* from http://fonts.gstatic.com/s/robotocondensed/v13/mg0cGfGRUERshzBlvqxeAIEk51q8QmfgWAq2uDf2a4w.ttf */
+		url('Roboto_Condensed_700italic.ttf') format('truetype');
+}

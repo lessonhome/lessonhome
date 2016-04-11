@@ -20,7 +20,8 @@ class Socket
     yield @form.init()
     @register = yield Main.service 'register'
     @server = http.createServer @handler
-    @server.listen 8082
+    @port = 8082
+    @server.listen @port
     if _production
       yield @runSsh()
     @handlers = {}
@@ -36,7 +37,8 @@ class Socket
       #ca : _fs.readFileSync '/key/ca.pem'             
     }
     @sshServer = https.createServer options,@handler
-    @sshServer.listen 8084
+    @port = 8084
+    @sshServer.listen @port
   run  : =>
     yield for handler in defaultHandlers
       @initHandler handler
@@ -55,6 +57,10 @@ class Socket
       yield obj?.init?()
 
   handler : (req,res)=> Q.spawn =>
+    unless req.url.match /^\/robots\.txt/ then switch req?.headers?.host
+      when 'prep.su','localhost.ru','pi0h.org'
+        res.writeHead 301, 'Location': "https://lessonhome.ru:#{@port}"+req.url
+        return res.end()
     host = req.headers.host
     console.log host
     $ = {}
@@ -113,7 +119,10 @@ class Socket
     #  ret = {status:"failed",err:"internal_error"}
     #res.end "#{cb}(#{ JSON.stringify( data: encodeURIComponent(ret))});"
     try
-      res.end "#{cb}(#{ JSON.stringify( data: ret)});"
+      _res_data = yield _gzip "#{cb}(#{ JSON.stringify( data: ret)});"
+      res.setHeader 'content-encoding','gzip'
+      res.setHeader 'content-length',_res_data.length
+      res.end _res_data
     catch e
       #unless ret? && typeof ret == 'string'
       console.error Exception new Error "failed JSON.stringify client returned object"

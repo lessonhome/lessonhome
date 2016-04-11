@@ -11,7 +11,7 @@ class @main
   setValue : (value={})=>
     @tree.value ?= {}
     @tree.value[key] = val for key,val of value
-    link = '/tutor_profile?'+(yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index}))
+    link = '/tutor?'+(yield Feel.udata.d2u('tutorProfile',{index:@tree.value.index}))
     im = @tree.value.photos[@tree.value.photos.length-1]
     image = im.lurl
     n = @tree.value.name

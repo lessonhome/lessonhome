@@ -135,6 +135,10 @@ class @D2U
     default : ''
     value : maToS obj?.metro
     tutorsFilter : true
+  $offset : (obj)=>
+    type : 'int'
+    default : 0
+    value : obj?.offset
 
 
 class @U2D
@@ -144,6 +148,7 @@ class @U2D
   $status   : (obj)=> bToO _status,obj?.status
   $sex      : (obj)=> iToA _sex,obj?.sex
   $metro    : (obj)=> sToMa obj?.metro
+  $offset   : (obj)=> obj?.offset ? 0
 
 
 

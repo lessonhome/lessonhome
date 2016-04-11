@@ -4,15 +4,15 @@
   .col
     &.content-block
       padding-top: 1rem
-      .collapsible
-        margin: 0 1rem 1rem
+//      .collapsible
+//        margin: 0 1rem 1rem
 .search-filter
   label
-    color: rgba(0, 0, 0, 0.87)
-.collapsible-header
-  border-left: 4px solid #ddd
-  &.selected
-    border-left: 4px solid #fd7c48
+    color: #464646 
+//.collapsible-header
+//  border-left: 4px solid #ddd
+//  &.selected
+//    border-left: 4px solid #fd7c48
 .collapsible-body
   padding: 1rem 2rem
 .row
@@ -35,7 +35,12 @@
       .input-field
         input[type='text']
           margin-bottom: 0
-
+.controlls
+  a
+    padding : 0.3rem
+    font-size : 1.1em
+    float : left
+    width : 100%
 //js style
 .filter_block
   @media #{$medium-and-down}
@@ -49,12 +54,77 @@
 
 .results
   position: relative
-  .not_exist, .wait
-    font-size: 1.3rem
-    //color: #9E9E9E
-    text-align: center
+  .la-form
+    .row
+      margin-bottom: 0
+      &.no-margin-row
+        margin-bottom: 0
+      &:last-of-type
+        margin-top: 1.8rem
+  .not_exist
+    .owl
+      padding-left: 1.5rem
+    .icon-owl
+      font-size: 11rem
+      color: #179cab    
+    h4
+      color: #093c44
+      font-size: 1.467rem
+      margin-bottom: 2rem
+    h5
+      color: #093c44
+      font-size: 1.33rem  
+      margin: 0 0 1.8rem
+    ol
+      counter-reset: li
+      list-style: none
+      padding: 0
+      margin: 0
+    li
+      font-size: 1.1rem
+      color: #676767
+      margin-bottom: 2rem 
+      &:last-child
+        margin-bottom: 0 
+      &:before
+        content: counter(li)
+        counter-increment: li
+        color: #179cab
+        border-radius: 50%
+        border: 1px solid #179cab
+        width: 3rem
+        display: inline-block
+        height: 3rem
+        text-align: center
+        font-size: 2rem
+        line-height: 2.75rem
+        float: left
+      p
+        margin: 0 0 0 3.7rem
+        line-height: 150% 
+        min-height: 3rem 
+    p
+      color: #676767
+      line-height: 1.9
+      margin-left: 1.5rem
+      a
+        color: #179cab
+    .now
+      margin-top: 4rem      
+    .color-line
+      height: 0.4667rem
+      background-color: #fbc02d
+      width: 60%
+      margin: 2.4rem 0 2rem 1.5rem 
+      &:before
+        content: ''
+        display: block
+        height: 0.4667rem
+        width: 50%
+        background-color: #01a59a 
   .wait
     display : none
+    text-align: center
     &.abs
       position: absolute
       top: 135px
@@ -66,3 +136,11 @@
 
 .tutors_list
   background-color: #fff
+.not_exist_start
+  font-size: 1.3rem
+  text-align: center
+
+.block_btn_up
+  width: 100%
+  &>*
+    margin: 0 auto

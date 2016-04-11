@@ -1,24 +1,61 @@
 link(href=F("nouislider/nouislider.css"), rel="stylesheet")
 .container
+
   .row
     .input-field.col.s12.center-align.hide-on-large-only
-      a.waves-effect.waves-light.btn.js-show_filter Подобрать по параметрам
-    .col.l4.m12.s12.content-block.js-filter_block
+      a.waves-effect.waves-light.btn.yellow-btn.js-show_filter Подобрать по параметрам
+    .col.l3.m12.s12.content-block.js-filter_block
+      //.input-field.top.col.s12.center-align.hide-on-large-only
+      //  button.btn.orange-btn.waves-effect.waves-light.js-show_result Подобра
+
       !=search_filter
-    .col.l8.m12.s12.content-block.js-list_tutors
-      .js-filter_tags_block
-        !=filter_tags
+      .input-field.col.s12.center-align.hide-on-large-only.max-width-btn.col-no-padding
+        button.btn.yellow-btn.waves-effect.waves-light.js-show_result Подобрать
+      !=search_help
+      .block_btn_up!=btn_up
+    .col.l9.m12.s12.content-block.js-list_tutors
+      .js-filter_tags_block!=filter_tags
       .tutor-list
         .results
-          .js-not_exist
-            h4 Не нашли подходящего репетитора?
-            p Мы не оставим Вас на произвол судьбы. Оставьте контактные данные и наши специалисты помогут Вам с этой нелегкой задачей.
-            a(data-target="req_more_send").btn-large.orange-btn.waves-effect.waves-light.js-demo_modal Оставить контакты
+          -not_exist = !tutors || !tutors[0];
+          .js-not_exist(style= not_exist ? 'display: block' : undefined )
+            
+            .row
+              .col.s12
+                h4 Поиск не дал результата? У&nbsp;нас есть еще репетиторы.
+            .row.valign-wrapper    
+              .col.l3.m3.s12.owl.hide-on-small-and-down
+                i.icon-owl
+              .col.l6.m6.s12
+                ol
+                  li 
+                    p.valign-wrapper Некоторые преподаватели не захотели участвовать в поиске.
+                  li 
+                    p.valign-wrapper Другие не успели отметить, свободное время в данный момент.
+            .row.now
+              .col.l6.m6.s12    
+                h5 Хотите узнать о всех репетиторах?          
+                p Позвоните нам по телефону 
+                  a(href='tel:+7-495-181-03-73') +7 (495) 181-03-73 
+                  |, или оставьте контактные данные и мы перезвоним.  
+                .color-line.hide-on-small-and-down
+              .col.l6.m6.s12!=short_form
+
           .js-tutor!=tutor
           .js-tutors_list
-            -if(!tutors || (!tutors[0]))tutors=[];
+            -if(not_exist)tutors=[];
             each t in tutors
               !=t
+          if forward
+            .js-controlls
+              .col.l6.m6.s6
+                if forward.prev
+                  a(href=forward.prev) Назад
+                else
+                  a
+              .col.l6.m6.s6.right-align
+                if forward.next
+                  a(href=forward.next) Вперед
           .js-wait.abs
             .preloader
               .preloader-wrapper.big.active

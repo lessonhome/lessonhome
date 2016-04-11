@@ -1,28 +1,123 @@
 -id_page = id_page || ''
-.logo-phone-block.js-offset_block
-  .container
+-first_name = first_name || 'Мой профиль'
+-middle_name = middle_name || ''
+.logo-phone-block.js-offset_block.hide-on-med-and-down
+  .container.clearfix
     a.logo(href='/')
       img(src=F('lp/lh_logo.png'))
-    a.phone-link.right(href='tel:+7-495-181-0373') 
-      span +7 (495) 181-03-73
-.header-spacer
+    .header-info
+      a.phone-link(href='tel:+7-495-181-0373') +7 (495) 181-03-73
+      .hi-sity г. Москва
+    if $req.user.registered
+      .profile-chips.right
+        .pc-body.clearfix
+          .pc-avatar-spacer
+            if photo
+              img(src=photo.url)
+            else
+              img(src=src)
+          .pc-avatar
+            if photo
+              img(src=photo.url)
+            else
+              img(src=src)
+          .pc-text-spacer
+            span=first_name + ' ' + middle_name
+            i.m_icon.icon_expand_more
+          .pc-text
+            span=first_name + ' ' + middle_name
+            i.m_icon.icon_expand_more
+            .clearfix
+            .pc-link-list
+              a(href='/tutor/profile') Профиль
+              a(href='/tutor/search_bids') Заявки
+              a(href='/tutor/pay') Оплата
+              a(href='/help') Помощь
+              a(href='/form/tutor/logout') Выход
+    else
+      .contacts-line.right
+        ul
+          li
+            a(href='/contacts')
+              span Контакты
+              i.icon-location
+          li
+            a(href='/help')
+              span Помощь
+              i.icon-question2
+-headerClass = ''
+if id_page == 'landing_page'
+  -headerClass = 'landing-header'
+else
+  -headerClass = ''
+.header-spacer(class=headerClass)
   nav.js-fixed_nav 
     .nav-wrapper
       .container
-        a(href='#', data-activates='mobile-demo').button-collapse.js-show_menu
-          i.material-icons menu
-        ul.hide-on-med-and-down
+        a.logo(href='/').hide-on-large-only.right
+          img(src=F('lp/lh_logo.png'))
+        a(href='#', data-activates='mobile-demo').button-collapse.js-show_menu.left
+          i.m_icon.icon_menu
+        if id_page != 'landing_page'
+          ul.hide-on-med-and-down
+            li
+              if id_page == 'main_p'
+                a.active(href='/') Главная
+              else
+                a(href='/') Главная
+            li
+              if id_page == 'search_p'
+                a.active(href='/search') Наши репетиторы
+              else
+                a(href='/search') Наши репетиторы
+            li
+              if hide_menu_punkt != true
+                if id_page == 'lp_tutors'
+                  a.active(href='/tutors_lp') Репетиторам
+                else
+                  a(href='/tutors_lp') Репетиторам
+        .right.hide-on-med-and-down
+          if !$req.user.registered
+            if hide_head_button != true
+              if enter_button_show != true
+                if $req.user.tutor
+                  a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
+                else if $req.cookie.get('tutor')
+                  a(href='/enter').btn-large.waves-effect.waves-light Войти
+                else
+                  a(data-target="req_more_send").btn-large.waves-effect.waves-light.js-demo_modal Оформить заявку
+              else
+                if $req.user.tutor
+                  a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
+                else if $req.cookie.get('tutor')
+                  a(href='/enter').btn-large.waves-effect.waves-light Войти
+                else
+                  a(href='/enter').btn-large.waves-effect.waves-light Войти
+        if $req.user.registered
+          .profile-chips.right.pc-devices.hide-on-large-only
+            .pc-body.clearfix
+              .pc-text
+                span=first_name + ' ' + middle_name
+                .clearfix
+                .pc-link-list
+                  a(href='/tutor/profile') Профиль
+                  a(href='/tutor/search_bids') Заявки
+                  a(href='/tutor/pay') Оплата
+                  a(href='/help') Помощь
+                  a(href='/form/tutor/logout') Выход
+        ul.side-nav#mobile-demo
           li
             if id_page == 'main_p'
               a.active(href='/') Главная
             else
               a(href='/') Главная
-          li
-            if id_page == 'search_p'
-              a.active(href='/tutors_search') Наши репетиторы
-            else
-              a(href='/tutors_search') Наши репетиторы
-          li
+          if id_page != 'landing_page'
+            li
+              if id_page == 'search_p'
+                a.active(href='/search') Наши репетиторы
+              else
+                a(href='/search') Наши репетиторы
+          li  
             if hide_menu_punkt != true
               if id_page == 'lp_tutors'
                 a.active(href='/tutors_lp') Репетиторам
@@ -33,31 +128,10 @@
               a.active(href='/contacts') Контакты
             else
               a(href='/contacts') Контакты
-        .right
-          if hide_head_button != true
-            if enter_button_show != true
-              if $req.user.tutor
-                a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
-              else if $req.cookie.get('tutor')
-                a(href='/enter').btn-large.waves-effect.waves-light Войти
-              else
-                a(data-target="req_more_send").btn-large.waves-effect.waves-light.js-demo_modal Оформить заявку
+          li
+            if id_page == 'help_page'
+              a.active(href='/help') Помощь
             else
-              if $req.user.tutor
-                a(href='/tutor/profile').btn-large.waves-effect.waves-light Войти
-              else if $req.cookie.get('tutor')
-                a(href='/enter').btn-large.waves-effect.waves-light Войти
-              else
-                a(href='/enter').btn-large.waves-effect.waves-light Войти
-        ul.side-nav#mobile-demo
-          li
-            a(href='/') Главная
-          li
-            a(href='/tutors_search') Найти репетитора
-          li
-            a(href='/contacts') Контакты
-          li
-            if hide_menu_punkt != true
-              a(href='/tutors_lp') Репетиторам
+              a(href='/help') Помощь
           li.phone-link
             a(href='tel:+7-495-181-0373') +7 (495) 181-03-73

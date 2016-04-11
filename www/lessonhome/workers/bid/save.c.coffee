@@ -12,7 +12,14 @@ phones = [
   '79651818071'
 ]
 
+checkHistAdd = (m)=> do Q.async =>
+  m = m.replace(/повторная заявка/gmi,'').replace(/заявка/gmi,'')
+  redis = yield _Helper('redis/main').get()
+  ret = yield _invoke redis,'sadd','sms-history',m
+  return ret>0
+
 other = (uid,is_admin,data,second)-> do Q.async =>
+  @jobs ?= yield _Helper 'jobs/main'
   sms = yield Main.service 'sms'
   text = ''
   if data.id > 0
@@ -30,21 +37,24 @@ other = (uid,is_admin,data,second)-> do Q.async =>
   text += '\n' unless !text || (text.substr(-1)=='\n')
   if data.linked?
     for key,val of data.linked
-      text += 'https://lessonhome.ru/tutor_profile?x='+key+"\n"
+      text += 'https://lessonhome.ru/tutor?x='+key+"\n"
   if data.id
-    text += 'to: https://lessonhome.ru/tutor_profile?x='+data.id+"\n"
+    text += 'to: https://lessonhome.ru/tutor?x='+data.id+"\n"
   text += data.comments || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
   text += data.comment || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
-  return console.log text if is_admin || !_production
+  #return console.log text if is_admin || !_production
+  #return unless yield checkHistAdd text
   messages = []
   for p in phones
     messages.push
       phone :p
       text : text
-  console.log yield sms.send messages
- 
+  yield @jobs.solve 'telegramSendAll',text
+  #console.log yield sms.send messages
+    
+
 class BidSaver
   init : =>
     @jobs = yield Main.service 'jobs'
@@ -63,7 +73,7 @@ class BidSaver
     data['time'] = new Date()
     console.log 'save bid'
     db = yield @db.get 'bids'
-    saved = yield _invoke db.find({$or:[{account:user.id},{phone:data.phone}]}),'toArray'
+    saved = yield _invoke db.find({$or:[{account:user.id},{phone:data.phone}]}).sort(time:-1).limit(1),'toArray'
     yield _invoke db,'update',{account:user.id},{$set:data},{upsert:true}
     other.call(@,user.id,user.admin,data,second=(saved[0]?)).done()
     return {status:'success'}
@@ -71,6 +81,7 @@ class BidSaver
     try
       return yield @jobSaveBid $.user ,data
     catch errs
+      console.error Exception errs
       return {status: 'failed', err: 'internal_error'}
 
 

@@ -4,15 +4,26 @@
      *  Select Plugin  *
      ******************/
     $.fn.material_select = function (callback) {
-        $(this).each(function(){
+        var elements = $(this).each(function(){
             var $select = $(this);
+            var opt = {
+                constrainwidth : true,
+                minwidth : false,
+                large : false
+            };
+
+            if ($select.data('constrainwidth') !== undefined) opt.constrainwidth = $select.data('constrainwidth');
+            if ($select.data('minwidth') !== undefined) opt.minwidth = $select.data('minwidth');
+            if ($select.data('large') !== undefined) opt.large = $select.data('large');
+
 
             if ($select.hasClass('browser-default')) {
                 return; // Continue to next (return false breaks out of entire loop)
             }
 
             var multiple = $select.attr('multiple') ? true : false,
-                lastID = $select.data('select-id'); // Tear down structure if Select needs to be rebuilt
+                lastID = $select.data('select-id'), // Tear down structure if Select needs to be rebuilt
+                filter = $select.data('filter') ? true : false;
 
             if (lastID) {
                 $select.parent().find('span.caret').remove();
@@ -36,93 +47,56 @@
             var selectOptions = $select.children('option');
             var selectOptGroups = $select.children('optgroup');
 
-            var valuesSelected = [],
-                optionsHover = false;
+            var label = $select.find('option:selected');
 
-            if ($select.find('option:selected').length > 0) {
-                label = $select.find('option:selected');
-            } else {
+            if (label.length <= 0) {
                 label = selectOptions.first();
             }
+
+            var getOption = (function (is_icon, multiple) {
+                return function (option) {
+                    var disabledClass = (option.is(':disabled')) ? 'disabled ' : '';
+                    var checked = option.is(':selected') ? ' checked=\"checked\"' : '';
+                    if (multiple) {
+                        return $('<li class="' + disabledClass + '" " data-value="' + option[0].value + '"><span><input type="checkbox"' + disabledClass + checked+ '/><label></label>' + (option.data('icolor')?'<i class="m_icon icon_fiber_manual_record middle-icon" style=\"color:'+option.data('icolor')+'\"></i>':'') + option.html() + '</span></li>');
+                    } else {
+                        // Add icons
+                        if (is_icon) {
+                            var icon_url = option.data('icon');
+                            var classes = option.attr('class');
+                            if (!!icon_url) {
+                                return $('<li class="' + disabledClass + '"><img src="' + icon_url + '" class="' + classes + '"><span>' + option.html() + '</span></li>');
+                            }
+                        }
+                        return $('<li class="' + disabledClass + '"><span>' + option.html() + '</span></li>');
+                    }
+                }
+
+            }($select.hasClass('icons'), multiple));
+
+
 
             /* Create dropdown structure. */
             if (selectOptGroups.length) {
                 // Check for optgroup
-                var outGroup = 1;
+
                 selectOptGroups.each(function() {
-
-                    selectOptions = $(this).children('option');
-                    if(outGroup == 1) {
-                        options.append($('<li class="optgroup" data-open="1" data-group="' + outGroup + '"><span>' + $(this).attr('label') + '</span></li>'));
-                    } else {
-                        options.append($('<li class="optgroup" data-open="0" data-group="' + outGroup + '"><span>' + $(this).attr('label') + '</span></li>'));
-                    }
-                    selectOptions.each(function() {
-                        var disabledClass = ($(this).is(':disabled')) ? 'disabled ' : '';
-
-                        // Add icons
-                        if ($select.hasClass('icons')) {
-                            var icon_url = $(this).data('icon');
-                            var classes = $(this).attr('class');
-                            if (!!icon_url) {
-                                options.append($('<li class="' + disabledClass + '"><img src="' + icon_url + '" class="' + classes + '"><span>' + $(this).html() + '</span></li>'));
-                                return true;
-                            }
-                        }
-                        //options.append($('<li class="' + disabledClass + ' subgroup_' + outGroup + '"><span>' + $(this).html() + '</span></li>'));
-                        options.append($('<li class="' + disabledClass + ' subgroup_' + outGroup + '"><span><input type="checkbox"' + disabledClass + '/><label></label>' + $(this).html() + '</span></li>'));
-                    });
-
-                    outGroup = outGroup + 1
-
+                    var option = $(this);
+                    selectOptions = option.children('option');
+                    options.append($('<li class="optgroup" data-open="0"><span>' + (option.data('icolor')?'<i class="m_icon icon_fiber_manual_record middle-icon" style=\"color:'+option.data('icolor')+'\"></i>':'') + option.attr('label') + '</span></li>'));
+                    
+                    if (!opt.large){
+                        selectOptions.each(function() {
+                            options.append( getOption($(this)) );
+                        });
+                    } 
                 });
+
             } else {
-                selectOptions.each(function () {
-                    // Add disabled attr if disabled
-                    var disabledClass = ($(this).is(':disabled')) ? 'disabled ' : '';
-                    if (multiple) {
-                        options.append($('<li class="' + disabledClass + '"><span><input type="checkbox"' + disabledClass + '/><label></label>' + $(this).html() + '</span></li>'));
-                    } else {
-                        // Add icons
-                        if ($select.hasClass('icons')) {
-                            var icon_url = $(this).data('icon');
-                            var classes = $(this).attr('class');
-                            if (!!icon_url) {
-                                options.append($('<li class="' + disabledClass + '"><img src="' + icon_url + '" class="' + classes + '"><span>' + $(this).html() + '</span></li>'));
-                                return true;
-                            }
-                        }
-                        options.append($('<li class="' + disabledClass + '"><span>' + $(this).html() + '</span></li>'));
-                    }
+                selectOptions.each(function() {
+                    options.append( getOption($(this)) );
                 });
             }
-
-
-            options.find('li:not(.optgroup)').each(function (i) {
-                var $curr_select = $select;
-                $(this).click(function (e) {
-                    // Check if option element is disabled
-                    if (!$(this).hasClass('disabled') && !$(this).hasClass('optgroup')) {
-                        if (multiple) {
-                            $('input[type="checkbox"]', this).prop('checked', function(i, v) { return !v; });
-                            toggleEntryFromArray(valuesSelected, $(this).index(), $curr_select);
-                            $newSelect.trigger('focus');
-                        } else {
-                            options.find('li').removeClass('active');
-                            $(this).toggleClass('active');
-                            $curr_select.siblings('input.select-dropdown').val($(this).text());
-                        }
-
-                        activateOption(options, $(this));
-                        $curr_select.find('option').eq(i).prop('selected', true);
-                        // Trigger onchange() event
-                        $curr_select.trigger('change');
-                        if (typeof callback !== 'undefined') callback();
-                    }
-
-                    e.stopPropagation();
-                });
-            });
 
             // Wrap Elements
             $select.wrap(wrapper);
@@ -134,11 +108,29 @@
             // escape double quotes
             var sanitizedLabelHtml = label.html() && label.html().replace(/"/g, '&quot;');
 
-            var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + (($select.is(':disabled')) ? 'disabled' : '') + ' data-activates="select-options-' + uniqueID +'" value="'+ sanitizedLabelHtml +'"/>');
+            var $newSelect = $('<input type="text" class="select-dropdown" '+ (filter ? '' : 'readonly="true" ') + (($select.is(':disabled')) ? 'disabled' : '') +' data-constrainwidth="'+opt.constrainwidth+'" data-minwidth="'+opt.minwidth+'" data-beloworigin="true" data-activates="select-options-' + uniqueID +'" value="'+ sanitizedLabelHtml +'"/>');
             $select.before($newSelect);
             $newSelect.before(dropdownIcon);
 
             $body.append(options);
+            
+            if (opt.large && !opt.constrainwidth) {
+                var max_str = '';
+                var big_el = null;
+                $select.find('option').each(function () {
+                    if (!big_el || $(this).text().length > max_str.length) {
+                        big_el = $(this);
+                        max_str = big_el.text();
+                    }
+                });
+                if (big_el) {
+                    big_el = getOption(big_el);
+                    options.attr('data-width', options.append(big_el).width());
+                    big_el.remove();
+                }
+            }
+
+
             // Check if section element is disabled
             if (!$select.is(':disabled')) {
                 $newSelect.dropdown({'hover': false, 'closeOnClick': false});
@@ -151,149 +143,286 @@
 
             $select.addClass('initialized');
 
+            // Make option as selected and scroll to selected position
+            var activateOption = function(collection, newOption) {
+                collection.find('li.selected').removeClass('selected');
+                $(newOption).addClass('selected');
+            };
+
+            var setFilter = function(options, value) {
+                options = $(options);
+                var exist = {};
+
+    			value = value.replace(/^\s*|\s*$/gm, '').toLowerCase();
+
+                options.find('li.result').remove();
+
+    			if (value.length) {
+                    var frag = $(document.createDocumentFragment());
+                    var elems = [];
+    				options.addClass('filter-result');
+                    options.siblings('select').find('option').each(function () {
+    					var val = this.value;
+                        var text = $(this).text().toLowerCase();
+                        var i = text.indexOf(value);
+
+    					if (i >= 0 && !exist[val]) {
+                            exist[val] = true;
+
+                            elems.push({
+                                i : i,
+                                text : text,
+                                q : getOption($(this)).addClass('result')
+                            });
+
+                        }
+
+    				});
+
+                    elems.sort(function (a, b) {
+                        if (a.i != b.i) return a.i - b.i;
+                        return a.text >= b.text;
+                    });
+
+                    for (var i = 0; i < elems.length; i++) {
+                        frag.append(elems[i].q);
+                    }
+                    options.prepend(frag);
+    			} else {
+    				options.removeClass('filter-result')
+    			}
+
+            };
+
+            var listeners = (function (options, multiple, callback, filter, large) {
+
+                var valuesSelected = [];
+                var optionsHover = false;
+                return {
+                    click_option : function (e) {
+                        var option = $(this), o = $(options), $select;
+
+                        if (option.is('.optgroup')){
+
+                            if (option.attr('data-open') == '0') {
+                                o.find('.optgroup').attr('data-open', 0);
+
+                                if (large && !option.data('fill')) {
+                                    var current = option;
+                                    o.siblings('select').find('optgroup[label=\"'+option.text()+'\"]').find('option').each(function () {
+                                        var o = getOption($(this));
+                                        current.after( o );
+                                        current = o;
+
+                                    });
+                                    option.attr('data-fill', 'true');
+                                }
+
+                                option.attr('data-open', 1);
+                                setTimeout(function () {
+                                    var top = Math.ceil(o.scrollTop() + option.position().top);
+                                    if (top) o.animate({scrollTop: top}, 200);
+                                }, 17);
+                            }else{
+                                option.attr('data-open', 0);
+                            }
+
+                            return true;
+                        }
+
+
+
+                        if (!option.hasClass('disabled') && !option.hasClass('optgroup')) {
+                            var value = option.attr('data-value');
+
+                            if (multiple) {
+                            	var index  = _addValues(valuesSelected, $(this).text());
+                                o.find('li[data-value=\"'+value+'\"] input[type="checkbox"]').prop('checked', index < 0);
+
+                                if (filter && o.siblings('input.select-dropdown').is(':focus')){
+                                    /*   */
+                                }  else {
+                                    _setValueToInput(valuesSelected, o.siblings('select'));
+                                }
+
+                                if (e.pageX - o.offset().left > 55) {
+                                    o.siblings('input.select-dropdown').trigger('close');
+                                }
+
+                            } else {
+                                o.find('li').removeClass('active');
+                                option.toggleClass('active');
+                                o.siblings('input.select-dropdown').val(option.text());
+                            }
+
+                            activateOption(o, option);
+                            $select = o.siblings('select');
+                            $select.find('option[value=\"'+value+'\"]:not(:disabled)').prop('selected', function (i, v) {return !v});
+                            //$select.find('option').eq(i).prop('selected', true);
+                            // Trigger onchange() event
+                            $select.trigger('change');
+                            if (typeof callback !== 'undefined') callback();
+                        }
+
+                        e.stopPropagation();
+
+
+                    },
+
+                    focus_input : function (){
+                        if ($('ul.select-dropdown').not(options).is(':visible')) {
+                            $('input.select-dropdown').trigger('close');
+                        }
+
+                        if(filter) {
+                            $(this).val('');
+                            $(options).removeClass('filter-result');
+                        }
+
+                        if (!$(options).is(':visible')) {
+
+                            $(this).trigger('open', ['focus']);
+                        	//var label = $(this).val();
+                            //var selectedOption = options.find('li').filter(function() {
+                            //    return $(this).text().toLowerCase() === label.toLowerCase();
+                            //})[0];
+                            //activateOption(options, selectedOption);
+                        }
+
+                    },
+
+                    blur_input : function() {
+
+                        if (!multiple) {
+                            $(this).trigger('close');
+                        }
+
+                        if (filter) {
+                            _setValueToInput(valuesSelected, $(this).siblings('select'));
+                        }
+
+                        $(options).find('li.selected').removeClass('selected');
+                    },
+
+                    window_click : function (){
+                        multiple && (optionsHover || $(options).siblings('input.select-dropdown').trigger('close').blur());
+                    },
+
+                    update : function (e) {
+                        var exist = {};
+                        valuesSelected = [];
+
+                        $(e.currentTarget).find('option:selected:not([value=""])').each(function () {
+
+                            if (!exist[this.value]) {
+                                valuesSelected.push(this.innerHTML);
+                                //query += (query?',':'') + '[data-value=\"'+this.value+'\"]';
+                                exist[this.value] = true;
+                            }
+
+                        });
+
+                        $(options).find('li:not(.optgroup)').each(function () {
+                            $(this).find('input[type="checkbox"]').prop('checked', !!exist[$(this).data('value')]);
+                        });
+
+                        if (filter && $(this).siblings('input.select-dropdown').is(':focus')){
+                            /*   */
+                        }  else {
+                            _setValueToInput(valuesSelected, $(this));
+                        }
+                    },
+
+                    hover_option : [
+                        function () {optionsHover = true;},
+                        function () {optionsHover = false;}
+                    ],
+
+                    //close_input : function (e) {
+                    //	//_setValueToInput(valuesSelected, $(this).siblings('select'));
+                    //},
+
+                    key_press : (function () {
+                    	var index = null;
+                    	return function (e) {
+                            //DOWN AND UP
+                    		if (e.which == 40 || e.which == 38) {
+                    			var el = $(options).find('li:not(.optgroup):visible');
+                				el.eq(
+                					el.index( el.filter('.active').removeClass('active') ) + (e.which == 40 ? 1 : -1)
+            					).addClass('active');
+		                    	return;
+		                    }
+                            //TAB
+                            if (e.which == 9) {
+                                return;
+                            }
+                            //ESC
+                            if (e.which == 27 ) {
+                                $(options).siblings('input.select-dropdown').trigger('close').blur();
+                                return;
+                            }
+
+                            //ENTER
+		                    if (e.which == 13 && $(options).is(':visible')) {
+		                    	var l = $(options).find('li.active:visible').trigger('click').length;
+                                var input = $(options).siblings('input.select-dropdown');
+                                input.trigger('close').blur();
+		                    	return;
+		                    }
+
+                    		if (filter) {
+                                //var input = $(this);
+	                    		clearTimeout(index);
+	                    		index = setTimeout(function () {
+                                    //input.data('save', input.val());
+	                    			setFilter(options, e.currentTarget.value);
+	                    		}, 150);
+                    		}
+
+                    	}
+                    }())
+
+                }
+            }(options[0], multiple, callback, filter, opt.large));
+
+            options.on('click', 'li', listeners.click_option);
+
             $newSelect.on({
-                'focus': function (){
-                    if ($('ul.select-dropdown').not(options[0]).is(':visible')) {
-                        $('input.select-dropdown').trigger('close');
-                    }
-                    if (!options.is(':visible')) {
-                        $(this).trigger('open', ['focus']);
-                        var label = $(this).val();
-                        var selectedOption = options.find('li').filter(function() {
-                            return $(this).text().toLowerCase() === label.toLowerCase();
-                        })[0];
-                        activateOption(options, selectedOption);
-                    }
-                },
+                'focus': listeners.focus_input,
                 'click': function (e){
                     e.stopPropagation();
                 }
             });
 
-            $newSelect.on('blur', function() {
-                if (!multiple) {
-                    $(this).trigger('close');
-                }
-                options.find('li.selected').removeClass('selected');
-            });
+            $newSelect.on('blur', listeners.blur_input);
 
-            options.hover(function() {
-                optionsHover = true;
-            }, function () {
-                optionsHover = false;
-            });
+            $.fn.hover.apply(options, listeners.hover_option);
 
-            $(window).on({
-                'click': function (e){
-                    multiple && (optionsHover || $newSelect.trigger('close'));
-                }
-            });
+            $(window).on('click', listeners.window_click);
 
-            // Make option as selected and scroll to selected position
-            activateOption = function(collection, newOption) {
-                collection.find('li.selected').removeClass('selected');
-                $(newOption).addClass('selected');
-            };
-
-            // Allow user to search by typing
-            // this array is cleared after 1 second
-            var filterQuery = [],
-                onKeyDown = function(e){
-                    // TAB - switch to another input
-                    if(e.which == 9){
-                        $newSelect.trigger('close');
-                        return;
-                    }
-
-                    // ARROW DOWN WHEN SELECT IS CLOSED - open select options
-                    if(e.which == 40 && !options.is(':visible')){
-                        $newSelect.trigger('open');
-                        return;
-                    }
-
-                    // ENTER WHEN SELECT IS CLOSED - submit form
-                    if(e.which == 13 && !options.is(':visible')){
-                        return;
-                    }
-
-                    e.preventDefault();
-
-                    // CASE WHEN USER TYPE LETTERS
-                    var letter = String.fromCharCode(e.which).toLowerCase(),
-                        nonLetters = [9,13,27,38,40];
-                    if (letter && (nonLetters.indexOf(e.which) === -1)) {
-                        filterQuery.push(letter);
-
-                        var string = filterQuery.join(''),
-                            newOption = options.find('li').filter(function() {
-                                return $(this).text().toLowerCase().indexOf(string) === 0;
-                            })[0];
-
-                        if (newOption) {
-                            activateOption(options, newOption);
-                        }
-                    }
-
-                    // ENTER - select option and close when select options are opened
-                    if (e.which == 13) {
-                        var activeOption = options.find('li.selected:not(.disabled)')[0];
-                        if(activeOption){
-                            $(activeOption).trigger('click');
-                            if (!multiple) {
-                                $newSelect.trigger('close');
-                            }
-                        }
-                    }
-
-                    // ARROW DOWN - move to next not disabled option
-                    if (e.which == 40) {
-                        if (options.find('li.selected').length) {
-                            newOption = options.find('li.selected').next('li:not(.disabled)')[0];
-                        } else {
-                            newOption = options.find('li:not(.disabled)')[0];
-                        }
-                        activateOption(options, newOption);
-                    }
-
-                    // ESC - close options
-                    if (e.which == 27) {
-                        $newSelect.trigger('close');
-                    }
-
-                    // ARROW UP - move to previous not disabled option
-                    if (e.which == 38) {
-                        newOption = options.find('li.selected').prev('li:not(.disabled)')[0];
-                        if(newOption)
-                            activateOption(options, newOption);
-                    }
-
-                    // Automaticaly clean filter query so user can search again by starting letters
-                    setTimeout(function(){ filterQuery = []; }, 1000);
-                };
-
-            $newSelect.on('keydown', onKeyDown);
+            $newSelect.on('keydown', listeners.key_press);
+            $select.on('update', listeners.update);
+            $select.trigger('update');
         });
 
-        function toggleEntryFromArray(entriesArray, entryIndex, select) {
-            var index = entriesArray.indexOf(entryIndex);
+        function _addValues(entriesArray, text) {
+        	var index = entriesArray.indexOf(text);
 
-            if (index === -1) {
-                entriesArray.push(entryIndex);
+        	if (index === -1) {
+                entriesArray.push(text);
             } else {
                 entriesArray.splice(index, 1);
             }
 
-            select.siblings('ul.dropdown-content').find('li').eq(entryIndex).toggleClass('active');
-            select.find('option').eq(entryIndex).prop('selected', true);
-            setValueToInput(entriesArray, select);
+            return index;
         }
 
-        function setValueToInput(entriesArray, select) {
+        function _setValueToInput(entriesArray, select) {
             var value = '';
 
             for (var i = 0, count = entriesArray.length; i < count; i++) {
-                var text = select.find('option').eq(entriesArray[i]).text();
-
+                var text = entriesArray[i];
                 i === 0 ? value += text : value += ', ' + text;
             }
 
@@ -303,5 +432,7 @@
 
             select.siblings('input.select-dropdown').val(value);
         }
+
+        return elements;
     };
 }( jQuery ));

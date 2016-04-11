@@ -1,5 +1,9 @@
+
+os = require 'os'
+cpus = os.cpus().length
+
 class PrepareTutor
-  version : "1.0"
+  version : "1.4"
   init :=>
     @db = yield Main.service 'db'
 
@@ -15,8 +19,32 @@ class PrepareTutor
     yield @jobs.listen 'prepareTutorByData', @jobPrepareTutorByData
     yield @jobs.listen 'prepareTutorsById', @jobPrepareTutorById
     yield @jobs.listen 'prepareOldTutors', @jobPrepareOldTutors
-
-
+    yield @prepareImagesHash()
+  prepareImagesHash : =>
+    readed = yield _readdirp root:"www/lessonhome/static/user_data/images"
+    redis  = yield _invoke @redis,'hgetall','user_images_mtime'
+    redis ?= {}
+    arr = []
+    for o in readed.files
+      continue if "#{o.stat.mtime}" == "#{redis[o.path]}"
+      arr.push o
+    qs = for i in [0...3] then do Q.async =>
+      while file = arr.pop()
+        url   = yield @jobs.solve 'staticGetHash',"user_data/images/"+file.path
+        console.log "check image url #{url}".yellow
+        mongo = yield _invoke @collect.uploaded.find({url:$regex:file.name},{url:1,hash:1}),'toArray'
+        for a in mongo
+          continue if a.url == url
+          hash = a.hash.replace(/(low|high)$/,'')
+          yield Q.all [
+            _invoke @collect.person,'update',{"uploaded.#{hash}.low_url":a.url},{$set:{"uploaded.#{hash}.low_url":url}},{multi:true}
+            _invoke @collect.person,'update',{"uploaded.#{hash}.high_url":a.url},{$set:{"uploaded.#{hash}.high_url":url}},{multi:true}
+            _invoke @collect.person,'update',{"uploaded.#{hash}.original_url":a.url},{$set:{"uploaded.#{hash}.original_url":url}},{multi:true}
+          ]
+          yield _invoke @collect.uploaded,'update',{url:a.url},{$set:url:url},{multi:true}
+          console.log "rewrite image url #{url}".yellow
+        yield _invoke @redis,'hset','user_images_mtime',file.path,file.stat.mtime
+    yield Q.all qs
   run : =>
     old_version = yield _invoke @redis, 'get', 'prepareVersion'
 
@@ -28,7 +56,7 @@ class PrepareTutor
 
 
   jobPrepareTutorById : require './prepareTutor/tutorById'
-  jobPrepareTutorByData: (data) => @prepare data
+  jobPrepareTutorByData: (data) => yield @prepare data
   prepare : require './prepareTutor/prepare'
 
   jobPrepareOldTutors :  (period) =>
@@ -47,14 +75,15 @@ class PrepareTutor
         hash = _object_hash(data)
 
         if hash != old_hash
-          data = @prepare data
-          acc['prepare'] = {
-            hash
-            date : new Date()
-          }
+          data = yield @prepare data
+
+        acc['prepare'] = {
+          hash
+          date : new Date()
+        }
 
         yield @_saveData(data)
-        yield Q.delay(100)
+        yield Q.delay(10)
 
   _getById : (arr_id, fields) =>
     result = []
@@ -87,9 +116,16 @@ class PrepareTutor
     return result
 
   _saveData : ({account, person, tutor, uploaded}) =>
-    if account.id? then yield _invoke @collect.account, 'update', {id : account.id, _id: account._id },  {$set: account}, {$upsert: false}
-    if person.account? then yield _invoke @collect.person, 'update', {account : person.account, _id: person._id },  {$set: person}, {$upsert: false}
-    if tutor.account? then yield _invoke @collect.tutor, 'update', {account : tutor.account, _id: tutor._id },  {$set: tutor}, {$upsert: false}
+    account ?= {}
+    person ?= {}
+    tutor ?= {}
+    uploaded ?= {}
+    if account?.id?
+      yield _invoke @collect.account, 'update', {id : account.id, _id: account._id },  {$set: account}, {$upsert: false}
+    if person?.account?
+      yield _invoke @collect.person, 'update', {account : person.account, _id: person._id },  {$set: person}, {$upsert: false}
+    if tutor?.account?
+      yield _invoke @collect.tutor, 'update', {account : tutor.account, _id: tutor._id },  {$set: tutor}, {$upsert: false}
 
     if uploaded? and uploaded.length?
       for u in uploaded when u.account?

@@ -26,7 +26,19 @@ curl = (url)->
   req.on 'finish', =>
     def.resolve()
   return def.promise
-    
+
+
+_ycom = (file="",type='js',args...)-> do Q.async ->
+  file = file.toString()
+  return "" unless file
+  hash = "#{process.cwd()}/.cache/#{_randomHash()}."+type
+  yield _writeFile hash,file
+  err = yield _exec 'java','-jar','feel/yui.jar',hash,'-o',hash,'--type',type,args...
+  ret = yield _readFile hash
+  yield _rmrf hash
+  throw new Error err if err
+  ret = ret.toString()
+  return ret
 
 
 
@@ -194,10 +206,8 @@ class module.exports
       yield Q.all qs
   npm : =>
     defer = Q.defer()
-    process.chdir 'feel'
     console.log 'npm install'.red
     npm = spawn 'npm', ['i']
-    process.chdir '..'
     npm.stdout.on 'data', (data)=> process.stdout.write data
     npm.stderr.on 'data', (data)=> process.stderr.write data
     npm.on 'close', (code)=>
@@ -224,7 +234,7 @@ class module.exports
           @rebuildSass o.site,o.dir,o.name
         when 'jade'
           @site[o.site].modules[o.dir]?.rebuildJade()
-        when 'coffee'
+        when 'coffee', 'js'
           @site[o.site].modules[o.dir]?.rebuildCoffee()
     if o.type == 'states'
       @site[o.site].loadStates()
@@ -267,7 +277,8 @@ class module.exports
     [readed,stat1,stat2,client_cache] = yield Q.all [
       _readdirp {root:'feel/lib/feel/client',fileFilter:'*.coffee'}
       _stat 'feel/lib/feel/client.lib.coffee'
-      _stat 'feel/lib/feel/regenerator.runtime.js'
+      #_stat 'feel/lib/feel/regenerator.runtime.js'
+      _stat 'feel/lib/feel/polyfill.min.js'
       _invoke @redis,'get','client_cache'
     ]
     hash = ""
@@ -286,7 +297,10 @@ class module.exports
     @client   = {}
     @clientJs = @cacheCoffee 'feel/lib/feel/client.lib.coffee'
     #@clientRegenerator = require('regenerator').compile('',includeRuntime:true).code
-    @clientRegenerator = (yield _readFile 'feel/lib/feel/regenerator.runtime.js').toString()
+    #@clientRegenerator = (yield _readFile 'feel/lib/feel/regenerator.runtime.js').toString()
+    @clientRegenerator = (yield _readFile 'feel/lib/feel/polyfill.min.js').toString()
+    #if _production
+    #  @clientRegenerator = yield @yjs @clientRegenerator
     @clientRegeneratorHash = _shash @clientRegenerator
     for file in readed.files
       @client[file.name.match(/(.*)\.\w+$/)[1]] = @cacheCoffee "feel/lib/feel/client/#{file.path}"
@@ -294,7 +308,8 @@ class module.exports
       @clientJs += val unless key == 'main'
     @clientJs += @client['main']
     @clientJs =  _regenerator @clientJs
-    #@clientJs = yield @yjs _regenerator @clientJs
+    if _production
+      @clientJs = yield @yjs @clientJs
     @clientJsHash = _shash @clientJs
     Q.spawn =>
       client_cache = {}
@@ -338,21 +353,22 @@ class module.exports
       "wrap_attributes_indent_size": 4
     }
   yjs     : (js)=> do Q.async =>
-    ret = yield ycompress js,{type:'js'}
-    ret = ret?[0] unless typeof ret == 'string'
-    return ret ? ""
-  dyjs    : (js)=>
-    ycompress(js,{type:'js'}).then (yjs)=>
-      yjs = yjs?[0] unless typeof yjs == 'string'
-      return _gzip yjs ? ""
+    try
+      js = yield _ycom js
+    catch err
+      console.error "failed yjs",js, err,Exception err
+    return js || ""
+  dyjs    : (js)=> do Q.async => yield _gzip yield @yjs js
   ycss    : (css)=> do Q.async =>
-    console.log 'ycss'
-    ret = yield ycompress css, type:"css"
-    ret = ret?[0] unless typeof ret == 'string'
-    return ret ? ""
-  dycss   : (css)=> ycompress(css,{type:"css"}).then (ycss)=>
-    ycss = ycss?[0] unless typeof ycss == 'string'
-    return _gzip ycss ? ""
+    try
+      css = yield _ycom css,'css'
+    catch err
+      console.error "failed ycss",css,err,Exception err
+    #console.log 'ycss'
+    #ret = yield ycompress css, type:"css"
+    #ret = ret?[0] unless typeof ret == 'string'
+    return css || ""
+  dycss    : (css)=> do Q.async => yield _gzip yield @ycss css
   res404  : (req,res,err)=>
     console.error err if err?
     req.url = '/404'

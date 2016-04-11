@@ -12,9 +12,9 @@
 - var show_sex = value.sh_sex !== undefined? value.sh_sex : (sex_tutor.items[0] != sex);
 - var show_metro = value.sh_metro || false;
 
-- var subject_exist = value.sub_exist || {};
+//- var subject_exist = value.sub_exist || {};
 - var course_exist = value.course_exist || {};
-- var metro_exist = value.metro_exist || {};
+//- var metro_exist = value.metro_exist || {};
 
 //- if (data.subjects) for(var key in data.subjects) sub_exist[data.subjects[key]] = true;
 //- if (data.course) for(key in data.course) cou_exist[data.course[key]] = true;
@@ -22,22 +22,24 @@
   .top-filter-parametrs
     .row.no-bottom-margin
       .col.s12
-       .filter-title Выберите предмет и направление подготовки
+       .filter-title Поиск репетитора по&nbsp;параметрам:
     .row.no-bottom-margin.fixed-spicer
-      .input-field.col.s12.slide_collapse
-        select(name='subject', multiple).js-subjects
-          option(value='', selected, disabled) Предмет
-          each groups,gname in subject_list
-            optgroup(label!=gname)
-              each val,index in groups
-                option(value!=val, selected=(subject_exist[val]?true:undefined))!=val
+      .input-field.col.s12.slide_collapse!=subject_select
+
 
     .row.no-bottom-margin.fixed-spicer
       .input-field.col.s12.slide_collapse
-        select(name='course', multiple).js-course
-          option(value='', disabled, selected) Направление подготовки
-          each val, index in training_direction.items
-            option(value!=val, selected=course_exist[val]?true:undefined)!=val
+        .div-for-del
+          select(name='course', multiple, data-select-id="true").js-course
+            option(value='', disabled, selected) Направление подготовки
+            each val, index in training_direction.items
+              option(value!=val, selected=course_exist[val]?true:undefined)!=val
+
+
+    .row.no-bottom-margin.fixed-spicer.metro-loc
+      .input-field.col.s12.slide_collapse!=metro_select
+
+
 
   mixin checkBlock(title, is_open)
     li.i-block(class=is_open?'active':undefined)&attributes(attributes)
@@ -64,7 +66,7 @@
 
     +checkBlock('Пол', show_sex).js-sex_block
       each val, index in sex_tutor.items
-        .row.no-bottom-margin
+        .row.sex-bottom-margin
           .col.s12
             if index == 0
               input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex',checked=(sex == val?true:undefined)).with-gap.i-no
@@ -72,18 +74,6 @@
               input(name='sex', type='radio', id='sex-' + index, value!=val, data-v='sex', checked=(sex == val?true:undefined)).with-gap
             label(for='sex-' + index)!=val
 
-    +checkBlock('Метро', show_metro).js-metro_location
-      .row.no-bottom-margin.metro-loc
-        .input-field.col.s12.slide_collapse
-          select(name='color', data-v="branch", multiple).js-branch
-            option(value='', selected, disabled) Любая станция
-            for v, name_li in metro_stations
-              optgroup(label=v.name)
-                each s, name_st in v.stations
-                  -var val = name_li+":"+name_st
-                  option(value=val, selected=metro_exist[val]?true:undefined)!=s
-
-
-  .row
-    .input-field.col.s12.center-align
-      button.btn.orange-btn.waves-effect.waves-light.js-use_settings Подобрать
+  .row.hide-on-med-and-down
+    .input-field.col.s12.center-align.max-width-btn
+      button.btn.yellow-btn.waves-effect.waves-light.js-use_settings Подобрать

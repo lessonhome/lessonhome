@@ -27,3 +27,4 @@ err
 client.out
 heap
 heap/**
+.coffee

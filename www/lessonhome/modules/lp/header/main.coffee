@@ -5,14 +5,30 @@ class @main
     @menuButton = @found.show_menu
     @fixedMenu  = @found.fixed_nav
     @offset_block = @found.offset_block
-  show: =>
-    top_offset = $(@offset_block).offset().top + $(@offset_block).outerHeight()
-    @menuButton.sideNav()
+    @top_offset = $(@offset_block).offset().top + $(@offset_block).outerHeight()
     @fixedMenu.pushpin(
       {
-        top: top_offset
+        top: @top_offset
       }
     )
+  show: =>
+    $(window).resize =>
+      showMenu = @offset_block.css 'display'
+      if showMenu == 'block'
+        @top_offset = $(@offset_block).offset().top + $(@offset_block).outerHeight()
+        @fixedMenu.pushpin(
+          {
+            top: @top_offset
+          }
+        )
+      else
+        @fixedMenu.pushpin(
+          {
+            top: 0
+          }
+        )
+
+    @menuButton.sideNav()
     #@found.attach?.on? 'click', -> Feel.root.tree.class.attached.showForm()
     
     @found.demo_modal?.on? 'click', => Q.spawn =>

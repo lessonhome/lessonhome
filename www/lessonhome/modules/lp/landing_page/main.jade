@@ -1,0 +1,112 @@
+.first-screen
+  .container.fs-con
+    .row.adv_row-nomargin.fs-con
+      .col.s5.m5.l5.offset-s7.offset-m7.offset-l7.fs-con.fs-form-bg
+        .fs-form-padding.center-align.dark_form
+          .row
+            .col.s12
+              h1.form-title-one Изучайте английский
+                br
+                | с правильным преподавателем
+              h2.form-title-two Мы подберем его для Вас, бесплатно
+          .js-form
+            .row
+              .input-field.col.s12
+                i.m_icon.icon_account_circle.prefix
+                input(type='text' id='f_name', name ='name', value=value.name).js-name
+                label(for='f_name') Имя
+            .row
+              .input-field.col.s12
+                i.m_icon.icon_phone.prefix
+                input(type='tel' id='f_phone', name='phone', value=value.phone).js-phone
+                label(for='f_phone') Телефон
+            .row.fs_row-button
+              .col.s12
+                a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach(name='bid_podbor') Подберите мне репетитора
+          .js-success(style="display:none")
+            h5.form-title-one Заявка успешно отправлена!
+            h5.form-title-two Наш менеджер свяжется с Вами в течении 10-15 минут
+            .row.fs_row-button
+              a.waves-effect.waves-light.btn-large.yellow-btn.js-detail Уточнить заявку
+
+.title-screen
+  .container.title-screen__padding
+    h2.screen__title.no_spacer Lessonhome &mdash; это сервис подбора репетиторов высокой квалификации
+#tutorSelection.advantages-dark
+  .container.screen__padding
+    .row.adv_row-margin
+      .col.s4.adv-dark_cell
+        .adv-dark_text.one_cell Подбираем репетиторов бесплатно и в день обращения.
+      .col.s4.adv-dark_cell
+        .adv-dark_text.two_cell Работаем только с проверенными преподавателями.
+      .col.s4.adv-dark_cell
+        .adv-dark_text.tree_cell Учтем ваши задачи, бюджет и уровень знаний.
+    .row.adv_row-margin
+      .col.s4.adv-dark_cell
+        .adv-dark_text.four_cell Платите только за работу преподавателя. 
+      .col.s4.adv-dark_cell
+        .adv-dark_text.five_cell Занимаетесь у репетитора или у себя дома.
+      .col.s4.adv-dark_cell
+        .adv-dark_text.six_cell Если преподаватель Вам не подошел уподберем другого
+.what-work
+  .container
+    .row
+      .col.s12.title
+        h2 Как мы работаем
+      .ww-content
+        .col.s12.m4.l4
+          .ww-icons
+            i.icon-howwework1
+          a.ww-text.link-popup.js-attach_pos 
+            span Вы оставляете заявку
+        .col.s12.m4.l4
+          .ww-icons
+            i.icon-howwework2
+          .ww-text В течении 5 минут с Вами свяжется наш менеджер, для уточнения деталей
+        .col.s12.m4.l4
+          .ww-icons
+            i.icon-howwework3
+          .ww-text Вы знакомитесь с репетитором и занимаетесь
+.result-screen
+  .container.screen__padding.result__padding
+    h2.screen__title._first_title Результат
+    h3.screen__title._subtitle Статистика оценок ЕГЭ 2015 по английскому
+    .row.circle-row.row_no-padding
+      .col.s4
+        .result_title Репетитор от Lesson Home
+        .result-circle_layer
+          .result-circle.one_circle
+        a.result-link.waves-effect.waves-light.btn.yellow-btn.js-attach_pos Хочу такой же результат
+      .col.s4
+        .result_title Курсы
+        .result-circle_layer
+          .result-circle.two_circle
+      .col.s4
+        .result_title Средний балл по России
+        .result-circle_layer
+          .result-circle.three_circle
+.your-tutor-screen.screen__border!=tutor_target                      
+.comments.landing-comment!=comments
+.questions-screen
+  .container.screen__padding
+    h2.screen__title.other__lh
+      |У Вас остались вопросы?
+      br
+      |Наш менеджер с радостью на них ответит
+    .js-form
+      .row.dark_form.valign-wrapper.adv_row-nomargin
+        .input-field.col.s4.valign
+          i.m_icon.icon_account_circle.prefix
+          input(type='text' id='q_name', name ='name', value=value.name).js-name
+          label(for='q_name') Имя
+        .input-field.col.s4.valign
+          i.m_icon.icon_phone.prefix
+          input(type='tel' id='q_phone', name='phone', value=value.phone).js-phone
+          label(for='q_phone') Телефон
+        .col.s4.valign
+          a.waves-effect.waves-light.btn-large.yellow-btn.field-btn.js-attach(name='bid_backcall') Получить консультацию
+    .js-success(style="display:none").center-align
+      h5.form-title-one Заявка успешно отправлена!
+      h5.form-title-two Наш менеджер свяжется с Вами в течении 10-15 минут
+      a.waves-effect.waves-light.btn-large.yellow-btn.js-detail.hide Уточнить заявку
+

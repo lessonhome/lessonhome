@@ -34,9 +34,29 @@ class @Feel
     try
       errorfunc = console.error
       myerrorfunc = =>
-        Q.spawn => @sendActionOnce 'error_on_page'
-        errorfunc.apply console,arguments
+        return if @_inError2>0
+        @_inError2 = 2
+        Q.spawn =>
+          try
+            yield @sendActionOnce 'error_on_page'
+          catch e
+            errorfunc Exception e
+          finally
+            @_inError2--
+        try
+          errorfunc.apply console,arguments
+        catch e
+          console.log Exception e
+          try
+            errorfunc arguments...
+          catch e
+            console.log Exception e
+        finally
+          @_inError2--
+        return
       console.error = myerrorfunc
+    catch e
+      console.error Exception e
 
     window.onerror = (e)=> @error e
     
@@ -72,18 +92,26 @@ class @Feel
 
   const : (name)=> $Feel.constJson[name]
 
-  error : (e,args...)=>
-    Q.spawn => @sendActionOnce 'error_on_page'
-    return unless e?
-    e = new Error e unless e?.stack? || e?.name?
-    e.message ?= ""
-    for a in args
-      e.message += a+"\n" if typeof a == 'string'
-      e.message += JSON.stringify(a)+"\n" if a && typeof a == 'object'
-    console.error e.name,e.message,e.stack
-    @activeError()
-    #console.error e.message
-    #console.error e.stack
+  error : (e,args...)=> Q.spawn =>
+    try
+      return if @_inError
+      @_inError = true
+      yield @sendActionOnce 'error_on_page'
+      return @_inError = false unless e?
+      e = new Error e unless e?.stack? || e?.name?
+      e.message ?= ""
+      for a in args
+        e.message += a+"\n" if typeof a == 'string'
+        e.message += JSON.stringify(a)+"\n" if a && typeof a == 'object'
+      console.error e.name,e.message,e.stack
+      yield @activeError()
+      #console.error e.message
+      #console.error e.stack
+    catch e
+      console.error Exception e
+    finally
+      @_inError = false
+
   activeError : ->
     return if @activated
     @activated = true
@@ -121,7 +149,6 @@ class @Feel
       name = name.substr pref.length
     @index ?= 0
     index = @index++
-    window["jsonCallback#{index}"] = ->
     d = Q.defer()
     serviceName = @resolve context,'/'+name,pref
     console.log serviceName
@@ -135,13 +162,17 @@ class @Feel
     udata = (yield @urlData.getU()) ? ""
     if udata
       udata += "&"
+    _url= "//#{location.hostname}:#{@servicesIp[serviceName].port}/#{name}?data=#{data}&context=#{context}&#{udata}pref=#{pref}&callback=?"
+    _cb = _hash(_url)
+    window["jsonCallback#{_cb}"] = ->
     $.ajax({
       dataType : 'jsonp'
-      jsonpCallback : "jsonCallback#{index}"
+      jsonpCallback : "jsonCallback#{_cb}"
       contentType : 'application/json'
       method : 'GET'
-      url:"//#{location.hostname}:#{@servicesIp[serviceName].port}/#{name}?data=#{data}&context=#{context}&#{udata}pref=#{pref}&callback=?"
+      url:_url
       crossDomain : true
+      cache : true
     })
     .success (data)=>
       @pbar.stop() unless quiet
@@ -189,7 +220,8 @@ class @Feel
     href = (yield @urlData.udataToUrl href)
     return unless href && (typeof href == 'string')
     state = History.getState()
-    History.pushState {},(state.title || $('head>title').text()),href
+    console.log 'main gor push title',$('head>title').text()
+    History.pushState {},($('head>title').text()),href
     yield Feel.urlData.initFromUrl()
   goBack : (def_url)=> Feel.go @getBack def_url
   getBack : (def_url)=>
@@ -229,8 +261,11 @@ class @Feel
     switch action
       when 'direct_bid', 'bid_popup'
         return null
+      when 'bid_action'
+        params?={}
+        params['order_price'] = 1500
 
-    @yaC ?= yaCounter30199739 ? undefined
+    @yaC ?= yaCounter ? undefined
     #return if Feel.user?.type?.admin || $.cookie.admin || (!@production)
     console.log action, params
     unless params?

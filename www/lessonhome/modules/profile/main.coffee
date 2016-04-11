@@ -58,13 +58,13 @@ class @main
     @triggerCount = 0
     @resolution = true
 
-
     #scroll spy
     @reviewMark   = @found.review_mark
     @profileTab   = @found.profile_tab
 
     @message_text = @found.message_text
     @message_phone = @found.message_phone
+    @message_phone.mask '9 (999) 999-99-99'
     @message_name = @found.message_name
     @message_send = @found.message_send
     @message_sub = @found.message_subject
@@ -95,8 +95,8 @@ class @main
     Feel.urlData.on 'change',=>
       pupil = Feel.urlData.get 'pupil'
 
-      @message_name.val(pupil.name).focusin().focusout()
-      @message_phone.val(pupil.phone).focusin().focusout()
+      @message_name.val(pupil.name)
+      @message_phone.val(pupil.phone)
 
       Q.spawn =>
         yield @setLinked()
@@ -147,7 +147,6 @@ class @main
     ,0
     yield @setLinked()
   open : (index)=>
-    state = History.getState()
 
     unless index?
       index = yield Feel.urlData.get('tutorProfile','index') ? 77
@@ -163,7 +162,9 @@ class @main
       setInterval (=> Q.spawn => yield @goHistoryUrl()),2000
       return yield @goHistoryUrl()
     document.location.href = document.referrer
-  goHistoryUrl : => setTimeout (-> document.location.href = History.getState().url),100
+  goHistoryUrl : => Q.spawn =>
+    yield Q.delay 100
+    document.location.href = History.getState().url
 
   onShowDetail : (e) =>
     btn = $(e.currentTarget)
@@ -196,13 +197,13 @@ class @main
     @tutorChoose state==true if choose
   tutorChoose : (active)=>
     if active
-      @found.tutor_trigger.addClass('waves-light orange-btn selected white-text').removeClass('btn-trigger waves-grey')
-      @found.tutor_trigger.find('.tutor_button_text').html('Убрать')
-      @found.tutor_trigger.find('.material-icons').html('remove')
+      @found.tutor_trigger.addClass('waves-light blue-btn selected white-text').removeClass('btn-trigger waves-grey')
+      @found.tutor_trigger.find('.tutor_button_text').html('Отменить')
+      @found.tutor_trigger.find('.m_icon').removeClass('icon_add').addClass('icon_remove')
     else
-      @found.tutor_trigger.removeClass('waves-light orange-btn selected white-text').addClass('btn-trigger waves-grey')
+      @found.tutor_trigger.removeClass('waves-light blue-btn selected white-text').addClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
-      @found.tutor_trigger.find('.material-icons').html('add')
+      @found.tutor_trigger.find('.m_icon').removeClass('icon_remove').addClass('icon_add')
 
   loadImage : (i, elem) =>
     photo_parent = $(elem).addClass 'materialboxed'

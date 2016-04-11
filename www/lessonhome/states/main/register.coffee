@@ -21,14 +21,14 @@ class @main extends @template '../lp'
         ]
         name        : 'email'
         selector    : 'registration'
-        text1       : 'Введите ваш телефон'
-        input_icon  : 'mail_outline'
+        text1       : 'Введите ваш телефон или e-mail'
+        input_icon  : 'icon_mail_outline'
       password        : @module 'tutor/forms/input_m' :
         name        :'password'
         type        : 'password'
         selector    : 'registration'
         text1       : 'Придумайте пароль'
-        input_icon  : 'lock_outline'
+        input_icon  : 'icon_lock_outline'
       agree_checkbox        : @module 'tutor/forms/checkbox' :
         value : true
         selector: 'small'

@@ -93,7 +93,7 @@ class Register
       @sessions[s.hash] = s
     @aindex = 0
     for id,a of @accounts
-      @aindex = a.index if (a?.index?) && (@aindex<a.index)
+      @aindex = a.index if (a?.index?) && (@aindex < a.index)
     d.setDate d.getDate()-100000
     time '31'
     for id,a of @accounts
@@ -297,6 +297,7 @@ class Register
       token: token
       valid: validDate
     }
+    console.log 'save',restorePassword
     user.authToken = restorePassword
     acc = {}
     acc[key] = val for key,val of user
@@ -328,10 +329,11 @@ class Register
     qstring = data.ref.replace(/.*\?/, '')
     token = yield @urldata.u2d qstring
     token = token.authToken.token
-
+    console.log token
     accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
 
     user = {}
+    console.log '1'
     ndata_password = accounts[0].login+data.password
     passhash = yield @passwordCrypt _hash ndata_password
     user.hash = passhash
@@ -340,10 +342,12 @@ class Register
     #console.log 'hash', passhash
 
     accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
+    console.log '2'
 
     @logins[accounts[0].login] = accounts[0]
 
     user = @accounts[user.id]
+    console.log '4'
     tryto = @logins[accounts[0].login]
     olduser = tryto
     hashs = []
@@ -351,7 +355,7 @@ class Register
       hashs.push hash
       delete @sessions[hash]
     qs = []
-    qs.push _invoke @session,'remove',{hash:{$in:hashs}}
+    yield _invoke @session,'remove',{hash:{$in:hashs}}
     user = @accounts[tryto.id]
     user.accessTime = new Date()
     user.hash = passhash
@@ -361,8 +365,8 @@ class Register
     acc = {}
     acc[key] = val for key,val of user
     delete acc.account
-    qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
-    qs.push _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}},{upsert:true})
+    yield  _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+    yield  _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}},{upsert:true})
     yield Q.all qs
 
     return {session:@sessions[sessionhash],user:user}

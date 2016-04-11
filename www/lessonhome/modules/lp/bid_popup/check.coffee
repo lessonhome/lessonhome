@@ -12,6 +12,7 @@ hasProp = (obj) ->
   return false
 
 @takeData = (data = {}) =>
+  linked : data.linked
   subjects : data.subjects
   gender: data.gender
   name : data.name
@@ -29,7 +30,7 @@ hasProp = (obj) ->
   prices = filter.price
 
   errs = []
-#  data = @takeData(data)
+  #  data = @takeData(data)
 
   if data.phone?.length
     errs.push 'wrong_phone' unless 7 <= data.phone.replace(/\D/g, '').length <= 13

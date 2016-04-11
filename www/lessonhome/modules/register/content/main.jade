@@ -1,12 +1,12 @@
 -landing_page = landing_page || '';
-div(class!=landing_page ? 'lp_container' : 'container')
+div(class=landing_page ? 'lp_container' : 'container')
   h1.center-align Регистрация
   .row
-    div(class!=landing_page ? 'col s12' : 'col s12 m8 l6 offset-l3 offset-m2')
+    div(class=landing_page ? 'col s12' : 'col s12 m8 l6 offset-l3 offset-m2')
       if landing_page == true
         p.center-align Получите доступ к личному кабинету
   .row
-    div(class!=landing_page ? 'col s12' : 'col s11 m7 l5 offset-l3 offset-m2')
+    div(class=landing_page ? 'col s12' : 'col s11 m7 l5 offset-l3 offset-m2')
       form.js-form.check_in_fields.unselect(action="/form/tutor/register" method="post" name="login")
         .row!= login
         .row!= password

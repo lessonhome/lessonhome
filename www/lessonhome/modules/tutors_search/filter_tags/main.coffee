@@ -16,7 +16,9 @@ class @main
     belong = el.attr('data-b')
     switch belong
       when 'subjects', 'course', 'metro'
-        @val[belong].splice(@val[belong].indexOf(val),1)
+        i = @val[belong]?.indexOf?(val)
+        if i? and i >= 0
+          @val[belong].splice(i, 1)
       when 'price', 'status'
         @val[belong][val] = false
       when 'sex'
@@ -46,7 +48,7 @@ class @main
     for k,v of metro_tags when v and v.name
       tag = @getTag(v.name, k).attr('data-b', 'metro')
       if v.color
-        tag.prepend("<i class=\"material-icons middle-icon\" style=\"color:#{v.color}\">fiber_manual_record</i>")
+        tag.prepend("<i class=\"m_icon icon_fiber_manual_record middle-icon\" style=\"color:#{v.color}\"></i>")
       frag.append(tag)
 
     @tags.html('').append(frag)

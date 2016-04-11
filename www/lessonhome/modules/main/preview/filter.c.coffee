@@ -7,7 +7,31 @@ ex = (v)=>
   return 3 if v?.match? '4'
   return 0
 
-@filter = (input,mf)=> do Q.async =>
+_prepare = (word)-> _diff.prepare word.replace(/язык/gmi,'')
+@filter = (input,mf)-> do Q.async =>
+  if mf.progress
+    __progress = true
+    __progress = true
+
+  rhash = {}
+  if __progress
+    if mf.subject.length
+      rhash.subject = []
+      for s in mf.subject
+        s = _prepare s
+        rhash.subject.push s if s
+    if Object.keys(mf.metro ? {}).length
+      rhash.metro = []
+      for m of mf.metro
+        rhash.metro.push 'tutorsByWord-'+m if m
+    if rhash?.metro?.length
+      inds = yield _invoke @redis, 'sunion',rhash.metro...
+    if inds?.length
+      input = {}
+      for ind in inds
+        input[ind] = @index[ind]
+
+
   if mf.price?.right > 3000
     mf.price?.right = 300000
   if mf.price?.left < 600
@@ -78,8 +102,8 @@ ex = (v)=>
         if (nw1?.length < 10) || (nw2?.length < 10)
           continue if Math.abs(nw2?.length-nw1?.length)>2
         dif = _diff.match nw1,nw2
-        continue if (dif< 0) || (dif>0.4)
-        if (found < 0) || (dif<found)
+        continue if (dif< 0) || (dif>0.1)
+        if (found < 0) || (dif < found)
           found = dif
       continue if found < 0
       if min < 0
@@ -120,7 +144,7 @@ ex = (v)=>
       exp =3 if mf.experience['bigger_experience']
       exp =2 if mf.experience['big_experience']
       exp =1 if mf.experience['little_experience']
-      if ex(p.experience ? "")<exp
+      if ex(p.experience ? "") < exp
         continue
     if mf.gender
       continue unless mf.gender==p.gender
@@ -139,6 +163,11 @@ ex = (v)=>
         out3.push p
       else
         out4.push p
+  if Object.keys(mf.metro ? {}).length > 0
+    unless mf.metro.allmsc
+      if (out.length+out2.length+out3.length+out4.length)<5
+        mf.metro.allmsc = true
+        return yield module.exports.filter.call @,input,mf
   nd = new Date().getTime()
   switch mf.sort
     when 'rating'

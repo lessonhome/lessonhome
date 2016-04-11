@@ -39,6 +39,11 @@ class @main
     ]
     admin : [
       @module '//item' :
+        title : 'Модерация заявок'
+        item_class : 'profile'
+        admin:1
+        href : '/tutor/moderate_bids'
+      @module '//item' :
         title : 'Управление счетом'
         item_class : 'profile'
         admin:1

@@ -22,6 +22,12 @@ class RouteState
       res : @res
       req : @req
     @time "constr"
+
+  getMaxAge : (req,res)=>
+    sess = req.uniqHash.split(':')[0]
+    if @statename.match /^tutor\//
+      return 10
+    return 10*60
   time : (str="")=>
     if !@_time?
       @_time = new Date().getTime()
@@ -113,6 +119,8 @@ class RouteState
       if sclass::access[key]
         access = true
         break
+    if sclass::access['all']
+      access = true
 
     unless access || @req.user.admin
       _setKey @req.udata,'accessRedirect.redirect',@req.url
@@ -233,6 +241,7 @@ class RouteState
       @w8defer.push do Q.async =>
         pnode[key] = yield $W(deffoo)()
     yield Q.all @w8defer
+    _custom = {}
     @walk_tree_down @top,@,'top',(node,pnode,key)=>
       do =>
         return unless node?._isModule
@@ -339,6 +348,17 @@ class RouteState
           else
             node[place] = @getField @$forms[fname],field
             node[place] = func? node[place] if func
+      do =>
+        for k,val of node
+          if m = k.match /^_custom_(.+)/
+            m2 = m[1]?.match(/^(.+)__(.+)$/)
+            m = m2 ? m
+            continue unless m
+            m1 = m[1]
+            m2 = m[2] || ""
+            console.log 'custom',m1,m2
+            _custom[m1] ?= {}
+            _custom[m1][m2] = val
     for uform in @$urlforms
       vv = _setKey @req?.udata?[uform?.fkf?.form],uform?.fkf?.key
       uform.node.$urlforms ?= {}
@@ -372,7 +392,7 @@ class RouteState
         @cssModule modname
     for modname,val of @modulesExt
       if @site.modules[modname].allCss && (!@state.page_tags['skip:'+modname])
-        @cssModuleExt modname,val
+        yield @cssModuleExt modname,val
       for key of val
         @modules[key] = true
     #for modname of @modules
@@ -383,12 +403,25 @@ class RouteState
     title  ?= @statename
     end  = ""
     end += '<!DOCTYPE html><html><head>'
-    end += @site.router.head
-    end += '<title>'+title+'</title>'
+    if _custom.title
+      for key,val of _custom.title
+        end += '<title>'+val+'</title>'
+    else
+      end += '<title>'+title+'</title>'
+    if _custom.description
+      for key,val of _custom.description
+        end += "<meta name='description' content='#{val}'>"
     end += '<link rel="shortcut icon" href="'+Feel.static.F(@site.name,'favicon.ico')+'" />'
+    end += @site.router.head
+    if _custom.head
+      for key,val of _custom.head
+        end += val
     end += @css+'</head><body>'
-    end += @site.router.body
     end += @top._html
+    end += @site.router.body
+    if _custom.body
+      for key,val of _custom.body
+        end += val
     @removeHtml @top
     @time "remove html"
     json_tree = @getTree @top
@@ -427,8 +460,8 @@ class RouteState
             $.localStorage.set("coreVersion",$Feel.version);
           }
           $Feel.root = {
-              "tree" : '+json_tree+ #InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
-          '};
+              "tree" : JSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+ #InfiniteJSON.parse(decodeURIComponent("'+encodeURIComponent(json_tree)+'"))
+          '"))};
           $Feel.constJson = '+@site.constJson+';
           $Feel.user = {};
           $Feel.servicesIp = '+@site.servicesIp+';
@@ -460,29 +493,41 @@ class RouteState
     sha1.update end
     resHash = sha1.digest('hex').substr 0,8
     @time "create hash"
+    _sent = false
     if resHash == @reqEtag
       @res.statusCode = 304
+      _sent = true
       #  console.log "state #{@statename}",304
-      return @res.end()
-    @res.setHeader 'Access-Control-Allow-Origin', '*'
-    @res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-    @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
-    @res.setHeader 'Access-Control-Allow-Credentials', true
-    @res.setHeader 'ETag',resHash
-    @res.setHeader 'Cache-Control', 'public, max-age=1'
-    @res.setHeader 'content-encoding', 'gzip'
-    #@res.statusCode = 200
-    d = new Date()
-    d.setTime d.getTime()+1
-    @res.setHeader 'Expires',d.toGMTString()
+      @res.end()
+    unless _sent
+      _max_age = @getMaxAge @req,@res
+      @res.setHeader 'Access-Control-Allow-Origin', '*'
+      @res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+      @res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
+      @res.setHeader 'Access-Control-Allow-Credentials', true
+      @res.setHeader 'Vary', 'Accept-Encoding'
+      @res.setHeader 'ETag',resHash
+      @res.setHeader 'Cache-Control', 'public, max-age='+10
+      @res.setHeader 'content-encoding', 'gzip'
+      @res.setHeader 'content-type','text/html; charset=UTF-8'
+      #@res.statusCode = 200
+      d = new Date()
+      d.setTime d.getTime()+10*1000
+      @res.setHeader 'Expires',d.toGMTString()
     #@res.writeHead @res.statusCode||200
     zlib    = require 'zlib'
-    zlib.gzip end,{level:9},(err,resdata)=>
-      return Feel.res500 @req,@res,err if err?
-      @res.setHeader 'content-length',resdata.length
-      @res.end resdata
-      @time 'zlib'
-      console.log process.pid+":state #{@statename}",@res.statusCode||200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
+    zlib.gzip end,{level:9},(err,resdata)=> Q.spawn =>
+      if err?
+        console.error 'gzip',err,Exception err
+        yield Feel.res500 @req,@res,err unless _sent
+        return
+      unless _sent
+        @res.setHeader 'content-length',resdata.length
+        @res.end resdata
+        @time 'zlib'
+        console.log process.pid+":state #{@statename}",@res.statusCode||200,resdata.length/1024,end.length/1024,Math.ceil((resdata.length/end.length)*100)+"%"
+      if _production
+        Q.spawn => @site.redis_cache.set @req.uniqHash,resdata,_max_age,resHash,'gzip'
   addModuleJs : (name)=>
     unless @state.page_tags['skip:'+name]
       return @site.moduleJsTag(name)
@@ -502,8 +547,8 @@ class RouteState
         @removeHtml val
   cssModule : (modname)=>
     @css += "<style id=\"f-css-#{modname}\">#{@site.modules[modname].allCss}</style>"
-  cssModuleExt    : (modname,exts)=>
-    css = @site.modules[modname].getAllCssExt exts
+  cssModuleExt    : (modname,exts)=> do Q.async =>
+    css = yield @site.modules[modname].getAllCssExt exts
     @css += "<style id=\"f-css-#{modname}-exts\">#{css}</style>"
   parse : (now,uniq,module,state,_pnode,_pkey)=> do Q.async =>
     #return if now.__parsed
@@ -553,14 +598,14 @@ class RouteState
         try
           eval "(function(){#{filetag}}).apply(tempGThis);"
         catch e
-          console.error "failed eval parse.coffee in #{now._name}"
-          console.error e
+          console.error "failed eval parse.coffee in #{now._name}".red
+          console.error Exception e
         try
           tempGThis.parse = $W tempGThis.parse
           o.value = yield tempGThis.parse o.value
         catch e
-          console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}"
-          console.error e
+          console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}".red
+          console.error Exception e
       now._html = @site.modules[now._name].doJade o,@,state.__state
       ms = now._html.match /js-\w+--{{UNIQ}}/mg
       now._domregx = {}

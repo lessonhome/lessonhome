@@ -1,3 +1,74 @@
+@font-face {
+  font-family: "DIN";
+  src: url(F("/font/din/din.eot")); 
+  src: url("#{F('/font/din/din.eot')}?#iefix") format("embedded-opentype"),
+  url(F("/font/din/din.woff")) format("woff"),
+  url(F("/font/din/din.ttf")) format("truetype"),
+  url(F("/font/din/din.svg")) format("svg");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+    font-family: "futura";
+    src: url(F("/font/futura/futura.eot"));
+    src: url("#{F('/font/futura/futura.eot')}?#iefix") format("embedded-opentype"),
+    url(F("/font/futura/futura.woff")) format("woff"),
+    url(F("/font/futura/futura.ttf")) format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+  font-family: "futuris-cyrilic";
+  src: url(F("/font/futuris/futuris-cyrillic.eot"));
+  src: url("#{F('/font/futuris/futuris-cyrillic.eot')}#iefix") format("embedded-opentype"),
+  url(F("/font/futuris/futuris-cyrillic.woff")) format("woff"),
+  url(F("/font/futuris/futuris-cyrillic.ttf")) format("truetype"),
+  url(F("/font/futuris/futuris-cyrillic.svg")) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*@font-face {
+  font-family: "Material Icons";
+  src: url(F("/font/material_icons/Material_Icons.eot"));
+  src: url("#{F('/font/material_icons/Material_Icons.eot')}#iefix") format("embedded-opentype"),
+  url(F("/font/material_icons/Material_Icons.woff")) format("woff"),
+  url(F("/font/material_icons/Material_Icons.woff2")) format("woff2"),
+  url(F("/font/material_icons/Material_Icons.svg")) format("svg"),
+  url(F("/font/material_icons/Material_Icons.ttf")) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}*/
+
+@font-face {
+  font-family: 'custom_material_icons';
+  src: url(F('/font/custom_material_icons/custom_material_icons.eot'));
+  src: url("#{F('/font/custom_material_icons/custom_material_icons.eot')}#iefix") format('embedded-opentype'),
+  url(F('/font/custom_material_icons/custom_material_icons.ttf')) format('truetype'),
+  url(F('/font/custom_material_icons/custom_material_icons.woff')) format('woff'),
+  url("#{F('/font/custom_material_icons/custom_material_icons.svg')}#custom_material_icons") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}*/
+
 html{
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'DIN' sans-serif;
 }
