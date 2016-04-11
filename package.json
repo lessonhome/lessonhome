@@ -39,6 +39,7 @@
     "colors" : "*",
     "yuicompressor" : "*",
     "cookies" : "*",
+    "cookie" : "*",
     "bcryptjs": "*",
     "js-beautify" : "*",
     "spdy":"*",
@@ -47,7 +48,7 @@
     "regenerator" : "*",
     "ipware" : "*",
     "useragent":"*",
-    "jquery-file-upload-middleware":"",
+    "jquery-file-upload-middleware":"*",
     "express":"*",
     "body-parser":"*",
     "imagemagick": "*",
@@ -74,7 +75,15 @@
     "telegram-bot-api" : "*",
     "node-telegram-bot-api" : "*",
     "vksdk" : "*",
-    "google-images" : "*"
+    "google-images" : "*",
+    "continuation-local-storage":"*",
+    "babel-core":"*",
+    "babel-preset-es2015" : "*",
+    "socket.io" : "*",
+    "socket.io-redis":"*",
+    "babel-preset-stage-0":"*",
+    "babel-polyfill":"*",
+    "babel-plugin-transform-es2015-modules-umd" : "*"
   }
 }
 

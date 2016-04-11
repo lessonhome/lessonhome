@@ -80,8 +80,9 @@ class module.exports
           ext   : ""
           path  : "#{@site.path.modules}/#{@name}/#{f}"
         }
-  replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-:]+)/,"$1mod-#{@id}--$2")
-  replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-:]+)/,"$1js-$2--{{UNIQ}} $2")
+  replacer  : (str,p,offset,s)=> str.replace(/([\"\ ])(m-[\w-:\.]+)/,"$1mod-#{@id}--$2")
+  replacer3  : (str,p,offset,s)=> str.replace(/([\'])(m-[\w-:\.]+\')/,"$1mod-#{@id}--$2")
+  replacer2 : (str,p,offset,s)=> str.replace(/([\"\ ])js-([\w-:\.]+)/,"$1js-$2--{{UNIQ}} $2")
   makeJade : (source=false)=>
     _jade = {}
     for filename, file of @files
@@ -94,15 +95,19 @@ class module.exports
           compileDebug : false
         }
         while true
-          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-:]+ )*(m-[\w-:]+)(?: [\w-:]+)*\\\"/, @replacer)
+          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-:\.]+ )*(m-[\w-:\.]+)(?: [\w-:\.]+)*\\\"/, @replacer)
           break if n == _jade.fnCli
           _jade.fnCli = n
         while true
-          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-:]+ )*(js-[\w-:]+)(?: [\w-:]+)*\\\"/, @replacer2)
+          n = _jade.fnCli.replace(/jade\.cls\(\[(?:[\w-:\.\s]+\,)*(\'m-[\w-:\.]+\')(?:\,[\w-:\.\s]+)*\]/, @replacer3)
           break if n == _jade.fnCli
           _jade.fnCli = n
         while true
-          n = _jade.fnCli.replace(/class\"\s*\:\s*\"(?:[\w-:]+ )*(js-[\w-:]+)(?: [\w-:]+)*\"/, @replacer2)
+          n = _jade.fnCli.replace(/class\=\\\"(?:[\w-:\.]+ )*(js-[\w-:\.]+)(?: [\w-:\.]+)*\\\"/, @replacer2)
+          break if n == _jade.fnCli
+          _jade.fnCli = n
+        while true
+          n = _jade.fnCli.replace(/class\"\s*\:\s*\"(?:[\w-:\.]+ )*(js-[\w-:\.]+)(?: [\w-:\.]+)*\"/, @replacer2)
           break if n == _jade.fnCli
           _jade.fnCli = n
         ###
@@ -343,30 +348,30 @@ class module.exports
         if sel.match /^main.*/
           sel = sel.replace /^main/, "#m-#{relative}"
           replaced = true
-        if !(sel.match /^\.(g-[\w-:]+)/) && (!replaced)
+        if !(sel.match /^\.(g-[\w-:\.]+)/) && (!replaced)
           newpref += "#m-#{relative}"
         #continue if sel == 'main'
         m2 = sel.match /([^\s]+)/g
         if m2
           for a in m2
-            m3 = a.match /^\.(m-[\w-:]+)/
+            m3 = a.match /^\.(m-[\w-:\.]+)/
             leftpref = ""
             if m3
               leftpref = " " unless replaced
               newpref += leftpref+"\.mod-#{relative}--#{m3[1]}"
-            else if a.match /^\.(g-[\w-:]+)/
+            else if a.match /^\.(g-[\w-:\.]+)/
               leftpref = " " unless replaced
               newpref += leftpref+a
             else
               leftpref = ">" unless replaced
               newpref += leftpref+a
         else
-          m3 = sel.match /^\.m-[\w-:]+/
+          m3 = sel.match /^\.m-[\w-:\.]+/
           leftpref = ""
           if m3
             leftpref = " " unless replaced
             newpref += leftpref+"\.mod-#{relative}--#{m3[1]}"
-          else if sel.match /^\.(g-[\w-:]+)/
+          else if sel.match /^\.(g-[\w-:\.]+)/
             leftpref = " " unless replaced
             newpref += leftpref+sel
           else if sel && !replaced
@@ -460,9 +465,9 @@ class module.exports
       m = name.match /^(.*)\.(coffee|js)/
       if m
         num++
-        @allJs += "(function(){ #{src} }).call(this);"
+        @allJs += "\n(function(){\n#{src}\n}).call(this);"
     @allCoffee += @allJs
-    @allCoffee += "}).call(arr);return arr; })()"
+    @allCoffee += "\n}).call(arr);return arr; })()"
     @allCoffee = "" unless num
     #if _production
     #  @allCoffee = yield Feel.yjs @allCoffee
@@ -478,7 +483,7 @@ class module.exports
     f = @jsfile fname
     return f unless f
     #return f.replace /^\}\)\.call\(this\)\;$/mgi,"}).call(_FEEL_that);"
-    return "(function(){"+f+"}).call(_FEEL_that);"
+    return "(function(){\n"+f+"\n}).call(_FEEL_that);"
   jsNames : (fname)=> Object.keys @coffee
   makeJs  : =>
     @newJs = {}
@@ -498,7 +503,7 @@ class module.exports
       m = name.match /^(.*)\.js/
       if m
         num++
-        @allJs += "(function(){ #{src} }).call(arr);"
+        @allJs += "(function(){ \n#{src}\n }).call(arr);"
     @allJs += "return arr; })()"
     @allJs  = "" unless num
     #if _production
