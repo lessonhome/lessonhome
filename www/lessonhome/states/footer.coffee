@@ -2,7 +2,7 @@ class @main
   tree : => @module '$' :
     logo : @module 'tutor/header/logo'
     search  : @module 'link_button':
-      href      : '/second_step'
+      href      : '/search'
       text      : 'Поиск'
       selector  : 'footer_btn'
       active    : true
@@ -13,7 +13,7 @@ class @main
         selector  : 'footer_btn'
         active    : false
     help  : @module 'link_button':
-      href      : '/support'
+      href      : '/help'
       text      : 'Помощь'
       selector  : 'footer_btn'
       active    : true

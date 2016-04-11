@@ -3,18 +3,16 @@ class @main
     $W @
   Dom : =>
     @oldScroll      = $(document).scrollTop()
-
+#    @found.input_phone.mask '9 (999) 999-99-99'
     @fastest = @dom.find '.fastest'
   show: =>
-    @found.open_form.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid'
+    @found.open_form.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid', 'fast'
 
     Q.spawn =>
-      filter =
-        mainFilter : @tree.filter
-        tutorsFilter :
-          subjects : @tree?.filter?.subject
-      filter = yield Feel.udata.d2u filter
-      @found.go_find.attr 'href','/tutors_search?'+filter
+      subjects = [@tree.filter.subject[0]]
+      course = ((if /^(егэ|гиа)$/i.test(c) then c.toUpperCase() else c) for i, c of @tree.filter.course)
+      filter = yield Feel.udata.d2u tutorsFilter : {subjects, course}
+      @found.go_find.attr 'href','/search?'+filter
     
     @on 'change', -> Q.spawn => Feel.sendActionOnce('interacting_with_form', 1000*60*10)
     Q.spawn => Feel.jobs.onSignal? "bidSuccessSend", => @found.open_form.fadeOut 300
@@ -51,12 +49,14 @@ class @main
         val = el.val()
         @tree.value ?= {}
         @tree.value[name] = val
-        elems.filter(':not(:focus)').val(val).focusin().focusout()
+        elems.filter(':not(:focus)').val(val)
         @emit 'change'
 
-    @found.input_phone.on 'input', getListener('phone', @found.input_phone)
-    @found.input_name.on 'input', getListener('name', @found.input_name)
-    @found.input_phone.on 'change', => Q.spawn => yield @sendForm(false, true)
+    phone_listener = getListener('phone', @found.input_phone)
+    @found.input_phone.on 'change', (e) =>
+      phone_listener(e)
+      Q.spawn => yield @sendForm(false, true)
+    @found.input_name.on 'change', getListener('name', @found.input_name)
 
 #    @found.input_phone.on 'input',(e)=>
 #      val = $(e.target).val()

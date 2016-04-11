@@ -78,6 +78,7 @@ class Jobs
     @client_listening[name].foo = foo
     yield @onMessage 'client_jobs:'+name
   solve : (name,data...)=>
+    #t = new Date().getTime()
     yield _waitFor @,'init' unless @inited
     d = Q.defer()
     id = _randomHash()
@@ -86,6 +87,8 @@ class Jobs
         d.reject ExceptionUnJson obj.err
       else
         d.resolve obj.data
+      #nt = new Date().getTime()
+      #console.log 'job',name,nt-t#,data...
       delete @solves[id]
       @redisS.unsubscribe id
     yield _invoke @redisS,'subscribe',id

@@ -1,5 +1,5 @@
 .container.js-footer_container.white-text
-  .row.no-bottom-margin
+  .row.no-bottom-margin.hide-on-med-and-down
     .col.l3.m3.s12
       .row
         .col.s11
@@ -7,32 +7,60 @@
             img(src=F('/lp/footer_logo.png')).responsive-img
       .row
         .col.s12.footer-text
-          p 121087, Россия, г. Москва
-          p Береговой проезд, дом 2, строение 3
-          p &copy; Lessonhome.ru 2015 г.
+          p &copy; Lessonhome.ru 2014 - 2016 г.
     .col.l7.m7.s12
       .row
         .col.s12
           ul.footer-links-list
-            li 
-              a(href='/tutors_search') Наши репетиторы
             li
-              a(href='/main_tutor') Репетиторам
+              if id_page == 'main_p'
+                a.active(href='/') Главная
+              else
+                a(href='/') Главная
             li
-              a(href='#modal1').btn.waves-effect.waves-light.modal-trigger.js-request_a_call.footer-btn Заказать звонок    
+              if id_page == 'search_p'
+                a.active(href='/search') Наши репетиторы
+              else
+                a(href='/search') Наши репетиторы
+            li
+              if id_page == 'lp_tutors'
+                a.active(href='/tutors_lp') Репетиторам
+              else
+                a(href='/tutors_lp') Репетиторам
+            li
+              a(href='/contacts')
+                i.icon-location
+            li
+              a(href='/help')
+                i.icon-question2
+      .row
+        .col.s6
+          a.btn.waves-effect.waves-light.modal-trigger.js-attach.footer-btn Заказать звонок
     .col.l2.m2.s12.hide-on-small-and-down
       .row
         .col.s12.right-align
           .row
             .col.s12.social-links
-              a(href="http://ok.ru/lesson.home" target="_blank").social.ok
               a(href="https://vk.com/lesson_home" target="_blank").social.vk
-              a(href="https://www.facebook.com/lessonhome.ru" target="_blank").social.fb
-              a(href="https://vk.com/lesson_home" target="_blank").social.gp
+              a(href="http://facebook.com/lessonhome" target="_blank").social.fb
+              a(href="https://plus.google.com/u/2/b/100988076272901030203/100988076272901030203" target="_blank").social.gp
               a(href="https://twitter.com/lesson_home" target="_blank").social.tw
-          .row
+              a(href="https://ok.ru/lesson.home" target="_blank").social.ok
+          .row.contacts-footer
             .col.s12
-              a(href="#") support@lessonhome.ru
-          .row
+              a(href="mailto:support@lessonhome.ru") support@lessonhome.ru
             .col.s12
               a(href='tel:+7-495-181-0373') +7 (495) 181-03-73
+  .row.center-align.hide-on-large-only
+    .col.s12
+      .phone-phone
+        a(href='tel:+7-495-181-0373') +7 (495) 181-03-73
+    .col.s12
+      a.btn-large.blue-btn.waves-effect.waves-light.modal-trigger.js-attach Заказать звонок
+    .col.s12.soc-link
+        a(href="https://vk.com/lesson_home" target="_blank").social.vk
+        a(href="http://facebook.com/lessonhome" target="_blank").social.fb
+        a(href="https://plus.google.com/u/2/b/100988076272901030203/100988076272901030203" target="_blank").social.gp
+        a(href="https://twitter.com/lesson_home" target="_blank").social.tw
+        a(href="https://ok.ru/lesson.home" target="_blank").social.ok         
+    .col.s12.right-align &copy; Lessonhome.ru 2014 - 2016 г.

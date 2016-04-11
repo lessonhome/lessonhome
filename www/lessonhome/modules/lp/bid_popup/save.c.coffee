@@ -9,4 +9,5 @@ check = require './check'
     data['subject'] = data.subjects[0] if data.subjects?.length
     return yield jobs.solve 'saveBid', $.user, data
   catch errs
+    console.error Exception errs
     return {status: 'failed', err: 'internal_error'}

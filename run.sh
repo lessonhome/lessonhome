@@ -1,10 +1,10 @@
-
-
 #!/bin/bash
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$ROOT"
 
 ./kill.sh
+
+export NODE_ENV=production
 
 #killall iojs 2>> /dev/null
 #killall node 2>> /dev/null

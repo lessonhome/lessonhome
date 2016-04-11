@@ -5,8 +5,8 @@
 - btn_icon = btn_icon || "";
 
 if activities_str != -1
-  a.waves-effect.waves-light.btn-large.orange-btn(href=href class=selector).js-text!=text
-    i.material-icons.left!=btn_icon
+  a.waves-effect.waves-light.btn-large.yellow-btn(href=href class=selector).js-text!=text
+    i.m_icon.left(class!=btn_icon)
 else
-  a.waves-effect.waves-light.btn-large.active.orange-btn(href=href class=selector).js-text!=text
-    i.material-icons.left!=btn_icon
+  a.waves-effect.waves-light.btn-large.active.yellow-btn(href=href class=selector).js-text!=text
+    i.m_icon.left(class!=btn_icon)

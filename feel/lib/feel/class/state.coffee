@@ -7,20 +7,11 @@ fs      = require 'fs'
 
 class module.exports
   constructor : (@site,@name)->
+    $W @
     @path     = "#{process.cwd()}/#{@site.path.states}/#{@name}.coffee"
     @dir      = @name.match(/^(.*\/|)\w+$/)[1]
     @inited   = false
     @sdepend  = {}
-    
-  init : =>
-    #return unless @name.match(/^test.*/) || @name.match(/^dev.*/)
-    console.log "state\t\t".magenta, "#{@name}".cyan
-    try
-      src = coffee._compileFile @path
-    catch e
-      console.error Exception e
-      throw new Error "Failed compile satate #{@name}"
-    
     @context = [
       'module'
       'const'
@@ -31,11 +22,22 @@ class module.exports
       'data'
       'F'
     ]
+    
+  init : =>
+    @initing = true
     that = @
-
+    console.log "state\t\t".magenta, "#{@name}".cyan
+    @initSrc() unless @src
+    @makeClass()
+  initSrc : =>
+    try
+      src = coffee._compileFile @path
+    catch e
+      console.error Exception e
+      throw new Error "Failed compile satate #{@name}"
+    
     @src  = "var file = {};
             (function(){"
-
     #for f in @context
     #  @src += " var #{f} = that.function_#{f};"
     @src += " var $urls   = that.site.router.url,
@@ -65,7 +67,6 @@ class module.exports
       };}
     "
     @src += " }).call(file); file"
-    @makeClass()
   makeClass : =>
     that = @
     try
@@ -86,6 +87,8 @@ class module.exports
     @checkVar 'route'
     @checkVar 'model'
     @inited = true
+    @initing = false
+    @emit 'init'
     if @class::route? && !@name.match(/^(dev|test)/)
       throw new Error "Undefined title in state '#{@name}'" unless @class::title?
       #throw new Error "Undefined model in state '#{@name}'" unless @class::model?
@@ -348,7 +351,7 @@ class module.exports
       o = o[name]
       name = @statename_resolve name
     try
-      @site.createState name
+      @site.waitStateInit name
       @sdepend[name] = true
       state = yield @site.state[name].make o,null,state.req,state.res
       tree = {}
@@ -374,7 +377,7 @@ class module.exports
       o = o[name]
       name = @statename_resolve name
     try
-      @site.createState name
+      @site.waitStateInit name
       @sdepend[name] = true
       return @site.state[name].class
     catch e

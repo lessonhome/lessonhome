@@ -21,18 +21,18 @@
           .tf-sub_title и мы Вам позвоним:
           .row(class=button_color)
             .input-field.col.l12.m12.s12
-              i.material-icons.prefix account_circle
+              i.m_icon.icon_account_circle.prefix
               input.js-input_name(type='text' value=value.name)#name.validate
               label(for='name') Имя
           .row.phone-margin(class=button_color)
             .input-field.col.l12.m12.s12.error-text
-              i.material-icons.prefix phone
-              input.js-input_phone(type='tel' value=value.phone)#phone.validate
+              i.m_icon.icon_phone.prefix
+              input.js-input_phone(type='tel' value=value.phone, data-mask="9 (999) 999-99-99")#phone.validate
               label(for='phone', data-error="Введите корректный телефон") Телефон
           .row.no-margin
             .col.l12.m12.s12(class=button_color)
               button.js-btn_send(type='submit', name='form_submit').btn.waves-effect.waves-light Отправить
-                i.material-icons.right send
+                i.m_icon.icon_send.right
           .js-on_send.top-form
             .row
               .col.s12.left-align
@@ -88,7 +88,7 @@
           .row
             .col.s12
               a.js-go_find.waves-effect.waves-light.btn-large Ещё репетиторы
-                i.material-icons.right search
+                i.m_icon.icon_search.right
 .three-step-bg.js-step_three
   .container
     .row.common-row
@@ -98,18 +98,18 @@
           p.form_p Заполните форму и через 5 минут Вам позвонит  наш администратор
           .row.name-row
             .input-field.col.l12.m12.s12
-              i.material-icons.prefix account_circle
+              i.m_icon.icon_account_circle.prefix 
               input.js-input_name(type='text' value=value.name)#icon_prefix.validate
               label(for='icon_prefix') Имя
           .row.phone-row
             .input-field.col.l12.m12.s12.error-text
-              i.material-icons.prefix phone
-              input.js-input_phone(type='tel' value=value.phone)#icon_telephone.validate
+              i.m_icon.icon_phone.prefix
+              input.js-input_phone(type='tel' value=value.phone, data-mask="9 (999) 999-99-99")#icon_telephone.validate
               label(for='icon_telephone', data-error="Введите корректный телефон") Телефон
           .row.botton-row
             .col.l12.m12.s12
               button.js-btn_send(footer='footer' type='submit', name='submit_form').btn.waves-effect.waves-light Отправить
-                i.material-icons.right send
+                i.m_icon.icon_send.right
           .js-on_send
             .row
               .col.s12.left-align.final-send-block
@@ -121,13 +121,13 @@
     .row
       .col.l9.m9.centered-block
         p
-          i.material-icons fiber_manual_record
+          i.m_icon.icon_fiber_manual_record
           span.middle-text Не нужно платить сразу за весь курс – оплата производится частями и только по факту оказания услуг 
         p 
-          i.material-icons fiber_manual_record 
+          i.m_icon.icon_fiber_manual_record 
           span.middle-text Если случилось непредвиденное - Вы просто говорите об этом преподавателю и переносите занятие.
         p 
-          i.material-icons fiber_manual_record
+          i.m_icon.icon_fiber_manual_record
           span.middle-text Гибкий график - Вам не надо ждать набора группы и быть зависимым от расписания занятий
 
 

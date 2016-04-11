@@ -87,7 +87,7 @@ class PayMaster
 
   _newTransaction : (user, type, value, desc="Описание не указано", confirm) ->
     {added} = yield @_newTrans user, [{type, value, desc}], confirm
-    for number, bill of added when added.hasOwnProperty(number) then break
+    for own number, bill of added then break
     return {number, bill}
 
   _newTrans: (user, arrConf, confirm=false) =>
@@ -183,10 +183,8 @@ class PayMaster
         sum -= value
     return sum
 
-  _validUser: (user, admin=false)  ->
-    throw new Error('Permission denied') if admin and !user.admin
-    throw new Error('Not exist user.id. Please, transfer correct user ') unless user.id?
-    return true
+  _validUser: require "../valid_user"
+
 
 
 module.exports = PayMaster

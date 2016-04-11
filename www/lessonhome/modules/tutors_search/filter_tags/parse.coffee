@@ -9,7 +9,7 @@ getParam = (names) ->
     }
   return null
 
-getNames = (name) ->
+getNames = (name = '') ->
   name = name.split ':'
   return name if name.length > 1
   return null
@@ -23,7 +23,7 @@ getNames = (name) ->
       for m in data.filter.metro
         metro[m] = getParam getNames m
     else
-      for key, m of data.filter.metro when data.filter.metro.hasOwnProperty(key)
+      for own key, m of data.filter.metro
         metro[m] = getParam getNames m
 
     data.metro_tags = metro

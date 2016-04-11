@@ -10,6 +10,7 @@ class @main extends @template '../lp'
   }
   tree : =>
     content : @module 'login/enter' :
+      hide_head_button: true
       depend : [
         @module 'lib/crypto'
         @module 'lib/lzstring'
@@ -21,16 +22,16 @@ class @main extends @template '../lp'
         name        : 'email'
         selector    : 'registration'
         text1       : 'Телефон или email'
-        input_icon  : 'person'
+        input_icon  : 'icon_person_outline'
       password        : @module 'tutor/forms/input_m' :
         name        : 'password'
         type        : 'password'
         selector    : 'registration'
         text1       : 'Пароль'
-        input_icon  : 'lock'
+        input_icon  : 'icon_lock_outline'
       enter_button    : @module 'link_button_m' :
         href      : 'tutor/profile/first_step'
         selector  : 'enter_office'
         text      : 'Войти'
-        btn_icon  : 'lock_open'
+        btn_icon  : 'icon_lock_open'
 #    filter_top : @module '$'

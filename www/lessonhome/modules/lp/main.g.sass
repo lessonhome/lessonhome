@@ -3,19 +3,10 @@
 body, html
   min-height: 100%
   height: 100%
+  background-color: #464646
 #m-lp
-  min-height: 100%
-  position: relative
-  padding-bottom: 200px
-  @media #{$medium-and-down}
-    padding-bottom: 300px
+  background-color: #ffffff
 
-footer
-  position: absolute
-  bottom: 0
-  left: 0
-  right: 0
-  z-index: 1
 //fixed container whidth
 .container
   width: 95% !important
@@ -35,31 +26,90 @@ footer
       background-color: #df6736
       box-shadow: none
       color: #ffffff
+.btn-large, .btn, .btn-flat
+  &.yellow-btn
+    background-color: #fbc02d
+    box-shadow: none
+    color: #393b3a
+    font-family: "DIN"
+    &:hover
+      background-color: #e2b033
+      box-shadow: none
+      color: #393b3a
+.btn-large, .btn, .btn-flat
+  &.blue-btn
+    background-color: #179cab
+    box-shadow: none
+    color: #ffffff
+    font-family: "DIN"
+    &:hover
+      background-color: #14727d
+      box-shadow: none
+      color: #ffffff
 
 .input-field
   .prefix
     top: 15px
 a
-  color: #356094
+  color: #147585
   text-decoration: none
   transition: all 0.3s ease-out
   &:hover
-    color: #fd7c48
+    color: #0a4953
 
 input[type=text]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly])
-  border-bottom: 1px solid #fd7c48
-  box-shadow: 0 1px 0 0 #fd7c48
+  border-bottom: 1px solid #179cab
+  box-shadow: 0 1px 0 0 #179cab
   & + label
-    color: #fd7c48
+    color: #179cab
 textarea.materialize-textarea:focus:not([readonly])
-  border-bottom: 1px solid #fd7c48
-  box-shadow: 0 1px 0 0 #fd7c48
+  border-bottom: 1px solid #179cab
+  box-shadow: 0 1px 0 0 #179cab
   & + label
-    color: #fd7c48
+    color: #179cab
 .input-field
   .prefix
     &.active
-      color: #fd7c48
+      color: #179cab
+input[type=text], input[type=password],
+input[type=email], input[type=url],
+input[type=time], input[type=date],
+input[type=datetime-local],
+input[type=tel], input[type=number],
+input[type=search],
+textarea.materialize-textarea
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active
+    transition: background-color 50000s ease-in-out !important
+    -webkit-text-fill-color: #464646
+    @media #{$medium-and-down}
+      -webkit-text-fill-color: #464646
+[type="checkbox"]
+  &+label
+    font-family: 'Roboto'
+    font-size: .8rem
+    &:before
+      border-width: 1px
+      width: 1rem
+      height: 1rem
+      margin-top: 0.2667rem
+  &:checked
+    &+label
+      &:before
+        width: 0.8rem
+        height: 1.467rem
+        border-width: 2px
+[type="radio"]
+  &:not(:checked)
+    &+label
+      font-family: 'Roboto'
+      font-size: .8rem
+  &:checked
+    &+label
+      font-family: 'Roboto'
+      font-size: 1rem 
 .select-wrapper 
   input.select-dropdown
     font-family: 'Roboto'
@@ -68,16 +118,19 @@ textarea.materialize-textarea:focus:not([readonly])
   box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) 
   max-height: 350px
   font-family: 'Roboto'
+  .middle-icon
+    vertical-align: middle
+    margin-right: 0.4rem
   li
     &.optgroup
       &>span
-        background-color: #fd7c48
-        color: #fff !important
-        padding: 0.5rem 1rem !important
+        background-color: #e1e1e1
+        color: #464646 !important
+        padding: 1rem !important
     &>span
       font-size: 1rem !important
-      color: #26a69a
-      display: block
+      color: #787878 !important
+      display: block 
       padding: 0.5rem 0.5rem !important
 .metro-loc
   .dropdown-content 
@@ -89,24 +142,36 @@ textarea.materialize-textarea:focus:not([readonly])
   &:checked
     &+label
       &:before
-        border-right-color: #fd7c48
-        border-bottom-color: #fd7c48
+        border-right-color: #147585
+        border-bottom-color: #147585
 [type="radio"]
   &.with-gap
     &:checked
       &+label
         &:before
-          border-color: #fd7c48
+          border-color: #147585
         &:after
-          background-color: #fd7c48
-          border-color: #fd7c48
+          background-color: #147585
+          border-color: #147585
 .hidden
   display : none
 
 //modals style
+.send-your-request.callback
+  .req_body
+    .slide_collapse, .longer, .title_bid 
+      display: none !important
+    .title_call
+      display: block  
+  .req_success
+    .full_btn
+      display: none !important
+
 .send-your-request
   overflow-y: inherit
   width: 390px
+  .title_call
+    display: none
   .modal-footer
     text-align: center
     height: auto
@@ -153,6 +218,7 @@ textarea.materialize-textarea:focus:not([readonly])
     border-radius: 0
     box-shadow: none
     top: 0 !important
+    bottom: 0
     .emulate-shadow
       position: absolute
       top: 0
@@ -168,6 +234,35 @@ textarea.materialize-textarea:focus:not([readonly])
       will-change: top, opacity
       box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21)
       transition: all 0.5s ease-out
+      position: relative
+      @media #{$medium-and-down}
+        width: 80%
+      @media #{$small-and-down}
+        width: 100%
+        margin: 0
+        height: 100%
+        background-color: #fff
+        .modal-content
+          background-color: #fff
+      .close-modal-wrapper
+        position: relative
+        .modal-close-button
+          position: absolute
+          right: 0
+          top: 0
+          cursor: pointer
+          background-color: transparent
+          padding: 0.25rem 0.4rem
+          font-size: 1.8rem
+          border-radius: 0 2px 0 0
+          color: #616161
+          @media #{$medium-and-down}
+            background-color: #B5B5B5
+            color: #fff
+          @media #{$small-and-down}
+            padding: 0.2rem 0.4rem 0.2rem 0.2rem
+            font-size: 2rem
+          
   .row
     &:nth-of-type(2)
       h5
@@ -208,12 +303,12 @@ textarea.materialize-textarea:focus:not([readonly])
   .req-modal-success
     display: none
     h3
-      color: #fd7c48
+      color: #147585 
       font-size: 2.5rem
     h4
       font-size: 1.4rem
       span
-        color: #fd7c48
+        color: #147585
         font-weight: 700
       &:first-of-type
         margin-bottom: 1rem
@@ -225,10 +320,30 @@ textarea.materialize-textarea:focus:not([readonly])
     .req-modal-body
       display: none
 
-.select-dropdown
-  li.optgroup ~ li:not(.optgroup)
-    display: none
-  li.optgroup ~ li.subgroup_1
-    display: block
-  li.optgroup ~ li:not(.optgroup).disabled
-    display: none !important
+.slide_collapse
+  .select-dropdown
+    //li.optgroup[data-open="0"] + li
+    //  display: none
+    //li:not(.optgroup)
+    //  display: none
+    li.optgroup[data-open="0"] ~ li:not(.optgroup)
+      display: none
+    li.optgroup[data-open="1"] ~ li:not(.optgroup)
+      display: block
+    li.optgroup[data-open="1"] ~ li.optgroup[data-open="0"] ~ li:not(.optgroup)
+      display: none
+
+    //li.optgroup ~ li.subgroup_1
+    //  display: block
+    li.optgroup ~ li:not(.optgroup).disabled
+      display: none !important
+.max-width-btn
+  button
+    width: 100%
+  a
+    width: 100%
+.row
+  .col
+    &.col-no-padding
+      padding: 0
+//commit

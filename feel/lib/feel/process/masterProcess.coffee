@@ -17,7 +17,6 @@ util = require 'util'
 MasterProcessFork = require './masterProcessFork'
 
 global.MASTERPROCESSUNIQID = 0  # uniq process id, saving when restart process
-
 class MasterProcess extends EE
   constructor : (@conf,@manager)->
     @id       = global.MASTERPROCESSUNIQID++
@@ -41,6 +40,8 @@ class MasterProcess extends EE
     return @
   start   : (isFirst=false)=>
     return if @running || @starting
+
+
     @starting = true
     @fork = new MasterProcessFork @conf
     yield @bindForkEvents isFirst

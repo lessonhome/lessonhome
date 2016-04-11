@@ -37,6 +37,7 @@ class templ
 
 
 class @main
+  _parent_url = History.getState().hash
   constructor : ->
     $W @
 #  metro : =>
@@ -57,13 +58,13 @@ class @main
     @triggerCount = 0
     @resolution = true
 
-
     #scroll spy
     @reviewMark   = @found.review_mark
     @profileTab   = @found.profile_tab
 
     @message_text = @found.message_text
     @message_phone = @found.message_phone
+    @message_phone.mask '9 (999) 999-99-99'
     @message_name = @found.message_name
     @message_send = @found.message_send
     @message_sub = @found.message_subject
@@ -94,8 +95,8 @@ class @main
     Feel.urlData.on 'change',=>
       pupil = Feel.urlData.get 'pupil'
 
-      @message_name.val(pupil.name).focusin().focusout()
-      @message_phone.val(pupil.phone).focusin().focusout()
+      @message_name.val(pupil.name)
+      @message_phone.val(pupil.phone)
 
       Q.spawn =>
         yield @setLinked()
@@ -112,6 +113,15 @@ class @main
     #yield @open()
     yield @matchAny() if @tree.single_profile== "tutor_profile"
 
+    if @found.avatar.height() is 0
+      @found.avatar.load @prepareAvatar
+    else
+      @prepareAvatar()
+
+  prepareAvatar : =>
+    @found.view_photo.css 'padding-top', ''
+    .removeClass('avatar_loaded')
+
   matchAny : (force=false)=>
     #return unless @tree.value?.index
     if (((""+document.referrer).indexOf(document.location.href.substr(0,15)))!=0)&&(window.history.length<2)
@@ -125,10 +135,18 @@ class @main
     setTimeout =>
       if exist = @profileTab.data('exist')
         @profileTab.tabs('select_tab', exist)
+
+      Q.spawn =>
+        inset = yield Feel.urlData.get('tutorProfile','inset')
+        Q.spawn -> Feel.urlData.set('tutorProfile',{'inset': ''})
+        if inset == 1
+          top = @found.reviews.offset().top - 120
+          a = $('body, html')
+          a.delay(500).animate {scrollTop: top}, {duration: 1000}
+          $(window).one 'mousewheel', -> a.stop(true)
     ,0
     yield @setLinked()
   open : (index)=>
-    state = History.getState()
 
     unless index?
       index = yield Feel.urlData.get('tutorProfile','index') ? 77
@@ -144,7 +162,9 @@ class @main
       setInterval (=> Q.spawn => yield @goHistoryUrl()),2000
       return yield @goHistoryUrl()
     document.location.href = document.referrer
-  goHistoryUrl : => setTimeout (-> document.location.href = History.getState().url),100
+  goHistoryUrl : => Q.spawn =>
+    yield Q.delay 100
+    document.location.href = History.getState().url
 
   onShowDetail : (e) =>
     btn = $(e.currentTarget)
@@ -177,13 +197,13 @@ class @main
     @tutorChoose state==true if choose
   tutorChoose : (active)=>
     if active
-      @found.tutor_trigger.addClass('waves-light orange-btn selected white-text').removeClass('btn-trigger waves-grey')
-      @found.tutor_trigger.find('.tutor_button_text').html('Убрать')
-      @found.tutor_trigger.find('.material-icons').html('remove')
+      @found.tutor_trigger.addClass('waves-light blue-btn selected white-text').removeClass('btn-trigger waves-grey')
+      @found.tutor_trigger.find('.tutor_button_text').html('Отменить')
+      @found.tutor_trigger.find('.m_icon').removeClass('icon_add').addClass('icon_remove')
     else
-      @found.tutor_trigger.removeClass('waves-light orange-btn selected white-text').addClass('btn-trigger waves-grey')
+      @found.tutor_trigger.removeClass('waves-light blue-btn selected white-text').addClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
-      @found.tutor_trigger.find('.material-icons').html('add')
+      @found.tutor_trigger.find('.m_icon').removeClass('icon_remove').addClass('icon_add')
 
   loadImage : (i, elem) =>
     photo_parent = $(elem).addClass 'materialboxed'
@@ -203,14 +223,17 @@ class @main
       }).attr('data-src', null)
 
       photo_parent.one 'click', ->
-        photo_parent.append h_img
+        l_img.before h_img
         h_img.attr('src', src_h).load ->
           h_img.css('display', '').animate {opacity: 1}, ->
             l_img.remove()
-            h_img.css({position: 'static'})
+            h_img.css({position: ''})
 
 
   setAvatar : (avatar)=>
+    @found.view_photo.css {
+      'padding-top' : "#{avatar.ratio*100}%"
+    }
     @found.avatar.attr {
       "src" : avatar.lurl
       "data-src" : avatar.hurl
@@ -326,28 +349,37 @@ class @main
       if value.why then @found.why.show().find('.text').text(value.why) else @found.why.hide()
       if value.interests then @found.interests.show().find('.text').text(value.interests) else @found.interests.hide()
       @found.block_about.show()
+
+
+    @found.reviews.html('')
+    @found.documents.html('')
+
+    if value.reviews?.length
+      for r in @tree.value.reviews
+        @templ_review.use 'mark', r.mark
+        @templ_review.useh 'course', r.course
+        @templ_review.useh 'subject', r.subject
+        @templ_review.use 'name', r.name
+        @templ_review.use 'review', r.review
+        @templ_review.use 'date', r.date
+        @templ_review.add()
+      @templ_review.push @found.reviews
+    else
+      @found.reviews.html('<p>Отзывов пока нет.</p>')
+
+    if value.documents?.length
+      for d in @tree.value.documents
+        @found.documents.append("<div class='list'><div class='loaded'><img src='#{d.lurl}' data-src='#{d.hurl}'></div></div>")
+    else
+      @found.documents.html('<p>Нет загруженных фотографий.</p>')
+
+
     #@matchExists()
   matchExists : =>
     exist_rev = @tree.value.reviews?.length
     exist_doc = @tree.value.documents?.length
 
     if exist_rev or exist_doc
-
-      if exist_rev
-        for r in @tree.value.reviews
-          @templ_review.use 'mark', r.mark
-          @templ_review.useh 'course', r.course
-          @templ_review.useh 'subject', r.subject
-          @templ_review.use 'name', r.name
-          @templ_review.use 'review', r.review
-          @templ_review.use 'date', r.date
-          @templ_review.add()
-        @templ_review.push @found.reviews.html('')
-
-      if exist_doc
-        @found.documents.html('')
-        for d in @tree.value.documents
-          @found.documents.append("<div class='list'><div class='loaded'><img src='#{d.lurl}' data-src='#{d.hurl}'></div></div>")
 
       @found.review_mark.show(
         0, =>
@@ -391,6 +423,9 @@ class @main
 
     if r.status == 'success'
       Feel.sendActionOnce 'direct_bid'
+      url = _parent_url?.replace?(/\/?\?.*$/, '')
+      url = '/' if url is ''
+      Feel.sendActionOnce 'bid_action', null, {name: 'target', url}
     else
       return show_er && r
 

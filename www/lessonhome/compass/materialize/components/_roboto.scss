@@ -2,8 +2,8 @@
     font-family: "Roboto";
     src: local(Roboto Thin),
         url(F("/font/roboto/Roboto-Thin.woff2")) format("woff2"),
-        url(F("/font/Roboto-Thin.woff")) format("woff"),
-        url(F("/font/Roboto-Thin.ttf")) format("truetype");
+        url(F("/font/roboto/Roboto-Thin.woff")) format("woff"),
+        url(F("/font/roboto/Roboto-Thin.ttf")) format("truetype");
     font-weight: 200;
 }
 @font-face {

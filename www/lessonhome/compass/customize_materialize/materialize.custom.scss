@@ -1,12 +1,20 @@
 @charset "UTF-8";
 
-// Variables;
+//custom icons set
+@import "components/lessonhome_font";
+
+// Variables
 @import "components/variables.custom";
 
 // components
 @import "components/navbar.custom";
 
-
+//fonts
 @import "components/typography.custom";
 
+//custom material icons
+@import "components/material_icons.custom";
+
+//buttons
 @import "components/buttons.custom";
+@import "components/select.custom";

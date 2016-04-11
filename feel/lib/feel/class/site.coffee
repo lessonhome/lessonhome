@@ -9,8 +9,12 @@ _path   = require 'path'
 FileUpload = require './server/fileupload'
 Form = require './form'
 
+cpus = require('os').cpus().length
+ttt = 0
+
 class module.exports
   constructor : (@name)->
+    @version = 1
     @cacheRes     = {}
     @path         = {}
     @path.root    = "#{Feel.path.www}/#{@name}"
@@ -31,12 +35,18 @@ class module.exports
     @router       = new Router @
     @fileupload   = new FileUpload @
   init : => do Q.async =>
-    @jobs = yield Main.service 'jobs'
-    @db = yield Main.service('db')
-    @register = yield Main.service 'register'
-    @servicesIp = JSON.stringify yield (yield Main.service('services')).get()
+    @redis_cache = _Helper('redis/cache')
+    Q.spawn => @redis_cache.get()
     @form = new Form
-    @urldata = yield Main.service 'urldata'
+    [@redis,@jobs,@db,@register,@urldata,services] = yield Q.all [
+      _Helper('redis/main').get()
+      Main.service 'jobs'
+      Main.service('db')
+      Main.service 'register'
+      Main.service 'urldata'
+      Main.service 'services'
+    ]
+    @servicesIp = JSON.stringify yield (services).get()
     Feel.udata = @urldata
     @urldataFiles = yield @urldata.getFFiles()
     @urldataFilesStr = ""
@@ -44,14 +54,20 @@ class module.exports
       @urldataFilesStr += "<script>window._FEEL_that = $Feel.urlforms['#{fname}'] = {};</script>"
       @urldataFilesStr += "<script type='text/javascript' src='/urlform/#{file.hash}/#{fname}'></script>"
     @urldataFilesStr += "<script>$Feel.urldataJson = #{yield @urldata.getJsonString()};</script>"
-    yield @readConsts()
-    yield @jobs.listen 'getConsts',@jobGetConsts
-    yield @form.init()
-    yield @fileupload.init()
-    yield @configInit()
-    yield @loadModules()
-    yield @loadStates()
+    yield Q.all [
+      @readConsts()
+      @form.init()
+      @fileupload.init()
+      @configInit()
+    ]
+    yield Q.all [
+      @jobs.listen 'getConsts',@jobGetConsts
+      @loadModules()
+      @loadStates()
+    ]
     yield @router.init()
+    yield @jobs.listen 'getAllStates',@jobGetAllStates
+  jobGetAllStates : =>  @router.url.text
   jobGetConsts : =>
     return @const
   readConsts : => do Q.async =>
@@ -84,9 +100,45 @@ class module.exports
       ,Q()
     
   loadStates : => do Q.async =>
+    @state_cache_redis = do Q.async =>
+      ret = yield _invoke @redis,'get','state_cache'
+      ret = JSON.parse ret ? "{}"
+      ret ?= {}
+      return ret
     for key,val of @state
       delete @state[key]
-    yield @createStates @path.states,""
+    
+    readed = yield _readdirp
+      root:@path.states
+      fileFilter : "*.coffee"
+    @stateHashSum = ""
+    readed.files.sort (a,b)-> if a.path<b.path then 1 else -1
+    for o in readed.files
+      continue if o.name.match /.*\.[c|d]\.coffee$/
+      continue if o.name.match /^test/
+      @stateHashSum += o.stat.mtime
+      name = "#{o.path.replace(/\.coffee$/,'')}"
+      @state[name]  = new State @,name
+    @stateHashSum = _hash(@stateHashSum)+@version
+    @state_cache_redis = yield @state_cache_redis
+    if @state_cache_redis.hash == @stateHashSum
+      for key,val of @state_cache_redis.states
+        @state[key].src = val.src
+    else
+      @state_cache_redis.states = {}
+    for name,state of @state
+      state.init() unless state.inited
+      if !state.class?
+        throw new Error "can't find @class in state #{name}"
+      unless @state_cache_redis.hash == @stateHashSum
+        @state_cache_redis.states[name] = {src:state.src}
+    unless @state_cache_redis.hash == @stateHashSum
+      Q.spawn =>
+        @state_cache_redis.hash = @stateHashSum
+        yield _invoke @redis,'set','state_cache',JSON.stringify @state_cache_redis
+
+    #yield @createStates @path.states,""
+
     #yield state.init()        for sname,state of @nstate
     #yield state.tree()        for sname,state of @nstate
     #yield state.treeExtend()  for sname,state of @nstate
@@ -99,6 +151,11 @@ class module.exports
     #  console.log (new Date().getTime())-d
     #yield foo() for i in [0..100]
     #console.log JSON.stringify @nstate state.object.tree,2,2 for sname,state of @nstate
+  waitStateInit  : (name)=>
+    throw new Error 'unknown state '+name unless @state[name]?
+    return if @state[name].inited
+    throw new Error 'circular depend' if @state[name].initing
+    @state[name].init()
   createStates : (path,dir)=> do Q.async =>
     yield readdir path
     .then (files)=>
@@ -113,6 +170,10 @@ class module.exports
       , Q()
 
   createState : (name)=>
+    throw new Error 'unknown state '+name unless @state[name]?
+    return if @state[name].inited
+    throw new Error 'state not init yet '+name
+    return
     if name.match /^test/
       #  @nstate[name] = new NState @, name
       return
@@ -125,8 +186,46 @@ class module.exports
       return
     if !@state[name].inited
       throw new Error "create state '#{name}' circular depend"
-  loadModules : =>
-    @createModules @path.modules, ""
+  loadModules : => do Q.async =>
+    @modules = {}
+    @module_redis_cache = do Q.async =>
+      ret = yield _invoke @redis,'hgetall','module_cache'
+      ret ?= {}
+      for key,val of ret
+        ret[key] = JSON.parse val ? "{}"
+      return ret
+    
+    readed = yield _readdirp root:@path.modules
+    modules = {}
+    for o in readed.directories
+      modules[o.path] = {name:o.path}
+    readed.files.sort (a,b)-> if a.path > b.path then 1 else -1
+    for o in readed.files
+      continue if o.name.match /^\./
+      reg = o.name.match /^(.*)\.(\w+)$/
+      continue unless reg
+      switch reg[2]
+        when 'coffee','sass','jade','js','css'
+        else continue
+      a = modules[o.parentDir]
+      a.files ?= {}
+      a.files[o.name] = {
+        name : reg[1]
+        ext  : reg[2]
+        path : "#{@path.modules}/#{o.path}"
+      }
+      a.stat ?= ""
+      a.stat += o.stat.mtime
+    all = []
+    for name,m of modules
+      @modules[name] = new Module m,@
+      all.push @modules[name]
+    @module_redis_cache = yield @module_redis_cache
+    qs = for i in [0...(cpus*2)] then do Q.async =>
+      while mod = all.pop()
+        yield mod.init?()
+    yield Q.all qs
+    #yield @createModules @path.modules, ""
   createModules : (path,dir)=> do Q.async =>
     module        = {}
     module.files  = {}
@@ -249,6 +348,7 @@ class module.exports
         res.statusCode = 200
         res.setHeader 'Content-Length', resdata.length
         res.setHeader 'Content-Encoding', 'gzip'
+        res.setHeader 'Vary','Accept-Encoding'
         return res.end resdata
     return Feel.res404 req,res
   moduleJsUrl : (name)=>

@@ -17,6 +17,7 @@ class @main extends EE
     window.onstatechange = =>
       @savedScroll = $(window).scrollTop()
       Q.spawn => yield @onstatechange()
+    @inited = true
 
   onBarHide : =>
     @dom.css 'padding-bottom', ''
@@ -29,9 +30,9 @@ class @main extends EE
   checkStateChange : (first=false)=>
     @oldurl = @nowurl
     @olddata = @nowdata
-    url = History.getState().url
-    if url.match /\/tutor_profile/
-      @nowurl = 'tutor_profile'
+    url = yield Feel.urlData.getUrl()
+    if url.match(/\/tutor(\/\d+|\?|[^\/]|$)/)
+      @nowurl = 'tutor'
       unless first
         yield Feel.urlData.initFromUrl()
       @nowdata = yield Feel.urlData.get 'tutorProfile','index'
@@ -46,16 +47,17 @@ class @main extends EE
     switch @nowurl
       when 'other'
         return false
-      when 'tutor_profile'
+      when 'tutor'
         return true if @nowdata != @olddata
     return false
   show: =>
     @req_more_on = 0
+
   goBack: =>
     document.location.href = window.history.back()
   onstatechange : =>
     return unless yield @checkStateChange()
-    if (@tree.profile?.single_profile == 'tutor_profile') && (@nowurl != 'tutor_profile')
+    if (@tree.profile?.single_profile == 'tutor_profile') && (@nowurl != 'tutor')
       #setTimeout @goHitoryUrl,100
       @goHistoryUrl()
       return
@@ -64,7 +66,8 @@ class @main extends EE
     yield @showPage()
   preShow : =>
     switch @nowurl
-      when 'tutor_profile'
+      when 'tutor'
+        #@tree.profile.class.dom.find('.avatar_loaded').css 'opacity',0
         @tree.profile.class.dom.find('img.avatar').attr 'src',''
         @saveTutor = @tree.profile.class.$clone()
         @saveTutor.dom.find('img.avatar').attr 'src',''
@@ -74,8 +77,8 @@ class @main extends EE
         yield @saveTutor.open()
   hidePage : =>
     switch @oldurl
-      when 'tutor_profile'
-        break if @nowurl == 'tutor_profile'
+      when 'tutor'
+        break if @nowurl == 'tutor'
         @found?.profile?.addClass? 'hidden'
         yield Feel.urlData.set 'tutorProfile',{index:0}
       when 'other'
@@ -86,7 +89,7 @@ class @main extends EE
         @found.content?.addClass? 'hidden'
   showPage : =>
     switch @nowurl
-      when 'tutor_profile'
+      when 'tutor'
         @found.profile?.removeClass? 'hidden'
         $(window).scrollTop 0
       when 'other'
@@ -96,16 +99,14 @@ class @main extends EE
         $(window).scrollTop(@saveScroll)
         if @tree.content?.class?.onscroll?
           $(window).on 'scroll.tutors',@tree.content?.class?.onscroll
-  goHistoryUrl : =>
-    setTimeout ->
-      document.location.href = History.getState().url
-    ,0
+  goHistoryUrl : => Q.spawn =>
+    document.location.href = History.getState().url
   showTutor : (index,href='')=>
     url1 = History.getState().url || ""
     url2 = href || ""
-    #url1 = (url1.match(/(tutor_profile\?.*)$/)?[0] || '')
-    #url2 = (url2.match(/(tutor_profile\?.*)$/)?[0] || '')
-    if url1.match(/tutor_profile/) && url2.match(/tutor_profile/)
+    #url1 = (url1.match(/(tutor\?.*)$/)?[0] || '')
+    #url2 = (url2.match(/(tutor\?.*)$/)?[0] || '')
+    if url1.match(/\/tutor(\/\d+|\?|[^\/]|$)/) && url2.match(/\/tutor(\/\d+|\?|[^\/]|$)/)
       index1 = _setKey (yield Feel.udata.u2d url1),'tutorProfile.index'
       index2 = _setKey (yield Feel.udata.u2d url2),'tutorProfile.index'
       return if index1 == index2

@@ -1,0 +1,14 @@
+.col.s3.m3.l3
+  a(href!=value.link, title!= value.name).display_block.tm_photo
+    img(src!= value.photos, alt!=value.name).responsive-img.js-tm_photo_img
+  a(href!=value.link, title!= value.name).display_block.js-tm_name!=value.name
+  .tm-price
+    i.m_icon.icon_account_balance.middle-span.tm-color-icon
+    .middle-span
+      span.tm-price_left от
+      span.js-tm_price_middle!=value.left_price
+      span.tm-price_right р./час
+  .center-align
+    a(href!=value.link, title!=value.name).tm_btn
+      span.middle-span Подробнее
+      i.m_icon.icon_chevron_right.middle-span

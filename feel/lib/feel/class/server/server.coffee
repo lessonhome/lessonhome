@@ -6,12 +6,11 @@ https = require 'https'
 _crypto = require 'crypto'
 _postdata = Q.denode require 'post-data'
 os = require "os"
-
+hostname = os.hostname()
 
 class Server
   constructor : ->
     @_google = {}
-    hostname = os.hostname()
     console.log 'hostname'.grey,hostname.red
     @port = 8081
     @ip = '127.0.0.1'
@@ -97,6 +96,10 @@ class Server
       res.statusCode = 404
       res.end JSON.strinigfy e
   handlerHttpRedirect : (req,res)=>
+    unless req.url.match /^\/robots\.txt/ then switch req?.headers?.host
+      when 'prep.su','localhost.ru','pi0h.org'
+        res.writeHead 301, 'Location': 'https://lessonhome.ru'+req.url
+        return res.end()
     return @verify req,res if req.url.match /well-known/
     res.statusCode = 301
     host = req.headers.host
@@ -129,7 +132,24 @@ class Server
     obj.url = obj.url.replace /\?.*$/g,""
     obj.url += urldata
     return obj.url
+    res.end()
   handler : (req,res)=>
+    if req.url == '/service-worker.js'
+      req.url = "/js/666/service_worker/worker"
+    unless req.url.match /^\/robots\.txt/ then switch req?.headers?.host
+      when 'prep.su','localhost.ru','pi0h.org'
+        res.writeHead 301, 'Location': 'https://lessonhome.ru'+req.url
+        return res.end()
+    if (hostname!='pi0h.org') && req.url.match /^\/robots\.txt/
+      req.url = '/robots_dev.txt'
+    if (req?.headers?.host!='lessonhome.ru') && req.url.match /^\/robots\.txt/
+      req.url = '/robots_dev.txt'
+    if req.url.match /^\/tutors_search/
+      res.writeHead 301, 'Location': req.url.replace '/tutors_search','/search'
+      return res.end()
+    if req.url.match /^\/tutor_profile/
+      res.writeHead 301, 'Location': req.url.replace '/tutor_profile','/tutor'
+      return res.end()
     return @verify req,res if req.url.match /well-known/
     if req.method == 'POST'
       unless req.url.match /upload/
@@ -145,6 +165,9 @@ class Server
       #for d in data
       #  kv = d.split '='
       #  req.data[kv[0]] = kv[1]
+    else
+      req.originalUrl = req.url
+
 
     if req.url == '/404'
       _end = res.end

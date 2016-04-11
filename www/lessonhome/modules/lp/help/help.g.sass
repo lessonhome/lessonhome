@@ -1,0 +1,84 @@
+@import variables
+
+.help
+  color: #2d2d2d
+  min-height: 620px
+  padding-bottom: 5rem
+  h1
+    font-size: 1.6rem
+    margin: 2.1rem 0
+    color: #093c44
+  .select
+    background-color: #f0f0f0
+    .row
+      margin-bottom: 0
+  .tabs
+    background-color: transparent
+    font-size: 1rem
+    .tab
+      text-transform: none
+      letter-spacing: normal
+      z-index: 1
+      position: relative
+      a
+        color: #2d2d2d
+        &:hover
+          color: #34afbe   
+        &.active
+          color: #fff
+    .indicator
+      height: 48px
+      background-color: #34afbe
+
+  .content_text
+    padding-top: 2.5rem    
+  h2
+    font-size: 1.6rem
+    margin: 0 0 0.5rem
+  p + h2
+    margin-top: 3rem  
+  p
+    margin: 0
+  ul.menu
+    font-size: 1.2rem
+    line-height: 120%
+    margin: 0
+    li
+      margin-bottom: 2rem
+      @media #{$small-and-down}
+        display: inline-block
+        margin-right: 1rem
+        padding-right: 1rem
+        border-right: 1px solid #393939
+        &:last-child
+          margin-right: 0
+          padding-right: 0
+          border-right: none 
+      a
+        color: #393939
+        cursor: pointer
+        &:hover
+          color: #34afbe
+        &.active
+          color: #34afbe 
+  ul.listInText
+    li
+      list-style-type: disc
+      margin-left: 1.2rem
+.question_body
+  display: none
+  &.active
+    display: block
+
+
+
+
+
+
+
+
+
+
+
+
+        

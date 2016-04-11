@@ -1,0 +1,35 @@
+.select-dropdown {
+  overflow-x: hidden;
+  //min-width: 100%;
+  //bottom: -10px;
+  //left: -10px;
+  //padding-right: 16px;
+  li.result {
+    display: none;
+  }
+
+  &.filter-result{
+    li{
+      display: none !important;
+
+      &.result{
+        display: block !important;
+      }
+    }
+  }
+  li {
+    &.hidden_label:not(.active) {
+      display: none;
+    }
+    box-sizing: content-box;
+    //width: auto;
+    //margin-right: 16px;
+    span {
+      box-sizing: border-box;
+      //font-size: 1em !important;
+      //white-space: nowrap;
+      //overflow: hidden;
+      //text-overflow: ellipsis;
+    }
+  }
+}

@@ -28,21 +28,30 @@ _phones = [
   '79267952303'
   '79651818071'
 ]
+checkHistAdd = (m)=> do Q.async =>
+  m = m.replace(/повторная заявка/gmi,'').replace(/заявка/gmi,'')
+  redis = yield _Helper('redis/main').get()
+  ret = yield _invoke redis,'sadd','sms-history',m
+  return ret>0
+
 
 @sendSms = (o,isadmin)->
-  return if isadmin || !_production
+  #return if isadmin || !_production
 
   text = "Обратный звонок\n"
   text += "#{o.name}\n" if o.name
   text += "#{o.phone}\n" if o.phone
   text += "#{o.comment}\n" if o.comment
   text += "#{o.type}\n" if o.type
-
+  #return unless yield checkHistAdd text
   @jobs = yield Main.service 'jobs'
   messages = []
   for phone in _phones
     messages.push
       phone:phone
       text :text
-  yield @jobs.solve 'sendSms',messages
+  yield @jobs.solve 'telegramSendAll',text
+  #yield @jobs.solve 'sendSms',messages
+
+
 

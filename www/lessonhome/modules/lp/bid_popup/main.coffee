@@ -9,7 +9,7 @@ class Radio
       if val?
 
         if this.value == val
-          this.cheched = true
+          this.checked = true
 
       else if this.checked
         results = this.value
@@ -21,7 +21,7 @@ class Radio
 class @main extends EE
   contructor : ->
     $W @
-
+    @accessory = null
   Dom : =>
     @html = $('html')
     @thisScroll = @getScrollWidth()
@@ -44,52 +44,53 @@ class @main extends EE
     @forms = {
       name: @found.name
       phone: @found.phone
-      prices: new $._material_select @found.price
-      subjects: new $._material_select @found.subjects
-      metro: new $._material_select @found.metro
-      status: new $._material_select @found.status
+      prices: @found.price
+      subjects: @tree.select_sub.class
+      metro: @tree.select_metr.class
+      status: @found.status
       gender: new Radio @found.sex
       comment: @found.comment
     }
 
-    @metroColor @forms.metro
+#    @found.phone.mask '9 (999) 999-99-99'
+    @found.status.material_select()
+    @found.price.material_select()
 
 
-    getListener = (name, el) ->
-      return  (e) ->
-        o = {}
-        o[name] = el.val()
-        Q.spawn =>
-          yield Feel.urlData.set 'pupil', o
-          yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
+    @forms.name.on? 'blur', @_getListenerPupil 'name'
+    @forms.phone.on? 'blur', @_getListenerPupil 'phone'
+    @forms.subjects.select.on? 'change', @_getListener 'subjects', @forms.subjects
 
-    for k in ['name', 'subjects']
-      @forms[k].on? 'change', getListener k, @forms[k]
+  _ejectUnique : (arr = []) =>
+    result = []
+    exist = {}
+    (result.push(a); exist[a] = true) for a in arr when !exist[a]?
+    return result
 
-    l_phone = getListener 'phone', @forms['phone']
-    @forms['phone'].on? 'change', =>
-      l_phone()
-      Q.spawn => @sendForm(true)
+  _getListener : (name, el) =>
+    return => Q.spawn =>
+#      yield Feel.urlData.set 'tutorsFilter', {"#{name}":el?.val?()}
+      yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
 
-  show: =>
 
-    @dom.find('.slide_collapse').on 'click' ,'.optgroup', (e)=>
-      thisGroup = $(e.currentTarget)
-      slider = thisGroup.closest('ul')
-      thisGroupNumber = thisGroup.attr('data-group')
-      thisOpen = thisGroup.attr('data-open')
-      if thisOpen == '0'
-        slider.find('li[class*="subgroup"]').slideUp(400)
-        slider.find('.optgroup').attr('data-open', 0)
-        slider.find('.subgroup_' + thisGroupNumber).slideDown(400)
-        thisGroup.attr('data-open', 1)
-      else
-        slider.find('.subgroup_' + thisGroupNumber).slideUp(400)
-        thisGroup.attr('data-open', 0)
 
-  jobOpenBidPopup : (bidType)=>
+  _getListenerPupil : (name) =>
+    return  (e) =>
+      Q.spawn =>
+        yield Feel.urlData.set 'pupil', {"#{name}": $(e.currentTarget).val()}
+        yield Feel.sendActionOnce('interacting_with_form', 1000*60*10)
+        @sendForm(true) if name is 'phone'
+
+
+  jobOpenBidPopup : (bidType, accessory)=>
+    @makeBid()
+    
     if (bidType == 'fullBid')
       @makeFullBid()
+    else if (bidType == 'callback')
+      @makeCallBack()
+
+    @accessory = accessory if accessory?
 
     @found.bid_popup.openModal(
       {
@@ -119,6 +120,12 @@ class @main extends EE
     @found.req_success.hide()
     @found.req_body.show()
 
+  makeCallBack: =>
+    @found.bid_popup.addClass('callback')
+
+  makeBid: =>
+    @found.bid_popup.removeClass('callback')
+
   getScrollWidth : =>
     div = $('<div>').css {
       position : 'absolute'
@@ -140,7 +147,7 @@ class @main extends EE
     return exist
 
   sendForm: (quiet = false) =>
-    data = @getValue()
+    data = @getValue() # yield Feel.urlData.get 'pupil'
     data.linked = yield Feel.urlData.get 'mainFilter','linked'
 
     errs = @js.check data
@@ -149,6 +156,17 @@ class @main extends EE
       {status, errs, err} = yield @$send('./save', data, quiet && 'quiet')
       if status == 'success'
         Feel.sendActionOnce 'bid_popup'
+        url = yield Feel.urlData.getUrl true
+        url = url?.replace?(/\/?\?.*$/, '')
+        url = '/' if url is ''
+
+        switch @accessory
+          when 'menu', 'empty', 'fast', 'motivation', 'add_tutors'
+            name = @accessory
+          else
+            name = 'popup'
+
+        Feel.sendActionOnce 'bid_action', null, {name, url}
         return []
       errs?=[]
       errs.push err if err
@@ -158,15 +176,17 @@ class @main extends EE
     return errs
 
   setValue: (v) =>
-    @forms.phone.val(v.phone).focusin().focusout()
-    @forms.name.val(v.name).focusin().focusout()
-    @forms.subjects.val v.subjects
+    @forms.phone.val(v.phone)
+    @forms.name.val(v.name)
+    @forms.subjects.val(v.subjects)
+    @forms.metro.val(v.metro)
 
   getValue: =>
     r = {}
-    for key, el of @forms when @forms.hasOwnProperty(key) then r[key] = el.val()
+    for own key, el of @forms then r[key] = el.val()
     for k in ['metro', 'status']
       r[k] = @getExist r[k]
+    r['subjects'] = @_ejectUnique r['subjects']
     return r
 
   showError: (errs)  =>
@@ -176,20 +196,6 @@ class @main extends EE
           @errInput @forms.phone, 'Введите корректный телефон'
         when 'empty_phone'
           @errInput @forms.phone, 'Введите телефон'
-
-
-  metroColor : (_material_select) =>
-    return unless @tree.metro_lines?
-    _material_select.ul.find('li.optgroup').each (i, e) =>
-      li = $(e)
-      name = li.next().attr('data-value')
-      return true unless name
-      name = name.split(':')
-      return true if name.length < 2
-      return true unless @tree.metro_lines[name[0]]?
-      elem = $('<i class="material-icons middle-icon">fiber_manual_record</i>')
-      elem.css {color: @tree.metro_lines[name[0]].color}
-      li.find('span').prepend(elem)
 
   errInput: (input, error) =>
 

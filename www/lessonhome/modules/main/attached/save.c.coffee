@@ -11,9 +11,16 @@ phones = [
   '79263672997'
   '79651818071'
 ]
+checkHistAdd = (m)=> do Q.async =>
+  m = m.replace(/повторная заявка/gmi,'').replace(/заявка/gmi,'')
+  redis = yield _Helper('redis/main').get()
+  ret = yield _invoke redis,'sadd','sms-history',m
+  return ret>0
+
 
 other = ($,data,second)-> do Q.async =>
   sms = yield Main.service 'sms'
+  @jobs ?= yield _Helper 'jobs/main'
   text = ''
   if data.id > 0
     text += 'заявка(сообщение преподу)\n'
@@ -30,20 +37,22 @@ other = ($,data,second)-> do Q.async =>
   text += '\n' unless !text || (text.substr(-1)=='\n')
   if data.linked?
     for key,val of data.linked
-      text += 'https://lessonhome.ru/tutor_profile?x='+key+"\n"
+      text += 'https://lessonhome.ru/tutor?x='+key+"\n"
   if data.id
-    text += 'to: https://lessonhome.ru/tutor_profile?x='+data.id+"\n"
+    text += 'to: https://lessonhome.ru/tutor?x='+data.id+"\n"
   text += data.comments || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
   text += data.comment || ''
   text += '\n' unless !text || (text.substr(-1)=='\n')
-  return console.log text if $.user.admin || !_production
+  #return console.log text if $.user.admin || !_production
+  #return unless yield checkHistAdd text
   messages = []
   for p in phones
     messages.push
       phone :p
       text : text
-  console.log yield sms.send messages
+  yield @jobs.solve 'telegramSendAll',text
+  #console.log yield sms.send messages
  
 
 @handler = ($,data)=>

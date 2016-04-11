@@ -8,6 +8,7 @@ status =
 
 
 class @main
+  DATA_FILTER = {}
   constructor : -> $W @
   Dom: =>
     @chooseTutor      = @found.tutor_trigger
@@ -18,14 +19,19 @@ class @main
     @parseAbout()
     @prepareLink @dom.find('a')
     yield @setLinked()
+    @found.metro_line.on 'mouseenter', '.stantion.dropdown-button', (e)-> $(e.currentTarget).siblings('ul.dropdown-content').scrollTop(0)
 
   prepareLink : (a)=>
-    index = @tree.value.index
-    a.filter('a').off('click.prep').on 'click.prep', (e)->
-      return unless e.button == 0
-      e.preventDefault()
-      Feel.main.showTutor index,$(this).attr 'href'
-      return false
+    index = @tree.value?.index
+
+    if index
+      a.filter('a').off('click.prep').on 'click.prep', (e)=>
+        return unless Feel.main.inited
+        return unless e.button == 0
+        e.preventDefault()
+        href = $(e.currentTarget).attr 'href'
+        Q.spawn => Feel.main.showTutor index, href
+        return false
 
   hide: =>
     
@@ -46,28 +52,43 @@ class @main
     @tutorChoose state==true if choose
   tutorChoose : (active)=>
     if active
-      @found.tutor_trigger.addClass('waves-light orange-btn selected white-text').removeClass('btn-trigger waves-grey')
+      @found.tutor_trigger.addClass('waves-light blue-btn selected white-text').removeClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Убрать')
-      @found.tutor_trigger.find('.material-icons').html('remove')
+      @found.tutor_trigger.find('.m_icon').removeClass('icon_add').addClass('icon_remove')
     else
-      @found.tutor_trigger.removeClass('waves-light orange-btn selected white-text').addClass('btn-trigger waves-grey')
+      @found.tutor_trigger.removeClass('waves-light blue-btn selected white-text').addClass('btn-trigger waves-grey')
       @found.tutor_trigger.find('.tutor_button_text').html('Выбрать')
-      @found.tutor_trigger.find('.material-icons').html('add')
+      @found.tutor_trigger.find('.m_icon').removeClass('icon_remove').addClass('icon_add')
+  setFilter : (filter = {}) ->
+    DATA_FILTER = {}
+    if filter.metro?.length
+      DATA_FILTER['metro'] = obj = {}
+      for e in filter.metro
+        e = e.split(':')[1]
+        obj[e] = true
+
+  getFilter : -> return DATA_FILTER
   setValue : (value)=>
     #Получение и обновление value
     value ?= @tree.value
     @tree.value = {}
     @tree.value[key] = val for key,val of value
     value = @tree.value
+    filter = @getFilter()
 
     #Имя и отчество
     @found.name.text value.name
+    #Аватарка и раздача ссылок
+    @found.image.attr('src', value.photos)
+    .attr('alt',value.name).attr('title',value.name)
+    @dom.find('a').attr('href',value.link).attr('title',value.name)
 
     #Отзывы
     reviews = value.reviews
     if reviews != '0 отзывов'
-      @found.reviews_text.html '<a href="#"><span>' + reviews  + '</span><i class="material-icons">question_answer</i></a>'
-    
+      @prepareLink @found.review_a.show().attr('href', value.link_comment).find('span').text(reviews)
+    else
+      @found.review_a.hide()
     #Список предметов
     
     main_subject = main_subject || ""
@@ -77,7 +98,7 @@ class @main
     si = 0
     
     @found.subject.text ""
-    @found.subject_block = $ '<span class="middle-span subject-text"><i class="material-icons">import_contacts</i></span>'
+    @found.subject_block = $ '<span class="middle-span subject-text"><i class="m_icon icon_import_contacts"></i></span>'
     @found.subject_list = $ '<span class="middle-span card-info-color"></span>'
     @found.subject.append @found.subject_block
     @found.subject_block.append @found.subject_list
@@ -93,49 +114,63 @@ class @main
     #@found.subject.text value.subject
 
     #Опыт и статус преподавателя
-    @found.experience.html '<i class="material-icons middle-icon">school</i><span class="middle-span">' +  value.experience + '</span>'
+    @found.experience.html '<i class="m_icon icon_school middle-icon"></i><span class="middle-span">' +  value.experience + '</span>'
 
     @parseAbout true
 
     #Отображение города
-    @found.location.html '<i class="material-icons">location_on</i><span class="middle-span card-info-color">' +  value.location + '</span>'
+    @found.location.html '<i class="m_icon icon_location_on"></i><span class="middle-span card-info-color">' +  value.location + '</span>'
 
     #Отображение цены
     @found.price?.text? value.left_price
 
-    #Аватарка и раздача ссылок
-    @found.image.attr('src', value.photos)
-      .attr('alt',value.name).attr('title',value.name)
-    @dom.find('a').attr('href',value.link).attr('title',value.name).attr('alt',value.name)
-
     #Метро
     @found.metro_line.html ''
 
-    metro_obj = value.metro_tutors
-    metroL = Object.keys(metro_obj).length
-    ti = 0
-    metroID = 'd' + value.index
-    
-    if(metroL == 1)
-      for line of metro_obj
-        @found.metro_line.append '<span class="stantion"><i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span></span>'
-    else if(metroL == 0)
-      street_loc = value.street_loc || value.area_loc || ""
-      if(street_loc != "")
-        @found.metro_line.append '<span class="middle-span card-info-color">' + street_loc  + '</span>'
-    else
-      for line of metro_obj
-        dd_button = $ '<span class="dropdown-button stantion" data-hover="true" data-alignment="right" data-beloworigin="true" data-constrainwidth="false" data-activates="' + metroID  + '"></span>'
-        dd_button.append '<i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span class="card-info-color">' + metro_obj[line].metro  + '</span><div class="dotted_more-button right-align"></div>'
-        @found.metro_line.append dd_button
-        break
-      @found.metro_ul = $ '<ul id="' + metroID  + '" class="dropdown-content"></ul>'
-      @found.metro_line.append @found.metro_ul
-      for line of metro_obj
-        if(ti++==0)
-          continue
-        @found.metro_ul.append '<li><span class="stantion"><i class="material-icons middle-icon" style="color:'+metro_obj[line].color+'">fiber_manual_record</i><span>' + metro_obj[line].metro + '</span></span></li>'
-      dd_button.dropdown()
+    place = value.metro_tutors
+    ###
+    if filter.metro and place.type is 'metro' and place.data.length > 1
+      _pl = []
+      for p in place.data
+        if filter.metro[p.key]?
+          _pl.unshift(p)
+        else
+          _pl.push(p)
+
+      place.data = _pl
+    ###
+    switch place.type
+      when 'all', 'street', 'remote', 'area'
+        @found.metro_line.append "<span class='middle-span card-info-color'>#{place.data}</span>"
+      when 'metro'
+        val = place.data[0]
+        span = "
+            <span class='stantion dropdown-button' data-hover='true' data-constrainwidth='false' data-minwidth='true' data-activates='d#{value.index}'>"
+        if val.color?
+          span += "<i class='m_icon icon_fiber_manual_record middle-icon' style='color:#{val.color}'></i>"
+        span +="<span class='card-info-color'>#{val.metro}</span>
+          </span>"
+        span = $ span
+
+        @found.metro_line.append span
+
+        if place.data.length > 1
+          span.append("<div class='dotted_more-button right-align'></div>")
+          ul = $("<ul class='dropdown-content' id='d#{value.index}'>")
+          for val, i in place.data
+            str = "
+                <li>
+                  <span class='stantion'>"
+            if val.color
+              str += "<i class='m_icon icon_fiber_manual_record middle-icon' style='color:#{val.color}'></i>"
+            str += "<span>#{val.metro}</span>
+                  </span>
+                </li>
+              "
+            ul.append $ str
+          @found.metro_line.append ul
+          span.dropdown()
+
 
     yield @setLinked()
 
@@ -145,7 +180,7 @@ class @main
       maxl = 500
     else
       maxl = 145
-    tutor_text = @tree.value.about
+    tutor_text = @tree.value?.about ? ''
     if (tutor_text.length > maxl)
       tutor_text = tutor_text.substr 0,maxl-11
       tutor_text = tutor_text.replace /\s+[^\s]*$/gim,''
