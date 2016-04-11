@@ -4,11 +4,16 @@ footer
   background: #464646 !important
   position: relative
   min-height: 150px
-  padding: 2rem 0 0
+  padding: 2rem 0 0.7rem 
   a
     color: #ffffff
     text-decoration: none
     transition: all 0.2s ease-out
+    font-family: "futuris-cyrilic"
+    font-size: 1.1rem
+    &.active
+      font-family: 'DIN'
+      font-size: 1.1rem
     &:hover
       color: #c6c6c6
   h4
@@ -20,7 +25,9 @@ footer
     &.footer-links-list
       li
         display: inline-block
-        margin-right: 3.4rem
+        margin-right: 1.5rem
+        i
+          font-size: 1.5rem
         &:last-of-type
           margin-right: 0
           @media #{$medium-and-down}
@@ -36,6 +43,8 @@ footer
       background-color: #464646
 .social-links
   white-space: nowrap
+.contacts-footer
+  font-family: "futuris-cyrilic"
 .social
   display: inline-block
   vertical-align: middle
@@ -43,6 +52,8 @@ footer
   background: url(F('/lp/social_sprite.png'))
   &:first-of-type
     margin-left: 0
+  @media #{$medium-and-down}
+    margin-left: 2.5rem
 .vk
   width: 12px
   height: 15px
@@ -59,6 +70,10 @@ footer
   width: 21px
   height: 16px
   background-position: -25px 0
+.ok
+  width: 12px
+  height: 19px
+  background-position: -121px 0  
 
 .footer-text
   p
@@ -70,13 +85,14 @@ footer
   &.no-bottom-margin
     margin-bottom: 0 !important
 .request-call-background
-  background: #fd7c48 !important
+  background: #147585 !important
   &.modal-header
     .row
       padding-top: 0.8rem
       margin-bottom: 0    
 .request-call-modal
   width: 35%
+  max-height: 90%
   .input-field
     .prefix
       top: 10px
@@ -84,7 +100,13 @@ footer
     width: 70%
   @media #{$small-and-down}
     width: 95%
-    max-height: 90%
+    
 
 .orange-d-text
   color: #fd7c48
+
+.phone-phone
+  font-size: 1.2rem
+  margin-bottom: 1.5rem
+.soc-link
+  margin: 2rem 0

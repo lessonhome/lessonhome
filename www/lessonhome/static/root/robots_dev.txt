@@ -1,0 +1,4 @@
+User-agent: *
+Host: https://lessonhome.ru
+Disallow: /
+Sitemap : https://lessonhome.ru/sitemap.xml

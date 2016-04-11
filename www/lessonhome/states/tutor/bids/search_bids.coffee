@@ -1,5 +1,5 @@
 class @main extends @template '../../tutor'
-  route : '/tutor/search_bids'
+  route : '/tutor/old_search_bids'
   model   : 'tutor/bids/search_bids'
   title : "поиск заявок"
   tags   : -> 'tutor:search_bids'

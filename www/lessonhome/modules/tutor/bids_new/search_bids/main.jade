@@ -1,0 +1,31 @@
+//
+   Created by lh on 08.02.16.
+
+table.table_bids
+   thead
+      tr
+         th Дата
+         th Предмет
+         th Имя
+         th
+   tbody.js-bids
+      mixin bid(bid)
+         -var date = new Date(bid.time);
+         -var subjects = bid.subjects ? bid.subjects : bid.subject ?  {'0' : bid.subject} : {};
+         tr.bid
+            td
+               if !isNaN(date)
+                  p.local_date!=date.toLocaleDateString()
+                  i.local_time!=date.toLocaleTimeString()
+               else
+                  !='-'
+            td
+               each s, i in subjects
+                  !=(i !== '0' ? ', ' : '') + s
+            td!=bid.name
+            td
+               a(href=bid.link) Детализация
+
+
+      for b in value
+         +bid(b)

@@ -1,13 +1,19 @@
+.btn-large, .btn, .btn-flat {
+  &:hover {
+    color: #fff;
+  }
+}
 //button trigger
-
 .tutor-action {
   .btn-flat {
     border: 1px solid transparent;
-    width: 165px;
+    @media #{$medium-and-up} {
+      width: 165px;
+    }
     &.btn-trigger {
-      color: #fd7c48 !important;
+      color: #179cab !important;
       background-color: #ffffff !important;
-      border: 1px solid #fd7c48 !important;
+      border: 1px solid #179cab !important;
     }
   }
   &.profile-button {

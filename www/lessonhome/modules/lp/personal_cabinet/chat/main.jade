@@ -1,0 +1,64 @@
+.operator
+  img(src=value.moderator.photo)
+  .name_and_status
+    .name!=value.moderator.name
+    .status оператор
+.chat.js-chat_box
+  .m-message.system
+    .meta
+      span.date 25.03.2016 14:30
+    .text Ваша заявка принята, ожидайте звонка оператора
+  .m-message.system
+    .meta
+      span.date 25.03.2016 14:30
+    .text Вас обслуживает оператор Мария
+  .m-message
+    .meta
+      span.name Мария
+      span.date 25.03.2016 14:31
+    .text Здравтвуйте Артем. Если у Вас есть вопросы, я с радостью на них отвечу.
+  .m-message.reply
+    .meta
+      span.name Артем
+      span.date 25.03.2016 14:34
+    .text Здравтвуйте, подскажите, как долго будет подбиратся реметитор?
+  .m-message
+    .meta
+      span.name Мария
+      span.date 25.03.2016 14:36
+    .text Репетитор будет подобран Вам в течении часа. Спасибо за Вашу заявку.
+  .m-message.system
+    .meta
+      span.date 25.03.2016 14:40
+    .text Осуществяется поиск репетиторов
+  .m-message.system
+    .meta
+      span.date 25.03.2016 14:42
+    .text В писок предложенных репетиторов добавлен -- Михаил Анатольевич
+  .m-message
+    .meta
+      span.name Мария
+      span.date 25.03.2016 14:31
+    .text Артем, обратите внимание на Михаила, Вам подходит этот репетитор или поискать нового?
+  .m-message
+    .meta
+      span.name Артем
+      span.date 25.03.2016 14:34
+    .text Нет, Михаил мне не подходит, слишко далко ездить. Если можно, то поближе пожалуйста
+  each msg in value.chat.messages
+    .m-message(class=msg.type)
+      .meta
+        if msg.from && msg.from.name
+          span.name!=msg.from.name
+        span.date!=msg.timestr
+      .text!=msg.text
+
+.message-input
+  .row
+    .input-field.col.s12
+      .m_icon.icon_mode_edit.prefix
+      textarea(id='chat_input').materialize-textarea.js-message_textarea
+      label(for='chat_input') Ваше сообщение
+    .col.s12.right-align
+      a.btn.yellow-btn.waves-effect.waves-light.js-message_send Отправить
+        i.m_icon.icon_send.right

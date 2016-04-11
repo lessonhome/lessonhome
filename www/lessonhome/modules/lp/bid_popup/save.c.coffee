@@ -1,0 +1,13 @@
+check = require './check'
+@handler = ($, data) =>
+  try
+    data = check.takeData(data)
+    errs = check.check data
+    console.log data, errs
+    return {errs, status: 'failed'} if errs.length
+    jobs = yield Main.service 'jobs'
+    data['subject'] = data.subjects[0] if data.subjects?.length
+    return yield jobs.solve 'saveBid', $.user, data
+  catch errs
+    console.error Exception errs
+    return {status: 'failed', err: 'internal_error'}

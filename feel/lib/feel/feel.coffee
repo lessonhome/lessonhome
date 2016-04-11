@@ -26,7 +26,19 @@ curl = (url)->
   req.on 'finish', =>
     def.resolve()
   return def.promise
-    
+
+
+_ycom = (file="",type='js',args...)-> do Q.async ->
+  file = file.toString()
+  return "" unless file
+  hash = "#{process.cwd()}/.cache/#{_randomHash()}."+type
+  yield _writeFile hash,file
+  err = yield _exec 'java','-jar','feel/yui.jar',hash,'-o',hash,'--type',type,args...
+  ret = yield _readFile hash
+  yield _rmrf hash
+  throw new Error err if err
+  ret = ret.toString()
+  return ret
 
 
 
@@ -40,33 +52,26 @@ class module.exports
     @path =
       www   : "www"
       cache : ".cache"
-  init : =>
-    Q()
-    .then => @version()
-    .then =>
-      return if @version == @oversion
-      _rmrf('.cache').then -> _rmrf('feel/.sass-cache')
-    .then => mkdirp '.cache'
-    .then =>
-      _writeFile '.cache/version',@sVersion
-    .then =>
-      do Q.async =>
-        @jobs = yield Main.service 'jobs'
-        @redis = yield Main.service 'redis'
-        @redis = yield @redis.get()
-        #yield _invoke @redis,'flushall'
-        yield mkdirp 'log'
-    .then @checkCache
-    .then @compass
-    .then LoadSites
-    .then @watch
-    .then @static.init
-    .then @loadClient
-    .then @createServer
-    #.then @checkPages
-  createServer : =>
+  init : => do Q.async =>
+    [@redis,@jobs] = yield Q.all [
+      _Helper('redis/main').get()
+      _Helper('jobs/main')
+    ]
+    [@version,temp] = yield Q.all [
+      _invoke @redis, 'get','feel-version-now'
+      @compass()
+    ]
+    #yield @checkCache()
+    yield @loadClient()
+    yield LoadSites()
+    yield Q.all [
+      @createServer()
+      @static.init()
+      @watch()
+    ]
+  createServer : => do Q.async =>
     @server = new Server()
-    Q().then @server.init
+    yield @server.init()
   version : =>
     _readFile('feel/version')
     .then (text)=>
@@ -83,8 +88,19 @@ class module.exports
       console.error e
 
 
-  checkCache : =>
-    @checkCacheDir @path.cache
+  checkCache : => do Q.async =>
+    [cache,www] = yield Q.all [
+      _readdirp {root:@path.cache,fileFilter:['*.css']}
+      _readdirp {root:"www",fileFilter:['*.css','*.sass','*.scss']}
+    ]
+    nwww = {}
+    nwww[file.path.match(/(.*)\.\w+$/)[1]] = true for file in www.files
+    del = []
+    for file in cache.files
+      del.push _unlink "#{@path.cache}/#{file.path}" unless nwww[file.path.match(/(.*)\.\w+$/)[1]]
+    yield Q.all del
+    #@checkCacheDir @path.cache
+    #
   checkCacheDir : (dir)=>
     readdir dir
     .then (files)=>
@@ -190,10 +206,8 @@ class module.exports
       yield Q.all qs
   npm : =>
     defer = Q.defer()
-    process.chdir 'feel'
     console.log 'npm install'.red
     npm = spawn 'npm', ['i']
-    process.chdir '..'
     npm.stdout.on 'data', (data)=> process.stdout.write data
     npm.stderr.on 'data', (data)=> process.stderr.write data
     npm.on 'close', (code)=>
@@ -220,7 +234,7 @@ class module.exports
           @rebuildSass o.site,o.dir,o.name
         when 'jade'
           @site[o.site].modules[o.dir]?.rebuildJade()
-        when 'coffee'
+        when 'coffee', 'js'
           @site[o.site].modules[o.dir]?.rebuildCoffee()
     if o.type == 'states'
       @site[o.site].loadStates()
@@ -260,31 +274,48 @@ class module.exports
     .done()
     
   loadClient : => do Q.async =>
+    [readed,stat1,stat2,client_cache] = yield Q.all [
+      _readdirp {root:'feel/lib/feel/client',fileFilter:'*.coffee'}
+      _stat 'feel/lib/feel/client.lib.coffee'
+      #_stat 'feel/lib/feel/regenerator.runtime.js'
+      _stat 'feel/lib/feel/polyfill.min.js'
+      _invoke @redis,'get','client_cache'
+    ]
+    hash = ""
+    readed.files.sort (a,b)-> if a.path < b.path then 1 else -1
+    hash += f.stat.mtime for f in readed.files
+    hash += stat1?.mtime
+    hash += stat2?.mtime
+    hash = _hash hash
+    client_cache = JSON.parse(client_cache ? "{}") ? {}
+    keys = ['client','clientJs','clientJsHash','clientRegenerator','clientRegeneratorHash','client_hash']
+    if hash == client_cache.client_hash
+      for k in keys
+        @[k] = client_cache[k]
+      return
+    @client_hash = hash
     @client   = {}
     @clientJs = @cacheCoffee 'feel/lib/feel/client.lib.coffee'
     #@clientRegenerator = require('regenerator').compile('',includeRuntime:true).code
-    @clientRegenerator = (yield _readFile 'feel/lib/feel/regenerator.runtime.js').toString()
+    #@clientRegenerator = (yield _readFile 'feel/lib/feel/regenerator.runtime.js').toString()
+    @clientRegenerator = (yield _readFile 'feel/lib/feel/polyfill.min.js').toString()
+    #if _production
+    #  @clientRegenerator = yield @yjs @clientRegenerator
     @clientRegeneratorHash = _shash @clientRegenerator
-    yield @loadClientDir 'feel/lib/feel/client',''
+    for file in readed.files
+      @client[file.name.match(/(.*)\.\w+$/)[1]] = @cacheCoffee "feel/lib/feel/client/#{file.path}"
     for key,val of @client
       @clientJs += val unless key == 'main'
     @clientJs += @client['main']
     @clientJs =  _regenerator @clientJs
-    #@clientJs = yield @yjs _regenerator @clientJs
+    if _production
+      @clientJs = yield @yjs @clientJs
     @clientJsHash = _shash @clientJs
-  loadClientDir : (path,dir)=>
-    readdir "#{path}#{dir}"
-    .then (files)=>
-      for f in files
-        file = "#{path}#{dir}/#{f}"
-        stat = fs.statSync file
-        ndir = "#{dir}/#{f}"
-        if stat.isDirectory()
-          @loadClientDir path,ndir
-        else if stat.isFile() && f.match /^[^\.].*\.coffee$/
-          src = @cacheCoffee file
-          n = ndir.match /^\/(.*)\.coffee$/
-          @client[n[1]] = src
+    Q.spawn =>
+      client_cache = {}
+      for k in keys
+        client_cache[k] = @[k]
+      yield _invoke @redis,'set','client_cache',JSON.stringify client_cache
   checkPages : =>
     q = Q()
     for sitename,site of @site
@@ -322,21 +353,22 @@ class module.exports
       "wrap_attributes_indent_size": 4
     }
   yjs     : (js)=> do Q.async =>
-    ret = yield ycompress js,{type:'js'}
-    ret = ret?[0] unless typeof ret == 'string'
-    return ret ? ""
-  dyjs    : (js)=>
-    ycompress(js,{type:'js'}).then (yjs)=>
-      yjs = yjs?[0] unless typeof yjs == 'string'
-      return _gzip yjs ? ""
+    try
+      js = yield _ycom js
+    catch err
+      console.error "failed yjs",js, err,Exception err
+    return js || ""
+  dyjs    : (js)=> do Q.async => yield _gzip yield @yjs js
   ycss    : (css)=> do Q.async =>
-    console.log 'ycss'
-    ret = yield ycompress css, type:"css"
-    ret = ret?[0] unless typeof ret == 'string'
-    return ret ? ""
-  dycss   : (css)=> ycompress(css,{type:"css"}).then (ycss)=>
-    ycss = ycss?[0] unless typeof ycss == 'string'
-    return _gzip ycss ? ""
+    try
+      css = yield _ycom css,'css'
+    catch err
+      console.error "failed ycss",css,err,Exception err
+    #console.log 'ycss'
+    #ret = yield ycompress css, type:"css"
+    #ret = ret?[0] unless typeof ret == 'string'
+    return css || ""
+  dycss    : (css)=> do Q.async => yield _gzip yield @ycss css
   res404  : (req,res,err)=>
     console.error err if err?
     req.url = '/404'

@@ -24,3 +24,7 @@ feel/.npmversion
 nohup.out
 out
 err
+client.out
+heap
+heap/**
+.coffee

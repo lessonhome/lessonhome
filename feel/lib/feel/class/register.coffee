@@ -2,15 +2,22 @@
 
 bcrypt = require 'bcryptjs'
 
+time = (str)=>
+  t = new Date().getTime()
+  #console.log str,t-@t if str
+  @t = t
 
 
 class Register
   constructor : ->
     Wrap @
   init : =>
+    time()
     db = yield Main.service 'db'
     @jobs = yield Main.service 'jobs'
+    time '1'
     yield @jobs.listen 'registerReload',@jobRegisterReload
+    time '2'
     @account  = yield db.get 'accounts'
     @session = yield db.get 'sessions'
     @bills = yield db.get 'bills'
@@ -21,18 +28,23 @@ class Register
     @mail = yield Main.service 'mail'
     @urldata = yield Main.service 'urldata'
     @adminHashs = yield db.get 'adminHashs'
+    time '3'
     arr = yield _invoke @adminHashs.find({}),'toArray'
+    time '4'
     @adminHashsArr = {}
     for r in arr
       @adminHashsArr[r.hash] = true
     ids = {}
     _ids = (yield _invoke @dbpersons.find({},{account:1}),'toArray')
+    time '5'
     ids[row.account] = true for row in _ids
     console.log "persons: ".magenta, _ids?.length
     _ids = (yield _invoke @dbpupil.find({},{account:1}),'toArray')
+    time '6'
     ids[row.account] = true for row in _ids
     console.log 'pupils: '.magenta,_ids?.length
     _ids = (yield _invoke @dbtutor.find({},{account:1}),'toArray')
+    time '7'
     ids[row.account] = true for row in _ids
     console.log 'tutors: '.magenta, _ids?.length
     
@@ -40,25 +52,37 @@ class Register
     d = new Date()
     d.setDate d.getDate()-1
     _ids = (yield _invoke @account.find({$or:[ {accessTime:{$eq:null}},{id:{$nin:Object.keys(ids)},accessTime:{$lt:d}}]},{id:1}),'toArray')
+    time '8'
     nids[row.id] = true for row in _ids
     nids = Object.keys nids
     console.log 'illegals: '.magenta,nids.length
+    time '9'
     yield _invoke @account,'update',{account:{$exists:true}},{$unset:{account:""}},{multi:true}
+    time '21'
     yield _invoke @account,'update',{acc:{$exists:true}},{$unset:{acc:""}},{multi:true}
+    time '22'
     yield _invoke @account, 'remove',{id:{$in:nids}}
+    time '23'
     yield _invoke @session, 'remove',{account:{$in:nids}}
+    time '24'
     yield _invoke @dbpersons, 'remove',{account:{$in:nids}}
+    time '25'
     yield _invoke @dbtutor, 'remove',{account:{$in:nids}}
+    time '26'
     yield _invoke @dbpupil, 'remove',{account:{$in:nids}}
+    time '27'
     d = new Date()
     d.setDate d.getDate()-30
     yield _invoke @session,'remove',{accessTime:{$lt:d}}
+    time '28'
 
     @accounts = {}
     @sessions = {}
     @logins   = {}
     acc  = yield _invoke @account.find(),'toArray'
+    time '29'
     sess = yield _invoke @session.find(),'toArray'
+    time '30'
     for a in acc
       @accounts[a.id]   = a
       delete a.account
@@ -69,8 +93,9 @@ class Register
       @sessions[s.hash] = s
     @aindex = 0
     for id,a of @accounts
-      @aindex = a.index if (a?.index?) && (@aindex<a.index)
+      @aindex = a.index if (a?.index?) && (@aindex < a.index)
     d.setDate d.getDate()-100000
+    time '31'
     for id,a of @accounts
       unless a?.index?
         a.index = ++@aindex
@@ -88,84 +113,8 @@ class Register
           delete @sessions[s]
         yield _invoke @session, 'remove',{hash:{$in:arr2}}
         yield _invoke @account,'update',{id:id},{$set:{sessions:a.sessions}}
-    oldAvaAccs = yield _invoke @dbpersons.find({ava:{$exists:true}},{ava:1,account:1}), 'toArray'
-    ###
-    "ava" : [
-      {
-        "hash" : "4dd6d09ea6"
-        "oname" : "20131222-090309-pm.jpg"
-        "dir" : "www/lessonhome/static/user_data/images/"
-        "name" : "4dd6d09ea6"
-        "original" : "4dd6d09ea6.jpg"
-        "high" : "4dd6d09ea6h.jpg"
-        "low" : "4dd6d09ea6l.jpg"
-        "owidth" : 2304
-        "oheight" : 1536
-        "hwidth" : 640
-        "hheight" : 427
-        "lwidth" : 200
-        "lheight" : 133
-        "ourl" : "/file/fa31632fe1/user_data/images/4dd6d09ea6.jpg"
-        "hurl" : "/file/10282cf13d/user_data/images/4dd6d09ea6h.jpg"
-        "lurl" : "/file/ca770bc6a2/user_data/images/4dd6d09ea6l.jpg"
-      }
-    ]
-    ###
-    uploadedImages = []
+    time '32'
 
-    for acc in oldAvaAccs
-      avatar = []
-      photos = []
-      uploaded = {}
-      for image in (acc.ava ? [])
-        avatar.push image.hash
-        photos.push image.hash
-        uploaded[image.hash] = {
-          type : 'image'
-          original : image.hash
-          low : image.hash+'low'
-          high : image.hash+'high'
-          original_url : image.ourl
-          low_url : image.lurl
-          high_url : image.hurl
-        }
-        yield _invoke @dbuploaded, 'update', {hash: image.hash}, {$set:{
-          hash: image.hash
-          account: acc.account
-          type: 'image'
-          name: image.oname
-          dir: image.dir
-          width: image.owidth
-          height: image.oheight
-          url: image.ourl
-        }},{upsert:true}
-        yield _invoke @dbuploaded, 'update', {hash: image.hash+'low'}, {$set: {
-          hash: image.hash + 'low'
-          account: acc.account
-          type: 'image'
-          name: image.oname
-          dir: image.dir
-          width: image.lwidth
-          height: image.lheight
-          url: image.lurl
-        }},{upsert:true}
-        yield _invoke @dbuploaded, 'update', {hash: image.hash+'high'}, {$set:{
-          hash: image.hash+'high'
-          account: acc.account
-          type: 'image'
-          name: image.oname
-          dir: image.dir
-          width: image.hwidth
-          height: image.hheight
-          url: image.hurl
-        }},{upsert:true}
-
-      yield _invoke(@dbpersons,'update', {account: acc.account},{
-        $set:{avatar: avatar, photos:photos, uploaded: uploaded}
-        $unset:{ava:''}
-      },{upsert:true})
-
-    #yield _invoke @dbuploaded, 'insert', uploadedImages if uploadedImages.length
   delete_tutor : (id)=>
     for session of @accounts[id].sessions
       delete @sessions[session]
@@ -348,6 +297,7 @@ class Register
       token: token
       valid: validDate
     }
+    console.log 'save',restorePassword
     user.authToken = restorePassword
     acc = {}
     acc[key] = val for key,val of user
@@ -379,10 +329,11 @@ class Register
     qstring = data.ref.replace(/.*\?/, '')
     token = yield @urldata.u2d qstring
     token = token.authToken.token
-
+    console.log token
     accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
 
     user = {}
+    console.log '1'
     ndata_password = accounts[0].login+data.password
     passhash = yield @passwordCrypt _hash ndata_password
     user.hash = passhash
@@ -391,10 +342,12 @@ class Register
     #console.log 'hash', passhash
 
     accounts = yield _invoke accountsDb.find({'authToken.token': token}),'toArray'
+    console.log '2'
 
     @logins[accounts[0].login] = accounts[0]
 
     user = @accounts[user.id]
+    console.log '4'
     tryto = @logins[accounts[0].login]
     olduser = tryto
     hashs = []
@@ -402,7 +355,7 @@ class Register
       hashs.push hash
       delete @sessions[hash]
     qs = []
-    qs.push _invoke @session,'remove',{hash:{$in:hashs}}
+    yield _invoke @session,'remove',{hash:{$in:hashs}}
     user = @accounts[tryto.id]
     user.accessTime = new Date()
     user.hash = passhash
@@ -412,8 +365,8 @@ class Register
     acc = {}
     acc[key] = val for key,val of user
     delete acc.account
-    qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
-    qs.push _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}},{upsert:true})
+    yield  _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
+    yield  _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}},{upsert:true})
     yield Q.all qs
 
     return {session:@sessions[sessionhash],user:user}

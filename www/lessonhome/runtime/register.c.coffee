@@ -28,12 +28,18 @@ _phones = [
   '79254688208'
   '79152292244'
   '79267952303'
+  '79651818071'
 ]
 
+checkHistAdd = (m)=> do Q.async =>
+  m = m.replace(/повторная заявка/gmi,'').replace(/заявка/gmi,'')
+  redis = yield _Helper('redis/main').get()
+  ret = yield _invoke redis,'sadd','sms-history',m
+  return ret>0
 
 
 @delayRegisterMail = (id,isadmin)->
-  return if isadmin || (hostname != 'pi0h.org')
+  return if isadmin || !_production
   yield Q.delay 1000*60*5
 
   db = yield Main.service 'db'
@@ -54,14 +60,17 @@ _phones = [
   text += "#{accounts[0].login}\n"
   text += "#{persons[0].phone.join?('; ') ? ''}\n" if persons[0]?.phone?[0]
   text += "#{persons[0].email.join?('; ') ? ''}\n" if persons[0]?.email?[0]
-
-  @jobs = yield Main.service 'jobs'
+  #return unless yield checkHistAdd text
+  @jobs ?= yield Main.service 'jobs'
   messages = []
   for phone in _phones
     messages.push
       phone:phone
       text :text
-  Q.spawn => yield @jobs.solve 'sendSms',messages
+
+  Q.spawn =>
+    yield @jobs.solve 'telegramSendAll',text
+    #yield @jobs.solve 'sendSms',messages
 
   return unless accounts[0].login.match '@'
   yield mail.send(

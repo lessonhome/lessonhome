@@ -38,6 +38,8 @@ boolSetR = (obj,list)=>
     v //= 2
   return ret
 
+page = ['manager','main','landing','filter']
+
 class @D2U
   $test : (obj)=>
     type  : 'int'
@@ -55,6 +57,14 @@ class @D2U
       default : ''
       cookie : true
     }
+  $metro : (obj)=>
+    return {
+      type : 'string'
+      value : Object.keys(obj?.metro ? {}).sort().join('.')
+      default : ''
+      filter : true
+    }
+
   $priceLeft : (obj)=>
     type  : 'int'
     value : obj?.price?.left
@@ -99,6 +109,16 @@ class @D2U
     value : boolSet obj?.place,place
     default : 0
     filter : true
+  $page : (obj)=>
+    i = page.indexOf obj?.page
+    i = undefined unless i>=0
+    return {
+      type : 'int'
+      value : i
+      default : 0
+      filter : true
+    }
+    
   $placeAreaPupil : (obj)=>
     type : 'string[]'
     value : obj?.place?.area_pupil
@@ -138,6 +158,12 @@ class @D2U
       default : 0
       filter : true
     }
+  $progress : (obj)=>
+    type : 'bool'
+    value : obj.progress && true
+    default : false
+    cookie : false
+    filter : true
   $pupil_status : (obj)=>
     v = pupil_status.indexOf(obj?.pupil_status)
     v = 0 unless v>=0
@@ -184,7 +210,15 @@ class @U2D
   $price : (obj)=>
     left  : obj?.priceLeft
     right : obj?.priceRight
+  $metro : (obj)=>
+    arr = (obj.metro || "").split('.')
+    o = {}
+    for a in arr
+      o[a] = true if a
+    return o
+  $progress  : (obj)=> obj?.progress && true
   $gender : (obj)=> gender[obj?.gender ? 0]
+  $page : (obj)=> page[obj?.page ? 0]
   $with_reviews : (obj)=> obj?.with_reviews
   $with_photo : (obj)=> obj?.with_photo
   $with_verification : (obj)=> obj?.with_verification

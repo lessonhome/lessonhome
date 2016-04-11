@@ -24,7 +24,7 @@ class @main extends @template '../lp'
         name        : 'email'
         selector    : 'registration'
         text1       : 'Введите код :'
-        input_icon  : 'error_outline'
+        input_icon  : 'icon_info'
       continue_button    : @module 'link_button_m' :
         href      : '/new_password'
         selector  : 'send_code'

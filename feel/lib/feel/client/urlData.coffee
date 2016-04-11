@@ -31,33 +31,31 @@ class @urlData
     setTimeout =>
       try console.log 'abTest:',@udata.json?.forms?.abTest
     ,1000
-    setInterval =>
-      Q.spawn =>
-        time = $.localStorage.get('UrlCookieTime')
-        unless time?
-          $.localStorage.set('UrlCookieTime',@lastUpdate)
-          $.localStorage.set('UrlCookieId',@id)
-        else if time > @lastUpdate
-          console.log @lastUpdate,$.localStorage.get('UrlCookieTime'),@id,$.localStorage.get('UrlCookieId')
-          return if $.localStorage.get('UrlCookieId') == @id
-          @readCookie = true
-          return if @readingCookie > 1
-          if @readingCookie == 1
-            @readingCookie = 2
-          else
-            @readingCookie = 1
-          console.log 'ok'
-          #yield @loadCookie()
-          while @readingCookie == 1
-            @lastUpdate = new Date().getTime()
-            yield @initFromUrl()
-            yield @setUrl()
-            @readingCookie--
-          yield Q.delay 2000
-          if (@readingCookie == 0) && (((new Date().getTime())-@lastUpdate)>2000)
-            @readCookie = false
-          return
-    ,500
+    Q.spawn =>
+      yield Q.delay 100
+      time = $.localStorage.get('UrlCookieTime')
+      unless time?
+        $.localStorage.set('UrlCookieTime',@lastUpdate)
+        $.localStorage.set('UrlCookieId',@id)
+      else if time > @lastUpdate
+        console.log @lastUpdate,$.localStorage.get('UrlCookieTime'),@id,$.localStorage.get('UrlCookieId')
+        return if $.localStorage.get('UrlCookieId') == @id
+        @readCookie = true
+        return if @readingCookie > 1
+        if @readingCookie == 1
+          @readingCookie = 2
+        else
+          @readingCookie = 1
+        #yield @loadCookie()
+        while @readingCookie == 1
+          @lastUpdate = new Date().getTime()
+          yield @initFromUrl()
+          yield @setUrl()
+          @readingCookie--
+        yield Q.delay 2000
+        if (@readingCookie == 0) && (((new Date().getTime())-@lastUpdate)>2000)
+          @readCookie = false
+        return
     @first = false
 
   initFromUrl : (first=false)=>
@@ -106,6 +104,25 @@ class @urlData
       str += '&' if str
       str += key if key
     @data = yield @udata.u2d str || ''
+  getUrl : (onlyhash=false)=>
+    @state = History.getState()
+    url = @state.url
+    if url.match /\?/
+      m = url.match(/^(.*)\?(.*)/)
+      u = m?[2] || ""
+      href = m?[1] || ""
+    else
+      u = ""
+      href = url
+    u = @toObject u
+    c = @toObject yield @getU()
+    for key,val of c
+      continue unless @udata.json.shorts?[key]?.cookie
+      u[key] = val
+    u = href + "?" + @objectTo u
+    if onlyhash
+      u = u.replace /^.*\/\/[^\/]+\//,'/'
+    return u
   set : (form,key,val)=>
     #yield @initFromUrl()
     if val?
@@ -137,10 +154,12 @@ class @urlData
     return d2u
   toObject : (url)=>
     url = '' unless typeof url == 'string'
-    url = url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
+    if url.match /\?/
+      url = url?.match(/^[^\?]*\??(.*)$/)?[1] ? ''
     url = url.split '&'
     ret = {}
     for u in url
+      continue unless u
       u = u?.split? '=' ? []
       ret[u[0]]=u[1] if u[0]?
     return ret
@@ -166,7 +185,7 @@ class @urlData
       str += r[0]
       str += "="+r[1] if r[1]?
     return str
-  udataToUrl : (url,...,usecookie='true',skip='not')=>
+  udataToUrl : (url,...,usecookie='true',skip='not',remove=false)=>
     params = {}
     firstu  = (window.location.href || "").match?(/^[^\?]*\??(.*)$/)?[1] ? ""
     secondu = yield @getU()
@@ -220,8 +239,10 @@ class @urlData
           $.localStorage.set 'UrlCookieTime',@lastUpdate
           $.localStorage.set 'UrlCookieId',  @id
     for key,val of params
+      if remove && @udata.json.shorts?[key]?.cookie
+        continue
       purl.push [key,val]
-    purl.sort (a,b)-> a[0]<b[0]
+    purl.sort (a,b)-> a[0] < b[0]
     for p in purl
       urldata += '&' if urldata && p[0]
       urldata += p[0] if p[0]
@@ -246,7 +267,8 @@ class @urlData
     @state = History.getState()
     #mnurl = @state.url.match(/^([^\?]*)/)[1]+"#{nurl}"
     return if url == @state.url
-    History.replaceState  @data,(@state.title || $('head>title').text()),url
+    console.log 'urldata replaceTitle '+($('head>title').text())
+    History.replaceState  @data,($('head>title').text()),url
     @state = History.getState()
     @emitChange()
     #@data = yield @udata.u2d url?.match?(/^[^\?]*\??(.*)$/)?[1] ? ""
@@ -258,7 +280,7 @@ class @urlData
       field = o
       o = {}
     hash = ''
-    o.url ?= History.getState().url
+    o.url ?=  yield @getUrl()
     hash += (yield @filter o.url,field) ? ''
     return hash
 
@@ -281,10 +303,10 @@ class @urlData
   emitChange : =>
     @lastChange = new Date().getTime()
     setTimeout @_emitChange,200
-  _emitChange : =>
+  _emitChange : => Q.spawn =>
     return if (!@lastChange) || (((new Date().getTime())-@lastChange)<200)
     @lastChange = 0
-    url = History.getState().url
+    url = yield @getUrl()
     return if url == @lastEmitUrl
     @lastEmitUrl = url
     @emit 'change'

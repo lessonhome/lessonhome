@@ -16,7 +16,7 @@ class @main extends @template 'lp/all'
     button_color      : 'english_color'
     filter :
       subject : [
-        'английскому язык'
+        'английский язык'
       ]
       course : [
       ]

@@ -82,6 +82,7 @@ email_period_life = 24 #hours
         token: _randomHash(10)
         valid: (new Date).setHours(now.getHours() + email_period_life)
       }
+      console.log {authToken,id:data.id}
       utoken = yield url_service.d2u 'authToken',{token:authToken.token}
       yield _invoke accountsDb,'update', {id: data.id}, $set:{authToken}, {upsert:true}
 
@@ -108,12 +109,12 @@ email_period_life = 24 #hours
     yield $.form.flush '*',$.req,$.res
     return {status:'success', way}
   catch errs
+    console.error Exception errs
     err = {status: 'failed'}
     if typeof(errs) == 'string'
       err['err'] =  errs
     else
       err['err'] = 'internal_error'
-      console.log "ERROR: #{errs.message}"
     return err
 
 

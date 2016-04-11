@@ -21,7 +21,7 @@ class @main extends @template '../lp'
         name        : 'email'
         selector    : 'registration'
         text1       : 'Телефон или email'
-        input_icon  : 'person'
+        input_icon  : 'icon_person_outline'
       send_button    : @module 'link_button_m' :
         selector  : 'take_code'
         text      : 'Отправить'

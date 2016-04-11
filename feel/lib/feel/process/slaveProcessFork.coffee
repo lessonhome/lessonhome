@@ -7,19 +7,27 @@ Service   = require '../service/service'
 SlaveServiceManager = require '../service/slaveServiceManager'
 Messanger = require './slaveProcessMessanger'
 
+_blackList = require './blackList'
+
+mem = -> Math.floor(process.memoryUsage().rss/(1024*1024)*100)/100
+#heapdump = require 'heapdump'
 class SlaveProcessFork
   constructor : ->
-    Wrap @
+    $W @
   init : =>
+    t = new Date().getTime()
     @conf   = JSON.parse process.env.FORK
+    @jobs = _Helper 'jobs/main'
+    @redis = yield _Helper('redis/main').get()
     @processId  = @conf.processId
     @name       = @conf.name
-    #console.log @conf.name,@conf
-    @log(@conf.name.yellow) unless @conf.name == 'service-socket2'
+    wname = @conf.args?.file || @conf.name
+    wname = wname.replace /\//gmi,'_'
 
-    @messanger = new Messanger()
-    yield @messanger.init()
-    @messanger.send 'ready'
+    #@messanger = new Messanger()
+
+    #yield @messanger.init()
+    #@messanger.send 'ready'
     @serviceManager = new SlaveServiceManager()
     yield @serviceManager.init()
      
@@ -29,8 +37,50 @@ class SlaveProcessFork
       for name in @conf.services
         qs.push @serviceManager.start name
     yield Q.all qs
-    @messanger.send 'run'
-  service : (name)=> @serviceManager.nearest name
+    Q.spawn => @jobs.solve 'slaveProcessSendToMaster','run',@processId
+    #Q.spawn =>
+    #  yield Q.delay 30000
+    #  heapdump.writeSnapshot('heap/'+wname+@conf.processId+'.heapsnapshot')
+    ###
+    Q.spawn =>
+      while true
+        m = mem()
+        #console.log "memory #{name}:".yellow,"#{m}".red
+        t = (new Date().getTime())/1000
+        yield _invoke @redis,'incrby','allmemory',(m*100)//1
+        yield _invoke @redis,'rpush','allservices',JSON.stringify [wname,m]
+        yield Q.delay ((t+15)//15*15-t)*1000
+    ###
+    #unless @conf.name == 'service-socket2'
+    #  console.log "service ".blue,(@conf.name.yellow),new Date().getTime()-t
+    #@messanger.send 'run'
+  #service : (name)=> @serviceManager.nearest name
+  helper  : => _Helper arguments...
+  isomorph: (name)=> require "#{process.cwd()}/www/lessonhome/isomorph/#{name}.coffee"
+  service : (name)=>
+    serv = yield @serviceManager.nearest name,false
+    return serv if serv
+    black = {
+      then : true
+    }
+    ee = new EE
+    proxy = new Proxy {},{
+      get : (t,key,rec)=>
+        return if black[key]
+        t = new Date().getTime()
+        switch key
+          when 'on'
+            return (signal,foo)=>
+              unless ee._events[signal]
+                Q.spawn =>
+                  yield @jobs.onSignal "process--#{name}---#{signal}",=>
+                    ee.emit signal,arguments...
+                  yield @jobs.solve "process--#{name}--sendSignal",signal
+              ee.on signal,foo
+          else
+            return (args...)=> @jobs.solve "process--#{name}",key,args...
+    }
+
 
 
 module.exports = SlaveProcessFork

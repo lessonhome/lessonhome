@@ -31,6 +31,7 @@ class @main
     return result
 
   showErrors : (errors) =>
+    Feel.sendAction 'error_on_page' unless errors.correct
     that = @
     @test.eachElem (i) ->
       if errors[i]? then @slideDown() else @slideUp()

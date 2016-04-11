@@ -3,7 +3,7 @@
 (function(){
   
   require ('coffee-script/register');
-  require ('coffee-cache').setCacheDir('.coffee_cache');
+  require ('coffee-cache');
 
   var path = require('path');
   var fs   = require('fs');

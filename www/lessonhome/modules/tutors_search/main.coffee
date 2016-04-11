@@ -2,11 +2,13 @@ class @main
   constructor : ->
     $W @
   Dom : =>
+    @loadedTime = new Date().getTime()
     @showFilter   = @found.show_filter
     @filterBlock  = @found.filter_block
     @listTutors   = @found.list_tutors
     @tutors_result= @found.tutors_list
     @filterStatus = 0
+    @metro = yield Feel.const('metro')
     @linked = {}
     #@tutors = $.localStorage.get 'tutors'
     #@tutors ?= {}
@@ -15,22 +17,39 @@ class @main
     #@tnum   = 10
     #@tfrom  = 0
     #@now    = []
+    @filter_stations = []
+    @from = 0
+    @count = 10
     @changed = true
     @sending = false
     @busy = false
     @busyNext = null
     @tree.tutor_test = @tree.tutor
+    @filter_data = null
+    @isfirst = true
+    @now = []
+    for key,t of @tree.tutors
+      @now.push t.value.index
+      @doms[t.value.index] =
+        cl : t.class
+        dom : t.class.dom
+
   show: =>
-    @found.tutors_list.find('>div').remove()
-    
+    @metro = yield Feel.const('metro')
+    @found.tutor.remove()
+
     #@advanced_filter.on 'change',=> @emit 'change'
     $(window).on 'scroll.tutors',@onscroll
-    
-    @on 'change', =>
-      if (new Date().getTime() - @loadedTime)>(1000*5)
-        Feel.sendActionOnce 'tutors_filter',1000*60*2
-    Feel.urlData.on 'change', => Q.spawn =>
-      yield @apply_filter()
+    Feel.urlData.on 'change', (force) => Q.spawn =>
+      @filter_stations = []
+      arr = yield Feel.urlData.get('tutorsFilter','metro')
+      for s in arr
+        @filter_stations.push {
+          metro : @metro.stations[s.split(':')[1]].name
+          color : @metro.lines[s.split(':')[0]].color
+          key : s.split(':')[1]
+        }
+      yield @apply_filter(force)
     ### TODO
     @tree.advanced_filter.apply.class.on 'submit',=> Q.spawn =>
       #top = $('#m-main-advanced_filter').offset?()?.top
@@ -39,46 +58,66 @@ class @main
     ###
     @choose_tutors_num = @found.choose_tutors_num
 
-    @showFilter.on 'click', (e)=>
-      thisShowButton = e.currentTarget
-      if(@filterStatus == 0)
-        $(thisShowButton).html('Подобрать репетиторов (1233)')
-        $(@filterBlock).slideDown('fast')
-        $(@listTutors).slideUp('fast')
-        @filterStatus = 1
-      else
-        $(thisShowButton).html('Подобрать по параметрам')
-        $(@filterBlock).slideUp('fast')
-        $(@listTutors).slideDown('fast')
-        @filterStatus = 0
+    @showFilter.on 'click', =>
+      @listTutors.hide(0,
+        =>
+          @filterBlock.show().addClass 'filterShow'
+          @showFilter.hide()
+      )
+    @found.show_result.on 'click', =>
 
-    ###
-    numTutors = 5
-    tutors = yield Feel.dataM.getByFilter numTutors, ({subject:['Русский язык']})
-    tutors ?= []
-    if tutors.length < numTutors
-      newt = yield Feel.dataM.getByFilter numTutors*2, ({})
-      exists = {}
-      for t in tutors
-        exists[t.index]= true
-      i = 0
-      while tutors.length < numTutors
-        t = newt[i++]
-        break unless t?
-        continue if exists[t.index]
-        tutors.push t
-    for tutor,i in tutors
-      clone = @tree.tutor.class.$clone()
-      clone.dom.css opacity:0
-      @found.tutors_list.append clone.dom
-      yield clone.setValue tutor
-      clone.dom.show()
-      clone.dom.animate (opacity:1),1400
-    ###
+      $("body, html").animate {
+          "scrollTop":0
+        }, 0
+
+      @filterBlock.hide(0,
+        =>
+          @filterBlock.removeClass 'filterShow'
+          @listTutors.show()
+          @showFilter.show()
+      )
+
+    #@found.demo_modal.on 'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', null, 'empty'
+  ###
+  numTutors = 5
+  tutors = yield Feel.dataM.getByFilter numTutors, ({subject:['Русский язык']})
+  tutors ?= []
+  if tutors.length < numTutors
+    newt = yield Feel.dataM.getByFilter numTutors*2, ({})
+    exists = {}
+    for t in tutors
+      exists[t.index]= true
+    i = 0
+    while tutors.length < numTutors
+      t = newt[i++]-height
+      break unless t?
+      continue if exists[t.index]
+      tutors.push t
+  for tutor,i in tutors
+    clone = @tree.tutor.class.$clone()
+    clone.dom.css opacity:0
+    @found.tutors_list.append clone.dom
+    yield clone.setValue tutor
+    clone.dom.show()
+    clone.dom.animate (opacity:1),1400
+  ###
+  showLoader : =>
+    @hideEmpty()
+    @found.wait.show()
+  hideLoader : =>@found.wait.hide()
+  fixLoader : => @found.wait.addClass('abs')
+  unfixLoader: =>@found.wait.removeClass('abs')
+  showEmpty : =>
+    @hideLoader()
+    @found.not_exist.show()
+  hideEmpty : => @found.not_exist.hide()
   reshow : =>
+    @fixLoader()
+    @showLoader()
     end = =>
       @tutors_result.css 'opacity',1
     return (@busyNext = {f:@reshow}) if @busy
+    @found.controlls?.hide?()
     @tutors_result.css 'opacity',0
     @htime = new Date().getTime()
     @busy = true
@@ -90,6 +129,7 @@ class @main
     num = indexes.length
     yield Q.delay(10)
     indexes = indexes.slice @from,@from+@count
+
     ### TODO
     if indexes.length is 0
       @message_empty.fadeIn 400
@@ -104,7 +144,9 @@ class @main
     htime = 400-((new Date().getTime())-@htime)
     #htime = 0 if htime < 0
     setTimeout (=> Q.spawn =>
+      @dom.height @dom.height()
       @tutors_result.children().remove()
+      @showEmpty() unless indexes.length
       yield Q.delay(10)
       for key,val of @doms
         delete @doms[key]
@@ -113,7 +155,11 @@ class @main
         d = @createDom p
         d.dom.appendTo @tutors_result
         yield Q.delay(10)
+      @hideLoader()
+      @unfixLoader()
       @tutors_result.css 'opacity',1
+      @dom.css 'height', ''
+      @tree.search_help.class.pushpinIit()
       yield @BusyNext()
     ),htime
   BusyNext : => do Q.async =>
@@ -129,6 +175,7 @@ class @main
     fhash = yield @toOldFilter()
     indexes = yield Feel.dataM.getTutors @from,@count+10,fhash
     return yield @BusyNext() if indexes.length<=@count
+    @found.controlls?.hide?()
     yield Q.delay(10)
     @count = Math.min(indexes.length-@from,@count+10)
     indexes = indexes.slice @from,@from+@count
@@ -151,32 +198,41 @@ class @main
     obj =
       class : cl
       dom   : cl.dom
+    prep.filter_stations = @filter_stations
     @updateDom obj, prep
 #    @relinkedOne cl
     return @doms[prep.index] = obj
-  updateDom : (dom,prep)=>
-    dom.class.setValue prep
+  updateDom : (dom,prep) => dom.class.setValue(prep)
   onscroll : => Q.spawn =>
     ll = @tutors_result.find(':last')
     dist = ($(window).scrollTop()+$(window).height())-(ll?.offset?()?.top+ll?.height?())
+    return if @filterBlock.hasClass 'filterShow'
     if dist >= -400
+      return if (yield Feel.urlData.get('tutorsFilter','offset'))!=0
       yield @addTen()
   apply_filter : (force=false)=> do Q.async =>
+    return @isfirst = false if @isfirst
     @linked = yield Feel.urlData.get 'mainFilter','linked'
     #yield @setFiltered()
     @hashnow ?= 'null'
     filter = yield @toOldFilter()
+    console.log filter
     hashnow = yield Feel.urlData.filterHash url:"blabla?"+filter
     return if (@hashnow == hashnow) && !force
     @hashnow = hashnow
-
+    unless force
+      if (new Date().getTime() - @loadedTime)>(1000*5)
+        Feel.sendActionOnce 'tutors_filter',1000*60*20
     @changed = true
     yield @reshow()
   toOldFilter : =>
     filters = yield Feel.urlData.get 'tutorsFilter'
+    @tree.tutor_test.class.setFilter? filters
     olds = yield Feel.urlData.get 'mainFilter'
     mf = {}
+    mf.page = 'filter'
     mf.subject = filters.subjects
+ 
     ss = {}
     mf.subject ?= []
     for s in mf.subject
@@ -184,6 +240,7 @@ class @main
     if olds.subject[0]
       for s in olds.subject
           ss[s] = true
+    mf.progress = true
     mf.subject = Object.keys ss
     mf.course = filters.course ? []
     ss = []
@@ -191,6 +248,12 @@ class @main
       ss[c] = true
     for c in (olds.course ? [])
       ss[c] = true
+    mf.metro ?= {}
+    for m in (filters.metro ? [])
+      m_path = m?.split?(':')?[1] || ""
+      mf.metro[m_path] = true if m_path
+      m = @metro.stations?[m?.split?(':')?[1] ? ""]?.name
+      #ss[m] = true if m
     mf.course = Object.keys ss
     l = 500
     r = 6000

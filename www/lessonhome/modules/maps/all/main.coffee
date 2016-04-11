@@ -55,7 +55,7 @@ class @main
       if p.photos?.length
         url = p.photos[p.photos.length-1].lurl
         n += "<img src='"+url+"' /><br>"
-      link = '/tutor_profile?'+yield Feel.udata.d2u('tutorProfile',{index:p.index})
+      link = '/tutor?'+yield Feel.udata.d2u('tutorProfile',{index:p.index})
       n += s+'<br>'
       n += "<a href='"+link+"'>"+link+"</a><br>"
       n += p.phone.join('<br>')+'<br>'

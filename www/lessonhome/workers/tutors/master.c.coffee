@@ -4,8 +4,6 @@
 
 
 class TutorsMaster
-  constructor : ->
-    $W @
   init : =>
     @jobs = yield Main.service 'jobs'
     
@@ -23,12 +21,18 @@ class TutorsMaster
   load : => Q.spawn =>
     yield @jobReloadIndexes()
     yield @jobs.signal 'loadTutorsFromRedis'
+    ###
     @const = yield @jobs.solve 'getConsts','filter'
     q = []
     for key,arr of @const.filter.subjects
       for subject in arr
         q.push @jobs.solve 'prefilterTutors','subject',subject
     yield Q.all q
+    ###
+    Q.spawn => while true
+      yield Q.delay 5*60*1000
+      yield @jobReloadIndexes()
+      yield @jobs.signal 'loadTutorsFromRedis'
 
   jobReloadIndexes : =>
     dids = yield _invoke @dbAccounts.find({tutor:true},{id:1}),'toArray'
@@ -50,8 +54,8 @@ class TutorsMaster
   
 
 
+module.exports = TutorsMaster
   
   
   
 
-module.exports = new TutorsMaster

@@ -1,6 +1,5 @@
 #killall iojs nodejs node compass
-pkill -f iojs
-pkill -f nodejs
-pkill -f node
-pkill -f compass
-pkill -f nohup
+pkill -9 -f iojs
+pkill -9 -f nodejs
+pkill -9 -f node
+pkill -9 -f compass

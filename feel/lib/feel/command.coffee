@@ -28,7 +28,7 @@ process.on 'SIGTERM', =>
 
 class module.exports
   constructor : ->
-    Wrap @
+    $W @
     @domain   = require 'domain'
     @context  = @domain.create()
     @context.on 'error', @onerror
@@ -42,5 +42,5 @@ class module.exports
     try
       error 'main domain handle'.yellow,Exception err
       process.exit 1
-  run : =>
+  run : => do Q.async =>
     log "run()".blue

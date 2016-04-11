@@ -1,14 +1,53 @@
 
 _rj_c = require('request-json').createClient('http://json.gate.iqsms.ru/')
 
+os = require 'os'
+hostname = os.hostname()
 
 class Sms
   constructor : ->
     $W @
     @cid = 0
   init : =>
+    @redis = yield _Helper('redis/main').get()
     @jobs = yield Main.service 'jobs'
     yield @jobs.listen 'sendSms',@send
+    yield @genUrls()
+    if _production
+      @prot = 'https'
+      switch hostname
+        when 'lessonhome.org'
+          @host = 'lessonhome.ru'
+        when 'lessonhome.ru'
+          @host = 'lessonhome.org'
+      @recacheFriend 5*60*1000 if @host
+    else
+      @prot = 'http'
+      @host = '127.0.0.1'
+      #@recacheFriend 30*1000 if @host
+    
+  genUrls : =>
+    @consts = yield @jobs.solve 'getConsts'
+    @pages =  @consts['pages'].main
+    states = yield @jobs.solve 'getAllStates'
+    for key,val of states
+      @pages.push key if val.match /reclame_jump_page_templates/
+  recacheFriend : (timed)=> Q.spawn =>
+    yield Q.delay 5000
+    while true
+      t = new Date().getTime()
+      for url in @pages
+        for i in [1..1]
+          nt = new Date().getTime()
+          ret = yield _wget @prot,@host,url
+          size = Math.ceil ret.data.length/1024
+          nt = (new Date().getTime()-nt)
+          console.log url.red,"#{ret.statusCode} #{size}Kb #{nt}ms".yellow
+      console.log "finish recache",new Date().getTime()-t
+      yield Q.delay timed
+
+
+    
   send : (messages,sender='lessonhome')=>
     for m in messages
       m.phone = m.phone.replace /\D/gmi,''

@@ -19,6 +19,7 @@ class @main
   sendTouch : (action, label)=>
     Feel.sendGActionOnceIf(18000,'bid_full',action,label)
   parseError: (err) =>
+    Feel.sendAction 'error_on_page' unless err.correct
     if err['name']? then @name.showError 'Введите более короткое имя'
     if err['phone']?
       if err['phone'] is 'empty_field' then @phone.showError 'Введите телефон'

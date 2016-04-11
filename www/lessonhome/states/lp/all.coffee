@@ -2,7 +2,7 @@ class @main  extends @template '../lp'
   route : '/lp_all'
   model   : 'tutor/bids/reports'
   title : "LessonHome - Администрирование"
-  access : ['other']
+  access : ['all']
   redirect : {
 
   }
@@ -32,7 +32,11 @@ class @main  extends @template '../lp'
       button_color: @exports()
       bg_position : @exports()
       opacity_form: @exports()
+      hide_head_button: true
+      hide_menu_punkt: true
       tutors : $defer : =>
+        @tree.content.filter ?= {}
+        @tree.content.filter.page = 'landing'
         filter = yield Feel.udata.d2u "mainFilter",@tree.content.filter
         hash = yield Feel.udata.filterHash filter,'filter'
         filter = yield Feel.udata.u2d filter

@@ -2,11 +2,7 @@
 
 
 class JobsIOClient
-  constructor : ->
-    $W @
-  init : =>
-
-  handler : ($,jobName,jobData...)=>
+  __handler : ($,jobName,jobData...)=>
     @jobs ?= yield Main.service 'jobs'
     user =
       id   : $.user.id
@@ -24,6 +20,6 @@ class JobsIOClient
     return {ret,error}
 
 
-module.exports = new JobsIOClient
+module.exports = JobsIOClient
 
 
