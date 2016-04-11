@@ -134,6 +134,8 @@ class Server
     return obj.url
     res.end()
   handler : (req,res)=>
+    if req.url == '/service-worker.js'
+      req.url = "/js/666/service_worker/worker"
     unless req.url.match /^\/robots\.txt/ then switch req?.headers?.host
       when 'prep.su','localhost.ru','pi0h.org'
         res.writeHead 301, 'Location': 'https://lessonhome.ru'+req.url
