@@ -356,7 +356,7 @@ class module.exports
     try
       js = yield _ycom js
     catch err
-      console.error "failed yjs",js, err,Exception err
+      console.log "failed yjs".red #,js, err,Exception err
     return js || ""
   dyjs    : (js)=> do Q.async => yield _gzip yield @yjs js
   ycss    : (css)=> do Q.async =>
