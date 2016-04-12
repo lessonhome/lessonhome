@@ -419,7 +419,16 @@ class @main
     if errs.length
       return show_er && {status: 'failed', errs}
 
-    r = yield @$send('../main/attached/save', data, quiet && 'quiet' || '')
+
+    #r = yield @$send('../main/attached/save', data, quiet && 'quiet' || '')
+    r = yield Feel.bid.save {
+      type : "message"
+      message : data.comments
+      name : data.name
+      phone : data.phone
+      subjects : [data.subject]
+      to : data.id
+    }
 
     if r.status == 'success'
       Feel.sendActionOnce 'direct_bid'

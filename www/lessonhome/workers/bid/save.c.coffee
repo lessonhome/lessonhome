@@ -62,6 +62,7 @@ class BidSaver
     yield @jobs.listen 'saveBid',@jobSaveBid
     yield @jobs.client 'saveBid',@jobClientSaveBid
   jobClientSaveBid : (user,data)=>
+    console.log "ClientSaveBid".red,data
     return yield @jobSaveBid user,data
   jobSaveBid : (user, data)=>
     data = check.takeData data
