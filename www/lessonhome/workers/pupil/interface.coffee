@@ -6,9 +6,10 @@
 class Interface
   constructor : (@main)->
     $W @
+    @locker = $Locker()
 
-  init : =>
-
+  ##########################################################
+  init : => @locker.$lock =>
     yield @main.jobs.listen 'pupilGetPupil',(userId)=> do Q.async =>
       pupil = yield @main.pupils.getPupil(userId)
       return yield pupil.getData()
@@ -21,9 +22,15 @@ class Interface
     yield @main.jobs.client 'pupilUpdatePupil',(auth,data)=> @main.pupils.pupilUpdate auth,data
 
     yield @main.jobs.client 'pupilSaveBid',(auth,data)=> @main.bids.bidSave auth,data
-    
-  ioConnect : (socket)=>
-    socket.on 'chatPush', (hash,msg)=> @main.chats.msgPush socket.user,hash,msg
+   
+    @main.io.on 'connect', @ioConnect
+
+  run : => @locker.$lock =>
+
+  ##########################################################
+  ioConnect : (socket)=> Q.spawn =>
+    socket.on 'chatPush', (hash,msg)=> Q.spawn =>
+      yield @main.chats.msgPush socket.user,hash,msg
     
 
 module.exports = Interface

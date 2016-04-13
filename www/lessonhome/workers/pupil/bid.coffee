@@ -3,9 +3,34 @@
 class Bid
   constructor : (@main)->
     $W @
-  init : (data)=> # write to db depended
+    @locker = $Locker()
+
+  ####################################################
+  init : (data)=> @locker.$lock => # write to db depended
     @data = yield @checkData data
     
+  getData : => @locker.$free =>
+    adminChat =  yield @main.chats.getAdminChatForUserBid(@data.account,@data.index)
+    return {
+      bid     : @data
+      chat    : yield adminChat.getData()
+      tutors  : {}
+    }
+
+  update : (data)=> @locker.$lock => # write to db depended
+    @data = yield @checkData @data,data
+  
+  linkTutorMessage : ({tutorIndex,message})=> @locker.$lock =>  # write to db
+    tutor = yield @_linkTutor @data,tutorIndex,'message'
+    if message
+      chat = yield @main.chats.get "#{@data.account}:#{@data.index}:#{tutorIndex}"
+      yield chat.push
+        type : 'pupil'
+        text : message
+        time : @data.time
+    yield @_write()
+
+  #####################################################
   checkData : (data=@data,updateObj)=> # write to db
     startHash = _object_hash data
     #********************    
@@ -57,15 +82,6 @@ class Bid
 
   _write : (data=@data)=>
     yield _invoke @main.dbBids,'update',{_id:@main._getID(data._id)},{$set:data}
-  getData : =>
-    adminChat =  yield @main.chats.getAdminChatForUserBid(@data.account,@data.index)
-    return {
-      bid     : @data
-      chat    : yield adminChat.getData()
-      tutors  : {}
-    }
-  update : (data)=> # write to db depended
-    @data = yield @checkData @data,data
 
   _linkTutor : (data,tutorIndex,type)=>
     data.tutors[tutorIndex] ?= {}
@@ -73,16 +89,6 @@ class Bid
     tutor.data ?= {}
     tutor.type ?= type
     return tutor
-
-  linkTutorMessage : ({tutorIndex,message})=> # write to db
-    tutor = yield @_linkTutor @data,tutorIndex,'message'
-    if message
-      chat = yield @main.chats.get "#{@data.account}:#{@data.index}:#{tutorIndex}"
-      yield chat.push
-        type : 'pupil'
-        text : message
-        time : @data.time
-    yield @_write()
 
 
 

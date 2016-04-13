@@ -358,6 +358,103 @@ global.$W = (obj)->
   return obj
 
 
+ilock = 0
+ifree = 0
+iflock = 0
+
+global.$Locker = (obj={})->
+  return obj if obj.$lock?
+  ee = new EE
+  __locked = false
+  __freelock = false
+  __flock = false
+  frees = 0
+
+  lock = -> do Q.async ->
+    console.log 'lock'.grey,++ilock
+    __freelock = true
+    while true
+      yield _waitFor ee,'unflock'  if __flock
+      yield _waitFor ee,'unlocked'  if __locked
+      yield _waitFor ee,'unfree'    if frees > 0
+      continue if __locked || (frees>0) || __flock
+      __locked = true
+      __freelock = false
+      ee.emit 'unfreelock'
+      return
+
+  free = -> do Q.async ->
+    console.log 'free'.grey,++ifree
+    while true
+      yield _waitFor ee,'unflock'  if __flock
+      yield _waitFor ee,'unlocked'    if __locked
+      yield _waitFor ee,'unfreelock'  if __freelock
+      continue if __locked || __freelock || __flock
+      frees++
+      return
+
+  flock = -> do Q.async ->
+    console.log 'flock'.grey,++flock
+    while true
+      yield _waitFor ee,'unflock' if __flock
+      continue if __flock
+      __flock = true
+      return
+
+  unfree = ->
+    console.log 'unfree'.grey,--ifree
+    return if frees<=0
+    frees--
+    ee.emit 'unfree'
+
+  unlock = ->
+    console.log 'unlock'.grey,--ilock
+    return unless __locked
+    __locked = false
+    ee.emit 'unlocked'
+
+  unflock = ->
+    console.log 'unflock'.grey,--iflock
+    return unless __flock
+    __flock = false
+    ee.emit 'unflock'
+
+  obj.$free = (foo)-> do Q.async ->
+    foo = Q.async foo if foo?.constructor?.name == 'GeneratorFunction'
+    yield free()
+    try
+      ret = yield foo()
+      unfree()
+      return ret
+    catch e
+      unfree()
+      throw e
+
+  obj.$lock = (foo)-> do Q.async ->
+    foo = Q.async foo if foo?.constructor?.name == 'GeneratorFunction'
+    yield lock()
+    try
+      ret = yield foo()
+      unlock()
+      return ret
+    catch e
+      unlock()
+      throw e
+
+  obj.$flock = (foo)-> do Q.async ->
+    foo = Q.async foo if foo?.constructor?.name == 'GeneratorFunction'
+    yield flock()
+    try
+      ret = yield foo()
+      unflock()
+      return ret
+    catch e
+      unflock()
+      throw e
+
+  return obj
+
+
 global.lrequire = (name)-> require './lib/'+name
 
 global.Path     = new (require('./service/path'))()

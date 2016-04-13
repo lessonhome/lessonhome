@@ -1,45 +1,62 @@
 
 Bid = require './bid'
 
-GLO = {}
 
 class Bids
   constructor : (@main)->
-  init : =>
+    $W @
+    @locker = $Locker()
+    @bids   = {}
+    @toMerge= []
+  ###########################################################
+  init : => @locker.$lock =>
     yield @reloadDb()
-  
-  reloadDb : =>
-    db = yield _invoke @main.dbBids.find({}).sort(time:1),'toArray'
-    db ?= []
-    bids = {index:{},account:{}}
-    toMerge = []
-    for dbbid in db
-      unless dbbid.state
-        toMerge.push dbbid
-        continue
-      bid = new Bid @main
-      yield bid.init dbbid
-      bids.index[bid.data.index] = bid
-      bids.account[bid.data.account]?= {}
-      bids.account[bid.data.account][bid.data.index] = bid
-    for dbbid in toMerge
-      yield @bidMerge dbbid
-    console.log GLO
-    @bids = bids
-  getBid : (userId,bidIndex)=>
+
+  run : => @locker.$free =>
+    yield @runMerge()
+
+  getBid : (userId,bidIndex)=> @locker.$free =>
     throw new Error "unknown bid #{userId}:#{bidIndex}" unless @bids.account[userId]?[bidIndex]?
     return @bids.account[userId][bidIndex]
-  getUserBids : (userId)=>
+
+  getUserBids : (userId)=> @locker.$free =>
     bids = []
     for index,bid of (@bids?.account?[userId] ? {})
       bids.push bid.getData()
     bids = yield Q.all bids
     bids.sort (a,b)=> a.time.getTime()-b.time.getTime()
     return bids
-  bidUpdate : (auth,index,data)=>
+  
+  bidUpdate : (auth,index,data)=> @locker.$free =>
     throw new Error "unknown user #{auth?.id}" unless @bids.account?[auth.id]?
     bid = yield @getBid auth.id,index
     yield bid.update data
+
+  updatedPupil : (pupil)=> @locker.$lock =>
+    pupil = yield pupil.getData()
+    f = account:$in:pupil.accounts
+    yield _invoke @main.dbBids,'update',f,{$set:account:pupil.account},{multi:true}
+    
+  ########################################################### 
+  reloadDb : =>
+    db = yield _invoke @main.dbBids.find({}).sort(time:1),'toArray'
+    db ?= []
+    bids = {index:{},account:{}}
+    for dbbid in db
+      unless dbbid.state
+        @toMerge.push dbbid
+        continue
+      bid = new Bid @main
+      yield bid.init dbbid
+      bids.index[bid.data.index] = bid
+      bids.account[bid.data.account]?= {}
+      bids.account[bid.data.account][bid.data.index] = bid
+    @bids = bids
+  
+  runMerge : =>
+    for dbbid in @toMerge
+      yield @bidMerge dbbid
+    @toMerge = []
 
   bidMerge : (bid)=>
     unless bid.account
@@ -49,14 +66,12 @@ class Bids
       #yield @removeBid bid
 
   bidMergeMessage : (bid)=>
-    for key,val of bid
-      GLO[key] = val
-
     fo = account:bid.account
     fo.subjects = $in : [bid.subject] if bid.subject
     found = yield @findLast fo
     if found
-      found = yield @bids.getBid found.account,found.index
+      found = @bids.account[found.account]?[found.index]
+      throw new Error 'bad found bid' unless found
       yield found.update
         subject : bid.subject
         name    : bid.name
@@ -65,8 +80,6 @@ class Bids
         linked  : bid.linked
     else
       found = yield @bidNewFromMessage bid
-
-    
 
   bidNewFromMessage : (dbbid)=>
     b =
@@ -90,6 +103,7 @@ class Bids
     find.state = 'in_work'
     bid = yield _invoke @main.dbBids.find(find).sort(time:-1).limit(1),'toArray'
     return bid?[0]
+
   removeBid : (bid)=>
     return unless bid._id
     yield _invoke @main.dbBids,'remove',{_id:@main._getID(bid._id)}

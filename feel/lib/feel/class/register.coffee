@@ -114,6 +114,7 @@ class Register
         yield _invoke @session, 'remove',{hash:{$in:arr2}}
         yield _invoke @account,'update',{id:id},{$set:{sessions:a.sessions}}
     time '32'
+    yield @jobs.listen 'registerMoveSessions',@jobRegisterMoveSessions
 
   delete_tutor : (id)=>
     for session of @accounts[id].sessions
@@ -265,6 +266,30 @@ class Register
     qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     yield Q.all qs
     return {session:@sessions[sessionhash],user:user}
+  jobRegisterMoveSessions : (from,to)=>
+    accs = []
+    for key in from
+      if key != to
+        accs.push @accounts[key] if @accounts[key]
+    to = @accounts[to]
+    throw new Error 'unknown account' unless to
+    
+    qs = []
+    
+    qs.push _invoke @session,'update',{
+      account : $in : from
+    },{$set:account:to.id}
+    
+    for acc in accs
+      for session of acc.sessions
+        to.sessions[session] = true
+      qs.push _invoke @account,'update',{id:acc.id},{$set:sessions:{}}
+    qs.push _invoke @account,'update',{id:to.id},{$set:sessions:to.sessions}
+    yield Q.all qs
+    yield @reload to.id
+    for acc in accs
+      yield @reload acc.id
+
   passwordUpdate : (user,sessionhash,data,admin=false)=>
     throw err:'bad_query'            unless data?.login? && data?.password? && data?.newpassword?
     throw err:'login_not_exists'      if !@logins[data.login]?

@@ -4,17 +4,20 @@
 class Io
   constructor : (@main)->
     $W @
+    @locker = $Locker()
 
-  init : =>
+  ########################################
+  init : => @locker.$lock =>
     @io = _Helper 'socket.io/main'
     @io.on 'connection',@ioconnection
 
+  run : => @locker.$lock =>
 
+  ########################################
   ioconnection : (socket)=>
     socket.rname = "uid:#{socket.user.id}"
     socket.join rname
     @emit 'connect',socket
-    @main.pupils.ioConnect socket
 
 module.exports = Io
 
