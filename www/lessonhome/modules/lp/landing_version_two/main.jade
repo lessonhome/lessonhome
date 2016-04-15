@@ -51,3 +51,47 @@
           i.m_icon.icon_chevron_right
           a(href='/search')
             img(src=F('lp/lh_white.png'))
+.bottom-form
+  .container
+    .row.no-margin-row
+      .col.s4.m4.l4
+        .row.no-margin-row
+          .m-form_body.js-form
+            .row
+              .col.s12
+                h2.m-fb_h2 Мы сделаем все за Вас
+                h3.m-fb_h3 Просто оставьте заявку
+            .row
+              .input-field.col.s12
+                i.m_icon.icon_account_circle.prefix
+                input(type='text' id='fb_name', name ='name').js-name
+                label(for='fb_name') Имя
+            .row
+              .input-field.col.s12
+                i.m_icon.icon_phone.prefix
+                input(type='tel' id='fb_phone', name='phone').js-phone
+                label(for='fb_phone') Телефон
+            .row.fs_row-button.center-align
+              .col.s12
+                a.waves-effect.waves-light.btn-large.orange-btn.m-field_btn.js-attach(name='bid_podbor') Жду звонка
+                  i.m_icon.icon_send.right
+            .row
+              .col.s12
+                .btn-large.m-succes-btn.white-text.light-blue.darken-4 Мы не передаем данные<br /> третьим лицам
+                  i.m_icon.icon_lock_outline
+          .js-success(style="display:none")
+            h5.form-title-one Заявка успешно отправлена!
+            h5.form-title-two Наш менеджер свяжется с Вами в течении 10-15 минут
+            .row.fs_row-button
+              a.waves-effect.waves-light.btn-large.yellow-btn.js-detail Уточнить заявку
+      .col.s6.m6.l6.offset-s2.offset-m2.offset-l2
+        h2.m-bf_title Почему стоит оставить заявку?
+        .m-bf-list
+          .title Мы найдем того, кто вам нужен
+          .text Быстрый поиск репетитора  по вашим пожеланиям, бюджету и уровню знаний.
+        .m-bf-list
+          .title Оплачивайте только работу репетитора
+          .text Наши услуги абсолютно бесплатны. Вы платите только за занятие с репетитором
+        .m-bf-list
+          .title Индивидуальный подход
+          .text Если преподаватель вам не подошел, мы учтем замечания и подберем другого
