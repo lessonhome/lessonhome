@@ -1,2 +1,2 @@
-config_directory = "/home/tema/lessonhome/tg/ldir";
+config_directory = "./lessonhome/tg/ldir";
 log_level = 0;
