@@ -36,12 +36,11 @@ class Chats
   
   getAdminChatForUserBid : (userId,bidIndex)=> @get "#{userId}:#{bidIndex}:admin"
 
-  updatedPupil : (pupil)=>
-    pupil = yield pupil.getData()
+  updatedPupil : (pupil)=> @locker.$async =>
     f = hash:$in:[]
     for acc in pupil.accounts
-      f.hash.in.push new RegExp "^#{acc}:.*"
-    found = yield _invoke @main.dbChat.find(f,{hash:1})
+      f.hash.$in.push new RegExp "^#{acc}:.*"
+    found = yield _invoke @main.dbChat.find(f,{hash:1}),'toArray'
     found ?= []
     qs = []
     for chat in found
@@ -51,12 +50,15 @@ class Chats
       newhash = newhash.join ':'
       qs.push _invoke @main.dbChat,'update',{hash:found.hash},{$set:hash:newhash}
     yield Q.all qs
+    yield @reloadDb()
   
   ###################################
   reloadDb : =>
     db = yield _invoke @main.dbChat.find({}),'toArray'
     db ?= []
-    chats = {hash:{}}
+    for hash,chat of (@chats?.hash ? {})
+      yield chat.destruct()
+    @chats = {hash:{}}
     for chatdb in db
       chat = new Chat @main
       try
@@ -64,8 +66,8 @@ class Chats
       catch e
         continue if e == 'delete'
         throw e
-      chats.hash[chat.data.hash] = chat
-    @chats = chats
+      @chats.hash[chat.data.hash] = chat
+
   
 
 

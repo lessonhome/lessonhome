@@ -1,8 +1,6 @@
 
 Pupil = require './pupil'
 
-GLO = {}
-GLO2 = {}
 
 class Pupils
   constructor : (@main)->
@@ -30,14 +28,16 @@ class Pupils
  
   #########################################
   reloadDb : =>
+    @toMerge = []
     db = yield _invoke @main.dbPupil.find({}),'toArray'
-    pupils = {}
+    for acc,pupil of @pupils
+      yield pupil.destruct()
     @pupils = {}
     for pupildb in (db ? [])
       unless pupildb?.state
         @toMerge.push pupildb
         continue
-      yield @createPupil pupildb
+      yield @initPupil pupildb
 
   runMerge : =>
     for pupildb in @toMerge
@@ -45,24 +45,33 @@ class Pupils
     @toMerge = []
 
   _mergePupilInfo : (pupil)=>
+    oldId = pupil._id
     pupil = Pupil::_preparePupil pupil
-    delete pupil.subjects
-    delete pupil.status
-    delete pupil.bids
-
+    
     found = yield @findPupil pupil
     if found.length
       other = found.pop()
       while one = found.pop()
+        console.log 'one to other'.red
         other = yield @mergeOneToOther one,other
       yield other.extraInfo pupil
     else
-      other = yield @createPupil pupil
-
+      other = yield @initPupil pupil
+    yield @_checkOldForRemove other.data._id,oldId
+  
+  _checkOldForRemove : (now,old)=>
+    return unless old
+    return if now == old
+    yield _invoke @main.dbPupil,'remove',{_id:@main._getID(old)}
   findPupil : (pupil)=>
-    found = yield _invoke @main.dbPupil.find({$or:[
-      {email:$in:pupil.email},{phone:$in:pupil.phone},{accounts:$in:pupil.accounts}
-    ],{state:$exists:true} }).sort(registerTime:-1),'toArray'
+    fo = {$or:[],state:{$exists:true}}
+    fo.$or.push emails:$in:pupil.emails if pupil.emails.length
+    fo.$or.push phones:$in:pupil.phones if pupil.phones.length
+    fo.$or.push accounts:$in:pupil.accounts if pupil.accounts.length
+    
+    throw new Error 'bad pupil for find similar '+JSON.stringify(pupil) unless fo.$or.length
+
+    found = yield _invoke @main.dbPupil.find(fo).sort(registerTime:-1),'toArray'
     found ?= []
     ret = []
     for p in found
@@ -74,12 +83,8 @@ class Pupils
   mergeOneToOther : (one,other)=>
     yield other.extraInfo yield one.getData()
     yield one.remove()
-    yield @main.bids.updatedPupil   other
-    yield @main.chats.updatedPupil  other
-    data = yield other.getData()
-    yield @main.jobs.solve 'registerMoveSessions',data.accounts,data.account
 
-  createPupil : (pupildb)=>
+  initPupil : (pupildb)=>
     pupil = new Pupil @main
     yield pupil.init pupildb
     pdata = yield pupil.getData()

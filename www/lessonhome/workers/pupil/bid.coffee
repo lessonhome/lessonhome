@@ -8,7 +8,9 @@ class Bid
   ####################################################
   init : (data)=> @locker.$lock => # write to db depended
     @data = yield @checkData data
-    
+   
+  destruct : => @locker.$lock =>
+
   getData : => @locker.$free =>
     adminChat =  yield @main.chats.getAdminChatForUserBid(@data.account,@data.index)
     return {
@@ -32,8 +34,6 @@ class Bid
 
   #####################################################
   checkData : (data=@data,updateObj)=> # write to db
-    startHash = _object_hash data
-    #********************    
     if updateObj?
       for key,val of updateObj
         data[key] = val
@@ -74,14 +74,17 @@ class Bid
     data.time ?= new Date()
     data.state ?= 'in_work'
 
-    #********************
-    endHash = _object_hash data
-    if (!data._id) || (startHash != endHash)
-      yield @_write data
+    yield @_write data
     return data
 
   _write : (data=@data)=>
+    __hash = @main.hash data
+    return if __hash == data.__hash
+    data.__hash = __hash
     yield _invoke @main.dbBids,'update',{_id:@main._getID(data._id)},{$set:data}
+    unless data._id
+      ret = yield _invoke @main.dbBids.find({index:data.index},{_id:1}),'toArray'
+      data._id = ret?[0]?._id
 
   _linkTutor : (data,tutorIndex,type)=>
     data.tutors[tutorIndex] ?= {}

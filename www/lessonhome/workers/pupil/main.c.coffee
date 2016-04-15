@@ -31,13 +31,21 @@ class PupilWorker
 
     yield @io.run()
     yield @pupils.run()
-    yield @bids.run()
-    yield @chats.run()
-    yield @interface.run()
+    #yield @bids.run()
+    #yield @chats.run()
+    #yield @interface.run()
 
 
   _getID : (_id)-> new _ObjectID _id
+  hash : (data={},but={__hash:true})=>
+    o = {}
+    for key,val of data
+      if !but[key]
+        o[key] = val
+      else
+        o[key] = true
 
+    return _object_hash o
 
 module.exports = PupilWorker
 

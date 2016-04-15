@@ -369,9 +369,10 @@ global.$Locker = (obj={})->
   __freelock = false
   __flock = false
   frees = 0
+  asyncarr = []
 
   lock = -> do Q.async ->
-    console.log 'lock'.grey,++ilock
+    #console.log 'lock'.grey,++ilock
     __freelock = true
     while true
       yield _waitFor ee,'unflock'  if __flock
@@ -384,7 +385,7 @@ global.$Locker = (obj={})->
       return
 
   free = -> do Q.async ->
-    console.log 'free'.grey,++ifree
+    #console.log 'free'.grey,++ifree
     while true
       yield _waitFor ee,'unflock'  if __flock
       yield _waitFor ee,'unlocked'    if __locked
@@ -394,7 +395,7 @@ global.$Locker = (obj={})->
       return
 
   flock = -> do Q.async ->
-    console.log 'flock'.grey,++flock
+    #console.log 'flock'.grey,++flock
     while true
       yield _waitFor ee,'unflock' if __flock
       continue if __flock
@@ -402,22 +403,31 @@ global.$Locker = (obj={})->
       return
 
   unfree = ->
-    console.log 'unfree'.grey,--ifree
+    #console.log 'unfree'.grey,--ifree
     return if frees<=0
     frees--
     ee.emit 'unfree'
 
   unlock = ->
-    console.log 'unlock'.grey,--ilock
+    #console.log 'unlock'.grey,--ilock
     return unless __locked
     __locked = false
     ee.emit 'unlocked'
 
   unflock = ->
-    console.log 'unflock'.grey,--iflock
+    #console.log 'unflock'.grey,--iflock
     return unless __flock
     __flock = false
     ee.emit 'unflock'
+  async = -> do Q.async ->
+    yield lock()
+    try
+      while foo = asyncarr.shift()
+        yield foo()
+      unlock()
+    catch e
+      unlock()
+      throw e
 
   obj.$free = (foo)-> do Q.async ->
     foo = Q.async foo if foo?.constructor?.name == 'GeneratorFunction'
@@ -451,6 +461,10 @@ global.$Locker = (obj={})->
     catch e
       unflock()
       throw e
+  obj.$async = (foo)-> do Q.async ->
+    foo = Q.async foo if foo?.constructor?.name == 'GeneratorFunction'
+    asyncarr.push foo
+    Q.spawn -> yield async()
 
   return obj
 

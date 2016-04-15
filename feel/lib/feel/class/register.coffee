@@ -271,22 +271,31 @@ class Register
     for key in from
       if key != to
         accs.push @accounts[key] if @accounts[key]
-    to = @accounts[to]
-    throw new Error 'unknown account' unless to
-    
+    toacc = @accounts[to]
+    unless toacc
+      throw new Error 'unknown account '+to unless to
+      yield @newAccount to,false,{pupil:true}
+      toacc = @accounts[to]
+      throw new Error 'failed newAccount '+to unless toacc
+    toacc.pupil = true
+    toacc.type ?= {other:true}
+    toacc.type.pupil = true
     qs = []
     
     qs.push _invoke @session,'update',{
       account : $in : from
-    },{$set:account:to.id}
+    },{$set:account:toacc.id}
     
     for acc in accs
       for session of acc.sessions
-        to.sessions[session] = true
+        toacc.sessions[session] = true
       qs.push _invoke @account,'update',{id:acc.id},{$set:sessions:{}}
-    qs.push _invoke @account,'update',{id:to.id},{$set:sessions:to.sessions}
+    accdb = {}
+    for key,val of toacc
+      accdb[key] = val unless key == 'account'
+    qs.push _invoke @account,'update',{id:toacc.id},{$set:accdb},{upsert:true}
     yield Q.all qs
-    yield @reload to.id
+    yield @reload toacc.id
     for acc in accs
       yield @reload acc.id
 
@@ -468,18 +477,20 @@ class Register
         #console.log res
     )
     _invoke  bcrypt,'compare',pass,hash
-  newAccount : =>
+  newAccount : (hashid,unknown='need',type={})=>
+    hashid ?= _randomHash()
+    type.other = true
     try
       account =
-        id            : _randomHash()
+        id            : hashid
         index         : ++@aindex
         registerTime  : new Date()
         accessTime    : new Date()
-        other         : true
-        type          :
-          other       : true
+        type          : type
         sessions      : {}
-        unknown       : 'need'
+        unknown       : unknown
+      for key,val of type
+        account[key] ?= true
       @accounts[account.id]   = account
       sessionhash = yield @newSession account.id
       #yield _invoke(@account,'update', {id:account.id},{$set:account},{upsert:true})

@@ -6,10 +6,19 @@ class Pupil
   constructor : (@main)->
     $W @
     @locker = $Locker()
+    @unset =
+      phone : ""
+      email : ""
+      phone_call : ""
+      subjects : ""
+      status : ""
+      bids : ""
 
   ###################################################
   init : (data)=> @locker.$lock =>
     @data = yield @checkData data
+
+  destruct : => @locker.$lock =>
 
   getData : => @locker.$free => @data
 
@@ -17,6 +26,9 @@ class Pupil
     @data = yield @checkData @data,data
 
   extraInfo : (from)=> @locker.$lock =>
+    if from?.account || from?.accounts?.length
+      if from.account != @data.account
+        depends = true
     to = {}
     to[key] = val for key,val of @data
 
@@ -29,32 +41,45 @@ class Pupil
     to.emails.push from.emails...
     
     @data = yield @checkData @data,to
+   
+    yield @updateDepends() if depends
 
   remove : => @locker.$lock =>
     return unless @data._id
     yield _invoke @main.dbPupil,'remove',_id:@main._getID(@data._id)
 
   ###################################################
+  updateDepends : =>
+    accsfrom = []
+    for key in @data.accounts
+      accsfrom.push key unless key == @data.account
+    console.log 'update depends'.red,accsfrom,@data.account
+    yield @main.bids.updatedPupil   @data
+    yield @main.chats.updatedPupil  @data
+    yield @main.jobs.solve 'registerMoveSessions',accsfrom,@data.account
+
   checkData : (data=@data,updateObj)=>
-    startHash = _object_hash data
-    #********************    
     if updateObj?
       for key,val of updateObj
         data[key] = val
+
+    data = yield @_preparePupil data
         
-    #********************
-    endHash = _object_hash data
-    if (startHash != endHash) || (!data._id)
-      yield @_write()
+    yield @_write data
     return data
 
   _write : (data=@data)=>
-    f = state:$exists:true
+    __hash = @main.hash data
+    return if data.__hash == __hash
+    data.__hash = __hash
+    #f = state:$exists:true
+    f = {}
     if data._id
       f._id = @main._getID data._id
     else
       f.account = data.account
-    yield _invoke @main.dbPupil,'update',f,{$set:data},{upsert:true}
+
+    yield _invoke @main.dbPupil,'update',f,{$set:data,$unset:@unset},{upsert:true}
     unless data._id
       ret = yield _invoke @main.dbPupil.find(f,{_id:1}),'toArray'
       data._id = ret?[0]?._id
@@ -82,14 +107,12 @@ class Pupil
       else
         pp[key] = true if key
     pp[pupil.phone] = true if pupil.phone
-    delete pupil.phone
     if pupil.phone_call?.phones?
       for key,val of pupil.phone_call.phones
         if pupil.phone_call.phones.length
           pp[val] = true if val
         else
           pp[key] = true if key
-    delete pupil.phone_call
     pupil.phones = Object.keys pp
     pp = {}
     for phone in pupil.phones
@@ -104,7 +127,6 @@ class Pupil
     ee = {}
     ee[email] = true for email in pupil.emails
     ee[pupil.email] = true if pupil.email
-    delete pupil.email
     pupil.emails = []
     for email of ee
       email = email.replace /\s/g,''
@@ -113,6 +135,8 @@ class Pupil
     pupil.registerTime ?= new Date()
 
     pupil.state ?= 'inited'
+    
+    delete pupil[key] for key of @unset
 
     return pupil
 

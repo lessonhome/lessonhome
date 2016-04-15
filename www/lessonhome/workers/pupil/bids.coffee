@@ -8,6 +8,7 @@ class Bids
     @locker = $Locker()
     @bids   = {}
     @toMerge= []
+
   ###########################################################
   init : => @locker.$lock =>
     yield @reloadDb()
@@ -32,27 +33,29 @@ class Bids
     bid = yield @getBid auth.id,index
     yield bid.update data
 
-  updatedPupil : (pupil)=> @locker.$lock =>
-    pupil = yield pupil.getData()
+  updatedPupil : (pupil)=> @locker.$async =>
     f = account:$in:pupil.accounts
     yield _invoke @main.dbBids,'update',f,{$set:account:pupil.account},{multi:true}
+    yield @reloadDb()
     
   ########################################################### 
   reloadDb : =>
     db = yield _invoke @main.dbBids.find({}).sort(time:1),'toArray'
     db ?= []
-    bids = {index:{},account:{}}
+    @toMerge = []
+    for index,bid of (@bids?.index ? {})
+      yield bid.destruct()
+    @bids = {index:{},account:{}}
     for dbbid in db
       unless dbbid.state
         @toMerge.push dbbid
         continue
       bid = new Bid @main
       yield bid.init dbbid
-      bids.index[bid.data.index] = bid
-      bids.account[bid.data.account]?= {}
-      bids.account[bid.data.account][bid.data.index] = bid
-    @bids = bids
-  
+      @bids.index[bid.data.index] = bid
+      @bids.account[bid.data.account] ?= {}
+      @bids.account[bid.data.account][bid.data.index] = bid
+
   runMerge : =>
     for dbbid in @toMerge
       yield @bidMerge dbbid

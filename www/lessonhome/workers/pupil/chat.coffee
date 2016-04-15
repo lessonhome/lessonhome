@@ -12,7 +12,9 @@ class Chat
     catch e
       yield @deleteChat data if e == 'delete'
       throw e
-
+  
+  destruct : => @locker.$lock =>
+  
   push : (msg)=> @locker.$lock =>
     @data.messages.push msg
     yield _invoke @main.dbChat,'update',{hash:data.hash},{$push:{messages:msg}}
@@ -22,9 +24,6 @@ class Chat
   
   ####################################################
   checkData : (data=@data)=>
-    startHash = _object_hash data
-    #********************    
-    
     try
       [@from_id,@bid_id,@to_id] = data.hash.split ':'
     catch e
@@ -34,12 +33,16 @@ class Chat
 
     data.messages ?= []
 
-    #********************
-    endHash = _object_hash data
-    unless startHash == endHash
-      yield _invoke @main.dbChat,'update',{hash:data.hash},{$set:data}
+    yield @_write data
     return data
-
+  _write : (data=@data)=>
+    __hash = @main.hash data
+    return if __hash == data.__hash
+    data.__hash = __hash
+    yield _invoke @main.dbChat,'update',{hash:data.hash},{$set:data}
+    unless data._id
+      ret = yield _invoke @main.dbChat.find({hash:data.hash},{_id:1}),'toArray'
+      data._id = ret?[0]?._id
   deleteChat : (data=@data)=>
     return unless data._id
     yield _invoke @main.dbChat,'remove',{_id:@main._getID(data._id)}
