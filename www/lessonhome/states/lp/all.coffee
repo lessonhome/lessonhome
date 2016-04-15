@@ -34,6 +34,7 @@ class @main  extends @template '../lp'
       opacity_form: @exports()
       hide_head_button: true
       hide_menu_punkt: true
+      opacity_header: true
       tutors : $defer : =>
         @tree.content.filter ?= {}
         @tree.content.filter.page = 'landing'

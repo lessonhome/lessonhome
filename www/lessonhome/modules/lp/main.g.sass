@@ -18,10 +18,10 @@ body, html
 //custom button
 .btn-large, .btn, .btn-flat
   &.orange-btn
-    background-color: #fd7c48
+    background-color: #fa9c26
     box-shadow: none
     color: #ffffff
-    font-family: 'Roboto'
+    font-family: 'DIN'
     &:hover
       background-color: #df6736
       box-shadow: none
@@ -347,3 +347,33 @@ textarea.materialize-textarea
     &.col-no-padding
       padding: 0
 //commit
+
+//opacity header
+.header_opacity
+  position: absolute
+  z-index: 3
+  left: 0
+  right: 0
+  top: 0
+  background-color: rgba(0,0,0,.3)
+  .logo-phone-block
+    .contacts-line
+      display: none
+    .header-info
+      float: right
+    .hi-sity
+      display: none
+    .phone-link
+      color: #fa9c26
+      font-size: 2rem
+      margin: .7rem 0 0 0
+    a
+      &.logo
+        width: 21.296296296%
+        &:after
+          padding-top: 17.826086957%
+        img
+          &.dark_logo
+            display: none
+          &.light_logo
+            display: inline-block

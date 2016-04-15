@@ -1,5 +1,8 @@
 - content = content || "";
-header!=header
+- opacity_class = ''
+if opacity_header == true
+  - opacity_class = 'header_opacity'
+header(class=opacity_class)!=header
 if single_profile
   content.js-content.hidden!=content
   content.js-profile!=profile
