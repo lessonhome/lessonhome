@@ -84,7 +84,7 @@ class Telegram
     cmd = msg.text.split(/\s+/)?[0] ? ""
     cmd = cmd.toLocaleLowerCase()
     switch cmd
-      when 'find','afind','аштв','фаштв','get','aget','фпуе','пуе','photo','фото'
+      when 'find','afind','аштв','фаштв','get','aget','фпуе','пуе','photo','фото','ya','нф'
         return @alice_audio msg
     return if msg.text.match /[а-яё]/gmi
     return unless msg.text.match /\w/gmi
@@ -173,6 +173,35 @@ class Telegram
         urls = urls.splice 0,cmd2
         yield @sendPhotos msg,urls if urls.length
         return if urls.length
+      when 'ya','нф'
+        cmd2 ?= 1
+        @msg_next = msg
+        @msg_next.text = "#{cmd} #{cmd2} #{cmd3+cmd2} #{arg.join(' ')}"
+        try
+          #https://yandex.ru/images/search?text=%D1%81%D0%B8%D1%81%D1%8C%D0%BA%D0%B8&wp=off'  
+          ret = yield _wget 'https','yandex.ru','/images/search?text='+encodeURIComponent(arg.join(' '))+'&wp=off'
+        catch e
+          console.error Exception e
+        return unless ret
+        
+        #ret = yield _wget 'https','www.google.ru','/search?newwindow=1&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiNqb6syqTLAhXpHJoKHeAdAf4Q_AUICCgC&biw=1463&bih=950&q='+encodeURIComponent(arg.join(' '))
+        #imgs = ret?.data?.match?(/\<img[^\<]+src\=\"([^\"]+static[^\"]+)\"/gmi) ? []
+        imgs = ret?.data?.match(/serp-item__link[^\>]*img_url=([^\"]*\.jpg)/gm) ? []
+        boo = false
+        srcs = []
+        for img in imgs
+          src = decodeURIComponent img?.match?(/serp-item__link[^\>]*img_url=([^\"]*\.jpg)/)?[1]
+          if src
+            srcs.push src
+            boo = true
+        if cmd2
+          srcs = srcs.splice cmd3,cmd2
+        console.log srcs
+        urls = srcs
+        urls = urls.splice 0,cmd2
+        yield @sendPhotos msg,urls if urls.length
+        return if urls.length
+
     str = str || 'не найдено'
     yield @alice_bot.sendMessage msg.chat.id,str
   audioFind : (name,num=10,cmd3)=> yield @jobs.solve 'findAudio',name,num,cmd3
@@ -198,7 +227,7 @@ class Telegram
         clearInterval int
       Q.spawn => yield @alice_bot.sendChatAction msg.chat.id,'upload_photo'
     , 5000
-    for src in photos then do (src)=> Q.spawn =>
+    for src in photos
       ext = src?.match?(/(\.\w+)$/)?[1] || "jpg"
       path = "#{process.cwd()}/.cache/#{_randomHash()}.#{ext}"
       try
