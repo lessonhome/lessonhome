@@ -12,4 +12,4 @@ class @main extends @template 'lp/landing_version_two'
     bg_color: '#4b9302'
     filter :
       subject  : ['английский язык']
-      course   : []
+      course   : ['школьный курс']
