@@ -23,12 +23,12 @@
             .row
               .input-field.col.s12.gray-input
                 i.m_icon.icon_account_circle.prefix
-                input(type='text' id='f_name', name ='name').js-name
+                input(type='text' id='f_name', name ='name', value=value.name).js-name
                 label(for='f_name') Имя
             .row
               .input-field.col.s12.gray-input
                 i.m_icon.icon_phone.prefix
-                input(type='tel' id='f_phone', name='phone').js-phone
+                input(type='tel' id='f_phone', name='phone', value=value.phone).js-phone
                 label(for='f_phone') Телефон
             .row.fs_row-button.center-align
               .col.s12
@@ -47,12 +47,8 @@
   .container
     h2=tutors_title
     .row.no-margin-row
-      .col.s6.m6.l6!=tutor_card
-      .col.s6.m6.l6!=tutor_card
-      .col.s6.m6.l6!=tutor_card
-      .col.s6.m6.l6!=tutor_card
-      .col.s6.m6.l6!=tutor_card
-      .col.s6.m6.l6!=tutor_card
+      each tutor in tutors
+        .col.s6.m6.l6!=tutor
 .more_tutors
   .container
     .row.no-margin-row
@@ -60,7 +56,7 @@
         .m-mt_text
           span На нашем сайте вы найдете больше репетиторов
           i.m_icon.icon_chevron_right
-          a(href='/search')
+          a.js-go_find(href='/search')
             img(src=F('lp/lh_white.png'))
 .bottom-form
   .container
@@ -75,12 +71,12 @@
             .row
               .input-field.col.s12.gray-input
                 i.m_icon.icon_account_circle.prefix
-                input(type='text' id='fb_name', name ='name').js-name
+                input(type='text' id='fb_name', name ='name', value=value.name).js-name
                 label(for='fb_name') Имя
             .row
               .input-field.col.s12.gray-input
                 i.m_icon.icon_phone.prefix
-                input(type='tel' id='fb_phone', name='phone').js-phone
+                input(type='tel' id='fb_phone', name='phone',value=value.phone).js-phone
                 label(for='fb_phone') Телефон
             .row.fs_row-button.center-align
               .col.s12
