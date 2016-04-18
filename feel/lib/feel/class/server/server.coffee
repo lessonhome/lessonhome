@@ -3,6 +3,7 @@
 http  = require 'http'
 spdy  = require 'spdy'
 https = require 'https'
+http2 = require 'http2'
 _crypto = require 'crypto'
 _postdata = Q.denode require 'post-data'
 os = require "os"
@@ -63,7 +64,7 @@ class Server
       ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'
     }
-    @sshServer = https.createServer options,@handler
+    @sshServer = http2.createServer options,@handler
     if _production
       @sshServer.listen 8083,@ip
     else

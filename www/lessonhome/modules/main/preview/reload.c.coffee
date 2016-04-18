@@ -40,24 +40,24 @@ toRedisHash = (obj)-> do Q.async =>
   t = new Date().getTime()
   return @persons unless (t-@timereload)>(1000*10)
   @timereload = t
-  account_  =  _invoke @dbaccounts.find({}),'toArray'
+  account_  =  _invoke @dbaccounts.find({"type.tutor":true}),'toArray'
 
   tutor  =  _invoke @dbtutor.find({}),'toArray'#,{account:1,status:1,subjects:1,reason:1,slogan:1,about:1,experience:1,extra:1,settings:1,calendar:1,check_out_the_areas:1}), 'toArray'
   person = _invoke @dbpersons.find({hidden:{$ne:true}}),'toArray'#,{account:1,ava:1,first_name:1,middle_name:1,last_name:1,sex:1,birthday:1,location:1,interests:1,work:1,education:1}),'toArray'
   [tutor,person,account_] = [(yield tutor),(yield person),(yield account_)]
   persons = {}
+  for val in account_
+    continue unless val?.id
+    persons[val.id] ?= {}
+    persons[val.id].account = val
   for val in tutor
     continue unless val?.account
-    persons[val.account] ?= {}
+    continue unless persons[val.account]?
     persons[val.account].tutor = val
   for val in person
     continue unless val?.account
     continue unless persons[val.account]?
     persons[val.account].person = val
-  for val in account_
-    continue unless val?.id
-    continue unless persons[val.id]?
-    persons[val.id].account = val
   for account,obj of persons
     t = obj.tutor
     p = obj.person
