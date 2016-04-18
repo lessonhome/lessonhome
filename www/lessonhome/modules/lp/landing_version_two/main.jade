@@ -38,16 +38,17 @@
               .col.s12
                 .btn-large.m-succes-btn.white-text.light-blue.darken-4(style='background-color:' + bg_color  + ' !important;') Мы не передаем данные<br /> третьим лицам
                   i.m_icon.icon_lock_outline
-          .js-success(style="display:none")
-            h5.form-title-one Заявка успешно отправлена!
-            h5.form-title-two Наш менеджер свяжется с Вами в течении 10-15 минут
-            .row.fs_row-button
-              a.waves-effect.waves-light.btn-large.yellow-btn.js-detail Уточнить заявку
-.work_steps!=work_steps
+          .m-success.js-success(style="display:none")
+            h5.title_one Заявка успешно отправлена!
+            h5.title_two Наш менеджер свяжется с Вами в течении 10-15 минут
+            .row.no-margin-row.center-align
+              a.waves-effect.waves-light.btn-large.orange-btn.m-field_btn.js-detail Уточнить заявку
+if work_steps_show
+  .work_steps!=work_steps
 .tutors_cards
   .container
     h2=tutors_title
-    .row.no-margin-row
+    .row.no-margin-row.m-inline_grid
       each tutor in tutors
         .col.s6.m6.l6!=tutor
 .more_tutors
@@ -87,11 +88,11 @@
               .col.s12
                 .btn-large.m-succes-btn.white-text.light-blue.darken-4(style='background-color:' + bg_color  + ' !important;') Мы не передаем данные<br /> третьим лицам
                   i.m_icon.icon_lock_outline
-          .js-success(style="display:none")
-            h5.form-title-one Заявка успешно отправлена!
-            h5.form-title-two Наш менеджер свяжется с Вами в течении 10-15 минут
-            .row.fs_row-button
-              a.waves-effect.waves-light.btn-large.yellow-btn.js-detail Уточнить заявку
+          .m-success.js-success(style="display:none")
+            h5.title_one Заявка успешно отправлена!
+            h5.title_two Наш менеджер свяжется с Вами в течении 10-15 минут
+            .row.no-margin-row.center-align
+              a.waves-effect.waves-light.btn-large.orange-btn.m-field_btn.js-detail Уточнить заявку
       .col.s6.m6.l6.offset-s2.offset-m2.offset-l2
         h2.m-bf_title Почему стоит оставить заявку?
         .m-bf-list
