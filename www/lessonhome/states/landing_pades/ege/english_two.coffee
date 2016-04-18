@@ -1,5 +1,5 @@
 class @main extends @template 'lp/landing_version_two'
-  route : '/anglijskij-yazyk-ege'
+  route : '/anglijskij-yazyk-egeh'
   model : 'main/registration'
   title : "Lessonhome - бесплатный подбор репетитора по аглийскому языку"
   tree: =>
