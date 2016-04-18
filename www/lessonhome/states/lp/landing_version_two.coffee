@@ -21,8 +21,9 @@ class @main extends @template '../lp'
       hide_menu_punkt: true
       opacity_header: true
       work_steps_show: @exports()
-      #tutor_card: @state './tutor_card'
+      result_show: @exports()
       work_steps: @state './work_steps'
+      result: @state './result'
       filter : @exports()
       value :
         phone : $urlform : pupil : 'phone'

@@ -7,6 +7,7 @@ class @main extends @template 'lp/landing_version_two'
     top_img: '/lp/landing_screen/english_ege_01.jpg'
     tutors_title: 'Lessonhome рекомендует'
     work_steps_show: true
+    result_show: true
     filter :
       subject : ['английский язык']
       course  : []
