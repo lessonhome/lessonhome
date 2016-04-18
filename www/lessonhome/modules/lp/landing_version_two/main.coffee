@@ -15,7 +15,7 @@ class @main
     @found.name.focus => @found.name.removeClass('invalid')
     @found.phone.focus => @found.phone.removeClass('invalid')
     @found.detail.click => Q.spawn => Feel.jobs.solve 'openBidPopup', 'fullBid'
-    #@found.attach_pos.on    'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', 'null', 'motivation'
+    #@found.attach_pos?.on    'click', => Q.spawn => Feel.jobs.solve 'openBidPopup', 'null', 'motivation'
     Q.spawn =>
       subjects = [@tree.filter.subject[0]]
       course = ((if /^(егэ|гиа)$/i.test(c) then c.toUpperCase() else c) for i, c of @tree.filter.course)
