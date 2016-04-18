@@ -1,0 +1,76 @@
+@import variables
+
+.work_steps
+  padding: 4rem 0 0
+  @media #{$medium-and-down}
+    padding: 2rem 0
+  .m-row_steps
+    .col
+      text-align: center
+      @media #{$small-and-down}
+        text-align: left
+        &:last-of-type 
+          .m-icons
+            margin-bottom: 0 !important
+  .m-title
+    h2
+      padding: 0
+      margin: 0 0 5rem
+      position: relative
+      text-align: center
+      font-size: 2.467rem
+      font-weight: 300
+      color: #333333
+      &:after
+        content: ''
+        display: block
+        height: 2px
+        width: 4.267rem
+        position: absolute
+        left: 50%
+        margin-left: -2.1335rem
+        bottom: -1rem
+        background-color: #ff8b38
+      @media #{$medium-and-down}
+        margin-bottom: 2rem
+      @media #{$small-and-down}
+        text-align: center
+  .m-content
+    font-size: 1.2rem
+    line-height: 140%
+  .m-icons
+    display: inline-block
+    width: 12.27rem
+    height: 12.27rem
+    color: #147585
+    border: 1px solid #147585
+    border-radius: 50%
+    margin-bottom: 2rem
+    text-align: center
+    i
+      font-size: 6rem
+      line-height: 12.27rem
+    @media #{$medium-and-down}
+      width: 10rem
+      height: 10rem
+      i
+        font-size: 5rem
+        line-height: 10rem
+    @media #{$small-and-down}
+      width: 8rem
+      height: 8rem
+      i
+        font-size: 4rem
+        line-height: 8rem
+  .m-text
+    display: block
+    &.link-popup
+      color: #147585
+      cursor: pointer 
+      span
+        border-bottom: dashed 2px
+    @media #{$small-and-down}
+      display: inline-block
+      width: 45%
+      margin-left: 2rem
+      vertical-align: middle

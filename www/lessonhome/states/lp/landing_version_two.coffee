@@ -21,3 +21,4 @@ class @main extends @template '../lp'
       hide_menu_punkt: true
       opacity_header: true
       tutor_card: @state './tutor_card'
+      work_steps: @state './work_steps'
