@@ -3,6 +3,7 @@
 http  = require 'http'
 spdy  = require 'spdy'
 https = require 'https'
+http2 = require 'http2'
 _crypto = require 'crypto'
 _postdata = Q.denode require 'post-data'
 os = require "os"

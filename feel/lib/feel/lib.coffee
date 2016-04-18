@@ -604,9 +604,12 @@ babel_options = {
     "transform-regenerator"
     #"transform-strict-mode"
   ]
-  compact : true
-  comments : false
+  compact : false
+  comments : true
 }
+if _production
+  babel_options.compact = true
+  babel_options.comments = false
 global._regenerator = (s)->
   ret = babel.transform s, babel_options
   return ret.code

@@ -1,5 +1,5 @@
 class @main extends @template 'lp/landing_version_two'
-  route : '/lp/for_kids/english'
+  route : '/anglijskij-detyam'
   model : 'main/registration'
   title : "Lessonhome - бесплатный подбор репетитора по аглийскому языку"
   tree: =>
@@ -10,3 +10,6 @@ class @main extends @template 'lp/landing_version_two'
     tutors_title: 'Мы работаем только с профессионалами'
     title_color: 'color_green'
     bg_color: '#4b9302'
+    filter :
+      subject  : ['английский язык']
+      course   : []
