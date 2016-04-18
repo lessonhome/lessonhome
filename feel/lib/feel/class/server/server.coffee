@@ -64,7 +64,7 @@ class Server
       ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'
     }
-    @sshServer = http2.createServer options,@handler
+    @sshServer = https.createServer options,@handler
     if _production
       @sshServer.listen 8083,@ip
     else
