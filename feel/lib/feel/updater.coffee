@@ -2,6 +2,7 @@
 utils = require 'util'
 http  = require 'http'
 https  = require 'https'
+http2  = require 'http2'
 spdy  = require 'spdy'
 os    = require 'os'
 spawn = require('child_process').spawn
@@ -30,7 +31,7 @@ class module.exports
     unless @ssh
       @server = http.createServer @handler
     else
-      @server = https.createServer options,@handler
+      @server = http2.createServer options,@handler
     @hand = 0
     @server.listen @port
   handler :(req,res)=> Q.spawn =>
