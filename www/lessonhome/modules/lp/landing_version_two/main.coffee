@@ -3,6 +3,10 @@ class @main
   Dom : =>
     @short_attach = @tree.short_attach.class
   show: =>
+    ss = []
+    for key,val of @tree.filter?.subject ? {}
+      ss.push val
+    Feel.urlData.set('tutorsFilter',"subjects",ss)
     @short_attach.addField(@found.name)
     @found.phone.mask '9 (999) 999-99-99'
     @short_attach.addField(@found.phone)

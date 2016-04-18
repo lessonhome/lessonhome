@@ -8,4 +8,4 @@ class @main extends @template 'lp/landing_version_two'
     tutors_title: 'Lessonhome рекомендует'
     filter :
       subject : ['английский язык']
-      course  : []
+      course  : ['ЕГЭ']
