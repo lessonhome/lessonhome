@@ -1,18 +1,19 @@
-.first_screen
+.first_screen(style='background-image: url(' + F(top_img)  + ')')
   .container
     .row
-      .col.s5.m5.l5
+      if top_right
+        -var offset_title = 'offset-s7 offset-m7 offset-l7'
+      .col.s5.m5.l5(class=offset_title)
         .m-first_form
           .row
             .col.s12
-              h1.m-ff-title
-                span Бесплатный подбор 
-                br 
-                |репетитора по
-                br 
-                |английскому языку
+              if dark_title_style
+                -var dark_title = 'dark_style'
+              h1.m-ff-title(class=dark_title)!=title
     .row
-      .col.s4.m4.l4
+      if top_right
+        -var offset_form = 'offset-s7 offset-m7 offset-l7' 
+      .col.s4.m4.l4(class=offset_form)
         .row
           .m-form_body.js-form
             .row
@@ -44,7 +45,7 @@
               a.waves-effect.waves-light.btn-large.yellow-btn.js-detail Уточнить заявку
 .tutors_cards
   .container
-    h2 Lesson home рекомендует
+    h2=tutors_title
     .row.no-margin-row
       .col.s6.m6.l6!=tutor_card
       .col.s6.m6.l6!=tutor_card

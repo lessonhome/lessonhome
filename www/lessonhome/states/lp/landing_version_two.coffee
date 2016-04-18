@@ -1,5 +1,5 @@
 class @main extends @template '../lp'
-  route: '/ad/english/ege'
+  route: '/lp/template'
   model: 'tutor/bids/reports'
   title: 'Lessonhome - бесплатный подбор репетитора для сдачи егэ по английскому языку'
   tags   : [ 'tutor:reports']
@@ -9,6 +9,11 @@ class @main extends @template '../lp'
   }
   tree: =>
     content: @module '$':
+      title: @exports()
+      dark_title_style: @exports()
+      tutors_title: @exports()
+      top_img: @exports()
+      top_right: @exports()
       id_page: 'landing_page'
       hide_head_button: true
       hide_menu_punkt: true
