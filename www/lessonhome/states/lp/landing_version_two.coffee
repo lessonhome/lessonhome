@@ -14,6 +14,8 @@ class @main extends @template '../lp'
       tutors_title: @exports()
       top_img: @exports()
       top_right: @exports()
+      title_color: @exports()
+      bg_color: @exports()
       id_page: 'landing_page'
       hide_head_button: true
       hide_menu_punkt: true

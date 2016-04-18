@@ -9,7 +9,7 @@
             .col.s12
               if dark_title_style
                 -var dark_title = 'dark_style'
-              h1.m-ff-title(class=dark_title)!=title
+              h1.m-ff-title(class=dark_title, class=title_color)!=title
     .row
       if top_right
         -var offset_form = 'offset-s7 offset-m7 offset-l7' 
@@ -36,7 +36,7 @@
                   i.m_icon.icon_send.right
             .row
               .col.s12
-                .btn-large.m-succes-btn.white-text.light-blue.darken-4 Мы не передаем данные<br /> третьим лицам
+                .btn-large.m-succes-btn.white-text.light-blue.darken-4(style='background-color:' + bg_color  + ' !important;') Мы не передаем данные<br /> третьим лицам
                   i.m_icon.icon_lock_outline
           .js-success(style="display:none")
             h5.form-title-one Заявка успешно отправлена!
@@ -88,7 +88,7 @@
                   i.m_icon.icon_send.right
             .row
               .col.s12
-                .btn-large.m-succes-btn.white-text.light-blue.darken-4 Мы не передаем данные<br /> третьим лицам
+                .btn-large.m-succes-btn.white-text.light-blue.darken-4(style='background-color:' + bg_color  + ' !important;') Мы не передаем данные<br /> третьим лицам
                   i.m_icon.icon_lock_outline
           .js-success(style="display:none")
             h5.form-title-one Заявка успешно отправлена!
