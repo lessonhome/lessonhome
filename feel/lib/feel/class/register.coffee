@@ -114,6 +114,7 @@ class Register
         yield _invoke @session, 'remove',{hash:{$in:arr2}}
         yield _invoke @account,'update',{id:id},{$set:{sessions:a.sessions}}
     time '32'
+    yield @jobs.listen 'registerMoveSessions',@jobRegisterMoveSessions
 
   delete_tutor : (id)=>
     for session of @accounts[id].sessions
@@ -265,6 +266,39 @@ class Register
     qs.push _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
     yield Q.all qs
     return {session:@sessions[sessionhash],user:user}
+  jobRegisterMoveSessions : (from,to)=>
+    accs = []
+    for key in from
+      if key != to
+        accs.push @accounts[key] if @accounts[key]
+    toacc = @accounts[to]
+    unless toacc
+      throw new Error 'unknown account '+to unless to
+      yield @newAccount to,false,{pupil:true}
+      toacc = @accounts[to]
+      throw new Error 'failed newAccount '+to unless toacc
+    toacc.pupil = true
+    toacc.type ?= {other:true}
+    toacc.type.pupil = true
+    qs = []
+    
+    qs.push _invoke @session,'update',{
+      account : $in : from
+    },{$set:account:toacc.id}
+    
+    for acc in accs
+      for session of acc.sessions
+        toacc.sessions[session] = true
+      qs.push _invoke @account,'update',{id:acc.id},{$set:sessions:{}}
+    accdb = {}
+    for key,val of toacc
+      accdb[key] = val unless key == 'account'
+    qs.push _invoke @account,'update',{id:toacc.id},{$set:accdb},{upsert:true}
+    yield Q.all qs
+    yield @reload toacc.id
+    for acc in accs
+      yield @reload acc.id
+
   passwordUpdate : (user,sessionhash,data,admin=false)=>
     throw err:'bad_query'            unless data?.login? && data?.password? && data?.newpassword?
     throw err:'login_not_exists'      if !@logins[data.login]?
@@ -443,18 +477,20 @@ class Register
         #console.log res
     )
     _invoke  bcrypt,'compare',pass,hash
-  newAccount : =>
+  newAccount : (hashid,unknown='need',type={})=>
+    hashid ?= _randomHash()
+    type.other = true
     try
       account =
-        id            : _randomHash()
+        id            : hashid
         index         : ++@aindex
         registerTime  : new Date()
         accessTime    : new Date()
-        other         : true
-        type          :
-          other       : true
+        type          : type
         sessions      : {}
-        unknown       : 'need'
+        unknown       : unknown
+      for key,val of type
+        account[key] ?= true
       @accounts[account.id]   = account
       sessionhash = yield @newSession account.id
       #yield _invoke(@account,'update', {id:account.id},{$set:account},{upsert:true})

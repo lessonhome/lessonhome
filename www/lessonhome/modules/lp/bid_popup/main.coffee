@@ -148,12 +148,15 @@ class @main extends EE
 
   sendForm: (quiet = false) =>
     data = @getValue() # yield Feel.urlData.get 'pupil'
-    data.linked = yield Feel.urlData.get 'mainFilter','linked'
+    #data.linked = yield Feel.urlData.get 'mainFilter','linked'
 
     errs = @js.check data
-
+    console.log data
     if errs.length == 0
-      {status, errs, err} = yield @$send('./save', data, quiet && 'quiet')
+      {status, errs, err} = Feel.bid.save Object.assign {
+        type : "popup"
+      },data
+      #yield @$send('./save', data, quiet && 'quiet')
       if status == 'success'
         Feel.sendActionOnce 'bid_popup'
         url = yield Feel.urlData.getUrl true

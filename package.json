@@ -83,7 +83,8 @@
     "socket.io-redis":"*",
     "babel-preset-stage-0":"*",
     "babel-polyfill":"*",
-    "babel-plugin-transform-es2015-modules-umd" : "*"
+    "babel-plugin-transform-es2015-modules-umd" : "*",
+    "telegram.link" : "*"
   }
 }
 

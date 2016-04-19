@@ -61,7 +61,7 @@ class @Jobs
     @ee.emit 'jobs:'+name,'jobs:'+name,''
 
   server  : (jobName,data...)=>
-    {ret,error} = yield Feel.send "workers/jobs","./io_client",jobName,data...
+    {ret,error} = yield Feel.send "workers/jobs","./io_client",jobName,data...,'quiet'
     throw ExceptionUnJson error if error
     return ret
 
