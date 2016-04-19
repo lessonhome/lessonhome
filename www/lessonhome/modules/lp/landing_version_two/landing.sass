@@ -1,10 +1,15 @@
+@import variables
+
 .first_screen
   background-size: cover
   background-position: center
   background-repeat: no-repeat
   padding: 8rem 0 6rem
+  @media #{$medium-and-down}
+    padding-top: 6rem
+    padding-bottom: 2rem
 .m-ff-title
-  font-size: 2.1rem
+  font-size: 1.8rem
   margin: 0
   padding: 0
   color: #fff
@@ -16,6 +21,12 @@
     color: #ffa83a
     display: inline-block
     margin-bottom: 1rem
+    font-weight: 500
+    white-space: nowrap
+  @media #{$small-and-down}
+    span
+      font-size: 2rem
+      white-space: normal
   &.color_orange
     span
       color: #ffa83a
@@ -23,8 +34,14 @@
     span
       color: #438203
   &.dark_style
+    font-size: 1.6rem
     color: #555
     text-shadow: none
+    span
+      font-size: 2rem
+      white-space: nowrap
+    @media #{$medium-and-down}
+      font-weight: 500
 .m-field_btn
   width: 100%
 .m-succes-btn
@@ -39,6 +56,8 @@
   padding-left: 4.5rem
   cursor: default
   box-shadow: none
+  height: auto
+  padding-bottom: .5rem
   &:hover
     box-shadow: none
   i.m_icon
@@ -125,9 +144,17 @@
   margin-bottom: .5rem
 .m-fb_h3
   font-size: 1.4rem
+.m-fb_italic
+  font-style: italic
+  font-weight: 300
+  font-size: 1.15rem
+  color: #575757
+  margin-bottom: .8rem
 
 .tutors_cards
   padding: 5rem 0 4rem
+  @media #{$medium-and-down}
+    padding: 2rem 0 1rem
   .container
     h2
       padding: 0
@@ -137,6 +164,9 @@
       font-size: 2.467rem
       font-weight: 300
       color: #333333
+      @media #{$small-and-down}
+        margin-bottom: 3.5rem
+        font-size: 2rem
       &:after
         content: ''
         display: block
@@ -159,8 +189,13 @@
   color: #ffffff
   padding: 1.4rem 0
   text-align: center
+  box-shadow: inset 0 2px 5px 0 rgba(0,0,0,0.16),inset 0 2px 10px 0 rgba(0,0,0,0.12)
 .m-mt_text
-  font-size: 2rem
+  font-size: 1.8rem
+  @media #{$medium-and-down}
+    font-size: 1.6rem
+    span
+      display: block !important
   span, a, i
     display: inline-block
     vertical-align: middle
@@ -171,14 +206,23 @@
     border-radius: 3px
     padding: 1rem 2.333rem
     background-color: #fa9c26
+    @media #{$medium-and-down}
+      padding: 0.5rem 1rem
+      margin-top: 1rem
     &:hover
       background-color: #ef9525
       box-shadow: 0 5px 12px 0 rgba(0,0,0,0.16),0 5px 15px 0 rgba(0,0,0,0.12) 
   i
-    margin: 0 1.5rem 0 1rem
+    margin: 0 1rem 0 1rem
     font-size: 3rem
+    @media #{$medium-and-down}
+      display: none
 .bottom-form
   padding: 5rem 0
+  @media #{$medium-and-down}
+    padding: 4rem 0
+  @media #{$small-and-down}
+    padding: 2rem 0
 .m-bf_title
   font-size: 2.4rem
   margin: 0 0 3rem
@@ -186,6 +230,9 @@
   color: #212121
   font-weight: 300
   position: relative
+  @media #{$medium-and-down}
+    font-size: 2rem
+    margin-bottom: 2rem
   &:after
     content: ''
     display: block
@@ -199,6 +246,14 @@
   margin-bottom: 2rem
   padding-left: 4.533rem
   background: transparent url(F('lp/list_orange_punkt.png')) no-repeat 0 8px
+  @media #{$medium-and-down}
+    background: none
+    padding-left: 0
+    margin-bottom: 1rem
+  @media #{$small-and-down}
+    background: transparent url(F('lp/list_orange_punkt.png')) no-repeat 0 8px
+    padding-left: 4.533rem
+    margin-bottom: 2rem !important
   &:last-of-type
     margin-bottom: 0
   .title

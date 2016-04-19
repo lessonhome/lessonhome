@@ -2,8 +2,8 @@
   .container
     .row
       if top_right
-        -var offset_title = 'offset-s7 offset-m7 offset-l7'
-      .col.s5.m5.l5(class=offset_title)
+        -var offset_title = 'offset-l8'
+      .col.s12.m12.l4(class=offset_title)
         .m-first_form
           .row
             .col.s12
@@ -12,8 +12,8 @@
               h1.m-ff-title(class=dark_title, class=title_color)!=title
     .row
       if top_right
-        -var offset_form = 'offset-s7 offset-m7 offset-l7' 
-      .col.s4.m4.l4(class=offset_form)
+        -var offset_form = 'offset-l8' 
+      .col.s12.m6.l4(class=offset_form)
         .row
           .m-form_body.js-form
             .row
@@ -31,6 +31,7 @@
                 input(type='tel' id='f_phone', name='phone', value=value.phone).js-phone
                 label(for='f_phone') Телефон
             .row.fs_row-button.center-align
+              .col.s12.m-fb_italic перезвоним через 10 минут 
               .col.s12
                 a.waves-effect.waves-light.btn-large.orange-btn.m-field_btn.js-attach(name='bid_podbor') Перезвоните мне
                   i.m_icon.icon_send.right
@@ -52,7 +53,7 @@ if work_steps_show
     h2=tutors_title
     .row.no-margin-row.m-inline_grid
       each tutor in tutors
-        .col.s6.m6.l6!=tutor
+        .col.s12.m6.l6!=tutor
 .more_tutors
   .container
     .row.no-margin-row
@@ -65,7 +66,18 @@ if work_steps_show
 .bottom-form
   .container
     .row.no-margin-row
-      .col.s4.m4.l4
+      .col.s12.m5.l6.offset-m1.offset-l2.hide-on-med-and-up
+        h2.m-bf_title Почему стоит оставить заявку?
+        .m-bf-list
+          .title Наши услуги всегда бесплатны
+          .text Вы платите только работу репетитора и только по факту проведения занятий
+        .m-bf-list
+          .title Мы найдем того, кто вам нужен
+          .text Быстрый поиск репетитора  по вашим пожеланиям, бюджету и уровню знаний.
+        .m-bf-list
+          .title Индивидуальный подход
+          .text Если преподаватель вам не подошел, мы учтем замечания и подберем другого
+      .col.s12.m6.l4
         .row.no-margin-row
           .m-form_body.js-form
             .row
@@ -83,6 +95,7 @@ if work_steps_show
                 input(type='tel' id='fb_phone', name='phone',value=value.phone).js-phone
                 label(for='fb_phone') Телефон
             .row.fs_row-button.center-align
+              .col.s12.m-fb_italic перезвоним через 10 минут 
               .col.s12
                 a.waves-effect.waves-light.btn-large.orange-btn.m-field_btn.js-attach(name='bid_podbor') Перезвоните мне
                   i.m_icon.icon_send.right
@@ -95,14 +108,14 @@ if work_steps_show
             h5.title_two Наш менеджер свяжется с Вами в течении 10-15 минут
             .row.no-margin-row.center-align
               a.waves-effect.waves-light.btn-large.orange-btn.m-field_btn.js-detail Уточнить заявку
-      .col.s6.m6.l6.offset-s2.offset-m2.offset-l2
+      .col.s12.m5.l6.offset-m1.offset-l2.hide-on-small-only
         h2.m-bf_title Почему стоит оставить заявку?
+        .m-bf-list
+          .title Наши услуги всегда бесплатны
+          .text Вы платите только работу репетитора и только по факту проведения занятий
         .m-bf-list
           .title Мы найдем того, кто вам нужен
           .text Быстрый поиск репетитора  по вашим пожеланиям, бюджету и уровню знаний.
-        .m-bf-list
-          .title Оплачивайте только работу репетитора
-          .text Наши услуги абсолютно бесплатны. Вы платите только за занятие с репетитором
         .m-bf-list
           .title Индивидуальный подход
           .text Если преподаватель вам не подошел, мы учтем замечания и подберем другого
