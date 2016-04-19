@@ -2,12 +2,14 @@
 
 .first_screen
   background-size: cover
-  background-position: center
   background-repeat: no-repeat
   padding: 8rem 0 6rem
+  background-attachment: fixed
   @media #{$medium-and-down}
     padding-top: 6rem
     padding-bottom: 2rem
+  @media #{$small-and-down}
+    background-size: auto
 .m-ff-title
   font-size: 1.8rem
   margin: 0

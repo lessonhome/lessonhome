@@ -10,4 +10,4 @@ class @main extends @template 'lp/landing_version_two'
     result_show: true
     filter :
       subject : ['английский язык']
-      course  : []
+      course  : ['ЕГЭ']
