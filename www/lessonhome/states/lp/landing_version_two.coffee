@@ -12,6 +12,7 @@ class @main extends @template '../lp'
       title: @exports()
       dark_title_style: @exports()
       tutors_title: @exports()
+      title_custom_position: @exports()
       top_img: @exports()
       top_right: @exports()
       title_color: @exports()
