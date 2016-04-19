@@ -53,7 +53,8 @@ other = (uid,is_admin,data,second)-> do Q.async =>
       text : text
   yield @jobs.solve 'telegramSendAll',text
   #console.log yield sms.send messages
-    
+
+
 
 class BidSaver
   init : =>
@@ -62,12 +63,18 @@ class BidSaver
     yield @jobs.listen 'saveBid',@jobSaveBid
     yield @jobs.client 'saveBid',@jobClientSaveBid
   jobClientSaveBid : (user,data)=>
+    console.log "ClientSaveBid".red,data
     return yield @jobSaveBid user,data
   jobSaveBid : (user, data)=>
     data = check.takeData data
     errs = [] #check.check data
     if errs['phone']? then return {status:'failed', errs}
     if errs.correct is false then data = {phone: data['phone']}
+    phone_ = data.phone
+    do (phone_)=>Q.spawn =>
+      yield @jobs.solve 'telegramMessage',phone_,"Вы оставили заявку на подбор репетитора на сайте LessonHome!"
+      yield @jobs.solve 'telegramMessage',phone_,"Ожидайте звонка, с Вами скоро свяжутся"
+
     data['phone'] = data['phone'].replace /^\+7/, '8'
     data['phone'] = data['phone'].replace /[^\d]/g, ''
     data['time'] = new Date()
