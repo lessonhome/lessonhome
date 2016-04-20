@@ -4,7 +4,7 @@ class @main extends @template 'lp/landing_version_two'
   title : "Lessonhome - бесплатный подбор репетитора по аглийскому языку"
   tree: =>
     title: '<span>Бесплатный подбор </span><br />репетитора по <br />английскому языку <br /> для сдачи ЕГЭ'
-    top_img: '/lp/landing_screen/english_ege_01.jpg'
+    top_img: '/lp/landing_screen/english_ege_01_hight.jpg'
     tutors_title: 'Lessonhome рекомендует'
     filter :
       subject : ['английский язык']
