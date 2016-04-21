@@ -1,16 +1,21 @@
 @import variables
 
+.parallax-container
+  height: 1000px
+
 .first_screen
   background-size: cover
   background-repeat: no-repeat
-  padding: 8rem 0 6rem
+  padding: 8rem 0 4rem
   background-attachment: fixed
+  .container
+    position: relative
   @media #{$medium-and-down}
     padding-top: 6rem
     padding-bottom: 2rem
   @media #{$small-and-down}
     background-size: auto
-.m-ff-title
+.m-ff_title
   font-size: 1.8rem
   margin: 0
   padding: 0
@@ -44,6 +49,25 @@
       white-space: nowrap
     @media #{$medium-and-down}
       font-weight: 500
+.m-custom_title
+  .custom_title
+    h1
+      display: inline-block
+      position: absolute
+      z-index: 2
+      top: 2rem
+      font-size: 2.4rem
+      line-height: 140%
+      span
+        font-size: 3rem
+    &.right_title
+      h1
+        left: 33.33333%
+        margin-left: 5rem
+    &.left_title
+      h1
+        right: 33.33333%
+        margin-right: 5rem
 .m-field_btn
   width: 100%
 .m-succes-btn

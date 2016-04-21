@@ -4,12 +4,17 @@
       if top_right
         -var offset_title = 'offset-l8'
       .col.s12.m12.l4(class=offset_title)
-        .m-first_form
-          .row
-            .col.s12
-              if dark_title_style
-                -var dark_title = 'dark_style'
-              h1.m-ff-title(class=dark_title, class=title_color)!=title
+        .row.m-custom_title
+          if title_custom_position
+            -var title_custom_class = 'custom_title'
+            if top_right
+              -var title_class_position = 'left_title'
+            else
+              -var title_class_position = 'right_title'
+          .col.s12(class=title_custom_class, class=title_class_position)
+            if dark_title_style
+              -var dark_title = 'dark_style'
+            h1.m-ff_title(class=dark_title, class=title_color)!=title
     .row
       if top_right
         -var offset_form = 'offset-l8' 
