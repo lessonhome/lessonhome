@@ -25,13 +25,14 @@ class Server
       @port = 8081
   init : =>
     unless @ssh
-      @server = http.createServer @handler
+      @server = http.createServer @handlerWrapper
     else
       @server = http.createServer @handlerHttpRedirect
     if _production
       @server.listen @port,@ip
     else
       @server.listen @port
+    @server.on 'error',(err)-> console.error err
     @runSsh() if @ssh
     console.log "listen port".blue+" #{@ip}:#{@port}".yellow
     @domains =
@@ -64,7 +65,7 @@ class Server
       ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'
     }
-    @sshServer = http2.createServer options,@handler
+    @sshServer = http2.createServer options,@handlerWrapper
     if _production
       @sshServer.listen 8083,@ip
     else
@@ -134,7 +135,23 @@ class Server
     obj.url += urldata
     return obj.url
     res.end()
+  handlerWrapper : (req,res)=> Q.spawn =>
+    try
+      yield @handler req,res
+    catch e
+      console.error Exception e
+
   handler : (req,res)=>
+    return if res.closed
+    res.stream.on 'state',(state)->
+      if state == "CLOSED"
+        res.closed = true
+    res.on 'close',->
+      consolle.log "CLOSEres************************++++++++++\n\n"
+      res.closed = true
+    req.on 'close',->
+      consolle.log "CLOSEreq************************++++++++++\n\n"
+      res.closed = true
     if req.url == '/service-worker.js'
       req.url = "/js/666/service_worker/worker"
     unless req.url.match /^\/robots\.txt/ then switch req?.headers?.host
@@ -169,6 +186,7 @@ class Server
     else
       req.originalUrl = req.url
 
+    return if res.closed
 
     if req.url == '/404'
       _end = res.end
@@ -219,8 +237,11 @@ class Server
         unless req.url == '/500'
           req.url = "/500"
           return @handler req,res
-        res.statusCode = 500
-        res.end 'Internal Server Error'
+        try
+          res.statusCode = 500
+          res.end 'Internal Server Error'
+        catch e
+          console.error Exception e
       .done()
     else
       unless req.url == '/404'

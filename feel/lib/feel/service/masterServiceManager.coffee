@@ -64,8 +64,8 @@ class MasterServiceManager
     if _production && os.cpus().length>3
       switch name
         when 'feel'
-          unless os.hostname() == 'lessonhome.org'
-            num = os.cpus().length-3
+          #unless os.hostname() == 'lessonhome.org'
+          num = os.cpus().length-3
     for i in [1..num]
       process = yield Main.processManager.runProcess {
           name      : 'service-'+name

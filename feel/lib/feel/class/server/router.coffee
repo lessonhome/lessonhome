@@ -81,6 +81,7 @@ class Router
     try
       if _production && (cache = yield @redis_cache.get req.uniqHash)
         console.log "from redis cache".grey,req.uniqHash.grey
+        return if res.closed
         res.setHeader 'Access-Control-Allow-Origin', '*'
         res.setHeader 'Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
         res.setHeader 'Access-Control-Allow-Headers', 'X-Requested-With,content-type'
@@ -99,6 +100,7 @@ class Router
         res.setHeader 'ETag',cache.etag
         res.statusCode = 200
         data = new Buffer(cache.data, 'hex')
+        return if res.closed
         res.setHeader 'content-length',data.length
         res.end data
         return
@@ -156,6 +158,7 @@ class Router
         if req.url.match reg[0]
           statename = reg[1]
           @url.text[req.url] = statename
+    return if res.closed
     if !statename
       #unless req.url == '/urls'
       #  req.url = '/urls'
@@ -183,8 +186,10 @@ class Router
     req.user = register.account
   redirect : (req,res,location='/')=> do Q.async =>
     yield console.log 'redirect',location
+    return if res.closed
     res.statusCode = 302
     location = yield req.udataToUrl location
+    return if res.closed
     res.setHeader 'location',location
     res.end()
     
