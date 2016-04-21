@@ -370,16 +370,19 @@ class module.exports
     return css || ""
   dycss    : (css)=> do Q.async => yield _gzip yield @ycss css
   res404  : (req,res,err)=>
+    return if res.closed
     console.error err if err?
     req.url = '/404'
     res.statusCode = 404
     @server.handler req,res
   res403  : (req,res,err)=>
+    return if res.closed
     console.error err if err?
     req.url = '/403'
     res.statusCode = 403
     @server.handler req,res
   res500  : (req,res,err)=>
+    return if res.closed
     console.error err if err?
     req.url = '/500'
     res.statusCode = 500

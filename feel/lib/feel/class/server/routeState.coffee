@@ -87,6 +87,7 @@ class RouteState
       for key,val of node
         @walk_tree_down node[key],node,key,foo
   go : => do Q.async =>
+    return if @res.closed
     @req.user ?= {}
     @req.user.type ?= {other: true}
     @res.on 'finish', =>
@@ -494,6 +495,7 @@ class RouteState
     resHash = sha1.digest('hex').substr 0,8
     @time "create hash"
     _sent = false
+    return if @res.closed
     if resHash == @reqEtag
       @res.statusCode = 304
       _sent = true
@@ -517,6 +519,7 @@ class RouteState
     #@res.writeHead @res.statusCode||200
     zlib    = require 'zlib'
     zlib.gzip end,{level:9},(err,resdata)=> Q.spawn =>
+      return if @res.closed
       if err?
         console.error 'gzip',err,Exception err
         yield Feel.res500 @req,@res,err unless _sent
@@ -606,7 +609,11 @@ class RouteState
         catch e
           console.error "failed parse.coffee:parse() value:'#{o.value}' in #{now._name}".red
           console.error Exception e
-      now._html = @site.modules[now._name].doJade o,@,state.__state
+      try
+        now._html = @site.modules[now._name].doJade o,@,state.__state
+      catch e
+        console.error Exception e
+        now._html = "{{error}}"
       ms = now._html.match /js-\w+--{{UNIQ}}/mg
       now._domregx = {}
       if ms then for m in ms
