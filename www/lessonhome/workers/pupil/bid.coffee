@@ -1,10 +1,18 @@
 
 
+unset =
+  subject : ""
+  phone   : ""
+  name    : ""
+  email   : ""
+  linked  : ""
+
+
+
 class Bid
   constructor : (@main)->
     $W @
     @locker = $Locker()
-
   ####################################################
   init : (data)=> @locker.$lock => # write to db depended
     @data = yield @checkData data
@@ -26,6 +34,7 @@ class Bid
     tutor = yield @_linkTutor @data,tutorIndex,'message'
     if message
       chat = yield @main.chats.get "#{@data.account}:#{@data.index}:#{tutorIndex}"
+      console.log {chat:chat.data.hash}
       yield chat.push
         type : 'pupil'
         text : message
@@ -37,6 +46,46 @@ class Bid
     if updateObj?
       for key,val of updateObj
         data[key] = val
+    
+    data = @_prepareBid data
+
+    yield @_write data
+    return data
+
+  _write : (data=@data)=>
+    __hash = @main.hash data
+    return if __hash == data.__hash
+    data.__hash = __hash
+    
+    yield _invoke @main.dbBids,'update',{index:data.index},{$set:data,$unset:unset},{upsert:true}
+    unless data._id
+      ret = yield _invoke @main.dbBids.find({index:data.index},{_id:1}),'toArray'
+      data._id = ret?[0]?._id
+
+  _linkTutor : (data,tutorIndex,type)-> # static
+    data.tutors[tutorIndex] ?= {}
+    tutor = data.tutors[tutorIndex]
+    tutor.data ?= {}
+    tutor.type ?= type
+    return tutor
+
+  _extractPupil : (bid)-> # static
+    pupil =
+      accounts : []
+      phones : []
+      emails : []
+    
+    if bid.account
+      pupil.account = bid.account
+      pupil.accounts.push bid.account
+    pupil.phones.push bid.phone   if bid.phone
+    pupil.emails.push bid.email   if bid.email
+    pupil.registerTime = bid.time if bid.time
+    pupil.name  = bid.name        if bid.name
+    return pupil
+
+  _prepareBid : (data)-> # static
+
     data.index = "#{data.index}"
     if data.index.match(/\D/) || (!data.index.match(/\d/))
       data.index = Math.floor(Math.random()*900000)+100000
@@ -49,6 +98,7 @@ class Bid
       data.subjects.push data.subject if data.subject
       delete data.subject
     
+    ###
     if data.phone || data.name || data.email
       pupil = {}
       pupil.phone   = data.phone  if data.phone
@@ -58,12 +108,12 @@ class Bid
       yield @main.pupils.mergePupilInfo pupil
       delete data.phone
       delete data.name
-
+    ###
+    
     data.tutors ?= {}
-
     if data.linked?
       for tutorIndex of data.linked
-        yield @_linkTutor data,tutorIndex,'linked'
+        Bid::_linkTutor data,tutorIndex,'linked'
       delete data.linked
 
     ss = {}
@@ -74,24 +124,12 @@ class Bid
     data.time ?= new Date()
     data.state ?= 'in_work'
 
-    yield @_write data
+    for del of unset
+      delete data[del]
+
     return data
-
-  _write : (data=@data)=>
-    __hash = @main.hash data
-    return if __hash == data.__hash
-    data.__hash = __hash
-    yield _invoke @main.dbBids,'update',{_id:@main._getID(data._id)},{$set:data}
-    unless data._id
-      ret = yield _invoke @main.dbBids.find({index:data.index},{_id:1}),'toArray'
-      data._id = ret?[0]?._id
-
-  _linkTutor : (data,tutorIndex,type)=>
-    data.tutors[tutorIndex] ?= {}
-    tutor = data.tutors[tutorIndex]
-    tutor.data ?= {}
-    tutor.type ?= type
-    return tutor
+    
+      
 
 
 

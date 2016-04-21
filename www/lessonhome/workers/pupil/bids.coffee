@@ -1,6 +1,7 @@
 
 Bid = require './bid'
 
+GLO = {}
 
 class Bids
   constructor : (@main)->
@@ -50,25 +51,50 @@ class Bids
       unless dbbid.state
         @toMerge.push dbbid
         continue
-      bid = new Bid @main
-      yield bid.init dbbid
-      @bids.index[bid.data.index] = bid
-      @bids.account[bid.data.account] ?= {}
-      @bids.account[bid.data.account][bid.data.index] = bid
-
+      yield @initBid dbbid
+  initBid : (dbbid)=>
+    bid = new Bid @main
+    yield bid.init dbbid
+    @bids.index[bid.data.index] = bid
+    @bids.account[bid.data.account] ?= {}
+    @bids.account[bid.data.account][bid.data.index] = bid
+    pupil = yield @main.pupils.getPupil bid.data.account
+    #console.log "pupil",bid.data.account,pupil.data.account
   runMerge : =>
     for dbbid in @toMerge
       yield @bidMerge dbbid
     @toMerge = []
+    console.log GLO
 
-  bidMerge : (bid)=>
-    unless bid.account
-      return yield @removeBid bid
-    if bid?.id && bid?.comments?
-      yield @bidMergeMessage bid
-      #yield @removeBid bid
+  bidMerge : (dbbid)=>
+    unless dbbid.account
+      return yield @removeBid dbbid
+    _oldId = dbbid._id
+    dbpupil = Bid::_extractPupil dbbid
+    pupil = yield @main.pupils.mergePupilInfo dbpupil
+    pupildata  = yield pupil.getData()
+    dbbid.account = pupildata.account
+    #bid   = Bid::_prepareBid dbbid
+    if dbbid?.id && dbbid?.comments?
+      yield @bidMergeMessage dbbid
+      #yield @removeBid dbbid
+    else
+      yield @bidMergeRegular dbbid
+  bidMergeRegular : (bid)=>
+    for key,val of bid
+      GLO[key]= val
+    if bid.subjects
+      subjects = {}
+      for key,val of bid.subjects
+        if bid.subjects.length then  subjects[val] = true
+        else  subjects[key] = true
+    #console.log bid
+    fo = account:bid.account
+    fo.subjects = $in : [bid.subject] if bid.subject
 
   bidMergeMessage : (bid)=>
+    return
+    console.log bid
     fo = account:bid.account
     fo.subjects = $in : [bid.subject] if bid.subject
     found = yield @findLast fo
@@ -77,25 +103,22 @@ class Bids
       throw new Error 'bad found bid' unless found
       yield found.update
         subject : bid.subject
-        name    : bid.name
-        phone   : bid.phone
-        email   : bid.email
         linked  : bid.linked
+      yield found.linkTutorMessage {tutorIndex:bid.id,message:bid.comments}
     else
       found = yield @bidNewFromMessage bid
+    console.log found.data,"\n"
+    return found
 
   bidNewFromMessage : (dbbid)=>
     b =
       account : dbbid.account
       subject : dbbid.subject
       time    : dbbid.time
-      name    : dbbid.name
-      phone   : dbbid.phone
       linked  : dbbid.linked
-      email   : dbbid.email
     bid = new Bid @main
     yield bid.init b
-    
+    @bids.account[bid.data.account] ?= {}
     @bids.account[bid.data.account][bid.data.index] = bid
     @bids.index[bid.data.index] = bid
 

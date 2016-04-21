@@ -25,6 +25,7 @@ class Pupils
     yield pupil.update data
   
   mergePupilInfo : (pupil)=> @locker.$free =>
+    return yield @_mergePupilInfo pupil
  
   #########################################
   reloadDb : =>
@@ -58,6 +59,7 @@ class Pupils
     else
       other = yield @initPupil pupil
     yield @_checkOldForRemove other.data._id,oldId
+    return other
   
   _checkOldForRemove : (now,old)=>
     return unless old
@@ -83,6 +85,7 @@ class Pupils
   mergeOneToOther : (one,other)=>
     yield other.extraInfo yield one.getData()
     yield one.remove()
+    return other
 
   initPupil : (pupildb)=>
     pupil = new Pupil @main

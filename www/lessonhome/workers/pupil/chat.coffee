@@ -17,7 +17,7 @@ class Chat
   
   push : (msg)=> @locker.$lock =>
     @data.messages.push msg
-    yield _invoke @main.dbChat,'update',{hash:data.hash},{$push:{messages:msg}}
+    yield _invoke @main.dbChat,'update',{hash:@data.hash},{$push:{messages:msg}}
   
   getData : => @locker.$free =>
     return @data
@@ -39,7 +39,7 @@ class Chat
     __hash = @main.hash data
     return if __hash == data.__hash
     data.__hash = __hash
-    yield _invoke @main.dbChat,'update',{hash:data.hash},{$set:data}
+    yield _invoke @main.dbChat,'update',{hash:data.hash},{$set:data},{upsert:true}
     unless data._id
       ret = yield _invoke @main.dbChat.find({hash:data.hash},{_id:1}),'toArray'
       data._id = ret?[0]?._id

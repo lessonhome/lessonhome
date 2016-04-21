@@ -23,15 +23,15 @@ class PupilWorker
     @interface  = $W new Interface @
     @io         = $W new Io        @
 
-    #yield @io.init()
-    #yield @pupils.init()
-    #yield @bids.init()
-    #yield @chats.init()
-    #yield @interface.init()
+    yield @io.init()
+    yield @pupils.init()
+    yield @bids.init()
+    yield @chats.init()
+    yield @interface.init()
 
-    #yield @io.run()
-    #yield @pupils.run()
-    #yield @bids.run()
+    yield @io.run()
+    yield @pupils.run()
+    yield @bids.run()
     #yield @chats.run()
     #yield @interface.run()
 
