@@ -143,13 +143,13 @@ class Server
 
   handler : (req,res)=>
     return if res.closed
-    res.stream.on 'state',(state)->
+    res?.stream?.on? 'state',(state)->
       if state == "CLOSED"
         res.closed = true
-    res.on 'close',->
+    res?.on? 'close',->
       consolle.log "CLOSEres************************++++++++++\n\n"
       res.closed = true
-    req.on 'close',->
+    req?.on? 'close',->
       consolle.log "CLOSEreq************************++++++++++\n\n"
       res.closed = true
     if req.url == '/service-worker.js'
