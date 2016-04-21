@@ -32,6 +32,7 @@ class Server
       @server.listen @port,@ip
     else
       @server.listen @port
+    @server.on 'error',(err)-> console.error err
     @runSsh() if @ssh
     console.log "listen port".blue+" #{@ip}:#{@port}".yellow
     @domains =
@@ -142,7 +143,15 @@ class Server
 
   handler : (req,res)=>
     return if res.closed
-    res.on 'close',-> res.closed = true
+    res.stream.on 'state',(state)->
+      if state == "CLOSED"
+        res.closed = true
+    res.on 'close',->
+      consolle.log "CLOSEres************************++++++++++\n\n"
+      res.closed = true
+    req.on 'close',->
+      consolle.log "CLOSEreq************************++++++++++\n\n"
+      res.closed = true
     if req.url == '/service-worker.js'
       req.url = "/js/666/service_worker/worker"
     unless req.url.match /^\/robots\.txt/ then switch req?.headers?.host
