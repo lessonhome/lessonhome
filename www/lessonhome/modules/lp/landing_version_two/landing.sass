@@ -8,13 +8,26 @@
   background-repeat: no-repeat
   padding: 8rem 0 4rem
   background-attachment: fixed
+  position: relative
   .container
     position: relative
+    z-index: 2
   @media #{$medium-and-down}
     padding-top: 6rem
     padding-bottom: 2rem
   @media #{$small-and-down}
     background-size: auto
+  &.shadow_screen
+    &:after
+      content: ''
+      display: block
+      position: absolute
+      z-index: 1
+      left: 0
+      top: 0
+      bottom: 0
+      right: 0
+      background-color: rgba(0,0,0,.3)
 .m-ff_title
   font-size: 1.8rem
   margin: 0
@@ -37,18 +50,6 @@
   &.color_orange
     span
       color: #ffa83a
-  &.color_green
-    span
-      color: #438203
-  &.dark_style
-    font-size: 1.6rem
-    color: #555
-    text-shadow: none
-    span
-      font-size: 2rem
-      white-space: nowrap
-    @media #{$medium-and-down}
-      font-weight: 500
 .m-custom_title
   .custom_title
     h1
@@ -66,7 +67,7 @@
         margin-left: 5rem
     &.left_title
       h1
-        right: 33.33333%
+        left: 0
         margin-right: 5rem
 .m-field_btn
   width: 100%

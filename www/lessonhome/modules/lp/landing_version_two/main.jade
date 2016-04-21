@@ -1,4 +1,6 @@
-.first_screen(style='background-image: url(' + F(top_img)  + ')')
+if shadow_bg
+  -var shadow_style = 'shadow_screen'
+.first_screen(class=shadow_style, style='background-image: url(' + F(top_img)  + ')')
   .container
     .row
       if top_right
