@@ -10,7 +10,6 @@ class @main extends @template '../lp'
   tree: =>
     content: @module '$':
       title: @exports()
-      dark_title_style: @exports()
       tutors_title: @exports()
       title_custom_position: @exports()
       top_img: @exports()

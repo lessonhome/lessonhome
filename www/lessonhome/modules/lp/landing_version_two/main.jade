@@ -16,9 +16,7 @@ if dotted_bg
             else
               -var title_class_position = 'right_title'
           .col.s12(class=title_custom_class, class=title_class_position)
-            if dark_title_style
-              -var dark_title = 'dark_style'
-            h1.m-ff_title(class=dark_title, class=title_color)!=title
+            h1.m-ff_title(class=title_color)!=title
     .row
       if top_right
         -var offset_form = 'offset-l8' 
