@@ -15,6 +15,7 @@ class @main extends @template '../lp'
       title_custom_position: @exports()
       top_img: @exports()
       shadow_bg: @exports()
+      dotted_bg: @exports()
       top_right: @exports()
       title_color: @exports()
       bg_color: @exports()

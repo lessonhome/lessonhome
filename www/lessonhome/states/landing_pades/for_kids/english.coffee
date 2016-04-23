@@ -11,6 +11,7 @@ class @main extends @template 'lp/landing_version_two'
     title_color: 'color_green'
     bg_color: '#4b9302'
     shadow_bg: true
+    #dotted_bg: true
     filter :
       subject  : ['английский язык']
       course   : ['школьный курс']
