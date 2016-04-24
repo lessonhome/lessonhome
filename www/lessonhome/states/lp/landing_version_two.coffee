@@ -18,6 +18,8 @@ class @main extends @template '../lp'
       top_right: @exports()
       title_color: @exports()
       bg_color: @exports()
+      bottom_custom_text: @exports()
+      bottom_bg: @exports()
       id_page: 'landing_page'
       hide_head_button: true
       hide_menu_punkt: true
