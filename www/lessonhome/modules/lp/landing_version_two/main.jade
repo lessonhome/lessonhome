@@ -70,6 +70,8 @@ if work_steps_show
           i.m_icon.icon_chevron_right
           a.js-go_find(href='/search')
             img(src=F('lp/lh_white.png'))
+if comments_show
+  .comments!=comments_landing
 if bottom_bg
   -var bottom_bg_src = bottom_bg
   -var bottom_bg_class = 'bottom_form_bg'

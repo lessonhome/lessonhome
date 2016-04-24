@@ -27,6 +27,8 @@ class @main extends @template '../lp'
       work_steps_show: @exports()
       result_show: @exports()
       work_steps: @state './work_steps'
+      comments_landing: @state './comments_landing'
+      comments_show: @exports()
       result: @state './result'
       filter : @exports()
       value :
