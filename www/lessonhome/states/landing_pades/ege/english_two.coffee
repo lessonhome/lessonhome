@@ -14,7 +14,7 @@ class @main extends @template 'lp/landing_version_two'
     bottom_custom_text: 'Подготовка к ЕГЭ с репетитором &mdash; вклад в Будущее Вашего ребенка'
     bottom_bg: '/lp/school.jpg'
     comments_show: true
-    comments_img_01: '/lp/comments_avatar/users_01.jpg'
+    comments_img: '/lp/comments_avatar/users_01.jpg'
     filter :
       subject : ['английский язык']
       course  : ['ЕГЭ']

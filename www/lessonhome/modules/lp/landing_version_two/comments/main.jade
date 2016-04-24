@@ -4,7 +4,8 @@
     .row
       .col.s12.m6.l4.m-comment
         .col.s4
-          img(src=F('/lp/comments_avatar/users_01.jpg')).responsive-img.circle
+          -console.log(comments_img)
+          img(src=F(comments_img)).responsive-img.circle
         .col.s8.m-comment_text
           .title Наталья
           .text Годный сервис, братки за базар отвечают и фуфло тряпичное не впаривают
