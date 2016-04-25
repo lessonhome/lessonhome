@@ -2,7 +2,9 @@ if shadow_bg
   -var shadow_style = 'shadow_screen'
 if dotted_bg
   -var dotted_style = 'dotted_pattern'
-.first_screen(class=shadow_style, class=dotted_style, style='background-image: url(' + F(top_img)  + ')')
+if bg_position
+  -var bg_position_style = bg_position
+.first_screen(class=shadow_style, class=dotted_style, style='background-image: url(' + F(top_img)  + '); background-position: ' + bg_position_style + ';')
   .container
     .row
       if top_right

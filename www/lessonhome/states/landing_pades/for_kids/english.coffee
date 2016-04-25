@@ -9,7 +9,11 @@ class @main extends @template 'lp/landing_version_two'
     tutors_title: 'Мы работаем только с профессионалами'
     title_color: 'color_green'
     bg_color: '#4b9302'
+    top_right: true
+    title_custom_position: true
+    #bg_position: 'bottom'
     shadow_bg: true
+    dotted_bg: true
     filter :
       subject  : ['английский язык']
       course   : ['школьный курс']
