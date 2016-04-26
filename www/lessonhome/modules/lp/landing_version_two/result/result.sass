@@ -1,6 +1,10 @@
+@import variables
+
 .result_block
   padding: 3rem 0 5rem
   background-color: #f4f4f4
+  @media #{$medium-and-down}
+    padding: 2rem 0
   .container
     h2
       padding: 0
@@ -20,6 +24,12 @@
         margin-left: -2.1335rem
         bottom: -1rem
         background-color: #ff8b38
+      @media #{$medium-and-down}
+        margin-bottom: 2rem
+      @media #{$small-and-down}
+        text-align: center
+        font-size: 2rem
+
 .m-result_body
   position: relative
   height: 31.6rem
@@ -99,3 +109,13 @@
 .m-field_btn
   width: 100%
   margin-top: 4rem
+.m-result_inline
+  display: inline-block
+  float: none
+  vertical-align: top
+  .body
+    padding: 2rem
+.m-device_text
+  font-weight: 400
+  font-size: 1.1rem
+  color: #333
