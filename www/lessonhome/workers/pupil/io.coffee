@@ -16,7 +16,7 @@ class Io
   ########################################
   ioconnection : (socket)=>
     socket.rname = "uid:#{socket.user.id}"
-    socket.join rname
+    socket.join socket.rname
     @emit 'connect',socket
 
 module.exports = Io

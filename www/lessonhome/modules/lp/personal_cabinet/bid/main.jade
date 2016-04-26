@@ -1,4 +1,6 @@
-.bid
+- var active = false;
+- if(value.active) active = true;
+.js-bid(active=active)
   .m_icon.icon_close
   .bid_text.status(class=value.state_class)=value.state
   if value.subjects != ''
@@ -15,7 +17,7 @@
         .m-details
           .m_icon.icon_subject
           span.subject=value.subjects
-      if value.metro.station != ''
+      if value.metro && value.metro.station != ''
         .m-details
           .m_icon.icon_location_on
           span.location=value.metro.station

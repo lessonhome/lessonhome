@@ -54,7 +54,7 @@ metro_stations = metro.stations
   for key of value.bid.status
     bid.tutor_status += ', ' if bid.tutor_status
     bid.tutor_status += tutors_status[key]?.capitalizeFirstLetter?()
-  
+  bid.active = value.active
   #bid state
   bid.state ?= ''
   bid.state_class ?= ''

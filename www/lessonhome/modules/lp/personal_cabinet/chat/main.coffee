@@ -5,7 +5,8 @@ class @main
     @chatBox = @found.chat_box
     @messageTextarea = @found.message_textarea
     @messageSend = @found.message_send
-    @chatBox.scrollTop(@chatBox.get(0).scrollHeight)
+    @reinit()
+    #@chatBox.scrollTop(@chatBox.get(0).scrollHeight)
 
     #плагин для клевой полосы прокрутки, есть баг, мигает при нажатии
     #элементы, пока не разберусь, подключать нет смысла
@@ -16,7 +17,8 @@ class @main
     #})
 
     @userName = 'Артем'
-
+  reinit : =>
+    @chatBox.scrollTop(@chatBox.get(0).scrollHeight)
   show  : =>
     @messageSend.on 'click', @sendFromBox
     

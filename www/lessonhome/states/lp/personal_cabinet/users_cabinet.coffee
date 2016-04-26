@@ -23,9 +23,11 @@ class @main extends @template 'lp'
         jobs =  _Helper 'jobs/main'
         bids = yield jobs.solve 'pupilGetBids',@req.user.id
         pupil = yield jobs.solve 'pupilGetPupil',@req.user.id
-        ret = for bid in bids
+        ret = for bid,i in bids
           o = {pupil,moderator}
           o[key] = val for key,val of bid
+          if i == 0
+            o.active = true
           yield @state './bid' : o
         return ret
 

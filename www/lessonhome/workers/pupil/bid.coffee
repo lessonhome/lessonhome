@@ -6,6 +6,7 @@ unset =
   name    : ""
   email   : ""
   linked  : ""
+  subject_comment : ""
 
 
 
@@ -19,7 +20,8 @@ class Bid
    
   destruct : => @locker.$lock =>
 
-  getData : => @locker.$free =>
+  getData : => @locker.$free => @data
+  getExtraData : => @locker.$free =>
     adminChat =  yield @main.chats.getAdminChatForUserBid(@data.account,@data.index)
     return {
       bid     : @data
@@ -50,13 +52,18 @@ class Bid
     data = @_prepareBid data
 
     yield @_write data
+
+    @main.bids.bids.account[data.account] ?= {}
+    @main.bids.bids.account[data.account][data.index] = @
+    @main.bids.bids.index[data.index] = @
+
     return data
 
   _write : (data=@data)=>
     __hash = @main.hash data
     return if __hash == data.__hash
     data.__hash = __hash
-    
+    delete data._id
     yield _invoke @main.dbBids,'update',{index:data.index},{$set:data,$unset:unset},{upsert:true}
     unless data._id
       ret = yield _invoke @main.dbBids.find({index:data.index},{_id:1}),'toArray'
@@ -88,7 +95,7 @@ class Bid
 
     data.index = "#{data.index}"
     if data.index.match(/\D/) || (!data.index.match(/\d/))
-      data.index = Math.floor(Math.random()*900000)+100000
+      data.index = Math.floor(Math.random()*900000000)+100000000
     data.index = +data.index
     data.subjects ?= []
 
@@ -98,6 +105,9 @@ class Bid
       data.subjects.push data.subject if data.subject
       delete data.subject
     
+    data.comment ?= ''
+    data.comment = data.subject_comment if data.subject_comment
+
     ###
     if data.phone || data.name || data.email
       pupil = {}
@@ -122,7 +132,7 @@ class Bid
     data.subjects = Object.keys(ss).sort()
 
     data.time ?= new Date()
-    data.state ?= 'in_work'
+    data.state ?= 'active'
 
     for del of unset
       delete data[del]
