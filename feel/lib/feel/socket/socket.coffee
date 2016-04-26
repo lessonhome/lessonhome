@@ -1,6 +1,7 @@
 
 
 http = require 'http'
+http2 = require 'http2'
 os = require 'os'
 spdy = require 'spdy'
 https = require 'https'
@@ -56,7 +57,7 @@ class Socket
       ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'             
     }
-    @sshServer = https.createServer options,@handler
+    @sshServer = http2.createServer options,@handler
     @sshServer.listen Main.conf.args.port
   run  : =>
     @jobs = yield Main.service 'jobs'
