@@ -9,6 +9,8 @@ class @main extends @template '../lp'
   }
   tree: =>
     content: @module '$':
+      _custom_description: @exports('description')
+      _custom_head__keywords: @exports('keywords')
       title: @exports()
       tutors_title: @exports()
       title_custom_position: @exports()
