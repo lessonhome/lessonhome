@@ -20,3 +20,4 @@ class @main
         => @sliderBlock.slider('pause')
         => @sliderBlock.slider('start')
       )
+    @sliderBlock.css('height', 'auto')
