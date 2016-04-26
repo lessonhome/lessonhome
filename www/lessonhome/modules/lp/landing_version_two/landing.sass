@@ -74,14 +74,23 @@
       line-height: 140%
       span
         font-size: 3rem
+      @media #{$medium-and-down}
+        position: static
+        font-size: 1.8rem
+        span
+          font-size: 2rem
     &.right_title
       h1
         left: 33.33333%
         margin-left: 5rem
+        @media #{$medium-and-down}
+          margin-left: 0
     &.left_title
       h1
         left: 0
         margin-right: 5rem
+        @media #{$medium-and-down}
+          margin-right: 0
 .m-field_btn
   width: 100%
 .m-succes-btn
