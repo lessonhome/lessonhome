@@ -9,15 +9,19 @@ class @main extends @template '../lp'
   }
   tree: =>
     content: @module '$':
+      _custom_description: @exports('description')
+      _custom_head__keywords: @exports('keywords')
       title: @exports()
-      dark_title_style: @exports()
       tutors_title: @exports()
       title_custom_position: @exports()
       top_img: @exports()
       shadow_bg: @exports()
+      dotted_bg: @exports()
       top_right: @exports()
       title_color: @exports()
       bg_color: @exports()
+      bottom_custom_text: @exports()
+      bottom_bg: @exports()
       id_page: 'landing_page'
       hide_head_button: true
       hide_menu_punkt: true
@@ -25,6 +29,10 @@ class @main extends @template '../lp'
       work_steps_show: @exports()
       result_show: @exports()
       work_steps: @state './work_steps'
+      comments_landing: @exports()
+      comments_img: @exports()
+      comments_show: @exports()
+      bg_position: @exports()
       result: @state './result'
       filter : @exports()
       value :
@@ -48,3 +56,8 @@ class @main extends @template '../lp'
             main_subject : _setKey @tree.content.filter,'subject.0'
         modules = yield Q.all modules
         return modules
+      comments_landing: @state 'lp/comments_landing':
+        comments: $defer : =>
+          comments = yield Main.isomorph('lp/comments')
+          comments = comments.getRandom 3
+          return comments

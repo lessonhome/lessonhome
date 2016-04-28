@@ -1,6 +1,10 @@
 if shadow_bg
   -var shadow_style = 'shadow_screen'
-.first_screen(class=shadow_style, style='background-image: url(' + F(top_img)  + ')')
+if dotted_bg
+  -var dotted_style = 'dotted_pattern'
+if bg_position
+  -var bg_position_style = bg_position
+.first_screen(class=shadow_style, class=dotted_style, style='background-image: url(' + F(top_img)  + '); background-position: ' + bg_position_style + ';')
   .container
     .row
       if top_right
@@ -14,9 +18,7 @@ if shadow_bg
             else
               -var title_class_position = 'right_title'
           .col.s12(class=title_custom_class, class=title_class_position)
-            if dark_title_style
-              -var dark_title = 'dark_style'
-            h1.m-ff_title(class=dark_title, class=title_color)!=title
+            h1.m-ff_title(class=title_color)!=title
     .row
       if top_right
         -var offset_form = 'offset-l8' 
@@ -70,20 +72,28 @@ if work_steps_show
           i.m_icon.icon_chevron_right
           a.js-go_find(href='/search')
             img(src=F('lp/lh_white.png'))
-.bottom-form
+if comments_show
+  .comments!=comments_landing
+if bottom_bg
+  -var bottom_bg_src = bottom_bg
+  -var bottom_bg_class = 'bottom_form_bg'
+.bottom-form(class=bottom_bg_class, style='background-image: url(' + F(bottom_bg_src)  + ')')
   .container
     .row.no-margin-row
-      .col.s12.m5.l6.offset-m1.offset-l2.hide-on-med-and-up
-        h2.m-bf_title Почему стоит оставить заявку?
-        .m-bf-list
-          .title Наши услуги всегда бесплатны
-          .text Вы платите только работу репетитора и только по факту проведения занятий
-        .m-bf-list
-          .title Мы найдем того, кто вам нужен
-          .text Быстрый поиск репетитора  по вашим пожеланиям, бюджету и уровню знаний.
-        .m-bf-list
-          .title Индивидуальный подход
-          .text Если преподаватель вам не подошел, мы учтем замечания и подберем другого
+      .col.s12.hide-on-med-and-up
+        if bottom_custom_text
+          h2.m-bottom_title!=bottom_custom_text
+        else
+          h2.m-bf_title Почему стоит оставить заявку?
+          .m-bf-list
+            .title Наши услуги всегда бесплатны
+            .text Вы платите только работу репетитора и только по факту проведения занятий
+          .m-bf-list
+            .title Мы найдем того, кто вам нужен
+            .text Быстрый поиск репетитора  по вашим пожеланиям, бюджету и уровню знаний.
+          .m-bf-list
+            .title Индивидуальный подход
+            .text Если преподаватель вам не подошел, мы учтем замечания и подберем другого
       .col.s12.m6.l4
         .row.no-margin-row
           .m-form_body.js-form
@@ -115,14 +125,18 @@ if work_steps_show
             h5.title_two Наш менеджер свяжется с Вами в течении 10-15 минут
             .row.no-margin-row.center-align
               a.waves-effect.waves-light.btn-large.orange-btn.m-field_btn.js-detail Уточнить заявку
-      .col.s12.m5.l6.offset-m1.offset-l2.hide-on-small-only
-        h2.m-bf_title Почему стоит оставить заявку?
-        .m-bf-list
-          .title Наши услуги всегда бесплатны
-          .text Вы платите только работу репетитора и только по факту проведения занятий
-        .m-bf-list
-          .title Мы найдем того, кто вам нужен
-          .text Быстрый поиск репетитора  по вашим пожеланиям, бюджету и уровню знаний.
-        .m-bf-list
-          .title Индивидуальный подход
-          .text Если преподаватель вам не подошел, мы учтем замечания и подберем другого
+      if bottom_custom_text
+        .col.s12.m5.l7.offset-l1.offset-m1.hide-on-small-only
+          h2.m-bottom_title!=bottom_custom_text
+      else
+        .col.s12.m5.l6.offset-m1.offset-l2.hide-on-small-only
+          h2.m-bf_title Почему стоит оставить заявку?
+          .m-bf-list
+            .title Наши услуги всегда бесплатны
+            .text Вы платите только работу репетитора и только по факту проведения занятий
+          .m-bf-list
+            .title Мы найдем того, кто вам нужен
+            .text Быстрый поиск репетитора  по вашим пожеланиям, бюджету и уровню знаний.
+          .m-bf-list
+            .title Индивидуальный подход
+            .text Если преподаватель вам не подошел, мы учтем замечания и подберем другого

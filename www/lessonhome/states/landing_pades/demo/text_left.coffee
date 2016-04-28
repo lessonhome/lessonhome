@@ -8,6 +8,7 @@ class @main extends @template 'lp/landing_version_two'
     tutors_title: 'Lessonhome рекомендует'
     title_custom_position: true
     shadow_bg: true
+    dotted_bg: true
     filter :
       subject : ['английский язык']
       course  : ['ЕГЭ']

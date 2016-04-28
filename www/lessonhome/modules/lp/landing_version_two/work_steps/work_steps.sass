@@ -3,7 +3,7 @@
 .work_steps
   padding: 4rem 0 0
   @media #{$medium-and-down}
-    padding: 2rem 0
+    padding: 2rem 0 0
   .m-row_steps
     .col
       text-align: center
@@ -32,9 +32,10 @@
         bottom: -1rem
         background-color: #ff8b38
       @media #{$medium-and-down}
-        margin-bottom: 2rem
+        margin-bottom: 3.5rem
       @media #{$small-and-down}
         text-align: center
+        font-size: 2rem
   .m-content
     font-size: 1.2rem
     line-height: 140%
@@ -74,3 +75,21 @@
       width: 45%
       margin-left: 2rem
       vertical-align: middle
+.m-works_button
+  @media #{$medium-and-down}
+    //background-color: #fff
+    padding: 0
+    overflow: visible
+    line-height: 140%
+    padding: .5rem .5rem
+    //color: #147585
+    text-transform: none
+    height: auto
+    //text-align: left
+    font-family: 'Roboto'
+    margin-left: 2rem
+    span
+      //border-bottom: 1px dashed #147585
+  @media #{$small-and-down}
+    width: 45%
+      

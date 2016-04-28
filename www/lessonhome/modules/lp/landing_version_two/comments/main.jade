@@ -1,0 +1,15 @@
+.comments_block
+  .container
+    h2.m-title Отзывы о нашем сервисе
+    .row
+      each val, i in comments
+        if i < 3
+          .col.s12.m6.l4.m-comment.subcol
+            .col.s4
+              img(src=F(val.userpic_src)).responsive-img.circle
+            .col.s8.m-comment_text
+              .title!=val.name
+              .text!=val.description
+              .date!=val.date
+        else
+          -breack;
