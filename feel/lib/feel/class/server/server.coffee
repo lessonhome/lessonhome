@@ -65,7 +65,7 @@ class Server
       ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'
     }
-    @sshServer = http2.createServer options,@handlerWrapper
+    @sshServer = spdy.createServer options,@handlerWrapper
     if _production
       @sshServer.listen 8083,@ip
     else
