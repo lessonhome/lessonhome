@@ -38,6 +38,7 @@ class Sitemap
     @push urls,u for u in main
     states = yield @jobs.solve 'getAllStates'
     for key,val of states
+      @push urls,key if val.match /landing_pades/
       @push urls,key if val.match /reclame_jump_page_templates/
       @push urls,key if key.match /\/ad\//
     filter = {

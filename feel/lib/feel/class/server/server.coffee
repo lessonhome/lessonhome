@@ -65,7 +65,7 @@ class Server
       ssl : true
       #ca : _fs.readFileSync '/key/ca.pem'
     }
-    @sshServer = http2.createServer options,@handlerWrapper
+    @sshServer = spdy.createServer options,@handlerWrapper
     if _production
       @sshServer.listen 8083,@ip
     else
@@ -146,12 +146,12 @@ class Server
     res?.stream?.on? 'state',(state)->
       if state == "CLOSED"
         res.closed = true
-    res?.on? 'close',->
-      consolle.log "CLOSEres************************++++++++++\n\n"
-      res.closed = true
-    req?.on? 'close',->
-      consolle.log "CLOSEreq************************++++++++++\n\n"
-      res.closed = true
+    #res?.on? 'close',->
+    #  console.log "CLOSEres************************++++++++++\n\n"
+    #  res.closed = true
+    #req?.on? 'close',->
+    #  console.log "CLOSEreq************************++++++++++\n\n"
+    #  res.closed = true
     if req.url == '/service-worker.js'
       req.url = "/js/666/service_worker/worker"
     unless req.url.match /^\/robots\.txt/ then switch req?.headers?.host
