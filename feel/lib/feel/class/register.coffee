@@ -371,7 +371,9 @@ class Register
     ndata_password = accounts[0].login+data.password
     passhash = yield @passwordCrypt _hash ndata_password
     user.hash = passhash
+    console.log user
     yield _invoke(@account,'update', {'authToken.token': token},{$set:user},{upsert:true})
+
     #console.log 'changed pass to '+data.password
     #console.log 'hash', passhash
 
@@ -399,8 +401,9 @@ class Register
     acc = {}
     acc[key] = val for key,val of user
     delete acc.account
-    yield  _invoke(@account,'update', {id:user.id},{$set:user},{upsert:true})
-    yield  _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}},{upsert:true})
+    console.log user
+    yield  _invoke(@account,'update', {id:acc.id},{$set:acc})
+    yield  _invoke(@account,'update', {'authToken.token': token},{$unset:{authToken: ''}})
     yield Q.all qs
 
     return {session:@sessions[sessionhash],user:user}

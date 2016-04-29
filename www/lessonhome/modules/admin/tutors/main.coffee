@@ -45,7 +45,7 @@ class @main
       lk.push bc.id if bc.id
       lk = [lk...,(Object.keys(bc.linked ? {}) ? [])...] if Object.keys(bc?.linked ? {})?.length
       for l,i in lk
-        lk[i] = "<a target='_blank' href='https://lessonhome.ru/tutor?x=#{l}'>\##{l}</a>"
+        lk[i] = "<a target='_blank' href='https://lessonhome.ru/profile?x=#{l}'>\##{l}</a>"
       row.find('.linked').html lk.join '; '
       dom.append row
   onbackcall : =>
