@@ -71,9 +71,9 @@ class BidSaver
     if errs['phone']? then return {status:'failed', errs}
     if errs.correct is false then data = {phone: data['phone']}
     phone_ = data.phone
-    do (phone_)=>Q.spawn =>
-      yield @jobs.solve 'telegramMessage',phone_,"Вы оставили заявку на подбор репетитора на сайте LessonHome!"
-      yield @jobs.solve 'telegramMessage',phone_,"Ожидайте звонка, с Вами скоро свяжутся"
+    #do (phone_)=>Q.spawn =>
+    #  yield @jobs.solve 'telegramMessage',phone_,"Вы оставили заявку на подбор репетитора на сайте LessonHome!"
+    #  yield @jobs.solve 'telegramMessage',phone_,"Ожидайте звонка, с Вами скоро свяжутся"
 
     data['phone'] = data['phone'].replace /^\+7/, '8'
     data['phone'] = data['phone'].replace /[^\d]/g, ''
