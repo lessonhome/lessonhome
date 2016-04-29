@@ -13,7 +13,7 @@ class @main extends @template 'lp/landing_version_two'
     bg_color: '#4b9302'
     top_right: true
     title_custom_position: true
-    #bg_position: 'bottom'
+    bg_position: 'center'
     shadow_bg: true
     #dotted_bg: true
     filter :

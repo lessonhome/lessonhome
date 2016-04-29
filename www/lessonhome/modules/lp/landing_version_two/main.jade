@@ -74,10 +74,11 @@ if work_steps_show
             img(src=F('lp/lh_white.png'))
 if comments_show
   .comments!=comments_landing
-if bottom_bg
-  -var bottom_bg_src = bottom_bg
-  -var bottom_bg_class = 'bottom_form_bg'
-.bottom-form(class=bottom_bg_class, style='background-image: url(' + F(bottom_bg_src)  + ')')
+- if(bottom_bg){
+  -var bottom_bg_src = 'background-image: url(' + F(bottom_bg_src)  + ')' || '';
+  -var bottom_bg_class = 'bottom_form_bg';
+- };
+.bottom-form(class=bottom_bg_class, style=bottom_bg_src)
   .container
     .row.no-margin-row
       .col.s12.hide-on-med-and-up

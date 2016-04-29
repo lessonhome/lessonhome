@@ -56,4 +56,3 @@ class @main
         parent = input.closest('.input-field')
 
       input.addClass('invalid')
-
