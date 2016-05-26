@@ -79,10 +79,12 @@ class BidSaver
     data['phone'] = data['phone'].replace /[^\d]/g, ''
     data['time'] = new Date()
     console.log 'save bid'
-    db = yield @db.get 'bids'
-    saved = yield _invoke db.find({$or:[{account:user.id},{phone:data.phone}]}).sort(time:-1).limit(1),'toArray'
-    yield _invoke db,'update',{account:user.id},{$set:data},{upsert:true}
-    other.call(@,user.id,user.admin,data,second=(saved[0]?)).done()
+    #db = yield @db.get 'bids'
+    #saved = yield _invoke db.find({$or:[{account:user.id},{phone:data.phone}]}).sort(time:-1).limit(1),'toArray'
+    #yield _invoke db,'update',{account:user.id},{$set:data},{upsert:true}
+    data.account = user.id
+    bid = yield @jobs.solve 'pupilReceiveBid', data
+    other.call(@,user.id,user.admin,data,second=(data)).done()
     return {status:'success'}
   handler : ($,data)=>
     try

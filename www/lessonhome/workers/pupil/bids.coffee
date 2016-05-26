@@ -37,7 +37,11 @@ class Bids
     f = account:$in:pupil.accounts
     yield _invoke @main.dbBids,'update',f,{$set:account:pupil.account},{multi:true}
     yield @reloadDb()
-    
+
+  receiveBid : (data)=> @locker.$free =>
+    yield @bidMerge data
+
+
   ########################################################### 
   reloadDb : =>
     db = yield _invoke @main.dbBids.find({}).sort(time:1),'toArray'
@@ -159,6 +163,7 @@ class Bids
   removeBid : (bid)=>
     return unless bid._id
     yield _invoke @main.dbBids,'remove',{_id:@main._getID(bid._id)}
+
   removeBidIdIndex : (id,index)=>
     fo = {}
     fo._id = @main._getID id if id

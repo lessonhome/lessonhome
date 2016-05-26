@@ -43,7 +43,9 @@ class @main
     errs = @js.check(data)
 
     if errs.length is 0
-      {status, err, errs} = yield @$send('./save', data, quiet && 'quiet')
+      console.log data
+      {status, err, errs} = yield Feel.bid.save data
+      #yield @$send('./save', data, quiet && 'quiet')
 
       if status is 'success'
         Feel.sendActionOnce 'bid_popup'
