@@ -5,7 +5,7 @@ fs = require 'fs'
 transporter = nodemail.createTransport
   service : 'Gmail'
   auth :
-    user : 'support@lessonhome.ru'
+    user : 'lessonhome@yandex.ru'
     pass : 'Jlth;bvjcnm'
 
 attachments = [
@@ -26,7 +26,7 @@ attachments = [
   }
 ]
 mailOptions =
-  from : 'Лессон Хоум ✔ <support@lessonhome.ru>'
+  from : 'Лессон Хоум ✔ <lessonhome@yandex.ru>'
   to   : 'arsereb@gmail.com'
   subject : 'Тестовое письмо'
   html : fs.readFileSync('./main.html').toString()
