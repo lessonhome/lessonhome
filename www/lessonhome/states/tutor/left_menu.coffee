@@ -11,11 +11,11 @@ class @main
         item_class : 'bids'
         href : '/tutor/search_bids'
 
+      ###
       @module '//item' :
         title : 'Оплата'
         item_class : 'payment'
-        href : '/tutor/pay'
-      ###
+        href : '/tutor/paymaster'
       @module '//item' :
         title : 'Документы'
         item_class : 'documents'

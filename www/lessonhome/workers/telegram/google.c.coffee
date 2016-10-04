@@ -10,6 +10,7 @@ _key1 = 'xc580KYV5Yma6LlKCRHY6u-l'
 keys = 'AIzaSyB0jjEfV5O-HIXsVoUeySmmNny2roAgRqI'
 class Google
   init  : =>
+    return
     @jobs = _Helper 'jobs/main'
     @google = _google ids,keys
     
